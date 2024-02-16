@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
 
   write_to_tif(grid, "grid.tif");
 
-  GeoGrid<std::byte> naive_countours = GeoGrid<std::byte>(grid.width(), grid.height(), GeoTransform(grid.transform()), GeoProjection(grid.projection()));
+  GeoGrid<std::optional<std::byte>> naive_countours = GeoGrid<std::optional<std::byte>>(grid.width(), grid.height(), GeoTransform(grid.transform()), GeoProjection(grid.projection()));
 
   double contour_interval = 2.5;
   for (size_t i = 1; i < grid.height() - 1; i++) {
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
       double z_west = grid[{i, j - 1}];
       double z_east = grid[{i, j + 1}];
       bool is_countour = crosses_contour(z, z_north, contour_interval) || crosses_contour(z, z_south, contour_interval) || crosses_contour(z, z_west, contour_interval) || crosses_contour(z, z_east, contour_interval);
-      naive_countours[{i, j}] = is_countour ? std::byte(0) : std::byte(255);
+      naive_countours[{i, j}] = is_countour ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
     }
   }
   write_to_tif(naive_countours, "naive_countours.tif");

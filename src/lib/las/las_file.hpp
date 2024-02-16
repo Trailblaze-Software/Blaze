@@ -1,5 +1,6 @@
 #include "las_point.hpp"
 #include "utilities/grid.hpp"
+#include "utilities/timer.hpp"
 #include <iostream>
 #include <pdal/Dimension.hpp>
 #include <pdal/SpatialReference.hpp>
@@ -26,6 +27,7 @@ class LASFile {
 
 public:
   explicit LASFile(const std::string& filename) {
+    Timer timer;
     std::cout << "Reading " << filename << " ..." << std::endl;
     pdal::Option las_opt("filename", filename);
     pdal::Options las_opts;
@@ -49,9 +51,13 @@ public:
         std::cout << "- " << pdal::Dimension::name(dim) << ": " << pdal::Dimension::description(dim) << " (" << point_view->dimType(dim) << ")" << std::endl;
     }
 
+    std::cout << "Reading metadata took " << timer << std::endl;
+
+    Timer point_timer;
     for (pdal::PointId idx = 0; idx < point_view->size(); idx++) {
         m_points.emplace_back(LASPoint(point_view->point(idx)));
     }
+    std::cout << "Reading points took " << point_timer << std::endl;
   }
 
   std::size_t n_points() const { return m_points.size(); }

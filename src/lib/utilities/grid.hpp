@@ -77,7 +77,6 @@ public:
   GeoGrid(size_t width, size_t height, GeoTransform&& transform, GeoProjection&& projection) : m_width(width), m_height(height), m_data(width*height), m_transform(transform), m_projection(projection) {}
 
   T& operator[](Coordinate2D<size_t> coord) {
-    Assert(coord.x() < m_width && coord.y() < m_height, "Coordinate out of bounds");
     return m_data[coord.y()*m_width + coord.x()];
   }
   const T& operator[](Coordinate2D<size_t> coord) const {
