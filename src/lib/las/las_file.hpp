@@ -1,5 +1,5 @@
 #include "las_point.hpp"
-#include "utilities/grid.hpp"
+#include "grid/grid.hpp"
 #include "utilities/timer.hpp"
 #include <iostream>
 #include <pdal/Dimension.hpp>

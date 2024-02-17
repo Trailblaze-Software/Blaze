@@ -6,11 +6,12 @@
 #include <type_traits>
 
 #include "assert/gdal_assert.hpp"
-#include "lib/utilities/grid.hpp"
+#include "lib/grid/grid.hpp"
 #include "utilities/timer.hpp"
 
+
 template <typename T>
-void write_to_tif(GeoGrid<T>& grid, const std::string& filename) {
+void write_to_tif(const GeoGrid<T>& grid, const std::string& filename) {
   Timer timer;
   std::cout << "Writing to tif " << filename << std::endl;
     GDALAllRegister();
@@ -50,11 +51,11 @@ void write_to_tif(GeoGrid<T>& grid, const std::string& filename) {
       for (size_t j = 0; j < grid.width(); j++) {
         if constexpr(std::is_same_v<std::optional<std::byte>, T>) {
           std::byte transparent = grid[{i, j}].has_value() ? std::byte{255} : std::byte{0};
-          GDALAssert(dataset->GetRasterBand(1)->RasterIO(GF_Write, i, j, 1, 1, &*grid[{i, j}], 1, 1, datatype, 0, 0));
+          GDALAssert(dataset->GetRasterBand(1)->RasterIO(GF_Write, i, j, 1, 1, const_cast<std::byte*>(&*grid[{i, j}]), 1, 1, datatype, 0, 0));
           GDALAssert(dataset->GetRasterBand(2)->RasterIO(GF_Write, i, j, 1, 1, &transparent, 1, 1, datatype, 0, 0));
         } else {
           for (int band = 1; band <= bands; band++) {
-           GDALAssert(dataset->GetRasterBand(band)->RasterIO(GF_Write, i, j, 1, 1, &grid[{i, j}], 1, 1, datatype, 0, 0));
+           GDALAssert(dataset->GetRasterBand(band)->RasterIO(GF_Write, i, j, 1, 1, const_cast<T*>(&grid[{i, j}]), 1, 1, datatype, 0, 0));
           }
         }
       }
@@ -63,4 +64,17 @@ void write_to_tif(GeoGrid<T>& grid, const std::string& filename) {
     GDALClose(dataset);
     CSLDestroy(options);
     std::cout << "Writing to tif " << filename << " took " << timer << std::endl;
+}
+
+template <typename T>
+void write_to_image_tif(const GeoGrid<T>& grid, const std::string& filename) {
+  GeoGrid<std::byte> result(grid.width(), grid.height(), GeoTransform(grid.transform()), GeoProjection(grid.projection()));
+  T min = grid.min_value();
+  T max = grid.max_value();
+  for (size_t i = 0; i < grid.height(); i++){
+    for (size_t j = 0; j < grid.width(); j++) {
+      result[{i, j}] = static_cast<std::byte>(255 * (grid[{i, j}] - min) / (max - min));
+    }
+  }
+  write_to_tif(result, filename);
 }

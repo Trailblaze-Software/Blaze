@@ -1,4 +1,4 @@
 target_sources(${EXECUTABLE_NAME} PRIVATE blaze.cpp)
+target_sources(${UNIT_TESTS_NAME} PRIVATE unit_tests.cpp)
 
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES})
-target_include_directories(${EXECUTABLE_NAME} PRIVATE ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS})
+add_subdirectory(lib)
