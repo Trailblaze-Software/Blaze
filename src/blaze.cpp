@@ -78,7 +78,6 @@ int main(int argc, char* argv[]) {
         LineCoord2D<size_t> line_coord = {i, j, dir};
         if (is_contour.in_bounds(line_coord) && is_contour[line_coord]) {
           contours.emplace_back(Contour::FromGridGraph(line_coord, smooth_grid, is_contour, 2.5));
-          std::cout << contours.back() << std::endl;
         }
       }
     }

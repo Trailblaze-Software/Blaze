@@ -50,9 +50,8 @@ TEST(ContourGen, ContourGen) {
 
   std::cout << is_contour << std::endl;
 
-  //Contour contour = Contour::FromGridGraph(LineCoord2D<size_t>(0, 0, Direction::E), smooth_grid, is_contour, 1);
-  //ASSERT_EQ(contour.height(), 0);
-  //ASSERT_EQ(contour.points().size(), 1);
-  //ASSERT_EQ(contour.points()[0].x(), 0);
-  //ASSERT_EQ(contour.points()[0].y(), 0);
+
+  Contour contour = Contour::FromGridGraph(LineCoord2D<size_t>(1, 0, Direction2D::DOWN), grid, is_contour, 1);
+
+  std::cout << contour << std::endl;
 }

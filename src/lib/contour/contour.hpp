@@ -8,7 +8,6 @@
 inline bool crosses_contour(double h1, double h2, double contour_interval) {
   double max = std::max(h1, h2);
   double min = std::min(h1, h2);
-  std::cout << max << " " << min << " " << max - fmod(max, contour_interval) << std::endl;
   return max - fmod(max, contour_interval) > min;
 }
 

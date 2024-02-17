@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <iostream>
 #include <ostream>
 #include <type_traits>
 #include <vector>
@@ -138,9 +139,9 @@ public:
 
     for (Direction2D dir : dirs) {
       Assert(dir.orthogonal_to(LineCoord2D<T>::dir()), "Crossing direction is not orthogonal to direction");
-      result.emplace_back(LineCoord2DCrossing<T>({LineCoord2D<T>::start() + dir, dir}, LineCoord2D<T>::dir().opposite()));
-      result.emplace_back(LineCoord2DCrossing<T>({LineCoord2D<T>::end() + dir, dir}, LineCoord2D<T>::dir()));
-      result.emplace_back(LineCoord2DCrossing<T>({LineCoord2D<T>::start() + dir, LineCoord2D<T>::dir()}, LineCoord2D<T>::dir()));
+      result.emplace_back(LineCoord2DCrossing<T>({LineCoord2D<T>::start() + dir, dir.opposite()}, LineCoord2D<T>::dir().opposite()));
+      result.emplace_back(LineCoord2DCrossing<T>({LineCoord2D<T>::end() + dir, dir.opposite()}, LineCoord2D<T>::dir()));
+      result.emplace_back(LineCoord2DCrossing<T>({LineCoord2D<T>::start() + dir, LineCoord2D<T>::dir()}, dir));
     }
 
     for (size_t i = 0; i < result.size(); i++){
@@ -150,5 +151,10 @@ public:
     }
     
     return result;
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const LineCoord2DCrossing& line_coord) {
+    os << "LineCoord2DCrossing(" << line_coord.start() << ", " << line_coord.dir() << ", " << line_coord.crossing_dir() << ")";
+    return os;
   }
 };
