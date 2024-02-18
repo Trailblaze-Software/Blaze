@@ -11,6 +11,12 @@ inline bool crosses_contour(double h1, double h2, double contour_interval) {
   return max - fmod(max, contour_interval) > min;
 }
 
+template <typename T, typename U>
+Coordinate2D<T> interpolate_coordinates(const Coordinate2D<T>& a, const Coordinate2D<T>& b, const U& a_val, const U& b_val, const U& target){
+  double a_weight = (double)(b_val - target) / (b_val - a_val);
+  double b_weight = 1 - a_weight;
+  return Coordinate2D<T>(a.x() * a_weight + b.x() * b_weight, a.y() * a_weight + b.y() * b_weight);
+}
 
 class Contour {
   double m_height;
@@ -24,35 +30,29 @@ public:
 
   static Contour FromGridGraph(const LineCoord2D<size_t>& starting_point, const GeoGrid<double>& grid, GridGraph<char>& is_contour, double contour_interval) {
     std::vector<Coordinate2D<double>> contour_points;
-    //double height =
     std::pair<double, double> heights = grid.get_values(starting_point);
     double max_height = std::max(heights.first, heights.second);
     double contour_height = max_height - fmod(max_height, contour_interval);
 
     LineCoord2DCrossing<size_t> current_point(starting_point, starting_point.dir());
-    while (true){
+    bool end = false;
+    while (!end){
       is_contour[current_point] = false;
-      contour_points.emplace_back(grid.transform().pixel_to_projection(current_point.start()));
-      {
-        //std::pair<double, double> heights = grid.get_values(current_point);
-        //double max_height = std::max(heights.first, heights.second);
-        //double min_height = std::min(heights.first, heights.second);
-        //AssertGE(max_height, contour_height);
-        //AssertGE(contour_height, min_height);
-      }
-      bool end = true;
+      contour_points.emplace_back(interpolate_coordinates(grid.transform().pixel_to_projection(current_point.start()), grid.transform().pixel_to_projection(current_point.end()), grid[current_point.start()], grid[current_point.end()], contour_height));
+      end = true;
       for (LineCoord2DCrossing<size_t> next_point : current_point.next_points()) {
         if (is_contour.in_bounds(next_point) && is_contour[next_point]) {
-          current_point = next_point;
-          end = false;
-          break;
+          std::pair<double, double> next_heights = grid.get_values(next_point);
+          double next_max_height = std::max(next_heights.first, next_heights.second);
+          double next_min_height = std::min(next_heights.first, next_heights.second);
+          if (next_max_height >= contour_height && contour_height >= next_min_height) {
+            current_point = next_point;
+            end = false;
+            break;
+          }
         }
       } 
-      if (end) {
-        break;
-      }
     }
-
     return Contour(contour_height, std::move(contour_points));
   }
 

@@ -22,7 +22,7 @@ class GeoTransform {
 
     explicit GeoTransform(const Coordinate2D<double>& upper_left, double resolution) : GeoTransform(upper_left.x(), upper_left.y(), resolution, -resolution) {}
 
-    GeoTransform() = default;
+    GeoTransform() : GeoTransform(0, 0, 1, -1) {};
 
     const double* get_raw() const {
       return geoTranform;
