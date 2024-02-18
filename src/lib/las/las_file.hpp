@@ -1,21 +1,21 @@
-#include "las_point.hpp"
-#include "grid/grid.hpp"
-#include "utilities/timer.hpp"
 #include <iostream>
 #include <pdal/Dimension.hpp>
 #include <pdal/SpatialReference.hpp>
+#include <pdal/io/BufferReader.hpp>
+#include <pdal/io/LasHeader.hpp>
+#include <pdal/io/LasReader.hpp>
+#include <pdal/pdal.hpp>
 #include <pdal/util/Bounds.hpp>
 #include <string>
 #include <vector>
 
-#include <pdal/io/LasReader.hpp>
-#include <pdal/io/LasHeader.hpp>
-#include <pdal/io/BufferReader.hpp>
-#include <pdal/pdal.hpp>
+#include "grid/grid.hpp"
+#include "las_point.hpp"
+#include "utilities/timer.hpp"
 
-inline void print_metadata(const pdal::MetadataNode& node, const std::string& prefix = "") {
+inline void print_metadata(const pdal::MetadataNode &node, const std::string &prefix = "") {
   std::cout << prefix << node.name() << ": " << node.value() << std::endl;
-  for (const std::string& name : node.childNames()) {
+  for (const std::string &name : node.childNames()) {
     print_metadata(node.findChild(name), prefix + "  ");
   }
 }
@@ -25,8 +25,8 @@ class LASFile {
   pdal::BOX3D m_bounds;
   GeoProjection m_projection;
 
-public:
-  explicit LASFile(const std::string& filename) {
+ public:
+  explicit LASFile(const std::string &filename) {
     Timer timer;
     std::cout << "Reading " << filename << " ..." << std::endl;
     pdal::Option las_opt("filename", filename);
@@ -44,36 +44,36 @@ public:
     m_projection = GeoProjection(las_header.srs().getWKT());
 
     std::cout << "Read " << point_view->size() << " points" << std::endl;
-    std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT()) << std::endl;
+    std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT())
+              << std::endl;
 
     std::cout << "Fields: " << std::endl;
     for (pdal::Dimension::Id dim : dims) {
-        std::cout << "- " << pdal::Dimension::name(dim) << ": " << pdal::Dimension::description(dim) << " (" << point_view->dimType(dim) << ")" << std::endl;
+      std::cout << "- " << pdal::Dimension::name(dim) << ": " << pdal::Dimension::description(dim)
+                << " (" << point_view->dimType(dim) << ")" << std::endl;
     }
 
     std::cout << "Reading metadata took " << timer << std::endl;
 
     Timer point_timer;
     for (pdal::PointId idx = 0; idx < point_view->size(); idx++) {
-        m_points.emplace_back(LASPoint(point_view->point(idx)));
+      m_points.emplace_back(LASPoint(point_view->point(idx)));
     }
     std::cout << "Reading points took " << point_timer << std::endl;
   }
 
   std::size_t n_points() const { return m_points.size(); }
-  const LASPoint& operator[](std::size_t i) const { return m_points[i]; }
+  const LASPoint &operator[](std::size_t i) const { return m_points[i]; }
 
-  Coordinate2D<double> top_left() const {
-    return {m_bounds.minx, m_bounds.maxy};
-  }
+  Coordinate2D<double> top_left() const { return {m_bounds.minx, m_bounds.maxy}; }
   double width() const { return m_bounds.maxx - m_bounds.minx; }
   double height() const { return m_bounds.maxy - m_bounds.miny; }
-  const GeoProjection& projection() const { return m_projection; }
+  const GeoProjection &projection() const { return m_projection; }
 
-  LASPoint& operator[](std::size_t i) { return m_points[i]; }
-  void push_back(const LASPoint& point) { m_points.push_back(point); }
+  LASPoint &operator[](std::size_t i) { return m_points[i]; }
+  void push_back(const LASPoint &point) { m_points.push_back(point); }
 
-  void write(const std::string& filename) const {
+  void write(const std::string &filename) const {
     pdal::Options options;
     options.add("filename", filename);
     options.add("dataformat_id", 0);
@@ -86,9 +86,9 @@ public:
     table.layout()->registerDim(pdal::Dimension::Id::Classification);
 
     pdal::PointViewPtr view(new pdal::PointView(table));
-    for (const LASPoint& point : m_points) {
-        pdal::PointId idx = view->size();
-        point.write_to(view->point(idx));
+    for (const LASPoint &point : m_points) {
+      pdal::PointId idx = view->size();
+      point.write_to(view->point(idx));
     }
 
     pdal::BufferReader reader;

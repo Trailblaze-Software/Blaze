@@ -1,7 +1,8 @@
-#include "assert/assert.hpp"
 #include <cstdint>
 #include <pdal/PointRef.hpp>
 #include <utilities/coordinate.hpp>
+
+#include "assert/assert.hpp"
 
 enum class LASClassification : uint8_t {
   CreatedNeverClassified = 0,
@@ -16,48 +17,47 @@ enum class LASClassification : uint8_t {
   Water = 9
 };
 
-  inline std::ostream& operator<<(std::ostream& os, const LASClassification& classification) {
-    switch (classification) {
-      case LASClassification::CreatedNeverClassified:
-        return os << "CreatedNeverClassified";
-      case LASClassification::Unclassified:
-        return os << "Unclassified";
-      case LASClassification::Ground:
-        return os << "Ground";
-      case LASClassification::LowVegetation:
-        return os << "LowVegetation";
-      case LASClassification::MediumVegetation:
-        return os << "MediumVegetation";
-      case LASClassification::HighVegetation:
-        return os << "HighVegetation";
-      case LASClassification::Building:
-        return os << "Building";
-      case LASClassification::LowPoint:
-        return os << "LowPoint";
-      case LASClassification::ModelKeyPoint:
-        return os << "ModelKeyPoint";
-      case LASClassification::Water:
-        return os << "Water";
-    }
-    __builtin_unreachable();
+inline std::ostream &operator<<(std::ostream &os, const LASClassification &classification) {
+  switch (classification) {
+    case LASClassification::CreatedNeverClassified:
+      return os << "CreatedNeverClassified";
+    case LASClassification::Unclassified:
+      return os << "Unclassified";
+    case LASClassification::Ground:
+      return os << "Ground";
+    case LASClassification::LowVegetation:
+      return os << "LowVegetation";
+    case LASClassification::MediumVegetation:
+      return os << "MediumVegetation";
+    case LASClassification::HighVegetation:
+      return os << "HighVegetation";
+    case LASClassification::Building:
+      return os << "Building";
+    case LASClassification::LowPoint:
+      return os << "LowPoint";
+    case LASClassification::ModelKeyPoint:
+      return os << "ModelKeyPoint";
+    case LASClassification::Water:
+      return os << "Water";
   }
+  __builtin_unreachable();
+}
 
 class LASPoint : public Coordinate3D<double> {
   uint16_t m_intensity;
   LASClassification m_classification;
 
-public:
+ public:
   LASPoint(double x, double y, double z, uint16_t intensity, LASClassification classification)
       : Coordinate3D<double>(x, y, z), m_intensity(intensity), m_classification(classification) {}
 
-  explicit LASPoint(const pdal::PointRef& point) : Coordinate3D<double>(
-      point.getFieldAs<double>(pdal::Dimension::Id::X),
-      point.getFieldAs<double>(pdal::Dimension::Id::Y),
-      point.getFieldAs<double>(pdal::Dimension::Id::Z)
-      ), 
-      m_intensity(point.getFieldAs<uint16_t>(pdal::Dimension::Id::Intensity)),
-      m_classification(static_cast<LASClassification>(point.getFieldAs<uint8_t>(pdal::Dimension::Id::Classification))) {}
-
+  explicit LASPoint(const pdal::PointRef &point)
+      : Coordinate3D<double>(point.getFieldAs<double>(pdal::Dimension::Id::X),
+                             point.getFieldAs<double>(pdal::Dimension::Id::Y),
+                             point.getFieldAs<double>(pdal::Dimension::Id::Z)),
+        m_intensity(point.getFieldAs<uint16_t>(pdal::Dimension::Id::Intensity)),
+        m_classification(static_cast<LASClassification>(
+            point.getFieldAs<uint8_t>(pdal::Dimension::Id::Classification))) {}
 
   uint16_t intensity() const { return m_intensity; }
   LASClassification classification() const { return m_classification; }
@@ -70,8 +70,9 @@ public:
     point.setField(pdal::Dimension::Id::Classification, static_cast<uint8_t>(m_classification));
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const LASPoint& point) {
-    os << "LASPoint((" << point.x() << ", " << point.y() << ", " << point.z() << "), I: " << point.intensity() << ", C: " << point.classification() << ")";
+  friend std::ostream &operator<<(std::ostream &os, const LASPoint &point) {
+    os << "LASPoint((" << point.x() << ", " << point.y() << ", " << point.z()
+       << "), I: " << point.intensity() << ", C: " << point.classification() << ")";
     return os;
   }
 };

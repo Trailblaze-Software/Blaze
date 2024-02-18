@@ -5,7 +5,7 @@
 #include <iostream>
 #include <ostream>
 
-inline std::ostream& operator<<(std::ostream& os, const std::chrono::duration<double>& duration) {
+inline std::ostream &operator<<(std::ostream &os, const std::chrono::duration<double> &duration) {
   if (duration.count() < 1e-6) {
     os << duration.count() * 1e9 << "ns";
   } else if (duration.count() < 1e-3) {
@@ -18,19 +18,17 @@ inline std::ostream& operator<<(std::ostream& os, const std::chrono::duration<do
   return os;
 }
 
-
 class Timer {
   std::chrono::time_point<std::chrono::high_resolution_clock> m_start;
 
-public:
-
+ public:
   Timer() : m_start(std::chrono::high_resolution_clock::now()) {}
 
   std::chrono::duration<double> duration() const {
     return std::chrono::high_resolution_clock::now() - m_start;
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const Timer& timer) {
+  friend std::ostream &operator<<(std::ostream &os, const Timer &timer) {
     os << timer.duration();
     return os;
   }
@@ -39,13 +37,10 @@ public:
 class TimeFunction : public Timer {
   std::string m_name;
 
-public:
-
-  TimeFunction(const std::string& name) : m_name(name) {
+ public:
+  TimeFunction(const std::string &name) : m_name(name) {
     std::cout << "Starting " << m_name << " ..." << std::endl;
   }
 
-  ~TimeFunction() {
-    std::cout << "Finished " << m_name << " in " << duration() << std::endl;
-  }
+  ~TimeFunction() { std::cout << "Finished " << m_name << " in " << duration() << std::endl; }
 };
