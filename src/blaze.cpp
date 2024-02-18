@@ -5,6 +5,7 @@
 #include <pdal/io/BufferReader.hpp>
 
 #include "contour/contour.hpp"
+#include "contour/contour_gen.hpp"
 #include "dxf/dxf.hpp"
 #include "grid/grid_ops.hpp"
 #include "las/las_file.hpp"
@@ -57,33 +58,7 @@ int main(int argc, char* argv[]) {
 
   GeoGrid<double> smooth_grid = remove_outliers(downsample(grid, 3));
   write_to_tif(smooth_grid, "smooth_grid.tif");
-
-  GridGraph is_contour = GridGraph<char>(smooth_grid); 
-  for(size_t i = 0; i < smooth_grid.height(); i++) {
-    for(size_t j = 0; j < smooth_grid.width(); j++) {
-      Coordinate2D<size_t> coord = {j, i};
-      for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
-        LineCoord2D<size_t> line_coord = {coord, dir};
-        if (is_contour.in_bounds(line_coord)) {
-          is_contour[line_coord] = crosses_contour(smooth_grid[coord], smooth_grid[coord + dir], 2.5);
-        }
-      }
-    }
-  }
-
-  std::vector<Contour> contours;
-  for(size_t i = 0; i < smooth_grid.height(); i++) {
-    for(size_t j = 0; j < smooth_grid.width(); j++) {
-      for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
-        LineCoord2D<size_t> line_coord = {i, j, dir};
-        if (is_contour.in_bounds(line_coord) && is_contour[line_coord]) {
-          contours.emplace_back(Contour::FromGridGraph(line_coord, smooth_grid, is_contour, 2.5));
-        }
-      }
-    }
-  }
-
-  write_to_dxf(contours, "contours.dxf");
+  write_to_dxf(generate_contours(smooth_grid, 2.5), "contours.dxf");
 
   exit(0);
   GeoGrid<std::optional<std::byte>> naive_countours = GeoGrid<std::optional<std::byte>>(grid.width(), grid.height(), GeoTransform(grid.transform()), GeoProjection(grid.projection()));
