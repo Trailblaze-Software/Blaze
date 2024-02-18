@@ -10,6 +10,7 @@
 #include "grid/grid_ops.hpp"
 #include "las/las_file.hpp"
 #include "lib/grid/grid.hpp"
+#include "lib/vegetation/vegetation.hpp"
 #include "methods/hill_shade/hill_shade.hpp"
 #include "tif/tif.hpp"
 
