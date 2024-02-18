@@ -135,6 +135,31 @@ class GeoGrid : public Grid<T> {
                                    grid.transform().dx(), grid.transform().dy()),
                       grid.projection());
   }
+
+  T interpolate_value(const Coordinate2D<double> &projection_coord) const {
+    Coordinate2D<double> pixel_coord = transform().projection_to_pixel(projection_coord);
+    if (pixel_coord.x() < 0 || pixel_coord.y() < 0 || pixel_coord.x() >= Grid<T>::width() ||
+        pixel_coord.y() >= Grid<T>::height()) {
+      Fail("Interpolation out of bounds");
+    }
+    if (pixel_coord.x() <= 0.5 || pixel_coord.y() <= 0.5 ||
+        pixel_coord.x() >= Grid<T>::width() - 0.5 || pixel_coord.y() >= Grid<T>::height() - 0.5) {
+      return (*this)[{static_cast<size_t>(pixel_coord.x()), static_cast<size_t>(pixel_coord.y())}];
+    }
+    size_t x = static_cast<size_t>(pixel_coord.x() - 0.5);
+    size_t y = static_cast<size_t>(pixel_coord.y() - 0.5);
+    if (x >= Grid<T>::width() || y >= Grid<T>::height()) {
+      Fail("Interpolation out of bounds");
+    }
+    double x_frac = pixel_coord.x() - x;
+    double y_frac = pixel_coord.y() - y;
+    T top_left = (*this)[{x, y}];
+    T top_right = (*this)[{x + 1, y}];
+    T bottom_left = (*this)[{x, y + 1}];
+    T bottom_right = (*this)[{x + 1, y + 1}];
+    return top_left * (1 - x_frac) * (1 - y_frac) + top_right * x_frac * (1 - y_frac) +
+           bottom_left * (1 - x_frac) * y_frac + bottom_right * x_frac * y_frac;
+  }
 };
 
 template <typename T>
