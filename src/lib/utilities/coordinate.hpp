@@ -22,6 +22,30 @@ class Direction2D {
            ((m_dir == LEFT || m_dir == RIGHT) && (other.m_dir == UP || other.m_dir == DOWN));
   }
 
+  int dx() const {
+    switch (m_dir) {
+      case UP:
+      case DOWN:
+        return 0;
+      case LEFT:
+        return -1;
+      case RIGHT:
+        return 1;
+    }
+  }
+
+  int dy() const {
+    switch (m_dir) {
+      case UP:
+        return -1;
+      case DOWN:
+        return 1;
+      case LEFT:
+      case RIGHT:
+        return 0;
+    }
+  }
+
   Direction2D opposite() const {
     switch (m_dir) {
       case UP:

@@ -9,6 +9,7 @@ project(
 
 find_package(PDAL REQUIRED)
 find_package(GDAL REQUIRED)
+find_package(OpenMP REQUIRED)
 
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
@@ -31,7 +32,8 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 foreach(target ${EXECUTABLE_NAME} ${UNIT_TESTS_NAME})
-  target_link_libraries(${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES})
+  target_link_libraries(${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES}
+                                          OpenMP::OpenMP_CXX)
   target_include_directories(${target} PRIVATE ${PDAL_INCLUDE_DIRS}
                                                ${GDAL_INCLUDE_DIRS})
 endforeach()

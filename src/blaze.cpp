@@ -20,8 +20,6 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  write_to_dxf("output.dxf");
-
   LASFile las_file = LASFile(argv[1]);
 
   double bin_resolution = 0.4;
@@ -64,6 +62,7 @@ int main(int argc, char *argv[]) {
   }
 
   grid = remove_outliers(grid, 0.2);
+  grid = interpolate_holes(grid);
 
   write_to_tif(grid, "grid.tif");
   write_to_tif(buildings, "buildings.tif");
@@ -72,6 +71,19 @@ int main(int argc, char *argv[]) {
   write_to_tif(smooth_grid, "smooth_grid.tif");
   write_to_dxf(generate_contours(smooth_grid, 2.5), "contours.dxf");
 
+  GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, grid);
+  GeoGrid<double> canopy = canopy_proportion(class_counts);
+  write_to_tif(canopy, "canopy_proportion.tif");
+  GeoGrid<double> canopy_thresh = threshold(canopy, 0.1);
+  write_to_tif(canopy_thresh, "canopy_thresh.tif");
+  GeoGrid<double> low_pass_canopy = low_pass(canopy);
+  write_to_tif(low_pass_canopy, "low_pass_canopy.tif");
+  write_to_tif(bool_grid(low_pass_canopy, 20.), "bool_low_pass_canopy.tif");
+  write_to_tif(vege_proportion(class_counts), "vege_proportion.tif");
+  write_to_tif(low_pass(canopy_thresh), "low_pass_canopy_thresh.tif");
+  GeoGrid<double> low_pass_vege = low_pass(vege_proportion(class_counts));
+  write_to_tif(low_pass_vege, "low_pass_vege.tif");
+  write_to_tif_with_thresh(low_pass_vege, "vege_proportion_thresh.tif", 0.01);
   exit(0);
   GeoGrid<std::optional<std::byte>> naive_countours =
       GeoGrid<std::optional<std::byte>>(grid.width(), grid.height(), GeoTransform(grid.transform()),

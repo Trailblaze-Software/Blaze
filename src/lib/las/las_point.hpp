@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cstdint>
 #include <pdal/PointRef.hpp>
 #include <utilities/coordinate.hpp>

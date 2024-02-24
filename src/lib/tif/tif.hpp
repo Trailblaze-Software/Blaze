@@ -11,31 +11,37 @@
 #include "utilities/timer.hpp"
 
 template <typename T>
+struct is_std_optional : std::false_type {};
+
+template <typename T>
+struct is_std_optional<std::optional<T>> : std::true_type {};
+
+template <typename T>
+inline constexpr bool is_std_optional_v = is_std_optional<T>::value;
+
+template <typename T>
+constexpr GDALDataType gdal_type() {
+  if constexpr (std::is_same_v<double, T>) {
+    return GDT_Float64;
+  } else if constexpr (std::is_same_v<unsigned int, T>) {
+    return GDT_UInt32;
+  } else if constexpr (std::is_same_v<std::byte, T>) {
+    return GDT_Byte;
+  } else if constexpr (is_std_optional_v<T>) {
+    return gdal_type<typename T::value_type>();
+  } else {
+    static_assert(std::is_same_v<double, T>);
+  }
+}
+
+template <typename T>
 void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
   Timer timer;
   std::cout << "Writing to tif " << filename << std::endl;
   GDALAllRegister();
 
-  int bands;
-  GDALDataType datatype;
-  if constexpr (std::is_arithmetic_v<T>) {
-    bands = 1;
-    if constexpr (std::is_same_v<double, T>) {
-      datatype = GDT_Float64;
-    } else if constexpr (std::is_same_v<unsigned int, T>) {
-      datatype = GDT_UInt32;
-    } else {
-      static_assert(std::is_same_v<double, T>);
-    }
-  } else if constexpr (std::is_same_v<std::byte, T>) {
-    bands = 1;
-    datatype = GDT_Byte;
-  } else if constexpr (std::is_same_v<std::optional<std::byte>, T>) {
-    bands = 2;
-    datatype = GDT_Byte;
-  } else {
-    static_assert(std::is_same_v<double, T>);
-  }
+  constexpr int bands = is_std_optional_v<T> ? 2 : 1;
+  GDALDataType datatype = gdal_type<T>();
 
   char **options = nullptr;
   options = CSLSetNameValue(options, "COMPRESS", "LZW");
@@ -50,17 +56,18 @@ void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
 
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
-      if constexpr (std::is_same_v<std::optional<std::byte>, T>) {
-        std::byte transparent = grid[{i, j}].has_value() ? std::byte{255} : std::byte{0};
-        GDALAssert(dataset->GetRasterBand(1)->RasterIO(
-            GF_Write, i, j, 1, 1, const_cast<std::byte *>(&*grid[{i, j}]), 1, 1, datatype, 0, 0));
+      if constexpr (is_std_optional_v<T>) {
+        typename T::value_type transparent =
+            grid[{i, j}].has_value() ? typename T::value_type(255) : typename T::value_type(0);
+        typename T::value_type data =
+            grid[{i, j}].has_value() ? grid[{i, j}].value() : typename T::value_type(0);
+        GDALAssert(
+            dataset->GetRasterBand(1)->RasterIO(GF_Write, i, j, 1, 1, &data, 1, 1, datatype, 0, 0));
         GDALAssert(dataset->GetRasterBand(2)->RasterIO(GF_Write, i, j, 1, 1, &transparent, 1, 1,
                                                        datatype, 0, 0));
       } else {
-        for (int band = 1; band <= bands; band++) {
-          GDALAssert(dataset->GetRasterBand(band)->RasterIO(
-              GF_Write, i, j, 1, 1, const_cast<T *>(&grid[{i, j}]), 1, 1, datatype, 0, 0));
-        }
+        GDALAssert(dataset->GetRasterBand(1)->RasterIO(
+            GF_Write, i, j, 1, 1, const_cast<T *>(&grid[{i, j}]), 1, 1, datatype, 0, 0));
       }
     }
   }
@@ -68,6 +75,19 @@ void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
   GDALClose(dataset);
   CSLDestroy(options);
   std::cout << "Writing to tif " << filename << " took " << timer << std::endl;
+}
+
+template <typename T>
+void write_to_tif_with_thresh(const GeoGrid<T> &grid, const std::string &filename,
+                              double threshold) {
+  GeoGrid<std::optional<T>> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                                   GeoProjection(grid.projection()));
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      result[{j, i}] = grid[{j, i}] > threshold ? std::optional<T>{grid[{j, i}]} : std::nullopt;
+    }
+  }
+  write_to_tif(result, filename);
 }
 
 template <typename T>

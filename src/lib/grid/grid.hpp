@@ -105,6 +105,10 @@ class Grid {
     }
     return os;
   }
+
+  bool in_bounds(const Coordinate2D<size_t> &coord) const {
+    return coord.x() < m_width && coord.y() < m_height;
+  }
 };
 
 template <typename T>
@@ -140,6 +144,10 @@ class GeoGrid : public Grid<T> {
     Coordinate2D<double> pixel_coord = transform().projection_to_pixel(projection_coord);
     if (pixel_coord.x() < 0 || pixel_coord.y() < 0 || pixel_coord.x() >= Grid<T>::width() ||
         pixel_coord.y() >= Grid<T>::height()) {
+      std::cout << "Interpolation out of bounds" << std::endl;
+      std::cout << "Projection coord: " << projection_coord << std::endl;
+      std::cout << "Pixel coord: " << pixel_coord << std::endl;
+      std::cout << "Grid size: " << Grid<T>::width() << ", " << Grid<T>::height() << std::endl;
       Fail("Interpolation out of bounds");
     }
     if (pixel_coord.x() <= 0.5 || pixel_coord.y() <= 0.5 ||
