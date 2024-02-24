@@ -27,6 +27,8 @@ int main(int argc, char *argv[]) {
       std::ceil(las_file.width() / bin_resolution), std::ceil(las_file.height() / bin_resolution),
       GeoTransform(las_file.top_left(), bin_resolution), GeoProjection(las_file.projection()));
 
+  {
+    TimeFunction timer("binning");
   for (const LASPoint &las_point : las_file) {
     Assert(
         std::abs(binned_points.transform()
@@ -35,6 +37,7 @@ int main(int argc, char *argv[]) {
                  las_point.x()) < 1.1,
         "Pixel to projection to pixel");
     binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(las_point);
+  }
   }
 
   double resolution = 0.4;
@@ -46,6 +49,9 @@ int main(int argc, char *argv[]) {
       GeoGrid<std::optional<std::byte>>(grid.width(), grid.height(), GeoTransform(grid.transform()),
                                         GeoProjection(grid.projection()));
 
+  {
+  TimeFunction timer("min finding");
+#pragma omp parallel for
   for (size_t i = 0; i < binned_points.height(); i++) {
     for (size_t j = 0; j < binned_points.width(); j++) {
       bool is_building = false;
@@ -59,6 +65,7 @@ int main(int argc, char *argv[]) {
       grid[{i, j}] = min;
       buildings[{i, j}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
     }
+  }
   }
 
   grid = remove_outliers(grid, 0.2);

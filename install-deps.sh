@@ -1,4 +1,4 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y libgdal-dev libpdal-dev
+sudo apt install -y libgdal-dev libpdal-dev cmake
