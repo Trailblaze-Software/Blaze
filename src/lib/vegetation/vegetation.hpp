@@ -27,7 +27,7 @@ inline std::map<double, PointHeightClass> height_to_class{{0, PointHeightClass::
 
 inline std::optional<PointHeightClass> classify_point(double height) {
   if (height < -1) {
-    std::cout << "Warning: negative height" << std::endl;
+    //std::cout << "Warning: negative height" << std::endl;
     return std::nullopt;
   }
   PointHeightClass prev = PointHeightClass::Ground;
