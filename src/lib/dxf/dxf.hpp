@@ -10,7 +10,7 @@
 inline void writeContour(std::ofstream &file, const Contour &contour) {
   file << "0\nPOLYLINE\n";
   file << "8\n101_Contour\n";  // Layer 0 (default layer)
-  file << "70\n0\n";   // open polyline (0->1 for closed)
+  file << "70\n0\n";           // open polyline (0->1 for closed)
   file << std::setprecision(10);
   for (size_t i = 0; i < contour.points().size(); i++) {
     file << "0\nVERTEX\n";
@@ -41,7 +41,9 @@ inline void write_to_dxf(std::vector<Contour> contours, const std::string &filen
   dxfFile << "2\nENTITIES\n";
 
   for (const auto &contour : contours) {
-    writeContour(dxfFile, contour);
+    if (contour.points().size() > 1) {
+      writeContour(dxfFile, contour);
+    }
   }
 
   dxfFile << "0\nENDSEC\n";
@@ -63,8 +65,8 @@ inline void write_to_crt(const std::string &filename) {
     std::cerr << "Failed to open CRT file for writing\n";
     return;
   }
-  //ISOM 2017-2 and ISSprOM 2019-2 compliant :)
-  //Fst column represents OOM symbol to create, second column is dxf layer name
+  // ISOM 2017-2 and ISSprOM 2019-2 compliant :)
+  // Fst column represents OOM symbol to create, second column is dxf layer name
   crtFile << "101 101_Contour\n";
   crtFile << "102 102_Index_Contour\n";
   crtFile << "103 103_Form_Line\n";
