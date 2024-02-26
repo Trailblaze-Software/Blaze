@@ -54,22 +54,26 @@ void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
   dataset->SetGeoTransform(const_cast<double *>(grid.transform().get_raw()));
   dataset->SetProjection(grid.projection().to_string().c_str());
 
-  for (size_t i = 0; i < grid.height(); i++) {
-    for (size_t j = 0; j < grid.width(); j++) {
-      if constexpr (is_std_optional_v<T>) {
-        typename T::value_type transparent =
-            grid[{i, j}].has_value() ? typename T::value_type(255) : typename T::value_type(0);
-        typename T::value_type data =
-            grid[{i, j}].has_value() ? grid[{i, j}].value() : typename T::value_type(0);
-        GDALAssert(
-            dataset->GetRasterBand(1)->RasterIO(GF_Write, i, j, 1, 1, &data, 1, 1, datatype, 0, 0));
-        GDALAssert(dataset->GetRasterBand(2)->RasterIO(GF_Write, i, j, 1, 1, &transparent, 1, 1,
-                                                       datatype, 0, 0));
-      } else {
-        GDALAssert(dataset->GetRasterBand(1)->RasterIO(
-            GF_Write, i, j, 1, 1, const_cast<T *>(&grid[{i, j}]), 1, 1, datatype, 0, 0));
+  // GDALAssert(dataset->GetRasterBand(1)->SetNoDataValue(0));
+  if constexpr (is_std_optional_v<T>) {
+    for (size_t i = 0; i < grid.height(); i++) {
+      std::vector<typename T::value_type> data(grid.width());
+      std::vector<typename T::value_type> transparent(grid.width());
+      for (size_t j = 0; j < grid.width(); j++) {
+        data[j] = grid[{j, i}].has_value() ? grid[{j, i}].value() : typename T::value_type(0);
+        transparent[j] =
+            grid[{j, i}].has_value() ? typename T::value_type(255) : typename T::value_type(0);
       }
+
+      GDALAssert(dataset->GetRasterBand(1)->RasterIO(GF_Write, 0, i, grid.width(), 1, data.data(),
+                                                     grid.width(), 1, datatype, 0, 0));
+      GDALAssert(dataset->GetRasterBand(2)->RasterIO(
+          GF_Write, 0, i, grid.width(), 1, transparent.data(), grid.width(), 1, datatype, 0, 0));
     }
+  } else {
+    GDALAssert(dataset->GetRasterBand(1)->RasterIO(GF_Write, 0, 0, grid.width(), grid.height(),
+                                                   const_cast<T *>(&grid[{0, 0}]), grid.width(),
+                                                   grid.height(), datatype, 0, 0));
   }
 
   GDALClose(dataset);

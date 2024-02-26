@@ -159,8 +159,8 @@ class GeoGrid : public Grid<T> {
     if (x >= Grid<T>::width() || y >= Grid<T>::height()) {
       Fail("Interpolation out of bounds");
     }
-    double x_frac = pixel_coord.x() - x;
-    double y_frac = pixel_coord.y() - y;
+    double x_frac = pixel_coord.x() - 0.5 - x;
+    double y_frac = pixel_coord.y() - 0.5 - y;
     T top_left = (*this)[{x, y}];
     T top_right = (*this)[{x + 1, y}];
     T bottom_left = (*this)[{x, y + 1}];
