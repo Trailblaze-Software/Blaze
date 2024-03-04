@@ -23,25 +23,20 @@ int main(int argc, char *argv[]) {
   LASFile las_file = LASFile(argv[1]);
 
   double bin_resolution = 0.4;
-  GeoGrid<std::vector<LASPoint>> binned_points = GeoGrid<std::vector<LASPoint>>(
+  GeoGrid<std::vector<LASPoint>> binned_points(
       std::ceil(las_file.width() / bin_resolution), std::ceil(las_file.height() / bin_resolution),
       GeoTransform(las_file.top_left(), bin_resolution), GeoProjection(las_file.projection()));
 
   {
     TimeFunction timer("binning");
-  for (const LASPoint &las_point : las_file) {
-    Assert(
-        std::abs(binned_points.transform()
-                     .pixel_to_projection(binned_points.transform().projection_to_pixel(las_point))
-                     .x() -
-                 las_point.x()) < 1.1,
-        "Pixel to projection to pixel");
-    binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(las_point);
-  }
+    for (const LASPoint &las_point : las_file) {
+      binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
+          las_point);
+    }
   }
 
   double resolution = 0.4;
-  GeoGrid<double> grid = GeoGrid<double>(
+  GeoGrid<double> grid(
       std::ceil(las_file.width() / resolution), std::ceil(las_file.height() / resolution),
       GeoTransform(las_file.top_left(), resolution), GeoProjection(las_file.projection()));
 
@@ -50,22 +45,22 @@ int main(int argc, char *argv[]) {
                                         GeoProjection(grid.projection()));
 
   {
-  TimeFunction timer("min finding");
+    TimeFunction timer("min finding");
 #pragma omp parallel for
-  for (size_t i = 0; i < binned_points.height(); i++) {
-    for (size_t j = 0; j < binned_points.width(); j++) {
-      bool is_building = false;
-      double min = std::numeric_limits<unsigned int>::max();
-      for (const LASPoint &las_point : binned_points[{i, j}]) {
-        min = std::min(min, las_point.z());
-        if (las_point.classification() == LASClassification::Building) {
-          is_building = true;
+    for (size_t i = 0; i < binned_points.height(); i++) {
+      for (size_t j = 0; j < binned_points.width(); j++) {
+        bool is_building = false;
+        double min = std::numeric_limits<unsigned int>::max();
+        for (const LASPoint &las_point : binned_points[{i, j}]) {
+          min = std::min(min, las_point.z());
+          if (las_point.classification() == LASClassification::Building) {
+            is_building = true;
+          }
         }
+        grid[{i, j}] = min;
+        buildings[{i, j}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
       }
-      grid[{i, j}] = min;
-      buildings[{i, j}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
     }
-  }
   }
 
   grid = remove_outliers(grid, 0.2);
@@ -76,7 +71,10 @@ int main(int argc, char *argv[]) {
 
   GeoGrid<double> smooth_grid = remove_outliers(downsample(grid, 3));
   write_to_tif(smooth_grid, "smooth_grid.tif");
+
   write_to_dxf(generate_contours(smooth_grid, 2.5), "contours.dxf");
+  // crt name must match dxf name... I can't work out string variables yet lol
+  write_to_crt("contours.crt");
 
   GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, grid);
   GeoGrid<double> canopy = canopy_proportion(class_counts);
@@ -91,7 +89,7 @@ int main(int argc, char *argv[]) {
   GeoGrid<double> low_pass_vege = low_pass(vege_proportion(class_counts));
   write_to_tif(low_pass_vege, "low_pass_vege.tif");
   write_to_tif_with_thresh(low_pass_vege, "vege_proportion_thresh.tif", 0.01);
-  exit(0);
+
   GeoGrid<std::optional<std::byte>> naive_countours =
       GeoGrid<std::optional<std::byte>>(grid.width(), grid.height(), GeoTransform(grid.transform()),
                                         GeoProjection(grid.projection()));
