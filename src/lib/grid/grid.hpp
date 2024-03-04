@@ -79,9 +79,9 @@ class Grid {
 
  public:
   Grid(size_t width, size_t height) : m_width(width), m_height(height), m_data(width * height) {}
-  T &operator[](Coordinate2D<size_t> coord) { return m_data[coord.y() * m_width + coord.x()]; }
+  T &operator[](Coordinate2D<size_t> coord) { return m_data.at(coord.y() * m_width + coord.x()); }
   const T &operator[](Coordinate2D<size_t> coord) const {
-    return m_data[coord.y() * m_width + coord.x()];
+    return m_data.at(coord.y() * m_width + coord.x());
   }
 
   size_t width() const { return m_width; }
@@ -207,9 +207,11 @@ class GridGraph {
       return false;
     }
     if (coord.dir() == Direction2D::DOWN) {
-      return coord.x() < width() && coord.y() + 1 < height();
+      return coord.x() < width() && coord.y() < std::numeric_limits<U>::max() &&
+             coord.y() + 1 < height();
     } else if (coord.dir() == Direction2D::RIGHT) {
-      return coord.x() + 1 < width() && coord.y() < height();
+      return coord.x() < std::numeric_limits<U>::max() && coord.x() + 1 < width() &&
+             coord.y() < height();
     }
     Fail("Invalid direction");
   }

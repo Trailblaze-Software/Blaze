@@ -27,8 +27,8 @@ GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
   for (size_t i = 0; i < result.height(); i++) {
     for (size_t j = 0; j < result.width(); j++) {
       std::vector<T> values;
-      for (size_t k = 0; k < factor && i + k < grid.height(); k++) {
-        for (size_t l = 0; l < factor && j + l < grid.width(); l++) {
+      for (size_t k = 0; k < factor && i * factor + k < grid.height(); k++) {
+        for (size_t l = 0; l < factor && j * factor + l < grid.width(); l++) {
           if (std::isfinite(grid[{j * factor + l, i * factor + k}]))
             values.push_back(grid[{j * factor + l, i * factor + k}]);
         }
