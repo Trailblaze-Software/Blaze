@@ -1,11 +1,12 @@
 #pragma once
 
 #include <cstddef>
-#include <map>
 #include <optional>
 
 #include "grid/grid.hpp"
 #include "las/las_point.hpp"
+#include "tif/tif.hpp"
+#include "utilities/coordinate.hpp"
 #include "utilities/timer.hpp"
 
 class PointHeightClass {
@@ -20,14 +21,20 @@ class PointHeightClass {
   operator PointHeightClassEnum() const { return m_class; }
 };
 
+template <>
+struct std::hash<PointHeightClass> {
+  size_t operator()(const PointHeightClass& c) const {
+    return (PointHeightClass::PointHeightClassEnum)c;
+  }
+};
+
 inline std::map<double, PointHeightClass> height_to_class{{0, PointHeightClass::Ground},
                                                           {0.2, PointHeightClass::Low},
                                                           {0.5, PointHeightClass::Medium},
                                                           {2.5, PointHeightClass::High}};
 
 inline std::optional<PointHeightClass> classify_point(double height) {
-  if (height < -1) {
-    //std::cout << "Warning: negative height" << std::endl;
+  if (height < -5) {
     return std::nullopt;
   }
   PointHeightClass prev = PointHeightClass::Ground;
@@ -41,7 +48,7 @@ inline std::optional<PointHeightClass> classify_point(double height) {
 }
 
 class ClassCount {
-  std::map<PointHeightClass, size_t> m_counts;
+  std::unordered_map<PointHeightClass, size_t> m_counts;
 
  public:
   ClassCount()
@@ -64,30 +71,51 @@ class ClassCount {
   }
 };
 
-GeoGrid<ClassCount> count_height_classes(const GeoGrid<std::vector<LASPoint>>& grid,
-                                         const GeoGrid<double>& height_grid) {
+inline GeoGrid<ClassCount> count_height_classes(const GeoGrid<std::vector<LASPoint>>& grid,
+                                                const GeoGrid<double>& height_grid) {
   TimeFunction timer("Counting height classes");
-  GeoGrid<ClassCount> class_counts(height_grid.width(), height_grid.height(),
-                                   GeoTransform(height_grid.transform()),
-                                   GeoProjection(height_grid.projection()));
+  GeoGrid<ClassCount> class_counts(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                                   GeoProjection(grid.projection()));
+  GeoGrid<std::optional<std::byte>> neg_heights(grid.width(), grid.height(),
+                                                GeoTransform(grid.transform()),
+                                                GeoProjection(grid.projection()));
 
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
+      neg_heights[{j, i}] = std::nullopt;
       for (const LASPoint& las_point : grid[{j, i}]) {
         double ground_height = height_grid.interpolate_value(las_point);
         double height = las_point.z() - ground_height;
         std::optional<PointHeightClass> c = classify_point(height);
         if (c.has_value()) {
           class_counts[{j, i}][c.value()]++;
+        } else {
+          neg_heights[{j, i}] = std::byte(0);
+          // std::cout << "Warning: point at " << j << ", " << i << " has height " << height
+          //<< " which is not classified (ground: " << ground_height << ")" << "\n";
+          // Coordinate2D<double> pixel_coord =
+          // height_grid.transform().projection_to_pixel(las_point); std::cout << pixel_coord << " "
+          // << height_grid[pixel_coord] << std::endl; size_t x =
+          // static_cast<size_t>(pixel_coord.x() - 0.5); size_t y =
+          // static_cast<size_t>(pixel_coord.y() - 0.5); double x_frac = pixel_coord.x() - 0.5 - x;
+          // double y_frac = pixel_coord.y() - 0.5 - y;
+          // double top_left = height_grid[{x, y}];
+          // double top_right = height_grid[{x + 1, y}];
+          // double bottom_left = height_grid[{x, y + 1}];
+          // double bottom_right = height_grid[{x + 1, y + 1}];
+          // std::cout << x_frac << " " << y_frac << " " << top_left << " " <<top_right << " " <<
+          // bottom_left << " " << bottom_right << std::endl;
         }
       }
     }
   }
+  write_to_tif(neg_heights, "neg_heights.tif");
   return class_counts;
 }
 
-GeoGrid<double> proportion_blocked(const GeoGrid<ClassCount>& class_counts, PointHeightClass c) {
+inline GeoGrid<double> proportion_blocked(const GeoGrid<ClassCount>& class_counts,
+                                          PointHeightClass c) {
   TimeFunction timer("Calculating proportion blocked at " + std::to_string(c));
   GeoGrid<double> proportion_blocked(class_counts.width(), class_counts.height(),
                                      GeoTransform(class_counts.transform()),
@@ -108,11 +136,11 @@ GeoGrid<double> proportion_blocked(const GeoGrid<ClassCount>& class_counts, Poin
   return proportion_blocked;
 }
 
-GeoGrid<double> canopy_proportion(const GeoGrid<ClassCount>& class_counts) {
+inline GeoGrid<double> canopy_proportion(const GeoGrid<ClassCount>& class_counts) {
   return proportion_blocked(class_counts, PointHeightClass::High);
 }
 
-GeoGrid<double> threshold(const GeoGrid<double>& grid, double threshold) {
+inline GeoGrid<double> threshold(const GeoGrid<double>& grid, double threshold) {
   TimeFunction timer("Thresholding");
   GeoGrid<double> thresholded(grid.width(), grid.height(), GeoTransform(grid.transform()),
                               GeoProjection(grid.projection()));
@@ -125,7 +153,7 @@ GeoGrid<double> threshold(const GeoGrid<double>& grid, double threshold) {
   return thresholded;
 }
 
-GeoGrid<double> low_pass(const GeoGrid<double>& grid, int delta = 10) {
+inline GeoGrid<double> low_pass(const GeoGrid<double>& grid, int delta = 8) {
   TimeFunction timer("Low pass filter");
   GeoGrid<double> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
                            GeoProjection(grid.projection()));
@@ -133,21 +161,25 @@ GeoGrid<double> low_pass(const GeoGrid<double>& grid, int delta = 10) {
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
       double sum = 0;
+      double weight_sum = 0;
       for (int x = -delta; x <= delta; x++) {
         for (int y = -delta; y <= delta; y++) {
           if (y + (int)i >= 0 && i + y < grid.height() && x + (int)j >= 0 &&
               (unsigned int)j + x < grid.width()) {
-            if (sqrt(x * x + y * y) <= delta)
-              sum += grid[{j + x, i + y}] * (1 - sqrt(x * x + y * y) / delta);
+            if (sqrt(x * x + y * y) <= delta) {
+              double weight = 1 - (sqrt(x * x + y * y) / delta);
+              sum += grid[{j + x, i + y}] * weight;
+              weight_sum += weight;
+            }
           }
         }
       }
-      low_pass[{j, i}] = sum;
+      low_pass[{j, i}] = sum / weight_sum;
     }
   }
   return low_pass;
 }
 
-GeoGrid<double> vege_proportion(const GeoGrid<ClassCount>& class_counts) {
+inline GeoGrid<double> vege_proportion(const GeoGrid<ClassCount>& class_counts) {
   return proportion_blocked(class_counts, PointHeightClass::Medium);
 }

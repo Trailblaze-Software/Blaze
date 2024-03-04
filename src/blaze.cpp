@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 
   LASFile las_file = LASFile(argv[1]);
 
-  double bin_resolution = 0.4;
+  double bin_resolution = 0.5;
   GeoGrid<std::vector<LASPoint>> binned_points(
       std::ceil(las_file.width() / bin_resolution), std::ceil(las_file.height() / bin_resolution),
       GeoTransform(las_file.top_left(), bin_resolution), GeoProjection(las_file.projection()));
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  double resolution = 0.4;
+  double resolution = bin_resolution;
   GeoGrid<double> grid(
       std::ceil(las_file.width() / resolution), std::ceil(las_file.height() / resolution),
       GeoTransform(las_file.top_left(), resolution), GeoProjection(las_file.projection()));
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
   // crt name must match dxf name... I can't work out string variables yet lol
   write_to_crt("contours.crt");
 
-  GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, grid);
+  GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, smooth_grid);
   GeoGrid<double> canopy = canopy_proportion(class_counts);
   write_to_tif(canopy, "canopy_proportion.tif");
   GeoGrid<double> canopy_thresh = threshold(canopy, 0.1);
