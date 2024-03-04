@@ -14,10 +14,7 @@
 #include "methods/hill_shade/hill_shade.hpp"
 #include "tif/tif.hpp"
 
-/*argc: number of arguments (should be 2)
-argv: array of char pointers
-*/
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
   if (argc != 2) {
     std::cerr << "Usage: blaze <las_file>" << std::endl;
     return 1;
@@ -74,9 +71,9 @@ int main(int argc, char **argv) {
 
   GeoGrid<double> smooth_grid = remove_outliers(downsample(grid, 3));
   write_to_tif(smooth_grid, "smooth_grid.tif");
-  
+
   write_to_dxf(generate_contours(smooth_grid, 2.5), "contours.dxf");
-  //crt name must match dxf name... I can't work out string variables yet lol
+  // crt name must match dxf name... I can't work out string variables yet lol
   write_to_crt("contours.crt");
 
   GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, grid);
