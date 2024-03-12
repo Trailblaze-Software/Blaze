@@ -13,6 +13,7 @@
 #include "lib/vegetation/vegetation.hpp"
 #include "methods/hill_shade/hill_shade.hpp"
 #include "tif/tif.hpp"
+#include "isom/symbols.hpp"
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
@@ -81,11 +82,15 @@ int main(int argc, char *argv[]) {
   write_to_tif(canopy, "canopy_proportion.tif");
   GeoGrid<double> canopy_thresh = threshold(canopy, 0.1);
   write_to_tif(canopy_thresh, "canopy_thresh.tif");
+
+
+
   GeoGrid<double> low_pass_canopy = low_pass(canopy);
   write_to_tif(low_pass_canopy, "low_pass_canopy.tif");
   write_to_tif(bool_grid(low_pass_canopy, 20.), "bool_low_pass_canopy.tif");
   write_to_tif(vege_proportion(class_counts), "vege_proportion.tif");
   write_to_tif(low_pass(canopy_thresh), "low_pass_canopy_thresh.tif");
+  GeoGrid<double> vegetation = vege_proportion(class_counts);
   GeoGrid<double> low_pass_vege = low_pass(vege_proportion(class_counts));
   write_to_tif(low_pass_vege, "low_pass_vege.tif");
   write_to_tif_with_thresh(low_pass_vege, "vege_proportion_thresh.tif", 0.01);
@@ -112,5 +117,28 @@ int main(int argc, char *argv[]) {
 
   write_to_tif(naive_countours, "naive_countours.tif");
   write_to_image_tif(hill_shade(smooth_grid), "hill_shade_multi.tif");
-  write_to_image_tif(slope(smooth_grid), "slope.tif");
+
+   GeoGrid<CMYKColor> canopy_color(
+      canopy.width(), canopy.height(), GeoTransform(canopy.transform()), GeoProjection(canopy.projection()));
+  for (size_t i = 0; i < canopy.height(); i++) {
+    for (size_t j = 0; j < canopy.width(); j++) {
+      canopy_color[{j, i}] = canopy_thresh[{j, i}] > 0.1 ? ISOMSymbol(ISOMSymbol::Forest).color() : ISOMSymbol(ISOMSymbol::RoughOpenLand).color();
+      if (vegetation[{j, i}] > 0.05) {
+        canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::VegetationSlow).color();
+      }
+      if (vegetation[{j, i}] > 0.3) {
+        canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::VegetationWalk).color();
+      }
+      if (vegetation[{j, i}] > 0.6) {
+        canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::VegetationFight).color();
+      }
+      if (naive_countours[{j, i}].has_value()) {
+        canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::Contour).color();
+      }
+      if (buildings[{j, i}].has_value()) {
+        canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::Building).color();
+      }
+    }
+  }
+  write_to_tif(canopy_color, "canopy_color.tif"); write_to_image_tif(slope(smooth_grid), "slope.tif");
 }

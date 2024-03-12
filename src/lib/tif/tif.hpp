@@ -9,6 +9,7 @@
 #include "assert/gdal_assert.hpp"
 #include "lib/grid/grid.hpp"
 #include "utilities/timer.hpp"
+#include "isom/colors.hpp"
 
 template <typename T>
 struct is_std_optional : std::false_type {};
@@ -29,18 +30,19 @@ constexpr GDALDataType gdal_type() {
     return GDT_Byte;
   } else if constexpr (is_std_optional_v<T>) {
     return gdal_type<typename T::value_type>();
+  } else if constexpr (std::is_base_of_v<Color, T>) {
+    return GDT_Byte;
   } else {
-    static_assert(std::is_same_v<double, T>);
+  static_assert(std::is_base_of_v<Color, T>);
   }
 }
 
 template <typename T>
 void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
-  Timer timer;
-  std::cout << "Writing to tif " << filename << std::endl;
+  TimeFunction timer("Write to tif " + filename);
   GDALAllRegister();
 
-  constexpr int bands = is_std_optional_v<T> ? 2 : 1;
+  constexpr int bands = is_std_optional_v<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
   GDALDataType datatype = gdal_type<T>();
 
   char **options = nullptr;
@@ -70,6 +72,18 @@ void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
       GDALAssert(dataset->GetRasterBand(2)->RasterIO(
           GF_Write, 0, i, grid.width(), 1, transparent.data(), grid.width(), 1, datatype, 0, 0));
     }
+  } else if constexpr (std::is_base_of_v<Color, T>) {
+    for (int band = 0; band < 3; band++) {
+      std::vector<unsigned char> data(grid.width() * grid.height());
+      for (size_t i = 0; i < grid.height(); i++) {
+        for (size_t j = 0; j < grid.width(); j++) {
+          data[i * grid.width() + j] = grid[{j, i}].toRGB()[band];
+        }
+      }
+      GDALAssert(dataset->GetRasterBand(band + 1)->RasterIO(
+          GF_Write, 0, 0, grid.width(), grid.height(), data.data(), grid.width(), grid.height(),
+          datatype, 0, 0));
+    }
   } else {
     GDALAssert(dataset->GetRasterBand(1)->RasterIO(GF_Write, 0, 0, grid.width(), grid.height(),
                                                    const_cast<T *>(&grid[{0, 0}]), grid.width(),
@@ -78,7 +92,6 @@ void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
 
   GDALClose(dataset);
   CSLDestroy(options);
-  std::cout << "Writing to tif " << filename << " took " << timer << std::endl;
 }
 
 template <typename T>
@@ -105,5 +118,7 @@ void write_to_image_tif(const GeoGrid<T> &grid, const std::string &filename) {
       result[{i, j}] = static_cast<std::byte>(255 * (grid[{i, j}] - min) / (max - min));
     }
   }
+  CMYKColor cmyk = CMYKColor::FromRGB(RGBColor(255, 255, 255));
+  (void)cmyk;
   write_to_tif(result, filename);
 }
