@@ -6,6 +6,7 @@
 
 #include "contour/contour.hpp"
 #include "utilities/timer.hpp"
+#include "utilities/filesystem.hpp"
 
 inline void writeContour(std::ofstream &file, const Contour &contour) {
   file << "0\nPOLYLINE\n";
@@ -21,7 +22,7 @@ inline void writeContour(std::ofstream &file, const Contour &contour) {
   file << "0\nSEQEND\n";
 }
 
-inline void write_to_dxf(std::vector<Contour> contours, const std::string &filename) {
+inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename) {
   TimeFunction timer("writing to DXF");
   // Open the DXF file for writing
   std::ofstream dxfFile(filename);

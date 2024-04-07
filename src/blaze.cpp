@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <iostream>
 #include <pdal/io/BufferReader.hpp>
 #include <pdal/io/LasHeader.hpp>
@@ -15,6 +16,10 @@
 #include "tif/tif.hpp"
 #include "isom/symbols.hpp"
 
+size_t round_up(double x) {
+  return std::ceil(1e-8 + x);
+}
+
 int main(int argc, char *argv[]) {
   if (argc != 2) {
     std::cerr << "Usage: blaze <las_file>" << std::endl;
@@ -25,11 +30,11 @@ int main(int argc, char *argv[]) {
 
   double bin_resolution = 0.5;
   GeoGrid<std::vector<LASPoint>> binned_points(
-      std::ceil(las_file.width() / bin_resolution), std::ceil(las_file.height() / bin_resolution),
+      round_up(las_file.width() / bin_resolution), round_up(las_file.height() / bin_resolution),
       GeoTransform(las_file.top_left(), bin_resolution), GeoProjection(las_file.projection()));
 
   {
-    TimeFunction timer("binning");
+    TimeFunction timer("binning points");
     for (const LASPoint &las_point : las_file) {
       binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
           las_point);
@@ -38,7 +43,7 @@ int main(int argc, char *argv[]) {
 
   double resolution = bin_resolution;
   GeoGrid<double> grid(
-      std::ceil(las_file.width() / resolution), std::ceil(las_file.height() / resolution),
+      round_up(las_file.width() / resolution), round_up(las_file.height() / resolution),
       GeoTransform(las_file.top_left(), resolution), GeoProjection(las_file.projection()));
 
   GeoGrid<std::optional<std::byte>> buildings =
@@ -52,48 +57,51 @@ int main(int argc, char *argv[]) {
       for (size_t j = 0; j < binned_points.width(); j++) {
         bool is_building = false;
         double min = std::numeric_limits<unsigned int>::max();
-        for (const LASPoint &las_point : binned_points[{i, j}]) {
+        for (const LASPoint &las_point : binned_points[{j, i}]) {
           min = std::min(min, las_point.z());
           if (las_point.classification() == LASClassification::Building) {
             is_building = true;
           }
         }
-        grid[{i, j}] = min;
-        buildings[{i, j}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
+        grid[{j, i}] = min;
+        buildings[{j, i}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
       }
     }
   }
 
+  fs::path output_dir = "out";
+  fs::create_directory(output_dir);
+
   grid = remove_outliers(grid, 0.2);
   grid = interpolate_holes(grid);
 
-  write_to_tif(grid, "grid.tif");
-  write_to_tif(buildings, "buildings.tif");
+  write_to_tif(grid, output_dir / "grid.tif");
+  write_to_tif(buildings, output_dir / "buildings.tif");
 
   GeoGrid<double> smooth_grid = remove_outliers(downsample(grid, 3));
-  write_to_tif(smooth_grid, "smooth_grid.tif");
+  write_to_tif(smooth_grid, output_dir / "smooth_grid.tif");
 
-  write_to_dxf(generate_contours(smooth_grid, 2.5), "contours.dxf");
+  write_to_dxf(generate_contours(smooth_grid, 2.5), output_dir / "contours.dxf");
   // crt name must match dxf name... I can't work out string variables yet lol
-  write_to_crt("contours.crt");
+  write_to_crt(output_dir / "contours.crt");
 
   GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, smooth_grid);
   GeoGrid<double> canopy = canopy_proportion(class_counts);
-  write_to_tif(canopy, "canopy_proportion.tif");
+  write_to_tif(canopy, output_dir / "canopy_proportion.tif");
   GeoGrid<double> canopy_thresh = threshold(canopy, 0.1);
-  write_to_tif(canopy_thresh, "canopy_thresh.tif");
+  write_to_tif(canopy_thresh, output_dir / "canopy_thresh.tif");
 
 
 
   GeoGrid<double> low_pass_canopy = low_pass(canopy);
-  write_to_tif(low_pass_canopy, "low_pass_canopy.tif");
-  write_to_tif(bool_grid(low_pass_canopy, 20.), "bool_low_pass_canopy.tif");
-  write_to_tif(vege_proportion(class_counts), "vege_proportion.tif");
-  write_to_tif(low_pass(canopy_thresh), "low_pass_canopy_thresh.tif");
+  write_to_tif(low_pass_canopy, output_dir / "low_pass_canopy.tif");
+  write_to_tif(bool_grid(low_pass_canopy, 20.), output_dir / "bool_low_pass_canopy.tif");
+  write_to_tif(vege_proportion(class_counts), output_dir / "vege_proportion.tif");
+  write_to_tif(low_pass(canopy_thresh), output_dir / "low_pass_canopy_thresh.tif");
   GeoGrid<double> vegetation = vege_proportion(class_counts);
   GeoGrid<double> low_pass_vege = low_pass(vege_proportion(class_counts));
-  write_to_tif(low_pass_vege, "low_pass_vege.tif");
-  write_to_tif_with_thresh(low_pass_vege, "vege_proportion_thresh.tif", 0.01);
+  write_to_tif(low_pass_vege, output_dir / "low_pass_vege.tif");
+  write_to_tif_with_thresh(low_pass_vege, output_dir / "vege_proportion_thresh.tif", 0.01);
 
   GeoGrid<std::optional<std::byte>> naive_countours =
       GeoGrid<std::optional<std::byte>>(grid.width(), grid.height(), GeoTransform(grid.transform()),
@@ -115,8 +123,8 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  write_to_tif(naive_countours, "naive_countours.tif");
-  write_to_image_tif(hill_shade(smooth_grid), "hill_shade_multi.tif");
+  write_to_tif(naive_countours, output_dir / "naive_countours.tif");
+  write_to_image_tif(hill_shade(smooth_grid), output_dir / "hill_shade_multi.tif");
 
    GeoGrid<CMYKColor> canopy_color(
       canopy.width(), canopy.height(), GeoTransform(canopy.transform()), GeoProjection(canopy.projection()));
@@ -140,5 +148,6 @@ int main(int argc, char *argv[]) {
       }
     }
   }
-  write_to_tif(canopy_color, "canopy_color.tif"); write_to_image_tif(slope(smooth_grid), "slope.tif");
+  write_to_tif(canopy_color, output_dir / "canopy_color.tif");
+  write_to_image_tif(slope(smooth_grid), output_dir / "slope.tif");
 }

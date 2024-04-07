@@ -9,6 +9,7 @@
 #include "assert/gdal_assert.hpp"
 #include "lib/grid/grid.hpp"
 #include "utilities/timer.hpp"
+#include "utilities/filesystem.hpp"
 #include "isom/colors.hpp"
 
 template <typename T>
@@ -38,8 +39,8 @@ constexpr GDALDataType gdal_type() {
 }
 
 template <typename T>
-void write_to_tif(const GeoGrid<T> &grid, const std::string &filename) {
-  TimeFunction timer("Write to tif " + filename);
+void write_to_tif(const GeoGrid<T> &grid, const fs::path &filename) {
+  TimeFunction timer("writing to tif " + filename.string());
   GDALAllRegister();
 
   constexpr int bands = is_std_optional_v<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;

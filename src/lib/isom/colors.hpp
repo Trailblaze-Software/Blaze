@@ -59,8 +59,8 @@ public:
  unsigned char operator[](int index) const { return m_data[index]; }
 
  CMYKColor operator+(const CMYKColor& other) const {
-   return CMYKColor(getCyan() + other.getCyan(), getMagenta() + other.getMagenta(),
-                    getYellow() + other.getYellow(), getBlack() + other.getBlack());
+   return CMYKColor(std::min(getCyan() + other.getCyan(), 100), std::min(getMagenta() + other.getMagenta(), 100),
+                    std::min(getYellow() + other.getYellow(), 100), std::min(getBlack() + other.getBlack(), 100));
  }
 
  CMYKColor operator*(double factor) const {

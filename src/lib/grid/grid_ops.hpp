@@ -59,7 +59,7 @@ GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 0.5) {
         result[{j, i}] = grid[{j, i}];
         continue;
       }
-      T z = grid[{i, j}];
+      T z = grid[{j, i}];
       double max_neighbour =
           std::max({grid[{j - 1, i}], grid[{j, i - 1}], grid[{j + 1, i}], grid[{j, i + 1}]});
       double min_neighbour =
