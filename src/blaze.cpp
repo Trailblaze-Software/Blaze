@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <iostream>
 #include <pdal/io/BufferReader.hpp>
 #include <pdal/io/LasHeader.hpp>
@@ -91,27 +92,33 @@ int main(int argc, char *argv[]) {
   write_to_crt(output_dir / "contours.crt");
 
   // VEGE
+  std::map<std::string, GeoGrid<double>> vege_maps;
+  for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
+    vege_maps.emplace(vege_config.name, get_blocked_proportion(binned_points, smooth_ground, vege_config));
+    fs::create_directories(output_dir / "raw_vege");
+    write_to_tif(vege_maps.at(vege_config.name), output_dir / "raw_vege" / (vege_config.name + ".tif"));
+  }
   
 
-  GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, smooth_ground);
-  GeoGrid<double> canopy = canopy_proportion(class_counts);
-  write_to_tif(canopy, output_dir / "canopy_proportion.tif");
-  GeoGrid<double> canopy_thresh = threshold(canopy, 0.1);
-  write_to_tif(canopy_thresh, output_dir / "canopy_thresh.tif");
-
-  GeoGrid<double> low_pass_canopy = low_pass(canopy);
-  write_to_tif(low_pass_canopy, output_dir / "low_pass_canopy.tif");
-  write_to_tif(bool_grid(low_pass_canopy, 20.), output_dir / "bool_low_pass_canopy.tif");
-  write_to_tif(vege_proportion(class_counts), output_dir / "vege_proportion.tif");
-  write_to_tif(low_pass(canopy_thresh), output_dir / "low_pass_canopy_thresh.tif");
-  GeoGrid<double> vegetation = vege_proportion(class_counts);
-  GeoGrid<double> low_pass_vege = low_pass(vege_proportion(class_counts));
-  write_to_tif(low_pass_vege, output_dir / "low_pass_vege.tif");
-  write_to_tif_with_thresh(low_pass_vege, output_dir / "vege_proportion_thresh.tif", 0.01);
-
-  GeoGrid<std::optional<std::byte>> naive_countours =
-      GeoGrid<std::optional<std::byte>>(ground.width(), ground.height(), GeoTransform(ground.transform()),
-                                        GeoProjection(ground.projection()));
+  //GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, smooth_ground);
+  //GeoGrid<double> canopy = canopy_proportion(class_counts);
+  //write_to_tif(canopy, output_dir / "canopy_proportion.tif");
+  //GeoGrid<double> canopy_thresh = threshold(canopy, 0.1);
+  //write_to_tif(canopy_thresh, output_dir / "canopy_thresh.tif");
+//
+  //GeoGrid<double> low_pass_canopy = low_pass(canopy);
+  //write_to_tif(low_pass_canopy, output_dir / "low_pass_canopy.tif");
+  //write_to_tif(bool_grid(low_pass_canopy, 20.), output_dir / "bool_low_pass_canopy.tif");
+  //write_to_tif(vege_proportion(class_counts), output_dir / "vege_proportion.tif");
+  //write_to_tif(low_pass(canopy_thresh), output_dir / "low_pass_canopy_thresh.tif");
+  //GeoGrid<double> vegetation = vege_proportion(class_counts);
+  //GeoGrid<double> low_pass_vege = low_pass(vege_proportion(class_counts));
+  //write_to_tif(low_pass_vege, output_dir / "low_pass_vege.tif");
+  //write_to_tif_with_thresh(low_pass_vege, output_dir / "vege_proportion_thresh.tif", 0.01);
+//
+  //GeoGrid<std::optional<std::byte>> naive_countours =
+      //GeoGrid<std::optional<std::byte>>(ground.width(), ground.height(), GeoTransform(ground.transform()),
+                                        //GeoProjection(ground.projection()));
 
   //double contour_interval = 2.5;
   //for (size_t i = 1; i < grid.height() - 1; i++) {
@@ -132,50 +139,49 @@ int main(int argc, char *argv[]) {
   //write_to_tif(naive_countours, output_dir / "naive_countours.tif");
   write_to_image_tif(hill_shade(smooth_ground), output_dir / "hill_shade_multi.tif");
 
-  GeoGrid<CMYKColor> canopy_color(canopy.width(), canopy.height(), GeoTransform(canopy.transform()),
-                                  GeoProjection(canopy.projection()));
-  GeoGrid<RGBColor> building_color(canopy.width(), canopy.height(), GeoTransform(canopy.transform()),
-                                  GeoProjection(canopy.projection()));
-  for (size_t i = 0; i < canopy.height(); i++) {
-    for (size_t j = 0; j < canopy.width(); j++) {
-      //canopy_color[{j, i}] = canopy_thresh[{j, i}] > 0.1
-                                 //? ISOMSymbol(ISOMSymbol::Forest).color()
-                                 //: ISOMSymbol(ISOMSymbol::RoughOpenLand).color();
-      //if (vegetation[{j, i}] > 0.15) {
-        //canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::VegetationSlow).color();
-      //}
-      //if (vegetation[{j, i}] > 0.3) {
-        //canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::VegetationWalk).color();
-      //}
-      //if (vegetation[{j, i}] > 0.6) {
-        //canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::VegetationFight).color();
-      //}
-      //if (naive_countours[{j, i}].has_value()) {
-        //canopy_color[{j, i}] = ISOMSymbol(ISOMSymbol::Contour).color();
-      //}
-      //if (buildings[{j, i}].has_value()) {
-        //building_color[{j, i}] = ISOMSymbol(ISOMSymbol::Building).color().toRGB();
-      //}
+  GeoGrid<CMYKColor> vege_color(binned_points.width(), binned_points.height(), GeoTransform(binned_points.transform()),
+                                  GeoProjection(binned_points.projection()));
+
+  GeoGrid<RGBColor> building_color(buildings.width(), buildings.height(), GeoTransform(buildings.transform()),
+                                  GeoProjection(buildings.projection()));
+
+
+  for (size_t i = 0; i < vege_color.height(); i++) {
+    for (size_t j = 0; j < vege_color.width(); j++) {
+      vege_color[{j, i}] = to_cmyk(config.vege.background_color);
+      if (buildings[{j, i}])
+        building_color[{j, i}] = to_rgb(config.buildings.color);
     }
   }
-  write_to_tif(canopy_color, output_dir / "canopy_color.tif");
+  for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
+    for (size_t i = 0; i < vege_maps.at(vege_config.name).height(); i++) {
+      for (size_t j = 0; j < vege_maps.at(vege_config.name).width(); j++) {
+        std::optional<ColorVariant> color = vege_config.pick_from_blocked_proportion(vege_maps.at(vege_config.name)[{j, i}]);
+        if (color) {
+          vege_color[{j, i}] = to_cmyk(color.value());
+        }
+      }
+    }
+  }
+  write_to_tif(vege_color, output_dir / "vege_color.tif");
   write_to_image_tif(slope(smooth_ground), output_dir / "slope.tif");
 
-  GeoImgGrid canopy_img(canopy_color);
+  GeoImgGrid canopy_img(vege_color);
   canopy_img.save_to(output_dir / "canopy_img.tif");
 
 
   au::QuantityD<au::Meters> render_pixel_resolution = config.render.scale / config.render.dpi;
   GeoImgGrid final_img(round_up(ground.width() * ground.transform().dx_m() / render_pixel_resolution), round_up(ground.height() * ground.transform().dy_m() / render_pixel_resolution),
-      GeoTransform(canopy.transform().with_new_resolution(render_pixel_resolution)),
-                       GeoProjection(canopy.projection()));
-  final_img.draw(canopy_img);
+      GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
+                       GeoProjection(vege_color.projection()));
+  final_img.draw(vege_color);
 
   for (const Contour &contour : generate_contours(smooth_ground, config.contours)) {
     const ContourConfig &contour_config = config.contours.pick_from_height(contour.height());
     final_img.draw(contour, to_rgb(contour_config.color), contour_config.width *
         config.render.scale);
   }
-  //final_img.draw(GeoImgGrid(building_color));
+  final_img.draw(GeoImgGrid(building_color));
+
   final_img.save_to(output_dir / "final_img.tif");
 }

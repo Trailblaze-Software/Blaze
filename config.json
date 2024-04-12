@@ -1,7 +1,7 @@
 {
   "grid": {
     // Resolution of the binned grid in meters
-    "bin_resolution": 2.0,
+    "bin_resolution": 1.0,
     "downsample_factor": 3
   },
   "ground": {
@@ -24,9 +24,9 @@
   },
   "vege": {
     "background_color": "50% yellow",
-    "custom": [
+    "height_configs": [
       {
-        "label": "canopy",
+        "name": "canopy",
         "min_height": 2.5,
         "max_height": 100,
         "colors": [
@@ -37,8 +37,8 @@
         ]
       },
       {
-        "label": "green",
-        "min_height": 0.3,
+        "name": "green",
+        "min_height": 0.5,
         "max_height": 2.5,
         "colors": [
           {
@@ -48,12 +48,12 @@
           },
           {
             // walk
-            "blocking_threshold": 0.3,
+            "blocking_threshold": 0.4,
             "color": "60% green"
           },
           {
             // fight
-            "blocking_threshold": 0.6,
+            "blocking_threshold": 0.7,
             "color": "green"
           }
         ]

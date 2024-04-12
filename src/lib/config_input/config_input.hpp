@@ -195,10 +195,20 @@ struct adl_serializer<BlockingThresholdColorPair>
 }
 
 struct VegeHeightConfig {
-   std::string label;
+   std::string name;
    au::QuantityD<au::Meters> min_height;
- au::QuantityD<au::Meters> max_height;
+   au::QuantityD<au::Meters> max_height;
    std::vector<BlockingThresholdColorPair> colors;
+
+   std::optional<ColorVariant> pick_from_blocked_proportion(double bp) const {
+     std::optional<ColorVariant> color;
+     for (const BlockingThresholdColorPair& btc : colors) {
+       if (bp >= btc.blocking_threshold) {
+         color = btc.color;
+       }
+     }
+     return color;
+   }
 };
 
 namespace nlohmann
@@ -208,12 +218,12 @@ struct adl_serializer<VegeHeightConfig>
 {
     static VegeHeightConfig from_json(const json& j)
     {
-        return VegeHeightConfig{j.value("label", "Vegetation"), au::meters(j.value("min_height", 2.5)), au::meters(j.value("max_height", 100)), j.value("colors", json({})).get<std::vector<BlockingThresholdColorPair>>()};
+        return VegeHeightConfig{j.value("name", "Vegetation"), au::meters(j.value("min_height", 2.5)), au::meters(j.value("max_height", 100.0)), j.value("colors", json({})).get<std::vector<BlockingThresholdColorPair>>()};
     }
 
     static void to_json(json& j,VegeHeightConfig vhc)
     {
-        j["label"] = vhc.label;
+        j["name"] = vhc.name;
         j["min_height"] = vhc.min_height.in(au::meters);
         j["max_height"] = vhc.max_height.in(au::meters);
         j["colors"] = vhc.colors;
@@ -223,7 +233,7 @@ struct adl_serializer<VegeHeightConfig>
 
 struct VegeConfig {
   const ColorVariant background_color;
-  const std::vector<std::unique_ptr<VegeHeightConfig>> height_configs;
+  const std::vector<VegeHeightConfig> height_configs;
 };
 
 namespace nlohmann
@@ -316,12 +326,34 @@ struct adl_serializer<ContourConfigs>
 };
 }
 
+struct BuildingsConfig {
+  const ColorVariant color;
+};
+
+namespace nlohmann
+{
+template <>
+struct adl_serializer<BuildingsConfig>
+{
+    static BuildingsConfig from_json(const json& j)
+    {
+        return BuildingsConfig{j.value("color", json({"black"})).get<ColorVariant>()};
+    }
+
+    static void to_json(json& j,BuildingsConfig bc)
+    {
+        j["color"] = bc.color;
+    }
+};
+}
+
 struct Config {
   const GridConfig grid;
   const GroundConfig ground;
   const ContourConfigs contours;
   const VegeConfig vege;
   const RenderConfig render;
+  const BuildingsConfig buildings;
 
   static Config FromFile(const fs::path& filename);
 
@@ -335,7 +367,7 @@ struct adl_serializer<Config>
 {
     static Config from_json(const json& j)
     {
-      return Config{j.value("grid", json({})).get<GridConfig>(), j.value("ground", json({})).get<GroundConfig>(), j.value("contours", json({})).get<ContourConfigs>(), j.value("vege", json({})).get<VegeConfig>(), j.value("render", json({})).get<RenderConfig>()};
+      return Config{j.value("grid", json({})).get<GridConfig>(), j.value("ground", json({})).get<GroundConfig>(), j.value("contours", json({})).get<ContourConfigs>(), j.value("vege", json({})).get<VegeConfig>(), j.value("render", json({})).get<RenderConfig>(), j.value("buildings", json({})).get<BuildingsConfig>()};
     }
 
     static void to_json(json& j,Config gc)

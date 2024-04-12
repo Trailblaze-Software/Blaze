@@ -38,30 +38,39 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
     cv::Mat resized_img;
     cv::resize(other.m_img, resized_img, cv::Size(other.width()*dx_ratio, other.height()*dy_ratio),
           0, 0, interpolation);
-    //if (resized_img.channels() == 4 && m_img.channels() == 4) {
-        //// Separate alpha channels
-        //cv::Mat alpha_other, alpha_m_img;
-        //std::vector<cv::Mat> channels_other, channels_m_img;
-        //cv::split(resized_img, channels_other);
-        //cv::split(m_img(roi), channels_m_img);
-        //alpha_other = channels_other[3];
-        //alpha_m_img = channels_m_img[3];
-//
-        //// Normalize alpha channels to range [0, 1]
-        //alpha_other.convertTo(alpha_other, CV_32F, 1.0 / 255.0);
-        //alpha_m_img.convertTo(alpha_m_img, CV_32F, 1.0 / 255.0);
-//
-        //// Blend images based on alpha channels
-        //cv::Mat blended_img;
-        //cv::addWeighted(resized_img(cv::Rect(0, 0, resized_img.cols, resized_img.rows - 1)),
-                        //alpha_other, m_img(roi), alpha_m_img, 0.0, blended_img);
-//
-        //// Copy blended image to the specified region of the existing image
-        //blended_img.copyTo(m_img(roi));
-    //} else {
-        //// If the images don't have alpha channels, simply copy
-        resized_img.copyTo(m_img(roi));
-    //}
+    if (resized_img.channels() == 4 && m_img.channels() == 4) {
+        cv::Mat alpha_other, alpha_m_img;
+        std::vector<cv::Mat> channels_other, channels_m_img;
+        cv::split(resized_img, channels_other);
+        cv::split(m_img(roi), channels_m_img);
+        alpha_other = channels_other[3];
+        alpha_m_img = channels_m_img[3];
+
+        alpha_other.convertTo(alpha_other, CV_32F, 1.0 / 255.0);
+        alpha_m_img.convertTo(alpha_m_img, CV_32F, 1.0 / 255.0);
+
+        cv::Mat blended_img = cv::Mat::zeros(m_img(roi).size(), CV_8UC4);
+        for (int y = 0; y < m_img(roi).rows; ++y) {
+          for (int x = 0; x < m_img(roi).cols; ++x) {
+            float alpha = alpha_other.at<float>(y, x);
+            float beta = alpha_m_img.at<float>(y, x);
+
+            cv::Vec4b color_resized = resized_img.at<cv::Vec4b>(y, x);
+            cv::Vec4b color_m_img = m_img(roi).at<cv::Vec4b>(y, x);
+
+            for (int c = 0; c < 3; ++c) {
+              blended_img.at<cv::Vec4b>(y, x)[c] =
+                  (alpha * color_resized[c] + beta * color_m_img[c] * (1 - alpha)) /
+                  (alpha + beta * (1 - alpha));
+            }
+            blended_img.at<cv::Vec4b>(y, x)[3] = 255;  // Set alpha channel to 255
+          }
+        }
+
+        blended_img.copyTo(m_img(roi));
+    } else {
+      resized_img.copyTo(m_img(roi));
+    }
   }
 
   void draw(const Contour& contour, const ColorVariant& color, au::QuantityD<au::Meters> width) {

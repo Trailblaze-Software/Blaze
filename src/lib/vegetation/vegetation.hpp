@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <optional>
 
+#include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
 #include "las/las_point.hpp"
 #include "tif/tif.hpp"
@@ -70,6 +71,34 @@ class ClassCount {
     return count;
   }
 };
+
+inline GeoGrid<double> get_blocked_proportion(const GeoGrid<std::vector<LASPoint>>& grid,
+                                                const GeoGrid<double>& ground, const VegeHeightConfig&
+                                                vege_config) {
+  TimeFunction timer("counting " + vege_config.name + " blocked proportion");
+  GeoGrid<double> blocked_proportion(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                                   GeoProjection(grid.projection()));
+#pragma omp parallel for
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      size_t below_count = 0;
+      size_t in_count = 0;
+      for (const LASPoint& las_point : grid[{j, i}]) {
+        double ground_height = ground.interpolate_value(las_point);
+        double height = las_point.z() - ground_height;
+        if (height > 0 && height < vege_config.max_height.in(au::meters)) {
+          if (height < vege_config.min_height.in(au::meters)) {
+            below_count++;
+          } else {
+            in_count++;
+          }
+        }
+      }
+      blocked_proportion[{j, i}] = (double)in_count / (in_count + below_count);
+    }
+  }
+  return blocked_proportion;
+}
 
 inline GeoGrid<ClassCount> count_height_classes(const GeoGrid<std::vector<LASPoint>>& grid,
                                                 const GeoGrid<double>& height_grid) {
