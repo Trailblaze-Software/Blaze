@@ -41,3 +41,27 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid, const ContourConf
   }
   return contours;
 }
+
+
+inline GeoGrid<std::optional<std::byte>> generate_naive_contours(const GeoGrid<double> &ground) {
+  GeoGrid<std::optional<std::byte>> naive_countours =
+      GeoGrid<std::optional<std::byte>>(ground.width(), ground.height(), GeoTransform(ground.transform()),
+                                        GeoProjection(ground.projection()));
+
+  double contour_interval = 2.5;
+  for (size_t i = 1; i < ground.height() - 1; i++) {
+    for (size_t j = 1; j < ground.width() - 1; j++) {
+      double z = ground[{i, j}];
+      double z_north = ground[{i - 1, j}];
+      double z_south = ground[{i + 1, j}];
+      double z_west = ground[{i, j - 1}];
+      double z_east = ground[{i, j + 1}];
+      bool is_countour = crosses_contour(z, z_north, contour_interval) ||
+                         crosses_contour(z, z_south, contour_interval) ||
+                         crosses_contour(z, z_west, contour_interval) ||
+                         crosses_contour(z, z_east, contour_interval);
+      naive_countours[{i, j}] = is_countour ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
+    }
+  }
+  return naive_countours;
+}

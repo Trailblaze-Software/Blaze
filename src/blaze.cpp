@@ -87,56 +87,21 @@ int main(int argc, char *argv[]) {
   GeoGrid<double> smooth_ground = remove_outliers(downsample(ground, config.grid.downsample_factor));
   write_to_tif(smooth_ground, output_dir / "smooth_ground.tif");
 
-  write_to_dxf(generate_contours(smooth_ground, config.contours), output_dir / "contours.dxf");
+  const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
+  write_to_dxf(contours, output_dir / "contours.dxf");
   // crt name must match dxf name
   write_to_crt(output_dir / "contours.crt");
 
   // VEGE
   std::map<std::string, GeoGrid<double>> vege_maps;
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
-    vege_maps.emplace(vege_config.name, get_blocked_proportion(binned_points, smooth_ground, vege_config));
+    GeoGrid<std::optional<double>> blocked_proportion = get_blocked_proportion(binned_points, smooth_ground, vege_config);
     fs::create_directories(output_dir / "raw_vege");
-    write_to_tif(vege_maps.at(vege_config.name), output_dir / "raw_vege" / (vege_config.name + ".tif"));
+    write_to_tif(blocked_proportion, output_dir / "raw_vege" / (vege_config.name + ".tif"));
+    GeoGrid<double> smooth_blocked_proportion = low_pass(blocked_proportion, 3);
+    vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }
-  
 
-  //GeoGrid<ClassCount> class_counts = count_height_classes(binned_points, smooth_ground);
-  //GeoGrid<double> canopy = canopy_proportion(class_counts);
-  //write_to_tif(canopy, output_dir / "canopy_proportion.tif");
-  //GeoGrid<double> canopy_thresh = threshold(canopy, 0.1);
-  //write_to_tif(canopy_thresh, output_dir / "canopy_thresh.tif");
-//
-  //GeoGrid<double> low_pass_canopy = low_pass(canopy);
-  //write_to_tif(low_pass_canopy, output_dir / "low_pass_canopy.tif");
-  //write_to_tif(bool_grid(low_pass_canopy, 20.), output_dir / "bool_low_pass_canopy.tif");
-  //write_to_tif(vege_proportion(class_counts), output_dir / "vege_proportion.tif");
-  //write_to_tif(low_pass(canopy_thresh), output_dir / "low_pass_canopy_thresh.tif");
-  //GeoGrid<double> vegetation = vege_proportion(class_counts);
-  //GeoGrid<double> low_pass_vege = low_pass(vege_proportion(class_counts));
-  //write_to_tif(low_pass_vege, output_dir / "low_pass_vege.tif");
-  //write_to_tif_with_thresh(low_pass_vege, output_dir / "vege_proportion_thresh.tif", 0.01);
-//
-  //GeoGrid<std::optional<std::byte>> naive_countours =
-      //GeoGrid<std::optional<std::byte>>(ground.width(), ground.height(), GeoTransform(ground.transform()),
-                                        //GeoProjection(ground.projection()));
-
-  //double contour_interval = 2.5;
-  //for (size_t i = 1; i < grid.height() - 1; i++) {
-    //for (size_t j = 1; j < grid.width() - 1; j++) {
-      //double z = grid[{i, j}];
-      //double z_north = grid[{i - 1, j}];
-      //double z_south = grid[{i + 1, j}];
-      //double z_west = grid[{i, j - 1}];
-      //double z_east = grid[{i, j + 1}];
-      //bool is_countour = crosses_contour(z, z_north, contour_interval) ||
-                         //crosses_contour(z, z_south, contour_interval) ||
-                         //crosses_contour(z, z_west, contour_interval) ||
-                         //crosses_contour(z, z_east, contour_interval);
-      //naive_countours[{i, j}] = is_countour ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
-    //}
-  //}
-//
-  //write_to_tif(naive_countours, output_dir / "naive_countours.tif");
   write_to_image_tif(hill_shade(smooth_ground), output_dir / "hill_shade_multi.tif");
 
   GeoGrid<CMYKColor> vege_color(binned_points.width(), binned_points.height(), GeoTransform(binned_points.transform()),
@@ -166,19 +131,17 @@ int main(int argc, char *argv[]) {
   write_to_tif(vege_color, output_dir / "vege_color.tif");
   write_to_image_tif(slope(smooth_ground), output_dir / "slope.tif");
 
-  GeoImgGrid canopy_img(vege_color);
-  canopy_img.save_to(output_dir / "canopy_img.tif");
-
-
   au::QuantityD<au::Meters> render_pixel_resolution = config.render.scale / config.render.dpi;
   GeoImgGrid final_img(round_up(ground.width() * ground.transform().dx_m() / render_pixel_resolution), round_up(ground.height() * ground.transform().dy_m() / render_pixel_resolution),
       GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
                        GeoProjection(vege_color.projection()));
+
   final_img.draw(vege_color);
 
-  for (const Contour &contour : generate_contours(smooth_ground, config.contours)) {
+  for (const Contour &contour : contours) {
     const ContourConfig &contour_config = config.contours.pick_from_height(contour.height());
-    final_img.draw(contour, to_rgb(contour_config.color), contour_config.width *
+    RGBColor color = to_rgb(contour_config.color);
+    final_img.draw(contour, color, contour_config.width *
         config.render.scale);
   }
   final_img.draw(GeoImgGrid(building_color));

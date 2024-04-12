@@ -32,7 +32,8 @@ class RGBColor : public Color {
   unsigned char getBlue() const { return m_data[2]; }
   unsigned char getAlpha() const { return m_data[3]; }
 
-  unsigned char operator[](int index) const { return m_data[index]; }
+  const unsigned char& operator[](int index) const { return m_data[index]; }
+  unsigned char& operator[](int index) { return m_data[index]; }
   cv::Scalar toScalar() const { return cv::Scalar(getBlue(), getGreen(), getRed(), getAlpha()); }
 
   friend std::ostream& operator<<(std::ostream& os, const RGBColor& c) {

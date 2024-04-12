@@ -95,6 +95,8 @@ class Coordinate2D {
     return Coordinate2D<U>(x(), y());
   }
 
+  Coordinate2D<double> offset_to_center() const { return Coordinate2D<double>(x() + 0.5, y() + 0.5); }
+
   friend std::ostream &operator<<(std::ostream &os, const Coordinate2D &coord) {
     os << "Coordinate2D(" << coord.x() << ", " << coord.y() << ")";
     return os;

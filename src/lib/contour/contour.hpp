@@ -47,8 +47,8 @@ class Contour {
         is_contour[current_point] = false;
       first_iter = false;
       contour_points.emplace_back(interpolate_coordinates(
-          grid.transform().pixel_to_projection(current_point.start()),
-          grid.transform().pixel_to_projection(current_point.end()), grid[current_point.start()],
+          grid.transform().pixel_to_projection(current_point.start().offset_to_center()),
+          grid.transform().pixel_to_projection(current_point.end().offset_to_center()), grid[current_point.start()],
           grid[current_point.end()], contour_height));
       end = true;
       for (LineCoord2DCrossing<size_t> next_point : current_point.next_points()) {
