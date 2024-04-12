@@ -5,8 +5,8 @@
 #include <iostream>
 
 #include "contour/contour.hpp"
-#include "utilities/timer.hpp"
 #include "utilities/filesystem.hpp"
+#include "utilities/timer.hpp"
 
 inline void writeContour(std::ofstream &file, const Contour &contour) {
   file << "0\nPOLYLINE\n";

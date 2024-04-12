@@ -7,7 +7,6 @@
 #include <optional>
 
 #include "grid.hpp"
-#include "printing/to_string.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/timer.hpp"
 
@@ -17,11 +16,9 @@ template <typename T>
 GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
                       DownsampleMethod method = DownsampleMethod::MEDIAN) {
   TimeFunction timer("downsampling");
-  GeoTransform transform = grid.transform();
-  transform.set_dx(transform.dx() * factor);
-  transform.set_dy(transform.dy() * factor);
+  AssertEQ(grid.transform().dx(), -grid.transform().dy());
   GeoGrid<T> result(std::ceil((double)grid.width() / factor),
-                    std::ceil((double)grid.height() / factor), std::move(transform),
+                    std::ceil((double)grid.height() / factor), grid.transform().with_new_resolution(au::meters(grid.transform().dx() * factor)),
                     GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < result.height(); i++) {

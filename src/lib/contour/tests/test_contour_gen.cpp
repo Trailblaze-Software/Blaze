@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
+#include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
 #include "contour/contour_gen.hpp"
-#include "grid/grid_ops.hpp"
+#include "isom/colors.hpp"
 #include "lib/grid/grid.hpp"
-#include "printing/to_string.hpp"
 
 class TestGrid : public GeoGrid<double> {
  public:
@@ -22,7 +22,8 @@ TEST(ContourGen, ContourGen) {
   std::vector<std::vector<double>> data = {{0.5, 0.5, 0.5}, {0.5, 1.5, 0.5}, {0.5, 0.5, 0.5}};
   TestGrid grid(data);
 
-  std::vector<Contour> contours = generate_contours(grid, 1.0);
+  std::vector<Contour> contours = generate_contours(grid, ContourConfigs{{{"normal", ContourConfig{au::meters(1.0), 1,
+      RGBColor(), au::milli(au::meters)(0.14)}}}});
   ASSERT_EQ(contours.size(), 1);
   ASSERT_EQ(contours[0].points().size(), 4);
 }
@@ -33,7 +34,8 @@ TEST(ContourGen, ContourGen2) {
                                            {0.5, 1.5, 1.5, 1.5, 0.5}, {0.5, 0.5, 0.5, 0.5, 0.5}};
   TestGrid grid(data);
 
-  std::vector<Contour> contours = generate_contours(grid, 1.0);
+  std::vector<Contour> contours = generate_contours(grid, ContourConfigs{{{"normal", ContourConfig{au::meters(1.0), 1,
+      RGBColor(), au::milli(au::meters)(0.14)}}}});
   ASSERT_EQ(contours.size(), 2);
   ASSERT_EQ(contours[0].points().size(), 14);
   ASSERT_EQ(contours[1].points().size(), 6);

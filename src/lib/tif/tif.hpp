@@ -7,10 +7,10 @@
 #include <type_traits>
 
 #include "assert/gdal_assert.hpp"
-#include "lib/grid/grid.hpp"
-#include "utilities/timer.hpp"
-#include "utilities/filesystem.hpp"
 #include "isom/colors.hpp"
+#include "lib/grid/grid.hpp"
+#include "utilities/filesystem.hpp"
+#include "utilities/timer.hpp"
 
 template <typename T>
 struct is_std_optional : std::false_type {};
@@ -34,7 +34,7 @@ constexpr GDALDataType gdal_type() {
   } else if constexpr (std::is_base_of_v<Color, T>) {
     return GDT_Byte;
   } else {
-  static_assert(std::is_base_of_v<Color, T>);
+    static_assert(std::is_base_of_v<Color, T>);
   }
 }
 
@@ -96,8 +96,7 @@ void write_to_tif(const GeoGrid<T> &grid, const fs::path &filename) {
 }
 
 template <typename T>
-void write_to_tif_with_thresh(const GeoGrid<T> &grid, const std::string &filename,
-                              double threshold) {
+void write_to_tif_with_thresh(const GeoGrid<T> &grid, const fs::path &filename, double threshold) {
   GeoGrid<std::optional<T>> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                                    GeoProjection(grid.projection()));
   for (size_t i = 0; i < grid.height(); i++) {
@@ -109,7 +108,7 @@ void write_to_tif_with_thresh(const GeoGrid<T> &grid, const std::string &filenam
 }
 
 template <typename T>
-void write_to_image_tif(const GeoGrid<T> &grid, const std::string &filename) {
+void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename) {
   GeoGrid<std::byte> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                             GeoProjection(grid.projection()));
   T min = grid.min_value();

@@ -2,13 +2,13 @@
 
 #include <cmath>
 
-#include "assert/assert.hpp"
 #include "grid/grid.hpp"
 #include "utilities/coordinate.hpp"
 
-inline bool crosses_contour(double h1, double h2, double contour_interval) {
-  double max = std::max(h1, h2);
-  double min = std::min(h1, h2);
+template <typename T>
+inline bool crosses_contour(T h1, T h2, T contour_interval) {
+  T max = std::max(h1, h2);
+  T min = std::min(h1, h2);
   return max - fmod(max, contour_interval) > min;
 }
 
@@ -41,8 +41,11 @@ class Contour {
 
     LineCoord2DCrossing<size_t> current_point(starting_point, starting_point.dir());
     bool end = false;
+    bool first_iter = true;
     while (!end) {
-      is_contour[current_point] = false;
+      if (!first_iter)
+        is_contour[current_point] = false;
+      first_iter = false;
       contour_points.emplace_back(interpolate_coordinates(
           grid.transform().pixel_to_projection(current_point.start()),
           grid.transform().pixel_to_projection(current_point.end()), grid[current_point.start()],

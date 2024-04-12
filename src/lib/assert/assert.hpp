@@ -18,4 +18,5 @@ inline void _Assert(bool condition, const std::string &condition_str, const std:
 #define Fail(message)     \
   Assert(false, message); \
   __builtin_unreachable()
-#define AssertGE(expr, val) _Assert(expr >= val, #expr " < " #val, "", __FILE__, __LINE__)
+#define AssertGE(expr, val) _Assert(expr >= val, #expr " < " #val, std::to_string(expr) + " < " + std::to_string(val), __FILE__, __LINE__)
+#define AssertEQ(expr, val) _Assert(expr == val, #expr " != " #val, std::to_string(expr) + " != " + std::to_string(val), __FILE__, __LINE__)

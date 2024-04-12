@@ -1,9 +1,10 @@
 #pragma once
 
+#include "config_input/config_input.hpp"
 #include "contour.hpp"
 
 template <typename T>
-GridGraph<char> identify_contours(const GeoGrid<T> &grid, double contour_interval) {
+GridGraph<char> identify_contours(const GeoGrid<T> &grid, T contour_interval) {
   GridGraph is_contour = GridGraph<char>(grid);
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
@@ -21,8 +22,8 @@ GridGraph<char> identify_contours(const GeoGrid<T> &grid, double contour_interva
 }
 
 template <typename T>
-std::vector<Contour> generate_contours(const GeoGrid<T> &grid, double contour_interval) {
-  GridGraph is_contour = identify_contours(grid, contour_interval);
+std::vector<Contour> generate_contours(const GeoGrid<T> &grid, const ContourConfigs& contour_config) {
+  GridGraph is_contour = identify_contours(grid, contour_config.min_interval.in(au::meters));
   std::vector<Contour> contours;
   for (size_t i = 0; i < is_contour.height(); i++) {
     for (size_t j = 0; j < is_contour.width(); j++) {
@@ -30,8 +31,10 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid, double contour_in
       for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
         LineCoord2D<size_t> line_coord = {coord, dir};
         if (is_contour.in_bounds(line_coord) && is_contour[line_coord]) {
-          contours.emplace_back(
-              Contour::FromGridGraph(line_coord, grid, is_contour, contour_interval));
+          Contour c = Contour::FromGridGraph(line_coord, grid, is_contour, contour_config.min_interval.in(au::meters));
+          if(c.points().size() > contour_config.pick_from_height(c.height()).min_points) {
+            contours.emplace_back(std::move(c));
+          }
         }
       }
     }

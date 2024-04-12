@@ -1,4 +1,5 @@
 #include "colors.hpp"
+
 #include "lib/assert/assert.hpp"
 
 RGBColor RGBColor::FromCMYK(const CMYKColor& cmyk) {
@@ -12,7 +13,7 @@ RGBColor RGBColor::FromCMYK(const CMYKColor& cmyk) {
   return RGBColor(r, g, b);
 }
 
-RGBColor::RGBColor(unsigned char r, unsigned char g, unsigned char b) : m_data{r, g, b} {
+RGBColor::RGBColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) : m_data{r, g, b, a} {
   for (auto i : m_data) {
     Assert(i >= 0 && i <= 255, "Invalid color value");
   }
@@ -38,3 +39,6 @@ CMYKColor CMYKColor::FromRGB(const RGBColor& rgb) {
   return CMYKColor(c, m, y, k);
 }
 CMYKColor RGBColor::toCMYK() const { return CMYKColor::FromRGB(*this); }
+
+
+std::map<std::string, ColorVariant> COLOR_MAP;

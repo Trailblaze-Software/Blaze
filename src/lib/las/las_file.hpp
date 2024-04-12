@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include "au/units/meters.hh"
 #include "grid/grid.hpp"
 #include "las_point.hpp"
 #include "utilities/timer.hpp"
@@ -44,14 +45,14 @@ class LASFile {
     m_projection = GeoProjection(las_header.srs().getWKT());
 
     std::cout << "Read " << point_view->size() << " points" << std::endl;
-    std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT())
-              << std::endl;
-
-    std::cout << "Fields: " << std::endl;
-    for (pdal::Dimension::Id dim : dims) {
-      std::cout << "- " << pdal::Dimension::name(dim) << ": " << pdal::Dimension::description(dim)
-                << " (" << point_view->dimType(dim) << ")" << std::endl;
-    }
+    //std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT())
+              //<< std::endl;
+//
+    //std::cout << "Fields: " << std::endl;
+    //for (pdal::Dimension::Id dim : dims) {
+      //std::cout << "- " << pdal::Dimension::name(dim) << ": " << pdal::Dimension::description(dim)
+                //<< " (" << point_view->dimType(dim) << ")" << std::endl;
+    //}
 
     std::cout << "Reading metadata took " << timer << std::endl;
 
@@ -66,8 +67,8 @@ class LASFile {
   const LASPoint &operator[](std::size_t i) const { return m_points[i]; }
 
   Coordinate2D<double> top_left() const { return {m_bounds.minx, m_bounds.maxy}; }
-  double width() const { return m_bounds.maxx - m_bounds.minx; }
-  double height() const { return m_bounds.maxy - m_bounds.miny; }
+  au::QuantityD<au::Meters> width() const { return au::meters(m_bounds.maxx - m_bounds.minx); }
+  au::QuantityD<au::Meters> height() const { return au::meters(m_bounds.maxy - m_bounds.miny); }
   const GeoProjection &projection() const { return m_projection; }
 
   LASPoint &operator[](std::size_t i) { return m_points[i]; }

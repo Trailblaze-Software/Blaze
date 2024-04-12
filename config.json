@@ -1,0 +1,149 @@
+{
+  "grid": {
+    // Resolution of the binned grid in meters
+    "bin_resolution": 2.0,
+    "downsample_factor": 3
+  },
+  "ground": {
+    // Outlier removal height difference threshold
+    "outlier_removal_height_diff": 0.2
+  },
+  "contours": {
+    "normal": {
+      "interval": 5.0,
+      "min_points": 0,
+      "color": "brown",
+      "width": 0.14
+    },
+    "index": {
+      "interval": 25.0,
+      "min_points": 0,
+      "color": "brown",
+      "width": 0.25
+    }
+  },
+  "vege": {
+    "background_color": "50% yellow",
+    "custom": [
+      {
+        "label": "canopy",
+        "min_height": 2.5,
+        "max_height": 100,
+        "colors": [
+          {
+            "blocking_threshold": 0.1,
+            "color": "white"
+          }
+        ]
+      },
+      {
+        "label": "green",
+        "min_height": 0.3,
+        "max_height": 2.5,
+        "colors": [
+          {
+            // slow
+            "blocking_threshold": 0.1,
+            "color": "30% green"
+          },
+          {
+            // walk
+            "blocking_threshold": 0.3,
+            "color": "60% green"
+          },
+          {
+            // fight
+            "blocking_threshold": 0.6,
+            "color": "green"
+          }
+        ]
+      }
+    ]
+  },
+  "buildings": {
+    "color": "black"
+  },
+  "render": {
+    "scale": 15000,
+    "dpi": 1200
+  },
+  "colors": {
+    "primitive": {
+      "black": {
+        "cmyk": [
+          0,
+          0,
+          0,
+          100
+        ]
+      },
+      "white": {
+        "cmyk": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "green": {
+        "cmyk": [
+          76,
+          0,
+          91,
+          0
+        ]
+      },
+      "blue": {
+        "cmyk": [
+          100,
+          0,
+          0,
+          0
+        ]
+      },
+      "yellow": {
+        "cmyk": [
+          0,
+          27,
+          79,
+          0
+        ]
+      },
+      "dark green": {
+        "cmyk": [
+          100,
+          0,
+          80,
+          30
+        ]
+      },
+      "brown": {
+        "cmyk": [
+          0,
+          56,
+          100,
+          18
+        ]
+      },
+      "purple": {
+        "cmyk": [
+          35,
+          85,
+          0,
+          0
+        ]
+      }
+    },
+    "composite": {
+      "50% yellow": {
+        "yellow": 0.5
+      },
+      "30% green": {
+        "green": 0.3
+      },
+      "60% green": {
+        "green": 0.6
+      }
+    }
+  }
+}

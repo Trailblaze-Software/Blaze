@@ -1,1 +1,1 @@
-target_sources(${EXECUTABLE_NAME} PRIVATE colors.cpp)
+target_sources(${LIBRARY_NAME} PRIVATE colors.cpp)

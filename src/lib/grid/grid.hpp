@@ -2,11 +2,16 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <opencv2/imgproc.hpp>
 #include <string>
 #include <vector>
+#include <opencv2/opencv.hpp>
 
 #include "assert/assert.hpp"
+#include "au/quantity.hh"
+#include "au/units/meters.hh"
 #include "utilities/coordinate.hpp"
+#include "utilities/filesystem.hpp"
 
 class GeoTransform {
   double geoTranform[6];
@@ -27,6 +32,10 @@ class GeoTransform {
   GeoTransform() : GeoTransform(0, 0, 1, -1){};
 
   const double *get_raw() const { return geoTranform; }
+
+  GeoTransform with_new_resolution(au::QuantityD<au::Meters> new_resolution) const {
+    return GeoTransform(x(), y(), new_resolution.in(au::meters), -new_resolution.in(au::meters));
+  }
 
   Coordinate2D<double> pixel_to_projection(const Coordinate2D<double> &coord) const {
     double new_x = x() + coord.x() * dx() + coord.y() * rot_x();
@@ -56,6 +65,9 @@ class GeoTransform {
   double rot_y() const { return geoTranform[4]; }
   double dy() const { return geoTranform[5]; }
 
+  au::QuantityD<au::Meters> dx_m() const { return au::meters(dx()); }
+  au::QuantityD<au::Meters> dy_m() const { return au::meters(dy()); }
+
   void set_dx(double dx) { geoTranform[1] = dx; }
   void set_dy(double dy) { geoTranform[5] = dy; }
 };
@@ -71,21 +83,31 @@ class GeoProjection {
   const std::string &to_string() const { return m_projection; }
 };
 
-template <typename T>
-class Grid {
+class GridData {
+  protected:
   size_t m_width;
   size_t m_height;
-  std::vector<T> m_data;
 
  public:
-  Grid(size_t width, size_t height) : m_width(width), m_height(height), m_data(width * height) {}
-  T &operator[](Coordinate2D<size_t> coord) { return m_data.at(coord.y() * m_width + coord.x()); }
-  const T &operator[](Coordinate2D<size_t> coord) const {
-    return m_data.at(coord.y() * m_width + coord.x());
-  }
+  GridData(size_t width, size_t height) : m_width(width), m_height(height) {}
 
   size_t width() const { return m_width; }
   size_t height() const { return m_height; }
+
+  bool in_bounds(const Coordinate2D<size_t> &coord) const {
+    return coord.x() < m_width && coord.y() < m_height;
+  }
+};
+
+template <typename T>
+class Grid : public GridData {
+  protected:
+  std::vector<T> m_data;
+
+ public:
+  Grid(size_t width, size_t height) : GridData(width, height), m_data(width * height) {}
+  T &operator[](Coordinate2D<size_t> coord) { return m_data.at(coord.y() * width() + coord.x()); }
+  const T &operator[](Coordinate2D<size_t> coord) const { return m_data.at(coord.y() * width() + coord.x()); }
 
   T max_value() const { return *std::max_element(m_data.begin(), m_data.end()); }
   T min_value() const { return *std::min_element(m_data.begin(), m_data.end()); }
@@ -105,27 +127,30 @@ class Grid {
     }
     return os;
   }
-
-  bool in_bounds(const Coordinate2D<size_t> &coord) const {
-    return coord.x() < m_width && coord.y() < m_height;
-  }
 };
 
-template <typename T>
-class GeoGrid : public Grid<T> {
-  using Grid<T>::Grid;
+class GeoGridData {
+  protected:
   GeoTransform m_transform;
   GeoProjection m_projection;
 
  public:
-  GeoGrid(size_t width, size_t height, GeoTransform &&transform, GeoProjection &&projection)
-      : Grid<T>(width, height), m_transform(transform), m_projection(projection) {}
+  GeoGridData(GeoTransform &&transform, GeoProjection &&projection)
+      : m_transform(transform), m_projection(projection) {}
 
   const GeoTransform &transform() const { return m_transform; }
   const GeoProjection &projection() const { return m_projection; }
 
   double dx() const { return m_transform.dx(); }
   double dy() const { return m_transform.dy(); }
+
+};
+
+template <typename T>
+class GeoGrid : public Grid<T>, public GeoGridData {
+  public:
+  GeoGrid(size_t width, size_t height, GeoTransform &&transform, GeoProjection &&projection)
+      : Grid<T>(width, height), GeoGridData(std::move(transform), std::move(projection)) {}
 
   std::pair<T, T> get_values(const LineCoord2D<size_t> &coord) const {
     return {(*this)[coord.start()], (*this)[coord.end()]};
