@@ -12,6 +12,7 @@
 #include "dxf/dxf.hpp"
 #include "grid/grid_ops.hpp"
 #include "grid/img_grid.hpp"
+#include "isom/colors.hpp"
 #include "las/las_file.hpp"
 #include "lib/grid/grid.hpp"
 #include "lib/vegetation/vegetation.hpp"
@@ -57,6 +58,10 @@ int main(int argc, char *argv[]) {
       GeoGrid<std::optional<std::byte>>(ground.width(), ground.height(), GeoTransform(ground.transform()),
                                         GeoProjection(ground.projection()));
 
+  GeoGrid<RGBColor> ground_intensity_img(round_up(las_file.width() / resolution), round_up(las_file.height() / resolution),
+                           GeoTransform(las_file.top_left(), resolution.in(au::meters)),
+                           GeoProjection(las_file.projection()));
+
   {
     TimeFunction timer("min finding");
 #pragma omp parallel for
@@ -65,7 +70,11 @@ int main(int argc, char *argv[]) {
         bool is_building = false;
         double min = std::numeric_limits<unsigned int>::max();
         for (const LASPoint &las_point : binned_points[{j, i}]) {
-          min = std::min(min, las_point.z());
+          if (las_point.z() < min){
+            min = las_point.z();
+            uchar intensity = (double)(las_point.intensity() - las_file.intensity_range().first) / (las_file.intensity_range().second - las_file.intensity_range().first) * 255;
+            ground_intensity_img[{j, i}] = RGBColor(intensity, intensity, intensity);
+          }
           if (las_point.classification() == LASClassification::Building) {
             is_building = true;
           }
@@ -75,6 +84,8 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+
+  write_to_tif(ground_intensity_img, output_dir / "ground_intensity.tif");
 
   fs::create_directories(output_dir);
 
@@ -130,6 +141,7 @@ int main(int argc, char *argv[]) {
   }
   write_to_tif(vege_color, output_dir / "vege_color.tif");
   write_to_image_tif(slope(smooth_ground), output_dir / "slope.tif");
+
 
   au::QuantityD<au::Meters> render_pixel_resolution = config.render.scale / config.render.dpi;
   GeoImgGrid final_img(round_up(ground.width() * ground.transform().dx_m() / render_pixel_resolution), round_up(ground.height() * ground.transform().dy_m() / render_pixel_resolution),

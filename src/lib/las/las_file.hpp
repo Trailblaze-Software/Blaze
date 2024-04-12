@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include <pdal/Dimension.hpp>
 #include <pdal/SpatialReference.hpp>
@@ -23,11 +24,14 @@ inline void print_metadata(const pdal::MetadataNode &node, const std::string &pr
 
 class LASFile {
   std::vector<LASPoint> m_points;
+  std::pair<double, double> m_height_range;
+  std::pair<uint16_t, uint16_t> m_intensity_range;
   pdal::BOX3D m_bounds;
   GeoProjection m_projection;
 
  public:
-  explicit LASFile(const std::string &filename) {
+  explicit LASFile(const std::string &filename) : m_height_range({std::numeric_limits<double>::max(), std::numeric_limits<double>::min()}),
+                                                   m_intensity_range({std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}) {
     Timer timer;
     std::cout << "Reading " << filename << " ..." << std::endl;
     pdal::Option las_opt("filename", filename);
@@ -59,6 +63,10 @@ class LASFile {
     Timer point_timer;
     for (pdal::PointId idx = 0; idx < point_view->size(); idx++) {
       m_points.emplace_back(LASPoint(point_view->point(idx)));
+      m_height_range.first = std::min(m_height_range.first, m_points.back().z());
+      m_height_range.second = std::max(m_height_range.second, m_points.back().z());
+      m_intensity_range.first = std::min(m_intensity_range.first, m_points.back().intensity());
+      m_intensity_range.second = std::max(m_intensity_range.second, m_points.back().intensity());
     }
     std::cout << "Reading points took " << point_timer << std::endl;
   }
@@ -70,6 +78,9 @@ class LASFile {
   au::QuantityD<au::Meters> width() const { return au::meters(m_bounds.maxx - m_bounds.minx); }
   au::QuantityD<au::Meters> height() const { return au::meters(m_bounds.maxy - m_bounds.miny); }
   const GeoProjection &projection() const { return m_projection; }
+
+  std::pair<double, double> height_range() const { return m_height_range; }
+  std::pair<uint16_t, uint16_t> intensity_range() const { return m_intensity_range; }
 
   LASPoint &operator[](std::size_t i) { return m_points[i]; }
   void push_back(const LASPoint &point) { m_points.push_back(point); }
