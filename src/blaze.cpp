@@ -33,6 +33,8 @@ int main(int argc, char *argv[]) {
   fs::path output_dir = "out";
   LASFile las_file = LASFile(argv[1]);
   output_dir = output_dir / argv[1];
+  fs::create_directories(output_dir);
+
 
   au::QuantityD<au::Meters> bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
@@ -86,8 +88,6 @@ int main(int argc, char *argv[]) {
   }
 
   write_to_tif(ground_intensity_img, output_dir / "ground_intensity.tif");
-
-  fs::create_directories(output_dir);
 
   ground = remove_outliers(ground, config.ground.outlier_removal_height_diff.in(au::meters));
   ground = interpolate_holes(ground);

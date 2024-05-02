@@ -1,8 +1,8 @@
 {
   "grid": {
     // Resolution of the binned grid in meters
-    "bin_resolution": 1.0,
-    "downsample_factor": 3
+    "bin_resolution": 0.5,
+    "downsample_factor": 6
   },
   "ground": {
     // Outlier removal height difference threshold
@@ -10,14 +10,14 @@
   },
   "contours": {
     "normal": {
-      "interval": 5.0,
-      "min_points": 0,
+      "interval": 10.0,
+      "min_points": 5,
       "color": "brown",
       "width": 0.14
     },
     "index": {
-      "interval": 25.0,
-      "min_points": 0,
+      "interval": 50.0,
+      "min_points": 5,
       "color": "brown",
       "width": 0.25
     }
@@ -64,7 +64,7 @@
     "color": "black"
   },
   "render": {
-    "scale": 15000,
+    "scale": 25000,
     "dpi": 1200
   },
   "colors": {
