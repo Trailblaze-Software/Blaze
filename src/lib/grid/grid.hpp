@@ -3,13 +3,14 @@
 #include <algorithm>
 #include <cstddef>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/opencv.hpp>
 #include <string>
 #include <vector>
-#include <opencv2/opencv.hpp>
 
 #include "assert/assert.hpp"
 #include "au/quantity.hh"
 #include "au/units/meters.hh"
+#include "isom/colors.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/filesystem.hpp"
 
@@ -84,7 +85,7 @@ class GeoProjection {
 };
 
 class GridData {
-  protected:
+ protected:
   size_t m_width;
   size_t m_height;
 
@@ -101,13 +102,15 @@ class GridData {
 
 template <typename T>
 class Grid : public GridData {
-  protected:
+ protected:
   std::vector<T> m_data;
 
  public:
   Grid(size_t width, size_t height) : GridData(width, height), m_data(width * height) {}
   T &operator[](Coordinate2D<size_t> coord) { return m_data.at(coord.y() * width() + coord.x()); }
-  const T &operator[](Coordinate2D<size_t> coord) const { return m_data.at(coord.y() * width() + coord.x()); }
+  const T &operator[](Coordinate2D<size_t> coord) const {
+    return m_data.at(coord.y() * width() + coord.x());
+  }
 
   T max_value() const { return *std::max_element(m_data.begin(), m_data.end()); }
   T min_value() const { return *std::min_element(m_data.begin(), m_data.end()); }
@@ -130,7 +133,7 @@ class Grid : public GridData {
 };
 
 class GeoGridData {
-  protected:
+ protected:
   GeoTransform m_transform;
   GeoProjection m_projection;
 
@@ -143,12 +146,13 @@ class GeoGridData {
 
   double dx() const { return m_transform.dx(); }
   double dy() const { return m_transform.dy(); }
-
 };
+
+class GeoImgGrid;
 
 template <typename T>
 class GeoGrid : public Grid<T>, public GeoGridData {
-  public:
+ public:
   GeoGrid(size_t width, size_t height, GeoTransform &&transform, GeoProjection &&projection)
       : Grid<T>(width, height), GeoGridData(std::move(transform), std::move(projection)) {}
 
@@ -164,6 +168,8 @@ class GeoGrid : public Grid<T>, public GeoGridData {
                                    grid.transform().dx(), grid.transform().dy()),
                       grid.projection());
   }
+
+  static GeoGrid<RGBColor> FromGeoImg(const GeoImgGrid &grid);
 
   T interpolate_value(const Coordinate2D<double> &projection_coord) const {
     Coordinate2D<double> pixel_coord = transform().projection_to_pixel(projection_coord);

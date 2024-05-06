@@ -17,6 +17,10 @@ class Direction2D {
   Direction2D(Dir dir) : m_dir(dir) {}
   operator Dir() const { return m_dir; }
 
+  std::array<Direction2D, 2> orthogonal_dirs() const {
+    if (m_dir == DOWN || m_dir == UP) return {LEFT, RIGHT};
+    return {UP, DOWN};
+  }
   bool orthogonal_to(Direction2D other) const {
     return ((m_dir == UP || m_dir == DOWN) && (other.m_dir == LEFT || other.m_dir == RIGHT)) ||
            ((m_dir == LEFT || m_dir == RIGHT) && (other.m_dir == UP || other.m_dir == DOWN));
@@ -95,7 +99,9 @@ class Coordinate2D {
     return Coordinate2D<U>(x(), y());
   }
 
-  Coordinate2D<double> offset_to_center() const { return Coordinate2D<double>(x() + 0.5, y() + 0.5); }
+  Coordinate2D<double> offset_to_center() const {
+    return Coordinate2D<double>(x() + 0.5, y() + 0.5);
+  }
 
   friend std::ostream &operator<<(std::ostream &os, const Coordinate2D &coord) {
     os << "Coordinate2D(" << coord.x() << ", " << coord.y() << ")";
@@ -114,6 +120,10 @@ class Coordinate2D {
         return Coordinate2D(x() + 1, y());
     }
   }
+
+  Coordinate2D operator-(Coordinate2D o) const { return Coordinate2D(x() - o.x(), y() - o.y()); }
+
+  T magnitude_sqd() const { return x() * x() + y() * y(); }
 };
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>>>
