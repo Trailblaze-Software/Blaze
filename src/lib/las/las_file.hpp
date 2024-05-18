@@ -117,3 +117,22 @@ class LASFile {
   auto begin() { return m_points.begin(); }
   auto end() { return m_points.end(); }
 };
+
+inline void extract_borders(const std::string &las_filename) {
+  fs::path tmp_dir = fs::path("tmp");
+  fs::create_directories(tmp_dir);
+
+  fs::path done_file = tmp_dir / (fs::path(las_filename).stem().string() + ".done");
+
+  if (fs::exists(done_file)) {
+    std::cout << "Skipping " << las_filename << " because it has already been processed" << std::endl;
+    return;
+  }
+
+  LASFile las_file = LASFile(las_filename);
+  std::cout << "Extracting borders from " << las_filename << " ..." << std::endl;
+
+  // create done file
+  std::ofstream bla(done_file);
+
+}

@@ -24,6 +24,35 @@ struct GridConfig {
   const unsigned int downsample_factor;
 };
 
+#define SERIALIZE_ENUM_STRICT(ENUM_TYPE, ...)                                 \
+  template <typename BasicJsonType>                                           \
+  inline void to_json(BasicJsonType &j, const ENUM_TYPE &e) {                 \
+    static_assert(std::is_enum<ENUM_TYPE>::value,                             \
+                  #ENUM_TYPE " must be an enum!");                            \
+    static const std::pair<ENUM_TYPE, BasicJsonType> m[] = __VA_ARGS__;       \
+    auto it = std::find_if(                                                   \
+        std::begin(m), std::end(m),                                           \
+        [e](const std::pair<ENUM_TYPE, BasicJsonType> &ej_pair) -> bool {     \
+          return ej_pair.first == e;                                          \
+        });                                                                   \
+    if (it == std::end(m)) throw std::invalid_argument("unknown enum value"); \
+    j = it->second;                                                           \
+  }                                                                           \
+  template <typename BasicJsonType>                                           \
+  inline void from_json(const BasicJsonType &j, ENUM_TYPE &e) {               \
+    static_assert(std::is_enum<ENUM_TYPE>::value,                             \
+                  #ENUM_TYPE " must be an enum!");                            \
+    static const std::pair<ENUM_TYPE, BasicJsonType> m[] = __VA_ARGS__;       \
+    auto it = std::find_if(                                                   \
+        std::begin(m), std::end(m),                                           \
+        [&j](const std::pair<ENUM_TYPE, BasicJsonType> &ej_pair) -> bool {    \
+          return ej_pair.second == j;                                         \
+        });                                                                   \
+    if (it == std::end(m)) throw std::invalid_argument("unknown json value: " + \
+        std::string(j)); \
+    e = it->first;                                                            \
+  }
+
 namespace nlohmann
 {
 template <>
@@ -347,6 +376,18 @@ struct adl_serializer<BuildingsConfig>
 };
 }
 
+enum class ProcessingStep {
+  TmpBorders,
+  Tiles,
+  Combine,
+};
+
+SERIALIZE_ENUM_STRICT(ProcessingStep, {
+  {ProcessingStep::TmpBorders, "tmp_borders"},
+  {ProcessingStep::Tiles, "tiles"},
+  {ProcessingStep::Combine, "combine"},
+})
+
 struct Config {
   const GridConfig grid;
   const GroundConfig ground;
@@ -354,6 +395,9 @@ struct Config {
   const VegeConfig vege;
   const RenderConfig render;
   const BuildingsConfig buildings;
+  const std::vector<fs::path> las_files;
+  const std::set<ProcessingStep> processing_steps;
+  const fs::path output_directory;
 
   static Config FromFile(const fs::path& filename);
 
@@ -365,20 +409,34 @@ namespace nlohmann
 template <>
 struct adl_serializer<Config>
 {
-    static Config from_json(const json& j)
-    {
-      return Config{j.value("grid", json({})).get<GridConfig>(), j.value("ground", json({})).get<GroundConfig>(), j.value("contours", json({})).get<ContourConfigs>(), j.value("vege", json({})).get<VegeConfig>(), j.value("render", json({})).get<RenderConfig>(), j.value("buildings", json({})).get<BuildingsConfig>()};
-    }
+  static Config from_json(const json& j){
+    return Config{
+        .grid = j.value("grid", json({})).get<GridConfig>(),
+        .ground = j.value("ground", json({})).get<GroundConfig>(),
+        .contours = j.value("contours", json({})).get<ContourConfigs>(),
+        .vege = j.value("vege", json({})).get<VegeConfig>(),
+        .render = j.value("render", json({})).get<RenderConfig>(),
+        .buildings = j.value("buildings", json({})).get<BuildingsConfig>(),
+        .las_files =
+            j.value("las_files", json(std::vector<std::string>())).get<std::vector<fs::path>>(),
+        .processing_steps = j.value("steps", json({"tiles"}))
+                                .get<std::set<ProcessingStep>>(),
+        .output_directory = j.value("output_directory", "out")};
+}
 
-    static void to_json(json& j,Config gc)
-    {
-      j["grid"] = gc.grid;
-      j["ground"] = gc.ground;
-      j["contours"] = gc.contours;
-      j["vege"] = gc.vege;
-      j["render"] = gc.render;
-      j["colors"] = json({{"primitive", COLOR_MAP}});
-    }
+static void
+to_json(json& j, Config gc) {
+  j["grid"] = gc.grid;
+  j["ground"] = gc.ground;
+  j["contours"] = gc.contours;
+  j["vege"] = gc.vege;
+  j["render"] = gc.render;
+  j["colors"] = json({{"primitive", COLOR_MAP}});
+  j["buildings"] = gc.buildings;
+  j["las_files"] = gc.las_files;
+  j["steps"] = gc.processing_steps;
+  j["output_directory"] = gc.output_directory;
+}
 };
 }
 
