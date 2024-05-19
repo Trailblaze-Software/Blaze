@@ -2,11 +2,8 @@
 
 #include <opencv2/imgproc.hpp>
 
-#include "au/io.hh"
 #include "contour/contour.hpp"
 #include "isom/colors.hpp"
-#include "printing/to_string.hpp"
-#include "tif/tif.hpp"
 
 class ImgGrid : public GridData {
  protected:
@@ -14,7 +11,7 @@ class ImgGrid : public GridData {
 
  public:
   ImgGrid(size_t height, size_t width, int type = CV_8UC4)
-      : GridData(height, width), m_img(height, width, type) {}
+      : GridData(height, width), m_img(width, height, type) {}
 
   void save_to(const fs::path &path) { cv::imwrite(path.string(), m_img); }
 
@@ -46,6 +43,8 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
         transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0}));
     double dx_ratio = other.transform().dx() / transform().dx();
     double dy_ratio = other.transform().dy() / transform().dy();
+    std::cout << "Width: " << other.width() << " Height: " << other.height() << std::endl;
+    std::cout << "dx_ratio: " << dx_ratio << " dy_ratio: " << dy_ratio << std::endl;
     cv::Rect roi(top_left.x(), top_left.y(), other.width() * dx_ratio, other.height() * dy_ratio);
     cv::Mat resized_img;
     cv::resize(other.m_img, resized_img,
@@ -54,6 +53,8 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
       cv::Mat alpha_other, alpha_m_img;
       std::vector<cv::Mat> channels_other, channels_m_img;
       cv::split(resized_img, channels_other);
+      std::cout << roi << " " << m_img.size() << std::endl;
+      std::cout << roi.width << " " << m_img.size().width << std::endl;
       cv::split(m_img(roi), channels_m_img);
       alpha_other = channels_other[3];
       alpha_m_img = channels_m_img[3];

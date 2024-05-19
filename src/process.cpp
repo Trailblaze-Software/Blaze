@@ -19,7 +19,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   fs::path output_dir = config.output_directory / las_filename;
   fs::create_directories(output_dir);
 
-  LASFile las_file = LASFile(las_filename);
+  LASFile las_file = LASFile::with_border(las_filename, 100);
 
   au::QuantityD<au::Meters> bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(

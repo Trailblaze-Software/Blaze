@@ -16,8 +16,8 @@ GeoGrid<double> hill_shade(const GeoGrid<T> &grid, double azimuth = 315, double 
                          GeoProjection(grid.projection()));
   for (size_t i = 1; i < grid.height() - 1; i++) {
     for (size_t j = 1; j < grid.width() - 1; j++) {
-      double dz_dx = (grid[{i, j + 1}] - grid[{i, j - 1}]) / (2 * grid.dx());
-      double dz_dy = (grid[{i + 1, j}] - grid[{i - 1, j}]) / (2 * grid.dy());
+      double dz_dy = (grid[{j + 1, i}] - grid[{j - 1, i}]) / (2 * grid.dx());
+      double dz_dx = (grid[{j, i + 1}] - grid[{j, i - 1}]) / (2 * grid.dy());
       double slope = atan(sqrt(dz_dx * dz_dx + dz_dy * dz_dy));
       double aspect = atan2(dz_dy, dz_dx);
       double hill_shade_val = 0;
@@ -33,7 +33,7 @@ GeoGrid<double> hill_shade(const GeoGrid<T> &grid, double azimuth = 315, double 
                              sin(DEG2RAD(altitude)) * sin(slope) * cos(DEG2RAD(az) - aspect));
         }
       }
-      result[{i, j}] = hill_shade_val;
+      result[{j, i}] = hill_shade_val;
     }
   }
   return result;
@@ -46,9 +46,9 @@ GeoGrid<double> slope(const GeoGrid<T> &grid) {
                          GeoProjection(grid.projection()));
   for (size_t i = 1; i < grid.height() - 1; i++) {
     for (size_t j = 1; j < grid.width() - 1; j++) {
-      double dz_dx = (grid[{i, j + 1}] - grid[{i, j - 1}]) / (2 * grid.dx());
-      double dz_dy = (grid[{i + 1, j}] - grid[{i - 1, j}]) / (2 * grid.dy());
-      result[{i, j}] = -atan(sqrt(dz_dx * dz_dx + dz_dy * dz_dy));
+      double dz_dy = (grid[{j + 1, i}] - grid[{j - 1, i}]) / (2 * grid.dx());
+      double dz_dx = (grid[{j, i + 1}] - grid[{j, i - 1}]) / (2 * grid.dy());
+      result[{j, i}] = -atan(sqrt(dz_dx * dz_dx + dz_dy * dz_dy));
     }
   }
   return result;

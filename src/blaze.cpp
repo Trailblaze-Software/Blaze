@@ -47,9 +47,8 @@ int main([[maybe_unused]]int argc, char *argv[]) {
     switch (step) {
       case ProcessingStep::TmpBorders:
         for (const fs::path &las_file : las_files) {
-          extract_borders(las_file);
+          extract_borders(las_file, 100);
         }
-        std::cerr << "Border processing step is not implemented" << std::endl;
         break;
       case ProcessingStep::Tiles:
         for (const fs::path &las_file : las_files) {
