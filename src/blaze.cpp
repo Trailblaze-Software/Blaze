@@ -1,17 +1,19 @@
 #include <filesystem>
 #include <iostream>
+#include <opencv2/opencv.hpp>
 #include <pdal/io/BufferReader.hpp>
 #include <pdal/io/LasHeader.hpp>
 #include <pdal/io/LasReader.hpp>
 #include <pdal/pdal.hpp>
-#include <opencv2/opencv.hpp>
+#include <pdal/util/Bounds.hpp>
 
 #include "config_input/config_input.hpp"
 #include "las/las_file.hpp"
 #include "process.hpp"
+#include "tif/tif.hpp"
+#include "utilities/timer.hpp"
 
-int main([[maybe_unused]]int argc, char *argv[]) {
-
+int main([[maybe_unused]] int argc, char *argv[]) {
   Config config = Config::FromFile("config.json");
   std::cout << config << std::endl;
 
@@ -33,7 +35,8 @@ int main([[maybe_unused]]int argc, char *argv[]) {
           if (entry.path().extension() == ".las" || entry.path().extension() == ".laz") {
             las_files.push_back(entry.path());
           } else {
-            std::cerr << "Ignoring file " << entry.path() << " with extension " << entry.path().extension() << std::endl;
+            std::cerr << "Ignoring file " << entry.path() << " with extension "
+                      << entry.path().extension() << std::endl;
           }
         }
       } else {
@@ -47,7 +50,7 @@ int main([[maybe_unused]]int argc, char *argv[]) {
     switch (step) {
       case ProcessingStep::TmpBorders:
         for (const fs::path &las_file : las_files) {
-          extract_borders(las_file, 100);
+          extract_borders(las_file, config.border_width.in(au::meters));
         }
         break;
       case ProcessingStep::Tiles:
@@ -56,7 +59,46 @@ int main([[maybe_unused]]int argc, char *argv[]) {
         }
         break;
       case ProcessingStep::Combine:
-        std::cerr << "Combine processing step is not implemented" << std::endl;
+        for (const std::string filename : {"final_img.tif", "ground_intensity.tif", "buildings.tif",
+                                           "slope.tif", "vege_color.tif", "hill_shade_multi.tif"}) {
+          TimeFunction timer("Combining " + filename);
+          std::vector<GeoGrid<RGBColor>> grids;
+
+          pdal::BOX2D extent;
+          std::optional<double> dx, dy;
+          for (const fs::path &las_file : las_files) {
+            fs::path output_dir = config.output_directory / las_file;
+            fs::path img_path = output_dir / filename;
+            if (!fs::exists(img_path)) {
+              std::cerr << "Image " << img_path << " does not exist" << std::endl;
+              continue;
+            }
+            grids.emplace_back(read_tif(img_path));
+            extent.grow(grids.back().extent());
+            std::cout << "Extent: " << grids.back().extent() << " grown: " << extent << std::endl;
+            if (!dx.has_value()) {
+              dx = grids.back().transform().dx();
+              dy = grids.back().transform().dy();
+            } else {
+              if (dx != grids.back().transform().dx() || dy != grids.back().transform().dy()) {
+                std::cerr << "dx or dy mismatch" << std::endl;
+                exit(1);
+              }
+            }
+          }
+
+          GeoGrid<RGBColor> combined_grid((extent.maxx - extent.minx) / (*dx),
+                                          (extent.maxy - extent.miny) / (std::abs(*dy)),
+                                          GeoTransform(extent.minx, extent.maxy, *dx, *dy),
+                                          GeoProjection(grids[0].projection()));
+          for (const GeoGrid<RGBColor> &grid : grids) {
+            combined_grid.fill_from(grid);
+          }
+
+          fs::create_directories(config.output_directory / "combined");
+          write_to_tif(combined_grid, config.output_directory / "combined" / filename);
+        }
+
         break;
     }
   }

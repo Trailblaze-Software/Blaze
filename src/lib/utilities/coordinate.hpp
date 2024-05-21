@@ -103,6 +103,8 @@ class Coordinate2D {
     return Coordinate2D<double>(x() + 0.5, y() + 0.5);
   }
 
+  Coordinate2D<size_t> round() const { return Coordinate2D<size_t>(x()+0.5, y()+0.5); }
+
   friend std::ostream &operator<<(std::ostream &os, const Coordinate2D &coord) {
     os << "Coordinate2D(" << coord.x() << ", " << coord.y() << ")";
     return os;
@@ -121,6 +123,7 @@ class Coordinate2D {
     }
   }
 
+  Coordinate2D operator+(Coordinate2D o) const { return Coordinate2D(x() + o.x(), y() + o.y()); }
   Coordinate2D operator-(Coordinate2D o) const { return Coordinate2D(x() - o.x(), y() - o.y()); }
 
   T magnitude_sqd() const { return x() * x() + y() * y(); }

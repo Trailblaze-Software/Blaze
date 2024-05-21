@@ -95,6 +95,37 @@ void write_to_tif(const GeoGrid<T> &grid, const fs::path &filename) {
   CSLDestroy(options);
 }
 
+inline GeoGrid<RGBColor> read_tif(const fs::path& filename){
+  //TimeFunction timer("reading tif " + filename.string());
+  GDALAllRegister();
+  GDALDataset *dataset = (GDALDataset *)GDALOpen(filename.c_str(), GA_ReadOnly);
+  if (dataset == nullptr) {
+    std::cerr << "Could not open file " << filename << std::endl;
+    exit(1);
+  }
+  size_t width = dataset->GetRasterXSize();
+  size_t height = dataset->GetRasterYSize();
+  int bands = dataset->GetRasterCount();
+  GeoTransform transform(*dataset);
+  GeoProjection projection(std::string(dataset->GetProjectionRef()));
+
+  GeoGrid<RGBColor> result(width, height, std::move(transform), std::move(projection));
+  std::vector<unsigned char> data(width * height * bands);
+  for (int band = 0; band < bands; band++) {
+    GDALRasterBand *raster_band = dataset->GetRasterBand(band + 1);
+    GDALAssert(raster_band->RasterIO(GF_Read, 0, 0, width, height, data.data() + band * width * height,
+                                     width, height, GDT_Byte, 0, 0));
+  }
+#pragma omp parallel for
+  for (size_t i = 0; i < height; i++) {
+    for (size_t j = 0; j < width; j++) {
+      result[{j, i}] = RGBColor(data[i * width + j], data[width*height + i * width + j], data[2 * width*height + i * width + j]);
+    }
+  }
+  GDALClose(dataset);
+  return result;
+}
+
 template <typename T>
 void write_to_tif_with_thresh(const GeoGrid<T> &grid, const fs::path &filename, double threshold) {
   GeoGrid<std::optional<T>> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
@@ -115,7 +146,7 @@ void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename) {
   T max = grid.max_value();
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
-      result[{i, j}] = static_cast<std::byte>(255 * (grid[{i, j}] - min) / (max - min));
+      result[{j, i}] = static_cast<std::byte>(255 * (grid[{j, i}] - min) / (max - min));
     }
   }
   CMYKColor cmyk = CMYKColor::FromRGB(RGBColor(255, 255, 255));

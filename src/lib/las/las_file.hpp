@@ -17,7 +17,30 @@
 
 enum class BorderType { N, NE, E, SE, S, SW, W, NW };
 
-inline pdal::BOX2D border_ranges(const pdal::BOX2D &box, BorderType border_type, double border_width) {
+inline std::ostream &operator<<(std::ostream &os, BorderType border_type) {
+  switch (border_type) {
+    case BorderType::N:
+      return os << "N";
+    case BorderType::NE:
+      return os << "NE";
+    case BorderType::E:
+      return os << "E";
+    case BorderType::SE:
+      return os << "SE";
+    case BorderType::S:
+      return os << "S";
+    case BorderType::SW:
+      return os << "SW";
+    case BorderType::W:
+      return os << "W";
+    case BorderType::NW:
+      return os << "NW";
+  }
+  __builtin_unreachable();
+}
+
+inline pdal::BOX2D border_ranges(const pdal::BOX2D &box, BorderType border_type,
+                                 double border_width) {
   switch (border_type) {
     case BorderType::N:
       return {box.minx, box.maxy - border_width, box.maxx, box.maxy};
@@ -39,26 +62,26 @@ inline pdal::BOX2D border_ranges(const pdal::BOX2D &box, BorderType border_type,
   __builtin_unreachable();
 }
 
-inline pdal::BOX2D external_border_ranges(const pdal::BOX2D& box, BorderType border_type, double
-    border_width) {
+inline pdal::BOX2D external_border_ranges(const pdal::BOX2D &box, BorderType border_type,
+                                          double border_width) {
   switch (border_type) {
     case BorderType::N:
-      return {box.minx, box.miny-border_width, box.maxx, box.miny};
+      return {box.minx, box.maxy, box.maxx, box.maxy + border_width};
     case BorderType::NE:
-      return {box.maxx, box.miny-border_width, box.maxx+border_width, box.miny};
+      return {box.maxx, box.maxy, box.maxx + border_width, box.maxy + border_width};
     case BorderType::E:
-      return {box.maxx, box.miny, box.maxx+border_width, box.maxy};
+      return {box.maxx, box.miny, box.maxx + border_width, box.maxy};
     case BorderType::SE:
-      return {box.maxx, box.maxy, box.maxx+border_width, box.maxy+border_width};
+      return {box.maxx, box.miny - border_width, box.maxx + border_width, box.miny};
     case BorderType::S:
-      return {box.minx, box.maxy, box.maxx, box.maxy+border_width};
+      return {box.minx, box.miny - border_width, box.maxx, box.miny};
     case BorderType::SW:
-      return {box.minx-border_width, box.maxy, box.minx, box.maxy+border_width};
+      return {box.minx - border_width, box.miny - border_width, box.minx, box.miny};
     case BorderType::W:
-      return {box.minx-border_width, box.miny, box.minx, box.maxy};
+      return {box.minx - border_width, box.miny, box.minx, box.maxy};
     case BorderType::NW:
-      return {box.minx-border_width, box.miny, box.minx, box.miny-border_width};
-    }
+      return {box.minx - border_width, box.maxy, box.minx, box.maxy + border_width};
+  }
   __builtin_unreachable();
 }
 
@@ -66,11 +89,15 @@ inline long int round(double x, double resolution = 1.0) {
   return std::round(x / resolution) * resolution;
 }
 
-  inline std::string unique_coord_name(const pdal::BOX2D &box) {
-    return std::to_string(round(box.minx, 10)) + "_" + std::to_string(round(box.miny, 10)) + "_" +
-           std::to_string(round(box.maxx, 10)) + "_" + std::to_string(round(box.maxy, 10));
-  }
+template <typename T>
+inline T average(T a, T b) {
+  return (a + b) / 2;
+}
 
+inline std::string unique_coord_name(const pdal::BOX2D &box) {
+  return std::to_string(round(box.minx, 10)) + "_" + std::to_string(round(box.miny, 10)) + "_" +
+         std::to_string(round(box.maxx, 10)) + "_" + std::to_string(round(box.maxy, 10));
+}
 
 inline void print_metadata(const pdal::MetadataNode &node, const std::string &prefix = "") {
   std::cout << prefix << node.name() << ": " << node.value() << std::endl;
@@ -84,14 +111,17 @@ class LASFile {
   std::pair<double, double> m_height_range;
   std::pair<uint16_t, uint16_t> m_intensity_range;
   pdal::BOX3D m_bounds;
+  pdal::BOX3D m_original_bounds;
   GeoProjection m_projection;
 
  public:
-  explicit LASFile(const pdal::BOX2D& bounds, GeoProjection&& projection)
+  explicit LASFile(const pdal::BOX2D &bounds, GeoProjection &&projection)
       : m_height_range({std::numeric_limits<double>::max(), std::numeric_limits<double>::min()}),
         m_intensity_range(
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}),
-        m_bounds(bounds), m_projection(projection) {};
+        m_bounds(bounds),
+        m_original_bounds(bounds),
+        m_projection(projection){};
 
   void insert(const LASPoint &point) {
     m_points.emplace_back(point);
@@ -120,6 +150,7 @@ class LASFile {
     pdal::Dimension::IdList dims = point_view->dims();
     pdal::LasHeader las_header = las_reader.header();
     m_bounds = las_header.getBounds();
+    m_original_bounds = m_bounds;
     m_projection = GeoProjection(las_header.srs().getWKT());
 
     std::cout << "Read " << point_view->size() << " points" << std::endl;
@@ -144,30 +175,25 @@ class LASFile {
   auto begin() { return m_points.begin(); }
   auto end() { return m_points.end(); }
 
-  static LASFile with_border(const fs::path& filename, double border_width) {
+  static LASFile with_border(const fs::path &filename, double border_width) {
     LASFile las_file = LASFile(filename);
-    pdal::BOX3D new_bounds = las_file.bounds();
+    pdal::BOX3D original_bounds = las_file.bounds();
     for (const BorderType border_type :
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
           BorderType::SW, BorderType::W, BorderType::NW}) {
-      pdal::BOX2D box = external_border_ranges(las_file.bounds().to2d(), border_type, border_width);
+      pdal::BOX2D box = external_border_ranges(original_bounds.to2d(), border_type, border_width);
       fs::path border_filename = fs::path("tmp") / (unique_coord_name(box) + ".las");
       if (fs::exists(border_filename)) {
         LASFile border_file = LASFile(border_filename);
         for (const LASPoint &point : border_file) {
           las_file.insert(point);
         }
-        new_bounds.minx = std::min(new_bounds.minx, border_file.bounds().minx);
-        new_bounds.miny = std::min(new_bounds.miny, border_file.bounds().miny);
-        new_bounds.maxx = std::max(new_bounds.maxx, border_file.bounds().maxx);
-        new_bounds.maxy = std::max(new_bounds.maxy, border_file.bounds().maxy);
-        new_bounds.minz = std::min(new_bounds.minz, border_file.bounds().minz);
-        new_bounds.maxz = std::max(new_bounds.maxz, border_file.bounds().maxz);
+        las_file.m_bounds.grow(border_file.bounds());
       } else {
-        std::cerr << "Border file " << border_filename << " does not exist" << std::endl;
+        std::cerr << border_type << " border file " << border_filename << " does not exist"
+                  << std::endl;
       }
     }
-    las_file.m_bounds = new_bounds;
     std::cout << "Combined " << filename << " with borders " << las_file.m_bounds << std::endl;
     return las_file;
   }
@@ -179,6 +205,13 @@ class LASFile {
   au::QuantityD<au::Meters> width() const { return au::meters(m_bounds.maxx - m_bounds.minx); }
   au::QuantityD<au::Meters> height() const { return au::meters(m_bounds.maxy - m_bounds.miny); }
   const GeoProjection &projection() const { return m_projection; }
+
+  pdal::BOX2D export_bounds() const {
+    return pdal::BOX2D(average(m_bounds.minx, m_original_bounds.minx),
+                       average(m_bounds.miny, m_original_bounds.miny),
+                       average(m_bounds.maxx, m_original_bounds.maxx),
+                       average(m_bounds.maxy, m_original_bounds.maxy));
+  }
 
   std::pair<double, double> height_range() const { return m_height_range; }
   std::pair<uint16_t, uint16_t> intensity_range() const { return m_intensity_range; }
@@ -229,7 +262,7 @@ class LASFile {
           border_file.insert(point);
         }
       }
-       border_file.write(tmp_dir / (unique_coord_name(border_file.bounds().to2d()) + ".las"));
+      border_file.write(tmp_dir / (unique_coord_name(border_file.bounds().to2d()) + ".las"));
     }
   }
 };

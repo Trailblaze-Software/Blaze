@@ -398,6 +398,7 @@ struct Config {
   const std::vector<fs::path> las_files;
   const std::set<ProcessingStep> processing_steps;
   const fs::path output_directory;
+  au::QuantityD<au::Meters> border_width;
 
   static Config FromFile(const fs::path& filename);
 
@@ -421,7 +422,9 @@ struct adl_serializer<Config>
             j.value("las_files", json(std::vector<std::string>())).get<std::vector<fs::path>>(),
         .processing_steps = j.value("steps", json({"tiles"}))
                                 .get<std::set<ProcessingStep>>(),
-        .output_directory = j.value("output_directory", "out")};
+        .output_directory = j.value("output_directory", "out"),
+        .border_width = au::meters(j.value("border_width", 100.0))
+    };
 }
 
 static void
@@ -436,6 +439,7 @@ to_json(json& j, Config gc) {
   j["las_files"] = gc.las_files;
   j["steps"] = gc.processing_steps;
   j["output_directory"] = gc.output_directory;
+  j["border_width"] = gc.border_width.in(au::meters);
 }
 };
 }

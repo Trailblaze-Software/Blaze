@@ -19,7 +19,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   fs::path output_dir = config.output_directory / las_filename;
   fs::create_directories(output_dir);
 
-  LASFile las_file = LASFile::with_border(las_filename, 100);
+  LASFile las_file = LASFile::with_border(las_filename, config.border_width.in(au::meters));
 
   au::QuantityD<au::Meters> bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
@@ -72,16 +72,16 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     }
   }
 
-  write_to_tif(ground_intensity_img, output_dir / "ground_intensity.tif");
+  write_to_tif(ground_intensity_img.slice(las_file.export_bounds()), output_dir / "ground_intensity.tif");
 
   ground = remove_outliers(ground, config.ground.outlier_removal_height_diff.in(au::meters));
   ground = interpolate_holes(ground);
 
-  write_to_tif(ground, output_dir / "ground.tif");
-  write_to_tif(buildings, output_dir / "buildings.tif");
+  write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif");
+  write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif");
 
   GeoGrid<double> smooth_ground = remove_outliers(downsample(ground, config.grid.downsample_factor));
-  write_to_tif(smooth_ground, output_dir / "smooth_ground.tif");
+  write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif");
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
   write_to_dxf(contours, output_dir / "contours.dxf");
@@ -93,7 +93,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
     GeoGrid<std::optional<double>> blocked_proportion = get_blocked_proportion(binned_points, smooth_ground, vege_config);
     fs::create_directories(output_dir / "raw_vege");
-    write_to_tif(blocked_proportion, output_dir / "raw_vege" / (vege_config.name + ".tif"));
+    write_to_tif(blocked_proportion.slice(las_file.export_bounds()), output_dir / "raw_vege" / (vege_config.name + ".tif"));
     GeoGrid<double> smooth_blocked_proportion = low_pass(blocked_proportion, 3);
     vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }
@@ -124,7 +124,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
       }
     }
   }
-  write_to_tif(vege_color, output_dir / "vege_color.tif");
+  write_to_tif(vege_color.slice(las_file.export_bounds()), output_dir / "vege_color.tif");
   write_to_image_tif(slope(smooth_ground), output_dir / "slope.tif");
 
 
@@ -143,5 +143,5 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   }
   final_img.draw(GeoImgGrid(building_color));
 
-  final_img.save_to(output_dir / "final_img.tif");
+  final_img.save_to(output_dir / "final_img.tif", las_file.export_bounds());
 }
