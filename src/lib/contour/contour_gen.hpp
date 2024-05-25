@@ -1,11 +1,14 @@
 #pragma once
 
+#include <pdal/util/Bounds.hpp>
+
 #include "config_input/config_input.hpp"
 #include "contour.hpp"
 
 template <typename T>
 GridGraph<char> identify_contours(const GeoGrid<T> &grid, T contour_interval) {
   GridGraph is_contour = GridGraph<char>(grid);
+#pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
       Coordinate2D<size_t> coord = {j, i};
@@ -21,6 +24,63 @@ GridGraph<char> identify_contours(const GeoGrid<T> &grid, T contour_interval) {
   return is_contour;
 }
 
+inline std::vector<Contour> join_contours(const std::vector<Contour> &contours,
+                                          double max_dist = 10) {
+  std::vector<Contour> joined_contours;
+  for (const Contour &c : contours) {
+    bool joined = false;
+    for (size_t i = 0; i < joined_contours.size(); i++) {
+      Contour &joined_c = joined_contours[i];
+      if ((joined_c.points().front() - c.points().front()).magnitude_sqd() < max_dist * max_dist) {
+        std::reverse(joined_c.points().begin(), joined_c.points().end());
+        std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
+        joined = true;
+        break;
+      } else if ((joined_c.points().back() - c.points().front()).magnitude_sqd() <
+                 max_dist * max_dist) {
+        std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
+        joined = true;
+        break;
+      } else if ((joined_c.points().front() - c.points().back()).magnitude_sqd() <
+                 max_dist * max_dist) {
+        std::reverse(joined_c.points().begin(), joined_c.points().end());
+        std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
+        joined = true;
+        break;
+      } else if ((joined_c.points().back() - c.points().back()).magnitude_sqd() <
+                 max_dist * max_dist) {
+        std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
+        joined = true;
+        break;
+      }
+    }
+    if (!joined) {
+      joined_contours.emplace_back(c);
+    }
+  }
+  return joined_contours;
+}
+
+inline std::vector<Contour> trim_contours(const std::vector<Contour> &contours,
+                                          const pdal::BOX2D &bounds) {
+  std::vector<Contour> trimmed_contours;
+  for (const Contour &c : contours) {
+    Contour trimmed_contour(c.height(), std::vector<Coordinate2D<double>>{});
+    for (const Coordinate2D<double> &point : c.points()) {
+      if (bounds.contains(point.x(), point.y())) {
+        trimmed_contour.push_back(point);
+      } else if (trimmed_contour.points().size() > 0) {
+        trimmed_contours.emplace_back(std::move(trimmed_contour));
+        trimmed_contour = Contour(c.height(), std::vector<Coordinate2D<double>>{});
+      }
+    }
+    if (trimmed_contour.points().size() > 0) {
+      trimmed_contours.emplace_back(std::move(trimmed_contour));
+    }
+  }
+  return trimmed_contours;
+}
+
 template <typename T>
 std::vector<Contour> generate_contours(const GeoGrid<T> &grid,
                                        const ContourConfigs &contour_config) {
@@ -32,8 +92,7 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid,
       for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
         LineCoord2D<size_t> line_coord = {coord, dir};
         if (is_contour.in_bounds(line_coord) && is_contour[line_coord]) {
-          Contour c = Contour::FromGridGraph(line_coord, grid, is_contour,
-                                             contour_config.min_interval.in(au::meters));
+          Contour c = Contour::FromGridGraph(line_coord, grid, is_contour, contour_config);
           if (c.points().size() > contour_config.pick_from_height(c.height()).min_points) {
             contours.emplace_back(std::move(c));
           }

@@ -60,6 +60,7 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
       alpha_m_img.convertTo(alpha_m_img, CV_32F, 1.0 / 255.0);
 
       cv::Mat blended_img = cv::Mat::zeros(m_img(roi).size(), CV_8UC4);
+#pragma omp parallel for
       for (int y = 0; y < m_img(roi).rows; ++y) {
         for (int x = 0; x < m_img(roi).cols; ++x) {
           float alpha = alpha_other.at<float>(y, x);

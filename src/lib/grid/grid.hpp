@@ -5,13 +5,16 @@
 #include <cstddef>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
+#include <optional>
 #include <pdal/util/Bounds.hpp>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 #include "assert/assert.hpp"
 #include "au/quantity.hh"
 #include "au/units/meters.hh"
+#include "gdal.h"
 #include "gdal_priv.h"
 #include "isom/colors.hpp"
 #include "utilities/coordinate.hpp"
@@ -105,15 +108,6 @@ class GridData {
   }
 };
 
-class GDALType {
-  GDALDataType m_type;
-
- public:
-  explicit GDALType(GDALDataType type) : m_type(type) {}
-
-  GDALDataType get() const { return m_type; }
-};
-
 template <typename T>
 class Grid : public GridData {
  protected:
@@ -130,8 +124,24 @@ class Grid : public GridData {
     return m_data.at(coord.y() * width() * m_repeats + coord.x() * m_repeats);
   }
 
+  std::pair<T, T> get_values(const LineCoord2D<size_t> &coord) const {
+    return {(*this)[coord.start()], (*this)[coord.end()]};
+  }
+
   T max_value() const { return *std::max_element(m_data.begin(), m_data.end()); }
   T min_value() const { return *std::min_element(m_data.begin(), m_data.end()); }
+
+  typedef T value_type;
+
+  void fill_from(const Grid &other, const Coordinate2D<size_t> &top_left = {0, 0}) {
+#pragma omp parallel for
+    for (size_t i = 0; i < other.height(); i++) {
+      for (size_t j = 0; j < other.width(); j++) {
+        if (this->in_bounds(top_left + Coordinate2D<size_t>{j, i}))
+          (*this)[top_left + Coordinate2D<size_t>{j, i}] = other[{j, i}];
+      }
+    }
+  }
 
   friend std::ostream &operator<<(std::ostream &os, const Grid &grid) {
     os << "Grid<" << typeid(T).name() << ">(" << grid.width() << ", " << grid.height() << ")"
@@ -152,11 +162,76 @@ class Grid : public GridData {
 
 class FlexGrid : public GridData {
  protected:
+  unsigned int m_data_size;
+  std::optional<GDALDataType> m_data_type;
   std::vector<std::byte> m_data;
 
  public:
-  FlexGrid(size_t width, size_t height, int n_bytes)
-      : GridData(width, height), m_data(width * height * n_bytes) {}
+  FlexGrid(size_t width, size_t height, int n_bytes, std::optional<GDALDataType> data_type = {})
+      : GridData(width, height),
+        m_data_size(n_bytes),
+        m_data_type(data_type),
+        m_data(width * height * n_bytes) {}
+
+  std::byte *operator[](Coordinate2D<size_t> coord) {
+    return m_data.data() + coord.y() * width() * m_data_size + coord.x() * m_data_size;
+  }
+  const std::byte *operator[](Coordinate2D<size_t> coord) const {
+    return m_data.data() + coord.y() * width() * m_data_size + coord.x() * m_data_size;
+  }
+
+  void fill_from(const FlexGrid &other, const Coordinate2D<long long> &top_left = {0, 0}) {
+#pragma omp parallel for
+    for (size_t i = 0; i < other.height(); i++) {
+      Coordinate2D<long long> start(std::max(top_left.x(), 0ll), (top_left.y() + i));
+      size_t diff = start.x() - top_left.x();
+      long long num_elements = std::min((long long)other.width(), (long long)width() - start.x());
+      if (this->in_bounds(start) && num_elements > 0) {
+        std::memcpy((*this)[start], other[{diff, i}], num_elements * m_data_size);
+      }
+      // for (size_t j = 0; j < other.width(); j++) {
+      // if (this->in_bounds(top_left + Coordinate2D<size_t>{j, i})) {
+      // for (unsigned int k = 0; k < m_data_size; k++) {
+      //(*this)[top_left + Coordinate2D<size_t>{j, i}][k] = other[{j, i}][k];
+      //}
+      //}
+      //}
+    }
+  }
+
+  std::byte *data() { return m_data.data(); }
+  const std::byte *data() const { return m_data.data(); }
+  unsigned int n_bytes() const { return m_data_size; }
+  GDALDataType data_type() const { return m_data_type.value(); }
+};
+
+template <typename GridT>
+class MultiBand {
+  std::vector<GridT> m_grids;
+
+ public:
+  template <typename... Args>
+  MultiBand(int n_bands, Args... args) {
+    m_grids.reserve(n_bands);
+    for (int i = 0; i < n_bands; i++) {
+      m_grids.emplace_back(args...);
+    }
+  }
+
+  size_t size() const { return m_grids.size(); }
+  size_t width() const { return m_grids[0].width(); }
+  size_t height() const { return m_grids[0].height(); }
+  bool in_bounds(const Coordinate2D<size_t> &coord) const { return m_grids[0].in_bounds(coord); }
+
+  void fill_from(const MultiBand &other, const Coordinate2D<size_t> &top_left = {0, 0}) {
+    AssertEQ(size(), other.size());
+    for (size_t i = 0; i < size(); i++) {
+      m_grids[i].fill_from(other[i], top_left);
+    }
+  }
+
+  GridT &operator[](size_t i) { return m_grids[i]; }
+  const GridT &operator[](size_t i) const { return m_grids[i]; }
 };
 
 class GeoGridData {
@@ -175,76 +250,93 @@ class GeoGridData {
   double dy() const { return m_transform.dy(); }
 };
 
+template <typename Test, template <typename...> class Ref>
+struct is_specialization : std::false_type {};
+
+template <template <typename...> class Ref, typename... Args>
+struct is_specialization<Ref<Args...>, Ref> : std::true_type {};
+
+template <class Type, template <typename...> class Template>
+inline constexpr bool is_specialization_v = is_specialization<Type, Template>::value;
+
 class GeoImgGrid;
 
-template <typename T, typename GridT = Grid<T>>
-class GeoGrid : public GridT, public GeoGridData {
+template <typename GridT>
+class Geo : public GridT, public GeoGridData {
  public:
-  GeoGrid(size_t width, size_t height, GeoTransform &&transform, GeoProjection &&projection)
-      : Grid<T>(width, height), GeoGridData(std::move(transform), std::move(projection)) {}
+  Geo(size_t width, size_t height, GeoTransform &&transform, GeoProjection &&projection)
+      : GridT(width, height), GeoGridData(std::move(transform), std::move(projection)) {}
 
-  std::pair<T, T> get_values(const LineCoord2D<size_t> &coord) const {
-    static_assert(std::is_same_v<GridT, Grid<T>>);
-    return {(*this)[coord.start()], (*this)[coord.end()]};
-  }
+  template <typename... Args>
+  Geo(GeoTransform &&transform, GeoProjection &&projection, Args... args)
+      : GridT(args...), GeoGridData(std::move(transform), std::move(projection)) {}
 
-  GeoGrid slice(const pdal::BOX2D &extent) {
+  Geo slice(const pdal::BOX2D &extent) {
     Coordinate2D<size_t> top_left = transform().projection_to_pixel({extent.minx, extent.maxy});
     Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
     size_t new_width = bottom_right.x() - top_left.x();
     size_t new_height = bottom_right.y() - top_left.y();
-    GeoGrid result(new_width, new_height,
-                   GeoTransform(extent.minx, extent.maxy, transform().dx(), transform().dy()),
-                   GeoProjection(projection()));
-    if constexpr (std::is_same_v<GridT, Grid<T>>) {
+    Geo result(new_width, new_height,
+               GeoTransform(extent.minx, extent.maxy, transform().dx(), transform().dy()),
+               GeoProjection(projection()));
+    if constexpr (is_specialization_v<GridT, Grid>) {
+#pragma omp parallel for
       for (size_t i = 0; i < new_height; i++) {
         for (size_t j = 0; j < new_width; j++) {
           result[{j, i}] = (*this)[{j + top_left.x(), i + top_left.y()}];
         }
       }
+    } else if constexpr (std::is_same_v<GridT, FlexGrid>) {
+#pragma omp parallel for
+      for (size_t i = 0; i < new_height; i++) {
+        for (size_t j = 0; j < new_width; j++) {
+          for (int k = 0; k < FlexGrid::m_data_size; k++) {
+            result[{j, i}][k] = (*this)[{j + top_left.x(), i + top_left.y()}][k];
+          }
+        }
+      }
     } else {
-      static_assert(std::is_same_v<GridT, FlexGrid>);
+      static_assert(is_specialization_v<GridT, Grid>);
     }
     return result;
   }
 
   template <typename U>
-  GeoGrid<T> FromPoints(const GeoGrid<U> &grid) {
-    return GeoGrid<T>(grid.width() - 1, grid.height() - 1,
-                      GeoTransform(grid.transform().x() + grid.transform().dx() / 2,
-                                   grid.transform().y() + grid.transform().dy() / 2,
-                                   grid.transform().dx(), grid.transform().dy()),
-                      grid.projection());
+  static Geo FromPoints(const Geo &grid) {
+    return Geo(grid.width() - 1, grid.height() - 1,
+               GeoTransform(grid.transform().x() + grid.transform().dx() / 2,
+                            grid.transform().y() + grid.transform().dy() / 2, grid.transform().dx(),
+                            grid.transform().dy()),
+               grid.projection());
   }
 
-  static GeoGrid<RGBColor> FromGeoImg(const GeoImgGrid &grid);
+  static Geo<Grid<RGBColor>> FromGeoImg(const GeoImgGrid &grid);
 
-  T interpolate_value(const Coordinate2D<double> &projection_coord) const {
-    static_assert(std::is_same_v<GridT, Grid<T>>);
+  auto interpolate_value(const Coordinate2D<double> &projection_coord) const {
     Coordinate2D<double> pixel_coord = transform().projection_to_pixel(projection_coord);
-    if (pixel_coord.x() < 0 || pixel_coord.y() < 0 || pixel_coord.x() >= Grid<T>::width() ||
-        pixel_coord.y() >= Grid<T>::height()) {
+    if (pixel_coord.x() < 0 || pixel_coord.y() < 0 || pixel_coord.x() >= GridT::width() ||
+        pixel_coord.y() >= GridT::height()) {
       std::cout << "Interpolation out of bounds" << std::endl;
       std::cout << "Projection coord: " << projection_coord << std::endl;
       std::cout << "Pixel coord: " << pixel_coord << std::endl;
-      std::cout << "Grid size: " << Grid<T>::width() << ", " << Grid<T>::height() << std::endl;
+      std::cout << "Grid size: " << GridT::width() << ", " << GridT::height() << std::endl;
       Fail("Interpolation out of bounds");
     }
     if (pixel_coord.x() <= 0.5 || pixel_coord.y() <= 0.5 ||
-        pixel_coord.x() >= Grid<T>::width() - 0.5 || pixel_coord.y() >= Grid<T>::height() - 0.5) {
+        pixel_coord.x() >= GridT::width() - 0.5 || pixel_coord.y() >= GridT::height() - 0.5) {
       return (*this)[{static_cast<size_t>(pixel_coord.x()), static_cast<size_t>(pixel_coord.y())}];
     }
     size_t x = static_cast<size_t>(pixel_coord.x() - 0.5);
     size_t y = static_cast<size_t>(pixel_coord.y() - 0.5);
-    if (x >= Grid<T>::width() || y >= Grid<T>::height()) {
+    if (x >= GridT::width() || y >= GridT::height()) {
       Fail("Interpolation out of bounds");
     }
     double x_frac = pixel_coord.x() - 0.5 - x;
     double y_frac = pixel_coord.y() - 0.5 - y;
-    T top_left = (*this)[{x, y}];
-    T top_right = (*this)[{x + 1, y}];
-    T bottom_left = (*this)[{x, y + 1}];
-    T bottom_right = (*this)[{x + 1, y + 1}];
+    auto top_left = (*this)[{x, y}];
+    auto top_right = (*this)[{x + 1, y}];
+    auto bottom_left = (*this)[{x, y + 1}];
+    auto bottom_right = (*this)[{x + 1, y + 1}];
     return top_left * (1 - x_frac) * (1 - y_frac) + top_right * x_frac * (1 - y_frac) +
            bottom_left * (1 - x_frac) * y_frac + bottom_right * x_frac * y_frac;
   }
@@ -252,7 +344,7 @@ class GeoGrid : public GridT, public GeoGridData {
   pdal::BOX2D extent() const {
     Coordinate2D<double> top_left = transform().pixel_to_projection({0, 0});
     Coordinate2D<double> bottom_right =
-        transform().pixel_to_projection({(double)Grid<T>::width(), (double)Grid<T>::height()});
+        transform().pixel_to_projection({(double)GridT::width(), (double)GridT::height()});
     double min_x = std::min(top_left.x(), bottom_right.x());
     double max_x = std::max(top_left.x(), bottom_right.x());
     double min_y = std::min(top_left.y(), bottom_right.y());
@@ -260,20 +352,17 @@ class GeoGrid : public GridT, public GeoGridData {
     return pdal::BOX2D(min_x, min_y, max_x, max_y);
   }
 
-  void fill_from(const GeoGrid<T> &other) {
-    std::cout << other.transform().pixel_to_projection({0, 0}) << std::endl;
+  void fill_from(const Geo &other) {
     Coordinate2D<size_t> top_left =
         transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0})).round();
-    for (size_t i = 0; i < other.height(); i++) {
-      for (size_t j = 0; j < other.width(); j++) {
-        if (this->in_bounds(top_left + Coordinate2D<size_t>{j, i}))
-          (*this)[top_left + Coordinate2D<size_t>{j, i}] = other[{j, i}];
-      }
-    }
+    GridT::fill_from(other, top_left);
   }
 };
 
-typedef GeoGrid<std::byte, FlexGrid> GeoFlexGrid;
+template <typename T>
+using GeoGrid = Geo<Grid<T>>;
+
+typedef Geo<FlexGrid> GeoFlexGrid;
 
 template <typename T>
 class GridGraph {

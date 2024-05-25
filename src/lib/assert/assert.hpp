@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <sstream>
+#include <string>
+
 #define Assert(condition, message) _Assert(condition, #condition, message, __FILE__, __LINE__)
 
 inline void _Assert(bool condition, const std::string &condition_str, const std::string &message,
@@ -15,12 +17,16 @@ inline void _Assert(bool condition, const std::string &condition_str, const std:
   }
 }
 
+using std::to_string;
+
+inline std::string to_string(const std::string &str) { return str; }
+
 #define Fail(message)     \
   Assert(false, message); \
   __builtin_unreachable()
 #define AssertGE(expr, val)                                                                  \
-  _Assert(expr >= val, #expr " < " #val, std::to_string(expr) + " < " + std::to_string(val), \
-          __FILE__, __LINE__)
+  _Assert(expr >= val, #expr " < " #val, to_string(expr) + " < " + to_string(val), __FILE__, \
+          __LINE__)
 #define AssertEQ(expr, val)                                                                    \
-  _Assert(expr == val, #expr " != " #val, std::to_string(expr) + " != " + std::to_string(val), \
-          __FILE__, __LINE__)
+  _Assert(expr == val, #expr " != " #val, to_string(expr) + " != " + to_string(val), __FILE__, \
+          __LINE__)

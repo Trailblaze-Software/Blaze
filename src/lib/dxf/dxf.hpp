@@ -3,26 +3,86 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <string>
 
 #include "contour/contour.hpp"
+#include "utilities/coordinate.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/timer.hpp"
 
-inline void writeContour(std::ofstream &file, const Contour &contour) {
-  file << "0\nPOLYLINE\n";
-  file << "8\n101_Contour\n";  // Layer 0 (default layer)
-  file << "70\n0\n";           // open polyline (0->1 for closed)
-  file << std::setprecision(10);
-  for (size_t i = 0; i < contour.points().size(); i++) {
-    file << "0\nVERTEX\n";
-    file << "8\n101_Contour\n";  // Layer 0 (default layer)
-    file << "10\n" << contour.points()[i].x() << "\n";
-    file << "20\n" << contour.points()[i].y() << "\n";
+inline Coordinate2D<double> vertex_from_dxf(std::ifstream &dxfFile) {
+  std::string line;
+  double x, y;
+  while (std::getline(dxfFile, line)) {
+    if (line == "10") {
+      dxfFile >> x;
+    } else if (line == "20") {
+      dxfFile >> y;
+    } else if (line == "0") {
+      return {x, y};
+    } else if (line == "") {
+      continue;
+    } else if (line == "8") {
+      std::getline(dxfFile, line);
+    } else {
+      std::cout << "Unknown entity: " << line << std::endl;
+    }
   }
-  file << "0\nSEQEND\n";
+  return {0, 0};
 }
 
-inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename) {
+class Polyline {
+ public:
+  std::string layer;
+  std::string name;
+  std::vector<Coordinate2D<double>> vertices;
+
+  void write_to_dxf(std::ofstream &dxfFile) {
+    bool is_loop = (vertices[0] - vertices.back()).magnitude_sqd() < 1e-10;
+
+    dxfFile << "0\nPOLYLINE\n";
+    dxfFile << "8\n" << layer << "\n";
+    dxfFile << "2\n" << name << "\n";
+    dxfFile << "70\n" << (is_loop ? 1 : 0) << "\n";
+    dxfFile << std::setprecision(10);
+    for (size_t i = 0; i < vertices.size(); i++) {
+      dxfFile << "0\nVERTEX\n";
+      dxfFile << "8\n" << layer << "\n";
+      dxfFile << "10\n" << vertices[i].x() << "\n";
+      dxfFile << "20\n" << vertices[i].y() << "\n";
+    }
+    dxfFile << "0\nSEQEND\n";
+  }
+
+  static Polyline read_from_dxf(std::ifstream &dxfFile) {
+    std::string line;
+    std::string name;
+    std::string layer;
+    std::vector<Coordinate2D<double>> vertices;
+    while (std::getline(dxfFile, line)) {
+      if (line == "8") {
+        std::getline(dxfFile, layer);
+      } else if (line == "2") {
+        std::getline(dxfFile, name);
+      } else if (line == "70") {
+        std::getline(dxfFile, line);
+        bool is_loop = std::stoi(line);
+        (void)is_loop;
+      } else if (line == "0") {
+        continue;
+      } else if (line == "VERTEX") {
+        vertices.push_back(vertex_from_dxf(dxfFile));
+      } else {
+        AssertEQ(line, "SEQEND");
+        break;
+      }
+    }
+    return Polyline{.layer = layer, .name = name, .vertices = vertices};
+  }
+};
+
+inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename,
+                         const ContourConfigs &contour_configs) {
   TimeFunction timer("writing to DXF");
   // Open the DXF file for writing
   std::ofstream dxfFile(filename);
@@ -43,7 +103,7 @@ inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename
 
   for (const auto &contour : contours) {
     if (contour.points().size() > 1) {
-      writeContour(dxfFile, contour);
+      contour.to_polyline(contour_configs).write_to_dxf(dxfFile);
     }
   }
 
@@ -58,6 +118,30 @@ inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename
   dxfFile.close();
 }
 
+inline std::vector<Contour> read_dxf(const fs::path &filename) {
+  TimeFunction timer("reading DXF " + filename.string());
+  std::vector<Contour> contours;
+
+  std::ifstream dxfFile(filename);
+  if (!dxfFile.is_open()) {
+    std::cerr << "Failed to open DXF file for reading\n";
+    return contours;
+  }
+
+  std::string line;
+  while (std::getline(dxfFile, line)) {
+    if (line == "0") {
+      std::getline(dxfFile, line);
+      if (line == "POLYLINE") {
+        contours.emplace_back(Contour::from_polyline(Polyline::read_from_dxf(dxfFile)));
+      }
+    }
+  }
+
+  dxfFile.close();
+  return contours;
+}
+
 inline void write_to_crt(const std::string &filename) {
   TimeFunction timer("writing to CRT");
 
@@ -67,7 +151,7 @@ inline void write_to_crt(const std::string &filename) {
     return;
   }
   // ISOM 2017-2 and ISSprOM 2019-2 compliant :)
-  // Fst column represents OOM symbol to create, second column is dxf layer name
+  // First column represents OOM symbol to create, second column is dxf layer name
   crtFile << "101 101_Contour\n";
   crtFile << "102 102_Index_Contour\n";
   crtFile << "103 103_Form_Line\n";

@@ -285,16 +285,35 @@ struct ContourConfigs {
   const ContourConfig& operator[](const std::string& key) const { return configs.at(key); }
 
   const ContourConfig& pick_from_height(double height) const {
-    double max_valid_interval = std::numeric_limits<double>::min();
+    auto max_valid_interval = std::numeric_limits<au::QuantityD<au::Meters>>::min();
     const ContourConfig* config_to_return = nullptr;
     for (const auto& [_, config] : configs) {
-      if (config.interval > au::meters(max_valid_interval) &&
+      if (config.interval > max_valid_interval &&
           std::fmod(std::abs(height), config.interval.in(au::meters)) < 1e-8) {
-        max_valid_interval = config.interval.in(au::meters);
+        max_valid_interval = config.interval;
         config_to_return = &config;
       }
     }
     return *config_to_return;
+  }
+
+  std::string layer_name_from_height(double height) const {
+    auto max_valid_interval = std::numeric_limits<au::QuantityD<au::Meters>>::min();
+    std::string layer_name = "Contour";
+    for (const auto& [name, config] : configs) {
+      if (config.interval > max_valid_interval &&
+          std::fmod(std::abs(height), config.interval.in(au::meters)) < 1e-8) {
+        if (name == "form_line") {
+          layer_name = "103_Form_Line";
+        } else if (name == "index") {
+          layer_name = "102_Index_Contour";
+        } else if (name == "normal") {
+          layer_name = "101_Contour";
+        }
+        max_valid_interval = config.interval;
+      }
+    }
+    return layer_name;
   }
 };
 

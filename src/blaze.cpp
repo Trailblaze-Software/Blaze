@@ -8,6 +8,10 @@
 #include <pdal/util/Bounds.hpp>
 
 #include "config_input/config_input.hpp"
+#include "contour/contour.hpp"
+#include "contour/contour_gen.hpp"
+#include "dxf/dxf.hpp"
+#include "grid/grid.hpp"
 #include "las/las_file.hpp"
 #include "process.hpp"
 #include "tif/tif.hpp"
@@ -59,10 +63,41 @@ int main([[maybe_unused]] int argc, char *argv[]) {
         }
         break;
       case ProcessingStep::Combine:
+        // Combine contours
+
+        std::map<double, std::vector<Contour>> contours_by_height;
+        for (const fs::path &las_file : las_files) {
+          fs::path output_dir = config.output_directory / las_file;
+          fs::path dxf_path = output_dir / "trimmed_contours.dxf";
+          if (!fs::exists(dxf_path)) {
+            std::cerr << "DXF " << dxf_path << " does not exist" << std::endl;
+            continue;
+          }
+
+          std::vector<Contour> contours = read_dxf(dxf_path);
+          for (Contour &contour : contours) {
+            contours_by_height[contour.height()].push_back(contour);
+          }
+        }
+        std::vector<Contour> joined_contours;
+        for (const auto &[height, contours] : contours_by_height) {
+          std::cout << "Height " << height << " has " << contours.size() << " contours"
+                    << std::endl;
+          std::vector<Contour> jc = join_contours(contours);
+          for (Contour &contour : jc) {
+            joined_contours.emplace_back(contour);
+          }
+        }
+        write_to_dxf(joined_contours, config.output_directory / "combined" / "contours.dxf",
+                     config.contours);
+        write_to_crt(config.output_directory / "combined" / "contours.crt");
+
+        // Combine TIFs
         for (const std::string filename : {"final_img.tif", "ground_intensity.tif", "buildings.tif",
                                            "slope.tif", "vege_color.tif", "hill_shade_multi.tif"}) {
           TimeFunction timer("Combining " + filename);
-          std::vector<GeoGrid<RGBColor>> grids;
+
+          std::vector<Geo<MultiBand<FlexGrid>>> grids;
 
           pdal::BOX2D extent;
           std::optional<double> dx, dy;
@@ -75,7 +110,6 @@ int main([[maybe_unused]] int argc, char *argv[]) {
             }
             grids.emplace_back(read_tif(img_path));
             extent.grow(grids.back().extent());
-            std::cout << "Extent: " << grids.back().extent() << " grown: " << extent << std::endl;
             if (!dx.has_value()) {
               dx = grids.back().transform().dx();
               dy = grids.back().transform().dy();
@@ -87,18 +121,19 @@ int main([[maybe_unused]] int argc, char *argv[]) {
             }
           }
 
-          GeoGrid<RGBColor> combined_grid((extent.maxx - extent.minx) / (*dx),
-                                          (extent.maxy - extent.miny) / (std::abs(*dy)),
-                                          GeoTransform(extent.minx, extent.maxy, *dx, *dy),
-                                          GeoProjection(grids[0].projection()));
-          for (const GeoGrid<RGBColor> &grid : grids) {
+          Geo<MultiBand<FlexGrid>> combined_grid(
+              GeoTransform(extent.minx, extent.maxy, *dx, *dy),
+              GeoProjection(grids[0].projection()), grids[0].size(),
+              (extent.maxx - extent.minx) / (*dx), (extent.maxy - extent.miny) / (std::abs(*dy)),
+              grids[0][0].n_bytes(), grids[0][0].data_type());
+
+          for (const auto &grid : grids) {
             combined_grid.fill_from(grid);
           }
 
           fs::create_directories(config.output_directory / "combined");
           write_to_tif(combined_grid, config.output_directory / "combined" / filename);
         }
-
         break;
     }
   }

@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
 #include "utilities/coordinate.hpp"
 
@@ -20,21 +21,33 @@ Coordinate2D<T> interpolate_coordinates(const Coordinate2D<T> &a, const Coordina
   return Coordinate2D<T>(a.x() * a_weight + b.x() * b_weight, a.y() * a_weight + b.y() * b_weight);
 }
 
+class Polyline;
+
 class Contour {
   double m_height;
+  bool m_is_loop;
   std::vector<Coordinate2D<double>> m_points;
 
  public:
   Contour(double height, std::vector<Coordinate2D<double>> &&points)
-      : m_height(height), m_points(points) {}
+      : m_height(height), m_points(std::move(points)) {
+    if (m_points.size() > 1) {
+      m_is_loop = (m_points[0] - m_points.back()).magnitude_sqd() < 1e-10;
+    }
+  }
+
+  static Contour from_polyline(const Polyline &polyline);
+
+  Polyline to_polyline(const ContourConfigs &configs) const;
 
   double height() const { return m_height; }
-  bool is_loop = (m_points[0] - m_points.back()).magnitude_sqd() < 1e-10;
   const std::vector<Coordinate2D<double>> &points() const { return m_points; }
+  std::vector<Coordinate2D<double>> &points() { return m_points; }
 
   static Contour FromGridGraph(const LineCoord2D<size_t> &starting_point,
                                const GeoGrid<double> &grid, GridGraph<char> &is_contour,
-                               double contour_interval) {
+                               const ContourConfigs &configs) {
+    double contour_interval = configs.min_interval.in(au::Meters{});
     std::pair<double, double> heights = grid.get_values(starting_point);
     double max_height = std::max(heights.first, heights.second);
     double contour_height = max_height - fmod(max_height, contour_interval);
@@ -78,6 +91,13 @@ class Contour {
       }
     }
     return Contour(contour_height, std::move(contour_points));
+  }
+
+  void push_back(const Coordinate2D<double> &point) {
+    m_points.push_back(point);
+    if (m_points.size() > 1) {
+      m_is_loop = (m_points[0] - m_points.back()).magnitude_sqd() < 1e-10;
+    }
   }
 
   friend std::ostream &operator<<(std::ostream &os, const Contour &contour) {

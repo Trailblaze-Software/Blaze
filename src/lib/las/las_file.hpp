@@ -213,6 +213,8 @@ class LASFile {
                        average(m_bounds.maxy, m_original_bounds.maxy));
   }
 
+  pdal::BOX2D original_bounds() const { return m_original_bounds.to2d(); }
+
   std::pair<double, double> height_range() const { return m_height_range; }
   std::pair<uint16_t, uint16_t> intensity_range() const { return m_intensity_range; }
 

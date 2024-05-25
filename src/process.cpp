@@ -89,7 +89,9 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif");
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
-  write_to_dxf(contours, output_dir / "contours.dxf");
+  const std::vector<Contour> trimmed_contours = trim_contours(contours, las_file.original_bounds());
+  write_to_dxf(contours, output_dir / "contours.dxf", config.contours);
+  write_to_dxf(trimmed_contours, output_dir / "trimmed_contours.dxf", config.contours);
   // crt name must match dxf name
   write_to_crt(output_dir / "contours.crt");
 
@@ -105,7 +107,8 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }
 
-  write_to_image_tif(hill_shade(smooth_ground), output_dir / "hill_shade_multi.tif");
+  write_to_image_tif(hill_shade(smooth_ground).slice(las_file.export_bounds()),
+                     output_dir / "hill_shade_multi.tif");
 
   GeoGrid<CMYKColor> vege_color(binned_points.width(), binned_points.height(),
                                 GeoTransform(binned_points.transform()),
@@ -115,6 +118,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
                                    GeoTransform(buildings.transform()),
                                    GeoProjection(buildings.projection()));
 
+#pragma omp parallel for
   for (size_t i = 0; i < vege_color.height(); i++) {
     for (size_t j = 0; j < vege_color.width(); j++) {
       vege_color[{j, i}] = to_cmyk(config.vege.background_color);
@@ -122,6 +126,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     }
   }
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
+#pragma omp parallel for
     for (size_t i = 0; i < vege_maps.at(vege_config.name).height(); i++) {
       for (size_t j = 0; j < vege_maps.at(vege_config.name).width(); j++) {
         std::optional<ColorVariant> color =
@@ -133,7 +138,8 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     }
   }
   write_to_tif(vege_color.slice(las_file.export_bounds()), output_dir / "vege_color.tif");
-  write_to_image_tif(slope(smooth_ground), output_dir / "slope.tif");
+  write_to_image_tif(slope(smooth_ground).slice(las_file.export_bounds()),
+                     output_dir / "slope.tif");
 
   au::QuantityD<au::Meters> render_pixel_resolution = config.render.scale / config.render.dpi;
   GeoImgGrid final_img(
