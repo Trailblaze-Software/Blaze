@@ -35,9 +35,7 @@ class GeoTransform {
 
   GeoTransform() : GeoTransform(0, 0, 1, -1){};
 
-  GeoTransform(GDALDataset& dataset) {
-    dataset.GetGeoTransform(geoTranform);
-  }
+  GeoTransform(GDALDataset &dataset) { dataset.GetGeoTransform(geoTranform); }
 
   const double *get_raw() const { return geoTranform; }
 
@@ -86,8 +84,6 @@ class GeoProjection {
  public:
   explicit GeoProjection(const std::string &projection) : m_projection(projection) {}
 
-
-
   GeoProjection() = default;
 
   const std::string &to_string() const { return m_projection; }
@@ -118,7 +114,6 @@ class GDALType {
   GDALDataType get() const { return m_type; }
 };
 
-
 template <typename T>
 class Grid : public GridData {
  protected:
@@ -126,9 +121,11 @@ class Grid : public GridData {
   int m_repeats;
 
  public:
-  Grid(size_t width, size_t height, int repeats = 1) : GridData(width, height), m_data(width * height * repeats), m_repeats(repeats) {}
-  T &operator[](Coordinate2D<size_t> coord) { return m_data.at(coord.y() * width() * m_repeats + coord.x() *
-      m_repeats); }
+  Grid(size_t width, size_t height, int repeats = 1)
+      : GridData(width, height), m_data(width * height * repeats), m_repeats(repeats) {}
+  T &operator[](Coordinate2D<size_t> coord) {
+    return m_data.at(coord.y() * width() * m_repeats + coord.x() * m_repeats);
+  }
   const T &operator[](Coordinate2D<size_t> coord) const {
     return m_data.at(coord.y() * width() * m_repeats + coord.x() * m_repeats);
   }
@@ -158,7 +155,8 @@ class FlexGrid : public GridData {
   std::vector<std::byte> m_data;
 
  public:
-  FlexGrid(size_t width, size_t height, int n_bytes) : GridData(width, height), m_data(width * height * n_bytes) {}
+  FlexGrid(size_t width, size_t height, int n_bytes)
+      : GridData(width, height), m_data(width * height * n_bytes) {}
 };
 
 class GeoGridData {
@@ -190,13 +188,15 @@ class GeoGrid : public GridT, public GeoGridData {
     return {(*this)[coord.start()], (*this)[coord.end()]};
   }
 
-  GeoGrid slice(const pdal::BOX2D& extent){
+  GeoGrid slice(const pdal::BOX2D &extent) {
     Coordinate2D<size_t> top_left = transform().projection_to_pixel({extent.minx, extent.maxy});
     Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
     size_t new_width = bottom_right.x() - top_left.x();
     size_t new_height = bottom_right.y() - top_left.y();
-    GeoGrid result(new_width, new_height, GeoTransform(extent.minx, extent.maxy, transform().dx(), transform().dy()), GeoProjection(projection()));
-    if constexpr(std::is_same_v<GridT, Grid<T>>){
+    GeoGrid result(new_width, new_height,
+                   GeoTransform(extent.minx, extent.maxy, transform().dx(), transform().dy()),
+                   GeoProjection(projection()));
+    if constexpr (std::is_same_v<GridT, Grid<T>>) {
       for (size_t i = 0; i < new_height; i++) {
         for (size_t j = 0; j < new_width; j++) {
           result[{j, i}] = (*this)[{j + top_left.x(), i + top_left.y()}];
@@ -262,7 +262,8 @@ class GeoGrid : public GridT, public GeoGridData {
 
   void fill_from(const GeoGrid<T> &other) {
     std::cout << other.transform().pixel_to_projection({0, 0}) << std::endl;
-    Coordinate2D<size_t> top_left = transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0})).round();
+    Coordinate2D<size_t> top_left =
+        transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0})).round();
     for (size_t i = 0; i < other.height(); i++) {
       for (size_t j = 0; j < other.width(); j++) {
         if (this->in_bounds(top_left + Coordinate2D<size_t>{j, i}))

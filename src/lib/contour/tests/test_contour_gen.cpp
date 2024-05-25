@@ -22,8 +22,9 @@ TEST(ContourGen, ContourGen) {
   std::vector<std::vector<double>> data = {{0.5, 0.5, 0.5}, {0.5, 1.5, 0.5}, {0.5, 0.5, 0.5}};
   TestGrid grid(data);
 
-  std::vector<Contour> contours = generate_contours(grid, ContourConfigs{{{"normal", ContourConfig{au::meters(1.0), 1,
-      RGBColor(), au::milli(au::meters)(0.14)}}}});
+  std::vector<Contour> contours = generate_contours(
+      grid, ContourConfigs{{{"normal", ContourConfig{au::meters(1.0), 1, RGBColor(),
+                                                     au::milli(au::meters)(0.14)}}}});
   ASSERT_EQ(contours.size(), 1);
   ASSERT_EQ(contours[0].points().size(), 4);
 }
@@ -34,8 +35,9 @@ TEST(ContourGen, ContourGen2) {
                                            {0.5, 1.5, 1.5, 1.5, 0.5}, {0.5, 0.5, 0.5, 0.5, 0.5}};
   TestGrid grid(data);
 
-  std::vector<Contour> contours = generate_contours(grid, ContourConfigs{{{"normal", ContourConfig{au::meters(1.0), 1,
-      RGBColor(), au::milli(au::meters)(0.14)}}}});
+  std::vector<Contour> contours = generate_contours(
+      grid, ContourConfigs{{{"normal", ContourConfig{au::meters(1.0), 1, RGBColor(),
+                                                     au::milli(au::meters)(0.14)}}}});
   ASSERT_EQ(contours.size(), 2);
   ASSERT_EQ(contours[0].points().size(), 14);
   ASSERT_EQ(contours[1].points().size(), 6);

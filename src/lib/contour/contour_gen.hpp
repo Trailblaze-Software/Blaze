@@ -22,7 +22,8 @@ GridGraph<char> identify_contours(const GeoGrid<T> &grid, T contour_interval) {
 }
 
 template <typename T>
-std::vector<Contour> generate_contours(const GeoGrid<T> &grid, const ContourConfigs& contour_config) {
+std::vector<Contour> generate_contours(const GeoGrid<T> &grid,
+                                       const ContourConfigs &contour_config) {
   GridGraph is_contour = identify_contours(grid, contour_config.min_interval.in(au::meters));
   std::vector<Contour> contours;
   for (size_t i = 0; i < is_contour.height(); i++) {
@@ -31,8 +32,9 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid, const ContourConf
       for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
         LineCoord2D<size_t> line_coord = {coord, dir};
         if (is_contour.in_bounds(line_coord) && is_contour[line_coord]) {
-          Contour c = Contour::FromGridGraph(line_coord, grid, is_contour, contour_config.min_interval.in(au::meters));
-          if(c.points().size() > contour_config.pick_from_height(c.height()).min_points) {
+          Contour c = Contour::FromGridGraph(line_coord, grid, is_contour,
+                                             contour_config.min_interval.in(au::meters));
+          if (c.points().size() > contour_config.pick_from_height(c.height()).min_points) {
             contours.emplace_back(std::move(c));
           }
         }
@@ -42,11 +44,10 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid, const ContourConf
   return contours;
 }
 
-
 inline GeoGrid<std::optional<std::byte>> generate_naive_contours(const GeoGrid<double> &ground) {
-  GeoGrid<std::optional<std::byte>> naive_countours =
-      GeoGrid<std::optional<std::byte>>(ground.width(), ground.height(), GeoTransform(ground.transform()),
-                                        GeoProjection(ground.projection()));
+  GeoGrid<std::optional<std::byte>> naive_countours = GeoGrid<std::optional<std::byte>>(
+      ground.width(), ground.height(), GeoTransform(ground.transform()),
+      GeoProjection(ground.projection()));
 
   double contour_interval = 2.5;
   for (size_t i = 1; i < ground.height() - 1; i++) {

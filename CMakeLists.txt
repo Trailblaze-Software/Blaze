@@ -58,7 +58,7 @@ endforeach()
 
 foreach(target ${EXECUTABLE_NAME} ${UNIT_TESTS_NAME} ${LIBRARY_NAME})
   target_link_libraries(${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES}
-    OpenMP::OpenMP_CXX ${OpenCV_LIBS})
+                                          OpenMP::OpenMP_CXX ${OpenCV_LIBS})
   target_include_directories(
     ${target}
     PRIVATE ${PDAL_INCLUDE_DIRS}

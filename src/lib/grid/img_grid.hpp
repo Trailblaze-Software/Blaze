@@ -94,5 +94,5 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
     cv::polylines(m_img, points, false, to_rgb(color).toScalar(), line_width_pixels, cv::LINE_8);
   }
 
-  void save_to(const fs::path &path, const pdal::BOX2D& extent);
+  void save_to(const fs::path &path, const pdal::BOX2D &extent);
 };

@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+
+  workflow_dispatch:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install pre-commit
+        run: |
+          pip install pre-commit
+      - name: Run pre-commit
+        run: |
+          pre-commit run -a
+
+  ubuntu-latest-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          ./install-deps.sh
+      - name: Build code
+        run: |
+          ./build.sh

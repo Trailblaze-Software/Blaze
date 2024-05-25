@@ -8,12 +8,13 @@
 #include "utilities/coordinate.hpp"
 #include "utilities/timer.hpp"
 
-inline GeoGrid<std::optional<double>> get_blocked_proportion(const GeoGrid<std::vector<LASPoint>>& grid,
-                                                const GeoGrid<double>& ground, const VegeHeightConfig&
-                                                vege_config) {
+inline GeoGrid<std::optional<double>> get_blocked_proportion(
+    const GeoGrid<std::vector<LASPoint>>& grid, const GeoGrid<double>& ground,
+    const VegeHeightConfig& vege_config) {
   TimeFunction timer("counting " + vege_config.name + " blocked proportion");
-  GeoGrid<std::optional<double>> blocked_proportion(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                                   GeoProjection(grid.projection()));
+  GeoGrid<std::optional<double>> blocked_proportion(grid.width(), grid.height(),
+                                                    GeoTransform(grid.transform()),
+                                                    GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
@@ -30,7 +31,10 @@ inline GeoGrid<std::optional<double>> get_blocked_proportion(const GeoGrid<std::
           }
         }
       }
-      blocked_proportion[{j, i}] = (in_count + below_count) > 0 ? std::make_optional<double>((double)in_count / (in_count + below_count)) : std::nullopt;
+      blocked_proportion[{j, i}] =
+          (in_count + below_count) > 0
+              ? std::make_optional<double>((double)in_count / (in_count + below_count))
+              : std::nullopt;
     }
   }
   return blocked_proportion;
