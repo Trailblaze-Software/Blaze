@@ -84,6 +84,13 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
     }
   }
 
+  void draw_point(const Coordinate2D<double> &point, const ColorVariant &color,
+                  au::QuantityD<au::Meters> size) {
+    Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
+    cv::circle(m_img, cv::Point(pixel_coord.x(), pixel_coord.y()), size / transform().dx_m(),
+               to_rgb(color).toScalar(), -1);
+  }
+
   void draw(const Contour &contour, const ColorVariant &color, au::QuantityD<au::Meters> width) {
     std::vector<std::vector<cv::Point>> points;
     points.push_back({});

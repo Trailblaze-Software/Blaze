@@ -4,24 +4,26 @@
 
 #include "config_input/config_input.hpp"
 #include "contour.hpp"
+#include "utilities/timer.hpp"
 
 template <typename T>
-GridGraph<char> identify_contours(const GeoGrid<T> &grid, T contour_interval) {
-  GridGraph is_contour = GridGraph<char>(grid);
+GridGraph<std::set<double>> identify_contours(const GeoGrid<T> &grid, T contour_interval) {
+  TimeFunction timer("identifying contours");
+  GridGraph contour_heights = GridGraph<std::set<double>>(grid);
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
       Coordinate2D<size_t> coord = {j, i};
       for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
         LineCoord2D<size_t> line_coord = {coord, dir};
-        if (is_contour.in_bounds(line_coord)) {
-          is_contour[line_coord] =
-              crosses_contour(grid[line_coord.start()], grid[line_coord.end()], contour_interval);
+        if (contour_heights.in_bounds(line_coord)) {
+          contour_heights[line_coord] = get_contour_heights(
+              grid[line_coord.start()], grid[line_coord.end()], contour_interval);
         }
       }
     }
   }
-  return is_contour;
+  return contour_heights;
 }
 
 inline std::vector<Contour> join_contours(const std::vector<Contour> &contours,
@@ -84,6 +86,7 @@ inline std::vector<Contour> trim_contours(const std::vector<Contour> &contours,
 template <typename T>
 std::vector<Contour> generate_contours(const GeoGrid<T> &grid,
                                        const ContourConfigs &contour_config) {
+  TimeFunction timer("generating contours");
   GridGraph is_contour = identify_contours(grid, contour_config.min_interval.in(au::meters));
   std::vector<Contour> contours;
   for (size_t i = 0; i < is_contour.height(); i++) {
@@ -91,10 +94,13 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid,
       Coordinate2D<size_t> coord = {j, i};
       for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
         LineCoord2D<size_t> line_coord = {coord, dir};
-        if (is_contour.in_bounds(line_coord) && is_contour[line_coord]) {
-          Contour c = Contour::FromGridGraph(line_coord, grid, is_contour, contour_config);
-          if (c.points().size() > contour_config.pick_from_height(c.height()).min_points) {
-            contours.emplace_back(std::move(c));
+        if (is_contour.in_bounds(line_coord)) {
+          for (double height : std::set<double>(is_contour[line_coord])) {
+            Contour c = Contour::FromGridGraph(line_coord, height, grid, is_contour);
+            // TODO use length instead of number of points
+            if (c.points().size() > contour_config.pick_from_height(c.height()).min_points) {
+              contours.emplace_back(std::move(c));
+            }
           }
         }
       }

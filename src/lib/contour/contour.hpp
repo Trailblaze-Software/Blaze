@@ -13,6 +13,17 @@ inline bool crosses_contour(T h1, T h2, T contour_interval) {
   return max - fmod(max, contour_interval) > min;
 }
 
+template <typename T>
+inline std::set<T> get_contour_heights(T h1, T h2, T contour_interval) {
+  std::set<T> heights;
+  T max = std::max(h1, h2);
+  T min = std::min(h1, h2);
+  for (T h = max - fmod(max, contour_interval); h > min; h -= contour_interval) {
+    heights.insert(h);
+  }
+  return heights;
+}
+
 template <typename T, typename U>
 Coordinate2D<T> interpolate_coordinates(const Coordinate2D<T> &a, const Coordinate2D<T> &b,
                                         const U &a_val, const U &b_val, const U &target) {
@@ -25,14 +36,14 @@ class Polyline;
 
 class Contour {
   double m_height;
-  bool m_is_loop;
+  bool m_is_loop = false;
   std::vector<Coordinate2D<double>> m_points;
 
  public:
   Contour(double height, std::vector<Coordinate2D<double>> &&points)
       : m_height(height), m_points(std::move(points)) {
     if (m_points.size() > 1) {
-      m_is_loop = (m_points[0] - m_points.back()).magnitude_sqd() < 1e-10;
+      m_is_loop = (m_points.front() - m_points.back()).magnitude_sqd() < 1e-10;
     }
   }
 
@@ -44,14 +55,9 @@ class Contour {
   const std::vector<Coordinate2D<double>> &points() const { return m_points; }
   std::vector<Coordinate2D<double>> &points() { return m_points; }
 
-  static Contour FromGridGraph(const LineCoord2D<size_t> &starting_point,
-                               const GeoGrid<double> &grid, GridGraph<char> &is_contour,
-                               const ContourConfigs &configs) {
-    double contour_interval = configs.min_interval.in(au::Meters{});
-    std::pair<double, double> heights = grid.get_values(starting_point);
-    double max_height = std::max(heights.first, heights.second);
-    double contour_height = max_height - fmod(max_height, contour_interval);
-
+  static Contour FromGridGraph(const LineCoord2D<size_t> &starting_point, double height,
+                               const GeoGrid<double> &grid,
+                               GridGraph<std::set<double>> &contour_heights) {
     std::vector<Coordinate2D<double>> contour_points;
     int pass = 0;
     for (Direction2D dir : starting_point.dir().orthogonal_dirs()) {
@@ -60,43 +66,47 @@ class Contour {
       bool end = false;
       bool first_iter = true;
       while (!end) {
-        if (!first_iter || pass > 0) is_contour[current_point] = false;
+        if (!first_iter || pass > 0) {
+          auto it = contour_heights[current_point].find(height);
+          if (it == contour_heights[current_point].end()) {
+            AssertEQ(first_iter, true);
+            AssertEQ(pass, 1);
+            break;
+          }
+          contour_heights[current_point].erase(it);
+        }
         first_iter = false;
         this_contour_points.emplace_back(interpolate_coordinates(
             grid.transform().pixel_to_projection(current_point.start().offset_to_center()),
             grid.transform().pixel_to_projection(current_point.end().offset_to_center()),
-            grid[current_point.start()], grid[current_point.end()], contour_height));
+            grid[current_point.start()], grid[current_point.end()], height));
         end = true;
         for (LineCoord2DCrossing<size_t> next_point : current_point.next_points()) {
-          if (is_contour.in_bounds(next_point) && is_contour[next_point]) {
-            std::pair<double, double> next_heights = grid.get_values(next_point);
-            double next_max_height = std::max(next_heights.first, next_heights.second);
-            double next_min_height = std::min(next_heights.first, next_heights.second);
-            if (next_max_height >= contour_height && contour_height >= next_min_height) {
-              current_point = next_point;
-              end = false;
-              break;
-            }
+          if (contour_heights.in_bounds(next_point) &&
+              contour_heights[next_point].contains(height)) {
+            current_point = next_point;
+            end = false;
+            break;
           }
         }
       }
       if (pass == 0) {
         std::reverse_copy(this_contour_points.begin(), this_contour_points.end(),
                           std::back_inserter(contour_points));
-        contour_points.pop_back();
         pass += 1;
       } else {
+        if (this_contour_points.size() > 0) contour_points.pop_back();
         std::copy(this_contour_points.begin(), this_contour_points.end(),
                   std::back_inserter(contour_points));
       }
     }
-    return Contour(contour_height, std::move(contour_points));
+    return Contour(height, std::move(contour_points));
   }
 
   void push_back(const Coordinate2D<double> &point) {
     m_points.push_back(point);
     if (m_points.size() > 1) {
-      m_is_loop = (m_points[0] - m_points.back()).magnitude_sqd() < 1e-10;
+      m_is_loop = (m_points.front() - m_points.back()).magnitude_sqd() < 1e-10;
     }
   }
 

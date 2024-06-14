@@ -1,6 +1,7 @@
 #include "process.hpp"
 
 #include "au/units/meters.hh"
+#include "cliff/cliff.hpp"
 #include "contour/contour_gen.hpp"
 #include "dxf/dxf.hpp"
 #include "grid/grid_ops.hpp"
@@ -60,9 +61,11 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
         for (const LASPoint& las_point : binned_points[{j, i}]) {
           if (las_point.z() < min) {
             min = las_point.z();
-            uchar intensity =
-                (double)(las_point.intensity() - las_file.intensity_range().first) /
-                (las_file.intensity_range().second - las_file.intensity_range().first) * 255;
+            uchar intensity = std::clamp(
+                (double)(las_point.intensity() - config.ground.min_ground_intensity) /
+                    (config.ground.max_ground_intensity - config.ground.min_ground_intensity) *
+                    255.0,
+                0.0, 255.0);
             ground_intensity_img[{j, i}] = RGBColor(intensity, intensity, intensity);
           }
           if (las_point.classification() == LASClassification::Building) {
@@ -89,8 +92,46 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif");
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
+
+  au::QuantityD<au::Meters> contour_points_resolution = au::meters(20);
+  GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
+      round_up(las_file.width() / contour_points_resolution),
+      round_up(las_file.height() / contour_points_resolution),
+      GeoTransform(las_file.top_left(), contour_points_resolution.in(au::meters)),
+      GeoProjection(las_file.projection()));
+
+  std::vector<std::shared_ptr<ContourPoint>> all_contour_points;
+
+  for (const Contour& contour : contours) {
+    std::shared_ptr<ContourPoint> last_point = nullptr;
+    for (size_t i = 0; i < contour.points().size(); i++) {
+      const Coordinate2D<double>& point = contour.points().at(i);
+      std::shared_ptr<ContourPoint> contour_point =
+          std::make_shared<ContourPoint>(point.x(), point.y(), contour.height());
+      if (i > 0) {
+        contour_point->set_previous(last_point);
+        last_point->set_next(contour_point);
+      }
+      contour_points[contour_points.transform().projection_to_pixel(point)].emplace_back(
+          contour_point);
+      all_contour_points.emplace_back(contour_point);
+      last_point = contour_point;
+    }
+  }
+
+#pragma omp parallel for
+  for (size_t i = 0; i < contour_points.height(); i++) {
+    for (size_t j = 0; j < contour_points.width(); j++) {
+      std::vector<std::shared_ptr<ContourPoint>>& points = contour_points[{j, i}];
+      for (std::shared_ptr<ContourPoint>& point : points) {
+        point->find_up_down(contour_points);
+      }
+    }
+  }
+
   const std::vector<Contour> trimmed_contours = trim_contours(contours, las_file.original_bounds());
   write_to_dxf(contours, output_dir / "contours.dxf", config.contours);
+
   write_to_dxf(trimmed_contours, output_dir / "trimmed_contours.dxf", config.contours);
   // crt name must match dxf name
   write_to_crt(output_dir / "contours.crt");
@@ -151,6 +192,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   final_img.draw(vege_color);
 
   for (const Contour& contour : contours) {
+    if (config.contours.layer_name_from_height(contour.height()) == "Contour") continue;
     const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
     RGBColor color = to_rgb(contour_config.color);
     final_img.draw(contour, color, contour_config.width * config.render.scale);
@@ -158,4 +200,20 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   final_img.draw(GeoImgGrid(building_color));
 
   final_img.save_to(output_dir / "final_img.tif", las_file.export_bounds());
+
+  for (const Contour& contour : contours) {
+    if (config.contours.layer_name_from_height(contour.height()) != "Contour") continue;
+    const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
+    RGBColor color = to_rgb(contour_config.color);
+    final_img.draw(contour, color, contour_config.width * config.render.scale);
+  }
+  final_img.draw(GeoImgGrid(building_color));
+
+  for (const std::shared_ptr<ContourPoint>& point : all_contour_points) {
+    if (point->slope() > 0.8) {
+      final_img.draw_point(*point, RGBColor(0, 0, 0), au::meters(1.5));
+    }
+  }
+
+  final_img.save_to(output_dir / "final_img_extra_contours.tif", las_file.export_bounds());
 }

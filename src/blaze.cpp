@@ -81,8 +81,6 @@ int main([[maybe_unused]] int argc, char *argv[]) {
         }
         std::vector<Contour> joined_contours;
         for (const auto &[height, contours] : contours_by_height) {
-          std::cout << "Height " << height << " has " << contours.size() << " contours"
-                    << std::endl;
           std::vector<Contour> jc = join_contours(contours);
           for (Contour &contour : jc) {
             joined_contours.emplace_back(contour);
@@ -93,8 +91,9 @@ int main([[maybe_unused]] int argc, char *argv[]) {
         write_to_crt(config.output_directory / "combined" / "contours.crt");
 
         // Combine TIFs
-        for (const std::string filename : {"final_img.tif", "ground_intensity.tif", "buildings.tif",
-                                           "slope.tif", "vege_color.tif", "hill_shade_multi.tif"}) {
+        for (const std::string filename :
+             {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
+              "buildings.tif", "slope.tif", "vege_color.tif", "hill_shade_multi.tif"}) {
           TimeFunction timer("Combining " + filename);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;

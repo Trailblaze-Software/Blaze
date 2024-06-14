@@ -38,7 +38,7 @@ class Polyline {
   std::vector<Coordinate2D<double>> vertices;
 
   void write_to_dxf(std::ofstream &dxfFile) {
-    bool is_loop = (vertices[0] - vertices.back()).magnitude_sqd() < 1e-10;
+    bool is_loop = (vertices.front() - vertices.back()).magnitude_sqd() < 1e-10;
 
     dxfFile << "0\nPOLYLINE\n";
     dxfFile << "8\n" << layer << "\n";

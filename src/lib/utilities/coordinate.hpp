@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cmath>
 #include <iostream>
 #include <ostream>
 #include <type_traits>
@@ -127,6 +128,7 @@ class Coordinate2D {
   Coordinate2D operator-(Coordinate2D o) const { return Coordinate2D(x() - o.x(), y() - o.y()); }
 
   T magnitude_sqd() const { return x() * x() + y() * y(); }
+  T magnitude() const { return std::sqrt(magnitude_sqd()); }
 };
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>>>

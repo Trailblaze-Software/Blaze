@@ -93,6 +93,7 @@ inline void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
     } else if constexpr (std::is_base_of_v<Color, T>) {
       for (int band = 0; band < 3; band++) {
         std::vector<unsigned char> data(grid.width() * grid.height());
+#pragma omp parallel for
         for (size_t i = 0; i < grid.height(); i++) {
           for (size_t j = 0; j < grid.width(); j++) {
             data[i * grid.width() + j] = grid[{j, i}].toRGB()[band];
@@ -132,7 +133,6 @@ inline Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
 
   Geo<MultiBand<FlexGrid>> result(std::move(transform), std::move(projection), bands, width, height,
                                   n_bytes, datatype);
-  std::vector<unsigned char> data(width * height * bands);
   for (int band = 0; band < bands; band++) {
     GDALRasterBand *raster_band = dataset->GetRasterBand(band + 1);
     AssertEQ(raster_band->GetRasterDataType(), datatype);

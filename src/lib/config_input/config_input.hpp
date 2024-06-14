@@ -65,17 +65,23 @@ struct adl_serializer<GridConfig> {
 
 struct GroundConfig {
   const au::QuantityD<au::Meters> outlier_removal_height_diff;
+  const int min_ground_intensity;
+  const int max_ground_intensity;
 };
 
 namespace nlohmann {
 template <>
 struct adl_serializer<GroundConfig> {
   static GroundConfig from_json(const json& j) {
-    return GroundConfig{au::meters(j.value("outlier_removal_height_diff", 1.0))};
+    return GroundConfig{au::meters(j.value("outlier_removal_height_diff", 1.0)),
+                        j.value("min_ground_intensity", 100),
+                        j.value("max_ground_intensity", 1000)};
   }
 
   static void to_json(json& j, GroundConfig gc) {
     j["outlier_removal_height_diff"] = gc.outlier_removal_height_diff.in(au::meters);
+    j["min_ground_intensity"] = gc.min_ground_intensity;
+    j["max_ground_intensity"] = gc.max_ground_intensity;
   }
 };
 }  // namespace nlohmann
