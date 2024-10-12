@@ -1,32 +1,54 @@
 #pragma once
 
 #include <iostream>
+#include <optional>
+#include <source_location>
 #include <sstream>
 #include <string>
 
-#define Assert(condition, message) _Assert(condition, #condition, message, __FILE__, __LINE__)
+[[noreturn]] inline void unreachable() {
+  // Uses compiler specific extensions if possible.
+  // Even if no extension is used, undefined behavior is still raised by
+  // an empty function body and the noreturn attribute.
+#if defined(_MSC_VER) && !defined(__clang__)  // MSVC
+  __assume(false);
+#else  // GCC, Clang
+  __builtin_unreachable();
+#endif
+}
 
-inline void _Assert(bool condition, const std::string &condition_str, const std::string &message,
-                    const std::string &file, int line) {
+#define OptionalString(...) std::optional<std::string>(__VA_ARGS__)
+#define Assert(condition, ...) _Assert(condition, #condition, OptionalString(__VA_ARGS__));
+
+inline void _Assert(bool condition, const std::string &condition_str,
+                    const std::optional<std::string> &message,
+                    const std::source_location &loc = std::source_location::current()) {
   if (!condition) {
     std::stringstream ss;
-    ss << "Assertion failed: " << condition_str << " " << message << " at " << file << ":" << line
-       << std::endl;
+    ss << "Blaze assertion failed: " << condition_str << (message ? " " + *message : "") << "\n in "
+       << loc.function_name() << " at " << loc.file_name() << ":" << loc.line() << std::endl;
     std::cerr << ss.str();
     throw std::runtime_error(ss.str());
   }
 }
 
-using std::to_string;
+#define Fail(...)             \
+  Assert(false, __VA_ARGS__); \
+  unreachable()
 
-inline std::string to_string(const std::string &str) { return str; }
+template <typename A, typename B>
+inline void _AssertBinOp(const A &a, const B &b, const std::string &a_str, const std::string &b_str,
+                         bool result, const std::string &nop,
+                         const std::source_location &loc = std::source_location::current()) {
+  if (!result) {
+    std::stringstream ss;
+    ss << a << " " << nop << " " << b;
+    _Assert(result, a_str + " " + nop + " " + b_str, ss.str(), loc);
+  }
+}
 
-#define Fail(message)     \
-  Assert(false, message); \
-  __builtin_unreachable()
-#define AssertGE(expr, val)                                                                  \
-  _Assert(expr >= val, #expr " < " #val, to_string(expr) + " < " + to_string(val), __FILE__, \
-          __LINE__)
-#define AssertEQ(expr, val)                                                                    \
-  _Assert(expr == val, #expr " != " #val, to_string(expr) + " != " + to_string(val), __FILE__, \
-          __LINE__)
+#define AssertBinOp(a, b, op, nop) _AssertBinOp(a, b, #a, #b, a op b, #nop)
+#define AssertGE(expr, val) AssertBinOp(expr, val, >=, <)
+#define AssertGT(expr, val) AssertBinOp(expr, val, >, <=)
+#define AssertEQ(expr, val) AssertBinOp(expr, val, ==, !=)
+#define AssertNE(expr, val) AssertBinOp(expr, val, !=, ==)

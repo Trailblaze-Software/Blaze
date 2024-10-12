@@ -36,7 +36,7 @@ inline std::ostream &operator<<(std::ostream &os, BorderType border_type) {
     case BorderType::NW:
       return os << "NW";
   }
-  __builtin_unreachable();
+  unreachable();
 }
 
 inline pdal::BOX2D border_ranges(const pdal::BOX2D &box, BorderType border_type,
@@ -59,7 +59,7 @@ inline pdal::BOX2D border_ranges(const pdal::BOX2D &box, BorderType border_type,
     case BorderType::NW:
       return {box.minx, box.maxy - border_width, box.minx + border_width, box.maxy};
   }
-  __builtin_unreachable();
+  unreachable();
 }
 
 inline pdal::BOX2D external_border_ranges(const pdal::BOX2D &box, BorderType border_type,
@@ -82,7 +82,7 @@ inline pdal::BOX2D external_border_ranges(const pdal::BOX2D &box, BorderType bor
     case BorderType::NW:
       return {box.minx - border_width, box.maxy, box.minx, box.maxy + border_width};
   }
-  __builtin_unreachable();
+  unreachable();
 }
 
 inline long int round(double x, double resolution = 1.0) {
@@ -105,6 +105,9 @@ inline void print_metadata(const pdal::MetadataNode &node, const std::string &pr
     print_metadata(node.findChild(name), prefix + "  ");
   }
 }
+
+#undef min
+#undef max
 
 class LASFile {
   std::vector<LASPoint> m_points;
@@ -176,7 +179,7 @@ class LASFile {
   auto end() { return m_points.end(); }
 
   static LASFile with_border(const fs::path &filename, double border_width) {
-    LASFile las_file = LASFile(filename);
+    LASFile las_file(filename.string());
     pdal::BOX3D original_bounds = las_file.bounds();
     for (const BorderType border_type :
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
@@ -184,7 +187,7 @@ class LASFile {
       pdal::BOX2D box = external_border_ranges(original_bounds.to2d(), border_type, border_width);
       fs::path border_filename = fs::path("tmp") / (unique_coord_name(box) + ".las");
       if (fs::exists(border_filename)) {
-        LASFile border_file = LASFile(border_filename);
+        LASFile border_file(border_filename.string());
         for (const LASPoint &point : border_file) {
           las_file.insert(point);
         }
@@ -221,9 +224,9 @@ class LASFile {
   LASPoint &operator[](std::size_t i) { return m_points[i]; }
   void push_back(const LASPoint &point) { m_points.push_back(point); }
 
-  void write(const std::string &filename) const {
+  void write(const fs::path &filename) const {
     pdal::Options options;
-    options.add("filename", filename);
+    options.add("filename", filename.string());
     options.add("dataformat_id", 0);
 
     pdal::PointTable table;
@@ -282,7 +285,7 @@ inline void extract_borders(const fs::path &las_filename, double border_width) {
   }
 
   std::cout << "Extracting borders from " << las_filename << " ..." << std::endl;
-  LASFile las_file = LASFile(las_filename);
+  LASFile las_file(las_filename.string());
   las_file.extract_borders(tmp_dir, border_width);
 
   // create done file

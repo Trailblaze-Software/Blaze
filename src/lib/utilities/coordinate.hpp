@@ -37,6 +37,7 @@ class Direction2D {
       case RIGHT:
         return 1;
     }
+    unreachable();
   }
 
   int dy() const {
@@ -49,6 +50,7 @@ class Direction2D {
       case RIGHT:
         return 0;
     }
+    unreachable();
   }
 
   Direction2D opposite() const {
@@ -62,6 +64,7 @@ class Direction2D {
       case RIGHT:
         return Direction2D(LEFT);
     }
+    unreachable();
   }
 
   friend std::ostream &operator<<(std::ostream &os, const Direction2D &dir) {
@@ -122,6 +125,7 @@ class Coordinate2D {
       case Direction2D::RIGHT:
         return Coordinate2D(x() + 1, y());
     }
+    unreachable();
   }
 
   Coordinate2D operator+(Coordinate2D o) const { return Coordinate2D(x() + o.x(), y() + o.y()); }

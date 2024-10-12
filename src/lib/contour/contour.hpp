@@ -47,9 +47,9 @@ class Contour {
     }
   }
 
-  static Contour from_polyline(const Polyline &polyline);
+  // static Contour from_polyline(const Polyline &polyline);
 
-  Polyline to_polyline(const ContourConfigs &configs) const;
+  // Polyline to_polyline(const ContourConfigs &configs) const;
 
   double height() const { return m_height; }
   const std::vector<Coordinate2D<double>> &points() const { return m_points; }

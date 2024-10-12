@@ -42,7 +42,7 @@ inline std::ostream &operator<<(std::ostream &os, const LASClassification &class
     case LASClassification::Water:
       return os << "Water";
   }
-  __builtin_unreachable();
+  unreachable();
 }
 
 class LASPoint : public Coordinate3D<double> {

@@ -82,7 +82,7 @@ class Polyline {
 };
 
 inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename,
-                         const ContourConfigs &contour_configs) {
+                         [[maybe_unused]] const ContourConfigs &contour_configs) {
   TimeFunction timer("writing to DXF");
   // Open the DXF file for writing
   std::ofstream dxfFile(filename);
@@ -102,9 +102,10 @@ inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename
   dxfFile << "2\nENTITIES\n";
 
   for (const auto &contour : contours) {
-    if (contour.points().size() > 1) {
-      contour.to_polyline(contour_configs).write_to_dxf(dxfFile);
-    }
+    (void)contour;
+    // if (contour.points().size() > 1) {
+    // contour.to_polyline(contour_configs).write_to_dxf(dxfFile);
+    //}
   }
 
   dxfFile << "0\nENDSEC\n";
@@ -132,9 +133,9 @@ inline std::vector<Contour> read_dxf(const fs::path &filename) {
   while (std::getline(dxfFile, line)) {
     if (line == "0") {
       std::getline(dxfFile, line);
-      if (line == "POLYLINE") {
-        contours.emplace_back(Contour::from_polyline(Polyline::read_from_dxf(dxfFile)));
-      }
+      // if (line == "POLYLINE") {
+      //   contours.emplace_back(Contour::from_polyline(Polyline::read_from_dxf(dxfFile)));
+      // }
     }
   }
 
@@ -142,7 +143,7 @@ inline std::vector<Contour> read_dxf(const fs::path &filename) {
   return contours;
 }
 
-inline void write_to_crt(const std::string &filename) {
+inline void write_to_crt(const fs::path &filename) {
   TimeFunction timer("writing to CRT");
 
   std::ofstream crtFile(filename);

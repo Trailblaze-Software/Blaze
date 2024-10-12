@@ -1,7 +1,7 @@
 #pragma once
 
-#include <gdal/gdal.h>
-#include <gdal/gdal_priv.h>
+#include <gdal.h>
+#include <gdal_priv.h>
 
 #include <optional>
 #include <type_traits>
@@ -61,8 +61,8 @@ inline void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
     datatype = gdal_type<T>();
   }
 
-  GDALDataset *dataset =
-      driver->Create(filename.c_str(), grid.width(), grid.height(), bands, datatype, options);
+  GDALDataset *dataset = driver->Create((const char *)filename.c_str(), grid.width(), grid.height(),
+                                        bands, datatype, options);
 
   dataset->SetGeoTransform(const_cast<double *>(grid.transform().get_raw()));
   dataset->SetProjection(grid.projection().to_string().c_str());
@@ -118,7 +118,7 @@ inline void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
 inline Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
   // TimeFunction timer("reading tif " + filename.string());
   GDALAllRegister();
-  GDALDataset *dataset = (GDALDataset *)GDALOpen(filename.c_str(), GA_ReadOnly);
+  GDALDataset *dataset = (GDALDataset *)GDALOpen((const char *)filename.c_str(), GA_ReadOnly);
   if (dataset == nullptr) {
     std::cerr << "Could not open file " << filename << std::endl;
     exit(1);
