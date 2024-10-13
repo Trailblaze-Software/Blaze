@@ -67,7 +67,10 @@ int main([[maybe_unused]] int argc, char *argv[]) {
 
         std::map<double, std::vector<Contour>> contours_by_height;
         for (const fs::path &las_file : las_files) {
-          fs::path output_dir = config.output_directory / las_file;
+          fs::path output_dir = config.output_directory;
+          for (std::string s : las_file) {
+            if (s != "/") output_dir /= s;
+          }
           fs::path dxf_path = output_dir / "trimmed_contours.dxf";
           if (!fs::exists(dxf_path)) {
             std::cerr << "DXF " << dxf_path << " does not exist" << std::endl;
@@ -101,7 +104,10 @@ int main([[maybe_unused]] int argc, char *argv[]) {
           pdal::BOX2D extent;
           std::optional<double> dx, dy;
           for (const fs::path &las_file : las_files) {
-            fs::path output_dir = config.output_directory / las_file;
+            fs::path output_dir = config.output_directory;
+            for (std::string s : las_file) {
+              if (s != "/") output_dir /= s;
+            }
             fs::path img_path = output_dir / filename;
             if (!fs::exists(img_path)) {
               std::cerr << "Image " << img_path << " does not exist" << std::endl;
@@ -119,6 +125,9 @@ int main([[maybe_unused]] int argc, char *argv[]) {
               }
             }
           }
+
+          AssertGE(grids.size(), 1);
+          AssertGE(grids[0].size(), 1);
 
           Geo<MultiBand<FlexGrid>> combined_grid(
               GeoTransform(extent.minx, extent.maxy, *dx, *dy),

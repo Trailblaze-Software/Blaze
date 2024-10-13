@@ -59,7 +59,10 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid,
 
 void process_las_file(const fs::path& las_filename, const Config& config) {
   TimeFunction timer("processing LAS file " + las_filename.string());
-  fs::path output_dir = config.output_directory / las_filename;
+  fs::path output_dir = config.output_directory;
+  for (std::string s : las_filename) {
+    if (s != "/") output_dir /= s;
+  }
   fs::create_directories(output_dir);
 
   LASFile las_file = LASFile::with_border(las_filename, config.border_width.in(au::meters));
