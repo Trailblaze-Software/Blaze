@@ -1,0 +1,170 @@
+{
+  "las_files": [
+    //"laz_files/indunene/ACT2020-12ppm-C3-AHD_6866059_55_0001_0001.laz",
+    //"laz_files/indunene/ACT2020-12ppm-C3-AHD_6866060_55_0001_0001.laz"
+    //"laz_files/tantangara/Tantangara201803-LID2-C3-AHD_6366020_55_0002_0002.laz"
+    //"laz_files/tantangara"
+    "laz_files/tantangara/Tantangara201803-LID2-C3-AHD_6506036_55_0002_0002.laz"
+  ],
+  "steps": [
+    //"tmp_borders",
+    "tiles"
+    //"combine"
+  ],
+  "output_directory": "out",
+  "grid": {
+    // Resolution of the binned grid in meters
+    "bin_resolution": 2.5,
+    "downsample_factor": 3
+  },
+  "ground": {
+    // Outlier removal height difference threshold
+    "outlier_removal_height_diff": 0.3,
+    "min_ground_intensity": 0,
+    "max_ground_intensity": 100
+  },
+  "contours": {
+    "form": {
+      "interval": 5,
+      "min_points": 5,
+      "color": "brown",
+      "width": 0.08
+    },
+    "normal": {
+      "interval": 10.0,
+      "min_points": 5,
+      "color": "brown",
+      "width": 0.14
+    },
+    "index": {
+      "interval": 50.0,
+      "min_points": 5,
+      "color": "brown",
+      "width": 0.25
+    }
+  },
+  "vege": {
+    "background_color": "50% yellow",
+    "height_configs": [
+      {
+        "name": "canopy",
+        "min_height": 2.5,
+        "max_height": 100,
+        "colors": [
+          {
+            "blocking_threshold": 0.1,
+            "color": "white"
+          }
+        ]
+      },
+      {
+        "name": "green",
+        "min_height": 0.5,
+        "max_height": 2.5,
+        "colors": [
+          {
+            // slow
+            "blocking_threshold": 0.2,
+            "color": "30% green"
+          },
+          {
+            // walk
+            "blocking_threshold": 0.6,
+            "color": "60% green"
+          },
+          {
+            // fight
+            "blocking_threshold": 0.8,
+            "color": "green"
+          }
+        ]
+      }
+    ]
+  },
+  "buildings": {
+    "color": "black"
+  },
+  "render": {
+    "scale": 25000,
+    "dpi": 1200
+  },
+  "colors": {
+    "primitive": {
+      "black": {
+        "cmyk": [
+          0,
+          0,
+          0,
+          100
+        ]
+      },
+      "white": {
+        "cmyk": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "green": {
+        "cmyk": [
+          76,
+          0,
+          91,
+          0
+        ]
+      },
+      "blue": {
+        "cmyk": [
+          100,
+          0,
+          0,
+          0
+        ]
+      },
+      "yellow": {
+        "cmyk": [
+          0,
+          27,
+          79,
+          0
+        ]
+      },
+      "dark green": {
+        "cmyk": [
+          100,
+          0,
+          80,
+          30
+        ]
+      },
+      "brown": {
+        "cmyk": [
+          0,
+          56,
+          100,
+          18
+        ]
+      },
+      "purple": {
+        "cmyk": [
+          35,
+          85,
+          0,
+          0
+        ]
+      }
+    },
+    "composite": {
+      "50% yellow": {
+        "yellow": 0.5
+      },
+      "30% green": {
+        "green": 0.3
+      },
+      "60% green": {
+        "green": 0.6
+      }
+    }
+  }
+}

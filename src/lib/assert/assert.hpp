@@ -49,6 +49,7 @@ inline void _AssertBinOp(const A &a, const B &b, const std::string &a_str, const
 
 #define AssertBinOp(a, b, op, nop) _AssertBinOp(a, b, #a, #b, a op b, #nop)
 #define AssertGE(expr, val) AssertBinOp(expr, val, >=, <)
+#define AssertLE(expr, val) AssertBinOp(expr, val, <=, >)
 #define AssertGT(expr, val) AssertBinOp(expr, val, >, <=)
 #define AssertEQ(expr, val) AssertBinOp(expr, val, ==, !=)
 #define AssertNE(expr, val) AssertBinOp(expr, val, !=, ==)

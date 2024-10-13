@@ -128,6 +128,12 @@ class Grid : public GridData {
     return {(*this)[coord.start()], (*this)[coord.end()]};
   }
 
+  void copy_from(const Grid &other) {
+    AssertEQ(width(), other.width());
+    AssertEQ(height(), other.height());
+    m_data = other.m_data;
+  }
+
   T max_value() const { return *std::max_element(m_data.begin(), m_data.end()); }
   T min_value() const { return *std::min_element(m_data.begin(), m_data.end()); }
 
@@ -337,6 +343,10 @@ class Geo : public GridT, public GeoGridData {
     auto top_right = (*this)[{x + 1, y}];
     auto bottom_left = (*this)[{x, y + 1}];
     auto bottom_right = (*this)[{x + 1, y + 1}];
+    AssertGE(x_frac, 0);
+    AssertLE(x_frac, 1);
+    AssertGE(y_frac, 0);
+    AssertLE(y_frac, 1);
     return top_left * (1 - x_frac) * (1 - y_frac) + top_right * x_frac * (1 - y_frac) +
            bottom_left * (1 - x_frac) * y_frac + bottom_right * x_frac * y_frac;
   }
