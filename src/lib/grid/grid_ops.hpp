@@ -46,28 +46,44 @@ GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
 }
 
 template <typename T>
-GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 0.5) {
+GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 1) {
   TimeFunction timer("remove outliers");
   GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                     GeoProjection(grid.projection()));
-#pragma omp parallel for
-  for (size_t i = 0; i < grid.height(); i++) {
-    for (size_t j = 0; j < grid.width(); j++) {
-      if (i == 0 || j == 0 || i == grid.height() - 1 || j == grid.width() - 1) {
-        result[{j, i}] = grid[{j, i}];
-        continue;
-      }
-      T z = grid[{j, i}];
-      double max_neighbour =
-          std::max({grid[{j - 1, i}], grid[{j, i - 1}], grid[{j + 1, i}], grid[{j, i + 1}]});
-      double min_neighbour =
-          std::min({grid[{j - 1, i}], grid[{j, i - 1}], grid[{j + 1, i}], grid[{j, i + 1}]});
-      if (min_neighbour - z > z_threshold || z - max_neighbour > z_threshold) {
-        result[{j, i}] = (max_neighbour + min_neighbour) / 2;
-      } else {
-        result[{j, i}] = z;
+  result.copy_from(grid);
+  bool no_outliers = false;
+  int iter_count = 0;
+  while (!no_outliers) {
+    iter_count++;
+    no_outliers = true;
+    int num_outliers = 0;
+#pragma omp parallel for reduction(+ : num_outliers)
+    for (size_t i = 0; i < grid.height(); i++) {
+      for (size_t j = 0; j < grid.width(); j++) {
+        if (i == 0 || j == 0 || i == grid.height() - 1 || j == grid.width() - 1) {
+          result[{j, i}] = grid[{j, i}];
+          continue;
+        }
+        T z = result[{j, i}];
+        double max_neighbour = std::max({0.5 * (result[{j - 1, i}] + result[{j + 1, i}]),
+                                         0.5 * (result[{j, i - 1}] + result[{j, i + 1}])});
+        double min_neighbour = std::min({0.5 * (result[{j - 1, i}] + result[{j + 1, i}]),
+                                         0.5 * (result[{j, i - 1}] + result[{j, i + 1}])});
+        if (std::isnan(max_neighbour) || std::isnan(min_neighbour) ||
+            !std::isfinite(max_neighbour) || !std::isfinite(min_neighbour) ||
+            std::abs(max_neighbour) > 1e8 || std::abs(min_neighbour) > 1e8) {
+          continue;
+        }
+        if (min_neighbour - z > z_threshold || z - max_neighbour > z_threshold) {
+          result[{j, i}] = (max_neighbour + min_neighbour) / 2;
+          no_outliers = false;
+          num_outliers++;
+        }
       }
     }
+    if (iter_count > 10)
+      std::cerr << "Removed " << num_outliers << " outliers with threshold " << z_threshold
+                << " on iteration " << iter_count << std::endl;
   }
   return result;
 }

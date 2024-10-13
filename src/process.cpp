@@ -18,7 +18,8 @@ size_t round_up(double x) { return std::ceil(1e-8 + std::abs(x)); }
 
 enum class GroundMethod { LOWER_BOUND, LOWEST_POINT, INTERPOLATE };
 
-GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground_points, GroundMethod method = GroundMethod::LOWEST_POINT) {
+GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground_points,
+                                  GroundMethod method = GroundMethod::LOWEST_POINT) {
   GeoGrid<double> ground(ground_points.width(), ground_points.height(),
                          GeoTransform(ground_points.transform()),
                          GeoProjection(ground_points.projection()));
@@ -39,7 +40,8 @@ GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground
   return ground;
 }
 
-GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid, au::QuantityD<au::Meters> original_resolution) {
+GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid,
+                                       au::QuantityD<au::Meters> original_resolution) {
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
 
@@ -48,7 +50,8 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid, au::Quantity
     for (size_t j = 1; j < grid.width() - 1; j++) {
       double dz_dy = (grid[{j + 1, i}] - grid[{j - 1, i}]) / (2 * grid.dx());
       double dz_dx = (grid[{j, i + 1}] - grid[{j, i - 1}]) / (2 * grid.dy());
-      result[{j, i}] = grid[{j, i}] + (std::abs(dz_dx) + std::abs(dz_dy)) * original_resolution.in(au::meters);
+      result[{j, i}] = grid[{j, i}] + 0.5 * (std::abs(dz_dx) + std::abs(dz_dy)) *
+                                          original_resolution.in(au::meters);
     }
   }
   return result;
@@ -90,13 +93,19 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
       GeoTransform(las_file.top_left(), resolution.in(au::meters)),
       GeoProjection(las_file.projection()));
 
+  GeoGrid<std::optional<std::byte>> water = GeoGrid<std::optional<std::byte>>(
+      ground_points.width(), ground_points.height(), GeoTransform(ground_points.transform()),
+      GeoProjection(ground_points.projection()));
 
   {
+    LASFile ground_points_las =
+        LASFile(ground_points.extent(), GeoProjection(ground_points.projection()));
     TimeFunction timer("min finding");
 #pragma omp parallel for
     for (size_t i = 0; i < binned_points.height(); i++) {
       for (size_t j = 0; j < binned_points.width(); j++) {
         bool is_building = false;
+        bool is_water = false;
         double min = std::numeric_limits<unsigned int>::max();
         std::optional<LASPoint> min_point = std::nullopt;
         for (const LASPoint& las_point : binned_points[{j, i}]) {
@@ -112,12 +121,20 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
           }
           if (las_point.classification() == LASClassification::Building) {
             is_building = true;
+          } else if (las_point.classification() == LASClassification::Water) {
+            is_water = true;
           }
         }
         ground_points[{j, i}] = min_point;
+        if (min_point) {
+#pragma omp critical
+          ground_points_las.insert(min_point.value());
+        }
         buildings[{j, i}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
+        water[{j, i}] = is_water ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
       }
     }
+    // ground_points_las.write(output_dir / "ground_points_mins.las");
   }
 
   GeoGrid<double> ground = get_pixel_heights(ground_points);
@@ -130,18 +147,26 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
 
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif");
   write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif");
+  write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif");
 
-  GeoGrid<double> smooth_ground =
-      remove_outliers(downsample(ground, config.grid.downsample_factor));
+  // LASFile(ground).write(output_dir / "ground.las");
+  //
+  GeoGrid<double> smooth_ground = remove_outliers(
+      downsample(ground, config.grid.downsample_factor),
+      config.ground.outlier_removal_height_diff.in(au::meters)*config.grid.downsample_factor);
+  // LASFile(downsample(ground, config.grid.downsample_factor))
+  //.write(output_dir / "smooth_ground_no_outlier_removal.las");
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif");
+
+  // LASFile(smooth_ground).write(output_dir.parent_path() / "smooth_ground.las");
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
-    write_to_image_tif(slope_grid.slice(las_file.export_bounds()),
-                       output_dir / "slope.tif");
+    write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif");
   }
 
   smooth_ground = adjust_ground_to_slope(smooth_ground, au::meters(ground.dx()));
+  // LASFile(smooth_ground).write(output_dir / "smooth_ground.las");
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
 
@@ -210,12 +235,15 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   GeoGrid<RGBColor> building_color(buildings.width(), buildings.height(),
                                    GeoTransform(buildings.transform()),
                                    GeoProjection(buildings.projection()));
+  GeoGrid<RGBColor> water_color(water.width(), water.height(), GeoTransform(water.transform()),
+                                GeoProjection(water.projection()));
 
 #pragma omp parallel for
   for (size_t i = 0; i < vege_color.height(); i++) {
     for (size_t j = 0; j < vege_color.width(); j++) {
       vege_color[{j, i}] = to_cmyk(config.vege.background_color);
       if (buildings[{j, i}]) building_color[{j, i}] = to_rgb(config.buildings.color);
+      if (water[{j, i}]) water_color[{j, i}] = to_rgb(CMYKColor(100, 0, 0, 0));
     }
   }
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
@@ -247,6 +275,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     RGBColor color = to_rgb(contour_config.color);
     final_img.draw(contour, color, contour_config.width * config.render.scale);
   }
+  final_img.draw(GeoImgGrid(water_color));
   final_img.draw(GeoImgGrid(building_color));
 
   final_img.save_to(output_dir / "final_img.tif", las_file.export_bounds());

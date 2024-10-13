@@ -131,6 +131,7 @@ class Grid : public GridData {
   void copy_from(const Grid &other) {
     AssertEQ(width(), other.width());
     AssertEQ(height(), other.height());
+    AssertEQ(m_data.size(), other.m_data.size());
     m_data = other.m_data;
   }
 

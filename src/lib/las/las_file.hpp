@@ -126,6 +126,18 @@ class LASFile {
         m_original_bounds(bounds),
         m_projection(projection){};
 
+  template <typename T>
+  explicit LASFile(const GeoGrid<T> &grid)
+      : LASFile(grid.extent(), GeoProjection(grid.projection())) {
+    for (size_t i = 0; i < grid.height(); i++) {
+      for (size_t j = 0; j < grid.width(); j++) {
+        Coordinate2D<double> coord =
+            grid.transform().pixel_to_projection({(double)j + 0.5, (double)i + 0.5});
+        insert(LASPoint(coord.x(), coord.y(), grid[{j, i}], 1000, LASClassification::Ground));
+      }
+    }
+  }
+
   void insert(const LASPoint &point) {
     m_points.emplace_back(point);
     m_height_range.first = std::min(m_height_range.first, point.z());
