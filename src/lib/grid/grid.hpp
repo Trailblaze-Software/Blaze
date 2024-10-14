@@ -108,8 +108,21 @@ class GridData {
   }
 };
 
-template <typename T>
+struct BlazeBool {
+  bool value;
+  BlazeBool(bool value) : value(value) {}
+  BlazeBool() : value(false) {}
+  BlazeBool &operator=(bool value) {
+    this->value = value;
+    return *this;
+  }
+  operator bool() const { return value; }
+};
+
+template <typename U>
 class Grid : public GridData {
+  using T = std::conditional_t<std::is_same_v<U, bool>, BlazeBool, U>;
+
  protected:
   std::vector<T> m_data;
   int m_repeats;
@@ -117,6 +130,7 @@ class Grid : public GridData {
  public:
   Grid(size_t width, size_t height, int repeats = 1)
       : GridData(width, height), m_data(width * height * repeats), m_repeats(repeats) {}
+
   T &operator[](Coordinate2D<size_t> coord) {
     return m_data.at(coord.y() * width() * m_repeats + coord.x() * m_repeats);
   }
