@@ -12,6 +12,8 @@
 
 enum class DownsampleMethod { MEAN, MEDIAN };
 
+#define SQ(x) ((x) * (x))
+
 template <typename T>
 GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
                       DownsampleMethod method = DownsampleMethod::MEDIAN) {
@@ -46,7 +48,7 @@ GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
 }
 
 template <typename T>
-GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 1) {
+GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 1, bool z_only = false) {
   TimeFunction timer("remove outliers");
   GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                     GeoProjection(grid.projection()));
@@ -75,6 +77,19 @@ GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 1) {
           continue;
         }
         if (min_neighbour - z > z_threshold || z - max_neighbour > z_threshold) {
+          if (!z_only) {
+            double dist_x =
+                (2 * grid.dx() * (result[{j, i}] - result[{j + 1, i}]) -
+                 (result[{j + 1, i}] - result[{j - 1, i}]) * grid.dx()) /
+                std::sqrt(SQ(2 * grid.dx()) + SQ((result[{j + 1, i}] - result[{j - 1, i}])));
+            double dist_y =
+                (2 * grid.dy() * (result[{j, i}] - result[{j, i + 1}]) -
+                 (result[{j, i + 1}] - result[{j, i - 1}]) * grid.dy()) /
+                std::sqrt(SQ(2 * grid.dy()) + SQ((result[{j, i + 1}] - result[{j, i - 1}])));
+            if (std::abs(dist_x) < z_threshold || std::abs(dist_y) < z_threshold) {
+              continue;
+            }
+          }
           result[{j, i}] = (max_neighbour + min_neighbour) / 2;
           no_outliers = false;
           num_outliers++;
