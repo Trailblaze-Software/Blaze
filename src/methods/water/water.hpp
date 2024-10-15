@@ -194,7 +194,7 @@ std::vector<std::vector<Coordinate2D<double>>> stream_paths(const GeoGrid<double
   for (const std::vector<Coordinate2D<size_t>>& path : result) {
     std::vector<Coordinate2D<double>> projected_path;
     for (const Coordinate2D<size_t>& coord : path) {
-      projected_path.push_back(grid.transform().pixel_to_projection(coord));
+      projected_path.push_back(grid.transform().pixel_to_projection(Coordinate2D<double>(0.5, 0.5) + coord));
     }
     projected_result.push_back(projected_path);
   }
