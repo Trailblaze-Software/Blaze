@@ -20,7 +20,7 @@ class RGBColor : public Color {
 
  public:
   RGBColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
-  RGBColor() : RGBColor(255, 255, 255, 0){};
+  RGBColor() { m_data.fill(0);};
 
   virtual RGBColor toRGB() const override { return *this; }
   virtual CMYKColor toCMYK() const override;

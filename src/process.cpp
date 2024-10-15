@@ -330,6 +330,15 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     RGBColor color = to_rgb(contour_config.color);
     final_img.draw(contour, color, contour_config.width * config.render.scale);
   }
+
+  {
+    TimeFunction timer("drawing paths");
+    for (const std::vector<Coordinate2D<double>>& path : stream_path) {
+      final_img.draw(path, CMYKColor(100, 0, 0, 0),
+                     au::milli(au::meters)(0.18) * config.render.scale);
+    }
+  }
+
   final_img.draw(GeoImgGrid(building_color));
 
   for (const std::shared_ptr<ContourPoint>& point : all_contour_points) {

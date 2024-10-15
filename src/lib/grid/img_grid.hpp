@@ -31,6 +31,7 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
   template <typename ColorT, typename = std::enable_if_t<std::is_base_of_v<Color, ColorT>>>
   GeoImgGrid(const GeoGrid<ColorT> &grid)
       : ImgGrid(grid.width(), grid.height()), GeoGridData(grid) {
+#pragma omp parallel for
     for (size_t i = 0; i < grid.height(); i++) {
       for (size_t j = 0; j < grid.width(); j++) {
         const RGBColor color = grid[{j, i}].toRGB();
