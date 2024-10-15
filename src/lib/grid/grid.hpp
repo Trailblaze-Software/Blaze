@@ -142,6 +142,8 @@ class Grid : public GridData {
     return {(*this)[coord.start()], (*this)[coord.end()]};
   }
 
+  void fill(const T &value) { std::fill(m_data.begin(), m_data.end(), value); }
+
   void copy_from(const Grid &other) {
     AssertEQ(width(), other.width());
     AssertEQ(height(), other.height());

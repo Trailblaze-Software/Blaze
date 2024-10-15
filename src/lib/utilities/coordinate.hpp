@@ -9,7 +9,7 @@
 
 class Direction2D {
  public:
-  enum Dir { UP, DOWN, LEFT, RIGHT };
+  enum Dir { UP, DOWN, LEFT, RIGHT, UR, UL, DR, DL };
 
  private:
   Dir m_dir;
@@ -33,8 +33,12 @@ class Direction2D {
       case DOWN:
         return 0;
       case LEFT:
+      case UL:
+      case DL:
         return -1;
       case RIGHT:
+      case UR:
+      case DR:
         return 1;
     }
     unreachable();
@@ -43,8 +47,12 @@ class Direction2D {
   int dy() const {
     switch (m_dir) {
       case UP:
+      case UR:
+      case UL:
         return -1;
       case DOWN:
+      case DR:
+      case DL:
         return 1;
       case LEFT:
       case RIGHT:
@@ -63,6 +71,14 @@ class Direction2D {
         return Direction2D(RIGHT);
       case RIGHT:
         return Direction2D(LEFT);
+      case UR:
+        return Direction2D(DL);
+      case UL:
+        return Direction2D(DR);
+      case DR:
+        return Direction2D(UL);
+      case DL:
+        return Direction2D(UR);
     }
     unreachable();
   }
@@ -81,10 +97,31 @@ class Direction2D {
       case RIGHT:
         os << "RIGHT";
         break;
+      case UR:
+        os << "UR";
+        break;
+      case UL:
+        os << "UL";
+        break;
+      case DR:
+        os << "DR";
+        break;
+      case DL:
+        os << "DL";
+        break;
     }
     return os;
   }
 };
+
+const std::array<Direction2D, 4> ORTHOGONAL_DIRECTIONS = {
+    Direction2D(Direction2D::UP), Direction2D(Direction2D::DOWN), Direction2D(Direction2D::LEFT),
+    Direction2D(Direction2D::RIGHT)};
+
+const std::array<Direction2D, 8> ALL_DIRECTIONS = {
+    Direction2D(Direction2D::UP),    Direction2D(Direction2D::DOWN), Direction2D(Direction2D::LEFT),
+    Direction2D(Direction2D::RIGHT), Direction2D(Direction2D::UR),   Direction2D(Direction2D::UL),
+    Direction2D(Direction2D::DR),    Direction2D(Direction2D::DL)};
 
 template <typename T>
 class Coordinate2D {
@@ -124,6 +161,14 @@ class Coordinate2D {
         return Coordinate2D(x() - 1, y());
       case Direction2D::RIGHT:
         return Coordinate2D(x() + 1, y());
+      case Direction2D::UR:
+        return Coordinate2D(x() + 1, y() - 1);
+      case Direction2D::UL:
+        return Coordinate2D(x() - 1, y() - 1);
+      case Direction2D::DR:
+        return Coordinate2D(x() + 1, y() + 1);
+      case Direction2D::DL:
+        return Coordinate2D(x() - 1, y() + 1);
     }
     unreachable();
   }

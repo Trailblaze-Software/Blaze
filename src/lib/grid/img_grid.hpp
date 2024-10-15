@@ -5,6 +5,7 @@
 
 #include "contour/contour.hpp"
 #include "isom/colors.hpp"
+#include "utilities/coordinate.hpp"
 
 class ImgGrid : public GridData {
  protected:
@@ -95,6 +96,18 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
     std::vector<std::vector<cv::Point>> points;
     points.push_back({});
     for (const auto &point : contour.points()) {
+      Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
+      points[0].push_back({cv::Point(pixel_coord.x(), pixel_coord.y())});
+    }
+    int line_width_pixels = width / transform().dx_m();
+    cv::polylines(m_img, points, false, to_rgb(color).toScalar(), line_width_pixels, cv::LINE_8);
+  }
+
+  void draw(const std::vector<Coordinate2D<double>> &in_points, const ColorVariant &color,
+            au::QuantityD<au::Meters> width) {
+    std::vector<std::vector<cv::Point>> points;
+    points.push_back({});
+    for (const auto &point : in_points) {
       Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
       points[0].push_back({cv::Point(pixel_coord.x(), pixel_coord.y())});
     }

@@ -152,7 +152,11 @@ void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename) {
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
-      result[{j, i}] = static_cast<std::byte>(255 * (grid[{j, i}] - min) / (max - min));
+      if constexpr (std::is_same_v<T, bool>) {
+        result[{j, i}] = grid[{j, i}] ? std::byte(255) : std::byte(0);
+      } else {
+        result[{j, i}] = static_cast<std::byte>(255 * (grid[{j, i}] - min) / (max - min));
+      }
     }
   }
   CMYKColor cmyk = CMYKColor::FromRGB(RGBColor(255, 255, 255));

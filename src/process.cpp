@@ -117,7 +117,8 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
         double min = std::numeric_limits<unsigned int>::max();
         std::optional<LASPoint> min_point = std::nullopt;
         for (const LASPoint& las_point : binned_points[{j, i}]) {
-          if (las_point.z() < min && (las_point.classification() == LASClassification::Ground || !only_classified_ground)) {
+          if (las_point.z() < min && (las_point.classification() == LASClassification::Ground ||
+                                      !only_classified_ground)) {
             min = las_point.z();
             min_point = las_point;
             uchar intensity = std::clamp(
@@ -142,8 +143,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
         water[{j, i}] = is_water ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
       }
     }
-  if(OUT_LAS)
-     ground_points_las.write(output_dir / "ground_points_mins.las");
+    if (OUT_LAS) ground_points_las.write(output_dir / "ground_points_mins.las");
   }
 
   GeoGrid<double> ground = get_pixel_heights(ground_points);
@@ -158,19 +158,17 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif");
   write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif");
 
-  if(OUT_LAS)
-   LASFile(ground).write(output_dir / "ground.las");
+  if (OUT_LAS) LASFile(ground).write(output_dir / "ground.las");
 
   GeoGrid<double> smooth_ground = remove_outliers(
       downsample(ground, config.grid.downsample_factor),
       config.ground.outlier_removal_height_diff.in(au::meters)*config.grid.downsample_factor);
-  if(OUT_LAS)
-     LASFile(downsample(ground, config.grid.downsample_factor))
-    .write(output_dir / "smooth_ground_no_outlier_removal.las");
+  if (OUT_LAS)
+    LASFile(downsample(ground, config.grid.downsample_factor))
+        .write(output_dir / "smooth_ground_no_outlier_removal.las");
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif");
 
-  if(OUT_LAS)
-   LASFile(smooth_ground).write(output_dir.parent_path() / "smooth_ground.las");
+  if (OUT_LAS) LASFile(smooth_ground).write(output_dir.parent_path() / "smooth_ground.las");
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
@@ -178,12 +176,21 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   }
 
   smooth_ground = adjust_ground_to_slope(smooth_ground, au::meters(ground.dx()));
-  if(OUT_LAS)
-   LASFile(smooth_ground).write(output_dir / "smooth_ground.las");
+  if (OUT_LAS) LASFile(smooth_ground).write(output_dir / "smooth_ground.las");
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
 
-  GeoGrid<double> filled_ground = fill_depressions(smooth_ground);
+  GeoGrid<double> filled_grid = fill_depressions(smooth_ground);
+  write_to_tif(filled_grid.slice(las_file.export_bounds()), output_dir / "filled.tif");
+  GeoGrid<double> catchment_size_grid = catchment_size(smooth_ground);
+  write_to_image_tif(catchment_size_grid.slice(las_file.export_bounds()),
+                     output_dir / "catchment_size.tif");
+  write_to_tif(catchment_size_grid.slice(las_file.export_bounds()),
+               output_dir / "catchment_size_raw.tif");
+  GeoGrid<bool> stream_grid = streams(smooth_ground);
+  write_to_image_tif(stream_grid.slice(las_file.export_bounds()), output_dir / "streams.tif");
+
+  std::vector<std::vector<Coordinate2D<double>>> stream_path = stream_paths(smooth_ground);
 
   au::QuantityD<au::Meters> contour_points_resolution = au::meters(20);
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
@@ -282,16 +289,38 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
       GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
       GeoProjection(vege_color.projection()));
 
-  final_img.draw(vege_color);
-
-  for (const Contour& contour : contours) {
-    if (config.contours.layer_name_from_height(contour.height()) == "Contour") continue;
-    const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
-    RGBColor color = to_rgb(contour_config.color);
-    final_img.draw(contour, color, contour_config.width * config.render.scale);
+  {
+    TimeFunction timer("drawing vege");
+    final_img.draw(vege_color);
   }
-  final_img.draw(GeoImgGrid(water_color));
-  final_img.draw(GeoImgGrid(building_color));
+
+  {
+    TimeFunction timer("drawing stuff");
+    final_img.draw(GeoImgGrid(water_color));
+  }
+
+  {
+    TimeFunction timer("drawing contours");
+    for (const Contour& contour : contours) {
+      if (config.contours.layer_name_from_height(contour.height()) == "Contour") continue;
+      const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
+      RGBColor color = to_rgb(contour_config.color);
+      final_img.draw(contour, color, contour_config.width * config.render.scale);
+    }
+  }
+
+  {
+    TimeFunction timer("drawing paths");
+    for (const std::vector<Coordinate2D<double>>& path : stream_path) {
+      final_img.draw(path, CMYKColor(100, 0, 0, 0),
+                     au::milli(au::meters)(0.18) * config.render.scale);
+    }
+  }
+
+  {
+    TimeFunction timer("drawing stuff");
+    final_img.draw(GeoImgGrid(building_color));
+  }
 
   final_img.save_to(output_dir / "final_img.tif", las_file.export_bounds());
 
