@@ -180,16 +180,6 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
 
-  GeoGrid<double> filled_grid = fill_depressions(smooth_ground);
-  write_to_tif(filled_grid.slice(las_file.export_bounds()), output_dir / "filled.tif");
-  GeoGrid<double> catchment_size_grid = catchment_size(smooth_ground);
-  write_to_image_tif(catchment_size_grid.slice(las_file.export_bounds()),
-                     output_dir / "catchment_size.tif");
-  write_to_tif(catchment_size_grid.slice(las_file.export_bounds()),
-               output_dir / "catchment_size_raw.tif");
-  GeoGrid<bool> stream_grid = streams(smooth_ground);
-  write_to_image_tif(stream_grid.slice(las_file.export_bounds()), output_dir / "streams.tif");
-
   std::vector<std::vector<Coordinate2D<double>>> stream_path = stream_paths(smooth_ground);
 
   au::QuantityD<au::Meters> contour_points_resolution = au::meters(20);
@@ -234,6 +224,8 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   write_to_dxf(trimmed_contours, output_dir / "trimmed_contours.dxf", config.contours);
   // crt name must match dxf name
   write_to_crt(output_dir / "contours.crt");
+
+  write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
 
   // VEGE
   std::map<std::string, GeoGrid<double>> vege_maps;

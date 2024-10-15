@@ -37,7 +37,7 @@ class Polyline {
   std::string name;
   std::vector<Coordinate2D<double>> vertices;
 
-  void write_to_dxf(std::ofstream &dxfFile) {
+  void write_to_dxf(std::ofstream &dxfFile) const {
     bool is_loop = (vertices.front() - vertices.back()).magnitude_sqd() < 1e-10;
 
     dxfFile << "0\nPOLYLINE\n";
@@ -81,42 +81,63 @@ class Polyline {
   }
 };
 
-inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename,
-                         [[maybe_unused]] const ContourConfigs &contour_configs) {
+inline std::string dxf_header() {
+  return "0\nSECTION\n"
+         "2\nHEADER\n"
+         "0\nENDSEC\n";
+}
+
+inline std::string dxf_entities() {
+  return "0\nSECTION\n"
+         "2\nENTITIES\n";
+}
+
+inline std::string dxf_footer() {
+  return "0\nENDSEC\n"
+         "0\nSECTION\n"
+         "2\nEOF\n"
+         "0\nENDSEC\n";
+}
+
+inline void write_to_dxf(const std::vector<Polyline>& polylines, const fs::path& filename) {
   TimeFunction timer("writing to DXF");
-  // Open the DXF file for writing
   std::ofstream dxfFile(filename);
   if (!dxfFile.is_open()) {
     std::cerr << "Failed to open DXF file for writing\n";
     return;
   }
 
-  // Write the header section
-  dxfFile << "0\nSECTION\n";
-  dxfFile << "2\nHEADER\n";
-  // Additional header data can be written here if needed
-  dxfFile << "0\nENDSEC\n";
+  dxfFile << dxf_header();
+  dxfFile << dxf_entities();
 
-  // Write the entities section
-  dxfFile << "0\nSECTION\n";
-  dxfFile << "2\nENTITIES\n";
-
-  for (const auto &contour : contours) {
-    (void)contour;
-    // if (contour.points().size() > 1) {
-    // contour.to_polyline(contour_configs).write_to_dxf(dxfFile);
-    //}
+  for (const auto& polyline : polylines) {
+    polyline.write_to_dxf(dxfFile);
   }
 
-  dxfFile << "0\nENDSEC\n";
-
-  // Write the footer section
-  dxfFile << "0\nSECTION\n";
-  dxfFile << "2\nEOF\n";
-  dxfFile << "0\nENDSEC\n";
-
-  // Close the DXF file
+  dxfFile << dxf_footer();
   dxfFile.close();
+}
+
+inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename,
+                         [[maybe_unused]] const ContourConfigs &contour_configs) {
+  TimeFunction timer("writing to DXF " + filename.string());
+  std::vector<Polyline> polylines;
+  for (const auto &contour : contours) {
+    if (contour.points().size() > 1) {
+      polylines.push_back(contour.to_polyline(contour_configs));
+    }
+  }
+  write_to_dxf(polylines, filename);
+}
+
+inline void write_to_dxf(const std::vector<std::vector<Coordinate2D<double>>>& lines,
+                         const fs::path& filename, const std::string& layer_name) {
+  TimeFunction timer("writing to DXF " + filename.string());
+  std::vector<Polyline> polylines;
+  for (const auto& line : lines) {
+    polylines.push_back({.layer = layer_name, .name = layer_name, .vertices = line});
+  }
+  write_to_dxf(polylines, filename);
 }
 
 inline std::vector<Contour> read_dxf(const fs::path &filename) {
