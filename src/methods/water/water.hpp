@@ -1,9 +1,9 @@
 #include <queue>
 
 #include "grid/grid.hpp"
+#include "printing/to_string.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/timer.hpp"
-#include "printing/to_string.hpp"
 
 struct PriorityPoint {
   double priority;
@@ -14,7 +14,8 @@ struct PriorityPoint {
 
 #define SQ(x) ((x) * (x))
 
-std::optional<Coordinate2D<size_t>> flows_to(const GeoGrid<double>& grid, const Coordinate2D<size_t>& coord) {
+std::optional<Coordinate2D<size_t>> flows_to(const GeoGrid<double>& grid,
+                                             const Coordinate2D<size_t>& coord) {
   double slope = 0;
   Coordinate2D<size_t> min_neighbour = coord;
   for (Direction2D dir : ALL_DIRECTIONS) {
@@ -32,7 +33,8 @@ std::optional<Coordinate2D<size_t>> flows_to(const GeoGrid<double>& grid, const 
   return slope == 0 ? std::nullopt : std::make_optional(min_neighbour);
 }
 
-GeoGrid<double> fill_depressions(const GeoGrid<double>& grid, const std::vector<Coordinate2D<size_t>>& sinks = {}) {
+GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
+                                 const std::vector<Coordinate2D<size_t>>& sinks = {}) {
   TimeFunction timer("fill depressions");
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
@@ -89,7 +91,8 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid, const std::vector<
   return result;
 }
 
-std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, double depth = 3, double min_area = 500) {
+std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, double depth = 3,
+                                                 double min_area = 500) {
   TimeFunction timer("identify sinks");
   GeoGrid<double> filled = fill_depressions(grid);
 
@@ -136,7 +139,6 @@ std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, do
   return sinks;
 }
 
-
 GeoGrid<double> catchment_size(const GeoGrid<double>& filled) {
   TimeFunction timer("catchment size");
 
@@ -166,7 +168,8 @@ GeoGrid<bool> streams(const GeoGrid<double>& filled_ground) {
   TimeFunction timer("streams");
   GeoGrid<double> catchment = catchment_size(filled_ground);
 
-  GeoGrid<bool> result(filled_ground.width(), filled_ground.height(), GeoTransform(filled_ground.transform()),
+  GeoGrid<bool> result(filled_ground.width(), filled_ground.height(),
+                       GeoTransform(filled_ground.transform()),
                        GeoProjection(filled_ground.projection()));
 
   for (size_t i = 0; i < filled_ground.height(); i++) {
@@ -178,19 +181,18 @@ GeoGrid<bool> streams(const GeoGrid<double>& filled_ground) {
   return result;
 }
 
-std::vector<Coordinate2D<size_t>> stream_path(const GeoGrid<bool>& stream, GeoGrid<bool>& visited,
-                                              const GeoGrid<double>& heights,
-                                              std::vector<Coordinate2D<size_t>>&& start,
-                                              std::queue<std::vector<Coordinate2D<size_t>>>& queue_of_starts) {
-  for (const Coordinate2D<size_t>& coord : start)
-    visited[coord] = true;
+std::vector<Coordinate2D<size_t>> stream_path(
+    const GeoGrid<bool>& stream, GeoGrid<bool>& visited, const GeoGrid<double>& heights,
+    std::vector<Coordinate2D<size_t>>&& start,
+    std::queue<std::vector<Coordinate2D<size_t>>>& queue_of_starts) {
+  for (const Coordinate2D<size_t>& coord : start) visited[coord] = true;
 
   while (true) {
     Coordinate2D<size_t> last_point = start.back();
     std::vector<Coordinate2D<size_t>> unvisited_neighbours;
     for (Direction2D dir : ALL_DIRECTIONS) {
       Coordinate2D<size_t> neighbour = last_point + dir;
-      if (stream.in_bounds(neighbour) && stream[neighbour] && !visited[neighbour])  {
+      if (stream.in_bounds(neighbour) && stream[neighbour] && !visited[neighbour]) {
         std::optional<Coordinate2D<size_t>> flow = flows_to(heights, neighbour);
         if (flow && flow.value() == last_point) {
           unvisited_neighbours.push_back(neighbour);
@@ -232,7 +234,6 @@ std::vector<std::vector<Coordinate2D<double>>> stream_paths(const GeoGrid<double
 
   GeoGrid<bool> stream = streams(filled);
 
-
   std::vector<std::vector<Coordinate2D<size_t>>> result;
   GeoGrid<bool> visited(grid.width(), grid.height(), GeoTransform(grid.transform()),
                         GeoProjection(grid.projection()));
@@ -258,8 +259,8 @@ std::vector<std::vector<Coordinate2D<double>>> stream_paths(const GeoGrid<double
         starting_points.pop();
         continue;
       }
-      result.push_back(
-          stream_path(stream, visited, filled, std::move(starting_points.front()), starting_points));
+      result.push_back(stream_path(stream, visited, filled, std::move(starting_points.front()),
+                                   starting_points));
       starting_points.pop();
     }
     if (!visited[stream_cells[i].second]) {

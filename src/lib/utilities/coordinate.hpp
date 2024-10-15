@@ -175,7 +175,7 @@ class Coordinate2D {
 
   Coordinate2D operator+(Coordinate2D o) const { return Coordinate2D(x() + o.x(), y() + o.y()); }
   Coordinate2D operator-(Coordinate2D o) const { return Coordinate2D(x() - o.x(), y() - o.y()); }
-  bool operator==(const Coordinate2D& o) const { return x() == o.x() && y() == o.y(); }
+  bool operator==(const Coordinate2D &o) const { return x() == o.x() && y() == o.y(); }
 
   T magnitude_sqd() const { return x() * x() + y() * y(); }
   T magnitude() const { return std::sqrt(magnitude_sqd()); }

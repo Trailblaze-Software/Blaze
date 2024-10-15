@@ -99,7 +99,7 @@ inline std::string dxf_footer() {
          "0\nENDSEC\n";
 }
 
-inline void write_to_dxf(const std::vector<Polyline>& polylines, const fs::path& filename) {
+inline void write_to_dxf(const std::vector<Polyline> &polylines, const fs::path &filename) {
   TimeFunction timer("writing to DXF");
   std::ofstream dxfFile(filename);
   if (!dxfFile.is_open()) {
@@ -110,7 +110,7 @@ inline void write_to_dxf(const std::vector<Polyline>& polylines, const fs::path&
   dxfFile << dxf_header();
   dxfFile << dxf_entities();
 
-  for (const auto& polyline : polylines) {
+  for (const auto &polyline : polylines) {
     polyline.write_to_dxf(dxfFile);
   }
 
@@ -130,11 +130,11 @@ inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename
   write_to_dxf(polylines, filename);
 }
 
-inline void write_to_dxf(const std::vector<std::vector<Coordinate2D<double>>>& lines,
-                         const fs::path& filename, const std::string& layer_name) {
+inline void write_to_dxf(const std::vector<std::vector<Coordinate2D<double>>> &lines,
+                         const fs::path &filename, const std::string &layer_name) {
   TimeFunction timer("writing to DXF " + filename.string());
   std::vector<Polyline> polylines;
-  for (const auto& line : lines) {
+  for (const auto &line : lines) {
     polylines.push_back({.layer = layer_name, .name = layer_name, .vertices = line});
   }
   write_to_dxf(polylines, filename);
