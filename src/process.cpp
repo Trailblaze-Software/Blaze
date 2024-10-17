@@ -180,8 +180,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
 
-  std::vector<std::vector<Coordinate2D<double>>> stream_path =
-      stream_paths(smooth_ground, config.water);
+  std::vector<Stream> stream_path = stream_paths(smooth_ground, config.water);
 
   au::QuantityD<au::Meters> contour_points_resolution = au::meters(20);
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
@@ -226,7 +225,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   // crt name must match dxf name
   write_to_crt(output_dir / "contours.crt");
 
-  write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
+  // write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
 
   // VEGE
   std::map<std::string, GeoGrid<double>> vege_maps;
@@ -304,9 +303,9 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
 
   {
     TimeFunction timer("drawing paths");
-    for (const std::vector<Coordinate2D<double>>& path : stream_path) {
-      final_img.draw(path, config.water.configs.at("small").color,
-                     config.water.configs.at("small").width * config.render.scale);
+    for (const Stream& stream : stream_path) {
+      const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
+      final_img.draw(stream.coords, water_config.color, water_config.width * config.render.scale);
     }
   }
 
@@ -326,9 +325,9 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
 
   {
     TimeFunction timer("drawing paths");
-    for (const std::vector<Coordinate2D<double>>& path : stream_path) {
-      final_img.draw(path, config.water.configs.at("small").color,
-                     config.water.configs.at("small").width * config.render.scale);
+    for (const Stream& stream : stream_path) {
+      const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
+      final_img.draw(stream.coords, water_config.color, water_config.width * config.render.scale);
     }
   }
 

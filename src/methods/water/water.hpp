@@ -165,9 +165,9 @@ GeoGrid<double> catchment_size(const GeoGrid<double>& filled) {
   return result;
 }
 
-GeoGrid<bool> streams(const GeoGrid<double>& filled_ground, double minimum_catchment) {
+GeoGrid<bool> streams(const GeoGrid<double>& filled_ground, const GeoGrid<double>& catchment,
+                      double minimum_catchment) {
   TimeFunction timer("streams");
-  GeoGrid<double> catchment = catchment_size(filled_ground);
 
   GeoGrid<bool> result(filled_ground.width(), filled_ground.height(),
                        GeoTransform(filled_ground.transform()),
@@ -205,9 +205,11 @@ std::vector<Coordinate2D<size_t>> stream_path(
     }
     start.push_back(unvisited_neighbours.back());
     visited[unvisited_neighbours.back()] = true;
-    unvisited_neighbours.pop_back();
-    for (const Coordinate2D<size_t>& neighbour : unvisited_neighbours) {
-      queue_of_starts.push({last_point, neighbour});
+    if (unvisited_neighbours.size() > 1) {
+      for (const Coordinate2D<size_t>& neighbour : unvisited_neighbours) {
+        queue_of_starts.push({last_point, neighbour});
+      }
+      break;
     }
   }
 
@@ -227,14 +229,19 @@ std::vector<Coordinate2D<double>> smoothify(const std::vector<Coordinate2D<doubl
   return result;
 }
 
-std::vector<std::vector<Coordinate2D<double>>> stream_paths(const GeoGrid<double>& grid,
-                                                            const WaterConfigs& config) {
+struct Stream {
+  std::vector<Coordinate2D<double>> coords;
+  double catchment;
+};
+
+std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs& config) {
   TimeFunction timer("stream paths");
 
   std::vector<Coordinate2D<size_t>> sinks = identify_sinks(grid);
   GeoGrid<double> filled = fill_depressions(grid, sinks);
 
-  GeoGrid<bool> stream = streams(filled, config.minimum_catchment());
+  GeoGrid<double> catchment = catchment_size(filled);
+  GeoGrid<bool> stream = streams(filled, catchment, config.minimum_catchment());
 
   std::vector<std::vector<Coordinate2D<size_t>>> result;
   GeoGrid<bool> visited(grid.width(), grid.height(), GeoTransform(grid.transform()),
@@ -270,14 +277,14 @@ std::vector<std::vector<Coordinate2D<double>>> stream_paths(const GeoGrid<double
     }
   }
 
-  std::vector<std::vector<Coordinate2D<double>>> projected_result;
+  std::vector<Stream> projected_result;
   for (const std::vector<Coordinate2D<size_t>>& path : result) {
     std::vector<Coordinate2D<double>> projected_path;
     for (const Coordinate2D<size_t>& coord : path) {
       projected_path.push_back(
           grid.transform().pixel_to_projection(Coordinate2D<double>(0.5, 0.5) + coord));
     }
-    projected_result.push_back(smoothify(projected_path));
+    projected_result.emplace_back(Stream(smoothify(projected_path), catchment[path.back()]));
   }
 
   return projected_result;

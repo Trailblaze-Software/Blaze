@@ -283,13 +283,14 @@ struct WaterConfigs {
   const std::map<std::string, WaterConfig> configs;
 
   const WaterConfig& config_from_catchment(double catchment) const {
-    const WaterConfig* min_config = nullptr;
+    const WaterConfig* max_valid_config = nullptr;
     for (const auto& [_, config] : configs) {
-      if (config.catchment < au::pow<2>(au::kilo(au::meters))(catchment) &&
-          config.catchment > min_config->catchment)
-        min_config = &config;
+      if (config.catchment <= au::pow<2>(au::meters)(catchment) &&
+          (max_valid_config == nullptr || config.catchment > max_valid_config->catchment))
+        max_valid_config = &config;
     }
-    return *min_config;
+    std::cout << "Catchment is " << catchment << " " << max_valid_config->catchment << std::endl;
+    return *max_valid_config;
   }
 
   double minimum_catchment() const {
