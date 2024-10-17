@@ -8,6 +8,7 @@
 #include "au/math.hh"
 #include "au/prefix.hh"
 #include "au/quantity.hh"
+#include "au/unit_of_measure.hh"
 #include "isom/colors.hpp"
 
 #define JSON_DIAGNOSTICS 1
@@ -272,6 +273,61 @@ struct adl_serializer<RenderConfig> {
 };
 }  // namespace nlohmann
 
+struct WaterConfig {
+  const au::QuantityD<au::UnitPowerT<au::Kilo<au::Meters>, 2>> catchment;
+  const ColorVariant color;
+  const au::QuantityD<au::Milli<au::Meters>> width;
+};
+
+struct WaterConfigs {
+  const std::map<std::string, WaterConfig> configs;
+
+  const WaterConfig& config_from_catchment(double catchment) const {
+    const WaterConfig* min_config = nullptr;
+    for (const auto& [_, config] : configs) {
+      if (config.catchment < au::pow<2>(au::kilo(au::meters))(catchment) &&
+          config.catchment > min_config->catchment)
+        min_config = &config;
+    }
+    return *min_config;
+  }
+
+  double minimum_catchment() const {
+    double min_catchment = std::numeric_limits<double>::max();
+    for (const auto& [_, config] : configs) {
+      min_catchment =
+          std::min(config.catchment.in(au::pow<2>(au::kilo(au::meters))), min_catchment);
+    }
+    return min_catchment;
+  }
+};
+
+namespace nlohmann {
+template <>
+struct adl_serializer<WaterConfig> {
+  static WaterConfig from_json(const json& j) {
+    return WaterConfig{.catchment = au::pow<2>(au::kilo(au::meters))((j.value("catchment", 0.05))),
+                       .color = j.value("color", json({"blue"})),
+                       .width = au::milli(au::meters)(j.value("width", 0.18))};
+  }
+
+  static void to_json(json& j, WaterConfig cc) {
+    j["catchment"] = cc.catchment.in(au::pow<2>(au::kilo(au::meters)));
+    j["color"] = cc.color;
+    j["width"] = cc.width.in(au::milli(au::meters));
+  }
+};
+
+template <>
+struct adl_serializer<WaterConfigs> {
+  static WaterConfigs from_json(const json& j) {
+    return WaterConfigs(j.get<std::map<std::string, WaterConfig>>());
+  }
+
+  static void to_json(json& j, WaterConfigs cc) { j = cc.configs; }
+};
+}  // namespace nlohmann
+
 struct ContourConfigs {
   const std::map<std::string, ContourConfig> configs;
   const au::QuantityD<au::Meters> min_interval;
@@ -365,6 +421,7 @@ struct Config {
   const GridConfig grid;
   const GroundConfig ground;
   const ContourConfigs contours;
+  const WaterConfigs water;
   const VegeConfig vege;
   const RenderConfig render;
   const BuildingsConfig buildings;
@@ -386,6 +443,7 @@ struct adl_serializer<Config> {
         .grid = j.value("grid", json({})).get<GridConfig>(),
         .ground = j.value("ground", json({})).get<GroundConfig>(),
         .contours = j.value("contours", json({})).get<ContourConfigs>(),
+        .water = j.value("water", json({})),
         .vege = j.value("vege", json({})).get<VegeConfig>(),
         .render = j.value("render", json({})).get<RenderConfig>(),
         .buildings = j.value("buildings", json({})).get<BuildingsConfig>(),

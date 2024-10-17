@@ -1,5 +1,6 @@
 #include <queue>
 
+#include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
 #include "printing/to_string.hpp"
 #include "utilities/coordinate.hpp"
@@ -164,7 +165,7 @@ GeoGrid<double> catchment_size(const GeoGrid<double>& filled) {
   return result;
 }
 
-GeoGrid<bool> streams(const GeoGrid<double>& filled_ground) {
+GeoGrid<bool> streams(const GeoGrid<double>& filled_ground, double minimum_catchment) {
   TimeFunction timer("streams");
   GeoGrid<double> catchment = catchment_size(filled_ground);
 
@@ -174,7 +175,7 @@ GeoGrid<bool> streams(const GeoGrid<double>& filled_ground) {
 
   for (size_t i = 0; i < filled_ground.height(); i++) {
     for (size_t j = 0; j < filled_ground.width(); j++) {
-      result[{j, i}] = catchment[{j, i}] > 20000;
+      result[{j, i}] = catchment[{j, i}] > 1000000 * minimum_catchment;
     }
   }
 
@@ -226,13 +227,14 @@ std::vector<Coordinate2D<double>> smoothify(const std::vector<Coordinate2D<doubl
   return result;
 }
 
-std::vector<std::vector<Coordinate2D<double>>> stream_paths(const GeoGrid<double>& grid) {
+std::vector<std::vector<Coordinate2D<double>>> stream_paths(const GeoGrid<double>& grid,
+                                                            const WaterConfigs& config) {
   TimeFunction timer("stream paths");
 
   std::vector<Coordinate2D<size_t>> sinks = identify_sinks(grid);
   GeoGrid<double> filled = fill_depressions(grid, sinks);
 
-  GeoGrid<bool> stream = streams(filled);
+  GeoGrid<bool> stream = streams(filled, config.minimum_catchment());
 
   std::vector<std::vector<Coordinate2D<size_t>>> result;
   GeoGrid<bool> visited(grid.width(), grid.height(), GeoTransform(grid.transform()),
