@@ -18,14 +18,18 @@
 #include "utilities/timer.hpp"
 
 int main([[maybe_unused]] int argc, char *argv[]) {
-  Config config = Config::FromFile("config.json");
+  fs::path config_path = "config.json";
+  if (argc > 1) {
+    config_path = argv[1];
+  }
+  Config config = Config::FromFile(config_path);
   std::cout << config << std::endl;
 
   std::vector<fs::path> las_files;
   if (config.las_files.size() == 0) {
     std::cerr << "No LAS files specified in config.json" << std::endl;
-    if (argc != 2) {
-      std::cerr << "Usage: blaze <las_file>" << std::endl;
+    if (argc != 3) {
+      std::cerr << "Usage: blaze <config_file> <las_file>" << std::endl;
       exit(1);
     }
     las_files.push_back(argv[1]);
@@ -64,7 +68,6 @@ int main([[maybe_unused]] int argc, char *argv[]) {
         break;
       case ProcessingStep::Combine:
         // Combine contours
-
         std::map<double, std::vector<Contour>> contours_by_height;
         for (const fs::path &las_file : las_files) {
           fs::path output_dir = config.output_directory;

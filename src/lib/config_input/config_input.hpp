@@ -1,5 +1,8 @@
 #pragma once
 
+#include <au/units/inches.hh>
+#include <au/units/meters.hh>
+#include <au/units/unos.hh>
 #include <fstream>
 #include <iostream>
 
@@ -12,9 +15,6 @@
 #include "isom/colors.hpp"
 
 #define JSON_DIAGNOSTICS 1
-#include <au/units/inches.hh>
-#include <au/units/meters.hh>
-#include <au/units/unos.hh>
 #include <nlohmann/json.hpp>
 
 #include "utilities/filesystem.hpp"
@@ -474,8 +474,8 @@ struct adl_serializer<Config> {
 inline Config Config::FromFile(const fs::path& filename) {
   std::ifstream file(filename);
   if (!file.is_open()) {
-    std::cerr << "Failed to open file\n";
-    throw std::filesystem::filesystem_error("Failed to open file",
+    std::cerr << "Failed to open config file " << filename << std::endl;
+    throw std::filesystem::filesystem_error("Failed to open config file " + filename.string(),
                                             std::make_error_code(std::errc::io_error));
   }
   json j;

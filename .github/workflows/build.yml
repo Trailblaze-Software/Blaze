@@ -33,3 +33,14 @@ jobs:
       - name: Build code
         run: |
           ./build.sh
+
+  windows-latest-build:
+      runs-on: windows-latest
+      steps:
+          - uses: actions/checkout@v2
+
+          - name: Setup CMake
+            uses: threeal/cmake-action@v2.0.0
+
+          - name: Build code
+            run: cmake --build build
