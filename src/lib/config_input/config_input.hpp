@@ -8,7 +8,6 @@
 
 #include "assert/assert.hpp"
 #include "au/io.hh"
-#include "au/math.hh"
 #include "au/prefix.hh"
 #include "au/quantity.hh"
 #include "au/unit_of_measure.hh"
@@ -322,7 +321,7 @@ struct adl_serializer<WaterConfig> {
 template <>
 struct adl_serializer<WaterConfigs> {
   static WaterConfigs from_json(const json& j) {
-    return WaterConfigs(j.get<std::map<std::string, WaterConfig>>());
+    return WaterConfigs{j.get<std::map<std::string, WaterConfig>>()};
   }
 
   static void to_json(json& j, WaterConfigs cc) { j = cc.configs; }
