@@ -1,20 +1,34 @@
 #pragma once
 
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include <au/units/inches.hh>
 #include <au/units/meters.hh>
 #include <au/units/unos.hh>
-#include <fstream>
-#include <iostream>
 
-#include "assert/assert.hpp"
 #include "au/io.hh"
 #include "au/prefix.hh"
 #include "au/quantity.hh"
 #include "au/unit_of_measure.hh"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+#include <fstream>
+#include <iostream>
+
+#include "assert/assert.hpp"
 #include "isom/colors.hpp"
 
 #define JSON_DIAGNOSTICS 1
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include <nlohmann/json.hpp>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #include "utilities/filesystem.hpp"
 
@@ -443,7 +457,7 @@ struct adl_serializer<Config> {
         .grid = j.value("grid", json({})).get<GridConfig>(),
         .ground = j.value("ground", json({})).get<GroundConfig>(),
         .contours = j.value("contours", json({})).get<ContourConfigs>(),
-        .water = j.value("water", json({})),
+        .water = j.value("water", json({})).get<WaterConfigs>(),
         .vege = j.value("vege", json({})).get<VegeConfig>(),
         .render = j.value("render", json({})).get<RenderConfig>(),
         .buildings = j.value("buildings", json({})).get<BuildingsConfig>(),

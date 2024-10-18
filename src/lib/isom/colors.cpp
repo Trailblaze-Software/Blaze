@@ -14,14 +14,14 @@ RGBColor RGBColor::FromCMYK(const CMYKColor& cmyk) {
 }
 
 RGBColor::RGBColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
-    : m_data{r, g, b, a} {
+    : m_data{{r, g, b, a}} {
   for (auto i : m_data) {
     Assert(i >= 0 && i <= 255, "Invalid color value");
   }
 }
 
 CMYKColor::CMYKColor(unsigned char c, unsigned char m, unsigned char y, unsigned char k)
-    : m_data{c, m, y, k} {
+    : m_data{{c, m, y, k}} {
   for (auto i : m_data) {
     Assert(i >= 0 && i <= 100, "Invalid color value");
   }

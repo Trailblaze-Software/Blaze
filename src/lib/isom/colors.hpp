@@ -13,6 +13,9 @@ class Color {
   virtual RGBColor toRGB() const = 0;
   virtual CMYKColor toCMYK() const = 0;
   virtual ~Color() = default;
+  Color& operator=(const Color&) = default;
+  Color(const Color&) = default;
+  Color() = default;
 };
 
 class RGBColor : public Color {
@@ -32,15 +35,13 @@ class RGBColor : public Color {
   unsigned char getBlue() const { return m_data[2]; }
   unsigned char getAlpha() const { return m_data[3]; }
 
-  const unsigned char& operator[](int index) const { return m_data[index]; }
-  unsigned char& operator[](int index) { return m_data[index]; }
+  const unsigned char& operator[](size_t index) const { return m_data[index]; }
+  unsigned char& operator[](size_t index) { return m_data[index]; }
   cv::Scalar toScalar() const { return cv::Scalar(getBlue(), getGreen(), getRed(), getAlpha()); }
 
   friend std::ostream& operator<<(std::ostream& os, const RGBColor& c) {
     return os << "(" << c.getRed() << ", " << c.getGreen() << ", " << c.getBlue() << ")";
   }
-
-  virtual ~RGBColor(){};
 };
 
 class CMYKColor : public Color {
@@ -78,8 +79,6 @@ class CMYKColor : public Color {
     return os << "(" << c.getCyan() << ", " << c.getMagenta() << ", " << c.getYellow() << ", "
               << c.getBlack() << ")";
   }
-
-  virtual ~CMYKColor(){};
 };
 
 typedef std::variant<RGBColor, CMYKColor> ColorVariant;

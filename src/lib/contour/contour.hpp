@@ -36,14 +36,16 @@ class Polyline;
 
 class Contour {
   double m_height;
-  bool m_is_loop = false;
   std::vector<Coordinate2D<double>> m_points;
+  bool m_is_loop = false;
 
  public:
   Contour(double height, std::vector<Coordinate2D<double>> &&points)
       : m_height(height), m_points(std::move(points)) {
     if (m_points.size() > 1) {
-      m_is_loop = (m_points.front() - m_points.back()).magnitude_sqd() < 1e-10;
+      const auto &front = m_points.front();
+      const auto &back = m_points.back();
+      m_is_loop = (front - back).magnitude_sqd() < 1e-10;
     }
   }
 

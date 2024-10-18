@@ -12,8 +12,14 @@
 #include <vector>
 
 #include "assert/assert.hpp"
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "au/quantity.hh"
 #include "au/units/meters.hh"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include "gdal.h"
 #include "gdal_priv.h"
 #include "isom/colors.hpp"
@@ -112,8 +118,8 @@ struct BlazeBool {
   bool value;
   BlazeBool(bool value) : value(value) {}
   BlazeBool() : value(false) {}
-  BlazeBool &operator=(bool value) {
-    this->value = value;
+  BlazeBool &operator=(bool new_value) {
+    this->value = new_value;
     return *this;
   }
   operator bool() const { return value; }

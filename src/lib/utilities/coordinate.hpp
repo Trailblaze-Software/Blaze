@@ -19,8 +19,8 @@ class Direction2D {
   operator Dir() const { return m_dir; }
 
   std::array<Direction2D, 2> orthogonal_dirs() const {
-    if (m_dir == DOWN || m_dir == UP) return {LEFT, RIGHT};
-    return {UP, DOWN};
+    if (m_dir == DOWN || m_dir == UP) return {{LEFT, RIGHT}};
+    return {{UP, DOWN}};
   }
   bool orthogonal_to(Direction2D other) const {
     return ((m_dir == UP || m_dir == DOWN) && (other.m_dir == LEFT || other.m_dir == RIGHT)) ||
@@ -130,7 +130,7 @@ class Coordinate2D {
   std::array<T, 2> m_data;
 
  public:
-  Coordinate2D(T x, T y) : m_data{x, y} {}
+  Coordinate2D(T x, T y) : m_data{{x, y}} {}
 
   T x() const { return m_data[0]; }
   T y() const { return m_data[1]; }

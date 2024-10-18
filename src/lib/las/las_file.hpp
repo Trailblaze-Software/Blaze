@@ -10,7 +10,13 @@
 #include <string>
 #include <vector>
 
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "au/units/meters.hh"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include "grid/grid.hpp"
 #include "las_point.hpp"
 #include "utilities/timer.hpp"

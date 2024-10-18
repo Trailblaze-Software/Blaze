@@ -1,4 +1,3 @@
-#include <filesystem>
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <pdal/io/BufferReader.hpp>
@@ -15,6 +14,7 @@
 #include "las/las_file.hpp"
 #include "process.hpp"
 #include "tif/tif.hpp"
+#include "utilities/filesystem.hpp"
 #include "utilities/timer.hpp"
 
 int main([[maybe_unused]] int argc, char *argv[]) {
@@ -71,7 +71,7 @@ int main([[maybe_unused]] int argc, char *argv[]) {
         std::map<double, std::vector<Contour>> contours_by_height;
         for (const fs::path &las_file : las_files) {
           fs::path output_dir = config.output_directory;
-          for (std::string s : las_file) {
+          for (const fs::path &s : las_file) {
             if (s != "/") output_dir /= s;
           }
           fs::path dxf_path = output_dir / "trimmed_contours.dxf";
@@ -100,7 +100,7 @@ int main([[maybe_unused]] int argc, char *argv[]) {
         for (const std::string filename :
              {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
               "buildings.tif", "slope.tif", "vege_color.tif", "hill_shade_multi.tif"}) {
-          TimeFunction timer("Combining " + filename);
+          TimeFunction combining_timer("Combining " + filename);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;
 
@@ -108,7 +108,7 @@ int main([[maybe_unused]] int argc, char *argv[]) {
           std::optional<double> dx, dy;
           for (const fs::path &las_file : las_files) {
             fs::path output_dir = config.output_directory;
-            for (std::string s : las_file) {
+            for (const fs::path &s : las_file) {
               if (s != "/") output_dir /= s;
             }
             fs::path img_path = output_dir / filename;
