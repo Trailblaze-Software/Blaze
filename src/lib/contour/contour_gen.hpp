@@ -106,6 +106,7 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid,
       }
     }
   }
+  std::cout << "Generated " << contours.size() << " contours" << std::endl;
   return contours;
 }
 

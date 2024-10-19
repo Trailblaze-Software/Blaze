@@ -36,6 +36,9 @@ jobs:
       - name: Build code
         run: |
           ./build.sh
+      - name: Unit tests
+        run: |
+          run: cmake --build build --target test
 
   windows-latest-build:
       runs-on: windows-latest
@@ -57,3 +60,6 @@ jobs:
 
           - name: Build code
             run: cmake --build build
+
+          - name: Unit tests
+            run: cmake --build build --target test

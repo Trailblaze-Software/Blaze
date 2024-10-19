@@ -1,5 +1,22 @@
 #pragma once
 
+#include <fstream>
+#include <iostream>
+
+#include "assert/assert.hpp"
+#include "isom/colors.hpp"
+#include "printing/to_string.hpp"
+#include "utilities/filesystem.hpp"
+
+#define JSON_DIAGNOSTICS 1
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
+#include <nlohmann/json.hpp>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 #ifdef _MSC_VER
 #pragma warning(push, 0)
 #endif
@@ -14,24 +31,6 @@
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
-
-#include <fstream>
-#include <iostream>
-
-#include "assert/assert.hpp"
-#include "isom/colors.hpp"
-#include "printing/to_string.hpp"
-
-#define JSON_DIAGNOSTICS 1
-#ifdef _MSC_VER
-#pragma warning(push, 0)
-#endif
-#include <nlohmann/json.hpp>
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-
-#include "utilities/filesystem.hpp"
 
 using json = nlohmann::json;
 
@@ -348,7 +347,7 @@ struct ContourConfigs {
 
   static au::QuantityD<au::Meters> minimum_interval(
       const std::map<std::string, ContourConfig>& configs) {
-    au::QuantityD<au::Meters> min_interval = std::numeric_limits<au::QuantityD<au::Meters>>::max();
+    au::QuantityD<au::Meters> min_interval = au::meters(std::numeric_limits<double>::max());
     for (const auto& [_, config] : configs) {
       min_interval = std::min(min_interval, config.interval);
     }
@@ -361,7 +360,7 @@ struct ContourConfigs {
   const ContourConfig& operator[](const std::string& key) const { return configs.at(key); }
 
   const ContourConfig& pick_from_height(double height) const {
-    auto max_valid_interval = std::numeric_limits<au::QuantityD<au::Meters>>::min();
+    auto max_valid_interval = au::meters(std::numeric_limits<double>::min());
     const ContourConfig* config_to_return = nullptr;
     for (const auto& [_, config] : configs) {
       if (config.interval > max_valid_interval &&
@@ -374,7 +373,7 @@ struct ContourConfigs {
   }
 
   std::string layer_name_from_height(double height) const {
-    auto max_valid_interval = std::numeric_limits<au::QuantityD<au::Meters>>::min();
+    auto max_valid_interval = au::meters(std::numeric_limits<double>::min());
     std::string layer_name = "Contour";
     for (const auto& [name, config] : configs) {
       if (config.interval > max_valid_interval &&
@@ -461,7 +460,6 @@ struct Config {
         las_filepaths.push_back(relative_path_to_config / las_file);
       }
     }
-    std::cout << "las_filepaths: " << las_filepaths << std::endl;
     return las_filepaths;
   }
 

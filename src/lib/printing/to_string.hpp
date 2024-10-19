@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <optional>
+#include <set>
 #include <vector>
 
 template <typename T>
@@ -15,6 +16,15 @@ inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
     }
   }
   return os << "]";
+}
+
+template <typename T>
+inline std::ostream& operator<<(std::ostream& os, const std::set<T>& set) {
+  os << "{";
+  for (const T& elem : set) {
+    os << elem << ", ";
+  }
+  return os << "}";
 }
 
 template <typename T, typename U>

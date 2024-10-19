@@ -116,4 +116,6 @@ class Contour {
        << " points";
     return os;
   }
+
+  bool is_loop() const { return m_is_loop; }
 };
