@@ -5,7 +5,6 @@
 
 #include "assert/assert.hpp"
 #include "isom/colors.hpp"
-#include "printing/to_string.hpp"
 #include "utilities/filesystem.hpp"
 
 #define JSON_DIAGNOSTICS 1
@@ -24,7 +23,6 @@
 #include <au/units/meters.hh>
 #include <au/units/unos.hh>
 
-#include "au/io.hh"
 #include "au/prefix.hh"
 #include "au/quantity.hh"
 #include "au/unit_of_measure.hh"
@@ -484,7 +482,8 @@ struct adl_serializer<Config> {
             j.value("las_files", json(std::vector<std::string>())).get<std::vector<fs::path>>(),
         .processing_steps = j.value("steps", json({"tiles"})).get<std::set<ProcessingStep>>(),
         .output_directory = j.value("output_directory", "out"),
-        .border_width = au::meters(j.value("border_width", 100.0))};
+        .border_width = au::meters(j.value("border_width", 100.0)),
+        .relative_path_to_config = ""};
   }
 
   static void to_json(json& j, Config gc) {
