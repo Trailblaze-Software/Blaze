@@ -11,6 +11,11 @@ include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 
 if(WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  set(X_VCPKG_APPLOCAL_DEPS_INSTALL
+      TRUE
+      CACHE BOOL "")
+  set(VCPKG_CRT_LINKAGE static)
+  set(VCPKG_LIBRARY_LINKAGE static)
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
@@ -52,7 +57,7 @@ set(EXECUTABLE_NAME blaze)
 set(UNIT_TESTS_NAME unit_tests)
 include_directories(src src/lib)
 add_library(${LIBRARY_NAME})
-add_executable(${EXECUTABLE_NAME})
+add_executable(${EXECUTABLE_NAME} resources.rc)
 add_executable(${UNIT_TESTS_NAME})
 
 if(CMAKE_CROSSCOMPILING)
@@ -61,6 +66,7 @@ else()
   enable_testing()
 endif()
 
+set(INSTALL_GTEST OFF)
 FetchContent_Declare(
   googletest
   URL "https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip"
@@ -80,16 +86,16 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(au_units)
 
 foreach(target ${EXECUTABLE_NAME} ${UNIT_TESTS_NAME})
-  target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
+  target_link_libraries(${target} PUBLIC ${LIBRARY_NAME})
 endforeach()
 
 foreach(target ${EXECUTABLE_NAME} ${UNIT_TESTS_NAME} ${LIBRARY_NAME})
   target_link_libraries(
-    ${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
-                      nlohmann_json::nlohmann_json ${OpenCV_LIBS})
+    ${target} PUBLIC ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
+                     nlohmann_json::nlohmann_json ${OpenCV_LIBS})
   target_include_directories(
-    ${target} PRIVATE ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS}
-                      ${au_units_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS})
+    ${target} PUBLIC ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS}
+                     ${au_units_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS})
 endforeach()
 
 target_include_directories(${UNIT_TESTS_NAME}
@@ -100,3 +106,27 @@ add_test(NAME ${UNIT_TESTS_NAME} COMMAND ${UNIT_TESTS_NAME})
 add_subdirectory(src)
 
 gtest_discover_tests(${UNIT_TESTS_NAME})
+
+install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
+install(TARGETS ${LIBRARY_NAME} DESTINATION lib)
+install(FILES "config.json" DESTINATION .)
+
+install(FILES $<TARGET_RUNTIME_DLLS:${EXECUTABLE_NAME}> TYPE BIN)
+
+set(CPACK_GENERATOR "NSIS;ZIP")
+set(CPACK_PACKAGE_NAME "Blaze")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Blaze LIDAR mapping tool")
+set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/Trailblaze-Software/blaze")
+set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}\\\\blaze.ico")
+set(CPACK_PACKAGE_EXECUTABLES "bin/Blaze" "${PROJECT_SOURCE_DIR}\\\\blaze.ico")
+
+set(CPACK_NSIS_MODIFY_PATH "ON")
+set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
+set(CPACK_NSIS_DISPLAY_NAME "Blaze")
+set(CPACK_NSIS_CONTACT "ryan.stocks00@gmail.com")
+set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/Trailblaze-Software/blaze")
+set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze")
+set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}\\\\blaze.ico")
+include(CPack)
