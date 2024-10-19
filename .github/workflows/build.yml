@@ -38,7 +38,7 @@ jobs:
           ./build.sh
       - name: Unit tests
         run: |
-          run: cmake --build build --target test
+          cmake --build build --target test
 
   windows-latest-build:
       runs-on: windows-latest

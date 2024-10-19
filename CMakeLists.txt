@@ -11,11 +11,6 @@ include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 
 if(WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-  set(X_VCPKG_APPLOCAL_DEPS_INSTALL
-      TRUE
-      CACHE BOOL "")
-  set(VCPKG_CRT_LINKAGE static)
-  set(VCPKG_LIBRARY_LINKAGE static)
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
