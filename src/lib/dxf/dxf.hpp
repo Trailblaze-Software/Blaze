@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <methods/water/water.hpp>
 #include <string>
 
 #include "contour/contour.hpp"
@@ -12,7 +13,7 @@
 
 inline Coordinate2D<double> vertex_from_dxf(std::ifstream &dxfFile) {
   std::string line;
-  double x, y;
+  double x = std::numeric_limits<double>::quiet_NaN(), y = std::numeric_limits<double>::quiet_NaN();
   while (std::getline(dxfFile, line)) {
     if (line == "10") {
       dxfFile >> x;
@@ -130,12 +131,13 @@ inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename
   write_to_dxf(polylines, filename);
 }
 
-inline void write_to_dxf(const std::vector<std::vector<Coordinate2D<double>>> &lines,
-                         const fs::path &filename, const std::string &layer_name) {
+inline void write_to_dxf(const std::vector<Stream> &streams, const fs::path &filename,
+                         const std::string &layer_name) {
   TimeFunction timer("writing to DXF " + filename.string());
   std::vector<Polyline> polylines;
-  for (const auto &line : lines) {
-    polylines.push_back({.layer = layer_name, .name = layer_name, .vertices = line});
+  for (const auto &stream : streams) {
+    polylines.push_back(
+        {.layer = layer_name, .name = std::to_string(stream.catchment), .vertices = stream.coords});
   }
   write_to_dxf(polylines, filename);
 }
@@ -154,9 +156,9 @@ inline std::vector<Contour> read_dxf(const fs::path &filename) {
   while (std::getline(dxfFile, line)) {
     if (line == "0") {
       std::getline(dxfFile, line);
-      // if (line == "POLYLINE") {
-      //   contours.emplace_back(Contour::from_polyline(Polyline::read_from_dxf(dxfFile)));
-      // }
+      if (line == "POLYLINE") {
+        contours.emplace_back(Contour::from_polyline(Polyline::read_from_dxf(dxfFile)));
+      }
     }
   }
 

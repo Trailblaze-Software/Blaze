@@ -1,3 +1,5 @@
+#pragma once
+
 #include <queue>
 
 #include "config_input/config_input.hpp"

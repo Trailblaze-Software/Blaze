@@ -34,7 +34,7 @@ int main([[maybe_unused]] int argc, char *argv[]) {
     }
     las_files.push_back(argv[1]);
   } else {
-    for (const fs::path &las_file : config.las_files) {
+    for (const fs::path &las_file : config.las_filepaths()) {
       if (!fs::exists(las_file)) {
         std::cerr << "LAS file " << las_file << " does not exist" << std::endl;
         exit(1);

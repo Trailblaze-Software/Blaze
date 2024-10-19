@@ -61,7 +61,7 @@ inline void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
     datatype = gdal_type<T>();
   }
 
-  GDALDataset *dataset = driver->Create((const char *)filename.c_str(), grid.width(), grid.height(),
+  GDALDataset *dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),
                                         bands, datatype, options);
 
   dataset->SetGeoTransform(const_cast<double *>(grid.transform().get_raw()));

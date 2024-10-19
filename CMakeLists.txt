@@ -37,7 +37,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(WIN32)
   set(CMAKE_CXX_FLAGS
-      "${CMAKE_CXX_FLAGS} /openmp:llvm /Wall /wd5045 /wd4866 /wd4514 /wd4820 /wd4800 /wd4242 /wd4244 /wd4365 /wd5027 /wd4626 /wd5219 /wd4623 /wd4267"
+      "${CMAKE_CXX_FLAGS} /openmp:llvm /Wall /MP /wd5045 /wd4866 /wd4514 /wd4820 /wd4800 /wd4242 /wd4244 /wd4365 /wd5027 /wd4626 /wd5219 /wd4623 /wd4267 /wd4710 /wd4711"
   )
   add_compile_definitions(NOMINMAX NOGDI)
 elseif(UNIX)

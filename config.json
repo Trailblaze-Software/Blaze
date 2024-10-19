@@ -11,11 +11,11 @@
   "grid": {
     // Resolution of the binned grid in meters
     "bin_resolution": 0.5,
-    "downsample_factor": 6
+    "downsample_factor": 3
   },
   "ground": {
     // Outlier removal height difference threshold
-    "outlier_removal_height_diff": 0.2
+    "outlier_removal_height_diff": 0.3
   },
   "contours": {
     "normal": {
@@ -29,6 +29,18 @@
       "min_points": 5,
       "color": "brown",
       "width": 0.25
+    }
+  },
+  "water": {
+    "minor": {
+      "color": "blue",
+      "catchment": 0.03,
+      "width": 0.18
+    },
+    "major": {
+      "color": "blue",
+      "catchment": 0.2,
+      "width": 0.3
     }
   },
   "vege": {

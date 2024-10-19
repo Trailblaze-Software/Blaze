@@ -20,6 +20,7 @@
 
 #include "assert/assert.hpp"
 #include "isom/colors.hpp"
+#include "printing/to_string.hpp"
 
 #define JSON_DIAGNOSTICS 1
 #ifdef _MSC_VER
@@ -302,7 +303,6 @@ struct WaterConfigs {
           (max_valid_config == nullptr || config.catchment > max_valid_config->catchment))
         max_valid_config = &config;
     }
-    std::cout << "Catchment is " << catchment << " " << max_valid_config->catchment << std::endl;
     return *max_valid_config;
   }
 
@@ -443,6 +443,27 @@ struct Config {
   const std::set<ProcessingStep> processing_steps;
   const fs::path output_directory;
   au::QuantityD<au::Meters> border_width;
+  fs::path relative_path_to_config;
+
+  fs::path output_path(const fs::path& filename) const {
+    if (output_directory.is_absolute()) {
+      return output_directory / filename;
+    }
+    return relative_path_to_config / output_directory / filename;
+  }
+
+  std::vector<fs::path> las_filepaths() const {
+    std::vector<fs::path> las_filepaths;
+    for (const fs::path& las_file : las_files) {
+      if (las_file.is_absolute()) {
+        las_filepaths.push_back(las_file);
+      } else {
+        las_filepaths.push_back(relative_path_to_config / las_file);
+      }
+    }
+    std::cout << "las_filepaths: " << las_filepaths << std::endl;
+    return las_filepaths;
+  }
 
   static Config FromFile(const fs::path& filename);
 
@@ -510,7 +531,9 @@ inline Config Config::FromFile(const fs::path& filename) {
     }
     COLOR_MAP[color.key()] = composite;
   }
-  return j.get<Config>();
+  Config c = j.get<Config>();
+  c.relative_path_to_config = filename.parent_path();
+  return c;
 }
 
 inline std::ostream& operator<<(std::ostream& os, const Config& config) {

@@ -20,6 +20,7 @@
 #include "lib/vegetation/vegetation.hpp"
 #include "methods/hill_shade/hill_shade.hpp"
 #include "methods/water/water.hpp"
+#include "printing/to_string.hpp"
 #include "tif/tif.hpp"
 
 constexpr bool OUT_LAS = false;
@@ -68,7 +69,7 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid,
 }
 
 void process_las_file(const fs::path& las_filename, const Config& config) {
-  TimeFunction("processing LAS file " + las_filename.string());
+  TimeFunction outer_timer("processing LAS file " + las_filename.string());
   fs::path output_dir = config.output_directory;
   for (const fs::path& s : las_filename) {
     if (s != "/") output_dir /= s;
@@ -84,7 +85,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
       GeoProjection(las_file.projection()));
 
   {
-    TimeFunction("binning points");
+    TimeFunction timer("binning points");
     for (const LASPoint& las_point : las_file) {
       binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
           las_point);
@@ -114,7 +115,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     bool only_classified_ground = true;
     LASFile ground_points_las =
         LASFile(ground_points.extent(), GeoProjection(ground_points.projection()));
-    TimeFunction("min finding");
+    TimeFunction timer("min finding");
 #pragma omp parallel for
     for (size_t i = 0; i < binned_points.height(); i++) {
       for (size_t j = 0; j < binned_points.width(); j++) {
@@ -231,7 +232,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   // crt name must match dxf name
   write_to_crt(output_dir / "contours.crt");
 
-  // write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
+  write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
 
   // VEGE
   std::map<std::string, GeoGrid<double>> vege_maps;
@@ -288,17 +289,17 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
       GeoProjection(vege_color.projection()));
 
   {
-    TimeFunction("drawing vege");
+    TimeFunction timer("drawing vege");
     final_img.draw(vege_color);
   }
 
   {
-    TimeFunction("drawing stuff");
+    TimeFunction timer("drawing stuff");
     final_img.draw(GeoImgGrid(water_color));
   }
 
   {
-    TimeFunction("drawing contours");
+    TimeFunction timer("drawing contours");
     for (const Contour& contour : contours) {
       if (config.contours.layer_name_from_height(contour.height()) == "Contour") continue;
       const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
@@ -308,7 +309,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   }
 
   {
-    TimeFunction("drawing paths");
+    TimeFunction timer("drawing paths");
     for (const Stream& stream : stream_path) {
       const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
       final_img.draw(stream.coords, water_config.color, water_config.width * config.render.scale);
@@ -316,7 +317,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   }
 
   {
-    TimeFunction("drawing stuff");
+    TimeFunction timer("drawing stuff");
     final_img.draw(GeoImgGrid(building_color));
   }
 
@@ -330,7 +331,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   }
 
   {
-    TimeFunction("drawing paths");
+    TimeFunction timer("drawing paths");
     for (const Stream& stream : stream_path) {
       const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
       final_img.draw(stream.coords, water_config.color, water_config.width * config.render.scale);
