@@ -62,7 +62,9 @@ add_executable(${CLI_EXE_NAME} resources.rc)
 add_executable(${UNIT_TESTS_NAME})
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
-qt_standard_project_setup()
+if(WIN32)
+  qt_standard_project_setup()
+endif()
 
 qt_add_executable(${GUI_EXE_NAME} resources.rc)
 target_precompile_headers(${GUI_EXE_NAME} INTERFACE QtWidgets.h)
@@ -135,9 +137,11 @@ install(FILES "config.json" DESTINATION .)
 
 install(FILES $<TARGET_RUNTIME_DLLS:${CLI_EXE_NAME}> TYPE BIN)
 
-qt_generate_deploy_app_script(TARGET ${GUI_EXE_NAME} OUTPUT_SCRIPT
-                              deploy_script NO_UNSUPPORTED_PLATFORM_ERROR)
-install(SCRIPT ${deploy_script})
+if(WIN32)
+  qt_generate_deploy_app_script(TARGET ${GUI_EXE_NAME} OUTPUT_SCRIPT
+                                deploy_script NO_UNSUPPORTED_PLATFORM_ERROR)
+  install(SCRIPT ${deploy_script})
+endif()
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
