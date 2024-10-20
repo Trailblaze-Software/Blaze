@@ -11,11 +11,15 @@ include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 
 if(WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  set(X_VCPKG_APPLOCAL_DEPS_INSTALL
+      TRUE
+      CACHE BOOL "")
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
     GIT_TAG 2024.09.30)
   FetchContent_MakeAvailable(vcpkg)
+  # include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
   set(CMAKE_TOOLCHAIN_FILE
       "${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake")
 endif()
@@ -24,6 +28,7 @@ project(
   BLAZE
   VERSION 0.0.0
   LANGUAGES CXX)
+set(COPYRIGHT "Copyright (c) 2024 Trailblaze Software. All rights reserved.")
 
 find_package(PDAL REQUIRED)
 find_package(GDAL REQUIRED)
@@ -48,12 +53,23 @@ else()
 endif()
 
 set(LIBRARY_NAME blaze_lib)
-set(EXECUTABLE_NAME blaze)
+set(CLI_EXE_NAME blaze-cli)
+set(GUI_EXE_NAME blaze)
 set(UNIT_TESTS_NAME unit_tests)
 include_directories(src src/lib)
 add_library(${LIBRARY_NAME})
-add_executable(${EXECUTABLE_NAME} resources.rc)
+add_executable(${CLI_EXE_NAME} resources.rc)
 add_executable(${UNIT_TESTS_NAME})
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+qt_standard_project_setup()
+
+qt_add_executable(${GUI_EXE_NAME} resources.rc)
+target_precompile_headers(${GUI_EXE_NAME} INTERFACE QtWidgets.h)
+target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets
+                                              Qt6::QWindowsIntegrationPlugin)
+set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
+                                                 MACOSX_BUNDLE ON)
 
 if(CMAKE_CROSSCOMPILING)
   message(" -- Cross compiling - disabling tests")
@@ -80,11 +96,11 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(au_units)
 
-foreach(target ${EXECUTABLE_NAME} ${UNIT_TESTS_NAME})
+foreach(target ${CLI_EXE_NAME} ${UNIT_TESTS_NAME})
   target_link_libraries(${target} PUBLIC ${LIBRARY_NAME})
 endforeach()
 
-foreach(target ${EXECUTABLE_NAME} ${UNIT_TESTS_NAME} ${LIBRARY_NAME})
+foreach(target ${CLI_EXE_NAME} ${UNIT_TESTS_NAME} ${LIBRARY_NAME})
   target_link_libraries(
     ${target} PUBLIC ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
                      nlohmann_json::nlohmann_json ${OpenCV_LIBS})
@@ -102,11 +118,16 @@ add_subdirectory(src)
 
 gtest_discover_tests(${UNIT_TESTS_NAME})
 
-install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
-install(TARGETS ${LIBRARY_NAME} DESTINATION lib)
+install(TARGETS ${CLI_EXE_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(
+  TARGETS ${GUI_EXE_NAME}
+  DESTINATION ${CMAKE_INSTALL_BINDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES "config.json" DESTINATION .)
 
-install(FILES $<TARGET_RUNTIME_DLLS:${EXECUTABLE_NAME}> TYPE BIN)
+install(FILES $<TARGET_RUNTIME_DLLS:${CLI_EXE_NAME}> TYPE BIN)
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
@@ -118,16 +139,18 @@ set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Blaze LIDAR mapping tool")
 set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/Trailblaze-Software/blaze")
-set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}\\\\blaze.ico")
+set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico")
 set(CPACK_PACKAGE_CONTACT "Ryan Stocks ryan.stocks00@gmail.com")
-set(CPACK_PACKAGE_EXECUTABLES "bin/Blaze" "${PROJECT_SOURCE_DIR}\\\\blaze.ico")
+set(CPACK_PACKAGE_EXECUTABLES
+    "bin/Blaze" "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico" "bin/blaze-cli"
+    "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico")
 
 set(CPACK_NSIS_MODIFY_PATH "ON")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
 set(CPACK_NSIS_DISPLAY_NAME "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/Trailblaze-Software/blaze")
 set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze")
-set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}\\\\blaze.ico")
+set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico")
 
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
