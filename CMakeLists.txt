@@ -66,10 +66,16 @@ qt_standard_project_setup()
 
 qt_add_executable(${GUI_EXE_NAME} resources.rc)
 target_precompile_headers(${GUI_EXE_NAME} INTERFACE QtWidgets.h)
-target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets
-                                              Qt6::QWindowsIntegrationPlugin)
+target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets)
 set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
                                                  MACOSX_BUNDLE ON)
+
+if(WIN32)
+  add_custom_command(
+    TARGET ${GUI_EXE_NAME}
+    POST_BUILD
+    COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_EXE_NAME}>)
+endif()
 
 if(CMAKE_CROSSCOMPILING)
   message(" -- Cross compiling - disabling tests")
@@ -123,11 +129,15 @@ install(
   TARGETS ${GUI_EXE_NAME}
   DESTINATION ${CMAKE_INSTALL_BINDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR})
+  BUNDLE DESTINATION .)
 install(TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES "config.json" DESTINATION .)
 
 install(FILES $<TARGET_RUNTIME_DLLS:${CLI_EXE_NAME}> TYPE BIN)
+
+qt_generate_deploy_app_script(TARGET ${GUI_EXE_NAME} OUTPUT_SCRIPT
+                              deploy_script NO_UNSUPPORTED_PLATFORM_ERROR)
+install(SCRIPT ${deploy_script})
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
