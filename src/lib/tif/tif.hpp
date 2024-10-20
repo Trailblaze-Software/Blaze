@@ -120,8 +120,7 @@ inline Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
   GDALAllRegister();
   GDALDataset *dataset = (GDALDataset *)GDALOpen((const char *)filename.c_str(), GA_ReadOnly);
   if (dataset == nullptr) {
-    std::cerr << "Could not open file " << filename << std::endl;
-    exit(1);
+    Fail("Could not open file " + filename.string());
   }
   size_t width = dataset->GetRasterXSize();
   size_t height = dataset->GetRasterYSize();

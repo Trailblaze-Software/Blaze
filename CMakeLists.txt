@@ -30,6 +30,14 @@ project(
   LANGUAGES CXX)
 set(COPYRIGHT "Copyright (c) 2024 Trailblaze Software. All rights reserved.")
 
+add_compile_definitions(BLAZE_VERSION="${PROJECT_VERSION}")
+execute_process(
+  COMMAND git rev-parse HEAD
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE GIT_COMMIT_HASH
+  OUTPUT_STRIP_TRAILING_WHITESPACE)
+add_compile_definitions(GIT_COMMIT_HASH="${GIT_COMMIT_HASH}")
+
 find_package(PDAL REQUIRED)
 find_package(GDAL REQUIRED)
 find_package(OpenMP REQUIRED)
@@ -54,21 +62,21 @@ endif()
 
 set(LIBRARY_NAME blaze_lib)
 set(CLI_EXE_NAME blaze-cli)
-set(GUI_EXE_NAME blaze)
+set(GUI_EXE_NAME Blaze)
 set(UNIT_TESTS_NAME unit_tests)
 include_directories(src src/lib)
 add_library(${LIBRARY_NAME})
 add_executable(${CLI_EXE_NAME} resources.rc)
 add_executable(${UNIT_TESTS_NAME})
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent)
 if(WIN32)
   qt_standard_project_setup()
 endif()
 
 qt_add_executable(${GUI_EXE_NAME} resources.rc)
 target_precompile_headers(${GUI_EXE_NAME} INTERFACE QtWidgets.h)
-target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets)
+target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
 set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
                                                  MACOSX_BUNDLE ON)
 
@@ -104,17 +112,18 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(au_units)
 
-foreach(target ${CLI_EXE_NAME} ${UNIT_TESTS_NAME})
-  target_link_libraries(${target} PUBLIC ${LIBRARY_NAME})
+foreach(target ${CLI_EXE_NAME} ${GUI_EXE_NAME} ${UNIT_TESTS_NAME})
+  target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
 endforeach()
 
-foreach(target ${CLI_EXE_NAME} ${UNIT_TESTS_NAME} ${LIBRARY_NAME})
+foreach(target ${CLI_EXE_NAME} ${GUI_EXE_NAME} ${UNIT_TESTS_NAME}
+               ${LIBRARY_NAME})
   target_link_libraries(
-    ${target} PUBLIC ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
-                     nlohmann_json::nlohmann_json ${OpenCV_LIBS})
+    ${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
+                      nlohmann_json::nlohmann_json ${OpenCV_LIBS})
   target_include_directories(
-    ${target} PUBLIC ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS}
-                     ${au_units_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS})
+    ${target} PRIVATE ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS}
+                      ${au_units_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS})
 endforeach()
 
 target_include_directories(${UNIT_TESTS_NAME}

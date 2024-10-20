@@ -429,16 +429,16 @@ SERIALIZE_ENUM_STRICT(ProcessingStep, {
                                       })
 
 struct Config {
-  const GridConfig grid;
-  const GroundConfig ground;
-  const ContourConfigs contours;
-  const WaterConfigs water;
-  const VegeConfig vege;
-  const RenderConfig render;
-  const BuildingsConfig buildings;
-  const std::vector<fs::path> las_files;
-  const std::set<ProcessingStep> processing_steps;
-  const fs::path output_directory;
+  GridConfig grid;
+  GroundConfig ground;
+  ContourConfigs contours;
+  WaterConfigs water;
+  VegeConfig vege;
+  RenderConfig render;
+  BuildingsConfig buildings;
+  std::vector<fs::path> las_files;
+  std::set<ProcessingStep> processing_steps;
+  fs::path output_directory;
   au::QuantityD<au::Meters> border_width;
   fs::path relative_path_to_config;
 
