@@ -130,7 +130,7 @@ class LASFile {
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}),
         m_bounds(bounds),
         m_original_bounds(bounds),
-        m_projection(projection){};
+        m_projection(projection) {};
 
   template <typename T>
   explicit LASFile(const GeoGrid<T> &grid)

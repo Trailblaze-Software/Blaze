@@ -49,7 +49,7 @@ class CMYKColor : public Color {
 
  public:
   CMYKColor(unsigned char c, unsigned char m, unsigned char y, unsigned char k);
-  CMYKColor() : CMYKColor(0, 0, 0, 0){};
+  CMYKColor() : CMYKColor(0, 0, 0, 0) {};
 
   virtual RGBColor toRGB() const override { return RGBColor::FromCMYK(*this); }
   virtual CMYKColor toCMYK() const override { return *this; }

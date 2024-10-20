@@ -1,5 +1,5 @@
+---
 # This file configures https://pre-commit.com/
-
 repos:
   - repo: https://github.com/cheshirekow/cmake-format-precommit
     rev: v0.6.13
@@ -8,15 +8,23 @@ repos:
         name: CMake Format
         entry: cmake-format
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v16.0.6
+    rev: v19.1.2
     hooks:
       - id: clang-format
+  - repo: https://github.com/google/yamlfmt.git
+    rev: v0.13.0
+    hooks:
+      - id: yamlfmt
+        args: ["-conf", ".yamlfmt"]
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
-      - id: check-yaml
       - id: check-shebang-scripts-are-executable
       - id: check-executables-have-shebangs
       - id: check-case-conflict

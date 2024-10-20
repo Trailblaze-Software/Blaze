@@ -1,21 +1,17 @@
+---
 name: CI
-
 on:
   push:
-    branches: [ "*" ]
+    branches: ["*"]
   pull_request:
-    branches: [ "*" ]
-
+    branches: ["*"]
   workflow_dispatch:
-
 env:
-    VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
-
+  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
     timeout-minutes: 2
-
     steps:
       - uses: actions/checkout@v2
       - name: Install pre-commit
@@ -24,7 +20,6 @@ jobs:
       - name: Run pre-commit
         run: |
           pre-commit run -a
-
   ubuntu-latest-build:
     runs-on: ubuntu-latest
     timeout-minutes: 3
@@ -36,30 +31,34 @@ jobs:
       - name: Build code
         run: |
           ./build.sh
+      - name: CPack
+        run: |
+          cd build && cpack -C Release
       - name: Unit tests
         run: |
           cmake --build build --target test
 
-  windows-latest-build:
-      runs-on: windows-latest
-      timeout-minutes: 400
-      steps:
-          - uses: actions/checkout@v2
+# windows-latest-build:
+#     runs-on: windows-latest
+#     timeout-minutes: 400
+#     steps:
+#         - uses: actions/checkout@v2
 
-          - name: Export GitHub Actions cache environment variables
-            uses: actions/github-script@v7
-            with:
-              script: |
-                core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
-                core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+#         - name: Export GitHub Actions cache environment variables
+#           uses: actions/github-script@v7
+#           with:
+#             script: |
+#               core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+#               core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
-          - name: Setup CMake
-            uses: threeal/cmake-action@v2.0.0
-            with:
-              options: VCPKG_BUILD_TYPE=release
+#         - name: Setup CMake
+#           uses: threeal/cmake-action@v2.0.0
+#           with:
+#             options: VCPKG_BUILD_TYPE=release
 
-          - name: Build code
-            run: cmake --build build
+#         - name: Build code
+#           run: cmake --build build
 
-          - name: Unit tests
-            run: cmake --build build --target test
+#         - name: CPack
+#           run: |
+#             cd build && cpack -C Release
