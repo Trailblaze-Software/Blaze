@@ -33,10 +33,10 @@ jobs:
           ./build.sh
       - name: CPack
         run: |
-          cd build && cpack -C Release
+          cd linux-build && cpack -C Release
       - name: Unit tests
         run: |
-          cmake --build build --target test
+          cmake --build linux-build --target test
 
 # windows-latest-build:
 #     runs-on: windows-latest
