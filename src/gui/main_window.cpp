@@ -84,7 +84,8 @@ void MainWindow::about() {
 void MainWindow::run_stuff(std::shared_ptr<Config> config,
                            const std::vector<fs::path> additional_las_files) {
   try {
-    run_with_config(*config, additional_las_files);
+    ProgressBar progress_bar;
+    run_with_config(*config, additional_las_files, ProgressTracker(&progress_bar));
   } catch (const std::exception &e) {
     QMessageBox::critical(this, "Error Running Blaze", e.what());
   }
@@ -110,7 +111,8 @@ void MainWindow::run_blaze() {
     message_box->setWindowFlag(Qt::WindowCloseButtonHint, false);
     message_box->show();
     QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
-    connect(watcher, &QFutureWatcher<void>::finished, message_box, &QMessageBox::close);
+    connect(watcher, &QFutureWatcher<void>::finished, message_box,
+            [message_box] { message_box->done(0); });
     connect(watcher, &QFutureWatcher<void>::finished, watcher, &QFutureWatcher<void>::deleteLater);
     watcher->setFuture(
         QtConcurrent::run([this, config] { this->run_stuff(config, std::vector<fs::path>()); }));

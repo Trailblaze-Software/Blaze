@@ -18,7 +18,8 @@
 }
 
 #define OptionalString(...) std::optional<std::string>(__VA_ARGS__)
-#define Assert(condition, ...) _Assert(condition, #condition, OptionalString(__VA_ARGS__));
+#define Assert(condition, ...) \
+  if (!(condition)) _Assert(condition, #condition, OptionalString(__VA_ARGS__));
 
 inline void _Assert(bool condition, const std::string &condition_str,
                     const std::optional<std::string> &message,
@@ -47,7 +48,8 @@ inline void _AssertBinOp(const A &a, const B &b, const std::string &a_str, const
   }
 }
 
-#define AssertBinOp(a, b, op, nop) _AssertBinOp(a, b, #a, #b, a op b, #nop)
+#define AssertBinOp(a, b, op, nop) \
+  if (!((a)op(b))) _AssertBinOp(a, b, #a, #b, a op b, #nop)
 #define AssertGE(expr, val) AssertBinOp(expr, val, >=, <)
 #define AssertLE(expr, val) AssertBinOp(expr, val, <=, >)
 #define AssertGT(expr, val) AssertBinOp(expr, val, >, <=)

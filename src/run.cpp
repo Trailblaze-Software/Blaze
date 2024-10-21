@@ -14,12 +14,14 @@
 #include "dxf/dxf.hpp"
 #include "grid/grid.hpp"
 #include "las/las_file.hpp"
+#include "printing/to_string.hpp"
 #include "process.hpp"
 #include "tif/tif.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/timer.hpp"
 
-void run_with_config(const Config &config, const std::vector<fs::path> &additional_las_files) {
+void run_with_config(const Config &config, const std::vector<fs::path> &additional_las_files,
+                     ProgressTracker &&tracker) {
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path &las_file : config.las_filepaths()) {
     if (!fs::exists(las_file)) {
@@ -38,17 +40,41 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
     }
   }
 
+  std::vector<double> time_ratios;
+  double total_time = 0;
   for (ProcessingStep step : config.processing_steps) {
-    TimeFunction timer("processing step " + (std::string)json(step));
     switch (step) {
       case ProcessingStep::TmpBorders:
-        for (const fs::path &las_file : las_files) {
-          extract_borders(las_file, config.border_width.in(au::meters));
+        time_ratios.push_back(0.2);
+        break;
+      case ProcessingStep::Tiles:
+        time_ratios.push_back(0.9);
+        break;
+      case ProcessingStep::Combine:
+        time_ratios.push_back(0.1);
+        break;
+    }
+    total_time += time_ratios.back();
+  }
+
+  double current_time = 0;
+  int idx = 0;
+  for (ProcessingStep step : config.processing_steps) {
+    TimeFunction timer("processing step " + (std::string)json(step));
+    ProgressTracker step_tracker =
+        tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
+    current_time += time_ratios[idx++] / total_time;
+    switch (step) {
+      case ProcessingStep::TmpBorders:
+        for (size_t i = 0; i < las_files.size(); i++) {
+          step_tracker.set_proportion((double)i / las_files.size());
+          extract_borders(las_files[i], config.border_width.in(au::meters));
         }
         break;
       case ProcessingStep::Tiles:
-        for (const fs::path &las_file : las_files) {
-          process_las_file(las_file, config);
+        for (size_t i = 0; i < las_files.size(); i++) {
+          step_tracker.set_proportion((double)i / las_files.size());
+          process_las_file(las_files[i], config);
         }
         break;
       case ProcessingStep::Combine:

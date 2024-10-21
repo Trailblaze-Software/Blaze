@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow();
+  virtual ~MainWindow() = default;
 
  private slots:
   void open();

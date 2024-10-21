@@ -20,5 +20,6 @@ int main([[maybe_unused]] int argc, char *argv[]) {
     las_files.push_back(argv[1]);
   }
 
-  run_with_config(config, las_files);
+  ProgressBar progress_bar;
+  run_with_config(config, las_files, ProgressTracker(&progress_bar));
 }
