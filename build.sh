@@ -1,12 +1,15 @@
 #!/bin/bash
 
-if [ ! -d "build" ]; then
-    mkdir build
-    cmake -B build $@
+DIR="linux-build"
+
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    cmake -B $DIR $@
 fi
 
-pushd build || exit
+pushd $DIR || exit
     make -j 8
     cp compile_commands.json ..
-    cp blaze ..
+    cp Blaze ..
+    cp blaze-cli ..
 popd || exit

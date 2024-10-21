@@ -60,6 +60,8 @@ else()
   message(FATAL_ERROR "Unsupported platform")
 endif()
 
+set(CMAKE_AUTOMOC ON)
+
 set(LIBRARY_NAME blaze_lib)
 set(CLI_EXE_NAME blaze-cli)
 set(GUI_EXE_NAME Blaze)
