@@ -22,6 +22,7 @@
 #include "methods/water/water.hpp"
 #include "printing/to_string.hpp"
 #include "tif/tif.hpp"
+#include "utilities/progress_tracker.hpp"
 
 constexpr bool OUT_LAS = false;
 
@@ -68,7 +69,8 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid,
   return result;
 }
 
-void process_las_file(const fs::path& las_filename, const Config& config) {
+void process_las_file(const fs::path& las_filename, const Config& config,
+                      ProgressTracker progress_tracker) {
   TimeFunction outer_timer("processing LAS file " + las_filename.string());
   fs::path output_dir = config.output_directory;
   for (const fs::path& s : las_filename) {
@@ -77,6 +79,8 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   fs::create_directories(output_dir);
 
   LASFile las_file = LASFile::with_border(las_filename, config.border_width.in(au::meters));
+
+  progress_tracker.set_proportion(0.4);
 
   au::QuantityD<au::Meters> bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
@@ -91,6 +95,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
           las_point);
     }
   }
+  progress_tracker.set_proportion(0.5);
 
   au::QuantityD<au::Meters> resolution = bin_resolution;
   GeoGrid<std::optional<LASPoint>> ground_points(
@@ -152,6 +157,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     }
     if (OUT_LAS) ground_points_las.write(output_dir / "ground_points_mins.las");
   }
+  progress_tracker.set_proportion(0.6);
 
   GeoGrid<double> ground = get_pixel_heights(ground_points);
 
@@ -246,6 +252,8 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }
 
+  progress_tracker.set_proportion(0.7);
+
   write_to_image_tif(hill_shade(smooth_ground).slice(las_file.export_bounds()),
                      output_dir / "hill_shade_multi.tif");
 
@@ -293,6 +301,7 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
     final_img.draw(vege_color);
   }
 
+  progress_tracker.set_proportion(0.8);
   {
     TimeFunction timer("drawing stuff");
     final_img.draw(GeoImgGrid(water_color));
@@ -322,6 +331,8 @@ void process_las_file(const fs::path& las_filename, const Config& config) {
   }
 
   final_img.save_to(output_dir / "final_img.tif", las_file.export_bounds());
+
+  progress_tracker.set_proportion(0.9);
 
   for (const Contour& contour : contours) {
     if (config.contours.layer_name_from_height(contour.height()) != "Contour") continue;

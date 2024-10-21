@@ -4,7 +4,18 @@
 #include <QtWidgets>
 
 #include "config_input/config_input.hpp"
+#include "progress_box.hpp"
 #include "run.hpp"
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+#define OPEN_ICON QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen)
+#define EXIT_ICON QIcon::fromTheme(QIcon::ThemeIcon::ApplicationExit)
+#define ABOUT_ICON QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout)
+#else
+#define OPEN_ICON QIcon::fromTheme("document-open")
+#define EXIT_ICON QIcon::fromTheme("application-exit")
+#define ABOUT_ICON QIcon::fromTheme("help-about")
+#endif
 
 MainWindow::MainWindow() {
   QWidget *widget = new QWidget;
@@ -34,17 +45,17 @@ MainWindow::MainWindow() {
   layout->addWidget(bottom_filler);
   widget->setLayout(layout);
 
-  m_open_action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen), "&Open...", this);
+  m_open_action = new QAction(OPEN_ICON, "&Open...", this);
   m_open_action->setShortcuts(QKeySequence::Open);
   m_open_action->setStatusTip(("Open a config file"));
   connect(m_open_action, &QAction::triggered, this, &MainWindow::open);
 
-  m_exit_action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ApplicationExit), "Exit", this);
+  m_exit_action = new QAction(EXIT_ICON, "Exit", this);
   m_exit_action->setShortcuts(QKeySequence::Quit);
   m_exit_action->setStatusTip("Exit Blaze");
   connect(m_exit_action, &QAction::triggered, this, &QWidget::close);
 
-  m_about_action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout), "About", this);
+  m_about_action = new QAction(ABOUT_ICON, "About", this);
   m_about_action->setStatusTip(("Show Blaze About Info"));
   connect(m_about_action, &QAction::triggered, this, &MainWindow::about);
 
@@ -82,10 +93,10 @@ void MainWindow::about() {
 }
 
 void MainWindow::run_stuff(std::shared_ptr<Config> config,
-                           const std::vector<fs::path> additional_las_files) {
+                           const std::vector<fs::path> additional_las_files,
+                           ProgressObserver *observer) {
   try {
-    ProgressBar progress_bar;
-    run_with_config(*config, additional_las_files, ProgressTracker(&progress_bar));
+    run_with_config(*config, additional_las_files, ProgressTracker(observer));
   } catch (const std::exception &e) {
     QMessageBox::critical(this, "Error Running Blaze", e.what());
   }
@@ -103,19 +114,18 @@ void MainWindow::run_blaze() {
     std::shared_ptr<Config> config =
         std::make_shared<Config>(Config::FromFile(config_file_name.toStdString()));
     read_config = true;
-    QMessageBox *message_box = new QMessageBox(this);
+    ProgressBox *message_box = new ProgressBox(this);
     message_box->setWindowTitle("Running Blaze");
     message_box->setText(
         "Blaze is running with the selected config file. Please wait for the process to finish.");
-    message_box->setStandardButtons(QMessageBox::NoButton);
-    message_box->setWindowFlag(Qt::WindowCloseButtonHint, false);
     message_box->show();
     QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
     connect(watcher, &QFutureWatcher<void>::finished, message_box,
             [message_box] { message_box->done(0); });
     connect(watcher, &QFutureWatcher<void>::finished, watcher, &QFutureWatcher<void>::deleteLater);
-    watcher->setFuture(
-        QtConcurrent::run([this, config] { this->run_stuff(config, std::vector<fs::path>()); }));
+    watcher->setFuture(QtConcurrent::run([this, config, message_box] {
+      this->run_stuff(config, std::vector<fs::path>(), message_box);
+    }));
   } catch (const std::exception &e) {
     std::string error_message =
         std::string(e.what()) + (read_config ? ""

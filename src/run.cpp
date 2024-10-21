@@ -73,8 +73,9 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         break;
       case ProcessingStep::Tiles:
         for (size_t i = 0; i < las_files.size(); i++) {
-          step_tracker.set_proportion((double)i / las_files.size());
-          process_las_file(las_files[i], config);
+          process_las_file(las_files[i], config,
+                           step_tracker.subtracker((double)i / las_files.size(),
+                                                   (double)(i + 1) / las_files.size()));
         }
         break;
       case ProcessingStep::Combine:

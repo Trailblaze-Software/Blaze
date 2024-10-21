@@ -6,6 +6,7 @@ struct Config;
 #include <vector>
 
 #include "utilities/filesystem.hpp"
+#include "utilities/progress_tracker.hpp"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -19,13 +20,13 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow();
-  virtual ~MainWindow() = default;
 
  private slots:
   void open();
   void about();
   void run_blaze();
-  void run_stuff(std::shared_ptr<Config> config, const std::vector<fs::path> additional_las_files);
+  void run_stuff(std::shared_ptr<Config> config, const std::vector<fs::path> additional_las_files,
+                 ProgressObserver *observer);
 
  private:
   QMenu *m_file_menu;

@@ -21,7 +21,6 @@ class ProgressBar : public ProgressObserver {
 };
 
 class ProgressTracker : public ProgressObserver {
- public:
   double m_proportion;
   ProgressObserver* m_observer;
   std::optional<std::pair<double, double>> m_subtracker_range;
@@ -44,6 +43,8 @@ class ProgressTracker : public ProgressObserver {
   ProgressTracker subtracker(double start, double end);
 
   virtual ~ProgressTracker();
+
+  double proportion() const { return m_proportion; }
 };
 
 void run_loop(ProgressTracker tracker);
