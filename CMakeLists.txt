@@ -18,12 +18,12 @@ if(WIN32)
     set(VCPKG_TARGET_TRIPLET "x64-mingw-dynamic")
     set(VCPKG_HOST_TRIPLET "x64-mingw-dynamic")
   endif()
+  set(VCPKG_BUILD_TYPE "release")
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
     GIT_TAG 2024.09.30)
   FetchContent_MakeAvailable(vcpkg)
-  set(VCPKG_BUILD_TYPE "release")
   # execute_process( COMMAND ${vcpkg_SOURCE_DIR}/vcpkg.exe install pdal)
   # message(" -- PDAL install: ${pdal_install}")
   include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
