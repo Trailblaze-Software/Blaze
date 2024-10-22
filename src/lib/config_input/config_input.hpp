@@ -11,7 +11,10 @@
 #ifdef _MSC_VER
 #pragma warning(push, 0)
 #endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Warray-bounds"
 #include <nlohmann/json.hpp>
+#pragma GCC diagnostic pop
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif

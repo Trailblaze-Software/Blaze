@@ -1,0 +1,13 @@
+diff --git a/plugins/e57/libE57Format/CMakeLists.txt b/plugins/e57/libE57Format/CMakeLists.txt
+index 2401ac7..1463038 100644
+--- a/plugins/e57/libE57Format/CMakeLists.txt
++++ b/plugins/e57/libE57Format/CMakeLists.txt
+@@ -73,7 +73,7 @@ add_library(E57Format STATIC
+     contrib/CRCpp/inc/CRC.h
+ )
+ pdal_target_compile_settings(E57Format)
+-if (WIN32)
++if(${CMAKE_CXX_COMPILER_ID} MATCHES "MSVC")
+ target_compile_options(E57Format PRIVATE
+     /wd4244
+     )

@@ -10,18 +10,25 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 
-if(WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+if(WIN32)
   set(X_VCPKG_APPLOCAL_DEPS_INSTALL
       TRUE
       CACHE BOOL "")
+  if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
+    set(VCPKG_TARGET_TRIPLET "x64-mingw-dynamic")
+    set(VCPKG_HOST_TRIPLET "x64-mingw-dynamic")
+  endif()
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
     GIT_TAG 2024.09.30)
   FetchContent_MakeAvailable(vcpkg)
-  # include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
-  set(CMAKE_TOOLCHAIN_FILE
-      "${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake")
+  set(VCPKG_BUILD_TYPE "release")
+  # execute_process( COMMAND ${vcpkg_SOURCE_DIR}/vcpkg.exe install pdal)
+  # message(" -- PDAL install: ${pdal_install}")
+  include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
+  # set(CMAKE_TOOLCHAIN_FILE
+  # "${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 project(
@@ -49,9 +56,14 @@ set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(WIN32)
-  set(CMAKE_CXX_FLAGS
-      "${CMAKE_CXX_FLAGS} /openmp:llvm /Wall /MP /wd5045 /wd4866 /wd4514 /wd4820 /wd4800 /wd4242 /wd4244 /wd4365 /wd5027 /wd4626 /wd5219 /wd4623 /wd4267 /wd4710 /wd4711"
-  )
+  if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
+    set(CMAKE_CXX_FLAGS
+        "${CMAKE_CXX_FLAGS} -fstrict-enums -Wall -Wextra -Wpedantic -Werror")
+  else()
+    set(CMAKE_CXX_FLAGS
+        "${CMAKE_CXX_FLAGS} /openmp:llvm /Wall /MP /wd5045 /wd4866 /wd4514 /wd4820 /wd4800 /wd4242 /wd4244 /wd4365 /wd5027 /wd4626 /wd5219 /wd4623 /wd4267 /wd4710 /wd4711"
+    )
+  endif()
   add_compile_definitions(NOMINMAX NOGDI)
 elseif(UNIX)
   set(CMAKE_CXX_FLAGS
@@ -81,6 +93,7 @@ target_precompile_headers(${GUI_EXE_NAME} INTERFACE QtWidgets.h)
 target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
 set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
                                                  MACOSX_BUNDLE ON)
+set(CMAKE_AUTOMOC ON)
 
 if(WIN32)
   add_custom_command(
