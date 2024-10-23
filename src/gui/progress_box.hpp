@@ -1,31 +1,30 @@
 #pragma once
 
+#include <QDialog>
 #include <QLayout>
-#include <QMessageBox>
 #include <QProgressBar>
 
+#include "ui_progress_box.h"
 #include "utilities/progress_tracker.hpp"
 
 QT_BEGIN_NAMESPACE
-
+class QLabel;
+namespace Ui {
+class ProgressBox;
+}
 QT_END_NAMESPACE
 
-class ProgressBox : public QMessageBox, public ProgressObserver {
+class ProgressBox : public QDialog, public ProgressObserver {
   Q_OBJECT
 
-  QProgressBar* m_progress_bar;
+  std::unique_ptr<Ui::ProgressBox> ui;
+
+  std::vector<std::pair<QProgressBar*, QLabel*>> m_progress;
 
  public:
-  explicit ProgressBox(QWidget* parent = nullptr) : QMessageBox(parent) {
-    setStandardButtons(QMessageBox::NoButton);
-    setWindowFlag(Qt::WindowCloseButtonHint, false);
+  explicit ProgressBox(QWidget* parent = nullptr);
 
-    m_progress_bar = new QProgressBar(this);
-    m_progress_bar->setRange(0, 1000);
-    layout()->addWidget(m_progress_bar);
-  }
-
-  void update_progress(double proportion) { m_progress_bar->setValue(proportion * 1000); }
+  void update_progress(double proportion);
 
  private:
 };

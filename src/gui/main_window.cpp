@@ -6,77 +6,22 @@
 #include "config_input/config_input.hpp"
 #include "progress_box.hpp"
 #include "run.hpp"
+#include "ui_main_window.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
-#define OPEN_ICON QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen)
-#define EXIT_ICON QIcon::fromTheme(QIcon::ThemeIcon::ApplicationExit)
-#define ABOUT_ICON QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout)
-#else
-#define OPEN_ICON QIcon::fromTheme("document-open")
-#define EXIT_ICON QIcon::fromTheme("application-exit")
-#define ABOUT_ICON QIcon::fromTheme("help-about")
-#endif
+MainWindow::MainWindow() : ui(new Ui::MainWindow) {
+  ui->setupUi(this);
 
-MainWindow::MainWindow() {
-  QWidget *widget = new QWidget;
-  setCentralWidget(widget);
-
-  QWidget *top_filler = new QWidget;
-  top_filler->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  m_filename_label = new QLabel(("<i>Choose a Config file from the File menu</i>"));
-
-  QWidget *bottom_filler = new QWidget;
-  bottom_filler->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  QVBoxLayout *layout = new QVBoxLayout;
-  layout->setContentsMargins(20, 20, 20, 20);
-  layout->addWidget(top_filler);
-  layout->addWidget(m_filename_label);
-
-  m_run_button = new QPushButton();
-  m_run_button->setText("Run Blaze");
-  m_run_button->setEnabled(false);
-  m_run_button->setToolTip("Run Blaze with the selected config file");
-  m_run_button->setFixedWidth(120);
-  layout->addWidget(m_run_button);
-  connect(m_run_button, &QPushButton::clicked, this, &MainWindow::run_blaze);
-
-  layout->addWidget(bottom_filler);
-  widget->setLayout(layout);
-
-  m_open_action = new QAction(OPEN_ICON, "&Open...", this);
-  m_open_action->setShortcuts(QKeySequence::Open);
-  m_open_action->setStatusTip(("Open a config file"));
-  connect(m_open_action, &QAction::triggered, this, &MainWindow::open);
-
-  m_exit_action = new QAction(EXIT_ICON, "Exit", this);
-  m_exit_action->setShortcuts(QKeySequence::Quit);
-  m_exit_action->setStatusTip("Exit Blaze");
-  connect(m_exit_action, &QAction::triggered, this, &QWidget::close);
-
-  m_about_action = new QAction(ABOUT_ICON, "About", this);
-  m_about_action->setStatusTip(("Show Blaze About Info"));
-  connect(m_about_action, &QAction::triggered, this, &MainWindow::about);
-
-  m_file_menu = menuBar()->addMenu(("File"));
-  m_file_menu->addAction(m_open_action);
-  m_file_menu->addSeparator();
-  m_file_menu->addAction(m_exit_action);
-
-  m_help_menu = menuBar()->addMenu(("Help"));
-  m_help_menu->addAction(m_about_action);
-
-  setMinimumSize(320, 160);
-  resize(480, 320);
+  connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run_blaze);
+  connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::open);
+  connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
 }
 
 void MainWindow::open() {
   QString config_file_name = QFileDialog::getOpenFileName(
       this, ("Open Config"), "", ("Config Files (*.json *.jsonc);;All files (*)"), nullptr,
       QFileDialog::ReadOnly);
-  m_filename_label->setText(config_file_name);
-  m_run_button->setEnabled(true);
+  ui->label->setText(config_file_name);
+  ui->runButton->setEnabled(true);
 }
 
 void MainWindow::about() {
@@ -103,7 +48,7 @@ void MainWindow::run_stuff(std::shared_ptr<Config> config,
 }
 
 void MainWindow::run_blaze() {
-  QString config_file_name = m_filename_label->text();
+  QString config_file_name = ui->label->text();
   if (config_file_name.isEmpty()) {
     QMessageBox::warning(this, "No Config File", "Please select a config file first.");
     return;
@@ -115,9 +60,6 @@ void MainWindow::run_blaze() {
         std::make_shared<Config>(Config::FromFile(config_file_name.toStdString()));
     read_config = true;
     ProgressBox *message_box = new ProgressBox(this);
-    message_box->setWindowTitle("Running Blaze");
-    message_box->setText(
-        "Blaze is running with the selected config file. Please wait for the process to finish.");
     message_box->show();
     QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
     connect(watcher, &QFutureWatcher<void>::finished, message_box,

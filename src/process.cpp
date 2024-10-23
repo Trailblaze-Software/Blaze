@@ -76,6 +76,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   for (const fs::path& s : las_filename) {
     if (s != "/") output_dir /= s;
   }
+  output_dir = output_dir.stem();
   fs::create_directories(output_dir);
 
   LASFile las_file = LASFile::with_border(las_filename, config.border_width.in(au::meters));

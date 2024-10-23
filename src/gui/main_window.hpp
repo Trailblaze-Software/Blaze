@@ -9,10 +9,9 @@ struct Config;
 #include "utilities/progress_tracker.hpp"
 
 QT_BEGIN_NAMESPACE
-class QAction;
-class QLabel;
-class QMenu;
-class QPushButton;
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
@@ -26,16 +25,8 @@ class MainWindow : public QMainWindow {
   void about();
   void run_blaze();
   void run_stuff(std::shared_ptr<Config> config, const std::vector<fs::path> additional_las_files,
-                 ProgressObserver *observer);
+                 ProgressObserver* observer);
 
  private:
-  QMenu *m_file_menu;
-  QAction *m_open_action;
-  QAction *m_exit_action;
-
-  QMenu *m_help_menu;
-  QAction *m_about_action;
-
-  QLabel *m_filename_label;
-  QPushButton *m_run_button;
+  Ui::MainWindow* ui;
 };

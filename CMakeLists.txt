@@ -73,6 +73,7 @@ else()
 endif()
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
 set(LIBRARY_NAME blaze_lib)
 set(CLI_EXE_NAME blaze-cli)
@@ -88,13 +89,15 @@ if(WIN32)
   qt_standard_project_setup()
 endif()
 
-qt_add_executable(${GUI_EXE_NAME} assets/resources.rc)
-target_precompile_headers(${GUI_EXE_NAME} INTERFACE QtWidgets.h)
+if(WIN32)
+  qt_add_executable(${GUI_EXE_NAME} WIN32 assets/resources.rc)
+else()
+  qt_add_executable(${GUI_EXE_NAME})
+endif()
+target_precompile_headers(${GUI_EXE_NAME} INTERFACE src/precompiled_headers.hpp)
 target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
 set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
                                                  MACOSX_BUNDLE ON)
-set(CMAKE_AUTOMOC ON)
-
 if(WIN32)
   add_custom_command(
     TARGET ${GUI_EXE_NAME}
