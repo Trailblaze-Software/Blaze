@@ -5,13 +5,20 @@
 
 #include "assert/assert.hpp"
 
+class ProgressTracker;
+
 class ProgressObserver {
+  ProgressTracker* m_child;
+
  protected:
   virtual void update_progress(double progress) = 0;
 
- public:
-  virtual ~ProgressObserver();
+  ProgressObserver() : m_child(nullptr) {}
 
+ public:
+  ProgressTracker* child() { return m_child; }
+
+  virtual ~ProgressObserver();
   friend class ProgressTracker;
 };
 

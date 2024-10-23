@@ -61,13 +61,9 @@ void MainWindow::run_blaze() {
     read_config = true;
     ProgressBox *message_box = new ProgressBox(this);
     message_box->show();
-    QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
-    connect(watcher, &QFutureWatcher<void>::finished, message_box,
-            [message_box] { message_box->done(0); });
-    connect(watcher, &QFutureWatcher<void>::finished, watcher, &QFutureWatcher<void>::deleteLater);
-    watcher->setFuture(QtConcurrent::run([this, config, message_box] {
+    message_box->start_task([this, config, message_box] {
       this->run_stuff(config, std::vector<fs::path>(), message_box);
-    }));
+    });
   } catch (const std::exception &e) {
     std::string error_message =
         std::string(e.what()) + (read_config ? ""

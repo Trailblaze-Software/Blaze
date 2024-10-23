@@ -21,10 +21,20 @@ class ProgressBox : public QDialog, public ProgressObserver {
 
   std::vector<std::pair<QProgressBar*, QLabel*>> m_progress;
 
+ private slots:
+  void receive_progress_bars(std::vector<double> progress);
+
+  void abort();
+
+ signals:
+  void send_progress_bars(std::vector<double> progress);
+
  public:
   explicit ProgressBox(QWidget* parent = nullptr);
 
   void update_progress(double proportion);
+
+  void start_task(std::function<void()> task);
 
  private:
 };

@@ -19,6 +19,7 @@ void ProgressTracker::_set_proportion(double proportion) {
 
 ProgressTracker::ProgressTracker(ProgressObserver* observer)
     : m_proportion(0), m_observer(observer) {
+  observer->m_child = this;
   ProgressTracker* parent_tracker = dynamic_cast<ProgressTracker*>(observer);
   if (parent_tracker != nullptr) {
     Assert(parent_tracker->m_subtracker_range.has_value());
@@ -49,11 +50,14 @@ ProgressTracker ProgressTracker::subtracker(double start, double end) {
   AssertGE(end, start);
   AssertGE(1, end);
   m_subtracker_range = std::make_pair(start, end);
-  return ProgressTracker(this);
+  ProgressTracker to_return(this);
+  m_child = &to_return;
+  return to_return;
 }
 
 ProgressTracker::~ProgressTracker() {
   _set_proportion(1);
+  m_observer->m_child = nullptr;
   ProgressTracker* ptr = dynamic_cast<ProgressTracker*>(m_observer);
   if (ptr != nullptr) {
     ptr->m_subtracker_range.reset();

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>357</width>
-    <height>179</height>
+    <height>197</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,7 +23,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string> Blaze is running with the selected config file. Please wait for the process to finish.</string>
+      <string>Blaze is running with the selected config file. Please wait for the process to finish.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -41,62 +41,11 @@
         <x>0</x>
         <y>0</y>
         <width>343</width>
-        <height>127</height>
+        <height>167</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QProgressBar" name="progressBar1">
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-         <property name="value">
-          <number>1</number>
-         </property>
-         <property name="format">
-          <string>%p%</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="progressLabel1">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QProgressBar" name="progressBar2">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="progressLabel2">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QVBoxLayout" name="verticalLayout_3"/>
      </widget>
-    </widget>
-   </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::StandardButton::Abort</set>
-     </property>
     </widget>
    </item>
   </layout>
