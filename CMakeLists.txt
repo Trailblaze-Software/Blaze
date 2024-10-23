@@ -80,7 +80,7 @@ set(GUI_EXE_NAME Blaze)
 set(UNIT_TESTS_NAME unit_tests)
 include_directories(src src/lib)
 add_library(${LIBRARY_NAME})
-add_executable(${CLI_EXE_NAME} resources.rc)
+add_executable(${CLI_EXE_NAME} assets/resources.rc)
 add_executable(${UNIT_TESTS_NAME})
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent)
@@ -88,7 +88,7 @@ if(WIN32)
   qt_standard_project_setup()
 endif()
 
-qt_add_executable(${GUI_EXE_NAME} resources.rc)
+qt_add_executable(${GUI_EXE_NAME} assets/resources.rc)
 target_precompile_headers(${GUI_EXE_NAME} INTERFACE QtWidgets.h)
 target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
 set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
@@ -150,16 +150,34 @@ add_subdirectory(src)
 
 gtest_discover_tests(${UNIT_TESTS_NAME})
 
-install(TARGETS ${CLI_EXE_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+include(GNUInstallDirs)
+
+install(
+  TARGETS ${CLI_EXE_NAME}
+  BUNDLE DESTINATION .
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(
   TARGETS ${GUI_EXE_NAME}
-  DESTINATION ${CMAKE_INSTALL_BINDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  BUNDLE DESTINATION .)
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES "config.json" DESTINATION .)
 
 install(FILES $<TARGET_RUNTIME_DLLS:${CLI_EXE_NAME}> TYPE BIN)
+
+if(NOT WIN32)
+  set(ENTRY_NAME "blaze")
+  configure_file(${PROJECT_SOURCE_DIR}/assets/Blaze.desktop.in
+                 ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop
+          DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+
+  install(FILES assets/images/${ENTRY_NAME}_icon.png
+          DESTINATION ${CMAKE_INSTALL_DATADIR}/icons)
+endif()
 
 if(WIN32)
   qt_generate_deploy_app_script(TARGET ${GUI_EXE_NAME} OUTPUT_SCRIPT
@@ -177,18 +195,18 @@ set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Blaze LIDAR mapping tool")
 set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/Trailblaze-Software/blaze")
-set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico")
+set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 set(CPACK_PACKAGE_CONTACT "Ryan Stocks ryan.stocks00@gmail.com")
 set(CPACK_PACKAGE_EXECUTABLES
-    "bin/Blaze" "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico" "bin/blaze-cli"
-    "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico")
+    "bin/Blaze" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico"
+    "bin/blaze-cli" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 
 set(CPACK_NSIS_MODIFY_PATH "ON")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
 set(CPACK_NSIS_DISPLAY_NAME "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/Trailblaze-Software/blaze")
 set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze")
-set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/images\\\\blaze.ico")
+set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
