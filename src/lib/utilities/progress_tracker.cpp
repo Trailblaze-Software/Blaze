@@ -52,7 +52,6 @@ ProgressTracker ProgressTracker::subtracker(double start, double end) {
   AssertGE(end, start);
   AssertGE(1, end);
   m_subtracker_range = std::make_pair(start, end);
-  std::cout << "Subtracker: " << start * 100 << "% to " << end * 100 << "%" << std::endl;
   ProgressTracker to_return(this);
   m_child = &to_return;
   m_child->_set_proportion(0);

@@ -185,8 +185,17 @@ if(NOT WIN32)
 endif()
 
 if(WIN32)
-  qt_generate_deploy_app_script(TARGET ${GUI_EXE_NAME} OUTPUT_SCRIPT
-                                deploy_script NO_UNSUPPORTED_PLATFORM_ERROR)
+  qt_generate_deploy_app_script(
+    TARGET
+    ${GUI_EXE_NAME}
+    OUTPUT_SCRIPT
+    deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+    DEPLOY_TOOL_OPTIONS
+    # workaround for https://github.com/microsoft/vcpkg/issues/17840 or
+    # https://github.com/microsoft/vcpkg/issues/36250
+    $<$<CONFIG:DEBUG>:--qtpaths
+    ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
   install(SCRIPT ${deploy_script})
 endif()
 

@@ -4,6 +4,7 @@
 
 #include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
+#include "printing/to_string.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/timer.hpp"
 
@@ -203,17 +204,16 @@ inline std::vector<Coordinate2D<size_t>> stream_path(
     }
     if (unvisited_neighbours.size() == 0) {
       break;
-    }
-    start.push_back(unvisited_neighbours.back());
-    visited[unvisited_neighbours.back()] = true;
-    if (unvisited_neighbours.size() > 1) {
+    } else if (unvisited_neighbours.size() == 1) {
+      start.push_back(unvisited_neighbours.back());
+      visited[unvisited_neighbours.back()] = true;
+    } else {
       for (const Coordinate2D<size_t>& neighbour : unvisited_neighbours) {
         queue_of_starts.push({last_point, neighbour});
       }
       break;
     }
   }
-
   return start;
 }
 

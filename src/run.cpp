@@ -86,6 +86,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
           for (const fs::path &s : las_file) {
             if (s != "/") output_dir /= s;
           }
+          output_dir = output_dir.parent_path() / output_dir.stem();
           fs::path dxf_path = output_dir / "trimmed_contours.dxf";
           if (!fs::exists(dxf_path)) {
             std::cerr << "DXF " << dxf_path << " does not exist" << std::endl;
@@ -123,6 +124,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
             for (const fs::path &s : las_file) {
               if (s != "/") output_dir /= s;
             }
+            output_dir = output_dir.parent_path() / output_dir.stem();
             fs::path img_path = output_dir / filename;
             if (!fs::exists(img_path)) {
               std::cerr << "Image " << img_path << " does not exist" << std::endl;
