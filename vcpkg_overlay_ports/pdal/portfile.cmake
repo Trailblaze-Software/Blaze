@@ -70,13 +70,19 @@ if(VCPKG_CROSSCOMPILING)
   )
 endif()
 
+if(CMAKE_HOST_WIN32 AND (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
+  set(CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wa,-mbig-obj")
+else()
+  set(CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wa")
+endif()
+
 vcpkg_find_acquire_program(PKGCONFIG)
 vcpkg_cmake_configure(
   SOURCE_PATH
   "${SOURCE_PATH}"
   OPTIONS
   "-DCMAKE_PROJECT_INCLUDE=${CMAKE_CURRENT_LIST_DIR}/cmake-project-include.cmake"
-  -DCMAKE_CXX_FLAGS="-Wa,-mbig-obj"
+  -DCMAKE_CXX_FLAGS="${CXX_FLAGS}"
   -DPDAL_PLUGIN_INSTALL_PATH=.
   "-DPKG_CONFIG_EXECUTABLE=${PKGCONFIG}"
   -DWITH_TESTS:BOOL=OFF
