@@ -61,6 +61,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
     TimeFunction timer("processing step " + (std::string)json(step));
+    tracker.text_update("Processing step " + (std::string)json(step));
     ProgressTracker step_tracker =
         tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
     current_time += time_ratios[idx++] / total_time;
@@ -68,11 +69,17 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
       case ProcessingStep::TmpBorders:
         for (size_t i = 0; i < las_files.size(); i++) {
           step_tracker.set_proportion((double)i / las_files.size());
+          step_tracker.text_update("Extracting borders " + std::to_string(i + 1) + " of " +
+                                   std::to_string(las_files.size()) + ": " +
+                                   las_files[i].filename().string());
           extract_borders(las_files[i], config.border_width.in(au::meters));
         }
         break;
       case ProcessingStep::Tiles:
         for (size_t i = 0; i < las_files.size(); i++) {
+          step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
+                                   std::to_string(las_files.size()) + ": " +
+                                   las_files[i].filename().string());
           process_las_file(las_files[i], config,
                            step_tracker.subtracker((double)i / las_files.size(),
                                                    (double)(i + 1) / las_files.size()));

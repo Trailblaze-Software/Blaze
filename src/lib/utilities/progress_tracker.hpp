@@ -1,9 +1,8 @@
 #pragma once
 
 #include <optional>
+#include <string>
 #include <utility>
-
-#include "assert/assert.hpp"
 
 class ProgressTracker;
 
@@ -12,6 +11,7 @@ class ProgressObserver {
 
  protected:
   virtual void update_progress(double progress) = 0;
+  virtual void text_update(const std::string& text, int depth = 0) = 0;
 
   ProgressObserver() : m_child(nullptr) {}
 
@@ -25,6 +25,7 @@ class ProgressObserver {
 class ProgressBar : public ProgressObserver {
  protected:
   virtual void update_progress(double progress) override;
+  virtual void text_update(const std::string& text, int depth = 0) override;
 };
 
 class ProgressTracker : public ProgressObserver {
@@ -39,6 +40,8 @@ class ProgressTracker : public ProgressObserver {
 
  public:
   explicit ProgressTracker(ProgressObserver* observer = nullptr);
+
+  virtual void text_update(const std::string& text, int depth = 0) override;
 
   ProgressTracker(const ProgressTracker& other) = delete;
   ProgressTracker& operator=(const ProgressTracker& other) = delete;

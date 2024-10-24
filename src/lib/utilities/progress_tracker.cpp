@@ -1,13 +1,20 @@
 #include "progress_tracker.hpp"
 
+#include <iostream>
 #include <optional>
 #include <utility>
+
+#include "assert/assert.hpp"
 
 ProgressObserver::~ProgressObserver() {};
 
 void ProgressBar::update_progress(double progress) {
   std::cout << "Progress: " << progress * 100 << "%" << std::endl;
 }
+
+void ProgressBar::text_update(const std::string& text, int depth) {
+  std::cout << std::string(2 * (depth - 1), ' ') << text << std::endl;
+};
 
 void ProgressTracker::_set_proportion(double proportion) {
   Assert(proportion >= m_proportion && proportion <= 1);
@@ -45,6 +52,12 @@ void ProgressTracker::update_progress(double progress) {
   _set_proportion(m_subtracker_range->first +
                   progress * (m_subtracker_range->second - m_subtracker_range->first));
 }
+
+void ProgressTracker::text_update(const std::string& text, int depth) {
+  if (m_observer != nullptr) {
+    m_observer->text_update(text, depth + 1);
+  }
+};
 
 ProgressTracker ProgressTracker::subtracker(double start, double end) {
   set_proportion(start);

@@ -14,6 +14,7 @@ ProgressBox::ProgressBox(QWidget* parent) : QDialog(parent), ui(new Ui::Progress
   ui->setupUi(this);
   setWindowFlag(Qt::WindowCloseButtonHint, false);
   connect(this, &ProgressBox::send_progress_bars, this, &ProgressBox::receive_progress_bars);
+  connect(this, &ProgressBox::send_status_text, this, &ProgressBox::receive_status_text);
 }
 
 void ProgressBox::receive_progress_bars(std::vector<double> progress) {
@@ -24,6 +25,7 @@ void ProgressBox::receive_progress_bars(std::vector<double> progress) {
                                             new QLabel(ui->scrollAreaWidgetContents_2)});
       ui->verticalLayout_3->addWidget(m_progress.back().first);
       m_progress.back().first->setMaximum(1000);
+      ui->verticalLayout_3->addWidget(m_progress.back().second);
     }
     m_progress[i].first->setValue(progress[i] * 1000);
   }
@@ -35,6 +37,12 @@ void ProgressBox::receive_progress_bars(std::vector<double> progress) {
   m_progress.resize(progress.size());
 }
 
+void ProgressBox::receive_status_text(std::string text, int depth) {
+  if ((unsigned int)(depth - 1) < m_progress.size()) {
+    m_progress[depth - 1].second->setText(QString::fromStdString(text));
+  }
+}
+
 void ProgressBox::update_progress(double _) {
   (void)_;
   std::vector<double> progress;
@@ -44,6 +52,10 @@ void ProgressBox::update_progress(double _) {
     child = child->child();
   }
   emit send_progress_bars(std::move(progress));
+}
+
+void ProgressBox::text_update(const std::string& text, int depth) {
+  emit send_status_text(text, depth);
 }
 
 class TaskException : public QException {
