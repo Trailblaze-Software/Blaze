@@ -1,6 +1,8 @@
 #include "progress_box.hpp"
 
+#include <QException>
 #include <QFutureWatcher>
+#include <QMessageBox>
 #include <QtConcurrent>
 
 #include "ui_progress_box.h"
@@ -44,8 +46,35 @@ void ProgressBox::update_progress(double _) {
   emit send_progress_bars(std::move(progress));
 }
 
+class TaskException : public QException {
+  std::string m_what;
+
+ public:
+  TaskException(const char* what) : QException(), m_what(what) {}
+  void raise() const { throw *this; }
+  QException* clone() const { return new TaskException(*this); }
+  inline virtual const char* what() const noexcept { return m_what.c_str(); }
+};
+
 void ProgressBox::start_task(std::function<void()> task) {
-  QFutureWatcher<void>* watcher = new QFutureWatcher<void>(this);
-  connect(watcher, &QFutureWatcher<void>::finished, this, [this] { this->done(0); });
-  watcher->setFuture(QtConcurrent::run(task));
+  QFutureWatcher<int>* watcher = new QFutureWatcher<int>(this);
+  connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher] {
+    if (watcher->future().isCanceled()) {
+      try {
+        watcher->future().result();
+      } catch (TaskException& e) {
+        QMessageBox::critical(this, "Error running task", e.what());
+      }
+      this->done(1);
+    } else
+      this->done(0);
+  });
+  watcher->setFuture(QtConcurrent::run([task] {
+    try {
+      task();
+    } catch (std::exception& e) {
+      throw TaskException(e.what());
+    }
+    return 0;
+  }));
 }

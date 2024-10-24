@@ -37,16 +37,6 @@ void MainWindow::about() {
                              "code</a> available under the AGPLv3 license.<br>"));
 }
 
-void MainWindow::run_stuff(std::shared_ptr<Config> config,
-                           const std::vector<fs::path> additional_las_files,
-                           ProgressObserver *observer) {
-  try {
-    run_with_config(*config, additional_las_files, ProgressTracker(observer));
-  } catch (const std::exception &e) {
-    QMessageBox::critical(this, "Error Running Blaze", e.what());
-  }
-}
-
 void MainWindow::run_blaze() {
   QString config_file_name = ui->label->text();
   if (config_file_name.isEmpty()) {
@@ -61,8 +51,8 @@ void MainWindow::run_blaze() {
     read_config = true;
     ProgressBox *message_box = new ProgressBox(this);
     message_box->show();
-    message_box->start_task([this, config, message_box] {
-      this->run_stuff(config, std::vector<fs::path>(), message_box);
+    message_box->start_task([config, message_box] {
+      run_with_config(*config, std::vector<fs::path>(), ProgressTracker(message_box));
     });
   } catch (const std::exception &e) {
     std::string error_message =

@@ -24,8 +24,6 @@ class MainWindow : public QMainWindow {
   void open();
   void about();
   void run_blaze();
-  void run_stuff(std::shared_ptr<Config> config, const std::vector<fs::path> additional_las_files,
-                 ProgressObserver* observer);
 
  private:
   Ui::MainWindow* ui;
