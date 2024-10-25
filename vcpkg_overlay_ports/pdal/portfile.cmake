@@ -70,10 +70,11 @@ if(VCPKG_CROSSCOMPILING)
   )
 endif()
 
-if(CMAKE_HOST_WIN32 AND (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
-  set(CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wa,-mbig-obj")
+if(CMAKE_HOST_WIN32 AND (CURRENT_PACKAGES_DIR MATCHES ".*mingw.*"))
+  message("SETTING FLAGS")
+  set(FLAGS "-Wa,-mbig-obj ${CMAKE_CXX_FLAGS}")
 else()
-  set(CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wa")
+  set(FLAGS "-Wa ${CMAKE_CXX_FLAGS}")
 endif()
 
 vcpkg_find_acquire_program(PKGCONFIG)
@@ -82,7 +83,7 @@ vcpkg_cmake_configure(
   "${SOURCE_PATH}"
   OPTIONS
   "-DCMAKE_PROJECT_INCLUDE=${CMAKE_CURRENT_LIST_DIR}/cmake-project-include.cmake"
-  -DCMAKE_CXX_FLAGS="${CXX_FLAGS}"
+  -DCMAKE_CXX_FLAGS=${FLAGS}
   -DPDAL_PLUGIN_INSTALL_PATH=.
   "-DPKG_CONFIG_EXECUTABLE=${PKGCONFIG}"
   -DWITH_TESTS:BOOL=OFF
