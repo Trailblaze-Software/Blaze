@@ -1,0 +1,176 @@
+{
+  "las_files": [
+    "sample.laz"
+  ],
+  "steps": [
+    "tmp_borders",
+    "tiles",
+    "combine"
+  ],
+  "output_directory": "out",
+  "grid": {
+    // Resolution of the binned grid in meters
+    "bin_resolution": 0.5,
+    "downsample_factor": 3
+  },
+  "ground": {
+    // Outlier removal height difference threshold
+    "outlier_removal_height_diff": 0.3
+  },
+  "contours": {
+    "formline": {
+      "interval": 2.5,
+      "min_points": 5,
+      "color": "brown",
+      "width": 0.1
+    },
+    "normal": {
+      "interval": 5.0,
+      "min_points": 5,
+      "color": "brown",
+      "width": 0.14
+    },
+    "index": {
+      "interval": 25.0,
+      "min_points": 5,
+      "color": "brown",
+      "width": 0.25
+    }
+  },
+  "water": {
+    "minor": {
+      "color": "blue",
+      "catchment": 0.03,
+      "width": 0.18
+    },
+    "major": {
+      "color": "blue",
+      "catchment": 0.2,
+      "width": 0.3
+    }
+  },
+  "vege": {
+    "background_color": "50% yellow",
+    "height_configs": [
+      {
+        "name": "canopy",
+        "min_height": 2.5,
+        "max_height": 100,
+        "colors": [
+          {
+            "blocking_threshold": 0.1,
+            "color": "white"
+          }
+        ]
+      },
+      {
+        "name": "green",
+        "min_height": 0.5,
+        "max_height": 2.5,
+        "colors": [
+          {
+            // slow
+            "blocking_threshold": 0.1,
+            "color": "30% green"
+          },
+          {
+            // walk
+            "blocking_threshold": 0.4,
+            "color": "60% green"
+          },
+          {
+            // fight
+            "blocking_threshold": 0.7,
+            "color": "green"
+          }
+        ]
+      }
+    ]
+  },
+  "buildings": {
+    "color": "black"
+  },
+  "render": {
+    "scale": 10000,
+    "dpi": 600
+  },
+  "colors": {
+    "primitive": {
+      "black": {
+        "cmyk": [
+          0,
+          0,
+          0,
+          100
+        ]
+      },
+      "white": {
+        "cmyk": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "green": {
+        "cmyk": [
+          76,
+          0,
+          91,
+          0
+        ]
+      },
+      "blue": {
+        "cmyk": [
+          100,
+          0,
+          0,
+          0
+        ]
+      },
+      "yellow": {
+        "cmyk": [
+          0,
+          27,
+          79,
+          0
+        ]
+      },
+      "dark green": {
+        "cmyk": [
+          100,
+          0,
+          80,
+          30
+        ]
+      },
+      "brown": {
+        "cmyk": [
+          0,
+          56,
+          100,
+          18
+        ]
+      },
+      "purple": {
+        "cmyk": [
+          35,
+          85,
+          0,
+          0
+        ]
+      }
+    },
+    "composite": {
+      "50% yellow": {
+        "yellow": 0.5
+      },
+      "30% green": {
+        "green": 0.3
+      },
+      "60% green": {
+        "green": 0.6
+      }
+    }
+  }
+}
