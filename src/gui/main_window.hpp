@@ -2,11 +2,8 @@
 
 #include <QMainWindow>
 
-struct Config;
-#include <vector>
-
+#include "ui_main_window.h"
 #include "utilities/filesystem.hpp"
-#include "utilities/progress_tracker.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,10 +18,9 @@ class MainWindow : public QMainWindow {
   MainWindow();
 
  private slots:
-  void open();
   void about();
   void run_blaze();
 
  private:
-  Ui::MainWindow* ui;
+  std::unique_ptr<Ui::MainWindow> ui;
 };

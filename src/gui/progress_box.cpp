@@ -25,6 +25,7 @@ void ProgressBox::receive_progress_bars(std::vector<double> progress) {
                                             new QLabel(ui->scrollAreaWidgetContents_2)});
       ui->verticalLayout_3->addWidget(m_progress.back().first);
       m_progress.back().first->setMaximum(1000);
+      m_progress.back().second->setWordWrap(true);
       ui->verticalLayout_3->addWidget(m_progress.back().second);
     }
     m_progress[i].first->setValue(progress[i] * 1000);

@@ -72,11 +72,7 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid,
 void process_las_file(const fs::path& las_filename, const Config& config,
                       ProgressTracker progress_tracker) {
   TimeFunction outer_timer("processing LAS file " + las_filename.string());
-  fs::path output_dir = config.output_directory;
-  for (const fs::path& s : las_filename) {
-    if (s != "/") output_dir /= s;
-  }
-  output_dir = output_dir.parent_path() / output_dir.stem();
+  fs::path output_dir = config.output_path() / las_filename.stem();
   fs::create_directories(output_dir);
 
   LASFile las_file = LASFile::with_border(las_filename, config.border_width.in(au::meters));
@@ -195,6 +191,10 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
 
   std::vector<Stream> stream_path = stream_paths(smooth_ground, config.water);
+
+  std::vector<Coordinate2D<size_t>> sinks = identify_sinks(smooth_ground);
+  GeoGrid<double> filled = fill_depressions(smooth_ground, sinks);
+  write_to_tif(filled.slice(las_file.export_bounds()), output_dir / "filled_dem.tif");
 
   au::QuantityD<au::Meters> contour_points_resolution = au::meters(20);
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(

@@ -6,4 +6,7 @@ target_sources(
           progress_box.hpp
           main_window.hpp
           progress_box.cpp
-          progress_box.ui)
+          progress_box.ui
+          config_editor.hpp
+          config_editor.cpp
+          config_editor.ui)

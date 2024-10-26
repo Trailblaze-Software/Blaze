@@ -8,7 +8,7 @@ endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(FetchContent)
-if(NOT DEFINED EXESS_FETCHCONTENT_BASE_DIR)
+if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
   set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 else()
   set(FETCHCONTENT_BASE_DIR EXESS_FETCHCONTENT_BASE_DIR)
@@ -134,8 +134,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(au_units)
 
+add_custom_target(
+  copy_assets
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets
+          $<TARGET_FILE_DIR:${GUI_EXE_NAME}>/assets)
+
 foreach(target ${CLI_EXE_NAME} ${GUI_EXE_NAME} ${UNIT_TESTS_NAME})
   target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
+  add_dependencies(${target} copy_assets)
 endforeach()
 
 foreach(target ${CLI_EXE_NAME} ${GUI_EXE_NAME} ${UNIT_TESTS_NAME}

@@ -18,6 +18,7 @@
 #include "process.hpp"
 #include "tif/tif.hpp"
 #include "utilities/filesystem.hpp"
+#include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
 
 void run_with_config(const Config &config, const std::vector<fs::path> &additional_las_files,
@@ -89,11 +90,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         // Combine contours
         std::map<double, std::vector<Contour>> contours_by_height;
         for (const fs::path &las_file : las_files) {
-          fs::path output_dir = config.output_directory;
-          for (const fs::path &s : las_file) {
-            if (s != "/") output_dir /= s;
-          }
-          output_dir = output_dir.parent_path() / output_dir.stem();
+          fs::path output_dir = config.output_path() / las_file.stem();
           fs::path dxf_path = output_dir / "trimmed_contours.dxf";
           if (!fs::exists(dxf_path)) {
             std::cerr << "DXF " << dxf_path << " does not exist" << std::endl;
@@ -112,14 +109,15 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
             joined_contours.emplace_back(contour);
           }
         }
-        write_to_dxf(joined_contours, config.output_directory / "combined" / "contours.dxf",
+        write_to_dxf(joined_contours, config.output_path() / "combined" / "contours.dxf",
                      config.contours);
-        write_to_crt(config.output_directory / "combined" / "contours.crt");
+        write_to_crt(config.output_path() / "combined" / "contours.crt");
 
         // Combine TIFs
         for (const std::string filename :
              {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
-              "buildings.tif", "slope.tif", "vege_color.tif", "hill_shade_multi.tif"}) {
+              "buildings.tif", "slope.tif", "vege_color.tif", "hill_shade_multi.tif",
+              "filled_dem.tif"}) {
           TimeFunction combining_timer("Combining " + filename);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;
@@ -127,11 +125,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
           pdal::BOX2D extent;
           std::optional<double> dx, dy;
           for (const fs::path &las_file : las_files) {
-            fs::path output_dir = config.output_directory;
-            for (const fs::path &s : las_file) {
-              if (s != "/") output_dir /= s;
-            }
-            output_dir = output_dir.parent_path() / output_dir.stem();
+            fs::path output_dir = config.output_path() / las_file.stem();
             fs::path img_path = output_dir / filename;
             if (!fs::exists(img_path)) {
               std::cerr << "Image " << img_path << " does not exist" << std::endl;
@@ -162,8 +156,8 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
             combined_grid.fill_from(grid);
           }
 
-          fs::create_directories(config.output_directory / "combined");
-          write_to_tif(combined_grid, config.output_directory / "combined" / filename);
+          fs::create_directories(config.output_path() / "combined");
+          write_to_tif(combined_grid, config.output_path() / "combined" / filename);
         }
         break;
     }

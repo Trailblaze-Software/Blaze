@@ -1,6 +1,8 @@
 #include <iostream>
 
+#include "config_input/config_input.hpp"
 #include "run.hpp"
+#include "utilities/progress_tracker.hpp"
 
 int main([[maybe_unused]] int argc, char *argv[]) {
   fs::path config_path = "config.json";

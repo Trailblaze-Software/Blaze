@@ -1,6 +1,4 @@
 #include <QApplication>
-#include <QPushButton>
-#include <QWidget>
 
 #include "main_window.hpp"
 

@@ -12,16 +12,11 @@ MainWindow::MainWindow() : ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
   connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run_blaze);
-  connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::open);
+  connect(ui->actionOpen, &QAction::triggered, this,
+          [this] { ui->config_editor->open_config_file(); });
+  connect(ui->actionSaveAs, &QAction::triggered, this,
+          [this] { ui->config_editor->save_config_file(); });
   connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
-}
-
-void MainWindow::open() {
-  QString config_file_name = QFileDialog::getOpenFileName(
-      this, ("Open Config"), "", ("Config Files (*.json *.jsonc);;All files (*)"), nullptr,
-      QFileDialog::ReadOnly);
-  ui->label->setText(config_file_name);
-  ui->runButton->setEnabled(true);
 }
 
 void MainWindow::about() {
@@ -38,27 +33,10 @@ void MainWindow::about() {
 }
 
 void MainWindow::run_blaze() {
-  QString config_file_name = ui->label->text();
-  if (config_file_name.isEmpty()) {
-    QMessageBox::warning(this, "No Config File", "Please select a config file first.");
-    return;
-  }
-
-  bool read_config = false;
-  try {
-    std::shared_ptr<Config> config =
-        std::make_shared<Config>(Config::FromFile(config_file_name.toStdString()));
-    read_config = true;
-    ProgressBox *message_box = new ProgressBox(this);
-    message_box->show();
-    message_box->start_task([config, message_box] {
-      run_with_config(*config, std::vector<fs::path>(), ProgressTracker(message_box));
-    });
-  } catch (const std::exception &e) {
-    std::string error_message =
-        std::string(e.what()) + (read_config ? ""
-                                             : "\n\nThis is likely an error due to an invalid "
-                                               "config file. Please check the file and try again.");
-    QMessageBox::critical(this, "Error Running Blaze", QString::fromStdString(error_message));
-  }
+  ProgressBox* message_box = new ProgressBox(this);
+  message_box->show();
+  const Config& config = ui->config_editor->get_config();
+  message_box->start_task([config, message_box] {
+    run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
+  });
 }

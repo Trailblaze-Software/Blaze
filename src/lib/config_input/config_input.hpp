@@ -6,6 +6,7 @@
 #include "assert/assert.hpp"
 #include "isom/colors.hpp"
 #include "utilities/filesystem.hpp"
+#include "utilities/resources.hpp"
 
 #define JSON_DIAGNOSTICS 1
 #ifdef _MSC_VER
@@ -36,8 +37,8 @@
 using json = nlohmann::json;
 
 struct GridConfig {
-  const au::QuantityD<au::Meters> bin_resolution;
-  const unsigned int downsample_factor;
+  au::QuantityD<au::Meters> bin_resolution;
+  unsigned int downsample_factor;
 };
 
 #define SERIALIZE_ENUM_STRICT(ENUM_TYPE, ...)                                                    \
@@ -79,9 +80,9 @@ struct adl_serializer<GridConfig> {
 }  // namespace nlohmann
 
 struct GroundConfig {
-  const au::QuantityD<au::Meters> outlier_removal_height_diff;
-  const int min_ground_intensity;
-  const int max_ground_intensity;
+  au::QuantityD<au::Meters> outlier_removal_height_diff;
+  int min_ground_intensity;
+  int max_ground_intensity;
 };
 
 namespace nlohmann {
@@ -102,10 +103,10 @@ struct adl_serializer<GroundConfig> {
 }  // namespace nlohmann
 
 struct ContourConfig {
-  const au::QuantityD<au::Meters> interval;
-  const unsigned int min_points;
-  const ColorVariant color;
-  const au::QuantityD<au::Milli<au::Meters>> width;
+  au::QuantityD<au::Meters> interval;
+  unsigned int min_points;
+  ColorVariant color;
+  au::QuantityD<au::Milli<au::Meters>> width;
 };
 
 namespace nlohmann {
@@ -170,9 +171,9 @@ struct adl_serializer<ContourConfig> {
 }  // namespace nlohmann
 
 struct CanopyConfig {
-  const au::QuantityD<au::Meters> min_height;
-  const au::QuantityD<au::Meters> max_height;
-  const double blocking_threshold;
+  au::QuantityD<au::Meters> min_height;
+  au::QuantityD<au::Meters> max_height;
+  double blocking_threshold;
 };
 
 namespace nlohmann {
@@ -248,8 +249,8 @@ struct adl_serializer<VegeHeightConfig> {
 }  // namespace nlohmann
 
 struct VegeConfig {
-  const ColorVariant background_color;
-  const std::vector<VegeHeightConfig> height_configs;
+  ColorVariant background_color;
+  std::vector<VegeHeightConfig> height_configs;
 };
 
 namespace nlohmann {
@@ -268,8 +269,8 @@ struct adl_serializer<VegeConfig> {
 }  // namespace nlohmann
 
 struct RenderConfig {
-  const double scale;
-  const au::QuantityD<au::UnitPowerT<au::Inches, -1>> dpi;
+  double scale;
+  au::QuantityD<au::UnitPowerT<au::Inches, -1>> dpi;
 };
 
 namespace nlohmann {
@@ -288,13 +289,13 @@ struct adl_serializer<RenderConfig> {
 }  // namespace nlohmann
 
 struct WaterConfig {
-  const au::QuantityD<au::UnitPowerT<au::Kilo<au::Meters>, 2>> catchment;
-  const ColorVariant color;
-  const au::QuantityD<au::Milli<au::Meters>> width;
+  au::QuantityD<au::UnitPowerT<au::Kilo<au::Meters>, 2>> catchment;
+  ColorVariant color;
+  au::QuantityD<au::Milli<au::Meters>> width;
 };
 
 struct WaterConfigs {
-  const std::map<std::string, WaterConfig> configs;
+  std::map<std::string, WaterConfig> configs;
 
   const WaterConfig& config_from_catchment(double catchment) const {
     const WaterConfig* max_valid_config = nullptr;
@@ -343,8 +344,8 @@ struct adl_serializer<WaterConfigs> {
 }  // namespace nlohmann
 
 struct ContourConfigs {
-  const std::map<std::string, ContourConfig> configs;
-  const au::QuantityD<au::Meters> min_interval;
+  std::map<std::string, ContourConfig> configs;
+  au::QuantityD<au::Meters> min_interval;
 
   static au::QuantityD<au::Meters> minimum_interval(
       const std::map<std::string, ContourConfig>& configs) {
@@ -405,7 +406,7 @@ struct adl_serializer<ContourConfigs> {
 }  // namespace nlohmann
 
 struct BuildingsConfig {
-  const ColorVariant color;
+  ColorVariant color;
 };
 
 namespace nlohmann {
@@ -445,11 +446,15 @@ struct Config {
   au::QuantityD<au::Meters> border_width;
   fs::path relative_path_to_config;
 
-  fs::path output_path(const fs::path& filename) const {
+  friend nlohmann::adl_serializer<Config>;
+
+  void set_output_directory(const fs::path& output_dir) { output_directory = output_dir; }
+
+  fs::path output_path() const {
     if (output_directory.is_absolute()) {
-      return output_directory / filename;
+      return output_directory;
     }
-    return relative_path_to_config / output_directory / filename;
+    return relative_path_to_config / output_directory;
   }
 
   std::vector<fs::path> las_filepaths() const {
@@ -465,6 +470,12 @@ struct Config {
   }
 
   static Config FromFile(const fs::path& filename);
+
+  void write_to_file(const fs::path& filename) const;
+
+  static Config Default() { return FromFile(AssetRetriever::get_asset("default_config.json")); }
+
+  Config& operator=(const Config& config) = default;
 
   friend std::ostream& operator<<(std::ostream& os, const Config& config);
 };
@@ -540,4 +551,17 @@ inline std::ostream& operator<<(std::ostream& os, const Config& config) {
   os << "Config:\n";
   os << json(config).dump(4);
   return os;
+}
+
+inline void Config::write_to_file(const fs::path& filename) const {
+  std::ofstream file(filename);
+  if (!file.is_open()) {
+    std::cerr << "Failed to open config file " << filename << std::endl;
+    throw std::filesystem::filesystem_error("Failed to open config file " + filename.string(),
+                                            std::make_error_code(std::errc::io_error));
+  }
+  json j = *this;
+  j.erase("relative_path_to_config");
+  file << j.dump(4);
+  file.close();
 }
