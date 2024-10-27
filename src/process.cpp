@@ -198,9 +198,9 @@ void process_las_file(const fs::path& las_filename, const Config& config,
 
   au::QuantityD<au::Meters> contour_points_resolution = au::meters(20);
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
-      round_up(las_file.width() / contour_points_resolution) + 1,
-      round_up(las_file.height() / contour_points_resolution) + 1,
-      GeoTransform(las_file.top_left().round_NW(contour_points_resolution.in(au::meters)),
+      round_up(smooth_ground.width_m() / contour_points_resolution.in(au::meters)) + 1,
+      round_up(smooth_ground.height_m() / contour_points_resolution.in(au::meters)) + 1,
+      GeoTransform(smooth_ground.transform().pixel_to_projection({0, 0}),
                    contour_points_resolution.in(au::meters)),
       GeoProjection(las_file.projection()));
 

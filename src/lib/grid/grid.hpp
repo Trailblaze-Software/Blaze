@@ -303,6 +303,9 @@ class Geo : public GridT, public GeoGridData {
   Geo(GeoTransform &&transform, GeoProjection &&projection, Args... args)
       : GridT(args...), GeoGridData(std::move(transform), std::move(projection)) {}
 
+  double width_m() const { return GridT::width() * dx(); }
+  double height_m() const { return GridT::height() * dx(); }
+
   Geo slice(const pdal::BOX2D &extent) {
     Coordinate2D<size_t> top_left = transform().projection_to_pixel({extent.minx, extent.maxy});
     Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
