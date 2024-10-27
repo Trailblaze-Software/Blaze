@@ -4,4 +4,6 @@ target_sources(${UNIT_TESTS_NAME} PRIVATE unit_tests.cpp)
 
 add_subdirectory(lib)
 add_subdirectory(methods)
-add_subdirectory(gui)
+if(NOT BLAZE_CLI_ONLY)
+  add_subdirectory(gui)
+endif()

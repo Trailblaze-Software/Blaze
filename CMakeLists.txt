@@ -11,8 +11,10 @@ include(FetchContent)
 if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
   set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 else()
-  set(FETCHCONTENT_BASE_DIR EXESS_FETCHCONTENT_BASE_DIR)
+  set(FETCHCONTENT_BASE_DIR ${BLAZE_FETCHCONTENT_BASE_DIR})
 endif()
+
+option(BLAZE_CLI_ONLY "Build CLI only" OFF)
 
 if(WIN32)
   set(X_VCPKG_APPLOCAL_DEPS_INSTALL
@@ -28,11 +30,7 @@ if(WIN32)
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
     GIT_TAG 2024.09.30)
   FetchContent_MakeAvailable(vcpkg)
-  # execute_process( COMMAND ${vcpkg_SOURCE_DIR}/vcpkg.exe install pdal)
-  # message(" -- PDAL install: ${pdal_install}")
   include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
-  # set(CMAKE_TOOLCHAIN_FILE
-  # "${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 project(
@@ -76,38 +74,46 @@ else()
   message(FATAL_ERROR "Unsupported platform")
 endif()
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
+if(NOT BLAZE_CLI_ONLY)
+  set(CMAKE_AUTOUIC ON)
+  set(CMAKE_AUTOMOC ON)
+endif()
 
 set(LIBRARY_NAME blaze_lib)
 set(CLI_EXE_NAME blaze-cli)
-set(GUI_EXE_NAME Blaze)
 set(UNIT_TESTS_NAME unit_tests)
 include_directories(src src/lib)
 add_library(${LIBRARY_NAME})
 add_executable(${CLI_EXE_NAME} assets/resources.rc)
 add_executable(${UNIT_TESTS_NAME})
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent)
-if(WIN32)
-  qt_standard_project_setup()
-endif()
+set(ALL_EXECUTABLES ${CLI_EXE_NAME} ${UNIT_TESTS_NAME})
+if(NOT BLAZE_CLI_ONLY)
+  set(GUI_EXE_NAME Blaze)
+  list(APPEND ALL_EXECUTABLES ${GUI_EXE_NAME})
+  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent)
+  if(WIN32)
+    qt_standard_project_setup()
+  endif()
 
-if(WIN32)
-  qt_add_executable(${GUI_EXE_NAME} WIN32 assets/resources.rc)
-else()
-  qt_add_executable(${GUI_EXE_NAME})
+  if(WIN32)
+    qt_add_executable(${GUI_EXE_NAME} WIN32 assets/resources.rc)
+  else()
+    qt_add_executable(${GUI_EXE_NAME})
+  endif()
+  target_precompile_headers(${GUI_EXE_NAME} INTERFACE
+                            src/precompiled_headers.hpp)
+  target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
+  set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
+                                                   MACOSX_BUNDLE ON)
+  if(WIN32)
+    add_custom_command(
+      TARGET ${GUI_EXE_NAME}
+      POST_BUILD
+      COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_EXE_NAME}>)
+  endif()
 endif()
-target_precompile_headers(${GUI_EXE_NAME} INTERFACE src/precompiled_headers.hpp)
-target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
-set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
-                                                 MACOSX_BUNDLE ON)
-if(WIN32)
-  add_custom_command(
-    TARGET ${GUI_EXE_NAME}
-    POST_BUILD
-    COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_EXE_NAME}>)
-endif()
+set(ALL_TARGETS ${ALL_EXECUTABLES} ${LIBRARY_NAME})
 
 if(CMAKE_CROSSCOMPILING)
   message(" -- Cross compiling - disabling tests")
@@ -137,21 +143,20 @@ FetchContent_MakeAvailable(au_units)
 add_custom_target(
   copy_assets
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets
-          $<TARGET_FILE_DIR:${GUI_EXE_NAME}>/assets)
+          $<TARGET_FILE_DIR:${CLI_EXE_NAME}>/assets)
 
-foreach(target ${CLI_EXE_NAME} ${GUI_EXE_NAME} ${UNIT_TESTS_NAME})
-  target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
-  add_dependencies(${target} copy_assets)
-endforeach()
-
-foreach(target ${CLI_EXE_NAME} ${GUI_EXE_NAME} ${UNIT_TESTS_NAME}
-               ${LIBRARY_NAME})
+foreach(target ${ALL_TARGETS})
   target_link_libraries(
     ${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
                       nlohmann_json::nlohmann_json ${OpenCV_LIBS})
   target_include_directories(
     ${target} PRIVATE ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS}
                       ${au_units_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS})
+endforeach()
+
+foreach(target ${ALL_EXECUTABLES})
+  target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
+  add_dependencies(${target} copy_assets)
 endforeach()
 
 target_include_directories(${UNIT_TESTS_NAME}
@@ -171,40 +176,42 @@ install(
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(
-  TARGETS ${GUI_EXE_NAME}
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES "config.json" DESTINATION .)
 
 install(FILES $<TARGET_RUNTIME_DLLS:${CLI_EXE_NAME}> TYPE BIN)
 
-if(NOT WIN32)
-  set(ENTRY_NAME "blaze")
-  configure_file(${PROJECT_SOURCE_DIR}/assets/Blaze.desktop.in
-                 ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop
-          DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+if(NOT BLAZE_CLI_ONLY)
+  install(
+    TARGETS ${GUI_EXE_NAME}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+  if(NOT WIN32)
+    set(ENTRY_NAME "blaze")
+    configure_file(${PROJECT_SOURCE_DIR}/assets/Blaze.desktop.in
+                   ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop
+            DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 
-  install(FILES assets/images/${ENTRY_NAME}_icon.png
-          DESTINATION ${CMAKE_INSTALL_DATADIR}/icons)
-endif()
+    install(FILES assets/images/${ENTRY_NAME}_icon.png
+            DESTINATION ${CMAKE_INSTALL_DATADIR}/icons)
+  endif()
 
-if(WIN32)
-  qt_generate_deploy_app_script(
-    TARGET
-    ${GUI_EXE_NAME}
-    OUTPUT_SCRIPT
-    deploy_script
-    NO_UNSUPPORTED_PLATFORM_ERROR
-    DEPLOY_TOOL_OPTIONS
-    # workaround for https://github.com/microsoft/vcpkg/issues/17840 or
-    # https://github.com/microsoft/vcpkg/issues/36250
-    $<$<CONFIG:DEBUG>:--qtpaths
-    ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
-  install(SCRIPT ${deploy_script})
+  if(WIN32)
+    qt_generate_deploy_app_script(
+      TARGET
+      ${GUI_EXE_NAME}
+      OUTPUT_SCRIPT
+      deploy_script
+      NO_UNSUPPORTED_PLATFORM_ERROR
+      DEPLOY_TOOL_OPTIONS
+      # workaround for https://github.com/microsoft/vcpkg/issues/17840 or
+      # https://github.com/microsoft/vcpkg/issues/36250
+      $<$<CONFIG:DEBUG>:--qtpaths
+      ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
+    install(SCRIPT ${deploy_script})
+  endif()
 endif()
 
 if(WIN32)

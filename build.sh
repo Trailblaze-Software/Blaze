@@ -10,6 +10,8 @@ fi
 pushd $DIR || exit
     make -j 8
     cp compile_commands.json ..
-    cp Blaze ..
+    if [ -f "Blaze" ]; then
+        cp Blaze ..
+    fi
     cp blaze-cli ..
 popd || exit

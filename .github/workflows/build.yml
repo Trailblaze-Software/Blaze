@@ -22,21 +22,27 @@ jobs:
           pre-commit run -a
   ubuntu-latest-build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
           ./install-deps.sh
-      - name: Build code
+      - name: Build CLI code
         run: |
-          ./build.sh
+          ./build.sh -DBLAZE_CLI_ONLY=True
+      - name: Build GUI code
+        run: |
+          rm -rf linux-build && ./build.sh
       - name: CPack
         run: |
           cd linux-build && cpack -C Release
       - name: Unit tests
         run: |
           cmake --build linux-build --target test
+      - name: Run default config
+        run: |
+          ./blaze-cli assets/default_config.json
 
 # windows-latest-build:
 #     runs-on: windows-latest
