@@ -81,8 +81,11 @@ void process_las_file(const fs::path& las_filename, const Config& config,
 
   au::QuantityD<au::Meters> bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
-      round_up(las_file.width() / bin_resolution), round_up(las_file.height() / bin_resolution),
-      GeoTransform(las_file.top_left(), bin_resolution.in(au::meters)),
+      round_up(las_file.width() / bin_resolution + config.grid.downsample_factor),
+      round_up(las_file.height() / bin_resolution + config.grid.downsample_factor),
+      GeoTransform(
+          las_file.top_left().round_NW(bin_resolution.in(au::meters)*config.grid.downsample_factor),
+          bin_resolution.in(au::meters)),
       GeoProjection(las_file.projection()));
 
   {
@@ -94,20 +97,17 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   }
   progress_tracker.set_proportion(0.5);
 
-  au::QuantityD<au::Meters> resolution = bin_resolution;
-  GeoGrid<std::optional<LASPoint>> ground_points(
-      round_up(las_file.width() / resolution), round_up(las_file.height() / resolution),
-      GeoTransform(las_file.top_left(), resolution.in(au::meters)),
-      GeoProjection(las_file.projection()));
+  GeoGrid<std::optional<LASPoint>> ground_points(binned_points.width(), binned_points.height(),
+                                                 GeoTransform(binned_points.transform()),
+                                                 GeoProjection(las_file.projection()));
 
   GeoGrid<std::optional<std::byte>> buildings = GeoGrid<std::optional<std::byte>>(
       ground_points.width(), ground_points.height(), GeoTransform(ground_points.transform()),
       GeoProjection(ground_points.projection()));
 
-  GeoGrid<RGBColor> ground_intensity_img(
-      round_up(las_file.width() / resolution), round_up(las_file.height() / resolution),
-      GeoTransform(las_file.top_left(), resolution.in(au::meters)),
-      GeoProjection(las_file.projection()));
+  GeoGrid<RGBColor> ground_intensity_img(ground_points.width(), ground_points.height(),
+                                         GeoTransform(ground_points.transform()),
+                                         GeoProjection(las_file.projection()));
 
   GeoGrid<std::optional<std::byte>> water = GeoGrid<std::optional<std::byte>>(
       ground_points.width(), ground_points.height(), GeoTransform(ground_points.transform()),
@@ -200,7 +200,8 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
       round_up(las_file.width() / contour_points_resolution) + 1,
       round_up(las_file.height() / contour_points_resolution) + 1,
-      GeoTransform(las_file.top_left(), contour_points_resolution.in(au::meters)),
+      GeoTransform(las_file.top_left().round_NW(contour_points_resolution.in(au::meters)),
+                   contour_points_resolution.in(au::meters)),
       GeoProjection(las_file.projection()));
 
   std::vector<std::shared_ptr<ContourPoint>> all_contour_points;

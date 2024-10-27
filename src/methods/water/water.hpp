@@ -274,8 +274,9 @@ inline std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const Water
         starting_points.pop();
         continue;
       }
-      result.push_back(stream_path(stream, visited, filled, std::move(starting_points.front()),
-                                   starting_points));
+      std::vector<Coordinate2D<size_t>> cur_stream =
+          stream_path(stream, visited, filled, std::move(starting_points.front()), starting_points);
+      if (cur_stream.size() > 1) result.push_back(cur_stream);
       starting_points.pop();
     }
     if (!visited[stream_cells[i].second]) {

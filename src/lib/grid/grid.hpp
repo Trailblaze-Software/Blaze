@@ -308,8 +308,10 @@ class Geo : public GridT, public GeoGridData {
     Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
     size_t new_width = bottom_right.x() - top_left.x();
     size_t new_height = bottom_right.y() - top_left.y();
+
+    Coordinate2D<double> new_top_left = transform().pixel_to_projection(top_left);
     Geo result(new_width, new_height,
-               GeoTransform(extent.minx, extent.maxy, transform().dx(), transform().dy()),
+               GeoTransform(new_top_left.x(), new_top_left.y(), transform().dx(), transform().dy()),
                GeoProjection(projection()));
     if constexpr (is_specialization_v<GridT, Grid>) {
 #pragma omp parallel for

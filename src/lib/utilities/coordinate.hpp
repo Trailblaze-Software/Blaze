@@ -144,6 +144,10 @@ class Coordinate2D {
     return Coordinate2D<double>(x() + 0.5, y() + 0.5);
   }
 
+  Coordinate2D<double> round_NW(double grid_size) const {
+    return Coordinate2D<double>(x() - fmod(x(), grid_size), y() + grid_size - fmod(y(), grid_size));
+  }
+
   Coordinate2D<size_t> round() const { return Coordinate2D<size_t>(x() + 0.5, y() + 0.5); }
 
   friend std::ostream &operator<<(std::ostream &os, const Coordinate2D &coord) {
