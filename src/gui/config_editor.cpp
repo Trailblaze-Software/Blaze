@@ -49,7 +49,7 @@ void ConfigEditor::open_output_directory() {
 }
 
 void ConfigEditor::set_ui_to_config(const Config& config) {
-  ui->out_dir_line_edit->setText(config.output_path().c_str());
+  ui->out_dir_line_edit->setText(config.output_path().string().c_str());
 
   ui->scale_dropdown->setCurrentText(std::to_string(config.render.scale).c_str());
   ui->dpi_dropdown->setCurrentText(

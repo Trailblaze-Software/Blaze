@@ -116,9 +116,10 @@ inline void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
 }
 
 inline Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
-  // TimeFunction timer("reading tif " + filename.string());
+  TimeFunction timer("reading tif " + filename.string());
+  Assert(fs::exists(filename), "File " + filename.string() + " does not seem to exist");
   GDALAllRegister();
-  GDALDataset *dataset = (GDALDataset *)GDALOpen((const char *)filename.c_str(), GA_ReadOnly);
+  GDALDataset *dataset = (GDALDataset *)GDALOpen(filename.string().c_str(), GA_ReadOnly);
   if (dataset == nullptr) {
     Fail("Could not open file " + filename.string());
   }

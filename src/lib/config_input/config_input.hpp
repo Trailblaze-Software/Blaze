@@ -356,6 +356,8 @@ struct ContourConfigs {
     return min_interval;
   }
 
+  ContourConfigs() : min_interval(au::meters(std::numeric_limits<double>::max())) {}
+
   explicit ContourConfigs(std::map<std::string, ContourConfig> in_configs)
       : configs(std::move(in_configs)), min_interval(minimum_interval(configs)) {}
 
@@ -476,6 +478,9 @@ struct Config {
   static Config Default() { return FromFile(AssetRetriever::get_asset("default_config.json")); }
 
   Config& operator=(const Config& config) = default;
+  Config(const Config& config) = delete;
+  Config(Config&& config) = default;
+  Config() = default;
 
   friend std::ostream& operator<<(std::ostream& os, const Config& config);
 };
@@ -484,23 +489,24 @@ namespace nlohmann {
 template <>
 struct adl_serializer<Config> {
   static Config from_json(const json& j) {
-    return Config{
-        .grid = j.value("grid", json({})).get<GridConfig>(),
-        .ground = j.value("ground", json({})).get<GroundConfig>(),
-        .contours = j.value("contours", json({})).get<ContourConfigs>(),
-        .water = j.value("water", json({})).get<WaterConfigs>(),
-        .vege = j.value("vege", json({})).get<VegeConfig>(),
-        .render = j.value("render", json({})).get<RenderConfig>(),
-        .buildings = j.value("buildings", json({})).get<BuildingsConfig>(),
-        .las_files =
-            j.value("las_files", json(std::vector<std::string>())).get<std::vector<fs::path>>(),
-        .processing_steps = j.value("steps", json({"tiles"})).get<std::set<ProcessingStep>>(),
-        .output_directory = j.value("output_directory", "out"),
-        .border_width = au::meters(j.value("border_width", 100.0)),
-        .relative_path_to_config = ""};
+    Config config;
+    config.grid = j.value("grid", json({})).get<GridConfig>();
+    config.ground = j.value("ground", json({})).get<GroundConfig>();
+    config.contours = j.value("contours", json({})).get<ContourConfigs>();
+    config.water = j.value("water", json({})).get<WaterConfigs>();
+    config.vege = j.value("vege", json({})).get<VegeConfig>();
+    config.render = j.value("render", json({})).get<RenderConfig>();
+    config.buildings = j.value("buildings", json({})).get<BuildingsConfig>();
+    config.las_files =
+        j.value("las_files", json(std::vector<std::string>())).get<std::vector<fs::path>>();
+    config.processing_steps = j.value("steps", json({"tiles"})).get<std::set<ProcessingStep>>();
+    config.output_directory = j.value("output_directory", "out");
+    config.border_width = au::meters(j.value("border_width", 100.0));
+    config.relative_path_to_config = "";
+    return config;
   }
 
-  static void to_json(json& j, Config gc) {
+  static void to_json(json& j, const Config& gc) {
     j["grid"] = gc.grid;
     j["ground"] = gc.ground;
     j["contours"] = gc.contours;

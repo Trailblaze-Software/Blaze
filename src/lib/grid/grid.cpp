@@ -17,3 +17,15 @@ GeoGrid<RGBColor> GeoGrid<RGBColor>::FromGeoImg(const GeoImgGrid &grid) {
   }
   return new_grid;
 }
+
+template <typename T>
+void Grid<T>::fill_from(const FlexGrid &other, const Coordinate2D<long long> &top_left) {
+  AssertEQ(other.n_bytes(), sizeof(T));
+  for (size_t i = 0; i < height(); i++) {
+    for (size_t j = 0; j < width(); j++) {
+      (*this)[{j, i}] = other.get<T>(top_left + Coordinate2D<long long>(j, i));
+    }
+  }
+}
+
+template class Grid<double>;

@@ -235,11 +235,16 @@ struct Stream {
   double catchment;
 };
 
-inline std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs& config) {
+inline std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs& config,
+                                        bool already_filled = false) {
   TimeFunction timer("stream paths");
 
-  std::vector<Coordinate2D<size_t>> sinks = identify_sinks(grid);
-  GeoGrid<double> filled = fill_depressions(grid, sinks);
+  std::optional<GeoGrid<double>> local_filled;
+  if (!already_filled) {
+    std::vector<Coordinate2D<size_t>> sinks = identify_sinks(grid);
+    local_filled.emplace(fill_depressions(grid, sinks));
+  }
+  const GeoGrid<double>& filled = local_filled ? *local_filled : grid;
 
   GeoGrid<double> catchment = catchment_size(filled);
   GeoGrid<bool> stream = streams(filled, catchment, config.minimum_catchment());

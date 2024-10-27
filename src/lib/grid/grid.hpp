@@ -125,6 +125,8 @@ struct BlazeBool {
   operator bool() const { return value; }
 };
 
+class FlexGrid;
+
 template <typename U>
 class Grid : public GridData {
   using T = std::conditional_t<std::is_same_v<U, bool>, BlazeBool, U>;
@@ -172,6 +174,8 @@ class Grid : public GridData {
     }
   }
 
+  void fill_from(const FlexGrid &other, const Coordinate2D<long long> &top_left = {0, 0});
+
   friend std::ostream &operator<<(std::ostream &os, const Grid &grid) {
     os << "Grid<" << typeid(T).name() << ">(" << grid.width() << ", " << grid.height() << ")"
        << std::endl;
@@ -209,6 +213,12 @@ class FlexGrid : public GridData {
     return m_data.data() + coord.y() * width() * m_data_size + coord.x() * m_data_size;
   }
 
+  template <typename T>
+  T get(const Coordinate2D<long long> &coord) const {
+    return *reinterpret_cast<const T *>(m_data.data() + coord.y() * width() * m_data_size +
+                                        coord.x() * m_data_size);
+  }
+
   void fill_from(const FlexGrid &other, const Coordinate2D<long long> &top_left = {0, 0}) {
 #pragma omp parallel for
     for (size_t i = 0; i < other.height(); i++) {
@@ -218,13 +228,6 @@ class FlexGrid : public GridData {
       if (this->in_bounds(start) && num_elements > 0) {
         std::memcpy((*this)[start], other[{diff, i}], num_elements * m_data_size);
       }
-      // for (size_t j = 0; j < other.width(); j++) {
-      // if (this->in_bounds(top_left + Coordinate2D<size_t>{j, i})) {
-      // for (unsigned int k = 0; k < m_data_size; k++) {
-      //(*this)[top_left + Coordinate2D<size_t>{j, i}][k] = other[{j, i}][k];
-      //}
-      //}
-      //}
     }
   }
 
@@ -385,10 +388,16 @@ class Geo : public GridT, public GeoGridData {
     return pdal::BOX2D(min_x, min_y, max_x, max_y);
   }
 
-  void fill_from(const Geo &other) {
+  template <typename U>
+  void fill_from(const Geo<U> &other) {
     Coordinate2D<size_t> top_left =
         transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0})).round();
     GridT::fill_from(other, top_left);
+  }
+
+  template <typename U>
+  void fill_from(const U &other) {
+    GridT::fill_from(other);
   }
 };
 

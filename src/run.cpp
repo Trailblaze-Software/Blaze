@@ -158,6 +158,15 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
 
           fs::create_directories(config.output_path() / "combined");
           write_to_tif(combined_grid, config.output_path() / "combined" / filename);
+
+          if (filename == "filled_dem.tif") {
+            GeoGrid<double> filled_dem(combined_grid.width(), combined_grid.height(),
+                                       GeoTransform(combined_grid.transform()),
+                                       GeoProjection(combined_grid.projection()));
+            filled_dem.fill_from(combined_grid[0]);
+            std::vector<Stream> stream_path = stream_paths(filled_dem, config.water);
+            write_to_dxf(stream_path, config.output_path() / "combined" / "streams.dxf", "streams");
+          }
         }
         break;
     }

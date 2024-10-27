@@ -36,7 +36,7 @@ void MainWindow::run_blaze() {
   ProgressBox* message_box = new ProgressBox(this);
   message_box->show();
   const Config& config = ui->config_editor->get_config();
-  message_box->start_task([config, message_box] {
+  message_box->start_task([&config, message_box] {
     run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
   });
 }

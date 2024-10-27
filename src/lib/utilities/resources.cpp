@@ -3,8 +3,9 @@
 #include "assert/assert.hpp"
 
 #ifdef __WIN32__
-#include <windows.h>
 #include <winsock2.h>
+// Don't reorder
+#include <windows.h>
 #endif
 #ifdef __linux__
 #include <linux/limits.h>
