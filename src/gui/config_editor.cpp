@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QPushButton>
 
+#include "assert/assert.hpp"
 #include "config_input/config_input.hpp"
 #include "printing/to_string.hpp"
 #include "ui_config_editor.h"
