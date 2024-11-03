@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>264</width>
-    <height>287</height>
+    <width>508</width>
+    <height>545</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -62,19 +62,13 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>238</width>
-            <height>70</height>
+            <width>482</width>
+            <height>237</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QTreeWidget" name="treeWidget">
-             <column>
-              <property name="text">
-               <string notr="true">1</string>
-              </property>
-             </column>
-            </widget>
+            <widget class="QTreeWidget" name="treeWidget"/>
            </item>
           </layout>
          </widget>
@@ -163,6 +157,9 @@
          </item>
          <item row="2" column="1">
           <widget class="QComboBox" name="dpi_dropdown">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="editable">
             <bool>true</bool>
            </property>

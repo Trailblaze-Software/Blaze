@@ -17,7 +17,12 @@ MainWindow::MainWindow() : ui(new Ui::MainWindow) {
   connect(ui->actionSaveAs, &QAction::triggered, this,
           [this] { ui->config_editor->save_config_file(); });
   connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
+
+  connect(ui->config_editor, &ConfigEditor::config_changed,
+          [this] { ui->runButton->setEnabled(ui->config_editor->is_valid()); });
 }
+
+MainWindow::~MainWindow() {}
 
 void MainWindow::about() {
   QMessageBox::about(this, "About Blaze",

@@ -2,9 +2,6 @@
 
 #include <QMainWindow>
 
-#include "ui_main_window.h"
-#include "utilities/filesystem.hpp"
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -16,6 +13,7 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow();
+  ~MainWindow();
 
  private slots:
   void about();

@@ -164,7 +164,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
                                        GeoTransform(combined_grid.transform()),
                                        GeoProjection(combined_grid.projection()));
             filled_dem.fill_from(combined_grid[0]);
-            std::vector<Stream> stream_path = stream_paths(filled_dem, config.water);
+            std::vector<Stream> stream_path = stream_paths(filled_dem, config.water, true);
             write_to_dxf(stream_path, config.output_path() / "combined" / "streams.dxf", "streams");
           }
         }
