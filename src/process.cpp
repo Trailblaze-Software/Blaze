@@ -116,7 +116,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   {
     bool only_classified_ground = true;
     LASFile ground_points_las =
-        LASFile(ground_points.extent(), GeoProjection(ground_points.projection()));
+        LASFile(*ground_points.extent(), GeoProjection(ground_points.projection()));
     TimeFunction timer("min finding");
 #pragma omp parallel for
     for (size_t i = 0; i < binned_points.height(); i++) {
@@ -130,7 +130,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
                                       !only_classified_ground)) {
             min = las_point.z();
             min_point = las_point;
-            uchar intensity = std::clamp(
+            u_char intensity = std::clamp(
                 (double)(las_point.intensity() - config.ground.min_ground_intensity) /
                     (config.ground.max_ground_intensity - config.ground.min_ground_intensity) *
                     255.0,

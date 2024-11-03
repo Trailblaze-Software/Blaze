@@ -6,6 +6,7 @@
 #include <type_traits>
 
 #include "assert/gdal_assert.hpp"
+#include "gdal_priv.h"
 #include "isom/colors.hpp"
 #include "utilities/timer.hpp"
 
@@ -79,7 +80,7 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
 
   if constexpr (std::is_same_v<GridT, MultiBand<FlexGrid>>) {
     bands = grid.size();
-    datatype = grid[0].data_type();
+    datatype = (GDALDataType)grid[0].data_type();
   } else {
     using T = typename GridT::value_type;
     bands = is_std_optional_v<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
@@ -96,7 +97,7 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
     for (unsigned int band = 0; band < grid.size(); band++) {
       GDALAssert(dataset->GetRasterBand(band + 1)->RasterIO(
           GF_Write, 0, 0, grid.width(), grid.height(), const_cast<std::byte *>(grid[band].data()),
-          grid.width(), grid.height(), grid[band].data_type(), 0, 0));
+          grid.width(), grid.height(), datatype, 0, 0));
     }
   } else {
     using T = typename GridT::value_type;

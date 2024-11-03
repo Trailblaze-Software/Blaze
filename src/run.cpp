@@ -1,6 +1,7 @@
 #include "run.hpp"
 
 #include <iostream>
+#include <pdal/util/Bounds.hpp>
 
 #include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
@@ -126,7 +127,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
               continue;
             }
             grids.emplace_back(read_tif(img_path));
-            extent.grow(grids.back().extent());
+            extent.grow(*grids.back().extent());
             if (!dx.has_value()) {
               dx = grids.back().transform().dx();
               dy = grids.back().transform().dy();

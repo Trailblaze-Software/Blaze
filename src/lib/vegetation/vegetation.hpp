@@ -21,7 +21,7 @@ inline GeoGrid<std::optional<double>> get_blocked_proportion(
       size_t below_count = 0;
       size_t in_count = 0;
       for (const LASPoint& las_point : grid[{j, i}]) {
-        double ground_height = ground.interpolate_value(las_point);
+        double ground_height = interpolate_value(ground, las_point);
         double height = las_point.z() - ground_height;
         if (height > -1 && height < vege_config.max_height.in(au::meters)) {
           if (height < vege_config.min_height.in(au::meters)) {

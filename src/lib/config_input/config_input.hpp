@@ -1,7 +1,10 @@
 #pragma once
 
+#include <cmath>
 #include <iostream>
 #include <optional>
+#include <set>
+#include <vector>
 
 #include "isom/colors.hpp"
 #include "utilities/filesystem.hpp"
