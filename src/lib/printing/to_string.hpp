@@ -61,3 +61,10 @@ inline std::string double_to_string(double d, int precision = 2) {
   }
   return s;
 }
+
+template <typename... T>
+std::string to_string(const T&... args) {
+  std::ostringstream ss;
+  (ss << ... << args);
+  return ss.str();
+}

@@ -61,8 +61,8 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
   double current_time = 0;
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
-    TimeFunction timer("processing step " + (std::string)json(step));
-    tracker.text_update("Processing step " + (std::string)json(step));
+    TimeFunction timer(to_string("processing step ", step));
+    tracker.text_update(to_string("Processing step ", step));
     ProgressTracker step_tracker =
         tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
     current_time += time_ratios[idx++] / total_time;
