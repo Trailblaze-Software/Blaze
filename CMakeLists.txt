@@ -101,8 +101,7 @@ if(NOT BLAZE_CLI_ONLY)
   else()
     qt_add_executable(${GUI_EXE_NAME})
   endif()
-  target_precompile_headers(${GUI_EXE_NAME} INTERFACE
-                            src/precompiled_headers.hpp)
+  target_precompile_headers(${GUI_EXE_NAME} PRIVATE src/precompiled_headers.hpp)
   target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
   set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
                                                    MACOSX_BUNDLE ON)

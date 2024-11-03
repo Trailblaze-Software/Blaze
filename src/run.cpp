@@ -1,11 +1,6 @@
 #include "run.hpp"
 
 #include <iostream>
-#include <opencv2/opencv.hpp>
-#include <pdal/io/BufferReader.hpp>
-#include <pdal/io/LasHeader.hpp>
-#include <pdal/io/LasReader.hpp>
-#include <pdal/pdal.hpp>
 #include <pdal/util/Bounds.hpp>
 
 #include "config_input/config_input.hpp"
@@ -132,7 +127,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
               continue;
             }
             grids.emplace_back(read_tif(img_path));
-            extent.grow(grids.back().extent());
+            extent.grow(*grids.back().extent());
             if (!dx.has_value()) {
               dx = grids.back().transform().dx();
               dy = grids.back().transform().dy();

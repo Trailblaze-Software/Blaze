@@ -127,7 +127,7 @@ class LASFile {
 
   template <typename T>
   explicit LASFile(const GeoGrid<T> &grid)
-      : LASFile(grid.extent(), GeoProjection(grid.projection())) {
+      : LASFile(*grid.extent(), GeoProjection(grid.projection())) {
     for (size_t i = 0; i < grid.height(); i++) {
       for (size_t j = 0; j < grid.width(); j++) {
         Coordinate2D<double> coord =

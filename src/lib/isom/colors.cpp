@@ -44,6 +44,7 @@ CMYKColor CMYKColor::FromRGB(const RGBColor& rgb) {
 CMYKColor RGBColor::toCMYK() const { return CMYKColor::FromRGB(*this); }
 
 std::map<std::string, ColorVariant> COLOR_MAP;
+
 cv::Scalar RGBColor::toScalar() const {
   return cv::Scalar(getBlue(), getGreen(), getRed(), getAlpha());
 }

@@ -34,6 +34,11 @@
 #include <QValidator>
 #include <QVariant>
 #include <QVector>
+#include <QtCore/QVariant>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 #include <algorithm>
 #include <array>
 #include <bitset>

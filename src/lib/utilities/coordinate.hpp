@@ -7,6 +7,8 @@
 #include <type_traits>
 #include <vector>
 
+#include "assert/assert.hpp"
+
 class Direction2D {
  public:
   enum Dir { UP, DOWN, LEFT, RIGHT, UR, UL, DR, DL };

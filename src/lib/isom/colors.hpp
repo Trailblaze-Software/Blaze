@@ -8,6 +8,12 @@
 class RGBColor;
 class CMYKColor;
 
+namespace cv {
+template <typename T>
+class Scalar_;
+typedef Scalar_<double> Scalar;
+}  // namespace cv
+
 class Color {
  public:
   virtual RGBColor toRGB() const = 0;
