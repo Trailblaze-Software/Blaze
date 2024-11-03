@@ -86,33 +86,32 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
     }
   }
 
-  void draw_point(const Coordinate2D<double> &point, const ColorVariant &color,
-                  au::QuantityD<au::Meters> size) {
+  void draw_point(const Coordinate2D<double> &point, const ColorVariant &color, double size) {
     Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
-    cv::circle(m_img, cv::Point(pixel_coord.x(), pixel_coord.y()), size / transform().dx_m(),
+    cv::circle(m_img, cv::Point(pixel_coord.x(), pixel_coord.y()), size / transform().dx(),
                to_rgb(color).toScalar(), -1);
   }
 
-  void draw(const Contour &contour, const ColorVariant &color, au::QuantityD<au::Meters> width) {
+  void draw(const Contour &contour, const ColorVariant &color, double width) {
     std::vector<std::vector<cv::Point>> points;
     points.push_back({});
     for (const auto &point : contour.points()) {
       Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
       points[0].push_back({cv::Point(pixel_coord.x(), pixel_coord.y())});
     }
-    int line_width_pixels = width / transform().dx_m();
+    int line_width_pixels = width / transform().dx();
     cv::polylines(m_img, points, false, to_rgb(color).toScalar(), line_width_pixels, cv::LINE_8);
   }
 
   void draw(const std::vector<Coordinate2D<double>> &in_points, const ColorVariant &color,
-            au::QuantityD<au::Meters> width) {
+            double width) {
     std::vector<std::vector<cv::Point>> points;
     points.push_back({});
     for (const auto &point : in_points) {
       Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
       points[0].push_back({cv::Point(pixel_coord.x(), pixel_coord.y())});
     }
-    int line_width_pixels = width / transform().dx_m();
+    int line_width_pixels = width / transform().dx();
     cv::polylines(m_img, points, false, to_rgb(color).toScalar(), line_width_pixels, cv::LINE_8);
   }
 

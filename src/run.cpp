@@ -73,7 +73,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
           step_tracker.text_update("Extracting borders " + std::to_string(i + 1) + " of " +
                                    std::to_string(las_files.size()) + ": " +
                                    las_files[i].filename().string());
-          extract_borders(las_files[i], config.border_width.in(au::meters));
+          extract_borders(las_files[i], config.border_width);
         }
         break;
       case ProcessingStep::Tiles:

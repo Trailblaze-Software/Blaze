@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <set>
 
 #include "assert/assert.hpp"
 #include "isom/colors.hpp"
@@ -20,24 +21,10 @@
 #pragma warning(pop)
 #endif
 
-#ifdef _MSC_VER
-#pragma warning(push, 0)
-#endif
-#include <au/units/inches.hh>
-#include <au/units/meters.hh>
-#include <au/units/unos.hh>
-
-#include "au/prefix.hh"
-#include "au/quantity.hh"
-#include "au/unit_of_measure.hh"
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-
 using json = nlohmann::json;
 
 struct GridConfig {
-  au::QuantityD<au::Meters> bin_resolution;
+  double bin_resolution;
   unsigned int downsample_factor;
 };
 
@@ -69,18 +56,18 @@ namespace nlohmann {
 template <>
 struct adl_serializer<GridConfig> {
   static GridConfig from_json(const json& j) {
-    return GridConfig{au::meters(j.value("bin_resolution", 1.0)), j.value("downsample_factor", 3u)};
+    return GridConfig{j.value("bin_resolution", 1.0), j.value("downsample_factor", 3u)};
   }
 
   static void to_json(json& j, GridConfig gc) {
-    j["bin_resolution"] = gc.bin_resolution.in(au::meters);
+    j["bin_resolution"] = gc.bin_resolution;
     j["downsample_factor"] = gc.downsample_factor;
   }
 };
 }  // namespace nlohmann
 
 struct GroundConfig {
-  au::QuantityD<au::Meters> outlier_removal_height_diff;
+  double outlier_removal_height_diff;
   int min_ground_intensity;
   int max_ground_intensity;
 };
@@ -89,13 +76,13 @@ namespace nlohmann {
 template <>
 struct adl_serializer<GroundConfig> {
   static GroundConfig from_json(const json& j) {
-    return GroundConfig{au::meters(j.value("outlier_removal_height_diff", 1.0)),
+    return GroundConfig{j.value("outlier_removal_height_diff", 1.0),
                         j.value("min_ground_intensity", 100),
                         j.value("max_ground_intensity", 1000)};
   }
 
   static void to_json(json& j, GroundConfig gc) {
-    j["outlier_removal_height_diff"] = gc.outlier_removal_height_diff.in(au::meters);
+    j["outlier_removal_height_diff"] = gc.outlier_removal_height_diff;
     j["min_ground_intensity"] = gc.min_ground_intensity;
     j["max_ground_intensity"] = gc.max_ground_intensity;
   }
@@ -103,10 +90,10 @@ struct adl_serializer<GroundConfig> {
 }  // namespace nlohmann
 
 struct ContourConfig {
-  au::QuantityD<au::Meters> interval;
+  double interval;
   unsigned int min_points;
   ColorVariant color;
-  au::QuantityD<au::Milli<au::Meters>> width;
+  double width;
 };
 
 namespace nlohmann {
@@ -156,23 +143,23 @@ struct adl_serializer<ColorVariant> {
 template <>
 struct adl_serializer<ContourConfig> {
   static ContourConfig from_json(const json& j) {
-    return ContourConfig{au::meters(j.value("interval", 1.0)), j.value("min_points", 5u),
+    return ContourConfig{j.value("interval", 1.0), j.value("min_points", 5u),
                          j.value("color", json({"brown"})).get<ColorVariant>(),
-                         au::milli(au::meters)(j.value("width", 0.14))};
+                         j.value("width", 0.14)};
   }
 
   static void to_json(json& j, ContourConfig cc) {
-    j["interval"] = cc.interval.in(au::meters);
+    j["interval"] = cc.interval;
     j["min_points"] = cc.min_points;
     j["color"] = cc.color;
-    j["width"] = cc.width.in(au::milli(au::meters));
+    j["width"] = cc.width;
   }
 };
 }  // namespace nlohmann
 
 struct CanopyConfig {
-  au::QuantityD<au::Meters> min_height;
-  au::QuantityD<au::Meters> max_height;
+  double min_height;
+  double max_height;
   double blocking_threshold;
 };
 
@@ -180,13 +167,13 @@ namespace nlohmann {
 template <>
 struct adl_serializer<CanopyConfig> {
   static CanopyConfig from_json(const json& j) {
-    return CanopyConfig{au::meters(j.value("min_height", 2.5)),
-                        au::meters(j.value("max_height", 100)), j.value("blocking_threshold", 0.1)};
+    return CanopyConfig{j.value("min_height", 2.5), j.value("max_height", 100.0),
+                        j.value("blocking_threshold", 0.1)};
   }
 
   static void to_json(json& j, CanopyConfig vc) {
-    j["min_height"] = vc.min_height.in(au::meters);
-    j["max_height"] = vc.max_height.in(au::meters);
+    j["min_height"] = vc.min_height;
+    j["max_height"] = vc.max_height;
     j["blocking_threshold"] = vc.blocking_threshold;
   }
 };
@@ -214,8 +201,8 @@ struct adl_serializer<BlockingThresholdColorPair> {
 
 struct VegeHeightConfig {
   std::string name;
-  au::QuantityD<au::Meters> min_height;
-  au::QuantityD<au::Meters> max_height;
+  double min_height;
+  double max_height;
   std::vector<BlockingThresholdColorPair> colors;
 
   std::optional<ColorVariant> pick_from_blocked_proportion(double bp) const {
@@ -234,15 +221,14 @@ template <>
 struct adl_serializer<VegeHeightConfig> {
   static VegeHeightConfig from_json(const json& j) {
     return VegeHeightConfig{
-        j.value("name", "Vegetation"), au::meters(j.value("min_height", 2.5)),
-        au::meters(j.value("max_height", 100.0)),
+        j.value("name", "Vegetation"), j.value("min_height", 2.5), j.value("max_height", 100.0),
         j.value("colors", json({})).get<std::vector<BlockingThresholdColorPair>>()};
   }
 
   static void to_json(json& j, VegeHeightConfig vhc) {
     j["name"] = vhc.name;
-    j["min_height"] = vhc.min_height.in(au::meters);
-    j["max_height"] = vhc.max_height.in(au::meters);
+    j["min_height"] = vhc.min_height;
+    j["max_height"] = vhc.max_height;
     j["colors"] = vhc.colors;
   }
 };
@@ -270,28 +256,27 @@ struct adl_serializer<VegeConfig> {
 
 struct RenderConfig {
   double scale;
-  au::QuantityD<au::UnitPowerT<au::Inches, -1>> dpi;
+  double dpi;
 };
 
 namespace nlohmann {
 template <>
 struct adl_serializer<RenderConfig> {
   static RenderConfig from_json(const json& j) {
-    return RenderConfig{j.value("scale", 10000.0),
-                        (au::inverse(au::inches))(j.value("dpi", 600.0))};
+    return RenderConfig{j.value("scale", 10000.0), j.value("dpi", 600.0)};
   }
 
   static void to_json(json& j, RenderConfig rc) {
     j["scale"] = rc.scale;
-    j["dpi"] = rc.dpi.in(au::inverse(au::inches));
+    j["dpi"] = rc.dpi;
   }
 };
 }  // namespace nlohmann
 
 struct WaterConfig {
-  au::QuantityD<au::UnitPowerT<au::Kilo<au::Meters>, 2>> catchment;
+  double catchment;
   ColorVariant color;
-  au::QuantityD<au::Milli<au::Meters>> width;
+  double width;
 };
 
 struct WaterConfigs {
@@ -300,7 +285,7 @@ struct WaterConfigs {
   const WaterConfig& config_from_catchment(double catchment) const {
     const WaterConfig* max_valid_config = nullptr;
     for (const auto& [_, config] : configs) {
-      if (config.catchment <= au::pow<2>(au::meters)(catchment) &&
+      if (config.catchment <= catchment &&
           (max_valid_config == nullptr || config.catchment > max_valid_config->catchment))
         max_valid_config = &config;
     }
@@ -310,8 +295,7 @@ struct WaterConfigs {
   double minimum_catchment() const {
     double min_catchment = std::numeric_limits<double>::max();
     for (const auto& [_, config] : configs) {
-      min_catchment =
-          std::min(config.catchment.in(au::pow<2>(au::kilo(au::meters))), min_catchment);
+      min_catchment = std::min(config.catchment, min_catchment);
     }
     return min_catchment;
   }
@@ -321,15 +305,15 @@ namespace nlohmann {
 template <>
 struct adl_serializer<WaterConfig> {
   static WaterConfig from_json(const json& j) {
-    return WaterConfig{.catchment = au::pow<2>(au::kilo(au::meters))((j.value("catchment", 0.05))),
+    return WaterConfig{.catchment = (j.value("catchment", 0.05)),
                        .color = j.value("color", json({"blue"})),
-                       .width = au::milli(au::meters)(j.value("width", 0.18))};
+                       .width = j.value("width", 0.18)};
   }
 
   static void to_json(json& j, WaterConfig cc) {
-    j["catchment"] = cc.catchment.in(au::pow<2>(au::kilo(au::meters)));
+    j["catchment"] = cc.catchment;
     j["color"] = cc.color;
-    j["width"] = cc.width.in(au::milli(au::meters));
+    j["width"] = cc.width;
   }
 };
 
@@ -345,18 +329,17 @@ struct adl_serializer<WaterConfigs> {
 
 struct ContourConfigs {
   std::map<std::string, ContourConfig> configs;
-  au::QuantityD<au::Meters> min_interval;
+  double min_interval;
 
-  static au::QuantityD<au::Meters> minimum_interval(
-      const std::map<std::string, ContourConfig>& configs) {
-    au::QuantityD<au::Meters> min_interval = au::meters(std::numeric_limits<double>::max());
+  static double minimum_interval(const std::map<std::string, ContourConfig>& configs) {
+    double min_interval = std::numeric_limits<double>::max();
     for (const auto& [_, config] : configs) {
       min_interval = std::min(min_interval, config.interval);
     }
     return min_interval;
   }
 
-  ContourConfigs() : min_interval(au::meters(std::numeric_limits<double>::max())) {}
+  ContourConfigs() : min_interval(std::numeric_limits<double>::max()) {}
 
   explicit ContourConfigs(std::map<std::string, ContourConfig> in_configs)
       : configs(std::move(in_configs)), min_interval(minimum_interval(configs)) {}
@@ -364,11 +347,11 @@ struct ContourConfigs {
   const ContourConfig& operator[](const std::string& key) const { return configs.at(key); }
 
   const ContourConfig& pick_from_height(double height) const {
-    auto max_valid_interval = au::meters(std::numeric_limits<double>::min());
+    auto max_valid_interval = std::numeric_limits<double>::min();
     const ContourConfig* config_to_return = nullptr;
     for (const auto& [_, config] : configs) {
       if (config.interval > max_valid_interval &&
-          std::fmod(std::abs(height), config.interval.in(au::meters)) < 1e-8) {
+          std::fmod(std::abs(height), config.interval) < 1e-8) {
         max_valid_interval = config.interval;
         config_to_return = &config;
       }
@@ -377,11 +360,11 @@ struct ContourConfigs {
   }
 
   std::string layer_name_from_height(double height) const {
-    auto max_valid_interval = au::meters(std::numeric_limits<double>::min());
+    auto max_valid_interval = std::numeric_limits<double>::min();
     std::string layer_name = "Contour";
     for (const auto& [name, config] : configs) {
       if (config.interval > max_valid_interval &&
-          std::fmod(std::abs(height), config.interval.in(au::meters)) < 1e-8) {
+          std::fmod(std::abs(height), config.interval) < 1e-8) {
         if (name == "form_line") {
           layer_name = "103_Form_Line";
         } else if (name == "index") {
@@ -445,7 +428,7 @@ struct Config {
   std::vector<fs::path> las_files;
   std::set<ProcessingStep> processing_steps;
   fs::path output_directory;
-  au::QuantityD<au::Meters> border_width;
+  double border_width;
   fs::path relative_path_to_config;
 
   friend nlohmann::adl_serializer<Config>;
@@ -501,7 +484,7 @@ struct adl_serializer<Config> {
         j.value("las_files", json(std::vector<std::string>())).get<std::vector<fs::path>>();
     config.processing_steps = j.value("steps", json({"tiles"})).get<std::set<ProcessingStep>>();
     config.output_directory = j.value("output_directory", "out");
-    config.border_width = au::meters(j.value("border_width", 100.0));
+    config.border_width = j.value("border_width", 100.0);
     config.relative_path_to_config = "";
     return config;
   }
@@ -517,7 +500,7 @@ struct adl_serializer<Config> {
     j["las_files"] = gc.las_files;
     j["steps"] = gc.processing_steps;
     j["output_directory"] = gc.output_directory;
-    j["border_width"] = gc.border_width.in(au::meters);
+    j["border_width"] = gc.border_width;
   }
 };
 }  // namespace nlohmann

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>
-#include <opencv2/opencv.hpp>
+#include <map>
 #include <ostream>
 #include <variant>
 
@@ -17,6 +17,12 @@ class Color {
   Color(const Color&) = default;
   Color() = default;
 };
+
+namespace cv {
+template <typename T>
+class Scalar_;
+typedef Scalar_<double> Scalar;
+}  // namespace cv
 
 class RGBColor : public Color {
   std::array<unsigned char, 4> m_data;
@@ -37,7 +43,7 @@ class RGBColor : public Color {
 
   const unsigned char& operator[](size_t index) const { return m_data[index]; }
   unsigned char& operator[](size_t index) { return m_data[index]; }
-  cv::Scalar toScalar() const { return cv::Scalar(getBlue(), getGreen(), getRed(), getAlpha()); }
+  cv::Scalar toScalar() const;
 
   friend std::ostream& operator<<(std::ostream& os, const RGBColor& c) {
     return os << "(" << c.getRed() << ", " << c.getGreen() << ", " << c.getBlue() << ")";

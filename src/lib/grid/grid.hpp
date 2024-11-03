@@ -12,14 +12,6 @@
 #include <vector>
 
 #include "assert/assert.hpp"
-#ifdef _MSC_VER
-#pragma warning(push, 0)
-#endif
-#include "au/quantity.hh"
-#include "au/units/meters.hh"
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 #include "gdal.h"
 #include "gdal_priv.h"
 #include "isom/colors.hpp"
@@ -48,8 +40,8 @@ class GeoTransform {
 
   const double *get_raw() const { return geoTranform; }
 
-  GeoTransform with_new_resolution(au::QuantityD<au::Meters> new_resolution) const {
-    return GeoTransform(x(), y(), new_resolution.in(au::meters), -new_resolution.in(au::meters));
+  GeoTransform with_new_resolution(double new_resolution) const {
+    return GeoTransform(x(), y(), new_resolution, -new_resolution);
   }
 
   Coordinate2D<double> pixel_to_projection(const Coordinate2D<double> &coord) const {
@@ -79,9 +71,6 @@ class GeoTransform {
   double y() const { return geoTranform[3]; }
   double rot_y() const { return geoTranform[4]; }
   double dy() const { return geoTranform[5]; }
-
-  au::QuantityD<au::Meters> dx_m() const { return au::meters(dx()); }
-  au::QuantityD<au::Meters> dy_m() const { return au::meters(dy()); }
 
   void set_dx(double dx) { geoTranform[1] = dx; }
   void set_dy(double dy) { geoTranform[5] = dy; }

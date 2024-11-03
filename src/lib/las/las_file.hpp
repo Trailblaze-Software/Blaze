@@ -10,13 +10,6 @@
 #include <string>
 #include <vector>
 
-#ifdef _MSC_VER
-#pragma warning(push, 0)
-#endif
-#include "au/units/meters.hh"
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 #include "grid/grid.hpp"
 #include "las_point.hpp"
 #include "utilities/timer.hpp"
@@ -223,8 +216,8 @@ class LASFile {
   const LASPoint &operator[](std::size_t i) const { return m_points[i]; }
 
   Coordinate2D<double> top_left() const { return {m_bounds.minx, m_bounds.maxy}; }
-  au::QuantityD<au::Meters> width() const { return au::meters(m_bounds.maxx - m_bounds.minx); }
-  au::QuantityD<au::Meters> height() const { return au::meters(m_bounds.maxy - m_bounds.miny); }
+  double width() const { return m_bounds.maxx - m_bounds.minx; }
+  double height() const { return m_bounds.maxy - m_bounds.miny; }
   const GeoProjection &projection() const { return m_projection; }
 
   pdal::BOX2D export_bounds() const {

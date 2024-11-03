@@ -70,7 +70,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   ui->dpi_dropdown->setValidator(new QDoubleValidator(1.0, 2400.0, 2, this));
   connect(ui->dpi_dropdown, &QComboBox::currentTextChanged, [this](const QString& text) {
     if (validated(ui->dpi_dropdown)) {
-      m_config->render.dpi = au::pow<-1>(au::inches)(std::stod(text.toStdString()));
+      m_config->render.dpi = std::stod(text.toStdString());
     }
     config_changed();
   });
@@ -133,8 +133,7 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
 
   ui->scale_dropdown->setCurrentText(double_to_string(config.render.scale).c_str());
 
-  ui->dpi_dropdown->setCurrentText(
-      double_to_string(config.render.dpi.in(au::unos / au::inches)).c_str());
+  ui->dpi_dropdown->setCurrentText(double_to_string(config.render.dpi).c_str());
 
   ui->extract_borders_checkbox->setChecked(
       std::find(config.processing_steps.begin(), config.processing_steps.end(),

@@ -1,13 +1,5 @@
 #include "process.hpp"
 
-#ifdef _MSC_VER
-#pragma warning(push, 0)
-#endif
-#include "au/quantity.hh"
-#include "au/units/meters.hh"
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 #include "cliff/cliff.hpp"
 #include "contour/contour_gen.hpp"
 #include "dxf/dxf.hpp"
@@ -52,8 +44,7 @@ GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground
   return ground;
 }
 
-GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid,
-                                       au::QuantityD<au::Meters> original_resolution) {
+GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid, double original_resolution) {
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
 
@@ -62,8 +53,8 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid,
     for (size_t j = 1; j < grid.width() - 1; j++) {
       double dz_dy = (grid[{j + 1, i}] - grid[{j - 1, i}]) / (2 * grid.dx());
       double dz_dx = (grid[{j, i + 1}] - grid[{j, i - 1}]) / (2 * grid.dy());
-      result[{j, i}] = grid[{j, i}] + 0.5 * (std::abs(dz_dx) + std::abs(dz_dy)) *
-                                          original_resolution.in(au::meters);
+      result[{j, i}] =
+          grid[{j, i}] + 0.5 * (std::abs(dz_dx) + std::abs(dz_dy)) * original_resolution;
     }
   }
   return result;
@@ -75,17 +66,16 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   fs::path output_dir = config.output_path() / las_filename.stem();
   fs::create_directories(output_dir);
 
-  LASFile las_file = LASFile::with_border(las_filename, config.border_width.in(au::meters));
+  LASFile las_file = LASFile::with_border(las_filename, config.border_width);
 
   progress_tracker.set_proportion(0.4);
 
-  au::QuantityD<au::Meters> bin_resolution = config.grid.bin_resolution;
+  double bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
       round_up(las_file.width() / bin_resolution + config.grid.downsample_factor),
       round_up(las_file.height() / bin_resolution + config.grid.downsample_factor),
-      GeoTransform(
-          las_file.top_left().round_NW(bin_resolution.in(au::meters)*config.grid.downsample_factor),
-          bin_resolution.in(au::meters)),
+      GeoTransform(las_file.top_left().round_NW(bin_resolution * config.grid.downsample_factor),
+                   bin_resolution),
       GeoProjection(las_file.projection()));
 
   {
@@ -161,7 +151,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   write_to_tif(ground_intensity_img.slice(las_file.export_bounds()),
                output_dir / "ground_intensity.tif");
 
-  ground = remove_outliers(ground, config.ground.outlier_removal_height_diff.in(au::meters));
+  ground = remove_outliers(ground, config.ground.outlier_removal_height_diff);
   ground = interpolate_holes(ground);
 
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif");
@@ -170,9 +160,9 @@ void process_las_file(const fs::path& las_filename, const Config& config,
 
   if (OUT_LAS) LASFile(ground).write(output_dir / "ground.las");
 
-  GeoGrid<double> smooth_ground = remove_outliers(
-      downsample(ground, config.grid.downsample_factor),
-      config.ground.outlier_removal_height_diff.in(au::meters)*config.grid.downsample_factor);
+  GeoGrid<double> smooth_ground =
+      remove_outliers(downsample(ground, config.grid.downsample_factor),
+                      config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
   if (OUT_LAS)
     LASFile(downsample(ground, config.grid.downsample_factor))
         .write(output_dir / "smooth_ground_no_outlier_removal.las");
@@ -185,7 +175,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
     write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif");
   }
 
-  smooth_ground = adjust_ground_to_slope(smooth_ground, au::meters(ground.dx()));
+  smooth_ground = adjust_ground_to_slope(smooth_ground, ground.dx());
   if (OUT_LAS) LASFile(smooth_ground).write(output_dir / "smooth_ground.las");
 
   const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
@@ -196,12 +186,12 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   GeoGrid<double> filled = fill_depressions(smooth_ground, sinks);
   write_to_tif(filled.slice(las_file.export_bounds()), output_dir / "filled_dem.tif");
 
-  au::QuantityD<au::Meters> contour_points_resolution = au::meters(20);
+  double contour_points_resolution = 20;
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
-      round_up(smooth_ground.width_m() / contour_points_resolution.in(au::meters)) + 1,
-      round_up(smooth_ground.height_m() / contour_points_resolution.in(au::meters)) + 1,
+      round_up(smooth_ground.width_m() / contour_points_resolution) + 1,
+      round_up(smooth_ground.height_m() / contour_points_resolution) + 1,
       GeoTransform(smooth_ground.transform().pixel_to_projection({0, 0}),
-                   contour_points_resolution.in(au::meters)),
+                   contour_points_resolution),
       GeoProjection(las_file.projection()));
 
   std::vector<std::shared_ptr<ContourPoint>> all_contour_points;
@@ -291,10 +281,11 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   }
   write_to_tif(vege_color.slice(las_file.export_bounds()), output_dir / "vege_color.tif");
 
-  au::QuantityD<au::Meters> render_pixel_resolution = config.render.scale / config.render.dpi;
+  constexpr double INCHES_PER_METER = 39.3701;
+  double render_pixel_resolution = config.render.scale / config.render.dpi / INCHES_PER_METER;
   GeoImgGrid final_img(
-      round_up(ground.width() * ground.transform().dx_m() / render_pixel_resolution),
-      round_up(ground.height() * ground.transform().dy_m() / render_pixel_resolution),
+      round_up(ground.width() * ground.transform().dx() / render_pixel_resolution),
+      round_up(ground.height() * ground.transform().dy() / render_pixel_resolution),
       GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
       GeoProjection(vege_color.projection()));
 
@@ -355,7 +346,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
 
   for (const std::shared_ptr<ContourPoint>& point : all_contour_points) {
     if (point->slope() > 0.8) {
-      final_img.draw_point(*point, RGBColor(0, 0, 0), au::meters(1.5));
+      final_img.draw_point(*point, RGBColor(0, 0, 0), 1.5);
     }
   }
 

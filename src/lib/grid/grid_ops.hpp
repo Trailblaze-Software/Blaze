@@ -19,10 +19,10 @@ GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
                       DownsampleMethod method = DownsampleMethod::MEDIAN) {
   TimeFunction timer("downsampling");
   AssertEQ(grid.transform().dx(), -grid.transform().dy());
-  GeoGrid<T> result(
-      std::ceil((double)grid.width() / factor), std::ceil((double)grid.height() / factor),
-      grid.transform().with_new_resolution(au::meters(grid.transform().dx() * factor)),
-      GeoProjection(grid.projection()));
+  GeoGrid<T> result(std::ceil((double)grid.width() / factor),
+                    std::ceil((double)grid.height() / factor),
+                    grid.transform().with_new_resolution(grid.transform().dx() * factor),
+                    GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < result.height(); i++) {
     for (size_t j = 0; j < result.width(); j++) {

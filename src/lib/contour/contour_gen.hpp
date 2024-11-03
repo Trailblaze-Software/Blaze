@@ -87,7 +87,7 @@ template <typename T>
 std::vector<Contour> generate_contours(const GeoGrid<T> &grid,
                                        const ContourConfigs &contour_config) {
   TimeFunction timer("generating contours");
-  GridGraph is_contour = identify_contours(grid, contour_config.min_interval.in(au::meters));
+  GridGraph is_contour = identify_contours(grid, contour_config.min_interval);
   std::vector<Contour> contours;
   for (size_t i = 0; i < is_contour.height(); i++) {
     for (size_t j = 0; j < is_contour.width(); j++) {
