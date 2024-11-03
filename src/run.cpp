@@ -1,12 +1,6 @@
 #include "run.hpp"
 
 #include <iostream>
-#include <opencv2/opencv.hpp>
-#include <pdal/io/BufferReader.hpp>
-#include <pdal/io/LasHeader.hpp>
-#include <pdal/io/LasReader.hpp>
-#include <pdal/pdal.hpp>
-#include <pdal/util/Bounds.hpp>
 
 #include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
