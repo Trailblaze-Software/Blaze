@@ -69,9 +69,9 @@ class TaskException : public QException {
   inline virtual const char* what() const noexcept { return m_what.c_str(); }
 };
 
-void ProgressBox::start_task(std::function<void()> task) {
+void ProgressBox::start_task(std::function<void()> task, std::function<void()> on_finish) {
   QFutureWatcher<int>* watcher = new QFutureWatcher<int>(this);
-  connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher] {
+  connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher, on_finish] {
     if (watcher->future().isCanceled()) {
       try {
         watcher->future().result();
@@ -79,8 +79,10 @@ void ProgressBox::start_task(std::function<void()> task) {
         QMessageBox::critical(this, "Error running task", e.what());
       }
       this->done(1);
-    } else
+    } else {
       this->done(0);
+      on_finish();
+    }
   });
   watcher->setFuture(QtConcurrent::run([task] {
     try {

@@ -22,6 +22,9 @@ class ConfigEditor : public QWidget {
  public slots:
   void open_config_file();
   void save_config_file();
+  void add_las_file();
+  void remove_las_file();
+  void add_las_folder();
 
  signals:
   void config_changed();

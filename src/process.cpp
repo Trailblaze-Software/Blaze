@@ -306,7 +306,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
       if (config.contours.layer_name_from_height(contour.height()) == "Contour") continue;
       const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
       RGBColor color = to_rgb(contour_config.color);
-      final_img.draw(contour, color, contour_config.width * config.render.scale);
+      final_img.draw(contour, color, contour_config.width / 1000 * config.render.scale);
     }
   }
 
@@ -314,7 +314,8 @@ void process_las_file(const fs::path& las_filename, const Config& config,
     TimeFunction timer("drawing paths");
     for (const Stream& stream : stream_path) {
       const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
-      final_img.draw(stream.coords, water_config.color, water_config.width * config.render.scale);
+      final_img.draw(stream.coords, water_config.color,
+                     water_config.width / 1000 * config.render.scale);
     }
   }
 
@@ -331,14 +332,15 @@ void process_las_file(const fs::path& las_filename, const Config& config,
     if (config.contours.layer_name_from_height(contour.height()) != "Contour") continue;
     const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
     RGBColor color = to_rgb(contour_config.color);
-    final_img.draw(contour, color, contour_config.width * config.render.scale);
+    final_img.draw(contour, color, contour_config.width / 1000 * config.render.scale);
   }
 
   {
     TimeFunction timer("drawing paths");
     for (const Stream& stream : stream_path) {
       const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
-      final_img.draw(stream.coords, water_config.color, water_config.width * config.render.scale);
+      final_img.draw(stream.coords, water_config.color,
+                     water_config.width / 1000 * config.render.scale);
     }
   }
 

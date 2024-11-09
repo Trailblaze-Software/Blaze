@@ -1,7 +1,10 @@
 #include "config_editor.hpp"
 
+#include <qdebug.h>
+
 #include <QFileDialog>
 #include <QPushButton>
+#include <filesystem>
 
 #include "assert/assert.hpp"
 #include "config_input/config_input.hpp"
@@ -76,17 +79,22 @@ ConfigEditor::ConfigEditor(QWidget* parent)
     config_changed();
   });
 
+  connect(ui->add_las_button, &QPushButton::clicked, this, &ConfigEditor::add_las_file);
+  connect(ui->add_las_folder_button, &QPushButton::clicked, this, &ConfigEditor::add_las_folder);
+  connect(ui->remove_las_button, &QPushButton::clicked, this, &ConfigEditor::remove_las_file);
+
   connect(ui->out_dir_button, &QPushButton::clicked, this, &ConfigEditor::open_output_directory);
 
-  for (auto& [checkbox, step] : std::vector<std::pair<QCheckBox*, ProcessingStep>>{
+  for (const auto& [checkbox, step] : std::vector<std::pair<QCheckBox*, ProcessingStep>>{
            {ui->extract_borders_checkbox, ProcessingStep::TmpBorders},
            {ui->process_tiles_checkbox, ProcessingStep::Tiles},
            {ui->combine_tiles_checkbox, ProcessingStep::Combine}}) {
-    connect(checkbox, &QCheckBox::stateChanged, [this, step](int state) {
+    ProcessingStep ps = step;
+    connect(checkbox, &QCheckBox::stateChanged, [this, ps](int state) {
       if (state == Qt::Checked) {
-        m_config->processing_steps.insert(step);
+        m_config->processing_steps.insert(ps);
       } else {
-        m_config->processing_steps.erase(step);
+        m_config->processing_steps.erase(ps);
       }
       config_changed();
     });
@@ -105,6 +113,43 @@ void ConfigEditor::open_config_file() {
     return;
   }
   m_config = std::make_unique<Config>(Config::FromFile(config_file_name.toStdString()));
+  set_ui_to_config(*m_config);
+}
+
+void ConfigEditor::add_las_file() {
+  fs::path directory;
+  QStringList las_file_names = QFileDialog::getOpenFileNames(
+      this, ("Open LAS file/s"), m_config->relative_path_to_config.string().c_str(),
+      ("LAS Files (*.las *.laz);;All files (*)"), nullptr, QFileDialog::ReadOnly);
+  if (las_file_names.isEmpty()) {
+    return;
+  }
+  for (const QString& las_file_name : las_file_names) {
+    m_config->las_files.push_back(las_file_name.toStdString());
+  }
+  set_ui_to_config(*m_config);
+}
+
+void ConfigEditor::remove_las_file() {
+  QList<QTreeWidgetItem*> items = ui->treeWidget->selectedItems();
+  for (QTreeWidgetItem* item : items) {
+    m_config->las_files.erase(std::remove(m_config->las_files.begin(), m_config->las_files.end(),
+                                          item->text(0).toStdString()),
+                              m_config->las_files.end());
+    delete item;
+  }
+  set_ui_to_config(*m_config);
+}
+
+void ConfigEditor::add_las_folder() {
+  fs::path directory;
+  QString las_folder_name = QFileDialog::getExistingDirectory(
+      this, tr("Choose LAS Folder"), m_config->relative_path_to_config.string().c_str(),
+      QFileDialog::DontResolveSymlinks);
+  if (las_folder_name.isEmpty()) {
+    return;
+  }
+  m_config->las_files.push_back(las_folder_name.toStdString());
   set_ui_to_config(*m_config);
 }
 
@@ -150,5 +195,15 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   for (const fs::path& path : config.las_files) {
     QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget);
     item->setText(0, path.string().c_str());
+    ui->treeWidget->addTopLevelItem(item);
+    if (!fs::exists(path)) {
+      item->setBackground(0, QBrush(Qt::red));
+    } else if (fs::is_directory(path)) {
+      for (const fs::directory_entry& entry : fs::directory_iterator(path)) {
+        QTreeWidgetItem* child = new QTreeWidgetItem(item);
+        child->setText(0, entry.path().string().c_str());
+        item->addChild(child);
+      }
+    }
   }
 }

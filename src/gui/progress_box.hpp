@@ -37,7 +37,7 @@ class ProgressBox : public QDialog, public ProgressObserver {
   void update_progress(double proportion) override;
   void text_update(const std::string& text, int depth = 0) override;
 
-  void start_task(std::function<void()> task);
+  void start_task(std::function<void()> task, std::function<void()> on_finish = [] {});
 
  private:
 };

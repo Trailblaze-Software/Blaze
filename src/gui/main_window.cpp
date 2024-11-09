@@ -9,6 +9,9 @@
 #include "ui_main_window.h"
 
 MainWindow::MainWindow() : ui(new Ui::MainWindow) {
+  if (!QIcon::hasThemeIcon("list-add")) {
+    QIcon::setThemeName("Humanity");
+  }
   ui->setupUi(this);
 
   connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run_blaze);
@@ -41,7 +44,39 @@ void MainWindow::run_blaze() {
   ProgressBox* message_box = new ProgressBox(this);
   message_box->show();
   const Config& config = ui->config_editor->get_config();
-  message_box->start_task([&config, message_box] {
-    run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
-  });
+  message_box->start_task(
+      [&config, message_box] {
+        run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
+      },
+      [&config] {
+        QDialog* dialog = new QDialog();
+        dialog->setWindowTitle("Blaze processing done!");
+        QVBoxLayout* layout = new QVBoxLayout();
+        dialog->setLayout(layout);
+        QLabel* label = new QLabel("Processing complete!");
+        layout->addWidget(label);
+        if (config.processing_steps.contains(ProcessingStep::Combine)) {
+          QLabel* label2 =
+              new QLabel("The combined output is located at: " +
+                         QString::fromStdString((config.output_path() / "combined").string()));
+          layout->addWidget(label2);
+          QImage image((config.output_path() / "combined" / "final_img.tif").string().c_str());
+          if (image.isNull()) {
+            std::cerr << "Failed to load image from "
+                      << (config.output_path() / "combined" / "final_img.tif") << std::endl;
+          } else {
+            QScrollArea* scroll_area = new QScrollArea();
+            layout->addWidget(scroll_area);
+
+            QLabel* image_label = new QLabel();
+            image_label->setPixmap(QPixmap::fromImage(image));
+            scroll_area->setWidget(image_label);
+            scroll_area->setWidgetResizable(true);
+          }
+        }
+        QPushButton* button = new QPushButton("OK");
+        layout->addWidget(button);
+        connect(button, &QPushButton::clicked, dialog, &QDialog::accept);
+        dialog->exec();
+      });
 }

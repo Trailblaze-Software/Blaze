@@ -2,7 +2,15 @@
 
 #include <iostream>
 #include <optional>
+#if __has_builtin(__builtin_source_location)
 #include <source_location>
+#else
+#include <experimental/source_location>
+namespace std {
+using source_location = std::experimental::source_location;
+}
+#endif
+
 #include <sstream>
 #include <string>
 

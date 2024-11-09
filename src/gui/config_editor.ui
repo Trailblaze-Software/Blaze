@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
-    <height>545</height>
+    <width>603</width>
+    <height>647</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -53,26 +53,57 @@
         </widget>
        </item>
        <item>
-        <widget class="QScrollArea" name="scrollArea">
-         <property name="widgetResizable">
+        <widget class="QTreeWidget" name="treeWidget">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
+         </property>
+         <property name="headerHidden">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>482</width>
-            <height>237</height>
-           </rect>
+         <column>
+          <property name="text">
+           <string notr="true">1</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <widget class="QTreeWidget" name="treeWidget"/>
-           </item>
-          </layout>
-         </widget>
+         </column>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="remove_las_button">
+           <property name="icon">
+            <iconset theme="list-remove"/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="add_las_button">
+           <property name="icon">
+            <iconset theme="list-add"/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="add_las_folder_button">
+           <property name="icon">
+            <iconset theme="folder-new"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="Line" name="line">
@@ -216,7 +247,7 @@
               <string>...</string>
              </property>
              <property name="icon">
-              <iconset theme="QIcon::ThemeIcon::DocumentOpen"/>
+              <iconset theme="document-open"/>
              </property>
              <property name="autoRaise">
               <bool>false</bool>

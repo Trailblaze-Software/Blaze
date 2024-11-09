@@ -6,7 +6,7 @@
 #include "grid/forward_grid.hpp"
 #include "utilities/coordinate.hpp"
 
-class WaterConfigs;
+struct WaterConfigs;
 
 struct Stream {
   std::vector<Coordinate2D<double>> coords;

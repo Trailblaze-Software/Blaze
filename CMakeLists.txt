@@ -91,7 +91,7 @@ set(ALL_EXECUTABLES ${CLI_EXE_NAME} ${UNIT_TESTS_NAME})
 if(NOT BLAZE_CLI_ONLY)
   set(GUI_EXE_NAME Blaze)
   list(APPEND ALL_EXECUTABLES ${GUI_EXE_NAME})
-  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent)
+  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core)
   if(WIN32)
     qt_standard_project_setup()
   endif()
@@ -105,6 +105,10 @@ if(NOT BLAZE_CLI_ONLY)
   target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
   set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
                                                    MACOSX_BUNDLE ON)
+
+  qt_import_plugins(${GUI_EXE_NAME} INCLUDE_BY_TYPE imageformats
+                    Qt6::QTiffPlugin)
+
   if(WIN32)
     add_custom_command(
       TARGET ${GUI_EXE_NAME}
@@ -133,12 +137,6 @@ FetchContent_Declare(
   URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
 FetchContent_MakeAvailable(nlohmann_json)
 
-FetchContent_Declare(
-  au_units
-  URL https://github.com/aurora-opensource/au/releases/download/0.3.4/au-0.3.4.tar.gz
-)
-FetchContent_MakeAvailable(au_units)
-
 add_custom_target(
   copy_assets
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets
@@ -150,7 +148,7 @@ foreach(target ${ALL_TARGETS})
                       nlohmann_json::nlohmann_json ${OpenCV_LIBS})
   target_include_directories(
     ${target} PRIVATE ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS}
-                      ${au_units_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS})
+                      ${OpenCV_INCLUDE_DIRS})
 endforeach()
 
 foreach(target ${ALL_EXECUTABLES})
