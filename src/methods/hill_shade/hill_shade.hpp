@@ -1,11 +1,12 @@
 #pragma once
 
 #include <cmath>
+#include <numbers>
 
 #include "grid/grid.hpp"
 #include "utilities/timer.hpp"
 
-#define DEG2RAD(x) ((x) * M_PI / 180)
+#define DEG2RAD(x) ((x) * std::numbers::pi / 180)
 #define SQ(x) ((x) * (x))
 
 template <typename T>

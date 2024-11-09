@@ -9,6 +9,7 @@
 #include "ui_main_window.h"
 
 MainWindow::MainWindow() : ui(new Ui::MainWindow) {
+  try {
   if (!QIcon::hasThemeIcon("list-add")) {
     QIcon::setThemeName("Humanity");
   }
@@ -23,6 +24,10 @@ MainWindow::MainWindow() : ui(new Ui::MainWindow) {
 
   connect(ui->config_editor, &ConfigEditor::config_changed,
           [this] { ui->runButton->setEnabled(ui->config_editor->is_valid()); });
+  } catch (const std::exception& e) {
+    QMessageBox::critical(this, "Error", e.what());
+    exit(1);
+  }
 }
 
 MainWindow::~MainWindow() {}

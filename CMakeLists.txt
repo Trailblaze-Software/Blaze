@@ -137,11 +137,6 @@ FetchContent_Declare(
   URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
 FetchContent_MakeAvailable(nlohmann_json)
 
-add_custom_target(
-  copy_assets
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets
-          $<TARGET_FILE_DIR:${CLI_EXE_NAME}>/assets)
-
 foreach(target ${ALL_TARGETS})
   target_link_libraries(
     ${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
@@ -153,7 +148,6 @@ endforeach()
 
 foreach(target ${ALL_EXECUTABLES})
   target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
-  add_dependencies(${target} copy_assets)
 endforeach()
 
 target_include_directories(${UNIT_TESTS_NAME}
@@ -174,7 +168,7 @@ install(
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES "config.json" DESTINATION .)
+install(DIRECTORY "assets" DESTINATION ${CMAKE_INSTALL_DATADIR})
 
 install(FILES $<TARGET_RUNTIME_DLLS:${CLI_EXE_NAME}> TYPE BIN)
 

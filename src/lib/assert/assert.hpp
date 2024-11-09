@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <optional>
-#if __has_builtin(__builtin_source_location)
+#if defined(_MSC_VER) || __has_builtin(__builtin_source_location)
 #include <source_location>
 #else
 #include <experimental/source_location>

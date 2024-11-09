@@ -74,7 +74,7 @@ if(CMAKE_HOST_WIN32 AND (CURRENT_PACKAGES_DIR MATCHES ".*mingw.*"))
   message("SETTING FLAGS")
   set(FLAGS "-Wa,-mbig-obj ${CMAKE_CXX_FLAGS}")
 else()
-  set(FLAGS "-Wa ${CMAKE_CXX_FLAGS}")
+  set(FLAGS "${CMAKE_CXX_FLAGS}")
 endif()
 
 vcpkg_find_acquire_program(PKGCONFIG)

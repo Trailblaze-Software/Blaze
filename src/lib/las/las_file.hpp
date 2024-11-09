@@ -196,7 +196,7 @@ class LASFile {
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
           BorderType::SW, BorderType::W, BorderType::NW}) {
       pdal::BOX2D box = external_border_ranges(original_bounds.to2d(), border_type, border_width);
-      fs::path border_filename = fs::path("tmp") / (unique_coord_name(box) + ".las");
+      fs::path border_filename = LocalDataRetriever::get_local_data("extracted_borders") / (unique_coord_name(box) + ".las");
       if (fs::exists(border_filename)) {
         LASFile border_file(border_filename.string());
         for (const LASPoint &point : border_file) {
@@ -284,7 +284,7 @@ class LASFile {
 };
 
 inline void extract_borders(const fs::path &las_filename, double border_width) {
-  fs::path tmp_dir = fs::path("tmp");
+  fs::path tmp_dir = LocalDataRetriever::get_local_data("extracted_borders");
   fs::create_directories(tmp_dir);
 
   fs::path done_file = tmp_dir / (las_filename.stem().string() + ".done");

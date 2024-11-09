@@ -89,6 +89,9 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
 
   GDALDataset *dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),
                                         bands, datatype, options);
+  if (dataset == nullptr) {
+    Fail("Could not create file " + filename.string());
+  }
 
   dataset->SetGeoTransform(const_cast<double *>(grid.transform().get_raw()));
   dataset->SetProjection(grid.projection().to_string().c_str());
