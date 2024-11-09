@@ -10,20 +10,20 @@
 
 MainWindow::MainWindow() : ui(new Ui::MainWindow) {
   try {
-  if (!QIcon::hasThemeIcon("list-add")) {
-    QIcon::setThemeName("Humanity");
-  }
-  ui->setupUi(this);
+    if (!QIcon::hasThemeIcon("list-add")) {
+      QIcon::setThemeName("Humanity");
+    }
+    ui->setupUi(this);
 
-  connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run_blaze);
-  connect(ui->actionOpen, &QAction::triggered, this,
-          [this] { ui->config_editor->open_config_file(); });
-  connect(ui->actionSaveAs, &QAction::triggered, this,
-          [this] { ui->config_editor->save_config_file(); });
-  connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
+    connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run_blaze);
+    connect(ui->actionOpen, &QAction::triggered, this,
+            [this] { ui->config_editor->open_config_file(); });
+    connect(ui->actionSaveAs, &QAction::triggered, this,
+            [this] { ui->config_editor->save_config_file(); });
+    connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
 
-  connect(ui->config_editor, &ConfigEditor::config_changed,
-          [this] { ui->runButton->setEnabled(ui->config_editor->is_valid()); });
+    connect(ui->config_editor, &ConfigEditor::config_changed,
+            [this] { ui->runButton->setEnabled(ui->config_editor->is_valid()); });
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error", e.what());
     exit(1);
