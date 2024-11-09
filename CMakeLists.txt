@@ -227,6 +227,7 @@ set(CPACK_NSIS_DISPLAY_NAME "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/Trailblaze-Software/blaze")
 set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze")
 set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "qt6-image-formats-plugins")
 
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
