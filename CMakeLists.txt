@@ -14,9 +14,18 @@ else()
   set(FETCHCONTENT_BASE_DIR ${BLAZE_FETCHCONTENT_BASE_DIR})
 endif()
 
-option(BLAZE_CLI_ONLY "Build CLI only" OFF)
+option(BLAZE_CLI_ONLY "Build Blaze CLI only" OFF)
+option(BLAZE_USE_PDAL "Use PDAL for Blaze LAS IO" ON)
 
 if(WIN32)
+  if(NOT BLAZE_CLI_ONLY)
+    list(APPEND VCPKG_MANIFEST_FEATURES "gui")
+  endif()
+
+  if(BLAZE_USE_PDAL)
+    list(APPEND VCPKG_MANIFEST_FEATURES "pdal")
+  endif()
+
   set(X_VCPKG_APPLOCAL_DEPS_INSTALL
       TRUE
       CACHE BOOL "")
@@ -47,7 +56,10 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 add_compile_definitions(GIT_COMMIT_HASH="${GIT_COMMIT_HASH}")
 
-find_package(PDAL REQUIRED)
+if(BLAZE_USE_PDAL)
+  add_compile_definitions(USE_PDAL)
+  find_package(PDAL REQUIRED)
+endif()
 find_package(GDAL REQUIRED)
 
 set(OpenMP_RUNTIME_MSVC "llvm")
@@ -143,12 +155,15 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(nlohmann_json)
 
 foreach(target ${ALL_TARGETS})
+  if(BLAZE_USE_PDAL)
+    target_link_libraries(${target} PRIVATE ${PDAL_LIBRARIES})
+    target_include_directories(${target} PRIVATE ${PDAL_INCLUDE_DIRS})
+  endif()
   target_link_libraries(
-    ${target} PRIVATE ${PDAL_LIBRARIES} ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
+    ${target} PRIVATE ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
                       nlohmann_json::nlohmann_json ${OpenCV_LIBS})
-  target_include_directories(
-    ${target} PRIVATE ${PDAL_INCLUDE_DIRS} ${GDAL_INCLUDE_DIRS}
-                      ${OpenCV_INCLUDE_DIRS})
+  target_include_directories(${target} PRIVATE ${GDAL_INCLUDE_DIRS}
+                                               ${OpenCV_INCLUDE_DIRS})
 endforeach()
 
 foreach(target ${ALL_EXECUTABLES})

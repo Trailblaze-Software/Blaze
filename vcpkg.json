@@ -4,14 +4,23 @@
     {
       "name": "opencv4",
       "version>=": "4.10.0"
-    },
-    {
-      "name": "pdal",
-      "version>=": "2.3.0"
-    },
-    "qtbase",
-    "qtimageformats"
+    }
   ],
+  "features": {
+    "pdal": {
+      "description": "Support for PDAL",
+      "dependencies": [
+        "pdal"
+      ]
+    },
+    "gui": {
+      "description": "Support for GUI",
+      "dependencies": [
+        "qtbase",
+        "qtimageformats"
+      ]
+    }
+  },
   "builtin-baseline": "813a241fb83adad503a391facaa6aa634631accc",
   "overrides": [
     {
