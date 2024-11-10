@@ -6,10 +6,10 @@
 #include "las/las_point.hpp"
 #include "utilities/timer.hpp"
 
-GeoTransform::GeoTransform(GDALDataset &dataset) { dataset.GetGeoTransform(geoTranform); }
+GeoTransform::GeoTransform(GDALDataset &dataset) { dataset.GetGeoTransform(geoTransform); }
 
-template <>
-GeoGrid<RGBColor> GeoGrid<RGBColor>::FromGeoImg(const GeoImgGrid &grid) {
+template <typename GridT>
+GeoGrid<RGBColor> Geo<GridT>::FromGeoImg(const GeoImgGrid &grid) {
   TimeFunction timer("FromGeoImg");
   GeoGrid<RGBColor> new_grid(grid.width(), grid.height(), GeoTransform(grid.transform()),
                              GeoProjection(grid.projection()));
@@ -77,17 +77,16 @@ Geo<GridT> Geo<GridT>::slice(const pdal::BOX2D &extent) {
       }
     }
   } else if constexpr (std::is_same_v<GridT, MultiBand<FlexGrid>>) {
-    Fail("");
-    // for (size_t band = 0; band < result.size(); band++) {
-    // #pragma omp parallel for
-    // for (size_t i = 0; i < new_height; i++) {
-    // for (size_t j = 0; j < new_width; j++) {
-    // for (int k = 0; k < FlexGrid::m_data_size; k++) {
-    // result[band][{j, i}][k] = (*this)[band][{j + top_left.x(), i + top_left.y()}][k];
-    //}
-    //}
-    //}
-    //}
+    for (size_t band = 0; band < result.size(); band++) {
+#pragma omp parallel for
+      for (size_t i = 0; i < new_height; i++) {
+        for (size_t j = 0; j < new_width; j++) {
+          for (unsigned int k = 0; k < (*this)[band].n_bytes(); k++) {
+            result[band][{j, i}][k] = (*this)[band][{j + top_left.x(), i + top_left.y()}][k];
+          }
+        }
+      }
+    }
   } else {
     static_assert(is_specialization_v<GridT, Grid>);
   }

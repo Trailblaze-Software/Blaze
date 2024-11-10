@@ -44,9 +44,12 @@ bool validated(T* box) {
 }
 
 bool ConfigEditor::is_valid() const {
+  bool all_las_files_exist = std::all_of(
+      m_config->las_files.begin(), m_config->las_files.end(),
+      [this](const fs::path& las_file) { return m_config->get_las_files(las_file).size(); });
   return validated(ui->scale_dropdown) && validated(ui->dpi_dropdown) &&
          validated(ui->out_dir_line_edit) && !m_config->processing_steps.empty() &&
-         !m_config->las_files.empty();
+         !m_config->las_files.empty() && all_las_files_exist;
 }
 
 ConfigEditor::ConfigEditor(QWidget* parent)
@@ -134,7 +137,7 @@ void ConfigEditor::remove_las_file() {
   QList<QTreeWidgetItem*> items = ui->treeWidget->selectedItems();
   for (QTreeWidgetItem* item : items) {
     m_config->las_files.erase(std::remove(m_config->las_files.begin(), m_config->las_files.end(),
-                                          item->text(0).toStdString()),
+                                          item->text(1).toStdString()),
                               m_config->las_files.end());
     delete item;
   }
@@ -172,6 +175,7 @@ void ConfigEditor::open_output_directory() {
   }
   m_config->set_output_directory(output_dir_name.toStdString());
   ui->out_dir_line_edit->setText(output_dir_name);
+  config_changed();
 }
 
 void ConfigEditor::set_ui_to_config(const Config& config) {
@@ -192,18 +196,27 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
                 ProcessingStep::Combine) != config.processing_steps.end());
 
   ui->treeWidget->clear();
+  ui->treeWidget->setColumnWidth(0, 60);
   for (const fs::path& path : config.las_files) {
     QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget);
-    item->setText(0, path.string().c_str());
+    item->setText(1, path.string().c_str());
+    std::vector<fs::path> las_files = config.get_las_files(path);
+    item->setExpanded(las_files.size() > 1);
+    item->setText(0, QString::number(las_files.size()));
+    item->setTextAlignment(0, Qt::AlignCenter);
     ui->treeWidget->addTopLevelItem(item);
-    if (!fs::exists(path)) {
-      item->setBackground(0, QBrush(Qt::red));
+    if (las_files.size() == 0) {
+      item->setForeground(0, QBrush(Qt::red));
+      item->setForeground(1, QBrush(Qt::red));
     } else if (fs::is_directory(path)) {
-      for (const fs::directory_entry& entry : fs::directory_iterator(path)) {
+      for (const fs::path& entry : las_files) {
         QTreeWidgetItem* child = new QTreeWidgetItem(item);
-        child->setText(0, entry.path().string().c_str());
+        child->setText(1, entry.string().c_str());
+        child->setDisabled(true);
         item->addChild(child);
       }
     }
   }
+
+  config_changed();
 }

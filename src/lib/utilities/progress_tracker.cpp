@@ -9,7 +9,11 @@
 ProgressObserver::~ProgressObserver() {};
 
 void ProgressBar::update_progress(double progress) {
+  if (progress - m_last_progress < 0.0001) {
+    return;
+  }
   std::cout << "Progress: " << progress * 100 << "%" << std::endl;
+  m_last_progress = progress;
 }
 
 void ProgressBar::text_update(const std::string& text, int depth) {
@@ -17,7 +21,8 @@ void ProgressBar::text_update(const std::string& text, int depth) {
 };
 
 void ProgressTracker::_set_proportion(double proportion) {
-  Assert(proportion >= m_proportion && proportion <= 1);
+  AssertGE(proportion, m_proportion);
+  AssertGE(1, proportion);
   m_proportion = proportion;
   if (m_observer != nullptr) {
     m_observer->update_progress(m_proportion);
@@ -61,7 +66,6 @@ void ProgressTracker::text_update(const std::string& text, int depth) {
 
 ProgressTracker ProgressTracker::subtracker(double start, double end) {
   set_proportion(start);
-  AssertGE(start, m_proportion);
   AssertGE(end, start);
   AssertGE(1, end);
   m_subtracker_range = std::make_pair(start, end);

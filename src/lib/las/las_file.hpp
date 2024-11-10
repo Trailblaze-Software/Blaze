@@ -146,12 +146,12 @@ class LASFile {
     m_bounds.grow(point.x(), point.y(), point.z());
   }
 
-  explicit LASFile(const std::string &filename)
+  explicit LASFile(const std::string &filename, ProgressTracker progress_tracker)
       : m_height_range({std::numeric_limits<double>::max(), std::numeric_limits<double>::min()}),
         m_intensity_range(
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}) {
     Timer timer;
-    std::cout << "Reading " << filename << " ..." << std::endl;
+    progress_tracker.text_update(to_string("Reading ", filename, " ..."));
     pdal::Option las_opt("filename", filename);
     pdal::Options las_opts;
     las_opts.add(las_opt);
@@ -167,7 +167,7 @@ class LASFile {
     m_original_bounds = m_bounds;
     m_projection = GeoProjection(las_header.srs().getWKT());
 
-    std::cout << "Read " << point_view->size() << " points" << std::endl;
+    progress_tracker.text_update(to_string("Read ", point_view->size(), " points"));
     // std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT())
     //<< std::endl;
     //
@@ -177,21 +177,25 @@ class LASFile {
     //<< " (" << point_view->dimType(dim) << ")" << std::endl;
     //}
 
-    std::cout << "Reading metadata took " << timer << std::endl;
+    progress_tracker.text_update("Reading metadata took " + to_string(timer));
 
     Timer point_timer;
     for (pdal::PointId idx = 0; idx < point_view->size(); idx++) {
       insert(LASPoint(point_view->point(idx)));
     }
-    std::cout << "Reading points took " << point_timer << std::endl;
+
+    progress_tracker.text_update(
+        to_string("Reading ", point_view->size(), " points took ", point_timer));
   }
 
   auto begin() { return m_points.begin(); }
   auto end() { return m_points.end(); }
 
-  static LASFile with_border(const fs::path &filename, double border_width) {
-    LASFile las_file(filename.string());
+  static LASFile with_border(const fs::path &filename, double border_width,
+                             ProgressTracker progress_tracker) {
+    LASFile las_file(filename.string(), progress_tracker.subtracker(0.0, 0.6));
     pdal::BOX3D original_bounds = las_file.bounds();
+    std::vector<fs::path> border_filenames;
     for (const BorderType border_type :
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
           BorderType::SW, BorderType::W, BorderType::NW}) {
@@ -199,17 +203,25 @@ class LASFile {
       fs::path border_filename = LocalDataRetriever::get_local_data("extracted_borders") /
                                  (unique_coord_name(box) + ".las");
       if (fs::exists(border_filename)) {
-        LASFile border_file(border_filename.string());
-        for (const LASPoint &point : border_file) {
-          las_file.insert(point);
-        }
-        las_file.m_bounds.grow(border_file.bounds());
+        border_filenames.push_back(border_filename);
       } else {
         std::cerr << border_type << " border file " << border_filename << " does not exist"
                   << std::endl;
       }
     }
-    std::cout << "Combined " << filename << " with borders " << las_file.m_bounds << std::endl;
+    ProgressTracker subtracker = progress_tracker.subtracker(0.6, 1.0);
+    for (size_t i = 0; i < border_filenames.size(); i++) {
+      const fs::path &border_filename = border_filenames[i];
+      LASFile border_file(border_filename.string(),
+                          subtracker.subtracker((double)i / border_filenames.size(),
+                                                (double)(i + 1) / border_filenames.size()));
+      for (const LASPoint &point : border_file) {
+        las_file.insert(point);
+      }
+      las_file.m_bounds.grow(border_file.bounds());
+    }
+    progress_tracker.text_update(
+        to_string("Combined ", filename, " with borders ", las_file.m_bounds));
     return las_file;
   }
 
@@ -236,7 +248,8 @@ class LASFile {
   LASPoint &operator[](std::size_t i) { return m_points[i]; }
   void push_back(const LASPoint &point) { m_points.push_back(point); }
 
-  void write(const fs::path &filename) const {
+  void write(const fs::path &filename, std::optional<ProgressTracker> progress_tracker = {}) const {
+    (void)progress_tracker;
     pdal::Options options;
     options.add("filename", filename.string());
     options.add("dataformat_id", 0);
@@ -267,10 +280,14 @@ class LASFile {
 
   const pdal::BOX3D &bounds() const { return m_bounds; }
 
-  void extract_borders(const fs::path &tmp_dir, double border_width) {
+  void extract_borders(const fs::path &tmp_dir, double border_width,
+                       ProgressTracker progress_tracker) const {
+    size_t idx = 0;
     for (const BorderType border_type :
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
           BorderType::SW, BorderType::W, BorderType::NW}) {
+      progress_tracker.set_proportion((double)idx / 8);
+      idx++;
       pdal::BOX2D box = border_ranges(m_bounds.to2d(), border_type, border_width);
       std::vector<LASPoint> border_points;
       LASFile border_file(box, GeoProjection(m_projection));
@@ -279,26 +296,29 @@ class LASFile {
           border_file.insert(point);
         }
       }
-      border_file.write(tmp_dir / (unique_coord_name(border_file.bounds().to2d()) + ".las"));
+      border_file.write(
+          tmp_dir / (unique_coord_name(border_file.bounds().to2d()) + ".las"),
+          progress_tracker.subtracker(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
     }
   }
 };
 
-inline void extract_borders(const fs::path &las_filename, double border_width) {
+inline void extract_borders(const fs::path &las_filename, double border_width,
+                            ProgressTracker progress_tracker) {
   fs::path tmp_dir = LocalDataRetriever::get_local_data("extracted_borders");
   fs::create_directories(tmp_dir);
 
   fs::path done_file = tmp_dir / (las_filename.stem().string() + ".done");
 
   if (fs::exists(done_file)) {
-    std::cout << "Skipping " << las_filename << " because it has already been processed"
-              << std::endl;
+    progress_tracker.text_update(
+        to_string("Skipping ", las_filename, " because it has already been processed"));
     return;
   }
 
-  std::cout << "Extracting borders from " << las_filename << " ..." << std::endl;
-  LASFile las_file(las_filename.string());
-  las_file.extract_borders(tmp_dir, border_width);
+  progress_tracker.text_update(to_string("Extracting borders from ", las_filename, " ..."));
+  LASFile las_file(las_filename.string(), progress_tracker.subtracker(0.0, 0.6));
+  las_file.extract_borders(tmp_dir, border_width, progress_tracker.subtracker(0.6, 1.0));
 
   // create done file
   std::ofstream bla(done_file);

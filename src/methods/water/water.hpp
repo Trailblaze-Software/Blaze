@@ -7,6 +7,7 @@
 #include "utilities/coordinate.hpp"
 
 struct WaterConfigs;
+class ProgressTracker;
 
 struct Stream {
   std::vector<Coordinate2D<double>> coords;
@@ -20,4 +21,4 @@ std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, do
                                                  double min_area = 500);
 
 std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs& config,
-                                 bool already_filled = false);
+                                 ProgressTracker progress_tracker, bool already_filled = false);

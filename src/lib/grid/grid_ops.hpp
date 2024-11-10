@@ -15,9 +15,9 @@ enum class DownsampleMethod { MEAN, MEDIAN };
 #define SQ(x) ((x) * (x))
 
 template <typename T>
-GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
+GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor, ProgressTracker &&progress_tracker,
                       DownsampleMethod method = DownsampleMethod::MEDIAN) {
-  TimeFunction timer("downsampling");
+  TimeFunction timer("downsampling", &progress_tracker);
   AssertEQ(grid.transform().dx(), -grid.transform().dy());
   GeoGrid<T> result(std::ceil((double)grid.width() / factor),
                     std::ceil((double)grid.height() / factor),
@@ -48,8 +48,9 @@ GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor,
 }
 
 template <typename T>
-GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 1, bool z_only = false) {
-  TimeFunction timer("remove outliers");
+GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, ProgressTracker progress_tracker,
+                           double z_threshold = 1, bool z_only = false) {
+  TimeFunction timer("remove outliers", &progress_tracker);
   GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                     GeoProjection(grid.projection()));
   result.copy_from(grid);
@@ -106,8 +107,8 @@ GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, double z_threshold = 1, bool 
 bool has_value(double value) { return std::isfinite(value) && value < 1e6; }
 
 template <typename T>
-GeoGrid<T> interpolate_holes(const GeoGrid<T> &grid) {
-  TimeFunction timer("interpolate holes");
+GeoGrid<T> interpolate_holes(const GeoGrid<T> &grid, ProgressTracker progress_tracker) {
+  TimeFunction timer("interpolate holes", &progress_tracker);
   GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                     GeoProjection(grid.projection()));
 #pragma omp parallel for

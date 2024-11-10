@@ -23,6 +23,8 @@ class ProgressObserver {
 };
 
 class ProgressBar : public ProgressObserver {
+  double m_last_progress;
+
  protected:
   virtual void update_progress(double progress) override;
   virtual void text_update(const std::string& text, int depth = 0) override;

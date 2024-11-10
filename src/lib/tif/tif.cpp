@@ -65,8 +65,9 @@ Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
 }
 
 template <typename GridT>
-void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
-  TimeFunction timer("writing to tif " + filename.string());
+void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
+                  std::optional<ProgressTracker> progress_tracker) {
+  TimeFunction timer("writing to tif " + filename.string(), progress_tracker);
   GDALAllRegister();
 
   char **options = nullptr;
@@ -144,16 +145,24 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename) {
   ;
 }
 
-template void write_to_tif(const GeoGrid<double> &grid, const fs::path &filename);
-template void write_to_tif(const GeoGrid<std::byte> &grid, const fs::path &filename);
-template void write_to_tif(const GeoGrid<RGBColor> &grid, const fs::path &filename);
-template void write_to_tif(const GeoGrid<CMYKColor> &grid, const fs::path &filename);
-template void write_to_tif(const GeoGrid<std::optional<std::byte>> &grid, const fs::path &filename);
-template void write_to_tif(const GeoGrid<std::optional<double>> &grid, const fs::path &filename);
-template void write_to_tif(const Geo<MultiBand<FlexGrid>> &grid, const fs::path &filename);
+template void write_to_tif(const GeoGrid<double> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const GeoGrid<std::byte> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const GeoGrid<RGBColor> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const GeoGrid<CMYKColor> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const GeoGrid<std::optional<std::byte>> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const GeoGrid<std::optional<double>> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const Geo<MultiBand<FlexGrid>> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
 
 template <typename T>
-void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename) {
+void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename,
+                        std::optional<ProgressTracker> progress_tracker) {
   GeoGrid<std::byte> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                             GeoProjection(grid.projection()));
   T min = grid.min_value();
@@ -170,7 +179,11 @@ void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename) {
   }
   CMYKColor cmyk = CMYKColor::FromRGB(RGBColor(255, 255, 255));
   (void)cmyk;
-  write_to_tif(result, filename);
+  write_to_tif(result, filename,
+               progress_tracker
+                   ? std::optional<ProgressTracker>(progress_tracker->subtracker(0.5, 1.0))
+                   : std::nullopt);
 }
 
-template void write_to_image_tif(const GeoGrid<double> &grid, const fs::path &filename);
+template void write_to_image_tif(const GeoGrid<double> &grid, const fs::path &filename,
+                                 std::optional<ProgressTracker> progress_tracker);

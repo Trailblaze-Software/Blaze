@@ -57,12 +57,26 @@
          <property name="selectionMode">
           <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
          </property>
-         <property name="headerHidden">
-          <bool>true</bool>
+         <property name="textElideMode">
+          <enum>Qt::TextElideMode::ElideLeft</enum>
          </property>
+         <property name="headerHidden">
+          <bool>false</bool>
+         </property>
+         <attribute name="headerVisible">
+          <bool>true</bool>
+         </attribute>
          <column>
           <property name="text">
-           <string notr="true">1</string>
+           <string># Files</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Filepath</string>
           </property>
          </column>
         </widget>

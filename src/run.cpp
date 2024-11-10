@@ -68,7 +68,9 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
           step_tracker.text_update("Extracting borders " + std::to_string(i + 1) + " of " +
                                    std::to_string(las_files.size()) + ": " +
                                    las_files[i].filename().string());
-          extract_borders(las_files[i], config.border_width);
+          extract_borders(las_files[i], config.border_width,
+                          step_tracker.subtracker((double)i / las_files.size(),
+                                                  (double)(i + 1) / las_files.size()));
         }
         break;
       case ProcessingStep::Tiles:
@@ -159,7 +161,8 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
                                        GeoTransform(combined_grid.transform()),
                                        GeoProjection(combined_grid.projection()));
             filled_dem.fill_from(combined_grid[0]);
-            std::vector<Stream> stream_path = stream_paths(filled_dem, config.water, true);
+            std::vector<Stream> stream_path =
+                stream_paths(filled_dem, config.water, step_tracker.subtracker(0.8, 0.9), true);
             write_to_dxf(stream_path, config.output_path() / "combined" / "streams.dxf", "streams");
           }
         }

@@ -188,7 +188,7 @@ class Coordinate2D {
 };
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>>>
-std::array<Coordinate2D<T>, 4> orthogonal_neighbours(const Coordinate2D<T> &coord) {
+std::array<Coordinate2D<T>, 4> orthogonal_neighbors(const Coordinate2D<T> &coord) {
   return {Coordinate2D<T>(coord.x() - 1, coord.y()), Coordinate2D<T>(coord.x() + 1, coord.y()),
           Coordinate2D<T>(coord.x(), coord.y() - 1), Coordinate2D<T>(coord.x(), coord.y() + 1)};
 }

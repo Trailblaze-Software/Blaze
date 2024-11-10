@@ -217,6 +217,23 @@ struct Config {
     return las_filepaths;
   }
 
+  std::vector<fs::path> get_las_files(const fs::path& las_path) const {
+    std::vector<fs::path> file_list;
+    fs::path actual_path = las_path.is_absolute() ? las_path : relative_path_to_config / las_path;
+    if (fs::exists(actual_path)) {
+      if (fs::is_directory(actual_path)) {
+        for (const fs::directory_entry& entry : fs::directory_iterator(actual_path)) {
+          if (entry.path().extension() == ".las" || entry.path().extension() == ".laz") {
+            file_list.push_back(entry.path());
+          }
+        }
+      } else if (actual_path.extension() == ".las" || actual_path.extension() == ".laz") {
+        file_list.push_back(actual_path);
+      }
+    }
+    return file_list;
+  }
+
   static Config FromFile(const fs::path& filename);
 
   void write_to_file(const fs::path& filename) const;

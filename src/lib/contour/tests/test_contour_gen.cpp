@@ -24,7 +24,8 @@ TEST(ContourGen, ContourGen) {
 
   ContourConfigs configs({{"normal", ContourConfig{1.0, 1, RGBColor(0, 0, 0, 0), 0.14}}});
   std::vector<Contour> contours = generate_contours(
-      grid, ContourConfigs({{"normal", ContourConfig{1.0, 1, RGBColor(0, 0, 0, 0), 0.14}}}));
+      grid, ContourConfigs({{"normal", ContourConfig{1.0, 1, RGBColor(0, 0, 0, 0), 0.14}}}),
+      ProgressTracker());
   EXPECT_EQ(contours.size(), 1);
   EXPECT_EQ(contours[0].points().size(), 5);
   EXPECT_DOUBLE_EQ(contours[0].height(), 1.0);
@@ -38,7 +39,8 @@ TEST(ContourGen, ContourGen2) {
   TestGrid grid(data);
 
   std::vector<Contour> contours = generate_contours(
-      grid, ContourConfigs{{{"normal", ContourConfig{1.0, 1, RGBColor(0, 0, 0, 0), 0.14}}}});
+      grid, ContourConfigs{{{"normal", ContourConfig{1.0, 1, RGBColor(0, 0, 0, 0), 0.14}}}},
+      ProgressTracker());
   EXPECT_EQ(contours.size(), 2);
 
   EXPECT_EQ(contours[0].points().size(), 14);

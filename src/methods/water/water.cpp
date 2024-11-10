@@ -224,8 +224,8 @@ std::vector<Coordinate2D<double>> smoothify(const std::vector<Coordinate2D<doubl
   return result;
 }
 std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs& config,
-                                 bool already_filled) {
-  TimeFunction timer("stream paths");
+                                 ProgressTracker progress_tracker, bool already_filled) {
+  TimeFunction timer("stream paths", &progress_tracker);
 
   std::optional<GeoGrid<double>> local_filled;
   if (!already_filled) {

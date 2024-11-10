@@ -62,13 +62,12 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid, double origi
 
 void process_las_file(const fs::path& las_filename, const Config& config,
                       ProgressTracker progress_tracker) {
-  TimeFunction outer_timer("processing LAS file " + las_filename.string());
+  TimeFunction outer_timer("processing LAS file " + las_filename.string(), &progress_tracker);
   fs::path output_dir = config.output_path() / las_filename.stem();
   fs::create_directories(output_dir);
 
-  LASFile las_file = LASFile::with_border(las_filename, config.border_width);
-
-  progress_tracker.set_proportion(0.4);
+  LASFile las_file = LASFile::with_border(las_filename, config.border_width,
+                                          progress_tracker.subtracker(0.0, 0.4));
 
   double bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
@@ -79,7 +78,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
       GeoProjection(las_file.projection()));
 
   {
-    TimeFunction timer("binning points");
+    TimeFunction timer("binning points", &progress_tracker);
     for (const LASPoint& las_point : las_file) {
       binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
           las_point);
@@ -107,7 +106,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
     bool only_classified_ground = true;
     LASFile ground_points_las =
         LASFile(*ground_points.extent(), GeoProjection(ground_points.projection()));
-    TimeFunction timer("min finding");
+    TimeFunction timer("min finding", &progress_tracker);
 #pragma omp parallel for
     for (size_t i = 0; i < binned_points.height(); i++) {
       for (size_t j = 0; j < binned_points.width(); j++) {
@@ -142,45 +141,62 @@ void process_las_file(const fs::path& las_filename, const Config& config,
         water[{j, i}] = is_water ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
       }
     }
-    if (OUT_LAS) ground_points_las.write(output_dir / "ground_points_mins.las");
+    if (OUT_LAS)
+      ground_points_las.write(output_dir / "ground_points_mins.las",
+                              progress_tracker.subtracker(0.59, 0.6));
   }
   progress_tracker.set_proportion(0.6);
 
   GeoGrid<double> ground = get_pixel_heights(ground_points);
 
   write_to_tif(ground_intensity_img.slice(las_file.export_bounds()),
-               output_dir / "ground_intensity.tif");
+               output_dir / "ground_intensity.tif", progress_tracker.subtracker(0.62, 0.63));
 
-  ground = remove_outliers(ground, config.ground.outlier_removal_height_diff);
-  ground = interpolate_holes(ground);
+  ground = remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64),
+                           config.ground.outlier_removal_height_diff);
+  ground = interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
 
-  write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif");
-  write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif");
-  write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif");
+  write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
+               progress_tracker.subtracker(0.65, 0.66));
+  write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif",
+               progress_tracker.subtracker(0.66, 0.67));
+  write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif",
+               progress_tracker.subtracker(0.67, 0.68));
 
-  if (OUT_LAS) LASFile(ground).write(output_dir / "ground.las");
+  if (OUT_LAS)
+    LASFile(ground).write(output_dir / "ground.las", progress_tracker.subtracker(0.68, 0.69));
 
+  std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
+      downsample(ground, config.grid.downsample_factor, progress_tracker.subtracker(0.69, 0.7)));
   GeoGrid<double> smooth_ground =
-      remove_outliers(downsample(ground, config.grid.downsample_factor),
+      remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
                       config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
   if (OUT_LAS)
-    LASFile(downsample(ground, config.grid.downsample_factor))
-        .write(output_dir / "smooth_ground_no_outlier_removal.las");
-  write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif");
+    LASFile(*downsampled_ground).write(output_dir / "smooth_ground_no_outlier_removal.las");
+  downsampled_ground.reset();
 
-  if (OUT_LAS) LASFile(smooth_ground).write(output_dir.parent_path() / "smooth_ground.las");
+  write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif",
+               progress_tracker.subtracker(0.72, 0.73));
+
+  if (OUT_LAS)
+    LASFile(smooth_ground)
+        .write(output_dir.parent_path() / "smooth_ground.las",
+               progress_tracker.subtracker(0.73, 0.74));
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
-    write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif");
+    write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif",
+                       progress_tracker.subtracker(0.74, 0.75));
   }
 
   smooth_ground = adjust_ground_to_slope(smooth_ground, ground.dx());
   if (OUT_LAS) LASFile(smooth_ground).write(output_dir / "smooth_ground.las");
 
-  const std::vector<Contour> contours = generate_contours(smooth_ground, config.contours);
+  const std::vector<Contour> contours =
+      generate_contours(smooth_ground, config.contours, progress_tracker.subtracker(0.75, 0.76));
 
-  std::vector<Stream> stream_path = stream_paths(smooth_ground, config.water);
+  std::vector<Stream> stream_path =
+      stream_paths(smooth_ground, config.water, progress_tracker.subtracker(0.76, 0.77));
 
   std::vector<Coordinate2D<size_t>> sinks = identify_sinks(smooth_ground);
   GeoGrid<double> filled = fill_depressions(smooth_ground, sinks);
@@ -244,7 +260,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
     vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }
 
-  progress_tracker.set_proportion(0.7);
+  progress_tracker.set_proportion(0.78);
 
   write_to_image_tif(hill_shade(smooth_ground).slice(las_file.export_bounds()),
                      output_dir / "hill_shade_multi.tif");
@@ -290,18 +306,18 @@ void process_las_file(const fs::path& las_filename, const Config& config,
       GeoProjection(vege_color.projection()));
 
   {
-    TimeFunction timer("drawing vege");
+    TimeFunction timer("drawing vege", &progress_tracker);
     final_img.draw(GeoImgGrid(vege_color));
   }
 
   progress_tracker.set_proportion(0.8);
   {
-    TimeFunction timer("drawing stuff");
+    TimeFunction timer("drawing stuff", &progress_tracker);
     final_img.draw(GeoImgGrid(water_color));
   }
 
   {
-    TimeFunction timer("drawing contours");
+    TimeFunction timer("drawing contours", &progress_tracker);
     for (const Contour& contour : contours) {
       if (config.contours.layer_name_from_height(contour.height()) == "Contour") continue;
       const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
@@ -311,7 +327,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   }
 
   {
-    TimeFunction timer("drawing paths");
+    TimeFunction timer("drawing paths", &progress_tracker);
     for (const Stream& stream : stream_path) {
       const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
       final_img.draw(stream.coords, water_config.color,
@@ -320,7 +336,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   }
 
   {
-    TimeFunction timer("drawing stuff");
+    TimeFunction timer("drawing stuff", &progress_tracker);
     final_img.draw(GeoImgGrid(building_color));
   }
 
@@ -336,7 +352,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   }
 
   {
-    TimeFunction timer("drawing paths");
+    TimeFunction timer("drawing paths", &progress_tracker);
     for (const Stream& stream : stream_path) {
       const WaterConfig& water_config = config.water.config_from_catchment(stream.catchment);
       final_img.draw(stream.coords, water_config.color,

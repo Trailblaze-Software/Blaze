@@ -1,8 +1,14 @@
 #pragma once
 
+#ifndef _MSC_VER
+#define HAS_BUILTIN(x) __has_builtin(x)
+#else
+#define HAS_BUILTIN(x) 0
+#endif
+
 #include <iostream>
 #include <optional>
-#if defined(_MSC_VER) || __has_builtin(__builtin_source_location)
+#if defined(_MSC_VER) || HAS_BUILTIN(__builtin_source_location)
 #include <source_location>
 #else
 #include <experimental/source_location>
@@ -44,6 +50,8 @@ inline void _Assert(bool condition, const std::string &condition_str,
 #define Fail(...)             \
   Assert(false, __VA_ARGS__); \
   unreachable()
+
+#define Unimplemented(...) Assert(false, "Unimplemented");
 
 template <typename A, typename B>
 inline void _AssertBinOp(const A &a, const B &b, const std::string &a_str, const std::string &b_str,

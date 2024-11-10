@@ -49,6 +49,8 @@ add_compile_definitions(GIT_COMMIT_HASH="${GIT_COMMIT_HASH}")
 
 find_package(PDAL REQUIRED)
 find_package(GDAL REQUIRED)
+
+set(OpenMP_RUNTIME_MSVC "llvm")
 find_package(OpenMP REQUIRED)
 
 set(OpenCV_STATIC ON)
@@ -63,8 +65,11 @@ if(WIN32)
         "${CMAKE_CXX_FLAGS} -fstrict-enums -Wall -Wextra -Wpedantic -Werror")
   else()
     set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} /openmp:llvm /Wall /MP /wd5045 /wd4866 /wd4514 /wd4820 /wd4800 /wd4242 /wd4244 /wd4365 /wd5027 /wd4626 /wd5219 /wd4623 /wd4267 /wd4710 /wd4711 /wd4625 /wd5026"
+        "${CMAKE_CXX_FLAGS} /Wall /MP /wd5045 /wd4866 /wd4514 /wd4820 /wd4800 /wd4242 /wd4244 /wd4365 /wd5027 /wd4626 /wd5219 /wd4623 /wd4267 /wd4710 /wd4711 /wd4625 /wd5026 /wd4464"
     )
+    if(CMAKE_VERSION VERSION_LESS 3.30)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /openmp:llvm")
+    endif()
   endif()
   add_compile_definitions(NOMINMAX NOGDI)
 elseif(UNIX)
