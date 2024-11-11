@@ -12,6 +12,9 @@
 
 #include "grid/grid.hpp"
 #include "las_point.hpp"
+#include "utilities/filesystem.hpp"
+#include "utilities/progress_tracker.hpp"
+#include "utilities/resources.hpp"
 #include "utilities/timer.hpp"
 
 enum class BorderType { N, NE, E, SE, S, SW, W, NW };
@@ -287,9 +290,7 @@ class LASFile {
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
           BorderType::SW, BorderType::W, BorderType::NW}) {
       progress_tracker.set_proportion((double)idx / 8);
-      idx++;
       pdal::BOX2D box = border_ranges(m_bounds.to2d(), border_type, border_width);
-      std::vector<LASPoint> border_points;
       LASFile border_file(box, GeoProjection(m_projection));
       for (const LASPoint &point : m_points) {
         if (box.contains(point.x(), point.y())) {
@@ -299,6 +300,7 @@ class LASFile {
       border_file.write(
           tmp_dir / (unique_coord_name(border_file.bounds().to2d()) + ".las"),
           progress_tracker.subtracker(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
+      idx++;
     }
   }
 };
