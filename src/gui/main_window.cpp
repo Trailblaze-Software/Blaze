@@ -12,6 +12,7 @@ MainWindow::MainWindow() : ui(new Ui::MainWindow) {
   try {
     if (!QIcon::hasThemeIcon("list-add")) {
       QIcon::setThemeName("Humanity");
+      QIcon::setFallbackThemeName("default");
     }
     ui->setupUi(this);
 

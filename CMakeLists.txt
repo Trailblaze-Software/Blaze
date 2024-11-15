@@ -108,7 +108,7 @@ set(ALL_EXECUTABLES ${CLI_EXE_NAME} ${UNIT_TESTS_NAME})
 if(NOT BLAZE_CLI_ONLY)
   set(GUI_EXE_NAME Blaze)
   list(APPEND ALL_EXECUTABLES ${GUI_EXE_NAME})
-  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core)
+  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core Svg)
   if(WIN32)
     qt_standard_project_setup()
   endif()
@@ -119,7 +119,8 @@ if(NOT BLAZE_CLI_ONLY)
     qt_add_executable(${GUI_EXE_NAME})
   endif()
   target_precompile_headers(${GUI_EXE_NAME} PRIVATE src/precompiled_headers.hpp)
-  target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent)
+  target_link_libraries(${GUI_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent
+                                                Qt6::Svg)
   set_target_properties(${GUI_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
                                                    MACOSX_BUNDLE ON)
 
