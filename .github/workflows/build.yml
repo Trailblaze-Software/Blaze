@@ -53,7 +53,7 @@ jobs:
           ./install-deps.sh
       - name: Install pdal
         run: |
-          sudo apt install -y libpdal-dev
+          sudo apt update && sudo apt install -y libpdal-dev
       - name: Build CLI code
         run: |
           ./linux-build.sh -DBLAZE_CLI_ONLY=True -DBLAZE_USE_PDAL=True
