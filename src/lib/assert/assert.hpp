@@ -31,9 +31,8 @@ using source_location = std::experimental::source_location;
 #endif
 }
 
-#define OptionalString(...) std::optional<std::string>(__VA_ARGS__)
 #define Assert(condition, ...) \
-  if (!(condition)) _Assert(condition, #condition, OptionalString(__VA_ARGS__));
+  if (!(condition)) _Assert(condition, #condition, std::optional<std::string>(__VA_ARGS__));
 
 inline void _Assert(bool condition, const std::string &condition_str,
                     const std::optional<std::string> &message,

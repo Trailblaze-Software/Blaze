@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cstdint>
+#ifdef USE_PDAL
 #include <pdal/PointRef.hpp>
+#endif
 #include <utilities/coordinate.hpp>
 
 #include "assert/assert.hpp"
@@ -53,6 +55,9 @@ class LASPoint : public Coordinate3D<double> {
   LASPoint(double x, double y, double z, uint16_t intensity, LASClassification classification)
       : Coordinate3D<double>(x, y, z), m_intensity(intensity), m_classification(classification) {}
 
+  LASPoint() = default;
+
+#ifdef USE_PDAL
   explicit LASPoint(const pdal::PointRef &point)
       : Coordinate3D<double>(point.getFieldAs<double>(pdal::Dimension::Id::X),
                              point.getFieldAs<double>(pdal::Dimension::Id::Y),
@@ -60,10 +65,14 @@ class LASPoint : public Coordinate3D<double> {
         m_intensity(point.getFieldAs<uint16_t>(pdal::Dimension::Id::Intensity)),
         m_classification(static_cast<LASClassification>(
             point.getFieldAs<uint8_t>(pdal::Dimension::Id::Classification))) {}
+#endif
 
   uint16_t intensity() const { return m_intensity; }
   LASClassification classification() const { return m_classification; }
+  uint16_t &intensity() { return m_intensity; }
+  LASClassification &classification() { return m_classification; }
 
+#ifdef USE_PDAL
   void write_to(pdal::PointRef point) const {
     point.setField(pdal::Dimension::Id::X, x());
     point.setField(pdal::Dimension::Id::Y, y());
@@ -71,6 +80,7 @@ class LASPoint : public Coordinate3D<double> {
     point.setField(pdal::Dimension::Id::Intensity, m_intensity);
     point.setField(pdal::Dimension::Id::Classification, static_cast<uint8_t>(m_classification));
   }
+#endif
 
   friend std::ostream &operator<<(std::ostream &os, const LASPoint &point) {
     os << "LASPoint((" << point.x() << ", " << point.y() << ", " << point.z()

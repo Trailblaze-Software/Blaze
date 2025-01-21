@@ -1,7 +1,6 @@
 #include "run.hpp"
 
 #include <iostream>
-#include <pdal/util/Bounds.hpp>
 
 #include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
@@ -119,7 +118,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;
 
-          pdal::BOX2D extent;
+          Extent2D extent;
           std::optional<double> dx, dy;
           for (const fs::path &las_file : las_files) {
             fs::path output_dir = config.output_path() / las_file.stem();

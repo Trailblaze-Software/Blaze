@@ -134,8 +134,12 @@ class Coordinate2D {
  public:
   Coordinate2D(T x, T y) : m_data{{x, y}} {}
 
-  T x() const { return m_data[0]; }
-  T y() const { return m_data[1]; }
+  Coordinate2D() = default;
+
+  const T x() const { return m_data[0]; }
+  const T y() const { return m_data[1]; }
+  T &x() { return m_data[0]; }
+  T &y() { return m_data[1]; }
 
   template <typename U>
   operator Coordinate2D<U>() const {
@@ -218,7 +222,10 @@ class Coordinate3D : public Coordinate2D<T> {
  public:
   Coordinate3D(T x, T y, T z) : Coordinate2D<T>(x, y), m_z(z) {}
 
-  T z() const { return m_z; }
+  Coordinate3D() = default;
+
+  const T z() const { return m_z; }
+  T &z() { return m_z; }
 };
 
 template <typename T>
@@ -277,5 +284,53 @@ class LineCoord2DCrossing : public LineCoord2D<T> {
     os << "LineCoord2DCrossing(" << line_coord.start() << ", " << line_coord.dir() << ", "
        << line_coord.crossing_dir() << ")";
     return os;
+  }
+};
+
+struct Extent2D {
+  double minx = std::numeric_limits<double>::infinity();
+  double maxx = -std::numeric_limits<double>::infinity();
+  double miny = std::numeric_limits<double>::infinity();
+  double maxy = -std::numeric_limits<double>::infinity();
+
+  bool contains(double x, double y) const {
+    return minx <= x && x <= maxx && miny <= y && y <= maxy;
+  }
+
+  void grow(const Extent2D &other) {
+    minx = std::min(minx, other.minx);
+    maxx = std::max(maxx, other.maxx);
+    miny = std::min(miny, other.miny);
+    maxy = std::max(maxy, other.maxy);
+  }
+
+  friend std::ostream &operator<<(std::ostream &os, const Extent2D &extent) {
+    return os << "[(" << extent.minx << ", " << extent.maxx << "), (" << extent.miny << ", "
+              << extent.maxy << ")]";
+  }
+};
+
+struct Extent3D : Extent2D {
+  double minz;
+  double maxz;
+
+  void grow(double x, double y, double z) {
+    minx = std::min(x, minx);
+    maxx = std::max(x, maxx);
+    miny = std::min(y, miny);
+    maxy = std::max(y, maxy);
+    minz = std::min(z, minz);
+    maxz = std::max(z, maxz);
+  }
+
+  void grow(const Extent3D &other) {
+    Extent2D::grow(other);
+    minz = std::min(minz, other.minz);
+    maxz = std::max(maxz, other.maxz);
+  }
+
+  friend std::ostream &operator<<(std::ostream &os, const Extent3D &extent) {
+    return os << "[(" << extent.minx << ", " << extent.maxx << "), (" << extent.miny << ", "
+              << extent.maxy << "), (" << extent.minz << ", " << extent.maxz << ")]";
   }
 };

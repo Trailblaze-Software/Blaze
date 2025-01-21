@@ -1,5 +1,11 @@
 #include <cstdint>
+#include <fstream>
 #include <iostream>
+#include <limits>
+
+#include "las_header.hpp"
+#include "las_writer.hpp"
+#ifdef USE_PDAL
 #include <pdal/Dimension.hpp>
 #include <pdal/SpatialReference.hpp>
 #include <pdal/io/BufferReader.hpp>
@@ -7,6 +13,9 @@
 #include <pdal/io/LasReader.hpp>
 #include <pdal/pdal.hpp>
 #include <pdal/util/Bounds.hpp>
+#else
+#include <las_reader.hpp>
+#endif
 #include <string>
 #include <vector>
 
@@ -41,48 +50,47 @@ inline std::ostream &operator<<(std::ostream &os, BorderType border_type) {
   unreachable();
 }
 
-inline pdal::BOX2D border_ranges(const pdal::BOX2D &box, BorderType border_type,
-                                 double border_width) {
+inline Extent2D border_ranges(const Extent2D &box, BorderType border_type, double border_width) {
   switch (border_type) {
     case BorderType::N:
-      return {box.minx, box.maxy - border_width, box.maxx, box.maxy};
+      return {box.minx, box.maxx, box.maxy - border_width, box.maxy};
     case BorderType::NE:
-      return {box.maxx - border_width, box.maxy - border_width, box.maxx, box.maxy};
+      return {box.maxx - border_width, box.maxx, box.maxy - border_width, box.maxy};
     case BorderType::E:
-      return {box.maxx - border_width, box.miny, box.maxx, box.maxy};
+      return {box.maxx - border_width, box.maxx, box.miny, box.maxy};
     case BorderType::SE:
-      return {box.maxx - border_width, box.miny, box.maxx, box.miny + border_width};
+      return {box.maxx - border_width, box.maxx, box.miny, box.miny + border_width};
     case BorderType::S:
-      return {box.minx, box.miny, box.maxx, box.miny + border_width};
+      return {box.minx, box.maxx, box.miny, box.miny + border_width};
     case BorderType::SW:
-      return {box.minx, box.miny, box.minx + border_width, box.miny + border_width};
+      return {box.minx, box.minx + border_width, box.miny, box.miny + border_width};
     case BorderType::W:
-      return {box.minx, box.miny, box.minx + border_width, box.maxy};
+      return {box.minx, box.minx + border_width, box.miny, box.maxy};
     case BorderType::NW:
-      return {box.minx, box.maxy - border_width, box.minx + border_width, box.maxy};
+      return {box.minx, box.minx + border_width, box.maxy - border_width, box.maxy};
   }
   unreachable();
 }
 
-inline pdal::BOX2D external_border_ranges(const pdal::BOX2D &box, BorderType border_type,
-                                          double border_width) {
+inline Extent2D external_border_ranges(const Extent2D &box, BorderType border_type,
+                                       double border_width) {
   switch (border_type) {
     case BorderType::N:
-      return {box.minx, box.maxy, box.maxx, box.maxy + border_width};
+      return {box.minx, box.maxx, box.maxy, box.maxy + border_width};
     case BorderType::NE:
-      return {box.maxx, box.maxy, box.maxx + border_width, box.maxy + border_width};
+      return {box.maxx, box.maxx + border_width, box.maxy, box.maxy + border_width};
     case BorderType::E:
-      return {box.maxx, box.miny, box.maxx + border_width, box.maxy};
+      return {box.maxx, box.maxx + border_width, box.miny, box.maxy};
     case BorderType::SE:
-      return {box.maxx, box.miny - border_width, box.maxx + border_width, box.miny};
+      return {box.maxx, box.maxx + border_width, box.miny - border_width, box.miny};
     case BorderType::S:
-      return {box.minx, box.miny - border_width, box.maxx, box.miny};
+      return {box.minx, box.maxx, box.miny - border_width, box.miny};
     case BorderType::SW:
-      return {box.minx - border_width, box.miny - border_width, box.minx, box.miny};
+      return {box.minx - border_width, box.minx, box.miny - border_width, box.miny};
     case BorderType::W:
-      return {box.minx - border_width, box.miny, box.minx, box.maxy};
+      return {box.minx - border_width, box.minx, box.miny, box.maxy};
     case BorderType::NW:
-      return {box.minx - border_width, box.maxy, box.minx, box.maxy + border_width};
+      return {box.minx - border_width, box.minx, box.maxy, box.maxy + border_width};
   }
   unreachable();
 }
@@ -96,36 +104,55 @@ inline T average(T a, T b) {
   return (a + b) / 2;
 }
 
-inline std::string unique_coord_name(const pdal::BOX2D &box) {
+inline std::string unique_coord_name(const Extent2D &box) {
   return std::to_string(round(box.minx, 10)) + "_" + std::to_string(round(box.miny, 10)) + "_" +
          std::to_string(round(box.maxx, 10)) + "_" + std::to_string(round(box.maxy, 10));
 }
 
+#ifdef USE_PDAL
 inline void print_metadata(const pdal::MetadataNode &node, const std::string &prefix = "") {
   std::cout << prefix << node.name() << ": " << node.value() << std::endl;
   for (const std::string &name : node.childNames()) {
     print_metadata(node.findChild(name), prefix + "  ");
   }
 }
+#endif
 
 #undef min
 #undef max
+
+inline void copy_from(LASPoint &point, const laspp::LASPointFormat0 &data) {
+  point.x() = data.x;
+  point.y() = data.y;
+  point.z() = data.z;
+  point.intensity() = data.intensity;
+  point.classification() = static_cast<LASClassification>(data.classification());
+}
+
+inline void copy_from(laspp::LASPointFormat0 &data, const LASPoint &point) {
+  data.x = point.x();
+  data.y = point.y();
+  data.z = point.z();
+  data.intensity = point.intensity();
+  data.classification_byte.classification =
+      static_cast<laspp::LASClassification>(static_cast<uint8_t>(point.classification()));
+}
 
 class LASFile {
   std::vector<LASPoint> m_points;
   std::pair<double, double> m_height_range;
   std::pair<uint16_t, uint16_t> m_intensity_range;
-  pdal::BOX3D m_bounds;
-  pdal::BOX3D m_original_bounds;
+  Extent3D m_bounds;
+  Extent3D m_original_bounds;
   GeoProjection m_projection;
 
  public:
-  explicit LASFile(const pdal::BOX2D &bounds, GeoProjection &&projection)
+  explicit LASFile(const Extent2D &bounds, GeoProjection &&projection)
       : m_height_range({std::numeric_limits<double>::max(), std::numeric_limits<double>::min()}),
         m_intensity_range(
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}),
-        m_bounds(bounds),
-        m_original_bounds(bounds),
+        m_bounds(bounds, std::numeric_limits<double>::max(), std::numeric_limits<double>::min()),
+        m_original_bounds(m_bounds),
         m_projection(projection) {};
 
   template <typename T>
@@ -155,6 +182,8 @@ class LASFile {
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}) {
     Timer timer;
     progress_tracker.text_update(to_string("Reading ", filename, " ..."));
+
+#ifdef USE_PDAL
     pdal::Option las_opt("filename", filename);
     pdal::Options las_opts;
     las_opts.add(las_opt);
@@ -166,7 +195,9 @@ class LASFile {
     pdal::PointViewPtr point_view = *point_view_set.begin();
     pdal::Dimension::IdList dims = point_view->dims();
     pdal::LasHeader las_header = las_reader.header();
-    m_bounds = las_header.getBounds();
+    const auto &bounds = las_header.getBounds();
+    m_bounds = Extent3D(Extent2D(bounds.minx, bounds.maxx, bounds.miny, bounds.maxy), bounds.minz,
+                        bounds.maxz);
     m_original_bounds = m_bounds;
     m_projection = GeoProjection(las_header.srs().getWKT());
 
@@ -189,6 +220,40 @@ class LASFile {
 
     progress_tracker.text_update(
         to_string("Reading ", point_view->size(), " points took ", point_timer));
+#else
+    std::ifstream file(filename, std::ios::binary);
+    laspp::LASReader reader(file);
+    laspp::Bound3D bounds = reader.header().bounds();
+    m_bounds = Extent3D(Extent2D(bounds.min_x(), bounds.max_x(), bounds.min_y(), bounds.max_y()),
+                        bounds.min_z(), bounds.max_z());
+    m_original_bounds = m_bounds;
+    m_projection = GeoProjection(reader.wkt().value());
+    progress_tracker.text_update("Reading metadata took " + to_string(timer));
+    Timer point_timer;
+
+    m_points.resize(reader.num_points());
+    reader.read_chunks(std::span<LASPoint>(m_points), {0, reader.num_chunks()});
+
+    progress_tracker.text_update(
+        to_string("Reading ", m_points.size(), " points took ", point_timer));
+
+    for (LASPoint &point : m_points) {
+      m_height_range.first = std::min(m_height_range.first, point.z());
+      m_height_range.second = std::max(m_height_range.second, point.z());
+      m_intensity_range.first = std::min(m_intensity_range.first, point.intensity());
+      m_intensity_range.second = std::max(m_intensity_range.second, point.intensity());
+
+      point.x() = point.x() * reader.header().transform().m_scale_factors[0] +
+                  reader.header().transform().m_offsets[0];
+      point.y() = point.y() * reader.header().transform().m_scale_factors[1] +
+                  reader.header().transform().m_offsets[1];
+      point.z() = point.z() * reader.header().transform().m_scale_factors[2] +
+                  reader.header().transform().m_offsets[2];
+    }
+
+    progress_tracker.text_update(to_string("Calculating extent took ", point_timer));
+
+#endif
   }
 
   auto begin() { return m_points.begin(); }
@@ -197,14 +262,14 @@ class LASFile {
   static LASFile with_border(const fs::path &filename, double border_width,
                              ProgressTracker progress_tracker) {
     LASFile las_file(filename.string(), progress_tracker.subtracker(0.0, 0.6));
-    pdal::BOX3D original_bounds = las_file.bounds();
+    Extent3D original_bounds = las_file.bounds();
     std::vector<fs::path> border_filenames;
     for (const BorderType border_type :
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
           BorderType::SW, BorderType::W, BorderType::NW}) {
-      pdal::BOX2D box = external_border_ranges(original_bounds.to2d(), border_type, border_width);
+      Extent2D box = external_border_ranges(original_bounds, border_type, border_width);
       fs::path border_filename = LocalDataRetriever::get_local_data("extracted_borders") /
-                                 (unique_coord_name(box) + ".las");
+                                 (unique_coord_name(box) + ".laz");
       if (fs::exists(border_filename)) {
         border_filenames.push_back(border_filename);
       } else {
@@ -236,14 +301,14 @@ class LASFile {
   double height() const { return m_bounds.maxy - m_bounds.miny; }
   const GeoProjection &projection() const { return m_projection; }
 
-  pdal::BOX2D export_bounds() const {
-    return pdal::BOX2D(average(m_bounds.minx, m_original_bounds.minx),
-                       average(m_bounds.miny, m_original_bounds.miny),
-                       average(m_bounds.maxx, m_original_bounds.maxx),
-                       average(m_bounds.maxy, m_original_bounds.maxy));
+  Extent2D export_bounds() const {
+    return Extent2D(average(m_bounds.minx, m_original_bounds.minx),
+                    average(m_bounds.maxx, m_original_bounds.maxx),
+                    average(m_bounds.miny, m_original_bounds.miny),
+                    average(m_bounds.maxy, m_original_bounds.maxy));
   }
 
-  pdal::BOX2D original_bounds() const { return m_original_bounds.to2d(); }
+  Extent2D original_bounds() const { return m_original_bounds; }
 
   std::pair<double, double> height_range() const { return m_height_range; }
   std::pair<uint16_t, uint16_t> intensity_range() const { return m_intensity_range; }
@@ -253,6 +318,7 @@ class LASFile {
 
   void write(const fs::path &filename, std::optional<ProgressTracker> progress_tracker = {}) const {
     (void)progress_tracker;
+#ifdef USE_PDAL
     pdal::Options options;
     options.add("filename", filename.string());
     options.add("dataformat_id", 0);
@@ -279,9 +345,27 @@ class LASFile {
     writer->setOptions(options);
     writer->prepare(table);
     writer->execute(table);
+#else
+    std::fstream file(filename, std::ios::binary | std::ios::in | std::ios::out | std::ios::trunc);
+    laspp::LASWriter las_writer(file, 128);
+    las_writer.write_wkt(m_projection.to_string());
+    std::vector<LASPoint> points_copy = m_points;
+    las_writer.header().transform().m_scale_factors[0] = 0.001;
+    las_writer.header().transform().m_scale_factors[1] = 0.001;
+    las_writer.header().transform().m_scale_factors[2] = 0.001;
+    las_writer.header().transform().m_offsets[0] = m_bounds.minx;
+    las_writer.header().transform().m_offsets[1] = m_bounds.miny;
+    las_writer.header().transform().m_offsets[2] = m_bounds.minz;
+    for (LASPoint &point : points_copy) {
+      point.x() = (point.x() - m_bounds.minx) / 0.001;
+      point.y() = (point.y() - m_bounds.miny) / 0.001;
+      point.z() = (point.z() - m_bounds.minz) / 0.001;
+    }
+    las_writer.write_points(std::span<const LASPoint>(points_copy));
+#endif
   }
 
-  const pdal::BOX3D &bounds() const { return m_bounds; }
+  const Extent3D &bounds() const { return m_bounds; }
 
   void extract_borders(const fs::path &tmp_dir, double border_width,
                        ProgressTracker progress_tracker) const {
@@ -290,7 +374,7 @@ class LASFile {
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
           BorderType::SW, BorderType::W, BorderType::NW}) {
       progress_tracker.set_proportion((double)idx / 8);
-      pdal::BOX2D box = border_ranges(m_bounds.to2d(), border_type, border_width);
+      Extent2D box = border_ranges(m_bounds, border_type, border_width);
       LASFile border_file(box, GeoProjection(m_projection));
       for (const LASPoint &point : m_points) {
         if (box.contains(point.x(), point.y())) {
@@ -298,7 +382,8 @@ class LASFile {
         }
       }
       border_file.write(
-          tmp_dir / (unique_coord_name(border_file.bounds().to2d()) + ".las"),
+          tmp_dir /
+              (unique_coord_name(static_cast<const Extent2D &>(border_file.bounds())) + ".laz"),
           progress_tracker.subtracker(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
       idx++;
     }

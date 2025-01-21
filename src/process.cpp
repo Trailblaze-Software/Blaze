@@ -12,7 +12,6 @@
 #include "lib/vegetation/vegetation.hpp"
 #include "methods/hill_shade/hill_shade.hpp"
 #include "methods/water/water.hpp"
-#include "printing/to_string.hpp"
 #include "tif/tif.hpp"
 #include "utilities/progress_tracker.hpp"
 

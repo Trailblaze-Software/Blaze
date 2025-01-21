@@ -52,7 +52,7 @@ Geo<GridT> same_type_different_size(const Geo<GridT> &grid, size_t new_width, si
 }
 
 template <typename GridT>
-Geo<GridT> Geo<GridT>::slice(const pdal::BOX2D &extent) {
+Geo<GridT> Geo<GridT>::slice(const Extent2D &extent) {
   Coordinate2D<size_t> top_left = transform().projection_to_pixel({extent.minx, extent.maxy});
   Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
   size_t new_width = bottom_right.x() - top_left.x();
@@ -94,7 +94,7 @@ Geo<GridT> Geo<GridT>::slice(const pdal::BOX2D &extent) {
 }
 
 template <typename GridT>
-std::unique_ptr<pdal::BOX2D> Geo<GridT>::extent() const {
+std::unique_ptr<Extent2D> Geo<GridT>::extent() const {
   Coordinate2D<double> top_left = transform().pixel_to_projection({0, 0});
   Coordinate2D<double> bottom_right =
       transform().pixel_to_projection({(double)GridT::width(), (double)GridT::height()});
@@ -102,7 +102,7 @@ std::unique_ptr<pdal::BOX2D> Geo<GridT>::extent() const {
   double max_x = std::max(top_left.x(), bottom_right.x());
   double min_y = std::min(top_left.y(), bottom_right.y());
   double max_y = std::max(top_left.y(), bottom_right.y());
-  return std::make_unique<pdal::BOX2D>(min_x, min_y, max_x, max_y);
+  return std::make_unique<Extent2D>(min_x, max_x, min_y, max_y);
 }
 
 template class Geo<Grid<double>>;

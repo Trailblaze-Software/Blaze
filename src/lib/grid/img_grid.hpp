@@ -38,5 +38,5 @@ class GeoImgGrid : public ImgGrid, public GeoGridData {
   void draw(const std::vector<Coordinate2D<double>> &in_points, const ColorVariant &color,
             double width);
 
-  void save_to(const fs::path &path, const pdal::BOX2D &extent);
+  void save_to(const fs::path &path, const Extent2D &extent);
 };

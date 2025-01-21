@@ -1,7 +1,5 @@
 #pragma once
 
-#include <pdal/util/Bounds.hpp>
-
 #include "config_input/config_input.hpp"
 #include "contour.hpp"
 #include "utilities/timer.hpp"
@@ -64,7 +62,7 @@ inline std::vector<Contour> join_contours(const std::vector<Contour> &contours,
 }
 
 inline std::vector<Contour> trim_contours(const std::vector<Contour> &contours,
-                                          const pdal::BOX2D &bounds) {
+                                          const Extent2D &bounds) {
   std::vector<Contour> trimmed_contours;
   for (const Contour &c : contours) {
     Contour trimmed_contour(c.height(), std::vector<Coordinate2D<double>>{});

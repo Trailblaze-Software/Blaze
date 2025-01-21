@@ -11,10 +11,6 @@
 #include "assert/assert.hpp"
 #include "utilities/coordinate.hpp"
 
-namespace pdal {
-class BOX2D;
-}
-
 class GDALDataset;
 class RGBColor;
 
@@ -308,8 +304,8 @@ class Geo : public GridT, public GeoGridData {
 
   static Geo<Grid<RGBColor>> FromGeoImg(const GeoImgGrid &grid);
 
-  Geo slice(const pdal::BOX2D &extent);
-  std::unique_ptr<pdal::BOX2D> extent() const;
+  Geo slice(const Extent2D &extent);
+  std::unique_ptr<Extent2D> extent() const;
 
   template <typename U>
   void fill_from(const Geo<U> &other) {

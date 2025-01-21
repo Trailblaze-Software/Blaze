@@ -15,7 +15,7 @@ else()
 endif()
 
 option(BLAZE_CLI_ONLY "Build Blaze CLI only" OFF)
-option(BLAZE_USE_PDAL "Use PDAL for Blaze LAS IO" ON)
+option(BLAZE_USE_PDAL "Use PDAL for Blaze LAS IO" OFF)
 
 if(WIN32)
   if(NOT BLAZE_CLI_ONLY)
@@ -142,6 +142,14 @@ else()
   enable_testing()
 endif()
 
+FetchContent_Declare(
+  las++
+  GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
+  GIT_TAG 05837251e9764fcbdcd895e2109c74131e459f17)
+set(LASPP_DEBUG_ASSERTS ON)
+FetchContent_MakeAvailable(las++)
+target_link_libraries(${LIBRARY_NAME} PRIVATE las++)
+
 set(INSTALL_GTEST OFF)
 FetchContent_Declare(
   googletest
@@ -234,7 +242,7 @@ endif()
 set(CPACK_PACKAGE_NAME "Blaze")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Blaze LIDAR mapping tool")
 set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+# set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/Trailblaze-Software/blaze")
 set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 set(CPACK_PACKAGE_CONTACT "Ryan Stocks ryan.stocks00@gmail.com")
