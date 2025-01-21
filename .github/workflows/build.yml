@@ -30,10 +30,10 @@ jobs:
           ./install-deps.sh
       - name: Build CLI code
         run: |
-          ./build.sh -DBLAZE_CLI_ONLY=True
+          ./linux-build.sh -DBLAZE_CLI_ONLY=True
       - name: Build GUI code
         run: |
-          rm -rf linux-build && ./build.sh
+          rm -rf linux-build && ./linux-build.sh
       - name: CPack
         run: |
           cd linux-build && cpack -C Release
@@ -56,10 +56,10 @@ jobs:
           sudo apt install -y libpdal-dev
       - name: Build CLI code
         run: |
-          ./build.sh -DBLAZE_CLI_ONLY=True -DBLAZE_USE_PDAL=True
+          ./linux-build.sh -DBLAZE_CLI_ONLY=True -DBLAZE_USE_PDAL=True
       - name: Build GUI code
         run: |
-          rm -rf linux-build && ./build.sh
+          rm -rf linux-build && ./linux-build.sh
       - name: CPack
         run: |
           cd linux-build && cpack -C Release
