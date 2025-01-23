@@ -27,7 +27,12 @@ inline std::set<T> get_contour_heights(T h1, T h2, T contour_interval) {
 template <typename T, typename U>
 Coordinate2D<T> interpolate_coordinates(const Coordinate2D<T> &a, const Coordinate2D<T> &b,
                                         const U &a_val, const U &b_val, const U &target) {
-  double a_weight = (double)(b_val - target) / (b_val - a_val);
+  double a_weight;
+  if (a_val == b_val) {
+    a_weight = 0.5;
+  } else {
+    a_weight = (double)(b_val - target) / (b_val - a_val);
+  }
   double b_weight = 1 - a_weight;
   return Coordinate2D<T>(a.x() * a_weight + b.x() * b_weight, a.y() * a_weight + b.y() * b_weight);
 }
