@@ -7,10 +7,19 @@
 #include "utilities/coordinate.hpp"
 
 template <typename T>
+T round_down(T val, T interval) {
+  if (val < 0) {
+    return val - fmod(val, interval) - interval;
+  } else {
+    return val - fmod(val, interval);
+  }
+}
+
+template <typename T>
 inline bool crosses_contour(T h1, T h2, T contour_interval) {
   T max = std::max(h1, h2);
   T min = std::min(h1, h2);
-  return max - fmod(max, contour_interval) > min;
+  return round_down(max, contour_interval) > min;
 }
 
 template <typename T>
@@ -18,7 +27,7 @@ inline std::set<T> get_contour_heights(T h1, T h2, T contour_interval) {
   std::set<T> heights;
   T max = std::max(h1, h2);
   T min = std::min(h1, h2);
-  for (T h = max - fmod(max, contour_interval); h > min; h -= contour_interval) {
+  for (T h = round_down(max, contour_interval); h > min; h -= contour_interval) {
     heights.insert(h);
   }
   return heights;

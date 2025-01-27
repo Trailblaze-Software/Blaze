@@ -23,7 +23,7 @@ class ProgressObserver {
 };
 
 class ProgressBar : public ProgressObserver {
-  double m_last_progress;
+  double m_last_progress = -1;
 
  protected:
   virtual void update_progress(double progress) override;

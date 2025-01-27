@@ -217,7 +217,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
       const Coordinate2D<double>& point = contour.points().at(i);
       std::shared_ptr<ContourPoint> contour_point =
           std::make_shared<ContourPoint>(point.x(), point.y(), contour.height());
-      if (i > 0) {
+      if (last_point) {
         contour_point->set_previous(last_point);
         last_point->set_next(contour_point);
       }
