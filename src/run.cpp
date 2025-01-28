@@ -1,5 +1,6 @@
 #include "run.hpp"
 
+#include <filesystem>
 #include <iostream>
 
 #include "config_input/config_input.hpp"
@@ -110,10 +111,12 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         write_to_crt(config.output_path() / "combined" / "contours.crt");
 
         // Combine TIFs
+        fs::create_directories(config.output_path() / "combined" / "raw_vege");
         for (const std::string filename :
              {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
               "buildings.tif", "slope.tif", "vege_color.tif", "hill_shade_multi.tif",
-              "filled_dem.tif"}) {
+              "filled_dem.tif", "raw_vege/canopy.tif", "raw_vege/green.tif",
+              "raw_vege/smoothed_green.tif", "raw_vege/smoothed_canopy.tif"}) {
           TimeFunction combining_timer("Combining " + filename);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;

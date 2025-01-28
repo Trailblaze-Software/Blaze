@@ -256,6 +256,8 @@ void process_las_file(const fs::path& las_filename, const Config& config,
     write_to_tif(blocked_proportion.slice(las_file.export_bounds()),
                  output_dir / "raw_vege" / (vege_config.name + ".tif"));
     GeoGrid<double> smooth_blocked_proportion = low_pass(blocked_proportion, 2);
+    write_to_tif(blocked_proportion.slice(las_file.export_bounds()),
+                 output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif"));
     vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }
 
