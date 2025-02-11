@@ -5,6 +5,8 @@
 
 #include "las_header.hpp"
 #include "las_writer.hpp"
+#include "ogr_spatialref.h"
+#include "vlr.hpp"
 #ifdef USE_PDAL
 #include <pdal/Dimension.hpp>
 #include <pdal/SpatialReference.hpp>
@@ -138,6 +140,38 @@ inline void copy_from(laspp::LASPointFormat0 &data, const LASPoint &point) {
       static_cast<laspp::LASClassification>(static_cast<uint8_t>(point.classification()));
 }
 
+inline std::string convert_geo_keys_to_wkt(const laspp::LASGeoKeys &geo_keys) {
+  OGRSpatialReference srs;
+  bool projectionSet = false;
+
+  auto keys = geo_keys.get_keys();
+
+  if (keys.find(3072) != keys.end()) {  // Projected CRS
+    uint16_t epsg_code = std::get<uint16_t>(keys.at(3072));
+    if (srs.importFromEPSG(epsg_code) == OGRERR_NONE) {
+      projectionSet = true;
+    }
+  } else if (keys.find(2048) != keys.end()) {  // Geographic CRS
+    uint16_t epsg_code = std::get<uint16_t>(keys.at(2048));
+    if (srs.importFromEPSG(epsg_code) == OGRERR_NONE) {
+      projectionSet = true;
+    }
+  }
+
+  if (!projectionSet) {
+    std::cout << geo_keys << std::endl;
+    Fail("ERROR: No valid EPSG code found in LASGeoKeys.");
+  }
+
+  // Convert to WKT
+  char *wkt = nullptr;
+  srs.exportToWkt(&wkt);
+  std::string wktString = wkt;
+  CPLFree(wkt);
+
+  return wktString;
+}
+
 class LASFile {
   std::vector<LASPoint> m_points;
   std::pair<double, double> m_height_range;
@@ -227,7 +261,13 @@ class LASFile {
     m_bounds = Extent3D(Extent2D(bounds.min_x(), bounds.max_x(), bounds.min_y(), bounds.max_y()),
                         bounds.min_z(), bounds.max_z());
     m_original_bounds = m_bounds;
-    m_projection = GeoProjection(reader.wkt().value());
+    if (reader.wkt().has_value())
+      m_projection = GeoProjection(reader.wkt().value());
+    else {
+      Assert(reader.geo_keys().has_value(), "No projection found in LAS file");
+      laspp::LASGeoKeys geo_keys = reader.geo_keys().value();
+      m_projection = GeoProjection(convert_geo_keys_to_wkt(geo_keys));
+    }
     progress_tracker.text_update("Reading metadata took " + to_string(timer));
     Timer point_timer;
 
