@@ -210,7 +210,8 @@ class LASFile {
     m_bounds.grow(point.x(), point.y(), point.z());
   }
 
-  explicit LASFile(const std::string &filename, ProgressTracker progress_tracker)
+  explicit LASFile(const std::string &filename, ProgressTracker progress_tracker,
+                   bool skip_reading_points = false)
       : m_height_range({std::numeric_limits<double>::max(), std::numeric_limits<double>::min()}),
         m_intensity_range(
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}) {
@@ -271,6 +272,9 @@ class LASFile {
     progress_tracker.text_update("Reading metadata took " + to_string(timer));
     Timer point_timer;
 
+    if (skip_reading_points) {
+      return;
+    }
     m_points.resize(reader.num_points());
     reader.read_chunks(std::span<LASPoint>(m_points), {0, reader.num_chunks()});
 

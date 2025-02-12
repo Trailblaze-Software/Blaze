@@ -8,6 +8,7 @@
 #include "contour/contour_gen.hpp"
 #include "dxf/dxf.hpp"
 #include "grid/grid.hpp"
+#include "io/gpkg.hpp"
 #include "las/las_file.hpp"
 #include "printing/to_string.hpp"
 #include "process.hpp"
@@ -84,31 +85,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         }
         break;
       case ProcessingStep::Combine:
-        // Combine contours
-        std::map<double, std::vector<Contour>> contours_by_height;
-        for (const fs::path &las_file : las_files) {
-          fs::path output_dir = config.output_path() / las_file.stem();
-          fs::path dxf_path = output_dir / "trimmed_contours.dxf";
-          if (!fs::exists(dxf_path)) {
-            std::cerr << "DXF " << dxf_path << " does not exist" << std::endl;
-            continue;
-          }
-
-          std::vector<Contour> contours = read_dxf(dxf_path);
-          for (Contour &contour : contours) {
-            contours_by_height[contour.height()].push_back(contour);
-          }
-        }
-        std::vector<Contour> joined_contours;
-        for (const auto &[height, contours] : contours_by_height) {
-          std::vector<Contour> jc = join_contours(contours);
-          for (Contour &contour : jc) {
-            joined_contours.emplace_back(contour);
-          }
-        }
-        write_to_dxf(joined_contours, config.output_path() / "combined" / "contours.dxf",
-                     config.contours);
-        write_to_crt(config.output_path() / "combined" / "contours.crt");
+        std::optional<std::string> projection;
 
         // Combine TIFs
         fs::create_directories(config.output_path() / "combined" / "raw_vege");
@@ -131,6 +108,11 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
               continue;
             }
             grids.emplace_back(read_tif(img_path));
+            if (!projection.has_value()) {
+              projection = grids.back().projection().to_string();
+            } else {
+              AssertEQ(projection, grids.back().projection().to_string());
+            }
             extent.grow(*grids.back().extent());
             if (!dx.has_value()) {
               dx = grids.back().transform().dx();
@@ -165,9 +147,57 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
             filled_dem.fill_from(combined_grid[0]);
             std::vector<Stream> stream_path =
                 stream_paths(filled_dem, config.water, step_tracker.subtracker(0.8, 0.9), true);
-            write_to_dxf(stream_path, config.output_path() / "combined" / "streams.dxf", "streams");
+            // write_to_dxf(stream_path, config.output_path() / "combined" / "streams.dxf",
+            // "streams");
+
+            {
+              GPKGWriter writer(config.output_path() / "combined" / "streams.gpkg",
+                                projection.value());
+              for (const Stream &stream : stream_path) {
+                writer.write_polyline(Polyline{.layer = "streams",
+                                               .name = std::to_string(stream.catchment),
+                                               .vertices = stream.coords},
+                                      {{"catchment", stream.catchment}});
+              }
+            }
           }
         }
+
+        // Combine contours
+        std::map<double, std::vector<Contour>> contours_by_height;
+        for (const fs::path &las_file : las_files) {
+          fs::path output_dir = config.output_path() / las_file.stem();
+          fs::path dxf_path = output_dir / "trimmed_contours.dxf";
+          if (!fs::exists(dxf_path)) {
+            std::cerr << "DXF " << dxf_path << " does not exist" << std::endl;
+            continue;
+          }
+
+          std::vector<Contour> contours = read_dxf(dxf_path);
+          for (Contour &contour : contours) {
+            contours_by_height[contour.height()].push_back(contour);
+          }
+        }
+        std::vector<Contour> joined_contours;
+        for (const auto &[height, contours] : contours_by_height) {
+          std::vector<Contour> jc = join_contours(contours);
+          for (Contour &contour : jc) {
+            joined_contours.emplace_back(contour);
+          }
+        }
+        // write_to_dxf(joined_contours, config.output_path() / "combined" / "contours.dxf",
+        // config.contours);
+        {
+          GPKGWriter writer(config.output_path() / "combined" / "contours.gpkg",
+                            projection.value());
+          for (const Contour &contour : joined_contours) {
+            writer.write_polyline(contour.to_polyline(config.contours),
+                                  {{"elevation", contour.height()}});
+          }
+        }
+
+        write_to_crt(config.output_path() / "combined" / "contours.crt");
+
         break;
     }
   }
