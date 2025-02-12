@@ -20,6 +20,8 @@ using source_location = std::experimental::source_location;
 #include <sstream>
 #include <string>
 
+#include "printing/to_string.hpp"
+
 [[noreturn]] inline void unreachable() {
   // Uses compiler specific extensions if possible.
   // Even if no extension is used, undefined behavior is still raised by
