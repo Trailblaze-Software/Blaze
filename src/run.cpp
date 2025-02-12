@@ -127,6 +127,16 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
           AssertGE(grids.size(), 1);
           AssertGE(grids[0].size(), 1);
 
+          size_t width = (extent.maxx - extent.minx) / (*dx);
+          size_t height = (extent.maxy - extent.miny) / (std::abs(*dy));
+
+          size_t required_memory = width * height * grids[0].size() * grids[0][0].n_bytes();
+          std::cout << "Creating combined grid with dimensions " << width << "x" << height
+                    << " requiring " << (double)required_memory / 1e9 << " GB" << std::endl;
+          if (required_memory > 16e9) {
+            std::cout << "Skipping " << filename << " due to memory requirements" << std::endl;
+            continue;
+          }
           Geo<MultiBand<FlexGrid>> combined_grid(
               GeoTransform(extent.minx, extent.maxy, *dx, *dy),
               GeoProjection(grids[0].projection()), grids[0].size(),
@@ -137,7 +147,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
             combined_grid.fill_from(grid);
           }
 
-          fs::create_directories(config.output_path() / "combined");
+          fs::create_directories((config.output_path() / "combined" / filename).parent_path());
           write_to_tif(combined_grid, config.output_path() / "combined" / filename);
 
           if (filename == "filled_dem.tif") {

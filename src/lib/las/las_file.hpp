@@ -425,10 +425,12 @@ class LASFile {
           border_file.insert(point);
         }
       }
-      border_file.write(
-          tmp_dir /
-              (unique_coord_name(static_cast<const Extent2D &>(border_file.bounds())) + ".laz"),
-          progress_tracker.subtracker(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
+      if (border_file.n_points() > 0) {
+        border_file.write(
+            tmp_dir /
+                (unique_coord_name(static_cast<const Extent2D &>(border_file.bounds())) + ".laz"),
+            progress_tracker.subtracker(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
+      }
       idx++;
     }
   }
