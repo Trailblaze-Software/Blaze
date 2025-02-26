@@ -75,7 +75,6 @@ void GLWidget::initializeGL() {
   }
 
   initializeOpenGLFunctions();
-  glClearColor(0, 0, 0, 1);
   setFocusPolicy(Qt::StrongFocus);
   GLenum err;
   while ((err = glGetError()) != GL_NO_ERROR) {
@@ -117,6 +116,11 @@ void GLWidget::initializeGL() {
 
   m_vbo.create();
   m_vbo.bind();
+  for (size_t i = 0; i < 10; i++) {
+    std::cout << points[i] << " ";
+  }
+  std::cout << std::endl;
+
   m_vbo.allocate(points.data(), points.size() * sizeof(GLfloat));
 
   m_shader->enableAttributeArray(0);
@@ -136,6 +140,12 @@ void GLWidget::initializeGL() {
   m_vao.bind();
   m_vbo.bind();
   QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+
+  std::cout << "Detected OpenGL version: " << f->glGetString(GL_VERSION) << std::endl;
+
+  Assert(f->glGetError() == GL_NO_ERROR, "OpenGL error");
+  Assert(QOpenGLContext::currentContext()->isValid(), "OpenGL context is invalid");
+
   f->glEnableVertexAttribArray(0);
   f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
   m_vbo.release();
@@ -153,12 +163,12 @@ float deg2rad(float deg) { return deg * M_PI / 180.0f; }
 float rad2deg(float rad) { return rad * 180.0f / M_PI; }
 
 void GLWidget::paintGL() {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_PROGRAM_POINT_SIZE);
   glEnable(GL_DEPTH_TEST);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_BLEND);
-  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClearColor(0.2, 0.2, 0.2, 1.0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   QMatrix4x4 camera_proj;
   camera_proj.setToIdentity();

@@ -217,6 +217,7 @@ class LASFile {
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}) {
     Timer timer;
     progress_tracker.text_update(to_string("Reading ", filename, " ..."));
+    Assert(fs::exists(filename), "File does not exist: " + filename);
 
 #ifdef USE_PDAL
     pdal::Option las_opt("filename", filename);
