@@ -23,6 +23,8 @@ template <typename T>
 constexpr GDALDataType gdal_type() {
   if constexpr (std::is_same_v<double, T>) {
     return GDT_Float64;
+  } else if constexpr (std::is_same_v<float, T>) {
+    return GDT_Float32;
   } else if constexpr (std::is_same_v<unsigned int, T>) {
     return GDT_UInt32;
   } else if constexpr (std::is_same_v<std::byte, T>) {
@@ -72,7 +74,9 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
 
   char **options = nullptr;
   options = CSLSetNameValue(options, "COMPRESS", "LZW");
+  options = CSLSetNameValue(options, "NUM_THREADS", "8");
   options = CSLSetNameValue(options, "ALPHA", "YES");
+  options = CSLSetNameValue(options, "BIGTIFF", "IF_SAFER");
 
   GDALDriver *driver = GetGDALDriverManager()->GetDriverByName("GTiff");
 
@@ -87,9 +91,10 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
     bands = is_std_optional_v<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
     datatype = gdal_type<T>();
   }
-
+  //
   GDALDataset *dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),
                                         bands, datatype, options);
+
   if (dataset == nullptr) {
     Fail("Could not create file " + filename.string());
   }
@@ -147,6 +152,8 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
 
 template void write_to_tif(const GeoGrid<double> &grid, const fs::path &filename,
                            std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const GeoGrid<float> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
 template void write_to_tif(const GeoGrid<std::byte> &grid, const fs::path &filename,
                            std::optional<ProgressTracker> progress_tracker);
 template void write_to_tif(const GeoGrid<RGBColor> &grid, const fs::path &filename,
@@ -156,6 +163,8 @@ template void write_to_tif(const GeoGrid<CMYKColor> &grid, const fs::path &filen
 template void write_to_tif(const GeoGrid<std::optional<std::byte>> &grid, const fs::path &filename,
                            std::optional<ProgressTracker> progress_tracker);
 template void write_to_tif(const GeoGrid<std::optional<double>> &grid, const fs::path &filename,
+                           std::optional<ProgressTracker> progress_tracker);
+template void write_to_tif(const GeoGrid<std::optional<float>> &grid, const fs::path &filename,
                            std::optional<ProgressTracker> progress_tracker);
 template void write_to_tif(const Geo<MultiBand<FlexGrid>> &grid, const fs::path &filename,
                            std::optional<ProgressTracker> progress_tracker);

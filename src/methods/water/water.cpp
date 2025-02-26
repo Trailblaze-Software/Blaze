@@ -9,9 +9,15 @@
 
 struct PriorityPoint {
   double priority;
+  double secondary_priority;
   Coordinate2D<size_t> coord;
 
-  bool operator<(const PriorityPoint& other) const { return priority < other.priority; }
+  bool operator<(const PriorityPoint& other) const {
+    if (priority == other.priority) {
+      return secondary_priority < other.secondary_priority;
+    }
+    return priority < other.priority;
+  }
 };
 
 #define SQ(x) ((x) * (x))
@@ -50,7 +56,7 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
   for (size_t i = 0; i < grid.height() - 1; i++) {
     for (Coordinate2D<size_t> coord :
          {Coordinate2D<size_t>{0, i}, Coordinate2D<size_t>{grid.width() - 1, i + 1}}) {
-      queue.push({-grid[coord], coord});
+      queue.push({-grid[coord], 0, coord});
       filled[coord] = true;
     }
   }
@@ -58,18 +64,19 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
   for (size_t j = 0; j < grid.width() - 1; j++) {
     for (Coordinate2D<size_t> coord :
          {Coordinate2D<size_t>{j, 0}, Coordinate2D<size_t>{j + 1, grid.height() - 1}}) {
-      queue.push({-grid[coord], coord});
+      queue.push({-grid[coord], 0, coord});
       filled[coord] = true;
     }
   }
 
   for (const Coordinate2D<size_t>& sink : sinks) {
-    queue.push({-grid[sink], sink});
+    queue.push({-grid[sink], 0, sink});
     filled[sink] = true;
   }
 
   while (!queue.empty()) {
     PriorityPoint current = queue.top();
+    Assert(std::isfinite(grid[current.coord]), "Grid value is not finite");
     queue.pop();
 
     for (Direction2D dir : ALL_DIRECTIONS) {
@@ -77,19 +84,16 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
       if (!filled.in_bounds(neighbour) || filled[neighbour]) {
         continue;
       }
+      double secondary_priority = 0;
       if (result[neighbour] <= result[current.coord]) {
         result[neighbour] = result[current.coord] + 1e-7;
+        secondary_priority = current.secondary_priority - 1;
       }
-      queue.push({-grid[neighbour], neighbour});
+      queue.push({-grid[neighbour], secondary_priority, neighbour});
       filled[neighbour] = true;
     }
   }
 
-  for (size_t i = 0; i < grid.height(); i++) {
-    for (size_t j = 0; j < grid.width(); j++) {
-      Assert((filled[{j, i}]), "Not all cells were filled");
-    }
-  }
   return result;
 }
 std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, double depth,

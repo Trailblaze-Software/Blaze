@@ -2,6 +2,7 @@
 
 #include <ogrsf_frmts.h>
 
+#include "assert/gdal_assert.hpp"
 #include "dxf/dxf.hpp"
 #include "gdal_priv.h"
 
@@ -17,8 +18,9 @@ class GDALDataset_w {
     dataset = driver->Create(filename.c_str(), 0, 0, 0, GDT_Unknown, nullptr);
     Assert(dataset, "Failed to create GeoPackage file " + filename);
 
-    OGRSpatialReference srs;
-    srs.SetWellKnownGeogCS(projection.c_str());
+    // OGRSpatialReference srs;
+    // GDALAssert(srs.importFromWkt(projection.c_str()));
+    dataset->SetProjection(projection.c_str());
   }
 
   GDALDataset* operator->() { return dataset; }
@@ -61,7 +63,7 @@ class GPKGWriter {
 
     if (layer->GetLayerDefn()->GetFieldIndex("name") == -1)
       layer->CreateField(new OGRFieldDefn("name", OFTString));
-    if (layer->GetLayerDefn()->GetFieldIndex("elevation") == -1)
+    if (layer->GetLayerDefn()->GetFieldIndex("layer") == -1)
       layer->CreateField(new OGRFieldDefn("layer", OFTString));
     for (const auto& [field_name, field_value] : data_fields) {
       if (layer->GetLayerDefn()->GetFieldIndex(field_name.c_str()) == -1) {

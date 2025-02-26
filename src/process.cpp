@@ -248,15 +248,15 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
 
   // VEGE
-  std::map<std::string, GeoGrid<double>> vege_maps;
+  std::map<std::string, GeoGrid<float>> vege_maps;
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
-    GeoGrid<std::optional<double>> blocked_proportion =
+    GeoGrid<std::optional<float>> blocked_proportion =
         get_blocked_proportion(binned_points, smooth_ground, vege_config);
     fs::create_directories(output_dir / "raw_vege");
     write_to_tif(blocked_proportion.slice(las_file.export_bounds()),
                  output_dir / "raw_vege" / (vege_config.name + ".tif"));
-    GeoGrid<double> smooth_blocked_proportion = low_pass(blocked_proportion, 2);
-    write_to_tif(blocked_proportion.slice(las_file.export_bounds()),
+    GeoGrid<float> smooth_blocked_proportion = low_pass(blocked_proportion, 5);
+    write_to_tif(smooth_blocked_proportion.slice(las_file.export_bounds()),
                  output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif"));
     vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }

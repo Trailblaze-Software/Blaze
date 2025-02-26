@@ -33,6 +33,7 @@ void Grid<T>::fill_from(const FlexGrid &other, const Coordinate2D<long long> &to
 }
 
 template class Grid<double>;
+template class Grid<float>;
 
 template <typename GridT>
 Geo<GridT> same_type_different_size(const Geo<GridT> &grid, size_t new_width, size_t new_height,
@@ -106,9 +107,11 @@ std::unique_ptr<Extent2D> Geo<GridT>::extent() const {
 }
 
 template class Geo<Grid<double>>;
+template class Geo<Grid<float>>;
 template class Geo<Grid<RGBColor>>;
 template class Geo<Grid<CMYKColor>>;
 template class Geo<Grid<std::optional<double>>>;
+template class Geo<Grid<std::optional<float>>>;
 template class Geo<Grid<std::optional<std::byte>>>;
 template class Geo<Grid<std::byte>>;
 template class Geo<Grid<std::optional<LASPoint>>>;
@@ -155,5 +158,7 @@ FlexGrid::FlexGrid(size_t width, size_t height, int n_bytes, int data_type)
     : GridData(width, height),
       m_data_size(n_bytes),
       m_data_type(std::move(data_type)),
-      m_data(width * height * n_bytes) {}
+      m_data(width * height * n_bytes) {
+  std::fill(m_data.begin(), m_data.end(), std::byte(0));
+}
 int FlexGrid::data_type() const { return m_data_type; }

@@ -94,6 +94,8 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
               "buildings.tif", "slope.tif", "vege_color.tif", "hill_shade_multi.tif",
               "filled_dem.tif", "raw_vege/canopy.tif", "raw_vege/green.tif",
               "raw_vege/smoothed_green.tif", "raw_vege/smoothed_canopy.tif"}) {
+          // for (const std::string filename :
+          //{"filled_dem.tif"}) {
           TimeFunction combining_timer("Combining " + filename);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;
@@ -155,8 +157,20 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
                                        GeoTransform(combined_grid.transform()),
                                        GeoProjection(combined_grid.projection()));
             filled_dem.fill_from(combined_grid[0]);
+
+#pragma omp parallel for
+            for (size_t i = 0; i < filled_dem.height(); i++) {
+              for (size_t j = 0; j < filled_dem.width(); j++) {
+                if (!std::isfinite(filled_dem[{j, i}])) {
+                  filled_dem[{j, i}] = 0;
+                }
+              }
+            }
+
+            write_to_tif(filled_dem, config.output_path() / "combined" / "filled_filled_dem.tif");
+
             std::vector<Stream> stream_path =
-                stream_paths(filled_dem, config.water, step_tracker.subtracker(0.8, 0.9), true);
+                stream_paths(filled_dem, config.water, step_tracker.subtracker(0.8, 0.9), false);
             // write_to_dxf(stream_path, config.output_path() / "combined" / "streams.dxf",
             // "streams");
 
@@ -190,7 +204,8 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         }
         std::vector<Contour> joined_contours;
         for (const auto &[height, contours] : contours_by_height) {
-          std::vector<Contour> jc = join_contours(contours);
+          std::vector<Contour> jc = join_contours(
+              contours, 2 * config.grid.bin_resolution * config.grid.downsample_factor);
           for (Contour &contour : jc) {
             joined_contours.emplace_back(contour);
           }

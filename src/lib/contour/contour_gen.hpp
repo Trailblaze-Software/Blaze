@@ -25,37 +25,49 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T> &grid, T contour_
 }
 
 inline std::vector<Contour> join_contours(const std::vector<Contour> &contours,
-                                          double max_dist = 10) {
+                                          double max_dist = 15) {
+  std::vector<Contour> unjoined_contours = contours;
   std::vector<Contour> joined_contours;
-  for (const Contour &c : contours) {
-    bool joined = false;
-    for (size_t i = 0; i < joined_contours.size(); i++) {
-      Contour &joined_c = joined_contours[i];
-      if ((joined_c.points().front() - c.points().front()).magnitude_sqd() < max_dist * max_dist) {
-        std::reverse(joined_c.points().begin(), joined_c.points().end());
-        std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
-        joined = true;
-        break;
-      } else if ((joined_c.points().back() - c.points().front()).magnitude_sqd() <
-                 max_dist * max_dist) {
-        std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
-        joined = true;
-        break;
-      } else if ((joined_c.points().front() - c.points().back()).magnitude_sqd() <
-                 max_dist * max_dist) {
-        std::reverse(joined_c.points().begin(), joined_c.points().end());
-        std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
-        joined = true;
-        break;
-      } else if ((joined_c.points().back() - c.points().back()).magnitude_sqd() <
-                 max_dist * max_dist) {
-        std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
-        joined = true;
-        break;
+  bool did_joining = true;
+  while (did_joining) {
+    did_joining = false;
+    for (const Contour &c : unjoined_contours) {
+      bool joined = false;
+      for (size_t i = 0; i < joined_contours.size(); i++) {
+        Contour &joined_c = joined_contours[i];
+        if ((joined_c.points().front() - c.points().front()).magnitude_sqd() <
+            max_dist * max_dist) {
+          std::reverse(joined_c.points().begin(), joined_c.points().end());
+          std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
+          joined = true;
+          break;
+        } else if ((joined_c.points().back() - c.points().front()).magnitude_sqd() <
+                   max_dist * max_dist) {
+          std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
+          joined = true;
+          break;
+        } else if ((joined_c.points().front() - c.points().back()).magnitude_sqd() <
+                   max_dist * max_dist) {
+          std::reverse(joined_c.points().begin(), joined_c.points().end());
+          std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
+          joined = true;
+          break;
+        } else if ((joined_c.points().back() - c.points().back()).magnitude_sqd() <
+                   max_dist * max_dist) {
+          std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
+          joined = true;
+          break;
+        }
+      }
+      if (!joined) {
+        joined_contours.emplace_back(c);
+      } else {
+        did_joining = true;
       }
     }
-    if (!joined) {
-      joined_contours.emplace_back(c);
+    if (did_joining) {
+      unjoined_contours = std::move(joined_contours);
+      joined_contours.clear();
     }
   }
   return joined_contours;

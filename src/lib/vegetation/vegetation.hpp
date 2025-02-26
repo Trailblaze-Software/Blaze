@@ -8,13 +8,13 @@
 #include "utilities/coordinate.hpp"
 #include "utilities/timer.hpp"
 
-inline GeoGrid<std::optional<double>> get_blocked_proportion(
+inline GeoGrid<std::optional<float>> get_blocked_proportion(
     const GeoGrid<std::vector<LASPoint>>& grid, const GeoGrid<double>& ground,
     const VegeHeightConfig& vege_config) {
   TimeFunction timer("counting " + vege_config.name + " blocked proportion");
-  GeoGrid<std::optional<double>> blocked_proportion(grid.width(), grid.height(),
-                                                    GeoTransform(grid.transform()),
-                                                    GeoProjection(grid.projection()));
+  GeoGrid<std::optional<float>> blocked_proportion(grid.width(), grid.height(),
+                                                   GeoTransform(grid.transform()),
+                                                   GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
@@ -33,28 +33,28 @@ inline GeoGrid<std::optional<double>> get_blocked_proportion(
       }
       blocked_proportion[{j, i}] =
           (in_count + below_count) > 0
-              ? std::make_optional<double>((double)in_count / (in_count + below_count))
+              ? std::make_optional<float>((double)in_count / (in_count + below_count))
               : std::nullopt;
     }
   }
   return blocked_proportion;
 }
 
-inline GeoGrid<double> low_pass(const GeoGrid<double>& grid, int delta = 8) {
+inline GeoGrid<float> low_pass(const GeoGrid<float>& grid, int delta = 8) {
   TimeFunction timer("Low pass filter");
-  GeoGrid<double> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                           GeoProjection(grid.projection()));
+  GeoGrid<float> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                          GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
-      double sum = 0;
-      double weight_sum = 0;
+      float sum = 0;
+      float weight_sum = 0;
       for (int x = -delta; x <= delta; x++) {
         for (int y = -delta; y <= delta; y++) {
           if (y + (int)i >= 0 && i + y < grid.height() && x + (int)j >= 0 &&
               (unsigned int)j + x < grid.width()) {
             if (sqrt(x * x + y * y) <= delta) {
-              double weight = 1 - (sqrt(x * x + y * y) / delta);
+              float weight = 1 - (sqrt(x * x + y * y) / delta);
               sum += grid[{j + x, i + y}] * weight;
               weight_sum += weight;
             }
@@ -67,21 +67,21 @@ inline GeoGrid<double> low_pass(const GeoGrid<double>& grid, int delta = 8) {
   return low_pass;
 }
 
-inline GeoGrid<double> low_pass(const GeoGrid<std::optional<double>>& grid, int delta = 8) {
+inline GeoGrid<float> low_pass(const GeoGrid<std::optional<float>>& grid, int delta = 8) {
   TimeFunction timer("Low pass filter");
-  GeoGrid<double> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                           GeoProjection(grid.projection()));
+  GeoGrid<float> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                          GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
-      double sum = 0;
-      double weight_sum = 0;
+      float sum = 0;
+      float weight_sum = 0;
       for (int x = -delta; x <= delta; x++) {
         for (int y = -delta; y <= delta; y++) {
           if (y + (int)i >= 0 && i + y < grid.height() && x + (int)j >= 0 &&
               (unsigned int)j + x < grid.width()) {
             if (sqrt(x * x + y * y) <= delta) {
-              double weight = 1 - (sqrt(x * x + y * y) / delta);
+              float weight = 1 - (sqrt(x * x + y * y) / delta);
               if (grid[{j + x, i + y}].has_value()) {
                 sum += *grid[{j + x, i + y}] * weight;
                 weight_sum += weight;
