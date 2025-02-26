@@ -118,7 +118,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
                                       !only_classified_ground)) {
             min = las_point.z();
             min_point = las_point;
-            u_char intensity = std::clamp(
+            uint8_t intensity = std::clamp(
                 (double)(las_point.intensity() - config.ground.min_ground_intensity) /
                     (config.ground.max_ground_intensity - config.ground.min_ground_intensity) *
                     255.0,

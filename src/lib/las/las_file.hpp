@@ -1,12 +1,11 @@
+#pragma once
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <limits>
 
-#include "las_header.hpp"
-#include "las_writer.hpp"
 #include "ogr_spatialref.h"
-#include "vlr.hpp"
 #ifdef USE_PDAL
 #include <pdal/Dimension.hpp>
 #include <pdal/SpatialReference.hpp>
@@ -16,7 +15,8 @@
 #include <pdal/pdal.hpp>
 #include <pdal/util/Bounds.hpp>
 #else
-#include <las_reader.hpp>
+#include "las_reader.hpp"
+#include "las_writer.hpp"
 #endif
 #include <string>
 #include <vector>

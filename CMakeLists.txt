@@ -106,9 +106,11 @@ add_executable(${UNIT_TESTS_NAME})
 
 set(ALL_EXECUTABLES ${CLI_EXE_NAME} ${UNIT_TESTS_NAME})
 if(NOT BLAZE_CLI_ONLY)
+
   set(GUI_EXE_NAME Blaze)
   list(APPEND ALL_EXECUTABLES ${GUI_EXE_NAME})
-  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core Svg)
+  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core Svg OpenGL
+                                       OpenGLWidgets)
   if(WIN32)
     qt_standard_project_setup()
   endif()
@@ -133,6 +135,31 @@ if(NOT BLAZE_CLI_ONLY)
       POST_BUILD
       COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_EXE_NAME}>)
   endif()
+
+  set(GUI_3D_EXE_NAME Blaze3D)
+  list(APPEND ALL_EXECUTABLES ${GUI_3D_EXE_NAME})
+  if(WIN32)
+    qt_add_executable(${GUI_3D_EXE_NAME} WIN32 assets/resources.rc)
+  else()
+    qt_add_executable(${GUI_3D_EXE_NAME})
+  endif()
+  target_precompile_headers(${GUI_3D_EXE_NAME} PRIVATE
+                            src/precompiled_headers.hpp)
+  target_link_libraries(
+    ${GUI_3D_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent Qt6::OpenGL
+                               Qt6::OpenGLWidgets)
+  set_target_properties(${GUI_3D_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
+                                                      MACOSX_BUNDLE ON)
+
+  qt_import_plugins(${GUI_3D_EXE_NAME} INCLUDE_BY_TYPE imageformats
+                    Qt6::QTiffPlugin)
+
+  if(WIN32)
+    add_custom_command(
+      TARGET ${GUI_3D_EXE_NAME}
+      POST_BUILD
+      COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_3D_EXE_NAME}>)
+  endif()
 endif()
 set(ALL_TARGETS ${ALL_EXECUTABLES} ${LIBRARY_NAME})
 
@@ -148,7 +175,7 @@ FetchContent_Declare(
   GIT_TAG fff0807b2925b0dc9db1b3b1943e675a4d9483d5)
 set(LASPP_DEBUG_ASSERTS ON)
 FetchContent_MakeAvailable(las++)
-target_link_libraries(${LIBRARY_NAME} PRIVATE las++)
+target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
 set(INSTALL_GTEST OFF)
 FetchContent_Declare(

@@ -161,7 +161,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
             // "streams");
 
             {
-              GPKGWriter writer(config.output_path() / "combined" / "streams.gpkg",
+              GPKGWriter writer((config.output_path() / "combined" / "streams.gpkg").string(),
                                 projection.value());
               for (const Stream &stream : stream_path) {
                 writer.write_polyline(Polyline{.layer = "streams",
@@ -198,7 +198,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         // write_to_dxf(joined_contours, config.output_path() / "combined" / "contours.dxf",
         // config.contours);
         {
-          GPKGWriter writer(config.output_path() / "combined" / "contours.gpkg",
+          GPKGWriter writer((config.output_path() / "combined" / "contours.gpkg").string(),
                             projection.value());
           for (const Contour &contour : joined_contours) {
             writer.write_polyline(contour.to_polyline(config.contours),
