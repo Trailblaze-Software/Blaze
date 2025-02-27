@@ -323,6 +323,12 @@ struct Extent3D : Extent2D {
     maxz = std::max(z, maxz);
   }
 
+  Coordinate3D<double> center() const {
+    return Coordinate3D<double>((minx + maxx) / 2, (miny + maxy) / 2, (minz + maxz) / 2);
+  }
+
+  double max_extent() const { return std::max(std::max(maxx - minx, maxy - miny), maxz - minz); }
+
   void grow(const Extent3D &other) {
     Extent2D::grow(other);
     minz = std::min(minz, other.minz);

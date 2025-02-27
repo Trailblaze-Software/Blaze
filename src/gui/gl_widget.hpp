@@ -9,6 +9,7 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLWidget>
 
+#include "gui/camera.hpp"
 #include "las/las_file.hpp"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -38,9 +39,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   int m_proj_matrix_loc = 0;
   int m_point_radius_loc = 0;
 
-  QVector3D m_camera_position = {2.0f, 2.0f, 2.0f};
-  QVector3D m_camera_direction = {-2.0f, -2.0f, -2.0f};
-  QVector3D m_camera_up = {0.0f, 0.0, 1.0f};
+  Camera m_camera;
 
   std::vector<GLfloat> points;
   std::optional<LASFile> m_las_file;
