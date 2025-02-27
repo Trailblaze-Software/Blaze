@@ -22,6 +22,11 @@ int main(int argc, char *argv[]) {
   freopen("CONOUT$", "w", stderr);
 #endif
 
+  QSurfaceFormat format;
+  format.setVersion(3, 3);
+  format.setProfile(QSurfaceFormat::CoreProfile);
+  QSurfaceFormat::setDefaultFormat(format);
+
   QApplication a(argc, argv);
 
   QSurfaceFormat::setDefaultFormat(QSurfaceFormat::defaultFormat());

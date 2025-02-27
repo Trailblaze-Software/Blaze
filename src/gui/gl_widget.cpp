@@ -2,13 +2,13 @@
 #include "gl_widget.hpp"
 
 #include <math.h>
-#include <qmatrix4x4.h>
-#include <qnamespace.h>
-#include <qvectornd.h>
 
 #include <QCoreApplication>
+#include <QMatrix4x4>
 #include <QMouseEvent>
+#include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
+#include <QVector3D>
 #include <QtWidgets>
 #include <iostream>
 
@@ -23,38 +23,37 @@ GLWidget::~GLWidget() {}
 QSize GLWidget::sizeHint() const { return QSize(1000, 1000); }
 
 static const char *vertexShaderSource =
-    "#version 330\n"
-    "in vec3 position;\n"
-    "uniform float point_radius;\n"
-    "uniform mat4 proj_matrix;\n"
-    "out vec4 color;\n"
-    "void main() {\n"
-    "   color = vec4(1.0, 1.0, 1.0, 0.5);\n"
-    "   vec4 pos = proj_matrix * vec4(position, 1.0);\n"
-    "   gl_Position = pos;\n"
-    "   float out_point_radius = point_radius / pos.w;\n"
-    "   if (out_point_radius < 1.0) {\n"
-    "       out_point_radius = 1.0;\n"
-    "   }\n"
-    "   gl_PointSize = out_point_radius;\n"
-    "}\n";
+    R"(
+        #version 330 core
+        in vec3 position;
+        uniform float point_radius;
+        uniform mat4 proj_matrix;
+        out vec4 color;
+        void main() {
+            color = vec4(1.0, 1.0, 1.0, 0.5);
+            vec4 pos = proj_matrix * vec4(position, 1.0);
+            gl_Position = pos;
+            float out_point_radius = point_radius / pos.w;
+            if (out_point_radius < 1.0) {
+                out_point_radius = 1.0;
+            }
+            gl_PointSize = out_point_radius;
+        }
+      )";
 
 static const char *fragmentShaderSource =
-    "#version 330\n"
-    "in vec4 color;\n"
-    "out vec4 fragColor;\n"
-    "void main() {\n"
-    "float distance = length(gl_PointCoord - vec2(0.5, 0.5));\n"
-    "if (distance > 0.5) {\n"
-    "   discard;\n"
-    "}\n"
-    " vec4 new_color = color * (gl_PointCoord.x + gl_PointCoord.y) * 0.6;\n"
-    //"   if (gl_PointCoord.x > 0.5) {\n"
-    //"      fragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
-    //"   } else {\n"
-    "   fragColor = new_color;\n"
-    //"   }\n"
-    "}\n";
+    R"(
+        #version 330 core
+        in vec4 color;
+        out vec4 fragColor;
+        void main() {
+            if (length(gl_PointCoord - vec2(0.5, 0.5)) > 0.5) {
+                discard;
+            }
+            vec4 new_color = color * (gl_PointCoord.x + 1 - gl_PointCoord.y) * 0.6;
+            fragColor = new_color;
+        }
+      )";
 
 #define CHECK_PROGRAM_BIND()                                                                 \
   if (!m_shader->bind()) {                                                                   \
@@ -65,6 +64,8 @@ static const char *fragmentShaderSource =
   }
 
 void GLWidget::initializeGL() {
+  initializeOpenGLFunctions();
+
   // m_las_file = LASFile("assets/sample.laz", ProgressTracker());
   m_las_file = LASFile("laz_files/Blackie.laz", ProgressTracker());
   points.reserve(m_las_file->n_points() * 3);
@@ -74,14 +75,13 @@ void GLWidget::initializeGL() {
     points.push_back(m_las_file.value()[i].z() - m_las_file->bounds().minz);
   }
 
-  initializeOpenGLFunctions();
   setFocusPolicy(Qt::StrongFocus);
   GLenum err;
   while ((err = glGetError()) != GL_NO_ERROR) {
     std::cout << "ErrorE: " << err << std::endl;
   }
 
-  m_shader = std::make_unique<QOpenGLShaderProgram>();
+  m_shader = std::make_unique<QOpenGLShaderProgram>(this);
   if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource)) {
     std::cout << "Error: unable to add a vertex shader: " << m_shader->log().toStdString()
               << std::endl;
@@ -148,6 +148,22 @@ void GLWidget::initializeGL() {
 
   f->glEnableVertexAttribArray(0);
   f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+  f->glEnable(GL_PROGRAM_POINT_SIZE);
+  f->glEnable(GL_DEPTH_TEST);
+  f->glEnable(GL_POINT_SPRITE);
+  f->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  f->glEnable(GL_BLEND);
+  f->glClearColor(0.2, 0.2, 0.2, 1.0);
+
+  QSurfaceFormat format = QOpenGLContext::currentContext()->format();
+
+  if (format.profile() == QSurfaceFormat::CompatibilityProfile) {
+    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+    GLint point_sprite_coord_origin;
+    f->glGetIntegerv(GL_POINT_SPRITE_COORD_ORIGIN, &point_sprite_coord_origin);
+    AssertEQ(point_sprite_coord_origin, GL_UPPER_LEFT);
+  }
+
   m_vbo.release();
   m_vao.release();
 
@@ -163,11 +179,6 @@ float deg2rad(float deg) { return deg * M_PI / 180.0f; }
 float rad2deg(float rad) { return rad * 180.0f / M_PI; }
 
 void GLWidget::paintGL() {
-  glEnable(GL_PROGRAM_POINT_SIZE);
-  glEnable(GL_DEPTH_TEST);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glEnable(GL_BLEND);
-  glClearColor(0.2, 0.2, 0.2, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   QMatrix4x4 camera_proj;
@@ -182,11 +193,9 @@ void GLWidget::paintGL() {
   m_shader->setUniformValue(m_point_radius_loc, point_radius);
 
   m_vao.bind();
-  m_vbo.bind();
 
   glDrawArrays(GL_POINTS, 0, points.size() / 3);
 
-  m_vbo.release();
   m_vao.release();
 
   m_shader->release();
@@ -296,6 +305,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event) {
     m_camera_up = {0.0f, 0.0, 1.0f};
   } else if (event->key() == Qt::Key_F) {
     Extent3D min_max = m_las_file->bounds();
+
     QVector3D centroid(min_max.maxx - min_max.minx, min_max.maxy - min_max.miny,
                        min_max.maxz - min_max.minz);
     centroid /= 2;
