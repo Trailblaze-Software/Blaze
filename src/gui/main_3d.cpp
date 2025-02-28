@@ -37,7 +37,11 @@ int main(int argc, char *argv[]) {
 
   QSurfaceFormat::setDefaultFormat(QSurfaceFormat::defaultFormat());
   MainWindow window;
-  window.gl_widget->load_las_file(file_path.value_or(AssetRetriever::get_asset("sample.laz")));
+
   window.show();
+
+  window.gl_widget->add_layer(
+      std::make_unique<LASLayer>(file_path.value_or(AssetRetriever::get_asset("sample.laz"))));
+
   return QApplication::exec();
 }

@@ -311,8 +311,8 @@ struct Extent2D {
 };
 
 struct Extent3D : Extent2D {
-  double minz;
-  double maxz;
+  double minz = std::numeric_limits<double>::infinity();
+  double maxz = -std::numeric_limits<double>::infinity();
 
   void grow(double x, double y, double z) {
     minx = std::min(x, minx);

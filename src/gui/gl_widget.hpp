@@ -10,7 +10,8 @@
 #include <QOpenGLWidget>
 
 #include "gui/camera.hpp"
-#include "las/las_file.hpp"
+#include "gui/layer.hpp"
+#include "gui/layer_renderer.hpp"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 
@@ -21,7 +22,11 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
 
-  void load_las_file(const fs::path &file);
+  void add_layer(std::unique_ptr<Layer> layer) {
+    m_layers.emplace_back(std::move(layer));
+    m_renderers.emplace_back(LayerRenderer::create(m_layers.back()));
+    m_camera.zoom_to_fit(m_layers.back()->extent());
+  }
 
  protected:
   QSize sizeHint() const override;
@@ -34,15 +39,15 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
 
  private:
   QPoint m_last_mouse_pos;
+
   QOpenGLVertexArrayObject m_vao;
   QOpenGLBuffer m_vbo;
-  std::unique_ptr<QOpenGLShaderProgram> m_shader;
 
   int m_proj_matrix_loc = 0;
   int m_point_radius_loc = 0;
 
   Camera m_camera;
 
-  std::vector<GLfloat> points;
-  std::optional<LASFile> m_las_file;
+  std::vector<std::shared_ptr<Layer>> m_layers;
+  std::vector<std::unique_ptr<LayerRenderer>> m_renderers;
 };

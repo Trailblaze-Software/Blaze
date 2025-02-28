@@ -10,7 +10,12 @@ inline double rad2deg(double rad) { return rad * 180.0f / M_PI; }
 
 class Camera {
  public:
-  Camera() : m_position(1, 1, 1), m_direction(-1, -1, -1), m_up(0, 0, 1) {};
+  Camera(int width, int height)
+      : m_position(1, 1, 1),
+        m_direction(-1, -1, -1),
+        m_up(0, 0, 1),
+        m_width(width),
+        m_height(height) {}
 
   Camera(const QVector3D &position, const QVector3D &direction, const QVector3D &up)
       : m_position(position), m_direction(direction), m_up(up) {}
@@ -25,6 +30,11 @@ class Camera {
       else
         m_direction = m_direction.normalized();
     }
+  }
+
+  void set_screen_size(int width, int height) {
+    m_width = width;
+    m_height = height;
   }
 
   void reset_to_origin() {
@@ -49,7 +59,7 @@ class Camera {
     m_position += (planar_direction() * dx + view_right() * dy + m_up * dz) * m_direction.length();
   }
 
-  void zoom_to_fit(const Extent3D &extent, double w, double h) {
+  void zoom_to_fit(const Extent3D &extent) {
     // Coordinate3D<double> center = extent.center();
     double max_extent = extent.max_extent();
     QVector3D qcenter(extent.maxx - extent.minx, extent.maxy - extent.miny,
@@ -57,7 +67,7 @@ class Camera {
     qcenter /= 2;
     m_position = qcenter + 10 * m_direction.normalized() * max_extent;
 
-    QMatrix4x4 proj = proj_matrix(w, h);
+    QMatrix4x4 proj = proj_matrix();
 
     float zoom_out_amount = 0.0f;
     for (size_t i = 0; i < 2; i++) {
@@ -87,7 +97,7 @@ class Camera {
     return std::asin(m_direction.z() / m_direction.length());
   }
 
-  double projection_scale(double h) const { return h / (2.0f * std::tan(deg2rad(m_fov) / 2)); }
+  double projection_scale() const { return m_height / (2.0f * std::tan(deg2rad(m_fov) / 2)); }
 
  private:
   double bound_rotation(double current_angle, double angle, double min_angle, double max_angle) {
@@ -115,16 +125,16 @@ class Camera {
     m_position = cor - (m_position - cor).length() * m_direction.normalized();
   }
 
-  QMatrix4x4 proj_matrix(int w, int h) const {
+  QMatrix4x4 proj_matrix() const {
     QMatrix4x4 proj;
-    proj.perspective(m_fov, double(w) / h, 1e-2, 1e5);
+    proj.perspective(m_fov, (double)m_width / m_height, 1e-2, 1e5);
     proj.lookAt(m_position, m_position + m_direction, m_up);
     return proj;
   }
 
-  QVector3D unproject(int w, int h, const QPointF &screen_pos) const {
-    QVector3D screen(screen_pos.x(), h - screen_pos.y(), 0);
-    return screen.unproject(proj_matrix(w, h), QMatrix4x4(), QRect(0, 0, w, h));
+  QVector3D unproject(const QPointF &screen_pos) const {
+    QVector3D screen(screen_pos.x(), m_height - screen_pos.y(), 0);
+    return screen.unproject(proj_matrix(), QMatrix4x4(), QRect(0, 0, m_width, m_height));
   }
 
   const QVector3D &position() const { return m_position; }
@@ -135,6 +145,9 @@ class Camera {
   QVector3D m_position;
   QVector3D m_direction;
   QVector3D m_up;
+
+  int m_width;
+  int m_height;
 
   double m_fov = 45.0f;
 };
