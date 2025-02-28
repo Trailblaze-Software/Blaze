@@ -101,7 +101,7 @@ set(CLI_EXE_NAME blaze-cli)
 set(UNIT_TESTS_NAME unit_tests)
 include_directories(src src/lib)
 add_library(${LIBRARY_NAME})
-add_executable(${CLI_EXE_NAME} assets/resources.rc)
+add_executable(${CLI_EXE_NAME} packaging/resources.rc)
 add_executable(${UNIT_TESTS_NAME})
 
 set(ALL_EXECUTABLES ${CLI_EXE_NAME} ${UNIT_TESTS_NAME})
@@ -116,7 +116,7 @@ if(NOT BLAZE_CLI_ONLY)
   endif()
 
   if(WIN32)
-    qt_add_executable(${GUI_EXE_NAME} WIN32 assets/resources.rc)
+    qt_add_executable(${GUI_EXE_NAME} WIN32 packaging/resources.rc)
   else()
     qt_add_executable(${GUI_EXE_NAME})
   endif()
@@ -139,7 +139,7 @@ if(NOT BLAZE_CLI_ONLY)
   set(GUI_3D_EXE_NAME Blaze3D)
   list(APPEND ALL_EXECUTABLES ${GUI_3D_EXE_NAME})
   if(WIN32)
-    qt_add_executable(${GUI_3D_EXE_NAME} WIN32 assets/resources.rc)
+    qt_add_executable(${GUI_3D_EXE_NAME} WIN32 packaging/resources.rc)
   else()
     qt_add_executable(${GUI_3D_EXE_NAME})
   endif()
@@ -233,10 +233,15 @@ if(NOT BLAZE_CLI_ONLY)
     TARGETS ${GUI_EXE_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
+  install(
+    TARGETS ${GUI_3D_EXE_NAME}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
   if(NOT WIN32)
     set(ENTRY_NAME "blaze")
-    configure_file(${PROJECT_SOURCE_DIR}/assets/Blaze.desktop.in
+    configure_file(${PROJECT_SOURCE_DIR}/packaging/Blaze.desktop.in
                    ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop
             DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
@@ -257,15 +262,33 @@ if(NOT BLAZE_CLI_ONLY)
       # https://github.com/microsoft/vcpkg/issues/36250
       $<$<CONFIG:DEBUG>:--qtpaths
       ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
-    install(SCRIPT ${deploy_script})
+    install(SCRIPT ${deploy_script} COMPONENT GUI)
+    qt_generate_deploy_app_script(
+      TARGET
+      ${GUI_3D_EXE_NAME}
+      OUTPUT_SCRIPT
+      deploy_script_3D
+      NO_UNSUPPORTED_PLATFORM_ERROR
+      DEPLOY_TOOL_OPTIONS
+      $<$<CONFIG:DEBUG>:--qtpaths
+      ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
+    install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
+
   endif()
 endif()
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
+                      ${CMAKE_CURRENT_SOURCE_DIR}/packaging)
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
 elseif(UNIX)
   set(CPACK_GENERATOR "STGZ;TGZ;DEB;RPM")
 endif()
+file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi" BLAZE_NSI_PATH)
+# set(CPACK_NSIS_DEFINES "!include \"${BLAZE_NSI_PATH}\"")
+# set(CPACK_NSIS_BRANDING_TEXT_CODE "!include ${BLAZE_NSI_PATH}")
+set(CPACK_NSIS_NSI_PATH "${BLAZE_NSI_PATH}")
 set(CPACK_PACKAGE_NAME "Blaze")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Blaze LIDAR mapping tool")
 set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
@@ -275,6 +298,7 @@ set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 set(CPACK_PACKAGE_CONTACT "Ryan Stocks ryan.stocks00@gmail.com")
 set(CPACK_PACKAGE_EXECUTABLES
     "bin/Blaze" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico"
+    "bin/Blaze3D" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico"
     "bin/blaze-cli" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 
 set(CPACK_NSIS_MODIFY_PATH "ON")
@@ -282,6 +306,7 @@ set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
 set(CPACK_NSIS_DISPLAY_NAME "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/Trailblaze-Software/blaze")
 set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze")
+set(CPACK_NSIS_MENU_LINKS "bin/Blaze3D.exe" "Blaze3D")
 set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "qt6-image-formats-plugins")
 

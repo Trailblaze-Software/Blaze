@@ -21,6 +21,8 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
 
+  void load_las_file(const fs::path &file);
+
  protected:
   QSize sizeHint() const override;
   void initializeGL() override;

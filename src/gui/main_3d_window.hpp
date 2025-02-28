@@ -11,5 +11,5 @@ class MainWindow : public QMainWindow {
   MainWindow();
   ~MainWindow();
 
-  GLWidget *glWidget;
+  GLWidget *gl_widget;
 };

@@ -63,17 +63,21 @@ static const char *fragmentShaderSource =
     return;                                                                                  \
   }
 
-void GLWidget::initializeGL() {
-  initializeOpenGLFunctions();
-
-  m_las_file = LASFile("assets/sample.laz", ProgressTracker());
-  // m_las_file = LASFile("laz_files/Blackie.laz", ProgressTracker());
+void GLWidget::load_las_file(const fs::path &file) {
+  m_las_file = LASFile(file, ProgressTracker());
+  points.clear();
   points.reserve(m_las_file->n_points() * 3);
   for (size_t i = 0; i < m_las_file->n_points(); i++) {
     points.push_back(m_las_file.value()[i].x() - m_las_file->bounds().minx);
     points.push_back(m_las_file.value()[i].y() - m_las_file->bounds().miny);
     points.push_back(m_las_file.value()[i].z() - m_las_file->bounds().minz);
   }
+  m_camera.zoom_to_fit(m_las_file->bounds(), width(), height());
+  update();
+}
+
+void GLWidget::initializeGL() {
+  initializeOpenGLFunctions();
 
   setFocusPolicy(Qt::StrongFocus);
   GLenum err;

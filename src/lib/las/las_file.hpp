@@ -210,14 +210,14 @@ class LASFile {
     m_bounds.grow(point.x(), point.y(), point.z());
   }
 
-  explicit LASFile(const std::string &filename, ProgressTracker progress_tracker,
+  explicit LASFile(const fs::path &filename, ProgressTracker progress_tracker,
                    bool skip_reading_points = false)
       : m_height_range({std::numeric_limits<double>::max(), std::numeric_limits<double>::min()}),
         m_intensity_range(
             {std::numeric_limits<uint16_t>::max(), std::numeric_limits<uint16_t>::min()}) {
     Timer timer;
     progress_tracker.text_update(to_string("Reading ", filename, " ..."));
-    Assert(fs::exists(filename), "File does not exist: " + filename);
+    Assert(fs::exists(filename), "File does not exist: " + filename.string());
 
 #ifdef USE_PDAL
     pdal::Option las_opt("filename", filename);
@@ -306,7 +306,7 @@ class LASFile {
 
   static LASFile with_border(const fs::path &filename, double border_width,
                              ProgressTracker progress_tracker) {
-    LASFile las_file(filename.string(), progress_tracker.subtracker(0.0, 0.6));
+    LASFile las_file(filename, progress_tracker.subtracker(0.0, 0.6));
     Extent3D original_bounds = las_file.bounds();
     std::vector<fs::path> border_filenames;
     for (const BorderType border_type :
@@ -334,7 +334,7 @@ class LASFile {
       las_file.m_bounds.grow(border_file.bounds());
     }
     progress_tracker.text_update(
-        to_string("Combined ", filename, " with borders ", las_file.m_bounds));
+        to_string("Combined ", filename.string(), " with borders ", las_file.m_bounds));
     return las_file;
   }
 
