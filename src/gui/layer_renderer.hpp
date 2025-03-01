@@ -69,20 +69,12 @@ class LASLayerRenderer : public LayerRenderer {
 
  public:
   LASLayerRenderer(std::shared_ptr<LASLayer> layer) : m_layer(layer) {
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-      std::cout << "OpenGL Error1: " << err << std::endl;
-    }
-
     m_points.reserve(layer->las_file().n_points() * 3);
     for (size_t i = 0; i < layer->las_file().n_points(); ++i) {
       auto point = layer->las_file()[i];
       m_points.push_back(point.x() - layer->las_file().bounds().minx);
       m_points.push_back(point.y() - layer->las_file().bounds().miny);
       m_points.push_back(point.z() - layer->las_file().bounds().minz);
-    }
-    while ((err = glGetError()) != GL_NO_ERROR) {
-      std::cout << "OpenGL Error2: " << err << std::endl;
     }
 
     m_shader = std::make_unique<QOpenGLShaderProgram>();
@@ -103,9 +95,6 @@ class LASLayerRenderer : public LayerRenderer {
       return;
     }
     CHECK_SHADER_BIND(m_shader);
-    while ((err = glGetError()) != GL_NO_ERROR) {
-      std::cout << "OpenGL Error3: " << err << std::endl;
-    }
 
     m_vao.create();
     {
@@ -129,6 +118,7 @@ class LASLayerRenderer : public LayerRenderer {
 
   virtual void render(const Camera& camera) override {
     CHECK_SHADER_BIND(m_shader);
+    QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
 
     QMatrix4x4 camera_proj = camera.proj_matrix();
 
@@ -140,11 +130,12 @@ class LASLayerRenderer : public LayerRenderer {
     {
       QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
 
-      glDrawArrays(GL_POINTS, 0, m_points.size() / 3);
+      f->glDrawArrays(GL_POINTS, 0, m_points.size() / 3);
     }
 
     m_shader->release();
   }
+
   virtual ~LASLayerRenderer() = default;
 };
 

@@ -16,7 +16,7 @@ MainWindow::MainWindow() {
 }
 MainWindow::~MainWindow() { delete gl_widget; }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 #ifdef _WIN32
   AllocConsole();
   freopen("CONOUT$", "w", stdout);
@@ -26,6 +26,9 @@ int main(int argc, char *argv[]) {
   QSurfaceFormat format;
   format.setVersion(3, 3);
   format.setProfile(QSurfaceFormat::CoreProfile);
+#ifdef GL_DEBUG
+  format.setOption(QSurfaceFormat::DebugContext);
+#endif
   QSurfaceFormat::setDefaultFormat(format);
 
   std::optional<fs::path> file_path;
@@ -36,6 +39,7 @@ int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
 
   QSurfaceFormat::setDefaultFormat(QSurfaceFormat::defaultFormat());
+
   MainWindow window;
 
   window.show();

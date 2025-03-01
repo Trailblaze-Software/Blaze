@@ -127,7 +127,7 @@ class Camera {
 
   QMatrix4x4 proj_matrix() const {
     QMatrix4x4 proj;
-    proj.perspective(m_fov, (double)m_width / m_height, 1e-2, 1e5);
+    proj.perspective(m_fov, (double)m_width / m_height, 1e-2f, 1e5f);
     proj.lookAt(m_position, m_position + m_direction, m_up);
     return proj;
   }

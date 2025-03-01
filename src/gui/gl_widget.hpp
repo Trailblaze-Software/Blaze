@@ -23,6 +23,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   ~GLWidget();
 
   void add_layer(std::unique_ptr<Layer> layer) {
+    makeCurrent();
     m_layers.emplace_back(std::move(layer));
     m_renderers.emplace_back(LayerRenderer::create(m_layers.back()));
     m_camera.zoom_to_fit(m_layers.back()->extent());

@@ -30,8 +30,6 @@ void GLWidget::initializeGL() {
   Assert(f->glGetError() == GL_NO_ERROR, "OpenGL error");
   Assert(QOpenGLContext::currentContext()->isValid(), "OpenGL context is invalid");
 
-  // f->glEnableVertexAttribArray(0);
-  // f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
   f->glEnable(GL_PROGRAM_POINT_SIZE);
   f->glEnable(GL_DEPTH_TEST);
   QPair<int, int> version = QOpenGLContext::currentContext()->format().version();
@@ -40,7 +38,7 @@ void GLWidget::initializeGL() {
   }
   f->glEnable(GL_BLEND);
   f->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  f->glClearColor(0.2, 0.2, 0.2, 1.0);
+  f->glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
   QSurfaceFormat format = QOpenGLContext::currentContext()->format();
 

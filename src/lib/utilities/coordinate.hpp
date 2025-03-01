@@ -136,8 +136,8 @@ class Coordinate2D {
 
   Coordinate2D() = default;
 
-  const T x() const { return m_data[0]; }
-  const T y() const { return m_data[1]; }
+  const T &x() const { return m_data[0]; }
+  const T &y() const { return m_data[1]; }
   T &x() { return m_data[0]; }
   T &y() { return m_data[1]; }
 
