@@ -10,11 +10,24 @@ Function install_file_associations
     WriteRegStr HKCR "${COMPONENT_NAME}\shell\open" "" "Open with Blaze3D-${VERSION}"
     WriteRegStr HKCR "${COMPONENT_NAME}\shell\open\command" "" '"$INSTDIR\bin\Blaze3D.exe" "%1"'
 
-    System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0x1000, i 0, i 0)'
+    WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.las\UserChoice" "ProgId" "${COMPONENT_NAME}"
+    WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.laz\UserChoice" "ProgId" "${COMPONENT_NAME}"
+
+    System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
 FunctionEnd
 
 Function un.install_file_associations
     DeleteRegKey HKCR "${COMPONENT_NAME}"
+
+    ReadRegStr $R0 HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.las\UserChoice" "ProgId"
+    StrCmp $R0 "${COMPONENT_NAME}" 0 +3
+    DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.las\UserChoice"
+
+    ReadRegStr $R0 HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.laz\UserChoice" "ProgId"
+    StrCmp $R0 "${COMPONENT_NAME}" 0 +3
+    DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.laz\UserChoice"
+
+    System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
 FunctionEnd
 
 Section "Associate las/laz files" file_extensions
