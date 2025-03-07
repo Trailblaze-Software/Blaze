@@ -12,6 +12,7 @@ pushd $DIR || exit
     cp compile_commands.json ..
     if [ -f "Blaze" ]; then
         cp Blaze ..
+        cp Blaze3D ..
     fi
     cp blaze-cli ..
 popd || exit

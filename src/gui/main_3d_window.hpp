@@ -4,12 +4,19 @@
 
 #include "gl_widget.hpp"
 
-class MainWindow : public QMainWindow {
-  // Q_OBJECT
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Main3DWindow;
+}
+QT_END_NAMESPACE
+
+class Main3DWindow : public QMainWindow {
+  Q_OBJECT
 
  public:
-  MainWindow();
-  ~MainWindow();
+  Main3DWindow();
+  ~Main3DWindow();
 
-  GLWidget *gl_widget;
+  std::unique_ptr<Ui::Main3DWindow> ui;
+  std::unique_ptr<GLWidget> gl_widget;
 };

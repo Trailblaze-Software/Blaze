@@ -9,13 +9,6 @@
 #include <windows.h>
 #endif
 
-MainWindow::MainWindow() {
-  gl_widget = new GLWidget();
-  setCentralWidget(gl_widget);
-  setWindowTitle(tr("Blaze 3D"));
-}
-MainWindow::~MainWindow() { delete gl_widget; }
-
 int main(int argc, char* argv[]) {
 #ifdef _WIN32
   AllocConsole();
@@ -40,7 +33,7 @@ int main(int argc, char* argv[]) {
 
   QSurfaceFormat::setDefaultFormat(QSurfaceFormat::defaultFormat());
 
-  MainWindow window;
+  Main3DWindow window;
 
   window.show();
 

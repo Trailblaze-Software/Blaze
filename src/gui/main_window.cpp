@@ -8,7 +8,7 @@
 #include "run.hpp"
 #include "ui_main_window.h"
 
-MainWindow::MainWindow() : ui(new Ui::MainWindow) {
+MainWindow::MainWindow() : ui(std::make_unique<Ui::MainWindow>()) {
   try {
     if (!QIcon::hasThemeIcon("list-add")) {
       QIcon::setThemeName("Humanity");
