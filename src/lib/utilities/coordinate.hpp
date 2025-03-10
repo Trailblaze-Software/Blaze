@@ -314,6 +314,12 @@ struct Extent3D : Extent2D {
   double minz = std::numeric_limits<double>::infinity();
   double maxz = -std::numeric_limits<double>::infinity();
 
+  Extent3D() = default;
+  Extent3D(const Extent2D &extent, double minz, double maxz)
+      : Extent2D(extent), minz(minz), maxz(maxz) {}
+  Extent3D(double minx, double maxx, double miny, double maxy, double minz, double maxz)
+      : Extent2D{minx, maxx, miny, maxy}, minz(minz), maxz(maxz) {}
+
   void grow(double x, double y, double z) {
     minx = std::min(x, minx);
     maxx = std::max(x, maxx);
@@ -333,6 +339,11 @@ struct Extent3D : Extent2D {
     Extent2D::grow(other);
     minz = std::min(minz, other.minz);
     maxz = std::max(maxz, other.maxz);
+  }
+
+  Extent3D operator-(const Coordinate3D<double> &offset) const {
+    return {minx - offset.x(), maxx - offset.x(), miny - offset.y(),
+            maxy - offset.y(), minz - offset.z(), maxz - offset.z()};
   }
 
   friend std::ostream &operator<<(std::ostream &os, const Extent3D &extent) {

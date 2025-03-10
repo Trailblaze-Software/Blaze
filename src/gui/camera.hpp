@@ -62,10 +62,10 @@ class Camera {
   void zoom_to_fit(const Extent3D &extent) {
     // Coordinate3D<double> center = extent.center();
     double max_extent = extent.max_extent();
-    QVector3D qcenter(extent.maxx - extent.minx, extent.maxy - extent.miny,
-                      extent.maxz - extent.minz);
+    QVector3D qcenter(extent.maxx + extent.minx, extent.maxy + extent.miny,
+                      extent.maxz + extent.minz);
     qcenter /= 2;
-    m_position = qcenter + 10 * m_direction.normalized() * max_extent;
+    m_position = qcenter - 10 * m_direction.normalized() * max_extent;
 
     QMatrix4x4 proj = proj_matrix();
 

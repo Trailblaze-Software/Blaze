@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
 
   window.show();
 
-  window.gl_widget->add_layer(
+  window.add_layer(
       std::make_unique<LASLayer>(file_path.value_or(AssetRetriever::get_asset("sample.laz"))));
 
   return QApplication::exec();

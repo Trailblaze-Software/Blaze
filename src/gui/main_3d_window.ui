@@ -73,7 +73,7 @@
      <x>0</x>
      <y>0</y>
      <width>1225</width>
-     <height>25</height>
+     <height>17</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
@@ -97,13 +97,31 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFeature::DockWidgetFloatable|QDockWidget::DockWidgetFeature::DockWidgetMovable</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::DockWidgetArea::LeftDockWidgetArea|Qt::DockWidgetArea::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Layers</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QTreeView" name="treeView"/>
+      <widget class="QTreeWidget" name="treeWidget">
+       <column>
+        <property name="text">
+         <string>Layers</string>
+        </property>
+       </column>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -117,13 +135,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>GroupBox</string>
-       </property>
-      </widget>
      </item>
     </layout>
    </widget>

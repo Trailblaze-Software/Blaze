@@ -43,9 +43,9 @@ void GLWidget::initializeGL() {
   QSurfaceFormat format = QOpenGLContext::currentContext()->format();
 
   if (format.profile() == QSurfaceFormat::CompatibilityProfile) {
-    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+    QOpenGLFunctions *opengl_functions = QOpenGLContext::currentContext()->functions();
     GLint point_sprite_coord_origin;
-    f->glGetIntegerv(GL_POINT_SPRITE_COORD_ORIGIN, &point_sprite_coord_origin);
+    opengl_functions->glGetIntegerv(GL_POINT_SPRITE_COORD_ORIGIN, &point_sprite_coord_origin);
     AssertEQ(point_sprite_coord_origin, GL_UPPER_LEFT);
   }
 
@@ -103,9 +103,9 @@ void GLWidget::keyPressEvent(QKeyEvent *event) {
   } else if (event->key() == Qt::Key_S) {
     m_camera.fly(-1 / 20., 0, 0);
   } else if (event->key() == Qt::Key_A) {
-    m_camera.fly(0, -1 / 20., 0);
-  } else if (event->key() == Qt::Key_D) {
     m_camera.fly(0, 1 / 20., 0);
+  } else if (event->key() == Qt::Key_D) {
+    m_camera.fly(0, -1 / 20., 0);
   } else if (event->key() == Qt::Key_Q) {
     m_camera.fly(0, 0, -1 / 10.);
   } else if (event->key() == Qt::Key_E) {
@@ -115,7 +115,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event) {
   } else if (event->key() == Qt::Key_F) {
     Extent3D bounds;
     for (const auto &layer : m_layers) {
-      bounds.grow(layer->extent());
+      bounds.grow(layer->extent() - m_offset);
     }
     m_camera.zoom_to_fit(bounds);
   }

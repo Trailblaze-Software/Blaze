@@ -17,6 +17,12 @@ class Main3DWindow : public QMainWindow {
   Main3DWindow();
   ~Main3DWindow();
 
+  void add_layer(std::unique_ptr<Layer> layer);
+
+ private slots:
+  void open_layer_file();
+
+ private:
   std::unique_ptr<Ui::Main3DWindow> ui;
   std::unique_ptr<GLWidget> gl_widget;
 };

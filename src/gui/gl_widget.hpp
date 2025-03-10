@@ -1,13 +1,14 @@
 
 #pragma once
 
-#include <qevent.h>
-
+#include <QEvent>
+#include <QFutureWatcher>
 #include <QMatrix4x4>
 #include <QOpenGLBuffer>
 #include <QOpenGLFunctions>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLWidget>
+#include <QtConcurrent>
 
 #include "gui/camera.hpp"
 #include "gui/layer.hpp"
@@ -23,11 +24,21 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   ~GLWidget();
 
   void add_layer(std::unique_ptr<Layer> layer) {
+    if (m_layers.empty()) {
+      m_projection = layer->projection();
+      m_offset = layer->extent().center();
+    } else if (m_projection != layer->projection()) {
+      throw std::runtime_error(
+          "New layer must have same projection as existing layers. New layer has projection: " +
+          layer->projection() + ", existing layers have projection: " + m_projection + ".");
+    }
     makeCurrent();
     m_layers.emplace_back(std::move(layer));
-    m_renderers.emplace_back(LayerRenderer::create(m_layers.back()));
-    m_camera.zoom_to_fit(m_layers.back()->extent());
+    m_renderers.emplace_back(LayerRenderer::create(m_layers.back(), m_offset));
+    m_camera.zoom_to_fit(m_layers.back()->extent() - m_offset);
   }
+
+  std::vector<std::shared_ptr<Layer>> layers() const { return m_layers; }
 
  protected:
   QSize sizeHint() const override;
@@ -51,4 +62,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
 
   std::vector<std::shared_ptr<Layer>> m_layers;
   std::vector<std::unique_ptr<LayerRenderer>> m_renderers;
+
+  std::string m_projection;
+  Coordinate3D<double> m_offset;
 };

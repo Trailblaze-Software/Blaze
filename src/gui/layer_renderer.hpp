@@ -4,16 +4,21 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
+#include <future>
 
 #include "gui/camera.hpp"
 #include "gui/layer.hpp"
 
 class LayerRenderer {
+ protected:
+  std::atomic<bool> m_data_ready = false;
+
  public:
   virtual void render(const Camera& camera) = 0;
   virtual ~LayerRenderer() = default;
 
-  static std::unique_ptr<LayerRenderer> create(std::shared_ptr<Layer> layer);
+  static std::unique_ptr<LayerRenderer> create(std::shared_ptr<Layer> layer,
+                                               const Coordinate3D<double>& offset);
 };
 
 static const char* vertexShaderSource =
@@ -68,55 +73,68 @@ class LASLayerRenderer : public LayerRenderer {
   int m_point_radius_loc = 0;
 
  public:
-  LASLayerRenderer(std::shared_ptr<LASLayer> layer) : m_layer(layer) {
+  LASLayerRenderer(std::shared_ptr<LASLayer> layer, const Coordinate3D<double>& offset)
+      : m_layer(layer) {
+    std::future<void> future =
+        std::async(std::launch::async, [this, layer, offset]() { load_data(layer, offset); });
+  }
+
+  void load_data(std::shared_ptr<LASLayer> layer, const Coordinate3D<double>& offset) {
     m_points.reserve(layer->las_file().n_points() * 3);
     for (size_t i = 0; i < layer->las_file().n_points(); ++i) {
       auto point = layer->las_file()[i];
-      m_points.push_back(point.x() - layer->las_file().bounds().minx);
-      m_points.push_back(point.y() - layer->las_file().bounds().miny);
-      m_points.push_back(point.z() - layer->las_file().bounds().minz);
+      m_points.push_back(point.x() - offset.x());
+      m_points.push_back(point.y() - offset.y());
+      m_points.push_back(point.z() - offset.z());
     }
-
-    m_shader = std::make_unique<QOpenGLShaderProgram>();
-    if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource)) {
-      std::cout << "Error: unable to add a vertex shader: " << m_shader->log().toStdString()
-                << std::endl;
-      return;
-    }
-    if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource)) {
-      std::cout << "Error: unable to add a fragment shader: " << m_shader->log().toStdString()
-                << std::endl;
-      return;
-    }
-    m_shader->bindAttributeLocation("position", 0);
-    if (!m_shader->link()) {
-      std::cout << "Error: unable to link a shader program: " << m_shader->log().toStdString()
-                << std::endl;
-      return;
-    }
-    CHECK_SHADER_BIND(m_shader);
-
-    m_vao.create();
-    {
-      QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
-
-      m_vbo.create();
-      m_vbo.bind();
-
-      m_vbo.allocate(m_points.data(), m_points.size() * sizeof(GLfloat));
-
-      m_shader->enableAttributeArray(0);
-      m_shader->setAttributeBuffer(0, GL_FLOAT, 0, 3);
-
-      m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
-      m_point_radius_loc = m_shader->uniformLocation("point_radius");
-
-      m_vbo.release();
-    }
-    m_shader->release();
+    m_data_ready = true;
   }
 
   virtual void render(const Camera& camera) override {
+    if (!m_data_ready) {
+      m_data_ready = true;
+      return;
+    }
+    if (!m_shader) {
+      m_shader = std::make_unique<QOpenGLShaderProgram>();
+      if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource)) {
+        std::cout << "Error: unable to add a vertex shader: " << m_shader->log().toStdString()
+                  << std::endl;
+        return;
+      }
+      if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource)) {
+        std::cout << "Error: unable to add a fragment shader: " << m_shader->log().toStdString()
+                  << std::endl;
+        return;
+      }
+      m_shader->bindAttributeLocation("position", 0);
+      if (!m_shader->link()) {
+        std::cout << "Error: unable to link a shader program: " << m_shader->log().toStdString()
+                  << std::endl;
+        return;
+      }
+      CHECK_SHADER_BIND(m_shader);
+
+      m_vao.create();
+      {
+        QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
+
+        m_vbo.create();
+        m_vbo.bind();
+
+        m_vbo.allocate(m_points.data(), m_points.size() * sizeof(GLfloat));
+
+        m_shader->enableAttributeArray(0);
+        m_shader->setAttributeBuffer(0, GL_FLOAT, 0, 3);
+
+        m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
+        m_point_radius_loc = m_shader->uniformLocation("point_radius");
+
+        m_vbo.release();
+      }
+      m_shader->release();
+    }
+
     CHECK_SHADER_BIND(m_shader);
     QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
 
@@ -139,9 +157,10 @@ class LASLayerRenderer : public LayerRenderer {
   virtual ~LASLayerRenderer() = default;
 };
 
-inline std::unique_ptr<LayerRenderer> LayerRenderer::create(std::shared_ptr<Layer> layer) {
+inline std::unique_ptr<LayerRenderer> LayerRenderer::create(std::shared_ptr<Layer> layer,
+                                                            const Coordinate3D<double>& offset) {
   if (auto las_layer = std::dynamic_pointer_cast<LASLayer>(layer)) {
-    return std::make_unique<LASLayerRenderer>(las_layer);
+    return std::make_unique<LASLayerRenderer>(las_layer, offset);
   }
   return nullptr;
 }
