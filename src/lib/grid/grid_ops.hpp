@@ -137,6 +137,9 @@ GeoGrid<T> interpolate_holes(const GeoGrid<T> &grid, ProgressTracker progress_tr
           }
         }
         result[{j, i}] = weighted_average / total_weight;
+        if (total_weight == 0) {
+          result[{j, i}] = 0;
+        }
       }
     }
   }
