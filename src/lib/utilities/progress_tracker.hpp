@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <optional>
 #include <string>
 #include <utility>
@@ -57,6 +58,15 @@ class ProgressTracker : public ProgressObserver {
   virtual ~ProgressTracker();
 
   double proportion() const { return m_proportion; }
+};
+
+class AsyncProgressTracker {
+  std::shared_ptr<ProgressTracker> m_tracker;
+
+ public:
+  AsyncProgressTracker() : m_tracker(std::make_shared<ProgressTracker>()) {}
+
+  std::shared_ptr<ProgressTracker> tracker() { return m_tracker; }
 };
 
 void run_loop(ProgressTracker tracker);

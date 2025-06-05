@@ -115,7 +115,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event) {
   } else if (event->key() == Qt::Key_F) {
     Extent3D bounds;
     for (const auto &layer : m_layers) {
-      bounds.grow(layer->extent() - m_offset);
+      bounds.grow(layer->extent() - m_camera.world_offset());
     }
     m_camera.zoom_to_fit(bounds);
   }

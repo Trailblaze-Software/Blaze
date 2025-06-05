@@ -90,6 +90,10 @@ inline GeoGrid<float> low_pass(const GeoGrid<std::optional<float>>& grid, int de
           }
         }
       }
+      if (weight_sum == 0) {
+        low_pass[{j, i}] = 0;
+        continue;
+      }
       low_pass[{j, i}] = sum / weight_sum;
     }
   }

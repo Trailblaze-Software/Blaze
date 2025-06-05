@@ -12,5 +12,12 @@ target_sources(
           config_editor.ui)
 
 target_sources(
-  ${GUI_3D_EXE_NAME} PRIVATE main_3d.cpp main_3d_window.hpp main_3d_window.cpp
-                             main_3d_window.ui gl_widget.hpp gl_widget.cpp)
+  ${GUI_3D_EXE_NAME}
+  PRIVATE main_3d.cpp
+          main_3d_window.hpp
+          main_3d_window.cpp
+          layer_renderer.hpp
+          main_3d_window.ui
+          gl_widget.hpp
+          gl_widget.cpp
+          layer.hpp)

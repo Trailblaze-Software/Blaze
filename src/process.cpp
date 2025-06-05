@@ -65,7 +65,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   fs::path output_dir = config.output_path() / las_filename.stem();
   fs::create_directories(output_dir);
 
-  LASFile las_file = LASFile::with_border(las_filename, config.border_width,
+  LASData las_file = LASData::with_border(las_filename, config.border_width,
                                           progress_tracker.subtracker(0.0, 0.4));
 
   double bin_resolution = config.grid.bin_resolution;
@@ -78,9 +78,18 @@ void process_las_file(const fs::path& las_filename, const Config& config,
 
   {
     TimeFunction timer("binning points", &progress_tracker);
+    size_t n_out_of_bounds = 0;
     for (const LASPoint& las_point : las_file) {
+      if (!binned_points.extent()->contains(las_point.x(), las_point.y())) {
+        n_out_of_bounds++;
+        continue;
+      }
       binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
           las_point);
+    }
+    if (n_out_of_bounds > 0) {
+      std::cerr << "Warning: " << n_out_of_bounds
+                << " points were out of bounds and were not included in the processing.\n";
     }
   }
   progress_tracker.set_proportion(0.5);
@@ -103,8 +112,8 @@ void process_las_file(const fs::path& las_filename, const Config& config,
 
   {
     bool only_classified_ground = true;
-    LASFile ground_points_las =
-        LASFile(*ground_points.extent(), GeoProjection(ground_points.projection()));
+    LASData ground_points_las =
+        LASData(*ground_points.extent(), GeoProjection(ground_points.projection()));
     TimeFunction timer("min finding", &progress_tracker);
 #pragma omp parallel for
     for (size_t i = 0; i < binned_points.height(); i++) {
@@ -163,7 +172,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
                progress_tracker.subtracker(0.67, 0.68));
 
   if (OUT_LAS)
-    LASFile(ground).write(output_dir / "ground.las", progress_tracker.subtracker(0.68, 0.69));
+    LASData(ground).write(output_dir / "ground.las", progress_tracker.subtracker(0.68, 0.69));
 
   std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
       downsample(ground, config.grid.downsample_factor, progress_tracker.subtracker(0.69, 0.7)));
@@ -171,14 +180,14 @@ void process_las_file(const fs::path& las_filename, const Config& config,
       remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
                       config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
   if (OUT_LAS)
-    LASFile(*downsampled_ground).write(output_dir / "smooth_ground_no_outlier_removal.las");
+    LASData(*downsampled_ground).write(output_dir / "smooth_ground_no_outlier_removal.las");
   downsampled_ground.reset();
 
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif",
                progress_tracker.subtracker(0.72, 0.73));
 
   if (OUT_LAS)
-    LASFile(smooth_ground)
+    LASData(smooth_ground)
         .write(output_dir.parent_path() / "smooth_ground.las",
                progress_tracker.subtracker(0.73, 0.74));
 
@@ -189,7 +198,7 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   }
 
   smooth_ground = adjust_ground_to_slope(smooth_ground, ground.dx());
-  if (OUT_LAS) LASFile(smooth_ground).write(output_dir / "smooth_ground.las");
+  if (OUT_LAS) LASData(smooth_ground).write(output_dir / "smooth_ground.las");
 
   const std::vector<Contour> contours =
       generate_contours(smooth_ground, config.contours, progress_tracker.subtracker(0.75, 0.76));

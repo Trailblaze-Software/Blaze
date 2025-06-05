@@ -26,7 +26,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   void add_layer(std::unique_ptr<Layer> layer) {
     if (m_layers.empty()) {
       m_projection = layer->projection();
-      m_offset = layer->extent().center();
+      m_camera.world_offset() = layer->extent().center();
     } else if (m_projection != layer->projection()) {
       throw std::runtime_error(
           "New layer must have same projection as existing layers. New layer has projection: " +
@@ -34,8 +34,12 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     }
     makeCurrent();
     m_layers.emplace_back(std::move(layer));
-    m_renderers.emplace_back(LayerRenderer::create(m_layers.back(), m_offset));
-    m_camera.zoom_to_fit(m_layers.back()->extent() - m_offset);
+
+    m_renderers.emplace_back(LayerRenderer::create(m_layers.back(), m_camera.world_offset()));
+    connect(m_layers.back().get(), &Layer::data_updated, m_renderers.back().get(),
+            &LayerRenderer::data_update_required);
+    connect(m_renderers.back().get(), &LayerRenderer::repaint_required, this, [this] { update(); });
+    m_camera.zoom_to_fit(m_layers.back()->extent() - m_camera.world_offset());
   }
 
   std::vector<std::shared_ptr<Layer>> layers() const { return m_layers; }
@@ -64,5 +68,4 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   std::vector<std::unique_ptr<LayerRenderer>> m_renderers;
 
   std::string m_projection;
-  Coordinate3D<double> m_offset;
 };

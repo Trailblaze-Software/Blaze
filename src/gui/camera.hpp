@@ -9,6 +9,17 @@ inline double deg2rad(double deg) { return deg * M_PI / 180.0f; }
 inline double rad2deg(double rad) { return rad * 180.0f / M_PI; }
 
 class Camera {
+  QVector3D m_position;
+  QVector3D m_direction;
+  QVector3D m_up;
+
+  Coordinate3D<double> m_world_offset;
+
+  int m_width;
+  int m_height;
+
+  double m_fov = 45.0f;
+
  public:
   Camera(int width, int height)
       : m_position(1, 1, 1),
@@ -31,6 +42,9 @@ class Camera {
         m_direction = m_direction.normalized();
     }
   }
+
+  const Coordinate3D<double> &world_offset() const { return m_world_offset; }
+  Coordinate3D<double> &world_offset() { return m_world_offset; }
 
   void set_screen_size(int width, int height) {
     m_width = width;
@@ -140,14 +154,4 @@ class Camera {
   const QVector3D &position() const { return m_position; }
   const QVector3D &direction() const { return m_direction; }
   const QVector3D &up() const { return m_up; }
-
- private:
-  QVector3D m_position;
-  QVector3D m_direction;
-  QVector3D m_up;
-
-  int m_width;
-  int m_height;
-
-  double m_fov = 45.0f;
 };

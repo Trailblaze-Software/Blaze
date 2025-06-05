@@ -5,9 +5,14 @@
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
 
-class Layer {
+class Layer : public QObject {
+  Q_OBJECT
+
  protected:
   std::string m_name;
+
+ signals:
+  void data_updated() const;
 
  public:
   virtual Extent3D extent() const = 0;
@@ -22,16 +27,17 @@ class PointLayer : public Layer {
 };
 
 class LASLayer : public PointLayer {
-  LASFile m_las_file;
+  AsyncLASData m_las_file;
 
  public:
-  LASLayer(const fs::path &file) : m_las_file(file, ProgressTracker()) {
+  explicit LASLayer(const fs::path &file, AsyncProgressTracker progress_tracker)
+      : m_las_file(file, progress_tracker, {[this] { emit this->data_updated(); }}) {
     m_name = file.filename().string();
   }
 
   virtual Extent3D extent() const override { return m_las_file.bounds(); }
   virtual std::string projection() const override { return m_las_file.projection().to_string(); }
-  virtual ~LASLayer() = default;
 
-  const LASFile &las_file() const { return m_las_file; }
+  const AsyncLASData &las_file() const { return m_las_file; }
+  AsyncLASData &las_file() { return m_las_file; }
 };

@@ -9,13 +9,22 @@
 #include "gui/camera.hpp"
 #include "gui/layer.hpp"
 
-class LayerRenderer {
+class LayerRenderer : public QObject {
+  Q_OBJECT
+
  protected:
-  std::atomic<bool> m_data_ready = false;
+  bool m_data_update_required = true;
+
+ signals:
+  void repaint_required() const;
 
  public:
   virtual void render(const Camera& camera) = 0;
   virtual ~LayerRenderer() = default;
+  void data_update_required() {
+    m_data_update_required = true;
+    emit repaint_required();
+  }
 
   static std::unique_ptr<LayerRenderer> create(std::shared_ptr<Layer> layer,
                                                const Coordinate3D<double>& offset);
@@ -63,6 +72,9 @@ static const char* fragmentShaderSource =
 
 class LASLayerRenderer : public LayerRenderer {
   std::weak_ptr<LASLayer> m_layer;
+
+  std::mutex m_data_mutex;
+  bool m_data_updated;
   std::vector<GLfloat> m_points;
 
   QOpenGLVertexArrayObject m_vao;
@@ -74,12 +86,18 @@ class LASLayerRenderer : public LayerRenderer {
 
  public:
   LASLayerRenderer(std::shared_ptr<LASLayer> layer, const Coordinate3D<double>& offset)
-      : m_layer(layer) {
+      : m_layer(layer), m_data_updated(false) {
     std::future<void> future =
         std::async(std::launch::async, [this, layer, offset]() { load_data(layer, offset); });
   }
 
   void load_data(std::shared_ptr<LASLayer> layer, const Coordinate3D<double>& offset) {
+    std::unique_lock<std::mutex> lock(layer->las_file().mutex(), std::try_to_lock);
+    if (!lock.owns_lock()) {
+      m_data_update_required = true;
+      return;
+    }
+    m_data_update_required = false;
     m_points.reserve(layer->las_file().n_points() * 3);
     for (size_t i = 0; i < layer->las_file().n_points(); ++i) {
       auto point = layer->las_file()[i];
@@ -87,15 +105,25 @@ class LASLayerRenderer : public LayerRenderer {
       m_points.push_back(point.y() - offset.y());
       m_points.push_back(point.z() - offset.z());
     }
-    m_data_ready = true;
+    m_data_updated = true;
+    emit repaint_required();
   }
 
   virtual void render(const Camera& camera) override {
-    if (!m_data_ready) {
-      m_data_ready = true;
+    if (m_data_update_required) {
+      Coordinate3D<double> world_offset = camera.world_offset();
+      std::future<void> future = std::async(std::launch::async, [this, world_offset]() {
+        if (auto layer = m_layer.lock()) {
+          load_data(layer, world_offset);
+        }
+      });
       return;
     }
-    if (!m_shader) {
+    if (!m_shader && m_data_updated) {
+      std::unique_lock<std::mutex> lock(m_data_mutex, std::try_to_lock);
+      if (!lock.owns_lock()) {
+        return;
+      }
       m_shader = std::make_unique<QOpenGLShaderProgram>();
       if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource)) {
         std::cout << "Error: unable to add a vertex shader: " << m_shader->log().toStdString()
@@ -122,6 +150,7 @@ class LASLayerRenderer : public LayerRenderer {
         m_vbo.create();
         m_vbo.bind();
 
+        m_data_updated = false;
         m_vbo.allocate(m_points.data(), m_points.size() * sizeof(GLfloat));
 
         m_shader->enableAttributeArray(0);

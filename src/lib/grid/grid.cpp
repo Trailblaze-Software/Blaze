@@ -115,6 +115,7 @@ template class Geo<Grid<std::optional<float>>>;
 template class Geo<Grid<std::optional<std::byte>>>;
 template class Geo<Grid<std::byte>>;
 template class Geo<Grid<std::optional<LASPoint>>>;
+template class Geo<Grid<std::vector<LASPoint>>>;
 
 template class Geo<MultiBand<FlexGrid>>;
 
