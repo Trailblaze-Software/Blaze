@@ -24,53 +24,68 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T> &grid, T contour_
   return contour_heights;
 }
 
-inline std::vector<Contour> join_contours(const std::vector<Contour> &contours,
-                                          double max_dist = 15) {
-  std::vector<Contour> unjoined_contours = contours;
-  std::vector<Contour> joined_contours;
-  bool did_joining = true;
-  while (did_joining) {
-    did_joining = false;
-    for (const Contour &c : unjoined_contours) {
-      bool joined = false;
-      for (size_t i = 0; i < joined_contours.size(); i++) {
-        Contour &joined_c = joined_contours[i];
-        if ((joined_c.points().front() - c.points().front()).magnitude_sqd() <
-            max_dist * max_dist) {
-          std::reverse(joined_c.points().begin(), joined_c.points().end());
-          std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
-          joined = true;
-          break;
-        } else if ((joined_c.points().back() - c.points().front()).magnitude_sqd() <
-                   max_dist * max_dist) {
-          std::copy(c.points().begin(), c.points().end(), std::back_inserter(joined_c.points()));
-          joined = true;
-          break;
-        } else if ((joined_c.points().front() - c.points().back()).magnitude_sqd() <
-                   max_dist * max_dist) {
-          std::reverse(joined_c.points().begin(), joined_c.points().end());
-          std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
-          joined = true;
-          break;
-        } else if ((joined_c.points().back() - c.points().back()).magnitude_sqd() <
-                   max_dist * max_dist) {
-          std::copy(c.points().rbegin(), c.points().rend(), std::back_inserter(joined_c.points()));
-          joined = true;
-          break;
+inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist = 15.0) {
+  const double max_dist2 = max_dist * max_dist;
+
+  // Describes one of the four ways to combine contours
+  struct JoiningOption {
+    bool use_front_a;
+    bool use_front_b;
+  };
+  static constexpr JoiningOption cases[] = {
+      {true, true},   // a.front  ↔ b.front
+      {false, true},  // a.back   ↔ b.front
+      {true, false},  // a.front  ↔ b.back
+      {false, false}  // a.back   ↔ b.back
+  };
+
+  bool did_any_join = true;
+  std::vector<Contour> next_round;
+
+  while (did_any_join) {
+    did_any_join = false;
+    next_round.clear();
+
+    for (auto &src : contours) {
+      const auto &b = src.points();
+
+      double best_d2 = max_dist2;
+      int best_idx = -1;
+      JoiningOption best_case{};
+      for (int i = 0; i < (int)next_round.size(); ++i) {
+        const auto &a = next_round[i].points();
+        for (JoiningOption c : cases) {
+          const auto &pa = (c.use_front_a ? a.front() : a.back());
+          const auto &pb = (c.use_front_b ? b.front() : b.back());
+          double d2 = (pa - pb).magnitude_sqd();
+          if (d2 < best_d2) {
+            best_d2 = d2;
+            best_idx = i;
+            best_case = c;
+          }
         }
       }
-      if (!joined) {
-        joined_contours.emplace_back(c);
+      if (best_idx >= 0) {
+        auto &acc = next_round[best_idx].points();
+        // If we matched its FRONT, reverse so the join point is at back()
+        if (best_case.use_front_a) {
+          std::reverse(acc.begin(), acc.end());
+        }
+        // Then append src either forward or reversed
+        if (best_case.use_front_b) {
+          acc.insert(acc.end(), b.begin(), b.end());
+        } else {
+          acc.insert(acc.end(), b.rbegin(), b.rend());
+        }
+        did_any_join = true;
       } else {
-        did_joining = true;
+        next_round.emplace_back(std::move(src));
       }
     }
-    if (did_joining) {
-      unjoined_contours = std::move(joined_contours);
-      joined_contours.clear();
-    }
+    contours = std::move(next_round);
   }
-  return joined_contours;
+
+  return contours;
 }
 
 inline std::vector<Contour> trim_contours(const std::vector<Contour> &contours,
