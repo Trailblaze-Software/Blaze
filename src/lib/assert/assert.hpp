@@ -41,8 +41,9 @@ inline void _Assert(bool condition, const std::string &condition_str,
                     const std::source_location &loc = std::source_location::current()) {
   if (!condition) {
     std::stringstream ss;
-    ss << "Blaze assertion failed: " << condition_str << (message ? " " + *message : "") << "\n in "
-       << loc.function_name() << " at " << loc.file_name() << ":" << loc.line() << std::endl;
+    ss << "Blaze assertion failed: " << condition_str << (message ? ": " + *message : "")
+       << "\n in " << loc.function_name() << " at " << loc.file_name() << ":" << loc.line()
+       << std::endl;
     std::cerr << ss.str();
     throw std::runtime_error(ss.str());
   }
@@ -56,17 +57,17 @@ inline void _Assert(bool condition, const std::string &condition_str,
 
 template <typename A, typename B>
 inline void _AssertBinOp(const A &a, const B &b, const std::string &a_str, const std::string &b_str,
-                         bool result, const std::string &nop,
+                         bool result, const std::string &op, const std::string &nop,
                          const std::source_location &loc = std::source_location::current()) {
   if (!result) {
     std::stringstream ss;
     ss << a << " " << nop << " " << b;
-    _Assert(result, a_str + " " + nop + " " + b_str, ss.str(), loc);
+    _Assert(result, a_str + " " + op + " " + b_str, ss.str(), loc);
   }
 }
 
 #define AssertBinOp(a, b, op, nop) \
-  if (!((a)op(b))) _AssertBinOp(a, b, #a, #b, a op b, #nop)
+  if (!((a)op(b))) _AssertBinOp(a, b, #a, #b, a op b, #op, #nop)
 #define AssertGE(expr, val) AssertBinOp(expr, val, >=, <)
 #define AssertLE(expr, val) AssertBinOp(expr, val, <=, >)
 #define AssertGT(expr, val) AssertBinOp(expr, val, >, <=)

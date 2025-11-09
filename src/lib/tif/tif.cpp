@@ -76,7 +76,7 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
   options = CSLSetNameValue(options, "COMPRESS", "LZW");
   options = CSLSetNameValue(options, "NUM_THREADS", "8");
   options = CSLSetNameValue(options, "ALPHA", "YES");
-  options = CSLSetNameValue(options, "BIGTIFF", "IF_SAFER");
+  options = CSLSetNameValue(options, "BIGTIFF", "IF_NEEDED");
 
   GDALDriver *driver = GetGDALDriverManager()->GetDriverByName("GTiff");
 

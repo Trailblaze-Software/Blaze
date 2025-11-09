@@ -89,7 +89,6 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   connect(ui->out_dir_button, &QPushButton::clicked, this, &ConfigEditor::open_output_directory);
 
   for (const auto& [checkbox, step] : std::vector<std::pair<QCheckBox*, ProcessingStep>>{
-           {ui->extract_borders_checkbox, ProcessingStep::TmpBorders},
            {ui->process_tiles_checkbox, ProcessingStep::Tiles},
            {ui->combine_tiles_checkbox, ProcessingStep::Combine}}) {
     ProcessingStep ps = step;
@@ -185,9 +184,6 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
 
   ui->dpi_dropdown->setCurrentText(double_to_string(config.render.dpi).c_str());
 
-  ui->extract_borders_checkbox->setChecked(
-      std::find(config.processing_steps.begin(), config.processing_steps.end(),
-                ProcessingStep::TmpBorders) != config.processing_steps.end());
   ui->process_tiles_checkbox->setChecked(
       std::find(config.processing_steps.begin(), config.processing_steps.end(),
                 ProcessingStep::Tiles) != config.processing_steps.end());

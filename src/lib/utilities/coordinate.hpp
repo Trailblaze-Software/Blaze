@@ -329,6 +329,20 @@ struct Extent3D : Extent2D {
     maxz = std::max(z, maxz);
   }
 
+  void grow(double border) {
+    minx -= border;
+    maxx += border;
+    miny -= border;
+    maxy += border;
+    minz -= border;
+    maxz += border;
+  }
+
+  bool intersects(const Extent3D &other) const {
+    return !(other.minx > maxx || other.maxx < minx || other.miny > maxy || other.maxy < miny ||
+             other.minz > maxz || other.maxz < minz);
+  }
+
   Coordinate3D<double> center() const {
     return Coordinate3D<double>((minx + maxx) / 2, (miny + maxy) / 2, (minz + maxz) / 2);
   }
@@ -344,6 +358,16 @@ struct Extent3D : Extent2D {
   Extent3D operator-(const Coordinate3D<double> &offset) const {
     return {minx - offset.x(), maxx - offset.x(), miny - offset.y(),
             maxy - offset.y(), minz - offset.z(), maxz - offset.z()};
+  }
+
+  Extent3D intersection(const Extent3D &other) const {
+    return {std::max(minx, other.minx), std::min(maxx, other.maxx), std::max(miny, other.miny),
+            std::min(maxy, other.maxy), std::max(minz, other.minz), std::min(maxz, other.maxz)};
+  }
+
+  bool operator!=(const Extent3D &other) const {
+    return minx != other.minx || maxx != other.maxx || miny != other.miny || maxy != other.maxy ||
+           minz != other.minz || maxz != other.maxz;
   }
 
   friend std::ostream &operator<<(std::ostream &os, const Extent3D &extent) {

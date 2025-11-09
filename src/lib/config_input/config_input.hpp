@@ -175,7 +175,6 @@ struct BuildingsConfig {
 };
 
 enum class ProcessingStep {
-  TmpBorders,
   Tiles,
   Combine,
 };

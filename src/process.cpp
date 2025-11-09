@@ -17,7 +17,7 @@
 
 constexpr bool OUT_LAS = false;
 
-size_t round_up(double x) { return std::ceil(1e-8 + std::abs(x)); }
+size_t round_up(double x) { return std::ceil(1e-6 + std::abs(x)); }
 
 enum class GroundMethod { LOWER_BOUND, LOWEST_POINT, INTERPOLATE };
 
@@ -67,7 +67,11 @@ void process_las_file(const fs::path& las_filename, const Config& config,
 
   LASData las_file = LASData::with_border(las_filename, config.border_width,
                                           progress_tracker.subtracker(0.0, 0.4));
+  process_las_data(las_file, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
+}
 
+void process_las_data(LASData& las_file, const fs::path& output_dir, const Config& config,
+                      ProgressTracker progress_tracker) {
   double bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
       round_up(las_file.width() / bin_resolution + config.grid.downsample_factor),
@@ -81,6 +85,12 @@ void process_las_file(const fs::path& las_filename, const Config& config,
     size_t n_out_of_bounds = 0;
     for (const LASPoint& las_point : las_file) {
       if (!binned_points.extent()->contains(las_point.x(), las_point.y())) {
+        n_out_of_bounds++;
+        continue;
+      }
+      auto pixel_coord = binned_points.transform().projection_to_pixel(
+          Coordinate2D<double>(las_point.x(), las_point.y()));
+      if (pixel_coord.x() >= binned_points.width() || pixel_coord.y() >= binned_points.height()) {
         n_out_of_bounds++;
         continue;
       }

@@ -239,7 +239,6 @@ struct adl_serializer<BuildingsConfig> {
 };
 
 SERIALIZE_ENUM_STRICT(ProcessingStep, {
-                                          {ProcessingStep::TmpBorders, "tmp_borders"},
                                           {ProcessingStep::Tiles, "tiles"},
                                           {ProcessingStep::Combine, "combine"},
                                       })

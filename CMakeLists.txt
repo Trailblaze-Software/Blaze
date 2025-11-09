@@ -7,6 +7,8 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+message(STATUS "CMake Build Type: ${CMAKE_BUILD_TYPE}")
+
 include(FetchContent)
 if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
   set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
@@ -176,11 +178,12 @@ else()
   enable_testing()
 endif()
 
+set(LASPP_BUILD_TESTS OFF)
 FetchContent_Declare(
   las++
   GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
-  GIT_TAG fff0807b2925b0dc9db1b3b1943e675a4d9483d5)
-set(LASPP_DEBUG_ASSERTS ON)
+  GIT_TAG b73114695075a18c95789b8ec26463a19b926d4d)
+set(LASPP_DEBUG_ASSERTS OFF)
 FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 

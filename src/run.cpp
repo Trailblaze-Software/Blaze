@@ -1,5 +1,7 @@
 #include "run.hpp"
 
+#include <omp.h>
+
 #include <filesystem>
 #include <iostream>
 
@@ -13,12 +15,14 @@
 #include "printing/to_string.hpp"
 #include "process.hpp"
 #include "tif/tif.hpp"
+#include "utilities/coordinate.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
 
 void run_with_config(const Config &config, const std::vector<fs::path> &additional_las_files,
                      ProgressTracker &&tracker) {
+  std::cout << "Using " << omp_get_max_threads() << " threads for processing." << std::endl;
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path &las_file : config.las_filepaths()) {
     if (!fs::exists(las_file)) {
@@ -38,12 +42,9 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
   }
 
   std::vector<double> time_ratios;
-  double total_time = 0;
+  double total_time = 0.01;
   for (ProcessingStep step : config.processing_steps) {
     switch (step) {
-      case ProcessingStep::TmpBorders:
-        time_ratios.push_back(0.2);
-        break;
       case ProcessingStep::Tiles:
         time_ratios.push_back(0.9);
         break;
@@ -54,8 +55,25 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
     total_time += time_ratios.back();
   }
 
-  double current_time = 0;
   int idx = 0;
+  std::vector<std::pair<Extent3D, fs::path>> las_bounds;
+  for (const fs::path &las_file : las_files) {
+    double multiplier = 0.01 / total_time;
+    if (!fs::exists(las_file)) {
+      throw std::runtime_error("LAS file " + las_file.string() + " does not exist");
+    }
+    if (fs::is_directory(las_file)) {
+      throw std::runtime_error("LAS file " + las_file.string() + " is a directory");
+    }
+    LASFile las(las_file, tracker.subtracker(multiplier * idx / las_files.size(),
+                                             multiplier * (idx + 1) / las_files.size()));
+    las_bounds.emplace_back(
+        std::pair<Extent3D, fs::path>{Extent3D(las.bounds()), fs::path(las_file)});
+    idx++;
+  }
+
+  double current_time = 0.01;
+  idx = 0;
   for (ProcessingStep step : config.processing_steps) {
     TimeFunction timer(to_string("processing step ", step));
     tracker.text_update(to_string("Processing step ", step));
@@ -63,25 +81,27 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
     current_time += time_ratios[idx++] / total_time;
     switch (step) {
-      case ProcessingStep::TmpBorders:
-        for (size_t i = 0; i < las_files.size(); i++) {
-          step_tracker.set_proportion((double)i / las_files.size());
-          step_tracker.text_update("Extracting borders " + std::to_string(i + 1) + " of " +
-                                   std::to_string(las_files.size()) + ": " +
-                                   las_files[i].filename().string());
-          extract_borders(las_files[i], config.border_width,
-                          step_tracker.subtracker((double)i / las_files.size(),
-                                                  (double)(i + 1) / las_files.size()));
-        }
-        break;
       case ProcessingStep::Tiles:
         for (size_t i = 0; i < las_files.size(); i++) {
           step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
                                    std::to_string(las_files.size()) + ": " +
                                    las_files[i].filename().string());
-          process_las_file(las_files[i], config,
-                           step_tracker.subtracker((double)i / las_files.size(),
-                                                   (double)(i + 1) / las_files.size()));
+
+          {
+            ProgressTracker progress_tracker = step_tracker.subtracker(
+                (double)i / las_files.size(), (double)(i + 1) / las_files.size());
+
+            fs::path output_dir = config.output_path() / las_files[i].stem();
+            fs::create_directories(output_dir);
+
+            LASData las_file = LASData::with_border(las_files[i], config.border_width, las_bounds,
+                                                    progress_tracker.subtracker(0.0, 0.4));
+            process_las_data(las_file, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
+          }
+
+          // process_las_file(las_files[i], config,
+          // step_tracker.subtracker((double)i / las_files.size(),
+          //(double)(i + 1) / las_files.size()));
         }
         break;
       case ProcessingStep::Combine:
