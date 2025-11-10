@@ -171,7 +171,7 @@ inline std::string convert_geo_keys_to_wkt(const laspp::LASGeoKeys& geo_keys) {
   }
 
   if (!projectionSet) {
-    std::cout << geo_keys << std::endl;
+    std::cerr << geo_keys << std::endl;
     Fail("ERROR: No valid EPSG code found in LASGeoKeys.");
   }
 
@@ -205,7 +205,6 @@ class LASFile {
 
   void from_las_reader(const laspp::LASReader& reader) {
     laspp::Bound3D bounds = reader.header().bounds();
-    std::cout << "LAS bounds: " << bounds << std::endl;
     m_bounds = Extent3D(Extent2D(bounds.min_x(), bounds.max_x(), bounds.min_y(), bounds.max_y()),
                         bounds.min_z(), bounds.max_z());
     m_original_bounds = m_bounds;
@@ -287,33 +286,112 @@ class LASData : public LASFile {
 
 #ifndef USE_PDAL
  protected:
-  void read_points(laspp::LASReader& reader, ProgressTracker progress_tracker) {
+  void read_points(laspp::LASReader &reader, ProgressTracker progress_tracker,
+                   std::optional<Extent2D> bounds = std::nullopt) {
     Timer point_timer;
-    m_points.resize(reader.num_points());
-    reader.read_chunks(std::span<LASPoint>(m_points), {0, reader.num_chunks()});
+
+    if (bounds.has_value() && reader.has_lastools_spatial_index()) {
+      // Create query bounds (note: Bound2D constructor is min_x, min_y, max_x, max_y)
+      laspp::Bound2D query_bounds(bounds->minx, bounds->miny, bounds->maxx, bounds->maxy);
+
+      // Get spatial index and find ONLY cells that overlap the query bounds
+      const auto &spatial_index = reader.lastools_spatial_index();
+      const auto &cells = spatial_index.cells();
+
+      // Collect point intervals ONLY from cells that overlap the query extent
+      std::vector<laspp::PointInterval> intervals;
+      for (const auto &[cell_index, cell] : cells) {
+        // Check if this cell overlaps the query bounds
+        laspp::Bound2D cell_bounds = spatial_index.get_cell_bounds(cell_index);
+
+        // Two bounds overlap if: max_x > min_x && max_y > min_y (edge-touching doesn't count)
+        bool overlaps = (cell_bounds.max_x() > query_bounds.min_x() &&
+                         cell_bounds.min_x() < query_bounds.max_x() &&
+                         cell_bounds.max_y() > query_bounds.min_y() &&
+                         cell_bounds.min_y() < query_bounds.max_y());
+
+        if (overlaps) {
+          // Only add intervals from overlapping cells
+          intervals.insert(intervals.end(), cell.intervals.begin(), cell.intervals.end());
+        }
+      }
+
+      // Get chunk indices for intervals from overlapping cells only
+      std::vector<size_t> chunk_indices = reader.get_chunk_indices_from_intervals(intervals);
+
+      progress_tracker.text_update(
+          to_string("Reading ", chunk_indices.size(), "/", reader.num_chunks(), " chunks"));
+
+      if (!chunk_indices.empty()) {
+        // Calculate total points needed
+        size_t total_points = 0;
+        if (reader.header().is_laz_compressed()) {
+          const auto &points_per_chunk = reader.points_per_chunk();
+          for (size_t chunk_idx : chunk_indices) {
+            total_points += points_per_chunk[chunk_idx];
+          }
+        } else {
+          total_points = reader.num_points();
+        }
+
+        // Read only the chunks that contain points from overlapping cells
+        m_points.resize(total_points);
+        reader.read_chunks_list(std::span<LASPoint>(m_points), chunk_indices);
+
+        // Filter points that are actually within the bounds
+        const auto &transform = reader.header().transform();
+        std::vector<LASPoint> filtered_points;
+        filtered_points.reserve(m_points.size());
+
+        for (const auto &point : m_points) {
+          auto coords = transform.transform_point(point.x(), point.y(), point.z());
+          if (query_bounds.contains(coords.x(), coords.y())) {
+            filtered_points.push_back(point);
+            // Transform coordinates
+            filtered_points.back().x() = coords.x();
+            filtered_points.back().y() = coords.y();
+            filtered_points.back().z() = coords.z();
+          }
+        }
+
+        m_points = std::move(filtered_points);
+      } else {
+        // No overlapping cells found, set empty
+        m_points.clear();
+      }
+    } else {
+      // No bounds or no spatial index - read all points
+      m_points.resize(reader.num_points());
+      reader.read_chunks(std::span<LASPoint>(m_points), {0, reader.num_chunks()});
+
+      // Transform coordinates
+      const auto &transform = reader.header().transform();
+      for (LASPoint &point : m_points) {
+        auto coords = transform.transform_point(point.x(), point.y(), point.z());
+        point.x() = coords.x();
+        point.y() = coords.y();
+        point.z() = coords.z();
+      }
+    }
 
     progress_tracker.text_update(
         to_string("Reading ", m_points.size(), " points took ", point_timer));
 
-    for (LASPoint& point : m_points) {
+    // Calculate intensity range
+    for (const LASPoint &point : m_points) {
       m_intensity_range.first = std::min(m_intensity_range.first, point.intensity());
       m_intensity_range.second = std::max(m_intensity_range.second, point.intensity());
-
-      point.x() = point.x() * reader.header().transform().scale_factors().x() +
-                  reader.header().transform().offsets().x();
-      point.y() = point.y() * reader.header().transform().scale_factors().y() +
-                  reader.header().transform().offsets().y();
-      point.z() = point.z() * reader.header().transform().scale_factors().z() +
-                  reader.header().transform().offsets().z();
     }
+
     progress_tracker.text_update(to_string("Calculating extent took ", point_timer));
   }
 
  public:
 #endif
 
-  explicit LASData(const fs::path& filename, ProgressTracker progress_tracker,
-                   [[maybe_unused]] bool skip_reading_points = false)
+  explicit LASData(const fs::path &filename, ProgressTracker progress_tracker,
+                   [[maybe_unused]] bool skip_reading_points = false,
+                   std::optional<Extent2D> bounds = std::nullopt)
       : LASFile(filename, progress_tracker.subtracker(0, 0.1)) {
     Timer timer;
     progress_tracker.text_update(to_string("Reading ", filename, " ..."));
@@ -364,7 +442,7 @@ class LASData : public LASFile {
     if (skip_reading_points) {
       return;
     }
-    read_points(reader, progress_tracker.subtracker(0.1, 1.0));
+    read_points(reader, progress_tracker.subtracker(0.1, 1.0), bounds);
 #endif
   }
 
@@ -378,10 +456,8 @@ class LASData : public LASFile {
                              ProgressTracker progress_tracker) {
     LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6));
     Extent3D original_bounds = las_file.bounds();
-    std::cout << "Original bounds: " << original_bounds << std::endl;
     Extent3D extended_bounds = original_bounds;
     extended_bounds.grow(border_width);
-    std::cout << "Extended bounds: " << extended_bounds << std::endl;
 
     std::vector<fs::path> overlapping_filenames;
     for (const auto& [extent, border_filename] : all_las_file_extents) {
@@ -394,8 +470,9 @@ class LASData : public LASFile {
       LASData border_file(
           border_filename.string(),
           progress_tracker.subtracker(0.6 + (double)i / overlapping_filenames.size() * 0.4,
-                                      0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4));
-      for (const LASPoint& point : border_file) {
+                                      0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4),
+          false, extended_bounds);
+      for (const LASPoint &point : border_file) {
         if (!extended_bounds.contains(point.x(), point.y())) {
           continue;
         }
