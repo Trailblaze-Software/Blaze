@@ -30,12 +30,12 @@ jobs:
       - name: Install GDAL
         shell: pwsh
         run: |
-          choco install -y gdal --version=3.8.0
+          choco install -y gdal
           refreshenv
       - name: Install OpenCV
         shell: pwsh
         run: |
-          choco install -y opencv --version=4.10.0
+          choco install -y opencv
           refreshenv
       - name: Find installed packages and setup CMake paths
         shell: pwsh
