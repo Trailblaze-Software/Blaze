@@ -20,15 +20,15 @@
 #include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
 
-void run_with_config(const Config &config, const std::vector<fs::path> &additional_las_files,
-                     ProgressTracker &&tracker) {
+void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
+                     ProgressTracker&& tracker) {
   std::cout << "Using " << omp_get_max_threads() << " threads for processing." << std::endl;
   std::vector<fs::path> las_files = additional_las_files;
-  for (const fs::path &las_file : config.las_filepaths()) {
+  for (const fs::path& las_file : config.las_filepaths()) {
     if (!fs::exists(las_file)) {
       Fail("LAS file " + las_file.string() + " does not exist");
     } else if (fs::is_directory(las_file)) {
-      for (const fs::directory_entry &entry : fs::directory_iterator(las_file)) {
+      for (const fs::directory_entry& entry : fs::directory_iterator(las_file)) {
         if (entry.path().extension() == ".las" || entry.path().extension() == ".laz") {
           las_files.push_back(entry.path());
         } else {
@@ -57,7 +57,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
 
   int idx = 0;
   std::vector<std::pair<Extent3D, fs::path>> las_bounds;
-  for (const fs::path &las_file : las_files) {
+  for (const fs::path& las_file : las_files) {
     double multiplier = 0.01 / total_time;
     if (!fs::exists(las_file)) {
       throw std::runtime_error("LAS file " + las_file.string() + " does not exist");
@@ -72,7 +72,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
     idx++;
   }
 
-  double current_time = 0.01;
+  double current_time = 0.01 / total_time;
   idx = 0;
   for (ProcessingStep step : config.processing_steps) {
     TimeFunction timer(to_string("processing step ", step));
@@ -122,7 +122,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
 
           Extent2D extent;
           std::optional<double> dx, dy;
-          for (const fs::path &las_file : las_files) {
+          for (const fs::path& las_file : las_files) {
             fs::path output_dir = config.output_path() / las_file.stem();
             fs::path img_path = output_dir / filename;
             if (!fs::exists(img_path)) {
@@ -165,7 +165,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
               (extent.maxx - extent.minx) / (*dx), (extent.maxy - extent.miny) / (std::abs(*dy)),
               grids[0][0].n_bytes(), grids[0][0].data_type());
 
-          for (const auto &grid : grids) {
+          for (const auto& grid : grids) {
             combined_grid.fill_from(grid);
           }
 
@@ -197,7 +197,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
             {
               GPKGWriter writer((config.output_path() / "combined" / "streams.gpkg").string(),
                                 projection.value());
-              for (const Stream &stream : stream_path) {
+              for (const Stream& stream : stream_path) {
                 writer.write_polyline(Polyline{.layer = "streams",
                                                .name = std::to_string(stream.catchment),
                                                .vertices = stream.coords},
@@ -209,7 +209,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
 
         // Combine contours
         std::map<double, std::vector<Contour>> contours_by_height;
-        for (const fs::path &las_file : las_files) {
+        for (const fs::path& las_file : las_files) {
           fs::path output_dir = config.output_path() / las_file.stem();
           fs::path dxf_path = output_dir / "trimmed_contours.dxf";
           if (!fs::exists(dxf_path)) {
@@ -218,15 +218,15 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
           }
 
           std::vector<Contour> contours = read_dxf(dxf_path);
-          for (Contour &contour : contours) {
+          for (Contour& contour : contours) {
             contours_by_height[contour.height()].push_back(contour);
           }
         }
         std::vector<Contour> joined_contours;
-        for (const auto &[height, contours] : contours_by_height) {
+        for (const auto& [height, contours] : contours_by_height) {
           std::vector<Contour> jc = join_contours(
               contours, 5 * config.grid.bin_resolution * config.grid.downsample_factor);
-          for (Contour &contour : jc) {
+          for (Contour& contour : jc) {
             joined_contours.emplace_back(contour);
           }
         }
@@ -235,7 +235,7 @@ void run_with_config(const Config &config, const std::vector<fs::path> &addition
         {
           GPKGWriter writer((config.output_path() / "combined" / "contours.gpkg").string(),
                             projection.value());
-          for (const Contour &contour : joined_contours) {
+          for (const Contour& contour : joined_contours) {
             writer.write_polyline(contour.to_polyline(config.contours),
                                   {{"elevation", contour.height()}});
           }

@@ -36,9 +36,9 @@ using source_location = std::experimental::source_location;
 #define Assert(condition, ...) \
   if (!(condition)) _Assert(condition, #condition, std::optional<std::string>(__VA_ARGS__));
 
-inline void _Assert(bool condition, const std::string &condition_str,
-                    const std::optional<std::string> &message,
-                    const std::source_location &loc = std::source_location::current()) {
+inline void _Assert(bool condition, const std::string& condition_str,
+                    const std::optional<std::string>& message,
+                    const std::source_location& loc = std::source_location::current()) {
   if (!condition) {
     std::stringstream ss;
     ss << "Blaze assertion failed: " << condition_str << (message ? ": " + *message : "")
@@ -56,9 +56,9 @@ inline void _Assert(bool condition, const std::string &condition_str,
 #define Unimplemented(...) Assert(false, "Unimplemented");
 
 template <typename A, typename B>
-inline void _AssertBinOp(const A &a, const B &b, const std::string &a_str, const std::string &b_str,
-                         bool result, const std::string &op, const std::string &nop,
-                         const std::source_location &loc = std::source_location::current()) {
+inline void _AssertBinOp(const A& a, const B& b, const std::string& a_str, const std::string& b_str,
+                         bool result, const std::string& op, const std::string& nop,
+                         const std::source_location& loc = std::source_location::current()) {
   if (!result) {
     std::stringstream ss;
     ss << a << " " << nop << " " << b;

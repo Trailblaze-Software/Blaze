@@ -1,0 +1,114 @@
+---
+name: QGIS Plugin
+on:
+  push:
+    branches: ["*"]
+    paths:
+      - 'qgis_plugin/**'
+      - '.github/workflows/qgis-plugin.yml'
+    tags:
+      - 'qgis-v*'
+  pull_request:
+    branches: ["*"]
+    paths:
+      - 'qgis_plugin/**'
+  workflow_dispatch:
+jobs:
+  build-plugin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify plugin files exist
+        run: |
+          echo "Checking required plugin files..."
+          required_files=(
+            "qgis_plugin/blaze_loader/metadata.txt"
+            "qgis_plugin/blaze_loader/__init__.py"
+            "qgis_plugin/blaze_loader/blaze_loader.py"
+            "qgis_plugin/blaze_loader/blaze_loader_dialog.py"
+            "qgis_plugin/blaze_loader/create_qgis_project.py"
+            "qgis_plugin/blaze_loader/icon.png"
+          )
+          for f in "${required_files[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "ERROR: Missing required file: $f"
+              exit 1
+            fi
+            echo "✓ $f"
+          done
+          echo "All required files present"
+      - name: Get version from metadata
+        id: version
+        run: |
+          VERSION=$(grep "^version=" qgis_plugin/blaze_loader/metadata.txt | cut -d= -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Plugin version: $VERSION"
+      - name: Build plugin zip
+        run: |
+          cd qgis_plugin
+          python package_plugin.py
+      - name: Verify zip contents
+        run: |
+          echo "Zip file contents:"
+          unzip -l qgis_plugin/blaze_loader.zip
+      - name: Upload plugin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blaze_loader-${{ steps.version.outputs.version }}
+          path: qgis_plugin/blaze_loader.zip
+          retention-days: 30
+  # Release job - only runs on version tags
+  release:
+    needs: build-plugin
+    if: startsWith(github.ref, 'refs/tags/qgis-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get version from tag
+        id: tag_version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/qgis-v}
+          echo "version=$TAG" >> $GITHUB_OUTPUT
+          echo "Release version: $TAG"
+      - name: Download plugin artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: blaze_loader-${{ steps.tag_version.outputs.version }}
+          path: ./
+      - name: Rename zip with version
+        run: |
+          mv blaze_loader.zip blaze_loader-${{ steps.tag_version.outputs.version }}.zip
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: QGIS Plugin v${{ steps.tag_version.outputs.version }}
+          body: |
+            ## Blaze Map Loader QGIS Plugin v${{ steps.tag_version.outputs.version }}
+
+            ### Installation
+            1. Download `blaze_loader-${{ steps.tag_version.outputs.version }}.zip`
+            2. Open QGIS
+            3. Go to **Plugins > Manage and Install Plugins**
+            4. Click **Install from ZIP**
+            5. Select the downloaded zip file
+            6. Click **Install Plugin**
+
+            ### Features
+            - Load Blaze output maps into QGIS
+            - Automatic magnetic north lines with declination calculation
+            - NSW topographic layer download
+            - Pre-configured layer styling
+
+            ### Requirements
+            - QGIS 3.0 or later
+          files: |
+            blaze_loader-${{ steps.tag_version.outputs.version }}.zip
+          draft: false
+          prerelease: false

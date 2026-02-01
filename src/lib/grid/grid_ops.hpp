@@ -15,7 +15,7 @@ enum class DownsampleMethod { MEAN, MEDIAN };
 #define SQ(x) ((x) * (x))
 
 template <typename T>
-GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor, ProgressTracker &&progress_tracker,
+GeoGrid<T> downsample(const GeoGrid<T>& grid, size_t factor, ProgressTracker&& progress_tracker,
                       DownsampleMethod method = DownsampleMethod::MEDIAN) {
   TimeFunction timer("downsampling", &progress_tracker);
   AssertEQ(grid.transform().dx(), -grid.transform().dy());
@@ -48,7 +48,7 @@ GeoGrid<T> downsample(const GeoGrid<T> &grid, size_t factor, ProgressTracker &&p
 }
 
 template <typename T>
-GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, ProgressTracker progress_tracker,
+GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_tracker,
                            double z_threshold = 1, bool z_only = false) {
   TimeFunction timer("remove outliers", &progress_tracker);
   GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
@@ -107,7 +107,7 @@ GeoGrid<T> remove_outliers(const GeoGrid<T> &grid, ProgressTracker progress_trac
 bool has_value(double value) { return std::isfinite(value) && value < 1e6; }
 
 template <typename T>
-GeoGrid<T> interpolate_holes(const GeoGrid<T> &grid, ProgressTracker progress_tracker) {
+GeoGrid<T> interpolate_holes(const GeoGrid<T>& grid, ProgressTracker progress_tracker) {
   TimeFunction timer("interpolate holes", &progress_tracker);
   GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                     GeoProjection(grid.projection()));
@@ -147,7 +147,7 @@ GeoGrid<T> interpolate_holes(const GeoGrid<T> &grid, ProgressTracker progress_tr
 }
 
 template <typename T>
-GeoGrid<std::optional<std::byte>> bool_grid(const GeoGrid<T> &grid, T threshold) {
+GeoGrid<std::optional<std::byte>> bool_grid(const GeoGrid<T>& grid, T threshold) {
   TimeFunction timer("bool grid");
   GeoGrid<std::optional<std::byte>> result(grid.width(), grid.height(),
                                            GeoTransform(grid.transform()),

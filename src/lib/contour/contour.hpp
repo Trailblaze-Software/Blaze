@@ -34,8 +34,8 @@ inline std::set<T> get_contour_heights(T h1, T h2, T contour_interval) {
 }
 
 template <typename T, typename U>
-Coordinate2D<T> interpolate_coordinates(const Coordinate2D<T> &a, const Coordinate2D<T> &b,
-                                        const U &a_val, const U &b_val, const U &target) {
+Coordinate2D<T> interpolate_coordinates(const Coordinate2D<T>& a, const Coordinate2D<T>& b,
+                                        const U& a_val, const U& b_val, const U& target) {
   double a_weight;
   if (a_val == b_val) {
     a_weight = 0.5;
@@ -54,25 +54,25 @@ class Contour {
   bool m_is_loop = false;
 
  public:
-  Contour(double height, std::vector<Coordinate2D<double>> &&points)
+  Contour(double height, std::vector<Coordinate2D<double>>&& points)
       : m_height(height), m_points(std::move(points)) {
     if (m_points.size() > 1) {
-      const auto &front = m_points.front();
-      const auto &back = m_points.back();
+      const auto& front = m_points.front();
+      const auto& back = m_points.back();
       m_is_loop = (front - back).magnitude_sqd() < 1e-10;
     }
   }
 
-  static Contour from_polyline(const Polyline &polyline);
-  Polyline to_polyline(const ContourConfigs &configs) const;
+  static Contour from_polyline(const Polyline& polyline);
+  Polyline to_polyline(const ContourConfigs& configs) const;
 
   double height() const { return m_height; }
-  const std::vector<Coordinate2D<double>> &points() const { return m_points; }
-  std::vector<Coordinate2D<double>> &points() { return m_points; }
+  const std::vector<Coordinate2D<double>>& points() const { return m_points; }
+  std::vector<Coordinate2D<double>>& points() { return m_points; }
 
-  static Contour FromGridGraph(const LineCoord2D<size_t> &starting_point, double height,
-                               const GeoGrid<double> &grid,
-                               GridGraph<std::set<double>> &contour_heights) {
+  static Contour FromGridGraph(const LineCoord2D<size_t>& starting_point, double height,
+                               const GeoGrid<double>& grid,
+                               GridGraph<std::set<double>>& contour_heights) {
     std::vector<Coordinate2D<double>> contour_points;
     int pass = 0;
     for (Direction2D dir : starting_point.dir().orthogonal_dirs()) {
@@ -118,14 +118,14 @@ class Contour {
     return Contour(height, std::move(contour_points));
   }
 
-  void push_back(const Coordinate2D<double> &point) {
+  void push_back(const Coordinate2D<double>& point) {
     m_points.push_back(point);
     if (m_points.size() > 1) {
       m_is_loop = (m_points.front() - m_points.back()).magnitude_sqd() < 1e-10;
     }
   }
 
-  friend std::ostream &operator<<(std::ostream &os, const Contour &contour) {
+  friend std::ostream& operator<<(std::ostream& os, const Contour& contour) {
     os << "Contour at height " << contour.height() << " with " << contour.points().size()
        << " points";
     return os;

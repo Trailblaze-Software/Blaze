@@ -40,7 +40,8 @@ class GPKGWriter {
 
   void add_layer(const std::string& layer_name) {
     OGRSpatialReference srs;
-    srs.SetWellKnownGeogCS(projection.c_str());
+    // Import projection from WKT string (supports both geographic and projected CRS)
+    GDALAssert(srs.importFromWkt(projection.c_str()));
     OGRLayer* layer = dataset->CreateLayer(layer_name.c_str(), &srs, wkbLineString, nullptr);
     Assert(layer, "Failed to create layer " + layer_name);
     layer_names.push_back(layer_name);

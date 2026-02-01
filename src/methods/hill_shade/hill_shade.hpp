@@ -10,7 +10,7 @@
 #define SQ(x) ((x) * (x))
 
 template <typename T>
-GeoGrid<double> hill_shade(const GeoGrid<T> &grid, double azimuth = 315, double altitude = 45,
+GeoGrid<double> hill_shade(const GeoGrid<T>& grid, double azimuth = 315, double altitude = 45,
                            bool multidirectional = true) {
   TimeFunction timer("hill shade");
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
@@ -41,7 +41,7 @@ GeoGrid<double> hill_shade(const GeoGrid<T> &grid, double azimuth = 315, double 
 }
 
 template <typename T>
-GeoGrid<double> slope(const GeoGrid<T> &grid) {
+GeoGrid<double> slope(const GeoGrid<T>& grid) {
   TimeFunction timer("slope calculation");
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));

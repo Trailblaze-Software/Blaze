@@ -4,7 +4,7 @@
 #include "run.hpp"
 #include "utilities/progress_tracker.hpp"
 
-int main([[maybe_unused]] int argc, char *argv[]) {
+int main([[maybe_unused]] int argc, char* argv[]) {
   fs::path config_path = AssetRetriever::get_asset("default_config.json");
   if (argc > 1) {
     config_path = argv[1];

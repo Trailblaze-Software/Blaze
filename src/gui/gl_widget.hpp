@@ -20,7 +20,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
 
  public:
-  GLWidget(QWidget *parent = nullptr);
+  GLWidget(QWidget* parent = nullptr);
   ~GLWidget();
 
   void add_layer(std::unique_ptr<Layer> layer) {
@@ -48,10 +48,10 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   QSize sizeHint() const override;
   void initializeGL() override;
   void paintGL() override;
-  void mousePressEvent(QMouseEvent *event) override;
-  void mouseMoveEvent(QMouseEvent *event) override;
-  void wheelEvent(QWheelEvent *event) override;
-  void keyPressEvent(QKeyEvent *event) override;
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void wheelEvent(QWheelEvent* event) override;
+  void keyPressEvent(QKeyEvent* event) override;
 
  private:
   QPoint m_last_mouse_pos;

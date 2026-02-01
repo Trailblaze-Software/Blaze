@@ -7,7 +7,7 @@
 
 class TestGrid : public GeoGrid<double> {
  public:
-  explicit TestGrid(const std::vector<std::vector<double>> &data)
+  explicit TestGrid(const std::vector<std::vector<double>>& data)
       : GeoGrid<double>(data[0].size(), data.size(), GeoTransform(), GeoProjection()) {
     for (size_t i = 0; i < data.size(); i++) {
       for (size_t j = 0; j < data[0].size(); j++) {

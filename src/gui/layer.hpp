@@ -30,7 +30,7 @@ class LASLayer : public PointLayer {
   AsyncLASData m_las_file;
 
  public:
-  explicit LASLayer(const fs::path &file, AsyncProgressTracker progress_tracker)
+  explicit LASLayer(const fs::path& file, AsyncProgressTracker progress_tracker)
       : m_las_file(file, progress_tracker, {[this] { emit this->data_updated(); }}) {
     m_name = file.filename().string();
   }
@@ -38,6 +38,6 @@ class LASLayer : public PointLayer {
   virtual Extent3D extent() const override { return m_las_file.bounds(); }
   virtual std::string projection() const override { return m_las_file.projection().to_string(); }
 
-  const AsyncLASData &las_file() const { return m_las_file; }
-  AsyncLASData &las_file() { return m_las_file; }
+  const AsyncLASData& las_file() const { return m_las_file; }
+  AsyncLASData& las_file() { return m_las_file; }
 };

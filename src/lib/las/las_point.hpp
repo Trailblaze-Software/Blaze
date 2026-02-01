@@ -21,7 +21,7 @@ enum class LASClassification : uint8_t {
   Water = 9
 };
 
-inline std::ostream &operator<<(std::ostream &os, const LASClassification &classification) {
+inline std::ostream& operator<<(std::ostream& os, const LASClassification& classification) {
   switch (classification) {
     case LASClassification::CreatedNeverClassified:
       return os << "CreatedNeverClassified";
@@ -58,7 +58,7 @@ class LASPoint : public Coordinate3D<double> {
   LASPoint() = default;
 
 #ifdef USE_PDAL
-  explicit LASPoint(const pdal::PointRef &point)
+  explicit LASPoint(const pdal::PointRef& point)
       : Coordinate3D<double>(point.getFieldAs<double>(pdal::Dimension::Id::X),
                              point.getFieldAs<double>(pdal::Dimension::Id::Y),
                              point.getFieldAs<double>(pdal::Dimension::Id::Z)),
@@ -69,8 +69,8 @@ class LASPoint : public Coordinate3D<double> {
 
   uint16_t intensity() const { return m_intensity; }
   LASClassification classification() const { return m_classification; }
-  uint16_t &intensity() { return m_intensity; }
-  LASClassification &classification() { return m_classification; }
+  uint16_t& intensity() { return m_intensity; }
+  LASClassification& classification() { return m_classification; }
 
 #ifdef USE_PDAL
   void write_to(pdal::PointRef point) const {
@@ -82,7 +82,7 @@ class LASPoint : public Coordinate3D<double> {
   }
 #endif
 
-  friend std::ostream &operator<<(std::ostream &os, const LASPoint &point) {
+  friend std::ostream& operator<<(std::ostream& os, const LASPoint& point) {
     os << "LASPoint((" << point.x() << ", " << point.y() << ", " << point.z()
        << "), I: " << point.intensity() << ", C: " << point.classification() << ")";
     return os;
