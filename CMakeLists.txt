@@ -18,8 +18,9 @@ endif()
 
 option(BLAZE_CLI_ONLY "Build Blaze CLI only" OFF)
 option(BLAZE_USE_PDAL "Use PDAL for Blaze LAS IO" OFF)
+option(BLAZE_USE_VCPKG "Use vcpkg for dependency management on Windows" ON)
 
-if(WIN32)
+if(WIN32 AND BLAZE_USE_VCPKG)
   if(NOT BLAZE_CLI_ONLY)
     list(APPEND VCPKG_MANIFEST_FEATURES "gui")
   endif()
