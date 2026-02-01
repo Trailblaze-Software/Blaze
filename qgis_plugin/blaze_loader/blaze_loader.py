@@ -10,6 +10,8 @@
 import importlib
 import os
 import os.path
+import platform
+import shutil
 import sys
 from pathlib import Path
 
@@ -18,6 +20,32 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QApplication, QMessageBox, QProgressDialog
 
 from .blaze_loader_dialog import BlazeLoaderDialog
+
+
+def find_blaze_executable():
+    """Find the blaze executable in standard install locations."""
+    system = platform.system().lower()
+    exe_name = "blaze-cli.exe" if system == "windows" else "blaze-cli"
+
+    search_paths = []
+
+    # Standard Install Locations
+    if system == "windows":
+        # Check Program Files
+        prog_files = os.environ.get("ProgramFiles", "C:\\Program Files")
+        search_paths.append(Path(prog_files) / "Blaze" / "bin" / exe_name)
+    else:
+        # Check standard Linux paths
+        search_paths.append(Path("/usr/bin") / exe_name)
+        search_paths.append(Path("/usr/local/bin") / exe_name)
+
+    # Check candidates
+    for path in search_paths:
+        if path.exists():
+            return str(path)
+
+    # Look on path (generic)
+    return shutil.which(exe_name) or shutil.which("blaze")
 
 
 def check_qpip_installed():
@@ -62,6 +90,7 @@ class BlazeLoader:
         self.iface = iface
         self.plugin_dir = os.path.dirname(__file__)
         self.last_folder = None
+        self.blaze_executable_path = find_blaze_executable()
 
         # Try to install geomag for accurate magnetic declination
         geomag_ok, geomag_msg = ensure_geomag_installed()
@@ -75,20 +104,15 @@ class BlazeLoader:
             )
 
     def run(self):
-        self.dlg = BlazeLoaderDialog(parent=self.iface.mainWindow(), last_folder=self.last_folder)
+        # The dialog now handles both running blaze and loading layers.
+        # We can call the static method to show the dialog and get the options.
+        folder, options = BlazeLoaderDialog.get_load_layers_options(
+            parent=self.iface.mainWindow(),
+            last_folder=self.last_folder,
+            blaze_executable_path=self.blaze_executable_path,
+        )
 
-        # Center dialog on parent window
-        if self.iface.mainWindow():
-            parent_rect = self.iface.mainWindow().geometry()
-            dialog_rect = self.dlg.geometry()
-            x = parent_rect.x() + (parent_rect.width() - dialog_rect.width()) // 2
-            y = parent_rect.y() + (parent_rect.height() - dialog_rect.height()) // 2
-            self.dlg.move(x, y)
-
-        result = self.dlg.exec_()
-        if result:
-            folder = self.dlg.get_folder()
-            options = self.dlg.get_options()
+        if folder and options:
             self.last_folder = folder
             self.load_blaze_project(folder, options)
 

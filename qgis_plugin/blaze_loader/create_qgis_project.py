@@ -153,9 +153,49 @@ def get_grid_convergence(lon, lat, crs_input):
     def _calculate():
         from pyproj import Proj
 
-        crs_wkt = crs_input.toWkt() if hasattr(crs_input, "toWkt") else str(crs_input)
-        p = Proj(crs_wkt)
-        return p.get_factors(lon, lat).meridian_convergence
+        # Try multiple methods to get a valid CRS string
+        crs_str = None
+
+        # Method 1: Try authid (EPSG:XXXX)
+        if hasattr(crs_input, "authid") and crs_input.authid():
+            try:
+                crs_str = crs_input.authid()
+                # Test if it works
+                p = Proj(crs_str)
+                return p.get_factors(lon, lat).meridian_convergence
+            except Exception:
+                pass
+
+        # Method 2: Try WKT
+        if hasattr(crs_input, "toWkt"):
+            try:
+                crs_wkt = crs_input.toWkt()
+                if crs_wkt:
+                    p = Proj(crs_wkt)
+                    return p.get_factors(lon, lat).meridian_convergence
+            except Exception:
+                pass
+
+        # Method 3: Try PROJ string
+        if hasattr(crs_input, "toProj"):
+            try:
+                proj_str = crs_input.toProj()
+                if proj_str:
+                    p = Proj(proj_str)
+                    return p.get_factors(lon, lat).meridian_convergence
+            except Exception:
+                pass
+
+        # Method 4: Try as string
+        try:
+            crs_str = str(crs_input)
+            if crs_str:
+                p = Proj(crs_str)
+                return p.get_factors(lon, lat).meridian_convergence
+        except Exception:
+            pass
+
+        raise ValueError("Could not convert CRS to a format pyproj can use")
 
     try:
         return _calculate()
@@ -267,19 +307,48 @@ def create_qgis_project(
         "slope.tif",
     ]
     for i, f in enumerate(rasters):
-        report_progress(
-            f"Adding raster {f} ({i+1}/{len(rasters)})...",
-            5 + int((i / len(rasters)) * 10),
-        )
+        report_progress(f"Adding raster {f} ({i+1}/{len(rasters)})...", 5 + int((i / len(rasters)) * 10))
         layer = add_raster(combined_path / f, raster_group)
         if layer:
-            if project_crs is None and layer.crs().isValid():
-                project_crs = layer.crs()
+            crs = layer.crs()
+            log(f"  {f}: CRS valid={crs.isValid()}, authid={crs.authid()}, desc={crs.description()}")
+
+            # Always check all rasters, don't stop at first one
+            # But prefer rasters with authid over those without
+            if project_crs is None:
+                # No CRS yet - use this one if valid
+                if crs.isValid():
+                    project_crs = crs
+                    project_extent = layer.extent()
+                    if crs.authid():
+                        log(f"  ✓ Detected project CRS from {f}: {crs.authid()}")
+                    else:
+                        log(f"  ✓ Using CRS from {f} (no authid): {crs.description()}")
+                        wkt = crs.toWkt()
+                        if wkt:
+                            log(f"    WKT: {wkt[:150]}...")
+            elif project_crs and not project_crs.authid() and crs.isValid() and crs.authid():
+                # We have a CRS but no authid - upgrade to one with authid if available
+                project_crs = crs
                 project_extent = layer.extent()
+                log(f"  ✓ Upgraded project CRS from {f}: {crs.authid()}")
             # Hide by default
             layer_node = root.findLayer(layer.id())
             if layer_node:
                 layer_node.setItemVisibilityChecked(False)
+
+    # Summary of CRS detection
+    if project_crs:
+        log(
+            f"CRS Detection Summary: Found CRS - "
+            f"valid={project_crs.isValid()}, "
+            f"authid={project_crs.authid()}, "
+            f"desc={project_crs.description()}"
+        )
+    else:
+        log("CRS Detection Summary: ⚠ NO CRS DETECTED from any raster files")
+        log("  This will cause issues with coordinate transformations and magnetic north calculations")
+        log("  Please check that your raster files have projection information embedded")
 
     report_progress("Adding vegetation layers...", 15)
 
@@ -302,6 +371,19 @@ def create_qgis_project(
             if path.exists():
                 layer = add_raster(path, vege_group, prefix="raw_vege_")
                 if layer:
+                    # Also check vegetation rasters for CRS if not already found
+                    crs = layer.crs()
+                    log(f"  {filename}: CRS valid={crs.isValid()}, " f"authid={crs.authid()}, desc={crs.description()}")
+                    if project_crs is None:
+                        if crs.isValid() and crs.authid():
+                            project_crs = crs
+                            project_extent = layer.extent()
+                            log(f"Detected project CRS from {filename}: {crs.authid()}")
+                        elif crs.isValid():
+                            # CRS is valid but no authid - still use it if we have nothing else
+                            project_crs = crs
+                            project_extent = layer.extent()
+                            log(f"Using CRS from {filename} (no authid): {crs.description()}")
                     style_vegetation(layer, filename)
                     layer_node = root.findLayer(layer.id())
                     if layer_node:
@@ -309,22 +391,51 @@ def create_qgis_project(
 
     # Calculate grid-magnetic angle (accounts for both declination and grid convergence)
     gm_angle = None
-    if project_extent and project_crs:
+    if project_extent and project_crs and project_crs.isValid():
         from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform
 
         wgs84 = QgsCoordinateReferenceSystem("EPSG:4326")
-        transform = QgsCoordinateTransform(project_crs, wgs84, project)
-        center = project_extent.center()
-        wgs84_center = transform.transform(center)
-        log(f"Center coordinates: ({wgs84_center.x():.4f}°, {wgs84_center.y():.4f}°)")
-        gm_angle = get_grid_magnetic_angle(wgs84_center.x(), wgs84_center.y(), project_crs)
+        try:
+            transform = QgsCoordinateTransform(project_crs, wgs84, project)
+            transform.setContext(project.transformContext())
+            center = project_extent.center()
+            log(f"  Project center (projected): ({center.x():.4f}, {center.y():.4f})")
+            wgs84_center = transform.transform(center)
+
+            # Validate that we got WGS84 coordinates (lat should be -90 to 90, lon -180 to 180)
+            if -180 <= wgs84_center.x() <= 180 and -90 <= wgs84_center.y() <= 90:
+                log(f"  Center coordinates (WGS84): ({wgs84_center.x():.4f}°, {wgs84_center.y():.4f}°)")
+                gm_angle = get_grid_magnetic_angle(wgs84_center.x(), wgs84_center.y(), project_crs)
+            else:
+                log(f"  ⚠ Transform result doesn't look like WGS84: ({wgs84_center.x():.4f}, {wgs84_center.y():.4f})")
+                log("    This suggests the CRS transform failed. Project CRS may be incorrect.")
+        except Exception as e:
+            log(f"  ⚠ Failed to transform coordinates to WGS84: {e}")
+            log(f"    Project CRS: {project_crs.description() if project_crs else 'None'}")
+            import traceback
+
+            log(f"    Traceback: {traceback.format_exc()}")
+    else:
+        if not project_extent:
+            log("  ⚠ Cannot calculate grid-magnetic angle: no project extent")
+        if not project_crs:
+            log("  ⚠ Cannot calculate grid-magnetic angle: no project CRS")
+        elif not project_crs.isValid():
+            log("  ⚠ Cannot calculate grid-magnetic angle: project CRS is invalid")
 
     # Set project CRS from raster FIRST
-    if project_crs:
+    if project_crs and project_crs.isValid():
         project.setCrs(project_crs)
-        log(f"Project CRS set to: {project_crs.authid()}")
+        authid = project_crs.authid() if project_crs.authid() else "Unknown"
+        log(f"Project CRS set to: {authid}")
+        if not project_crs.authid():
+            log(f"  CRS description: {project_crs.description()}")
+            wkt = project_crs.toWkt()
+            if wkt:
+                log(f"  CRS WKT: {wkt[:200]}...")
     else:
-        log("WARNING: No project CRS detected from rasters")
+        log("⚠ WARNING: No project CRS detected from rasters")
+        log("  This may cause issues with coordinate transformations and magnetic north calculations")
 
     # Set default DPI to 600
     try:
@@ -338,13 +449,7 @@ def create_qgis_project(
     if download_topo and project_extent and project_crs:
         report_progress("Downloading NSW topographic layers...", 40)
         add_nsw_topo_layers(
-            topo_group,
-            project_extent,
-            project_crs,
-            combined_path,
-            progress_callback,
-            log,
-            gpkg_output_path,
+            topo_group, project_extent, project_crs, combined_path, progress_callback, log, gpkg_output_path
         )
     elif not download_topo:
         # Remove empty group
@@ -579,15 +684,7 @@ def add_controls_layer(extent, crs, group, output_path):
     return layer
 
 
-def add_nsw_topo_layers(
-    group,
-    extent,
-    crs,
-    output_dir,
-    progress_callback=None,
-    log_func=None,
-    gpkg_output_path=None,
-):
+def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, log_func=None, gpkg_output_path=None):
     """Download NSW topographic vector layers and save to files.
 
     Args:
@@ -597,12 +694,7 @@ def add_nsw_topo_layers(
     import urllib.error
     import urllib.request
 
-    from qgis.core import (
-        QgsCoordinateReferenceSystem,
-        QgsCoordinateTransform,
-        QgsField,
-        QgsFields,
-    )
+    from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsField, QgsFields
 
     def local_log(message):
         """Log with optional callback support."""
@@ -661,11 +753,7 @@ def add_nsw_topo_layers(
     layers = [
         # Elevation
         (f"{base_url}/NSW_Elevation_and_Depth_Theme/MapServer/0", "SpotHeight", True),
-        (
-            f"{base_url}/NSW_Elevation_and_Depth_Theme/MapServer/1",
-            "RelativeHeight",
-            False,
-        ),
+        (f"{base_url}/NSW_Elevation_and_Depth_Theme/MapServer/1", "RelativeHeight", False),
         # Transport
         (f"{base_url}/NSW_Transport_Theme/MapServer/9", "ClassifiedFireTrail", False),
         (f"{base_url}/NSW_Transport_Theme/MapServer/2", "Crossing", True),
@@ -675,60 +763,20 @@ def add_nsw_topo_layers(
         (f"{base_url}/NSW_Transport_Theme/MapServer/4", "Runway", False),
         (f"{base_url}/NSW_Transport_Theme/MapServer/1", "TrafficControlDevice", True),
         # Features of Interest
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/3",
-            "BuildingComplexPoint",
-            True,
-        ),
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/6",
-            "ElectricityTransmissionLine",
-            True,
-        ),
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/2",
-            "GeneralCulturalPoint",
-            True,
-        ),
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/5",
-            "GeneralCulturalLine",
-            True,
-        ),
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/0",
-            "TankPoint",
-            True,
-        ),
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/1",
-            "PlacePoint",
-            True,
-        ),
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/4",
-            "UtilityWaterSupplyCanal",
-            True,
-        ),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/3", "BuildingComplexPoint", True),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/6", "ElectricityTransmissionLine", True),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/2", "GeneralCulturalPoint", True),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/5", "GeneralCulturalLine", True),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/0", "TankPoint", True),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/1", "PlacePoint", True),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/4", "UtilityWaterSupplyCanal", True),
         # Administrative
-        (
-            f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/6",
-            "NPWSReserve",
-            True,
-        ),
-        (
-            f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/3",
-            "StateForest",
-            True,
-        ),
+        (f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/6", "NPWSReserve", True),
+        (f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/3", "StateForest", True),
         # Land/Property
         (f"{base_url}/NSW_Land_Parcel_Property_Theme/MapServer/12", "Property", False),
         # Cadastre (from maps.six.nsw.gov.au)
-        (
-            "https://maps.six.nsw.gov.au/arcgis/rest/services/public/NSW_Cadastre/MapServer/9",
-            "CadastreLot",
-            True,
-        ),
+        ("https://maps.six.nsw.gov.au/arcgis/rest/services/public/NSW_Cadastre/MapServer/9", "CadastreLot", True),
         # Physiography
         (f"{base_url}/NSW_Physiography_Category/MapServer/2", "FuzzyExtentLine", True),
         (f"{base_url}/NSW_Physiography_Category/MapServer/4", "FuzzyExtentArea", False),
@@ -745,11 +793,7 @@ def add_nsw_topo_layers(
         (f"{base_url}/NSW_Water_Theme/MapServer/4", "Coastline", True),
         (f"{base_url}/NSW_Water_Theme/MapServer/1", "AncillaryHydroPoint", True),
         # Features of Interest (moved to bottom for rendering order)
-        (
-            f"{base_url}/NSW_Features_of_Interest_Category/MapServer/9",
-            "GeneralCulturalArea",
-            True,
-        ),
+        (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/9", "GeneralCulturalArea", True),
     ]
 
     # Create single GPKG file for all NSW topo data
@@ -1384,6 +1428,47 @@ def build_raster_pyramids(raster_path):
         return False
 
 
+def infer_crs_from_description(description):
+    """Try to infer proper CRS from description string.
+
+    Examples: "GDA2020 / MGA 55S" -> EPSG:7855, "MGA55S" -> EPSG:7855
+    """
+    import re
+
+    if not description:
+        return None
+
+    # Look for MGA zone patterns (handles both "MGA 55S" and "MGA55S")
+    mga_match = re.search(r"MGA\s*(\d+)\s*([NS])", description, re.IGNORECASE)
+    if mga_match:
+        zone = int(mga_match.group(1))
+        hemisphere = mga_match.group(2).upper()
+
+        # GDA2020 MGA zones: EPSG codes 7848-7858 for zones 48-58 (South)
+        # MGA 48S = EPSG:7848, MGA 55S = EPSG:7855, etc.
+        # Formula: EPSG = 7800 + zone
+        if 48 <= zone <= 58:
+            epsg = 7800 + zone  # MGA 55S = 7800 + 55 = 7855 ✓
+            log(f"  Inferred GDA2020 MGA Zone {zone}{hemisphere} from description -> EPSG:{epsg}")
+            return epsg
+
+    # Look for UTM zone patterns
+    utm_match = re.search(r"UTM\s+Zone\s+(\d+)\s*([NS])", description, re.IGNORECASE)
+    if utm_match:
+        zone = int(utm_match.group(1))
+        hemisphere = utm_match.group(2).upper()
+        # UTM zones: EPSG:32701-32760 (South), EPSG:32601-32660 (North)
+        if 1 <= zone <= 60:
+            if hemisphere == "S":
+                epsg = 32700 + zone
+            else:
+                epsg = 32600 + zone
+            log(f"  Inferred UTM Zone {zone}{hemisphere} from description -> EPSG:{epsg}")
+            return epsg
+
+    return None
+
+
 def add_raster(path, group, prefix="", build_pyramids=True):
     """Add a raster layer and optionally build pyramids for performance."""
     if not path.exists():
@@ -1395,12 +1480,32 @@ def add_raster(path, group, prefix="", build_pyramids=True):
         build_raster_pyramids(path)
 
     layer = QgsRasterLayer(str(path), name)
-    if layer.isValid():
-        QgsProject.instance().addMapLayer(layer, False)
-        group.addLayer(layer)
-        log(f"Added: {name}")
-        return layer
-    return None
+    if not layer.isValid():
+        log(f"  ⚠ Failed to load raster: {name}")
+        return None
+
+    crs = layer.crs()
+
+    # If CRS is valid but has no authid, try to infer from description
+    if crs.isValid() and not crs.authid():
+        description = crs.description()
+        inferred_epsg = infer_crs_from_description(description)
+        if inferred_epsg:
+            from qgis.core import QgsCoordinateReferenceSystem
+
+            inferred_crs = QgsCoordinateReferenceSystem()
+            if inferred_crs.createFromId(inferred_epsg):
+                layer.setCrs(inferred_crs)
+                log(f"  Inferred CRS from description for {name}: EPSG:{inferred_epsg}")
+            else:
+                log(f"  Failed to create CRS from inferred EPSG:{inferred_epsg}")
+    elif not crs.isValid():
+        log(f"  ⚠ Warning: No valid CRS found for {name}")
+
+    QgsProject.instance().addMapLayer(layer, False)
+    group.addLayer(layer)
+    log(f"Added: {name}")
+    return layer
 
 
 def add_vector(uri, name, group, crs_override=None):
