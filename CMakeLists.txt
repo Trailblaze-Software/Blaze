@@ -40,7 +40,7 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
-    GIT_TAG 2024.09.30)
+    GIT_TAG 2024.12.16)
   FetchContent_MakeAvailable(vcpkg)
   include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
 endif()
