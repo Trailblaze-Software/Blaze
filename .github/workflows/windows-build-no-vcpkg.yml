@@ -5,7 +5,7 @@ on:
     branches: ["*"]
   pull_request:
     branches: ["*"]
-  workflow_dispatch: {}
+  workflow_dispatch:
 jobs:
   windows-build-cli:
     runs-on: windows-latest
@@ -30,8 +30,28 @@ jobs:
       - name: Install GDAL
         shell: pwsh
         run: |
-          choco install -y gdal
+          # Note: Chocolatey doesn't have a 'gdal' package, so we use winget
+          Write-Host "Installing GDAL via winget..."
+
+          if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+            Write-Host "Error: winget is not available on this runner" -ForegroundColor Red
+            Write-Host "This workflow requires GDAL. " -ForegroundColor Yellow -NoNewline
+            Write-Host "Please use the vcpkg-based workflow instead." -ForegroundColor Yellow
+            exit 1
+          }
+
+          # Install GDAL via winget
+          winget install --id OSGeo.GDAL -e --accept-source-agreements --accept-package-agreements
+
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Error: Failed to install GDAL via winget" -ForegroundColor Red
+            Write-Host "This workflow requires GDAL. " -ForegroundColor Yellow -NoNewline
+            Write-Host "Please use the vcpkg-based workflow instead." -ForegroundColor Yellow
+            exit 1
+          }
+
           refreshenv
+          Write-Host "GDAL installed successfully" -ForegroundColor Green
       - name: Install OpenCV
         shell: pwsh
         run: |
@@ -41,16 +61,45 @@ jobs:
         shell: pwsh
         run: |
           # Find GDAL installation
-          $gdalPaths = @(
-            "C:\Program Files\GDAL",
-            "C:\OSGeo4W64",
-            "$env:ProgramFiles\GDAL"
-          )
           $gdalPath = $null
-          foreach ($path in $gdalPaths) {
-            if (Test-Path $path) {
-              $gdalPath = $path
-              break
+
+          # Check winget install location first (most likely for this workflow)
+          $wingetPath = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages"
+          $wingetGdal = Get-ChildItem -Path $wingetPath `
+            -Filter "OSGeo.GDAL*" -Directory `
+            -ErrorAction SilentlyContinue | Select-Object -First 1
+          if ($wingetGdal -and (Test-Path $wingetGdal.FullName)) {
+            $gdalPath = $wingetGdal.FullName
+            Write-Host "Found GDAL in winget location: $gdalPath" -ForegroundColor Green
+          }
+
+          # Check other common locations
+          if (-not $gdalPath) {
+            $gdalPaths = @(
+              "C:\Program Files\GDAL",
+              "C:\OSGeo4W64",
+              "$env:ProgramFiles\GDAL"
+            )
+            foreach ($path in $gdalPaths) {
+              if (Test-Path $path) {
+                $gdalPath = $path
+                Write-Host "Found GDAL at: $gdalPath" -ForegroundColor Green
+                break
+              }
+            }
+          }
+
+          # If still not found, try to find via gdal-config or gdalinfo
+          if (-not $gdalPath) {
+            $gdalInfo = Get-Command gdalinfo -ErrorAction SilentlyContinue
+            if ($gdalInfo) {
+              $gdalBinDir = Split-Path -Parent $gdalInfo.Source
+              # Try to find the root GDAL directory (go up from bin)
+              $potentialPath = Split-Path -Parent $gdalBinDir
+              if (Test-Path (Join-Path $potentialPath "include\gdal")) {
+                $gdalPath = $potentialPath
+                Write-Host "Found GDAL via gdalinfo: $gdalPath" -ForegroundColor Green
+              }
             }
           }
 
