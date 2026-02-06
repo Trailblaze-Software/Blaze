@@ -38,11 +38,11 @@ constexpr GDALDataType gdal_type() {
   }
 }
 
-Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
+Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename) {
   TimeFunction timer("reading tif " + filename.string());
   Assert(fs::exists(filename), "File " + filename.string() + " does not seem to exist");
   GDALAllRegister();
-  GDALDataset *dataset = (GDALDataset *)GDALOpen(filename.string().c_str(), GA_ReadOnly);
+  GDALDataset* dataset = (GDALDataset*)GDALOpen(filename.string().c_str(), GA_ReadOnly);
   if (dataset == nullptr) {
     Fail("Could not open file " + filename.string());
   }
@@ -57,7 +57,7 @@ Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
   Geo<MultiBand<FlexGrid>> result(std::move(transform), std::move(projection), bands, width, height,
                                   n_bytes, datatype);
   for (int band = 0; band < bands; band++) {
-    GDALRasterBand *raster_band = dataset->GetRasterBand(band + 1);
+    GDALRasterBand* raster_band = dataset->GetRasterBand(band + 1);
     AssertEQ(raster_band->GetRasterDataType(), datatype);
     GDALAssert(raster_band->RasterIO(GF_Read, 0, 0, width, height, result[band].data(), width,
                                      height, datatype, 0, 0));
@@ -67,18 +67,18 @@ Geo<MultiBand<FlexGrid>> read_tif(const fs::path &filename) {
 }
 
 template <typename GridT>
-void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
+void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
                   std::optional<ProgressTracker> progress_tracker) {
   TimeFunction timer("writing to tif " + filename.string(), progress_tracker);
   GDALAllRegister();
 
-  char **options = nullptr;
+  char** options = nullptr;
   options = CSLSetNameValue(options, "COMPRESS", "LZW");
   options = CSLSetNameValue(options, "NUM_THREADS", "8");
   options = CSLSetNameValue(options, "ALPHA", "YES");
   options = CSLSetNameValue(options, "BIGTIFF", "IF_NEEDED");
 
-  GDALDriver *driver = GetGDALDriverManager()->GetDriverByName("GTiff");
+  GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GTiff");
 
   int bands;
   GDALDataType datatype;
@@ -92,20 +92,20 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
     datatype = gdal_type<T>();
   }
   //
-  GDALDataset *dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),
+  GDALDataset* dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),
                                         bands, datatype, options);
 
   if (dataset == nullptr) {
     Fail("Could not create file " + filename.string());
   }
 
-  dataset->SetGeoTransform(const_cast<double *>(grid.transform().get_raw()));
+  dataset->SetGeoTransform(const_cast<double*>(grid.transform().get_raw()));
   dataset->SetProjection(grid.projection().to_string().c_str());
 
   if constexpr (std::is_same_v<GridT, MultiBand<FlexGrid>>) {
     for (unsigned int band = 0; band < grid.size(); band++) {
       GDALAssert(dataset->GetRasterBand(band + 1)->RasterIO(
-          GF_Write, 0, 0, grid.width(), grid.height(), const_cast<std::byte *>(grid[band].data()),
+          GF_Write, 0, 0, grid.width(), grid.height(), const_cast<std::byte*>(grid[band].data()),
           grid.width(), grid.height(), datatype, 0, 0));
     }
   } else {
@@ -140,7 +140,7 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
       }
     } else {
       GDALAssert(dataset->GetRasterBand(1)->RasterIO(GF_Write, 0, 0, grid.width(), grid.height(),
-                                                     const_cast<T *>(&grid[{0, 0}]), grid.width(),
+                                                     const_cast<T*>(&grid[{0, 0}]), grid.width(),
                                                      grid.height(), datatype, 0, 0));
     }
   }
@@ -150,27 +150,27 @@ void write_to_tif(const Geo<GridT> &grid, const fs::path &filename,
   ;
 }
 
-template void write_to_tif(const GeoGrid<double> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<double>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const GeoGrid<float> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<float>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const GeoGrid<std::byte> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<std::byte>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const GeoGrid<RGBColor> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<RGBColor>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const GeoGrid<CMYKColor> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<CMYKColor>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const GeoGrid<std::optional<std::byte>> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<std::optional<std::byte>>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const GeoGrid<std::optional<double>> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<std::optional<double>>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const GeoGrid<std::optional<float>> &grid, const fs::path &filename,
+template void write_to_tif(const GeoGrid<std::optional<float>>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
-template void write_to_tif(const Geo<MultiBand<FlexGrid>> &grid, const fs::path &filename,
+template void write_to_tif(const Geo<MultiBand<FlexGrid>>& grid, const fs::path& filename,
                            std::optional<ProgressTracker> progress_tracker);
 
 template <typename T>
-void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename,
+void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
                         std::optional<ProgressTracker> progress_tracker) {
   GeoGrid<std::byte> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                             GeoProjection(grid.projection()));
@@ -194,5 +194,5 @@ void write_to_image_tif(const GeoGrid<T> &grid, const fs::path &filename,
                    : std::nullopt);
 }
 
-template void write_to_image_tif(const GeoGrid<double> &grid, const fs::path &filename,
+template void write_to_image_tif(const GeoGrid<double>& grid, const fs::path& filename,
                                  std::optional<ProgressTracker> progress_tracker);

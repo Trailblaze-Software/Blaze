@@ -118,7 +118,7 @@ template <>
 struct adl_serializer<ContourConfig> {
   static ContourConfig from_json(const json& j) {
     return ContourConfig{j.value("interval", 1.0), j.value("min_points", 5u),
-                         j.value("color", json({"brown"})).get<ColorVariant>(),
+                         j.value("color", json("brown")).get<ColorVariant>(),
                          j.value("width", 0.14)};
   }
 
@@ -148,7 +148,7 @@ template <>
 struct adl_serializer<BlockingThresholdColorPair> {
   static BlockingThresholdColorPair from_json(const json& j) {
     return BlockingThresholdColorPair{j.value("blocking_threshold", 0.1),
-                                      j.value("color", json({"white"})).get<ColorVariant>()};
+                                      j.value("color", json("white")).get<ColorVariant>()};
   }
 
   static void to_json(json& j, BlockingThresholdColorPair btc) {
@@ -175,7 +175,7 @@ struct adl_serializer<VegeHeightConfig> {
 template <>
 struct adl_serializer<VegeConfig> {
   static VegeConfig from_json(const json& j) {
-    return VegeConfig{j.value("background_color", json({"white"})).get<ColorVariant>(),
+    return VegeConfig{j.value("background_color", json("white")).get<ColorVariant>(),
                       j.value("height_configs", json({})).get<std::vector<VegeHeightConfig>>()};
   }
 
@@ -200,7 +200,7 @@ template <>
 struct adl_serializer<WaterConfig> {
   static WaterConfig from_json(const json& j) {
     return WaterConfig{.catchment = j.value("catchment", 0.05),
-                       .color = j.value("color", json({"blue"})),
+                       .color = j.value("color", json("blue")),
                        .width = j.value("width", 0.18)};
   }
 
@@ -232,7 +232,7 @@ struct adl_serializer<ContourConfigs> {
 template <>
 struct adl_serializer<BuildingsConfig> {
   static BuildingsConfig from_json(const json& j) {
-    return BuildingsConfig{j.value("color", json({"black"})).get<ColorVariant>()};
+    return BuildingsConfig{j.value("color", json("black")).get<ColorVariant>()};
   }
 
   static void to_json(json& j, BuildingsConfig bc) { j["color"] = bc.color; }

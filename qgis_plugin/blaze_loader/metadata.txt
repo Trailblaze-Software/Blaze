@@ -1,0 +1,26 @@
+[general]
+name=Blaze Map Loader
+qgisMinimumVersion=3.0
+description=This plugin loads the output maps created by Blaze along with magnetic north lines and NSW topo data if available
+version=0.1
+author=Trailblaze Software
+email=ryan.stocks00@gmail.com
+
+about=A plugin for loading maps created by Blaze, along with magnetic north lines and topographic data where available.
+
+tracker=https://github.com/Trailblaze-Software/Blaze/issues
+repository=https://github.com/Trailblaze-Software/Blaze
+
+hasProcessingProvider=no
+
+tags=python
+
+homepage=https://github.com/Trailblaze-Software/Blaze
+category=Plugins
+icon=icon.png
+experimental=True
+deprecated=False
+
+plugin_dependencies=qpip,compass_routes
+
+server=False

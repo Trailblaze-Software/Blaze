@@ -12,7 +12,7 @@
 #include <QtWidgets>
 #include <iostream>
 
-GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent), m_camera(width(), height()) {}
+GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent), m_camera(width(), height()) {}
 
 GLWidget::~GLWidget() {}
 
@@ -23,7 +23,7 @@ void GLWidget::initializeGL() {
 
   setFocusPolicy(Qt::StrongFocus);
 
-  QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+  QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
 
   std::cout << "Detected OpenGL version: " << f->glGetString(GL_VERSION) << std::endl;
 
@@ -43,7 +43,7 @@ void GLWidget::initializeGL() {
   QSurfaceFormat format = QOpenGLContext::currentContext()->format();
 
   if (format.profile() == QSurfaceFormat::CompatibilityProfile) {
-    QOpenGLFunctions *opengl_functions = QOpenGLContext::currentContext()->functions();
+    QOpenGLFunctions* opengl_functions = QOpenGLContext::currentContext()->functions();
     GLint point_sprite_coord_origin;
     opengl_functions->glGetIntegerv(GL_POINT_SPRITE_COORD_ORIGIN, &point_sprite_coord_origin);
     AssertEQ(point_sprite_coord_origin, GL_UPPER_LEFT);
@@ -60,7 +60,7 @@ void GLWidget::paintGL() {
 
   m_camera.set_screen_size(width(), height());
 
-  for (const auto &renderer : m_renderers) {
+  for (const auto& renderer : m_renderers) {
     renderer->render(m_camera);
   }
 
@@ -70,11 +70,11 @@ void GLWidget::paintGL() {
   }
 }
 
-void GLWidget::mousePressEvent(QMouseEvent *event) {
+void GLWidget::mousePressEvent(QMouseEvent* event) {
   m_last_mouse_pos = event->position().toPoint();
 }
 
-void GLWidget::mouseMoveEvent(QMouseEvent *event) {
+void GLWidget::mouseMoveEvent(QMouseEvent* event) {
   int dx = event->position().toPoint().x() - m_last_mouse_pos.x();
   int dy = event->position().toPoint().y() - m_last_mouse_pos.y();
 
@@ -90,14 +90,14 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
   update();
 }
 
-void GLWidget::wheelEvent(QWheelEvent *event) {
+void GLWidget::wheelEvent(QWheelEvent* event) {
   QVector3D world_pos = m_camera.unproject(event->position());
   m_camera.move_towards(world_pos,
                         m_camera.direction().length() * event->angleDelta().y() / 2000.0f, true);
   update();
 }
 
-void GLWidget::keyPressEvent(QKeyEvent *event) {
+void GLWidget::keyPressEvent(QKeyEvent* event) {
   if (event->key() == Qt::Key_W) {
     m_camera.fly(1 / 20., 0, 0);
   } else if (event->key() == Qt::Key_S) {
@@ -114,7 +114,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event) {
     m_camera.reset_to_origin();
   } else if (event->key() == Qt::Key_F) {
     Extent3D bounds;
-    for (const auto &layer : m_layers) {
+    for (const auto& layer : m_layers) {
       bounds.grow(layer->extent() - m_camera.world_offset());
     }
     m_camera.zoom_to_fit(bounds);

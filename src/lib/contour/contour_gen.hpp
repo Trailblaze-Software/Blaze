@@ -5,7 +5,7 @@
 #include "utilities/timer.hpp"
 
 template <typename T>
-GridGraph<std::set<double>> identify_contours(const GeoGrid<T> &grid, T contour_interval) {
+GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_interval) {
   TimeFunction timer("identifying contours");
   GridGraph contour_heights = GridGraph<std::set<double>>(grid);
 #pragma omp parallel for
@@ -46,17 +46,17 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
     did_any_join = false;
     next_round.clear();
 
-    for (auto &src : contours) {
-      const auto &b = src.points();
+    for (auto& src : contours) {
+      const auto& b = src.points();
 
       double best_d2 = max_dist2;
       int best_idx = -1;
       JoiningOption best_case{};
       for (int i = 0; i < (int)next_round.size(); ++i) {
-        const auto &a = next_round[i].points();
+        const auto& a = next_round[i].points();
         for (JoiningOption c : cases) {
-          const auto &pa = (c.use_front_a ? a.front() : a.back());
-          const auto &pb = (c.use_front_b ? b.front() : b.back());
+          const auto& pa = (c.use_front_a ? a.front() : a.back());
+          const auto& pb = (c.use_front_b ? b.front() : b.back());
           double d2 = (pa - pb).magnitude_sqd();
           if (d2 < best_d2) {
             best_d2 = d2;
@@ -66,7 +66,7 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
         }
       }
       if (best_idx >= 0) {
-        auto &acc = next_round[best_idx].points();
+        auto& acc = next_round[best_idx].points();
         // If we matched its FRONT, reverse so the join point is at back()
         if (best_case.use_front_a) {
           std::reverse(acc.begin(), acc.end());
@@ -88,12 +88,12 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
   return contours;
 }
 
-inline std::vector<Contour> trim_contours(const std::vector<Contour> &contours,
-                                          const Extent2D &bounds) {
+inline std::vector<Contour> trim_contours(const std::vector<Contour>& contours,
+                                          const Extent2D& bounds) {
   std::vector<Contour> trimmed_contours;
-  for (const Contour &c : contours) {
+  for (const Contour& c : contours) {
     Contour trimmed_contour(c.height(), std::vector<Coordinate2D<double>>{});
-    for (const Coordinate2D<double> &point : c.points()) {
+    for (const Coordinate2D<double>& point : c.points()) {
       if (bounds.contains(point.x(), point.y())) {
         trimmed_contour.push_back(point);
       } else if (trimmed_contour.points().size() > 0) {
@@ -109,7 +109,7 @@ inline std::vector<Contour> trim_contours(const std::vector<Contour> &contours,
 }
 
 template <typename T>
-std::vector<Contour> generate_contours(const GeoGrid<T> &grid, const ContourConfigs &contour_config,
+std::vector<Contour> generate_contours(const GeoGrid<T>& grid, const ContourConfigs& contour_config,
                                        ProgressTracker progress_tracker) {
   TimeFunction timer("generating contours", &progress_tracker);
   GridGraph is_contour = identify_contours(grid, contour_config.min_interval);
@@ -135,7 +135,7 @@ std::vector<Contour> generate_contours(const GeoGrid<T> &grid, const ContourConf
   return contours;
 }
 
-inline GeoGrid<std::optional<std::byte>> generate_naive_contours(const GeoGrid<double> &ground) {
+inline GeoGrid<std::optional<std::byte>> generate_naive_contours(const GeoGrid<double>& ground) {
   GeoGrid<std::optional<std::byte>> naive_countours = GeoGrid<std::optional<std::byte>>(
       ground.width(), ground.height(), GeoTransform(ground.transform()),
       GeoProjection(ground.projection()));

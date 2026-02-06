@@ -28,11 +28,11 @@ class Camera {
         m_width(width),
         m_height(height) {}
 
-  Camera(const QVector3D &position, const QVector3D &direction, const QVector3D &up)
+  Camera(const QVector3D& position, const QVector3D& direction, const QVector3D& up)
       : m_position(position), m_direction(direction), m_up(up) {}
 
-  void move(const QVector3D &direction) { m_position += direction; }
-  void move_towards(const QVector3D &world_pos, double distance, bool shrink_direction = false) {
+  void move(const QVector3D& direction) { m_position += direction; }
+  void move_towards(const QVector3D& world_pos, double distance, bool shrink_direction = false) {
     QVector3D direction = world_pos - m_position;
     m_position += direction.normalized() * distance;
     if (shrink_direction) {
@@ -43,8 +43,8 @@ class Camera {
     }
   }
 
-  const Coordinate3D<double> &world_offset() const { return m_world_offset; }
-  Coordinate3D<double> &world_offset() { return m_world_offset; }
+  const Coordinate3D<double>& world_offset() const { return m_world_offset; }
+  Coordinate3D<double>& world_offset() { return m_world_offset; }
 
   void set_screen_size(int width, int height) {
     m_width = width;
@@ -73,7 +73,7 @@ class Camera {
     m_position += (planar_direction() * dx + view_right() * dy + m_up * dz) * m_direction.length();
   }
 
-  void zoom_to_fit(const Extent3D &extent) {
+  void zoom_to_fit(const Extent3D& extent) {
     // Coordinate3D<double> center = extent.center();
     double max_extent = extent.max_extent();
     QVector3D qcenter(extent.maxx + extent.minx, extent.maxy + extent.miny,
@@ -127,7 +127,7 @@ class Camera {
 
  public:
   void rotate_around_center(double dx, double dy,
-                            const std::optional<QVector3D> &center = std::nullopt) {
+                            const std::optional<QVector3D>& center = std::nullopt) {
     QVector3D cor = center.value_or(m_position + m_direction);
 
     QMatrix4x4 rotation;
@@ -146,12 +146,12 @@ class Camera {
     return proj;
   }
 
-  QVector3D unproject(const QPointF &screen_pos) const {
+  QVector3D unproject(const QPointF& screen_pos) const {
     QVector3D screen(screen_pos.x(), m_height - screen_pos.y(), 0);
     return screen.unproject(proj_matrix(), QMatrix4x4(), QRect(0, 0, m_width, m_height));
   }
 
-  const QVector3D &position() const { return m_position; }
-  const QVector3D &direction() const { return m_direction; }
-  const QVector3D &up() const { return m_up; }
+  const QVector3D& position() const { return m_position; }
+  const QVector3D& direction() const { return m_direction; }
+  const QVector3D& up() const { return m_up; }
 };

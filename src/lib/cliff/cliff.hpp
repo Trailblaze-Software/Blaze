@@ -19,7 +19,7 @@ class ContourPoint : public Coordinate2D<double> {
   void set_next(std::shared_ptr<ContourPoint> next) { m_next = next; }
   void set_previous(std::shared_ptr<ContourPoint> prev) { m_prev = prev; }
 
-  void find_up_down(const GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> &point_grid) {
+  void find_up_down(const GeoGrid<std::vector<std::shared_ptr<ContourPoint>>>& point_grid) {
     Coordinate2D<size_t> pixel = point_grid.transform().projection_to_pixel(*this);
 
     double closest_down = std::numeric_limits<double>::max();
@@ -29,7 +29,7 @@ class ContourPoint : public Coordinate2D<double> {
       for (int dy : {-1, 0, 1}) {
         Coordinate2D<size_t> neighbor_pixel = pixel + Coordinate2D<size_t>(dx, dy);
         if (point_grid.in_bounds(neighbor_pixel)) {
-          for (const std::shared_ptr<ContourPoint> &neighbor_point : point_grid[neighbor_pixel]) {
+          for (const std::shared_ptr<ContourPoint>& neighbor_point : point_grid[neighbor_pixel]) {
             if (neighbor_point->height() < m_height) {
               double dist = (*this - *neighbor_point).magnitude_sqd();
               if (dist < closest_down) {

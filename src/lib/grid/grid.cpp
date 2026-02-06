@@ -6,10 +6,10 @@
 #include "las/las_point.hpp"
 #include "utilities/timer.hpp"
 
-GeoTransform::GeoTransform(GDALDataset &dataset) { dataset.GetGeoTransform(geoTransform); }
+GeoTransform::GeoTransform(GDALDataset& dataset) { dataset.GetGeoTransform(geoTransform); }
 
 template <typename GridT>
-GeoGrid<RGBColor> Geo<GridT>::FromGeoImg(const GeoImgGrid &grid) {
+GeoGrid<RGBColor> Geo<GridT>::FromGeoImg(const GeoImgGrid& grid) {
   TimeFunction timer("FromGeoImg");
   GeoGrid<RGBColor> new_grid(grid.width(), grid.height(), GeoTransform(grid.transform()),
                              GeoProjection(grid.projection()));
@@ -23,7 +23,7 @@ GeoGrid<RGBColor> Geo<GridT>::FromGeoImg(const GeoImgGrid &grid) {
 }
 
 template <typename T>
-void Grid<T>::fill_from(const FlexGrid &other, const Coordinate2D<long long> &top_left) {
+void Grid<T>::fill_from(const FlexGrid& other, const Coordinate2D<long long>& top_left) {
   AssertEQ(other.n_bytes(), sizeof(T));
   for (size_t i = 0; i < height(); i++) {
     for (size_t j = 0; j < width(); j++) {
@@ -36,8 +36,8 @@ template class Grid<double>;
 template class Grid<float>;
 
 template <typename GridT>
-Geo<GridT> same_type_different_size(const Geo<GridT> &grid, size_t new_width, size_t new_height,
-                                    const Coordinate2D<double> &new_top_left) {
+Geo<GridT> same_type_different_size(const Geo<GridT>& grid, size_t new_width, size_t new_height,
+                                    const Coordinate2D<double>& new_top_left) {
   if constexpr (is_specialization_v<GridT, Grid>) {
     return Geo<GridT>(GeoTransform(new_top_left.x(), new_top_left.y(), grid.transform().dx(),
                                    grid.transform().dy()),
@@ -53,7 +53,7 @@ Geo<GridT> same_type_different_size(const Geo<GridT> &grid, size_t new_width, si
 }
 
 template <typename GridT>
-Geo<GridT> Geo<GridT>::slice(const Extent2D &extent) {
+Geo<GridT> Geo<GridT>::slice(const Extent2D& extent) {
   Coordinate2D<size_t> top_left = transform().projection_to_pixel({extent.minx, extent.maxy});
   Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
   size_t new_width = bottom_right.x() - top_left.x();
@@ -120,7 +120,7 @@ template class Geo<Grid<std::vector<LASPoint>>>;
 template class Geo<MultiBand<FlexGrid>>;
 
 template <typename T>
-T interpolate_value(const GeoGrid<T> &grid, const Coordinate2D<double> &projection_coord) {
+T interpolate_value(const GeoGrid<T>& grid, const Coordinate2D<double>& projection_coord) {
   Coordinate2D<double> pixel_coord = grid.transform().projection_to_pixel(projection_coord);
   if (pixel_coord.x() < 0 || pixel_coord.y() < 0 || pixel_coord.x() >= grid.width() ||
       pixel_coord.y() >= grid.height()) {
@@ -153,8 +153,8 @@ T interpolate_value(const GeoGrid<T> &grid, const Coordinate2D<double> &projecti
          bottom_left * (1 - x_frac) * y_frac + bottom_right * x_frac * y_frac;
 }
 
-template double interpolate_value(const GeoGrid<double> &grid,
-                                  const Coordinate2D<double> &projection_coord);
+template double interpolate_value(const GeoGrid<double>& grid,
+                                  const Coordinate2D<double>& projection_coord);
 FlexGrid::FlexGrid(size_t width, size_t height, int n_bytes, int data_type)
     : GridData(width, height),
       m_data_size(n_bytes),

@@ -27,26 +27,26 @@ class GeoTransform {
     geoTransform[5] = dy;  // n->s pixel resolution (so negative is up)
   }
 
-  explicit GeoTransform(const Coordinate2D<double> &upper_left, double resolution)
+  explicit GeoTransform(const Coordinate2D<double>& upper_left, double resolution)
       : GeoTransform(upper_left.x(), upper_left.y(), resolution, -resolution) {}
 
   GeoTransform() : GeoTransform(0, 0, 1, -1) {};
 
-  explicit GeoTransform(GDALDataset &dataset);
+  explicit GeoTransform(GDALDataset& dataset);
 
-  const double *get_raw() const { return geoTransform; }
+  const double* get_raw() const { return geoTransform; }
 
   GeoTransform with_new_resolution(double new_resolution) const {
     return GeoTransform(x(), y(), new_resolution, -new_resolution);
   }
 
-  Coordinate2D<double> pixel_to_projection(const Coordinate2D<double> &coord) const {
+  Coordinate2D<double> pixel_to_projection(const Coordinate2D<double>& coord) const {
     double new_x = x() + coord.x() * dx() + coord.y() * rot_x();
     double new_y = y() + coord.y() * dy() + coord.x() * rot_y();
     return {new_x, new_y};
   }
 
-  Coordinate2D<double> projection_to_pixel(const Coordinate2D<double> &coord) const {
+  Coordinate2D<double> projection_to_pixel(const Coordinate2D<double>& coord) const {
     double new_x = (rot_x() * coord.y() - coord.x() * dy() - y() * rot_x() + x() * dy()) /
                    (rot_x() * rot_y() - dy() * dx());
     double new_y = (rot_y() * coord.x() - coord.y() * dx() - x() * rot_y() + y() * dx()) /
@@ -54,7 +54,7 @@ class GeoTransform {
     return {new_x, new_y};
   }
 
-  friend std::ostream &operator<<(std::ostream &os, const GeoTransform &transform) {
+  friend std::ostream& operator<<(std::ostream& os, const GeoTransform& transform) {
     os << "GeoTransform(x: " << transform.x() << ", y: " << transform.y()
        << ", dx: " << transform.dx() << ", dy: " << transform.dy()
        << ", rot_x: " << transform.rot_x() << ", rot_y: " << transform.rot_y() << ")";
@@ -76,11 +76,11 @@ class GeoProjection {
   std::string m_projection;
 
  public:
-  explicit GeoProjection(const std::string &projection) : m_projection(projection) {}
+  explicit GeoProjection(const std::string& projection) : m_projection(projection) {}
 
   GeoProjection() = default;
 
-  const std::string &to_string() const { return m_projection; }
+  const std::string& to_string() const { return m_projection; }
 };
 
 class GridData {
@@ -94,7 +94,7 @@ class GridData {
   size_t width() const { return m_width; }
   size_t height() const { return m_height; }
 
-  bool in_bounds(const Coordinate2D<size_t> &coord) const {
+  bool in_bounds(const Coordinate2D<size_t>& coord) const {
     return coord.x() < m_width && coord.y() < m_height;
   }
 };
@@ -103,7 +103,7 @@ struct BlazeBool {
   bool value;
   BlazeBool(bool value) : value(value) {}
   BlazeBool() : value(false) {}
-  BlazeBool &operator=(bool new_value) {
+  BlazeBool& operator=(bool new_value) {
     this->value = new_value;
     return *this;
   }
@@ -124,20 +124,20 @@ class Grid : public GridData {
   Grid(size_t width, size_t height, int repeats = 1)
       : GridData(width, height), m_data(width * height * repeats), m_repeats(repeats) {}
 
-  T &operator[](Coordinate2D<size_t> coord) {
+  T& operator[](Coordinate2D<size_t> coord) {
     return m_data.at(coord.y() * width() * m_repeats + coord.x() * m_repeats);
   }
-  const T &operator[](Coordinate2D<size_t> coord) const {
+  const T& operator[](Coordinate2D<size_t> coord) const {
     return m_data.at(coord.y() * width() * m_repeats + coord.x() * m_repeats);
   }
 
-  std::pair<T, T> get_values(const LineCoord2D<size_t> &coord) const {
+  std::pair<T, T> get_values(const LineCoord2D<size_t>& coord) const {
     return {(*this)[coord.start()], (*this)[coord.end()]};
   }
 
-  void fill(const T &value) { std::fill(m_data.begin(), m_data.end(), value); }
+  void fill(const T& value) { std::fill(m_data.begin(), m_data.end(), value); }
 
-  void copy_from(const Grid &other) {
+  void copy_from(const Grid& other) {
     AssertEQ(width(), other.width());
     AssertEQ(height(), other.height());
     AssertEQ(m_data.size(), other.m_data.size());
@@ -149,7 +149,7 @@ class Grid : public GridData {
 
   typedef T value_type;
 
-  void fill_from(const Grid &other, const Coordinate2D<size_t> &top_left = {0, 0}) {
+  void fill_from(const Grid& other, const Coordinate2D<size_t>& top_left = {0, 0}) {
 #pragma omp parallel for
     for (size_t i = 0; i < other.height(); i++) {
       for (size_t j = 0; j < other.width(); j++) {
@@ -159,9 +159,9 @@ class Grid : public GridData {
     }
   }
 
-  void fill_from(const FlexGrid &other, const Coordinate2D<long long> &top_left = {0, 0});
+  void fill_from(const FlexGrid& other, const Coordinate2D<long long>& top_left = {0, 0});
 
-  friend std::ostream &operator<<(std::ostream &os, const Grid &grid) {
+  friend std::ostream& operator<<(std::ostream& os, const Grid& grid) {
     os << "Grid<" << typeid(T).name() << ">(" << grid.width() << ", " << grid.height() << ")"
        << std::endl;
     for (size_t i = 0; i < grid.height(); i++) {
@@ -187,20 +187,20 @@ class FlexGrid : public GridData {
  public:
   FlexGrid(size_t width, size_t height, int n_bytes, int data_type = {});
 
-  std::byte *operator[](Coordinate2D<size_t> coord) {
+  std::byte* operator[](Coordinate2D<size_t> coord) {
     return m_data.data() + coord.y() * width() * m_data_size + coord.x() * m_data_size;
   }
-  const std::byte *operator[](Coordinate2D<size_t> coord) const {
+  const std::byte* operator[](Coordinate2D<size_t> coord) const {
     return m_data.data() + coord.y() * width() * m_data_size + coord.x() * m_data_size;
   }
 
   template <typename T>
-  T get(const Coordinate2D<long long> &coord) const {
-    return *reinterpret_cast<const T *>(m_data.data() + coord.y() * width() * m_data_size +
-                                        coord.x() * m_data_size);
+  T get(const Coordinate2D<long long>& coord) const {
+    return *reinterpret_cast<const T*>(m_data.data() + coord.y() * width() * m_data_size +
+                                       coord.x() * m_data_size);
   }
 
-  void fill_from(const FlexGrid &other, const Coordinate2D<long long> &top_left = {0, 0}) {
+  void fill_from(const FlexGrid& other, const Coordinate2D<long long>& top_left = {0, 0}) {
 #pragma omp parallel for
     for (size_t i = 0; i < other.height(); i++) {
       Coordinate2D<long long> start(std::max(top_left.x(), 0ll), (top_left.y() + i));
@@ -212,8 +212,8 @@ class FlexGrid : public GridData {
     }
   }
 
-  std::byte *data() { return m_data.data(); }
-  const std::byte *data() const { return m_data.data(); }
+  std::byte* data() { return m_data.data(); }
+  const std::byte* data() const { return m_data.data(); }
   unsigned int n_bytes() const { return m_data_size; }
   int data_type() const;
 };
@@ -240,17 +240,17 @@ class MultiBand {
   size_t size() const { return m_grids.size(); }
   size_t width() const { return m_grids[0].width(); }
   size_t height() const { return m_grids[0].height(); }
-  bool in_bounds(const Coordinate2D<size_t> &coord) const { return m_grids[0].in_bounds(coord); }
+  bool in_bounds(const Coordinate2D<size_t>& coord) const { return m_grids[0].in_bounds(coord); }
 
-  void fill_from(const MultiBand &other, const Coordinate2D<size_t> &top_left = {0, 0}) {
+  void fill_from(const MultiBand& other, const Coordinate2D<size_t>& top_left = {0, 0}) {
     AssertEQ(size(), other.size());
     for (size_t i = 0; i < size(); i++) {
       m_grids[i].fill_from(other[i], top_left);
     }
   }
 
-  GridT &operator[](size_t i) { return m_grids[i]; }
-  const GridT &operator[](size_t i) const { return m_grids[i]; }
+  GridT& operator[](size_t i) { return m_grids[i]; }
+  const GridT& operator[](size_t i) const { return m_grids[i]; }
 };
 
 class GeoGridData {
@@ -259,11 +259,11 @@ class GeoGridData {
   GeoProjection m_projection;
 
  public:
-  GeoGridData(GeoTransform &&transform, GeoProjection &&projection)
+  GeoGridData(GeoTransform&& transform, GeoProjection&& projection)
       : m_transform(transform), m_projection(projection) {}
 
-  const GeoTransform &transform() const { return m_transform; }
-  const GeoProjection &projection() const { return m_projection; }
+  const GeoTransform& transform() const { return m_transform; }
+  const GeoProjection& projection() const { return m_projection; }
 
   double dx() const { return m_transform.dx(); }
   double dy() const { return m_transform.dy(); }
@@ -283,18 +283,18 @@ class GeoImgGrid;
 template <typename GridT>
 class Geo : public GridT, public GeoGridData {
  public:
-  Geo(size_t width, size_t height, GeoTransform &&transform, GeoProjection &&projection)
+  Geo(size_t width, size_t height, GeoTransform&& transform, GeoProjection&& projection)
       : GridT(width, height), GeoGridData(std::move(transform), std::move(projection)) {}
 
   template <typename... Args>
-  Geo(GeoTransform &&transform, GeoProjection &&projection, Args... args)
+  Geo(GeoTransform&& transform, GeoProjection&& projection, Args... args)
       : GridT(args...), GeoGridData(std::move(transform), std::move(projection)) {}
 
   double width_m() const { return GridT::width() * dx(); }
   double height_m() const { return GridT::height() * dx(); }
 
   template <typename U>
-  static Geo FromPoints(const Geo &grid) {
+  static Geo FromPoints(const Geo& grid) {
     return Geo(grid.width() - 1, grid.height() - 1,
                GeoTransform(grid.transform().x() + grid.transform().dx() / 2,
                             grid.transform().y() + grid.transform().dy() / 2, grid.transform().dx(),
@@ -302,20 +302,20 @@ class Geo : public GridT, public GeoGridData {
                grid.projection());
   }
 
-  static Geo<Grid<RGBColor>> FromGeoImg(const GeoImgGrid &grid);
+  static Geo<Grid<RGBColor>> FromGeoImg(const GeoImgGrid& grid);
 
-  Geo slice(const Extent2D &extent);
+  Geo slice(const Extent2D& extent);
   std::unique_ptr<Extent2D> extent() const;
 
   template <typename U>
-  void fill_from(const Geo<U> &other) {
+  void fill_from(const Geo<U>& other) {
     Coordinate2D<size_t> top_left =
         transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0})).round();
     GridT::fill_from(other, top_left);
   }
 
   template <typename U>
-  void fill_from(const U &other) {
+  void fill_from(const U& other) {
     GridT::fill_from(other);
   }
 };
@@ -332,19 +332,19 @@ class GridGraph {
 
  public:
   template <typename U>
-  explicit GridGraph(const Grid<U> &grid)
+  explicit GridGraph(const Grid<U>& grid)
       : m_horizontal(grid.width() - 1, grid.height()),
         m_vertical(grid.width(), grid.height() - 1) {}
 
-  Grid<T> &horizontal() { return m_horizontal; }
-  Grid<T> &vertical() { return m_vertical; }
-  const Grid<T> &horizontal() const { return m_horizontal; }
-  const Grid<T> &vertical() const { return m_vertical; }
+  Grid<T>& horizontal() { return m_horizontal; }
+  Grid<T>& vertical() { return m_vertical; }
+  const Grid<T>& horizontal() const { return m_horizontal; }
+  const Grid<T>& vertical() const { return m_vertical; }
 
   size_t width() const { return m_vertical.width(); }
   size_t height() const { return m_horizontal.height(); }
 
-  const T &operator[](const LineCoord2D<size_t> &coord) const {
+  const T& operator[](const LineCoord2D<size_t>& coord) const {
     if (coord.dir() == Direction2D::DOWN) {
       return m_vertical[Coordinate2D<size_t>(coord.x(), coord.y())];
     } else if (coord.dir() == Direction2D::RIGHT) {
@@ -352,12 +352,12 @@ class GridGraph {
     }
     Fail("Invalid direction");
   }
-  T &operator[](const LineCoord2D<size_t> &coord) {
-    return const_cast<T &>(static_cast<const GridGraph *>(this)->operator[](coord));
+  T& operator[](const LineCoord2D<size_t>& coord) {
+    return const_cast<T&>(static_cast<const GridGraph*>(this)->operator[](coord));
   }
 
   template <typename U>
-  bool in_bounds(const LineCoord2D<U> &coord) const {
+  bool in_bounds(const LineCoord2D<U>& coord) const {
     if (coord.x() < 0 || coord.y() < 0) {
       return false;
     }
@@ -371,7 +371,7 @@ class GridGraph {
     Fail("Invalid direction");
   }
 
-  friend std::ostream &operator<<(std::ostream &os, const GridGraph &graph) {
+  friend std::ostream& operator<<(std::ostream& os, const GridGraph& graph) {
     os << "GridGraph(" << graph.width() << ", " << graph.height() << ")" << std::endl;
     os << "Horizontal:" << std::endl;
     os << graph.horizontal() << std::endl;
@@ -382,4 +382,4 @@ class GridGraph {
 };
 
 template <typename T>
-T interpolate_value(const GeoGrid<T> &grid, const Coordinate2D<double> &projection_coord);
+T interpolate_value(const GeoGrid<T>& grid, const Coordinate2D<double>& projection_coord);

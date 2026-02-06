@@ -11,7 +11,7 @@
 #include "utilities/filesystem.hpp"
 #include "utilities/timer.hpp"
 
-inline Coordinate2D<double> vertex_from_dxf(std::ifstream &dxfFile) {
+inline Coordinate2D<double> vertex_from_dxf(std::ifstream& dxfFile) {
   std::string line;
   double x = std::numeric_limits<double>::quiet_NaN(), y = std::numeric_limits<double>::quiet_NaN();
   while (std::getline(dxfFile, line)) {
@@ -38,7 +38,7 @@ class Polyline {
   std::string name;
   std::vector<Coordinate2D<double>> vertices;
 
-  void write_to_dxf(std::ofstream &dxfFile) const {
+  void write_to_dxf(std::ofstream& dxfFile) const {
     bool is_loop = (vertices.front() - vertices.back()).magnitude_sqd() < 1e-10;
 
     dxfFile << "0\nPOLYLINE\n";
@@ -55,7 +55,7 @@ class Polyline {
     dxfFile << "0\nSEQEND\n";
   }
 
-  static Polyline read_from_dxf(std::ifstream &dxfFile) {
+  static Polyline read_from_dxf(std::ifstream& dxfFile) {
     std::string line;
     std::string name;
     std::string layer;
@@ -100,7 +100,7 @@ inline std::string dxf_footer() {
          "0\nENDSEC\n";
 }
 
-inline void write_to_dxf(const std::vector<Polyline> &polylines, const fs::path &filename) {
+inline void write_to_dxf(const std::vector<Polyline>& polylines, const fs::path& filename) {
   TimeFunction timer("writing to DXF");
   std::ofstream dxfFile(filename);
   if (!dxfFile.is_open()) {
@@ -111,7 +111,7 @@ inline void write_to_dxf(const std::vector<Polyline> &polylines, const fs::path 
   dxfFile << dxf_header();
   dxfFile << dxf_entities();
 
-  for (const auto &polyline : polylines) {
+  for (const auto& polyline : polylines) {
     polyline.write_to_dxf(dxfFile);
   }
 
@@ -119,11 +119,11 @@ inline void write_to_dxf(const std::vector<Polyline> &polylines, const fs::path 
   dxfFile.close();
 }
 
-inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename,
-                         [[maybe_unused]] const ContourConfigs &contour_configs) {
+inline void write_to_dxf(std::vector<Contour> contours, const fs::path& filename,
+                         [[maybe_unused]] const ContourConfigs& contour_configs) {
   TimeFunction timer("writing to DXF " + filename.string());
   std::vector<Polyline> polylines;
-  for (const auto &contour : contours) {
+  for (const auto& contour : contours) {
     if (contour.points().size() > 1) {
       polylines.push_back(contour.to_polyline(contour_configs));
     }
@@ -131,18 +131,18 @@ inline void write_to_dxf(std::vector<Contour> contours, const fs::path &filename
   write_to_dxf(polylines, filename);
 }
 
-inline void write_to_dxf(const std::vector<Stream> &streams, const fs::path &filename,
-                         const std::string &layer_name) {
+inline void write_to_dxf(const std::vector<Stream>& streams, const fs::path& filename,
+                         const std::string& layer_name) {
   TimeFunction timer("writing to DXF " + filename.string());
   std::vector<Polyline> polylines;
-  for (const auto &stream : streams) {
+  for (const auto& stream : streams) {
     polylines.push_back(
         {.layer = layer_name, .name = std::to_string(stream.catchment), .vertices = stream.coords});
   }
   write_to_dxf(polylines, filename);
 }
 
-inline std::vector<Contour> read_dxf(const fs::path &filename) {
+inline std::vector<Contour> read_dxf(const fs::path& filename) {
   TimeFunction timer("reading DXF " + filename.string());
   std::vector<Contour> contours;
 
@@ -166,7 +166,7 @@ inline std::vector<Contour> read_dxf(const fs::path &filename) {
   return contours;
 }
 
-inline void write_to_crt(const fs::path &filename) {
+inline void write_to_crt(const fs::path& filename) {
   TimeFunction timer("writing to CRT");
 
   std::ofstream crtFile(filename);

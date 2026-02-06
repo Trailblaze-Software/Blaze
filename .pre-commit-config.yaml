@@ -8,20 +8,20 @@ repos:
         name: CMake Format
         entry: cmake-format
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v19.1.2
+    rev: v21.1.8
     hooks:
       - id: clang-format
   - repo: https://github.com/google/yamlfmt.git
-    rev: v0.13.0
+    rev: v0.21.0
     hooks:
       - id: yamlfmt
         args: ["-conf", ".yamlfmt"]
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.35.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
@@ -29,3 +29,20 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-case-conflict
       - id: mixed-line-ending
+  - repo: https://github.com/pycqa/isort
+    rev: 7.0.0
+    hooks:
+      - id: isort
+        files: .*\.py$
+  - repo: https://github.com/psf/black
+    rev: 26.1.0
+    hooks:
+      - id: black
+        language_version: python3
+        files: .*\.py$
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        files: .*\.py$
+        args: [--max-line-length=120]

@@ -1,0 +1,41 @@
+---
+name: Windows Build (No vcpkg)
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
+  workflow_dispatch:
+jobs:
+  windows-build-cli:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          .\install-deps-windows.ps1
+          # Export environment variables to GitHub Actions
+          if ($env:GDAL_DIR) {
+            echo "GDAL_DIR=$env:GDAL_DIR" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          }
+          if ($env:OpenCV_DIR) {
+            echo "OpenCV_DIR=$env:OpenCV_DIR" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          }
+          if ($env:CMAKE_PREFIX_PATH) {
+            echo "CMAKE_PREFIX_PATH=$env:CMAKE_PREFIX_PATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          }
+      - name: Configure (CLI only)
+        shell: pwsh
+        run: |
+          cmake -B build -DBLAZE_USE_VCPKG=OFF -DBLAZE_CLI_ONLY=ON -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        shell: pwsh
+        run: |
+          cmake --build build --config Release --parallel
+      - name: Run tests
+        shell: pwsh
+        run: |
+          cd build
+          ctest -C Release --output-on-failure
