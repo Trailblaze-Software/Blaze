@@ -111,7 +111,7 @@ This script installs:
 
    To disable vcpkg and use system packages:
    ```cmd
-   cmake -B build -DBLAZE_USE_VCPKG=OFF -DBLAZE_CLI_ONLY=ON
+   cmake -B build -DBLAZE_USE_VCPKG=OFF
    ```
 
 2. **Compile:**
