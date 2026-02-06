@@ -12,139 +12,19 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - name: Install Chocolatey
+      - name: Install dependencies
         shell: pwsh
         run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          $protocol = [System.Net.ServicePointManager]::SecurityProtocol
-          [System.Net.ServicePointManager]::SecurityProtocol = $protocol -bor 3072
-          $installScript = 'https://community.chocolatey.org/install.ps1'
-          iex ((New-Object System.Net.WebClient).DownloadString($installScript))
-          choco --version
-      - name: Install build tools
-        shell: pwsh
-        run: |
-          choco install -y cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-          choco install -y git
-          refreshenv
-      - name: Install GDAL
-        shell: pwsh
-        run: |
-          # Note: Chocolatey doesn't have a 'gdal' package, so we use winget
-          Write-Host "Installing GDAL via winget..."
-
-          if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-            Write-Host "Error: winget is not available on this runner" -ForegroundColor Red
-            Write-Host "This workflow requires GDAL. " -ForegroundColor Yellow -NoNewline
-            Write-Host "Please use the vcpkg-based workflow instead." -ForegroundColor Yellow
-            exit 1
+          .\install-deps-windows.ps1
+          # Export environment variables to GitHub Actions
+          if ($env:GDAL_DIR) {
+            echo "GDAL_DIR=$env:GDAL_DIR" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           }
-
-          # Install GDAL via winget
-          winget install --id OSGeo.GDAL -e --accept-source-agreements --accept-package-agreements
-
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "Error: Failed to install GDAL via winget" -ForegroundColor Red
-            Write-Host "This workflow requires GDAL. " -ForegroundColor Yellow -NoNewline
-            Write-Host "Please use the vcpkg-based workflow instead." -ForegroundColor Yellow
-            exit 1
+          if ($env:OpenCV_DIR) {
+            echo "OpenCV_DIR=$env:OpenCV_DIR" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           }
-
-          refreshenv
-          Write-Host "GDAL installed successfully" -ForegroundColor Green
-      - name: Install OpenCV
-        shell: pwsh
-        run: |
-          choco install -y opencv
-          refreshenv
-      - name: Find installed packages and setup CMake paths
-        shell: pwsh
-        run: |
-          # Find GDAL installation
-          $gdalPath = $null
-
-          # Check winget install location first (most likely for this workflow)
-          $wingetPath = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages"
-          $wingetGdal = Get-ChildItem -Path $wingetPath `
-            -Filter "OSGeo.GDAL*" -Directory `
-            -ErrorAction SilentlyContinue | Select-Object -First 1
-          if ($wingetGdal -and (Test-Path $wingetGdal.FullName)) {
-            $gdalPath = $wingetGdal.FullName
-            Write-Host "Found GDAL in winget location: $gdalPath" -ForegroundColor Green
-          }
-
-          # Check other common locations
-          if (-not $gdalPath) {
-            $gdalPaths = @(
-              "C:\Program Files\GDAL",
-              "C:\OSGeo4W64",
-              "$env:ProgramFiles\GDAL"
-            )
-            foreach ($path in $gdalPaths) {
-              if (Test-Path $path) {
-                $gdalPath = $path
-                Write-Host "Found GDAL at: $gdalPath" -ForegroundColor Green
-                break
-              }
-            }
-          }
-
-          # If still not found, try to find via gdal-config or gdalinfo
-          if (-not $gdalPath) {
-            $gdalInfo = Get-Command gdalinfo -ErrorAction SilentlyContinue
-            if ($gdalInfo) {
-              $gdalBinDir = Split-Path -Parent $gdalInfo.Source
-              # Try to find the root GDAL directory (go up from bin)
-              $potentialPath = Split-Path -Parent $gdalBinDir
-              if (Test-Path (Join-Path $potentialPath "include\gdal")) {
-                $gdalPath = $potentialPath
-                Write-Host "Found GDAL via gdalinfo: $gdalPath" -ForegroundColor Green
-              }
-            }
-          }
-
-          # Find OpenCV installation
-          $opencvPaths = @(
-            "C:\tools\opencv",
-            "C:\opencv",
-            "$env:ProgramFiles\opencv"
-          )
-          $opencvPath = $null
-          foreach ($path in $opencvPaths) {
-            if (Test-Path $path) {
-              $opencvPath = $path
-              break
-            }
-          }
-
-          Write-Host "Found GDAL at: $gdalPath"
-          Write-Host "Found OpenCV at: $opencvPath"
-
-          # Build CMAKE_PREFIX_PATH
-          $cmakePrefixPaths = @()
-          if ($gdalPath) {
-            $cmakePrefixPaths += $gdalPath
-            # Try to find GDAL cmake config
-            $gdalCmakePath = Join-Path $gdalPath "cmake\gdal"
-            if (Test-Path $gdalCmakePath) {
-              echo "GDAL_DIR=$gdalCmakePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-            }
-          }
-          if ($opencvPath) {
-            $cmakePrefixPaths += $opencvPath
-            # OpenCV_DIR should point to the build directory or root
-            $opencvBuildPath = Join-Path $opencvPath "build"
-            if (Test-Path $opencvBuildPath) {
-              echo "OpenCV_DIR=$opencvBuildPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-            } else {
-              echo "OpenCV_DIR=$opencvPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-            }
-          }
-
-          if ($cmakePrefixPaths.Count -gt 0) {
-            $cmakePrefixPath = $cmakePrefixPaths -join ";"
-            echo "CMAKE_PREFIX_PATH=$cmakePrefixPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-            Write-Host "Set CMAKE_PREFIX_PATH=$cmakePrefixPath"
+          if ($env:CMAKE_PREFIX_PATH) {
+            echo "CMAKE_PREFIX_PATH=$env:CMAKE_PREFIX_PATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           }
       - name: Configure (CLI only)
         shell: pwsh
