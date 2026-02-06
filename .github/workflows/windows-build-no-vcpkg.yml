@@ -37,4 +37,5 @@ jobs:
       - name: Run tests
         shell: pwsh
         run: |
-          cmake --build build --target test
+          cd build
+          ctest -C Release --output-on-failure

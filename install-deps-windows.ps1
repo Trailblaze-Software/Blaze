@@ -59,6 +59,13 @@ $condaAvailable = $false
 if (Get-Command conda -ErrorAction SilentlyContinue) {
     $condaAvailable = $true
     Write-Host "Conda found. Installing GDAL via conda-forge..." -ForegroundColor Green
+
+    # Accept conda Terms of Service if needed
+    Write-Host "Accepting conda Terms of Service..." -ForegroundColor Yellow
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main 2>$null
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r 2>$null
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/msys2 2>$null
+
     conda install -y -c conda-forge gdal
     if ($LASTEXITCODE -eq 0) {
         $condaBase = conda info --base
@@ -79,6 +86,13 @@ if (Get-Command conda -ErrorAction SilentlyContinue) {
             "/D=$env:ProgramFiles\Miniconda3" -Wait -NoNewWindow
         $env:Path = "$env:ProgramFiles\Miniconda3;$env:ProgramFiles\Miniconda3\Scripts;$env:Path;$env:ProgramFiles\Miniconda3\Library\bin"
         [Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::Machine)
+
+        # Accept conda Terms of Service
+        Write-Host "Accepting conda Terms of Service..." -ForegroundColor Yellow
+        conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main 2>$null
+        conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r 2>$null
+        conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/msys2 2>$null
+
         conda install -y -c conda-forge gdal
         if ($LASTEXITCODE -eq 0) {
             $condaBase = conda info --base
