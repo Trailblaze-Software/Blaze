@@ -1,20 +1,22 @@
 <div align="center">
 
-![Blaze Icon](assets/images/blaze_icon.png)
+  <h1>
+    <img src="assets/images/blaze_icon.png" alt="Blaze Icon" width="50" align="center">
+    <code>BLAZE</code>
+  </h1>
 
-# Blaze
+  <p><strong>A LIDAR mapping tool for processing point cloud data</strong></p>
 
-**A LIDAR mapping tool for processing and visualizing point cloud data**
-
-[![CMake](https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake)](https://cmake.org/)
-[![C++](https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B)](https://isocpp.org/)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/Trailblaze-Software/blaze)
-
-[Features](#features) • [Installation](#installation) • [Usage](#usage) • [Building](#building)
+  <p>
+    <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake"></a>
+    <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square"></a>
+    <a href="https://github.com/Trailblaze-Software/blaze"><img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square"></a>
+  </p>
 
 </div>
 
+---
 ---
 
 NOTE: This repository is currently a work in progress and subject to significant change.
