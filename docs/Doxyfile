@@ -1,0 +1,16 @@
+PROJECT_NAME           = "Blaze"
+PROJECT_NUMBER         = 0.1.0
+PROJECT_BRIEF          = "LIDAR mapping tool"
+
+INPUT                  = ../src
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */build/* */.git/* */vcpkg/*
+
+OUTPUT_DIRECTORY       = doxygen_out
+GENERATE_XML           = YES
+GENERATE_HTML          = NO
+GENERATE_LATEX         = NO
+
+XML_OUTPUT             = xml
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = NO
