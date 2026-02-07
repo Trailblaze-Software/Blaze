@@ -8,9 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://Trailblaze-Software.github.io/Blaze/dev/blaze/classLASLayerRenderer/">
+        <link rel="canonical" href="https://Trailblaze-Software.github.io/Blaze/dev/about/releasing/">
       
       
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../license/">
       
       
         
@@ -21,7 +25,7 @@
     
     
       
-        <title>Class LASLayerRenderer - Blaze Documentation</title>
+        <title>Releasing - Blaze Documentation</title>
       
     
     
@@ -74,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#class-laslayerrenderer" class="md-skip">
+        <a href="#releasing-blaze" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Class LASLayerRenderer
+              Releasing
             
           </span>
         </div>
@@ -479,7 +483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../annotated/" class="md-nav__link">
+      <a href="../../blaze/annotated/" class="md-nav__link">
         
   
   
@@ -507,7 +511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../functions/" class="md-nav__link">
+      <a href="../../blaze/functions/" class="md-nav__link">
         
   
   
@@ -535,7 +539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../files/" class="md-nav__link">
+      <a href="../../blaze/files/" class="md-nav__link">
         
   
   
@@ -567,6 +571,8 @@
       
   
   
+    
+  
   
   
     
@@ -584,15 +590,15 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../about/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -616,7 +622,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -633,10 +639,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../about/releasing/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releasing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -652,6 +685,87 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-a-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Create a Release
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Create a Release">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the Command Line
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-github-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the GitHub UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens Automatically
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning Policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -664,7 +778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/license/" class="md-nav__link">
+      <a href="../license/" class="md-nav__link">
         
   
   
@@ -719,77 +833,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#public-signals-inherited-from-layerrenderer" class="md-nav__link">
+  <a href="#how-to-create-a-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Public Signals inherited from LayerRenderer
+        How to Create a Release
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Functions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-functions-inherited-from-layerrenderer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Functions inherited from LayerRenderer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-static-functions-inherited-from-layerrenderer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Static Functions inherited from LayerRenderer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#protected-attributes-inherited-from-layerrenderer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Protected Attributes inherited from LayerRenderer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-functions-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Functions Documentation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Public Functions Documentation">
+    <nav class="md-nav" aria-label="How to Create a Release">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#function-laslayerrenderer" class="md-nav__link">
+  <a href="#using-the-command-line" class="md-nav__link">
     <span class="md-ellipsis">
       
-        function LASLayerRenderer
+        Using the Command Line
       
     </span>
   </a>
@@ -797,32 +856,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#function-load_data" class="md-nav__link">
+  <a href="#using-the-github-ui" class="md-nav__link">
     <span class="md-ellipsis">
       
-        function load_data
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#function-render" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function render
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#function-laslayerrenderer_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function ~LASLayerRenderer
+        Using the GitHub UI
       
     </span>
   </a>
@@ -831,6 +868,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens Automatically
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning Policy
+      
+    </span>
+  </a>
   
 </li>
       
@@ -854,140 +913,49 @@
   
 
 
-<h1 id="class-laslayerrenderer">Class LASLayerRenderer</h1>
-<p><a href="../annotated/"><strong>ClassList</strong></a> <strong>&gt;</strong> <a href="./"><strong>LASLayerRenderer</strong></a></p>
-<p>Inherits the following classes: <a href="../classLayerRenderer/">LayerRenderer</a></p>
-<h2 id="public-signals-inherited-from-layerrenderer">Public Signals inherited from LayerRenderer</h2>
-<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;">signal <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLayerRenderer/#signal-repaint_required"><strong>repaint_required</strong></a>  <br></td>
-</tr>
-</tbody>
-</table>
-<h2 id="public-functions">Public Functions</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-laslayerrenderer"><strong>LASLayerRenderer</strong></a> (std::shared_ptr&lt; <a href="../classLASLayer/"><strong>LASLayer</strong></a> &gt; layer, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; offset) <br></td>
-</tr>
-<tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-load_data"><strong>load_data</strong></a> (std::shared_ptr&lt; <a href="../classLASLayer/"><strong>LASLayer</strong></a> &gt; layer, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; offset) <br></td>
-</tr>
-<tr>
-<td style="text-align: right;">virtual <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-render"><strong>render</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCamera/"><strong>Camera</strong></a> &amp; camera) override<br></td>
-</tr>
-<tr>
-<td style="text-align: right;">virtual</td>
-<td style="text-align: left;"><a href="#function-laslayerrenderer"><strong>~LASLayerRenderer</strong></a> () = default<br></td>
-</tr>
-</tbody>
-</table>
-<h2 id="public-functions-inherited-from-layerrenderer">Public Functions inherited from LayerRenderer</h2>
-<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLayerRenderer/#function-data_update_required"><strong>data_update_required</strong></a> () <br></td>
-</tr>
-<tr>
-<td style="text-align: right;">virtual <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLayerRenderer/#function-render"><strong>render</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCamera/"><strong>Camera</strong></a> &amp; camera) = 0<br></td>
-</tr>
-<tr>
-<td style="text-align: right;">virtual</td>
-<td style="text-align: left;"><a href="../classLayerRenderer/#function-layerrenderer"><strong>~LayerRenderer</strong></a> () = default<br></td>
-</tr>
-</tbody>
-</table>
-<h2 id="public-static-functions-inherited-from-layerrenderer">Public Static Functions inherited from LayerRenderer</h2>
-<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;">std::unique_ptr&lt; <a href="../classLayerRenderer/"><strong>LayerRenderer</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="../classLayerRenderer/#function-create"><strong>create</strong></a> (std::shared_ptr&lt; <a href="../classLayer/"><strong>Layer</strong></a> &gt; layer, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; offset) <br></td>
-</tr>
-</tbody>
-</table>
-<h2 id="protected-attributes-inherited-from-layerrenderer">Protected Attributes inherited from LayerRenderer</h2>
-<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="../classLayerRenderer/#variable-m_data_update_required"><strong>m_data_update_required</strong></a>   = <code>[**true**](classCoordinate2D.md)</code><br></td>
-</tr>
-</tbody>
-</table>
-<h2 id="public-functions-documentation">Public Functions Documentation</h2>
-<h3 id="function-laslayerrenderer">function LASLayerRenderer</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">LASLayerRenderer</span><span class="o">::</span><span class="n">LASLayerRenderer</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASLayer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">layer</span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">offset</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
-<h3 id="function-load_data">function load_data</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASLayerRenderer</span><span class="o">::</span><span class="n">load_data</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASLayer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">layer</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">offset</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
-<h3 id="function-render">function render</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASLayerRenderer</span><span class="o">::</span><span class="n">render</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
-</code></pre></div>
-<p>Implements <a href="../classLayerRenderer/#function-render"><em>LayerRenderer::render</em></a></p>
-<hr>
-
-<h3 id="function-laslayerrenderer_1">function ~LASLayerRenderer</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">LASLayerRenderer</span><span class="o">::~</span><span class="n">LASLayerRenderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span>
-</code></pre></div>
-<hr>
-
+<h1 id="releasing-blaze">Releasing Blaze</h1>
+<p>Blaze uses an automated release process triggered by GitHub tags. When a new version tag is pushed, the CI/CD pipeline builds binaries for multiple platforms, packages the QGIS plugin, and updates the documentation.</p>
+<h2 id="how-to-create-a-release">How to Create a Release</h2>
+<p>To trigger a new release, you need to create and push a git tag following the semantic versioning format (e.g., <code>v0.0.1</code>).</p>
+<h3 id="using-the-command-line">Using the Command Line</h3>
+<ol>
+<li>
+<p><strong>Tag the latest commit</strong>:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>tag<span class="w"> </span>v0.0.1
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Push the tag to GitHub</strong>:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v0.0.1
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="using-the-github-ui">Using the GitHub UI</h3>
+<ol>
+<li>Go to the repository on GitHub.</li>
+<li>Click on <strong>Releases</strong> in the right sidebar.</li>
+<li>Click <strong>Draft a new release</strong>.</li>
+<li>Click <strong>Choose a tag</strong>, type your version (e.g., <code>v0.0.1</code>), and select <strong>Create new tag</strong>.</li>
+<li>Click <strong>Publish release</strong>.</li>
+</ol>
 <hr />
-<p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</code></p>
+<h2 id="what-happens-automatically">What Happens Automatically</h2>
+<p>Once the tag is pushed, the following actions are performed:</p>
+<ol>
+<li><strong>Application Binaries</strong>: The CI builds and attaches the following installers to the release:<ul>
+<li><strong>Windows</strong>: x64 and ARM64 installers (.exe)</li>
+<li><strong>Linux</strong>: x64 and ARM64 Debian packages (.deb)</li>
+</ul>
+</li>
+<li><strong>QGIS Plugin</strong>: The Blaze Map Loader plugin is packaged into a <code>.zip</code> file and attached to the release.</li>
+<li><strong>Documentation</strong>: A new version of the documentation site is published. The <code>latest</code> alias will be updated to point to this new release.</li>
+<li><strong>Source Code</strong>: GitHub automatically bundles the source code as <code>.zip</code> and <code>.tar.gz</code> archives.</li>
+</ol>
+<h2 id="versioning-policy">Versioning Policy</h2>
+<p>We follow <a href="https://semver.org/">Semantic Versioning (SemVer)</a>:
+*   <strong>MAJOR</strong> version for incompatible API changes.
+*   <strong>MINOR</strong> version for functionality in a backwards compatible manner.
+*   <strong>PATCH</strong> version for backwards compatible bug fixes.</p>
 
 
 
