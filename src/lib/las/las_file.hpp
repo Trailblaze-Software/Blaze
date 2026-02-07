@@ -286,7 +286,7 @@ class LASData : public LASFile {
 
 #ifndef USE_PDAL
  protected:
-  void read_points(laspp::LASReader &reader, ProgressTracker progress_tracker,
+  void read_points(laspp::LASReader& reader, ProgressTracker progress_tracker,
                    std::optional<Extent2D> bounds = std::nullopt) {
     Timer point_timer;
 
@@ -295,12 +295,12 @@ class LASData : public LASFile {
       laspp::Bound2D query_bounds(bounds->minx, bounds->miny, bounds->maxx, bounds->maxy);
 
       // Get spatial index and find ONLY cells that overlap the query bounds
-      const auto &spatial_index = reader.lastools_spatial_index();
-      const auto &cells = spatial_index.cells();
+      const auto& spatial_index = reader.lastools_spatial_index();
+      const auto& cells = spatial_index.cells();
 
       // Collect point intervals ONLY from cells that overlap the query extent
       std::vector<laspp::PointInterval> intervals;
-      for (const auto &[cell_index, cell] : cells) {
+      for (const auto& [cell_index, cell] : cells) {
         // Check if this cell overlaps the query bounds
         laspp::Bound2D cell_bounds = spatial_index.get_cell_bounds(cell_index);
 
@@ -326,7 +326,7 @@ class LASData : public LASFile {
         // Calculate total points needed
         size_t total_points = 0;
         if (reader.header().is_laz_compressed()) {
-          const auto &points_per_chunk = reader.points_per_chunk();
+          const auto& points_per_chunk = reader.points_per_chunk();
           for (size_t chunk_idx : chunk_indices) {
             total_points += points_per_chunk[chunk_idx];
           }
@@ -339,11 +339,11 @@ class LASData : public LASFile {
         reader.read_chunks_list(std::span<LASPoint>(m_points), chunk_indices);
 
         // Filter points that are actually within the bounds
-        const auto &transform = reader.header().transform();
+        const auto& transform = reader.header().transform();
         std::vector<LASPoint> filtered_points;
         filtered_points.reserve(m_points.size());
 
-        for (const auto &point : m_points) {
+        for (const auto& point : m_points) {
           auto coords = transform.transform_point(point.x(), point.y(), point.z());
           if (query_bounds.contains(coords.x(), coords.y())) {
             filtered_points.push_back(point);
@@ -365,8 +365,8 @@ class LASData : public LASFile {
       reader.read_chunks(std::span<LASPoint>(m_points), {0, reader.num_chunks()});
 
       // Transform coordinates
-      const auto &transform = reader.header().transform();
-      for (LASPoint &point : m_points) {
+      const auto& transform = reader.header().transform();
+      for (LASPoint& point : m_points) {
         auto coords = transform.transform_point(point.x(), point.y(), point.z());
         point.x() = coords.x();
         point.y() = coords.y();
@@ -378,7 +378,7 @@ class LASData : public LASFile {
         to_string("Reading ", m_points.size(), " points took ", point_timer));
 
     // Calculate intensity range
-    for (const LASPoint &point : m_points) {
+    for (const LASPoint& point : m_points) {
       m_intensity_range.first = std::min(m_intensity_range.first, point.intensity());
       m_intensity_range.second = std::max(m_intensity_range.second, point.intensity());
     }
@@ -389,7 +389,7 @@ class LASData : public LASFile {
  public:
 #endif
 
-  explicit LASData(const fs::path &filename, ProgressTracker progress_tracker,
+  explicit LASData(const fs::path& filename, ProgressTracker progress_tracker,
                    [[maybe_unused]] bool skip_reading_points = false,
                    std::optional<Extent2D> bounds = std::nullopt)
       : LASFile(filename, progress_tracker.subtracker(0, 0.1)) {
@@ -472,7 +472,7 @@ class LASData : public LASFile {
           progress_tracker.subtracker(0.6 + (double)i / overlapping_filenames.size() * 0.4,
                                       0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4),
           false, extended_bounds);
-      for (const LASPoint &point : border_file) {
+      for (const LASPoint& point : border_file) {
         if (!extended_bounds.contains(point.x(), point.y())) {
           continue;
         }
