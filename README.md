@@ -18,7 +18,6 @@
 </div>
 
 ---
----
 
 NOTE: This repository is currently a work in progress and subject to significant change.
 
