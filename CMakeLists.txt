@@ -320,7 +320,7 @@ set(CPACK_PACKAGE_EXECUTABLES
     "bin/Blaze3D" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico"
     "bin/blaze-cli" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 
-set(CPACK_NSIS_MODIFY_PATH "ON")
+# set(CPACK_NSIS_MODIFY_PATH "ON")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
 set(CPACK_NSIS_DISPLAY_NAME "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/Trailblaze-Software/blaze")

@@ -57,6 +57,14 @@ jobs:
         run: |
           cd build
           cpack -C Release -G NSIS
+      - name: Debug NSIS Failure
+        if: failure()
+        run: |
+          if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
+            Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
+          } else {
+            echo "NSISOutput.log not found."
+          }
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
         with:
