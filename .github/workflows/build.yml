@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: |
-          ./scripts/install-deps.sh
+          ./scripts/install-ubuntu-deps.sh
       - name: Build CLI code
         run: |
           ./scripts/linux-build.sh -DBLAZE_CLI_ONLY=True
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: |
-          ./scripts/install-deps.sh
+          ./scripts/install-ubuntu-deps.sh
       - name: Install pdal
         run: |
           sudo apt install -y libpdal-dev

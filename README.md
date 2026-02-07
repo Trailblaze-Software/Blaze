@@ -43,7 +43,7 @@ Install the required dependencies:
 which on Ubuntu can all be installed with the script
 
 ```bash
-./scripts/install-deps.sh
+./scripts/install-ubuntu-deps.sh
 ```
 
 #### Building from Source

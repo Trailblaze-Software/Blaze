@@ -16,7 +16,7 @@ Blaze requires several libraries that can be installed via the provided script:
 Run the following command from the project root:
 
 ```bash
-./scripts/install-deps.sh
+./scripts/install-ubuntu-deps.sh
 ```
 
 ### Building from Source

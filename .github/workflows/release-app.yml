@@ -75,7 +75,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: ./scripts/install-deps.sh
+        run: ./scripts/install-ubuntu-deps.sh
       - name: Configure
         run: cmake -B build
       - name: Build

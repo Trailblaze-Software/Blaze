@@ -27,8 +27,8 @@ jobs:
       - name: Deploy dev documentation
         if: github.ref == 'refs/heads/main'
         run: |
-          mike deploy -f docs/mkdocs.yml --push --update-aliases dev
+          mike deploy -F docs/mkdocs.yml --push --update-aliases dev
       - name: Deploy release documentation
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          mike deploy -f docs/mkdocs.yml --push --update-aliases ${{ github.ref_name }} latest
+          mike deploy -F docs/mkdocs.yml --push --update-aliases ${{ github.ref_name }} latest
