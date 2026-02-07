@@ -36,6 +36,16 @@ Full documentation, including installation guides, usage examples, and API refer
 *   **[Quick Start Guide](https://Trailblaze-Software.github.io/blaze/usage/quick-guide/)**
 *   **[Developers Reference (C++ API)](https://Trailblaze-Software.github.io/blaze/reference/)**
 
+### Local Development
+
+To preview the documentation locally with live-reloading:
+
+```bash
+./scripts/serve-docs.sh
+```
+
+This will start a local server at `http://127.0.0.1:8000`.
+
 ## Installation
 
 Currently, Linux support is more robust than Windows.

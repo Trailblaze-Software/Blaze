@@ -10,26 +10,22 @@ theme:
   logo: assets/images/blaze_icon.png
   favicon: assets/images/blaze_icon.png
   features:
-    - navigation.sections
-    - navigation.expand
+    - navigation.indexes
     - navigation.tracking
     - navigation.top
     - toc.follow
-    - toc.integrate
     - content.code.copy
   palette:
     - scheme: default
-      primary: indigo
-      accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: indigo
-      accent: indigo
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+extra_css:
+  - assets/stylesheets/custom.css
 extra:
   version:
     provider: mike
@@ -39,24 +35,25 @@ plugins:
       projects:
         blaze:
           src-dirs: ../src
+          full-doc: True
           doxy-cfg:
             file: Doxyfile
 validation:
   omitted_files: ignore
-  unmapped_pages: ignore
+  not_found: ignore
 nav:
   - Home: index.md
   - Installation: installation.md
   - Usage:
-      - Quick Guide: usage/quick-guide.md
+      - usage/index.md
       - QGIS Plugin: usage/qgis-plugin.md
   - Developers Reference:
-      - Overview: reference.md
+      - reference/index.md
       - Classes: blaze/annotated.md
-      - Namespaces: blaze/namespaces.md
+      - Functions: blaze/functions.md
       - Files: blaze/files.md
   - About:
-      - Contributing: about/contributing.md
+      - about/index.md
       - License: about/license.md
 markdown_extensions:
   - admonition
