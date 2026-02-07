@@ -3,7 +3,12 @@ name: Release Application
 on:
   release:
     types: [published]
+  push:
+    branches: [main]
+    tags:
+      - 'v*'
   pull_request:
+    branches: ["*"]
   workflow_dispatch:
 env:
   VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
@@ -58,9 +63,11 @@ jobs:
           name: blaze-windows-installer
           path: build/Blaze-*-win64.exe
           retention-days: 30
+      # Attach to GitHub Release only on release publish or when pushing a version tag
       - name: Upload Installer to Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'release' || (github.event_name == 'push' && startsWith(github.ref,
+          'refs/tags/'))
         with:
           files: build/Blaze-*-win64.exe
   package-linux:
@@ -83,8 +90,10 @@ jobs:
           name: blaze-linux-deb
           path: build/Blaze-*.deb
           retention-days: 30
+      # Attach to GitHub Release only on release publish or when pushing a version tag
       - name: Upload DEB to Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'release' || (github.event_name == 'push' && startsWith(github.ref,
+          'refs/tags/'))
         with:
           files: build/Blaze-*.deb
