@@ -1,0 +1,34 @@
+---
+name: Publish Docs
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - name: Install dependencies
+        run: pip install mkdocs mkdocs-material mike
+      - name: Deploy dev documentation
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mike deploy -f docs/mkdocs.yml --push --update-aliases dev
+      - name: Deploy release documentation
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          mike deploy -f docs/mkdocs.yml --push --update-aliases ${{ github.ref_name }} latest

@@ -1,0 +1,48 @@
+---
+site_name: Blaze Documentation
+site_url: https://Trailblaze-Software.github.io/blaze/
+repo_url: https://github.com/Trailblaze-Software/blaze
+repo_name: Trailblaze-Software/blaze
+docs_dir: .
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+extra:
+  version:
+    provider: mike
+plugins:
+  - search
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage:
+      - Quick Guide: usage/quick-guide.md
+      - QGIS Plugin: usage/qgis-plugin.md
+  - About:
+      - Contributing: about/contributing.md
+      - License: about/license.md
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets

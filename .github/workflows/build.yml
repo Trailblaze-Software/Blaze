@@ -27,13 +27,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: |
-          ./install-deps.sh
+          ./scripts/install-deps.sh
       - name: Build CLI code
         run: |
-          ./linux-build.sh -DBLAZE_CLI_ONLY=True
+          ./scripts/linux-build.sh -DBLAZE_CLI_ONLY=True
       - name: Build GUI code
         run: |
-          rm -rf linux-build && ./linux-build.sh
+          rm -rf linux-build && ./scripts/linux-build.sh
       - name: CPack
         run: |
           cd linux-build && cpack -C Release
@@ -50,16 +50,16 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: |
-          ./install-deps.sh
+          ./scripts/install-deps.sh
       - name: Install pdal
         run: |
           sudo apt install -y libpdal-dev
       - name: Build CLI code
         run: |
-          ./linux-build.sh -DBLAZE_CLI_ONLY=True -DBLAZE_USE_PDAL=True
+          ./scripts/linux-build.sh -DBLAZE_CLI_ONLY=True -DBLAZE_USE_PDAL=True
       - name: Build GUI code
         run: |
-          rm -rf linux-build && ./linux-build.sh
+          rm -rf linux-build && ./scripts/linux-build.sh
       - name: CPack
         run: |
           cd linux-build && cpack -C Release

@@ -43,7 +43,7 @@ Install the required dependencies:
 which on Ubuntu can all be installed with the script
 
 ```bash
-./install-deps.sh
+./scripts/install-deps.sh
 ```
 
 #### Building from Source
@@ -60,7 +60,7 @@ which on Ubuntu can all be installed with the script
 
    Or use the provided build script:
    ```bash
-   ./linux-build.sh
+   ./scripts/linux-build.sh
    ```
 
 3. **Install (optional):**
@@ -87,8 +87,8 @@ Install dependencies using Chocolatey:
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-   .\install-deps-windows.ps1
-.\install-deps-windows.ps1
+   .\scripts\install-deps-windows.ps1
+.\scripts\install-deps-windows.ps1
 ```
 
 This script installs:
@@ -147,7 +147,7 @@ cpack -C Release -G NSIS
 Process a LAS/LAZ file:
 
 ```bash
-./blaze-cli config.json filename.las
+./blaze-cli configs/config.json filename.las
 ```
 
 Or with a single file:

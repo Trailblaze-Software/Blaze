@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         shell: pwsh
         run: |
-          .\install-deps-windows.ps1
+          .\scripts\install-deps-windows.ps1
           # Export environment variables to GitHub Actions
           if ($env:GDAL_DIR) {
             echo "GDAL_DIR=$env:GDAL_DIR" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
