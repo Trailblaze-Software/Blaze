@@ -29,10 +29,10 @@ jobs:
           nuget sources add -Name "GitHub" `
             -Source $feed_url `
             -UserName "$owner" `
-            -Password "${{ secrets.GITHUB_TOKEN }}" `
+            -Password "${{ secrets.VCPKG_PAT_TOKEN }}" `
             -StorePasswordInClearText `
             -NonInteractive
-          nuget setapikey "${{ secrets.GITHUB_TOKEN }}" -Source $feed_url -NonInteractive
+          nuget setapikey "${{ secrets.VCPKG_PAT_TOKEN }}" -Source $feed_url -NonInteractive
 
           echo "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,readwrite" >> $env:GITHUB_ENV
           echo "VCPKG_NUGET_REPOSITORY=$feed_url" >> $env:GITHUB_ENV
