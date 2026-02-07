@@ -41,13 +41,20 @@ plugins:
           src-dirs: ../src
           doxy-cfg:
             file: Doxyfile
+validation:
+  omitted_files: ignore
+  unmapped_pages: ignore
 nav:
   - Home: index.md
   - Installation: installation.md
   - Usage:
       - Quick Guide: usage/quick-guide.md
       - QGIS Plugin: usage/qgis-plugin.md
-  - Developers Reference: reference.md
+  - Developers Reference:
+      - Overview: reference.md
+      - Classes: blaze/annotated.md
+      - Namespaces: blaze/namespaces.md
+      - Files: blaze/files.md
   - About:
       - Contributing: about/contributing.md
       - License: about/license.md

@@ -23,4 +23,4 @@ pre-commit install
 
 ## Licensing
 
-By contributing to Blaze, you agree that your contributions will be licensed under the project's [MIT License](license.md).
+By contributing to Blaze, you agree that your contributions will be licensed under the project's [GPLv3 License](license.md).

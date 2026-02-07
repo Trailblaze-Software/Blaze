@@ -10,7 +10,7 @@
   <p>
     <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake"></a>
     <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B"></a>
-    <a href="about/license.md"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square"></a>
+    <a href="about/license.md"><img src="https://img.shields.io/badge/license-GPLv3-blue?style=flat-square"></a>
     <a href="https://github.com/Trailblaze-Software/blaze"><img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square"></a>
   </p>
 

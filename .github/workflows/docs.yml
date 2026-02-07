@@ -32,9 +32,9 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           mike deploy -F docs/mkdocs.yml --push --update-aliases dev
-          mike set-default --push latest || mike set-default --push dev
+          mike set-default -F docs/mkdocs.yml --push latest || mike set-default -F docs/mkdocs.yml --push dev
       - name: Deploy release documentation
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           mike deploy -F docs/mkdocs.yml --push --update-aliases ${{ github.ref_name }} latest
-          mike set-default --push latest
+          mike set-default -F docs/mkdocs.yml --push latest

@@ -10,7 +10,7 @@
   <p>
     <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake"></a>
     <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue?style=flat-square"></a>
     <a href="https://github.com/Trailblaze-Software/blaze"><img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square"></a>
   </p>
 
@@ -183,11 +183,11 @@ Launch the desktop GUI:
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit issues or pull requests. All contributors retain copywrite to their code but agree to it being licensed under the MIT license.
+Contributions are welcome! Please feel free to submit issues or pull requests. All contributors retain copywrite to their code but agree to it being licensed under the GPLv3 license.
 
 ## License
 
-Blaze is licensed under the MIT License. See [LICENSE](LICENSE) for details. You can pretty much do whatever you like with it.
+Blaze is licensed under the GPLv3 License. See [LICENSE](LICENSE) for details. You can pretty much do whatever you like with it.
 
 This project uses third-party libraries that are subject to their own licenses. See [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for complete license information for all dependencies. In particular for the GUI, Qt6 must be dynamically linked as it is released under the LGPLv3 license.
 
