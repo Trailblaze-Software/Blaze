@@ -422,6 +422,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#speeding-up-builds-vcpkg-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speeding up Builds (vcpkg Caching)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#windows-installer" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -902,6 +913,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#speeding-up-builds-vcpkg-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speeding up Builds (vcpkg Caching)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#windows-installer" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -989,10 +1011,38 @@
 </code></pre></div></p>
 </li>
 </ol>
+<h3 id="speeding-up-builds-vcpkg-caching">Speeding up Builds (vcpkg Caching)</h3>
+<p>Blaze supports binary caching via GitHub Packages. This allows you to download pre-compiled dependencies instead of building them locally.</p>
+<ol>
+<li>
+<p><strong>Install NuGet CLI</strong>:
+   If you don't have it already, install it via Chocolatey (run as Administrator):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">choco</span> <span class="n">install</span> <span class="n">nuget</span><span class="p">.</span><span class="n">commandline</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Generate a Personal Access Token (PAT)</strong>:
+   Go to GitHub <strong>Settings &gt; Developer settings &gt; Personal access tokens (classic)</strong> and create a token with <code>read:packages</code> (and <code>write:packages</code> if you want to contribute binaries) scope.</p>
+</li>
+<li>
+<p><strong>Add the NuGet source</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">nuget</span> <span class="n">sources</span> <span class="n">add</span> <span class="n">-Name</span> <span class="s2">&quot;GitHub&quot;</span> <span class="p">`</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  <span class="n">-Source</span> <span class="s2">&quot;https://nuget.pkg.github.com/Trailblaze-Software/index.json&quot;</span> <span class="p">`</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  <span class="n">-UserName</span> <span class="s2">&quot;YOUR_GITHUB_USERNAME&quot;</span> <span class="p">`</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  <span class="n">-Password</span> <span class="s2">&quot;YOUR_PAT&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Enable the cache</strong>:
+   Set the following environment variable before running CMake:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">$env:VCPKG_BINARY_SOURCES</span><span class="p">=</span><span class="s2">&quot;clear;nuget,GitHub,readwrite&quot;</span>
+</code></pre></div></p>
+</li>
+</ol>
 <h3 id="windows-installer">Windows Installer</h3>
 <p>To create a standalone installer (NSIS), run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cd build
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cpack -C Release -G NSIS
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cd build
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>cpack -C Release -G NSIS
 </code></pre></div>
 
 
