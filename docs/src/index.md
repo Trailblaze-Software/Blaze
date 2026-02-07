@@ -20,13 +20,6 @@
 
 **Blaze** is a LIDAR mapping tool designed for processing, analyzing, and visualizing point cloud data from LAS/LAZ files. Built with modern C++20, Blaze provides both command-line (`blaze-cli`) and graphical interfaces (`Blaze` and `Blaze3D`).
 
-## Key Features
-
-- **Fast Processing**: Optimized C++20 backend with OpenMP support.
-- **Multiple Interfaces**: CLI for automation, GUI for interaction, and 3D visualization.
-- **QGIS Integration**: Seamlessly load results into QGIS with our dedicated plugin.
-- **Cross-Platform**: Full support for Linux and Windows.
-
 ## Quick Links
 
 - [Installation](installation.md)

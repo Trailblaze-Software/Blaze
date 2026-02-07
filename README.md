@@ -11,8 +11,8 @@
     <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake"></a>
     <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue?style=flat-square"></a>
-    <a href="https://Trailblaze-Software.github.io/blaze/"><img src="https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square"></a>
-    <a href="https://github.com/Trailblaze-Software/blaze"><img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square"></a>
+    <a href="https://Trailblaze-Software.github.io/Blaze/"><img src="https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square"></a>
+    <a href="https://github.com/Trailblaze-Software/Blaze"><img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square"></a>
   </p>
 
 </div>
@@ -30,11 +30,11 @@ NOTE: This repository is currently a work in progress and subject to significant
 
 Full documentation, including installation guides, usage examples, and API reference, is available at:
 
-**[https://Trailblaze-Software.github.io/blaze/](https://Trailblaze-Software.github.io/blaze/)**
+**[https://Trailblaze-Software.github.io/Blaze/](https://Trailblaze-Software.github.io/Blaze/)**
 
-*   **[Installation Guide](https://Trailblaze-Software.github.io/blaze/installation/)**
-*   **[Quick Start Guide](https://Trailblaze-Software.github.io/blaze/usage/quick-guide/)**
-*   **[Developers Reference (C++ API)](https://Trailblaze-Software.github.io/blaze/reference/)**
+*   **[Installation Guide](https://Trailblaze-Software.github.io/Blaze/installation/)**
+*   **[Quick Start Guide](https://Trailblaze-Software.github.io/Blaze/usage/quick-guide/)**
+*   **[Developers Reference (C++ API)](https://Trailblaze-Software.github.io/Blaze/reference/)**
 
 ### Local Development
 
