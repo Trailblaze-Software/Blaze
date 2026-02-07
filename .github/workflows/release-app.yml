@@ -1,6 +1,6 @@
 ---
 name: Release Application
-on:
+"on":
   release:
     types: [published]
   push:
@@ -11,44 +11,37 @@ on:
     branches: ["*"]
   workflow_dispatch:
 env:
-  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+  VCPKG_BINARY_SOURCES: "clear;nuget,GitHub,readwrite"
 jobs:
   package-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      # Add NuGet source for GitHub Packages
+      - name: Add GitHub Packages to NuGet
+        run: |
+          nuget sources add -Name "GitHub" `
+            -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" `
+            -UserName "${{ github.repository_owner }}" `
+            -Password "${{ secrets.GITHUB_TOKEN }}"
       - name: Install NSIS
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
-      - name: Export GitHub Actions cache environment variables
-        uses: actions/github-script@v7
-        with:
-          script: |
-            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
-            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
-      - name: Cache vcpkg installed packages
-        uses: actions/cache@v4
-        with:
-          path: build/vcpkg_installed
-          key: ${{ runner.os }}-vcpkg-installed-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json')
-            }}
-          restore-keys: |
-            ${{ runner.os }}-vcpkg-installed-
-      - name: Cache CMake configuration
+      - name: Cache build artifacts
         uses: actions/cache@v4
         with:
           path: |
-            build/CMakeCache.txt
-            build/CMakeFiles
-          key: ${{ runner.os }}-cmake-config-${{ hashFiles('CMakeLists.txt', 'vcpkg.json')
-            }}
+            deps
+          key: ${{ runner.os }}-build-cache-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json',
+            'CMakeLists.txt') }}
           restore-keys: |
-            ${{ runner.os }}-cmake-config-
+            ${{ runner.os }}-build-cache-
       - name: Setup CMake
         uses: threeal/cmake-action@v2.0.0
         with:
-          options: VCPKG_BUILD_TYPE=release
+          options: |
+            VCPKG_BUILD_TYPE=release
       - name: Configure
         run: cmake -B build
       - name: Build
@@ -83,7 +76,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: ./scripts/install-ubuntu-deps.sh
+        run: |
+          ./scripts/install-ubuntu-deps.sh
+      - name: Cache build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            build
+          key: ${{ runner.os }}-build-linux-${{ hashFiles('CMakeLists.txt', 'scripts/install-ubuntu-deps.sh')
+            }}
+          restore-keys: |
+            ${{ runner.os }}-build-linux-
       - name: Configure
         run: cmake -B build
       - name: Build

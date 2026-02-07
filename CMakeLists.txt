@@ -304,7 +304,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
-  set(CPACK_NSIS_NSI_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi")
+  file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi"
+       CPACK_NSIS_NSI_PATH)
+  file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/assets/images/blaze.ico"
+       CPACK_NSIS_MUI_ICON)
 elseif(UNIX)
   set(CPACK_GENERATOR "STGZ;TGZ;DEB;RPM")
 endif()
@@ -312,20 +315,17 @@ set(CPACK_PACKAGE_NAME "Blaze")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Blaze LIDAR mapping tool")
 set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
-set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/Trailblaze-Software/blaze")
-set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://Trailblaze-Software.github.io/Blaze/")
 set(CPACK_PACKAGE_CONTACT "Ryan Stocks ryan.stocks00@gmail.com")
-set(CPACK_PACKAGE_EXECUTABLES
-    "bin/Blaze" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico"
-    "bin/Blaze3D" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico"
-    "bin/blaze-cli" "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
+set(CPACK_PACKAGE_EXECUTABLES "bin/Blaze" "Blaze" "bin/Blaze3D" "Blaze3D"
+                              "bin/blaze-cli" "blaze-cli")
 
 # set(CPACK_NSIS_MODIFY_PATH "ON")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
 set(CPACK_NSIS_DISPLAY_NAME "Blaze")
-set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/Trailblaze-Software/blaze")
+set(CPACK_NSIS_URL_INFO_ABOUT "https://Trailblaze-Software.github.io/Blaze/")
 set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze" "bin/Blaze3D.exe" "Blaze3D")
-set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
+set(CPACK_NSIS_MUI_ICON "${CPACK_NSIS_MUI_ICON}")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "qt6-image-formats-plugins")
 
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
