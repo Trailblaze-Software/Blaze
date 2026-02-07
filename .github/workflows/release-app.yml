@@ -23,7 +23,12 @@ jobs:
           nuget sources add -Name "GitHub" `
             -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" `
             -UserName "${{ github.repository_owner }}" `
-            -Password "${{ secrets.GITHUB_TOKEN }}"
+            -Password "${{ secrets.GITHUB_TOKEN }}" `
+            -StorePasswordInClearText `
+            -NonInteractive
+          nuget setapikey "${{ secrets.GITHUB_TOKEN }}" `
+            -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" `
+            -NonInteractive
       - name: Install NSIS
         run: choco install nsis -y
       - name: Add NSIS to PATH
