@@ -12,6 +12,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install NSIS
+        run: choco install nsis -y
+      - name: Add NSIS to PATH
+        run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
       - name: Export GitHub Actions cache environment variables
         uses: actions/github-script@v7
         with:

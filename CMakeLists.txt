@@ -41,7 +41,18 @@ if(WIN32 AND BLAZE_USE_VCPKG)
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
     GIT_TAG 2024.12.16)
-  FetchContent_MakeAvailable(vcpkg)
+  FetchContent_Populate(vcpkg)
+  # If vcpkg fails with 7z2409.7z "Is not archive", its download was corrupted.
+  # Workaround: 1) Install 7-Zip (https://7-zip.org) and PowerShell; add both to
+  # PATH. 2) Delete deps/vcpkg-src/downloads/7z2409.7z if present. 3) Before
+  # running CMake: set VCPKG_FORCE_SYSTEM_BINARIES=1 4) Configure again. See
+  # https://github.com/microsoft/vcpkg/issues/42987
+  if(DEFINED ENV{VCPKG_FORCE_SYSTEM_BINARIES})
+    message(
+      STATUS
+        "VCPKG_FORCE_SYSTEM_BINARIES is set; vcpkg will use system tools if available."
+    )
+  endif()
   include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
 endif()
 
@@ -293,15 +304,14 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
+  set(CPACK_NSIS_NSI_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi")
 elseif(UNIX)
   set(CPACK_GENERATOR "STGZ;TGZ;DEB;RPM")
 endif()
-file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi" BLAZE_NSI_PATH)
-set(CPACK_NSIS_NSI_PATH "${BLAZE_NSI_PATH}")
 set(CPACK_PACKAGE_NAME "Blaze")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Blaze LIDAR mapping tool")
 set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
-# set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/Trailblaze-Software/blaze")
 set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/images\\\\blaze.ico")
 set(CPACK_PACKAGE_CONTACT "Ryan Stocks ryan.stocks00@gmail.com")
