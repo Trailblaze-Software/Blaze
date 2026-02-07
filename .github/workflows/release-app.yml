@@ -12,23 +12,30 @@ name: Release Application
   workflow_dispatch:
 env:
   VCPKG_BINARY_SOURCES: "clear;nuget,GitHub,readwrite"
+  NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED: "false"
 jobs:
   package-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      # Add NuGet source for GitHub Packages
-      - name: Add GitHub Packages to NuGet
+      # Setup NuGet credentials for GitHub Packages
+      - name: Setup NuGet credentials
+        shell: pwsh
         run: |
+          $owner = "${{ github.repository_owner }}".ToLower()
+          $feed_url = "https://nuget.pkg.github.com/$owner/index.json"
+
+          nuget sources remove -Name "GitHub" -ErrorAction SilentlyContinue
           nuget sources add -Name "GitHub" `
-            -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" `
-            -UserName "${{ github.repository_owner }}" `
-            -Password "${{ secrets.GITHUB_TOKEN }}" `
+            -Source $feed_url `
+            -UserName "$owner" `
+            -Password "${{ secrets.VCPKG_PAT_TOKEN }}" `
             -StorePasswordInClearText `
             -NonInteractive
-          nuget setapikey "${{ secrets.GITHUB_TOKEN }}" `
-            -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" `
-            -NonInteractive
+          nuget setapikey "${{ secrets.VCPKG_PAT_TOKEN }}" -Source $feed_url -NonInteractive
+
+          echo "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,readwrite" >> $env:GITHUB_ENV
+          echo "VCPKG_NUGET_REPOSITORY=$feed_url" >> $env:GITHUB_ENV
       - name: Install NSIS
         run: choco install nsis -y
       - name: Add NSIS to PATH
@@ -47,6 +54,7 @@ jobs:
         with:
           options: |
             VCPKG_BUILD_TYPE=release
+            VCPKG_VERBOSE=ON
       - name: Configure
         run: cmake -B build
       - name: Build
