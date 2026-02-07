@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structContourConfigs" kind="struct" language="C++" prot="public">
+    <compoundname>ContourConfigs</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structContourConfigs_1acf7db093f15da87d1fda539b0fcd9dff" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, <ref refid="structContourConfig" kindref="compound">ContourConfig</ref> &gt;</type>
+        <definition>std::map&lt;std::string, ContourConfig&gt; ContourConfigs::configs</definition>
+        <argsstring></argsstring>
+        <name>configs</name>
+        <qualifiedname>ContourConfigs::configs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="122" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structContourConfigs_1a5f316d791ef1d6b36e0a8e4bb33d7086" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double ContourConfigs::min_interval</definition>
+        <argsstring></argsstring>
+        <name>min_interval</name>
+        <qualifiedname>ContourConfigs::min_interval</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="123" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structContourConfigs_1a1b7bf094b5817cf9c5f2ad24dbb939c7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>static double ContourConfigs::minimum_interval</definition>
+        <argsstring>(const std::map&lt; std::string, ContourConfig &gt; &amp;configs)</argsstring>
+        <name>minimum_interval</name>
+        <qualifiedname>ContourConfigs::minimum_interval</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::map&lt; std::string, <ref refid="structContourConfig" kindref="compound">ContourConfig</ref> &gt; &amp;</type>
+          <declname>configs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="125" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="125" bodyend="131"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structContourConfigs_1a3bab570e55ff017f2252cee218eeb7e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ContourConfigs::ContourConfigs</definition>
+        <argsstring>()</argsstring>
+        <name>ContourConfigs</name>
+        <qualifiedname>ContourConfigs::ContourConfigs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="133" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="133" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="structContourConfigs_1a53823c28451469dae1315aed185b90bd" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ContourConfigs::ContourConfigs</definition>
+        <argsstring>(std::map&lt; std::string, ContourConfig &gt; in_configs)</argsstring>
+        <name>ContourConfigs</name>
+        <qualifiedname>ContourConfigs::ContourConfigs</qualifiedname>
+        <param>
+          <type>std::map&lt; std::string, <ref refid="structContourConfig" kindref="compound">ContourConfig</ref> &gt;</type>
+          <declname>in_configs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="135" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="135" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="structContourConfigs_1a3e9ff43a60cd21c20f884dcf5f76d62c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structContourConfig" kindref="compound">ContourConfig</ref> &amp;</type>
+        <definition>const ContourConfig &amp; ContourConfigs::operator[]</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>ContourConfigs::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="138" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="138" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="structContourConfigs_1a9776970326ea2aa26ccb90f4e6ac17c0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structContourConfig" kindref="compound">ContourConfig</ref> &amp;</type>
+        <definition>const ContourConfig &amp; ContourConfigs::pick_from_height</definition>
+        <argsstring>(double height) const</argsstring>
+        <name>pick_from_height</name>
+        <qualifiedname>ContourConfigs::pick_from_height</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="140" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="140" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="structContourConfigs_1aee2e11e63df8739d68b952418b44038b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ContourConfigs::layer_name_from_height</definition>
+        <argsstring>(double height) const</argsstring>
+        <name>layer_name_from_height</name>
+        <qualifiedname>ContourConfigs::layer_name_from_height</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="153" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="153" bodyend="170"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="121" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="121" bodyend="171"/>
+    <listofallmembers>
+      <member refid="structContourConfigs_1acf7db093f15da87d1fda539b0fcd9dff" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>configs</name></member>
+      <member refid="structContourConfigs_1a3bab570e55ff017f2252cee218eeb7e5" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>ContourConfigs</name></member>
+      <member refid="structContourConfigs_1a53823c28451469dae1315aed185b90bd" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>ContourConfigs</name></member>
+      <member refid="structContourConfigs_1aee2e11e63df8739d68b952418b44038b" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>layer_name_from_height</name></member>
+      <member refid="structContourConfigs_1a5f316d791ef1d6b36e0a8e4bb33d7086" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>min_interval</name></member>
+      <member refid="structContourConfigs_1a1b7bf094b5817cf9c5f2ad24dbb939c7" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>minimum_interval</name></member>
+      <member refid="structContourConfigs_1a3e9ff43a60cd21c20f884dcf5f76d62c" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>operator[]</name></member>
+      <member refid="structContourConfigs_1a9776970326ea2aa26ccb90f4e6ac17c0" prot="public" virt="non-virtual"><scope>ContourConfigs</scope><name>pick_from_height</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

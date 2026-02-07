@@ -2,6 +2,11 @@
 # Class Member Enums
 
 
-Nothing related to **Class Member Enums** found.
+
+## d
+
+* **Dir** ([**Direction2D**](classDirection2D.md))
+
+
 
 

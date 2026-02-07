@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPointLayer" kind="class" language="C++" prot="public">
+    <compoundname>PointLayer</compoundname>
+    <basecompoundref refid="classLayer" prot="public" virt="non-virtual">Layer</basecompoundref>
+    <derivedcompoundref refid="classLASLayer" prot="public" virt="non-virtual">LASLayer</derivedcompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPointLayer_1abce3d80c44d7bf687d60de1bf8f587af" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual PointLayer::~PointLayer</definition>
+        <argsstring>()=default</argsstring>
+        <name>~PointLayer</name>
+        <qualifiedname>PointLayer::~PointLayer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="26" column="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>LASLayer</label>
+        <link refid="classLASLayer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>PointLayer</label>
+        <link refid="classPointLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>PointLayer</label>
+        <link refid="classPointLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="24" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="24" bodyend="27"/>
+    <listofallmembers>
+      <member refid="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" virt="non-virtual"><scope>PointLayer</scope><name>data_updated</name></member>
+      <member refid="classLayer_1a948936d6c972fac3298443963e00d28c" prot="public" virt="pure-virtual"><scope>PointLayer</scope><name>extent</name></member>
+      <member refid="classLayer_1a2b075c64ebffde8730a248a5bb5f5133" prot="protected" virt="non-virtual"><scope>PointLayer</scope><name>m_name</name></member>
+      <member refid="classLayer_1a0ff357311c2b67b5dcead20954726669" prot="public" virt="virtual"><scope>PointLayer</scope><name>name</name></member>
+      <member refid="classLayer_1a84e007a609d4e1954815254c29416951" prot="public" virt="pure-virtual"><scope>PointLayer</scope><name>projection</name></member>
+      <member refid="classLayer_1a57e5a4a6ec188de4e7b8c894aac254ea" prot="public" virt="virtual"><scope>PointLayer</scope><name>~Layer</name></member>
+      <member refid="classPointLayer_1abce3d80c44d7bf687d60de1bf8f587af" prot="public" virt="virtual"><scope>PointLayer</scope><name>~PointLayer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

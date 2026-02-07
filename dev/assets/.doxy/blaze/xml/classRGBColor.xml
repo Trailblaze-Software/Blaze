@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRGBColor" kind="class" language="C++" prot="public">
+    <compoundname>RGBColor</compoundname>
+    <basecompoundref refid="classColor" prot="public" virt="non-virtual">Color</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRGBColor_1a6fa59c531285c80ec096e8e4d95d96da" prot="private" static="no" mutable="no">
+        <type>std::array&lt; <ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref>, 4 &gt;</type>
+        <definition>std::array&lt;unsigned char, 4&gt; RGBColor::m_data</definition>
+        <argsstring></argsstring>
+        <name>m_data</name>
+        <qualifiedname>RGBColor::m_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="34" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRGBColor_1af00beae175ee860928e928a6d3f56cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>RGBColor::RGBColor</definition>
+        <argsstring>(unsigned char r, unsigned char g, unsigned char b, unsigned char a=255)</argsstring>
+        <name>RGBColor</name>
+        <qualifiedname>RGBColor::RGBColor</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+          <declname>g</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+          <declname>a</declname>
+          <defval>255</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="37" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.cpp" bodystart="18" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a9383ce7b63b0a6ada5d4e54e16adf733" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RGBColor::RGBColor</definition>
+        <argsstring>()</argsstring>
+        <name>RGBColor</name>
+        <qualifiedname>RGBColor::RGBColor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="38" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a77b3b23a1ad2d5ec45b62b372507a0a1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
+        <definition>virtual RGBColor RGBColor::toRGB</definition>
+        <argsstring>() const override</argsstring>
+        <name>toRGB</name>
+        <qualifiedname>RGBColor::toRGB</qualifiedname>
+        <reimplements refid="classColor_1ab496ff1619342415ed4ef58363283abe">toRGB</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="40" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a238baca8984d89ff73633ba9207da24e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        <definition>CMYKColor RGBColor::toCMYK</definition>
+        <argsstring>() const override</argsstring>
+        <name>toCMYK</name>
+        <qualifiedname>RGBColor::toCMYK</qualifiedname>
+        <reimplements refid="classColor_1a2e95c9206cd8cf1ff7655c5b61e69eab">toCMYK</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="41" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.cpp" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a4f0bfde0e698f393306796162d1926fe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+        <definition>unsigned char RGBColor::getRed</definition>
+        <argsstring>() const</argsstring>
+        <name>getRed</name>
+        <qualifiedname>RGBColor::getRed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="45" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a0a0a3470e062d09579481d91b384f37d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+        <definition>unsigned char RGBColor::getGreen</definition>
+        <argsstring>() const</argsstring>
+        <name>getGreen</name>
+        <qualifiedname>RGBColor::getGreen</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="46" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a7267c0e5f9650025096ae07130eb3492" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+        <definition>unsigned char RGBColor::getBlue</definition>
+        <argsstring>() const</argsstring>
+        <name>getBlue</name>
+        <qualifiedname>RGBColor::getBlue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="47" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1aad019e6af77395a88705ea2ad8da9fd3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref></type>
+        <definition>unsigned char RGBColor::getAlpha</definition>
+        <argsstring>() const</argsstring>
+        <name>getAlpha</name>
+        <qualifiedname>RGBColor::getAlpha</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="48" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a8abf7211bd2e22c45f00c7159f882309" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref> &amp;</type>
+        <definition>const unsigned char &amp; RGBColor::operator[]</definition>
+        <argsstring>(size_t index) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>RGBColor::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="50" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a2bbe84c675bfbca9036b8721b840da5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref> &amp;</type>
+        <definition>unsigned char &amp; RGBColor::operator[]</definition>
+        <argsstring>(size_t index)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>RGBColor::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="51" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="51" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classRGBColor_1a9a91fe52bf9e52b96ebdb92a42eb2ac7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">cv::Scalar</ref></type>
+        <definition>cv::Scalar RGBColor::toScalar</definition>
+        <argsstring>() const</argsstring>
+        <name>toScalar</name>
+        <qualifiedname>RGBColor::toScalar</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="52" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.cpp" bodystart="48" bodyend="50"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classRGBColor_1a028ef98af6ccc84a2d71de220332d856" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
+        <definition>RGBColor RGBColor::FromCMYK</definition>
+        <argsstring>(const CMYKColor &amp;cmyk)</argsstring>
+        <name>FromCMYK</name>
+        <qualifiedname>RGBColor::FromCMYK</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCMYKColor" kindref="compound">CMYKColor</ref> &amp;</type>
+          <declname>cmyk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="43" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.cpp" bodystart="7" bodyend="16"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classRGBColor_1a6928bfd9368bd698d4978f1046447120" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const RGBColor &amp;c)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>RGBColor::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classRGBColor" kindref="compound">RGBColor</ref> &amp;</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="54" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="54" bodyend="56"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Color</label>
+        <link refid="classColor"/>
+      </node>
+      <node id="1">
+        <label>RGBColor</label>
+        <link refid="classRGBColor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Color</label>
+        <link refid="classColor"/>
+      </node>
+      <node id="1">
+        <label>RGBColor</label>
+        <link refid="classRGBColor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="33" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="33" bodyend="57"/>
+    <listofallmembers>
+      <member refid="classColor_1a33bde70fd42b5fe7bc75e335c076fa8b" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>Color</name></member>
+      <member refid="classColor_1a6fae8aa8b75d27cb134234e75b41caf2" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>Color</name></member>
+      <member refid="classRGBColor_1a028ef98af6ccc84a2d71de220332d856" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>FromCMYK</name></member>
+      <member refid="classRGBColor_1aad019e6af77395a88705ea2ad8da9fd3" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>getAlpha</name></member>
+      <member refid="classRGBColor_1a7267c0e5f9650025096ae07130eb3492" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>getBlue</name></member>
+      <member refid="classRGBColor_1a0a0a3470e062d09579481d91b384f37d" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>getGreen</name></member>
+      <member refid="classRGBColor_1a4f0bfde0e698f393306796162d1926fe" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>getRed</name></member>
+      <member refid="classRGBColor_1a6fa59c531285c80ec096e8e4d95d96da" prot="private" virt="non-virtual"><scope>RGBColor</scope><name>m_data</name></member>
+      <member refid="classRGBColor_1a6928bfd9368bd698d4978f1046447120" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classColor_1a657a535afe4c508702120e1d1401608a" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>operator=</name></member>
+      <member refid="classRGBColor_1a8abf7211bd2e22c45f00c7159f882309" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>operator[]</name></member>
+      <member refid="classRGBColor_1a2bbe84c675bfbca9036b8721b840da5d" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>operator[]</name></member>
+      <member refid="classRGBColor_1af00beae175ee860928e928a6d3f56cd3" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>RGBColor</name></member>
+      <member refid="classRGBColor_1a9383ce7b63b0a6ada5d4e54e16adf733" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>RGBColor</name></member>
+      <member refid="classRGBColor_1a238baca8984d89ff73633ba9207da24e" prot="public" virt="virtual"><scope>RGBColor</scope><name>toCMYK</name></member>
+      <member refid="classRGBColor_1a77b3b23a1ad2d5ec45b62b372507a0a1" prot="public" virt="virtual"><scope>RGBColor</scope><name>toRGB</name></member>
+      <member refid="classRGBColor_1a9a91fe52bf9e52b96ebdb92a42eb2ac7" prot="public" virt="non-virtual"><scope>RGBColor</scope><name>toScalar</name></member>
+      <member refid="classColor_1a2c0b567ad3430b6fe40f8b06c12654eb" prot="public" virt="virtual"><scope>RGBColor</scope><name>~Color</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

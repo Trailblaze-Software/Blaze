@@ -2,6 +2,12 @@
 # Namespace Member Typedefs
 
 
-Nothing related to **Namespace Member Typedefs** found.
+
+## s
+
+* **Scalar** ([**cv**](namespacecv.md))
+* **source\_location** ([**std**](namespacestd.md))
+
+
 
 

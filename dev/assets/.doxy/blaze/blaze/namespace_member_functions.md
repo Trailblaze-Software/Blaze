@@ -2,6 +2,11 @@
 # Namespace Member Functions
 
 
-Nothing related to **Namespace Member Functions** found.
+
+## s
+
+* **SERIALIZE\_ENUM\_STRICT** ([**nlohmann**](namespacenlohmann.md))
+
+
 
 

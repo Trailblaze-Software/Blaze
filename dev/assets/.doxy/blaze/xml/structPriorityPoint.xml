@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structPriorityPoint" kind="struct" language="C++" prot="public">
+    <compoundname>PriorityPoint</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structPriorityPoint_1aaa4b85d6737dc39d61b542abdd1f10c5" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double PriorityPoint::priority</definition>
+        <argsstring></argsstring>
+        <name>priority</name>
+        <qualifiedname>PriorityPoint::priority</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="11" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPriorityPoint_1a7210cb8717f7a02b884d59645c8db78a" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double PriorityPoint::secondary_priority</definition>
+        <argsstring></argsstring>
+        <name>secondary_priority</name>
+        <qualifiedname>PriorityPoint::secondary_priority</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="12" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPriorityPoint_1ae3c3ed91bd14915e0b36699bbbdfc7a7" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt;</type>
+        <definition>Coordinate2D&lt;size_t&gt; PriorityPoint::coord</definition>
+        <argsstring></argsstring>
+        <name>coord</name>
+        <qualifiedname>PriorityPoint::coord</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="13" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structPriorityPoint_1a9818f9d1619c4128777a01c0bdd2dc35" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool PriorityPoint::operator&lt;</definition>
+        <argsstring>(const PriorityPoint &amp;other) const</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>PriorityPoint::operator&lt;</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structPriorityPoint" kindref="compound">PriorityPoint</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="15" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="15" bodyend="20"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Coordinate2D&lt; size_t &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="1">
+        <label>PriorityPoint</label>
+        <link refid="structPriorityPoint"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>coord</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="10" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="10" bodyend="21"/>
+    <listofallmembers>
+      <member refid="structPriorityPoint_1ae3c3ed91bd14915e0b36699bbbdfc7a7" prot="public" virt="non-virtual"><scope>PriorityPoint</scope><name>coord</name></member>
+      <member refid="structPriorityPoint_1a9818f9d1619c4128777a01c0bdd2dc35" prot="public" virt="non-virtual"><scope>PriorityPoint</scope><name>operator&lt;</name></member>
+      <member refid="structPriorityPoint_1aaa4b85d6737dc39d61b542abdd1f10c5" prot="public" virt="non-virtual"><scope>PriorityPoint</scope><name>priority</name></member>
+      <member refid="structPriorityPoint_1a7210cb8717f7a02b884d59645c8db78a" prot="public" virt="non-virtual"><scope>PriorityPoint</scope><name>secondary_priority</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

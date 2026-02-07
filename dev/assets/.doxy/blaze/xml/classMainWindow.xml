@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMainWindow" kind="class" language="C++" prot="public">
+    <compoundname>MainWindow</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QMainWindow</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMainWindow_1ab6d2c843b799160e95ffc9075f6cb3b4" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; Ui::MainWindow &gt;</type>
+        <definition>std::unique_ptr&lt;Ui::MainWindow&gt; MainWindow::ui</definition>
+        <argsstring></argsstring>
+        <name>ui</name>
+        <qualifiedname>MainWindow::ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="23" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMainWindow_1a34c4b4207b46d11a4100c9b19f0e81bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MainWindow::MainWindow</definition>
+        <argsstring>()</argsstring>
+        <name>MainWindow</name>
+        <qualifiedname>MainWindow::MainWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="15" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="11" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMainWindow_1ae98d00a93bc118200eeef9f9bba1dba7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MainWindow::~MainWindow</definition>
+        <argsstring>()</argsstring>
+        <name>~MainWindow</name>
+        <qualifiedname>MainWindow::~MainWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="16" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="36" bodyend="36"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-slot">
+      <memberdef kind="slot" id="classMainWindow_1a7be6a5d98970ac1a6296c6f9aee1e9bb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void MainWindow::about</definition>
+        <argsstring>()</argsstring>
+        <name>about</name>
+        <qualifiedname>MainWindow::about</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="19" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="38" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMainWindow_1ad64846d28a73b066df5877130d982476" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void MainWindow::run_blaze</definition>
+        <argsstring>()</argsstring>
+        <name>run_blaze</name>
+        <qualifiedname>MainWindow::run_blaze</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="20" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="51" bodyend="90"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>MainWindow</label>
+        <link refid="classMainWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QMainWindow</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>MainWindow</label>
+        <link refid="classMainWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QMainWindow</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="11" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" bodystart="11" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classMainWindow_1a7be6a5d98970ac1a6296c6f9aee1e9bb" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>about</name></member>
+      <member refid="classMainWindow_1a34c4b4207b46d11a4100c9b19f0e81bb" prot="public" virt="non-virtual"><scope>MainWindow</scope><name>MainWindow</name></member>
+      <member refid="classMainWindow_1ad64846d28a73b066df5877130d982476" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>run_blaze</name></member>
+      <member refid="classMainWindow_1ab6d2c843b799160e95ffc9075f6cb3b4" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>ui</name></member>
+      <member refid="classMainWindow_1ae98d00a93bc118200eeef9f9bba1dba7" prot="public" virt="non-virtual"><scope>MainWindow</scope><name>~MainWindow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
