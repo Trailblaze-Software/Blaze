@@ -11,6 +11,7 @@
     <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake"></a>
     <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue?style=flat-square"></a>
+    <a href="https://Trailblaze-Software.github.io/blaze/"><img src="https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square"></a>
     <a href="https://github.com/Trailblaze-Software/blaze"><img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square"></a>
   </p>
 
@@ -24,6 +25,16 @@ NOTE: This repository is currently a work in progress and subject to significant
 ## Overview
 
 **Blaze** is a LIDAR mapping tool designed for processing, analyzing, and visualizing point cloud data from LAS/LAZ files. Built with modern C++20, Blaze provides both command-line (`blaze-cli`) and graphical interfaces (`Blaze` and eventually `Blaze3D`).
+
+## Documentation
+
+Full documentation, including installation guides, usage examples, and API reference, is available at:
+
+**[https://Trailblaze-Software.github.io/blaze/](https://Trailblaze-Software.github.io/blaze/)**
+
+*   **[Installation Guide](https://Trailblaze-Software.github.io/blaze/installation/)**
+*   **[Quick Start Guide](https://Trailblaze-Software.github.io/blaze/usage/quick-guide/)**
+*   **[Developers Reference (C++ API)](https://Trailblaze-Software.github.io/blaze/reference/)**
 
 ## Installation
 
