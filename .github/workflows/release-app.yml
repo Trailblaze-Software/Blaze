@@ -16,6 +16,9 @@ env:
 jobs:
   package-windows:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [x64, arm64]
     steps:
       - uses: actions/checkout@v4
       # Setup NuGet credentials for GitHub Packages
@@ -45,10 +48,10 @@ jobs:
         with:
           path: |
             deps
-          key: ${{ runner.os }}-build-cache-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json',
-            'CMakeLists.txt') }}
+          key: ${{ runner.os }}-${{ matrix.arch }}-build-cache-${{ hashFiles('vcpkg.json',
+            'vcpkg-configuration.json', 'CMakeLists.txt') }}
           restore-keys: |
-            ${{ runner.os }}-build-cache-
+            ${{ runner.os }}-${{ matrix.arch }}-build-cache-
       - name: Setup CMake
         uses: threeal/cmake-action@v2.0.0
         with:
@@ -56,7 +59,9 @@ jobs:
             VCPKG_BUILD_TYPE=release
             VCPKG_VERBOSE=ON
       - name: Configure
-        run: cmake -B build
+        run: |
+          $triplet = if ("${{ matrix.arch }}" -eq "arm64") { "arm64-windows" } else { "x64-windows" }
+          cmake -B build -DVCPKG_TARGET_TRIPLET=$triplet
       - name: Build
         run: cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
@@ -74,18 +79,23 @@ jobs:
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: blaze-windows-installer
-          path: build/Blaze-*-win64.exe
+          name: blaze-windows-${{ matrix.arch }}-installer
+          path: build/Blaze-*-win64.exe # CPack usually names it win64 even for arm64 if not configured otherwise
           retention-days: 30
-      # Attach to GitHub Release only on release publish or when pushing a version tag
       - name: Upload Installer to Release
         uses: softprops/action-gh-release@v2
-        if: github.event_name == 'release' || (github.event_name == 'push' && startsWith(github.ref,
-          'refs/tags/'))
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: build/Blaze-*-win64.exe
   package-linux:
-    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-22.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -96,10 +106,10 @@ jobs:
         with:
           path: |
             build
-          key: ${{ runner.os }}-build-linux-${{ hashFiles('CMakeLists.txt', 'scripts/install-ubuntu-deps.sh')
-            }}
+          key: ${{ runner.os }}-${{ matrix.arch }}-build-linux-${{ hashFiles('CMakeLists.txt',
+            'scripts/install-ubuntu-deps.sh') }}
           restore-keys: |
-            ${{ runner.os }}-build-linux-
+            ${{ runner.os }}-${{ matrix.arch }}-build-linux-
       - name: Configure
         run: cmake -B build
       - name: Build
@@ -111,13 +121,39 @@ jobs:
       - name: Upload DEB Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: blaze-linux-deb
+          name: blaze-linux-${{ matrix.arch }}-deb
           path: build/Blaze-*.deb
           retention-days: 30
-      # Attach to GitHub Release only on release publish or when pushing a version tag
       - name: Upload DEB to Release
         uses: softprops/action-gh-release@v2
-        if: github.event_name == 'release' || (github.event_name == 'push' && startsWith(github.ref,
-          'refs/tags/'))
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: build/Blaze-*.deb
+  package-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f qgis_plugin/requirements.txt ]; then pip install -r qgis_plugin/requirements.txt; fi
+      - name: Package Plugin
+        run: |
+          cd qgis_plugin
+          python package_plugin.py
+          # Rename for clarity if needed, assuming the script outputs 'Blaze_Map_Loader.zip'
+          mv *.zip blaze-qgis-plugin.zip
+      - name: Upload Plugin Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blaze-qgis-plugin
+          path: qgis_plugin/blaze-qgis-plugin.zip
+      - name: Upload Plugin to Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: qgis_plugin/blaze-qgis-plugin.zip
