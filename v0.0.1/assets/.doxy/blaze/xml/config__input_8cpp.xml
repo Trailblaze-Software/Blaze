@@ -1,0 +1,605 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="config__input_8cpp" kind="file" language="C++">
+    <compoundname>config_input.cpp</compoundname>
+    <includes refid="config__input_8hpp" local="yes">config_input.hpp</includes>
+    <includes local="no">fstream</includes>
+    <includes refid="assert_8hpp" local="yes">assert/assert.hpp</includes>
+    <includes local="no">nlohmann/json.hpp</includes>
+    <incdepgraph>
+      <node id="16">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp</label>
+        <link refid="config__input_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>config_input.hpp</label>
+        <link refid="config__input_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>array</label>
+      </node>
+      <node id="3">
+        <label>cmath</label>
+      </node>
+      <node id="17">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="15">
+        <label>fstream</label>
+      </node>
+      <node id="21">
+        <label>iomanip</label>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="10">
+        <label>map</label>
+      </node>
+      <node id="22">
+        <label>nlohmann/json.hpp</label>
+      </node>
+      <node id="5">
+        <label>optional</label>
+      </node>
+      <node id="11">
+        <label>ostream</label>
+      </node>
+      <node id="6">
+        <label>set</label>
+      </node>
+      <node id="18">
+        <label>sstream</label>
+      </node>
+      <node id="19">
+        <label>string</label>
+      </node>
+      <node id="12">
+        <label>variant</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01GridConfig_01_4" prot="public">nlohmann::adl_serializer&lt; GridConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01GroundConfig_01_4" prot="public">nlohmann::adl_serializer&lt; GroundConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01RGBColor_01_4" prot="public">nlohmann::adl_serializer&lt; RGBColor &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4" prot="public">nlohmann::adl_serializer&lt; CMYKColor &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01ColorVariant_01_4" prot="public">nlohmann::adl_serializer&lt; ColorVariant &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01ContourConfig_01_4" prot="public">nlohmann::adl_serializer&lt; ContourConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4" prot="public">nlohmann::adl_serializer&lt; CanopyConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01BlockingThresholdColorPair_01_4" prot="public">nlohmann::adl_serializer&lt; BlockingThresholdColorPair &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4" prot="public">nlohmann::adl_serializer&lt; VegeHeightConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4" prot="public">nlohmann::adl_serializer&lt; VegeConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01RenderConfig_01_4" prot="public">nlohmann::adl_serializer&lt; RenderConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01WaterConfig_01_4" prot="public">nlohmann::adl_serializer&lt; WaterConfig &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4" prot="public">nlohmann::adl_serializer&lt; WaterConfigs &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01ContourConfigs_01_4" prot="public">nlohmann::adl_serializer&lt; ContourConfigs &gt;</innerclass>
+    <innerclass refid="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4" prot="public">nlohmann::adl_serializer&lt; BuildingsConfig &gt;</innerclass>
+    <innernamespace refid="namespacenlohmann">nlohmann</innernamespace>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="config__input_8cpp_1ad73dd49967d1bb100559d1ee6b583d58" prot="public" static="no">
+        <name>JSON_DIAGNOSTICS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="7" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="config__input_8cpp_1ac30f83b6c2dcbda086b6fc1b88548c53" prot="public" static="no">
+        <name>SERIALIZE_ENUM_STRICT</name>
+        <param><defname>ENUM_TYPE</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>  <ref refid="classCoordinate2D" kindref="compound">template</ref> &lt;<ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&gt;                                                              \
+  <ref refid="classCoordinate2D" kindref="compound">inline</ref> <ref refid="classCoordinate2D" kindref="compound">void</ref> to_json(<ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&amp; <ref refid="classCoordinate2D" kindref="compound">j</ref>, <ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>&amp; <ref refid="classCoordinate2D" kindref="compound">e</ref>) {                                    \
+    <ref refid="classCoordinate2D" kindref="compound">static_assert</ref>(std::is_enum&lt;<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>&gt;::value, #<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref> &quot; must <ref refid="classCoordinate2D" kindref="compound">be</ref> <ref refid="classCoordinate2D" kindref="compound">an</ref> <ref refid="classCoordinate2D" kindref="compound">enum!&quot;</ref>);               \
+    <ref refid="classCoordinate2D" kindref="compound">static</ref> <ref refid="classCoordinate2D" kindref="compound">const</ref> std::pair&lt;<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>, <ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&gt; <ref refid="classCoordinate2D" kindref="compound">m</ref>[] = <ref refid="classCoordinate2D" kindref="compound">__VA_ARGS__</ref>;                          \
+    <ref refid="classCoordinate2D" kindref="compound">auto</ref> <ref refid="classCoordinate2D" kindref="compound">it</ref> = std::find_if(std::begin(<ref refid="classCoordinate2D" kindref="compound">m</ref>), std::end(<ref refid="classCoordinate2D" kindref="compound">m</ref>),                                           \
+                           [<ref refid="classCoordinate2D" kindref="compound">e</ref>](<ref refid="classCoordinate2D" kindref="compound">const</ref> std::pair&lt;<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>, <ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&gt;&amp; <ref refid="classCoordinate2D" kindref="compound">ej_pair</ref>) -&gt; <ref refid="classCoordinate2D" kindref="compound">bool</ref> {     \
+                             <ref refid="classCoordinate2D" kindref="compound">return</ref> ej_pair.first == <ref refid="classCoordinate2D" kindref="compound">e</ref>;                                          \
+                           });                                                                   \
+    <ref refid="classCoordinate2D" kindref="compound">if</ref> (<ref refid="classCoordinate2D" kindref="compound">it</ref> == std::end(<ref refid="classCoordinate2D" kindref="compound">m</ref>)) <ref refid="classCoordinate2D" kindref="compound">throw</ref> std::invalid_argument(&quot;unknown <ref refid="classCoordinate2D" kindref="compound">enum</ref> <ref refid="classCoordinate2D" kindref="compound">value&quot;</ref>);                    \
+    <ref refid="classCoordinate2D" kindref="compound">j</ref> = <ref refid="classCoordinate2D" kindref="compound">it</ref>-&gt;<ref refid="classCoordinate2D" kindref="compound">second</ref>;                                                                              \
+  }                                                                                              \
+  <ref refid="classCoordinate2D" kindref="compound">template</ref> &lt;<ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&gt;                                                              \
+  <ref refid="classCoordinate2D" kindref="compound">inline</ref> <ref refid="classCoordinate2D" kindref="compound">void</ref> from_json(<ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&amp; <ref refid="classCoordinate2D" kindref="compound">j</ref>, <ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>&amp; <ref refid="classCoordinate2D" kindref="compound">e</ref>) {                                  \
+    <ref refid="classCoordinate2D" kindref="compound">static_assert</ref>(std::is_enum&lt;<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>&gt;::value, #<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref> &quot; must <ref refid="classCoordinate2D" kindref="compound">be</ref> <ref refid="classCoordinate2D" kindref="compound">an</ref> <ref refid="classCoordinate2D" kindref="compound">enum!&quot;</ref>);               \
+    <ref refid="classCoordinate2D" kindref="compound">static</ref> <ref refid="classCoordinate2D" kindref="compound">const</ref> std::pair&lt;<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>, <ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&gt; <ref refid="classCoordinate2D" kindref="compound">m</ref>[] = <ref refid="classCoordinate2D" kindref="compound">__VA_ARGS__</ref>;                          \
+    <ref refid="classCoordinate2D" kindref="compound">auto</ref> <ref refid="classCoordinate2D" kindref="compound">it</ref> = std::find_if(std::begin(<ref refid="classCoordinate2D" kindref="compound">m</ref>), std::end(<ref refid="classCoordinate2D" kindref="compound">m</ref>),                                           \
+                           [&amp;<ref refid="classCoordinate2D" kindref="compound">j</ref>](<ref refid="classCoordinate2D" kindref="compound">const</ref> std::pair&lt;<ref refid="classCoordinate2D" kindref="compound">ENUM_TYPE</ref>, <ref refid="classCoordinate2D" kindref="compound">BasicJsonType</ref>&gt;&amp; <ref refid="classCoordinate2D" kindref="compound">ej_pair</ref>) -&gt; <ref refid="classCoordinate2D" kindref="compound">bool</ref> {    \
+                             <ref refid="classCoordinate2D" kindref="compound">return</ref> ej_pair.second == <ref refid="classCoordinate2D" kindref="compound">j</ref>;                                         \
+                           });                                                                   \
+    <ref refid="classCoordinate2D" kindref="compound">if</ref> (<ref refid="classCoordinate2D" kindref="compound">it</ref> == std::end(<ref refid="classCoordinate2D" kindref="compound">m</ref>)) <ref refid="classCoordinate2D" kindref="compound">throw</ref> std::invalid_argument(&quot;unknown json <ref refid="classCoordinate2D" kindref="compound">value:</ref> &quot; + std::string(<ref refid="classCoordinate2D" kindref="compound">j</ref>)); \
+    <ref refid="classCoordinate2D" kindref="compound">e</ref> = <ref refid="classCoordinate2D" kindref="compound">it</ref>-&gt;<ref refid="classCoordinate2D" kindref="compound">first</ref>;                                                                               \
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="21" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="21" bodyend="43"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="config__input_8cpp_1ab701e3ac61a85b337ec5c1abaad6742d" prot="public" static="no">
+        <type>nlohmann::json</type>
+        <definition>using json =  nlohmann::json</definition>
+        <argsstring></argsstring>
+        <name>json</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="19" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="config__input_8cpp_1afbfd856291d37ad95b8025095f7fbb5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const Config &amp;config)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structConfig" kindref="compound">Config</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="283" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="283" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="config__input_8cpp_1a51a8a07a8e5211322e780c12cc0cc211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const ProcessingStep &amp;step)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> ProcessingStep &amp;</type>
+          <declname>step</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="333" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="333" bodyend="333"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;config_input.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>JSON_DIAGNOSTICS<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(push,<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>GCC<sp/>diagnostic<sp/>push</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>GCC<sp/>diagnostic<sp/>ignored<sp/>&quot;-Warray-bounds&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;nlohmann/json.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>GCC<sp/>diagnostic<sp/>pop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(pop)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">json<sp/>=<sp/>nlohmann::json;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SERIALIZE_ENUM_STRICT(ENUM_TYPE,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"><sp/><sp/>template<sp/>&lt;typename<sp/>BasicJsonType&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"><sp/><sp/>inline<sp/>void<sp/>to_json(BasicJsonType&amp;<sp/>j,<sp/>const<sp/>ENUM_TYPE&amp;<sp/>e)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static_assert(std::is_enum&lt;ENUM_TYPE&gt;::value,<sp/>#ENUM_TYPE<sp/>&quot;<sp/>must<sp/>be<sp/>an<sp/>enum!&quot;);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static<sp/>const<sp/>std::pair&lt;ENUM_TYPE,<sp/>BasicJsonType&gt;<sp/>m[]<sp/>=<sp/>__VA_ARGS__;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>auto<sp/>it<sp/>=<sp/>std::find_if(std::begin(m),<sp/>std::end(m),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[e](const<sp/>std::pair&lt;ENUM_TYPE,<sp/>BasicJsonType&gt;&amp;<sp/>ej_pair)<sp/>-&gt;<sp/>bool<sp/>{<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>ej_pair.first<sp/>==<sp/>e;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>if<sp/>(it<sp/>==<sp/>std::end(m))<sp/>throw<sp/>std::invalid_argument(&quot;unknown<sp/>enum<sp/>value&quot;);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>j<sp/>=<sp/>it-&gt;second;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/>template<sp/>&lt;typename<sp/>BasicJsonType&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"><sp/><sp/>inline<sp/>void<sp/>from_json(const<sp/>BasicJsonType&amp;<sp/>j,<sp/>ENUM_TYPE&amp;<sp/>e)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static_assert(std::is_enum&lt;ENUM_TYPE&gt;::value,<sp/>#ENUM_TYPE<sp/>&quot;<sp/>must<sp/>be<sp/>an<sp/>enum!&quot;);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static<sp/>const<sp/>std::pair&lt;ENUM_TYPE,<sp/>BasicJsonType&gt;<sp/>m[]<sp/>=<sp/>__VA_ARGS__;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>auto<sp/>it<sp/>=<sp/>std::find_if(std::begin(m),<sp/>std::end(m),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;j](const<sp/>std::pair&lt;ENUM_TYPE,<sp/>BasicJsonType&gt;&amp;<sp/>ej_pair)<sp/>-&gt;<sp/>bool<sp/>{<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>ej_pair.second<sp/>==<sp/>j;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>if<sp/>(it<sp/>==<sp/>std::end(m))<sp/>throw<sp/>std::invalid_argument(&quot;unknown<sp/>json<sp/>value:<sp/>&quot;<sp/>+<sp/>std::string(j));<sp/>\</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>e<sp/>=<sp/>it-&gt;first;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">nlohmann<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="48" refid="structnlohmann_1_1adl__serializer_3_01GridConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structGridConfig" kindref="compound">GridConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structGridConfig" kindref="compound">GridConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structGridConfig" kindref="compound">GridConfig</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;bin_resolution&quot;</highlight><highlight class="normal">,<sp/>1.0),<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;downsample_factor&quot;</highlight><highlight class="normal">,<sp/>3u)};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structGridConfig" kindref="compound">GridConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;bin_resolution&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.bin_resolution;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;downsample_factor&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.downsample_factor;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="60" refid="structnlohmann_1_1adl__serializer_3_01GroundConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structGroundConfig" kindref="compound">GroundConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structGroundConfig" kindref="compound">GroundConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structGroundConfig" kindref="compound">GroundConfig</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;outlier_removal_height_diff&quot;</highlight><highlight class="normal">,<sp/>1.0),</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;min_ground_intensity&quot;</highlight><highlight class="normal">,<sp/>100),</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;max_ground_intensity&quot;</highlight><highlight class="normal">,<sp/>1000)};</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structGroundConfig" kindref="compound">GroundConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;outlier_removal_height_diff&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.outlier_removal_height_diff;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;min_ground_intensity&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.min_ground_intensity;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;max_ground_intensity&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.max_ground_intensity;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="75" refid="structnlohmann_1_1adl__serializer_3_01RGBColor_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="classRGBColor" kindref="compound">RGBColor</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(<ref refid="classCoordinate2D" kindref="compound">j</ref>[0],<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[1],<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[2],<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[3]);<sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>{<ref refid="classCoordinate2D" kindref="compound">c</ref>.getRed(),<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.getGreen(),<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.getBlue(),<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.getAlpha()};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="84" refid="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>(<ref refid="classCoordinate2D" kindref="compound">j</ref>[0],<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[1],<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[2],<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[3]);<sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>{<ref refid="classCoordinate2D" kindref="compound">c</ref>.getCyan(),<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.getMagenta(),<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.getYellow(),<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.getBlack()};</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="93" refid="structnlohmann_1_1adl__serializer_3_01ColorVariant_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;ColorVariant&gt;<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>ColorVariant<sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">j</ref>.is_string())<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>COLOR_MAP.at(<ref refid="classCoordinate2D" kindref="compound">j</ref>.get&lt;std::string&gt;());</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>color<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.items().begin();</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(color.key()<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;rgb&quot;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>color.value().get&lt;<ref refid="classRGBColor" kindref="compound">RGBColor</ref>&gt;();</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Assert(color.key()<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;cmyk&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Invalid<sp/>color<sp/>type&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>color.value().get&lt;<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>&gt;();</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/>ColorVariant<sp/>cv)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::holds_alternative&lt;RGBColor&gt;(cv))<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>json({{</highlight><highlight class="stringliteral">&quot;rgb&quot;</highlight><highlight class="normal">,<sp/>std::get&lt;RGBColor&gt;(cv)}});</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>json({{</highlight><highlight class="stringliteral">&quot;cmyk&quot;</highlight><highlight class="normal">,<sp/>std::get&lt;CMYKColor&gt;(cv)}});</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="118" refid="structnlohmann_1_1adl__serializer_3_01ContourConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;interval&quot;</highlight><highlight class="normal">,<sp/>1.0),<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;min_points&quot;</highlight><highlight class="normal">,<sp/>5u),</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">,<sp/>json(</highlight><highlight class="stringliteral">&quot;brown&quot;</highlight><highlight class="normal">)).get&lt;ColorVariant&gt;(),</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;width&quot;</highlight><highlight class="normal">,<sp/>0.14)};</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;interval&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.interval;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;min_points&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.min_points;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.color;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;width&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.width;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="134" refid="structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structCanopyConfig" kindref="compound">CanopyConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structCanopyConfig" kindref="compound">CanopyConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structCanopyConfig" kindref="compound">CanopyConfig</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;min_height&quot;</highlight><highlight class="normal">,<sp/>2.5),<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;max_height&quot;</highlight><highlight class="normal">,<sp/>100.0),</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;blocking_threshold&quot;</highlight><highlight class="normal">,<sp/>0.1)};</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structCanopyConfig" kindref="compound">CanopyConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">vc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;min_height&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vc</ref>.min_height;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;max_height&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vc</ref>.max_height;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;blocking_threshold&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vc</ref>.blocking_threshold;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="148" refid="structnlohmann_1_1adl__serializer_3_01BlockingThresholdColorPair_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structBlockingThresholdColorPair" kindref="compound">BlockingThresholdColorPair</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structBlockingThresholdColorPair" kindref="compound">BlockingThresholdColorPair</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structBlockingThresholdColorPair" kindref="compound">BlockingThresholdColorPair</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;blocking_threshold&quot;</highlight><highlight class="normal">,<sp/>0.1),</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">,<sp/>json(</highlight><highlight class="stringliteral">&quot;white&quot;</highlight><highlight class="normal">)).get&lt;ColorVariant&gt;()};</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structBlockingThresholdColorPair" kindref="compound">BlockingThresholdColorPair</ref><sp/><ref refid="classCoordinate2D" kindref="compound">btc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;blocking_threshold&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">btc</ref>.blocking_threshold;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">btc</ref>.color;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="160" refid="structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Vegetation&quot;</highlight><highlight class="normal">),<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;min_height&quot;</highlight><highlight class="normal">,<sp/>2.5),<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;max_height&quot;</highlight><highlight class="normal">,<sp/>100.0),</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;colors&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;std::vector&lt;BlockingThresholdColorPair&gt;&gt;()};</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.name;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;min_height&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.min_height;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;max_height&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.max_height;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;colors&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.colors;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="176" refid="structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structVegeConfig" kindref="compound">VegeConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structVegeConfig" kindref="compound">VegeConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structVegeConfig" kindref="compound">VegeConfig</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;background_color&quot;</highlight><highlight class="normal">,<sp/>json(</highlight><highlight class="stringliteral">&quot;white&quot;</highlight><highlight class="normal">)).get&lt;ColorVariant&gt;(),</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;height_configs&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;std::vector&lt;VegeHeightConfig&gt;&gt;()};</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structVegeConfig" kindref="compound">VegeConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">vc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;background_color&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vc</ref>.background_color;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;height_configs&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vc</ref>.height_configs;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="188" refid="structnlohmann_1_1adl__serializer_3_01RenderConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structRenderConfig" kindref="compound">RenderConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structRenderConfig" kindref="compound">RenderConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structRenderConfig" kindref="compound">RenderConfig</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;scale&quot;</highlight><highlight class="normal">,<sp/>10000.0),<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;dpi&quot;</highlight><highlight class="normal">,<sp/>600.0)};</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structRenderConfig" kindref="compound">RenderConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;scale&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">rc</ref>.scale;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;dpi&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">rc</ref>.dpi;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="200" refid="structnlohmann_1_1adl__serializer_3_01WaterConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{.catchment<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;catchment&quot;</highlight><highlight class="normal">,<sp/>0.05),</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.color<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">,<sp/>json(</highlight><highlight class="stringliteral">&quot;blue&quot;</highlight><highlight class="normal">)),</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.width<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;width&quot;</highlight><highlight class="normal">,<sp/>0.18)};</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;catchment&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.catchment;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.color;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;width&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.width;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="215" refid="structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.get&lt;std::map&lt;std::string,<sp/>WaterConfig&gt;&gt;()};</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>)<sp/>{<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.configs;<sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="224" refid="structnlohmann_1_1adl__serializer_3_01ContourConfigs_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>(<ref refid="classCoordinate2D" kindref="compound">j</ref>.get&lt;std::map&lt;std::string,<sp/>ContourConfig&gt;&gt;());</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>)<sp/>{<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cc</ref>.configs;<sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="233" refid="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">adl_serializer</ref>&lt;<ref refid="structBuildingsConfig" kindref="compound">BuildingsConfig</ref>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structBuildingsConfig" kindref="compound">BuildingsConfig</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structBuildingsConfig" kindref="compound">BuildingsConfig</ref>{<ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">,<sp/>json(</highlight><highlight class="stringliteral">&quot;black&quot;</highlight><highlight class="normal">)).get&lt;ColorVariant&gt;()};</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="structBuildingsConfig" kindref="compound">BuildingsConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">bc</ref>)<sp/>{<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;color&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">bc</ref>.color;<sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal">SERIALIZE_ENUM_STRICT(ProcessingStep,<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{ProcessingStep::Tiles,<sp/></highlight><highlight class="stringliteral">&quot;tiles&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{ProcessingStep::Combine,<sp/></highlight><highlight class="stringliteral">&quot;combine&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>})</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">template &lt;&gt;</ref></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">adl_serializer&lt;Config&gt;</ref><sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>from_json(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.grid<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;grid&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;<ref refid="structGridConfig" kindref="compound">GridConfig</ref>&gt;();</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.ground<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;ground&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;<ref refid="structGroundConfig" kindref="compound">GroundConfig</ref>&gt;();</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.contours<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;contours&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>&gt;();</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.water<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;water&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;<ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>&gt;();</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.vege<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;vege&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;<ref refid="structVegeConfig" kindref="compound">VegeConfig</ref>&gt;();</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.render<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;render&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;<ref refid="structRenderConfig" kindref="compound">RenderConfig</ref>&gt;();</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.buildings<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;buildings&quot;</highlight><highlight class="normal">,<sp/>json({})).get&lt;<ref refid="structBuildingsConfig" kindref="compound">BuildingsConfig</ref>&gt;();</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.las_files<sp/>=</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;las_files&quot;</highlight><highlight class="normal">,<sp/>json(std::vector&lt;std::string&gt;())).get&lt;std::vector&lt;fs::path&gt;&gt;();</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.processing_steps<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;steps&quot;</highlight><highlight class="normal">,<sp/>json({</highlight><highlight class="stringliteral">&quot;tiles&quot;</highlight><highlight class="normal">})).get&lt;std::set&lt;ProcessingStep&gt;&gt;();</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.output_directory<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;output_directory&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.border_width<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.value(</highlight><highlight class="stringliteral">&quot;border_width&quot;</highlight><highlight class="normal">,<sp/>100.0);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>.relative_path_to_config<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>to_json(json&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;grid&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.grid;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;ground&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.ground;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;contours&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.contours;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;vege&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.vege;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;render&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.render;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;colors&quot;</highlight><highlight class="normal">]<sp/>=<sp/>json({{</highlight><highlight class="stringliteral">&quot;primitive&quot;</highlight><highlight class="normal">,<sp/>COLOR_MAP}});</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;buildings&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.buildings;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;las_files&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.las_files;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;steps&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.processing_steps;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;output_directory&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.output_directory;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;border_width&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">gc</ref>.border_width;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>nlohmann</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal">std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Config:\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/>json(<ref refid="classCoordinate2D" kindref="compound">config</ref>).dump(4);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Config::write_to_file(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/>std::ofstream<sp/><ref refid="classCoordinate2D" kindref="compound">file</ref>(<ref refid="classCoordinate2D" kindref="compound">filename</ref>);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">file</ref>.is_open())<sp/>{</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>open<sp/>config<sp/>file<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::filesystem::filesystem_error(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>open<sp/>config<sp/>file<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>.string(),</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_error_code(std::errc::io_error));</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/>json<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.erase(</highlight><highlight class="stringliteral">&quot;relative_path_to_config&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">file</ref><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.dump(4);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">file</ref>.close();</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><ref refid="structConfig" kindref="compound">Config</ref><sp/>Config::FromFile(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/>std::ifstream<sp/><ref refid="classCoordinate2D" kindref="compound">file</ref>(<ref refid="classCoordinate2D" kindref="compound">filename</ref>);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">file</ref>.is_open())<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>open<sp/>config<sp/>file<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::filesystem::filesystem_error(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>open<sp/>config<sp/>file<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>.string(),</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_error_code(std::errc::io_error));</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/>json<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>json::parse(<ref refid="classCoordinate2D" kindref="compound">file</ref>,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json::exception&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">e</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;JSON<sp/>parsing<sp/>error:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">e</ref>.what()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">e</ref>;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">file</ref>.close();</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>color<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;colors&quot;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&quot;primitive&quot;</highlight><highlight class="normal">].<ref refid="classCoordinate2D" kindref="compound">items</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>COLOR_MAP[color.key()]<sp/>=<sp/>color.value().get&lt;ColorVariant&gt;();</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>color<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>[</highlight><highlight class="stringliteral">&quot;colors&quot;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&quot;composite&quot;</highlight><highlight class="normal">].<ref refid="classCoordinate2D" kindref="compound">items</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">composite</ref>;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">component</ref><sp/>:<sp/>color.value().<ref refid="classCoordinate2D" kindref="compound">items</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">composite</ref><sp/>=</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">composite</ref><sp/>+<sp/>to_cmyk(COLOR_MAP.at(<ref refid="classCoordinate2D" kindref="compound">component</ref>.key()))<sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">component</ref>.value().get&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&gt;();</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>COLOR_MAP[color.key()]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">composite</ref>;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>.get&lt;<ref refid="structConfig" kindref="compound">Config</ref>&gt;();</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.relative_path_to_config<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>.parent_path();</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal">std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ProcessingStep&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">step</ref>)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/>json(<ref refid="classCoordinate2D" kindref="compound">step</ref>);<sp/>}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLayerRenderer" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>LayerRenderer</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QObject</basecompoundref>
+    <derivedcompoundref refid="classLASLayerRenderer" prot="public" virt="non-virtual">LASLayerRenderer</derivedcompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classLayerRenderer_1a7c16a5823a2c968a682a69ef11bf23e2" prot="protected" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool LayerRenderer::m_data_update_required</definition>
+        <argsstring></argsstring>
+        <name>m_data_update_required</name>
+        <qualifiedname>LayerRenderer::m_data_update_required</qualifiedname>
+        <initializer>= <ref refid="classCoordinate2D" kindref="compound">true</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="16" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="signal">
+      <memberdef kind="signal" id="classLayerRenderer_1a5ea8e6825f4c920eab84e512919f1318" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void LayerRenderer::repaint_required</definition>
+        <argsstring>() const</argsstring>
+        <name>repaint_required</name>
+        <qualifiedname>LayerRenderer::repaint_required</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="19" column="8"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLayerRenderer_1aead8c0f4aca5949539efe3bff2169694" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>virtual void LayerRenderer::render</definition>
+        <argsstring>(const Camera &amp;camera)=0</argsstring>
+        <name>render</name>
+        <qualifiedname>LayerRenderer::render</qualifiedname>
+        <reimplementedby refid="classLASLayerRenderer_1a97507f509351839c6f48ded57f454333">render</reimplementedby>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCamera" kindref="compound">Camera</ref> &amp;</type>
+          <declname>camera</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="22" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayerRenderer_1a0395fb5e77055b10317e1572d9b832c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual LayerRenderer::~LayerRenderer</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LayerRenderer</name>
+        <qualifiedname>LayerRenderer::~LayerRenderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="23" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayerRenderer_1a3c4bb62a02bd94cd69ba955dad081515" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void LayerRenderer::data_update_required</definition>
+        <argsstring>()</argsstring>
+        <name>data_update_required</name>
+        <qualifiedname>LayerRenderer::data_update_required</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="24" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="24" bodyend="27"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classLayerRenderer_1ac9702186c6039472bf58e1295fad80c1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="classLayerRenderer" kindref="compound">LayerRenderer</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; LayerRenderer &gt; LayerRenderer::create</definition>
+        <argsstring>(std::shared_ptr&lt; Layer &gt; layer, const Coordinate3D&lt; double &gt; &amp;offset)</argsstring>
+        <name>create</name>
+        <qualifiedname>LayerRenderer::create</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="29" column="26" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="189" bodyend="195"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>LASLayerRenderer</label>
+        <link refid="classLASLayerRenderer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="12" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="12" bodyend="31"/>
+    <listofallmembers>
+      <member refid="classLayerRenderer_1ac9702186c6039472bf58e1295fad80c1" prot="public" virt="non-virtual"><scope>LayerRenderer</scope><name>create</name></member>
+      <member refid="classLayerRenderer_1a3c4bb62a02bd94cd69ba955dad081515" prot="public" virt="non-virtual"><scope>LayerRenderer</scope><name>data_update_required</name></member>
+      <member refid="classLayerRenderer_1a7c16a5823a2c968a682a69ef11bf23e2" prot="protected" virt="non-virtual"><scope>LayerRenderer</scope><name>m_data_update_required</name></member>
+      <member refid="classLayerRenderer_1aead8c0f4aca5949539efe3bff2169694" prot="public" virt="pure-virtual"><scope>LayerRenderer</scope><name>render</name></member>
+      <member refid="classLayerRenderer_1a5ea8e6825f4c920eab84e512919f1318" prot="public" virt="non-virtual"><scope>LayerRenderer</scope><name>repaint_required</name></member>
+      <member refid="classLayerRenderer_1a0395fb5e77055b10317e1572d9b832c4" prot="public" virt="virtual"><scope>LayerRenderer</scope><name>~LayerRenderer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

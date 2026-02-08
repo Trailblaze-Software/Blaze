@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGridData" kind="class" language="C++" prot="public">
+    <compoundname>GridData</compoundname>
+    <derivedcompoundref refid="classGrid" prot="public" virt="non-virtual">Grid&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classFlexGrid" prot="public" virt="non-virtual">FlexGrid</derivedcompoundref>
+    <derivedcompoundref refid="classGrid" prot="public" virt="non-virtual">Grid&lt; U &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classImgGrid" prot="public" virt="non-virtual">ImgGrid</derivedcompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classGridData_1a13126024023e1abb5934579b8bd8f84f" prot="protected" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <definition>size_t GridData::m_width</definition>
+        <argsstring></argsstring>
+        <name>m_width</name>
+        <qualifiedname>GridData::m_width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="88" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGridData_1a4c3d85fe603a4d61b8dff291ff527141" prot="protected" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <definition>size_t GridData::m_height</definition>
+        <argsstring></argsstring>
+        <name>m_height</name>
+        <qualifiedname>GridData::m_height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="89" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGridData_1ad3de1079142a49044d2cc5dce8c77be2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GridData::GridData</definition>
+        <argsstring>(size_t width, size_t height)</argsstring>
+        <name>GridData</name>
+        <qualifiedname>GridData::GridData</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="92" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridData_1ab0725a01420119c3a572e56671389870" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <definition>size_t GridData::width</definition>
+        <argsstring>() const</argsstring>
+        <name>width</name>
+        <qualifiedname>GridData::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="94" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="94" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridData_1af50b2f20899510c2b9373bacbb217b7f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <definition>size_t GridData::height</definition>
+        <argsstring>() const</argsstring>
+        <name>height</name>
+        <qualifiedname>GridData::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="95" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="95" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridData_1ae4531fee4184ca64a5c9b16488d253ba" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool GridData::in_bounds</definition>
+        <argsstring>(const Coordinate2D&lt; size_t &gt; &amp;coord) const</argsstring>
+        <name>in_bounds</name>
+        <qualifiedname>GridData::in_bounds</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="97" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="97" bodyend="99"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>FlexGrid</label>
+        <link refid="classFlexGrid"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>GeoImgGrid</label>
+        <link refid="classGeoImgGrid"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Grid&lt; U &gt;</label>
+        <link refid="classGrid"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Grid&lt; T &gt;</label>
+        <link refid="classGrid"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>GridData</label>
+        <link refid="classGridData"/>
+      </node>
+      <node id="5">
+        <label>ImgGrid</label>
+        <link refid="classImgGrid"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="86" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="86" bodyend="100"/>
+    <listofallmembers>
+      <member refid="classGridData_1ad3de1079142a49044d2cc5dce8c77be2" prot="public" virt="non-virtual"><scope>GridData</scope><name>GridData</name></member>
+      <member refid="classGridData_1af50b2f20899510c2b9373bacbb217b7f" prot="public" virt="non-virtual"><scope>GridData</scope><name>height</name></member>
+      <member refid="classGridData_1ae4531fee4184ca64a5c9b16488d253ba" prot="public" virt="non-virtual"><scope>GridData</scope><name>in_bounds</name></member>
+      <member refid="classGridData_1a4c3d85fe603a4d61b8dff291ff527141" prot="protected" virt="non-virtual"><scope>GridData</scope><name>m_height</name></member>
+      <member refid="classGridData_1a13126024023e1abb5934579b8bd8f84f" prot="protected" virt="non-virtual"><scope>GridData</scope><name>m_width</name></member>
+      <member refid="classGridData_1ab0725a01420119c3a572e56671389870" prot="public" virt="non-virtual"><scope>GridData</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

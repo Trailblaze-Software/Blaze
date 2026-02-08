@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="main__window_8cpp" kind="file" language="C++">
+    <compoundname>main_window.cpp</compoundname>
+    <includes refid="main__window_8hpp" local="yes">main_window.hpp</includes>
+    <includes local="no">QtConcurrent</includes>
+    <includes local="no">QtWidgets</includes>
+    <includes refid="config__input_8hpp" local="yes">config_input/config_input.hpp</includes>
+    <includes refid="progress__box_8hpp" local="yes">progress_box.hpp</includes>
+    <includes refid="run_8hpp" local="yes">run.hpp</includes>
+    <includes local="yes">ui_main_window.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp</label>
+        <link refid="main__window_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>main_window.hpp</label>
+        <link refid="main__window_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>progress_box.hpp</label>
+        <link refid="progress__box_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>config_input/config_input.hpp</label>
+        <link refid="config__input_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="24">
+        <label>utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>run.hpp</label>
+        <link refid="run_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>QDialog</label>
+      </node>
+      <node id="21">
+        <label>QLayout</label>
+      </node>
+      <node id="3">
+        <label>QMainWindow</label>
+      </node>
+      <node id="22">
+        <label>QProgressBar</label>
+      </node>
+      <node id="4">
+        <label>QtConcurrent</label>
+      </node>
+      <node id="5">
+        <label>QtWidgets</label>
+      </node>
+      <node id="13">
+        <label>array</label>
+      </node>
+      <node id="7">
+        <label>cmath</label>
+      </node>
+      <node id="8">
+        <label>iostream</label>
+      </node>
+      <node id="14">
+        <label>map</label>
+      </node>
+      <node id="25">
+        <label>memory</label>
+      </node>
+      <node id="9">
+        <label>optional</label>
+      </node>
+      <node id="15">
+        <label>ostream</label>
+      </node>
+      <node id="10">
+        <label>set</label>
+      </node>
+      <node id="26">
+        <label>string</label>
+      </node>
+      <node id="29">
+        <label>ui_main_window.h</label>
+      </node>
+      <node id="23">
+        <label>ui_progress_box.h</label>
+      </node>
+      <node id="27">
+        <label>utility</label>
+      </node>
+      <node id="16">
+        <label>variant</label>
+      </node>
+      <node id="11">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;main_window.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;QtConcurrent&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;QtWidgets&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;config_input/config_input.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;progress_box.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;run.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ui_main_window.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">MainWindow::MainWindow()<sp/>:<sp/>ui(std::<ref refid="classCoordinate2D" kindref="compound">make_unique</ref>&lt;Ui::<ref refid="classMainWindow" kindref="compound">MainWindow</ref>&gt;())<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!QIcon::hasThemeIcon(</highlight><highlight class="stringliteral">&quot;list-add&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>QIcon::setThemeName(</highlight><highlight class="stringliteral">&quot;Humanity&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>QIcon::setFallbackThemeName(</highlight><highlight class="stringliteral">&quot;default&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>ui-&gt;setupUi(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">connect</ref>(ui-&gt;runButton,<sp/>&amp;QPushButton::clicked,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;MainWindow::run_blaze);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">connect</ref>(ui-&gt;actionOpen,<sp/>&amp;QAction::triggered,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[</highlight><highlight class="keyword">this</highlight><highlight class="normal">]<sp/>{<sp/>ui-&gt;config_editor-&gt;open_config_file();<sp/>});</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">connect</ref>(ui-&gt;actionSaveAs,<sp/>&amp;QAction::triggered,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[</highlight><highlight class="keyword">this</highlight><highlight class="normal">]<sp/>{<sp/>ui-&gt;config_editor-&gt;save_config_file();<sp/>});</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">connect</ref>(ui-&gt;actionAbout,<sp/>&amp;QAction::triggered,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;MainWindow::about);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">connect</ref>(ui-&gt;config_editor,<sp/>&amp;ConfigEditor::config_changed,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[</highlight><highlight class="keyword">this</highlight><highlight class="normal">]<sp/>{<sp/>ui-&gt;runButton-&gt;setEnabled(ui-&gt;config_editor-&gt;is_valid());<sp/>});</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>ui-&gt;runButton-&gt;setEnabled(ui-&gt;config_editor-&gt;is_valid());</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::exception&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">e</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>QMessageBox::critical(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Error&quot;</highlight><highlight class="normal">,<sp/><ref refid="classCoordinate2D" kindref="compound">e</ref>.what());</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">exit</ref>(1);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">MainWindow::~MainWindow()<sp/>{}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MainWindow::about()<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>QMessageBox::about(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;About<sp/>Blaze&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QString</ref>(</highlight><highlight class="stringliteral">&quot;This<sp/>is<sp/>the<sp/>Blaze<sp/>LIDAR<sp/>mapping<sp/>tool.<sp/>It<sp/>is<sp/>free<sp/>for<sp/>non-commercial<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;nav-sport<sp/>mapping<sp/>only.&lt;br&gt;&lt;br&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Please<sp/>contact<sp/>us<sp/>at<sp/>&lt;a<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;href=\&quot;mailto:trailblaze.software@gmail.com\&quot;&gt;trailblaze.software@&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;gmail.com&lt;/a&gt;<sp/>for<sp/>commercial<sp/>licensing<sp/>options.&lt;br&gt;&lt;br&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Version:<sp/>&quot;</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">BLAZE_VERSION</ref><sp/></highlight><highlight class="stringliteral">&quot;&lt;br&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Commit<sp/>hash:<sp/>&quot;</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GIT_COMMIT_HASH</ref><sp/></highlight><highlight class="stringliteral">&quot;&lt;br&gt;&lt;br&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&lt;a<sp/>href=\&quot;https://github.com/Trailblaze-Software/Blaze\&quot;&gt;Source<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;code&lt;/a&gt;<sp/>available<sp/>under<sp/>the<sp/>AGPLv3<sp/>license.&lt;br&gt;&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MainWindow::run_blaze()<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><ref refid="classProgressBox" kindref="compound">ProgressBox</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">message_box</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classProgressBox" kindref="compound">ProgressBox</ref>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">message_box</ref>-&gt;show();</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">config</ref><sp/>=<sp/>ui-&gt;config_editor-&gt;get_config();</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">message_box</ref>-&gt;start_task(</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;<ref refid="classCoordinate2D" kindref="compound">config</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">message_box</ref>]<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>run_with_config(<ref refid="classCoordinate2D" kindref="compound">config</ref>,<sp/>std::vector&lt;fs::path&gt;(),<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(<ref refid="classCoordinate2D" kindref="compound">message_box</ref>));</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;<ref refid="classCoordinate2D" kindref="compound">config</ref>]<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QDialog*<sp/><ref refid="classCoordinate2D" kindref="compound">dialog</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>QDialog();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">dialog</ref>-&gt;setWindowTitle(</highlight><highlight class="stringliteral">&quot;Blaze<sp/>processing<sp/>done!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QVBoxLayout</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">layout</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">QVBoxLayout</ref>();</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">dialog</ref>-&gt;setLayout(<ref refid="classCoordinate2D" kindref="compound">layout</ref>);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QLabel</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">label</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">QLabel</ref>(</highlight><highlight class="stringliteral">&quot;Processing<sp/>complete!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">layout</ref>-&gt;addWidget(<ref refid="classCoordinate2D" kindref="compound">label</ref>);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">config</ref>.processing_steps.contains(ProcessingStep::Combine))<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QLabel</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">label2</ref><sp/>=</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">QLabel</ref>(</highlight><highlight class="stringliteral">&quot;The<sp/>combined<sp/>output<sp/>is<sp/>located<sp/>at:<sp/>&quot;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QString::fromStdString((<ref refid="classCoordinate2D" kindref="compound">config</ref>.output_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;combined&quot;</highlight><highlight class="normal">).string()));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">layout</ref>-&gt;addWidget(<ref refid="classCoordinate2D" kindref="compound">label2</ref>);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QImage</ref><sp/><ref refid="classCoordinate2D" kindref="compound">image</ref>((<ref refid="classCoordinate2D" kindref="compound">config</ref>.output_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;combined&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;final_img.tif&quot;</highlight><highlight class="normal">).string().c_str());</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">image</ref>.isNull())<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>load<sp/>image<sp/>from<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>(<ref refid="classCoordinate2D" kindref="compound">config</ref>.output_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;combined&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;final_img.tif&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QScrollArea</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">scroll_area</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">QScrollArea</ref>();</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">layout</ref>-&gt;addWidget(<ref refid="classCoordinate2D" kindref="compound">scroll_area</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QLabel</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">image_label</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">QLabel</ref>();</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">image_label</ref>-&gt;setPixmap(QPixmap::fromImage(<ref refid="classCoordinate2D" kindref="compound">image</ref>));</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">scroll_area</ref>-&gt;setWidget(<ref refid="classCoordinate2D" kindref="compound">image_label</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">scroll_area</ref>-&gt;setWidgetResizable(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">QPushButton</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">button</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">QPushButton</ref>(</highlight><highlight class="stringliteral">&quot;OK&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">layout</ref>-&gt;addWidget(<ref refid="classCoordinate2D" kindref="compound">button</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">connect</ref>(<ref refid="classCoordinate2D" kindref="compound">button</ref>,<sp/>&amp;QPushButton::clicked,<sp/><ref refid="classCoordinate2D" kindref="compound">dialog</ref>,<sp/>&amp;QDialog::accept);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">dialog</ref>-&gt;exec();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp"/>
+  </compounddef>
+</doxygen>

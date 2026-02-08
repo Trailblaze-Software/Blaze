@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLineCoord2D" kind="class" language="C++" prot="public">
+    <compoundname>LineCoord2D</compoundname>
+    <basecompoundref refid="classCoordinate2D" prot="public" virt="non-virtual">Coordinate2D&lt; T &gt;</basecompoundref>
+    <derivedcompoundref refid="classLineCoord2DCrossing" prot="public" virt="non-virtual">LineCoord2DCrossing&lt; T &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+      </param>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref></type>
+        <defval>std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;</defval>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classLineCoord2D_1a5cb4436436d1c759b936432f291c9be2" prot="private" static="no" mutable="no">
+        <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+        <definition>Direction2D LineCoord2D&lt; T, typename &gt;::m_dir</definition>
+        <argsstring></argsstring>
+        <name>m_dir</name>
+        <qualifiedname>LineCoord2D::m_dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="202" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLineCoord2D_1ab55cf743a2eda32f8409fbbcd685c799" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LineCoord2D&lt; T, typename &gt;::LineCoord2D</definition>
+        <argsstring>(T x, T y, Direction2D dir)</argsstring>
+        <name>LineCoord2D</name>
+        <qualifiedname>LineCoord2D::LineCoord2D</qualifiedname>
+        <param>
+          <type>T</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="205" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="205" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2D_1a707c71743ed5ee31b0511384744532a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LineCoord2D&lt; T, typename &gt;::LineCoord2D</definition>
+        <argsstring>(const Coordinate2D&lt; T &gt; &amp;coord, Direction2D dir)</argsstring>
+        <name>LineCoord2D</name>
+        <qualifiedname>LineCoord2D::LineCoord2D</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; T &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <param>
+          <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="206" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="206" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2D_1a7d8b37bf12a03450dbbfb22b19ac9f8b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; T &gt;</type>
+        <definition>Coordinate2D&lt; T &gt; LineCoord2D&lt; T, typename &gt;::start</definition>
+        <argsstring>() const</argsstring>
+        <name>start</name>
+        <qualifiedname>LineCoord2D::start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="207" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="207" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2D_1a5b6e9e16c77a7fd519ac6351b9fc6fbc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; T &gt;</type>
+        <definition>Coordinate2D&lt; T &gt; LineCoord2D&lt; T, typename &gt;::end</definition>
+        <argsstring>() const</argsstring>
+        <name>end</name>
+        <qualifiedname>LineCoord2D::end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="208" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="208" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2D_1ad9b4069bf97848bfb465dff11fac5746" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+        <definition>Direction2D LineCoord2D&lt; T, typename &gt;::dir</definition>
+        <argsstring>() const</argsstring>
+        <name>dir</name>
+        <qualifiedname>LineCoord2D::dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="210" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="210" bodyend="210"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classLineCoord2D_1a8829451eb49fe25bf81f13a7c618ee9a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const LineCoord2D &amp;line_coord)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>LineCoord2D::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref> &amp;</type>
+          <declname>line_coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="212" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="212" bodyend="215"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="1">
+        <label>LineCoord2D&lt; T, typename &gt;</label>
+        <link refid="classLineCoord2D"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>LineCoord2DCrossing&lt; T &gt;</label>
+        <link refid="classLineCoord2DCrossing"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="1">
+        <label>LineCoord2D&lt; T, typename &gt;</label>
+        <link refid="classLineCoord2D"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="201" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="201" bodyend="216"/>
+    <listofallmembers>
+      <member refid="classCoordinate2D_1a536f3ba35b38d0c53faa5f9c7b5a5d4b" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate2D_1a27695be872dedbd15702cecdd5cb620e" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>Coordinate2D</name></member>
+      <member refid="classLineCoord2D_1ad9b4069bf97848bfb465dff11fac5746" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>dir</name></member>
+      <member refid="classLineCoord2D_1a5b6e9e16c77a7fd519ac6351b9fc6fbc" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>end</name></member>
+      <member refid="classLineCoord2D_1ab55cf743a2eda32f8409fbbcd685c799" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>LineCoord2D</name></member>
+      <member refid="classLineCoord2D_1a707c71743ed5ee31b0511384744532a8" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>LineCoord2D</name></member>
+      <member refid="classLineCoord2D_1a5cb4436436d1c759b936432f291c9be2" prot="private" virt="non-virtual"><scope>LineCoord2D</scope><name>m_dir</name></member>
+      <member refid="classCoordinate2D_1a75423d3585da779437d826a485891e66" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>magnitude</name></member>
+      <member refid="classCoordinate2D_1ac0cb5d93ac5dc1569f0599129db2accd" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>magnitude_sqd</name></member>
+      <member refid="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>offset_to_center</name></member>
+      <member refid="classCoordinate2D_1af2ed95c9e9f37d3a430aea86d41cbe09" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>operator Coordinate2D&lt; U &gt;</name></member>
+      <member refid="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>operator-</name></member>
+      <member refid="classLineCoord2D_1a8829451eb49fe25bf81f13a7c618ee9a" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classCoordinate2D_1adbd28f3bd749f4cfbf20b0746375cbba" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>operator==</name></member>
+      <member refid="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>round</name></member>
+      <member refid="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>round_NW</name></member>
+      <member refid="classLineCoord2D_1a7d8b37bf12a03450dbbfb22b19ac9f8b" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>start</name></member>
+      <member refid="classCoordinate2D_1a15cdc073df1226264dfa3c04750070a8" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a3d65f5ad53f9d3a5df8bdd567f32d0be" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a976db191ea32ade7a246b3368fdb48d9" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>y</name></member>
+      <member refid="classCoordinate2D_1a8188b4a389ccbb767d697998c17a2e2c" prot="public" virt="non-virtual"><scope>LineCoord2D</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

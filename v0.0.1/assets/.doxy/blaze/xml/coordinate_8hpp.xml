@@ -1,0 +1,724 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="coordinate_8hpp" kind="file" language="C++">
+    <compoundname>coordinate.hpp</compoundname>
+    <includes local="no">array</includes>
+    <includes local="no">cmath</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">ostream</includes>
+    <includes local="no">type_traits</includes>
+    <includes local="no">vector</includes>
+    <includes refid="assert_8hpp" local="yes">assert/assert.hpp</includes>
+    <includedby refid="camera_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/camera.hpp</includedby>
+    <includedby refid="layer_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</includedby>
+    <includedby refid="cliff_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp</includedby>
+    <includedby refid="contour_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/contour.cpp</includedby>
+    <includedby refid="contour_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp</includedby>
+    <includedby refid="dxf_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</includedby>
+    <includedby refid="grid_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</includedby>
+    <includedby refid="grid__ops_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</includedby>
+    <includedby refid="img__grid_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</includedby>
+    <includedby refid="las__point_8hpp" local="no">/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</includedby>
+    <includedby refid="vegetation_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</includedby>
+    <includedby refid="water_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp</includedby>
+    <includedby refid="water_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</includedby>
+    <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
+    <incdepgraph>
+      <node id="8">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>array</label>
+      </node>
+      <node id="3">
+        <label>cmath</label>
+      </node>
+      <node id="10">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="14">
+        <label>iomanip</label>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="15">
+        <label>map</label>
+      </node>
+      <node id="9">
+        <label>optional</label>
+      </node>
+      <node id="5">
+        <label>ostream</label>
+      </node>
+      <node id="16">
+        <label>set</label>
+      </node>
+      <node id="11">
+        <label>sstream</label>
+      </node>
+      <node id="12">
+        <label>string</label>
+      </node>
+      <node id="6">
+        <label>type_traits</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/camera.hpp</label>
+        <link refid="camera_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
+        <link refid="gl__widget_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
+        <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp</label>
+        <link refid="cliff_8hpp_source"/>
+      </node>
+      <node id="8">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp</label>
+        <link refid="contour_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
+        <link refid="contour__gen_8hpp_source"/>
+      </node>
+      <node id="10">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</label>
+        <link refid="dxf_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+      </node>
+      <node id="12">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
+        <link refid="img__grid_8hpp_source"/>
+      </node>
+      <node id="11">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
+        <link refid="gpkg_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
+        <link refid="las__file_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
+        <link refid="las__point_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</label>
+        <link refid="tif_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
+        <link refid="vegetation_8hpp_source"/>
+      </node>
+      <node id="19">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
+        <link refid="hill__shade_8hpp_source"/>
+      </node>
+      <node id="21">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
+        <link refid="water_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
+        <link refid="process_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classDirection2D" prot="public">Direction2D</innerclass>
+    <innerclass refid="classCoordinate2D" prot="public">Coordinate2D</innerclass>
+    <innerclass refid="classLineCoord2D" prot="public">LineCoord2D</innerclass>
+    <innerclass refid="classCoordinate3D" prot="public">Coordinate3D</innerclass>
+    <innerclass refid="classLineCoord2DCrossing" prot="public">LineCoord2DCrossing</innerclass>
+    <innerclass refid="structExtent2D" prot="public">Extent2D</innerclass>
+    <innerclass refid="structExtent3D" prot="public">Extent3D</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="coordinate_8hpp_1aa440e390dd684dd56af9365f469eeab4" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::array&lt; <ref refid="classDirection2D" kindref="compound">Direction2D</ref>, 4 &gt;</type>
+        <definition>const std::array&lt;Direction2D, 4&gt; ORTHOGONAL_DIRECTIONS</definition>
+        <argsstring></argsstring>
+        <name>ORTHOGONAL_DIRECTIONS</name>
+        <initializer>= {
+    <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UP), <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DOWN), <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::LEFT),
+    <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::RIGHT)}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="119" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="119" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="variable" id="coordinate_8hpp_1a9e23e5387e57b9891ab8824a97bf426b" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::array&lt; <ref refid="classDirection2D" kindref="compound">Direction2D</ref>, 8 &gt;</type>
+        <definition>const std::array&lt;Direction2D, 8&gt; ALL_DIRECTIONS</definition>
+        <argsstring></argsstring>
+        <name>ALL_DIRECTIONS</name>
+        <initializer>= {
+    <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UP),    <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DOWN), <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::LEFT),
+    <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::RIGHT), <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UR),   <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UL),
+    <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DR),    <ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DL)}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="123" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="123" bodyend="126"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="coordinate_8hpp_1a94a6436eabe7ede79dff5ee0d57ae330" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+          </param>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref></type>
+            <defval>std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>std::array&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; T &gt;, 4 &gt;</type>
+        <definition>std::array&lt; Coordinate2D&lt; T &gt;, 4 &gt; orthogonal_neighbors</definition>
+        <argsstring>(const Coordinate2D&lt; T &gt; &amp;coord)</argsstring>
+        <name>orthogonal_neighbors</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; T &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="195" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="195" bodyend="198"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;array&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;type_traits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="classDirection2D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Dir<sp/>{<sp/>UP,<sp/>DOWN,<sp/>LEFT,<sp/>RIGHT,<sp/>UR,<sp/>UL,<sp/>DR,<sp/>DL<sp/>};</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>Dir<sp/>m_dir;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Dir<sp/>dir)<sp/>:<sp/>m_dir(dir)<sp/>{}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal"><sp/>Dir()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_dir;<sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>std::array&lt;Direction2D,<sp/>2&gt;<sp/>orthogonal_dirs()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_dir<sp/>==<sp/>DOWN<sp/>||<sp/>m_dir<sp/>==<sp/>UP)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{{LEFT,<sp/>RIGHT}};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{{UP,<sp/>DOWN}};</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>orthogonal_to(<ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((m_dir<sp/>==<sp/>UP<sp/>||<sp/>m_dir<sp/>==<sp/>DOWN)<sp/>&amp;&amp;<sp/>(<ref refid="classCoordinate2D" kindref="compound">other</ref>.m_dir<sp/>==<sp/>LEFT<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.m_dir<sp/>==<sp/>RIGHT))<sp/>||</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((m_dir<sp/>==<sp/>LEFT<sp/>||<sp/>m_dir<sp/>==<sp/>RIGHT)<sp/>&amp;&amp;<sp/>(<ref refid="classCoordinate2D" kindref="compound">other</ref>.m_dir<sp/>==<sp/>UP<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.m_dir<sp/>==<sp/>DOWN));</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dx()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(m_dir)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UP:</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DOWN:</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LEFT:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UL:</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DL:</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RIGHT:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UR:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DR:</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>unreachable();</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dy()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(m_dir)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UP:</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UR:</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UL:</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DOWN:</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DR:</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DL:</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LEFT:</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RIGHT:</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>unreachable();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>opposite()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(m_dir)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UP:</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(DOWN);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DOWN:</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(UP);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LEFT:</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(RIGHT);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RIGHT:</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(LEFT);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UR:</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(DL);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UL:</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(DR);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DR:</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(UL);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DL:</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(UR);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>unreachable();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>&amp;<sp/>dir)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(dir.m_dir)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UP:</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;UP&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DOWN:</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;DOWN&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LEFT:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LEFT&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RIGHT:</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;RIGHT&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UR:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;UR&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>UL:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;UL&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DR:</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;DR&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>DL:</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;DL&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::array&lt;Direction2D,<sp/>4&gt;<sp/>ORTHOGONAL_DIRECTIONS<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UP),<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DOWN),<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::LEFT),</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::RIGHT)};</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::array&lt;Direction2D,<sp/>8&gt;<sp/>ALL_DIRECTIONS<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UP),<sp/><sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DOWN),<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::LEFT),</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::RIGHT),<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UR),<sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::UL),</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DR),<sp/><sp/><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref>(Direction2D::DL)};</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="129" refid="classCoordinate2D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref><sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(std::is_arithmetic&lt;T&gt;::value,<sp/></highlight><highlight class="stringliteral">&quot;Coordinate2D<sp/>only<sp/>supports<sp/>arithmetic<sp/>types&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>std::array&lt;T,<sp/>2&gt;<sp/>m_data;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(T<sp/>x,<sp/>T<sp/>y)<sp/>:<sp/>m_data{{x,<sp/>y}}<sp/>{}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T&amp;<sp/>x()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_data[0];<sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T&amp;<sp/>y()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_data[1];<sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>T&amp;<sp/>x()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_data[0];<sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>T&amp;<sp/>y()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_data[1];<sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U&gt;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;U&gt;</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;U&gt;</ref>(x(),<sp/>y());</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>offset_to_center()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>(x()<sp/>+<sp/>0.5,<sp/>y()<sp/>+<sp/>0.5);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>round_NW(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">grid_size</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>(x()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">fmod</ref>(x(),<sp/><ref refid="classCoordinate2D" kindref="compound">grid_size</ref>),<sp/>y()<sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">grid_size</ref><sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">fmod</ref>(y(),<sp/><ref refid="classCoordinate2D" kindref="compound">grid_size</ref>));</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref><sp/>round()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>(x()<sp/>+<sp/>0.5,<sp/>y()<sp/>+<sp/>0.5);<sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&amp;<sp/>coord)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Coordinate2D(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coord.x()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coord.y()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref><sp/>operator+(<ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(dir)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::UP:</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x(),<sp/>y()<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::DOWN:</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x(),<sp/>y()<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::LEFT:</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>-<sp/>1,<sp/>y());</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::RIGHT:</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>+<sp/>1,<sp/>y());</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::UR:</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>+<sp/>1,<sp/>y()<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::UL:</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>-<sp/>1,<sp/>y()<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::DR:</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>+<sp/>1,<sp/>y()<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Direction2D::DL:</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>-<sp/>1,<sp/>y()<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>unreachable();</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref><sp/>operator+(<ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref><sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>.x(),<sp/>y()<sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>.y());<sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref><sp/>operator-(<ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref><sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>(x()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>.x(),<sp/>y()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>.y());<sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator==(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x()<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>.x()<sp/>&amp;&amp;<sp/>y()<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">o</ref>.y();<sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>T<sp/>magnitude_sqd()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x()<sp/>*<sp/>x()<sp/>+<sp/>y()<sp/>*<sp/>y();<sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/>T<sp/>magnitude()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::sqrt(magnitude_sqd());<sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>=<sp/>std::enable_if_t&lt;std::is_</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">egral_v&lt;T&gt;&gt;&gt;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">std::array&lt;Coordinate2D&lt;T&gt;,<sp/>4&gt;<sp/>orthogonal_neighbors(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>&amp;<sp/>coord)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>(coord.x()<sp/>-<sp/>1,<sp/>coord.y()),<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>(coord.x()<sp/>+<sp/>1,<sp/>coord.y()),</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>(coord.x(),<sp/>coord.y()<sp/>-<sp/>1),<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>(coord.x(),<sp/>coord.y()<sp/>+<sp/>1)};</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>=<sp/>std::enable_if_t&lt;std::is_</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">egral_v&lt;T&gt;&gt;&gt;</highlight></codeline>
+<codeline lineno="201" refid="classLineCoord2D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt;T&gt;<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>m_dir;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>(T<sp/>x,<sp/>T<sp/>y,<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir)<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>(x,<sp/>y),<sp/>m_dir(dir)<sp/>{}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>&amp;<sp/>coord,<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir)<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>(coord),<sp/>m_dir(dir)<sp/>{}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref><sp/>start()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref><sp/>end()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>+<sp/>m_dir;<sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_dir;<sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LineCoord2D(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>.start()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>.dir()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="219" refid="classCoordinate3D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt;T&gt;<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_z;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>(T<sp/>x,<sp/>T<sp/>y,<sp/>T<sp/>z)<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;T&gt;</ref>(x,<sp/>y),<sp/>m_z(z)<sp/>{}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>z()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_z;<sp/>}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/>T&amp;<sp/>z()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_z;<sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="232" refid="classLineCoord2DCrossing" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt;T&gt;<sp/>{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>m_crossing_dir;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref>(T<sp/>x,<sp/>T<sp/>y,<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir,<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>crossing_dir)</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">LineCoord2D&lt;T&gt;</ref>(x,<sp/>y,<sp/>dir),<sp/>m_crossing_dir(crossing_dir)<sp/>{}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">LineCoord2D&lt;T&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>,<sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>crossing_dir)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">LineCoord2D&lt;T&gt;</ref>(<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>),<sp/>m_crossing_dir(crossing_dir)<sp/>{}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>crossing_dir()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_crossing_dir;<sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref><sp/>flip()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref>({<ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::end</ref>(),<sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::dir</ref>().opposite()},</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_crossing_dir);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/>std::vector&lt;LineCoord2DCrossing&gt;<sp/>next_points()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;LineCoord2DCrossing&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Direction2D&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">dirs</ref>;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::dir</ref>().orthogonal_to(crossing_dir()))<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">dirs</ref>.emplace_back(crossing_dir());</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir<sp/>:</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{Direction2D::UP,<sp/>Direction2D::DOWN,<sp/>Direction2D::LEFT,<sp/>Direction2D::RIGHT})<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dir.orthogonal_to(<ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::dir</ref>()))<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">dirs</ref>.emplace_back(dir);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">dirs</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Assert(dir.orthogonal_to(<ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::dir</ref>()),</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Crossing<sp/>direction<sp/>is<sp/>not<sp/>orthogonal<sp/>to<sp/>direction&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>.emplace_back(<ref refid="classCoordinate2D" kindref="compound">LineCoord2DCrossing&lt;T&gt;</ref>({<ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::start</ref>()<sp/>+<sp/>dir,<sp/>dir.opposite()},</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::dir</ref>().opposite()));</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>.emplace_back(<ref refid="classCoordinate2D" kindref="compound">LineCoord2DCrossing&lt;T&gt;</ref>({<ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::end</ref>()<sp/>+<sp/>dir,<sp/>dir.opposite()},</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::dir</ref>()));</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>.emplace_back(</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">LineCoord2DCrossing&lt;T&gt;</ref>({<ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::start</ref>()<sp/>+<sp/>dir,<sp/><ref refid="classLineCoord2D" kindref="compound">LineCoord2D&lt;T&gt;::dir</ref>()},<sp/>dir));</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>.size();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].dir()<sp/>==<sp/>Direction2D::UP<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].dir()<sp/>==<sp/>Direction2D::LEFT)<sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].flip();</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LineCoord2DCrossing(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>.start()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>.dir()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref>.crossing_dir()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290" refid="structExtent2D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structExtent2D" kindref="compound">Extent2D</ref><sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>minx<sp/>=<sp/>std::numeric_limits&lt;double&gt;::infinity();</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>maxx<sp/>=<sp/>-std::numeric_limits&lt;double&gt;::infinity();</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>miny<sp/>=<sp/>std::numeric_limits&lt;double&gt;::infinity();</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>maxy<sp/>=<sp/>-std::numeric_limits&lt;double&gt;::infinity();</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>contains(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>minx<sp/>&lt;=<sp/>x<sp/>&amp;&amp;<sp/>x<sp/>&lt;=<sp/>maxx<sp/>&amp;&amp;<sp/>miny<sp/>&lt;=<sp/>y<sp/>&amp;&amp;<sp/>y<sp/>&lt;=<sp/>maxy;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>grow(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>minx<sp/>=<sp/>std::min(minx,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.minx);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/>maxx<sp/>=<sp/>std::max(maxx,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxx);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/>miny<sp/>=<sp/>std::min(miny,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.miny);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/>maxy<sp/>=<sp/>std::max(maxy,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxy);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent)<sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;[(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.minx<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.maxx<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;),<sp/>(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.miny<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>extent.maxy<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313" refid="structExtent3D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structExtent3D" kindref="compound">Extent3D</ref><sp/>:<sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref><sp/>{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>minz<sp/>=<sp/>std::numeric_limits&lt;double&gt;::infinity();</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>maxz<sp/>=<sp/>-std::numeric_limits&lt;double&gt;::infinity();</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>minz,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>maxz)</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>(extent),<sp/>minz(minz),<sp/>maxz(maxz)<sp/>{}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>minx,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>maxx,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>miny,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>maxy,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>minz,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>maxz)</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>{minx,<sp/>maxx,<sp/>miny,<sp/>maxy},<sp/>minz(minz),<sp/>maxz(maxz)<sp/>{}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>grow(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>z)<sp/>{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/>minx<sp/>=<sp/>std::min(x,<sp/>minx);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>maxx<sp/>=<sp/>std::max(x,<sp/>maxx);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>miny<sp/>=<sp/>std::min(y,<sp/>miny);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>maxy<sp/>=<sp/>std::max(y,<sp/>maxy);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>minz<sp/>=<sp/>std::min(z,<sp/>minz);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>maxz<sp/>=<sp/>std::max(z,<sp/>maxz);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>grow(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">border</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/>minx<sp/>-=<sp/><ref refid="classCoordinate2D" kindref="compound">border</ref>;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/>maxx<sp/>+=<sp/><ref refid="classCoordinate2D" kindref="compound">border</ref>;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>miny<sp/>-=<sp/><ref refid="classCoordinate2D" kindref="compound">border</ref>;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>maxy<sp/>+=<sp/><ref refid="classCoordinate2D" kindref="compound">border</ref>;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/>minz<sp/>-=<sp/><ref refid="classCoordinate2D" kindref="compound">border</ref>;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>maxz<sp/>+=<sp/><ref refid="classCoordinate2D" kindref="compound">border</ref>;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>intersects(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(<ref refid="classCoordinate2D" kindref="compound">other</ref>.minx<sp/>&gt;<sp/>maxx<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxx<sp/>&lt;<sp/>minx<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.miny<sp/>&gt;<sp/>maxy<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxy<sp/>&lt;<sp/>miny<sp/>||</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.minz<sp/>&gt;<sp/>maxz<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxz<sp/>&lt;<sp/>minz);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate3D&lt;double&gt;</ref><sp/>center()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate3D&lt;double&gt;</ref>((minx<sp/>+<sp/>maxx)<sp/>/<sp/>2,<sp/>(miny<sp/>+<sp/>maxy)<sp/>/<sp/>2,<sp/>(minz<sp/>+<sp/>maxz)<sp/>/<sp/>2);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_extent()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::max(std::max(maxx<sp/>-<sp/>minx,<sp/>maxy<sp/>-<sp/>miny),<sp/>maxz<sp/>-<sp/>minz);<sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>grow(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>Extent2D::grow(<ref refid="classCoordinate2D" kindref="compound">other</ref>);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>minz<sp/>=<sp/>std::min(minz,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.minz);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/>maxz<sp/>=<sp/>std::max(maxz,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxz);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref><sp/>operator-(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">offset</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{minx<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">offset</ref>.x(),<sp/>maxx<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">offset</ref>.x(),<sp/>miny<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">offset</ref>.y(),</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>maxy<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">offset</ref>.y(),<sp/>minz<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">offset</ref>.z(),<sp/>maxz<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">offset</ref>.z()};</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref><sp/>intersection(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{std::max(minx,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.minx),<sp/>std::min(maxx,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxx),<sp/>std::max(miny,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.miny),</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::min(maxy,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxy),<sp/>std::max(minz,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.minz),<sp/>std::min(maxz,<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxz)};</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator!=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>minx<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.minx<sp/>||<sp/>maxx<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxx<sp/>||<sp/>miny<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.miny<sp/>||<sp/>maxy<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxy<sp/>||</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>minz<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.minz<sp/>||<sp/>maxz<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.maxz;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>&amp;<sp/>extent)<sp/>{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;[(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.minx<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.maxx<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;),<sp/>(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.miny<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>extent.maxy<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;),<sp/>(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.minz<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>extent.maxz<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="377"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp"/>
+  </compounddef>
+</doxygen>
