@@ -149,7 +149,7 @@ jobs:
       - name: Package (DEB)
         run: |
           cd build
-          cpack -G DEB
+          cpack -C Release -G DEB
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
