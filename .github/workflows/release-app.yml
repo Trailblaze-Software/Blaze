@@ -58,6 +58,11 @@ jobs:
             'vcpkg-configuration.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-deps-
+      - name: Set Triplet
+        shell: pwsh
+        run: |
+          $triplet = if ("${{ matrix.arch }}" -eq "arm64") { "arm64-windows" } else { "x64-windows" }
+          echo "VCPKG_TARGET_TRIPLET=$triplet" >> $env:GITHUB_ENV
       - name: Setup CMake
         uses: threeal/cmake-action@v2.0.0
         with:
@@ -65,9 +70,7 @@ jobs:
             VCPKG_BUILD_TYPE=release
             VCPKG_VERBOSE=ON
       - name: Configure
-        run: |
-          $triplet = if ("${{ matrix.arch }}" -eq "arm64") { "arm64-windows" } else { "x64-windows" }
-          cmake -B build -DVCPKG_TARGET_TRIPLET=$triplet
+        run: cmake -B build -DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}
       - name: Build
         run: cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
