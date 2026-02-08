@@ -17,6 +17,8 @@
 
 ## c
 
+* **color\_equals** ([**config\_editor.cpp**](config__editor_8cpp.md))
+* **create\_color\_icon** ([**config\_editor.cpp**](config__editor_8cpp.md))
 * **crosses\_contour** ([**contour.hpp**](contour_8hpp.md))
 * **convert\_geo\_keys\_to\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
 * **copy\_from** ([**las\_file.hpp**](las__file_8hpp.md))
@@ -47,6 +49,7 @@
 
 ## g
 
+* **get\_color\_name** ([**config\_editor.cpp**](config__editor_8cpp.md))
 * **get\_contour\_heights** ([**contour.hpp**](contour_8hpp.md))
 * **generate\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
 * **generate\_naive\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
