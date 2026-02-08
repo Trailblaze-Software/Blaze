@@ -26,6 +26,13 @@ jobs:
       fail-fast: false
       matrix:
         arch: [x64, arm64]
+        include:
+          - arch: x64
+            triplet: x64-windows
+          - arch: arm64
+            triplet: arm64-windows
+    env:
+      VCPKG_TARGET_TRIPLET: ${{ matrix.triplet }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup NuGet credentials
@@ -58,11 +65,6 @@ jobs:
             'vcpkg-configuration.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-deps-
-      - name: Set Triplet
-        shell: pwsh
-        run: |
-          $triplet = if ("${{ matrix.arch }}" -eq "arm64") { "arm64-windows" } else { "x64-windows" }
-          echo "VCPKG_TARGET_TRIPLET=$triplet" >> $env:GITHUB_ENV
       - name: Setup CMake
         uses: threeal/cmake-action@v2.0.0
         with:
