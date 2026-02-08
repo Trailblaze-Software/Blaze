@@ -24,7 +24,7 @@ You can now load your LAS/LAZ files using the `-`, `+`, and `+ Folder` buttons. 
 
 You can now configure the parameters such as scale and output resolution. The most important configuration option to play around with is the "Bin Resolution". For dense LIDAR such as we have in the ACT, 0.5m works well, however for sparser LIDAR such as in NSW, it is generally better to increase it, with 3m generally working well. We highly recommend testing and refining on a single LIDAR tile until you are happy with the output before processing a large area.
 
-![Blaze open screen](screenshots/open_screen.png)
+![Blaze bin resolution](screenshots/bin_resolution.png)
 
 Finally, run the calculation with the `Run Blaze` button. This can take a long time for large amounts of LIDAR. I have found up to 5min/GB depending on processing capability. For large areas, you will need a lot of RAM to hold the final combined maps, or reduce the resolution.
 
