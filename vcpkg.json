@@ -1,6 +1,11 @@
 {
+  "name": "blaze",
+  "version": "0.0.0",
   "dependencies": [
-    "gdal",
+    {
+      "name": "gdal",
+      "version>=": "3.9.0"
+    },
     {
       "name": "opencv4",
       "version>=": "4.10.0"
@@ -29,11 +34,5 @@
         "qtsvg"
       ]
     }
-  },
-  "overrides": [
-    {
-      "name": "opencv4",
-      "version": "4.6.0"
-    }
-  ]
+  }
 }
