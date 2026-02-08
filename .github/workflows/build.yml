@@ -36,7 +36,7 @@ jobs:
           rm -rf linux-build && ./scripts/linux-build.sh
       - name: CPack
         run: |
-          cd linux-build && cpack -C Release
+          cd linux-build && cpack -C Release -G DEB
       - name: Unit tests
         run: |
           cmake --build linux-build --target test
@@ -62,7 +62,7 @@ jobs:
           rm -rf linux-build && ./scripts/linux-build.sh
       - name: CPack
         run: |
-          cd linux-build && cpack -C Release
+          cd linux-build && cpack -C Release -G DEB
       - name: Unit tests
         run: |
           cmake --build linux-build --target test
