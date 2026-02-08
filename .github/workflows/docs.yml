@@ -6,6 +6,9 @@ name: Publish Docs
       - main
     tags:
       - 'v*'
+concurrency:
+  group: documentation
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
