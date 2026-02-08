@@ -59,7 +59,7 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
-    GIT_TAG 2024.12.16)
+    GIT_TAG 2025.12.12)
   FetchContent_MakeAvailable(vcpkg)
   # If vcpkg fails with 7z2409.7z "Is not archive", its download was corrupted.
   # Workaround: 1) Install 7-Zip (https://7-zip.org) and PowerShell; add both to
