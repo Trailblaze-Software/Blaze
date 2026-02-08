@@ -892,7 +892,7 @@
 <p>You can optionally load a configuration you have saved earlier with <code>File &gt; Open Config</code> or <code>Ctrl + O</code>.</p>
 <p>You can now load your LAS/LAZ files using the <code>-</code>, <code>+</code>, and <code>+ Folder</code> buttons. The <code>+ Folder</code> can be used to add an entire folder of LIDAR tiles that will be processed together and combined.</p>
 <p>You can now configure the parameters such as scale and output resolution. The most important configuration option to play around with is the "Bin Resolution". For dense LIDAR such as we have in the ACT, 0.5m works well, however for sparser LIDAR such as in NSW, it is generally better to increase it, with 3m generally working well. We highly recommend testing and refining on a single LIDAR tile until you are happy with the output before processing a large area.</p>
-<p><img alt="Blaze open screen" src="screenshots/open_screen.png" /></p>
+<p><img alt="Blaze bin resolution" src="screenshots/bin_resolution.png" /></p>
 <p>Finally, run the calculation with the <code>Run Blaze</code> button. This can take a long time for large amounts of LIDAR. I have found up to 5min/GB depending on processing capability. For large areas, you will need a lot of RAM to hold the final combined maps, or reduce the resolution.</p>
 <h2 id="3d-visualization">3D Visualization</h2>
 <p>The <code>Blaze3D</code> application is currently under development and provides a point cloud viewer for inspecting your data.</p>
