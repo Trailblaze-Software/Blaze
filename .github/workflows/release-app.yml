@@ -1,6 +1,6 @@
 ---
 name: Release Application
-"on":
+on:
   release:
     types: [published]
   push:
@@ -11,7 +11,7 @@ name: Release Application
     branches: ["*"]
   workflow_dispatch:
 concurrency:
-  group: release-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 permissions:
   contents: write
@@ -23,11 +23,11 @@ jobs:
   package-windows:
     runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
         arch: [x64, arm64]
     steps:
       - uses: actions/checkout@v4
-      # Setup NuGet credentials for GitHub Packages
       - name: Setup NuGet credentials
         shell: pwsh
         run: |
@@ -41,6 +41,7 @@ jobs:
             -Password "${{ secrets.VCPKG_PAT_TOKEN }}" `
             -StorePasswordInClearText `
             -NonInteractive
+
           nuget setapikey "${{ secrets.VCPKG_PAT_TOKEN }}" -Source $feed_url -NonInteractive
 
           echo "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,readwrite" >> $env:GITHUB_ENV
@@ -49,15 +50,14 @@ jobs:
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
-      - name: Cache build artifacts
+      - name: Cache deps
         uses: actions/cache@v4
         with:
-          path: |
-            deps
-          key: ${{ runner.os }}-${{ matrix.arch }}-build-cache-${{ hashFiles('vcpkg.json',
-            'vcpkg-configuration.json', 'CMakeLists.txt') }}
+          path: deps
+          key: ${{ runner.os }}-${{ matrix.arch }}-deps-${{ hashFiles('vcpkg.json',
+            'vcpkg-configuration.json') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.arch }}-build-cache-
+            ${{ runner.os }}-${{ matrix.arch }}-deps-
       - name: Setup CMake
         uses: threeal/cmake-action@v2.0.0
         with:
@@ -79,23 +79,21 @@ jobs:
         run: |
           if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
             Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
-          } else {
-            echo "NSISOutput.log not found."
           }
-      - name: Upload Installer Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: blaze-windows-${{ matrix.arch }}-installer
-          path: build/Blaze-*-win64.exe # CPack usually names it win64 even for arm64 if not configured otherwise
-          retention-days: 30
-      - name: Upload Installer to Release
+          path: build/Blaze-*-win64.exe
+      - name: Upload to Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
           files: build/Blaze-*-win64.exe
   package-linux:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - arch: x64
@@ -106,17 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: |
-          ./scripts/install-ubuntu-deps.sh
-      - name: Cache build artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            build
-          key: ${{ runner.os }}-${{ matrix.arch }}-build-linux-${{ hashFiles('CMakeLists.txt',
-            'scripts/install-ubuntu-deps.sh') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.arch }}-build-linux-
+        run: ./scripts/install-ubuntu-deps.sh
       - name: Configure
         run: cmake -B build
       - name: Build
@@ -125,15 +113,14 @@ jobs:
         run: |
           cd build
           cpack -G DEB
-      - name: Upload DEB Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: blaze-linux-${{ matrix.arch }}-deb
           path: build/Blaze-*.deb
-          retention-days: 30
-      - name: Upload DEB to Release
+      - name: Upload to Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
           files: build/Blaze-*.deb
@@ -153,16 +140,15 @@ jobs:
         run: |
           cd qgis_plugin
           python package_plugin.py
-          # Rename for clarity if needed, assuming the script outputs 'Blaze_Map_Loader.zip'
           mv *.zip blaze-qgis-plugin.zip
-      - name: Upload Plugin Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: blaze-qgis-plugin
           path: qgis_plugin/blaze-qgis-plugin.zip
-      - name: Upload Plugin to Release
+      - name: Upload to Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
           files: qgis_plugin/blaze-qgis-plugin.zip

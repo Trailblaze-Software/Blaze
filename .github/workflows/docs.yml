@@ -1,9 +1,8 @@
 ---
 name: Publish Docs
-"on":
+on:
   push:
-    branches:
-      - main
+    branches: [main]
     tags:
       - 'v*'
 concurrency:
@@ -39,7 +38,7 @@ jobs:
           mike set-default -F mkdocs.yml --push latest || mike set-default -F mkdocs.yml --push dev
       - name: Deploy release documentation
         if: startsWith(github.ref, 'refs/tags/v')
-        run: |-
+        run: |
           cd docs
           mike deploy -F mkdocs.yml --push --update-aliases ${{ github.ref_name }} latest
           mike set-default -F mkdocs.yml --push latest
