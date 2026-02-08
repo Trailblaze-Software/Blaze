@@ -9,6 +9,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 message(STATUS "CMake Build Type: ${CMAKE_BUILD_TYPE}")
 
+if(MSVC)
+  if(CMAKE_GENERATOR_PLATFORM)
+    message(STATUS "Target Architecture (from -A): ${CMAKE_GENERATOR_PLATFORM}")
+  endif()
+  message(STATUS "Detected MSVC Architecture: ${MSVC_CXX_ARCHITECTURE_ID}")
+endif()
+
 include(FetchContent)
 if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
   set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
@@ -123,6 +130,47 @@ find_package(GDAL REQUIRED)
 
 set(OpenMP_RUNTIME_MSVC "llvm")
 find_package(OpenMP REQUIRED)
+
+if(WIN32
+   AND MSVC
+   AND OpenMP_CXX_FOUND)
+  # LLVM OpenMP DLLs are often not detected by TARGET_RUNTIME_DLLS. We try to
+  # find the DLL corresponding to the found import library.
+  foreach(lib ${OpenMP_CXX_LIBRARIES})
+    if(lib MATCHES "libomp\\.lib$")
+      get_filename_component(lib_dir "${lib}" DIRECTORY)
+      # Search for common DLL names in the lib directory and its parent's bin
+      find_file(
+        OpenMP_DLL
+        NAMES libomp140.x86_64.dll libomp.dll
+        PATHS "${lib_dir}" "${lib_dir}/../bin" "${lib_dir}/../../bin"
+        NO_DEFAULT_PATH)
+      if(OpenMP_DLL)
+        message(STATUS "Found OpenMP DLL: ${OpenMP_DLL}")
+        install(FILES "${OpenMP_DLL}" DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+        # Copy to build directory for immediate use
+        add_custom_command(
+          TARGET ${CLI_EXE_NAME}
+          POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
+                  "$<TARGET_FILE_DIR:${CLI_EXE_NAME}>")
+        if(NOT BLAZE_CLI_ONLY)
+          add_custom_command(
+            TARGET ${GUI_EXE_NAME}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
+                    "$<TARGET_FILE_DIR:${GUI_EXE_NAME}>")
+          add_custom_command(
+            TARGET ${GUI_3D_EXE_NAME}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
+                    "$<TARGET_FILE_DIR:${GUI_3D_EXE_NAME}>")
+        endif()
+      endif()
+    endif()
+  endforeach()
+endif()
 
 set(OpenCV_STATIC ON)
 find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
