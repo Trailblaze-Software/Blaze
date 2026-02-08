@@ -835,34 +835,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command-Line Interface (CLI)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#advanced-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -910,25 +882,20 @@
 <h1 id="quick-guide">Quick Guide</h1>
 <p>Get started with processing LIDAR data using Blaze.</p>
 <h2 id="command-line-interface-cli">Command-Line Interface (CLI)</h2>
-<p>The <code>blaze-cli</code> is the core processing engine.</p>
-<h3 id="basic-usage">Basic Usage</h3>
-<p>Process a single file using default settings:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./blaze-cli<span class="w"> </span>path/to/data.laz
-</code></pre></div>
-<h3 id="advanced-configuration">Advanced Configuration</h3>
-<p>You can provide a JSON configuration file to customize the processing pipeline. See the <a href="configuration/">Configuration Reference</a> for details.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./blaze-cli<span class="w"> </span>configs/config.json<span class="w"> </span>path/to/data.laz
+<p>The <code>blaze-cli</code> is the core processing engine. You can provide a JSON configuration file to customize the processing pipeline. See the <a href="configuration/">Configuration Reference</a> for details.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./blaze-cli<span class="w"> </span>configs/config.json
 </code></pre></div>
 <h2 id="gui-application">GUI Application</h2>
-<p>For a more interactive experience, use the <code>Blaze</code> desktop application.</p>
-<ol>
-<li>Launch <code>Blaze</code> (or <code>Blaze.exe</code> on Windows).</li>
-<li>Load your LAS/LAZ files via the menu.</li>
-<li>Configure processing parameters in the sidebar.</li>
-<li>View the results in the 2D map view.</li>
-</ol>
+<p>For a more interactive and user-friendly experience, use the <code>Blaze</code> desktop application. This can also be used to load and save configuration files that can be used with the command-line interface.</p>
+<p>Launch <code>Blaze</code> (or <code>Blaze.exe</code> on Windows). You should get a screen that looks something like this.</p>
+<p><img alt="Blaze open screen" src="screenshots/open_screen.png" /></p>
+<p>You can optionally load a configuration you have saved earlier with <code>File &gt; Open Config</code> or <code>Ctrl + O</code>.</p>
+<p>You can now load your LAS/LAZ files using the <code>-</code>, <code>+</code>, and <code>+ Folder</code> buttons. The <code>+ Folder</code> can be used to add an entire folder of LIDAR tiles that will be processed together and combined.</p>
+<p>You can now configure the parameters such as scale and output resolution. The most important configuration option to play around with is the "Bin Resolution". For dense LIDAR such as we have in the ACT, 0.5m works well, however for sparser LIDAR such as in NSW, it is generally better to increase it, with 3m generally working well. We highly recommend testing and refining on a single LIDAR tile until you are happy with the output before processing a large area.</p>
+<p><img alt="Blaze open screen" src="screenshots/open_screen.png" /></p>
+<p>Finally, run the calculation with the <code>Run Blaze</code> button. This can take a long time for large amounts of LIDAR. I have found up to 5min/GB depending on processing capability. For large areas, you will need a lot of RAM to hold the final combined maps, or reduce the resolution.</p>
 <h2 id="3d-visualization">3D Visualization</h2>
-<p>The <code>Blaze3D</code> application is currently under development and provides a point cloud viewer for inspecting your data in 3D space.</p>
+<p>The <code>Blaze3D</code> application is currently under development and provides a point cloud viewer for inspecting your data.</p>
 
 
 
