@@ -47,7 +47,9 @@ This will start a local server at `http://127.0.0.1:8000`.
 
 ## Installation
 
-Currently, Linux support is more robust than Windows.
+Download pre-built binaries from the [GitHub Releases page](https://github.com/Trailblaze-Software/Blaze/releases).
+
+## Building from source
 
 ### Linux (Ubuntu/Debian)
 

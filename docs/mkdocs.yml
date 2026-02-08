@@ -43,7 +43,9 @@ validation:
   not_found: ignore
 nav:
   - Home: index.md
-  - Installation: installation.md
+  - Installation:
+      - installation/index.md
+      - Building from Source: installation/build-from-source.md
   - Usage:
       - usage/index.md
       - QGIS Plugin: usage/qgis-plugin.md
@@ -52,9 +54,9 @@ nav:
       - Classes: blaze/annotated.md
       - Functions: blaze/functions.md
       - Files: blaze/files.md
+      - Releasing: reference/releasing.md
   - About:
       - about/index.md
-      - Releasing: about/releasing.md
       - License: about/license.md
 markdown_extensions:
   - admonition

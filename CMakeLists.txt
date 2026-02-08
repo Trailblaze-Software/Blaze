@@ -56,9 +56,30 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   include(${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake)
 endif()
 
+# Extract version from git tag or use provided version
+if(NOT DEFINED BLAZE_VERSION)
+  # Try to get version from git tag
+  execute_process(
+    COMMAND git describe --tags --exact-match --match "v*"
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE GIT_TAG
+    OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_QUIET)
+  if(GIT_TAG)
+    # Remove 'v' prefix from tag (e.g., v0.0.1 -> 0.0.1)
+    string(REGEX REPLACE "^v" "" BLAZE_VERSION "${GIT_TAG}")
+    message(STATUS "Version from git tag: ${BLAZE_VERSION}")
+  else()
+    # Default version if no tag found
+    set(BLAZE_VERSION "Dev")
+    message(STATUS "Using default version: ${BLAZE_VERSION}")
+  endif()
+else()
+  message(STATUS "Version from CMake variable: ${BLAZE_VERSION}")
+endif()
+
 project(
   BLAZE
-  VERSION 0.0.0
+  VERSION ${BLAZE_VERSION}
   LANGUAGES CXX)
 set(COPYRIGHT "Copyright (c) 2024 Trailblaze Software. All rights reserved.")
 

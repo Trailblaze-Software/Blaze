@@ -35,6 +35,17 @@ jobs:
       VCPKG_TARGET_TRIPLET: ${{ matrix.triplet }}
     steps:
       - uses: actions/checkout@v4
+      - name: Get version from tag
+        id: version
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        run: |
+          if ($env:GITHUB_EVENT_NAME -eq 'release') {
+            $tag = $env:GITHUB_EVENT_RELEASE_TAG_NAME -replace '^v', ''
+          } else {
+            $tag = $env:GITHUB_REF -replace 'refs/tags/v', ''
+          }
+          echo "version=$tag" >> $env:GITHUB_OUTPUT
+          echo "Version: $tag"
       - name: Setup NuGet credentials
         shell: pwsh
         run: |
@@ -72,7 +83,12 @@ jobs:
             VCPKG_BUILD_TYPE=release
             VCPKG_VERBOSE=ON
       - name: Configure
-        run: cmake -B build -DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}
+        run: |
+          $cmakeArgs = "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}"
+          if ("${{ steps.version.outputs.version }}" -ne "") {
+            $cmakeArgs += " -DBLAZE_VERSION=${{ steps.version.outputs.version }}"
+          }
+          cmake -B build $cmakeArgs
       - name: Build
         run: cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
@@ -108,10 +124,26 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
+      - name: Get version from tag
+        id: version
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+            TAG=${GITHUB_EVENT_RELEASE_TAG_NAME#v}
+          else
+            TAG=${GITHUB_REF#refs/tags/v}
+          fi
+          echo "version=$TAG" >> $GITHUB_OUTPUT
+          echo "Version: $TAG"
       - name: Install dependencies
         run: ./scripts/install-ubuntu-deps.sh
       - name: Configure
-        run: cmake -B build
+        run: |
+          CMAKE_ARGS=""
+          if [ -n "${{ steps.version.outputs.version }}" ]; then
+            CMAKE_ARGS="-DBLAZE_VERSION=${{ steps.version.outputs.version }}"
+          fi
+          cmake -B build $CMAKE_ARGS
       - name: Build
         run: cmake --build build --config Release
       - name: Package (DEB)
