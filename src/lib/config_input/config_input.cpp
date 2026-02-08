@@ -267,6 +267,7 @@ struct adl_serializer<Config> {
     j["grid"] = gc.grid;
     j["ground"] = gc.ground;
     j["contours"] = gc.contours;
+    j["water"] = gc.water;
     j["vege"] = gc.vege;
     j["render"] = gc.render;
     j["colors"] = json({{"primitive", COLOR_MAP}});

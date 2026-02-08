@@ -16,7 +16,7 @@ Process a single file using default settings:
 
 ### Advanced Configuration
 
-You can provide a JSON configuration file to customize the processing pipeline:
+You can provide a JSON configuration file to customize the processing pipeline. See the [Configuration Reference](configuration.md) for details.
 
 ```bash
 ./blaze-cli configs/config.json path/to/data.laz

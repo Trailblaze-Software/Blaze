@@ -6,39 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>647</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="tabPosition">
-      <enum>QTabWidget::TabPosition::North</enum>
-     </property>
-     <property name="tabShape">
-      <enum>QTabWidget::TabShape::Rounded</enum>
-     </property>
      <property name="currentIndex">
       <number>0</number>
-     </property>
-     <property name="elideMode">
-      <enum>Qt::TextElideMode::ElideNone</enum>
-     </property>
-     <property name="usesScrollButtons">
-      <bool>false</bool>
-     </property>
-     <property name="documentMode">
-      <bool>true</bool>
-     </property>
-     <property name="tabsClosable">
-      <bool>false</bool>
-     </property>
-     <property name="movable">
-      <bool>true</bool>
      </property>
      <widget class="QWidget" name="IO_tab">
       <attribute name="title">
@@ -54,24 +30,12 @@
        </item>
        <item>
         <widget class="QTreeWidget" name="treeWidget">
-         <property name="selectionMode">
-          <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
-         </property>
-         <property name="textElideMode">
-          <enum>Qt::TextElideMode::ElideLeft</enum>
-         </property>
          <property name="headerHidden">
           <bool>false</bool>
          </property>
-         <attribute name="headerVisible">
-          <bool>true</bool>
-         </attribute>
          <column>
           <property name="text">
            <string># Files</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
           </property>
          </column>
          <column>
@@ -98,22 +62,22 @@
          </item>
          <item>
           <widget class="QToolButton" name="remove_las_button">
-           <property name="icon">
-            <iconset theme="list-remove"/>
+           <property name="text">
+            <string>-</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="add_las_button">
-           <property name="icon">
-            <iconset theme="list-add"/>
+           <property name="text">
+            <string>+</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="add_las_folder_button">
-           <property name="icon">
-            <iconset theme="folder-new"/>
+           <property name="text">
+            <string>+ Folder</string>
            </property>
           </widget>
          </item>
@@ -135,6 +99,31 @@
        </item>
        <item>
         <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Output Directory:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLineEdit" name="out_dir_line_edit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="out_dir_button">
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
@@ -143,55 +132,41 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <layout class="QFormLayout" name="formLayout_3">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>1:</string>
-             </property>
-            </widget>
+          <widget class="QComboBox" name="scale_dropdown">
+           <property name="editable">
+            <bool>true</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>5000</string>
+            </property>
            </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="scale_dropdown">
-             <property name="editable">
-              <bool>true</bool>
-             </property>
-             <property name="currentIndex">
-              <number>3</number>
-             </property>
-             <item>
-              <property name="text">
-               <string>5000</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>7500</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>10000</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>15000</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>25000</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>50000</string>
-              </property>
-             </item>
-            </widget>
+           <item>
+            <property name="text">
+             <string>7500</string>
+            </property>
            </item>
-          </layout>
+           <item>
+            <property name="text">
+             <string>10000</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>15000</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>25000</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>50000</string>
+            </property>
+           </item>
+          </widget>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_5">
@@ -202,14 +177,8 @@
          </item>
          <item row="2" column="1">
           <widget class="QComboBox" name="dpi_dropdown">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
            <property name="editable">
             <bool>true</bool>
-           </property>
-           <property name="currentIndex">
-            <number>2</number>
            </property>
            <item>
             <property name="text">
@@ -233,51 +202,7 @@
            </item>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Output Directory:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLineEdit" name="out_dir_line_edit">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="out_dir_button">
-             <property name="minimumSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>...</string>
-             </property>
-             <property name="icon">
-              <iconset theme="document-open"/>
-             </property>
-             <property name="autoRaise">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
         </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line_2">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_7">
@@ -287,15 +212,15 @@
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
           <widget class="QCheckBox" name="process_tiles_checkbox">
            <property name="text">
             <string>Process tiles</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
+         <item>
           <widget class="QCheckBox" name="combine_tiles_checkbox">
            <property name="text">
             <string>Combine Tiles</string>
@@ -306,10 +231,601 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="General_tab">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_General">
+        <item>
+            <widget class="QGroupBox" name="groupBox_Grid">
+                <property name="title">
+                    <string>Grid</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_Grid">
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="label_bin_res">
+                            <property name="text">
+                                <string>Bin Resolution:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="1">
+                        <widget class="QLineEdit" name="grid_bin_resolution"/>
+                    </item>
+                    <item row="1" column="0">
+                        <widget class="QLabel" name="label_downsample">
+                            <property name="text">
+                                <string>Downsample Factor:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="1">
+                        <widget class="QSpinBox" name="grid_downsample_factor"/>
+                    </item>
+                </layout>
+            </widget>
+        </item>
+        <item>
+            <widget class="QGroupBox" name="groupBox_Ground">
+                <property name="title">
+                    <string>Ground</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_Ground">
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="label_outlier">
+                            <property name="text">
+                                <string>Outlier Removal Height Diff:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="1">
+                        <widget class="QLineEdit" name="ground_outlier_removal"/>
+                    </item>
+                    <item row="1" column="0">
+                        <widget class="QLabel" name="label_min_intensity">
+                            <property name="text">
+                                <string>Min Intensity:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="1">
+                        <widget class="QSpinBox" name="ground_min_intensity">
+                            <property name="maximum">
+                                <number>65535</number>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="0">
+                        <widget class="QLabel" name="label_max_intensity">
+                            <property name="text">
+                                <string>Max Intensity:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="1">
+                        <widget class="QSpinBox" name="ground_max_intensity">
+                            <property name="maximum">
+                                <number>65535</number>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </widget>
+        </item>
+        <item>
+            <widget class="QGroupBox" name="groupBox_Buildings">
+                <property name="title">
+                    <string>Buildings</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_Buildings">
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="label_buildings_color">
+                            <property name="text">
+                                <string>Color:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="1">
+                        <widget class="QComboBox" name="buildings_color">
+                            <property name="editable">
+                                <bool>false</bool>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </widget>
+        </item>
+        <item>
+            <widget class="QGroupBox" name="groupBox_Border">
+                <property name="title">
+                    <string>Border</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_Border">
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="label_border_width">
+                            <property name="text">
+                                <string>Border Width:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="1">
+                        <widget class="QLineEdit" name="border_width"/>
+                    </item>
+                </layout>
+            </widget>
+        </item>
+        <item>
+            <spacer name="verticalSpacer_General">
+                <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                    <size>
+                        <width>20</width>
+                        <height>40</height>
+                    </size>
+                </property>
+            </spacer>
+        </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Contours_tab">
       <attribute name="title">
        <string>Contours</string>
       </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_Contours">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_ContoursList">
+         <item>
+          <widget class="QListWidget" name="contours_list_widget"/>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_ContoursButtons">
+           <item>
+            <widget class="QPushButton" name="add_contour_button">
+             <property name="text">
+              <string>+</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="remove_contour_button">
+             <property name="text">
+              <string>-</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="contour_details_group">
+         <property name="title">
+          <string>Details</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_ContourDetails">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_contour_name">
+            <property name="text">
+             <string>Name:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="contour_name_edit"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_contour_interval">
+            <property name="text">
+             <string>Interval:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="contour_interval_edit"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_contour_min_points">
+            <property name="text">
+             <string>Min Points:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="contour_min_points_edit"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_contour_color">
+            <property name="text">
+             <string>Color:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="contour_color_combo">
+            <property name="editable">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_contour_width">
+            <property name="text">
+             <string>Width:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="contour_width_edit"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Water_tab">
+      <attribute name="title">
+       <string>Water</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_Water">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_WaterList">
+         <item>
+          <widget class="QListWidget" name="water_list_widget"/>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_WaterButtons">
+           <item>
+            <widget class="QPushButton" name="add_water_button">
+             <property name="text">
+              <string>+</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="remove_water_button">
+             <property name="text">
+              <string>-</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="water_details_group">
+         <property name="title">
+          <string>Details</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_WaterDetails">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_water_name">
+            <property name="text">
+             <string>Name:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="water_name_edit"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_water_catchment">
+            <property name="text">
+             <string>Catchment:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="water_catchment_edit"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_water_color">
+            <property name="text">
+             <string>Color:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="water_color_combo">
+            <property name="editable">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_water_width">
+            <property name="text">
+             <string>Width:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="water_width_edit"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Vege_tab">
+      <attribute name="title">
+       <string>Vegetation</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_Vege">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_VegeBg">
+         <item>
+          <widget class="QLabel" name="label_vege_bg">
+           <property name="text">
+            <string>Background Color:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="vege_bg_color_combo">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_VegeMain">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_VegeList">
+           <item>
+            <widget class="QLabel" name="label_vege_configs">
+             <property name="text">
+              <string>Height Configs</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="vege_list_widget"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_VegeButtons">
+             <item>
+              <widget class="QPushButton" name="add_vege_button">
+               <property name="text">
+                <string>+</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="remove_vege_button">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="vege_details_group">
+           <property name="title">
+            <string>Details</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_VegeDetails">
+            <item>
+             <layout class="QFormLayout" name="formLayout_VegeDetails">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_vege_name">
+                <property name="text">
+                 <string>Name:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="vege_name_edit"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_vege_min">
+                <property name="text">
+                 <string>Min Height:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="vege_min_height_edit"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_vege_max">
+                <property name="text">
+                 <string>Max Height:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="vege_max_height_edit"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_vege_thresholds">
+              <property name="text">
+               <string>Blocking Thresholds &amp; Colors</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="vege_colors_table">
+              <column>
+               <property name="text">
+                <string>Threshold</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Color</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_VegeColorButtons">
+              <item>
+               <widget class="QPushButton" name="add_vege_color_button">
+                <property name="text">
+                 <string>+</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="remove_vege_color_button">
+                <property name="text">
+                 <string>-</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Colors_tab">
+      <attribute name="title">
+       <string>Colors</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_Colors">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_ColorsList">
+         <item>
+          <widget class="QListWidget" name="colors_list_widget"/>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_ColorsButtons">
+           <item>
+            <widget class="QPushButton" name="add_color_button">
+             <property name="text">
+              <string>+</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="remove_color_button">
+             <property name="text">
+              <string>-</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="color_details_group">
+         <property name="title">
+          <string>Details</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_ColorDetails">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_color_name">
+            <property name="text">
+             <string>Name:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="color_name_edit"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_color_type">
+            <property name="text">
+             <string>Type:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="color_type_combo">
+            <item>
+             <property name="text">
+              <string>RGB</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>CMYK</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_c1">
+            <property name="text">
+             <string>Red/Cyan:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="color_c1_spin">
+            <property name="maximum">
+             <number>255</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_c2">
+            <property name="text">
+             <string>Green/Magenta:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="color_c2_spin">
+            <property name="maximum">
+             <number>255</number>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_c3">
+            <property name="text">
+             <string>Blue/Yellow:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QSpinBox" name="color_c3_spin">
+            <property name="maximum">
+             <number>255</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_c4">
+            <property name="text">
+             <string>Alpha/Black:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QSpinBox" name="color_c4_spin">
+            <property name="maximum">
+             <number>255</number>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QPushButton" name="pick_color_button">
+            <property name="text">
+             <string>Pick Color...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

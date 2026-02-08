@@ -3,6 +3,7 @@
 #include <QToolBox>
 
 struct Config;
+class QComboBox;
 
 namespace Ui {
 class ConfigEditor;
@@ -26,6 +27,38 @@ class ConfigEditor : public QWidget {
   void remove_las_file();
   void add_las_folder();
 
+  // Contours
+  void add_contour();
+  void remove_contour();
+  void on_contour_selected();
+  void update_contour_from_ui();
+
+  // Water
+  void add_water();
+  void remove_water();
+  void on_water_selected();
+  void update_water_from_ui();
+
+  // Vegetation
+  void add_vege();
+  void remove_vege();
+  void on_vege_selected();
+  void update_vege_from_ui();
+  void add_vege_color();
+  void remove_vege_color();
+  void update_vege_color_from_ui(int row, int column);
+
+  // Colors
+  void add_color();
+  void remove_color();
+  void on_color_selected();
+  void update_color_from_ui();
+  void pick_color();
+  void on_color_type_changed(int index);
+
+  // General
+  void update_general_from_ui();
+
  signals:
   void config_changed();
 
@@ -36,4 +69,17 @@ class ConfigEditor : public QWidget {
 
   std::unique_ptr<Ui::ConfigEditor> ui;
   std::unique_ptr<Config> m_config;
+
+  // Helpers
+  void populate_contour_list();
+  void populate_water_list();
+  void populate_vege_list();
+  void populate_color_list();
+  void load_contour_details(const std::string& name);
+  void load_water_details(const std::string& name);
+  void load_vege_details(int index);
+  void load_color_details(const std::string& name);
+  void populate_color_combo(QComboBox* combo);
+
+  bool m_updating_ui = false;
 };
