@@ -14,7 +14,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../usage/">
+        <link rel="next" href="build-from-source/">
       
       
         
@@ -290,16 +290,29 @@
   
   
   
-    <li class="md-nav__item md-nav__item--active">
+    
+    
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
+        
+          
+        
       
         
       
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
           
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
   
   
   <span class="md-ellipsis">
@@ -313,17 +326,43 @@
   
   
 
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="build-from-source/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Installation
+    Building from Source
   
 
     
@@ -332,125 +371,13 @@
   
 
       </a>
-      
-        
+    </li>
+  
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#linux-ubuntudebian" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Linux (Ubuntu/Debian)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Linux (Ubuntu/Debian)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#building-from-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building from Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Windows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#building-from-source_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building from Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#speeding-up-builds-vcpkg-caching" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Speeding up Builds (vcpkg Caching)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows-installer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows Installer
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -566,6 +493,8 @@
       
         
           
+        
+      
         
       
         
@@ -707,6 +636,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/releasing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releasing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -725,8 +682,6 @@
       
         
           
-        
-      
         
       
         
@@ -778,34 +733,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../about/releasing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Releasing
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -870,29 +797,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#linux-ubuntudebian" class="md-nav__link">
+  <a href="#pre-built-binaries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Linux (Ubuntu/Debian)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Linux (Ubuntu/Debian)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
+        Pre-built Binaries
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#building-from-source" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -900,72 +815,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Windows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#building-from-source_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building from Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#speeding-up-builds-vcpkg-caching" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Speeding up Builds (vcpkg Caching)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows-installer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows Installer
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -990,90 +839,13 @@
 
 
 <h1 id="installation">Installation</h1>
-<p>This guide covers how to set up Blaze on Linux and Windows.</p>
-<h2 id="linux-ubuntudebian">Linux (Ubuntu/Debian)</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<p>Blaze requires several libraries that can be installed via the provided script:
-- CMake (3.20+)
-- GDAL
-- OpenCV
-- Qt6
-- OpenMP</p>
-<p>Run the following command from the project root:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./scripts/install-ubuntu-deps.sh
-</code></pre></div>
-<h3 id="building-from-source">Building from Source</h3>
-<ol>
-<li>
-<p><strong>Configure the build:</strong>
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cmake<span class="w"> </span>-B<span class="w"> </span>build
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Compile:</strong>
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
-</code></pre></div></p>
-</li>
-</ol>
-<p>Alternatively, use the provided build script:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./scripts/linux-build.sh
-</code></pre></div></p>
-<hr />
-<h2 id="windows">Windows</h2>
-<h3 id="prerequisites_1">Prerequisites</h3>
-<p><strong>Option 1: Using vcpkg (Recommended)</strong></p>
-<p>Blaze uses <code>vcpkg</code> for dependency management on Windows. The build system will automatically fetch and build dependencies, though this may take some time during the first build.</p>
-<p><strong>Option 2: Manual Installation</strong></p>
-<p>You can install dependencies using Chocolatey:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">.\</span><span class="n">scripts</span><span class="p">\</span><span class="nb">install-deps</span><span class="n">-windows</span><span class="p">.</span><span class="n">ps1</span>
-</code></pre></div>
-<h3 id="building-from-source_1">Building from Source</h3>
-<ol>
-<li>
-<p><strong>Configure the build:</strong>
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cmake -B build
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Compile:</strong>
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>cmake --build build --config Release --parallel
-</code></pre></div></p>
-</li>
-</ol>
-<h3 id="speeding-up-builds-vcpkg-caching">Speeding up Builds (vcpkg Caching)</h3>
-<p>Blaze supports binary caching via GitHub Packages. This allows you to download pre-compiled dependencies instead of building them locally.</p>
-<ol>
-<li>
-<p><strong>Install NuGet CLI</strong>:
-   If you don't have it already, install it via Chocolatey (run as Administrator):
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">choco</span> <span class="n">install</span> <span class="n">nuget</span><span class="p">.</span><span class="n">commandline</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Generate a Personal Access Token (PAT)</strong>:
-   Go to GitHub <strong>Settings &gt; Developer settings &gt; Personal access tokens (classic)</strong> and create a token with <code>read:packages</code> (and <code>write:packages</code> if you want to contribute binaries) scope.</p>
-</li>
-<li>
-<p><strong>Add the NuGet source</strong>:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">nuget</span> <span class="n">sources</span> <span class="n">add</span> <span class="n">-Name</span> <span class="s2">&quot;GitHub&quot;</span> <span class="p">`</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  <span class="n">-Source</span> <span class="s2">&quot;https://nuget.pkg.github.com/Trailblaze-Software/index.json&quot;</span> <span class="p">`</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  <span class="n">-UserName</span> <span class="s2">&quot;YOUR_GITHUB_USERNAME&quot;</span> <span class="p">`</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  <span class="n">-Password</span> <span class="s2">&quot;YOUR_PAT&quot;</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Enable the cache</strong>:
-   Set the following environment variable before running CMake:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">$env:VCPKG_BINARY_SOURCES</span><span class="p">=</span><span class="s2">&quot;clear;nuget,GitHub,readwrite&quot;</span>
-</code></pre></div></p>
-</li>
-</ol>
-<h3 id="windows-installer">Windows Installer</h3>
-<p>To create a standalone installer (NSIS), run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cd build
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>cpack -C Release -G NSIS
-</code></pre></div>
+<p>The easiest way to install Blaze is to download pre-built binaries from the <a href="https://github.com/Trailblaze-Software/Blaze/releases">GitHub Releases page</a>.</p>
+<h2 id="pre-built-binaries">Pre-built Binaries</h2>
+<p>Download the latest release for your platform from:</p>
+<p><strong><a href="https://github.com/Trailblaze-Software/Blaze/releases">https://github.com/Trailblaze-Software/Blaze/releases</a></strong></p>
+<p>For most users on Windows, this will be <code>Blaze-x.x.x-win64-x64.exe</code>. You will likely need to tell Windows that the download is safe and to keep anyway.</p>
+<h2 id="building-from-source">Building from Source</h2>
+<p>If you need to build from source or want to contribute to the project, see the <a href="build-from-source/">Building from Source</a> guide.</p>
 
 
 
