@@ -16,9 +16,18 @@
     "gui": {
       "description": "Support for GUI",
       "dependencies": [
-        "qtbase",
+        {
+          "name": "qtbase",
+          "features": [
+            "gui",
+            "widgets",
+            "concurrent",
+            "opengl"
+          ]
+        },
         "qtimageformats",
-        "qtsvg"
+        "qtsvg",
+        "qtopengl"
       ]
     }
   },

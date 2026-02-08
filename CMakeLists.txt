@@ -164,8 +164,9 @@ if(NOT BLAZE_CLI_ONLY)
 
   set(GUI_EXE_NAME Blaze)
   list(APPEND ALL_EXECUTABLES ${GUI_EXE_NAME})
-  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core Svg OpenGL
-                                       OpenGLWidgets)
+  find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core OpenGL)
+  find_package(Qt6Svg REQUIRED)
+  find_package(Qt6OpenGLWidgets REQUIRED)
   if(WIN32)
     qt_standard_project_setup()
   endif()
