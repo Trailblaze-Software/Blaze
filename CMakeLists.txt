@@ -7,6 +7,9 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if(CMAKE_BUILD_TYPE STREQUAL "")
+  set(CMAKE_BUILD_TYPE "Release")
+endif()
 message(STATUS "CMake Build Type: ${CMAKE_BUILD_TYPE}")
 
 if(MSVC)
