@@ -84,7 +84,7 @@ jobs:
             VCPKG_VERBOSE=ON
       - name: Configure
         run: |
-          $cmakeArgs = "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}"
+          $cmakeArgs = "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }} -A ${{ matrix.arch }}"
           if ("${{ steps.version.outputs.version }}" -ne "") {
             $cmakeArgs += " -DBLAZE_VERSION=${{ steps.version.outputs.version }}"
           }

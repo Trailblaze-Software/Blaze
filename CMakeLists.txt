@@ -35,6 +35,15 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
     set(VCPKG_TARGET_TRIPLET "x64-mingw-dynamic")
     set(VCPKG_HOST_TRIPLET "x64-mingw-dynamic")
+  elseif(MSVC)
+    if(NOT DEFINED VCPKG_TARGET_TRIPLET)
+      if(CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64" OR CMAKE_VS_PLATFORM_NAME
+                                                      STREQUAL "ARM64")
+        set(VCPKG_TARGET_TRIPLET "arm64-windows")
+      else()
+        set(VCPKG_TARGET_TRIPLET "x64-windows")
+      endif()
+    endif()
   endif()
   set(VCPKG_BUILD_TYPE "release")
   FetchContent_Declare(
@@ -251,11 +260,11 @@ FetchContent_MakeAvailable(nlohmann_json)
 
 foreach(target ${ALL_TARGETS})
   if(BLAZE_USE_PDAL)
-    target_link_libraries(${target} PRIVATE ${PDAL_LIBRARIES})
+    target_link_libraries(${target} PRIVATE pdal_base pdal_util pdal_cpp)
     target_include_directories(${target} PRIVATE ${PDAL_INCLUDE_DIRS})
   endif()
   target_link_libraries(
-    ${target} PRIVATE ${GDAL_LIBRARIES} OpenMP::OpenMP_CXX
+    ${target} PRIVATE GDAL::GDAL OpenMP::OpenMP_CXX
                       nlohmann_json::nlohmann_json ${OpenCV_LIBS})
   target_include_directories(${target} PRIVATE ${GDAL_INCLUDE_DIRS}
                                                ${OpenCV_INCLUDE_DIRS})
