@@ -22,9 +22,8 @@
 
 ## Quick Links
 
-- [Installation](installation.md)
-- [Quick Start Guide](usage/quick-guide.md)
+- [Installation](installation/index.md)
+- [Quick Start Guide](usage/index.md)
 - [QGIS Plugin](usage/qgis-plugin.md)
-- [Contributing](about/contributing.md)
 
 ---

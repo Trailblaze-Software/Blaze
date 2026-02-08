@@ -46,3 +46,9 @@ repos:
       - id: flake8
         files: .*\.py$
         args: [--max-line-length=120]
+  - repo: https://github.com/tcort/markdown-link-check
+    rev: v3.14.2
+    hooks:
+      - id: markdown-link-check
+        files: docs/src/.*\.md$
+        args: ["--quiet", "--config", "docs/.markdown-link-check.json"]
