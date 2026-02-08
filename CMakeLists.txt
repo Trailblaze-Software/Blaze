@@ -69,7 +69,7 @@ if(NOT DEFINED BLAZE_VERSION)
     string(REGEX REPLACE "^v" "" BLAZE_VERSION "${GIT_TAG}")
     message(STATUS "Version from git tag: ${BLAZE_VERSION}")
   else()
-    # Default version if no tag found (must be valid semantic version)
+    # Default version if no tag found
     set(BLAZE_VERSION "0.0.0-dev")
     message(STATUS "Using default version: ${BLAZE_VERSION}")
   endif()
@@ -77,13 +77,28 @@ else()
   message(STATUS "Version from CMake variable: ${BLAZE_VERSION}")
 endif()
 
+# Extract numeric version for CMake project() command CMake requires numeric
+# format: major.minor.patch[.tweak] Strip any non-numeric suffixes (e.g.,
+# "0.0.0-dev" -> "0.0.0")
+string(REGEX MATCH "^([0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?)"
+             BLAZE_VERSION_NUMERIC "${BLAZE_VERSION}")
+if(NOT BLAZE_VERSION_NUMERIC)
+  # Fallback to 0.0.0 if no valid numeric version found
+  set(BLAZE_VERSION_NUMERIC "0.0.0")
+  message(
+    WARNING
+      "Could not extract numeric version from '${BLAZE_VERSION}', using '${BLAZE_VERSION_NUMERIC}'"
+  )
+endif()
+
 project(
   BLAZE
-  VERSION ${BLAZE_VERSION}
+  VERSION ${BLAZE_VERSION_NUMERIC}
   LANGUAGES CXX)
 set(COPYRIGHT "Copyright (c) 2024 Trailblaze Software. All rights reserved.")
 
-add_compile_definitions(BLAZE_VERSION="${PROJECT_VERSION}")
+# Use the full version string (with suffixes) for compile definitions
+add_compile_definitions(BLAZE_VERSION="${BLAZE_VERSION}")
 execute_process(
   COMMAND git rev-parse HEAD
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
