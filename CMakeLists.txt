@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20..3.26)
+cmake_minimum_required(VERSION 3.21)
 
 if(CMAKE_VERSION GREATER 3.24)
   cmake_policy(VERSION 3.20)
@@ -134,45 +134,35 @@ find_package(GDAL REQUIRED)
 set(OpenMP_RUNTIME_MSVC "llvm")
 find_package(OpenMP REQUIRED)
 
-if(WIN32
-   AND MSVC
-   AND OpenMP_CXX_FOUND)
-  # LLVM OpenMP DLLs are often not detected by TARGET_RUNTIME_DLLS. We try to
-  # find the DLL corresponding to the found import library.
-  foreach(lib ${OpenMP_CXX_LIBRARIES})
-    if(lib MATCHES "libomp\\.lib$")
-      get_filename_component(lib_dir "${lib}" DIRECTORY)
-      # Search for common DLL names in the lib directory and its parent's bin
-      find_file(
-        OpenMP_DLL
-        NAMES libomp140.x86_64.dll libomp.dll
-        PATHS "${lib_dir}" "${lib_dir}/../bin" "${lib_dir}/../../bin"
-        NO_DEFAULT_PATH)
-      if(OpenMP_DLL)
-        message(STATUS "Found OpenMP DLL: ${OpenMP_DLL}")
-        install(FILES "${OpenMP_DLL}" DESTINATION ${CMAKE_INSTALL_BINDIR})
+if(MSVC AND OpenMP_CXX_FOUND)
+  # 1. Get the directory of the OpenMP import library (libomp.lib)
+  #   OpenMP_CXX_LIBRARIES usually contains the full path to the .lib file
+  get_filename_component(OMP_LIB_DIR "${OpenMP_CXX_LIBRARIES}" DIRECTORY)
 
-        # Copy to build directory for immediate use
-        add_custom_command(
-          TARGET ${CLI_EXE_NAME}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
-                  "$<TARGET_FILE_DIR:${CLI_EXE_NAME}>")
-        if(NOT BLAZE_CLI_ONLY)
-          add_custom_command(
-            TARGET ${GUI_EXE_NAME}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
-                    "$<TARGET_FILE_DIR:${GUI_EXE_NAME}>")
-          add_custom_command(
-            TARGET ${GUI_3D_EXE_NAME}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
-                    "$<TARGET_FILE_DIR:${GUI_3D_EXE_NAME}>")
-        endif()
-      endif()
-    endif()
-  endforeach()
+  # 1. Search for the DLL. In Visual Studio layouts, libs are often in /lib/x64
+  #   and DLLs in /bin/Hostx64/x64 or simply in a sibling /bin folder.
+  find_file(
+    OMP_DLL "libomp.dll"
+    HINTS "${OMP_LIB_DIR}/../bin/Hostx64/x64" # Common VS layout
+          "${OMP_LIB_DIR}/../bin" # Standard layout
+          "${CMAKE_CXX_COMPILER_DIRECTORY}" # Compiler bin layout
+    DOC "Path to the LLVM OpenMP runtime DLL"
+    NO_DEFAULT_PATH # Strict search to avoid picking up random system versions
+  )
+
+  # 1. Install the DLL alongside your executable
+  if(OMP_DLL)
+    message(STATUS "Found LLVM OpenMP runtime: ${OMP_DLL}")
+    install(
+      FILES "${OMP_DLL}"
+      DESTINATION bin # Or wherever your .exe is going
+      COMPONENT Runtime)
+  else()
+    message(
+      WARNING
+        "Could not find libomp.dll. Your distributed package may fail on clean machines."
+    )
+  endif()
 endif()
 
 set(OpenCV_STATIC ON)
@@ -189,9 +179,7 @@ if(WIN32)
     set(CMAKE_CXX_FLAGS
         "${CMAKE_CXX_FLAGS} /Wall /MP /wd5045 /wd4866 /wd4514 /wd4820 /wd4800 /wd4242 /wd4244 /wd4365 /wd5027 /wd4626 /wd5219 /wd4623 /wd4267 /wd4710 /wd4711 /wd4625 /wd5026 /wd4464"
     )
-    if(CMAKE_VERSION VERSION_LESS 3.30)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /openmp:llvm")
-    endif()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /openmp:llvm")
   endif()
   add_compile_definitions(NOMINMAX NOGDI)
 elseif(UNIX)
