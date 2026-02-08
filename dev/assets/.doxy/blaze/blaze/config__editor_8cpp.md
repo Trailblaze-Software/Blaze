@@ -12,8 +12,15 @@
 
 * `#include "config_editor.hpp"`
 * `#include <qdebug.h>`
+* `#include <QColorDialog>`
+* `#include <QDoubleValidator>`
 * `#include <QFileDialog>`
+* `#include <QIntValidator>`
+* `#include <QListWidget>`
+* `#include <QPainter>`
 * `#include <QPushButton>`
+* `#include <QSpinBox>`
+* `#include <QTableWidget>`
 * `#include <filesystem>`
 * `#include "assert/assert.hpp"`
 * `#include "config_input/config_input.hpp"`
@@ -65,6 +72,9 @@
 
 | Type | Name |
 | ---: | :--- |
+|  [**bool**](classCoordinate2D.md) | [**color\_equals**](#function-color_equals) ([**const**](classCoordinate2D.md) ColorVariant & v1, [**const**](classCoordinate2D.md) ColorVariant & v2) <br> |
+|  [**QIcon**](classCoordinate2D.md) | [**create\_color\_icon**](#function-create_color_icon) ([**const**](classCoordinate2D.md) ColorVariant & color) <br> |
+|  [**QString**](classCoordinate2D.md) | [**get\_color\_name**](#function-get_color_name) ([**const**](classCoordinate2D.md) ColorVariant & color) <br> |
 |  [**bool**](classCoordinate2D.md) | [**validated**](#function-validated) (T \* box) <br> |
 
 
@@ -96,6 +106,52 @@
 
 ## Public Functions Documentation
 
+
+
+
+### function color\_equals 
+
+```C++
+bool color_equals (
+    const ColorVariant & v1,
+    const ColorVariant & v2
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function create\_color\_icon 
+
+```C++
+QIcon create_color_icon (
+    const ColorVariant & color
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function get\_color\_name 
+
+```C++
+QString get_color_name (
+    const ColorVariant & color
+) 
+```
+
+
+
+
+<hr>
 
 
 

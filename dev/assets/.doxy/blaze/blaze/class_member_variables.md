@@ -72,6 +72,7 @@
 * **max\_height** ([**CanopyConfig**](structCanopyConfig.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 * **min\_height** ([**CanopyConfig**](structCanopyConfig.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 * **m\_config** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_updating\_ui** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_is\_loop** ([**Contour**](classContour.md))
 * **m\_points** ([**Contour**](classContour.md), [**LASData**](classLASData.md), [**LASLayerRenderer**](classLASLayerRenderer.md))
 * **min\_points** ([**ContourConfig**](structContourConfig.md))

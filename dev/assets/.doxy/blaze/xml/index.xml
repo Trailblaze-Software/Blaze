@@ -183,6 +183,7 @@
   <compound refid="classConfigEditor" kind="class"><name>ConfigEditor</name>
     <member refid="classConfigEditor_1afbd101f76851f3eb967cac0c6afadfd5" kind="variable"><name>ui</name></member>
     <member refid="classConfigEditor_1a9b6c95f7d1c549c404f76cb3be88f1c8" kind="variable"><name>m_config</name></member>
+    <member refid="classConfigEditor_1a478d2f955bf50b911b28187221e8ac32" kind="variable"><name>m_updating_ui</name></member>
     <member refid="classConfigEditor_1a5a4d203d15933a166a80f7fbc6d5c16a" kind="function"><name>ConfigEditor</name></member>
     <member refid="classConfigEditor_1ae7209cc103866d65e833befc239af262" kind="function"><name>~ConfigEditor</name></member>
     <member refid="classConfigEditor_1a197848203c2b71314766dac08b804d81" kind="function"><name>get_config</name></member>
@@ -192,9 +193,40 @@
     <member refid="classConfigEditor_1a5e47e642cd4086a711bfbdba10e61b3a" kind="slot"><name>add_las_file</name></member>
     <member refid="classConfigEditor_1a78d2b762fd95574fb3c85839f7047ec6" kind="slot"><name>remove_las_file</name></member>
     <member refid="classConfigEditor_1a99f69fad5f708f9fe6b4b5783e589f8c" kind="slot"><name>add_las_folder</name></member>
+    <member refid="classConfigEditor_1ac7c6cfd68f1395216f2f5c02f9469930" kind="slot"><name>add_contour</name></member>
+    <member refid="classConfigEditor_1a6553aee12dd014276643267d83c479ec" kind="slot"><name>remove_contour</name></member>
+    <member refid="classConfigEditor_1a841ce456009b005e697b1a9c7ef829d2" kind="slot"><name>on_contour_selected</name></member>
+    <member refid="classConfigEditor_1a8910599c23acde8e32e4ffd90ac4216f" kind="slot"><name>update_contour_from_ui</name></member>
+    <member refid="classConfigEditor_1a55a5f17dfd652721e02839ccb5c1e84e" kind="slot"><name>add_water</name></member>
+    <member refid="classConfigEditor_1a9db5c451f4316e0800a1ee5c2aa152dc" kind="slot"><name>remove_water</name></member>
+    <member refid="classConfigEditor_1a660378977805f12958e3605d8bc88f88" kind="slot"><name>on_water_selected</name></member>
+    <member refid="classConfigEditor_1abc542fd0481c7eefc1b5ee52b132b6a3" kind="slot"><name>update_water_from_ui</name></member>
+    <member refid="classConfigEditor_1a772461f3fdba3d141c11085073050802" kind="slot"><name>add_vege</name></member>
+    <member refid="classConfigEditor_1a1c29e18e134a6578cd682cfdf667197e" kind="slot"><name>remove_vege</name></member>
+    <member refid="classConfigEditor_1a36adab1b613a3c1e88e2bfed4974251f" kind="slot"><name>on_vege_selected</name></member>
+    <member refid="classConfigEditor_1abe7f61e9ade3bd045cf987f7ecbaca6e" kind="slot"><name>update_vege_from_ui</name></member>
+    <member refid="classConfigEditor_1a75f20f2fd7ef9411b902809f36e75337" kind="slot"><name>add_vege_color</name></member>
+    <member refid="classConfigEditor_1a0f3a42d63a6e8c8a28f623f437fda691" kind="slot"><name>remove_vege_color</name></member>
+    <member refid="classConfigEditor_1aa32f94af0bca032bb6b307907252cff8" kind="slot"><name>update_vege_color_from_ui</name></member>
+    <member refid="classConfigEditor_1ae96fd7bce83d0861476438b401a8d480" kind="slot"><name>add_color</name></member>
+    <member refid="classConfigEditor_1a35a3e2327cb8314ad295a422f19288bd" kind="slot"><name>remove_color</name></member>
+    <member refid="classConfigEditor_1afc9c962795867c2bbe99b0a730ac22df" kind="slot"><name>on_color_selected</name></member>
+    <member refid="classConfigEditor_1ad338483d3d1f36d49e22d961df0fd8b9" kind="slot"><name>update_color_from_ui</name></member>
+    <member refid="classConfigEditor_1afc932f986daa73a81df89a73aae20732" kind="slot"><name>pick_color</name></member>
+    <member refid="classConfigEditor_1a05b91c00447e9800d78be17bc7346de5" kind="slot"><name>on_color_type_changed</name></member>
+    <member refid="classConfigEditor_1a949153b749475f46dec2f52b6008ff0b" kind="slot"><name>update_general_from_ui</name></member>
     <member refid="classConfigEditor_1ab0415e243b7ade81688d2750eea9c562" kind="signal"><name>config_changed</name></member>
     <member refid="classConfigEditor_1aab34a08654fbab02e3436ec37d289eeb" kind="function"><name>set_ui_to_config</name></member>
     <member refid="classConfigEditor_1ad11922f5fdbdf27d32089efa46ce28e5" kind="function"><name>open_output_directory</name></member>
+    <member refid="classConfigEditor_1a86bff2b1533bf818ac00590d82fbc643" kind="function"><name>populate_contour_list</name></member>
+    <member refid="classConfigEditor_1afd9b92e20baca696dc2e574ca50d533a" kind="function"><name>populate_water_list</name></member>
+    <member refid="classConfigEditor_1a428cf91a755dfaacfe99a0a4340d55fd" kind="function"><name>populate_vege_list</name></member>
+    <member refid="classConfigEditor_1a99b99d04975c1d90ae48081a8af63fa3" kind="function"><name>populate_color_list</name></member>
+    <member refid="classConfigEditor_1a59499f5440d48783edc0590809fe626f" kind="function"><name>load_contour_details</name></member>
+    <member refid="classConfigEditor_1aa8297ff80a7a732f91e143fa07c549b8" kind="function"><name>load_water_details</name></member>
+    <member refid="classConfigEditor_1ab3983316e2f9d7504d845eb0afe9dfe7" kind="function"><name>load_vege_details</name></member>
+    <member refid="classConfigEditor_1a30841a521570ee817438519697542a32" kind="function"><name>load_color_details</name></member>
+    <member refid="classConfigEditor_1af44420c97f149443957948d95b9e2fbb" kind="function"><name>populate_color_combo</name></member>
   </compound>
   <compound refid="classContour" kind="class"><name>Contour</name>
     <member refid="classContour_1a3957faae3d25b013b23f9c5ad799f9b1" kind="variable"><name>m_height</name></member>
@@ -783,6 +815,9 @@
   </compound>
   <compound refid="config__editor_8cpp" kind="file"><name>config_editor.cpp</name>
     <member refid="config__editor_8cpp_1a71c824470a0cc2d39dbb3bde858bcdd1" kind="function"><name>validated</name></member>
+    <member refid="config__editor_8cpp_1a84f7f3f49f133436ce3ddca9bc608b7f" kind="function"><name>color_equals</name></member>
+    <member refid="config__editor_8cpp_1a3d1b810cf9f2d6ef74980c023c767b75" kind="function"><name>get_color_name</name></member>
+    <member refid="config__editor_8cpp_1acb3b713bce06b181fe7a6e8f8b07a8ab" kind="function"><name>create_color_icon</name></member>
   </compound>
   <compound refid="config__editor_8hpp" kind="file"><name>config_editor.hpp</name>
   </compound>

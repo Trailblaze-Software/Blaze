@@ -392,6 +392,8 @@
       
         
       
+        
+      
     
     
     
@@ -439,6 +441,34 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -825,6 +855,39 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#function-color_equals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function color_equals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-create_color_icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function create_color_icon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_color_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function get_color_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-validated" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -866,8 +929,15 @@
 <ul>
 <li><code>#include "config_editor.hpp"</code></li>
 <li><code>#include &lt;qdebug.h&gt;</code></li>
+<li><code>#include &lt;QColorDialog&gt;</code></li>
+<li><code>#include &lt;QDoubleValidator&gt;</code></li>
 <li><code>#include &lt;QFileDialog&gt;</code></li>
+<li><code>#include &lt;QIntValidator&gt;</code></li>
+<li><code>#include &lt;QListWidget&gt;</code></li>
+<li><code>#include &lt;QPainter&gt;</code></li>
 <li><code>#include &lt;QPushButton&gt;</code></li>
+<li><code>#include &lt;QSpinBox&gt;</code></li>
+<li><code>#include &lt;QTableWidget&gt;</code></li>
 <li><code>#include &lt;filesystem&gt;</code></li>
 <li><code>#include "assert/assert.hpp"</code></li>
 <li><code>#include "config_input/config_input.hpp"</code></li>
@@ -900,16 +970,50 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
+<td style="text-align: left;"><a href="#function-color_equals"><strong>color_equals</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; v1, <a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; v2) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QIcon</strong></a></td>
+<td style="text-align: left;"><a href="#function-create_color_icon"><strong>create_color_icon</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; color) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QString</strong></a></td>
+<td style="text-align: left;"><a href="#function-get_color_name"><strong>get_color_name</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; color) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
 <td style="text-align: left;"><a href="#function-validated"><strong>validated</strong></a> (T * box) <br></td>
 </tr>
 </tbody>
 </table>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
-<h3 id="function-validated">function validated</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">bool</span><span class="w"> </span><span class="n">validated</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">box</span>
+<h3 id="function-color_equals">function color_equals</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">color_equals</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">ColorVariant</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">v1</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">ColorVariant</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">v2</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-create_color_icon">function create_color_icon</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">QIcon</span><span class="w"> </span><span class="n">create_color_icon</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">ColorVariant</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">color</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_color_name">function get_color_name</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">QString</span><span class="w"> </span><span class="n">get_color_name</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">ColorVariant</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">color</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-validated">function validated</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">bool</span><span class="w"> </span><span class="n">validated</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">box</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

@@ -43,13 +43,15 @@ CMYKColor CMYKColor::FromRGB(const RGBColor& rgb) {
   double m = 1 - rgb.getGreen() / 255.0;
   double y = 1 - rgb.getBlue() / 255.0;
   double k = std::min({c, m, y});
-  if (k == 1) {
+  if (k >= 1.0) {
     return CMYKColor(0, 0, 0, 100);
   }
   c = (c - k) / (1 - k);
   m = (m - k) / (1 - k);
   y = (y - k) / (1 - k);
-  return CMYKColor(c, m, y, k);
+  return CMYKColor(
+      std::clamp<int>(std::round(c * 100), 0, 100), std::clamp<int>(std::round(m * 100), 0, 100),
+      std::clamp<int>(std::round(y * 100), 0, 100), std::clamp<int>(std::round(k * 100), 0, 100));
 }
 CMYKColor RGBColor::toCMYK() const { return CMYKColor::FromRGB(*this); }
 

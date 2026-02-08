@@ -150,6 +150,10 @@
 ## l
 
 * **las\_filepaths** ([**Config**](structConfig.md))
+* **load\_color\_details** ([**ConfigEditor**](classConfigEditor.md))
+* **load\_contour\_details** ([**ConfigEditor**](classConfigEditor.md))
+* **load\_vege\_details** ([**ConfigEditor**](classConfigEditor.md))
+* **load\_water\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **layer\_name\_from\_height** ([**ContourConfigs**](structContourConfigs.md))
 * **layers** ([**GLWidget**](classGLWidget.md))
 * **LASData** ([**LASData**](classLASData.md))
@@ -220,6 +224,11 @@
 * **position** ([**Camera**](classCamera.md))
 * **proj\_matrix** ([**Camera**](classCamera.md))
 * **projection\_scale** ([**Camera**](classCamera.md))
+* **populate\_color\_combo** ([**ConfigEditor**](classConfigEditor.md))
+* **populate\_color\_list** ([**ConfigEditor**](classConfigEditor.md))
+* **populate\_contour\_list** ([**ConfigEditor**](classConfigEditor.md))
+* **populate\_vege\_list** ([**ConfigEditor**](classConfigEditor.md))
+* **populate\_water\_list** ([**ConfigEditor**](classConfigEditor.md))
 * **points** ([**Contour**](classContour.md))
 * **push\_back** ([**Contour**](classContour.md), [**LASData**](classLASData.md))
 * **pick\_from\_height** ([**ContourConfigs**](structContourConfigs.md))
