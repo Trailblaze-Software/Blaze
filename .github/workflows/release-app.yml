@@ -38,6 +38,7 @@ jobs:
       - name: Get version from tag
         id: version
         if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        shell: pwsh
         run: |
           if ($env:GITHUB_EVENT_NAME -eq 'release') {
             $tag = $env:GITHUB_EVENT_RELEASE_TAG_NAME -replace '^v', ''
@@ -45,37 +46,37 @@ jobs:
             $tag = $env:GITHUB_REF -replace 'refs/tags/v', ''
           }
           echo "version=$tag" >> $env:GITHUB_OUTPUT
-          echo "Version: $tag"
-      - name: Setup NuGet credentials
+      - name: Install NuGet Credential Provider
+        shell: pwsh
+        run: |
+          iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      - name: Setup NuGet for vcpkg
         shell: pwsh
         run: |
           $owner = "${{ github.repository_owner }}".ToLower()
           $feed_url = "https://nuget.pkg.github.com/$owner/index.json"
-
-          nuget sources remove -Name "GitHub" -ErrorAction SilentlyContinue
-          nuget sources add -Name "GitHub" `
-            -Source $feed_url `
-            -UserName "$owner" `
-            -Password "${{ secrets.VCPKG_PAT_TOKEN }}" `
-            -StorePasswordInClearText `
-            -NonInteractive
-
-          nuget setapikey "${{ secrets.VCPKG_PAT_TOKEN }}" -Source $feed_url -NonInteractive
-
-          echo "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,readwrite" >> $env:GITHUB_ENV
+          $config_path = "$(Get-Location)\NuGet.Config"
+          $nugetConfig = @"
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <packageSources>
+              <add key="GitHub" value="$feed_url" />
+            </packageSources>
+            <packageSourceCredentials>
+              <GitHub>
+                <add key="Username" value="$owner" />
+                <add key="ClearTextPassword" value="${{ secrets.VCPKG_PAT_TOKEN }}" />
+              </GitHub>
+            </packageSourceCredentials>
+          </configuration>
+          "@
+          Set-Content -Path $config_path -Value $nugetConfig
+          echo "VCPKG_NUGET_CONFIG_PATH=$config_path" >> $env:GITHUB_ENV
           echo "VCPKG_NUGET_REPOSITORY=$feed_url" >> $env:GITHUB_ENV
       - name: Install NSIS
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
-      - name: Cache deps
-        uses: actions/cache@v4
-        with:
-          path: deps
-          key: ${{ runner.os }}-${{ matrix.arch }}-deps-${{ hashFiles('vcpkg.json',
-            'vcpkg-configuration.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.arch }}-deps-
       - name: Setup CMake
         uses: threeal/cmake-action@v2.0.0
         with:
@@ -83,6 +84,7 @@ jobs:
             VCPKG_BUILD_TYPE=release
             VCPKG_VERBOSE=ON
       - name: Configure
+        shell: pwsh
         run: |
           $cmakeArgs = "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}"
           if ("${{ steps.version.outputs.version }}" -ne "") {
@@ -92,15 +94,10 @@ jobs:
       - name: Build
         run: cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
+        shell: pwsh
         run: |
           cd build
           cpack -C Release -G NSIS
-      - name: Debug NSIS Failure
-        if: failure()
-        run: |
-          if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
-            Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
-          }
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -134,9 +131,10 @@ jobs:
             TAG=${GITHUB_REF#refs/tags/v}
           fi
           echo "version=$TAG" >> $GITHUB_OUTPUT
-          echo "Version: $TAG"
       - name: Install dependencies
-        run: ./scripts/install-ubuntu-deps.sh
+        run: |
+          chmod +x ./scripts/install-ubuntu-deps.sh
+          ./scripts/install-ubuntu-deps.sh
       - name: Configure
         run: |
           CMAKE_ARGS=""
