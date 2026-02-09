@@ -20,10 +20,18 @@ function(find_openmp_dll)
 
   set(OpenMP_DLL "")
 
-  # Determine architecture
-  if(CMAKE_VS_PLATFORM_NAME STREQUAL "x64"
-     OR CMAKE_GENERATOR_PLATFORM STREQUAL "x64"
-     OR CMAKE_SIZEOF_VOID_P EQUAL 8)
+  # Determine architecture (check ARM64 first, then x64, then x86) Check
+  # multiple sources to reliably detect ARM64
+  if(CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64"
+     OR CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64"
+     OR (DEFINED VCPKG_TARGET_TRIPLET AND VCPKG_TARGET_TRIPLET MATCHES "arm64")
+     OR (DEFINED MSVC_CXX_ARCHITECTURE_ID AND MSVC_CXX_ARCHITECTURE_ID STREQUAL
+                                              "ARM64"))
+    set(ARCH_SUBDIR "arm64")
+  elseif(
+    CMAKE_VS_PLATFORM_NAME STREQUAL "x64"
+    OR CMAKE_GENERATOR_PLATFORM STREQUAL "x64"
+    OR CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(ARCH_SUBDIR "x64")
   else()
     set(ARCH_SUBDIR "x86")
@@ -75,12 +83,26 @@ function(find_openmp_dll)
     endif()
   endforeach()
 
+  message(STATUS "OpenMP DLL architecture detection:")
+  message(STATUS "  CMAKE_VS_PLATFORM_NAME: ${CMAKE_VS_PLATFORM_NAME}")
+  message(STATUS "  CMAKE_GENERATOR_PLATFORM: ${CMAKE_GENERATOR_PLATFORM}")
+  message(STATUS "  VCPKG_TARGET_TRIPLET: ${VCPKG_TARGET_TRIPLET}")
+  message(STATUS "  MSVC_CXX_ARCHITECTURE_ID: ${MSVC_CXX_ARCHITECTURE_ID}")
+  message(STATUS "  Detected ARCH_SUBDIR: ${ARCH_SUBDIR}")
   message(STATUS "Searching for OpenMP DLL (${ARCH_SUBDIR})...")
 
-  # Search for the DLL
+  # Search for the DLL (architecture-specific names first)
+  if(ARCH_SUBDIR STREQUAL "arm64")
+    set(DLL_NAMES libomp140.arm64.dll libomp140.dll libomp.dll)
+  elseif(ARCH_SUBDIR STREQUAL "x64")
+    set(DLL_NAMES libomp140.x86_64.dll libomp140.dll libomp.dll)
+  else()
+    set(DLL_NAMES libomp140.dll libomp.dll)
+  endif()
+
   find_file(
     OpenMP_DLL
-    NAMES libomp140.x86_64.dll libomp140.dll libomp.dll
+    NAMES ${DLL_NAMES}
     PATHS ${SEARCH_PATHS}
     NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
 
@@ -94,7 +116,10 @@ function(find_openmp_dll)
         if(candidates)
           # Prefer architecture-specific DLLs
           foreach(candidate ${candidates})
-            if(ARCH_SUBDIR STREQUAL "x64" AND candidate MATCHES "x64")
+            if(ARCH_SUBDIR STREQUAL "arm64" AND candidate MATCHES "arm64")
+              set(OpenMP_DLL "${candidate}")
+              break()
+            elseif(ARCH_SUBDIR STREQUAL "x64" AND candidate MATCHES "x64")
               set(OpenMP_DLL "${candidate}")
               break()
             elseif(ARCH_SUBDIR STREQUAL "x86" AND candidate MATCHES "x86")
