@@ -2,7 +2,7 @@
 
 Get started with processing LIDAR data using Blaze.
 
-To bein with, you will need to obtain some LIDAR data. In Australia, there is free LIDAR covering at least most of NSW and ACT available at [https://elevation.fsdf.org.au/]. This must be in the form of LAS/LAZ files and is preferably tiled into ~1-2 square km tiles. Blaze will automatically combine them into a single map after processing them one at a time, and can automatically include a border from surroudning tiles during processing.
+To bein with, you will need to obtain some LIDAR data. In Australia, there is free LIDAR covering at least most of NSW and ACT available at [https://elevation.fsdf.org.au/](https://elevation.fsdf.org.au/). This must be in the form of LAS/LAZ files and is preferably tiled into ~1-2 square km tiles. Blaze will automatically combine them into a single map after processing them one at a time, and can automatically include a border from surroudning tiles during processing.
 
 ## Command-Line Interface (CLI)
 
