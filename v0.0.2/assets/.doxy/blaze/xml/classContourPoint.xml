@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classContourPoint" kind="class" language="C++" prot="public">
+    <compoundname>ContourPoint</compoundname>
+    <basecompoundref refid="classCoordinate2D" prot="public" virt="non-virtual">Coordinate2D&lt; double &gt;</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classContourPoint_1a48030c34ef4fcaa55a6c3aa7df496bd6" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double ContourPoint::m_height</definition>
+        <argsstring></argsstring>
+        <name>m_height</name>
+        <qualifiedname>ContourPoint::m_height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="8" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourPoint_1acb347083174aabc082bf99f5da36aff9" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classContourPoint" kindref="compound">ContourPoint</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;ContourPoint&gt; ContourPoint::m_next</definition>
+        <argsstring></argsstring>
+        <name>m_next</name>
+        <qualifiedname>ContourPoint::m_next</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="9" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourPoint_1adb99e9735aee603afaafeea20236ffd5" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classContourPoint" kindref="compound">ContourPoint</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;ContourPoint&gt; ContourPoint::m_prev</definition>
+        <argsstring></argsstring>
+        <name>m_prev</name>
+        <qualifiedname>ContourPoint::m_prev</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="10" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourPoint_1a6adf24ff753e8baca5f642004f4bc90a" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classContourPoint" kindref="compound">ContourPoint</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;ContourPoint&gt; ContourPoint::m_down</definition>
+        <argsstring></argsstring>
+        <name>m_down</name>
+        <qualifiedname>ContourPoint::m_down</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="11" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourPoint_1aad7abc11c62617bee5f77557f11ad001" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classContourPoint" kindref="compound">ContourPoint</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;ContourPoint&gt; ContourPoint::m_up</definition>
+        <argsstring></argsstring>
+        <name>m_up</name>
+        <qualifiedname>ContourPoint::m_up</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="12" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourPoint_1a66b5138de66e34e0def42e08949f6762" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double ContourPoint::m_slope</definition>
+        <argsstring></argsstring>
+        <name>m_slope</name>
+        <qualifiedname>ContourPoint::m_slope</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="13" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classContourPoint_1a30d97962669fbf6e1499e40692876886" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ContourPoint::ContourPoint</definition>
+        <argsstring>(double x, double y, double height)</argsstring>
+        <name>ContourPoint</name>
+        <qualifiedname>ContourPoint::ContourPoint</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="16" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="16" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classContourPoint_1a73540cd85fe1a70921d97580742b4cca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ContourPoint::set_next</definition>
+        <argsstring>(std::shared_ptr&lt; ContourPoint &gt; next)</argsstring>
+        <name>set_next</name>
+        <qualifiedname>ContourPoint::set_next</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classContourPoint" kindref="compound">ContourPoint</ref> &gt;</type>
+          <declname>next</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="19" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classContourPoint_1a1cceece03adcd823a96b15a4a65f56d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ContourPoint::set_previous</definition>
+        <argsstring>(std::shared_ptr&lt; ContourPoint &gt; prev)</argsstring>
+        <name>set_previous</name>
+        <qualifiedname>ContourPoint::set_previous</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classContourPoint" kindref="compound">ContourPoint</ref> &gt;</type>
+          <declname>prev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="20" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classContourPoint_1a66056054d947b8357ca33b78e9b58ac5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ContourPoint::find_up_down</definition>
+        <argsstring>(const GeoGrid&lt; std::vector&lt; std::shared_ptr&lt; ContourPoint &gt; &gt; &gt; &amp;point_grid)</argsstring>
+        <name>find_up_down</name>
+        <qualifiedname>ContourPoint::find_up_down</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; std::vector&lt; std::shared_ptr&lt; <ref refid="classContourPoint" kindref="compound">ContourPoint</ref> &gt; &gt; &gt; &amp;</type>
+          <declname>point_grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="22" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="22" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classContourPoint_1aa242a4168ce1946351843d628594709f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double ContourPoint::height</definition>
+        <argsstring>() const</argsstring>
+        <name>height</name>
+        <qualifiedname>ContourPoint::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="55" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classContourPoint_1a92051f526dd26cba8a6fefa44d9e75ef" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double ContourPoint::slope</definition>
+        <argsstring>() const</argsstring>
+        <name>slope</name>
+        <qualifiedname>ContourPoint::slope</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="56" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="56" bodyend="56"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ContourPoint</label>
+        <link refid="classContourPoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Coordinate2D&lt; double &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ContourPoint</label>
+        <link refid="classContourPoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Coordinate2D&lt; double &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" line="7" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp" bodystart="7" bodyend="57"/>
+    <listofallmembers>
+      <member refid="classContourPoint_1a30d97962669fbf6e1499e40692876886" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>ContourPoint</name></member>
+      <member refid="classCoordinate2D_1a536f3ba35b38d0c53faa5f9c7b5a5d4b" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate2D_1a27695be872dedbd15702cecdd5cb620e" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>Coordinate2D</name></member>
+      <member refid="classContourPoint_1a66056054d947b8357ca33b78e9b58ac5" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>find_up_down</name></member>
+      <member refid="classContourPoint_1aa242a4168ce1946351843d628594709f" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>height</name></member>
+      <member refid="classContourPoint_1a6adf24ff753e8baca5f642004f4bc90a" prot="private" virt="non-virtual"><scope>ContourPoint</scope><name>m_down</name></member>
+      <member refid="classContourPoint_1a48030c34ef4fcaa55a6c3aa7df496bd6" prot="private" virt="non-virtual"><scope>ContourPoint</scope><name>m_height</name></member>
+      <member refid="classContourPoint_1acb347083174aabc082bf99f5da36aff9" prot="private" virt="non-virtual"><scope>ContourPoint</scope><name>m_next</name></member>
+      <member refid="classContourPoint_1adb99e9735aee603afaafeea20236ffd5" prot="private" virt="non-virtual"><scope>ContourPoint</scope><name>m_prev</name></member>
+      <member refid="classContourPoint_1a66b5138de66e34e0def42e08949f6762" prot="private" virt="non-virtual"><scope>ContourPoint</scope><name>m_slope</name></member>
+      <member refid="classContourPoint_1aad7abc11c62617bee5f77557f11ad001" prot="private" virt="non-virtual"><scope>ContourPoint</scope><name>m_up</name></member>
+      <member refid="classCoordinate2D_1a75423d3585da779437d826a485891e66" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>magnitude</name></member>
+      <member refid="classCoordinate2D_1ac0cb5d93ac5dc1569f0599129db2accd" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>magnitude_sqd</name></member>
+      <member refid="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>offset_to_center</name></member>
+      <member refid="classCoordinate2D_1af2ed95c9e9f37d3a430aea86d41cbe09" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>operator Coordinate2D&lt; U &gt;</name></member>
+      <member refid="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>operator-</name></member>
+      <member refid="classCoordinate2D_1adbd28f3bd749f4cfbf20b0746375cbba" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>operator==</name></member>
+      <member refid="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>round</name></member>
+      <member refid="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>round_NW</name></member>
+      <member refid="classContourPoint_1a73540cd85fe1a70921d97580742b4cca" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>set_next</name></member>
+      <member refid="classContourPoint_1a1cceece03adcd823a96b15a4a65f56d5" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>set_previous</name></member>
+      <member refid="classContourPoint_1a92051f526dd26cba8a6fefa44d9e75ef" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>slope</name></member>
+      <member refid="classCoordinate2D_1a15cdc073df1226264dfa3c04750070a8" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a3d65f5ad53f9d3a5df8bdd567f32d0be" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a976db191ea32ade7a246b3368fdb48d9" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>y</name></member>
+      <member refid="classCoordinate2D_1a8188b4a389ccbb767d697998c17a2e2c" prot="public" virt="non-virtual"><scope>ContourPoint</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

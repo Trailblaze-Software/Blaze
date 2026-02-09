@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGeoImgGrid" kind="class" language="C++" prot="public">
+    <compoundname>GeoImgGrid</compoundname>
+    <basecompoundref refid="classImgGrid" prot="public" virt="non-virtual">ImgGrid</basecompoundref>
+    <basecompoundref refid="classGeoGridData" prot="public" virt="non-virtual">GeoGridData</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGeoImgGrid_1aa7885776a0cc668bd7581e11db392a8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GeoImgGrid::GeoImgGrid</definition>
+        <argsstring>(size_t width, size_t height, GeoTransform &amp;&amp;transform, GeoProjection &amp;&amp;projection)</argsstring>
+        <name>GeoImgGrid</name>
+        <qualifiedname>GeoImgGrid::GeoImgGrid</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref> &amp;&amp;</type>
+          <declname>transform</declname>
+        </param>
+        <param>
+          <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;&amp;</type>
+          <declname>projection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="26" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="26" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoImgGrid_1a2124c9a3330156f0278c218b04b4e8ff" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">ColorT</ref></type>
+          </param>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref></type>
+            <defval>std::enable_if_t&lt;std::is_base_of_v&lt;<ref refid="classColor" kindref="compound">Color</ref>, <ref refid="classCoordinate2D" kindref="compound">ColorT</ref>&gt;&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>GeoImgGrid::GeoImgGrid</definition>
+        <argsstring>(const GeoGrid&lt; ColorT &gt; &amp;grid)</argsstring>
+        <name>GeoImgGrid</name>
+        <qualifiedname>GeoImgGrid::GeoImgGrid</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">ColorT</ref> &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="30" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="28" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoImgGrid_1a89b602dcfe3ce9f7534c4c605edd23d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void GeoImgGrid::draw</definition>
+        <argsstring>(const GeoImgGrid &amp;other, std::optional&lt; int &gt; interpolation={})</argsstring>
+        <name>draw</name>
+        <qualifiedname>GeoImgGrid::draw</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoImgGrid" kindref="compound">GeoImgGrid</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type>std::optional&lt; <ref refid="classCoordinate2D" kindref="compound">int</ref> &gt;</type>
+          <declname>interpolation</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="32" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="42" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoImgGrid_1a316d075f2759ad5a215a13c1ff57b052" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void GeoImgGrid::draw_point</definition>
+        <argsstring>(const Coordinate2D&lt; double &gt; &amp;point, const ColorVariant &amp;color, double size)</argsstring>
+        <name>draw_point</name>
+        <qualifiedname>GeoImgGrid::draw_point</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>point</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> ColorVariant &amp;</type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="34" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="87" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoImgGrid_1a3a92b7a3618e546a2d9c030c82fcab21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void GeoImgGrid::draw</definition>
+        <argsstring>(const Contour &amp;contour, const ColorVariant &amp;color, double width)</argsstring>
+        <name>draw</name>
+        <qualifiedname>GeoImgGrid::draw</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classContour" kindref="compound">Contour</ref> &amp;</type>
+          <declname>contour</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> ColorVariant &amp;</type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>width</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="36" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="93" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoImgGrid_1aa085720dc8c310bf1e2f5c13023dc7b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void GeoImgGrid::draw</definition>
+        <argsstring>(const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;in_points, const ColorVariant &amp;color, double width)</argsstring>
+        <name>draw</name>
+        <qualifiedname>GeoImgGrid::draw</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>in_points</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> ColorVariant &amp;</type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>width</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="38" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="103" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoImgGrid_1a0651665b90f200ac101f0a5ff421bb39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void GeoImgGrid::save_to</definition>
+        <argsstring>(const fs::path &amp;path, const Extent2D &amp;extent)</argsstring>
+        <name>save_to</name>
+        <qualifiedname>GeoImgGrid::save_to</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> fs::path &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="41" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="10" bodyend="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>GeoGridData</label>
+        <link refid="classGeoGridData"/>
+      </node>
+      <node id="1">
+        <label>GeoImgGrid</label>
+        <link refid="classGeoImgGrid"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GridData</label>
+        <link refid="classGridData"/>
+      </node>
+      <node id="2">
+        <label>ImgGrid</label>
+        <link refid="classImgGrid"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>GeoGridData</label>
+        <link refid="classGeoGridData"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_transform</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_projection</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>GeoImgGrid</label>
+        <link refid="classGeoImgGrid"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>GeoProjection</label>
+        <link refid="classGeoProjection"/>
+      </node>
+      <node id="5">
+        <label>GeoTransform</label>
+        <link refid="classGeoTransform"/>
+      </node>
+      <node id="3">
+        <label>GridData</label>
+        <link refid="classGridData"/>
+      </node>
+      <node id="2">
+        <label>ImgGrid</label>
+        <link refid="classImgGrid"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="24" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="24" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classGeoImgGrid_1a89b602dcfe3ce9f7534c4c605edd23d6" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>draw</name></member>
+      <member refid="classGeoImgGrid_1a3a92b7a3618e546a2d9c030c82fcab21" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>draw</name></member>
+      <member refid="classGeoImgGrid_1aa085720dc8c310bf1e2f5c13023dc7b1" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>draw</name></member>
+      <member refid="classGeoImgGrid_1a316d075f2759ad5a215a13c1ff57b052" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>draw_point</name></member>
+      <member refid="classGeoGridData_1a0ee5acf21c13784d123d1237c9854cc5" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>dx</name></member>
+      <member refid="classGeoGridData_1a874882ebb49e607f6e96f5d1ede82899" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>dy</name></member>
+      <member refid="classGeoGridData_1a6e1191a0d4ee036284d22587da150ec4" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>GeoGridData</name></member>
+      <member refid="classGeoImgGrid_1aa7885776a0cc668bd7581e11db392a8e" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>GeoImgGrid</name></member>
+      <member refid="classGeoImgGrid_1a2124c9a3330156f0278c218b04b4e8ff" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>GeoImgGrid</name></member>
+      <member refid="classImgGrid_1a28517c9d3655e28a0ac8e6ee1aa63c72" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>get_rgb_color</name></member>
+      <member refid="classGridData_1ad3de1079142a49044d2cc5dce8c77be2" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>GridData</name></member>
+      <member refid="classGridData_1af50b2f20899510c2b9373bacbb217b7f" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>height</name></member>
+      <member refid="classImgGrid_1afb6300c463102a24c705fa821b7a7b10" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>ImgGrid</name></member>
+      <member refid="classGridData_1ae4531fee4184ca64a5c9b16488d253ba" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>in_bounds</name></member>
+      <member refid="classGridData_1a4c3d85fe603a4d61b8dff291ff527141" prot="protected" virt="non-virtual"><scope>GeoImgGrid</scope><name>m_height</name></member>
+      <member refid="classImgGrid_1a57403cf4d03dc3639103ef1ee1491240" prot="protected" virt="non-virtual"><scope>GeoImgGrid</scope><name>m_img</name></member>
+      <member refid="classGeoGridData_1a8bf48dae7b2472d11c2d464890e9abde" prot="protected" virt="non-virtual"><scope>GeoImgGrid</scope><name>m_projection</name></member>
+      <member refid="classGeoGridData_1a9742659082271d75bb7840c6dd52e37f" prot="protected" virt="non-virtual"><scope>GeoImgGrid</scope><name>m_transform</name></member>
+      <member refid="classGridData_1a13126024023e1abb5934579b8bd8f84f" prot="protected" virt="non-virtual"><scope>GeoImgGrid</scope><name>m_width</name></member>
+      <member refid="classGeoGridData_1a93f9478e0ca3db8a9f86dc1d150bb844" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>projection</name></member>
+      <member refid="classGeoImgGrid_1a0651665b90f200ac101f0a5ff421bb39" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>save_to</name></member>
+      <member refid="classImgGrid_1a529121d6b01eb56db74a2f5cc5a89eb2" prot="public" virt="non-virtual" ambiguityscope="ImgGrid::"><scope>GeoImgGrid</scope><name>save_to</name></member>
+      <member refid="classGeoGridData_1a277d0935ec991450c89f2bfed2a1385f" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>transform</name></member>
+      <member refid="classGridData_1ab0725a01420119c3a572e56671389870" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>width</name></member>
+      <member refid="classImgGrid_1aca2b39a10ef047229498916935e91881" prot="public" virt="non-virtual"><scope>GeoImgGrid</scope><name>~ImgGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

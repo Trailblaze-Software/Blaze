@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="las__point_8hpp" kind="file" language="C++">
+    <compoundname>las_point.hpp</compoundname>
+    <includes local="no">cstdint</includes>
+    <includes refid="coordinate_8hpp" local="no">utilities/coordinate.hpp</includes>
+    <includes refid="assert_8hpp" local="yes">assert/assert.hpp</includes>
+    <includedby refid="grid_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp</includedby>
+    <includedby refid="las__file_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</includedby>
+    <includedby refid="vegetation_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</includedby>
+    <includedby refid="process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/process.cpp</includedby>
+    <incdepgraph>
+      <node id="10">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
+        <link refid="las__point_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>array</label>
+      </node>
+      <node id="5">
+        <label>cmath</label>
+      </node>
+      <node id="2">
+        <label>cstdint</label>
+      </node>
+      <node id="12">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="16">
+        <label>iomanip</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="17">
+        <label>map</label>
+      </node>
+      <node id="11">
+        <label>optional</label>
+      </node>
+      <node id="7">
+        <label>ostream</label>
+      </node>
+      <node id="18">
+        <label>set</label>
+      </node>
+      <node id="13">
+        <label>sstream</label>
+      </node>
+      <node id="14">
+        <label>string</label>
+      </node>
+      <node id="8">
+        <label>type_traits</label>
+      </node>
+      <node id="9">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
+        <link refid="gl__widget_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
+        <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
+        <link refid="las__file_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
+        <link refid="las__point_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
+        <link refid="vegetation_8hpp_source"/>
+      </node>
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
+        <link refid="process_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classLASPoint" prot="public">LASPoint</innerclass>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438" prot="public" static="no" strong="yes">
+        <type><ref refid="classCoordinate2D" kindref="compound">uint8_t</ref></type>
+        <name>LASClassification</name>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a9f13c7d6d8833f65f83474966017c10e" prot="public">
+          <name>CreatedNeverClassified</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a3336022d50ad5765c5db6964d942f5e1" prot="public">
+          <name>Unclassified</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a3519d51443d41746a097cd54cd5c11cf" prot="public">
+          <name>Ground</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438aef913ae0ff03ba09343f6e58ff53efdb" prot="public">
+          <name>LowVegetation</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a5bb0b16af0b321baebc09a74cd465b18" prot="public">
+          <name>MediumVegetation</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a0840f7294533b0c70f685b35050cc3cd" prot="public">
+          <name>HighVegetation</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438ac39b56d4489fb2507289e7ae19567b80" prot="public">
+          <name>Building</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a14265277f9125ba8ec59ed00bb1ee7db" prot="public">
+          <name>LowPoint</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a3075f89b4ee90468355bd6a3ba2daa81" prot="public">
+          <name>ModelKeyPoint</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a27634ff8002b12e75d98e07ccd005d18" prot="public">
+          <name>Water</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="11" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="11" bodyend="22"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="las__point_8hpp_1a0d8dc8d0c8e3b6aa898ca3b3c3622794" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const LASClassification &amp;classification)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> LASClassification &amp;</type>
+          <declname>classification</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="24" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="24" bodyend="48"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>USE_PDAL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pdal/PointRef.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utilities/coordinate.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>LASClassification<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">uint8_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>CreatedNeverClassified<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>Unclassified<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>Ground<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>LowVegetation<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>MediumVegetation<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>HighVegetation<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>Building<sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>LowPoint<sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>ModelKeyPoint<sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>Water<sp/>=<sp/>9</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LASClassification&amp;<sp/>classification)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(classification)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::CreatedNeverClassified:</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;CreatedNeverClassified&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::Unclassified:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Unclassified&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::Ground:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Ground&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::LowVegetation:</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LowVegetation&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::MediumVegetation:</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MediumVegetation&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::HighVegetation:</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;HighVegetation&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::Building:</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Building&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::LowPoint:</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LowPoint&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::ModelKeyPoint:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;ModelKeyPoint&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>LASClassification::Water:</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Water&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>unreachable();</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="classLASPoint" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classLASPoint" kindref="compound">LASPoint</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt;double&gt;<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref><sp/>m_intensity;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>LASClassification<sp/>m_classification;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classLASPoint" kindref="compound">LASPoint</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>z,<sp/><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref><sp/>intensity,<sp/>LASClassification<sp/>classification)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate3D&lt;double&gt;</ref>(x,<sp/>y,<sp/>z),<sp/>m_intensity(intensity),<sp/>m_classification(classification)<sp/>{}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="classLASPoint" kindref="compound">LASPoint</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>USE_PDAL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classLASPoint" kindref="compound">LASPoint</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>pdal::PointRef&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate3D&lt;double&gt;</ref>(<ref refid="classCoordinate2D" kindref="compound">point</ref>.getFieldAs&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&gt;(pdal::Dimension::Id::X),</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.getFieldAs&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&gt;(pdal::Dimension::Id::Y),</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.getFieldAs&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&gt;(pdal::Dimension::Id::Z)),</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_intensity(<ref refid="classCoordinate2D" kindref="compound">point</ref>.getFieldAs&lt;<ref refid="classCoordinate2D" kindref="compound">uint16_t</ref>&gt;(pdal::Dimension::Id::Intensity)),</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_classification(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LASClassification</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.getFieldAs&lt;<ref refid="classCoordinate2D" kindref="compound">uint8_t</ref>&gt;(pdal::Dimension::Id::Classification)))<sp/>{}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref><sp/>intensity()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_intensity;<sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>LASClassification<sp/>classification()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_classification;<sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref>&amp;<sp/>intensity()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_intensity;<sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>LASClassification&amp;<sp/>classification()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_classification;<sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>USE_PDAL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">write_to</ref>(pdal::PointRef<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.setField(pdal::Dimension::Id::X,<sp/>x());</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.setField(pdal::Dimension::Id::Y,<sp/>y());</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.setField(pdal::Dimension::Id::Z,<sp/>z());</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.setField(pdal::Dimension::Id::Intensity,<sp/>m_intensity);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.setField(pdal::Dimension::Id::Classification,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">uint8_t</ref></highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m_classification));</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">operator&lt;&lt;</ref>(std::ostream&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classLASPoint" kindref="compound">LASPoint</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LASPoint((&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.x()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.y()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.z()</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;),<sp/>I:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.intensity()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>C:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.classification()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">os</ref>;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp"/>
+  </compounddef>
+</doxygen>

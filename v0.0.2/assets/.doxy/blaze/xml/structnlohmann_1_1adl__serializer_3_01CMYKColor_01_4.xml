@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>nlohmann::adl_serializer&lt; CMYKColor &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4_1a5d95a69eea7935681eadd137d5ff3b0f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        <definition>static CMYKColor nlohmann::adl_serializer&lt; CMYKColor &gt;::from_json</definition>
+        <argsstring>(const json &amp;j)</argsstring>
+        <name>from_json</name>
+        <qualifiedname>nlohmann::adl_serializer&lt; CMYKColor &gt;::from_json</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> json &amp;</type>
+          <declname>j</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="85" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4_1a05cf90fa73a7b13c1a858826c5a65115" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>static void nlohmann::adl_serializer&lt; CMYKColor &gt;::to_json</definition>
+        <argsstring>(json &amp;j, CMYKColor c)</argsstring>
+        <name>to_json</name>
+        <qualifiedname>nlohmann::adl_serializer&lt; CMYKColor &gt;::to_json</qualifiedname>
+        <param>
+          <type>json &amp;</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="87" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="87" bodyend="89"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="84" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="84" bodyend="90"/>
+    <listofallmembers>
+      <member refid="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4_1a5d95a69eea7935681eadd137d5ff3b0f" prot="public" virt="non-virtual"><scope>nlohmann::adl_serializer&lt; CMYKColor &gt;</scope><name>from_json</name></member>
+      <member refid="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4_1a05cf90fa73a7b13c1a858826c5a65115" prot="public" virt="non-virtual"><scope>nlohmann::adl_serializer&lt; CMYKColor &gt;</scope><name>to_json</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

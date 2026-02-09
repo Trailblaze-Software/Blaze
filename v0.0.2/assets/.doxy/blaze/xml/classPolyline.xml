@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPolyline" kind="class" language="C++" prot="public">
+    <compoundname>Polyline</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classPolyline_1a3b75b4e8a8e7bc96b4cf3d7e5df324b0" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Polyline::layer</definition>
+        <argsstring></argsstring>
+        <name>layer</name>
+        <qualifiedname>Polyline::layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" line="37" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPolyline_1ad8087c97bb9fe5173fcdc8c3691ed216" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Polyline::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>Polyline::name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" line="38" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPolyline_1a5f29744ccbf77b1e8f30c2e83f029ac4" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;Coordinate2D&lt;double&gt; &gt; Polyline::vertices</definition>
+        <argsstring></argsstring>
+        <name>vertices</name>
+        <qualifiedname>Polyline::vertices</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" line="39" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPolyline_1aa63a7e72f64e44b4c319003159fbb5be" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Polyline::write_to_dxf</definition>
+        <argsstring>(std::ofstream &amp;dxfFile) const</argsstring>
+        <name>write_to_dxf</name>
+        <qualifiedname>Polyline::write_to_dxf</qualifiedname>
+        <param>
+          <type>std::ofstream &amp;</type>
+          <declname>dxfFile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" line="41" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" bodystart="41" bodyend="56"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classPolyline_1ab12768361db80cd238012bfa51ef110a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classPolyline" kindref="compound">Polyline</ref></type>
+        <definition>static Polyline Polyline::read_from_dxf</definition>
+        <argsstring>(std::ifstream &amp;dxfFile)</argsstring>
+        <name>read_from_dxf</name>
+        <qualifiedname>Polyline::read_from_dxf</qualifiedname>
+        <param>
+          <type>std::ifstream &amp;</type>
+          <declname>dxfFile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" line="58" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" bodystart="58" bodyend="82"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" line="35" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp" bodystart="35" bodyend="83"/>
+    <listofallmembers>
+      <member refid="classPolyline_1a3b75b4e8a8e7bc96b4cf3d7e5df324b0" prot="public" virt="non-virtual"><scope>Polyline</scope><name>layer</name></member>
+      <member refid="classPolyline_1ad8087c97bb9fe5173fcdc8c3691ed216" prot="public" virt="non-virtual"><scope>Polyline</scope><name>name</name></member>
+      <member refid="classPolyline_1ab12768361db80cd238012bfa51ef110a" prot="public" virt="non-virtual"><scope>Polyline</scope><name>read_from_dxf</name></member>
+      <member refid="classPolyline_1a5f29744ccbf77b1e8f30c2e83f029ac4" prot="public" virt="non-virtual"><scope>Polyline</scope><name>vertices</name></member>
+      <member refid="classPolyline_1aa63a7e72f64e44b4c319003159fbb5be" prot="public" virt="non-virtual"><scope>Polyline</scope><name>write_to_dxf</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
