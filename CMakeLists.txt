@@ -364,9 +364,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
-  # Use forward slashes - CPack/NSIS handle them fine on Windows
-  set(CPACK_NSIS_NSI_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi")
-  set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/assets/images/blaze.ico")
+  # Use native paths - NSIS expects Windows native format Convert to native path
+  # and properly escape for CMake string handling
+  file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi"
+       CPACK_NSIS_NSI_PATH)
+  file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/assets/images/blaze.ico"
+       CPACK_NSIS_MUI_ICON)
   if(VCPKG_TARGET_TRIPLET MATCHES "arm64")
     set(CPACK_SYSTEM_NAME "win64-arm64")
   else()
