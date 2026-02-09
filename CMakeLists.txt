@@ -134,47 +134,6 @@ find_package(GDAL REQUIRED)
 set(OpenMP_RUNTIME_MSVC "llvm")
 find_package(OpenMP REQUIRED)
 
-if(WIN32
-   AND MSVC
-   AND OpenMP_CXX_FOUND)
-  # LLVM OpenMP DLLs are often not detected by TARGET_RUNTIME_DLLS. We try to
-  # find the DLL corresponding to the found import library.
-  foreach(lib ${OpenMP_CXX_LIBRARIES})
-    if(lib MATCHES "libomp\\.lib$")
-      get_filename_component(lib_dir "${lib}" DIRECTORY)
-      # Search for common DLL names in the lib directory and its parent's bin
-      find_file(
-        OpenMP_DLL
-        NAMES libomp140.x86_64.dll libomp.dll
-        PATHS "${lib_dir}" "${lib_dir}/../bin" "${lib_dir}/../../bin"
-        NO_DEFAULT_PATH)
-      if(OpenMP_DLL)
-        message(STATUS "Found OpenMP DLL: ${OpenMP_DLL}")
-        install(FILES "${OpenMP_DLL}" DESTINATION ${CMAKE_INSTALL_BINDIR})
-
-        # Copy to build directory for immediate use
-        add_custom_command(
-          TARGET ${CLI_EXE_NAME}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
-                  "$<TARGET_FILE_DIR:${CLI_EXE_NAME}>")
-        if(NOT BLAZE_CLI_ONLY)
-          add_custom_command(
-            TARGET ${GUI_EXE_NAME}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
-                    "$<TARGET_FILE_DIR:${GUI_EXE_NAME}>")
-          add_custom_command(
-            TARGET ${GUI_3D_EXE_NAME}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
-                    "$<TARGET_FILE_DIR:${GUI_3D_EXE_NAME}>")
-        endif()
-      endif()
-    endif()
-  endforeach()
-endif()
-
 set(OpenCV_STATIC ON)
 find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
 
@@ -325,6 +284,10 @@ foreach(target ${ALL_EXECUTABLES})
   target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
 endforeach()
 
+# Find and copy OpenMP DLL for Windows/MSVC builds
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOpenMPDLL.cmake)
+find_openmp_dll(${ALL_EXECUTABLES})
+
 target_include_directories(${UNIT_TESTS_NAME}
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
 target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest_main)
@@ -401,10 +364,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
-  file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi"
-       CPACK_NSIS_NSI_PATH)
-  file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/assets/images/blaze.ico"
-       CPACK_NSIS_MUI_ICON)
+  # Use forward slashes - CPack/NSIS handle them fine on Windows
+  set(CPACK_NSIS_NSI_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi")
+  set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/assets/images/blaze.ico")
   if(VCPKG_TARGET_TRIPLET MATCHES "arm64")
     set(CPACK_SYSTEM_NAME "win64-arm64")
   else()
