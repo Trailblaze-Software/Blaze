@@ -962,7 +962,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/9", "GeneralCulturalArea", True),
     ]
 
-    # Create single GPKG file for all NSW topo data
+    # Create or open existing GPKG file for all NSW topo data
     if gpkg_output_path:
         gpkg_path = Path(gpkg_output_path)
     else:
@@ -971,13 +971,24 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
     if driver is None:
         log("ERROR: GPKG driver not available!")
         return
-    if gpkg_path.exists():
-        driver.DeleteDataSource(str(gpkg_path))
-    ds = driver.CreateDataSource(str(gpkg_path))
+
+    # Open existing GPKG in update mode, or create new one
+    gpkg_exists = gpkg_path.exists()
+    if gpkg_exists:
+        ds = driver.Open(str(gpkg_path), 1)  # 1 = update mode
+        if ds is None:
+            log(f"WARNING: Could not open existing GPKG at {gpkg_path}, creating new one")
+            ds = driver.CreateDataSource(str(gpkg_path))
+            gpkg_exists = False
+        else:
+            log(f"Opened existing GPKG: {gpkg_path} (will append new features)")
+    else:
+        ds = driver.CreateDataSource(str(gpkg_path))
+        log(f"Created new GPKG: {gpkg_path}")
+
     if ds is None:
-        log(f"ERROR: Could not create GPKG at {gpkg_path}")
+        log(f"ERROR: Could not create/open GPKG at {gpkg_path}")
         return
-    log(f"Created GPKG: {gpkg_path}")
 
     total_layers = len(layers)
     layers_with_data = 0
@@ -1185,39 +1196,139 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
             srs = osr.SpatialReference()
             srs.ImportFromWkt(crs.toWkt())
 
-            ogr_layer = ds.CreateLayer(name, srs, ogr_geom_type)
+            # Get or create layer
+            ogr_layer = ds.GetLayerByName(name)
             if ogr_layer is None:
-                log(f"ERROR: Could not create OGR layer for {name}")
-                continue
+                ogr_layer = ds.CreateLayer(name, srs, ogr_geom_type)
+                if ogr_layer is None:
+                    log(f"ERROR: Could not create OGR layer for {name}")
+                    continue
+                log(f"Created new layer: {name}")
+            else:
+                log(f"Using existing layer: {name}")
 
-            # Add fields
+            # Ensure all fields exist (add missing ones)
+            existing_field_names = {
+                ogr_layer.GetLayerDefn().GetFieldDefn(i).GetName()
+                for i in range(ogr_layer.GetLayerDefn().GetFieldCount())
+            }
             for field in fields:
-                if field.type() == QVariant.Int:
-                    # Use Integer64 to avoid overflow with large IDs and timestamps
-                    ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTInteger64))
-                elif field.type() == QVariant.Double:
-                    ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTReal))
-                else:
-                    fld = ogr.FieldDefn(field.name(), ogr.OFTString)
-                    fld.SetWidth(254)
-                    ogr_layer.CreateField(fld)
+                if field.name() not in existing_field_names:
+                    if field.type() == QVariant.Int:
+                        ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTInteger64))
+                    elif field.type() == QVariant.Double:
+                        ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTReal))
+                    else:
+                        fld = ogr.FieldDefn(field.name(), ogr.OFTString)
+                        fld.SetWidth(254)
+                        ogr_layer.CreateField(fld)
 
-            # Add features
+            # Load existing features for duplicate checking
+            existing_features = {}
+            if gpkg_exists:
+                layer_defn = ogr_layer.GetLayerDefn()
+                field_names = [layer_defn.GetFieldDefn(i).GetName() for i in range(layer_defn.GetFieldCount())]
+                ogr_layer.ResetReading()
+                for existing_feat in ogr_layer:
+                    # Create a key from attributes (matching field names from new features)
+                    attrs_dict = {}
+                    for field_name in [f.name() for f in fields]:
+                        if field_name in field_names:
+                            field_idx = layer_defn.GetFieldIndex(field_name)
+                            if field_idx >= 0:
+                                attrs_dict[field_name] = existing_feat.GetField(field_name)
+                    # Create tuple key from attributes in same order as fields (normalize None values)
+                    attrs = tuple(
+                        attrs_dict.get(f.name()) if attrs_dict.get(f.name()) is not None else "" for f in fields
+                    )
+                    existing_geom = existing_feat.GetGeometryRef()
+                    if existing_geom:
+                        existing_geom_wkt = existing_geom.ExportToWkt()
+                        # Store: (attributes, geometry_wkt) -> (feature_id, geometry)
+                        existing_features[attrs] = (existing_feat.GetFID(), existing_geom_wkt)
+                ogr_layer.ResetReading()
+                log(f"  Loaded {len(existing_features)} existing features for duplicate checking")
+
+            # Helper function to check if geometries are the same (within tolerance)
+            def geometries_equal(geom1_wkt, geom2):
+                try:
+                    geom1_ogr = ogr.CreateGeometryFromWkt(geom1_wkt)
+                    geom2_ogr = ogr.CreateGeometryFromWkt(geom2.asWkt())
+                    if geom1_ogr and geom2_ogr:
+                        return geom1_ogr.Equals(geom2_ogr)
+                except Exception:
+                    pass
+                return False
+
+            # Helper function to merge geometries (union for overlapping features)
+            def merge_geometries(geom1_wkt, geom2):
+                try:
+                    geom1_ogr = ogr.CreateGeometryFromWkt(geom1_wkt)
+                    geom2_ogr = ogr.CreateGeometryFromWkt(geom2.asWkt())
+                    if geom1_ogr and geom2_ogr:
+                        geom_type = geom1_ogr.GetGeometryType()
+                        # For points, don't merge (they're either duplicates or different locations)
+                        if geom_type == ogr.wkbPoint or geom_type == ogr.wkbMultiPoint:
+                            return None
+                        # For lines and polygons, merge if they overlap or are adjacent
+                        if geom1_ogr.Intersects(geom2_ogr) or geom1_ogr.Touches(geom2_ogr):
+                            merged = geom1_ogr.Union(geom2_ogr)
+                            if merged and not merged.IsEmpty():
+                                return merged.ExportToWkt()
+                except Exception as e:
+                    log(f"  Error merging geometries: {e}")
+                return None
+
+            # Process new features
             saved_count = 0
+            skipped_duplicates = 0
+            merged_count = 0
             for qf in qgs_features:
                 geom = qf.geometry()
-                if geom and not geom.isEmpty():
-                    ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
-                    ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
-                    ogr_feat.SetGeometry(ogr_geom)
-                    for i, field in enumerate(fields):
-                        val = qf.attribute(i)
-                        if val is not None:
-                            ogr_feat.SetField(field.name(), val)
-                    ogr_layer.CreateFeature(ogr_feat)
-                    saved_count += 1
+                if not geom or geom.isEmpty():
+                    continue
 
-            log(f"Saved {name}: {saved_count} features")
+                # Create attribute key (normalize None values for comparison)
+                attrs = tuple(qf.attribute(i) if qf.attribute(i) is not None else "" for i in range(len(fields)))
+
+                # Check for exact duplicate (same attributes and geometry)
+                if attrs in existing_features:
+                    existing_fid, existing_geom_wkt = existing_features[attrs]
+                    if geometries_equal(existing_geom_wkt, geom):
+                        skipped_duplicates += 1
+                        continue
+                    else:
+                        # Same attributes but different geometry - might be cropped version
+                        merged_wkt = merge_geometries(existing_geom_wkt, geom)
+                        if merged_wkt:
+                            # Update existing feature with merged geometry
+                            existing_feat = ogr_layer.GetFeature(existing_fid)
+                            if existing_feat:
+                                merged_geom = ogr.CreateGeometryFromWkt(merged_wkt)
+                                if merged_geom:
+                                    existing_feat.SetGeometry(merged_geom)
+                                    ogr_layer.SetFeature(existing_feat)
+                                    merged_count += 1
+                                    # Update our cache
+                                    existing_features[attrs] = (existing_fid, merged_wkt)
+                                    continue
+
+                # New feature - add it
+                ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
+                ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+                ogr_feat.SetGeometry(ogr_geom)
+                for i, field in enumerate(fields):
+                    val = qf.attribute(i)
+                    if val is not None:
+                        ogr_feat.SetField(field.name(), val)
+                if ogr_layer.CreateFeature(ogr_feat) == ogr.OGRERR_NONE:
+                    saved_count += 1
+                    # Add to cache (FID is set after CreateFeature)
+                    new_fid = ogr_feat.GetFID()
+                    if new_fid >= 0:
+                        existing_features[attrs] = (new_fid, geom.asWkt())
+
+            log(f"Saved {name}: {saved_count} new, {merged_count} merged, {skipped_duplicates} duplicates skipped")
 
         except Exception as e:
             import traceback
@@ -1248,8 +1359,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         # Re-iterate to add layers with visibility settings
         layer_visibility = {name: visible for _, name, visible in layers}
 
-        # Since the GPKG is regenerated each time, remove old layers from this GPKG first
-        # to avoid duplicates, then add fresh layers
+        # Reload layers from GPKG to show updated features (new features appended, duplicates merged)
         gpkg_path_str = str(gpkg_path)
         layers_to_remove = []
         for child in group.children():
@@ -1258,15 +1368,15 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                     layer = child.layer()
                     if layer:
                         layer_source = layer.source()
-                        # Check if this layer is from the same GPKG file (even if regenerated)
+                        # Check if this layer is from the same GPKG file
                         if gpkg_path_str in layer_source or gpkg_path.name in layer_source:
                             layers_to_remove.append((child, layer))
             except (AttributeError, TypeError):
                 continue
 
-        # Remove old layers from this GPKG
+        # Remove old layers from this GPKG (will be reloaded with updated features)
         for child_node, layer in layers_to_remove:
-            log(f"Removing old layer: {layer.name()} (will be reloaded from regenerated GPKG)")
+            log(f"Reloading layer: {layer.name()} (to show updated features)")
             group.removeLayer(layer)
             QgsProject.instance().removeMapLayer(layer.id())
 
