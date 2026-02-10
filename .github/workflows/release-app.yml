@@ -71,14 +71,6 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: ${{ matrix.arch }}
-      - name: Cache deps
-        uses: actions/cache@v4
-        with:
-          path: deps
-          key: ${{ runner.os }}-${{ matrix.arch }}-deps-${{ hashFiles('vcpkg.json',
-            'vcpkg-configuration.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.arch }}-deps-
       - name: Configure
         run: |
           $cmakeArgs = @(

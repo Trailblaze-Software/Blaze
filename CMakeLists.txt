@@ -364,12 +364,19 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS;ZIP")
-  # Use native paths - NSIS expects Windows native format Convert to native path
-  # and properly escape for CMake string handling
+  # Convert to native path and escape for CMake config file We need 8
+  # backslashes in CMake variable so CPack writes 4 backslashes to file CMake
+  # reads 4 backslashes as 2, which becomes 1 in the actual value This avoids \U
+  # being interpreted as an escape sequence
   file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/packaging/Blaze.nsi"
-       CPACK_NSIS_NSI_PATH)
+       _nsis_path_temp)
+  # Replace each backslash with 8 backslashes (\\\\\\\\\\\\\\\\)
+  string(REGEX REPLACE "\\\\" "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
+                       CPACK_NSIS_NSI_PATH "${_nsis_path_temp}")
   file(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/assets/images/blaze.ico"
-       CPACK_NSIS_MUI_ICON)
+       _icon_path_temp)
+  string(REGEX REPLACE "\\\\" "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
+                       CPACK_NSIS_MUI_ICON "${_icon_path_temp}")
   if(VCPKG_TARGET_TRIPLET MATCHES "arm64")
     set(CPACK_SYSTEM_NAME "win64-arm64")
   else()

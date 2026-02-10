@@ -20,10 +20,18 @@ function(find_openmp_dll)
 
   set(OpenMP_DLL "")
 
-  # Determine architecture
-  if(CMAKE_VS_PLATFORM_NAME STREQUAL "x64"
-     OR CMAKE_GENERATOR_PLATFORM STREQUAL "x64"
-     OR CMAKE_SIZEOF_VOID_P EQUAL 8)
+  # Determine architecture (check ARM64 first, then x64, then x86) Check
+  # multiple sources to reliably detect ARM64
+  if(CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64"
+     OR CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64"
+     OR (DEFINED VCPKG_TARGET_TRIPLET AND VCPKG_TARGET_TRIPLET MATCHES "arm64")
+     OR (DEFINED MSVC_CXX_ARCHITECTURE_ID AND MSVC_CXX_ARCHITECTURE_ID STREQUAL
+                                              "ARM64"))
+    set(ARCH_SUBDIR "arm64")
+  elseif(
+    CMAKE_VS_PLATFORM_NAME STREQUAL "x64"
+    OR CMAKE_GENERATOR_PLATFORM STREQUAL "x64"
+    OR CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(ARCH_SUBDIR "x64")
   else()
     set(ARCH_SUBDIR "x86")
@@ -61,58 +69,49 @@ function(find_openmp_dll)
     endif()
   endif()
 
-  # 1. Search in Visual Studio directories
+  # 1. Search in Visual Studio OpenMP.LLVM directories (correct location)
   foreach(vs_base "C:/Program Files/Microsoft Visual Studio"
                   "C:/Program Files (x86)/Microsoft Visual Studio")
     if(EXISTS "${vs_base}")
-      # Search in Redist directories
+      # Search in Redist/MSVC OpenMP.LLVM directories (the correct location)
       file(
         GLOB
-        vs_redist_dirs
-        "${vs_base}/*/*/VC/Redist/MSVC/*/debug_nonredist/${ARCH_SUBDIR}/Microsoft.VC*.DebugOpenMP"
+        vs_openmp_dirs
+        "${vs_base}/*/*/VC/Redist/MSVC/*/debug_nonredist/${ARCH_SUBDIR}/Microsoft.VC*.OpenMP.LLVM"
       )
-      list(APPEND SEARCH_PATHS ${vs_redist_dirs})
-
-      # Search in Tools/MSVC/bin directories
-      file(
-        GLOB vs_tools_dirs
-        "${vs_base}/*/*/VC/Tools/MSVC/*/bin/Host${ARCH_SUBDIR}/${ARCH_SUBDIR}")
-      list(APPEND SEARCH_PATHS ${vs_tools_dirs})
+      list(APPEND SEARCH_PATHS ${vs_openmp_dirs})
     endif()
   endforeach()
 
-  message(STATUS "Searching for OpenMP DLL in ${ARCH_SUBDIR} architecture...")
-  message(STATUS "Search paths (${ARCH_SUBDIR}):")
-  foreach(path ${SEARCH_PATHS})
-    message(STATUS "  - ${path}")
-  endforeach()
+  # Search for the DLL (architecture-specific names first)
+  if(ARCH_SUBDIR STREQUAL "arm64")
+    set(DLL_NAMES libomp140.arm64.dll libomp140.dll libomp.dll)
+  elseif(ARCH_SUBDIR STREQUAL "x64")
+    set(DLL_NAMES libomp140.x86_64.dll libomp140.dll libomp.dll)
+  else()
+    set(DLL_NAMES libomp140.dll libomp.dll)
+  endif()
 
-  # Search for the DLL
   find_file(
     OpenMP_DLL
-    NAMES libomp140.x86_64.dll libomp140.dll libomp.dll
+    NAMES ${DLL_NAMES}
     PATHS ${SEARCH_PATHS}
     NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
 
   # If still not found, try recursive search in VS directories
   if(NOT OpenMP_DLL)
-    message(
-      STATUS
-        "OpenMP DLL not found in standard locations, searching Visual Studio directories recursively..."
-    )
+    message(STATUS "Searching Visual Studio directories recursively...")
     foreach(vs_base "C:/Program Files/Microsoft Visual Studio"
                     "C:/Program Files (x86)/Microsoft Visual Studio")
       if(EXISTS "${vs_base}")
         file(GLOB_RECURSE candidates "${vs_base}/libomp*.dll")
         if(candidates)
-          message(
-            STATUS "Found ${ARCH_SUBDIR} OpenMP DLL candidates in ${vs_base}:")
-          foreach(candidate ${candidates})
-            message(STATUS "  - ${candidate}")
-          endforeach()
           # Prefer architecture-specific DLLs
           foreach(candidate ${candidates})
-            if(ARCH_SUBDIR STREQUAL "x64" AND candidate MATCHES "x64")
+            if(ARCH_SUBDIR STREQUAL "arm64" AND candidate MATCHES "arm64")
+              set(OpenMP_DLL "${candidate}")
+              break()
+            elseif(ARCH_SUBDIR STREQUAL "x64" AND candidate MATCHES "x64")
               set(OpenMP_DLL "${candidate}")
               break()
             elseif(ARCH_SUBDIR STREQUAL "x86" AND candidate MATCHES "x86")
@@ -136,9 +135,8 @@ function(find_openmp_dll)
   if(OpenMP_DLL)
     get_filename_component(OpenMP_DLL_DIR "${OpenMP_DLL}" DIRECTORY)
     get_filename_component(OpenMP_DLL_NAME "${OpenMP_DLL}" NAME)
-    message(STATUS "OpenMP DLL found at: ${OpenMP_DLL}")
-    message(STATUS "  Source directory: ${OpenMP_DLL_DIR}")
-    message(STATUS "  DLL name: ${OpenMP_DLL_NAME}")
+    message(STATUS "OpenMP DLL found: ${OpenMP_DLL_NAME}")
+    message(STATUS "  Location: ${OpenMP_DLL}")
 
     # Install the DLL Note: GNUInstallDirs is safe to include multiple times
     include(GNUInstallDirs)
