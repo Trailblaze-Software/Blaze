@@ -54,6 +54,18 @@ def check_qpip_installed():
     return os.path.exists(qpip_path)
 
 
+def check_compass_routes_installed():
+    """Check if Compass Routes plugin is installed by checking for its processing algorithm."""
+    try:
+        from qgis.core import QgsApplication
+
+        registry = QgsApplication.processingRegistry()
+        alg = registry.algorithmById("compassroutes:createmagneticnorth")
+        return alg is not None
+    except Exception:
+        return False
+
+
 def ensure_geomag_installed():
     """Try to install geomag package for accurate magnetic declination.
     Returns: (installed, message)
@@ -103,6 +115,16 @@ class BlazeLoader:
                 Qgis.Warning,
             )
 
+        # Check if Compass Routes plugin is installed (needed for magnetic north lines)
+        if not check_compass_routes_installed():
+            QgsMessageLog.logMessage(
+                "Compass Routes plugin is not installed. "
+                "It is required for magnetic north lines. "
+                "Install it from Plugins > Manage and Install Plugins > search 'Compass Routes'.",
+                "Blaze",
+                Qgis.Warning,
+            )
+
     def run(self):
         # The dialog now handles both running blaze and loading layers.
         # We can call the static method to show the dialog and get the options.
@@ -112,16 +134,43 @@ class BlazeLoader:
             blaze_executable_path=self.blaze_executable_path,
         )
 
-        if folder and options:
-            self.last_folder = folder
+        if (folder or options.get("use_current_extent", False)) and options:
+            if folder:
+                self.last_folder = folder
             self.load_blaze_project(folder, options)
 
     def load_blaze_project(self, folder, options):
         """Load Blaze layers into the current QGIS project."""
-        folder_path = Path(folder)
+        use_current_extent = options.get("use_current_extent", False)
+
+        # Get current map extent if requested
+        current_extent = None
+        current_crs = None
+        if use_current_extent:
+            canvas = self.iface.mapCanvas()
+            if canvas:
+                current_extent = canvas.extent()
+                current_crs = canvas.mapSettings().destinationCrs()
+                if not current_extent or current_extent.isEmpty():
+                    QMessageBox.warning(
+                        self.iface.mainWindow(),
+                        "Blaze Map Loader",
+                        "Current map extent is empty. Please zoom to an area first.",
+                    )
+                    return
+            else:
+                QMessageBox.warning(
+                    self.iface.mainWindow(),
+                    "Blaze Map Loader",
+                    "Could not get current map extent. Please ensure QGIS map canvas is available.",
+                )
+                return
+
+        folder_path = Path(folder) if folder else None
 
         # Show progress dialog with range 0-100
-        progress = QProgressDialog("Loading Blaze layers...", None, 0, 100, self.iface.mainWindow())
+        progress_text = "Using current map extent..." if use_current_extent else "Loading Blaze layers..."
+        progress = QProgressDialog(progress_text, None, 0, 100, self.iface.mainWindow())
         progress.setWindowTitle("Blaze Map Loader")
         progress.setWindowModality(Qt.WindowModal)
         progress.setMinimumDuration(0)
@@ -170,7 +219,7 @@ class BlazeLoader:
 
             # Call the function from the exec'd module (output_path=None means don't save)
             module_globals["create_qgis_project"](
-                str(folder_path),
+                str(folder_path) if folder_path else None,
                 output_path=None,  # Don't save - add to current project
                 download_topo=options.get("download_topo", True),
                 add_mag_north=options.get("add_mag_north", True),
@@ -179,6 +228,9 @@ class BlazeLoader:
                 clear_project=False,  # Don't clear existing project
                 progress_callback=update_progress,
                 gpkg_output_path=options.get("gpkg_output_path"),
+                use_current_extent=use_current_extent,
+                current_extent=current_extent,
+                current_crs=current_crs,
             )
 
             update_progress("Complete!", 100)
