@@ -12,10 +12,9 @@ import os
 import os.path
 import platform
 import shutil
-import sys
 from pathlib import Path
 
-from qgis.core import Qgis, QgsApplication, QgsMessageLog
+from qgis.core import Qgis, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QApplication, QMessageBox, QProgressDialog
 
@@ -49,9 +48,21 @@ def find_blaze_executable():
 
 
 def check_qpip_installed():
-    """Check if QPIP plugin is installed."""
-    qpip_path = os.path.join(QgsApplication.qgisSettingsDirPath(), "python", "plugins", "qpip")
-    return os.path.exists(qpip_path)
+    """Check if QPIP plugin is installed and available.
+
+    Uses the standard Python approach: try to import the module.
+    QGIS automatically adds plugin directories to sys.path when plugins are loaded.
+    """
+    try:
+        import qpip
+
+        # Verify it has the function we need
+        if hasattr(qpip, "pip_install"):
+            return True
+    except ImportError:
+        pass
+
+    return False
 
 
 def check_compass_routes_installed():
@@ -82,14 +93,15 @@ def ensure_geomag_installed():
 
     # Try to install via QPIP
     try:
-        qpip_path = os.path.join(QgsApplication.qgisSettingsDirPath(), "python", "plugins", "qpip")
-        sys.path.insert(0, qpip_path)
+        # QPIP should be importable if check_qpip_installed() returned True
         from qpip import pip_install
 
         QgsMessageLog.logMessage("Installing geomag via QPIP...", "Blaze", Qgis.Info)
         pip_install(["geomag"])
         QgsMessageLog.logMessage("geomag installed successfully", "Blaze", Qgis.Info)
         return True, "geomag installed via QPIP"
+    except ImportError:
+        return False, "QPIP plugin not available for import"
     except Exception as e:
         QgsMessageLog.logMessage(f"Could not install geomag via QPIP: {e}", "Blaze", Qgis.Warning)
         return False, f"Failed to install geomag: {e}"

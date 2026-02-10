@@ -88,24 +88,22 @@ def log(message):
 
 
 def install_package_via_qpip(package_name):
-    """Try to install a package using QPIP plugin if available."""
+    """Try to install a package using QPIP plugin if available.
+
+    Uses the standard Python approach: try to import the module.
+    QGIS automatically adds plugin directories to sys.path when plugins are loaded.
+    """
     try:
-        # Check if QPIP plugin is installed
-        from qgis.core import QgsApplication
+        from qpip import pip_install
 
-        # Try to use QPIP's pip
-        qpip_path = QgsApplication.qgisSettingsDirPath() + "/python/plugins/qpip"
-        if Path(qpip_path).exists():
-            import sys
-
-            sys.path.insert(0, qpip_path)
-            from qpip import pip_install
-
-            pip_install([package_name])
-            return True
+        pip_install([package_name])
+        return True
+    except ImportError:
+        log("  QPIP plugin not available (not installed or not loaded)")
+        return False
     except Exception as e:
-        log(f"  QPIP not available: {e}")
-    return False
+        log(f"  QPIP error: {e}")
+        return False
 
 
 def get_magnetic_declination(lon, lat):
@@ -293,11 +291,23 @@ def create_qgis_project(
     # Check if groups already exist to allow multiple calls
     def find_or_create_group(parent, name):
         """Find existing group by name or create a new one."""
+        # First, try to find existing group by iterating through all children
+        # Check all children to see if a group with this name already exists
         for child in parent.children():
-            if child.name() == name and child.nodeType() == 1:  # 1 = Group node type
-                return child
+            try:
+                # Check if it's a group node (nodeType == 1) and name matches exactly
+                if child.nodeType() == 1:  # 1 = Group node type
+                    if child.name() == name:
+                        log(f"Found existing group: {name}")
+                        return child
+            except (AttributeError, TypeError):
+                continue
+
+        # If not found, create new group
+        log(f"Creating new group: {name}")
         return parent.addGroup(name)
 
+    # Get or create groups
     markup_group = find_or_create_group(root, "Markup")  # Markup on top (magnetic north, controls)
     topo_group = find_or_create_group(root, "NSW Topo")
     vector_group = find_or_create_group(root, "Vectors")  # Contours/streams - below topo
@@ -327,11 +337,7 @@ def create_qgis_project(
             log(f"Project CRS set to: {authid}")
 
         # Skip loading Blaze layers - go straight to adding topo/magnetic north/controls
-        # Remove empty groups that won't be used (only if they have no children)
-        if len(vector_group.children()) == 0:
-            root.removeChildNode(vector_group)
-        if len(raster_group.children()) == 0:
-            root.removeChildNode(raster_group)
+        # Note: We'll remove empty groups at the end after all layers are added
     else:
         # Normal flow: load Blaze layers
         combined_path = Path(combined_dir)
@@ -503,10 +509,7 @@ def create_qgis_project(
         add_nsw_topo_layers(
             topo_group, project_extent, project_crs, output_dir, progress_callback, log, gpkg_output_path
         )
-    elif not download_topo:
-        # Remove empty group (only if it has no children)
-        if len(topo_group.children()) == 0:
-            root.removeChildNode(topo_group)
+    # Note: Empty group removal happens at the end
 
     # Add vector layers (contours, streams) AFTER topo layers so they render underneath
     # Only if not using current extent
@@ -629,9 +632,25 @@ def create_qgis_project(
 
                 layer.setName(f"{layer_name} ({int(time.time())})")
 
-    # Remove empty Markup group if no layers were added
-    if len(markup_group.children()) == 0:
-        root.removeChildNode(markup_group)
+    # Remove empty groups at the end (after all layers are added)
+    # This ensures we only remove groups that are truly empty
+    def remove_group_if_empty(group_node):
+        """Safely remove a group if it has no children."""
+        try:
+            if group_node and len(group_node.children()) == 0:
+                parent = group_node.parent()
+                if parent:
+                    parent.removeChildNode(group_node)
+                    return True
+        except Exception as e:
+            log(f"Error removing empty group: {e}")
+        return False
+
+    # Remove empty groups
+    remove_group_if_empty(markup_group)
+    remove_group_if_empty(topo_group)
+    remove_group_if_empty(vector_group)
+    remove_group_if_empty(raster_group)
 
     # Rotate map for magnetic north (works for both normal and current extent modes)
     try:
@@ -1229,22 +1248,29 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         # Re-iterate to add layers with visibility settings
         layer_visibility = {name: visible for _, name, visible in layers}
 
-        for layer_name in layer_names:
-            # Check if a layer with this name already exists in the group
-            existing_layer = None
-            for child in group.children():
-                try:
-                    if child.nodeType() == 0:  # 0 = Layer node type
-                        layer = child.layer()
-                        if layer and layer.name() == layer_name:
-                            existing_layer = layer
-                            break
-                except (AttributeError, TypeError):
-                    continue
-
-            if existing_layer:
-                log(f"Skipping {layer_name} - layer already exists in group")
+        # Since the GPKG is regenerated each time, remove old layers from this GPKG first
+        # to avoid duplicates, then add fresh layers
+        gpkg_path_str = str(gpkg_path)
+        layers_to_remove = []
+        for child in group.children():
+            try:
+                if child.nodeType() == 0:  # 0 = Layer node type
+                    layer = child.layer()
+                    if layer:
+                        layer_source = layer.source()
+                        # Check if this layer is from the same GPKG file (even if regenerated)
+                        if gpkg_path_str in layer_source or gpkg_path.name in layer_source:
+                            layers_to_remove.append((child, layer))
+            except (AttributeError, TypeError):
                 continue
+
+        # Remove old layers from this GPKG
+        for child_node, layer in layers_to_remove:
+            log(f"Removing old layer: {layer.name()} (will be reloaded from regenerated GPKG)")
+            group.removeLayer(layer)
+            QgsProject.instance().removeMapLayer(layer.id())
+
+        for layer_name in layer_names:
 
             uri = f"{gpkg_path}|layername={layer_name}"
             layer = QgsVectorLayer(uri, layer_name, "ogr")
@@ -1699,5 +1725,8 @@ def main():
     create_qgis_project(combined_dir, output_path)
 
 
-if QgsApplication.instance() is not None:
+# Only run main() if this script is executed directly (not when imported/exec'd)
+# Check if we're being run as a script (has command line args) vs being exec'd by the plugin
+# When exec'd by the plugin, __name__ will be set to "create_qgis_project" (not "__main__")
+if __name__ == "__main__" and QgsApplication.instance() is not None:
     main()
