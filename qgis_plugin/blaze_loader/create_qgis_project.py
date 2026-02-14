@@ -87,6 +87,24 @@ def log(message):
         pass  # Silently fail if QGIS logging not available
 
 
+def _extent_area_sq_km(extent, crs):
+    """Return the area of the extent in square kilometres, or None on error."""
+    try:
+        from qgis.core import QgsDistanceArea, QgsGeometry, QgsProject, QgsRectangle
+
+        da = QgsDistanceArea()
+        da.setSourceCrs(crs, QgsProject.instance().transformContext())
+        da.setEllipsoid(crs.ellipsoidAcronym())
+        rect = extent if hasattr(extent, "xMinimum") else QgsRectangle(extent)
+        geom = QgsGeometry.fromRect(rect)
+        area_sq_m = da.computeAreaForGeometry(geom)
+        if area_sq_m is not None and area_sq_m >= 0:
+            return area_sq_m / 1e6
+    except Exception as e:
+        log(f"Could not compute extent area: {e}")
+    return None
+
+
 def install_package_via_qpip(package_name):
     """Try to install a package using QPIP plugin if available.
 
@@ -567,37 +585,61 @@ def create_qgis_project(
     # Note: Compass Routes can calculate magnetic declination internally, so we don't require gm_angle
     # However, gm_angle is still needed for map rotation
     if add_mag_north and project_extent and project_crs:
-        report_progress("Adding magnetic north lines...", 90)
-        # Use combined_path if available, otherwise use a temp directory
-        if use_current_extent:
-            output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
-            output_dir.mkdir(parents=True, exist_ok=True)
-            # Make filename unique to allow multiple calls
-            import time
+        area_sq_km = _extent_area_sq_km(project_extent, project_crs)
+        if area_sq_km is not None and area_sq_km > 1000:
+            try:
+                from qgis.PyQt.QtWidgets import QMessageBox
+                from qgis.utils import iface
 
-            timestamp = int(time.time())
-            north_lines_path = output_dir / f"magnetic_north_lines_{timestamp}.gpkg"
-        else:
-            north_lines_path = combined_path / "magnetic_north_lines.gpkg"
-        # Line spacing: 4cm at 1:25000 scale = 1000m
-        layer = add_magnetic_north_lines(project_extent, project_crs, north_lines_path, spacing=1000)
-        if layer:
-            # Make layer name unique if a layer with this name already exists
-            layer_name = layer.name()
-            existing_names = set()
-            for child in markup_group.children():
-                try:
-                    if child.nodeType() == 0:  # 0 = Layer node type
-                        existing_layer = child.layer()
-                        if existing_layer:
-                            existing_names.add(existing_layer.name())
-                except (AttributeError, TypeError):
-                    continue
-            if layer_name in existing_names:
+                if iface:
+                    msg = (
+                        f"The map extent is about {area_sq_km:,.0f} km². "
+                        "Generating magnetic north lines may take a long time. Continue?"
+                    )
+                    reply = QMessageBox.question(
+                        None,
+                        "Large extent",
+                        msg,
+                        QMessageBox.Yes | QMessageBox.No,
+                        QMessageBox.No,
+                    )
+                    if reply != QMessageBox.Yes:
+                        add_mag_north = False
+                        log("Magnetic north lines skipped - user declined for large extent")
+            except Exception as e:
+                log(f"Could not show extent confirmation: {e}")
+        if add_mag_north:
+            report_progress("Adding magnetic north lines...", 90)
+            # Use combined_path if available, otherwise use a temp directory
+            if use_current_extent:
+                output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
+                output_dir.mkdir(parents=True, exist_ok=True)
+                # Make filename unique to allow multiple calls
                 import time
 
-                layer.setName(f"{layer_name} ({int(time.time())})")
-            markup_group.addLayer(layer)
+                timestamp = int(time.time())
+                north_lines_path = output_dir / f"magnetic_north_lines_{timestamp}.gpkg"
+            else:
+                north_lines_path = combined_path / "magnetic_north_lines.gpkg"
+            # Line spacing: 4cm at 1:25000 scale = 1000m
+            layer = add_magnetic_north_lines(project_extent, project_crs, north_lines_path, spacing=1000)
+            if layer:
+                # Make layer name unique if a layer with this name already exists
+                layer_name = layer.name()
+                existing_names = set()
+                for child in markup_group.children():
+                    try:
+                        if child.nodeType() == 0:  # 0 = Layer node type
+                            existing_layer = child.layer()
+                            if existing_layer:
+                                existing_names.add(existing_layer.name())
+                    except (AttributeError, TypeError):
+                        continue
+                if layer_name in existing_names:
+                    import time
+
+                    layer.setName(f"{layer_name} ({int(time.time())})")
+                markup_group.addLayer(layer)
     elif add_mag_north:
         log("Magnetic north lines skipped - project extent or CRS not available")
     # Add controls layer with control point in center of map

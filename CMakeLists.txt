@@ -284,9 +284,11 @@ foreach(target ${ALL_EXECUTABLES})
   target_link_libraries(${target} PRIVATE ${LIBRARY_NAME})
 endforeach()
 
-# Find and copy OpenMP DLL for Windows/MSVC builds
+# Find and copy OpenMP DLL for Windows/MSVC builds. Attach to the library so it
+# runs once when the lib is built; all executables link the lib and use the same
+# output dir, so they get the DLL without duplicate post-build steps.
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOpenMPDLL.cmake)
-find_openmp_dll(${ALL_EXECUTABLES})
+find_openmp_dll(${LIBRARY_NAME})
 
 target_include_directories(${UNIT_TESTS_NAME}
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
