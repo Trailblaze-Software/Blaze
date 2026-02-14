@@ -46,6 +46,16 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="useCurrentExtentCheckBox">
+         <property name="text">
+          <string>Use current map extent (skip loading Blaze layers)</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="downloadTopoCheckBox">
          <property name="text">
           <string>Download NSW topographic layers</string>

@@ -37,25 +37,61 @@ jobs:
             echo "✓ $f"
           done
           echo "All required files present"
-      - name: Get version from metadata
+      - name: Get version from tag or metadata
         id: version
         run: |
-          VERSION=$(grep "^version=" qgis_plugin/blaze_loader/metadata.txt | cut -d= -f2)
+          # Try to get version from git tag (prioritize main release tags v* over plugin tags qgis-v*)
+          VERSION=""
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            TAG=${GITHUB_REF#refs/tags/v}
+            VERSION=$TAG
+            echo "Version from main release tag: $VERSION"
+            # Update metadata.txt with version from tag
+            sed -i "s/^version=.*/version=$VERSION/" qgis_plugin/blaze_loader/metadata.txt
+          elif [[ "${{ github.ref }}" == refs/tags/qgis-v* ]]; then
+            TAG=${GITHUB_REF#refs/tags/qgis-v}
+            VERSION=$TAG
+            echo "Version from plugin tag: $VERSION"
+            # Update metadata.txt with version from tag
+            sed -i "s/^version=.*/version=$VERSION/" qgis_plugin/blaze_loader/metadata.txt
+          else
+            # Try to get version from git describe (for any branch)
+            GIT_VERSION=$(git describe --tags --match "v*" --abbrev=0 2>/dev/null || echo "")
+            if [[ -n "$GIT_VERSION" ]]; then
+              VERSION=${GIT_VERSION#v}
+              echo "Version from latest git tag: $VERSION"
+              # Update metadata.txt with version from latest tag
+              sed -i "s/^version=.*/version=$VERSION/" qgis_plugin/blaze_loader/metadata.txt
+            else
+              # Fallback to version in metadata.txt
+              VERSION=$(grep "^version=" qgis_plugin/blaze_loader/metadata.txt | cut -d= -f2)
+              echo "Version from metadata.txt: $VERSION"
+            fi
+          fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Plugin version: $VERSION"
       - name: Build plugin zip
         run: |
           cd qgis_plugin
           python package_plugin.py
-      - name: Verify zip contents
+      - name: Verify zip contents and set filename
+        id: zip_file
         run: |
           echo "Zip file contents:"
-          unzip -l qgis_plugin/blaze_loader.zip
+          # Find the generated zip file (it will have version in name: blaze_loader_qgis_plugin_v*.zip)
+          ZIP_FILE=$(ls qgis_plugin/blaze_loader_qgis_plugin*.zip | head -1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "ERROR: No zip file found"
+            exit 1
+          fi
+          echo "Found zip: $ZIP_FILE"
+          unzip -l "$ZIP_FILE"
+          echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4
         with:
           name: blaze_loader-${{ steps.version.outputs.version }}
-          path: qgis_plugin/blaze_loader.zip
+          path: ${{ steps.zip_file.outputs.zip_path }}
           retention-days: 30
   # Release job - only runs on version tags
   release:
@@ -77,9 +113,21 @@ jobs:
         with:
           name: blaze_loader-${{ steps.tag_version.outputs.version }}
           path: ./
-      - name: Rename zip with version
+      - name: Verify downloaded zip
         run: |
-          mv blaze_loader.zip blaze_loader-${{ steps.tag_version.outputs.version }}.zip
+          # The zip should already have the version in the name
+          ZIP_FILE=$(ls blaze_loader_qgis_plugin*.zip | head -1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "ERROR: No zip file found after download"
+            exit 1
+          fi
+          echo "Found zip: $ZIP_FILE"
+          # Ensure it has the correct name
+          EXPECTED_NAME="blaze_loader_qgis_plugin_v${{ steps.tag_version.outputs.version }}.zip"
+          if [[ "$ZIP_FILE" != "$EXPECTED_NAME" ]]; then
+            mv "$ZIP_FILE" "$EXPECTED_NAME"
+            echo "Renamed to: $EXPECTED_NAME"
+          fi
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -88,7 +136,7 @@ jobs:
             ## Blaze Map Loader QGIS Plugin v${{ steps.tag_version.outputs.version }}
 
             ### Installation
-            1. Download `blaze_loader-${{ steps.tag_version.outputs.version }}.zip`
+            1. Download `blaze_loader_qgis_plugin_v${{ steps.tag_version.outputs.version }}.zip`
             2. Open QGIS
             3. Go to **Plugins > Manage and Install Plugins**
             4. Click **Install from ZIP**
@@ -104,6 +152,6 @@ jobs:
             ### Requirements
             - QGIS 3.0 or later
           files: |
-            blaze_loader-${{ steps.tag_version.outputs.version }}.zip
+            blaze_loader_qgis_plugin_v${{ steps.tag_version.outputs.version }}.zip
           draft: false
           prerelease: false

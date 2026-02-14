@@ -54,7 +54,8 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
 
         # Set up button enable/disable logic
         self.loadButton.setEnabled(bool(self.folderLineEdit.text()))
-        self.folderLineEdit.textChanged.connect(lambda: self.loadButton.setEnabled(bool(self.folderLineEdit.text())))
+        self.folderLineEdit.textChanged.connect(self.update_load_button_state)
+        self.useCurrentExtentCheckBox.toggled.connect(self.on_use_current_extent_toggled)
         self.runBlazeButton.setEnabled(bool(self.lazFolderLineEdit.text()))
         self.lazFolderLineEdit.textChanged.connect(
             lambda: self.runBlazeButton.setEnabled(bool(self.lazFolderLineEdit.text()))
@@ -206,8 +207,29 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
     def get_folder(self):
         return self.folderLineEdit.text()
 
+    def update_load_button_state(self):
+        """Update the load button state based on folder or use current extent option."""
+        has_folder = bool(self.folderLineEdit.text())
+        use_current = self.useCurrentExtentCheckBox.isChecked()
+        self.loadButton.setEnabled(has_folder or use_current)
+
+    def on_use_current_extent_toggled(self, checked):
+        """Handle the use current extent checkbox toggle."""
+        # Disable folder selection when using current extent
+        self.folderLineEdit.setEnabled(not checked)
+        self.browseButton.setEnabled(not checked)
+        # Update load button state
+        self.update_load_button_state()
+        # Disable zoom to extent when using current extent (it doesn't make sense)
+        if checked:
+            self.zoomToExtentCheckBox.setChecked(False)
+            self.zoomToExtentCheckBox.setEnabled(False)
+        else:
+            self.zoomToExtentCheckBox.setEnabled(True)
+
     def get_options(self):
         return {
+            "use_current_extent": self.useCurrentExtentCheckBox.isChecked(),
             "download_topo": self.downloadTopoCheckBox.isChecked(),
             "add_mag_north": self.addMagNorthCheckBox.isChecked(),
             "zoom_to_extent": self.zoomToExtentCheckBox.isChecked(),
@@ -217,13 +239,15 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
 
     def accept(self):
         # This is connected to the 'Load Layers' button now
-        if self.tabWidget.currentIndex() == 0 and self.get_folder():
-            super().accept()
+        if self.tabWidget.currentIndex() == 0:
+            # Allow accept if folder is provided OR use current extent is checked
+            if self.get_folder() or self.useCurrentExtentCheckBox.isChecked():
+                super().accept()
         elif self.tabWidget.currentIndex() == 1:
             # This case is handled by run_blaze, but we keep the dialog open
             pass
         else:
-            # If on the first tab but no folder, do nothing.
+            # If on the first tab but no folder and not using current extent, do nothing.
             pass
 
     def reject(self):
