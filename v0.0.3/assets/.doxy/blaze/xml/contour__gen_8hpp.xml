@@ -1,0 +1,520 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="contour__gen_8hpp" kind="file" language="C++">
+    <compoundname>contour_gen.hpp</compoundname>
+    <includes refid="config__input_8hpp" local="yes">config_input/config_input.hpp</includes>
+    <includes refid="contour_8hpp" local="yes">contour.hpp</includes>
+    <includes refid="timer_8hpp" local="yes">utilities/timer.hpp</includes>
+    <includedby refid="test__contour__gen_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp</includedby>
+    <includedby refid="process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/process.cpp</includedby>
+    <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>config_input/config_input.hpp</label>
+        <link refid="config__input_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>contour.hpp</label>
+        <link refid="contour_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
+        <link refid="contour__gen_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="31">
+        <label>progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>utilities/timer.hpp</label>
+        <link refid="timer_8hpp_source"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>algorithm</label>
+      </node>
+      <node id="9">
+        <label>array</label>
+      </node>
+      <node id="30">
+        <label>chrono</label>
+      </node>
+      <node id="3">
+        <label>cmath</label>
+      </node>
+      <node id="18">
+        <label>cstddef</label>
+      </node>
+      <node id="19">
+        <label>cstring</label>
+      </node>
+      <node id="24">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="27">
+        <label>iomanip</label>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="10">
+        <label>map</label>
+      </node>
+      <node id="20">
+        <label>memory</label>
+      </node>
+      <node id="5">
+        <label>optional</label>
+      </node>
+      <node id="11">
+        <label>ostream</label>
+      </node>
+      <node id="6">
+        <label>set</label>
+      </node>
+      <node id="25">
+        <label>sstream</label>
+      </node>
+      <node id="21">
+        <label>string</label>
+      </node>
+      <node id="22">
+        <label>type_traits</label>
+      </node>
+      <node id="32">
+        <label>utility</label>
+      </node>
+      <node id="12">
+        <label>variant</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="contour__gen_8hpp_1a3bc8b1db57479601f59105a9efdf88a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt;</type>
+        <definition>GridGraph&lt; std::set&lt; double &gt; &gt; identify_contours</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, T contour_interval)</argsstring>
+        <name>identify_contours</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>contour_interval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="8" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="8" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a81d063712b6b8171c690f9fa1141d1c3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classContour" kindref="compound">Contour</ref> &gt;</type>
+        <definition>std::vector&lt; Contour &gt; join_contours</definition>
+        <argsstring>(std::vector&lt; Contour &gt; contours, double max_dist=15.0)</argsstring>
+        <name>join_contours</name>
+        <param>
+          <type>std::vector&lt; <ref refid="classContour" kindref="compound">Contour</ref> &gt;</type>
+          <declname>contours</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>max_dist</declname>
+          <defval>15.0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="27" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="27" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a75ecdffc244aed4700e7d514ae370199" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classContour" kindref="compound">Contour</ref> &gt;</type>
+        <definition>std::vector&lt; Contour &gt; trim_contours</definition>
+        <argsstring>(const std::vector&lt; Contour &gt; &amp;contours, const Extent2D &amp;bounds)</argsstring>
+        <name>trim_contours</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classContour" kindref="compound">Contour</ref> &gt; &amp;</type>
+          <declname>contours</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>bounds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="91" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="91" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a95822cfa391fa1f3fcf85c3c863b8b33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+          </param>
+        </templateparamlist>
+        <type>std::vector&lt; <ref refid="classContour" kindref="compound">Contour</ref> &gt;</type>
+        <definition>std::vector&lt; Contour &gt; generate_contours</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, const ContourConfigs &amp;contour_config, ProgressTracker progress_tracker)</argsstring>
+        <name>generate_contours</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref> &amp;</type>
+          <declname>contour_config</declname>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+          <declname>progress_tracker</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="112" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="112" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1acd8507a5c7960bbb8ff608c78e855993" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; std::optional&lt; std::byte &gt; &gt;</type>
+        <definition>GeoGrid&lt; std::optional&lt; std::byte &gt; &gt; generate_naive_contours</definition>
+        <argsstring>(const GeoGrid&lt; double &gt; &amp;ground)</argsstring>
+        <name>generate_naive_contours</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>ground</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="138" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="138" bodyend="159"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;config_input/config_input.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;contour.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/timer.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">GridGraph&lt;std::set&lt;double&gt;</ref>&gt;<sp/>identify_contours(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/>T<sp/><ref refid="classCoordinate2D" kindref="compound">contour_interval</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><ref refid="classTimeFunction" kindref="compound">TimeFunction</ref><sp/><ref refid="classCoordinate2D" kindref="compound">timer</ref>(</highlight><highlight class="stringliteral">&quot;identifying<sp/>contours&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classGridGraph" kindref="compound">GridGraph</ref><sp/><ref refid="classCoordinate2D" kindref="compound">contour_heights</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">GridGraph&lt;std::set&lt;double&gt;</ref>&gt;(grid);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>grid.height();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>grid.width();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref><sp/>coord<sp/>=<sp/>{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>};</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir<sp/>:<sp/>{Direction2D::DOWN,<sp/>Direction2D::RIGHT})<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">LineCoord2D&lt;size_t&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref><sp/>=<sp/>{coord,<sp/>dir};</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">contour_heights</ref>.in_bounds(<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">contour_heights</ref>[<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>]<sp/>=<sp/>get_contour_heights(</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grid[<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>.start()],<sp/>grid[<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>.end()],<sp/><ref refid="classCoordinate2D" kindref="compound">contour_interval</ref>);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">contour_heights</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::vector&lt;Contour&gt;<sp/>join_contours(std::vector&lt;Contour&gt;<sp/>contours,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">max_dist</ref><sp/>=<sp/>15.0)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">max_dist2</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">max_dist</ref><sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">max_dist</ref>;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Describes<sp/>one<sp/>of<sp/>the<sp/>four<sp/>ways<sp/>to<sp/>combine<sp/>contours</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">JoiningOption</ref><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">use_front_a</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">use_front_b</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">JoiningOption</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cases</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">},<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>a.front<sp/><sp/>↔<sp/>b.front</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">},<sp/><sp/></highlight><highlight class="comment">//<sp/>a.back<sp/><sp/><sp/>↔<sp/>b.front</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">},<sp/><sp/></highlight><highlight class="comment">//<sp/>a.front<sp/><sp/>↔<sp/>b.back</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>a.back<sp/><sp/><sp/>↔<sp/>b.back</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">did_any_join</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>std::vector&lt;Contour&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">next_round</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">did_any_join</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">did_any_join</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">next_round</ref>.clear();</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">src</ref><sp/>:<sp/>contours)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">src</ref>.points();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">best_d2</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">max_dist2</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">best_idx</ref><sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">JoiningOption</ref><sp/><ref refid="classCoordinate2D" kindref="compound">best_case</ref>{};</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>(<ref refid="classCoordinate2D" kindref="compound">int</ref>)<ref refid="classCoordinate2D" kindref="compound">next_round</ref>.size();<sp/>++<ref refid="classCoordinate2D" kindref="compound">i</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">next_round</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].points();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">JoiningOption</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">cases</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">pa</ref><sp/>=<sp/>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.use_front_a<sp/>?<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>.front()<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>.back());</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">pb</ref><sp/>=<sp/>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.use_front_b<sp/>?<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.front()<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.back());</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">d2</ref><sp/>=<sp/>(<ref refid="classCoordinate2D" kindref="compound">pa</ref><sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">pb</ref>).magnitude_sqd();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">d2</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">best_d2</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">best_d2</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">d2</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">best_idx</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">best_case</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">best_idx</ref><sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">acc</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">next_round</ref>[<ref refid="classCoordinate2D" kindref="compound">best_idx</ref>].points();</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>we<sp/>matched<sp/>its<sp/>FRONT,<sp/>reverse<sp/>so<sp/>the<sp/>join<sp/>point<sp/>is<sp/>at<sp/>back()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">best_case</ref>.use_front_a)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::reverse(<ref refid="classCoordinate2D" kindref="compound">acc</ref>.begin(),<sp/><ref refid="classCoordinate2D" kindref="compound">acc</ref>.end());</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Then<sp/>append<sp/>src<sp/>either<sp/>forward<sp/>or<sp/>reversed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">best_case</ref>.use_front_b)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">acc</ref>.insert(<ref refid="classCoordinate2D" kindref="compound">acc</ref>.end(),<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.begin(),<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.end());</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">acc</ref>.insert(<ref refid="classCoordinate2D" kindref="compound">acc</ref>.end(),<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.rbegin(),<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.rend());</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">did_any_join</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">next_round</ref>.emplace_back(std::move(<ref refid="classCoordinate2D" kindref="compound">src</ref>));</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>contours<sp/>=<sp/>std::move(<ref refid="classCoordinate2D" kindref="compound">next_round</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>contours;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::vector&lt;Contour&gt;<sp/>trim_contours(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;Contour&gt;&amp;<sp/>contours,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>bounds)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>std::vector&lt;Contour&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">trimmed_contours</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classContour" kindref="compound">Contour</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>:<sp/>contours)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classContour" kindref="compound">Contour</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trimmed_contour</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.height(),<sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;{});</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>.points())<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(bounds.contains(<ref refid="classCoordinate2D" kindref="compound">point</ref>.x(),<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.y()))<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trimmed_contour</ref>.push_back(<ref refid="classCoordinate2D" kindref="compound">point</ref>);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">trimmed_contour</ref>.points().size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trimmed_contours</ref>.emplace_back(std::move(<ref refid="classCoordinate2D" kindref="compound">trimmed_contour</ref>));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trimmed_contour</ref><sp/>=<sp/><ref refid="classContour" kindref="compound">Contour</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.height(),<sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;{});</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">trimmed_contour</ref>.points().size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trimmed_contours</ref>.emplace_back(std::move(<ref refid="classCoordinate2D" kindref="compound">trimmed_contour</ref>));</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">trimmed_contours</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">std::vector&lt;Contour&gt;<sp/>generate_contours(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">contour_config</ref>,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">progress_tracker</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><ref refid="classTimeFunction" kindref="compound">TimeFunction</ref><sp/><ref refid="classCoordinate2D" kindref="compound">timer</ref>(</highlight><highlight class="stringliteral">&quot;generating<sp/>contours&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">progress_tracker</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><ref refid="classGridGraph" kindref="compound">GridGraph</ref><sp/><ref refid="classCoordinate2D" kindref="compound">is_contour</ref><sp/>=<sp/>identify_contours(grid,<sp/><ref refid="classCoordinate2D" kindref="compound">contour_config</ref>.min_interval);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>std::vector&lt;Contour&gt;<sp/>contours;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">is_contour</ref>.height();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">is_contour</ref>.width();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref><sp/>coord<sp/>=<sp/>{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>};</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="classDirection2D" kindref="compound">Direction2D</ref><sp/>dir<sp/>:<sp/>{Direction2D::DOWN,<sp/>Direction2D::RIGHT})<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">LineCoord2D&lt;size_t&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">line_coord</ref><sp/>=<sp/>{coord,<sp/>dir};</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">is_contour</ref>.in_bounds(<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>height<sp/>:<sp/>std::<ref refid="classCoordinate2D" kindref="compound">set</ref>&lt;<ref refid="classCoordinate2D" kindref="compound">double</ref>&gt;(<ref refid="classCoordinate2D" kindref="compound">is_contour</ref>[<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>]))<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classContour" kindref="compound">Contour</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>=<sp/>Contour::FromGridGraph(<ref refid="classCoordinate2D" kindref="compound">line_coord</ref>,<sp/>height,<sp/>grid,<sp/><ref refid="classCoordinate2D" kindref="compound">is_contour</ref>);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO<sp/>use<sp/>length<sp/>instead<sp/>of<sp/>number<sp/>of<sp/>points</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.points().size()<sp/>&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">contour_config</ref>.pick_from_height(<ref refid="classCoordinate2D" kindref="compound">c</ref>.height()).min_points)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>contours.emplace_back(std::move(<ref refid="classCoordinate2D" kindref="compound">c</ref>));</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">progress_tracker</ref>.text_update(</highlight><highlight class="stringliteral">&quot;Generated<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::to_string(contours.size())<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>contours&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>contours;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;std::optional&lt;std::byte&gt;</ref>&gt;<sp/>generate_naive_contours(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>ground)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;std::optional&lt;std::byte&gt;</ref>&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">naive_countours</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;std::optional&lt;std::byte&gt;</ref>&gt;(</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>ground.width(),<sp/>ground.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(ground.transform()),</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(ground.projection()));</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">contour_interval</ref><sp/>=<sp/>2.5;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>1;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>ground.height()<sp/>-<sp/>1;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>1;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>ground.width()<sp/>-<sp/>1;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>z<sp/>=<sp/>ground[{<ref refid="classCoordinate2D" kindref="compound">i</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>}];</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">z_north</ref><sp/>=<sp/>ground[{<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>-<sp/>1,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>}];</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">z_south</ref><sp/>=<sp/>ground[{<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>+<sp/>1,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>}];</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">z_west</ref><sp/>=<sp/>ground[{<ref refid="classCoordinate2D" kindref="compound">i</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>-<sp/>1}];</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">z_east</ref><sp/>=<sp/>ground[{<ref refid="classCoordinate2D" kindref="compound">i</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>+<sp/>1}];</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">is_countour</ref><sp/>=<sp/>crosses_contour(z,<sp/><ref refid="classCoordinate2D" kindref="compound">z_north</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">contour_interval</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>crosses_contour(z,<sp/><ref refid="classCoordinate2D" kindref="compound">z_south</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">contour_interval</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>crosses_contour(z,<sp/><ref refid="classCoordinate2D" kindref="compound">z_west</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">contour_interval</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>crosses_contour(z,<sp/><ref refid="classCoordinate2D" kindref="compound">z_east</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">contour_interval</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">naive_countours</ref>[{<ref refid="classCoordinate2D" kindref="compound">i</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>}]<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">is_countour</ref><sp/>?<sp/>std::optional&lt;std::byte&gt;{std::byte{0}}<sp/>:<sp/>std::nullopt;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">naive_countours</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp"/>
+  </compounddef>
+</doxygen>

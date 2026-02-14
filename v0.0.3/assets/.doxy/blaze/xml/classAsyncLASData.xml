@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classAsyncLASData" kind="class" language="C++" prot="public">
+    <compoundname>AsyncLASData</compoundname>
+    <basecompoundref refid="classLASData" prot="public" virt="non-virtual">LASData</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAsyncLASData_1a1b2de0adc5e7233dc44eaf8740d11a13" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex AsyncLASData::m_mutex</definition>
+        <argsstring></argsstring>
+        <name>m_mutex</name>
+        <qualifiedname>AsyncLASData::m_mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="604" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncLASData_1a3d0a4ce2c38a5bdb97d1ed3809d2c4e1" prot="private" static="no" mutable="no">
+        <type>std::promise&lt; <ref refid="classCoordinate2D" kindref="compound">void</ref> &gt;</type>
+        <definition>std::promise&lt;void&gt; AsyncLASData::m_data_promise</definition>
+        <argsstring></argsstring>
+        <name>m_data_promise</name>
+        <qualifiedname>AsyncLASData::m_data_promise</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="605" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="605" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncLASData_1aea4b79e2f89c94f79337fc67f7c877e4" prot="private" static="no" mutable="no">
+        <type>std::thread</type>
+        <definition>std::thread AsyncLASData::m_thread</definition>
+        <argsstring></argsstring>
+        <name>m_thread</name>
+        <qualifiedname>AsyncLASData::m_thread</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="606" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="606" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAsyncLASData_1a91179e7a84cef2aa8e6fb821ea832321" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AsyncLASData::AsyncLASData</definition>
+        <argsstring>(const fs::path &amp;filename, AsyncProgressTracker progress_tracker, std::vector&lt; std::function&lt; void()&gt; &gt; callbacks={})</argsstring>
+        <name>AsyncLASData</name>
+        <qualifiedname>AsyncLASData::AsyncLASData</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> fs::path &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
+          <declname>progress_tracker</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::function&lt; <ref refid="classCoordinate2D" kindref="compound">void</ref>()&gt; &gt;</type>
+          <declname>callbacks</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="609" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="609" bodyend="630"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncLASData_1a5b20eea6b9f78c75a2d4e8558206c10b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool AsyncLASData::data_ready</definition>
+        <argsstring>()</argsstring>
+        <name>data_ready</name>
+        <qualifiedname>AsyncLASData::data_ready</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="632" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="632" bodyend="635"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncLASData_1afb323d2123ae8662dc779c28e661400e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void AsyncLASData::wait_for_data</definition>
+        <argsstring>()</argsstring>
+        <name>wait_for_data</name>
+        <qualifiedname>AsyncLASData::wait_for_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="636" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="636" bodyend="636"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncLASData_1ab8e16cc8d1c8c0d7ca4e087f6f75ddd1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::mutex &amp;</type>
+        <definition>std::mutex &amp; AsyncLASData::mutex</definition>
+        <argsstring>()</argsstring>
+        <name>mutex</name>
+        <qualifiedname>AsyncLASData::mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="638" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="638" bodyend="638"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncLASData_1a7acff9a8efbc08a0068821957fef99dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AsyncLASData::~AsyncLASData</definition>
+        <argsstring>()</argsstring>
+        <name>~AsyncLASData</name>
+        <qualifiedname>AsyncLASData::~AsyncLASData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="640" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="640" bodyend="644"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>AsyncLASData</label>
+        <link refid="classAsyncLASData"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>LASData</label>
+        <link refid="classLASData"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>LASFile</label>
+        <link refid="classLASFile"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>AsyncLASData</label>
+        <link refid="classAsyncLASData"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Extent2D</label>
+        <link refid="structExtent2D"/>
+      </node>
+      <node id="4">
+        <label>Extent3D</label>
+        <link refid="structExtent3D"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>GeoProjection</label>
+        <link refid="classGeoProjection"/>
+      </node>
+      <node id="2">
+        <label>LASData</label>
+        <link refid="classLASData"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>LASFile</label>
+        <link refid="classLASFile"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_bounds</edgelabel>
+          <edgelabel>m_original_bounds</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_projection</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="603" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="603" bodyend="645"/>
+    <listofallmembers>
+      <member refid="classAsyncLASData_1a91179e7a84cef2aa8e6fb821ea832321" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>AsyncLASData</name></member>
+      <member refid="classLASData_1ae738985aa77d7642126cc2cc6f6b994e" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>begin</name></member>
+      <member refid="classLASFile_1aae95e7f507c4193c4f1bed0d5ae4118b" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>bounds</name></member>
+      <member refid="classAsyncLASData_1a5b20eea6b9f78c75a2d4e8558206c10b" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>data_ready</name></member>
+      <member refid="classLASData_1ad38462476686161be9ae093995e859a5" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>end</name></member>
+      <member refid="classLASFile_1a172765e45294b24a4250e3f252ef80d4" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>export_bounds</name></member>
+      <member refid="classLASData_1a81e6439664e5eb16b9af57e87bec17bc" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>extract_borders</name></member>
+      <member refid="classLASFile_1a9323623064555d4cf84d06b058585b2e" prot="protected" virt="non-virtual"><scope>AsyncLASData</scope><name>from_las_reader</name></member>
+      <member refid="classLASFile_1ab3ec9489b3a8d302417c45d0a16b3556" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>height</name></member>
+      <member refid="classLASFile_1ad925bc2c7827d62ce704763b69f490c2" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>height_range</name></member>
+      <member refid="classLASData_1a665bffb012fe24bb02a4d8c89b35a8c5" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>insert</name></member>
+      <member refid="classLASData_1adaa917138ade5d1ae1bd27f94747b0c7" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>intensity_range</name></member>
+      <member refid="classLASData_1aa49c51e304c86170846674e60f4048e6" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>LASData</name></member>
+      <member refid="classLASData_1afec8e01963b2d4e664a0fccac0ce90e8" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>LASData</name></member>
+      <member refid="classLASData_1a003b387c33cb7949efd40c07d9aa1e25" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>LASData</name></member>
+      <member refid="classLASFile_1a3619a6a014c8c31209af6939fa6e25c1" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>LASFile</name></member>
+      <member refid="classLASFile_1aa95e172f0702a752aa00cfa52f22f8f7" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>LASFile</name></member>
+      <member refid="classLASFile_1ad8d405f1645125ef8de8c663d53a0126" prot="protected" virt="non-virtual"><scope>AsyncLASData</scope><name>m_bounds</name></member>
+      <member refid="classAsyncLASData_1a3d0a4ce2c38a5bdb97d1ed3809d2c4e1" prot="private" virt="non-virtual"><scope>AsyncLASData</scope><name>m_data_promise</name></member>
+      <member refid="classLASFile_1a2586dbdf7c10c2630f102614d67866ec" prot="protected" virt="non-virtual"><scope>AsyncLASData</scope><name>m_filename</name></member>
+      <member refid="classAsyncLASData_1a1b2de0adc5e7233dc44eaf8740d11a13" prot="private" virt="non-virtual"><scope>AsyncLASData</scope><name>m_mutex</name></member>
+      <member refid="classLASFile_1a54b87f3e0c5b9d5ab8160ef9464ae3b9" prot="protected" virt="non-virtual"><scope>AsyncLASData</scope><name>m_original_bounds</name></member>
+      <member refid="classLASFile_1a403817f7222cb5d9f6b1de03957bf299" prot="protected" virt="non-virtual"><scope>AsyncLASData</scope><name>m_projection</name></member>
+      <member refid="classLASFile_1aecf8aaa14dc832406d7d8c9a2ab04d25" prot="protected" virt="non-virtual"><scope>AsyncLASData</scope><name>m_spatial_index</name></member>
+      <member refid="classAsyncLASData_1aea4b79e2f89c94f79337fc67f7c877e4" prot="private" virt="non-virtual"><scope>AsyncLASData</scope><name>m_thread</name></member>
+      <member refid="classAsyncLASData_1ab8e16cc8d1c8c0d7ca4e087f6f75ddd1" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>mutex</name></member>
+      <member refid="classLASData_1abe0e81113d7b6eee962d39767a09b172" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>n_points</name></member>
+      <member refid="classLASData_1a19c128b8cc7049a906e73452c8fce685" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>operator[]</name></member>
+      <member refid="classLASData_1a94e222f45ce00330493f3f1fc7cc141f" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>operator[]</name></member>
+      <member refid="classLASFile_1aa405681af09edda1c5296b2e3c7b6d66" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>original_bounds</name></member>
+      <member refid="classLASFile_1a74988d01c9604f26f0662db81e67fe4d" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>projection</name></member>
+      <member refid="classLASData_1a379f252ce60ca19cd902f31a86fc7ff3" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>push_back</name></member>
+      <member refid="classLASData_1aad306c36ac14b356b524553ac234f15d" prot="protected" virt="non-virtual"><scope>AsyncLASData</scope><name>read_points</name></member>
+      <member refid="classLASFile_1abab47a7a38d34a55f212d45c24048f1f" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>top_left</name></member>
+      <member refid="classAsyncLASData_1afb323d2123ae8662dc779c28e661400e" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>wait_for_data</name></member>
+      <member refid="classLASFile_1a5b755082279eaa000deb7f9980f10512" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>width</name></member>
+      <member refid="classLASData_1a8f5eb6b8722b9a558f7c62d0bb857f1a" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>with_border</name></member>
+      <member refid="classLASData_1ab029d443828d7e1bda875f3218fb0557" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>with_border</name></member>
+      <member refid="classLASData_1a2e296fb6b02f1593a22254ed33722bde" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>write</name></member>
+      <member refid="classAsyncLASData_1a7acff9a8efbc08a0068821957fef99dd" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>~AsyncLASData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

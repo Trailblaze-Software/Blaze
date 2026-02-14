@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLASLayer" kind="class" language="C++" prot="public">
+    <compoundname>LASLayer</compoundname>
+    <basecompoundref refid="classPointLayer" prot="public" virt="non-virtual">PointLayer</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classLASLayer_1a4445f6e5fca95f6112e52b1263288db8" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncLASData" kindref="compound">AsyncLASData</ref></type>
+        <definition>AsyncLASData LASLayer::m_las_file</definition>
+        <argsstring></argsstring>
+        <name>m_las_file</name>
+        <qualifiedname>LASLayer::m_las_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="30" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLASLayer_1ae0a63b5b97d508f6d3cf9f0782a05e6a" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LASLayer::LASLayer</definition>
+        <argsstring>(const fs::path &amp;file, AsyncProgressTracker progress_tracker)</argsstring>
+        <name>LASLayer</name>
+        <qualifiedname>LASLayer::LASLayer</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> fs::path &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
+          <declname>progress_tracker</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="33" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="33" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASLayer_1a4cb9763e5b9038196c2ca5880c77f178" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>virtual Extent3D LASLayer::extent</definition>
+        <argsstring>() const override</argsstring>
+        <name>extent</name>
+        <qualifiedname>LASLayer::extent</qualifiedname>
+        <reimplements refid="classLayer_1a948936d6c972fac3298443963e00d28c">extent</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="38" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASLayer_1a5b35f6a4baff870f46f7402effae0db9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string LASLayer::projection</definition>
+        <argsstring>() const override</argsstring>
+        <name>projection</name>
+        <qualifiedname>LASLayer::projection</qualifiedname>
+        <reimplements refid="classLayer_1a84e007a609d4e1954815254c29416951">projection</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="39" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASLayer_1a1bbd2e87881e7e05ea87a7c039dab0c1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classAsyncLASData" kindref="compound">AsyncLASData</ref> &amp;</type>
+        <definition>const AsyncLASData &amp; LASLayer::las_file</definition>
+        <argsstring>() const</argsstring>
+        <name>las_file</name>
+        <qualifiedname>LASLayer::las_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="41" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASLayer_1ae4b24b39e2be13a1369727f17bb41d25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classAsyncLASData" kindref="compound">AsyncLASData</ref> &amp;</type>
+        <definition>AsyncLASData &amp; LASLayer::las_file</definition>
+        <argsstring>()</argsstring>
+        <name>las_file</name>
+        <qualifiedname>LASLayer::las_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="42" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="42" bodyend="42"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>LASLayer</label>
+        <link refid="classLASLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>PointLayer</label>
+        <link refid="classPointLayer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>LASLayer</label>
+        <link refid="classLASLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>PointLayer</label>
+        <link refid="classPointLayer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="29" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="29" bodyend="43"/>
+    <listofallmembers>
+      <member refid="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" virt="non-virtual"><scope>LASLayer</scope><name>data_updated</name></member>
+      <member refid="classLASLayer_1a4cb9763e5b9038196c2ca5880c77f178" prot="public" virt="virtual"><scope>LASLayer</scope><name>extent</name></member>
+      <member refid="classLASLayer_1a1bbd2e87881e7e05ea87a7c039dab0c1" prot="public" virt="non-virtual"><scope>LASLayer</scope><name>las_file</name></member>
+      <member refid="classLASLayer_1ae4b24b39e2be13a1369727f17bb41d25" prot="public" virt="non-virtual"><scope>LASLayer</scope><name>las_file</name></member>
+      <member refid="classLASLayer_1ae0a63b5b97d508f6d3cf9f0782a05e6a" prot="public" virt="non-virtual"><scope>LASLayer</scope><name>LASLayer</name></member>
+      <member refid="classLASLayer_1a4445f6e5fca95f6112e52b1263288db8" prot="private" virt="non-virtual"><scope>LASLayer</scope><name>m_las_file</name></member>
+      <member refid="classLayer_1a2b075c64ebffde8730a248a5bb5f5133" prot="protected" virt="non-virtual"><scope>LASLayer</scope><name>m_name</name></member>
+      <member refid="classLayer_1a0ff357311c2b67b5dcead20954726669" prot="public" virt="virtual"><scope>LASLayer</scope><name>name</name></member>
+      <member refid="classLASLayer_1a5b35f6a4baff870f46f7402effae0db9" prot="public" virt="virtual"><scope>LASLayer</scope><name>projection</name></member>
+      <member refid="classLayer_1a57e5a4a6ec188de4e7b8c894aac254ea" prot="public" virt="virtual"><scope>LASLayer</scope><name>~Layer</name></member>
+      <member refid="classPointLayer_1abce3d80c44d7bf687d60de1bf8f587af" prot="public" virt="virtual"><scope>LASLayer</scope><name>~PointLayer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

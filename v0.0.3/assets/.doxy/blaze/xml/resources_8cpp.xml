@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="resources_8cpp" kind="file" language="C++">
+    <compoundname>resources.cpp</compoundname>
+    <includes refid="resources_8hpp" local="yes">resources.hpp</includes>
+    <includes refid="assert_8hpp" local="yes">assert/assert.hpp</includes>
+    <includes refid="to__string_8hpp" local="yes">printing/to_string.hpp</includes>
+    <incdepgraph>
+      <node id="4">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.cpp</label>
+        <link refid="resources_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="11">
+        <label>iomanip</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="12">
+        <label>map</label>
+      </node>
+      <node id="6">
+        <label>optional</label>
+      </node>
+      <node id="13">
+        <label>set</label>
+      </node>
+      <node id="8">
+        <label>sstream</label>
+      </node>
+      <node id="9">
+        <label>string</label>
+      </node>
+      <node id="14">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="resources_8cpp_1ab80afb80b9ab9833ab7533bed3b9f547" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>fs::path</type>
+        <definition>fs::path get_asset_dir</definition>
+        <argsstring>()</argsstring>
+        <name>get_asset_dir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.cpp" line="18" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.cpp" bodystart="18" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="resources_8cpp_1ad0b38c0498b12e337bae767cd38fb126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>fs::path</type>
+        <definition>fs::path get_local_data_dir</definition>
+        <argsstring>()</argsstring>
+        <name>get_local_data_dir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.cpp" line="47" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.cpp" bodystart="47" bodyend="70"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;resources.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;printing/to_string.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__WIN32__)<sp/>||<sp/>defined(_WIN32)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;winsock2.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Don&apos;t<sp/>reorder</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;KnownFolders.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;shlobj.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;windows.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;linux/limits.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">fs::path<sp/>get_asset_dir()<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__WIN32__)<sp/>||<sp/>defined(_WIN32)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">buffer</ref>[<ref refid="classCoordinate2D" kindref="compound">MAX_PATH</ref>];</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GetModuleFileNameA</ref>(<ref refid="classCoordinate2D" kindref="compound">NULL</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">buffer</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">MAX_PATH</ref>);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>fs::path<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>(<ref refid="classCoordinate2D" kindref="compound">buffer</ref>);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">buffer</ref>[<ref refid="classCoordinate2D" kindref="compound">PATH_MAX</ref>];</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ssize_t</ref><sp/><ref refid="classCoordinate2D" kindref="compound">len</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">readlink</ref>(</highlight><highlight class="stringliteral">&quot;/proc/self/exe&quot;</highlight><highlight class="normal">,<sp/><ref refid="classCoordinate2D" kindref="compound">buffer</ref>,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="classCoordinate2D" kindref="compound">buffer</ref>)<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">len</ref><sp/>!=<sp/>-1)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">buffer</ref>[<ref refid="classCoordinate2D" kindref="compound">len</ref>]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>fs::path<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>(<ref refid="classCoordinate2D" kindref="compound">buffer</ref>);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>std::vector&lt;fs::path&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">asset_paths</ref><sp/>=<sp/>{<ref refid="classCoordinate2D" kindref="compound">path</ref>.parent_path().parent_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;share&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;assets&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">path</ref>.has_parent_path()<sp/>&amp;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>.parent_path()<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">path</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>.parent_path();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">asset_paths</ref>.push_back(<ref refid="classCoordinate2D" kindref="compound">path</ref><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;assets&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(fs::path<sp/><ref refid="classCoordinate2D" kindref="compound">asset_path</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">asset_paths</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fs::exists(<ref refid="classCoordinate2D" kindref="compound">asset_path</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">asset_path</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>Fail(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>find<sp/>asset<sp/>directory.<sp/>Tried<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>to_string(<ref refid="classCoordinate2D" kindref="compound">asset_paths</ref>));</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">fs::path<sp/>AssetRetriever::get_asset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">asset</ref>)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>get_asset_dir()<sp/>/<sp/><ref refid="classCoordinate2D" kindref="compound">asset</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">fs::path<sp/>get_local_data_dir()<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__WIN32__)<sp/>||<sp/>defined(_WIN32)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">PWSTR</ref><sp/><ref refid="classCoordinate2D" kindref="compound">path</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">HRESULT</ref><sp/><ref refid="classCoordinate2D" kindref="compound">hr</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">SHGetKnownFolderPath</ref>(<ref refid="classCoordinate2D" kindref="compound">FOLDERID_LocalAppData</ref>,<sp/>0,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">path</ref>);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">SUCCEEDED</ref>(<ref refid="classCoordinate2D" kindref="compound">hr</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>std::wstring<sp/><ref refid="classCoordinate2D" kindref="compound">ws</ref>(<ref refid="classCoordinate2D" kindref="compound">path</ref>);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">CoTaskMemFree</ref>(<ref refid="classCoordinate2D" kindref="compound">path</ref>);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>fs::path<sp/><ref refid="classCoordinate2D" kindref="compound">data_path</ref><sp/>=<sp/>fs::path(std::string(<ref refid="classCoordinate2D" kindref="compound">ws</ref>.begin(),<sp/><ref refid="classCoordinate2D" kindref="compound">ws</ref>.end()))<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;blaze&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>fs::create_directories(<ref refid="classCoordinate2D" kindref="compound">data_path</ref>);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">data_path</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>Fail(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>get<sp/>local<sp/>windows<sp/>data<sp/>directory&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="classCoordinate2D" kindref="compound">home_dir</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">getenv</ref>(</highlight><highlight class="stringliteral">&quot;HOME&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">home_dir</ref><sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>Fail(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>get<sp/>local<sp/>linux<sp/>data<sp/>directory&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>fs::path<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref><sp/>=<sp/>fs::path(<ref refid="classCoordinate2D" kindref="compound">home_dir</ref>)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;.local&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;share&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;blaze&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>fs::create_directories(<ref refid="classCoordinate2D" kindref="compound">path</ref>);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">fs::path<sp/>LocalDataRetriever::get_local_data(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">asset</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>get_local_data_dir()<sp/>/<sp/><ref refid="classCoordinate2D" kindref="compound">asset</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.cpp"/>
+  </compounddef>
+</doxygen>

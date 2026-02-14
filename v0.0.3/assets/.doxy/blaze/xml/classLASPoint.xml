@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLASPoint" kind="class" language="C++" prot="public">
+    <compoundname>LASPoint</compoundname>
+    <basecompoundref refid="classCoordinate3D" prot="public" virt="non-virtual">Coordinate3D&lt; double &gt;</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classLASPoint_1a6c8d92137557643dd7425bc68eae0c19" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref></type>
+        <definition>uint16_t LASPoint::m_intensity</definition>
+        <argsstring></argsstring>
+        <name>m_intensity</name>
+        <qualifiedname>LASPoint::m_intensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="51" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASPoint_1aba1956137de211faa7b384c534530f5f" prot="private" static="no" mutable="no">
+        <type>LASClassification</type>
+        <definition>LASClassification LASPoint::m_classification</definition>
+        <argsstring></argsstring>
+        <name>m_classification</name>
+        <qualifiedname>LASPoint::m_classification</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="52" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLASPoint_1a0b39199f0b7a807429b99c65a1861752" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LASPoint::LASPoint</definition>
+        <argsstring>(double x, double y, double z, uint16_t intensity, LASClassification classification)</argsstring>
+        <name>LASPoint</name>
+        <qualifiedname>LASPoint::LASPoint</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref></type>
+          <declname>intensity</declname>
+        </param>
+        <param>
+          <type>LASClassification</type>
+          <declname>classification</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="55" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="55" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASPoint_1a2df02eacb994a35a25532f92ee47e843" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>LASPoint::LASPoint</definition>
+        <argsstring>()=default</argsstring>
+        <name>LASPoint</name>
+        <qualifiedname>LASPoint::LASPoint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="58" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASPoint_1a6a6c40d388d3aface0b546cafb261c26" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref></type>
+        <definition>uint16_t LASPoint::intensity</definition>
+        <argsstring>() const</argsstring>
+        <name>intensity</name>
+        <qualifiedname>LASPoint::intensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="70" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASPoint_1a64c23d93abb8e037847fb39136f555ee" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>LASClassification</type>
+        <definition>LASClassification LASPoint::classification</definition>
+        <argsstring>() const</argsstring>
+        <name>classification</name>
+        <qualifiedname>LASPoint::classification</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="71" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASPoint_1a33191dd97643a34c966f7767088027e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref> &amp;</type>
+        <definition>uint16_t &amp; LASPoint::intensity</definition>
+        <argsstring>()</argsstring>
+        <name>intensity</name>
+        <qualifiedname>LASPoint::intensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="72" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASPoint_1a657dc1001b34b449d471ce6561fd7f37" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>LASClassification &amp;</type>
+        <definition>LASClassification &amp; LASPoint::classification</definition>
+        <argsstring>()</argsstring>
+        <name>classification</name>
+        <qualifiedname>LASPoint::classification</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="73" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="73" bodyend="73"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classLASPoint_1ad5c038aedf12b11d01f6d10a90abb292" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const LASPoint &amp;point)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>LASPoint::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLASPoint" kindref="compound">LASPoint</ref> &amp;</type>
+          <declname>point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="85" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="85" bodyend="89"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="2">
+        <label>Coordinate3D&lt; double &gt;</label>
+        <link refid="classCoordinate3D"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>LASPoint</label>
+        <link refid="classLASPoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="2">
+        <label>Coordinate3D&lt; double &gt;</label>
+        <link refid="classCoordinate3D"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>LASPoint</label>
+        <link refid="classLASPoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="50" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="50" bodyend="90"/>
+    <listofallmembers>
+      <member refid="classLASPoint_1a64c23d93abb8e037847fb39136f555ee" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>classification</name></member>
+      <member refid="classLASPoint_1a657dc1001b34b449d471ce6561fd7f37" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>classification</name></member>
+      <member refid="classCoordinate2D_1a536f3ba35b38d0c53faa5f9c7b5a5d4b" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate2D_1a27695be872dedbd15702cecdd5cb620e" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate3D_1a3d47427d9f73deb6f687106dee6585f8" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>Coordinate3D</name></member>
+      <member refid="classCoordinate3D_1a616d0cdf7bddf4ff5fa6c16cb90fc33d" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>Coordinate3D</name></member>
+      <member refid="classLASPoint_1a6a6c40d388d3aface0b546cafb261c26" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>intensity</name></member>
+      <member refid="classLASPoint_1a33191dd97643a34c966f7767088027e6" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>intensity</name></member>
+      <member refid="classLASPoint_1a0b39199f0b7a807429b99c65a1861752" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>LASPoint</name></member>
+      <member refid="classLASPoint_1a2df02eacb994a35a25532f92ee47e843" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>LASPoint</name></member>
+      <member refid="classLASPoint_1aba1956137de211faa7b384c534530f5f" prot="private" virt="non-virtual"><scope>LASPoint</scope><name>m_classification</name></member>
+      <member refid="classLASPoint_1a6c8d92137557643dd7425bc68eae0c19" prot="private" virt="non-virtual"><scope>LASPoint</scope><name>m_intensity</name></member>
+      <member refid="classCoordinate2D_1a75423d3585da779437d826a485891e66" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>magnitude</name></member>
+      <member refid="classCoordinate2D_1ac0cb5d93ac5dc1569f0599129db2accd" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>magnitude_sqd</name></member>
+      <member refid="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>offset_to_center</name></member>
+      <member refid="classCoordinate2D_1af2ed95c9e9f37d3a430aea86d41cbe09" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>operator Coordinate2D&lt; U &gt;</name></member>
+      <member refid="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>operator-</name></member>
+      <member refid="classLASPoint_1ad5c038aedf12b11d01f6d10a90abb292" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classCoordinate2D_1adbd28f3bd749f4cfbf20b0746375cbba" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>operator==</name></member>
+      <member refid="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>round</name></member>
+      <member refid="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>round_NW</name></member>
+      <member refid="classCoordinate2D_1a15cdc073df1226264dfa3c04750070a8" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a3d65f5ad53f9d3a5df8bdd567f32d0be" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a976db191ea32ade7a246b3368fdb48d9" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>y</name></member>
+      <member refid="classCoordinate2D_1a8188b4a389ccbb767d697998c17a2e2c" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>y</name></member>
+      <member refid="classCoordinate3D_1a0348b7573eb15897ca16aed17afa21af" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>z</name></member>
+      <member refid="classCoordinate3D_1abd1b02e77ef72651288eb63aee3c3b05" prot="public" virt="non-virtual"><scope>LASPoint</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
