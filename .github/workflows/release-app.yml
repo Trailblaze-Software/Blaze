@@ -63,7 +63,14 @@ jobs:
 
           echo "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,readwrite" >> $env:GITHUB_ENV
           echo "VCPKG_NUGET_REPOSITORY=$feed_url" >> $env:GITHUB_ENV
+      - name: Cache NSIS
+        id: nsis-cache
+        uses: actions/cache@v4
+        with:
+          path: 'C:\Program Files (x86)\NSIS'
+          key: nsis-3.11-${{ runner.os }}
       - name: Install NSIS
+        if: steps.nsis-cache.outputs.cache-hit != 'true'
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH

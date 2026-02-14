@@ -1,4 +1,4 @@
-# Install dependencies for Blaze on Windows using Chocolatey
+# Install dependencies for Blaze on Windows using winget (preferred) and Chocolatey (fallback)
 # Run this script from PowerShell: .\install-deps-windows.ps1
 
 Write-Host "=== Installing Blaze Dependencies on Windows ===" -ForegroundColor Cyan
@@ -9,10 +9,56 @@ if (-not $isAdmin) {
     Write-Host "Warning: Not running as administrator. Some installations may require elevation." -ForegroundColor Yellow
 }
 
-# Install Chocolatey if not already installed
-Write-Host "`n=== Checking Chocolatey Installation ===" -ForegroundColor Cyan
-if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
-    Write-Host "Chocolatey not found. Installing Chocolatey..." -ForegroundColor Yellow
+$ChocoMaxRetries = 2
+
+function Install-Package {
+    param(
+        [string]$Name,
+        [string]$WingetId = "",
+        [string]$ChocoPackage = $Name,
+        [string]$ChocoInstallArgs = ""
+    )
+    # Try winget first when a package id is given (Microsoft's feed is more reliable)
+    if ($WingetId -and (Get-Command winget -ErrorAction SilentlyContinue)) {
+        Write-Host "Trying winget: $WingetId ..." -ForegroundColor Cyan
+        $wingetArgs = @("install", "--id", $WingetId, "--accept-package-agreements", "--accept-source-agreements")
+        & winget @wingetArgs 2>$null
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "Installed $Name via winget." -ForegroundColor Green
+            return $true
+        }
+        Write-Host "winget install failed or package not found, trying Chocolatey..." -ForegroundColor Yellow
+    }
+    # Ensure Chocolatey is available for fallback
+    if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
+        Write-Host "Chocolatey not available. Install it first or use winget." -ForegroundColor Red
+        return $false
+    }
+    $attempt = 0
+    while ($attempt -le $ChocoMaxRetries) {
+        $attempt++
+        if ($attempt -gt 1) {
+            Write-Host "Chocolatey retry $attempt of $($ChocoMaxRetries + 1) for $ChocoPackage..." -ForegroundColor Yellow
+            Start-Sleep -Seconds 5
+        }
+        $chocoArgs = @("install", "-y", $ChocoPackage)
+        if ($ChocoInstallArgs) { $chocoArgs += "--installargs"; $chocoArgs += $ChocoInstallArgs }
+        & choco @chocoArgs
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "Installed $Name via Chocolatey." -ForegroundColor Green
+            return $true
+        }
+    }
+    Write-Host "Failed to install $Name after $($ChocoMaxRetries + 1) attempt(s)." -ForegroundColor Red
+    return $false
+}
+
+# Install Chocolatey only if we might need it (no winget or for packages not on winget)
+Write-Host "`n=== Checking Package Managers ===" -ForegroundColor Cyan
+$hasWinget = Get-Command winget -ErrorAction SilentlyContinue
+$hasChoco = Get-Command choco -ErrorAction SilentlyContinue
+if (-not $hasChoco) {
+    Write-Host "Chocolatey not found. Installing Chocolatey (used for OpenCV and as fallback)..." -ForegroundColor Yellow
     Set-ExecutionPolicy Bypass -Scope Process -Force
     $protocol = [System.Net.ServicePointManager]::SecurityProtocol
     [System.Net.ServicePointManager]::SecurityProtocol = $protocol -bor 3072
@@ -28,22 +74,27 @@ if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
     Write-Host "Chocolatey is already installed." -ForegroundColor Green
     choco --version
 }
+if ($hasWinget) { Write-Host "winget is available (will be used for CMake and Git)." -ForegroundColor Green }
 
 # Refresh environment variables
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 
-# Install build tools
+# Install build tools (winget first, then Chocolatey with retries)
 Write-Host "`n=== Installing Build Tools ===" -ForegroundColor Cyan
-choco install -y cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to install CMake" -ForegroundColor Red
+if (-not (Install-Package -Name "CMake" -WingetId "Kitware.CMake" -ChocoPackage "cmake" -ChocoInstallArgs "ADD_CMAKE_TO_PATH=System")) {
     exit 1
 }
-
-choco install -y git
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to install Git" -ForegroundColor Red
+if (-not (Install-Package -Name "Git" -WingetId "Git.Git" -ChocoPackage "git")) {
     exit 1
+}
+# Ensure CMake is on PATH (winget doesn't add it system-wide by default)
+$cmakePaths = @("C:\Program Files\CMake\bin", "${env:ProgramFiles(x86)}\CMake\bin")
+foreach ($p in $cmakePaths) {
+    if ((Test-Path $p) -and ($env:Path -notlike "*$p*")) {
+        $env:Path = "$p;$env:Path"
+        Write-Host "Added CMake to PATH: $p" -ForegroundColor Green
+        break
+    }
 }
 
 # Refresh environment after installing build tools
@@ -111,11 +162,9 @@ if (Get-Command conda -ErrorAction SilentlyContinue) {
 # Refresh environment after installing GDAL
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 
-# Install OpenCV
+# Install OpenCV (Chocolatey only; not on winget)
 Write-Host "`n=== Installing OpenCV ===" -ForegroundColor Cyan
-choco install -y opencv
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to install OpenCV" -ForegroundColor Red
+if (-not (Install-Package -Name "OpenCV" -ChocoPackage "opencv")) {
     exit 1
 }
 
