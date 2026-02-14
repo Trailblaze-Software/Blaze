@@ -1198,47 +1198,61 @@
 </code></pre></div>
 <h2 id="sections">Sections</h2>
 <h3 id="grid">Grid</h3>
-<p>Controls the resolution of the digital elevation model (DEM).
-- <code>bin_resolution</code>: Size of each grid cell in meters. We generally want about 5-10 points per cell for good contour generation, so this should be set based on your point density. For recent ACT LIDAR, this can be as low as 0.5m, whilst for the sparser NSW data 3m is a good choice.
-- <code>downsample_factor</code>: Factor to downsample the grid for smoother contours elevation model.</p>
+<p>Controls the resolution of the digital elevation model (DEM).</p>
+<ul>
+<li><code>bin_resolution</code>: Size of each grid cell in meters. We generally want about 5-10 points per cell for good contour generation, so this should be set based on your point density. For recent ACT LIDAR, this can be as low as 0.5m, whilst for the sparser NSW data 3m is a good choice.</li>
+<li><code>downsample_factor</code>: Factor to downsample the grid for smoother contours elevation model.</li>
+</ul>
 <h3 id="ground">Ground</h3>
-<p>Parameters for ground point classification and filtering.
-- <code>outlier_removal_height_diff</code>: Minimum height difference for removing spikes.
-- <code>min_ground_intensity</code>: Minimum intensity value for ground points.
-- <code>max_ground_intensity</code>: Maximum intensity value for ground points.</p>
+<p>Parameters for ground point classification and filtering.</p>
+<ul>
+<li><code>outlier_removal_height_diff</code>: Minimum height difference for removing spikes.</li>
+<li><code>min_ground_intensity</code>: Minimum intensity value for ground points.</li>
+<li><code>max_ground_intensity</code>: Maximum intensity value for ground points.</li>
+</ul>
 <h3 id="contours">Contours</h3>
-<p>Defines contour lines. You can define multiple types (e.g., normal, index).
-- <code>interval</code>: Vertical distance between contours in meters.
-- <code>min_points</code>: Minimum points required to form a contour segment.
-- <code>color</code>: Name of the color (defined in <code>colors</code> section).
-- <code>width</code>: Line width in mm.</p>
+<p>Defines contour lines. You can define multiple types (e.g., normal, index).</p>
+<ul>
+<li><code>interval</code>: Vertical distance between contours in meters.</li>
+<li><code>min_points</code>: Minimum points required to form a contour segment.</li>
+<li><code>color</code>: Name of the color (defined in <code>colors</code> section).</li>
+<li><code>width</code>: Line width in mm.</li>
+</ul>
 <h3 id="water">Water</h3>
-<p>Defines watercourse detection based on catchment area.
-- <code>catchment</code>: Threshold for catchment area to define a stream.
-- <code>color</code>: Color of the water line.
-- <code>width</code>: Line width in mm.</p>
+<p>Defines watercourse detection based on catchment area.</p>
+<ul>
+<li><code>catchment</code>: Threshold for catchment area to define a stream.</li>
+<li><code>color</code>: Color of the water line.</li>
+<li><code>width</code>: Line width in mm.</li>
+</ul>
 <h3 id="vegetation">Vegetation</h3>
-<p>Configures vegetation density and height mapping.
-- <code>background_color</code>: Base color for the vegetation layer.
-- <code>height_configs</code>: List of height bands (e.g., low vegetation, canopy).
-  - <code>min_height</code>: Minimum height of vegetation in this band.
-  - <code>max_height</code>: Maximum height.
-  - <code>colors</code>: List of colors based on blocking threshold (density).</p>
+<p>Configures vegetation density and height mapping.</p>
+<ul>
+<li><code>background_color</code>: Base color for the vegetation layer.</li>
+<li><code>height_configs</code>: List of height bands (e.g., low vegetation, canopy).</li>
+<li><code>min_height</code>: Minimum height of vegetation in this band.</li>
+<li><code>max_height</code>: Maximum height.</li>
+<li><code>colors</code>: List of colors based on blocking threshold (density).</li>
+</ul>
 <h3 id="buildings">Buildings</h3>
 <ul>
 <li><code>color</code>: Color for building footprints.</li>
 </ul>
 <h3 id="render">Render</h3>
-<p>Output settings.
-- <code>scale</code>: Map scale (e.g., 10000 for 1:10000).
-- <code>dpi</code>: Dots per inch for the output image.</p>
+<p>Output settings.</p>
+<ul>
+<li><code>scale</code>: Map scale (e.g., 10000 for 1:10000).</li>
+<li><code>dpi</code>: Dots per inch for the output image.</li>
+</ul>
 <h3 id="colors">Colors</h3>
-<p>Defines the color palette.
-- <code>primitive</code>: Basic colors defined by RGB or CMYK.
-  - RGB example: <code>"red": { "rgb": [255, 0, 0, 255] }</code>
-  - CMYK example: <code>"cyan": { "cmyk": [100, 0, 0, 0] }</code> (Values 0-100)
-- <code>composite</code>: Mixed colors defined by percentage of other colors.
-  - Example: <code>"light_green": { "green": 0.3 }</code> (30% green)</p>
+<p>Defines the color palette.</p>
+<ul>
+<li><code>primitive</code>: Basic colors defined by RGB or CMYK.</li>
+<li>RGB example: <code>"red": { "rgb": [255, 0, 0, 255] }</code></li>
+<li>CMYK example: <code>"cyan": { "cmyk": [100, 0, 0, 0] }</code> (Values 0-100)</li>
+<li><code>composite</code>: Mixed colors defined by percentage of other colors.</li>
+<li>Example: <code>"light_green": { "green": 0.3 }</code> (30% green)</li>
+</ul>
 
 
 
