@@ -17,6 +17,7 @@ Usage:
 """
 
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -87,24 +88,22 @@ def log(message):
 
 
 def install_package_via_qpip(package_name):
-    """Try to install a package using QPIP plugin if available."""
+    """Try to install a package using QPIP plugin if available.
+
+    Uses the standard Python approach: try to import the module.
+    QGIS automatically adds plugin directories to sys.path when plugins are loaded.
+    """
     try:
-        # Check if QPIP plugin is installed
-        from qgis.core import QgsApplication
+        from qpip import pip_install
 
-        # Try to use QPIP's pip
-        qpip_path = QgsApplication.qgisSettingsDirPath() + "/python/plugins/qpip"
-        if Path(qpip_path).exists():
-            import sys
-
-            sys.path.insert(0, qpip_path)
-            from qpip import pip_install
-
-            pip_install([package_name])
-            return True
+        pip_install([package_name])
+        return True
+    except ImportError:
+        log("  QPIP plugin not available (not installed or not loaded)")
+        return False
     except Exception as e:
-        log(f"  QPIP not available: {e}")
-    return False
+        log(f"  QPIP error: {e}")
+        return False
 
 
 def get_magnetic_declination(lon, lat):
@@ -252,11 +251,14 @@ def create_qgis_project(
     clear_project=False,
     progress_callback=None,
     gpkg_output_path=None,
+    use_current_extent=False,
+    current_extent=None,
+    current_crs=None,
 ):
     """Add Blaze layers to the current QGIS project.
 
     Args:
-        combined_dir: Path to Blaze output directory
+        combined_dir: Path to Blaze output directory (ignored if use_current_extent=True)
         output_path: Optional path to save project file (if None, doesn't save)
         download_topo: Download NSW topographic layers from spatial.nsw.gov.au
         add_mag_north: Add magnetic north lines based on current declination
@@ -265,6 +267,9 @@ def create_qgis_project(
         clear_project: If True, clear existing project first (default: False)
         progress_callback: Optional callback function(message, percent) for progress updates
         gpkg_output_path: Optional path for NSW topo GPKG file (if None, uses combined_dir/nsw_topo.gpkg)
+        use_current_extent: If True, use current map extent instead of loading Blaze layers
+        current_extent: QgsRectangle for current map extent (required if use_current_extent=True)
+        current_crs: QgsCoordinateReferenceSystem for current map (required if use_current_extent=True)
     """
 
     def report_progress(message, percent=None):
@@ -273,11 +278,6 @@ def create_qgis_project(
         if progress_callback:
             progress_callback(message, percent)
 
-    combined_path = Path(combined_dir)
-    if not combined_path.exists():
-        log(f"Error: Directory {combined_dir} does not exist")
-        return False
-
     project = QgsProject.instance()
     if clear_project:
         project.clear()
@@ -285,109 +285,175 @@ def create_qgis_project(
     log("Using style path: " + str(STYLES_DIR))
 
     root = project.layerTreeRoot()
-    # Create layer groups (top to bottom in render order)
+
+    # Find or create layer groups (top to bottom in render order)
     # Note: Groups higher in tree render on top
-    markup_group = root.addGroup("Markup")  # Markup on top (magnetic north, controls)
-    topo_group = root.addGroup("NSW Topo")
-    vector_group = root.addGroup("Vectors")  # Contours/streams - below topo
-    raster_group = root.addGroup("Rasters")
+    # Check if groups already exist to allow multiple calls
+    def find_or_create_group(parent, name):
+        """Find existing group by name or create a new one."""
+        # First, try to find existing group by iterating through all children
+        # Check all children to see if a group with this name already exists
+        for child in parent.children():
+            try:
+                # Check if it's a group node (nodeType == 1) and name matches exactly
+                if child.nodeType() == 1:  # 1 = Group node type
+                    if child.name() == name:
+                        log(f"Found existing group: {name}")
+                        return child
+            except (AttributeError, TypeError):
+                continue
+
+        # If not found, create new group
+        log(f"Creating new group: {name}")
+        return parent.addGroup(name)
+
+    # Get or create groups
+    markup_group = find_or_create_group(root, "Markup")  # Markup on top (magnetic north, controls)
+    topo_group = find_or_create_group(root, "NSW Topo")
+    vector_group = find_or_create_group(root, "Vectors")  # Contours/streams - below topo
+    raster_group = find_or_create_group(root, "Rasters")
 
     # Track the first raster CRS for project CRS
     project_crs = None
     project_extent = None
 
-    report_progress("Adding raster layers (building pyramids for performance)...", 5)
+    # If using current extent, set project_crs and project_extent from parameters
+    if use_current_extent:
+        if current_extent is None or current_crs is None:
+            log("Error: current_extent and current_crs are required when use_current_extent=True")
+            return False
+        project_crs = current_crs
+        project_extent = current_extent
+        log(
+            f"Using current map extent: {project_extent.xMinimum():.1f}, {project_extent.yMinimum():.1f} to "
+            f"{project_extent.xMaximum():.1f}, {project_extent.yMaximum():.1f}"
+        )
+        log(f"Using current map CRS: {project_crs.authid() if project_crs.authid() else project_crs.description()}")
 
-    # Add raster layers first (they render on top of vegetation) - all hidden by default
-    rasters = [
-        "final_img.tif",
-        "final_img_extra_contours.tif",
-        "ground_intensity.tif",
-        "hill_shade_multi.tif",
-        "slope.tif",
-    ]
-    for i, f in enumerate(rasters):
-        report_progress(f"Adding raster {f} ({i+1}/{len(rasters)})...", 5 + int((i / len(rasters)) * 10))
-        layer = add_raster(combined_path / f, raster_group)
-        if layer:
-            crs = layer.crs()
-            log(f"  {f}: CRS valid={crs.isValid()}, authid={crs.authid()}, desc={crs.description()}")
+        # Set project CRS
+        if project_crs and project_crs.isValid():
+            project.setCrs(project_crs)
+            authid = project_crs.authid() if project_crs.authid() else "Unknown"
+            log(f"Project CRS set to: {authid}")
 
-            # Always check all rasters, don't stop at first one
-            # But prefer rasters with authid over those without
-            if project_crs is None:
-                # No CRS yet - use this one if valid
-                if crs.isValid():
+        # Skip loading Blaze layers - go straight to adding topo/magnetic north/controls
+        # Note: We'll remove empty groups at the end after all layers are added
+    else:
+        # Normal flow: load Blaze layers
+        combined_path = Path(combined_dir)
+        if not combined_path.exists():
+            log(f"Error: Directory {combined_dir} does not exist")
+            return False
+
+        report_progress("Adding raster layers (building pyramids for performance)...", 5)
+
+        # Add raster layers first (they render on top of vegetation) - all hidden by default
+        rasters = [
+            "final_img.tif",
+            "final_img_extra_contours.tif",
+            "ground_intensity.tif",
+            "hill_shade_multi.tif",
+            "slope.tif",
+        ]
+        for i, f in enumerate(rasters):
+            report_progress(f"Adding raster {f} ({i+1}/{len(rasters)})...", 5 + int((i / len(rasters)) * 10))
+            layer = add_raster(combined_path / f, raster_group)
+            if layer:
+                crs = layer.crs()
+                log(f"  {f}: CRS valid={crs.isValid()}, authid={crs.authid()}, desc={crs.description()}")
+
+                # Always check all rasters, don't stop at first one
+                # But prefer rasters with authid over those without
+                if project_crs is None:
+                    # No CRS yet - use this one if valid
+                    if crs.isValid():
+                        project_crs = crs
+                        project_extent = layer.extent()
+                        if crs.authid():
+                            log(f"  ✓ Detected project CRS from {f}: {crs.authid()}")
+                        else:
+                            log(f"  ✓ Using CRS from {f} (no authid): {crs.description()}")
+                            wkt = crs.toWkt()
+                            if wkt:
+                                log(f"    WKT: {wkt[:150]}...")
+                elif project_crs and not project_crs.authid() and crs.isValid() and crs.authid():
+                    # We have a CRS but no authid - upgrade to one with authid if available
                     project_crs = crs
                     project_extent = layer.extent()
-                    if crs.authid():
-                        log(f"  ✓ Detected project CRS from {f}: {crs.authid()}")
-                    else:
-                        log(f"  ✓ Using CRS from {f} (no authid): {crs.description()}")
-                        wkt = crs.toWkt()
-                        if wkt:
-                            log(f"    WKT: {wkt[:150]}...")
-            elif project_crs and not project_crs.authid() and crs.isValid() and crs.authid():
-                # We have a CRS but no authid - upgrade to one with authid if available
-                project_crs = crs
-                project_extent = layer.extent()
-                log(f"  ✓ Upgraded project CRS from {f}: {crs.authid()}")
-            # Hide by default
-            layer_node = root.findLayer(layer.id())
-            if layer_node:
-                layer_node.setItemVisibilityChecked(False)
+                    log(f"  ✓ Upgraded project CRS from {f}: {crs.authid()}")
+                # Hide by default
+                layer_node = root.findLayer(layer.id())
+                if layer_node:
+                    layer_node.setItemVisibilityChecked(False)
 
-    # Summary of CRS detection
-    if project_crs:
-        log(
-            f"CRS Detection Summary: Found CRS - "
-            f"valid={project_crs.isValid()}, "
-            f"authid={project_crs.authid()}, "
-            f"desc={project_crs.description()}"
-        )
-    else:
-        log("CRS Detection Summary: ⚠ NO CRS DETECTED from any raster files")
-        log("  This will cause issues with coordinate transformations and magnetic north calculations")
-        log("  Please check that your raster files have projection information embedded")
+        # Summary of CRS detection
+        if project_crs:
+            log(
+                f"CRS Detection Summary: Found CRS - "
+                f"valid={project_crs.isValid()}, "
+                f"authid={project_crs.authid()}, "
+                f"desc={project_crs.description()}"
+            )
+        else:
+            log("CRS Detection Summary: ⚠ NO CRS DETECTED from any raster files")
+            log("  This will cause issues with coordinate transformations and magnetic north calculations")
+            log("  Please check that your raster files have projection information embedded")
 
-    report_progress("Adding vegetation layers...", 15)
+        report_progress("Adding vegetation layers...", 15)
 
-    # Add vegetation layers LAST (so they're at bottom = render behind other rasters)
-    vege_dir = combined_path / "raw_vege"
-    if vege_dir.exists():
-        vege_group = raster_group.addGroup("Vegetation")
+        # Add vegetation layers LAST (so they're at bottom = render behind other rasters)
+        vege_dir = combined_path / "raw_vege"
+        if vege_dir.exists():
+            vege_group = find_or_create_group(raster_group, "Vegetation")
 
-        # Want smoothed_green on top of smoothed_canopy
-        # In QGIS: top of layer tree = renders on top
-        vege_layers = [
-            ("green.tif", False),
-            ("smoothed_green.tif", True),  # Add first
-            ("canopy.tif", False),
-            ("smoothed_canopy.tif", True),
-        ]
+            # Want smoothed_green on top of smoothed_canopy
+            # In QGIS: top of layer tree = renders on top
+            vege_layers = [
+                ("green.tif", False),
+                ("smoothed_green.tif", True),  # Add first
+                ("canopy.tif", False),
+                ("smoothed_canopy.tif", True),
+            ]
 
-        for filename, visible in vege_layers:
-            path = vege_dir / filename
-            if path.exists():
-                layer = add_raster(path, vege_group, prefix="raw_vege_")
-                if layer:
-                    # Also check vegetation rasters for CRS if not already found
-                    crs = layer.crs()
-                    log(f"  {filename}: CRS valid={crs.isValid()}, " f"authid={crs.authid()}, desc={crs.description()}")
-                    if project_crs is None:
-                        if crs.isValid() and crs.authid():
-                            project_crs = crs
-                            project_extent = layer.extent()
-                            log(f"Detected project CRS from {filename}: {crs.authid()}")
-                        elif crs.isValid():
-                            # CRS is valid but no authid - still use it if we have nothing else
-                            project_crs = crs
-                            project_extent = layer.extent()
-                            log(f"Using CRS from {filename} (no authid): {crs.description()}")
-                    style_vegetation(layer, filename)
-                    layer_node = root.findLayer(layer.id())
-                    if layer_node:
-                        layer_node.setItemVisibilityChecked(visible)
+            for filename, visible in vege_layers:
+                path = vege_dir / filename
+                if path.exists():
+                    layer = add_raster(path, vege_group, prefix="raw_vege_")
+                    if layer:
+                        # Also check vegetation rasters for CRS if not already found
+                        crs = layer.crs()
+                        log(
+                            f"  {filename}: CRS valid={crs.isValid()}, "
+                            f"authid={crs.authid()}, desc={crs.description()}"
+                        )
+                        if project_crs is None:
+                            if crs.isValid() and crs.authid():
+                                project_crs = crs
+                                project_extent = layer.extent()
+                                log(f"Detected project CRS from {filename}: {crs.authid()}")
+                            elif crs.isValid():
+                                # CRS is valid but no authid - still use it if we have nothing else
+                                project_crs = crs
+                                project_extent = layer.extent()
+                                log(f"Using CRS from {filename} (no authid): {crs.description()}")
+                        style_vegetation(layer, filename)
+                        layer_node = root.findLayer(layer.id())
+                        if layer_node:
+                            layer_node.setItemVisibilityChecked(visible)
+
+        # Set project CRS from raster FIRST (only when loading from rasters)
+        if project_crs and project_crs.isValid():
+            project.setCrs(project_crs)
+            authid = project_crs.authid() if project_crs.authid() else "Unknown"
+            log(f"Project CRS set to: {authid}")
+            if not project_crs.authid():
+                log(f"  CRS description: {project_crs.description()}")
+                wkt = project_crs.toWkt()
+                if wkt:
+                    log(f"  CRS WKT: {wkt[:200]}...")
+        else:
+            log("⚠ WARNING: No project CRS detected from rasters")
+            log("  This may cause issues with coordinate transformations and magnetic north calculations")
 
     # Calculate grid-magnetic angle (accounts for both declination and grid convergence)
     gm_angle = None
@@ -423,20 +489,6 @@ def create_qgis_project(
         elif not project_crs.isValid():
             log("  ⚠ Cannot calculate grid-magnetic angle: project CRS is invalid")
 
-    # Set project CRS from raster FIRST
-    if project_crs and project_crs.isValid():
-        project.setCrs(project_crs)
-        authid = project_crs.authid() if project_crs.authid() else "Unknown"
-        log(f"Project CRS set to: {authid}")
-        if not project_crs.authid():
-            log(f"  CRS description: {project_crs.description()}")
-            wkt = project_crs.toWkt()
-            if wkt:
-                log(f"  CRS WKT: {wkt[:200]}...")
-    else:
-        log("⚠ WARNING: No project CRS detected from rasters")
-        log("  This may cause issues with coordinate transformations and magnetic north calculations")
-
     # Set default DPI to 600
     try:
         # Set DPI in project settings
@@ -448,58 +500,65 @@ def create_qgis_project(
     # Add NSW topographic layers (downloaded and saved to single GPKG)
     if download_topo and project_extent and project_crs:
         report_progress("Downloading NSW topographic layers...", 40)
+        # Use combined_path if available, otherwise use a temp directory for output files
+        if use_current_extent:
+            output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
+            output_dir.mkdir(parents=True, exist_ok=True)
+        else:
+            output_dir = combined_path
         add_nsw_topo_layers(
-            topo_group, project_extent, project_crs, combined_path, progress_callback, log, gpkg_output_path
+            topo_group, project_extent, project_crs, output_dir, progress_callback, log, gpkg_output_path
         )
-    elif not download_topo:
-        # Remove empty group
-        root.removeChildNode(topo_group)
+    # Note: Empty group removal happens at the end
 
     # Add vector layers (contours, streams) AFTER topo layers so they render underneath
-    report_progress("Adding vector layers (contours, streams)...", 50)
-
+    # Only if not using current extent
     vector_extent = None
+    if not use_current_extent:
+        report_progress("Adding vector layers (contours, streams)...", 50)
 
-    # Add contours - merge all layers into single layer with QML style
-    contours_gpkg = combined_path / "contours.gpkg"
-    if contours_gpkg.exists():
-        layer = add_merged_gpkg_layer(contours_gpkg, "contours", vector_group, project_crs)
-        if layer:
-            # Apply QML style
-            qml_path = STYLES_DIR / "contours.qml"
-            if qml_path.exists():
-                layer.loadNamedStyle(str(qml_path))
-                layer.triggerRepaint()
-                log("Applied style: contours.qml")
-            if layer.extent() and not layer.extent().isEmpty():
-                vector_extent = layer.extent()
-
-    # Add streams with QML style
-    streams_gpkg = combined_path / "streams.gpkg"
-    if streams_gpkg.exists():
-        layers = add_gpkg_layers(streams_gpkg, vector_group, project_crs, root, apply_default_style=False)
-        for layer in layers:
-            # Apply QML style
-            qml_path = STYLES_DIR / "streams.qml"
-            log(f"Looking for streams.qml at: {qml_path}")
-            # Debug: log layer fields
-            field_names = [field.name() for field in layer.fields()]
-            log(f"  Streams layer fields: {field_names}")
-            if qml_path.exists():
-                log("  Found streams.qml, attempting to load...")
-                result = layer.loadNamedStyle(str(qml_path))
-                if result[1]:  # Success (QGIS API returns (errorMessage, success))
+        # Add contours - merge all layers into single layer with QML style
+        contours_gpkg = combined_path / "contours.gpkg"
+        if contours_gpkg.exists():
+            layer = add_merged_gpkg_layer(contours_gpkg, "contours", vector_group, project_crs)
+            if layer:
+                # Apply QML style
+                qml_path = STYLES_DIR / "contours.qml"
+                if qml_path.exists():
+                    layer.loadNamedStyle(str(qml_path))
                     layer.triggerRepaint()
-                    log("Applied style: streams.qml")
-                else:
-                    log(f"WARNING: Failed to apply streams.qml style: {result[0] if result[0] else 'Unknown error'}")
-            else:
-                log(f"WARNING: streams.qml not found at {qml_path}")
-            if layer and layer.extent() and not layer.extent().isEmpty():
-                if vector_extent is None:
+                    log("Applied style: contours.qml")
+                if layer.extent() and not layer.extent().isEmpty():
                     vector_extent = layer.extent()
+
+        # Add streams with QML style
+        streams_gpkg = combined_path / "streams.gpkg"
+        if streams_gpkg.exists():
+            layers = add_gpkg_layers(streams_gpkg, vector_group, project_crs, root, apply_default_style=False)
+            for layer in layers:
+                # Apply QML style
+                qml_path = STYLES_DIR / "streams.qml"
+                log(f"Looking for streams.qml at: {qml_path}")
+                # Debug: log layer fields
+                field_names = [field.name() for field in layer.fields()]
+                log(f"  Streams layer fields: {field_names}")
+                if qml_path.exists():
+                    log("  Found streams.qml, attempting to load...")
+                    result = layer.loadNamedStyle(str(qml_path))
+                    if result[1]:  # Success (QGIS API returns (errorMessage, success))
+                        layer.triggerRepaint()
+                        log("Applied style: streams.qml")
+                    else:
+                        log(
+                            f"WARNING: Failed to apply streams.qml style: {result[0] if result[0] else 'Unknown error'}"
+                        )
                 else:
-                    vector_extent.combineExtentWith(layer.extent())
+                    log(f"WARNING: streams.qml not found at {qml_path}")
+                if layer and layer.extent() and not layer.extent().isEmpty():
+                    if vector_extent is None:
+                        vector_extent = layer.extent()
+                    else:
+                        vector_extent.combineExtentWith(layer.extent())
 
     # Basemaps disabled - they cause CRS transformation prompts that can't be suppressed
     # To add manually: Layer > Add Layer > Add XYZ Layer > OpenStreetMap
@@ -509,24 +568,106 @@ def create_qgis_project(
     # However, gm_angle is still needed for map rotation
     if add_mag_north and project_extent and project_crs:
         report_progress("Adding magnetic north lines...", 90)
-        north_lines_path = combined_path / "magnetic_north_lines.gpkg"
+        # Use combined_path if available, otherwise use a temp directory
+        if use_current_extent:
+            output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
+            output_dir.mkdir(parents=True, exist_ok=True)
+            # Make filename unique to allow multiple calls
+            import time
+
+            timestamp = int(time.time())
+            north_lines_path = output_dir / f"magnetic_north_lines_{timestamp}.gpkg"
+        else:
+            north_lines_path = combined_path / "magnetic_north_lines.gpkg"
         # Line spacing: 4cm at 1:25000 scale = 1000m
         layer = add_magnetic_north_lines(project_extent, project_crs, north_lines_path, spacing=1000)
         if layer:
+            # Make layer name unique if a layer with this name already exists
+            layer_name = layer.name()
+            existing_names = set()
+            for child in markup_group.children():
+                try:
+                    if child.nodeType() == 0:  # 0 = Layer node type
+                        existing_layer = child.layer()
+                        if existing_layer:
+                            existing_names.add(existing_layer.name())
+                except (AttributeError, TypeError):
+                    continue
+            if layer_name in existing_names:
+                import time
+
+                layer.setName(f"{layer_name} ({int(time.time())})")
             markup_group.addLayer(layer)
     elif add_mag_north:
         log("Magnetic north lines skipped - project extent or CRS not available")
     # Add controls layer with control point in center of map
     if add_controls and project_extent and project_crs:
         report_progress("Adding controls layer...", 92)
-        controls_path = combined_path / "controls.gpkg"
-        add_controls_layer(project_extent, project_crs, markup_group, controls_path)
+        # Use combined_path if available, otherwise use a temp directory
+        if use_current_extent:
+            output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
+            output_dir.mkdir(parents=True, exist_ok=True)
+            # Make filename unique to allow multiple calls
+            import time
 
-    # Remove empty Markup group if no layers were added
-    if len(markup_group.children()) == 0:
-        root.removeChildNode(markup_group)
+            timestamp = int(time.time())
+            controls_path = output_dir / f"controls_{timestamp}.gpkg"
+        else:
+            controls_path = combined_path / "controls.gpkg"
+        layer = add_controls_layer(project_extent, project_crs, markup_group, controls_path)
+        if layer:
+            # Make layer name unique if a layer with this name already exists
+            layer_name = layer.name()
+            existing_names = set()
+            for child in markup_group.children():
+                try:
+                    if child.nodeType() == 0:  # 0 = Layer node type
+                        existing_layer = child.layer()
+                        if existing_layer:
+                            existing_names.add(existing_layer.name())
+                except (AttributeError, TypeError):
+                    continue
+            if layer_name in existing_names:
+                import time
 
-    # Zoom to vector layers extent and rotate for magnetic north
+                layer.setName(f"{layer_name} ({int(time.time())})")
+
+    # Remove empty groups at the end (after all layers are added)
+    # This ensures we only remove groups that are truly empty
+    def remove_group_if_empty(group_node):
+        """Safely remove a group if it has no children."""
+        try:
+            if group_node and len(group_node.children()) == 0:
+                parent = group_node.parent()
+                if parent:
+                    parent.removeChildNode(group_node)
+                    return True
+        except Exception as e:
+            log(f"Error removing empty group: {e}")
+        return False
+
+    # Remove empty groups
+    remove_group_if_empty(markup_group)
+    remove_group_if_empty(topo_group)
+    remove_group_if_empty(vector_group)
+    remove_group_if_empty(raster_group)
+
+    # Rotate map for magnetic north (works for both normal and current extent modes)
+    try:
+        from qgis.utils import iface
+
+        if iface and iface.mapCanvas():
+            # Rotate map so magnetic north is vertical (only if mag north enabled and available)
+            if add_mag_north and gm_angle is not None:
+                # Positive gm_angle = magnetic north is east (clockwise) of grid north
+                # Rotate view clockwise (negative) to bring magnetic north up
+                iface.mapCanvas().setRotation(-gm_angle)
+                log(f"Rotated map {-gm_angle:.1f}° for magnetic north")
+                iface.mapCanvas().refresh()
+    except Exception as e:
+        log(f"Could not rotate map: {e}")
+
+    # Zoom to vector layers extent (only if we have vector layers, not when using current extent)
     if zoom_to_extent and vector_extent and not vector_extent.isEmpty():
         vector_extent.scale(1.05)
         try:
@@ -534,14 +675,7 @@ def create_qgis_project(
 
             if iface and iface.mapCanvas():
                 iface.mapCanvas().setExtent(vector_extent)
-                # Rotate map so magnetic north is vertical (only if mag north enabled and available)
-                if add_mag_north and gm_angle is not None:
-                    # Positive gm_angle = magnetic north is east (clockwise) of grid north
-                    # Rotate view clockwise (negative) to bring magnetic north up
-                    iface.mapCanvas().setRotation(-gm_angle)
-                    log(f"Zoomed to vector layers, rotated {-gm_angle:.1f}° for magnetic north")
-                else:
-                    log("Zoomed to vector layers")
+                log("Zoomed to vector layers")
                 iface.mapCanvas().refresh()
         except Exception:
             project.viewSettings().setDefaultViewExtent(QgsReferencedRectangle(vector_extent, project_crs))
@@ -559,13 +693,17 @@ def create_qgis_project(
             log("Error saving project")
             return False
 
-    log("Blaze layers added to current project")
+    if use_current_extent:
+        log("Added layers using current map extent")
+    else:
+        log("Blaze layers added to current project")
     return True
 
 
 def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500):
     """
     Generates magnetic north lines directly to file (EPSG:4326) with a safety buffer.
+    Requires the Compass Routes plugin to be installed.
     """
     from qgis import processing
     from qgis.core import (
@@ -579,6 +717,30 @@ def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500)
         QgsVectorLayer,
     )
 
+    # Check if Compass Routes plugin is available
+    algo_id = "compassroutes:createmagneticnorth"
+    registry = QgsApplication.processingRegistry()
+    alg = registry.algorithmById(algo_id)
+
+    if not alg:
+        error_msg = (
+            "Compass Routes plugin is not installed. "
+            "Magnetic north lines require the Compass Routes plugin.\n\n"
+            "To install:\n"
+            "1. Go to Plugins > Manage and Install Plugins\n"
+            "2. Search for 'Compass Routes'\n"
+            "3. Click Install Plugin\n"
+            "4. Restart QGIS and try again"
+        )
+        log(f"ERROR: {error_msg}")
+        try:
+            from qgis.core import Qgis, QgsMessageLog
+
+            QgsMessageLog.logMessage(error_msg, "Blaze", Qgis.Critical)
+        except Exception:
+            pass
+        return None
+
     # 1. Apply Buffer (in project units, usually meters)
     # We clone the extent first to avoid modifying the original object
     buffered_extent = QgsRectangle(extent)
@@ -590,11 +752,8 @@ def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500)
     wgs84_extent = transform.transformBoundingBox(buffered_extent)
 
     # 3. Dynamic Parameter Setup
-    algo_id = "compassroutes:createmagneticnorth"
-    registry = QgsApplication.processingRegistry()
-    alg = registry.algorithmById(algo_id)
     param_names = [p.name() for p in alg.parameterDefinitions()] if alg else []
-    out_param = "OutputLayer" if alg and "OutputLayer" in param_names else "OUTPUT"
+    out_param = "OutputLayer" if "OutputLayer" in param_names else "OUTPUT"
 
     # 4. Run Algorithm directly to file
     params = {
@@ -607,7 +766,14 @@ def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500)
     try:
         processing.run(algo_id, params)
     except Exception as e:
-        print(f"Error running Compass Routes: {e}")
+        error_msg = f"Error running Compass Routes algorithm: {e}"
+        log(f"ERROR: {error_msg}")
+        try:
+            from qgis.core import Qgis, QgsMessageLog
+
+            QgsMessageLog.logMessage(error_msg, "Blaze", Qgis.Critical)
+        except Exception:
+            pass
         return None
 
     # 5. Load & Style
@@ -796,7 +962,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/9", "GeneralCulturalArea", True),
     ]
 
-    # Create single GPKG file for all NSW topo data
+    # Create or open existing GPKG file for all NSW topo data
     if gpkg_output_path:
         gpkg_path = Path(gpkg_output_path)
     else:
@@ -805,13 +971,24 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
     if driver is None:
         log("ERROR: GPKG driver not available!")
         return
-    if gpkg_path.exists():
-        driver.DeleteDataSource(str(gpkg_path))
-    ds = driver.CreateDataSource(str(gpkg_path))
+
+    # Open existing GPKG in update mode, or create new one
+    gpkg_exists = gpkg_path.exists()
+    if gpkg_exists:
+        ds = driver.Open(str(gpkg_path), 1)  # 1 = update mode
+        if ds is None:
+            log(f"WARNING: Could not open existing GPKG at {gpkg_path}, creating new one")
+            ds = driver.CreateDataSource(str(gpkg_path))
+            gpkg_exists = False
+        else:
+            log(f"Opened existing GPKG: {gpkg_path} (will append new features)")
+    else:
+        ds = driver.CreateDataSource(str(gpkg_path))
+        log(f"Created new GPKG: {gpkg_path}")
+
     if ds is None:
-        log(f"ERROR: Could not create GPKG at {gpkg_path}")
+        log(f"ERROR: Could not create/open GPKG at {gpkg_path}")
         return
-    log(f"Created GPKG: {gpkg_path}")
 
     total_layers = len(layers)
     layers_with_data = 0
@@ -1019,39 +1196,139 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
             srs = osr.SpatialReference()
             srs.ImportFromWkt(crs.toWkt())
 
-            ogr_layer = ds.CreateLayer(name, srs, ogr_geom_type)
+            # Get or create layer
+            ogr_layer = ds.GetLayerByName(name)
             if ogr_layer is None:
-                log(f"ERROR: Could not create OGR layer for {name}")
-                continue
+                ogr_layer = ds.CreateLayer(name, srs, ogr_geom_type)
+                if ogr_layer is None:
+                    log(f"ERROR: Could not create OGR layer for {name}")
+                    continue
+                log(f"Created new layer: {name}")
+            else:
+                log(f"Using existing layer: {name}")
 
-            # Add fields
+            # Ensure all fields exist (add missing ones)
+            existing_field_names = {
+                ogr_layer.GetLayerDefn().GetFieldDefn(i).GetName()
+                for i in range(ogr_layer.GetLayerDefn().GetFieldCount())
+            }
             for field in fields:
-                if field.type() == QVariant.Int:
-                    # Use Integer64 to avoid overflow with large IDs and timestamps
-                    ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTInteger64))
-                elif field.type() == QVariant.Double:
-                    ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTReal))
-                else:
-                    fld = ogr.FieldDefn(field.name(), ogr.OFTString)
-                    fld.SetWidth(254)
-                    ogr_layer.CreateField(fld)
+                if field.name() not in existing_field_names:
+                    if field.type() == QVariant.Int:
+                        ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTInteger64))
+                    elif field.type() == QVariant.Double:
+                        ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTReal))
+                    else:
+                        fld = ogr.FieldDefn(field.name(), ogr.OFTString)
+                        fld.SetWidth(254)
+                        ogr_layer.CreateField(fld)
 
-            # Add features
+            # Load existing features for duplicate checking
+            existing_features = {}
+            if gpkg_exists:
+                layer_defn = ogr_layer.GetLayerDefn()
+                field_names = [layer_defn.GetFieldDefn(i).GetName() for i in range(layer_defn.GetFieldCount())]
+                ogr_layer.ResetReading()
+                for existing_feat in ogr_layer:
+                    # Create a key from attributes (matching field names from new features)
+                    attrs_dict = {}
+                    for field_name in [f.name() for f in fields]:
+                        if field_name in field_names:
+                            field_idx = layer_defn.GetFieldIndex(field_name)
+                            if field_idx >= 0:
+                                attrs_dict[field_name] = existing_feat.GetField(field_name)
+                    # Create tuple key from attributes in same order as fields (normalize None values)
+                    attrs = tuple(
+                        attrs_dict.get(f.name()) if attrs_dict.get(f.name()) is not None else "" for f in fields
+                    )
+                    existing_geom = existing_feat.GetGeometryRef()
+                    if existing_geom:
+                        existing_geom_wkt = existing_geom.ExportToWkt()
+                        # Store: (attributes, geometry_wkt) -> (feature_id, geometry)
+                        existing_features[attrs] = (existing_feat.GetFID(), existing_geom_wkt)
+                ogr_layer.ResetReading()
+                log(f"  Loaded {len(existing_features)} existing features for duplicate checking")
+
+            # Helper function to check if geometries are the same (within tolerance)
+            def geometries_equal(geom1_wkt, geom2):
+                try:
+                    geom1_ogr = ogr.CreateGeometryFromWkt(geom1_wkt)
+                    geom2_ogr = ogr.CreateGeometryFromWkt(geom2.asWkt())
+                    if geom1_ogr and geom2_ogr:
+                        return geom1_ogr.Equals(geom2_ogr)
+                except Exception:
+                    pass
+                return False
+
+            # Helper function to merge geometries (union for overlapping features)
+            def merge_geometries(geom1_wkt, geom2):
+                try:
+                    geom1_ogr = ogr.CreateGeometryFromWkt(geom1_wkt)
+                    geom2_ogr = ogr.CreateGeometryFromWkt(geom2.asWkt())
+                    if geom1_ogr and geom2_ogr:
+                        geom_type = geom1_ogr.GetGeometryType()
+                        # For points, don't merge (they're either duplicates or different locations)
+                        if geom_type == ogr.wkbPoint or geom_type == ogr.wkbMultiPoint:
+                            return None
+                        # For lines and polygons, merge if they overlap or are adjacent
+                        if geom1_ogr.Intersects(geom2_ogr) or geom1_ogr.Touches(geom2_ogr):
+                            merged = geom1_ogr.Union(geom2_ogr)
+                            if merged and not merged.IsEmpty():
+                                return merged.ExportToWkt()
+                except Exception as e:
+                    log(f"  Error merging geometries: {e}")
+                return None
+
+            # Process new features
             saved_count = 0
+            skipped_duplicates = 0
+            merged_count = 0
             for qf in qgs_features:
                 geom = qf.geometry()
-                if geom and not geom.isEmpty():
-                    ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
-                    ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
-                    ogr_feat.SetGeometry(ogr_geom)
-                    for i, field in enumerate(fields):
-                        val = qf.attribute(i)
-                        if val is not None:
-                            ogr_feat.SetField(field.name(), val)
-                    ogr_layer.CreateFeature(ogr_feat)
-                    saved_count += 1
+                if not geom or geom.isEmpty():
+                    continue
 
-            log(f"Saved {name}: {saved_count} features")
+                # Create attribute key (normalize None values for comparison)
+                attrs = tuple(qf.attribute(i) if qf.attribute(i) is not None else "" for i in range(len(fields)))
+
+                # Check for exact duplicate (same attributes and geometry)
+                if attrs in existing_features:
+                    existing_fid, existing_geom_wkt = existing_features[attrs]
+                    if geometries_equal(existing_geom_wkt, geom):
+                        skipped_duplicates += 1
+                        continue
+                    else:
+                        # Same attributes but different geometry - might be cropped version
+                        merged_wkt = merge_geometries(existing_geom_wkt, geom)
+                        if merged_wkt:
+                            # Update existing feature with merged geometry
+                            existing_feat = ogr_layer.GetFeature(existing_fid)
+                            if existing_feat:
+                                merged_geom = ogr.CreateGeometryFromWkt(merged_wkt)
+                                if merged_geom:
+                                    existing_feat.SetGeometry(merged_geom)
+                                    ogr_layer.SetFeature(existing_feat)
+                                    merged_count += 1
+                                    # Update our cache
+                                    existing_features[attrs] = (existing_fid, merged_wkt)
+                                    continue
+
+                # New feature - add it
+                ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
+                ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+                ogr_feat.SetGeometry(ogr_geom)
+                for i, field in enumerate(fields):
+                    val = qf.attribute(i)
+                    if val is not None:
+                        ogr_feat.SetField(field.name(), val)
+                if ogr_layer.CreateFeature(ogr_feat) == ogr.OGRERR_NONE:
+                    saved_count += 1
+                    # Add to cache (FID is set after CreateFeature)
+                    new_fid = ogr_feat.GetFID()
+                    if new_fid >= 0:
+                        existing_features[attrs] = (new_fid, geom.asWkt())
+
+            log(f"Saved {name}: {saved_count} new, {merged_count} merged, {skipped_duplicates} duplicates skipped")
 
         except Exception as e:
             import traceback
@@ -1082,7 +1359,29 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         # Re-iterate to add layers with visibility settings
         layer_visibility = {name: visible for _, name, visible in layers}
 
+        # Reload layers from GPKG to show updated features (new features appended, duplicates merged)
+        gpkg_path_str = str(gpkg_path)
+        layers_to_remove = []
+        for child in group.children():
+            try:
+                if child.nodeType() == 0:  # 0 = Layer node type
+                    layer = child.layer()
+                    if layer:
+                        layer_source = layer.source()
+                        # Check if this layer is from the same GPKG file
+                        if gpkg_path_str in layer_source or gpkg_path.name in layer_source:
+                            layers_to_remove.append((child, layer))
+            except (AttributeError, TypeError):
+                continue
+
+        # Remove old layers from this GPKG (will be reloaded with updated features)
+        for child_node, layer in layers_to_remove:
+            log(f"Reloading layer: {layer.name()} (to show updated features)")
+            group.removeLayer(layer)
+            QgsProject.instance().removeMapLayer(layer.id())
+
         for layer_name in layer_names:
+
             uri = f"{gpkg_path}|layername={layer_name}"
             layer = QgsVectorLayer(uri, layer_name, "ogr")
             if layer.isValid():
@@ -1536,5 +1835,8 @@ def main():
     create_qgis_project(combined_dir, output_path)
 
 
-if QgsApplication.instance() is not None:
+# Only run main() if this script is executed directly (not when imported/exec'd)
+# Check if we're being run as a script (has command line args) vs being exec'd by the plugin
+# When exec'd by the plugin, __name__ will be set to "create_qgis_project" (not "__main__")
+if __name__ == "__main__" and QgsApplication.instance() is not None:
     main()
