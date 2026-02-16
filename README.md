@@ -213,7 +213,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests. A
 
 ## License
 
-Blaze is licensed under the GPLv3 License. See [LICENSE](LICENSE) for details. You can pretty much do whatever you like with it.
+Blaze is licensed under the GPLv3 License. See [LICENSE](LICENSE) for details. You can pretty much do whatever you like with it, however any distributed modifications must remain open-source.
 
 This project uses third-party libraries that are subject to their own licenses. See [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for complete license information for all dependencies.
 

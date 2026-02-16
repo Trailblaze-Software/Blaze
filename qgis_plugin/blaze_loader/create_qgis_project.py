@@ -1730,6 +1730,9 @@ def build_raster_pyramids(raster_path):
     try:
         from osgeo import gdal
 
+        # Explicitly set GDAL exception handling to avoid FutureWarning
+        gdal.UseExceptions()
+
         # Check if pyramids already exist
         ds = gdal.Open(str(raster_path), gdal.GA_ReadOnly)
         if ds is None:
