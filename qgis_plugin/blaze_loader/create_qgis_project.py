@@ -272,6 +272,7 @@ def create_qgis_project(
     use_current_extent=False,
     current_extent=None,
     current_crs=None,
+    parent_window=None,
 ):
     """Add Blaze layers to the current QGIS project.
 
@@ -288,6 +289,7 @@ def create_qgis_project(
         use_current_extent: If True, use current map extent instead of loading Blaze layers
         current_extent: QgsRectangle for current map extent (required if use_current_extent=True)
         current_crs: QgsCoordinateReferenceSystem for current map (required if use_current_extent=True)
+        parent_window: Optional parent window for dialogs (QMainWindow or QWidget)
     """
 
     def report_progress(message, percent=None):
@@ -517,16 +519,39 @@ def create_qgis_project(
 
     # Add NSW topographic layers (downloaded and saved to single GPKG)
     if download_topo and project_extent and project_crs:
-        report_progress("Downloading NSW topographic layers...", 40)
-        # Use combined_path if available, otherwise use a temp directory for output files
-        if use_current_extent:
-            output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
-            output_dir.mkdir(parents=True, exist_ok=True)
-        else:
-            output_dir = combined_path
-        add_nsw_topo_layers(
-            topo_group, project_extent, project_crs, output_dir, progress_callback, log, gpkg_output_path
-        )
+        area_sq_km = _extent_area_sq_km(project_extent, project_crs)
+        if area_sq_km is not None and area_sq_km > 1000:
+            try:
+                from qgis.PyQt.QtWidgets import QMessageBox
+
+                msg = (
+                    f"The map extent is about {area_sq_km:,.0f} km². "
+                    "Downloading topographic layers for this area may"
+                    " take a long time and use significant bandwidth. Continue?"
+                )
+                reply = QMessageBox.question(
+                    parent_window,
+                    "Large extent",
+                    msg,
+                    QMessageBox.Yes | QMessageBox.No,
+                    QMessageBox.No,
+                )
+                if reply != QMessageBox.Yes:
+                    download_topo = False
+                    log("Topographic layer download skipped - user declined for large extent")
+            except Exception as e:
+                log(f"Could not show extent confirmation: {e}")
+        if download_topo:
+            report_progress("Downloading NSW topographic layers...", 40)
+            # Use combined_path if available, otherwise use a temp directory for output files
+            if use_current_extent:
+                output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
+                output_dir.mkdir(parents=True, exist_ok=True)
+            else:
+                output_dir = combined_path
+            add_nsw_topo_layers(
+                topo_group, project_extent, project_crs, output_dir, progress_callback, log, gpkg_output_path
+            )
     # Note: Empty group removal happens at the end
 
     # Add vector layers (contours, streams) AFTER topo layers so they render underneath
@@ -589,23 +614,21 @@ def create_qgis_project(
         if area_sq_km is not None and area_sq_km > 1000:
             try:
                 from qgis.PyQt.QtWidgets import QMessageBox
-                from qgis.utils import iface
 
-                if iface:
-                    msg = (
-                        f"The map extent is about {area_sq_km:,.0f} km². "
-                        "Generating magnetic north lines may take a long time. Continue?"
-                    )
-                    reply = QMessageBox.question(
-                        None,
-                        "Large extent",
-                        msg,
-                        QMessageBox.Yes | QMessageBox.No,
-                        QMessageBox.No,
-                    )
-                    if reply != QMessageBox.Yes:
-                        add_mag_north = False
-                        log("Magnetic north lines skipped - user declined for large extent")
+                msg = (
+                    f"The map extent is about {area_sq_km:,.0f} km². "
+                    "Generating magnetic north lines may take a long time. Continue?"
+                )
+                reply = QMessageBox.question(
+                    parent_window,
+                    "Large extent",
+                    msg,
+                    QMessageBox.Yes | QMessageBox.No,
+                    QMessageBox.No,
+                )
+                if reply != QMessageBox.Yes:
+                    add_mag_north = False
+                    log("Magnetic north lines skipped - user declined for large extent")
             except Exception as e:
                 log(f"Could not show extent confirmation: {e}")
         if add_mag_north:

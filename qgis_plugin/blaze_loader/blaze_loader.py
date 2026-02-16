@@ -211,6 +211,7 @@ class BlazeLoader:
                 use_current_extent=use_current_extent,
                 current_extent=current_extent,
                 current_crs=current_crs,
+                parent_window=self.iface.mainWindow(),
             )
 
             update_progress("Complete!", 100)
