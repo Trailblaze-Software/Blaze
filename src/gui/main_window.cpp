@@ -37,15 +37,15 @@ MainWindow::~MainWindow() {}
 
 void MainWindow::about() {
   QMessageBox::about(this, "About Blaze",
-                     QString("This is the Blaze LIDAR mapping tool. It is free for non-commercial "
-                             "nav-sport mapping only.<br><br>"
+                     QString("This is the Blaze LIDAR mapping tool. It is free and open-source, "
+                             "released under the GPLv3 license.<br><br>"
                              "Please contact us at <a "
                              "href=\"mailto:trailblaze.software@gmail.com\">trailblaze.software@"
-                             "gmail.com</a> for commercial licensing options.<br><br>"
+                             "gmail.com</a> for other licensing options.<br><br>"
                              "Version: " BLAZE_VERSION "<br>"
                              "Commit hash: " GIT_COMMIT_HASH "<br><br>"
                              "<a href=\"https://github.com/Trailblaze-Software/Blaze\">Source "
-                             "code</a> available under the AGPLv3 license.<br>"));
+                             "code</a> available.<br>"));
 }
 
 void MainWindow::run_blaze() {

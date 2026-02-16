@@ -165,6 +165,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Get version from tag
+        id: version
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+            TAG=${GITHUB_EVENT_RELEASE_TAG_NAME#v}
+          else
+            TAG=${GITHUB_REF#refs/tags/v}
+          fi
+          echo "version=$TAG" >> $GITHUB_OUTPUT
+          echo "Version: $TAG"
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -177,15 +188,27 @@ jobs:
         run: |
           cd qgis_plugin
           python package_plugin.py
-          mv *.zip blaze-qgis-plugin.zip
+      - name: Set plugin zip filename
+        id: plugin_zip
+        run: |
+          cd qgis_plugin
+          # Find the generated zip file (it will have version in name: blaze_loader_qgis_plugin_v*.zip)
+          ZIP_FILE=$(ls blaze_loader_qgis_plugin*.zip | head -1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "ERROR: No zip file found"
+            exit 1
+          fi
+          echo "Found zip: $ZIP_FILE"
+          echo "zip_path=qgis_plugin/$ZIP_FILE" >> $GITHUB_OUTPUT
+          echo "zip_name=$ZIP_FILE" >> $GITHUB_OUTPUT
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: blaze-qgis-plugin
-          path: qgis_plugin/blaze-qgis-plugin.zip
+          path: ${{ steps.plugin_zip.outputs.zip_path }}
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
-          files: qgis_plugin/blaze-qgis-plugin.zip
+          files: ${{ steps.plugin_zip.outputs.zip_path }}
