@@ -290,6 +290,13 @@ endforeach()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOpenMPDLL.cmake)
 find_openmp_dll(${LIBRARY_NAME})
 
+# Find and copy PROJ data files to build output directory PROJ automatically
+# searches ../share/proj/ relative to the binary Attach to the library so it
+# runs once when the lib is built; all executables link the lib and use the same
+# output dir, so they get the data files without duplicate post-build steps.
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindProjData.cmake)
+find_proj_data(${LIBRARY_NAME})
+
 target_include_directories(${UNIT_TESTS_NAME}
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
 target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest_main)
@@ -311,6 +318,9 @@ install(TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(DIRECTORY "assets" DESTINATION ${CMAKE_INSTALL_DATADIR})
 
 install(FILES $<TARGET_RUNTIME_DLLS:${CLI_EXE_NAME}> TYPE BIN)
+
+# Install PROJ data files for installed builds
+install_proj_data()
 
 if(NOT BLAZE_CLI_ONLY)
   install(
