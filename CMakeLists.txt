@@ -299,7 +299,7 @@ find_proj_data(${LIBRARY_NAME})
 
 target_include_directories(${UNIT_TESTS_NAME}
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
-target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest_main)
+target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
 add_test(NAME ${UNIT_TESTS_NAME} COMMAND ${UNIT_TESTS_NAME})
 
 add_subdirectory(src)

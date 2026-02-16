@@ -4,7 +4,7 @@ Contributions are welcome! Please feel free to submit a pull request at [https:/
 
 ## Licensing
 
-By contributing to Blaze, you agree that your contributions will be licensed under the project's [GPLv3 License](license.md) and grant an implicit perpetual, irrevocable, non-exclusive, royalty-free license to Trailblaze Software to use, modify, distribute and adapt your contributions without limitation.
+By contributing to Blaze, you agree that your contributions will be licensed under the project’s [GPLv3 License](license.md). You retain copyright to your contributions, but you grant Trailblaze Software a perpetual, irrevocable, worldwide, non-exclusive, royalty-free license to reproduce, modify, distribute, sublicense, and otherwise use your contributions for any purpose. If you would like to contribute but are uncomfortable with these terms, please contact us at [trailblaze.software@gmail.com](mailto:trailblaze.software@gmail.com)
 
 ## Development Workflow
 

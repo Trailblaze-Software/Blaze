@@ -20,7 +20,7 @@
 
 **Blaze** is a LIDAR mapping tool designed for processing, analyzing, and visualizing point cloud data from LAS/LAZ files. Built with modern C++20, Blaze provides both command-line (`blaze-cli`) and graphical interfaces (`Blaze` and `Blaze3D`).
 
-Blaze is free and open-source, however if you generate maps using Blaze, we would appreciate a simple acknowledgement and link to [https://trailblaze-software.github.io/Blaze](https://trailblaze-software.github.io/Blaze).
+Blaze is free and open-source, however if you generate maps using Blaze, we would appreciate a simple acknowledgement and link to this page [https://trailblaze-software.github.io/Blaze](https://trailblaze-software.github.io/Blaze).
 
 If you run into any problems, please [submit an issue](https://github.com/Trailblaze-Software/Blaze/issues) and we will get back to you. Alternately, feel free to fix it yourself and submit a pull request :)
 
