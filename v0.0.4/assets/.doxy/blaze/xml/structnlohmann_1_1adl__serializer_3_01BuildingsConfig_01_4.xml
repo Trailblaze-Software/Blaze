@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>nlohmann::adl_serializer&lt; BuildingsConfig &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4_1aa45b2310df894298b09d7bd9c4137acc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structBuildingsConfig" kindref="compound">BuildingsConfig</ref></type>
+        <definition>static BuildingsConfig nlohmann::adl_serializer&lt; BuildingsConfig &gt;::from_json</definition>
+        <argsstring>(const json &amp;j)</argsstring>
+        <name>from_json</name>
+        <qualifiedname>nlohmann::adl_serializer&lt; BuildingsConfig &gt;::from_json</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> json &amp;</type>
+          <declname>j</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="234" column="26" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="234" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4_1a0bd2e9fb4ba0f8222a1328c78679af95" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>static void nlohmann::adl_serializer&lt; BuildingsConfig &gt;::to_json</definition>
+        <argsstring>(json &amp;j, BuildingsConfig bc)</argsstring>
+        <name>to_json</name>
+        <qualifiedname>nlohmann::adl_serializer&lt; BuildingsConfig &gt;::to_json</qualifiedname>
+        <param>
+          <type>json &amp;</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type><ref refid="structBuildingsConfig" kindref="compound">BuildingsConfig</ref></type>
+          <declname>bc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="238" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="238" bodyend="238"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="233" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="233" bodyend="239"/>
+    <listofallmembers>
+      <member refid="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4_1aa45b2310df894298b09d7bd9c4137acc" prot="public" virt="non-virtual"><scope>nlohmann::adl_serializer&lt; BuildingsConfig &gt;</scope><name>from_json</name></member>
+      <member refid="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4_1a0bd2e9fb4ba0f8222a1328c78679af95" prot="public" virt="non-virtual"><scope>nlohmann::adl_serializer&lt; BuildingsConfig &gt;</scope><name>to_json</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classCoordinate3D" kind="class" language="C++" prot="public">
+    <compoundname>Coordinate3D</compoundname>
+    <basecompoundref refid="classCoordinate2D" prot="public" virt="non-virtual">Coordinate2D&lt; T &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCoordinate3D_1a24f91ffeed30495c82938a6fbdbf179d" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double Coordinate3D&lt; T &gt;::m_z</definition>
+        <argsstring></argsstring>
+        <name>m_z</name>
+        <qualifiedname>Coordinate3D::m_z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="220" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="220" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCoordinate3D_1a3d47427d9f73deb6f687106dee6585f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Coordinate3D&lt; T &gt;::Coordinate3D</definition>
+        <argsstring>(T x, T y, T z)</argsstring>
+        <name>Coordinate3D</name>
+        <qualifiedname>Coordinate3D::Coordinate3D</qualifiedname>
+        <param>
+          <type>T</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="223" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="223" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate3D_1a616d0cdf7bddf4ff5fa6c16cb90fc33d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Coordinate3D&lt; T &gt;::Coordinate3D</definition>
+        <argsstring>()=default</argsstring>
+        <name>Coordinate3D</name>
+        <qualifiedname>Coordinate3D::Coordinate3D</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="225" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate3D_1a0348b7573eb15897ca16aed17afa21af" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> T</type>
+        <definition>const T Coordinate3D&lt; T &gt;::z</definition>
+        <argsstring>() const</argsstring>
+        <name>z</name>
+        <qualifiedname>Coordinate3D::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="227" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="227" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate3D_1abd1b02e77ef72651288eb63aee3c3b05" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T &amp; Coordinate3D&lt; T &gt;::z</definition>
+        <argsstring>()</argsstring>
+        <name>z</name>
+        <qualifiedname>Coordinate3D::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="228" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="228" bodyend="228"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="1">
+        <label>Coordinate3D&lt; T &gt;</label>
+        <link refid="classCoordinate3D"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="1">
+        <label>Coordinate3D&lt; T &gt;</label>
+        <link refid="classCoordinate3D"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="219" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="219" bodyend="229"/>
+    <listofallmembers>
+      <member refid="classCoordinate2D_1a536f3ba35b38d0c53faa5f9c7b5a5d4b" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate2D_1a27695be872dedbd15702cecdd5cb620e" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate3D_1a3d47427d9f73deb6f687106dee6585f8" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>Coordinate3D</name></member>
+      <member refid="classCoordinate3D_1a616d0cdf7bddf4ff5fa6c16cb90fc33d" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>Coordinate3D</name></member>
+      <member refid="classCoordinate3D_1a24f91ffeed30495c82938a6fbdbf179d" prot="private" virt="non-virtual"><scope>Coordinate3D</scope><name>m_z</name></member>
+      <member refid="classCoordinate2D_1a75423d3585da779437d826a485891e66" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>magnitude</name></member>
+      <member refid="classCoordinate2D_1ac0cb5d93ac5dc1569f0599129db2accd" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>magnitude_sqd</name></member>
+      <member refid="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>offset_to_center</name></member>
+      <member refid="classCoordinate2D_1af2ed95c9e9f37d3a430aea86d41cbe09" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>operator Coordinate2D&lt; U &gt;</name></member>
+      <member refid="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>operator-</name></member>
+      <member refid="classCoordinate2D_1adbd28f3bd749f4cfbf20b0746375cbba" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>operator==</name></member>
+      <member refid="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>round</name></member>
+      <member refid="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>round_NW</name></member>
+      <member refid="classCoordinate2D_1a15cdc073df1226264dfa3c04750070a8" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a3d65f5ad53f9d3a5df8bdd567f32d0be" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a976db191ea32ade7a246b3368fdb48d9" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>y</name></member>
+      <member refid="classCoordinate2D_1a8188b4a389ccbb767d697998c17a2e2c" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>y</name></member>
+      <member refid="classCoordinate3D_1a0348b7573eb15897ca16aed17afa21af" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>z</name></member>
+      <member refid="classCoordinate3D_1abd1b02e77ef72651288eb63aee3c3b05" prot="public" virt="non-virtual"><scope>Coordinate3D</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

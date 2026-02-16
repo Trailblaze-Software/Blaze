@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLayer" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Layer</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QObject</basecompoundref>
+    <derivedcompoundref refid="classPointLayer" prot="public" virt="non-virtual">PointLayer</derivedcompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classLayer_1a2b075c64ebffde8730a248a5bb5f5133" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Layer::m_name</definition>
+        <argsstring></argsstring>
+        <name>m_name</name>
+        <qualifiedname>Layer::m_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="12" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="signal">
+      <memberdef kind="signal" id="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Layer::data_updated</definition>
+        <argsstring>() const</argsstring>
+        <name>data_updated</name>
+        <qualifiedname>Layer::data_updated</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="15" column="8"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLayer_1a948936d6c972fac3298443963e00d28c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>virtual Extent3D Layer::extent</definition>
+        <argsstring>() const =0</argsstring>
+        <name>extent</name>
+        <qualifiedname>Layer::extent</qualifiedname>
+        <reimplementedby refid="classLASLayer_1a4cb9763e5b9038196c2ca5880c77f178">extent</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="18" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a84e007a609d4e1954815254c29416951" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Layer::projection</definition>
+        <argsstring>() const =0</argsstring>
+        <name>projection</name>
+        <qualifiedname>Layer::projection</qualifiedname>
+        <reimplementedby refid="classLASLayer_1a5b35f6a4baff870f46f7402effae0db9">projection</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="19" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a0ff357311c2b67b5dcead20954726669" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Layer::name</definition>
+        <argsstring>()</argsstring>
+        <name>name</name>
+        <qualifiedname>Layer::name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="20" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a57e5a4a6ec188de4e7b8c894aac254ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Layer::~Layer</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Layer</name>
+        <qualifiedname>Layer::~Layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="21" column="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>LASLayer</label>
+        <link refid="classLASLayer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>PointLayer</label>
+        <link refid="classPointLayer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="8" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="8" bodyend="22"/>
+    <listofallmembers>
+      <member refid="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" virt="non-virtual"><scope>Layer</scope><name>data_updated</name></member>
+      <member refid="classLayer_1a948936d6c972fac3298443963e00d28c" prot="public" virt="pure-virtual"><scope>Layer</scope><name>extent</name></member>
+      <member refid="classLayer_1a2b075c64ebffde8730a248a5bb5f5133" prot="protected" virt="non-virtual"><scope>Layer</scope><name>m_name</name></member>
+      <member refid="classLayer_1a0ff357311c2b67b5dcead20954726669" prot="public" virt="virtual"><scope>Layer</scope><name>name</name></member>
+      <member refid="classLayer_1a84e007a609d4e1954815254c29416951" prot="public" virt="pure-virtual"><scope>Layer</scope><name>projection</name></member>
+      <member refid="classLayer_1a57e5a4a6ec188de4e7b8c894aac254ea" prot="public" virt="virtual"><scope>Layer</scope><name>~Layer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

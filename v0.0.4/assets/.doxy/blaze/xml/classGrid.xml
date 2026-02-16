@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGrid" kind="class" language="C++" prot="public">
+    <compoundname>Grid</compoundname>
+    <basecompoundref refid="classGridData" prot="public" virt="non-virtual">GridData</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="classGrid_1aa7926f3fe7486904e03553443b94ffdb" prot="protected" static="no">
+        <type>std::conditional_t&lt; std::is_same_v&lt; <ref refid="classCoordinate2D" kindref="compound">U</ref>, <ref refid="classCoordinate2D" kindref="compound">bool</ref> &gt;, <ref refid="structBlazeBool" kindref="compound">BlazeBool</ref>, <ref refid="classCoordinate2D" kindref="compound">U</ref> &gt;</type>
+        <definition>using Grid&lt; U &gt;::T =  std::conditional_t&lt;std::is_same_v&lt;U, bool&gt;, BlazeBool, U&gt;</definition>
+        <argsstring></argsstring>
+        <name>T</name>
+        <qualifiedname>Grid::T</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="118" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classGrid_1ab1af859c9a334e6897624ba1222f96c7" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T Grid&lt; U &gt;::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <qualifiedname>Grid::value_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="150" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classGrid_1a0a66b22fe3ec47361eb6f749b18dc209" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; T &gt;</type>
+        <definition>std::vector&lt;T&gt; Grid&lt; U &gt;::m_data</definition>
+        <argsstring></argsstring>
+        <name>m_data</name>
+        <qualifiedname>Grid::m_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="120" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGrid_1a429f1852fcc96c707d7b6367b140d5b9" prot="protected" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <definition>int Grid&lt; U &gt;::m_repeats</definition>
+        <argsstring></argsstring>
+        <name>m_repeats</name>
+        <qualifiedname>Grid::m_repeats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="121" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGrid_1a9a1e1807e0692fe9cf0ef3cf88a4a1fc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Grid&lt; U &gt;::Grid</definition>
+        <argsstring>(size_t width, size_t height, int repeats=1)</argsstring>
+        <name>Grid</name>
+        <qualifiedname>Grid::Grid</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <declname>repeats</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="124" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="124" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1a48dbbee2e03f5ec23abd9628eeea1dcf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T &amp; Grid&lt; U &gt;::operator[]</definition>
+        <argsstring>(Coordinate2D&lt; size_t &gt; coord)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>Grid::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="127" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="127" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1afd98fad7ec8aab40d9bf9faf66ef9c13" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> T &amp;</type>
+        <definition>const T &amp; Grid&lt; U &gt;::operator[]</definition>
+        <argsstring>(Coordinate2D&lt; size_t &gt; coord) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>Grid::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="130" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="130" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1acbe5d0e166627d56cc6ad36a422edf6a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::pair&lt; T, T &gt;</type>
+        <definition>std::pair&lt; T, T &gt; Grid&lt; U &gt;::get_values</definition>
+        <argsstring>(const LineCoord2D&lt; size_t &gt; &amp;coord) const</argsstring>
+        <name>get_values</name>
+        <qualifiedname>Grid::get_values</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="134" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="134" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1a44cc9f209f78ca947024e9c72d73fa16" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Grid&lt; U &gt;::fill</definition>
+        <argsstring>(const T &amp;value)</argsstring>
+        <name>fill</name>
+        <qualifiedname>Grid::fill</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="138" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="138" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1afd9f36cadd4e0aaa7db63844786c68f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Grid&lt; U &gt;::copy_from</definition>
+        <argsstring>(const Grid &amp;other)</argsstring>
+        <name>copy_from</name>
+        <qualifiedname>Grid::copy_from</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGrid" kindref="compound">Grid</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="140" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="140" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1a4e221bd89bcb14a2eb6a2ebd99e8e063" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T Grid&lt; U &gt;::max_value</definition>
+        <argsstring>() const</argsstring>
+        <name>max_value</name>
+        <qualifiedname>Grid::max_value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="147" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="147" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1ab0077114cdb846bf93624ad89782ec71" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T Grid&lt; U &gt;::min_value</definition>
+        <argsstring>() const</argsstring>
+        <name>min_value</name>
+        <qualifiedname>Grid::min_value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="148" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="148" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1aa451f4b0fe215f9a868bb1474854ab5e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Grid&lt; U &gt;::fill_from</definition>
+        <argsstring>(const Grid &amp;other, const Coordinate2D&lt; size_t &gt; &amp;top_left={0, 0})</argsstring>
+        <name>fill_from</name>
+        <qualifiedname>Grid::fill_from</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGrid" kindref="compound">Grid</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <declname>top_left</declname>
+          <defval>{0, 0}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="152" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="152" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classGrid_1adabb6e7d161770de143561a3b795617a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Grid&lt; U &gt;::fill_from</definition>
+        <argsstring>(const FlexGrid &amp;other, const Coordinate2D&lt; long long &gt; &amp;top_left={0, 0})</argsstring>
+        <name>fill_from</name>
+        <qualifiedname>Grid::fill_from</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">long</ref> <ref refid="classCoordinate2D" kindref="compound">long</ref> &gt; &amp;</type>
+          <declname>top_left</declname>
+          <defval>{0, 0}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="162" column="8"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classGrid_1a7ed34acce526ba152008c37df30553a3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const Grid &amp;grid)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>Grid::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGrid" kindref="compound">Grid</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="164" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="164" bodyend="178"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Grid&lt; U &gt;</label>
+        <link refid="classGrid"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GridData</label>
+        <link refid="classGridData"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Grid&lt; U &gt;</label>
+        <link refid="classGrid"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GridData</label>
+        <link refid="classGridData"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="116" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="116" bodyend="179"/>
+    <listofallmembers>
+      <member refid="classGrid_1afd9f36cadd4e0aaa7db63844786c68f7" prot="public" virt="non-virtual"><scope>Grid</scope><name>copy_from</name></member>
+      <member refid="classGrid_1a44cc9f209f78ca947024e9c72d73fa16" prot="public" virt="non-virtual"><scope>Grid</scope><name>fill</name></member>
+      <member refid="classGrid_1aa451f4b0fe215f9a868bb1474854ab5e" prot="public" virt="non-virtual"><scope>Grid</scope><name>fill_from</name></member>
+      <member refid="classGrid_1adabb6e7d161770de143561a3b795617a" prot="public" virt="non-virtual"><scope>Grid</scope><name>fill_from</name></member>
+      <member refid="classGrid_1acbe5d0e166627d56cc6ad36a422edf6a" prot="public" virt="non-virtual"><scope>Grid</scope><name>get_values</name></member>
+      <member refid="classGrid_1a9a1e1807e0692fe9cf0ef3cf88a4a1fc" prot="public" virt="non-virtual"><scope>Grid</scope><name>Grid</name></member>
+      <member refid="classGridData_1ad3de1079142a49044d2cc5dce8c77be2" prot="public" virt="non-virtual"><scope>Grid</scope><name>GridData</name></member>
+      <member refid="classGridData_1af50b2f20899510c2b9373bacbb217b7f" prot="public" virt="non-virtual"><scope>Grid</scope><name>height</name></member>
+      <member refid="classGridData_1ae4531fee4184ca64a5c9b16488d253ba" prot="public" virt="non-virtual"><scope>Grid</scope><name>in_bounds</name></member>
+      <member refid="classGrid_1a0a66b22fe3ec47361eb6f749b18dc209" prot="protected" virt="non-virtual"><scope>Grid</scope><name>m_data</name></member>
+      <member refid="classGridData_1a4c3d85fe603a4d61b8dff291ff527141" prot="protected" virt="non-virtual"><scope>Grid</scope><name>m_height</name></member>
+      <member refid="classGrid_1a429f1852fcc96c707d7b6367b140d5b9" prot="protected" virt="non-virtual"><scope>Grid</scope><name>m_repeats</name></member>
+      <member refid="classGridData_1a13126024023e1abb5934579b8bd8f84f" prot="protected" virt="non-virtual"><scope>Grid</scope><name>m_width</name></member>
+      <member refid="classGrid_1a4e221bd89bcb14a2eb6a2ebd99e8e063" prot="public" virt="non-virtual"><scope>Grid</scope><name>max_value</name></member>
+      <member refid="classGrid_1ab0077114cdb846bf93624ad89782ec71" prot="public" virt="non-virtual"><scope>Grid</scope><name>min_value</name></member>
+      <member refid="classGrid_1a7ed34acce526ba152008c37df30553a3" prot="public" virt="non-virtual"><scope>Grid</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classGrid_1a48dbbee2e03f5ec23abd9628eeea1dcf" prot="public" virt="non-virtual"><scope>Grid</scope><name>operator[]</name></member>
+      <member refid="classGrid_1afd98fad7ec8aab40d9bf9faf66ef9c13" prot="public" virt="non-virtual"><scope>Grid</scope><name>operator[]</name></member>
+      <member refid="classGrid_1aa7926f3fe7486904e03553443b94ffdb" prot="protected" virt="non-virtual"><scope>Grid</scope><name>T</name></member>
+      <member refid="classGrid_1ab1af859c9a334e6897624ba1222f96c7" prot="public" virt="non-virtual"><scope>Grid</scope><name>value_type</name></member>
+      <member refid="classGridData_1ab0725a01420119c3a572e56671389870" prot="public" virt="non-virtual"><scope>Grid</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

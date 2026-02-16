@@ -1,0 +1,347 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGeoTransform" kind="class" language="C++" prot="public">
+    <compoundname>GeoTransform</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGeoTransform_1a959218521dd763a10c740d7d4d95a568" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double GeoTransform::geoTransform[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>geoTransform</name>
+        <qualifiedname>GeoTransform::geoTransform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="18" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGeoTransform_1a31872d349e3bddba797d3caf939c6766" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GeoTransform::GeoTransform</definition>
+        <argsstring>(double upper_left_x, double upper_left_y, double dx=1.0, double dy=-1.0)</argsstring>
+        <name>GeoTransform</name>
+        <qualifiedname>GeoTransform::GeoTransform</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>upper_left_x</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>upper_left_y</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>dx</declname>
+          <defval>1.0</defval>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>dy</declname>
+          <defval>-1.0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="21" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="21" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a6b50f30cb737018fbaa7b1404991b9c4" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GeoTransform::GeoTransform</definition>
+        <argsstring>(const Coordinate2D&lt; double &gt; &amp;upper_left, double resolution)</argsstring>
+        <name>GeoTransform</name>
+        <qualifiedname>GeoTransform::GeoTransform</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>upper_left</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>resolution</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="30" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="30" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a9ca10e38f59ce0978f3c9361287aad36" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GeoTransform::GeoTransform</definition>
+        <argsstring>()</argsstring>
+        <name>GeoTransform</name>
+        <qualifiedname>GeoTransform::GeoTransform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="33" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a3d70fd2f3b35065b42b4b4e3843da3f9" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GeoTransform::GeoTransform</definition>
+        <argsstring>(GDALDataset &amp;dataset)</argsstring>
+        <name>GeoTransform</name>
+        <qualifiedname>GeoTransform::GeoTransform</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GDALDataset</ref> &amp;</type>
+          <declname>dataset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="35" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="9" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1ac89d02662dede70d218d418cf8c745e6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">double</ref> *</type>
+        <definition>const double * GeoTransform::get_raw</definition>
+        <argsstring>() const</argsstring>
+        <name>get_raw</name>
+        <qualifiedname>GeoTransform::get_raw</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="37" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1adc77c5941237ae5c915b8958ed696c93" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref></type>
+        <definition>GeoTransform GeoTransform::with_new_resolution</definition>
+        <argsstring>(double new_resolution) const</argsstring>
+        <name>with_new_resolution</name>
+        <qualifiedname>GeoTransform::with_new_resolution</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>new_resolution</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="39" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="39" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1aa063bd35010bc95a8b76354d7dc1c3c2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <definition>Coordinate2D&lt; double &gt; GeoTransform::pixel_to_projection</definition>
+        <argsstring>(const Coordinate2D&lt; double &gt; &amp;coord) const</argsstring>
+        <name>pixel_to_projection</name>
+        <qualifiedname>GeoTransform::pixel_to_projection</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="43" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="43" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1aa4864c894f228d22787de88c4bdb44b3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <definition>Coordinate2D&lt; double &gt; GeoTransform::projection_to_pixel</definition>
+        <argsstring>(const Coordinate2D&lt; double &gt; &amp;coord) const</argsstring>
+        <name>projection_to_pixel</name>
+        <qualifiedname>GeoTransform::projection_to_pixel</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="49" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="49" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1aac9545f4e7d1af2cc3fc30f03db604bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double GeoTransform::x</definition>
+        <argsstring>() const</argsstring>
+        <name>x</name>
+        <qualifiedname>GeoTransform::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="64" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a15bcff2ce988090d1d0bb4d301cb478d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double GeoTransform::dx</definition>
+        <argsstring>() const</argsstring>
+        <name>dx</name>
+        <qualifiedname>GeoTransform::dx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="65" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a61d7f6602cfaf60625c49361752ed1cc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double GeoTransform::rot_x</definition>
+        <argsstring>() const</argsstring>
+        <name>rot_x</name>
+        <qualifiedname>GeoTransform::rot_x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="66" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a989be3917ffe90ba312cbd9a06a2bdf2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double GeoTransform::y</definition>
+        <argsstring>() const</argsstring>
+        <name>y</name>
+        <qualifiedname>GeoTransform::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="67" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1ac6bee16575dabf1cd78a9b3a92157d8f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double GeoTransform::rot_y</definition>
+        <argsstring>() const</argsstring>
+        <name>rot_y</name>
+        <qualifiedname>GeoTransform::rot_y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="68" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a1b63e38f804990020a77169132dae7e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double GeoTransform::dy</definition>
+        <argsstring>() const</argsstring>
+        <name>dy</name>
+        <qualifiedname>GeoTransform::dy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="69" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a222883b4f41c3b07c26aa8e09b5dbb25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void GeoTransform::set_dx</definition>
+        <argsstring>(double dx)</argsstring>
+        <name>set_dx</name>
+        <qualifiedname>GeoTransform::set_dx</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>dx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="71" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeoTransform_1a9277084f34fc60e435e5db15461bf664" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void GeoTransform::set_dy</definition>
+        <argsstring>(double dy)</argsstring>
+        <name>set_dy</name>
+        <qualifiedname>GeoTransform::set_dy</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>dy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="72" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classGeoTransform_1a21d595e1f41f44a6076d67a61796aee3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const GeoTransform &amp;transform)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>GeoTransform::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoTransform" kindref="compound">GeoTransform</ref> &amp;</type>
+          <declname>transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="57" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="57" bodyend="62"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="17" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="17" bodyend="73"/>
+    <listofallmembers>
+      <member refid="classGeoTransform_1a15bcff2ce988090d1d0bb4d301cb478d" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>dx</name></member>
+      <member refid="classGeoTransform_1a1b63e38f804990020a77169132dae7e4" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>dy</name></member>
+      <member refid="classGeoTransform_1a959218521dd763a10c740d7d4d95a568" prot="private" virt="non-virtual"><scope>GeoTransform</scope><name>geoTransform</name></member>
+      <member refid="classGeoTransform_1a31872d349e3bddba797d3caf939c6766" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>GeoTransform</name></member>
+      <member refid="classGeoTransform_1a6b50f30cb737018fbaa7b1404991b9c4" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>GeoTransform</name></member>
+      <member refid="classGeoTransform_1a9ca10e38f59ce0978f3c9361287aad36" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>GeoTransform</name></member>
+      <member refid="classGeoTransform_1a3d70fd2f3b35065b42b4b4e3843da3f9" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>GeoTransform</name></member>
+      <member refid="classGeoTransform_1ac89d02662dede70d218d418cf8c745e6" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>get_raw</name></member>
+      <member refid="classGeoTransform_1a21d595e1f41f44a6076d67a61796aee3" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classGeoTransform_1aa063bd35010bc95a8b76354d7dc1c3c2" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>pixel_to_projection</name></member>
+      <member refid="classGeoTransform_1aa4864c894f228d22787de88c4bdb44b3" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>projection_to_pixel</name></member>
+      <member refid="classGeoTransform_1a61d7f6602cfaf60625c49361752ed1cc" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>rot_x</name></member>
+      <member refid="classGeoTransform_1ac6bee16575dabf1cd78a9b3a92157d8f" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>rot_y</name></member>
+      <member refid="classGeoTransform_1a222883b4f41c3b07c26aa8e09b5dbb25" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>set_dx</name></member>
+      <member refid="classGeoTransform_1a9277084f34fc60e435e5db15461bf664" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>set_dy</name></member>
+      <member refid="classGeoTransform_1adc77c5941237ae5c915b8958ed696c93" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>with_new_resolution</name></member>
+      <member refid="classGeoTransform_1aac9545f4e7d1af2cc3fc30f03db604bb" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>x</name></member>
+      <member refid="classGeoTransform_1a989be3917ffe90ba312cbd9a06a2bdf2" prot="public" virt="non-virtual"><scope>GeoTransform</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classCoordinate2D" kind="class" language="C++" prot="public">
+    <compoundname>Coordinate2D</compoundname>
+    <derivedcompoundref refid="classCoordinate3D" prot="public" virt="non-virtual">Coordinate3D&lt; double &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classCoordinate3D" prot="public" virt="non-virtual">Coordinate3D&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classLineCoord2D" prot="public" virt="non-virtual">LineCoord2D&lt; T, typename &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCoordinate2D_1aaf9d5fa461d80451ac9474caa95fb1cc" prot="private" static="no" mutable="no">
+        <type>std::array&lt; T, 2 &gt;</type>
+        <definition>std::array&lt;T, 2&gt; Coordinate2D&lt; T &gt;::m_data</definition>
+        <argsstring></argsstring>
+        <name>m_data</name>
+        <qualifiedname>Coordinate2D::m_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="132" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCoordinate2D_1a536f3ba35b38d0c53faa5f9c7b5a5d4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Coordinate2D&lt; T &gt;::Coordinate2D</definition>
+        <argsstring>(T x, T y)</argsstring>
+        <name>Coordinate2D</name>
+        <qualifiedname>Coordinate2D::Coordinate2D</qualifiedname>
+        <param>
+          <type>T</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="135" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a27695be872dedbd15702cecdd5cb620e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Coordinate2D&lt; T &gt;::Coordinate2D</definition>
+        <argsstring>()=default</argsstring>
+        <name>Coordinate2D</name>
+        <qualifiedname>Coordinate2D::Coordinate2D</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="137" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a15cdc073df1226264dfa3c04750070a8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> T &amp;</type>
+        <definition>const T &amp; Coordinate2D&lt; T &gt;::x</definition>
+        <argsstring>() const</argsstring>
+        <name>x</name>
+        <qualifiedname>Coordinate2D::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="139" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="139" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a976db191ea32ade7a246b3368fdb48d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> T &amp;</type>
+        <definition>const T &amp; Coordinate2D&lt; T &gt;::y</definition>
+        <argsstring>() const</argsstring>
+        <name>y</name>
+        <qualifiedname>Coordinate2D::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="140" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="140" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a3d65f5ad53f9d3a5df8bdd567f32d0be" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T &amp; Coordinate2D&lt; T &gt;::x</definition>
+        <argsstring>()</argsstring>
+        <name>x</name>
+        <qualifiedname>Coordinate2D::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="141" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="141" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a8188b4a389ccbb767d697998c17a2e2c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T &amp; Coordinate2D&lt; T &gt;::y</definition>
+        <argsstring>()</argsstring>
+        <name>y</name>
+        <qualifiedname>Coordinate2D::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="142" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="142" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1af2ed95c9e9f37d3a430aea86d41cbe09" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>Coordinate2D&lt; T &gt;::operator Coordinate2D&lt; U &gt;</definition>
+        <argsstring>() const</argsstring>
+        <name>operator Coordinate2D&lt; U &gt;</name>
+        <qualifiedname>Coordinate2D::operator Coordinate2D&lt; U &gt;</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="145" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="145" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <definition>Coordinate2D&lt; double &gt; Coordinate2D&lt; T &gt;::offset_to_center</definition>
+        <argsstring>() const</argsstring>
+        <name>offset_to_center</name>
+        <qualifiedname>Coordinate2D::offset_to_center</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="149" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="149" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <definition>Coordinate2D&lt; double &gt; Coordinate2D&lt; T &gt;::round_NW</definition>
+        <argsstring>(double grid_size) const</argsstring>
+        <name>round_NW</name>
+        <qualifiedname>Coordinate2D::round_NW</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>grid_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="153" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="153" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt;</type>
+        <definition>Coordinate2D&lt; size_t &gt; Coordinate2D&lt; T &gt;::round</definition>
+        <argsstring>() const</argsstring>
+        <name>round</name>
+        <qualifiedname>Coordinate2D::round</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="157" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="157" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref></type>
+        <definition>Coordinate2D Coordinate2D&lt; T &gt;::operator+</definition>
+        <argsstring>(Direction2D dir) const</argsstring>
+        <name>operator+</name>
+        <qualifiedname>Coordinate2D::operator+</qualifiedname>
+        <param>
+          <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="164" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="164" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref></type>
+        <definition>Coordinate2D Coordinate2D&lt; T &gt;::operator+</definition>
+        <argsstring>(Coordinate2D o) const</argsstring>
+        <name>operator+</name>
+        <qualifiedname>Coordinate2D::operator+</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref></type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="186" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="186" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref></type>
+        <definition>Coordinate2D Coordinate2D&lt; T &gt;::operator-</definition>
+        <argsstring>(Coordinate2D o) const</argsstring>
+        <name>operator-</name>
+        <qualifiedname>Coordinate2D::operator-</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref></type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="187" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="187" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1adbd28f3bd749f4cfbf20b0746375cbba" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool Coordinate2D&lt; T &gt;::operator==</definition>
+        <argsstring>(const Coordinate2D &amp;o) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>Coordinate2D::operator==</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="188" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="188" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1ac0cb5d93ac5dc1569f0599129db2accd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T Coordinate2D&lt; T &gt;::magnitude_sqd</definition>
+        <argsstring>() const</argsstring>
+        <name>magnitude_sqd</name>
+        <qualifiedname>Coordinate2D::magnitude_sqd</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="190" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="190" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="classCoordinate2D_1a75423d3585da779437d826a485891e66" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T Coordinate2D&lt; T &gt;::magnitude</definition>
+        <argsstring>() const</argsstring>
+        <name>magnitude</name>
+        <qualifiedname>Coordinate2D::magnitude</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="191" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="191" bodyend="191"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classCoordinate2D_1a00232ccf6515d7ec1a3359a9cda9ac2d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const Coordinate2D &amp;coord)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>Coordinate2D::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref> &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="159" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="159" bodyend="162"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="4">
+        <label>Coordinate3D&lt; T &gt;</label>
+        <link refid="classCoordinate3D"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Coordinate3D&lt; double &gt;</label>
+        <link refid="classCoordinate3D"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>LASPoint</label>
+        <link refid="classLASPoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>LineCoord2D&lt; T, typename &gt;</label>
+        <link refid="classLineCoord2D"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>LineCoord2DCrossing&lt; T &gt;</label>
+        <link refid="classLineCoord2DCrossing"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="129" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="129" bodyend="192"/>
+    <listofallmembers>
+      <member refid="classCoordinate2D_1a536f3ba35b38d0c53faa5f9c7b5a5d4b" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate2D_1a27695be872dedbd15702cecdd5cb620e" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate2D_1aaf9d5fa461d80451ac9474caa95fb1cc" prot="private" virt="non-virtual"><scope>Coordinate2D</scope><name>m_data</name></member>
+      <member refid="classCoordinate2D_1a75423d3585da779437d826a485891e66" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>magnitude</name></member>
+      <member refid="classCoordinate2D_1ac0cb5d93ac5dc1569f0599129db2accd" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>magnitude_sqd</name></member>
+      <member refid="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>offset_to_center</name></member>
+      <member refid="classCoordinate2D_1af2ed95c9e9f37d3a430aea86d41cbe09" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>operator Coordinate2D&lt; U &gt;</name></member>
+      <member refid="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>operator-</name></member>
+      <member refid="classCoordinate2D_1a00232ccf6515d7ec1a3359a9cda9ac2d" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classCoordinate2D_1adbd28f3bd749f4cfbf20b0746375cbba" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>operator==</name></member>
+      <member refid="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>round</name></member>
+      <member refid="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>round_NW</name></member>
+      <member refid="classCoordinate2D_1a15cdc073df1226264dfa3c04750070a8" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a3d65f5ad53f9d3a5df8bdd567f32d0be" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a976db191ea32ade7a246b3368fdb48d9" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>y</name></member>
+      <member refid="classCoordinate2D_1a8188b4a389ccbb767d697998c17a2e2c" prot="public" virt="non-virtual"><scope>Coordinate2D</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

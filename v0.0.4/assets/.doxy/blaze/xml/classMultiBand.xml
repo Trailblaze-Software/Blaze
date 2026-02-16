@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMultiBand" kind="class" language="C++" prot="public">
+    <compoundname>MultiBand</compoundname>
+    <templateparamlist>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> GridT</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMultiBand_1a12db64c33d00cb7eaa52bf797de7bcff" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; GridT &gt;</type>
+        <definition>std::vector&lt;GridT&gt; MultiBand&lt; GridT &gt;::m_grids</definition>
+        <argsstring></argsstring>
+        <name>m_grids</name>
+        <qualifiedname>MultiBand::m_grids</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="223" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="223" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMultiBand_1a28598391c112decfb0a2383e75e9372d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>MultiBand&lt; GridT &gt;::MultiBand</definition>
+        <argsstring>(int n_bands, Args... args)</argsstring>
+        <name>MultiBand</name>
+        <qualifiedname>MultiBand::MultiBand</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <declname>n_bands</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="227" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="227" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a16a4fdc1bdeb7c226b620cb33b826914" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MultiBand&lt; GridT &gt;::MultiBand</definition>
+        <argsstring>(size_t width, size_t height)</argsstring>
+        <name>MultiBand</name>
+        <qualifiedname>MultiBand::MultiBand</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="234" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="234" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a8d7d2cd73ae181dd590062a3c30a2afa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <definition>size_t MultiBand&lt; GridT &gt;::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <qualifiedname>MultiBand::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="240" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="240" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a670543c5e5613fa6590fd2c31c68f0b7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <definition>size_t MultiBand&lt; GridT &gt;::width</definition>
+        <argsstring>() const</argsstring>
+        <name>width</name>
+        <qualifiedname>MultiBand::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="241" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="241" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a6394a9c59185f28f6390cb3f8b729191" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <definition>size_t MultiBand&lt; GridT &gt;::height</definition>
+        <argsstring>() const</argsstring>
+        <name>height</name>
+        <qualifiedname>MultiBand::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="242" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="242" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a1ea1ff34c4e6f14099c311918b96ece9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool MultiBand&lt; GridT &gt;::in_bounds</definition>
+        <argsstring>(const Coordinate2D&lt; size_t &gt; &amp;coord) const</argsstring>
+        <name>in_bounds</name>
+        <qualifiedname>MultiBand::in_bounds</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="243" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="243" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a7d9163afcf88df93e087c124e68528ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void MultiBand&lt; GridT &gt;::fill_from</definition>
+        <argsstring>(const MultiBand &amp;other, const Coordinate2D&lt; size_t &gt; &amp;top_left={0, 0})</argsstring>
+        <name>fill_from</name>
+        <qualifiedname>MultiBand::fill_from</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classMultiBand" kindref="compound">MultiBand</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <declname>top_left</declname>
+          <defval>{0, 0}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="245" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="245" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a11f2c577d773a47afc97dced19ed906b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>GridT &amp;</type>
+        <definition>GridT &amp; MultiBand&lt; GridT &gt;::operator[]</definition>
+        <argsstring>(size_t i)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>MultiBand::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="252" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="252" bodyend="252"/>
+      </memberdef>
+      <memberdef kind="function" id="classMultiBand_1a29d555a0418896879934f0b032ff0523" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> GridT &amp;</type>
+        <definition>const GridT &amp; MultiBand&lt; GridT &gt;::operator[]</definition>
+        <argsstring>(size_t i) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>MultiBand::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="253" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="253" bodyend="253"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="222" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="222" bodyend="254"/>
+    <listofallmembers>
+      <member refid="classMultiBand_1a7d9163afcf88df93e087c124e68528ec" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>fill_from</name></member>
+      <member refid="classMultiBand_1a6394a9c59185f28f6390cb3f8b729191" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>height</name></member>
+      <member refid="classMultiBand_1a1ea1ff34c4e6f14099c311918b96ece9" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>in_bounds</name></member>
+      <member refid="classMultiBand_1a12db64c33d00cb7eaa52bf797de7bcff" prot="private" virt="non-virtual"><scope>MultiBand</scope><name>m_grids</name></member>
+      <member refid="classMultiBand_1a28598391c112decfb0a2383e75e9372d" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>MultiBand</name></member>
+      <member refid="classMultiBand_1a16a4fdc1bdeb7c226b620cb33b826914" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>MultiBand</name></member>
+      <member refid="classMultiBand_1a11f2c577d773a47afc97dced19ed906b" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>operator[]</name></member>
+      <member refid="classMultiBand_1a29d555a0418896879934f0b032ff0523" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>operator[]</name></member>
+      <member refid="classMultiBand_1a8d7d2cd73ae181dd590062a3c30a2afa" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>size</name></member>
+      <member refid="classMultiBand_1a670543c5e5613fa6590fd2c31c68f0b7" prot="public" virt="non-virtual"><scope>MultiBand</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

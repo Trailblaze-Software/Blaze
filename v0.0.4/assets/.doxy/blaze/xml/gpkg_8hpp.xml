@@ -1,0 +1,418 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="gpkg_8hpp" kind="file" language="C++">
+    <compoundname>gpkg.hpp</compoundname>
+    <includes local="no">ogrsf_frmts.h</includes>
+    <includes refid="gdal__assert_8hpp" local="yes">assert/gdal_assert.hpp</includes>
+    <includes refid="dxf_8hpp" local="yes">dxf/dxf.hpp</includes>
+    <includes local="yes">gdal_priv.h</includes>
+    <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>assert/gdal_assert.hpp</label>
+        <link refid="gdal__assert_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>config_input/config_input.hpp</label>
+        <link refid="config__input_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>contour/contour.hpp</label>
+        <link refid="contour_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>dxf/dxf.hpp</label>
+        <link refid="dxf_8hpp_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>grid/forward_grid.hpp</label>
+        <link refid="forward__grid_8hpp_source"/>
+      </node>
+      <node id="34">
+        <label>grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
+        <link refid="gpkg_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="40">
+        <label>progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>utilities/timer.hpp</label>
+        <link refid="timer_8hpp_source"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>methods/water/water.hpp</label>
+        <link refid="water_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>algorithm</label>
+      </node>
+      <node id="24">
+        <label>array</label>
+      </node>
+      <node id="39">
+        <label>chrono</label>
+      </node>
+      <node id="25">
+        <label>cmath</label>
+      </node>
+      <node id="4">
+        <label>cpl_error.h</label>
+      </node>
+      <node id="21">
+        <label>cstddef</label>
+      </node>
+      <node id="36">
+        <label>cstring</label>
+      </node>
+      <node id="9">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="19">
+        <label>fstream</label>
+      </node>
+      <node id="42">
+        <label>gdal_priv.h</label>
+      </node>
+      <node id="13">
+        <label>iomanip</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="14">
+        <label>map</label>
+      </node>
+      <node id="37">
+        <label>memory</label>
+      </node>
+      <node id="17">
+        <label>ogr_core.h</label>
+      </node>
+      <node id="2">
+        <label>ogrsf_frmts.h</label>
+      </node>
+      <node id="8">
+        <label>optional</label>
+      </node>
+      <node id="26">
+        <label>ostream</label>
+      </node>
+      <node id="15">
+        <label>set</label>
+      </node>
+      <node id="5">
+        <label>source_location</label>
+      </node>
+      <node id="10">
+        <label>sstream</label>
+      </node>
+      <node id="11">
+        <label>string</label>
+      </node>
+      <node id="27">
+        <label>type_traits</label>
+      </node>
+      <node id="41">
+        <label>utility</label>
+      </node>
+      <node id="31">
+        <label>variant</label>
+      </node>
+      <node id="16">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classGDALDataset__w" prot="public">GDALDataset_w</innerclass>
+    <innerclass refid="classGPKGWriter" prot="public">GPKGWriter</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ogrsf_frmts.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/gdal_assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;dxf/dxf.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;gdal_priv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="classGDALDataset__w" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGDALDataset__w" kindref="compound">GDALDataset_w</ref><sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GDALDataset</ref>*<sp/>dataset;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classGDALDataset__w" kindref="compound">GDALDataset_w</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>projection)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GDALAllRegister</ref>();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GDALDriver</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">driver</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">GetGDALDriverManager</ref>()-&gt;GetDriverByName(</highlight><highlight class="stringliteral">&quot;GPKG&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>Assert(<ref refid="classCoordinate2D" kindref="compound">driver</ref>,<sp/></highlight><highlight class="stringliteral">&quot;GeoPackage<sp/>driver<sp/>not<sp/>available.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>dataset<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">driver</ref>-&gt;Create(<ref refid="classCoordinate2D" kindref="compound">filename</ref>.c_str(),<sp/>0,<sp/>0,<sp/>0,<sp/><ref refid="classCoordinate2D" kindref="compound">GDT_Unknown</ref>,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>Assert(dataset,<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>GeoPackage<sp/>file<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>OGRSpatialReference<sp/>srs;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>GDALAssert(srs.importFromWkt(projection.c_str()));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>dataset-&gt;SetProjection(projection.c_str());</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GDALDataset</ref>*<sp/>operator-&gt;()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dataset;<sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><ref refid="classGDALDataset__w" kindref="compound">~GDALDataset_w</ref>()<sp/>{<sp/><ref refid="classCoordinate2D" kindref="compound">GDALClose</ref>(dataset);<sp/>}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="classGPKGWriter" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGPKGWriter" kindref="compound">GPKGWriter</ref><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="classGDALDataset__w" kindref="compound">GDALDataset_w</ref><sp/>dataset;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>projection;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>layer_names;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classGPKGWriter" kindref="compound">GPKGWriter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">filename</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>projection)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>dataset(<ref refid="classCoordinate2D" kindref="compound">filename</ref>,<sp/>projection),<sp/>projection(projection)<sp/>{}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>add_layer(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">layer_name</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Import<sp/>projection<sp/>from<sp/>WKT<sp/>string<sp/>(supports<sp/>both<sp/>geographic<sp/>and<sp/>projected<sp/>CRS)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>GDALAssert(<ref refid="classCoordinate2D" kindref="compound">srs</ref>.importFromWkt(projection.c_str()));</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRLayer</ref>*<sp/>layer<sp/>=<sp/>dataset-&gt;CreateLayer(<ref refid="classCoordinate2D" kindref="compound">layer_name</ref>.c_str(),<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">srs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">wkbLineString</ref>,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>Assert(layer,<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>layer<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">layer_name</ref>);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>layer_names.push_back(<ref refid="classCoordinate2D" kindref="compound">layer_name</ref>);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>write_polyline(</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPolyline" kindref="compound">Polyline</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">polyline</ref>,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>std::variant&lt;int,<sp/>double,<sp/>std::string&gt;&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">data_fields</ref><sp/>=<sp/>{})<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classCoordinate2D" kindref="compound">layer_name</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">polyline</ref>.layer;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::find(layer_names.begin(),<sp/>layer_names.end(),<sp/><ref refid="classCoordinate2D" kindref="compound">layer_name</ref>)<sp/>==<sp/>layer_names.end())<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>add_layer(<ref refid="classCoordinate2D" kindref="compound">layer_name</ref>);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRLayer</ref>*<sp/>layer<sp/>=<sp/>dataset-&gt;GetLayerByName(<ref refid="classCoordinate2D" kindref="compound">layer_name</ref>.c_str());</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>Assert(layer,<sp/></highlight><highlight class="stringliteral">&quot;Layer<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">layer_name</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>not<sp/>found.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRLineString</ref><sp/><ref refid="classCoordinate2D" kindref="compound">line</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">vertex</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">polyline</ref>.vertices)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">line</ref>.addPoint(<ref refid="classCoordinate2D" kindref="compound">vertex</ref>.x(),<sp/><ref refid="classCoordinate2D" kindref="compound">vertex</ref>.y());</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(layer-&gt;GetLayerDefn()-&gt;GetFieldIndex(</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">)<sp/>==<sp/>-1)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>layer-&gt;CreateField(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGRFieldDefn</ref>(</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">,<sp/><ref refid="classCoordinate2D" kindref="compound">OFTString</ref>));</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(layer-&gt;GetLayerDefn()-&gt;GetFieldIndex(</highlight><highlight class="stringliteral">&quot;layer&quot;</highlight><highlight class="normal">)<sp/>==<sp/>-1)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>layer-&gt;CreateField(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGRFieldDefn</ref>(</highlight><highlight class="stringliteral">&quot;layer&quot;</highlight><highlight class="normal">,<sp/><ref refid="classCoordinate2D" kindref="compound">OFTString</ref>));</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>[<ref refid="classCoordinate2D" kindref="compound">field_name</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">field_value</ref>]<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">data_fields</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(layer-&gt;GetLayerDefn()-&gt;GetFieldIndex(<ref refid="classCoordinate2D" kindref="compound">field_name</ref>.c_str())<sp/>==<sp/>-1)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::holds_alternative&lt;int&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>layer-&gt;CreateField(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGRFieldDefn</ref>(<ref refid="classCoordinate2D" kindref="compound">field_name</ref>.c_str(),<sp/><ref refid="classCoordinate2D" kindref="compound">OFTInteger</ref>));</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::holds_alternative&lt;double&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>layer-&gt;CreateField(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGRFieldDefn</ref>(<ref refid="classCoordinate2D" kindref="compound">field_name</ref>.c_str(),<sp/><ref refid="classCoordinate2D" kindref="compound">OFTReal</ref>));</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::holds_alternative&lt;std::string&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>layer-&gt;CreateField(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGRFieldDefn</ref>(<ref refid="classCoordinate2D" kindref="compound">field_name</ref>.c_str(),<sp/><ref refid="classCoordinate2D" kindref="compound">OFTString</ref>));</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Assert(</highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Unknown<sp/>field<sp/>type.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRFeature</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">feature</ref><sp/>=<sp/>OGRFeature::CreateFeature(layer-&gt;GetLayerDefn());</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>Assert(<ref refid="classCoordinate2D" kindref="compound">feature</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>feature.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">feature</ref>-&gt;SetGeometry(&amp;<ref refid="classCoordinate2D" kindref="compound">line</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">feature</ref>-&gt;SetField(</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">,<sp/><ref refid="classCoordinate2D" kindref="compound">polyline</ref>.name.c_str());</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">feature</ref>-&gt;SetField(</highlight><highlight class="stringliteral">&quot;layer&quot;</highlight><highlight class="normal">,<sp/><ref refid="classCoordinate2D" kindref="compound">polyline</ref>.layer.c_str());</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>[<ref refid="classCoordinate2D" kindref="compound">field_name</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">field_value</ref>]<sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">data_fields</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::holds_alternative&lt;int&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">feature</ref>-&gt;SetField(<ref refid="classCoordinate2D" kindref="compound">field_name</ref>.c_str(),<sp/>std::get&lt;int&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>));</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::holds_alternative&lt;double&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">feature</ref>-&gt;SetField(<ref refid="classCoordinate2D" kindref="compound">field_name</ref>.c_str(),<sp/>std::get&lt;double&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>));</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::holds_alternative&lt;std::string&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">feature</ref>-&gt;SetField(<ref refid="classCoordinate2D" kindref="compound">field_name</ref>.c_str(),<sp/>std::get&lt;std::string&gt;(<ref refid="classCoordinate2D" kindref="compound">field_value</ref>).c_str());</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>Assert(layer-&gt;CreateFeature(<ref refid="classCoordinate2D" kindref="compound">feature</ref>)<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>add<sp/>feature<sp/>to<sp/>layer.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>OGRFeature::DestroyFeature(<ref refid="classCoordinate2D" kindref="compound">feature</ref>);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp"/>
+  </compounddef>
+</doxygen>
