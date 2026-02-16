@@ -1,22 +1,14 @@
 # QGIS Plugin
 
-The **Blaze Map Loader** plugin simplifies importing processed results into QGIS.
-
-## Features
-
-- **Automated Loading**: Automatically loads output maps created by Blaze.
-- **Magnetic North**: Overlays magnetic north lines.
-- **Topo Data**: Integrates NSW topographic data where available.
-- **Styling**: Applies predefined styles to layers for consistent visualization.
+The **Blaze Map Loader** plugin simplifies importing processed results into QGIS and allows automatic downloading of NSW topographic data.
 
 ## Installation
 
-1. Copy the `qgis_plugin/blaze_loader` folder to your QGIS plugins directory:
-   - **Linux**: `~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/`
-   - **Windows**: `%APPDATA%\QGIS\QGIS3\profiles\default\python\plugins`
-2. Open QGIS.
-3. Go to **Plugins > Manage and Install Plugins**.
-4. Enable **Blaze Map Loader**.
+1. Download the latest plugin zip file from [https://github.com/Trailblaze-Software/Blaze/releases](https://github.com/Trailblaze-Software/Blaze/releases).
+
+2. Install in QGIS using `Plugins > Manage and Install Plugins > Install from ZIP`.
+
+3. Install suggested dependencies. You will likely need to install the Compass Routes plugin manually from [https://plugins.qgis.org/plugins/compass_routes/](https://plugins.qgis.org/plugins/compass_routes/).
 
 ## Usage
 
