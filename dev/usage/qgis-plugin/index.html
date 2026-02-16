@@ -544,17 +544,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -787,35 +776,15 @@
   
   
   
-    
-    
-      
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
         
-          
-        
-      
-        
-      
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../about/" class="md-nav__link ">
-              
   
   
   <span class="md-ellipsis">
     
   
-    About
+    Contributing
   
 
     
@@ -823,36 +792,19 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    About
+      </a>
+    </li>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
+    
+      
+      
   
   
   
   
     <li class="md-nav__item">
-      <a href="../../about/license/" class="md-nav__link">
+      <a href="../../license/" class="md-nav__link">
         
   
   
@@ -868,14 +820,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -905,17 +849,6 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Features
-      
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
@@ -960,22 +893,18 @@
 
 
 <h1 id="qgis-plugin">QGIS Plugin</h1>
-<p>The <strong>Blaze Map Loader</strong> plugin simplifies importing processed results into QGIS.</p>
-<h2 id="features">Features</h2>
-<ul>
-<li><strong>Automated Loading</strong>: Automatically loads output maps created by Blaze.</li>
-<li><strong>Magnetic North</strong>: Overlays magnetic north lines.</li>
-<li><strong>Topo Data</strong>: Integrates NSW topographic data where available.</li>
-<li><strong>Styling</strong>: Applies predefined styles to layers for consistent visualization.</li>
-</ul>
+<p>The <strong>Blaze Map Loader</strong> plugin simplifies importing processed results into QGIS and allows automatic downloading of NSW topographic data.</p>
 <h2 id="installation">Installation</h2>
 <ol>
-<li>Copy the <code>qgis_plugin/blaze_loader</code> folder to your QGIS plugins directory:</li>
-<li><strong>Linux</strong>: <code>~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/</code></li>
-<li><strong>Windows</strong>: <code>%APPDATA%\QGIS\QGIS3\profiles\default\python\plugins</code></li>
-<li>Open QGIS.</li>
-<li>Go to <strong>Plugins &gt; Manage and Install Plugins</strong>.</li>
-<li>Enable <strong>Blaze Map Loader</strong>.</li>
+<li>
+<p>Download the latest plugin zip file from <a href="https://github.com/Trailblaze-Software/Blaze/releases">https://github.com/Trailblaze-Software/Blaze/releases</a>.</p>
+</li>
+<li>
+<p>Install in QGIS using <code>Plugins &gt; Manage and Install Plugins &gt; Install from ZIP</code>.</p>
+</li>
+<li>
+<p>Install suggested dependencies. You will likely need to install the Compass Routes plugin manually from <a href="https://plugins.qgis.org/plugins/compass_routes/">https://plugins.qgis.org/plugins/compass_routes/</a>.</p>
+</li>
 </ol>
 <h2 id="usage">Usage</h2>
 <p>Once enabled, look for the Blaze icon in your QGIS toolbar or under the <strong>Plugins</strong> menu. Use the dialog to select your Blaze output directory and load the data.</p>
