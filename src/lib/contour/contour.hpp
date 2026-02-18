@@ -136,7 +136,6 @@ class Contour {
   bool is_loop() const { return m_is_loop; }
 
   // Orient contour so that left side (when following the line) is uphill
-  // This allows QGIS to properly tag the downward direction
   void orient_consistent(const GeoGrid<double>& elevation_grid) {
     if (m_points.size() < 2) return;
 

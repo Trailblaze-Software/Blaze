@@ -104,7 +104,7 @@ GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_trac
   return result;
 }
 
-bool has_value(double value) { return std::isfinite(value) && value < 1e6; }
+inline bool has_value(double value) { return std::isfinite(value) && value < 1e6; }
 
 template <typename T>
 GeoGrid<T> interpolate_holes(const GeoGrid<T>& grid, ProgressTracker progress_tracker) {
