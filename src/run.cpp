@@ -8,7 +8,7 @@
 #include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
 #include "contour/contour_gen.hpp"
-#include "dxf/dxf.hpp"
+#include "crt/crt.hpp"
 #include "grid/grid.hpp"
 #include "io/gpkg.hpp"
 #include "las/las_file.hpp"
@@ -191,8 +191,6 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
             std::vector<Stream> stream_path =
                 stream_paths(filled_dem, config.water, step_tracker.subtracker(0.8, 0.9), false);
-            // write_to_dxf(stream_path, config.output_path() / "combined" / "streams.dxf",
-            // "streams");
 
             {
               GPKGWriter writer((config.output_path() / "combined" / "streams.gpkg").string(),
@@ -211,13 +209,13 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         std::map<double, std::vector<Contour>> contours_by_height;
         for (const fs::path& las_file : las_files) {
           fs::path output_dir = config.output_path() / las_file.stem();
-          fs::path dxf_path = output_dir / "trimmed_contours.dxf";
-          if (!fs::exists(dxf_path)) {
-            std::cerr << "DXF " << dxf_path << " does not exist" << std::endl;
+          fs::path gpkg_path = output_dir / "trimmed_contours.gpkg";
+          if (!fs::exists(gpkg_path)) {
+            std::cerr << "GPKG " << gpkg_path << " does not exist" << std::endl;
             continue;
           }
 
-          std::vector<Contour> contours = read_dxf(dxf_path);
+          std::vector<Contour> contours = read_gpkg(gpkg_path);
           for (Contour& contour : contours) {
             contours_by_height[contour.height()].push_back(contour);
           }
@@ -230,8 +228,6 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             joined_contours.emplace_back(contour);
           }
         }
-        // write_to_dxf(joined_contours, config.output_path() / "combined" / "contours.dxf",
-        // config.contours);
         {
           GPKGWriter writer((config.output_path() / "combined" / "contours.gpkg").string(),
                             projection.value());

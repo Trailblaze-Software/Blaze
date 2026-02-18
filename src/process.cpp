@@ -2,9 +2,10 @@
 
 #include "cliff/cliff.hpp"
 #include "contour/contour_gen.hpp"
-#include "dxf/dxf.hpp"
+#include "crt/crt.hpp"
 #include "grid/grid_ops.hpp"
 #include "grid/img_grid.hpp"
+#include "io/gpkg.hpp"
 #include "isom/colors.hpp"
 #include "las/las_file.hpp"
 #include "las/las_point.hpp"
@@ -16,8 +17,6 @@
 #include "utilities/progress_tracker.hpp"
 
 constexpr bool OUT_LAS = false;
-
-size_t round_up(double x) { return std::ceil(1e-6 + std::abs(x)); }
 
 enum class GroundMethod { LOWER_BOUND, LOWEST_POINT, INTERPOLATE };
 
@@ -258,13 +257,53 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   }
 
   const std::vector<Contour> trimmed_contours = trim_contours(contours, las_file.original_bounds());
-  write_to_dxf(contours, output_dir / "contours.dxf", config.contours);
 
-  write_to_dxf(trimmed_contours, output_dir / "trimmed_contours.dxf", config.contours);
-  // crt name must match dxf name
+  {
+    std::vector<Contour> oriented_contours = contours;
+#pragma omp parallel for
+    for (size_t i = 0; i < oriented_contours.size(); i++) {
+      oriented_contours[i].orient_consistent(smooth_ground);
+    }
+
+    // Write contours to GPKG
+    GPKGWriter writer((output_dir / "contours.gpkg").string(), las_file.projection());
+    for (const Contour& contour : oriented_contours) {
+      if (contour.points().size() > 1) {
+        writer.write_polyline(contour.to_polyline(config.contours),
+                              {{"elevation", contour.height()}});
+      }
+    }
+  }
+
+  // Write trimmed contours to GPKG
+  {
+    std::vector<Contour> oriented_trimmed_contours = trimmed_contours;
+#pragma omp parallel for
+    for (size_t i = 0; i < oriented_trimmed_contours.size(); i++) {
+      oriented_trimmed_contours[i].orient_consistent(smooth_ground);
+    }
+
+    GPKGWriter writer((output_dir / "trimmed_contours.gpkg").string(), las_file.projection());
+    for (const Contour& contour : oriented_trimmed_contours) {
+      if (contour.points().size() > 1) {
+        writer.write_polyline(contour.to_polyline(config.contours),
+                              {{"elevation", contour.height()}});
+      }
+    }
+  }
+  // crt name must match gpkg name (keeping for compatibility)
   write_to_crt(output_dir / "contours.crt");
 
-  write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
+  // Write streams to GPKG
+  {
+    GPKGWriter writer((output_dir / "streams.gpkg").string(), las_file.projection());
+    for (const Stream& stream : stream_path) {
+      writer.write_polyline(Polyline{.layer = "streams",
+                                     .name = std::to_string(stream.catchment),
+                                     .vertices = stream.coords},
+                            {{"catchment", stream.catchment}});
+    }
+  }
 
   // VEGE
   std::map<std::string, GeoGrid<float>> vege_maps;

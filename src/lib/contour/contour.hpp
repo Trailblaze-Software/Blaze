@@ -1,9 +1,11 @@
 #pragma once
 
+#include <algorithm>
 #include <cmath>
 
 #include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
+#include "grid/grid_ops.hpp"
 #include "utilities/coordinate.hpp"
 
 template <typename T>
@@ -132,4 +134,79 @@ class Contour {
   }
 
   bool is_loop() const { return m_is_loop; }
+
+  // Orient contour so that left side (when following the line) is uphill
+  // This allows QGIS to properly tag the downward direction
+  void orient_consistent(const GeoGrid<double>& elevation_grid) {
+    if (m_points.size() < 2) return;
+
+    // Sample several points along the contour to determine orientation
+    // Use a reasonable number of samples (not all points for performance)
+    size_t num_samples = std::min(static_cast<size_t>(20), m_points.size() - 1);
+    size_t step = (m_points.size() - 1) / num_samples;
+    if (step == 0) step = 1;
+
+    int left_higher_count = 0;
+    int right_higher_count = 0;
+    double offset_distance = elevation_grid.transform().dx() * 0.1;  // 10% of grid resolution
+
+    for (size_t i = 0; i < m_points.size() - 1; i += step) {
+      const auto& p1 = m_points[i];
+      const auto& p2 = m_points[i + 1];
+
+      // Calculate direction vector
+      Coordinate2D<double> dir = p2 - p1;
+      double dir_length = dir.magnitude();
+      if (dir_length < 1e-10) continue;
+
+      // Normalize direction
+      dir = Coordinate2D<double>(dir.x() / dir_length, dir.y() / dir_length);
+
+      // Calculate perpendicular vector pointing left (90 degrees counterclockwise)
+      // For a vector (dx, dy), the left perpendicular is (-dy, dx)
+      Coordinate2D<double> left_perp(-dir.y(), dir.x());
+
+      // Sample point at the middle of the segment
+      Coordinate2D<double> mid_point((p1.x() + p2.x()) / 2.0, (p1.y() + p2.y()) / 2.0);
+
+      // Points to the left and right
+      Coordinate2D<double> left_point =
+          mid_point +
+          Coordinate2D<double>(left_perp.x() * offset_distance, left_perp.y() * offset_distance);
+      Coordinate2D<double> right_point =
+          mid_point -
+          Coordinate2D<double>(left_perp.x() * offset_distance, left_perp.y() * offset_distance);
+
+      // Sample elevations (with bounds checking)
+      // Check if points are within grid bounds before interpolating
+      // interpolate_value requires points to be at least 0.5 pixels from edges for bilinear
+      // interpolation
+      Coordinate2D<double> left_pixel = elevation_grid.transform().projection_to_pixel(left_point);
+      Coordinate2D<double> right_pixel =
+          elevation_grid.transform().projection_to_pixel(right_point);
+
+      if (left_pixel.x() >= 0.5 && left_pixel.y() >= 0.5 &&
+          left_pixel.x() < elevation_grid.width() - 0.5 &&
+          left_pixel.y() < elevation_grid.height() - 0.5 && right_pixel.x() >= 0.5 &&
+          right_pixel.y() >= 0.5 && right_pixel.x() < elevation_grid.width() - 0.5 &&
+          right_pixel.y() < elevation_grid.height() - 0.5) {
+        double left_elev = interpolate_value(elevation_grid, left_point);
+        double right_elev = interpolate_value(elevation_grid, right_point);
+
+        if (std::isfinite(left_elev) && std::isfinite(right_elev) && left_elev < 1e6 &&
+            right_elev < 1e6) {  // Check for valid elevation values
+          if (left_elev > right_elev) {
+            left_higher_count++;
+          } else if (right_elev > left_elev) {
+            right_higher_count++;
+          }
+        }
+      }
+    }
+
+    // If more segments have right side higher, reverse the contour
+    if (right_higher_count > left_higher_count) {
+      std::reverse(m_points.begin(), m_points.end());
+    }
+  }
 };

@@ -1,8 +1,38 @@
 <div align="center">
 
-  <h1>
-    <img src="assets/images/blaze_icon.png" alt="Blaze Icon" width="50" align="center">
-    <code>BLAZE</code>
+  <style>
+    .blaze-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .blaze-header img {
+      vertical-align: middle;
+    }
+    .blaze-title {
+      font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+      font-size: 2.8em;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #f36f21;
+      display: inline-block;
+      text-shadow: 1px 1px 2px rgba(128, 128, 128, 0.15);
+    }
+    @media (max-width: 768px) {
+      .blaze-title {
+        font-size: 2em;
+        padding: 0.15em 0.3em;
+      }
+      .blaze-header {
+        gap: 5px;
+      }
+    }
+  </style>
+
+  <h1 class="blaze-header">
+    <img src="assets/images/blaze_icon.png" alt="Blaze Icon" width="60">
+    <span class="blaze-title">BLAZE</span>
   </h1>
 
   <p><strong>A LIDAR mapping tool for processing point cloud data</strong></p>

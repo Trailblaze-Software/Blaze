@@ -412,6 +412,9 @@ set(CPACK_PACKAGE_EXECUTABLES "bin/Blaze" "Blaze" "bin/Blaze3D" "Blaze3D"
 # set(CPACK_NSIS_MODIFY_PATH "ON")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
 set(CPACK_NSIS_DISPLAY_NAME "Blaze")
+# Use a fixed registry key (not version-specific) so uninstall-before-install
+# works across versions
+set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://Trailblaze-Software.github.io/Blaze/")
 set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze" "bin/Blaze3D.exe" "Blaze3D")
 set(CPACK_NSIS_MUI_ICON "${CPACK_NSIS_MUI_ICON}")
