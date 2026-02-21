@@ -38,10 +38,10 @@ jobs:
       - name: Generate coverage report
         run: |
           cd coverage-build
-          # Generate lcov tracefile
-          lcov --capture --directory . --output-file coverage.info \
+          # Generate lcov tracefile using geninfo directly to handle mismatch errors
+          geninfo . --output-filename coverage.info \
             --rc lcov_branch_coverage=1 \
-            --geninfo-opt="--ignore-errors mismatch"
+            --ignore-errors mismatch
           # Remove system and external dependencies from coverage
           lcov --remove coverage.info \
             '/usr/*' \
