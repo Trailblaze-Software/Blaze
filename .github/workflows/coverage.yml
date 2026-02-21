@@ -40,7 +40,7 @@ jobs:
           cd coverage-build
           # Generate lcov tracefile using geninfo directly to handle mismatch errors
           geninfo . --output-filename coverage.info \
-            --rc lcov_branch_coverage=1 \
+            --rc branch_coverage=1 \
             --ignore-errors mismatch
           # Remove system and external dependencies from coverage
           lcov --remove coverage.info \
@@ -51,10 +51,11 @@ jobs:
             '*/nlohmann_json*' \
             '*/vcpkg*' \
             --output-file coverage.info \
-            --rc lcov_branch_coverage=1
+            --rc branch_coverage=1 \
+            --ignore-errors unused
           # Generate HTML report
           genhtml coverage.info --output-directory coverage-html \
-            --rc genhtml_branch_coverage=1 \
+            --rc branch_coverage=1 \
             --legend
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
