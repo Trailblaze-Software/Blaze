@@ -40,7 +40,8 @@ jobs:
           cd coverage-build
           # Generate lcov tracefile
           lcov --capture --directory . --output-file coverage.info \
-            --rc lcov_branch_coverage=1
+            --rc lcov_branch_coverage=1 \
+            --geninfo-opt="--ignore-errors mismatch"
           # Remove system and external dependencies from coverage
           lcov --remove coverage.info \
             '/usr/*' \
