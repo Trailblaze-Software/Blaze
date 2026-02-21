@@ -60,12 +60,15 @@ function(find_and_copy_dependency_dlls)
       foreach(dll ${GDAL_DLLS})
         foreach(target ${ARGN})
           if(TARGET ${target})
+            get_filename_component(dll_name "${dll}" NAME)
             add_custom_command(
               TARGET ${target}
               POST_BUILD
               COMMAND ${CMAKE_COMMAND} -E copy_if_different "${dll}"
                       "$<TARGET_FILE_DIR:${target}>"
-              COMMENT "Copying ${dll} to ${target} output directory")
+              COMMAND ${CMAKE_COMMAND} -E echo
+                      "Copied ${dll_name} to $<TARGET_FILE_DIR:${target}>"
+              COMMENT "Copying ${dll_name} to ${target} output directory")
           endif()
         endforeach()
         install(FILES "${dll}" DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -119,12 +122,15 @@ function(find_and_copy_dependency_dlls)
     foreach(dll ${OpenCV_DLLS})
       foreach(target ${ARGN})
         if(TARGET ${target})
+          get_filename_component(dll_name "${dll}" NAME)
           add_custom_command(
             TARGET ${target}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "${dll}"
                     "$<TARGET_FILE_DIR:${target}>"
-            COMMENT "Copying ${dll} to ${target} output directory")
+            COMMAND ${CMAKE_COMMAND} -E echo
+                    "Copied ${dll_name} to $<TARGET_FILE_DIR:${target}>"
+            COMMENT "Copying ${dll_name} to ${target} output directory")
         endif()
       endforeach()
       install(FILES "${dll}" DESTINATION ${CMAKE_INSTALL_BINDIR})

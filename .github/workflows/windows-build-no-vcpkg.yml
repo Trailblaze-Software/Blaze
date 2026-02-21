@@ -29,11 +29,45 @@ jobs:
       - name: Configure (CLI only)
         shell: pwsh
         run: |
-          cmake -B build -DBLAZE_USE_VCPKG=OFF -DBLAZE_CLI_ONLY=ON -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -DBLAZE_USE_VCPKG=OFF -DCMAKE_BUILD_TYPE=Release
       - name: Build
         shell: pwsh
         run: |
           cmake --build build --config Release --parallel
+      - name: Verify DLLs copied
+        shell: pwsh
+        run: "Write-Host \"=== Checking DLLs in build output ===\" -ForegroundColor
+          Cyan\n$testExe = \"build\\Release\\unit_tests.exe\"\nif (Test-Path $testExe)
+          {\n  $testDir = Split-Path $testExe -Parent\n  Write-Host \"Test executable
+          directory: $testDir\" -ForegroundColor Green\n  Write-Host \"Test executable:
+          $testExe\" -ForegroundColor Green\n  Write-Host \"`nDLLs in test directory:\"
+          -ForegroundColor Yellow\n  $allDlls = Get-ChildItem \"$testDir\\*.dll\"
+          -ErrorAction SilentlyContinue\n  if ($allDlls) {\n    $allDlls | Select-Object
+          Name, Length | Format-Table -AutoSize\n  } else {\n    Write-Host \"  No
+          DLLs found!\" -ForegroundColor Red\n  }\n  $gdalDlls = Get-ChildItem \"$testDir\\gdal*.dll\"
+          -ErrorAction SilentlyContinue\n  $opencvDlls = Get-ChildItem \"$testDir\\opencv*.dll\"
+          -ErrorAction SilentlyContinue\n  $projDlls = Get-ChildItem \"$testDir\\proj*.dll\"
+          -ErrorAction SilentlyContinue\n  $geosDlls = Get-ChildItem \"$testDir\\geos*.dll\"
+          -ErrorAction SilentlyContinue\n  Write-Host \"`nDLL counts:\" -ForegroundColor
+          Cyan\n  Write-Host \"  GDAL DLLs: $($gdalDlls.Count)\" -ForegroundColor
+          $(if ($gdalDlls.Count -gt 0) { \"Green\" } else { \"Red\" })\n  Write-Host
+          \"  OpenCV DLLs: $($opencvDlls.Count)\" -ForegroundColor $(if ($opencvDlls.Count
+          -gt 0) { \"Green\" } else { \"Red\" })\n  Write-Host \"  PROJ DLLs: $($projDlls.Count)\"
+          -ForegroundColor $(if ($projDlls.Count -gt 0) { \"Green\" } else { \"Red\"
+          })\n  Write-Host \"  GEOS DLLs: $($geosDlls.Count)\" -ForegroundColor $(if
+          ($geosDlls.Count -gt 0) { \"Green\" } else { \"Red\" })\n  Write-Host \"
+          \ Total DLLs: $($allDlls.Count)\" -ForegroundColor Cyan\n  \n  # Try to
+          check DLL dependencies using dumpbin if available\n  $dumpbin = \"${env:ProgramFiles(x86)}\\Microsoft
+          Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\*\\bin\\Hostx64\\x64\\dumpbin.exe\"\n
+          \ $dumpbinPath = Get-ChildItem $dumpbin -ErrorAction SilentlyContinue |
+          Select-Object -First 1\n  if ($dumpbinPath) {\n    Write-Host \"`n=== Checking
+          DLL dependencies ===\" -ForegroundColor Cyan\n    & $dumpbinPath /dependents
+          $testExe | Select-String \"\\.dll\" | ForEach-Object {\n      $dllName =
+          $_.Line.Trim()\n      $dllPath = Join-Path $testDir $dllName\n      if (Test-Path
+          $dllPath) {\n        Write-Host \"  ✓ $dllName\" -ForegroundColor Green\n
+          \     } else {\n        Write-Host \"  ✗ $dllName (MISSING)\" -ForegroundColor
+          Red\n      }\n    }\n  }\n} else {\n  Write-Host \"Test executable not found:
+          $testExe\" -ForegroundColor Red\n}\n"
       - name: Run tests
         shell: pwsh
         run: |
