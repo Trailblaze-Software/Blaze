@@ -290,6 +290,13 @@ endforeach()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOpenMPDLL.cmake)
 find_openmp_dll(${LIBRARY_NAME})
 
+# Find and copy GDAL and OpenCV DLLs for Windows builds without vcpkg. Copy to
+# all executables to ensure DLLs are available when tests run.
+if(WIN32 AND NOT BLAZE_USE_VCPKG)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindDependencyDLLs.cmake)
+  find_and_copy_dependency_dlls(${ALL_EXECUTABLES})
+endif()
+
 # Find and copy PROJ data files to build output directory PROJ automatically
 # searches ../share/proj/ relative to the binary Attach to the library so it
 # runs once when the lib is built; all executables link the lib and use the same

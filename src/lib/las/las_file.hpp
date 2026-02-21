@@ -197,7 +197,7 @@ class LASFile {
   explicit LASFile(const Extent2D& bounds, GeoProjection&& projection)
       : m_bounds(bounds, std::numeric_limits<double>::max(), std::numeric_limits<double>::min()),
         m_original_bounds(m_bounds),
-        m_projection(projection) {};
+        m_projection(std::move(projection)) {};
 
  protected:
 #ifndef USE_PDAL

@@ -42,6 +42,7 @@ class GPKGWriter {
       : dataset(filename, projection), projection(projection) {}
 
   void add_layer(const std::string& layer_name) {
+    Assert(!projection.empty(), "Projection must not be empty when creating GPKG layer");
     OGRSpatialReference srs;
     // Import projection from WKT string (supports both geographic and projected CRS)
     GDALAssert(srs.importFromWkt(projection.c_str()));
