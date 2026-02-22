@@ -391,7 +391,7 @@ class LASData : public LASFile {
 
   explicit LASData(const fs::path& filename, ProgressTracker progress_tracker,
                    [[maybe_unused]] bool skip_reading_points = false,
-                   std::optional<Extent2D> bounds = std::nullopt)
+                   [[maybe_unused]] std::optional<Extent2D> bounds = std::nullopt)
       : LASFile(filename, progress_tracker.subtracker(0, 0.1)) {
     Timer timer;
     progress_tracker.text_update(to_string("Reading ", filename, " ..."));

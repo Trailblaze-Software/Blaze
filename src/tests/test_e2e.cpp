@@ -1,8 +1,10 @@
 #include <gtest/gtest.h>
 
 #include <cmath>
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 
 #include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
@@ -90,7 +92,7 @@ Config create_minimal_test_config(const fs::path& output_dir) {
   tall_veg.max_height = 100.0;
 
   BlockingThresholdColorPair green_veg;
-  green_veg.blocking_threshold = 0.1;
+  green_veg.blocking_threshold = 0.01;
   green_veg.color = CMYKColor(100, 0, 100, 0);  // Green
   tall_veg.colors.push_back(green_veg);
 
@@ -337,54 +339,233 @@ TEST(E2E, VerifyOutputStructure) {
 // Helper to verify vegetation TIF
 void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_vegetation,
                            const Config& config) {
-  if (!should_have_vegetation) {
-    if (fs::exists(vege_tif_path)) {
-      auto grid = read_tif(vege_tif_path);
-      ASSERT_GE(grid.size(), 3);
-      const auto& r_band = grid[0];
-      const auto& g_band = grid[1];
-      const auto& b_band = grid[2];
+  if (should_have_vegetation) {
+    ASSERT_TRUE(fs::exists(vege_tif_path)) << "vege_color.tif was not created.";
+  } else {
+    // If it doesn't exist, that's also a pass.
+    if (!fs::exists(vege_tif_path)) {
+      return;
+    }
+  }
 
-      RGBColor background = to_cmyk(config.vege.background_color).toRGB();
+  // Common code: read and validate TIF
+  auto grid = read_tif(vege_tif_path);
+  ASSERT_GE(grid.size(), 3);
+  const auto& r_band = grid[0];
+  const auto& g_band = grid[1];
+  const auto& b_band = grid[2];
+  RGBColor background = to_cmyk(config.vege.background_color).toRGB();
 
-      for (size_t i = 0; i < grid.height(); ++i) {
-        for (size_t j = 0; j < grid.width(); ++j) {
-          if (r_band.get<std::byte>({(long long)j, (long long)i}) !=
-                  (std::byte)background.getRed() ||
-              g_band.get<std::byte>({(long long)j, (long long)i}) !=
-                  (std::byte)background.getGreen() ||
-              b_band.get<std::byte>({(long long)j, (long long)i}) !=
-                  (std::byte)background.getBlue()) {
-            FAIL() << "Vegetation TIF should not contain data, but does.";
+  // Determine expected vegetation color(s) from config
+  std::vector<RGBColor> expected_vege_colors;
+  for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
+    for (const BlockingThresholdColorPair& color_pair : vege_config.colors) {
+      expected_vege_colors.push_back(to_rgb(color_pair.color));
+    }
+  }
+  ASSERT_FALSE(expected_vege_colors.empty()) << "No vegetation colors configured.";
+
+  // Helper lambda to get pixel RGB color
+  auto get_pixel_color = [&](size_t i, size_t j) -> RGBColor {
+    return RGBColor(
+        static_cast<unsigned char>(r_band.get<std::byte>({(long long)j, (long long)i})),
+        static_cast<unsigned char>(g_band.get<std::byte>({(long long)j, (long long)i})),
+        static_cast<unsigned char>(b_band.get<std::byte>({(long long)j, (long long)i})));
+  };
+
+  // Helper lambda to check if a pixel matches a color
+  auto matches_color = [](const RGBColor& pixel, const RGBColor& expected) {
+    return pixel.getRed() == expected.getRed() && pixel.getGreen() == expected.getGreen() &&
+           pixel.getBlue() == expected.getBlue();
+  };
+
+  // Check pixels based on expected behavior
+  if (should_have_vegetation) {
+    // Since vegetation points are added across the whole area, most pixels should be vegetation
+    // color Pixels can be either background or vegetation colors, but we expect mostly vegetation
+    size_t vegetation_pixel_count = 0;
+    size_t background_pixel_count = 0;
+    size_t invalid_pixel_count = 0;
+
+    for (size_t i = 0; i < grid.height(); ++i) {
+      for (size_t j = 0; j < grid.width(); ++j) {
+        RGBColor pixel = get_pixel_color(i, j);
+        bool matches_background = matches_color(pixel, background);
+        bool matches_vege = false;
+
+        if (matches_background) {
+          background_pixel_count++;
+        } else {
+          for (const RGBColor& vege_color : expected_vege_colors) {
+            if (matches_color(pixel, vege_color)) {
+              matches_vege = true;
+              vegetation_pixel_count++;
+              break;
+            }
+          }
+          if (!matches_vege) {
+            invalid_pixel_count++;
+            FAIL() << "Pixel at (" << j << ", " << i
+                   << ") does not match expected color (background or vegetation). Got RGB("
+                   << static_cast<int>(pixel.getRed()) << ", " << static_cast<int>(pixel.getGreen())
+                   << ", " << static_cast<int>(pixel.getBlue()) << "), expected background RGB("
+                   << static_cast<int>(background.getRed()) << ", "
+                   << static_cast<int>(background.getGreen()) << ", "
+                   << static_cast<int>(background.getBlue()) << ") or vegetation color RGB("
+                   << static_cast<int>(expected_vege_colors[0].getRed()) << ", "
+                   << static_cast<int>(expected_vege_colors[0].getGreen()) << ", "
+                   << static_cast<int>(expected_vege_colors[0].getBlue()) << ")";
           }
         }
       }
     }
-    // If it doesn't exist, that's also a pass.
-  } else {
-    ASSERT_TRUE(fs::exists(vege_tif_path)) << "vege_color.tif was not created.";
-    auto grid = read_tif(vege_tif_path);
-    ASSERT_GE(grid.size(), 3);
-    const auto& r_band = grid[0];
-    const auto& g_band = grid[1];
-    const auto& b_band = grid[2];
 
-    RGBColor background = to_cmyk(config.vege.background_color).toRGB();
-    bool has_data = false;
+    size_t total_pixels = grid.width() * grid.height();
+    double vegetation_ratio = static_cast<double>(vegetation_pixel_count) / total_pixels;
+
+    // Expect at least 50% of pixels to be vegetation color (allowing for edges and smoothing
+    // effects)
+    ASSERT_GE(vegetation_ratio, 0.5)
+        << "Expected at least 50% of pixels to be vegetation color, but got "
+        << (vegetation_ratio * 100.0) << "% (vegetation: " << vegetation_pixel_count
+        << ", background: " << background_pixel_count << ", total: " << total_pixels << ")";
+  } else {
+    // All pixels must be background
     for (size_t i = 0; i < grid.height(); ++i) {
       for (size_t j = 0; j < grid.width(); ++j) {
-        if (r_band.get<std::byte>({(long long)j, (long long)i}) != (std::byte)background.getRed() ||
-            g_band.get<std::byte>({(long long)j, (long long)i}) !=
-                (std::byte)background.getGreen() ||
-            b_band.get<std::byte>({(long long)j, (long long)i}) !=
-                (std::byte)background.getBlue()) {
-          has_data = true;
-          break;
+        RGBColor pixel = get_pixel_color(i, j);
+        if (!matches_color(pixel, background)) {
+          FAIL() << "Pixel at (" << j << ", " << i
+                 << ") should be background color but is not. Got RGB("
+                 << static_cast<int>(pixel.getRed()) << ", " << static_cast<int>(pixel.getGreen())
+                 << ", " << static_cast<int>(pixel.getBlue()) << "), expected RGB("
+                 << static_cast<int>(background.getRed()) << ", "
+                 << static_cast<int>(background.getGreen()) << ", "
+                 << static_cast<int>(background.getBlue()) << ")";
         }
       }
-      if (has_data) break;
     }
-    ASSERT_TRUE(has_data) << "Vegetation TIF was created but is empty.";
+  }
+}
+
+// Helper to verify raw vegetation TIF (blocked proportion) and its relationship to vege_color
+void verify_raw_vegetation_tif(const fs::path& raw_vege_tif_path, bool should_have_vegetation,
+                               const Config& config, const fs::path& vege_color_path) {
+  // Find the corresponding vege config by matching the filename
+  std::string filename = raw_vege_tif_path.stem().string();
+  bool is_smoothed = filename.find("smoothed_") == 0;
+  std::string vege_name = is_smoothed ? filename.substr(9) : filename;
+
+  const VegeHeightConfig* vege_config = nullptr;
+  for (const VegeHeightConfig& vc : config.vege.height_configs) {
+    if (vc.name == vege_name) {
+      vege_config = &vc;
+      break;
+    }
+  }
+  ASSERT_NE(vege_config, nullptr) << "No vegetation config found for name: " << vege_name;
+
+  if (should_have_vegetation) {
+    ASSERT_TRUE(fs::exists(raw_vege_tif_path))
+        << "Raw vegetation TIF " << raw_vege_tif_path << " was not created.";
+  } else {
+    // If it doesn't exist, that's also a pass.
+    if (!fs::exists(raw_vege_tif_path)) {
+      return;
+    }
+  }
+
+  // Read and validate TIF
+  auto grid = read_tif(raw_vege_tif_path);
+  if (is_smoothed) {
+    // Smoothed version is single-band float
+    ASSERT_EQ(grid.size(), 1) << "Smoothed raw vege TIF should have 1 band";
+    const auto& band = grid[0];
+
+    if (should_have_vegetation) {
+      // Every pixel should have a value >= 0.0 and <= 1.0 (blocked proportion)
+      for (size_t i = 0; i < band.height(); ++i) {
+        for (size_t j = 0; j < band.width(); ++j) {
+          float value = band.get<float>({(long long)j, (long long)i});
+          if (value < 0.0f || value > 1.0f) {
+            FAIL() << "Pixel at (" << j << ", " << i
+                   << ") has invalid blocked proportion value: " << value
+                   << " (expected 0.0 to 1.0)";
+          }
+          // With vegetation, we expect at least some pixels to have non-zero values
+          // But we can't require all to be > 0 since some areas might not have vegetation
+        }
+      }
+    } else {
+      // All pixels should be 0.0 (no vegetation)
+      for (size_t i = 0; i < band.height(); ++i) {
+        for (size_t j = 0; j < band.width(); ++j) {
+          float value = band.get<float>({(long long)j, (long long)i});
+          if (value != 0.0f) {
+            FAIL() << "Pixel at (" << j << ", " << i
+                   << ") should be 0.0 (no vegetation) but is: " << value;
+          }
+        }
+      }
+    }
+  } else {
+    // Raw version is two-band: band 0 = value, band 1 = validity mask
+    ASSERT_EQ(grid.size(), 2) << "Raw vege TIF should have 2 bands (value and validity)";
+    const auto& value_band = grid[0];
+    const auto& validity_band = grid[1];
+
+    if (should_have_vegetation) {
+      // For unsmoothed raw vege: verify that cells with vegetation points have valid blocked
+      // proportion This checks "has vege point if and only if has valid blocked proportion" Note:
+      // We don't compare to vege_color here because vege_color uses smoothed data which spreads
+      // values
+      bool has_valid_vegetation = false;
+      for (size_t i = 0; i < value_band.height(); ++i) {
+        for (size_t j = 0; j < value_band.width(); ++j) {
+          float value = value_band.get<float>({(long long)j, (long long)i});
+          float validity = validity_band.get<float>({(long long)j, (long long)i});
+
+          if (validity == 255.0f) {
+            // Valid value means there are vegetation points - should be in range [0.0, 1.0]
+            if (value < 0.0f || value > 1.0f) {
+              FAIL() << "Pixel at (" << j << ", " << i
+                     << ") has invalid blocked proportion value: " << value
+                     << " (expected 0.0 to 1.0)";
+            }
+            if (value > 0.0f) {
+              has_valid_vegetation = true;
+            }
+            // Note: validity = 255 means there are vegetation points in this cell
+            // The blocked proportion should be > 0 if there are points in the height range
+          } else if (validity != 0.0f) {
+            FAIL() << "Pixel at (" << j << ", " << i << ") has invalid validity mask: " << validity
+                   << " (expected 0.0 or 255.0)";
+          }
+          // validity = 0 means no vegetation points in this cell (which is correct)
+        }
+      }
+      ASSERT_TRUE(has_valid_vegetation)
+          << "Raw vegetation TIF should contain at least some valid vegetation data";
+    } else {
+      // All pixels should be nullopt (validity = 0) or have value = 0.0
+      for (size_t i = 0; i < value_band.height(); ++i) {
+        for (size_t j = 0; j < value_band.width(); ++j) {
+          float value = value_band.get<float>({(long long)j, (long long)i});
+          float validity = validity_band.get<float>({(long long)j, (long long)i});
+
+          if (validity == 255.0f) {
+            // If valid, value should be 0.0 (no vegetation)
+            if (value != 0.0f) {
+              FAIL() << "Pixel at (" << j << ", " << i
+                     << ") should be 0.0 (no vegetation) but is: " << value;
+            }
+          } else if (validity != 0.0f) {
+            FAIL() << "Pixel at (" << j << ", " << i << ") has invalid validity mask: " << validity
+                   << " (expected 0.0 or 255.0)";
+          }
+        }
+      }
+    }
   }
 }
 
@@ -408,6 +589,10 @@ class E2ETerrainTest : public ::testing::TestWithParam<TerrainTestParams> {
 
 TEST_P(E2ETerrainTest, ProcessTerrain) {
   const TerrainTestParams& params = GetParam();
+  // Check if we should keep output files (check early so files are preserved even on test failure)
+  const char* keep_output = std::getenv("BLAZE_KEEP_TEST_OUTPUT");
+  bool should_keep_output = (keep_output != nullptr && std::string(keep_output) != "0");
+
   fs::path test_output_dir = fs::temp_directory_path() / ("blaze_e2e_" + params.name);
   if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
   fs::create_directories(test_output_dir);
@@ -444,14 +629,45 @@ TEST_P(E2ETerrainTest, ProcessTerrain) {
     }
   }
 
-  verify_vegetation_tif(test_output_dir / "vege_color.tif", params.with_vegetation, config);
+  fs::path vege_color_path = test_output_dir / "vege_color.tif";
+  verify_vegetation_tif(vege_color_path, params.with_vegetation, config);
 
-  fs::remove_all(test_output_dir);
-}
+  // Verify raw vegetation TIFs for each height config
+  for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
+    fs::path raw_vege_path = test_output_dir / "raw_vege" / (vege_config.name + ".tif");
+    verify_raw_vegetation_tif(raw_vege_path, params.with_vegetation, config, vege_color_path);
 
-// Custom test name generator to use the name field from TerrainTestParams
-std::string TerrainTestNameGenerator(const ::testing::TestParamInfo<TerrainTestParams>& info) {
-  return info.param.name;
+    fs::path smoothed_vege_path =
+        test_output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif");
+    verify_raw_vegetation_tif(smoothed_vege_path, params.with_vegetation, config, vege_color_path);
+  }
+
+  // Check contour properties based on terrain type
+  if (params.expect_contours && contours.size() > 0) {
+    // Check based on test name to determine expected behavior
+    if (params.name.find("Hill") != std::string::npos) {
+      // Hill terrain should have ALL closed loops
+      for (const Contour& contour : contours) {
+        EXPECT_TRUE(contour.is_loop()) << "Hill terrain should have all contours as closed loops, "
+                                          "but found an open contour at height "
+                                       << contour.height();
+      }
+    } else if (params.name.find("Slope") != std::string::npos) {
+      // Slope terrain should have ALL open lines
+      for (const Contour& contour : contours) {
+        EXPECT_FALSE(contour.is_loop()) << "Slope terrain should have all contours as open lines, "
+                                           "but found a closed loop at height "
+                                        << contour.height();
+      }
+    }
+  }
+
+  // Keep output files if BLAZE_KEEP_TEST_OUTPUT environment variable is set
+  if (should_keep_output) {
+    std::cout << "Test output kept at: " << test_output_dir << std::endl;
+  } else {
+    fs::remove_all(test_output_dir);
+  }
 }
 
 INSTANTIATE_TEST_SUITE_P(
@@ -468,13 +684,12 @@ INSTANTIATE_TEST_SUITE_P(
         TerrainTestParams{"HillTerrainGroundOnly",
                           [](double x, double y) {
                             double dist = std::sqrt(std::pow(x - 50, 2) + std::pow(y - 50, 2));
-                            return 100.0 + std::max(0.0, 20.0 - dist * 0.5);
+                            return 99.0 + std::max(0.0, 20.0 - dist * 0.5);
                           },
                           false, true},
         TerrainTestParams{"HillTerrainWithVegetation",
                           [](double x, double y) {
                             double dist = std::sqrt(std::pow(x - 50, 2) + std::pow(y - 50, 2));
-                            return 100.0 + std::max(0.0, 20.0 - dist * 0.5);
+                            return 99.0 + std::max(0.0, 20.0 - dist * 0.5);
                           },
-                          true, true}),
-    TerrainTestNameGenerator);
+                          true, true}));
