@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
+#include <utility>
 
 #include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
@@ -10,25 +12,24 @@
 
 template <typename T>
 T round_down(T val, T interval) {
-  if (val < 0) {
-    return val - fmod(val, interval) - interval;
-  } else {
-    return val - fmod(val, interval);
-  }
+  return interval * std::floor(val / interval);
 }
 
 template <typename T>
-inline bool crosses_contour(T h1, T h2, T contour_interval) {
-  T max = std::max(h1, h2);
-  T min = std::min(h1, h2);
+inline bool crosses_contour(std::pair<T, T> hs, T contour_interval) {
+  // True if the pair of heights crosses the contour interval. Includes the maximum height being a
+  // multiple of the interval but not the minimum height to ensure that crosses_interval({a,b}, i)
+  // and crosses_interval({b, c}) do not double count where a<b<c.
+  T max = std::max(hs.first, hs.second);
+  T min = std::min(hs.first, hs.second);
   return round_down(max, contour_interval) > min;
 }
 
 template <typename T>
-inline std::set<T> get_contour_heights(T h1, T h2, T contour_interval) {
+inline std::set<T> get_contour_heights(std::pair<T, T> hs, T contour_interval) {
   std::set<T> heights;
-  T max = std::max(h1, h2);
-  T min = std::min(h1, h2);
+  T max = std::max(hs.first, hs.second);
+  T min = std::min(hs.first, hs.second);
   for (T h = round_down(max, contour_interval); h > min; h -= contour_interval) {
     heights.insert(h);
   }

@@ -16,7 +16,7 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
         LineCoord2D<size_t> line_coord = {coord, dir};
         if (contour_heights.in_bounds(line_coord)) {
           contour_heights[line_coord] = get_contour_heights(
-              grid[line_coord.start()], grid[line_coord.end()], contour_interval);
+              {grid[line_coord.start()], grid[line_coord.end()]}, contour_interval);
         }
       }
     }
@@ -148,10 +148,10 @@ inline GeoGrid<std::optional<std::byte>> generate_naive_contours(const GeoGrid<d
       double z_south = ground[{i + 1, j}];
       double z_west = ground[{i, j - 1}];
       double z_east = ground[{i, j + 1}];
-      bool is_countour = crosses_contour(z, z_north, contour_interval) ||
-                         crosses_contour(z, z_south, contour_interval) ||
-                         crosses_contour(z, z_west, contour_interval) ||
-                         crosses_contour(z, z_east, contour_interval);
+      bool is_countour = crosses_contour({z, z_north}, contour_interval) ||
+                         crosses_contour({z, z_south}, contour_interval) ||
+                         crosses_contour({z, z_west}, contour_interval) ||
+                         crosses_contour({z, z_east}, contour_interval);
       naive_countours[{i, j}] = is_countour ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
     }
   }

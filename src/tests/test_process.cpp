@@ -62,35 +62,3 @@ TEST(Process, NumCellsByDistance) {
   EXPECT_EQ(num_cells_by_distance(100.0, 1.0), 101);
   EXPECT_EQ(num_cells_by_distance(100.1, 1.0), 101);
 }
-
-// Test get_pixel_heights indirectly through process_las_data
-// Since get_pixel_heights is not exposed, we'll test the logic conceptually
-// by testing that ground points are properly extracted
-
-// Test adjust_ground_to_slope function
-// Since it's not exposed, we test the concept with a simple grid
-TEST(Process, AdjustGroundToSlopeConcept) {
-  // Create a simple slope grid
-  std::vector<std::vector<double>> data = {
-      {10.0, 10.0, 10.0}, {10.0, 10.0, 10.0}, {10.0, 10.0, 10.0}};
-  TestGrid grid(data);
-
-  // Test that grid operations work
-  double val00 = grid[{0, 0}];
-  double val11 = grid[{1, 1}];
-  EXPECT_DOUBLE_EQ(val00, 10.0);
-  EXPECT_DOUBLE_EQ(val11, 10.0);
-
-  // Create a grid with a slope
-  std::vector<std::vector<double>> slope_data = {
-      {10.0, 11.0, 12.0}, {10.0, 11.0, 12.0}, {10.0, 11.0, 12.0}};
-  TestGrid slope_grid(slope_data);
-
-  // Verify slope exists
-  double slope00 = slope_grid[{0, 0}];
-  double slope10 = slope_grid[{1, 0}];
-  double slope20 = slope_grid[{2, 0}];
-  EXPECT_DOUBLE_EQ(slope00, 10.0);
-  EXPECT_DOUBLE_EQ(slope10, 11.0);
-  EXPECT_DOUBLE_EQ(slope20, 12.0);
-}

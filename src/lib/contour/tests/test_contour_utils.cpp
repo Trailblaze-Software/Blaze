@@ -16,15 +16,10 @@ TEST(ContourUtils, RoundDown) {
   EXPECT_DOUBLE_EQ(round_down(17.0, 5.0), 15.0);
 
   // Test negative values
-  // For negative: val - fmod(val, interval) - interval
-  // fmod(-10.0, 5.0) = 0.0, so: -10 - 0 - 5 = -15
-  EXPECT_DOUBLE_EQ(round_down(-10.0, 5.0), -15.0);
-  // fmod(-12.0, 5.0) = -2.0, so: -12 - (-2) - 5 = -12 + 2 - 5 = -15
+  EXPECT_DOUBLE_EQ(round_down(-10.0, 5.0), -10.0);
   EXPECT_DOUBLE_EQ(round_down(-12.0, 5.0), -15.0);
-  // fmod(-14.9, 5.0) = -4.9, so: -14.9 - (-4.9) - 5 = -14.9 + 4.9 - 5 = -15
   EXPECT_DOUBLE_EQ(round_down(-14.9, 5.0), -15.0);
-  // fmod(-15.0, 5.0) = 0.0, so: -15 - 0 - 5 = -20
-  EXPECT_DOUBLE_EQ(round_down(-15.0, 5.0), -20.0);
+  EXPECT_DOUBLE_EQ(round_down(-15.0, 5.0), -15.0);
 
   // Test with different intervals
   EXPECT_DOUBLE_EQ(round_down(10.0, 2.0), 10.0);
@@ -37,57 +32,58 @@ TEST(ContourUtils, RoundDown) {
 
 // Test crosses_contour function
 TEST(ContourUtils, CrossesContour) {
-  double interval = 10.0;
-
   // Test cases that should cross
-  EXPECT_TRUE(crosses_contour(5.0, 15.0, interval));   // Crosses 10.0
-  EXPECT_TRUE(crosses_contour(15.0, 5.0, interval));   // Reversed
-  EXPECT_TRUE(crosses_contour(8.0, 12.0, interval));   // Crosses 10.0
-  EXPECT_TRUE(crosses_contour(18.0, 22.0, interval));  // Crosses 20.0
+  EXPECT_TRUE(crosses_contour({5.0, 15.0}, 10.0));   // Crosses 10.0
+  EXPECT_TRUE(crosses_contour({15.0, 5.0}, 10.0));   // Reversed
+  EXPECT_TRUE(crosses_contour({8.0, 12.0}, 10.0));   // Crosses 10.0
+  EXPECT_TRUE(crosses_contour({18.0, 22.0}, 10.0));  // Crosses 20.0
 
   // Test cases that should not cross
-  EXPECT_FALSE(crosses_contour(5.0, 8.0, interval));    // Both below 10.0
-  EXPECT_FALSE(crosses_contour(12.0, 15.0, interval));  // Both above 10.0, below 20.0
-  // Note: Behavior when one value is exactly on a contour:
-  // - Starting exactly on contour (10.0 -> 15.0): round_down(15.0, 10.0) = 10.0, 10.0 > 10.0 =
-  // false (no cross)
-  EXPECT_FALSE(crosses_contour(10.0, 15.0, interval));  // Starts exactly on contour - doesn't cross
-  // - Ending exactly on contour (5.0 -> 10.0): round_down(10.0, 10.0) = 10.0, 10.0 > 5.0 = true
-  // (crosses)
-  EXPECT_TRUE(crosses_contour(5.0, 10.0, interval));  // Ends exactly on contour - crosses
+  EXPECT_FALSE(crosses_contour({5.0, 8.0}, 10.0));    // Both below 10.0
+  EXPECT_FALSE(crosses_contour({12.0, 15.0}, 10.0));  // Both above 10.0, below 20.0
+  EXPECT_FALSE(crosses_contour({10.0, 15.0}, 10.0));  // Starts exactly on contour - doesn't cross
+  EXPECT_TRUE(crosses_contour({5.0, 10.0}, 10.0));    // Ends exactly on contour - crosses
+
+  // Test negative values
+  EXPECT_TRUE(crosses_contour({-15.0, -5.0}, 10.0));    // Crosses -10.0
+  EXPECT_TRUE(crosses_contour({-5.0, -15.0}, 10.0));    // Reversed
+  EXPECT_FALSE(crosses_contour({-15.0, -12.0}, 10.0));  // Both below -10.0, doesn't cross
+  EXPECT_FALSE(crosses_contour({-8.0, -5.0}, 10.0));   // Both above -10.0, below 0.0, doesn't cross
+  EXPECT_TRUE(crosses_contour({-5.0, 5.0}, 10.0));     // Crosses 0.0 (negative to positive)
+  EXPECT_TRUE(crosses_contour({-12.0, -8.0}, 10.0));   // Crosses -10.0
+  EXPECT_FALSE(crosses_contour({-10.0, -5.0}, 10.0));  // Starts exactly on contour - doesn't cross
+  EXPECT_TRUE(crosses_contour({-15.0, -10.0}, 10.0));  // Ends exactly on contour - crosses
 
   // Test with different intervals
-  EXPECT_TRUE(crosses_contour(4.0, 6.0, 5.0));   // Crosses 5.0
-  EXPECT_FALSE(crosses_contour(4.0, 4.5, 5.0));  // Doesn't cross
+  EXPECT_TRUE(crosses_contour({4.0, 6.0}, 5.0));   // Crosses 5.0
+  EXPECT_FALSE(crosses_contour({4.0, 4.5}, 5.0));  // Doesn't cross
 }
 
 // Test get_contour_heights function
 TEST(ContourUtils, GetContourHeights) {
-  double interval = 10.0;
-
   // Test basic case
-  std::set<double> heights1 = get_contour_heights(5.0, 25.0, interval);
+  std::set<double> heights1 = get_contour_heights({5.0, 25.0}, 10.0);
   EXPECT_EQ(heights1.size(), 2);
   EXPECT_TRUE(heights1.find(10.0) != heights1.end());
   EXPECT_TRUE(heights1.find(20.0) != heights1.end());
 
   // Test reversed
-  std::set<double> heights2 = get_contour_heights(25.0, 5.0, interval);
+  std::set<double> heights2 = get_contour_heights({25.0, 5.0}, 10.0);
   EXPECT_EQ(heights2.size(), 2);
   EXPECT_TRUE(heights2.find(10.0) != heights2.end());
   EXPECT_TRUE(heights2.find(20.0) != heights2.end());
 
   // Test single crossing
-  std::set<double> heights3 = get_contour_heights(8.0, 12.0, interval);
+  std::set<double> heights3 = get_contour_heights({8.0, 12.0}, 10.0);
   EXPECT_EQ(heights3.size(), 1);
   EXPECT_TRUE(heights3.find(10.0) != heights3.end());
 
   // Test no crossing
-  std::set<double> heights4 = get_contour_heights(5.0, 8.0, interval);
+  std::set<double> heights4 = get_contour_heights({5.0, 8.0}, 10.0);
   EXPECT_EQ(heights4.size(), 0);
 
   // Test multiple crossings
-  std::set<double> heights5 = get_contour_heights(5.0, 45.0, interval);
+  std::set<double> heights5 = get_contour_heights({5.0, 45.0}, 10.0);
   EXPECT_EQ(heights5.size(), 4);
   EXPECT_TRUE(heights5.find(10.0) != heights5.end());
   EXPECT_TRUE(heights5.find(20.0) != heights5.end());
@@ -95,7 +91,7 @@ TEST(ContourUtils, GetContourHeights) {
   EXPECT_TRUE(heights5.find(40.0) != heights5.end());
 
   // Test with different intervals
-  std::set<double> heights6 = get_contour_heights(2.0, 8.0, 2.0);
+  std::set<double> heights6 = get_contour_heights({2.0, 8.0}, 2.0);
   // round_down(8.0, 2.0) = 8.0, then loop: 8.0, 6.0, 4.0 (3 values)
   EXPECT_EQ(heights6.size(), 3);
   EXPECT_TRUE(heights6.find(4.0) != heights6.end());
