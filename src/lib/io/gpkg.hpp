@@ -5,6 +5,7 @@
 #include "assert/gdal_assert.hpp"
 #include "contour/contour.hpp"
 #include "gdal_priv.h"
+#include "io/gdal_init.hpp"
 #include "polyline/polyline.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/timer.hpp"
@@ -14,7 +15,7 @@ class GDALDataset_w {
 
  public:
   GDALDataset_w(const std::string& filename, const std::string& projection) {
-    GDALAllRegister();
+    ensure_gdal_initialized();
     GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GPKG");
     Assert(driver, "GeoPackage driver not available.");
 
@@ -111,7 +112,7 @@ inline std::vector<Contour> read_gpkg(const fs::path& filename) {
   TimeFunction timer("reading GPKG " + filename.string());
   std::vector<Contour> contours;
 
-  GDALAllRegister();
+  ensure_gdal_initialized();
   GDALDataset* dataset = (GDALDataset*)GDALOpenEx(filename.string().c_str(), GDAL_OF_VECTOR,
                                                   nullptr, nullptr, nullptr);
   if (!dataset) {

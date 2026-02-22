@@ -7,6 +7,7 @@
 #include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
 #include "gdal_priv.h"
+#include "io/gdal_init.hpp"
 #include "io/gpkg.hpp"
 #include "isom/colors.hpp"
 #include "las/las_file.hpp"
@@ -23,7 +24,7 @@ namespace fs = std::filesystem;
 
 // Helper to get WGS84 WKT projection string using GDAL
 std::string get_wgs84_wkt() {
-  GDALAllRegister();
+  ensure_gdal_initialized();
   OGRSpatialReference srs;
   Assert(srs.importFromEPSG(4326) == OGRERR_NONE, "Failed to import EPSG:4326");
   char* wkt_ptr = nullptr;
