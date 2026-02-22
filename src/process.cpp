@@ -73,8 +73,10 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                       ProgressTracker progress_tracker) {
   double bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
-      round_up(las_file.width() / bin_resolution + config.grid.downsample_factor),
-      round_up(las_file.height() / bin_resolution + config.grid.downsample_factor),
+      num_cells_by_distance(las_file.width() + config.grid.downsample_factor * bin_resolution,
+                            bin_resolution),
+      num_cells_by_distance(las_file.height() + config.grid.downsample_factor * bin_resolution,
+                            bin_resolution),
       GeoTransform(las_file.top_left().round_NW(bin_resolution * config.grid.downsample_factor),
                    bin_resolution),
       GeoProjection(las_file.projection()));
@@ -221,8 +223,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   double contour_points_resolution = 20;
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
-      round_up(smooth_ground.width_m() / contour_points_resolution) + 1,
-      round_up(smooth_ground.height_m() / contour_points_resolution) + 1,
+      num_cells_by_distance(smooth_ground.width_m(), contour_points_resolution) + 1,
+      num_cells_by_distance(smooth_ground.height_m(), contour_points_resolution) + 1,
       GeoTransform(smooth_ground.transform().pixel_to_projection({0, 0}),
                    contour_points_resolution),
       GeoProjection(las_file.projection()));
@@ -360,8 +362,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   constexpr double INCHES_PER_METER = 39.3701;
   double render_pixel_resolution = config.render.scale / config.render.dpi / INCHES_PER_METER;
   GeoImgGrid final_img(
-      round_up(ground.width() * ground.transform().dx() / render_pixel_resolution),
-      round_up(ground.height() * ground.transform().dy() / render_pixel_resolution),
+      num_cells_by_distance(ground.width() * ground.transform().dx(), render_pixel_resolution),
+      num_cells_by_distance(ground.height() * ground.transform().dy(), render_pixel_resolution),
       GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
       GeoProjection(vege_color.projection()));
 

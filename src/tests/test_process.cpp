@@ -20,30 +20,47 @@ class TestGrid : public GeoGrid<double> {
   }
 };
 
-// Test round_up function
-// Note: round_up always adds 1e-6 before ceiling, so it always rounds up by at least 1
-TEST(Process, RoundUp) {
-  // Test positive values
-  EXPECT_EQ(round_up(0.0), 1);  // ceil(0.000001) = 1
-  EXPECT_EQ(round_up(0.1), 1);  // ceil(0.100001) = 1
-  EXPECT_EQ(round_up(0.5), 1);  // ceil(0.500001) = 1
-  EXPECT_EQ(round_up(0.9), 1);  // ceil(0.900001) = 1
-  EXPECT_EQ(round_up(1.0), 2);  // ceil(1.000001) = 2
-  EXPECT_EQ(round_up(1.1), 2);  // ceil(1.100001) = 2
-  EXPECT_EQ(round_up(1.5), 2);  // ceil(1.500001) = 2
-  EXPECT_EQ(round_up(2.0), 3);  // ceil(2.000001) = 3
+// Test num_cells_by_distance function
+TEST(Process, NumCellsByDistance) {
+  // Test with unit cell size (dx = 1.0)
+  EXPECT_EQ(num_cells_by_distance(0.0, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(0.1, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(0.5, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(0.9, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(1.0, 1.0), 2);
+  EXPECT_EQ(num_cells_by_distance(1.1, 1.0), 2);
+  EXPECT_EQ(num_cells_by_distance(1.5, 1.0), 2);
+  EXPECT_EQ(num_cells_by_distance(2.0, 1.0), 3);
 
-  // Test negative values (uses abs, so same as positive)
-  EXPECT_EQ(round_up(-0.1), 1);  // ceil(0.100001) = 1
-  EXPECT_EQ(round_up(-0.5), 1);  // ceil(0.500001) = 1
-  EXPECT_EQ(round_up(-1.0), 2);  // ceil(1.000001) = 2
-  EXPECT_EQ(round_up(-1.1), 2);  // ceil(1.100001) = 2
+  // Test with different cell sizes
+  EXPECT_EQ(num_cells_by_distance(10.0, 5.0), 3);
+  EXPECT_EQ(num_cells_by_distance(10.1, 5.0), 3);
+  EXPECT_EQ(num_cells_by_distance(20.0, 20.0), 2);
+  EXPECT_EQ(num_cells_by_distance(20.1, 20.0), 2);
+
+  // Test negative values (should use absolute value)
+  EXPECT_EQ(num_cells_by_distance(-0.0, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(-0.1, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(-0.5, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(-1.0, 1.0), 2);
+  EXPECT_EQ(num_cells_by_distance(-1.1, 1.0), 2);
+  EXPECT_EQ(num_cells_by_distance(-10.0, 5.0), 3);
+  EXPECT_EQ(num_cells_by_distance(-10.1, 5.0), 3);
+
+  // Test negative dx values (should use absolute value)
+  EXPECT_EQ(num_cells_by_distance(10.0, -5.0), 3);
+  EXPECT_EQ(num_cells_by_distance(10.1, -5.0), 3);
+  EXPECT_EQ(num_cells_by_distance(20.0, -20.0), 2);
+  EXPECT_EQ(num_cells_by_distance(0.0, -1.0), 1);
+
+  // Test error cases
+  EXPECT_THROW(num_cells_by_distance(1.0, 0.0), std::invalid_argument);
 
   // Test edge cases
-  EXPECT_EQ(round_up(1e-7), 1);     // ceil(0.000001) = 1
-  EXPECT_EQ(round_up(1e-6), 1);     // ceil(0.000001) = 1
-  EXPECT_EQ(round_up(100.0), 101);  // ceil(100.000001) = 101
-  EXPECT_EQ(round_up(100.1), 101);  // ceil(100.100001) = 101
+  EXPECT_EQ(num_cells_by_distance(1e-7, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(1e-6, 1.0), 1);
+  EXPECT_EQ(num_cells_by_distance(100.0, 1.0), 101);
+  EXPECT_EQ(num_cells_by_distance(100.1, 1.0), 101);
 }
 
 // Test get_pixel_heights indirectly through process_las_data
