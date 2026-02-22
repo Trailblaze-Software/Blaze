@@ -265,7 +265,8 @@ include(GoogleTest)
 
 FetchContent_Declare(
   nlohmann_json
-  URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG v3.11.3)
 FetchContent_MakeAvailable(nlohmann_json)
 
 foreach(target ${ALL_TARGETS})
