@@ -55,12 +55,9 @@ GeoGrid<T> downsample(const GeoGrid<T>& grid, size_t factor, ProgressTracker&& p
 }
 
 template <typename T>
-GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_tracker,
-                           double z_threshold = 1, bool z_only = false) {
+void remove_outliers(GeoGrid<T>& grid, ProgressTracker progress_tracker, double z_threshold = 1,
+                     bool z_only = false) {
   TimeFunction timer("remove outliers", &progress_tracker);
-  GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                    GeoProjection(grid.projection()));
-  result.copy_from(grid);
   bool no_outliers = false;
   int iter_count = 0;
   while (!no_outliers) {
@@ -71,14 +68,13 @@ GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_trac
     for (size_t i = 0; i < grid.height(); i++) {
       for (size_t j = 0; j < grid.width(); j++) {
         if (i == 0 || j == 0 || i == grid.height() - 1 || j == grid.width() - 1) {
-          result[{j, i}] = grid[{j, i}];
           continue;
         }
-        T z = result[{j, i}];
-        double max_neighbour = std::max({0.5 * (result[{j - 1, i}] + result[{j + 1, i}]),
-                                         0.5 * (result[{j, i - 1}] + result[{j, i + 1}])});
-        double min_neighbour = std::min({0.5 * (result[{j - 1, i}] + result[{j + 1, i}]),
-                                         0.5 * (result[{j, i - 1}] + result[{j, i + 1}])});
+        T z = grid[{j, i}];
+        double max_neighbour = std::max({0.5 * (grid[{j - 1, i}] + grid[{j + 1, i}]),
+                                         0.5 * (grid[{j, i - 1}] + grid[{j, i + 1}])});
+        double min_neighbour = std::min({0.5 * (grid[{j - 1, i}] + grid[{j + 1, i}]),
+                                         0.5 * (grid[{j, i - 1}] + grid[{j, i + 1}])});
         if (std::isnan(max_neighbour) || std::isnan(min_neighbour) ||
             !std::isfinite(max_neighbour) || !std::isfinite(min_neighbour) ||
             std::abs(max_neighbour) > 1e8 || std::abs(min_neighbour) > 1e8) {
@@ -87,18 +83,18 @@ GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_trac
         if (min_neighbour - z > z_threshold || z - max_neighbour > z_threshold) {
           if (!z_only) {
             double dist_x =
-                (2 * grid.dx() * (result[{j, i}] - result[{j + 1, i}]) -
-                 (result[{j + 1, i}] - result[{j - 1, i}]) * grid.dx()) /
-                std::sqrt(SQ(2 * grid.dx()) + SQ((result[{j + 1, i}] - result[{j - 1, i}])));
+                (2 * grid.dx() * (grid[{j, i}] - grid[{j + 1, i}]) -
+                 (grid[{j + 1, i}] - grid[{j - 1, i}]) * grid.dx()) /
+                std::sqrt(SQ(2 * grid.dx()) + SQ((grid[{j + 1, i}] - grid[{j - 1, i}])));
             double dist_y =
-                (2 * grid.dy() * (result[{j, i}] - result[{j, i + 1}]) -
-                 (result[{j, i + 1}] - result[{j, i - 1}]) * grid.dy()) /
-                std::sqrt(SQ(2 * grid.dy()) + SQ((result[{j, i + 1}] - result[{j, i - 1}])));
+                (2 * grid.dy() * (grid[{j, i}] - grid[{j, i + 1}]) -
+                 (grid[{j, i + 1}] - grid[{j, i - 1}]) * grid.dy()) /
+                std::sqrt(SQ(2 * grid.dy()) + SQ((grid[{j, i + 1}] - grid[{j, i - 1}])));
             if (std::abs(dist_x) < z_threshold || std::abs(dist_y) < z_threshold) {
               continue;
             }
           }
-          result[{j, i}] = (max_neighbour + min_neighbour) / 2;
+          grid[{j, i}] = (max_neighbour + min_neighbour) / 2;
           no_outliers = false;
           num_outliers++;
         }
@@ -108,7 +104,6 @@ GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_trac
       std::cerr << "Removed " << num_outliers << " outliers with threshold " << z_threshold
                 << " on iteration " << iter_count << std::endl;
   }
-  return result;
 }
 
 inline bool has_value(double value) { return std::isfinite(value) && value < 1e6; }

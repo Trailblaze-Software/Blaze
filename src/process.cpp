@@ -171,8 +171,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   write_to_tif(ground_intensity_img.slice(las_file.export_bounds()),
                output_dir / "ground_intensity.tif", progress_tracker.subtracker(0.62, 0.63));
 
-  ground = remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64),
-                           config.ground.outlier_removal_height_diff);
+  remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64),
+                  config.ground.outlier_removal_height_diff);
   ground = interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
 
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
@@ -187,9 +187,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
       downsample(ground, config.grid.downsample_factor, progress_tracker.subtracker(0.69, 0.7)));
-  GeoGrid<double> smooth_ground =
-      remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
-                      config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
+  remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
+                  config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
+  GeoGrid<double> smooth_ground = *downsampled_ground;
   if (OUT_LAS)
     LASData(*downsampled_ground).write(output_dir / "smooth_ground_no_outlier_removal.las");
   downsampled_ground.reset();

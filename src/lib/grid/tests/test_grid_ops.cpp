@@ -94,19 +94,14 @@ TEST(GridOps, RemoveOutliers) {
                                            {10.0, 10.0, 10.0}};
   TestGrid grid(data);
 
-  GeoGrid<double> cleaned = remove_outliers(grid, ProgressTracker(), 1.0);
+  remove_outliers(grid, ProgressTracker(), 1.0);
 
-  // The outlier should be replaced with an average of neighbors
-  // Center value should be closer to 10.0 than 100.0
-  double center_val = cleaned[{1, 1}];
-  EXPECT_LT(center_val, 50.0);
-  EXPECT_GT(center_val, 5.0);
-
-  // Edge values should remain unchanged
-  double edge00 = cleaned[{0, 0}];
-  double edge22 = cleaned[{2, 2}];
-  EXPECT_DOUBLE_EQ(edge00, 10.0);
-  EXPECT_DOUBLE_EQ(edge22, 10.0);
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      double val = grid[{j, i}];
+      EXPECT_DOUBLE_EQ(val, 10.0);
+    }
+  }
 }
 
 // Test remove_outliers with no outliers
@@ -115,12 +110,12 @@ TEST(GridOps, RemoveOutliersNoOutliers) {
       {10.0, 10.0, 10.0}, {10.0, 10.0, 10.0}, {10.0, 10.0, 10.0}};
   TestGrid grid(data);
 
-  GeoGrid<double> cleaned = remove_outliers(grid, ProgressTracker(), 1.0);
+  remove_outliers(grid, ProgressTracker(), 1.0);
 
   // All values should remain the same
-  for (size_t i = 0; i < cleaned.height(); i++) {
-    for (size_t j = 0; j < cleaned.width(); j++) {
-      double val = cleaned[{j, i}];
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      double val = grid[{j, i}];
       EXPECT_DOUBLE_EQ(val, 10.0);
     }
   }
