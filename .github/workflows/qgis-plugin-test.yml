@@ -31,12 +31,20 @@ jobs:
         run: |
           export PYTHONPATH=/usr/share/qgis/python:$PYTHONPATH
           export LD_LIBRARY_PATH=/usr/lib/qgis:$LD_LIBRARY_PATH
-          xvfb-run qgis --code qgis_plugin/blaze_loader/create_qgis_project.py -- assets/out/combined
-      - name: Check for nsw_topo.gpkg
+          export BLAZE_COMBINED_DIR=assets/out/combined
+          export BLAZE_OUTPUT_PATH=assets/out/combined.qgz
+          export BLAZE_EXIT_AFTER_RUN=1
+          export QT_QPA_PLATFORM=offscreen
+          timeout 300 xvfb-run -a qgis --nologo --code qgis_plugin/blaze_loader/create_qgis_project.py || true
+      - name: Check for QGIS project and required files
         run: |
+          test -f assets/out/combined.qgz
           test -f assets/out/combined/nsw_topo.gpkg
-      - name: Upload nsw_topo.gpkg artifact
+      - name: Upload QGIS project with all layers
         uses: actions/upload-artifact@v4
         with:
-          name: nsw_topo.gpkg
-          path: assets/out/combined/nsw_topo.gpkg
+          name: qgis-project
+          path: |
+            assets/out/combined.qgz
+            assets/out/combined/
+          retention-days: 30

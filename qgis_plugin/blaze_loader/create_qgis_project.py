@@ -16,6 +16,7 @@ Usage:
         create_qgis_project('out/combined', 'out/combined.qgz')
 """
 
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -97,7 +98,22 @@ def _extent_area_sq_km(extent, crs):
         da.setEllipsoid(crs.ellipsoidAcronym())
         rect = extent if hasattr(extent, "xMinimum") else QgsRectangle(extent)
         geom = QgsGeometry.fromRect(rect)
-        area_sq_m = da.computeAreaForGeometry(geom)
+
+        # Try different methods for compatibility across QGIS versions
+        area_sq_m = None
+        if hasattr(da, "computeAreaForGeometry"):
+            # QGIS 3.28+ method
+            area_sq_m = da.computeAreaForGeometry(geom)
+        elif hasattr(da, "measureArea"):
+            # Older QGIS versions
+            area_sq_m = da.measureArea(geom)
+        elif hasattr(da, "measure"):
+            # Fallback to measure method
+            area_sq_m = da.measure(geom)
+        else:
+            # Last resort: use geometry area (less accurate, no ellipsoid)
+            area_sq_m = geom.area()
+
         if area_sq_m is not None and area_sq_m >= 0:
             return area_sq_m / 1e6
     except Exception as e:
@@ -302,6 +318,19 @@ def create_qgis_project(
     project = QgsProject.instance()
     if clear_project:
         project.clear()
+
+    # Disable automatic CRS transformation prompts in headless mode
+    if os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+        try:
+            from qgis.core import QgsSettings
+
+            settings = QgsSettings()
+            # Suppress CRS transformation dialogs
+            settings.setValue("/projections/promptForCrsTransform", False)
+            settings.setValue("/projections/askUserForDatumTransform", False)
+            log("Disabled CRS transformation prompts for headless mode")
+        except Exception as e:
+            log(f"Could not disable CRS prompts: {e}")
 
     log("Using style path: " + str(STYLES_DIR))
 
@@ -522,26 +551,30 @@ def create_qgis_project(
     if download_topo and project_extent and project_crs:
         area_sq_km = _extent_area_sq_km(project_extent, project_crs)
         if area_sq_km is not None and area_sq_km > 1000:
-            try:
-                from qgis.PyQt.QtWidgets import QMessageBox
+            # Skip dialog in headless mode (CI/automated execution)
+            if os.environ.get("BLAZE_EXIT_AFTER_RUN") or parent_window is None:
+                log(f"Large extent detected ({area_sq_km:,.0f} km²) - proceeding in headless mode")
+            else:
+                try:
+                    from qgis.PyQt.QtWidgets import QMessageBox
 
-                msg = (
-                    f"The map extent is about {area_sq_km:,.0f} km². "
-                    "Downloading topographic layers for this area may"
-                    " take a long time and use significant bandwidth. Continue?"
-                )
-                reply = QMessageBox.question(
-                    parent_window,
-                    "Large extent",
-                    msg,
-                    QMessageBox.Yes | QMessageBox.No,
-                    QMessageBox.No,
-                )
-                if reply != QMessageBox.Yes:
-                    download_topo = False
-                    log("Topographic layer download skipped - user declined for large extent")
-            except Exception as e:
-                log(f"Could not show extent confirmation: {e}")
+                    msg = (
+                        f"The map extent is about {area_sq_km:,.0f} km². "
+                        "Downloading topographic layers for this area may"
+                        " take a long time and use significant bandwidth. Continue?"
+                    )
+                    reply = QMessageBox.question(
+                        parent_window,
+                        "Large extent",
+                        msg,
+                        QMessageBox.Yes | QMessageBox.No,
+                        QMessageBox.No,
+                    )
+                    if reply != QMessageBox.Yes:
+                        download_topo = False
+                        log("Topographic layer download skipped - user declined for large extent")
+                except Exception as e:
+                    log(f"Could not show extent confirmation: {e}")
         if download_topo:
             report_progress("Downloading NSW topographic layers...", 40)
             # Use combined_path if available, otherwise use a temp directory for output files
@@ -564,25 +597,31 @@ def create_qgis_project(
         # Add contours - merge all layers into single layer with QML style
         contours_gpkg = combined_path / "contours.gpkg"
         if contours_gpkg.exists():
-            from qgis.PyQt.QtWidgets import QFileDialog
-
             default_path = str(combined_path / "contours_merged.gpkg")
-            parent = parent_window if parent_window else None
-            merged_contours_path, _ = QFileDialog.getSaveFileName(
-                parent,
-                "Save Merged Contours As",
-                default_path,
-                "GeoPackage (*.gpkg);;All Files (*)",
-            )
-            if not merged_contours_path:
+
+            # Skip file dialog in headless mode (CI/automated execution)
+            if os.environ.get("BLAZE_EXIT_AFTER_RUN") or parent_window is None:
                 merged_contours_path = default_path
+            else:
+                from qgis.PyQt.QtWidgets import QFileDialog
+
+                merged_contours_path, _ = QFileDialog.getSaveFileName(
+                    parent_window,
+                    "Save Merged Contours As",
+                    default_path,
+                    "GeoPackage (*.gpkg);;All Files (*)",
+                )
+                if not merged_contours_path:
+                    merged_contours_path = default_path
             layer = add_merged_gpkg_layer(contours_gpkg, "contours", vector_group, project_crs, merged_contours_path)
             if layer:
                 # Apply QML style
                 qml_path = STYLES_DIR / "contours.qml"
                 if qml_path.exists():
                     layer.loadNamedStyle(str(qml_path))
-                    layer.triggerRepaint()
+                    # Skip triggerRepaint in headless mode as it may block
+                    if not os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+                        layer.triggerRepaint()
                     log("Applied style: contours.qml")
                 if layer.extent() and not layer.extent().isEmpty():
                     vector_extent = layer.extent()
@@ -625,25 +664,29 @@ def create_qgis_project(
     if add_mag_north and project_extent and project_crs:
         area_sq_km = _extent_area_sq_km(project_extent, project_crs)
         if area_sq_km is not None and area_sq_km > 1000:
-            try:
-                from qgis.PyQt.QtWidgets import QMessageBox
+            # Skip dialog in headless mode (CI/automated execution)
+            if os.environ.get("BLAZE_EXIT_AFTER_RUN") or parent_window is None:
+                log(f"Large extent detected ({area_sq_km:,.0f} km²) - proceeding in headless mode")
+            else:
+                try:
+                    from qgis.PyQt.QtWidgets import QMessageBox
 
-                msg = (
-                    f"The map extent is about {area_sq_km:,.0f} km². "
-                    "Generating magnetic north lines may take a long time. Continue?"
-                )
-                reply = QMessageBox.question(
-                    parent_window,
-                    "Large extent",
-                    msg,
-                    QMessageBox.Yes | QMessageBox.No,
-                    QMessageBox.No,
-                )
-                if reply != QMessageBox.Yes:
-                    add_mag_north = False
-                    log("Magnetic north lines skipped - user declined for large extent")
-            except Exception as e:
-                log(f"Could not show extent confirmation: {e}")
+                    msg = (
+                        f"The map extent is about {area_sq_km:,.0f} km². "
+                        "Generating magnetic north lines may take a long time. Continue?"
+                    )
+                    reply = QMessageBox.question(
+                        parent_window,
+                        "Large extent",
+                        msg,
+                        QMessageBox.Yes | QMessageBox.No,
+                        QMessageBox.No,
+                    )
+                    if reply != QMessageBox.Yes:
+                        add_mag_north = False
+                        log("Magnetic north lines skipped - user declined for large extent")
+                except Exception as e:
+                    log(f"Could not show extent confirmation: {e}")
         if add_mag_north:
             report_progress("Adding magnetic north lines...", 90)
             # Use combined_path if available, otherwise use a temp directory
@@ -731,33 +774,41 @@ def create_qgis_project(
     remove_group_if_empty(raster_group)
 
     # Rotate map for magnetic north (works for both normal and current extent modes)
-    try:
-        from qgis.utils import iface
-
-        if iface and iface.mapCanvas():
-            # Rotate map so magnetic north is vertical (only if mag north enabled and available)
-            if add_mag_north and gm_angle is not None:
-                # Positive gm_angle = magnetic north is east (clockwise) of grid north
-                # Rotate view clockwise (negative) to bring magnetic north up
-                iface.mapCanvas().setRotation(-gm_angle)
-                log(f"Rotated map {-gm_angle:.1f}° for magnetic north")
-                iface.mapCanvas().refresh()
-    except Exception as e:
-        log(f"Could not rotate map: {e}")
-
-    # Zoom to vector layers extent (only if we have vector layers, not when using current extent)
-    if zoom_to_extent and vector_extent and not vector_extent.isEmpty():
-        vector_extent.scale(1.05)
+    # Skip in headless mode as mapCanvas operations may block
+    if not os.environ.get("BLAZE_EXIT_AFTER_RUN"):
         try:
             from qgis.utils import iface
 
             if iface and iface.mapCanvas():
-                iface.mapCanvas().setExtent(vector_extent)
-                log("Zoomed to vector layers")
-                iface.mapCanvas().refresh()
-        except Exception:
+                # Rotate map so magnetic north is vertical (only if mag north enabled and available)
+                if add_mag_north and gm_angle is not None:
+                    # Positive gm_angle = magnetic north is east (clockwise) of grid north
+                    # Rotate view clockwise (negative) to bring magnetic north up
+                    iface.mapCanvas().setRotation(-gm_angle)
+                    log(f"Rotated map {-gm_angle:.1f}° for magnetic north")
+                    iface.mapCanvas().refresh()
+        except Exception as e:
+            log(f"Could not rotate map: {e}")
+
+    # Zoom to vector layers extent (only if we have vector layers, not when using current extent)
+    if zoom_to_extent and vector_extent and not vector_extent.isEmpty():
+        vector_extent.scale(1.05)
+        # Skip in headless mode as mapCanvas operations may block
+        if not os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+            try:
+                from qgis.utils import iface
+
+                if iface and iface.mapCanvas():
+                    iface.mapCanvas().setExtent(vector_extent)
+                    log("Zoomed to vector layers")
+                    iface.mapCanvas().refresh()
+            except Exception:
+                project.viewSettings().setDefaultViewExtent(QgsReferencedRectangle(vector_extent, project_crs))
+                log("View extent set to vector layers")
+        else:
+            # In headless mode, just set the view extent without refreshing canvas
             project.viewSettings().setDefaultViewExtent(QgsReferencedRectangle(vector_extent, project_crs))
-            log("View extent set to vector layers")
+            log("View extent set to vector layers (headless mode)")
 
     # Save project if output_path is provided
     if output_path:
@@ -775,6 +826,9 @@ def create_qgis_project(
         log("Added layers using current map extent")
     else:
         log("Blaze layers added to current project")
+
+    # Log completion for debugging
+    log("create_qgis_project() completed successfully")
     return True
 
 
@@ -1731,8 +1785,13 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override, output_gpkg):
     from qgis.core import QgsVectorFileWriter
 
     # output_gpkg is now passed in directly
+    # Create options object for GeoPackage format
+    options = QgsVectorFileWriter.SaveVectorOptions()
+    options.driverName = "GPKG"
+    options.fileEncoding = "UTF-8"
+
     error = QgsVectorFileWriter.writeAsVectorFormatV2(
-        merged_layer, output_gpkg, QgsProject.instance().transformContext(), None, "GPKG"
+        merged_layer, str(output_gpkg), QgsProject.instance().transformContext(), options
     )
     if error[0] != QgsVectorFileWriter.NoError:
         log(f"Failed to save merged contours layer to GeoPackage: {error}")
@@ -1926,21 +1985,75 @@ def add_vector(uri, name, group, crs_override=None):
 
 def main():
     """Command line entry point."""
-    if len(sys.argv) >= 3:
-        combined_dir, output_path = sys.argv[1], sys.argv[2]
-    elif len(sys.argv) == 2:
-        combined_dir = sys.argv[1]
-        output_path = str(Path(combined_dir).parent / "combined.qgz")
-    else:
-        combined_dir = "out/combined"
-        output_path = "out/combined.qgz"
-        log(f"Using defaults: {combined_dir} -> {output_path}")
+    # Check environment variable first (for QGIS --code usage where args after -- aren't passed)
+    combined_dir = os.environ.get("BLAZE_COMBINED_DIR")
+    output_path = os.environ.get("BLAZE_OUTPUT_PATH")
 
-    create_qgis_project(combined_dir, output_path)
+    # Fall back to command line arguments if environment variables not set
+    if not combined_dir:
+        if len(sys.argv) >= 3:
+            combined_dir, output_path = sys.argv[1], sys.argv[2]
+        elif len(sys.argv) == 2:
+            combined_dir = sys.argv[1]
+            output_path = str(Path(combined_dir).parent / "combined.qgz")
+        else:
+            combined_dir = "out/combined"
+            output_path = "out/combined.qgz"
+            log(f"Using defaults: {combined_dir} -> {output_path}")
+    else:
+        # If combined_dir from env but no output_path, derive it
+        if not output_path:
+            output_path = str(Path(combined_dir).parent / "combined.qgz")
+        log(f"Using environment variables: {combined_dir} -> {output_path}")
+
+    log("Starting create_qgis_project()...")
+    try:
+        result = create_qgis_project(combined_dir, output_path)
+        log(f"create_qgis_project() returned: {result}")
+    except Exception as e:
+        log(f"Error in create_qgis_project(): {e}")
+        import traceback
+
+        log(f"Traceback: {traceback.format_exc()}")
+        result = False
+
+    # Exit QGIS when running in headless mode (CI/automated execution)
+    # Use BLAZE_EXIT_AFTER_RUN environment variable to signal headless execution
+    if os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+        log("Script completed. Exiting QGIS...")
+        import time
+
+        time.sleep(0.5)  # Give a moment for any pending operations
+
+        # Note: QgsApplication.exitQgis() cannot be called from within QGIS
+        # It's only for standalone scripts. Use QApplication.quit() instead.
+        try:
+            from qgis.PyQt.QtWidgets import QApplication
+
+            app = QApplication.instance()
+            if app:
+                app.quit()
+                log("Called QApplication.quit()")
+        except Exception as e:
+            log(f"Error calling QApplication.quit(): {e}")
+
+        # Force immediate exit - don't wait for cleanup
+        exit_code = 0 if result else 1
+        log(f"Force exiting with code: {exit_code}")
+        os._exit(exit_code)  # Use os._exit() to bypass Python cleanup and force immediate termination
+
+    return result
 
 
 # Only run main() if this script is executed directly (not when imported/exec'd)
 # Check if we're being run as a script (has command line args) vs being exec'd by the plugin
 # When exec'd by the plugin, __name__ will be set to "create_qgis_project" (not "__main__")
-if __name__ == "__main__" and QgsApplication.instance() is not None:
-    main()
+# When run with --code in headless mode, also execute main() directly
+if QgsApplication.instance() is not None:
+    # Log execution context for debugging
+    log(f"Script execution context: __name__={__name__}, BLAZE_EXIT_AFTER_RUN={os.environ.get('BLAZE_EXIT_AFTER_RUN')}")
+    if __name__ == "__main__" or os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+        log("Calling main()...")
+        main()
+    else:
+        log("Skipping main() - not in execution context")
