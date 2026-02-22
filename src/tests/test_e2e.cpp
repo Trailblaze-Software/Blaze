@@ -393,6 +393,11 @@ struct TerrainTestParams {
   std::function<double(double, double)> height_function;
   bool with_vegetation;
   bool expect_contours;
+
+  friend std::ostream& operator<<(std::ostream& os, const TerrainTestParams& params) {
+    os << params.name;
+    return os;
+  }
 };
 
 class E2ETerrainTest : public ::testing::TestWithParam<TerrainTestParams> {
@@ -427,10 +432,13 @@ TEST_P(E2ETerrainTest, ProcessTerrain) {
     EXPECT_EQ(contours.size(), 0);
     auto ground_grid = read_tif(test_output_dir / "ground.tif");
     const auto& band = ground_grid[0];
+    // For flat terrain tests, check that elevation matches the expected value
+    // (102.5m to avoid being exactly on a 5.0m contour interval)
+    double expected_elevation = params.height_function(0, 0);
     for (size_t i = 0; i < band.height(); ++i) {
       for (size_t j = 0; j < band.width(); ++j) {
         if (band.get<double>({(long long)j, (long long)i}) != std::numeric_limits<double>::max()) {
-          EXPECT_NEAR(band.get<double>({(long long)j, (long long)i}), 100.0, 1e-6);
+          EXPECT_NEAR(band.get<double>({(long long)j, (long long)i}), expected_elevation, 1e-6);
         }
       }
     }
@@ -449,9 +457,9 @@ std::string TerrainTestNameGenerator(const ::testing::TestParamInfo<TerrainTestP
 INSTANTIATE_TEST_SUITE_P(
     E2E_New, E2ETerrainTest,
     ::testing::Values(
-        TerrainTestParams{"FlatTerrainGroundOnly", [](double, double) { return 100.0; }, false,
+        TerrainTestParams{"FlatTerrainGroundOnly", [](double, double) { return 102.5; }, false,
                           false},
-        TerrainTestParams{"FlatTerrainWithVegetation", [](double, double) { return 100.0; }, true,
+        TerrainTestParams{"FlatTerrainWithVegetation", [](double, double) { return 102.5; }, true,
                           false},
         TerrainTestParams{"SlopedTerrainGroundOnly",
                           [](double x, double) { return 100.0 + x * 0.2; }, false, true},
