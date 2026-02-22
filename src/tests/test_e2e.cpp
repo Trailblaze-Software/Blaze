@@ -21,31 +21,17 @@
 
 namespace fs = std::filesystem;
 
-// Helper to create a valid WKT projection from EPSG code
-// Use a static variable to ensure it's only created once and GDAL is initialized
-static const std::string& get_wgs84_wkt() {
-  static std::string wkt;
-  static bool initialized = false;
-  if (!initialized) {
-    initialized = true;
-    GDALAllRegister();
-    OGRSpatialReference srs;
-    if (srs.importFromEPSG(4326) == OGRERR_NONE) {
-      char* wkt_ptr = nullptr;
-      srs.exportToWkt(&wkt_ptr);
-      if (wkt_ptr) {
-        wkt = std::string(wkt_ptr);
-        CPLFree(wkt_ptr);
-      }
-    }
-    if (wkt.empty()) {
-      // Fallback to a known valid WKT string for WGS84
-      wkt =
-          "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS "
-          "84\",6378137,298.257223563]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433]"
-          ",AUTHORITY[\"EPSG\",\"4326\"]]";
-    }
-  }
+// Helper to get WGS84 WKT projection string using GDAL
+std::string get_wgs84_wkt() {
+  GDALAllRegister();
+  OGRSpatialReference srs;
+  Assert(srs.importFromEPSG(4326) == OGRERR_NONE, "Failed to import EPSG:4326");
+  char* wkt_ptr = nullptr;
+  srs.exportToWkt(&wkt_ptr);
+  Assert(wkt_ptr != nullptr, "Failed to export WKT from EPSG:4326");
+  std::string wkt(wkt_ptr);
+  CPLFree(wkt_ptr);
+  Assert(!wkt.empty(), "WKT string must not be empty");
   return wkt;
 }
 
@@ -121,8 +107,23 @@ LASData create_synthetic_las_data() {
 
   TestGrid grid(data);
 
-  // Create LAS data from grid
-  LASData las_data(grid);
+  // Get projection string before creating LASData (workaround for projection being lost in move)
+  const std::string proj_str = get_wgs84_wkt();
+  Assert(!proj_str.empty(), "get_wgs84_wkt() must return a non-empty string");
+
+  // Create LAS data from grid using explicit projection
+  std::unique_ptr<Extent2D> extent = grid.extent();
+  LASData las_data(*extent, GeoProjection(proj_str));
+
+  // Copy the grid data into LASData
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      Coordinate2D<double> coord =
+          grid.transform().pixel_to_projection({(double)j + 0.5, (double)i + 0.5});
+      las_data.insert(
+          LASPoint(coord.x(), coord.y(), grid[{j, i}], 1000, LASClassification::Ground));
+    }
+  }
 
   return las_data;
 }
@@ -137,49 +138,44 @@ TEST(E2E, ProcessSyntheticData) {
   }
   fs::create_directories(test_output_dir);
 
-  try {
-    // Create config
-    Config config = create_minimal_test_config(test_output_dir);
+  // Create config
+  Config config = create_minimal_test_config(test_output_dir);
 
-    // Create synthetic LAS data
-    LASData las_data = create_synthetic_las_data();
+  // Create synthetic LAS data
+  LASData las_data = create_synthetic_las_data();
 
-    // Process the data
-    ProgressTracker tracker;
-    process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  // Process the data
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
 
-    // Verify outputs were created (some may not exist if data is too sparse)
-    // At minimum, the output directory should exist
-    EXPECT_TRUE(fs::exists(test_output_dir));
+  // Verify outputs were created (some may not exist if data is too sparse)
+  // At minimum, the output directory should exist
+  EXPECT_TRUE(fs::exists(test_output_dir));
 
-    // Check for key output files (may not all exist depending on data)
-    bool has_ground = fs::exists(test_output_dir / "ground.tif");
-    bool has_smooth = fs::exists(test_output_dir / "smooth_ground.tif");
-    bool has_contours = fs::exists(test_output_dir / "contours.gpkg");
+  // Check for key output files (may not all exist depending on data)
+  bool has_ground = fs::exists(test_output_dir / "ground.tif");
+  bool has_smooth = fs::exists(test_output_dir / "smooth_ground.tif");
+  bool has_contours = fs::exists(test_output_dir / "contours.gpkg");
 
-    // At least some outputs should be created
-    EXPECT_TRUE(has_ground || has_smooth || has_contours);
+  // At least some outputs should be created
+  EXPECT_TRUE(has_ground || has_smooth || has_contours);
 
-    // If files exist, verify they're not empty
-    if (has_ground) {
-      EXPECT_GT(fs::file_size(test_output_dir / "ground.tif"), 0);
-    }
-    if (has_smooth) {
-      EXPECT_GT(fs::file_size(test_output_dir / "smooth_ground.tif"), 0);
-    }
-    if (has_contours) {
-      EXPECT_GT(fs::file_size(test_output_dir / "contours.gpkg"), 0);
-    }
+  // If files exist, verify they're not empty
+  if (has_ground) {
+    EXPECT_GT(fs::file_size(test_output_dir / "ground.tif"), 0);
+  }
+  if (has_smooth) {
+    EXPECT_GT(fs::file_size(test_output_dir / "smooth_ground.tif"), 0);
+  }
+  if (has_contours) {
+    EXPECT_GT(fs::file_size(test_output_dir / "contours.gpkg"), 0);
+  }
 
-    // Verify contours can be read back if file exists
-    if (fs::exists(test_output_dir / "contours.gpkg")) {
-      std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
-      // Should be able to read without errors
-      EXPECT_GE(contours.size(), 0);
-    }
-
-  } catch (const std::exception& e) {
-    FAIL() << "Exception during processing: " << e.what();
+  // Verify contours can be read back if file exists
+  if (fs::exists(test_output_dir / "contours.gpkg")) {
+    std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
+    // Should be able to read without errors
+    EXPECT_GE(contours.size(), 0);
   }
 
   // Clean up
@@ -197,24 +193,18 @@ TEST(E2E, ProcessEmptyData) {
   }
   fs::create_directories(test_output_dir);
 
-  try {
-    Config config = create_minimal_test_config(test_output_dir);
+  Config config = create_minimal_test_config(test_output_dir);
 
-    // Create empty LAS data
-    Extent2D bounds(0.0, 10.0, 0.0, 10.0);
-    GeoProjection proj;
-    LASData las_data(bounds, proj);
+  // Create empty LAS data
+  Extent2D bounds(0.0, 10.0, 0.0, 10.0);
+  GeoProjection proj;
+  LASData las_data(bounds, proj);
 
-    ProgressTracker tracker;
-    process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
 
-    // Should still create output directory structure
-    EXPECT_TRUE(fs::exists(test_output_dir));
-
-  } catch (const std::exception&) {
-    // Empty data might throw, which is acceptable
-    // Just verify cleanup happens
-  }
+  // Should still create output directory structure
+  EXPECT_TRUE(fs::exists(test_output_dir));
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -230,39 +220,34 @@ TEST(E2E, ProcessDifferentResolutions) {
   }
   fs::create_directories(test_output_dir);
 
-  try {
-    Config config = create_minimal_test_config(test_output_dir);
+  Config config = create_minimal_test_config(test_output_dir);
 
-    // Test with different bin resolution
-    config.grid.bin_resolution = 0.5;
-    config.grid.downsample_factor = 1;
+  // Test with different bin resolution
+  config.grid.bin_resolution = 0.5;
+  config.grid.downsample_factor = 1;
 
-    LASData las_data = create_synthetic_las_data();
+  LASData las_data = create_synthetic_las_data();
 
-    ProgressTracker tracker;
-    process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
 
-    // Both files should be created
-    fs::path ground_file = test_output_dir / "ground.tif";
-    fs::path smooth_file = test_output_dir / "smooth_ground.tif";
+  // Both files should be created
+  fs::path ground_file = test_output_dir / "ground.tif";
+  fs::path smooth_file = test_output_dir / "smooth_ground.tif";
 
-    // List directory contents for debugging
-    std::string dir_contents;
-    if (fs::exists(test_output_dir)) {
-      for (const auto& entry : fs::directory_iterator(test_output_dir)) {
-        dir_contents += entry.path().filename().string() + " ";
-      }
+  // List directory contents for debugging
+  std::string dir_contents;
+  if (fs::exists(test_output_dir)) {
+    for (const auto& entry : fs::directory_iterator(test_output_dir)) {
+      dir_contents += entry.path().filename().string() + " ";
     }
-
-    EXPECT_TRUE(fs::exists(ground_file))
-        << "ground.tif was not created. Output directory contents: " << dir_contents;
-
-    EXPECT_TRUE(fs::exists(smooth_file))
-        << "smooth_ground.tif was not created. Output directory contents: " << dir_contents;
-
-  } catch (const std::exception& e) {
-    FAIL() << "Exception with different resolution: " << e.what();
   }
+
+  EXPECT_TRUE(fs::exists(ground_file))
+      << "ground.tif was not created. Output directory contents: " << dir_contents;
+
+  EXPECT_TRUE(fs::exists(smooth_file))
+      << "smooth_ground.tif was not created. Output directory contents: " << dir_contents;
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -278,29 +263,24 @@ TEST(E2E, VerifyOutputStructure) {
   }
   fs::create_directories(test_output_dir);
 
-  try {
-    Config config = create_minimal_test_config(test_output_dir);
-    LASData las_data = create_synthetic_las_data();
+  Config config = create_minimal_test_config(test_output_dir);
+  LASData las_data = create_synthetic_las_data();
 
-    ProgressTracker tracker;
-    process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
 
-    // Verify TIF files can be read
-    if (fs::exists(test_output_dir / "ground.tif")) {
-      auto ground_grid = read_tif(test_output_dir / "ground.tif");
-      EXPECT_GT(ground_grid.width(), 0);
-      EXPECT_GT(ground_grid.height(), 0);
-    }
+  // Verify TIF files can be read
+  if (fs::exists(test_output_dir / "ground.tif")) {
+    auto ground_grid = read_tif(test_output_dir / "ground.tif");
+    EXPECT_GT(ground_grid.width(), 0);
+    EXPECT_GT(ground_grid.height(), 0);
+  }
 
-    // Verify GPKG files can be read
-    if (fs::exists(test_output_dir / "contours.gpkg")) {
-      std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
-      // Should be able to read without errors
-      EXPECT_GE(contours.size(), 0);
-    }
-
-  } catch (const std::exception& e) {
-    FAIL() << "Exception verifying structure: " << e.what();
+  // Verify GPKG files can be read
+  if (fs::exists(test_output_dir / "contours.gpkg")) {
+    std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
+    // Should be able to read without errors
+    EXPECT_GE(contours.size(), 0);
   }
 
   if (fs::exists(test_output_dir)) {
