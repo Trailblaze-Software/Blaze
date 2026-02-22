@@ -1,0 +1,27 @@
+# QGIS Plugin CI for Blaze
+# This GitHub Actions workflow uses the official QGIS Docker image for plugin testing
+---
+name: QGIS Plugin Pipeline Test
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: qgis/qgis:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y xvfb python3-pip
+          pip3 install pytest
+      - name: Run plugin pipeline test
+        run: |
+          export PYTHONPATH=/usr/share/qgis/python:$PYTHONPATH
+          export LD_LIBRARY_PATH=/usr/lib/qgis:$LD_LIBRARY_PATH
+          xvfb-run python3 qgis_plugin/tests/test_plugin_pipeline.py
