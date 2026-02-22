@@ -11,6 +11,21 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), "blaze_lo
 
 
 class BlazeLoaderDialog(QDialog, FORM_CLASS):
+            # Add for contours merged output
+            self.contoursBrowseButton.clicked.connect(self.browse_contours_file)
+
+            # Set default for contours merged output
+            self.contoursLineEdit.setText("")
+
+        def browse_contours_file(self):
+            file_path, _ = QFileDialog.getSaveFileName(
+                self,
+                "Save Merged Contours As",
+                self.contoursLineEdit.text() or str(Path.home()),
+                "GeoPackage (*.gpkg);;All Files (*)",
+            )
+            if file_path:
+                self.contoursLineEdit.setText(file_path)
     def __init__(self, parent=None, last_folder=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -87,6 +102,7 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
             "zoom_to_extent": self.zoomToExtentCheckBox.isChecked(),
             "add_controls": self.addControlsCheckBox.isChecked(),
             "gpkg_output_path": (self.gpkgLineEdit.text() if self.gpkgLineEdit.text() else None),
+            "contours_output_path": (self.contoursLineEdit.text() if self.contoursLineEdit.text() else None),
         }
 
     def accept(self):
