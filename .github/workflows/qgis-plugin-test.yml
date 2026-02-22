@@ -18,8 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y xvfb python3-pip
-          pip3 install pytest
+          apt-get install -y xvfb python3-pytest
       - name: Run plugin pipeline test
         run: |
           export PYTHONPATH=/usr/share/qgis/python:$PYTHONPATH
