@@ -307,10 +307,12 @@ find_proj_data(${LIBRARY_NAME})
 target_include_directories(${UNIT_TESTS_NAME}
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
 target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
-add_test(NAME ${UNIT_TESTS_NAME} COMMAND ${UNIT_TESTS_NAME})
 
 add_subdirectory(src)
 
+# Discover and register all individual Google Test cases This replaces the need
+# for add_test() - gtest_discover_tests() automatically registers each TEST()
+# and TEST_F() as a separate ctest target
 gtest_discover_tests(${UNIT_TESTS_NAME})
 
 include(GNUInstallDirs)

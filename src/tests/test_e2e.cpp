@@ -84,14 +84,55 @@ Config create_minimal_test_config(const fs::path& output_dir) {
   }
 
   // Minimal vegetation config
+  VegeHeightConfig tall_veg;
+  tall_veg.name = "tall_veg";
+  tall_veg.min_height = 2.0;
+  tall_veg.max_height = 100.0;
+
+  BlockingThresholdColorPair green_veg;
+  green_veg.blocking_threshold = 0.1;
+  green_veg.color = CMYKColor(100, 0, 100, 0);  // Green
+  tall_veg.colors.push_back(green_veg);
+
   config.vege = VegeConfig{CMYKColor(0, 27, 79, 0),  // yellow
-                           {}};
+                           {tall_veg}};
 
   // Minimal render config
   config.render.scale = 1000;
   config.render.dpi = 300;
 
   return config;
+}
+
+// Create synthetic LAS data from a simple grid
+LASData create_synthetic_las_data_ext(const Extent2D& extent,
+                                      const std::function<double(double, double)>& height_function,
+                                      bool with_vegetation) {
+  const std::string proj_str = get_wgs84_wkt();
+  Assert(!proj_str.empty(), "get_wgs84_wkt() must return a non-empty string");
+
+  LASData las_data(extent, GeoProjection(proj_str));
+
+  // Generate ground points
+  for (double x = extent.minx; x < extent.maxx; x += 2.0) {
+    for (double y = extent.miny; y < extent.maxy; y += 2.0) {
+      double z = height_function(x, y);
+      las_data.insert(LASPoint(x, y, z, 1000, LASClassification::Ground));
+    }
+  }
+
+  // Generate vegetation points if requested
+  if (with_vegetation) {
+    for (double x = extent.minx + 5.0; x < extent.maxx - 5.0; x += 5.0) {
+      for (double y = extent.miny + 5.0; y < extent.maxy - 5.0; y += 5.0) {
+        double ground_z = height_function(x, y);
+        double vege_z = ground_z + 5.0;  // 5m tall vegetation
+        las_data.insert(LASPoint(x, y, vege_z, 1000, LASClassification::HighVegetation));
+      }
+    }
+  }
+
+  return las_data;
 }
 
 // Create synthetic LAS data from a simple grid
@@ -198,7 +239,7 @@ TEST(E2E, ProcessEmptyData) {
   Config config = create_minimal_test_config(test_output_dir);
 
   // Create empty LAS data
-  Extent2D bounds(0.0, 10.0, 0.0, 10.0);
+  Extent2D bounds = {0.0, 10.0, 0.0, 10.0};
   GeoProjection proj;
   LASData las_data(bounds, proj);
 
@@ -289,4 +330,189 @@ TEST(E2E, VerifyOutputStructure) {
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
   }
+}
+
+// Helper to verify vegetation TIF
+void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_vegetation,
+                           const Config& config) {
+  if (!should_have_vegetation) {
+    if (fs::exists(vege_tif_path)) {
+      auto grid = read_tif(vege_tif_path);
+      ASSERT_GE(grid.size(), 3);
+      const auto& r_band = grid[0];
+      const auto& g_band = grid[1];
+      const auto& b_band = grid[2];
+
+      RGBColor background = to_cmyk(config.vege.background_color).toRGB();
+
+      for (size_t i = 0; i < grid.height(); ++i) {
+        for (size_t j = 0; j < grid.width(); ++j) {
+          if (r_band.get<std::byte>({(long long)j, (long long)i}) !=
+                  (std::byte)background.getRed() ||
+              g_band.get<std::byte>({(long long)j, (long long)i}) !=
+                  (std::byte)background.getGreen() ||
+              b_band.get<std::byte>({(long long)j, (long long)i}) !=
+                  (std::byte)background.getBlue()) {
+            FAIL() << "Vegetation TIF should not contain data, but does.";
+          }
+        }
+      }
+    }
+    // If it doesn't exist, that's also a pass.
+  } else {
+    ASSERT_TRUE(fs::exists(vege_tif_path)) << "vege_color.tif was not created.";
+    auto grid = read_tif(vege_tif_path);
+    ASSERT_GE(grid.size(), 3);
+    const auto& r_band = grid[0];
+    const auto& g_band = grid[1];
+    const auto& b_band = grid[2];
+
+    RGBColor background = to_cmyk(config.vege.background_color).toRGB();
+    bool has_data = false;
+    for (size_t i = 0; i < grid.height(); ++i) {
+      for (size_t j = 0; j < grid.width(); ++j) {
+        if (r_band.get<std::byte>({(long long)j, (long long)i}) != (std::byte)background.getRed() ||
+            g_band.get<std::byte>({(long long)j, (long long)i}) !=
+                (std::byte)background.getGreen() ||
+            b_band.get<std::byte>({(long long)j, (long long)i}) !=
+                (std::byte)background.getBlue()) {
+          has_data = true;
+          break;
+        }
+      }
+      if (has_data) break;
+    }
+    ASSERT_TRUE(has_data) << "Vegetation TIF was created but is empty.";
+  }
+}
+
+// === Flat Terrain Tests ===
+TEST(E2E_New, FlatTerrainGroundOnly) {
+  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_flat_ground";
+  if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  Extent2D extent = {0, 100, 0, 100};
+  LASData las_data =
+      create_synthetic_las_data_ext(extent, [](double, double) { return 100.0; }, false);
+
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+
+  EXPECT_TRUE(fs::exists(test_output_dir / "ground.tif"));
+  verify_vegetation_tif(test_output_dir / "vege_color.tif", false, config);
+
+  fs::remove_all(test_output_dir);
+}
+
+TEST(E2E_New, FlatTerrainWithVegetation) {
+  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_flat_vege";
+  if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  Extent2D extent = {0, 100, 0, 100};
+  LASData las_data =
+      create_synthetic_las_data_ext(extent, [](double, double) { return 100.0; }, true);
+
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+
+  EXPECT_TRUE(fs::exists(test_output_dir / "ground.tif"));
+  verify_vegetation_tif(test_output_dir / "vege_color.tif", true, config);
+
+  fs::remove_all(test_output_dir);
+}
+
+// === Sloped Terrain Tests ===
+TEST(E2E_New, SlopedTerrainGroundOnly) {
+  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_sloped_ground";
+  if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  Extent2D extent = {0, 100, 0, 100};
+  LASData las_data = create_synthetic_las_data_ext(
+      extent, [](double x, double) { return 100.0 + x * 0.2; }, false);
+
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+
+  EXPECT_TRUE(fs::exists(test_output_dir / "ground.tif"));
+  EXPECT_TRUE(fs::exists(test_output_dir / "contours.gpkg"));
+  verify_vegetation_tif(test_output_dir / "vege_color.tif", false, config);
+
+  fs::remove_all(test_output_dir);
+}
+
+TEST(E2E_New, SlopedTerrainWithVegetation) {
+  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_sloped_vege";
+  if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  Extent2D extent = {0, 100, 0, 100};
+  LASData las_data =
+      create_synthetic_las_data_ext(extent, [](double x, double) { return 100.0 + x * 0.2; }, true);
+
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+
+  EXPECT_TRUE(fs::exists(test_output_dir / "ground.tif"));
+  EXPECT_TRUE(fs::exists(test_output_dir / "contours.gpkg"));
+  verify_vegetation_tif(test_output_dir / "vege_color.tif", true, config);
+
+  fs::remove_all(test_output_dir);
+}
+
+// === Hill Terrain Tests ===
+TEST(E2E_New, HillTerrainGroundOnly) {
+  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_hill_ground";
+  if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  Extent2D extent = {0, 100, 0, 100};
+  LASData las_data = create_synthetic_las_data_ext(
+      extent,
+      [](double x, double y) {
+        double dist = std::sqrt(std::pow(x - 50, 2) + std::pow(y - 50, 2));
+        return 100.0 + std::max(0.0, 20.0 - dist * 0.5);
+      },
+      false);
+
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+
+  EXPECT_TRUE(fs::exists(test_output_dir / "ground.tif"));
+  EXPECT_TRUE(fs::exists(test_output_dir / "contours.gpkg"));
+  verify_vegetation_tif(test_output_dir / "vege_color.tif", false, config);
+
+  fs::remove_all(test_output_dir);
+}
+
+TEST(E2E_New, HillTerrainWithVegetation) {
+  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_hill_vege";
+  if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  Extent2D extent = {0, 100, 0, 100};
+  LASData las_data = create_synthetic_las_data_ext(
+      extent,
+      [](double x, double y) {
+        double dist = std::sqrt(std::pow(x - 50, 2) + std::pow(y - 50, 2));
+        return 100.0 + std::max(0.0, 20.0 - dist * 0.5);
+      },
+      true);
+
+  ProgressTracker tracker;
+  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+
+  EXPECT_TRUE(fs::exists(test_output_dir / "ground.tif"));
+  EXPECT_TRUE(fs::exists(test_output_dir / "contours.gpkg"));
+  verify_vegetation_tif(test_output_dir / "vege_color.tif", true, config);
+
+  fs::remove_all(test_output_dir);
 }
