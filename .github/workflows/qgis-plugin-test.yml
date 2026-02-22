@@ -23,9 +23,20 @@ jobs:
         run: |
           cmake -S . -B build -G Ninja
           cmake --build build --target blaze-cli
-      - name: Run plugin pipeline test
+      - name: Run blaze-cli to generate output
+        working-directory: ${{ github.workspace }}
+        run: |
+          ./build/blaze-cli assets/default_config.json assets/sample.laz
+      - name: Run create_qgis_project.py with QGIS
         run: |
           export PYTHONPATH=/usr/share/qgis/python:$PYTHONPATH
           export LD_LIBRARY_PATH=/usr/lib/qgis:$LD_LIBRARY_PATH
-          cp build/blaze-cli /usr/local/bin/blaze-cli
-          xvfb-run python3 qgis_plugin/tests/test_plugin_pipeline.py
+          xvfb-run qgis --code qgis_plugin/blaze_loader/create_qgis_project.py -- assets/out/combined
+      - name: Check for nsw_topo.gpkg
+        run: |
+          test -f assets/out/combined/nsw_topo.gpkg
+      - name: Upload nsw_topo.gpkg artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nsw_topo.gpkg
+          path: assets/out/combined/nsw_topo.gpkg
