@@ -8,61 +8,91 @@
 #
 # PROJ automatically searches ../share/proj/ relative to the binary
 
-# Helper function to get vcpkg installed directory from GDAL package
-function(_get_vcpkg_installed_dir result_var)
-  # Use GDAL::GDAL target location (most reliable since GDAL was already found)
-  if(TARGET GDAL::GDAL)
-    get_target_property(GDAL_LIBRARY GDAL::GDAL IMPORTED_LOCATION_RELEASE)
+# Helper function to find PROJ data directory
+function(_find_proj_data_dir result_var)
+  set(PROJ_DATA_DIR)
+
+  # Try vcpkg location first
+  if(BLAZE_USE_VCPKG)
+    if(TARGET GDAL::GDAL)
+      get_target_property(GDAL_LIBRARY GDAL::GDAL IMPORTED_LOCATION_RELEASE)
+      if(NOT GDAL_LIBRARY)
+        get_target_property(GDAL_LIBRARY GDAL::GDAL IMPORTED_LOCATION)
+      endif()
+
+      if(GDAL_LIBRARY)
+        # In vcpkg: <triplet>/lib/gdal.lib -> <triplet>/share/proj
+        get_filename_component(triplet_dir "${GDAL_LIBRARY}" DIRECTORY)
+        get_filename_component(triplet_dir "${triplet_dir}" DIRECTORY)
+        if(EXISTS "${triplet_dir}/share/proj/proj.db")
+          set(PROJ_DATA_DIR "${triplet_dir}/share/proj")
+        endif()
+      endif()
+    endif()
+
+    # Fallback: FetchContent vcpkg location
+    if(NOT PROJ_DATA_DIR
+       AND EXISTS
+           "${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}/share/proj/proj.db"
+    )
+      set(PROJ_DATA_DIR
+          "${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}/share/proj"
+      )
+    endif()
+  endif()
+
+  # If not found, try to find from GDAL installation (conda, etc.)
+  if(NOT PROJ_DATA_DIR AND TARGET GDAL::GDAL)
+    get_target_property(GDAL_LIBRARY GDAL::GDAL LOCATION)
+    if(NOT GDAL_LIBRARY)
+      get_target_property(GDAL_LIBRARY GDAL::GDAL IMPORTED_LOCATION_RELEASE)
+    endif()
     if(NOT GDAL_LIBRARY)
       get_target_property(GDAL_LIBRARY GDAL::GDAL IMPORTED_LOCATION)
     endif()
 
     if(GDAL_LIBRARY)
-      # In vcpkg: <triplet>/lib/gdal.lib -> <triplet>/share/proj
-      get_filename_component(triplet_dir "${GDAL_LIBRARY}" DIRECTORY)
-      get_filename_component(triplet_dir "${triplet_dir}" DIRECTORY)
-      if(EXISTS "${triplet_dir}/share/proj")
-        set(${result_var}
-            "${triplet_dir}"
-            PARENT_SCOPE)
-        message(STATUS "Found PROJ data files in ${triplet_dir}")
-        return()
+      get_filename_component(GDAL_DIR "${GDAL_LIBRARY}" DIRECTORY)
+      # For conda: Library/lib -> Library/share/proj For others: lib ->
+      # share/proj or ../share/proj
+      set(PROJ_SEARCH_PATHS
+          "${GDAL_DIR}/../share/proj" "${GDAL_DIR}/../../share/proj"
+          "${GDAL_DIR}/share/proj")
+      # Also check if we're in a conda Library/lib structure
+      if(GDAL_DIR MATCHES "/Library/lib$")
+        get_filename_component(LIBRARY_PARENT "${GDAL_DIR}" DIRECTORY)
+        list(APPEND PROJ_SEARCH_PATHS "${LIBRARY_PARENT}/share/proj")
       endif()
+
+      foreach(search_path ${PROJ_SEARCH_PATHS})
+        get_filename_component(normalized_path "${search_path}" ABSOLUTE)
+        if(EXISTS "${normalized_path}/proj.db")
+          set(PROJ_DATA_DIR "${normalized_path}")
+          break()
+        endif()
+      endforeach()
     endif()
   endif()
 
-  # Fallback: FetchContent vcpkg location
-  if(EXISTS "${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}")
-    set(${result_var}
-        "${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}"
-        PARENT_SCOPE)
-    message(
-      STATUS
-        "Found PROJ data files in ${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET} using fallback"
-    )
-    return()
+  if(PROJ_DATA_DIR)
+    message(STATUS "Found PROJ data files in: ${PROJ_DATA_DIR}")
   endif()
 
-  message(STATUS "Fallback: FetchContent vcpkg location not found")
   set(${result_var}
-      ""
+      "${PROJ_DATA_DIR}"
       PARENT_SCOPE)
 endfunction()
 
 function(find_proj_data)
-  if(NOT WIN32
-     OR NOT BLAZE_USE_VCPKG
-     OR NOT TARGET GDAL::GDAL)
+  if(NOT WIN32 OR NOT TARGET GDAL::GDAL)
     return()
   endif()
 
-  _get_vcpkg_installed_dir(VCPKG_INSTALLED_DIR)
-  if(NOT VCPKG_INSTALLED_DIR)
-    return()
-  endif()
+  _find_proj_data_dir(PROJ_DATA_DIR)
 
-  set(PROJ_DATA_DIR "${VCPKG_INSTALLED_DIR}/share/proj")
-  if(NOT EXISTS "${PROJ_DATA_DIR}/proj.db")
+  if(NOT PROJ_DATA_DIR OR NOT EXISTS "${PROJ_DATA_DIR}/proj.db")
+    message(
+      WARNING "PROJ data files (proj.db) not found. PROJ operations may fail.")
     return()
   endif()
 
@@ -82,18 +112,16 @@ endfunction()
 
 # Install PROJ data files for installed builds
 function(install_proj_data)
-  if(NOT WIN32
-     OR NOT BLAZE_USE_VCPKG
-     OR NOT TARGET GDAL::GDAL)
+  if(NOT WIN32 OR NOT TARGET GDAL::GDAL)
     return()
   endif()
 
   include(GNUInstallDirs)
-  _get_vcpkg_installed_dir(VCPKG_INSTALLED_DIR)
+  _find_proj_data_dir(PROJ_DATA_DIR)
 
-  if(VCPKG_INSTALLED_DIR AND EXISTS "${VCPKG_INSTALLED_DIR}/share/proj/proj.db")
+  if(PROJ_DATA_DIR AND EXISTS "${PROJ_DATA_DIR}/proj.db")
     install(
-      DIRECTORY "${VCPKG_INSTALLED_DIR}/share/proj/"
+      DIRECTORY "${PROJ_DATA_DIR}/"
       DESTINATION ${CMAKE_INSTALL_DATADIR}/proj
       FILES_MATCHING
       PATTERN "*.db"
