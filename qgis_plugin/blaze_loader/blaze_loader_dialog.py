@@ -11,21 +11,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), "blaze_lo
 
 
 class BlazeLoaderDialog(QDialog, FORM_CLASS):
-            # Add for contours merged output
-            self.contoursBrowseButton.clicked.connect(self.browse_contours_file)
-
-            # Set default for contours merged output
-            self.contoursLineEdit.setText("")
-
-        def browse_contours_file(self):
-            file_path, _ = QFileDialog.getSaveFileName(
-                self,
-                "Save Merged Contours As",
-                self.contoursLineEdit.text() or str(Path.home()),
-                "GeoPackage (*.gpkg);;All Files (*)",
-            )
-            if file_path:
-                self.contoursLineEdit.setText(file_path)
     def __init__(self, parent=None, last_folder=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -39,6 +24,10 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         # Connect browse buttons
         self.browseButton.clicked.connect(self.browse_output_folder)
         self.gpkgBrowseButton.clicked.connect(self.browse_gpkg_file)
+        self.contoursBrowseButton.clicked.connect(self.browse_contours_file)
+
+        # Set default for contours merged output
+        self.contoursLineEdit.setText("")
 
         # Set up button enable/disable logic
         self.loadButton.setEnabled(bool(self.folderLineEdit.text()))
@@ -51,6 +40,18 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
 
         # Connect load button
         self.loadButton.clicked.connect(self.accept)
+
+    def browse_contours_file(self):
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            "Save Merged Contours As",
+            self.contoursLineEdit.text() or str(Path.home()),
+            "GeoPackage (*.gpkg);;All Files (*)",
+        )
+        if file_path:
+            self.contoursLineEdit.setText(file_path)
+
+    # ...existing code...
 
     def browse_output_folder(self):
         folder = QFileDialog.getExistingDirectory(

@@ -564,7 +564,9 @@ def create_qgis_project(
         # Add contours - merge all layers into single layer with QML style
         contours_gpkg = combined_path / "contours.gpkg"
         if contours_gpkg.exists():
-            merged_contours_path = contours_output_path if contours_output_path else (combined_path / "contours_merged.gpkg")
+            merged_contours_path = (
+                contours_output_path if contours_output_path else (combined_path / "contours_merged.gpkg")
+            )
             layer = add_merged_gpkg_layer(contours_gpkg, "contours", vector_group, project_crs, merged_contours_path)
             if layer:
                 # Apply QML style
@@ -1718,15 +1720,12 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override):
 
     # Save merged layer to disk as GeoPackage (permanent layer)
     from qgis.core import QgsVectorFileWriter
+
     output_gpkg = getattr(add_merged_gpkg_layer, "output_path_override", None)
     if not output_gpkg:
         output_gpkg = str(gpkg_path.parent / f"{name}_merged.gpkg")
     error = QgsVectorFileWriter.writeAsVectorFormatV2(
-        merged_layer,
-        output_gpkg,
-        QgsProject.instance().transformContext(),
-        None,
-        "GPKG"
+        merged_layer, output_gpkg, QgsProject.instance().transformContext(), None, "GPKG"
     )
     if error[0] != QgsVectorFileWriter.NoError:
         log(f"Failed to save merged contours layer to GeoPackage: {error}")
