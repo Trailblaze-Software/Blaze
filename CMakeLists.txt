@@ -127,7 +127,7 @@ add_compile_definitions(GIT_COMMIT_HASH="${GIT_COMMIT_HASH}")
 
 if(BLAZE_USE_PDAL)
   add_compile_definitions(USE_PDAL)
-  find_package(PDAL REQUIRED)
+  find_package(PDAL REQUIRED CONFIG)
 endif()
 find_package(GDAL REQUIRED)
 
@@ -271,8 +271,12 @@ FetchContent_MakeAvailable(nlohmann_json)
 
 foreach(target ${ALL_TARGETS})
   if(BLAZE_USE_PDAL)
-    target_link_libraries(${target} PRIVATE pdal_base pdal_util pdal_cpp)
+    # PDAL CONFIG mode provides PDAL_LIBRARIES, PDAL_INCLUDE_DIRS, etc.
+    target_link_libraries(${target} PRIVATE ${PDAL_LIBRARIES})
     target_include_directories(${target} PRIVATE ${PDAL_INCLUDE_DIRS})
+    if(PDAL_DEFINITIONS)
+      target_compile_definitions(${target} PRIVATE ${PDAL_DEFINITIONS})
+    endif()
   endif()
   target_link_libraries(
     ${target} PRIVATE GDAL::GDAL OpenMP::OpenMP_CXX
