@@ -37,10 +37,17 @@ GeoGrid<T> downsample(const GeoGrid<T>& grid, size_t factor, ProgressTracker&& p
         result[{j, i}] = std::accumulate(values.begin(), values.end(), 0.0) / values.size();
       } else if (method == DownsampleMethod::MEDIAN) {
         std::sort(values.begin(), values.end());
-        if (values.size() > 0)
-          result[{j, i}] = values[values.size() / 2];
-        else
+        if (values.size() > 0) {
+          if (values.size() % 2 == 0) {
+            // For even-sized arrays, median is the average of the two middle values
+            result[{j, i}] = (values[values.size() / 2 - 1] + values[values.size() / 2]) / 2.0;
+          } else {
+            // For odd-sized arrays, median is the middle value
+            result[{j, i}] = values[values.size() / 2];
+          }
+        } else {
           result[{j, i}] = std::numeric_limits<double>::quiet_NaN();
+        }
       }
     }
   }

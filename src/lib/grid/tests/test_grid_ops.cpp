@@ -57,10 +57,21 @@ TEST(GridOps, DownsampleMedian) {
   EXPECT_EQ(downsampled.width(), 2);
   EXPECT_EQ(downsampled.height(), 2);
 
-  // First block: {1,2,4,5} -> median using values[values.size() / 2]
-  // Sorted: [1,2,4,5], size=4, index=4/2=2, so median is 4.0
-  double median_val = downsampled[{0, 0}];
-  EXPECT_NEAR(median_val, 4.0, 1e-10);
+  // Block (0,0): {1,2,4,5} -> sorted: [1,2,4,5], size=4 (even), median is (2+4)/2 = 3.0
+  double median_val00 = downsampled[{0, 0}];
+  EXPECT_NEAR(median_val00, 3.0, 1e-10);
+
+  // Block (1,0): {3,6} -> sorted: [3,6], size=2 (even), median is (3+6)/2 = 4.5
+  double median_val10 = downsampled[{1, 0}];
+  EXPECT_NEAR(median_val10, 4.5, 1e-10);
+
+  // Block (0,1): {7,8} -> sorted: [7,8], size=2 (even), median is (7+8)/2 = 7.5
+  double median_val01 = downsampled[{0, 1}];
+  EXPECT_NEAR(median_val01, 7.5, 1e-10);
+
+  // Block (1,1): {9} -> sorted: [9], size=1 (odd), median is 9.0
+  double median_val11 = downsampled[{1, 1}];
+  EXPECT_NEAR(median_val11, 9.0, 1e-10);
 }
 
 // Test downsample with odd dimensions
