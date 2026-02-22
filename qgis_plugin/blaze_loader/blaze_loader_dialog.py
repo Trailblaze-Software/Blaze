@@ -24,10 +24,6 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         # Connect browse buttons
         self.browseButton.clicked.connect(self.browse_output_folder)
         self.gpkgBrowseButton.clicked.connect(self.browse_gpkg_file)
-        self.contoursBrowseButton.clicked.connect(self.browse_contours_file)
-
-        # Set default for contours merged output
-        self.contoursLineEdit.setText("")
 
         # Set up button enable/disable logic
         self.loadButton.setEnabled(bool(self.folderLineEdit.text()))

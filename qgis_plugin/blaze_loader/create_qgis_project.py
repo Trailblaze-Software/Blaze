@@ -269,7 +269,7 @@ def create_qgis_project(
     clear_project=False,
     progress_callback=None,
     gpkg_output_path=None,
-    contours_output_path=None,
+    # contours_output_path removed, will be set at merge time
     use_current_extent=False,
     current_extent=None,
     current_crs=None,
@@ -564,9 +564,18 @@ def create_qgis_project(
         # Add contours - merge all layers into single layer with QML style
         contours_gpkg = combined_path / "contours.gpkg"
         if contours_gpkg.exists():
-            merged_contours_path = (
-                contours_output_path if contours_output_path else (combined_path / "contours_merged.gpkg")
+            from qgis.PyQt.QtWidgets import QFileDialog
+
+            default_path = str(combined_path / "contours_merged.gpkg")
+            parent = parent_window if parent_window else None
+            merged_contours_path, _ = QFileDialog.getSaveFileName(
+                parent,
+                "Save Merged Contours As",
+                default_path,
+                "GeoPackage (*.gpkg);;All Files (*)",
             )
+            if not merged_contours_path:
+                merged_contours_path = default_path
             layer = add_merged_gpkg_layer(contours_gpkg, "contours", vector_group, project_crs, merged_contours_path)
             if layer:
                 # Apply QML style
@@ -1663,7 +1672,7 @@ def style_vegetation(layer, filename):
                 return
 
 
-def add_merged_gpkg_layer(gpkg_path, name, group, crs_override):
+def add_merged_gpkg_layer(gpkg_path, name, group, crs_override, output_gpkg):
     """Load all layers from a GeoPackage and merge into a single layer."""
     from qgis.core import QgsFeature, QgsVectorLayer
 
@@ -1721,9 +1730,7 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override):
     # Save merged layer to disk as GeoPackage (permanent layer)
     from qgis.core import QgsVectorFileWriter
 
-    output_gpkg = getattr(add_merged_gpkg_layer, "output_path_override", None)
-    if not output_gpkg:
-        output_gpkg = str(gpkg_path.parent / f"{name}_merged.gpkg")
+    # output_gpkg is now passed in directly
     error = QgsVectorFileWriter.writeAsVectorFormatV2(
         merged_layer, output_gpkg, QgsProject.instance().transformContext(), None, "GPKG"
     )
