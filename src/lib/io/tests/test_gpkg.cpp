@@ -151,15 +151,11 @@ TEST(GPKG, ReadNonExistentFile) {
     fs::remove(test_file);
   }
 
-  std::vector<Contour> contours = read_gpkg(test_file);
-
-  // Should return empty vector, not crash
-  EXPECT_EQ(contours.size(), 0);
+  // Should throw an error for non-existent files
+  EXPECT_THROW(read_gpkg(test_file), std::runtime_error);
 }
 
-// Test read_gpkg with empty file (if possible)
-// This test might fail if GDAL requires valid GPKG structure
-// but it's good to test error handling
+// Test read_gpkg with empty file (not a valid GPKG)
 TEST(GPKG, ReadEmptyFile) {
   fs::path test_file = fs::temp_directory_path() / "empty.gpkg";
 
@@ -167,15 +163,12 @@ TEST(GPKG, ReadEmptyFile) {
     fs::remove(test_file);
   }
 
-  // Create empty file
+  // Create empty file (not a valid GPKG)
   std::ofstream ofs(test_file.string());
   ofs.close();
 
-  // Should handle gracefully
-  std::vector<Contour> contours = read_gpkg(test_file);
-
-  // Should return empty or handle error gracefully
-  // (exact behavior depends on GDAL implementation)
+  // Should throw an error for invalid GPKG files
+  EXPECT_THROW(read_gpkg(test_file), std::runtime_error);
 
   if (fs::exists(test_file)) {
     fs::remove(test_file);

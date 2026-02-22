@@ -195,7 +195,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
             {
               GPKGWriter writer((config.output_path() / "combined" / "streams.gpkg").string(),
-                                projection.value());
+                                projection.value(), "streams");
               for (const Stream& stream : stream_path) {
                 writer.write_polyline(Polyline{.layer = "streams",
                                                .name = std::to_string(stream.catchment),
@@ -231,7 +231,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         }
         {
           GPKGWriter writer((config.output_path() / "combined" / "contours.gpkg").string(),
-                            projection.value());
+                            projection.value(), "Contour");
           for (const Contour& contour : joined_contours) {
             writer.write_polyline(contour.to_polyline(config.contours),
                                   {{"elevation", contour.height()}});

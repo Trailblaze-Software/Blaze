@@ -174,6 +174,7 @@ TEST(E2E, ProcessSyntheticData) {
 
   // Verify contours can be read back if file exists
   if (fs::exists(test_output_dir / "contours.gpkg")) {
+    // If file exists, it must be valid and readable
     std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
     // Should be able to read without errors
     EXPECT_GE(contours.size(), 0);
@@ -279,6 +280,7 @@ TEST(E2E, VerifyOutputStructure) {
 
   // Verify GPKG files can be read
   if (fs::exists(test_output_dir / "contours.gpkg")) {
+    // If file exists, it must be valid and readable
     std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
     // Should be able to read without errors
     EXPECT_GE(contours.size(), 0);

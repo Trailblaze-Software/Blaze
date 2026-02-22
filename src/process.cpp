@@ -267,8 +267,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       oriented_contours[i].orient_consistent(smooth_ground);
     }
 
-    // Write contours to GPKG
-    GPKGWriter writer((output_dir / "contours.gpkg").string(), las_file.projection().to_string());
+    // Write contours to GPKG (always create file, even if empty)
+    GPKGWriter writer((output_dir / "contours.gpkg").string(), las_file.projection().to_string(),
+                      "Contour");
     for (const Contour& contour : oriented_contours) {
       if (contour.points().size() > 1) {
         writer.write_polyline(contour.to_polyline(config.contours),
@@ -285,8 +286,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       oriented_trimmed_contours[i].orient_consistent(smooth_ground);
     }
 
+    // Write trimmed contours to GPKG (always create file, even if empty)
     GPKGWriter writer((output_dir / "trimmed_contours.gpkg").string(),
-                      las_file.projection().to_string());
+                      las_file.projection().to_string(), "Contour");
     for (const Contour& contour : oriented_trimmed_contours) {
       if (contour.points().size() > 1) {
         writer.write_polyline(contour.to_polyline(config.contours),
@@ -299,7 +301,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   // Write streams to GPKG
   {
-    GPKGWriter writer((output_dir / "streams.gpkg").string(), las_file.projection().to_string());
+    GPKGWriter writer((output_dir / "streams.gpkg").string(), las_file.projection().to_string(),
+                      "streams");
     for (const Stream& stream : stream_path) {
       writer.write_polyline(Polyline{.layer = "streams",
                                      .name = std::to_string(stream.catchment),

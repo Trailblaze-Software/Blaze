@@ -2,6 +2,7 @@
 
 #include <ogrsf_frmts.h>
 
+#include "assert/assert.hpp"
 #include "assert/gdal_assert.hpp"
 #include "contour/contour.hpp"
 #include "gdal_priv.h"
@@ -37,10 +38,17 @@ class GPKGWriter {
   const std::string projection;
 
   std::vector<std::string> layer_names;
+  std::string default_layer_name;
 
  public:
-  GPKGWriter(const std::string& filename, const std::string& projection)
-      : dataset(filename, projection), projection(projection) {}
+  GPKGWriter(const std::string& filename, const std::string& projection,
+             const std::string& default_layer = "default")
+      : dataset(filename, projection), projection(projection), default_layer_name(default_layer) {
+    // Create default layer immediately if projection is valid, so the GPKG file is always valid
+    if (!projection.empty()) {
+      add_layer(default_layer_name);
+    }
+  }
 
   void add_layer(const std::string& layer_name) {
     Assert(!projection.empty(), "Projection must not be empty when creating GPKG layer");
@@ -116,8 +124,7 @@ inline std::vector<Contour> read_gpkg(const fs::path& filename) {
   GDALDataset* dataset = (GDALDataset*)GDALOpenEx(filename.string().c_str(), GDAL_OF_VECTOR,
                                                   nullptr, nullptr, nullptr);
   if (!dataset) {
-    std::cerr << "Failed to open GPKG file for reading: " << filename << std::endl;
-    return contours;
+    Fail("Failed to open GPKG file for reading: " + filename.string());
   }
 
   int layer_count = dataset->GetLayerCount();
