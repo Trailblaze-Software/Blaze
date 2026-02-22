@@ -409,9 +409,10 @@ class LASData : public LASFile {
     pdal::PointViewPtr point_view = *point_view_set.begin();
     pdal::Dimension::IdList dims = point_view->dims();
     pdal::LasHeader las_header = las_reader.header();
-    const auto& bounds = las_header.getBounds();
-    m_bounds = Extent3D(Extent2D(bounds.minx, bounds.maxx, bounds.miny, bounds.maxy), bounds.minz,
-                        bounds.maxz);
+    const auto& header_bounds = las_header.getBounds();
+    m_bounds = Extent3D(
+        Extent2D(header_bounds.minx, header_bounds.maxx, header_bounds.miny, header_bounds.maxy),
+        header_bounds.minz, header_bounds.maxz);
     m_original_bounds = m_bounds;
     m_projection = GeoProjection(las_header.srs().getWKT());
 
