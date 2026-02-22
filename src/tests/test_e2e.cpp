@@ -448,9 +448,9 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
   }
 }
 
-// Helper to verify raw vegetation TIF (blocked proportion) and its relationship to vege_color
+// Helper to verify raw vegetation TIF (blocked proportion)
 void verify_raw_vegetation_tif(const fs::path& raw_vege_tif_path, bool should_have_vegetation,
-                               const Config& config, const fs::path& vege_color_path) {
+                               const Config& config) {
   // Find the corresponding vege config by matching the filename
   std::string filename = raw_vege_tif_path.stem().string();
   bool is_smoothed = filename.find("smoothed_") == 0;
@@ -629,17 +629,16 @@ TEST_P(E2ETerrainTest, ProcessTerrain) {
     }
   }
 
-  fs::path vege_color_path = test_output_dir / "vege_color.tif";
-  verify_vegetation_tif(vege_color_path, params.with_vegetation, config);
+  verify_vegetation_tif(test_output_dir / "vege_color.tif", params.with_vegetation, config);
 
   // Verify raw vegetation TIFs for each height config
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
     fs::path raw_vege_path = test_output_dir / "raw_vege" / (vege_config.name + ".tif");
-    verify_raw_vegetation_tif(raw_vege_path, params.with_vegetation, config, vege_color_path);
+    verify_raw_vegetation_tif(raw_vege_path, params.with_vegetation, config);
 
     fs::path smoothed_vege_path =
         test_output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif");
-    verify_raw_vegetation_tif(smoothed_vege_path, params.with_vegetation, config, vege_color_path);
+    verify_raw_vegetation_tif(smoothed_vege_path, params.with_vegetation, config);
   }
 
   // Check contour properties based on terrain type
