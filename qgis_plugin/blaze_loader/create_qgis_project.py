@@ -1714,12 +1714,38 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override):
     merged_layer.updateExtents()
     log(f"  Merged {total_features} features from {len(layer_names)} layers")
 
-    # Add to project
-    QgsProject.instance().addMapLayer(merged_layer, False)
-    group.addLayer(merged_layer)
-    log(f"Added: {name}")
+    # Save merged layer to disk as GeoPackage (permanent layer)
+    from qgis.core import QgsVectorFileWriter
+    output_gpkg = str(gpkg_path.parent / f"{name}_merged.gpkg")
+    error = QgsVectorFileWriter.writeAsVectorFormatV2(
+        merged_layer,
+        output_gpkg,
+        QgsProject.instance().transformContext(),
+        None,
+        "GPKG"
+    )
+    if error[0] != QgsVectorFileWriter.NoError:
+        log(f"Failed to save merged contours layer to GeoPackage: {error}")
+        # Fallback: add memory layer as before
+        QgsProject.instance().addMapLayer(merged_layer, False)
+        group.addLayer(merged_layer)
+        log(f"Added (temporary): {name}")
+        return merged_layer
 
-    return merged_layer
+    # Load the permanent layer
+    permanent_layer = QgsVectorLayer(f"{output_gpkg}|layername={name}", name, "ogr")
+    if not permanent_layer.isValid():
+        log(f"Failed to load permanent merged contours layer from {output_gpkg}")
+        # Fallback: add memory layer as before
+        QgsProject.instance().addMapLayer(merged_layer, False)
+        group.addLayer(merged_layer)
+        log(f"Added (temporary): {name}")
+        return merged_layer
+
+    QgsProject.instance().addMapLayer(permanent_layer, False)
+    group.addLayer(permanent_layer)
+    log(f"Added (permanent): {name}")
+    return permanent_layer
 
 
 def add_gpkg_layers(gpkg_path, group, crs_override, root, apply_default_style=True):
