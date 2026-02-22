@@ -130,18 +130,14 @@ TEST(GridOps, InterpolateHoles) {
       {10.0, 10.0, 10.0}};
   TestGrid grid(data);
 
-  GeoGrid<double> interpolated = interpolate_holes(grid, ProgressTracker());
+  interpolate_holes(grid, ProgressTracker());
 
-  // The hole should be filled with interpolated value (should be close to 10.0)
-  double hole_val = interpolated[{1, 1}];
-  EXPECT_LT(hole_val, 1e6);  // Should be a valid value
-  EXPECT_GT(hole_val, 0.0);
-
-  // Other values should remain unchanged
-  double val00 = interpolated[{0, 0}];
-  double val22 = interpolated[{2, 2}];
-  EXPECT_DOUBLE_EQ(val00, 10.0);
-  EXPECT_DOUBLE_EQ(val22, 10.0);
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      double val = grid[{j, i}];
+      EXPECT_DOUBLE_EQ(val, 10.0);
+    }
+  }
 }
 
 // Test interpolate_holes with multiple holes
@@ -152,16 +148,47 @@ TEST(GridOps, InterpolateHolesMultiple) {
       {30.0, 25.0, 35.0}};
   TestGrid grid(data);
 
-  GeoGrid<double> interpolated = interpolate_holes(grid, ProgressTracker());
+  interpolate_holes(grid, ProgressTracker());
 
-  // All holes should be filled
-  for (size_t i = 0; i < interpolated.height(); i++) {
-    for (size_t j = 0; j < interpolated.width(); j++) {
-      double val = interpolated[{j, i}];
-      EXPECT_LT(val, 1e6);
-      EXPECT_TRUE(std::isfinite(val));
-    }
-  }
+  // Grid layout (grid[{j, i}]):
+  // {0,0}=10.0  {1,0}=HOLE  {2,0}=20.0
+  // {0,1}=HOLE  {1,1}=15.0  {2,1}=HOLE
+  // {0,2}=30.0  {1,2}=25.0  {2,2}=35.0
+
+  // Hole at {1, 0}: neighbors DOWN=15.0@1, LEFT=10.0@1, RIGHT=20.0@1
+  // weighted_average = 15.0/1 + 10.0/1 + 20.0/1 = 45.0
+  // total_weight = 1/1 + 1/1 + 1/1 = 3.0
+  // result = 45.0 / 3.0 = 15.0
+  double val_10 = grid[{1, 0}];
+  EXPECT_NEAR(val_10, 15.0, 1e-9);
+
+  // Hole at {0, 1}: neighbors UP=10.0@1, DOWN=30.0@1, RIGHT=15.0@1
+  // weighted_average = 10.0/1 + 30.0/1 + 15.0/1 = 55.0
+  // total_weight = 1/1 + 1/1 + 1/1 = 3.0
+  // result = 55.0 / 3.0 = 18.333...
+  double val_01 = grid[{0, 1}];
+  EXPECT_NEAR(val_01, 55.0 / 3.0, 1e-9);
+
+  // Hole at {2, 1}: neighbors UP=20.0@1, DOWN=35.0@1, LEFT=15.0@1
+  // weighted_average = 20.0/1 + 35.0/1 + 15.0/1 = 70.0
+  // total_weight = 1/1 + 1/1 + 1/1 = 3.0
+  // result = 70.0 / 3.0 = 23.333...
+  double val_21 = grid[{2, 1}];
+  EXPECT_NEAR(val_21, 70.0 / 3.0, 1e-9);
+
+  // Non-hole values should remain unchanged
+  double val_00 = grid[{0, 0}];
+  double val_20 = grid[{2, 0}];
+  double val_11 = grid[{1, 1}];
+  double val_02 = grid[{0, 2}];
+  double val_12 = grid[{1, 2}];
+  double val_22 = grid[{2, 2}];
+  EXPECT_DOUBLE_EQ(val_00, 10.0);
+  EXPECT_DOUBLE_EQ(val_20, 20.0);
+  EXPECT_DOUBLE_EQ(val_11, 15.0);
+  EXPECT_DOUBLE_EQ(val_02, 30.0);
+  EXPECT_DOUBLE_EQ(val_12, 25.0);
+  EXPECT_DOUBLE_EQ(val_22, 35.0);
 }
 
 // Test interpolate_holes with isolated hole (no neighbors)
@@ -175,12 +202,12 @@ TEST(GridOps, InterpolateHolesIsolated) {
        std::numeric_limits<double>::max()}};
   TestGrid grid(data);
 
-  GeoGrid<double> interpolated = interpolate_holes(grid, ProgressTracker());
+  interpolate_holes(grid, ProgressTracker());
 
   // All should be set to 0 (no neighbors to interpolate from)
-  for (size_t i = 0; i < interpolated.height(); i++) {
-    for (size_t j = 0; j < interpolated.width(); j++) {
-      double val = interpolated[{j, i}];
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      double val = grid[{j, i}];
       EXPECT_DOUBLE_EQ(val, 0.0);
     }
   }
@@ -192,9 +219,14 @@ TEST(GridOps, HasValue) {
   EXPECT_TRUE(has_value(0.0));
   EXPECT_TRUE(has_value(-10.0));
   EXPECT_TRUE(has_value(1e5));
+  EXPECT_TRUE(has_value(1e6));
+  EXPECT_TRUE(has_value(1e7));
+  EXPECT_TRUE(has_value(1e100));  // Any finite value should be valid
 
   EXPECT_FALSE(has_value(std::numeric_limits<double>::infinity()));
   EXPECT_FALSE(has_value(-std::numeric_limits<double>::infinity()));
   EXPECT_FALSE(has_value(std::numeric_limits<double>::quiet_NaN()));
-  EXPECT_FALSE(has_value(1e7));  // >= 1e6
+  EXPECT_FALSE(has_value(std::numeric_limits<double>::max()));  // Sentinel value represents a hole
+  EXPECT_FALSE(
+      has_value(-std::numeric_limits<double>::max()));  // Negative max also represents a hole
 }

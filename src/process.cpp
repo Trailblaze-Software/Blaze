@@ -173,7 +173,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64),
                   config.ground.outlier_removal_height_diff);
-  ground = interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
+  interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
 
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
                progress_tracker.subtracker(0.65, 0.66));

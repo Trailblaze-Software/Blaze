@@ -106,19 +106,20 @@ void remove_outliers(GeoGrid<T>& grid, ProgressTracker progress_tracker, double 
   }
 }
 
-inline bool has_value(double value) { return std::isfinite(value) && value < 1e6; }
+// Check if a value is valid (not a hole/missing data)
+// Holes are represented as NaN, infinity, or std::numeric_limits<double>::max() or -max()
+inline static bool has_value(double value) {
+  constexpr double max_val = std::numeric_limits<double>::max();
+  return std::isfinite(value) && value < max_val && value > -max_val;
+}
 
 template <typename T>
-GeoGrid<T> interpolate_holes(const GeoGrid<T>& grid, ProgressTracker progress_tracker) {
+void interpolate_holes(GeoGrid<T>& grid, ProgressTracker progress_tracker) {
   TimeFunction timer("interpolate holes", &progress_tracker);
-  GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                    GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
-      if (has_value(grid[{j, i}])) {
-        result[{j, i}] = grid[{j, i}];
-      } else {
+      if (!has_value(grid[{j, i}])) {
         std::map<Direction2D, std::optional<std::pair<size_t, T>>> neighbours;
         for (Direction2D dir :
              {Direction2D::UP, Direction2D::DOWN, Direction2D::LEFT, Direction2D::RIGHT}) {
@@ -138,14 +139,14 @@ GeoGrid<T> interpolate_holes(const GeoGrid<T>& grid, ProgressTracker progress_tr
             total_weight += 1.0 / neighbour.value().first;
           }
         }
-        result[{j, i}] = weighted_average / total_weight;
         if (total_weight == 0) {
-          result[{j, i}] = 0;
+          grid[{j, i}] = 0;
+        } else {
+          grid[{j, i}] = weighted_average / total_weight;
         }
       }
     }
   }
-  return result;
 }
 
 template <typename T>
