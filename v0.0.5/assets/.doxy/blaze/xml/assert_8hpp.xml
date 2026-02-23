@@ -1,0 +1,569 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="assert_8hpp" kind="file" language="C++">
+    <compoundname>assert.hpp</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">optional</includes>
+    <includes local="no">experimental/source_location</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">string</includes>
+    <includes refid="to__string_8hpp" local="yes">printing/to_string.hpp</includes>
+    <includedby refid="config__editor_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp</includedby>
+    <includedby refid="gdal__assert_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/assert/gdal_assert.hpp</includedby>
+    <includedby refid="config__input_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp</includedby>
+    <includedby refid="grid_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</includedby>
+    <includedby refid="gpkg_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</includedby>
+    <includedby refid="colors_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/isom/colors.cpp</includedby>
+    <includedby refid="las__point_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</includedby>
+    <includedby refid="coordinate_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp</includedby>
+    <includedby refid="progress__tracker_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp</includedby>
+    <includedby refid="resources_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp</label>
+        <link refid="assert_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="8">
+        <label>iomanip</label>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+      <node id="9">
+        <label>map</label>
+      </node>
+      <node id="3">
+        <label>optional</label>
+      </node>
+      <node id="10">
+        <label>set</label>
+      </node>
+      <node id="5">
+        <label>sstream</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="11">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="21">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/camera.hpp</label>
+        <link refid="camera_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
+        <link refid="gl__widget_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
+        <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp</label>
+        <link refid="assert_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/assert/gdal_assert.hpp</label>
+        <link refid="gdal__assert_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp</label>
+        <link refid="cliff_8hpp_source"/>
+      </node>
+      <node id="6">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp</label>
+        <link refid="contour_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
+        <link refid="contour__gen_8hpp_source"/>
+      </node>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
+        <link refid="img__grid_8hpp_source"/>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
+        <link refid="gpkg_8hpp_source"/>
+      </node>
+      <node id="10">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
+        <link refid="las__file_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
+        <link refid="las__point_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/polyline/polyline.hpp</label>
+        <link refid="polyline_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</label>
+        <link refid="tif_8hpp_source"/>
+      </node>
+      <node id="20">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
+        <link refid="vegetation_8hpp_source"/>
+      </node>
+      <node id="18">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
+        <link refid="hill__shade_8hpp_source"/>
+      </node>
+      <node id="23">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
+        <link refid="water_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
+        <link refid="process_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespacestd">std</innernamespace>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="assert_8hpp_1a474a719388efd0578c7c98a0961e23dd" prot="public" static="no">
+        <name>HAS_BUILTIN</name>
+        <param><defname>x</defname></param>
+        <initializer><ref refid="classCoordinate2D" kindref="compound">__has_builtin</ref>(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="4" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a95eb55fc233c36dca688edf7ff1389d6" prot="public" static="no">
+        <name>Assert</name>
+        <param><defname>condition</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>  <ref refid="classCoordinate2D" kindref="compound">if</ref> (!(<ref refid="classCoordinate2D" kindref="compound">condition</ref>)) _Assert(<ref refid="classCoordinate2D" kindref="compound">condition</ref>, #<ref refid="classCoordinate2D" kindref="compound">condition</ref>, std::optional&lt;std::string&gt;(<ref refid="classCoordinate2D" kindref="compound">__VA_ARGS__</ref>));</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="36" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="36" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a04f299228732952d4ca03cb1dfa1f3e5" prot="public" static="no">
+        <name>Fail</name>
+        <param><defname>...</defname></param>
+        <initializer>  Assert(<ref refid="classCoordinate2D" kindref="compound">false</ref>, <ref refid="classCoordinate2D" kindref="compound">__VA_ARGS__</ref>); \
+  unreachable()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="52" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="52" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a818682dc0f0ee3abc047fcd1c243a7fe" prot="public" static="no">
+        <name>Unimplemented</name>
+        <param><defname>...</defname></param>
+        <initializer>Assert(<ref refid="classCoordinate2D" kindref="compound">false</ref>, &quot;Unimplemented&quot;);</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="56" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1aed44a5d80d905c6b911510cc2f29b077" prot="public" static="no">
+        <name>AssertBinOp</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <param><defname>op</defname></param>
+        <param><defname>nop</defname></param>
+        <initializer>  <ref refid="classCoordinate2D" kindref="compound">if</ref> (!((<ref refid="classCoordinate2D" kindref="compound">a</ref>)<ref refid="classCoordinate2D" kindref="compound">op</ref>(<ref refid="classCoordinate2D" kindref="compound">b</ref>))) _AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">a</ref>, <ref refid="classCoordinate2D" kindref="compound">b</ref>, #<ref refid="classCoordinate2D" kindref="compound">a</ref>, #<ref refid="classCoordinate2D" kindref="compound">b</ref>, <ref refid="classCoordinate2D" kindref="compound">a</ref> <ref refid="classCoordinate2D" kindref="compound">op</ref> <ref refid="classCoordinate2D" kindref="compound">b</ref>, #<ref refid="classCoordinate2D" kindref="compound">op</ref>, #<ref refid="classCoordinate2D" kindref="compound">nop</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="69" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="69" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a65f7301de39c883da529be55b80cfc16" prot="public" static="no">
+        <name>AssertGE</name>
+        <param><defname>expr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, &gt;=, &lt;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="71" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a598977625bcf2df250c35dc3c3e841cb" prot="public" static="no">
+        <name>AssertLE</name>
+        <param><defname>expr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, &lt;=, &gt;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="72" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a6912cd88a9b44f5c9926b73469eee54f" prot="public" static="no">
+        <name>AssertGT</name>
+        <param><defname>expr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, &gt;, &lt;=)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="73" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a66a05ffc1c177f1f25900ade84db6dab" prot="public" static="no">
+        <name>AssertEQ</name>
+        <param><defname>expr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, ==, !=)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="74" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="assert_8hpp_1a0994fc10b9ad701a31604ac166644c4e" prot="public" static="no">
+        <name>AssertNE</name>
+        <param><defname>expr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, !=, ==)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="75" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="assert_8hpp_1a98a996adc7ad22a8dc75b936e74b73ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void unreachable</definition>
+        <argsstring>()</argsstring>
+        <name>unreachable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="25" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="25" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="assert_8hpp_1a1b608016f3fd259c8a9d4c61fd02b93c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void _Assert</definition>
+        <argsstring>(bool condition, const std::string &amp;condition_str, const std::optional&lt; std::string &gt; &amp;message, const std::source_location &amp;loc=std::source_location::current())</argsstring>
+        <name>_Assert</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+          <declname>condition</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>condition_str</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::optional&lt; std::string &gt; &amp;</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::source_location &amp;</type>
+          <declname>loc</declname>
+          <defval>std::source_location::current()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="39" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="39" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="assert_8hpp_1acaf21242759f05a3b645c4c25f8054dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">A</ref></type>
+          </param>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">B</ref></type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void _AssertBinOp</definition>
+        <argsstring>(const A &amp;a, const B &amp;b, const std::string &amp;a_str, const std::string &amp;b_str, bool result, const std::string &amp;op, const std::string &amp;nop, const std::source_location &amp;loc=std::source_location::current())</argsstring>
+        <name>_AssertBinOp</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">A</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">B</ref> &amp;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>a_str</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>b_str</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>nop</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::source_location &amp;</type>
+          <declname>loc</declname>
+          <defval>std::source_location::current()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="59" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="59" bodyend="67"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAS_BUILTIN(x)<sp/>__has_builtin(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAS_BUILTIN(x)<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;optional&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(_MSC_VER)<sp/>||<sp/>HAS_BUILTIN(__builtin_source_location)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;source_location&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;experimental/source_location&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">std<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">source_location<sp/>=<sp/>std::experimental::source_location;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;printing/to_string.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">[[<ref refid="classCoordinate2D" kindref="compound">noreturn</ref>]]<sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>unreachable()<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Uses<sp/>compiler<sp/>specific<sp/>extensions<sp/>if<sp/>possible.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Even<sp/>if<sp/>no<sp/>extension<sp/>is<sp/>used,<sp/>undefined<sp/>behavior<sp/>is<sp/>still<sp/>raised<sp/>by</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>an<sp/>empty<sp/>function<sp/>body<sp/>and<sp/>the<sp/>noreturn<sp/>attribute.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(_MSC_VER)<sp/>&amp;&amp;<sp/>!defined(__clang__)<sp/><sp/></highlight><highlight class="comment">//<sp/>MSVC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">__assume</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/><sp/></highlight><highlight class="comment">//<sp/>GCC,<sp/>Clang</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">__builtin_unreachable</ref>();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Assert(condition,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/>if<sp/>(!(condition))<sp/>_Assert(condition,<sp/>#condition,<sp/>std::optional&lt;std::string&gt;(__VA_ARGS__));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Assert(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">condition</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">condition_str</ref>,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::optional&lt;std::string&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">message</ref>,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::source_location&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref><sp/>=<sp/>std::source_location::current())<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">condition</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Blaze<sp/>assertion<sp/>failed:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">condition_str</ref><sp/>&lt;&lt;<sp/>(<ref refid="classCoordinate2D" kindref="compound">message</ref><sp/>?<sp/></highlight><highlight class="stringliteral">&quot;:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>*<ref refid="classCoordinate2D" kindref="compound">message</ref><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n<sp/>in<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>.function_name()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>at<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>.file_name()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>.line()</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>.str();</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(<ref refid="classCoordinate2D" kindref="compound">ss</ref>.str());</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Fail(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/>Assert(false,<sp/>__VA_ARGS__);<sp/>\</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"><sp/><sp/>unreachable()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Unimplemented(...)<sp/>Assert(false,<sp/>&quot;Unimplemented&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>A,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>B&gt;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_AssertBinOp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">A</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">B</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a_str</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b_str</ref>,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">op</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">nop</ref>,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::source_location&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref><sp/>=<sp/>std::source_location::current())<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">result</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">nop</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>_Assert(<ref refid="classCoordinate2D" kindref="compound">result</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">a_str</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">op</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">b_str</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>.str(),<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AssertBinOp(a,<sp/>b,<sp/>op,<sp/>nop)<sp/>\</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/>if<sp/>(!((a)op(b)))<sp/>_AssertBinOp(a,<sp/>b,<sp/>#a,<sp/>#b,<sp/>a<sp/>op<sp/>b,<sp/>#op,<sp/>#nop)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AssertGE(expr,<sp/>val)<sp/>AssertBinOp(expr,<sp/>val,<sp/>&gt;=,<sp/>&lt;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AssertLE(expr,<sp/>val)<sp/>AssertBinOp(expr,<sp/>val,<sp/>&lt;=,<sp/>&gt;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AssertGT(expr,<sp/>val)<sp/>AssertBinOp(expr,<sp/>val,<sp/>&gt;,<sp/>&lt;=)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AssertEQ(expr,<sp/>val)<sp/>AssertBinOp(expr,<sp/>val,<sp/>==,<sp/>!=)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AssertNE(expr,<sp/>val)<sp/>AssertBinOp(expr,<sp/>val,<sp/>!=,<sp/>==)</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp"/>
+  </compounddef>
+</doxygen>

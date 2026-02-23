@@ -1,0 +1,357 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structExtent3D" kind="struct" language="C++" prot="public">
+    <compoundname>Extent3D</compoundname>
+    <basecompoundref refid="structExtent2D" prot="public" virt="non-virtual">Extent2D</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structExtent3D_1aa843d30dce2ad30814b13edcd6fc13c4" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double Extent3D::minz</definition>
+        <argsstring></argsstring>
+        <name>minz</name>
+        <qualifiedname>Extent3D::minz</qualifiedname>
+        <initializer>= std::numeric_limits&lt;<ref refid="classCoordinate2D" kindref="compound">double</ref>&gt;<ref refid="classCoordinate2D" kindref="compound">::infinity</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="314" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structExtent3D_1a013d1aeb99fd7683ad9a1a28d4c32f7e" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double Extent3D::maxz</definition>
+        <argsstring></argsstring>
+        <name>maxz</name>
+        <qualifiedname>Extent3D::maxz</qualifiedname>
+        <initializer>= -std::numeric_limits&lt;<ref refid="classCoordinate2D" kindref="compound">double</ref>&gt;<ref refid="classCoordinate2D" kindref="compound">::infinity</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="315" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="315" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structExtent3D_1a01c20e9ce9fa9bb7307164a429a02f85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Extent3D::Extent3D</definition>
+        <argsstring>()=default</argsstring>
+        <name>Extent3D</name>
+        <qualifiedname>Extent3D::Extent3D</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="317" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1aad0cf464b0219a0917003b7e59be9294" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Extent3D::Extent3D</definition>
+        <argsstring>(const Extent2D &amp;extent, double minz, double maxz)</argsstring>
+        <name>Extent3D</name>
+        <qualifiedname>Extent3D::Extent3D</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>minz</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>maxz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="318" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="318" bodyend="319"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1ae02b7422ac65d9df6e6f518c59efb101" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Extent3D::Extent3D</definition>
+        <argsstring>(double minx, double maxx, double miny, double maxy, double minz, double maxz)</argsstring>
+        <name>Extent3D</name>
+        <qualifiedname>Extent3D::Extent3D</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>minx</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>maxx</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>miny</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>maxy</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>minz</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>maxz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="320" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="320" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a6f4123c9b457928780cc12f8473830a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Extent3D::grow</definition>
+        <argsstring>(double x, double y, double z)</argsstring>
+        <name>grow</name>
+        <qualifiedname>Extent3D::grow</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="323" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="323" bodyend="330"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a6695bdb7f5b7cf8ea48807577603a1a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Extent3D::grow</definition>
+        <argsstring>(double border)</argsstring>
+        <name>grow</name>
+        <qualifiedname>Extent3D::grow</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>border</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="332" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="332" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a7f3eafc23bd131db8c668fad1b0d7d89" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool Extent3D::intersects</definition>
+        <argsstring>(const Extent3D &amp;other) const</argsstring>
+        <name>intersects</name>
+        <qualifiedname>Extent3D::intersects</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="341" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="341" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a39acc6b7fbef9776737287aa24480ff1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <definition>Coordinate3D&lt; double &gt; Extent3D::center</definition>
+        <argsstring>() const</argsstring>
+        <name>center</name>
+        <qualifiedname>Extent3D::center</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="346" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="346" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a4d5e0ef231bb2b76326ce1bbf389e830" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double Extent3D::max_extent</definition>
+        <argsstring>() const</argsstring>
+        <name>max_extent</name>
+        <qualifiedname>Extent3D::max_extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="350" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="350" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a564fa456417acdf834d44c7bc7908011" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Extent3D::grow</definition>
+        <argsstring>(const Extent3D &amp;other)</argsstring>
+        <name>grow</name>
+        <qualifiedname>Extent3D::grow</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="352" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="352" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a16a4d069425ba6433ae711048ee47fc8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D Extent3D::operator-</definition>
+        <argsstring>(const Coordinate3D&lt; double &gt; &amp;offset) const</argsstring>
+        <name>operator-</name>
+        <qualifiedname>Extent3D::operator-</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="358" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="358" bodyend="361"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1af2fa7da564a38636a0aac7674c03ae38" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D Extent3D::intersection</definition>
+        <argsstring>(const Extent3D &amp;other) const</argsstring>
+        <name>intersection</name>
+        <qualifiedname>Extent3D::intersection</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="363" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="363" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="structExtent3D_1a4bcbb0d31cca14589b5b407f4c9cc072" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool Extent3D::operator!=</definition>
+        <argsstring>(const Extent3D &amp;other) const</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>Extent3D::operator!=</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="368" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="368" bodyend="371"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="structExtent3D_1a6a03c4ee2260f7197f8c60020eeae54b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const Extent3D &amp;extent)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>Extent3D::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="373" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="373" bodyend="376"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Extent2D</label>
+        <link refid="structExtent2D"/>
+      </node>
+      <node id="1">
+        <label>Extent3D</label>
+        <link refid="structExtent3D"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Extent2D</label>
+        <link refid="structExtent2D"/>
+      </node>
+      <node id="1">
+        <label>Extent3D</label>
+        <link refid="structExtent3D"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="313" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="313" bodyend="377"/>
+    <listofallmembers>
+      <member refid="structExtent3D_1a39acc6b7fbef9776737287aa24480ff1" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>center</name></member>
+      <member refid="structExtent2D_1af9c76caf6f9feefad5b5979f7976a073" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>contains</name></member>
+      <member refid="structExtent3D_1a01c20e9ce9fa9bb7307164a429a02f85" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>Extent3D</name></member>
+      <member refid="structExtent3D_1aad0cf464b0219a0917003b7e59be9294" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>Extent3D</name></member>
+      <member refid="structExtent3D_1ae02b7422ac65d9df6e6f518c59efb101" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>Extent3D</name></member>
+      <member refid="structExtent3D_1a6f4123c9b457928780cc12f8473830a2" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>grow</name></member>
+      <member refid="structExtent3D_1a6695bdb7f5b7cf8ea48807577603a1a1" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>grow</name></member>
+      <member refid="structExtent3D_1a564fa456417acdf834d44c7bc7908011" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>grow</name></member>
+      <member refid="structExtent2D_1a832629d544c1ded14a5c50ea7c4c5574" prot="public" virt="non-virtual" ambiguityscope="Extent2D::"><scope>Extent3D</scope><name>grow</name></member>
+      <member refid="structExtent3D_1af2fa7da564a38636a0aac7674c03ae38" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>intersection</name></member>
+      <member refid="structExtent3D_1a7f3eafc23bd131db8c668fad1b0d7d89" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>intersects</name></member>
+      <member refid="structExtent3D_1a4d5e0ef231bb2b76326ce1bbf389e830" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>max_extent</name></member>
+      <member refid="structExtent2D_1a594ad91bcf308ee192c1e3266d45d546" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>maxx</name></member>
+      <member refid="structExtent2D_1a44418b38c40ba7077bb0e5b3d0bff373" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>maxy</name></member>
+      <member refid="structExtent3D_1a013d1aeb99fd7683ad9a1a28d4c32f7e" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>maxz</name></member>
+      <member refid="structExtent2D_1a83c81963ab031f3761ca6c0ccbe753e3" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>minx</name></member>
+      <member refid="structExtent2D_1a0359a7a40595852eac14aea2ec673278" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>miny</name></member>
+      <member refid="structExtent3D_1aa843d30dce2ad30814b13edcd6fc13c4" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>minz</name></member>
+      <member refid="structExtent3D_1a4bcbb0d31cca14589b5b407f4c9cc072" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>operator!=</name></member>
+      <member refid="structExtent3D_1a16a4d069425ba6433ae711048ee47fc8" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>operator-</name></member>
+      <member refid="structExtent3D_1a6a03c4ee2260f7197f8c60020eeae54b" prot="public" virt="non-virtual"><scope>Extent3D</scope><name>operator&lt;&lt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

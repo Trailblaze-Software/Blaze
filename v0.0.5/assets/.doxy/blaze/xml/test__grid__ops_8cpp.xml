@@ -1,0 +1,627 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__grid__ops_8cpp" kind="file" language="C++">
+    <compoundname>test_grid_ops.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes local="no">cmath</includes>
+    <includes local="no">limits</includes>
+    <includes refid="grid_8hpp" local="yes">grid/grid.hpp</includes>
+    <includes refid="grid__ops_8hpp" local="yes">grid/grid_ops.hpp</includes>
+    <includes refid="progress__tracker_8hpp" local="yes">utilities/progress_tracker.hpp</includes>
+    <incdepgraph>
+      <node id="13">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp</label>
+        <link refid="test__grid__ops_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>utilities/timer.hpp</label>
+        <link refid="timer_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>algorithm</label>
+      </node>
+      <node id="23">
+        <label>array</label>
+      </node>
+      <node id="28">
+        <label>chrono</label>
+      </node>
+      <node id="3">
+        <label>cmath</label>
+      </node>
+      <node id="7">
+        <label>cstddef</label>
+      </node>
+      <node id="8">
+        <label>cstring</label>
+      </node>
+      <node id="16">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="2">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="19">
+        <label>iomanip</label>
+      </node>
+      <node id="14">
+        <label>iostream</label>
+      </node>
+      <node id="4">
+        <label>limits</label>
+      </node>
+      <node id="20">
+        <label>map</label>
+      </node>
+      <node id="9">
+        <label>memory</label>
+      </node>
+      <node id="26">
+        <label>numeric</label>
+      </node>
+      <node id="15">
+        <label>optional</label>
+      </node>
+      <node id="24">
+        <label>ostream</label>
+      </node>
+      <node id="21">
+        <label>set</label>
+      </node>
+      <node id="17">
+        <label>sstream</label>
+      </node>
+      <node id="10">
+        <label>string</label>
+      </node>
+      <node id="11">
+        <label>type_traits</label>
+      </node>
+      <node id="30">
+        <label>utility</label>
+      </node>
+      <node id="12">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classTestGrid" prot="public">TestGrid</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__grid__ops_8cpp_1ad50af153ae9bb4d54d463ac482b4f387" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, DownsampleMean)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">DownsampleMean</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="24" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="24" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1abde25a1889e4b436ec854bb6e027f72f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, DownsampleMedian)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">DownsampleMedian</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="51" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="51" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1a46632b1258b2ed9d9178215cbd4ffa9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, DownsampleOddDimensions)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">DownsampleOddDimensions</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="78" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="78" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1a08fd4ea54b0a2bcd5ab7a5a96cef4875" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, RemoveOutliers)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RemoveOutliers</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="90" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="90" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1a19e24dcf29cbe3ff98b0f1be68e5d3fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, RemoveOutliersNoOutliers)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RemoveOutliersNoOutliers</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="108" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="108" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1a418016324bf57e5ba1e640d38dad42d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, InterpolateHoles)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">InterpolateHoles</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="125" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="125" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1a5f60a096442cb9c3a4492d23e8a63765" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, InterpolateHolesMultiple)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">InterpolateHolesMultiple</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="144" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="144" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1a1bb6b0f3d4890bea3adba2cef9a5e70f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, InterpolateHolesIsolated)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">InterpolateHolesIsolated</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="195" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="195" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="test__grid__ops_8cpp_1adeeff98cab8cd6c2ea092d0f42f58d42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GridOps, HasValue)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GridOps</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">HasValue</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" line="217" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp" bodystart="217" bodyend="232"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/grid_ops.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper<sp/>class<sp/>to<sp/>create<sp/>test<sp/>grids</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt;double&gt;<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;&amp;<sp/>data)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt;<ref refid="classCoordinate2D" kindref="compound">double</ref>&gt;(data[0].size(),<sp/>data.size(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>data.size();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>data[0].size();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*this)[{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>}]<sp/>=<sp/>data[<ref refid="classCoordinate2D" kindref="compound">i</ref>][<ref refid="classCoordinate2D" kindref="compound">j</ref>];</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>downsample<sp/>function<sp/>with<sp/>MEAN<sp/>method</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">DownsampleMean</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{1.0,<sp/>2.0,<sp/>3.0,<sp/>4.0},</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.0,<sp/>6.0,<sp/>7.0,<sp/>8.0},</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{9.0,<sp/>10.0,<sp/>11.0,<sp/>12.0},</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{13.0,<sp/>14.0,<sp/>15.0,<sp/>16.0}};</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref><sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEAN);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">downsampled</ref>.width(),<sp/>2);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">downsampled</ref>.height(),<sp/>2);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>First<sp/>block:<sp/>(1+2+5+6)/4<sp/>=<sp/>3.5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val00</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{0,<sp/>0}];</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">val00</ref>,<sp/>3.5,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Second<sp/>block:<sp/>(3+4+7+8)/4<sp/>=<sp/>5.5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val10</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{1,<sp/>0}];</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">val10</ref>,<sp/>5.5,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Third<sp/>block:<sp/>(9+10+13+14)/4<sp/>=<sp/>11.5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val01</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{0,<sp/>1}];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">val01</ref>,<sp/>11.5,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Fourth<sp/>block:<sp/>(11+12+15+16)/4<sp/>=<sp/>13.5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val11</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{1,<sp/>1}];</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">val11</ref>,<sp/>13.5,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>downsample<sp/>function<sp/>with<sp/>MEDIAN<sp/>method</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">DownsampleMedian</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{1.0,<sp/>2.0,<sp/>3.0},<sp/>{4.0,<sp/>5.0,<sp/>6.0},<sp/>{7.0,<sp/>8.0,<sp/>9.0}};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref><sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEDIAN);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">downsampled</ref>.width(),<sp/>2);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">downsampled</ref>.height(),<sp/>2);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Block<sp/>(0,0):<sp/>{1,2,4,5}<sp/>-&gt;<sp/>sorted:<sp/>[1,2,4,5],<sp/>size=4<sp/>(even),<sp/>median<sp/>is<sp/>(2+4)/2<sp/>=<sp/>3.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">median_val00</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{0,<sp/>0}];</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">median_val00</ref>,<sp/>3.0,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Block<sp/>(1,0):<sp/>{3,6}<sp/>-&gt;<sp/>sorted:<sp/>[3,6],<sp/>size=2<sp/>(even),<sp/>median<sp/>is<sp/>(3+6)/2<sp/>=<sp/>4.5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">median_val10</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{1,<sp/>0}];</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">median_val10</ref>,<sp/>4.5,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Block<sp/>(0,1):<sp/>{7,8}<sp/>-&gt;<sp/>sorted:<sp/>[7,8],<sp/>size=2<sp/>(even),<sp/>median<sp/>is<sp/>(7+8)/2<sp/>=<sp/>7.5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">median_val01</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{0,<sp/>1}];</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">median_val01</ref>,<sp/>7.5,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Block<sp/>(1,1):<sp/>{9}<sp/>-&gt;<sp/>sorted:<sp/>[9],<sp/>size=1<sp/>(odd),<sp/>median<sp/>is<sp/>9.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">median_val11</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref>[{1,<sp/>1}];</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">median_val11</ref>,<sp/>9.0,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-10);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>downsample<sp/>with<sp/>odd<sp/>dimensions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">DownsampleOddDimensions</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{1.0,<sp/>2.0,<sp/>3.0,<sp/>4.0,<sp/>5.0},<sp/>{6.0,<sp/>7.0,<sp/>8.0,<sp/>9.0,<sp/>10.0}};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">downsampled</ref><sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEAN);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Should<sp/>round<sp/>up:<sp/>ceil(5/2)<sp/>=<sp/>3,<sp/>ceil(2/2)<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">downsampled</ref>.width(),<sp/>3);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">downsampled</ref>.height(),<sp/>1);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>remove_outliers<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RemoveOutliers</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>grid<sp/>with<sp/>an<sp/>outlier</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{10.0,<sp/>10.0,<sp/>10.0},</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>100.0,<sp/>10.0},<sp/><sp/></highlight><highlight class="comment">//<sp/>Outlier<sp/>in<sp/>the<sp/>middle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0}};</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>remove_outliers(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>1.0);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>grid.height();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>grid.width();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val</ref><sp/>=<sp/>grid[{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>}];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val</ref>,<sp/>10.0);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>remove_outliers<sp/>with<sp/>no<sp/>outliers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RemoveOutliersNoOutliers</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0},<sp/>{10.0,<sp/>10.0,<sp/>10.0},<sp/>{10.0,<sp/>10.0,<sp/>10.0}};</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>remove_outliers(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>1.0);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>All<sp/>values<sp/>should<sp/>remain<sp/>the<sp/>same</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>grid.height();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>grid.width();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val</ref><sp/>=<sp/>grid[{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>}];</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val</ref>,<sp/>10.0);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>interpolate_holes<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">InterpolateHoles</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>grid<sp/>with<sp/>a<sp/>hole<sp/>(NaN<sp/>or<sp/>large<sp/>value)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0},</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>std::numeric_limits&lt;double&gt;::max(),<sp/>10.0},<sp/><sp/></highlight><highlight class="comment">//<sp/>Hole<sp/>in<sp/>the<sp/>middle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0}};</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/>interpolate_holes(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>grid.height();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>grid.width();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val</ref><sp/>=<sp/>grid[{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>}];</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val</ref>,<sp/>10.0);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>interpolate_holes<sp/>with<sp/>multiple<sp/>holes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">InterpolateHolesMultiple</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>std::numeric_limits&lt;double&gt;::max(),<sp/>20.0},</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{std::numeric_limits&lt;double&gt;::max(),<sp/>15.0,<sp/>std::numeric_limits&lt;double&gt;::max()},</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{30.0,<sp/>25.0,<sp/>35.0}};</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>interpolate_holes(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Grid<sp/>layout<sp/>(grid[{j,<sp/>i}]):</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>{0,0}=10.0<sp/><sp/>{1,0}=HOLE<sp/><sp/>{2,0}=20.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>{0,1}=HOLE<sp/><sp/>{1,1}=15.0<sp/><sp/>{2,1}=HOLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>{0,2}=30.0<sp/><sp/>{1,2}=25.0<sp/><sp/>{2,2}=35.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Hole<sp/>at<sp/>{1,<sp/>0}:<sp/>neighbors<sp/>DOWN=15.0@1,<sp/>LEFT=10.0@1,<sp/>RIGHT=20.0@1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>weighted_average<sp/>=<sp/>15.0/1<sp/>+<sp/>10.0/1<sp/>+<sp/>20.0/1<sp/>=<sp/>45.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>total_weight<sp/>=<sp/>1/1<sp/>+<sp/>1/1<sp/>+<sp/>1/1<sp/>=<sp/>3.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>result<sp/>=<sp/>45.0<sp/>/<sp/>3.0<sp/>=<sp/>15.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_10</ref><sp/>=<sp/>grid[{1,<sp/>0}];</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">val_10</ref>,<sp/>15.0,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-9);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Hole<sp/>at<sp/>{0,<sp/>1}:<sp/>neighbors<sp/>UP=10.0@1,<sp/>DOWN=30.0@1,<sp/>RIGHT=15.0@1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>weighted_average<sp/>=<sp/>10.0/1<sp/>+<sp/>30.0/1<sp/>+<sp/>15.0/1<sp/>=<sp/>55.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>total_weight<sp/>=<sp/>1/1<sp/>+<sp/>1/1<sp/>+<sp/>1/1<sp/>=<sp/>3.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>result<sp/>=<sp/>55.0<sp/>/<sp/>3.0<sp/>=<sp/>18.333...</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_01</ref><sp/>=<sp/>grid[{0,<sp/>1}];</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">val_01</ref>,<sp/>55.0<sp/>/<sp/>3.0,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-9);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Hole<sp/>at<sp/>{2,<sp/>1}:<sp/>neighbors<sp/>UP=20.0@1,<sp/>DOWN=35.0@1,<sp/>LEFT=15.0@1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>weighted_average<sp/>=<sp/>20.0/1<sp/>+<sp/>35.0/1<sp/>+<sp/>15.0/1<sp/>=<sp/>70.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>total_weight<sp/>=<sp/>1/1<sp/>+<sp/>1/1<sp/>+<sp/>1/1<sp/>=<sp/>3.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>result<sp/>=<sp/>70.0<sp/>/<sp/>3.0<sp/>=<sp/>23.333...</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_21</ref><sp/>=<sp/>grid[{2,<sp/>1}];</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">val_21</ref>,<sp/>70.0<sp/>/<sp/>3.0,<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-9);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Non-hole<sp/>values<sp/>should<sp/>remain<sp/>unchanged</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_00</ref><sp/>=<sp/>grid[{0,<sp/>0}];</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_20</ref><sp/>=<sp/>grid[{2,<sp/>0}];</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_11</ref><sp/>=<sp/>grid[{1,<sp/>1}];</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_02</ref><sp/>=<sp/>grid[{0,<sp/>2}];</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_12</ref><sp/>=<sp/>grid[{1,<sp/>2}];</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val_22</ref><sp/>=<sp/>grid[{2,<sp/>2}];</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val_00</ref>,<sp/>10.0);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val_20</ref>,<sp/>20.0);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val_11</ref>,<sp/>15.0);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val_02</ref>,<sp/>30.0);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val_12</ref>,<sp/>25.0);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val_22</ref>,<sp/>35.0);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>interpolate_holes<sp/>with<sp/>isolated<sp/>hole<sp/>(no<sp/>neighbors)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">InterpolateHolesIsolated</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{std::numeric_limits&lt;double&gt;::max(),<sp/>std::numeric_limits&lt;double&gt;::max(),</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::numeric_limits&lt;double&gt;::max()},</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{std::numeric_limits&lt;double&gt;::max(),<sp/>std::numeric_limits&lt;double&gt;::max(),</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::numeric_limits&lt;double&gt;::max()},</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{std::numeric_limits&lt;double&gt;::max(),<sp/>std::numeric_limits&lt;double&gt;::max(),</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::numeric_limits&lt;double&gt;::max()}};</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><ref refid="classTestGrid" kindref="compound">TestGrid</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/>interpolate_holes(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>All<sp/>should<sp/>be<sp/>set<sp/>to<sp/>0<sp/>(no<sp/>neighbors<sp/>to<sp/>interpolate<sp/>from)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>grid.height();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>grid.width();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">val</ref><sp/>=<sp/>grid[{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>}];</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">val</ref>,<sp/>0.0);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>has_value<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">GridOps</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">HasValue</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(has_value(10.0));</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(has_value(0.0));</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(has_value(-10.0));</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(has_value(1<ref refid="classCoordinate2D" kindref="compound">e5</ref>));</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(has_value(1<ref refid="classCoordinate2D" kindref="compound">e6</ref>));</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(has_value(1<ref refid="classCoordinate2D" kindref="compound">e7</ref>));</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(has_value(1<ref refid="classCoordinate2D" kindref="compound">e100</ref>));<sp/><sp/></highlight><highlight class="comment">//<sp/>Any<sp/>finite<sp/>value<sp/>should<sp/>be<sp/>valid</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(has_value(std::numeric_limits&lt;double&gt;::infinity()));</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(has_value(-std::numeric_limits&lt;double&gt;::infinity()));</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(has_value(std::numeric_limits&lt;double&gt;::quiet_NaN()));</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(has_value(std::numeric_limits&lt;double&gt;::max()));<sp/><sp/></highlight><highlight class="comment">//<sp/>Sentinel<sp/>value<sp/>represents<sp/>a<sp/>hole</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>has_value(-std::numeric_limits&lt;double&gt;::max()));<sp/><sp/></highlight><highlight class="comment">//<sp/>Negative<sp/>max<sp/>also<sp/>represents<sp/>a<sp/>hole</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp"/>
+  </compounddef>
+</doxygen>

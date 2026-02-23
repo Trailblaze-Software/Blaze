@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLineCoord2DCrossing" kind="class" language="C++" prot="public">
+    <compoundname>LineCoord2DCrossing</compoundname>
+    <basecompoundref refid="classLineCoord2D" prot="public" virt="non-virtual">LineCoord2D&lt; T &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classLineCoord2DCrossing_1a6fb590596fd5790a6cde254a0d0a4c0c" prot="private" static="no" mutable="no">
+        <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+        <definition>Direction2D LineCoord2DCrossing&lt; T &gt;::m_crossing_dir</definition>
+        <argsstring></argsstring>
+        <name>m_crossing_dir</name>
+        <qualifiedname>LineCoord2DCrossing::m_crossing_dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="233" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="233" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLineCoord2DCrossing_1a8df917b9ab894a1fd8212de57f1b6a49" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LineCoord2DCrossing&lt; T &gt;::LineCoord2DCrossing</definition>
+        <argsstring>(T x, T y, Direction2D dir, Direction2D crossing_dir)</argsstring>
+        <name>LineCoord2DCrossing</name>
+        <qualifiedname>LineCoord2DCrossing::LineCoord2DCrossing</qualifiedname>
+        <param>
+          <type>T</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+          <declname>dir</declname>
+        </param>
+        <param>
+          <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+          <declname>crossing_dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="236" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="236" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2DCrossing_1a197b672cce17e2e54219e45afd4b1c0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LineCoord2DCrossing&lt; T &gt;::LineCoord2DCrossing</definition>
+        <argsstring>(const LineCoord2D&lt; T &gt; &amp;line_coord, Direction2D crossing_dir)</argsstring>
+        <name>LineCoord2DCrossing</name>
+        <qualifiedname>LineCoord2DCrossing::LineCoord2DCrossing</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; T &gt; &amp;</type>
+          <declname>line_coord</declname>
+        </param>
+        <param>
+          <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+          <declname>crossing_dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="238" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="238" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2DCrossing_1a78a931901b7917be367b0d0a8e2d762e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+        <definition>Direction2D LineCoord2DCrossing&lt; T &gt;::crossing_dir</definition>
+        <argsstring>() const</argsstring>
+        <name>crossing_dir</name>
+        <qualifiedname>LineCoord2DCrossing::crossing_dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="241" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="241" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2DCrossing_1a0f5b323e1e895b22467dbf131dc92a2a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref></type>
+        <definition>LineCoord2DCrossing LineCoord2DCrossing&lt; T &gt;::flip</definition>
+        <argsstring>() const</argsstring>
+        <name>flip</name>
+        <qualifiedname>LineCoord2DCrossing::flip</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="243" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="243" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classLineCoord2DCrossing_1a024881ced4b3c79bfbc3d26a2cd9866e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref> &gt;</type>
+        <definition>std::vector&lt; LineCoord2DCrossing &gt; LineCoord2DCrossing&lt; T &gt;::next_points</definition>
+        <argsstring>() const</argsstring>
+        <name>next_points</name>
+        <qualifiedname>LineCoord2DCrossing::next_points</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="248" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="248" bodyend="281"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classLineCoord2DCrossing_1ab5df32cb254c2c8eacc222cec9970602" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const LineCoord2DCrossing &amp;line_coord)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>LineCoord2DCrossing::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref> &amp;</type>
+          <declname>line_coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="283" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="283" bodyend="287"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="2">
+        <label>LineCoord2D&lt; T, typename &gt;</label>
+        <link refid="classLineCoord2D"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>LineCoord2DCrossing&lt; T &gt;</label>
+        <link refid="classLineCoord2DCrossing"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>Coordinate2D&lt; T &gt;</label>
+        <link refid="classCoordinate2D"/>
+      </node>
+      <node id="2">
+        <label>LineCoord2D&lt; T, typename &gt;</label>
+        <link refid="classLineCoord2D"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>LineCoord2DCrossing&lt; T &gt;</label>
+        <link refid="classLineCoord2DCrossing"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="232" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="232" bodyend="288"/>
+    <listofallmembers>
+      <member refid="classCoordinate2D_1a536f3ba35b38d0c53faa5f9c7b5a5d4b" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>Coordinate2D</name></member>
+      <member refid="classCoordinate2D_1a27695be872dedbd15702cecdd5cb620e" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>Coordinate2D</name></member>
+      <member refid="classLineCoord2DCrossing_1a78a931901b7917be367b0d0a8e2d762e" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>crossing_dir</name></member>
+      <member refid="classLineCoord2D_1ad9b4069bf97848bfb465dff11fac5746" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>dir</name></member>
+      <member refid="classLineCoord2D_1a5b6e9e16c77a7fd519ac6351b9fc6fbc" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>end</name></member>
+      <member refid="classLineCoord2DCrossing_1a0f5b323e1e895b22467dbf131dc92a2a" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>flip</name></member>
+      <member refid="classLineCoord2D_1ab55cf743a2eda32f8409fbbcd685c799" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>LineCoord2D</name></member>
+      <member refid="classLineCoord2D_1a707c71743ed5ee31b0511384744532a8" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>LineCoord2D</name></member>
+      <member refid="classLineCoord2DCrossing_1a8df917b9ab894a1fd8212de57f1b6a49" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>LineCoord2DCrossing</name></member>
+      <member refid="classLineCoord2DCrossing_1a197b672cce17e2e54219e45afd4b1c0f" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>LineCoord2DCrossing</name></member>
+      <member refid="classLineCoord2DCrossing_1a6fb590596fd5790a6cde254a0d0a4c0c" prot="private" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>m_crossing_dir</name></member>
+      <member refid="classCoordinate2D_1a75423d3585da779437d826a485891e66" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>magnitude</name></member>
+      <member refid="classCoordinate2D_1ac0cb5d93ac5dc1569f0599129db2accd" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>magnitude_sqd</name></member>
+      <member refid="classLineCoord2DCrossing_1a024881ced4b3c79bfbc3d26a2cd9866e" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>next_points</name></member>
+      <member refid="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>offset_to_center</name></member>
+      <member refid="classCoordinate2D_1af2ed95c9e9f37d3a430aea86d41cbe09" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>operator Coordinate2D&lt; U &gt;</name></member>
+      <member refid="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>operator+</name></member>
+      <member refid="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>operator-</name></member>
+      <member refid="classLineCoord2DCrossing_1ab5df32cb254c2c8eacc222cec9970602" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classCoordinate2D_1adbd28f3bd749f4cfbf20b0746375cbba" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>operator==</name></member>
+      <member refid="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>round</name></member>
+      <member refid="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>round_NW</name></member>
+      <member refid="classLineCoord2D_1a7d8b37bf12a03450dbbfb22b19ac9f8b" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>start</name></member>
+      <member refid="classCoordinate2D_1a15cdc073df1226264dfa3c04750070a8" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a3d65f5ad53f9d3a5df8bdd567f32d0be" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>x</name></member>
+      <member refid="classCoordinate2D_1a976db191ea32ade7a246b3368fdb48d9" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>y</name></member>
+      <member refid="classCoordinate2D_1a8188b4a389ccbb767d697998c17a2e2c" prot="public" virt="non-virtual"><scope>LineCoord2DCrossing</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

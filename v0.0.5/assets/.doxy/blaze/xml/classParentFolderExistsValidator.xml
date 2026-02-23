@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classParentFolderExistsValidator" kind="class" language="C++" prot="public">
+    <compoundname>ParentFolderExistsValidator</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QValidator</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classParentFolderExistsValidator_1a6a51dbbdf87d2929d18443a86f6845b3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QValidator::State</type>
+        <definition>QValidator::State ParentFolderExistsValidator::validate</definition>
+        <argsstring>(QString &amp;input, int &amp;pos) const override</argsstring>
+        <name>validate</name>
+        <qualifiedname>ParentFolderExistsValidator::validate</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">QString</ref> &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">int</ref> &amp;</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" line="23" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="23" bodyend="28"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ParentFolderExistsValidator</label>
+        <link refid="classParentFolderExistsValidator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QValidator</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ParentFolderExistsValidator</label>
+        <link refid="classParentFolderExistsValidator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QValidator</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" line="21" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="21" bodyend="29"/>
+    <listofallmembers>
+      <member refid="classParentFolderExistsValidator_1a6a51dbbdf87d2929d18443a86f6845b3" prot="public" virt="non-virtual"><scope>ParentFolderExistsValidator</scope><name>validate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

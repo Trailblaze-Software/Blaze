@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGeo" kind="class" language="C++" prot="public">
+    <compoundname>Geo</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">GridT</basecompoundref>
+    <basecompoundref refid="classGeoGridData" prot="public" virt="non-virtual">GeoGridData</basecompoundref>
+    <derivedcompoundref refid="classTestGrid" prot="public" virt="non-virtual">TestGrid</derivedcompoundref>
+    <derivedcompoundref refid="classTestGrid" prot="public" virt="non-virtual">TestGrid</derivedcompoundref>
+    <derivedcompoundref refid="classTestGrid" prot="public" virt="non-virtual">TestGrid</derivedcompoundref>
+    <derivedcompoundref refid="classTestGrid" prot="public" virt="non-virtual">TestGrid</derivedcompoundref>
+    <derivedcompoundref refid="classTestGrid" prot="public" virt="non-virtual">TestGrid</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> GridT</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGeo_1a7af51f6bbf7e090aeb8931dfc864cae0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Geo&lt; GridT &gt;::Geo</definition>
+        <argsstring>(size_t width, size_t height, GeoTransform &amp;&amp;transform, GeoProjection &amp;&amp;projection)</argsstring>
+        <name>Geo</name>
+        <qualifiedname>Geo::Geo</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref> &amp;&amp;</type>
+          <declname>transform</declname>
+        </param>
+        <param>
+          <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;&amp;</type>
+          <declname>projection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="291" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="291" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1ad7b2eadfa2e906546466b2d06565cb5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>Geo&lt; GridT &gt;::Geo</definition>
+        <argsstring>(GeoTransform &amp;&amp;transform, GeoProjection &amp;&amp;projection, Args... args)</argsstring>
+        <name>Geo</name>
+        <qualifiedname>Geo::Geo</qualifiedname>
+        <param>
+          <type><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref> &amp;&amp;</type>
+          <declname>transform</declname>
+        </param>
+        <param>
+          <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;&amp;</type>
+          <declname>projection</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="295" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="295" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double Geo&lt; GridT &gt;::width_m</definition>
+        <argsstring>() const</argsstring>
+        <name>width_m</name>
+        <qualifiedname>Geo::width_m</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="298" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="298" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1a1098c30d81601a5e885405f61f15bfbd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double Geo&lt; GridT &gt;::height_m</definition>
+        <argsstring>() const</argsstring>
+        <name>height_m</name>
+        <qualifiedname>Geo::height_m</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="299" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="299" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1ac61ddc1c4de1cc766bd1b7b8cbbdca08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classGeo" kindref="compound">Geo</ref></type>
+        <definition>Geo&lt; GridT &gt; Geo&lt; GridT &gt;::slice</definition>
+        <argsstring>(const Extent2D &amp;extent)</argsstring>
+        <name>slice</name>
+        <qualifiedname>Geo::slice</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="312" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="56" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; Extent2D &gt; Geo&lt; GridT &gt;::extent</definition>
+        <argsstring>() const</argsstring>
+        <name>extent</name>
+        <qualifiedname>Geo::extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="313" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="98" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Geo&lt; GridT &gt;::fill_from</definition>
+        <argsstring>(const Geo&lt; U &gt; &amp;other)</argsstring>
+        <name>fill_from</name>
+        <qualifiedname>Geo::fill_from</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">U</ref> &gt; &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="316" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="316" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1a52eff035fc897e9650b678645521d642" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Geo&lt; GridT &gt;::fill_from</definition>
+        <argsstring>(const U &amp;other)</argsstring>
+        <name>fill_from</name>
+        <qualifiedname>Geo::fill_from</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="323" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="323" bodyend="325"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classGeo" kindref="compound">Geo</ref></type>
+        <definition>static Geo Geo&lt; GridT &gt;::FromPoints</definition>
+        <argsstring>(const Geo &amp;grid)</argsstring>
+        <name>FromPoints</name>
+        <qualifiedname>Geo::FromPoints</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">Geo</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="302" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="302" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1ad657f28d10a41b7e04e0da9180e7d169" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classGrid" kindref="compound">Grid</ref>&lt; <ref refid="classRGBColor" kindref="compound">RGBColor</ref> &gt; &gt;</type>
+        <definition>GeoGrid&lt; RGBColor &gt; Geo&lt; GridT &gt;::FromGeoImg</definition>
+        <argsstring>(const GeoImgGrid &amp;grid)</argsstring>
+        <name>FromGeoImg</name>
+        <qualifiedname>Geo::FromGeoImg</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoImgGrid" kindref="compound">GeoImgGrid</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="310" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="12" bodyend="23"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Geo&lt; GridT &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GeoGridData</label>
+        <link refid="classGeoGridData"/>
+      </node>
+      <node id="2">
+        <label>GridT</label>
+      </node>
+      <node id="4">
+        <label>TestGrid&lt; double &gt;</label>
+        <link refid="classTestGrid"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Geo&lt; GridT &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GeoGridData</label>
+        <link refid="classGeoGridData"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_transform</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_projection</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GeoProjection</label>
+        <link refid="classGeoProjection"/>
+      </node>
+      <node id="4">
+        <label>GeoTransform</label>
+        <link refid="classGeoTransform"/>
+      </node>
+      <node id="2">
+        <label>GridT</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="289" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="289" bodyend="326"/>
+    <listofallmembers>
+      <member refid="classGeoGridData_1a0ee5acf21c13784d123d1237c9854cc5" prot="public" virt="non-virtual"><scope>Geo</scope><name>dx</name></member>
+      <member refid="classGeoGridData_1a874882ebb49e607f6e96f5d1ede82899" prot="public" virt="non-virtual"><scope>Geo</scope><name>dy</name></member>
+      <member refid="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" prot="public" virt="non-virtual"><scope>Geo</scope><name>extent</name></member>
+      <member refid="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" prot="public" virt="non-virtual"><scope>Geo</scope><name>fill_from</name></member>
+      <member refid="classGeo_1a52eff035fc897e9650b678645521d642" prot="public" virt="non-virtual"><scope>Geo</scope><name>fill_from</name></member>
+      <member refid="classGeo_1ad657f28d10a41b7e04e0da9180e7d169" prot="public" virt="non-virtual"><scope>Geo</scope><name>FromGeoImg</name></member>
+      <member refid="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" prot="public" virt="non-virtual"><scope>Geo</scope><name>FromPoints</name></member>
+      <member refid="classGeo_1a7af51f6bbf7e090aeb8931dfc864cae0" prot="public" virt="non-virtual"><scope>Geo</scope><name>Geo</name></member>
+      <member refid="classGeo_1ad7b2eadfa2e906546466b2d06565cb5d" prot="public" virt="non-virtual"><scope>Geo</scope><name>Geo</name></member>
+      <member refid="classGeoGridData_1a6e1191a0d4ee036284d22587da150ec4" prot="public" virt="non-virtual"><scope>Geo</scope><name>GeoGridData</name></member>
+      <member refid="classGeo_1a1098c30d81601a5e885405f61f15bfbd" prot="public" virt="non-virtual"><scope>Geo</scope><name>height_m</name></member>
+      <member refid="classGeoGridData_1a8bf48dae7b2472d11c2d464890e9abde" prot="protected" virt="non-virtual"><scope>Geo</scope><name>m_projection</name></member>
+      <member refid="classGeoGridData_1a9742659082271d75bb7840c6dd52e37f" prot="protected" virt="non-virtual"><scope>Geo</scope><name>m_transform</name></member>
+      <member refid="classGeoGridData_1a93f9478e0ca3db8a9f86dc1d150bb844" prot="public" virt="non-virtual"><scope>Geo</scope><name>projection</name></member>
+      <member refid="classGeo_1ac61ddc1c4de1cc766bd1b7b8cbbdca08" prot="public" virt="non-virtual"><scope>Geo</scope><name>slice</name></member>
+      <member refid="classGeoGridData_1a277d0935ec991450c89f2bfed2a1385f" prot="public" virt="non-virtual"><scope>Geo</scope><name>transform</name></member>
+      <member refid="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" prot="public" virt="non-virtual"><scope>Geo</scope><name>width_m</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

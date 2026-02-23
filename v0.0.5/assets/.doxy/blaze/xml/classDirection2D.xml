@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDirection2D" kind="class" language="C++" prot="public">
+    <compoundname>Direction2D</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Dir</name>
+        <qualifiedname>Direction2D::Dir</qualifiedname>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a9d7745558a900134cd531c526c25c92d" prot="public">
+          <name>UP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0af117ebd800d3fa5e09e868281a7e216f" prot="public">
+          <name>DOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a4a85438920acc63fe5aa60f5544ebf37" prot="public">
+          <name>LEFT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a95214ec7ab5777be706d91a1988b7cbe" prot="public">
+          <name>RIGHT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a14970b636882df4d7e22587f571d9d56" prot="public">
+          <name>UR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0aef69b0436cbb4a28486f0b32f4b7d768" prot="public">
+          <name>UL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a7fe32ff7af3fd2aca3266d38d3e33a4c" prot="public">
+          <name>DR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a95c8efe8a05caa5b222d85293e83df71" prot="public">
+          <name>DL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="14" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="14" bodyend="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classDirection2D_1a593890713df4d8853d4427a998afe584" prot="private" static="no" mutable="no">
+        <type>Dir</type>
+        <definition>Dir Direction2D::m_dir</definition>
+        <argsstring></argsstring>
+        <name>m_dir</name>
+        <qualifiedname>Direction2D::m_dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="17" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDirection2D_1a12d11757bfbad44fef47ab21b85e3b3a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Direction2D::Direction2D</definition>
+        <argsstring>(Dir dir)</argsstring>
+        <name>Direction2D</name>
+        <qualifiedname>Direction2D::Direction2D</qualifiedname>
+        <param>
+          <type>Dir</type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="20" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classDirection2D_1a82581a6af1c8cff00b04ea5168870cb9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Direction2D::operator Dir</definition>
+        <argsstring>() const</argsstring>
+        <name>operator Dir</name>
+        <qualifiedname>Direction2D::operator Dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="21" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classDirection2D_1a645e7b342e2fa14ee84c44f0ba906c72" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::array&lt; <ref refid="classDirection2D" kindref="compound">Direction2D</ref>, 2 &gt;</type>
+        <definition>std::array&lt; Direction2D, 2 &gt; Direction2D::orthogonal_dirs</definition>
+        <argsstring>() const</argsstring>
+        <name>orthogonal_dirs</name>
+        <qualifiedname>Direction2D::orthogonal_dirs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="23" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="23" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classDirection2D_1ac13e9fd40289d8d859d6dc4d457d4d1e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool Direction2D::orthogonal_to</definition>
+        <argsstring>(Direction2D other) const</argsstring>
+        <name>orthogonal_to</name>
+        <qualifiedname>Direction2D::orthogonal_to</qualifiedname>
+        <param>
+          <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="27" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="27" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classDirection2D_1ab470e3ed6c185652b40ca50e66d01567" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <definition>int Direction2D::dx</definition>
+        <argsstring>() const</argsstring>
+        <name>dx</name>
+        <qualifiedname>Direction2D::dx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="32" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="32" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classDirection2D_1a7069e4ff9f51d86f7a6740b777fdade4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <definition>int Direction2D::dy</definition>
+        <argsstring>() const</argsstring>
+        <name>dy</name>
+        <qualifiedname>Direction2D::dy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="49" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="49" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classDirection2D_1afe4f58d8ba7947ed1debdb8533c5bd1d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classDirection2D" kindref="compound">Direction2D</ref></type>
+        <definition>Direction2D Direction2D::opposite</definition>
+        <argsstring>() const</argsstring>
+        <name>opposite</name>
+        <qualifiedname>Direction2D::opposite</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="66" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="66" bodyend="86"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classDirection2D_1af139244586fa7308b1586c22ebe6e257" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const Direction2D &amp;dir)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>Direction2D::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classDirection2D" kindref="compound">Direction2D</ref> &amp;</type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="88" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="88" bodyend="116"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="12" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="12" bodyend="117"/>
+    <listofallmembers>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>Dir</name></member>
+      <member refid="classDirection2D_1a12d11757bfbad44fef47ab21b85e3b3a" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>Direction2D</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a95c8efe8a05caa5b222d85293e83df71" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>DL</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0af117ebd800d3fa5e09e868281a7e216f" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>DOWN</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a7fe32ff7af3fd2aca3266d38d3e33a4c" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>DR</name></member>
+      <member refid="classDirection2D_1ab470e3ed6c185652b40ca50e66d01567" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>dx</name></member>
+      <member refid="classDirection2D_1a7069e4ff9f51d86f7a6740b777fdade4" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>dy</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a4a85438920acc63fe5aa60f5544ebf37" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>LEFT</name></member>
+      <member refid="classDirection2D_1a593890713df4d8853d4427a998afe584" prot="private" virt="non-virtual"><scope>Direction2D</scope><name>m_dir</name></member>
+      <member refid="classDirection2D_1a82581a6af1c8cff00b04ea5168870cb9" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>operator Dir</name></member>
+      <member refid="classDirection2D_1af139244586fa7308b1586c22ebe6e257" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classDirection2D_1afe4f58d8ba7947ed1debdb8533c5bd1d" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>opposite</name></member>
+      <member refid="classDirection2D_1a645e7b342e2fa14ee84c44f0ba906c72" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>orthogonal_dirs</name></member>
+      <member refid="classDirection2D_1ac13e9fd40289d8d859d6dc4d457d4d1e" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>orthogonal_to</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a95214ec7ab5777be706d91a1988b7cbe" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>RIGHT</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0aef69b0436cbb4a28486f0b32f4b7d768" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>UL</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a9d7745558a900134cd531c526c25c92d" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>UP</name></member>
+      <member refid="classDirection2D_1a4ec4238dcae1b7f542cfcd92fb2916e0a14970b636882df4d7e22587f571d9d56" prot="public" virt="non-virtual"><scope>Direction2D</scope><name>UR</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
