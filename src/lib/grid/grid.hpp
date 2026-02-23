@@ -80,6 +80,11 @@ class GeoProjection {
 
   GeoProjection() = default;
 
+  GeoProjection(const GeoProjection& other) = default;
+  GeoProjection(GeoProjection&& other) noexcept = default;
+  GeoProjection& operator=(const GeoProjection& other) = default;
+  GeoProjection& operator=(GeoProjection&& other) noexcept = default;
+
   const std::string& to_string() const { return m_projection; }
 };
 
@@ -260,7 +265,7 @@ class GeoGridData {
 
  public:
   GeoGridData(GeoTransform&& transform, GeoProjection&& projection)
-      : m_transform(transform), m_projection(projection) {}
+      : m_transform(std::move(transform)), m_projection(std::move(projection)) {}
 
   const GeoTransform& transform() const { return m_transform; }
   const GeoProjection& projection() const { return m_projection; }

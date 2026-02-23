@@ -1,0 +1,91 @@
+---
+name: Coverage
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ["*"]
+  workflow_dispatch:
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for better coverage reports
+      - name: Cache apt packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt/lists
+          key: ${{ runner.os }}-apt-${{ hashFiles('scripts/install-ubuntu-deps.sh')
+            }}-coverage
+          restore-keys: |
+            ${{ runner.os }}-apt-
+      - name: Install dependencies
+        run: |
+          ./scripts/install-ubuntu-deps.sh
+          sudo apt install -y lcov gcovr
+      - name: Configure CMake with coverage
+        run: |
+          mkdir -p coverage-build
+          cmake -B coverage-build \
+            -DBLAZE_FETCHCONTENT_BASE_DIR="$(pwd)/linux-deps" \
+            -DBLAZE_CLI_ONLY=True \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="--coverage -fprofile-arcs -ftest-coverage" \
+            -DCMAKE_C_FLAGS="--coverage -fprofile-arcs -ftest-coverage" \
+            -DCMAKE_EXE_LINKER_FLAGS="--coverage"
+      - name: Build
+        run: |
+          cmake --build coverage-build -j $(nproc)
+      - name: Run tests
+        run: |
+          cd coverage-build
+          ctest --output-on-failure -j $(nproc) || true
+      - name: Generate coverage report
+        run: |
+          cd coverage-build
+          # Generate lcov tracefile using geninfo directly to handle mismatch errors
+          # We generate with branch coverage first, then remove branch data to treat partial as full
+          geninfo . --output-filename coverage.info \
+            --rc branch_coverage=1 \
+            --ignore-errors mismatch
+          # Remove system and external dependencies from coverage
+          lcov --remove coverage.info \
+            '/usr/*' \
+            '*/deps/*' \
+            '*/googletest*' \
+            '*/las++*' \
+            '*/nlohmann_json*' \
+            '*/vcpkg*' \
+            --output-file coverage.info \
+            --rc branch_coverage=1 \
+            --ignore-errors unused
+          # Remove branch coverage data to treat partial coverage as full
+          # This prevents Google Test macros (EXPECT_EQ, etc.) from showing partial coverage
+          # since their failure branches don't execute in passing tests, but the line itself does
+          # We use a simple sed command to remove branch coverage lines (BRDA, BRF, BRH)
+          sed -i '/^BRDA:/d; /^BRF:/d; /^BRH:/d' coverage.info || true
+          # Generate HTML report (without branch coverage)
+          genhtml coverage.info --output-directory coverage-html \
+            --rc branch_coverage=0 \
+            --legend
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage-build/coverage.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
+      - name: Upload coverage HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-html-report
+          path: coverage-build/coverage-html
+          retention-days: 30

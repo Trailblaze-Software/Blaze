@@ -922,13 +922,53 @@ SectionEnd
 Function .onInit
   StrCmp "@CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL@" "ON" 0 inst
 
+  ; First try the exact registry key (same version)
   ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\@CPACK_PACKAGE_INSTALL_REGISTRY_KEY@" "UninstallString"
-  StrCmp $0 "" inst
+  StrCmp $0 "" search_all_versions
 
+  ; Found exact match, ask user if they want to uninstall
   MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
   "@CPACK_NSIS_PACKAGE_NAME@ is already installed. $\n$\nDo you want to uninstall the old version before installing the new one?" \
   /SD IDYES IDYES uninst IDNO inst
   Abort
+
+  ; Search for any Blaze installation by enumerating registry keys
+  search_all_versions:
+    StrCpy $R0 0
+    EnumReg:
+      EnumRegKey $R1 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall" $R0
+      StrCmp $R1 "" inst  ; No more keys, proceed with installation
+
+      ; Check if this key is a Blaze installation
+      ReadRegStr $R2 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\$R1" "DisplayName"
+      StrCmp $R2 "" next_key
+
+      ; Check if DisplayName contains "Blaze"
+      Push "$R2"
+      Push "Blaze"
+      Call StrStr
+      Pop $R3
+      StrCmp $R3 "" next_key
+
+      ; Also check Publisher to be more specific (optional - if Publisher matches or is empty, it's likely our app)
+      ReadRegStr $R3 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\$R1" "Publisher"
+      StrCmp $R3 "" found_blaze  ; If Publisher is empty, still check (might be old version)
+      StrCmp $R3 "@CPACK_PACKAGE_VENDOR@" found_blaze next_key
+
+      found_blaze:
+        ; Found a Blaze installation, get its UninstallString
+        ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\$R1" "UninstallString"
+        StrCmp $0 "" next_key
+
+        ; Ask user if they want to uninstall the old version
+        MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
+        "@CPACK_NSIS_PACKAGE_NAME@ is already installed (found: $R1). $\n$\nDo you want to uninstall the old version before installing the new one?" \
+        /SD IDYES IDYES uninst IDNO inst
+        Abort
+
+      next_key:
+        IntOp $R0 $R0 + 1
+        Goto EnumReg
 
 ;Run the uninstaller
 uninst:

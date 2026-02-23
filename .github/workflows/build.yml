@@ -25,6 +25,16 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Cache apt packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt/lists
+          key: ${{ runner.os }}-apt-${{ hashFiles('scripts/install-ubuntu-deps.sh')
+            }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
       - name: Install dependencies
         run: |
           ./scripts/install-ubuntu-deps.sh
@@ -48,6 +58,16 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Cache apt packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt/lists
+          key: ${{ runner.os }}-apt-${{ hashFiles('scripts/install-ubuntu-deps.sh')
+            }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
       - name: Install dependencies
         run: |
           ./scripts/install-ubuntu-deps.sh

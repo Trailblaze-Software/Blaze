@@ -37,10 +37,17 @@ GeoGrid<T> downsample(const GeoGrid<T>& grid, size_t factor, ProgressTracker&& p
         result[{j, i}] = std::accumulate(values.begin(), values.end(), 0.0) / values.size();
       } else if (method == DownsampleMethod::MEDIAN) {
         std::sort(values.begin(), values.end());
-        if (values.size() > 0)
-          result[{j, i}] = values[values.size() / 2];
-        else
+        if (values.size() > 0) {
+          if (values.size() % 2 == 0) {
+            // For even-sized arrays, median is the average of the two middle values
+            result[{j, i}] = (values[values.size() / 2 - 1] + values[values.size() / 2]) / 2.0;
+          } else {
+            // For odd-sized arrays, median is the middle value
+            result[{j, i}] = values[values.size() / 2];
+          }
+        } else {
           result[{j, i}] = std::numeric_limits<double>::quiet_NaN();
+        }
       }
     }
   }
@@ -48,12 +55,9 @@ GeoGrid<T> downsample(const GeoGrid<T>& grid, size_t factor, ProgressTracker&& p
 }
 
 template <typename T>
-GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_tracker,
-                           double z_threshold = 1, bool z_only = false) {
+void remove_outliers(GeoGrid<T>& grid, ProgressTracker progress_tracker, double z_threshold = 1,
+                     bool z_only = false) {
   TimeFunction timer("remove outliers", &progress_tracker);
-  GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                    GeoProjection(grid.projection()));
-  result.copy_from(grid);
   bool no_outliers = false;
   int iter_count = 0;
   while (!no_outliers) {
@@ -64,14 +68,13 @@ GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_trac
     for (size_t i = 0; i < grid.height(); i++) {
       for (size_t j = 0; j < grid.width(); j++) {
         if (i == 0 || j == 0 || i == grid.height() - 1 || j == grid.width() - 1) {
-          result[{j, i}] = grid[{j, i}];
           continue;
         }
-        T z = result[{j, i}];
-        double max_neighbour = std::max({0.5 * (result[{j - 1, i}] + result[{j + 1, i}]),
-                                         0.5 * (result[{j, i - 1}] + result[{j, i + 1}])});
-        double min_neighbour = std::min({0.5 * (result[{j - 1, i}] + result[{j + 1, i}]),
-                                         0.5 * (result[{j, i - 1}] + result[{j, i + 1}])});
+        T z = grid[{j, i}];
+        double max_neighbour = std::max({0.5 * (grid[{j - 1, i}] + grid[{j + 1, i}]),
+                                         0.5 * (grid[{j, i - 1}] + grid[{j, i + 1}])});
+        double min_neighbour = std::min({0.5 * (grid[{j - 1, i}] + grid[{j + 1, i}]),
+                                         0.5 * (grid[{j, i - 1}] + grid[{j, i + 1}])});
         if (std::isnan(max_neighbour) || std::isnan(min_neighbour) ||
             !std::isfinite(max_neighbour) || !std::isfinite(min_neighbour) ||
             std::abs(max_neighbour) > 1e8 || std::abs(min_neighbour) > 1e8) {
@@ -80,18 +83,18 @@ GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_trac
         if (min_neighbour - z > z_threshold || z - max_neighbour > z_threshold) {
           if (!z_only) {
             double dist_x =
-                (2 * grid.dx() * (result[{j, i}] - result[{j + 1, i}]) -
-                 (result[{j + 1, i}] - result[{j - 1, i}]) * grid.dx()) /
-                std::sqrt(SQ(2 * grid.dx()) + SQ((result[{j + 1, i}] - result[{j - 1, i}])));
+                (2 * grid.dx() * (grid[{j, i}] - grid[{j + 1, i}]) -
+                 (grid[{j + 1, i}] - grid[{j - 1, i}]) * grid.dx()) /
+                std::sqrt(SQ(2 * grid.dx()) + SQ((grid[{j + 1, i}] - grid[{j - 1, i}])));
             double dist_y =
-                (2 * grid.dy() * (result[{j, i}] - result[{j, i + 1}]) -
-                 (result[{j, i + 1}] - result[{j, i - 1}]) * grid.dy()) /
-                std::sqrt(SQ(2 * grid.dy()) + SQ((result[{j, i + 1}] - result[{j, i - 1}])));
+                (2 * grid.dy() * (grid[{j, i}] - grid[{j, i + 1}]) -
+                 (grid[{j, i + 1}] - grid[{j, i - 1}]) * grid.dy()) /
+                std::sqrt(SQ(2 * grid.dy()) + SQ((grid[{j, i + 1}] - grid[{j, i - 1}])));
             if (std::abs(dist_x) < z_threshold || std::abs(dist_y) < z_threshold) {
               continue;
             }
           }
-          result[{j, i}] = (max_neighbour + min_neighbour) / 2;
+          grid[{j, i}] = (max_neighbour + min_neighbour) / 2;
           no_outliers = false;
           num_outliers++;
         }
@@ -101,22 +104,22 @@ GeoGrid<T> remove_outliers(const GeoGrid<T>& grid, ProgressTracker progress_trac
       std::cerr << "Removed " << num_outliers << " outliers with threshold " << z_threshold
                 << " on iteration " << iter_count << std::endl;
   }
-  return result;
 }
 
-bool has_value(double value) { return std::isfinite(value) && value < 1e6; }
+// Check if a value is valid (not a hole/missing data)
+// Holes are represented as NaN, infinity, or std::numeric_limits<double>::max() or -max()
+inline static bool has_value(double value) {
+  constexpr double max_val = std::numeric_limits<double>::max();
+  return std::isfinite(value) && value < max_val && value > -max_val;
+}
 
 template <typename T>
-GeoGrid<T> interpolate_holes(const GeoGrid<T>& grid, ProgressTracker progress_tracker) {
+void interpolate_holes(GeoGrid<T>& grid, ProgressTracker progress_tracker) {
   TimeFunction timer("interpolate holes", &progress_tracker);
-  GeoGrid<T> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                    GeoProjection(grid.projection()));
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
-      if (has_value(grid[{j, i}])) {
-        result[{j, i}] = grid[{j, i}];
-      } else {
+      if (!has_value(grid[{j, i}])) {
         std::map<Direction2D, std::optional<std::pair<size_t, T>>> neighbours;
         for (Direction2D dir :
              {Direction2D::UP, Direction2D::DOWN, Direction2D::LEFT, Direction2D::RIGHT}) {
@@ -136,14 +139,14 @@ GeoGrid<T> interpolate_holes(const GeoGrid<T>& grid, ProgressTracker progress_tr
             total_weight += 1.0 / neighbour.value().first;
           }
         }
-        result[{j, i}] = weighted_average / total_weight;
         if (total_weight == 0) {
-          result[{j, i}] = 0;
+          grid[{j, i}] = 0;
+        } else {
+          grid[{j, i}] = weighted_average / total_weight;
         }
       }
     }
   }
-  return result;
 }
 
 template <typename T>

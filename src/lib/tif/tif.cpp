@@ -7,6 +7,7 @@
 
 #include "assert/gdal_assert.hpp"
 #include "gdal_priv.h"
+#include "io/gdal_init.hpp"
 #include "isom/colors.hpp"
 #include "utilities/timer.hpp"
 
@@ -41,7 +42,7 @@ constexpr GDALDataType gdal_type() {
 Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename) {
   TimeFunction timer("reading tif " + filename.string());
   Assert(fs::exists(filename), "File " + filename.string() + " does not seem to exist");
-  GDALAllRegister();
+  ensure_gdal_initialized();
   GDALDataset* dataset = (GDALDataset*)GDALOpen(filename.string().c_str(), GA_ReadOnly);
   if (dataset == nullptr) {
     Fail("Could not open file " + filename.string());
@@ -70,7 +71,7 @@ template <typename GridT>
 void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
                   std::optional<ProgressTracker> progress_tracker) {
   TimeFunction timer("writing to tif " + filename.string(), progress_tracker);
-  GDALAllRegister();
+  ensure_gdal_initialized();
 
   char** options = nullptr;
   options = CSLSetNameValue(options, "COMPRESS", "LZW");

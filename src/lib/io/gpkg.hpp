@@ -2,16 +2,21 @@
 
 #include <ogrsf_frmts.h>
 
+#include "assert/assert.hpp"
 #include "assert/gdal_assert.hpp"
-#include "dxf/dxf.hpp"
+#include "contour/contour.hpp"
 #include "gdal_priv.h"
+#include "io/gdal_init.hpp"
+#include "polyline/polyline.hpp"
+#include "utilities/filesystem.hpp"
+#include "utilities/timer.hpp"
 
 class GDALDataset_w {
   GDALDataset* dataset;
 
  public:
   GDALDataset_w(const std::string& filename, const std::string& projection) {
-    GDALAllRegister();
+    ensure_gdal_initialized();
     GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GPKG");
     Assert(driver, "GeoPackage driver not available.");
 
@@ -33,12 +38,20 @@ class GPKGWriter {
   const std::string projection;
 
   std::vector<std::string> layer_names;
+  std::string default_layer_name;
 
  public:
-  GPKGWriter(const std::string& filename, const std::string& projection)
-      : dataset(filename, projection), projection(projection) {}
+  GPKGWriter(const std::string& filename, const std::string& projection,
+             const std::string& default_layer = "default")
+      : dataset(filename, projection), projection(projection), default_layer_name(default_layer) {
+    // Create default layer immediately if projection is valid, so the GPKG file is always valid
+    if (!projection.empty()) {
+      add_layer(default_layer_name);
+    }
+  }
 
   void add_layer(const std::string& layer_name) {
+    Assert(!projection.empty(), "Projection must not be empty when creating GPKG layer");
     OGRSpatialReference srs;
     // Import projection from WKT string (supports both geographic and projected CRS)
     GDALAssert(srs.importFromWkt(projection.c_str()));
@@ -102,3 +115,63 @@ class GPKGWriter {
     OGRFeature::DestroyFeature(feature);
   }
 };
+
+inline std::vector<Contour> read_gpkg(const fs::path& filename) {
+  TimeFunction timer("reading GPKG " + filename.string());
+  std::vector<Contour> contours;
+
+  ensure_gdal_initialized();
+  GDALDataset* dataset = (GDALDataset*)GDALOpenEx(filename.string().c_str(), GDAL_OF_VECTOR,
+                                                  nullptr, nullptr, nullptr);
+  if (!dataset) {
+    Fail("Failed to open GPKG file for reading: " + filename.string());
+  }
+
+  int layer_count = dataset->GetLayerCount();
+  for (int i = 0; i < layer_count; i++) {
+    OGRLayer* layer = dataset->GetLayer(i);
+    if (!layer) continue;
+
+    OGRFeature* feature;
+    layer->ResetReading();
+    while ((feature = layer->GetNextFeature()) != nullptr) {
+      OGRGeometry* geometry = feature->GetGeometryRef();
+      if (!geometry || wkbFlatten(geometry->getGeometryType()) != wkbLineString) {
+        OGRFeature::DestroyFeature(feature);
+        continue;
+      }
+
+      OGRLineString* line = (OGRLineString*)geometry;
+      std::vector<Coordinate2D<double>> vertices;
+      for (int j = 0; j < line->getNumPoints(); j++) {
+        vertices.emplace_back(line->getX(j), line->getY(j));
+      }
+
+      // Try to get elevation from the "elevation" field, otherwise from "name" field
+      double height = 0.0;
+      int elevation_idx = feature->GetFieldIndex("elevation");
+      if (elevation_idx >= 0) {
+        height = feature->GetFieldAsDouble(elevation_idx);
+      } else {
+        int name_idx = feature->GetFieldIndex("name");
+        if (name_idx >= 0) {
+          const char* name = feature->GetFieldAsString(name_idx);
+          try {
+            height = std::stod(name);
+          } catch (...) {
+            // If name can't be parsed as double, use 0.0
+          }
+        }
+      }
+
+      if (vertices.size() > 1) {
+        contours.emplace_back(Contour(height, std::move(vertices)));
+      }
+
+      OGRFeature::DestroyFeature(feature);
+    }
+  }
+
+  GDALClose(dataset);
+  return contours;
+}

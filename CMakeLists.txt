@@ -127,7 +127,7 @@ add_compile_definitions(GIT_COMMIT_HASH="${GIT_COMMIT_HASH}")
 
 if(BLAZE_USE_PDAL)
   add_compile_definitions(USE_PDAL)
-  find_package(PDAL REQUIRED)
+  find_package(PDAL REQUIRED CONFIG)
 endif()
 find_package(GDAL REQUIRED)
 
@@ -265,13 +265,18 @@ include(GoogleTest)
 
 FetchContent_Declare(
   nlohmann_json
-  URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG v3.11.3)
 FetchContent_MakeAvailable(nlohmann_json)
 
 foreach(target ${ALL_TARGETS})
   if(BLAZE_USE_PDAL)
-    target_link_libraries(${target} PRIVATE pdal_base pdal_util pdal_cpp)
+    # PDAL CONFIG mode provides PDAL_LIBRARIES, PDAL_INCLUDE_DIRS, etc.
+    target_link_libraries(${target} PRIVATE ${PDAL_LIBRARIES})
     target_include_directories(${target} PRIVATE ${PDAL_INCLUDE_DIRS})
+    if(PDAL_DEFINITIONS)
+      target_compile_definitions(${target} PRIVATE ${PDAL_DEFINITIONS})
+    endif()
   endif()
   target_link_libraries(
     ${target} PRIVATE GDAL::GDAL OpenMP::OpenMP_CXX
@@ -290,6 +295,13 @@ endforeach()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOpenMPDLL.cmake)
 find_openmp_dll(${LIBRARY_NAME})
 
+# Find and copy GDAL and OpenCV DLLs for Windows builds without vcpkg. Copy to
+# all executables to ensure DLLs are available when tests run.
+if(WIN32 AND NOT BLAZE_USE_VCPKG)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindDependencyDLLs.cmake)
+  find_and_copy_dependency_dlls(${ALL_EXECUTABLES})
+endif()
+
 # Find and copy PROJ data files to build output directory PROJ automatically
 # searches ../share/proj/ relative to the binary Attach to the library so it
 # runs once when the lib is built; all executables link the lib and use the same
@@ -300,10 +312,12 @@ find_proj_data(${LIBRARY_NAME})
 target_include_directories(${UNIT_TESTS_NAME}
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
 target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
-add_test(NAME ${UNIT_TESTS_NAME} COMMAND ${UNIT_TESTS_NAME})
 
 add_subdirectory(src)
 
+# Discover and register all individual Google Test cases This replaces the need
+# for add_test() - gtest_discover_tests() automatically registers each TEST()
+# and TEST_F() as a separate ctest target
 gtest_discover_tests(${UNIT_TESTS_NAME})
 
 include(GNUInstallDirs)
@@ -412,6 +426,9 @@ set(CPACK_PACKAGE_EXECUTABLES "bin/Blaze" "Blaze" "bin/Blaze3D" "Blaze3D"
 # set(CPACK_NSIS_MODIFY_PATH "ON")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
 set(CPACK_NSIS_DISPLAY_NAME "Blaze")
+# Use a fixed registry key (not version-specific) so uninstall-before-install
+# works across versions
+set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://Trailblaze-Software.github.io/Blaze/")
 set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze" "bin/Blaze3D.exe" "Blaze3D")
 set(CPACK_NSIS_MUI_ICON "${CPACK_NSIS_MUI_ICON}")

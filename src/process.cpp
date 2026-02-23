@@ -2,9 +2,10 @@
 
 #include "cliff/cliff.hpp"
 #include "contour/contour_gen.hpp"
-#include "dxf/dxf.hpp"
+#include "crt/crt.hpp"
 #include "grid/grid_ops.hpp"
 #include "grid/img_grid.hpp"
+#include "io/gpkg.hpp"
 #include "isom/colors.hpp"
 #include "las/las_file.hpp"
 #include "las/las_point.hpp"
@@ -16,8 +17,6 @@
 #include "utilities/progress_tracker.hpp"
 
 constexpr bool OUT_LAS = false;
-
-size_t round_up(double x) { return std::ceil(1e-6 + std::abs(x)); }
 
 enum class GroundMethod { LOWER_BOUND, LOWEST_POINT, INTERPOLATE };
 
@@ -74,8 +73,10 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                       ProgressTracker progress_tracker) {
   double bin_resolution = config.grid.bin_resolution;
   GeoGrid<std::vector<LASPoint>> binned_points(
-      round_up(las_file.width() / bin_resolution + config.grid.downsample_factor),
-      round_up(las_file.height() / bin_resolution + config.grid.downsample_factor),
+      num_cells_by_distance(las_file.width() + config.grid.downsample_factor * bin_resolution,
+                            bin_resolution),
+      num_cells_by_distance(las_file.height() + config.grid.downsample_factor * bin_resolution,
+                            bin_resolution),
       GeoTransform(las_file.top_left().round_NW(bin_resolution * config.grid.downsample_factor),
                    bin_resolution),
       GeoProjection(las_file.projection()));
@@ -170,9 +171,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   write_to_tif(ground_intensity_img.slice(las_file.export_bounds()),
                output_dir / "ground_intensity.tif", progress_tracker.subtracker(0.62, 0.63));
 
-  ground = remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64),
-                           config.ground.outlier_removal_height_diff);
-  ground = interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
+  remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64),
+                  config.ground.outlier_removal_height_diff);
+  interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
 
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
                progress_tracker.subtracker(0.65, 0.66));
@@ -186,9 +187,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
       downsample(ground, config.grid.downsample_factor, progress_tracker.subtracker(0.69, 0.7)));
-  GeoGrid<double> smooth_ground =
-      remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
-                      config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
+  remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
+                  config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
+  GeoGrid<double> smooth_ground = *downsampled_ground;
   if (OUT_LAS)
     LASData(*downsampled_ground).write(output_dir / "smooth_ground_no_outlier_removal.las");
   downsampled_ground.reset();
@@ -222,8 +223,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   double contour_points_resolution = 20;
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
-      round_up(smooth_ground.width_m() / contour_points_resolution) + 1,
-      round_up(smooth_ground.height_m() / contour_points_resolution) + 1,
+      num_cells_by_distance(smooth_ground.width_m(), contour_points_resolution) + 1,
+      num_cells_by_distance(smooth_ground.height_m(), contour_points_resolution) + 1,
       GeoTransform(smooth_ground.transform().pixel_to_projection({0, 0}),
                    contour_points_resolution),
       GeoProjection(las_file.projection()));
@@ -258,13 +259,57 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   }
 
   const std::vector<Contour> trimmed_contours = trim_contours(contours, las_file.original_bounds());
-  write_to_dxf(contours, output_dir / "contours.dxf", config.contours);
 
-  write_to_dxf(trimmed_contours, output_dir / "trimmed_contours.dxf", config.contours);
-  // crt name must match dxf name
+  {
+    std::vector<Contour> oriented_contours = contours;
+#pragma omp parallel for
+    for (size_t i = 0; i < oriented_contours.size(); i++) {
+      oriented_contours[i].orient_consistent(smooth_ground);
+    }
+
+    // Write contours to GPKG (always create file, even if empty)
+    GPKGWriter writer((output_dir / "contours.gpkg").string(), las_file.projection().to_string(),
+                      "Contour");
+    for (const Contour& contour : oriented_contours) {
+      if (contour.points().size() > 1) {
+        writer.write_polyline(contour.to_polyline(config.contours),
+                              {{"elevation", contour.height()}});
+      }
+    }
+  }
+
+  // Write trimmed contours to GPKG
+  {
+    std::vector<Contour> oriented_trimmed_contours = trimmed_contours;
+#pragma omp parallel for
+    for (size_t i = 0; i < oriented_trimmed_contours.size(); i++) {
+      oriented_trimmed_contours[i].orient_consistent(smooth_ground);
+    }
+
+    // Write trimmed contours to GPKG (always create file, even if empty)
+    GPKGWriter writer((output_dir / "trimmed_contours.gpkg").string(),
+                      las_file.projection().to_string(), "Contour");
+    for (const Contour& contour : oriented_trimmed_contours) {
+      if (contour.points().size() > 1) {
+        writer.write_polyline(contour.to_polyline(config.contours),
+                              {{"elevation", contour.height()}});
+      }
+    }
+  }
+  // crt name must match gpkg name (keeping for compatibility)
   write_to_crt(output_dir / "contours.crt");
 
-  write_to_dxf(stream_path, output_dir / "streams.dxf", "streams");
+  // Write streams to GPKG
+  {
+    GPKGWriter writer((output_dir / "streams.gpkg").string(), las_file.projection().to_string(),
+                      "streams");
+    for (const Stream& stream : stream_path) {
+      writer.write_polyline(Polyline{.layer = "streams",
+                                     .name = std::to_string(stream.catchment),
+                                     .vertices = stream.coords},
+                            {{"catchment", stream.catchment}});
+    }
+  }
 
   // VEGE
   std::map<std::string, GeoGrid<float>> vege_maps;
@@ -320,8 +365,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   constexpr double INCHES_PER_METER = 39.3701;
   double render_pixel_resolution = config.render.scale / config.render.dpi / INCHES_PER_METER;
   GeoImgGrid final_img(
-      round_up(ground.width() * ground.transform().dx() / render_pixel_resolution),
-      round_up(ground.height() * ground.transform().dy() / render_pixel_resolution),
+      num_cells_by_distance(ground.width() * ground.transform().dx(), render_pixel_resolution),
+      num_cells_by_distance(ground.height() * ground.transform().dy(), render_pixel_resolution),
       GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
       GeoProjection(vege_color.projection()));
 
