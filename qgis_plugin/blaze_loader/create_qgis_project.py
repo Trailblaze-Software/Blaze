@@ -19,6 +19,7 @@ Usage:
 import os
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 
@@ -603,15 +604,64 @@ def create_qgis_project(
             if os.environ.get("BLAZE_EXIT_AFTER_RUN") or parent_window is None:
                 merged_contours_path = default_path
             else:
-                from qgis.PyQt.QtWidgets import QFileDialog
-
-                merged_contours_path, _ = QFileDialog.getSaveFileName(
-                    parent_window,
-                    "Save Merged Contours As",
-                    default_path,
-                    "GeoPackage (*.gpkg);;All Files (*)",
+                from qgis.PyQt.QtWidgets import (
+                    QDialog,
+                    QFileDialog,
+                    QHBoxLayout,
+                    QLabel,
+                    QLineEdit,
+                    QPushButton,
+                    QVBoxLayout,
                 )
-                if not merged_contours_path:
+
+                # Create a dialog similar to the folder selection UI
+                contours_dialog = QDialog(parent_window)
+                contours_dialog.setWindowTitle("Merged Contours File")
+                contours_dialog.setMinimumWidth(500)
+
+                layout = QVBoxLayout(contours_dialog)
+
+                # Label
+                label = QLabel("Need to select where to save merged contour file:")
+                layout.addWidget(label)
+
+                # Path selection (similar to folder selection)
+                path_layout = QHBoxLayout()
+                path_label = QLabel("Path:")
+                path_edit = QLineEdit()
+                path_edit.setText(default_path)
+                browse_btn = QPushButton("Browse...")
+
+                def browse_contours_file():
+                    file_path, _ = QFileDialog.getSaveFileName(
+                        contours_dialog,
+                        "Save Merged Contours As",
+                        path_edit.text() or default_path,
+                        "GeoPackage (*.gpkg);;All Files (*)",
+                    )
+                    if file_path:
+                        path_edit.setText(file_path)
+
+                browse_btn.clicked.connect(browse_contours_file)
+
+                path_layout.addWidget(path_label)
+                path_layout.addWidget(path_edit)
+                path_layout.addWidget(browse_btn)
+                layout.addLayout(path_layout)
+
+                # Buttons
+                from qgis.PyQt.QtWidgets import QDialogButtonBox
+
+                button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+                button_box.accepted.connect(contours_dialog.accept)
+                button_box.rejected.connect(contours_dialog.reject)
+                layout.addWidget(button_box)
+
+                # Show dialog
+                if contours_dialog.exec_() == QDialog.Accepted:
+                    merged_contours_path = path_edit.text() or default_path
+                else:
+                    # User cancelled - use default
                     merged_contours_path = default_path
             layer = add_merged_gpkg_layer(contours_gpkg, "contours", vector_group, project_crs, merged_contours_path)
             if layer:
@@ -633,10 +683,6 @@ def create_qgis_project(
             for layer in layers:
                 # Apply QML style
                 qml_path = STYLES_DIR / "streams.qml"
-                log(f"Looking for streams.qml at: {qml_path}")
-                # Debug: log layer fields
-                field_names = [field.name() for field in layer.fields()]
-                log(f"  Streams layer fields: {field_names}")
                 if qml_path.exists():
                     log("  Found streams.qml, attempting to load...")
                     result = layer.loadNamedStyle(str(qml_path))
@@ -694,7 +740,6 @@ def create_qgis_project(
                 output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
                 output_dir.mkdir(parents=True, exist_ok=True)
                 # Make filename unique to allow multiple calls
-                import time
 
                 timestamp = int(time.time())
                 north_lines_path = output_dir / f"magnetic_north_lines_{timestamp}.gpkg"
@@ -715,8 +760,6 @@ def create_qgis_project(
                     except (AttributeError, TypeError):
                         continue
                 if layer_name in existing_names:
-                    import time
-
                     layer.setName(f"{layer_name} ({int(time.time())})")
                 markup_group.addLayer(layer)
     elif add_mag_north:
@@ -729,8 +772,6 @@ def create_qgis_project(
             output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
             output_dir.mkdir(parents=True, exist_ok=True)
             # Make filename unique to allow multiple calls
-            import time
-
             timestamp = int(time.time())
             controls_path = output_dir / f"controls_{timestamp}.gpkg"
         else:
@@ -749,8 +790,6 @@ def create_qgis_project(
                 except (AttributeError, TypeError):
                     continue
             if layer_name in existing_names:
-                import time
-
                 layer.setName(f"{layer_name} ({int(time.time())})")
 
     # Remove empty groups at the end (after all layers are added)
@@ -827,7 +866,6 @@ def create_qgis_project(
     else:
         log("Blaze layers added to current project")
 
-    # Log completion for debugging
     log("create_qgis_project() completed successfully")
     return True
 
@@ -1099,6 +1137,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         gpkg_path = Path(gpkg_output_path)
     else:
         gpkg_path = output_dir / "nsw_topo.gpkg"
+
     driver = ogr.GetDriverByName("GPKG")
     if driver is None:
         log("ERROR: GPKG driver not available!")
@@ -1113,10 +1152,14 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
             ds = driver.CreateDataSource(str(gpkg_path))
             gpkg_exists = False
         else:
-            log(f"Opened existing GPKG: {gpkg_path} (will append new features)")
+            log(f"Opened existing GPKG: {gpkg_path} (will append only new features)")
     else:
         ds = driver.CreateDataSource(str(gpkg_path))
         log(f"Created new GPKG: {gpkg_path}")
+
+    if ds is None:
+        log(f"ERROR: Could not create/open GPKG at {gpkg_path}")
+        return
 
     if ds is None:
         log(f"ERROR: Could not create/open GPKG at {gpkg_path}")
@@ -1201,12 +1244,6 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
             else:
                 log(f"{name}: {len(features)} features")
 
-            # Debug: log first feature for first layer
-            if idx == 0 and features:
-                first_feat = features[0]
-                log(f"First feature geometry type: {first_feat.get('geometry', {}).get('type')}")
-                log(f"First feature coords sample: {str(first_feat.get('geometry', {}).get('coordinates', []))[:100]}")
-
             if not features:
                 continue
 
@@ -1267,8 +1304,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                     if val is not None:
                         qgs_feat.setAttribute(i, val)
 
-                # Convert geometry (debug first feature)
-                geom_created = convert_geojson_geom(geom, transform_from_wgs84, debug=(idx == 0))
+                geom_created = convert_geojson_geom(geom, transform_from_wgs84)
                 if geom_created and not geom_created.isEmpty():
                     # Crop geometry to buffered extent (10km beyond original extent)
                     if geom_created.intersects(clip_rect):
@@ -1356,33 +1392,45 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                         ogr_layer.CreateField(fld)
 
             # Load existing features for duplicate checking
-            existing_features = {}
+            # Use attribute-based comparison, excluding auto-generated primary keys
+            exclude_fields = {"fid", "objectid", "ogc_fid", "rowid"}
+            existing_features = {}  # Key: (attrs tuple) -> (fid, geometry_wkt)
+
             if gpkg_exists:
                 layer_defn = ogr_layer.GetLayerDefn()
                 field_names = [layer_defn.GetFieldDefn(i).GetName() for i in range(layer_defn.GetFieldCount())]
                 ogr_layer.ResetReading()
                 for existing_feat in ogr_layer:
-                    # Create a key from attributes (matching field names from new features)
+                    existing_geom = existing_feat.GetGeometryRef()
+                    if not existing_geom:
+                        continue
+
+                    existing_geom_wkt = existing_geom.ExportToWkt()
+
+                    # Build attributes dict, excluding auto-generated keys
                     attrs_dict = {}
                     for field_name in [f.name() for f in fields]:
+                        # Skip FID and other auto-generated primary key fields
+                        if field_name.lower() in exclude_fields:
+                            continue
                         if field_name in field_names:
                             field_idx = layer_defn.GetFieldIndex(field_name)
                             if field_idx >= 0:
                                 attrs_dict[field_name] = existing_feat.GetField(field_name)
-                    # Create tuple key from attributes in same order as fields (normalize None values)
+
+                    # Create tuple key from attributes (only non-excluded fields)
                     attrs = tuple(
-                        attrs_dict.get(f.name()) if attrs_dict.get(f.name()) is not None else "" for f in fields
+                        attrs_dict.get(f.name()) if attrs_dict.get(f.name()) is not None else ""
+                        for f in fields
+                        if f.name().lower() not in exclude_fields
                     )
-                    existing_geom = existing_feat.GetGeometryRef()
-                    if existing_geom:
-                        existing_geom_wkt = existing_geom.ExportToWkt()
-                        # Store: (attributes, geometry_wkt) -> (feature_id, geometry)
-                        existing_features[attrs] = (existing_feat.GetFID(), existing_geom_wkt)
+                    existing_features[attrs] = (existing_feat.GetFID(), existing_geom_wkt)
                 ogr_layer.ResetReading()
                 log(f"  Loaded {len(existing_features)} existing features for duplicate checking")
 
-            # Helper function to check if geometries are the same (within tolerance)
+            # Helper function to check if geometries are the same
             def geometries_equal(geom1_wkt, geom2):
+                """Check if two geometries are equal."""
                 try:
                     geom1_ogr = ogr.CreateGeometryFromWkt(geom1_wkt)
                     geom2_ogr = ogr.CreateGeometryFromWkt(geom2.asWkt())
@@ -1420,10 +1468,17 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                 if not geom or geom.isEmpty():
                     continue
 
-                # Create attribute key (normalize None values for comparison)
-                attrs = tuple(qf.attribute(i) if qf.attribute(i) is not None else "" for i in range(len(fields)))
+                geom_wkt = geom.asWkt()
 
-                # Check for exact duplicate (same attributes and geometry)
+                # Build attribute key, excluding auto-generated primary keys
+                exclude_fields = {"fid", "objectid", "ogc_fid", "rowid"}
+                attrs = tuple(
+                    qf.attribute(i) if qf.attribute(i) is not None else ""
+                    for i, f in enumerate(fields)
+                    if f.name().lower() not in exclude_fields
+                )
+
+                # Check for duplicate (same attributes and geometry)
                 if attrs in existing_features:
                     existing_fid, existing_geom_wkt = existing_features[attrs]
                     if geometries_equal(existing_geom_wkt, geom):
@@ -1447,7 +1502,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
 
                 # New feature - add it
                 ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
-                ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+                ogr_geom = ogr.CreateGeometryFromWkt(geom_wkt)
                 ogr_feat.SetGeometry(ogr_geom)
                 for i, field in enumerate(fields):
                     val = qf.attribute(i)
@@ -1455,10 +1510,10 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                         ogr_feat.SetField(field.name(), val)
                 if ogr_layer.CreateFeature(ogr_feat) == ogr.OGRERR_NONE:
                     saved_count += 1
-                    # Add to cache (FID is set after CreateFeature)
+                    # Add to cache (attrs already computed above)
                     new_fid = ogr_feat.GetFID()
                     if new_fid >= 0:
-                        existing_features[attrs] = (new_fid, geom.asWkt())
+                        existing_features[attrs] = (new_fid, geom_wkt)
 
             log(f"Saved {name}: {saved_count} new, {merged_count} merged, {skipped_duplicates} duplicates skipped")
 
@@ -1565,20 +1620,15 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         log(f"WARNING: Could not open GPKG file: {gpkg_path}")
 
 
-def convert_geojson_geom(geom, transform, debug=False):
+def convert_geojson_geom(geom, transform):
     """Convert GeoJSON geometry to QgsGeometry, applying coordinate transform."""
     gtype = geom.get("type")
     coords = geom.get("coordinates", [])
-
-    if debug:
-        log(f"    Converting {gtype}: {str(coords)[:100]}...")
 
     try:
         if gtype == "Point":
             if len(coords) >= 2:
                 pt = transform.transform(QgsPointXY(coords[0], coords[1]))
-                if debug:
-                    log(f"    Transformed point: ({coords[0]}, {coords[1]}) -> ({pt.x()}, {pt.y()})")
                 return QgsGeometry.fromPointXY(pt)
         elif gtype == "MultiPoint":
             points = [transform.transform(QgsPointXY(c[0], c[1])) for c in coords if len(c) >= 2]
@@ -1586,8 +1636,6 @@ def convert_geojson_geom(geom, transform, debug=False):
                 return QgsGeometry.fromMultiPointXY(points)
         elif gtype == "LineString":
             points = [transform.transform(QgsPointXY(c[0], c[1])) for c in coords if len(c) >= 2]
-            if debug and points:
-                log(f"    First line point: {coords[0]} -> ({points[0].x()}, {points[0].y()})")
             if len(points) >= 2:
                 return QgsGeometry.fromPolylineXY(points)
         elif gtype == "MultiLineString":
@@ -1596,8 +1644,6 @@ def convert_geojson_geom(geom, transform, debug=False):
                 points = [transform.transform(QgsPointXY(c[0], c[1])) for c in line if len(c) >= 2]
                 if len(points) >= 2:
                     lines.append(points)
-            if debug and lines and lines[0]:
-                log(f"    First multiline point: -> ({lines[0][0].x()}, {lines[0][0].y()})")
             if lines:
                 return QgsGeometry.fromMultiPolylineXY(lines)
         elif gtype == "Polygon":
@@ -1781,25 +1827,112 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override, output_gpkg):
     merged_layer.updateExtents()
     log(f"  Merged {total_features} features from {len(layer_names)} layers")
 
-    # Save merged layer to disk as GeoPackage (permanent layer)
-    from qgis.core import QgsVectorFileWriter
+    # Save merged layer to disk as GeoPackage using OGR directly
+    # This avoids FID preservation issues with QgsVectorFileWriter
+    output_gpkg_path = Path(output_gpkg)
 
-    # output_gpkg is now passed in directly
-    # Create options object for GeoPackage format
-    options = QgsVectorFileWriter.SaveVectorOptions()
-    options.driverName = "GPKG"
-    options.fileEncoding = "UTF-8"
+    # Ensure output directory exists
+    output_gpkg_path.parent.mkdir(parents=True, exist_ok=True)
 
-    error = QgsVectorFileWriter.writeAsVectorFormatV2(
-        merged_layer, str(output_gpkg), QgsProject.instance().transformContext(), options
-    )
-    if error[0] != QgsVectorFileWriter.NoError:
-        log(f"Failed to save merged contours layer to GeoPackage: {error}")
-        # Fallback: add memory layer as before
+    # Delete output file if it exists
+    if output_gpkg_path.exists():
+        output_gpkg_path.unlink()
+
+    # Use OGR to write features directly, which auto-generates FIDs
+    driver = ogr.GetDriverByName("GPKG")
+    if not driver:
+        log("GPKG driver not available")
+        # Fallback: add memory layer
         QgsProject.instance().addMapLayer(merged_layer, False)
         group.addLayer(merged_layer)
         log(f"Added (temporary): {name}")
         return merged_layer
+
+    # Create datasource - try relative path first (like NSW topo code)
+    output_path_str = str(output_gpkg_path)
+    ds = driver.CreateDataSource(output_path_str)
+    if not ds:
+        # If file was created but datasource is None, try opening it in update mode
+        if output_gpkg_path.exists():
+            try:
+                # Try opening the existing file
+                ds = ogr.Open(output_path_str, 1)  # 1 = update mode
+                if not ds:
+                    # File might be corrupted, delete and try creating again
+                    output_gpkg_path.unlink()
+                    time.sleep(0.2)  # Longer pause to ensure filesystem sync
+                    # Try with absolute path
+                    abs_path = str(output_gpkg_path.resolve())
+                    ds = driver.CreateDataSource(abs_path)
+            except Exception:
+                pass
+
+        if not ds:
+            log(f"Failed to create GeoPackage: {output_gpkg_path}")
+            # Fallback: add memory layer
+            QgsProject.instance().addMapLayer(merged_layer, False)
+            group.addLayer(merged_layer)
+            log(f"Added (temporary): {name}")
+            return merged_layer
+
+    # Get geometry type
+    geom_type = merged_layer.geometryType()
+    ogr_geom_type_map = {
+        0: ogr.wkbPoint,
+        1: ogr.wkbLineString,
+        2: ogr.wkbPolygon,
+    }
+    ogr_geom_type = ogr_geom_type_map.get(geom_type, ogr.wkbLineString)
+
+    # Create layer
+    srs = ogr.SpatialReference()
+    crs = merged_layer.crs()
+    if crs.isValid() and crs.authid():
+        srs.ImportFromEPSG(int(crs.authid().split(":")[-1]))
+    else:
+        srs.ImportFromWkt(crs.toWkt())
+
+    ogr_layer = ds.CreateLayer(name, srs, ogr_geom_type)
+    if not ogr_layer:
+        log("Failed to create layer in GeoPackage")
+        ds = None
+        # Fallback: add memory layer
+        QgsProject.instance().addMapLayer(merged_layer, False)
+        group.addLayer(merged_layer)
+        log(f"Added (temporary): {name}")
+        return merged_layer
+
+    # Add fields
+    for field in merged_layer.fields():
+        field_defn = ogr.FieldDefn(field.name(), ogr.OFTString)
+        if field.type() == 2:  # QVariant.Int
+            field_defn.SetType(ogr.OFTInteger)
+        elif field.type() == 6:  # QVariant.Double
+            field_defn.SetType(ogr.OFTReal)
+        ogr_layer.CreateField(field_defn)
+
+    # Write features (FIDs will be auto-generated)
+    written_count = 0
+    for qgs_feat in merged_layer.getFeatures():
+        ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
+        geom = qgs_feat.geometry()
+        if geom and not geom.isEmpty():
+            ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+            if ogr_geom:
+                ogr_feat.SetGeometry(ogr_geom)
+        # Set attributes
+        for i, field in enumerate(merged_layer.fields()):
+            val = qgs_feat.attribute(i)
+            if val is not None:
+                ogr_feat.SetField(field.name(), str(val))
+
+        # CreateFeature will auto-generate FID
+        if ogr_layer.CreateFeature(ogr_feat) == ogr.OGRERR_NONE:
+            written_count += 1
+        ogr_feat = None
+
+    ds = None  # Close datasource
+    log(f"  Saved {written_count} features to {output_gpkg_path.name}")
 
     # Load the permanent layer
     permanent_layer = QgsVectorLayer(f"{output_gpkg}|layername={name}", name, "ogr")
@@ -1819,15 +1952,32 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override, output_gpkg):
 
 def add_gpkg_layers(gpkg_path, group, crs_override, root, apply_default_style=True):
     """Add all layers from a GeoPackage file. Returns list of added layers."""
-    ds = ogr.Open(str(gpkg_path))
-    if ds is None:
-        log(f"Could not open: {gpkg_path}")
+    gpkg_path_obj = Path(gpkg_path)
+    if not gpkg_path_obj.exists():
+        log(f"GeoPackage file does not exist: {gpkg_path}")
+        return []
+
+    if gpkg_path_obj.stat().st_size == 0:
+        log(f"GeoPackage file is empty: {gpkg_path}")
+        return []
+
+    try:
+        ds = ogr.Open(str(gpkg_path))
+        if ds is None:
+            log(f"Could not open GeoPackage (file may be corrupted or invalid format): {gpkg_path}")
+            return []
+    except (RuntimeError, Exception) as e:
+        log(f"Error opening GeoPackage (file may be corrupted, empty, or invalid): {gpkg_path} - {e}")
         return []
 
     layer_names = [ds.GetLayerByIndex(i).GetName() for i in range(ds.GetLayerCount())]
     ds = None
 
-    log(f"GPKG {gpkg_path.name}: {layer_names}")
+    if not layer_names:
+        log(f"GeoPackage has no layers: {gpkg_path}")
+        return []
+
+    log(f"GPKG {gpkg_path_obj.name}: {layer_names}")
 
     layers = []
     for layer_name in layer_names:
@@ -2021,8 +2171,6 @@ def main():
     # Use BLAZE_EXIT_AFTER_RUN environment variable to signal headless execution
     if os.environ.get("BLAZE_EXIT_AFTER_RUN"):
         log("Script completed. Exiting QGIS...")
-        import time
-
         time.sleep(0.5)  # Give a moment for any pending operations
 
         # Note: QgsApplication.exitQgis() cannot be called from within QGIS
@@ -2050,10 +2198,5 @@ def main():
 # When exec'd by the plugin, __name__ will be set to "create_qgis_project" (not "__main__")
 # When run with --code in headless mode, also execute main() directly
 if QgsApplication.instance() is not None:
-    # Log execution context for debugging
-    log(f"Script execution context: __name__={__name__}, BLAZE_EXIT_AFTER_RUN={os.environ.get('BLAZE_EXIT_AFTER_RUN')}")
     if __name__ == "__main__" or os.environ.get("BLAZE_EXIT_AFTER_RUN"):
-        log("Calling main()...")
         main()
-    else:
-        log("Skipping main() - not in execution context")
