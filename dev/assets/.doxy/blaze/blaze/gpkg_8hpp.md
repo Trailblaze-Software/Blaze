@@ -11,9 +11,14 @@
 
 
 * `#include <ogrsf_frmts.h>`
+* `#include "assert/assert.hpp"`
 * `#include "assert/gdal_assert.hpp"`
-* `#include "dxf/dxf.hpp"`
+* `#include "contour/contour.hpp"`
 * `#include "gdal_priv.h"`
+* `#include "io/gdal_init.hpp"`
+* `#include "polyline/polyline.hpp"`
+* `#include "utilities/filesystem.hpp"`
+* `#include "utilities/timer.hpp"`
 
 
 
@@ -57,6 +62,11 @@
 
 
 
+## Public Functions
+
+| Type | Name |
+| ---: | :--- |
+|  std::vector&lt; [**Contour**](classContour.md) &gt; | [**read\_gpkg**](#function-read_gpkg) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
 
 
 
@@ -85,6 +95,23 @@
 
 
 
+## Public Functions Documentation
+
+
+
+
+### function read\_gpkg 
+
+```C++
+inline std::vector< Contour > read_gpkg (
+    const fs::path & filename
+) 
+```
+
+
+
+
+<hr>
 
 ------------------------------
 The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp`

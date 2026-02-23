@@ -10,6 +10,9 @@
 
 
 
+* `#include <cmath>`
+* `#include <limits>`
+* `#include <stdexcept>`
 * `#include "config_input/config_input.hpp"`
 * `#include "las/las_file.hpp"`
 
@@ -53,6 +56,7 @@
 
 | Type | Name |
 | ---: | :--- |
+|  [**size\_t**](classCoordinate2D.md) | [**num\_cells\_by\_distance**](#function-num_cells_by_distance) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) dx) <br> |
 |  [**void**](classCoordinate2D.md) | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, [**const**](classCoordinate2D.md) fs::path & output\_dir, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
 |  [**void**](classCoordinate2D.md) | [**process\_las\_file**](#function-process_las_file) ([**const**](classCoordinate2D.md) fs::path & las\_file, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
 
@@ -85,6 +89,22 @@
 
 ## Public Functions Documentation
 
+
+
+
+### function num\_cells\_by\_distance 
+
+```C++
+inline size_t num_cells_by_distance (
+    double x,
+    double dx
+) 
+```
+
+
+
+
+<hr>
 
 
 

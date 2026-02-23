@@ -37,6 +37,7 @@
 | dir | [**gui**](dir_99d0482cf009f9d97a0877749b817f19.md) <br> |
 | dir | [**lib**](dir_c85d3e3c5052e9ad9ce18c6863244a25.md) <br> |
 | dir | [**methods**](dir_0525f968218f30056a0344f59b10bbbb.md) <br> |
+| dir | [**tests**](dir_d93a1d4020dea85bb71b237545b5e722.md) <br> |
 
 
 

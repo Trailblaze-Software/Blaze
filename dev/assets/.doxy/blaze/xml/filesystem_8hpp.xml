@@ -4,12 +4,15 @@
     <compoundname>filesystem.hpp</compoundname>
     <includedby refid="layer_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</includedby>
     <includedby refid="config__input_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp</includedby>
-    <includedby refid="dxf_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</includedby>
+    <includedby refid="crt_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/crt/crt.hpp</includedby>
+    <includedby refid="gpkg_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</includedby>
+    <includedby refid="test__gpkg_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_gpkg.cpp</includedby>
     <includedby refid="las__file_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</includedby>
     <includedby refid="tif_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</includedby>
     <includedby refid="resources_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.hpp</includedby>
     <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
     <includedby refid="run_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.hpp</includedby>
+    <includedby refid="test__e2e_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp</includedby>
     <invincdepgraph>
       <node id="3">
         <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
@@ -42,9 +45,9 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
       <node id="7">
@@ -54,20 +57,18 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
       <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
         <link refid="contour__gen_8hpp_source"/>
       </node>
-      <node id="9">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</label>
-        <link refid="dxf_8hpp_source"/>
-        <childnode refid="10" relation="include">
-        </childnode>
+      <node id="13">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/crt/crt.hpp</label>
+        <link refid="crt_8hpp_source"/>
       </node>
-      <node id="11">
+      <node id="9">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
         <link refid="img__grid_8hpp_source"/>
       </node>
@@ -80,7 +81,7 @@
         <link refid="las__file_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
       <node id="15">
@@ -94,7 +95,9 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
@@ -113,11 +116,11 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="11">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
         <link refid="vegetation_8hpp_source"/>
       </node>
-      <node id="13">
+      <node id="12">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>

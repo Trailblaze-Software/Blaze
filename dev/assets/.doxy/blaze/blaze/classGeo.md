@@ -18,7 +18,7 @@
 Inherits the following classes: GridT,  [GeoGridData](classGeoGridData.md)
 
 
-Inherited by the following classes: [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md)
+Inherited by the following classes: [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md)
 
 
 

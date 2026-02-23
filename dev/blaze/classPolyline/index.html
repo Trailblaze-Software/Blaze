@@ -787,28 +787,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#public-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Functions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-static-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Static Functions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#public-attributes-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -847,62 +825,6 @@
     <span class="md-ellipsis">
       
         variable vertices
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-functions-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Functions Documentation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Public Functions Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#function-write_to_dxf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function write_to_dxf
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-static-functions-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Static Functions Documentation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Public Static Functions Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#function-read_from_dxf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function read_from_dxf
       
     </span>
   </a>
@@ -959,36 +881,6 @@
 </tr>
 </tbody>
 </table>
-<h2 id="public-functions">Public Functions</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_dxf"><strong>write_to_dxf</strong></a> (std::ofstream &amp; dxfFile) const<br></td>
-</tr>
-</tbody>
-</table>
-<h2 id="public-static-functions">Public Static Functions</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><a href="./"><strong>Polyline</strong></a></td>
-<td style="text-align: left;"><a href="#function-read_from_dxf"><strong>read_from_dxf</strong></a> (std::ifstream &amp; dxfFile) <br></td>
-</tr>
-</tbody>
-</table>
 <h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
 <h3 id="variable-layer">variable layer</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Polyline</span><span class="o">::</span><span class="n">layer</span><span class="p">;</span>
@@ -1004,23 +896,9 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Coordinate2D</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Polyline</span><span class="o">::</span><span class="n">vertices</span><span class="p">;</span>
 </code></pre></div>
 <hr>
-<h2 id="public-functions-documentation">Public Functions Documentation</h2>
-<h3 id="function-write_to_dxf">function write_to_dxf</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Polyline</span><span class="o">::</span><span class="n">write_to_dxf</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">dxfFile</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
-</code></pre></div>
-<hr>
-<h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
-<h3 id="function-read_from_dxf">function read_from_dxf</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Polyline</span><span class="w"> </span><span class="n">Polyline</span><span class="o">::</span><span class="n">read_from_dxf</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">dxfFile</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
 
 <hr />
-<p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</code></p>
+<p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/lib/polyline/polyline.hpp</code></p>
 
 
 

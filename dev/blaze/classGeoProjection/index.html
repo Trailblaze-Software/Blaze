@@ -799,10 +799,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#function-geoprojection-12" class="md-nav__link">
+  <a href="#function-geoprojection-14" class="md-nav__link">
     <span class="md-ellipsis">
       
-        function GeoProjection [1/2]
+        function GeoProjection [1/4]
       
     </span>
   </a>
@@ -810,10 +810,54 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#function-geoprojection-22" class="md-nav__link">
+  <a href="#function-geoprojection-24" class="md-nav__link">
     <span class="md-ellipsis">
       
-        function GeoProjection [2/2]
+        function GeoProjection [2/4]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-geoprojection-34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function GeoProjection [3/4]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-geoprojection-44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function GeoProjection [4/4]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function operator=
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-operator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function operator=
       
     </span>
   </a>
@@ -869,11 +913,27 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-geoprojection-12"><strong>GeoProjection</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; projection) <br></td>
+<td style="text-align: left;"><a href="#function-geoprojection-14"><strong>GeoProjection</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; projection) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-geoprojection-22"><strong>GeoProjection</strong></a> () = default<br></td>
+<td style="text-align: left;"><a href="#function-geoprojection-24"><strong>GeoProjection</strong></a> () = default<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-geoprojection-34"><strong>GeoProjection</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="./"><strong>GeoProjection</strong></a> &amp; other) = default<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-geoprojection-44"><strong>GeoProjection</strong></a> (<a href="./"><strong>GeoProjection</strong></a> &amp;&amp; other) noexcept<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="./"><strong>GeoProjection</strong></a> &amp;</td>
+<td style="text-align: left;"><a href="#function-operator"><strong>operator=</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="./"><strong>GeoProjection</strong></a> &amp; other) = default<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="./"><strong>GeoProjection</strong></a> &amp;</td>
+<td style="text-align: left;"><a href="#function-operator_1"><strong>operator=</strong></a> (<a href="./"><strong>GeoProjection</strong></a> &amp;&amp; other) noexcept<br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp;</td>
@@ -882,20 +942,48 @@
 </tbody>
 </table>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
-<h3 id="function-geoprojection-12">function GeoProjection [1/2]</h3>
+<h3 id="function-geoprojection-14">function GeoProjection [1/4]</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">explicit</span><span class="w"> </span><span class="n">GeoProjection</span><span class="o">::</span><span class="n">GeoProjection</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
-<h3 id="function-geoprojection-22">function GeoProjection [2/2]</h3>
+<h3 id="function-geoprojection-24">function GeoProjection [2/4]</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">GeoProjection</span><span class="o">::</span><span class="n">GeoProjection</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span>
 </code></pre></div>
 <hr>
 
+<h3 id="function-geoprojection-34">function GeoProjection [3/4]</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">GeoProjection</span><span class="o">::</span><span class="n">GeoProjection</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoProjection</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-geoprojection-44">function GeoProjection [4/4]</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">GeoProjection</span><span class="o">::</span><span class="n">GeoProjection</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">GeoProjection</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">other</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-operator">function operator=</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">GeoProjection</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">GeoProjection</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoProjection</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-operator_1">function operator=</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">GeoProjection</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">GeoProjection</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">GeoProjection</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">other</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-to_string">function to_string</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">GeoProjection</span><span class="o">::</span><span class="n">to_string</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">GeoProjection</span><span class="o">::</span><span class="n">to_string</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 

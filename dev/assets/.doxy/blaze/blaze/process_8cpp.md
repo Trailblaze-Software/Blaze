@@ -13,9 +13,10 @@
 * `#include "process.hpp"`
 * `#include "cliff/cliff.hpp"`
 * `#include "contour/contour_gen.hpp"`
-* `#include "dxf/dxf.hpp"`
+* `#include "crt/crt.hpp"`
 * `#include "grid/grid_ops.hpp"`
 * `#include "grid/img_grid.hpp"`
+* `#include "io/gpkg.hpp"`
 * `#include "isom/colors.hpp"`
 * `#include "las/las_file.hpp"`
 * `#include "las/las_point.hpp"`
@@ -80,7 +81,6 @@
 |  [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**get\_pixel\_heights**](#function-get_pixel_heights) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & ground\_points, GroundMethod method=GroundMethod::LOWEST\_POINT) <br> |
 |  [**void**](classCoordinate2D.md) | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, [**const**](classCoordinate2D.md) fs::path & output\_dir, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
 |  [**void**](classCoordinate2D.md) | [**process\_las\_file**](#function-process_las_file) ([**const**](classCoordinate2D.md) fs::path & las\_filename, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**round\_up**](#function-round_up) ([**double**](classCoordinate2D.md) x) <br> |
 
 
 
@@ -205,21 +205,6 @@ void process_las_file (
     const fs::path & las_filename,
     const  Config & config,
     ProgressTracker progress_tracker
-) 
-```
-
-
-
-
-<hr>
-
-
-
-### function round\_up 
-
-```C++
-size_t round_up (
-    double x
 ) 
 ```
 

@@ -4,27 +4,15 @@
     <compoundname>forward_grid.hpp</compoundname>
     <includedby refid="water_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</includedby>
     <invincdepgraph>
-      <node id="3">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</label>
-        <link refid="dxf_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp</label>
         <link refid="forward__grid_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
-        <link refid="gpkg_8hpp_source"/>
-      </node>
       <node id="2">
         <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
         <link refid="water_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
       </node>
     </invincdepgraph>
     <sectiondef kind="typedef">

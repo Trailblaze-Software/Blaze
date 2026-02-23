@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTerrainTestParams" kind="struct" language="C++" prot="public">
+    <compoundname>TerrainTestParams</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTerrainTestParams_1a974d7c4a26ec56c4ba5c7fdff331bf58" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string TerrainTestParams::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>TerrainTestParams::name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" line="573" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainTestParams_1a76c1e15802080c47b0ce1cd93190a110" prot="public" static="no" mutable="no">
+        <type>std::function&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref>(<ref refid="classCoordinate2D" kindref="compound">double</ref>, <ref refid="classCoordinate2D" kindref="compound">double</ref>)&gt;</type>
+        <definition>std::function&lt;double(double, double)&gt; TerrainTestParams::height_function</definition>
+        <argsstring></argsstring>
+        <name>height_function</name>
+        <qualifiedname>TerrainTestParams::height_function</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" line="574" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainTestParams_1a285c1e693a0b2b88350b81222f307dba" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool TerrainTestParams::with_vegetation</definition>
+        <argsstring></argsstring>
+        <name>with_vegetation</name>
+        <qualifiedname>TerrainTestParams::with_vegetation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" line="575" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" bodystart="575" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainTestParams_1a94fa8f0315ce2c3fc516d87edc3c5fd0" prot="public" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool TerrainTestParams::expect_contours</definition>
+        <argsstring></argsstring>
+        <name>expect_contours</name>
+        <qualifiedname>TerrainTestParams::expect_contours</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" line="576" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" bodystart="576" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="structTerrainTestParams_1ab75bf8bd2e4f0fcd590407e30f4e309e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const TerrainTestParams &amp;params)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>TerrainTestParams::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structTerrainTestParams" kindref="compound">TerrainTestParams</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" line="578" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" bodystart="578" bodyend="581"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" line="572" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp" bodystart="572" bodyend="582"/>
+    <listofallmembers>
+      <member refid="structTerrainTestParams_1a94fa8f0315ce2c3fc516d87edc3c5fd0" prot="public" virt="non-virtual"><scope>TerrainTestParams</scope><name>expect_contours</name></member>
+      <member refid="structTerrainTestParams_1a76c1e15802080c47b0ce1cd93190a110" prot="public" virt="non-virtual"><scope>TerrainTestParams</scope><name>height_function</name></member>
+      <member refid="structTerrainTestParams_1a974d7c4a26ec56c4ba5c7fdff331bf58" prot="public" virt="non-virtual"><scope>TerrainTestParams</scope><name>name</name></member>
+      <member refid="structTerrainTestParams_1ab75bf8bd2e4f0fcd590407e30f4e309e" prot="public" virt="non-virtual"><scope>TerrainTestParams</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structTerrainTestParams_1a285c1e693a0b2b88350b81222f307dba" prot="public" virt="non-virtual"><scope>TerrainTestParams</scope><name>with_vegetation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

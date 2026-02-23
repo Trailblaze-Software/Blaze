@@ -23,20 +23,21 @@
 * **convert\_geo\_keys\_to\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
 * **copy\_from** ([**las\_file.hpp**](las__file_8hpp.md))
 * **catchment\_size** ([**water.cpp**](water_8cpp.md))
+* **create\_minimal\_test\_config** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **create\_synthetic\_las\_data** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **create\_synthetic\_las\_data\_ext** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 
 
 ## d
 
 * **deg2rad** ([**camera.hpp**](camera_8hpp.md))
-* **dxf\_entities** ([**dxf.hpp**](dxf_8hpp.md))
-* **dxf\_footer** ([**dxf.hpp**](dxf_8hpp.md))
-* **dxf\_header** ([**dxf.hpp**](dxf_8hpp.md))
 * **downsample** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **double\_to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
 
 
 ## e
 
+* **ensure\_gdal\_initialized** ([**gdal\_init.hpp**](gdal__init_8hpp.md))
 * **external\_border\_ranges** ([**las\_file.hpp**](las__file_8hpp.md))
 * **extract\_borders** ([**las\_file.hpp**](las__file_8hpp.md))
 
@@ -57,6 +58,7 @@
 * **get\_asset\_dir** ([**resources.cpp**](resources_8cpp.md))
 * **get\_local\_data\_dir** ([**resources.cpp**](resources_8cpp.md))
 * **get\_blocked\_proportion** ([**vegetation.hpp**](vegetation_8hpp.md))
+* **get\_wgs84\_wkt** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **get\_pixel\_heights** ([**process.cpp**](process_8cpp.md))
 
 
@@ -73,6 +75,7 @@
 * **interpolate\_value** ([**grid.cpp**](grid_8cpp.md), [**grid.hpp**](grid_8hpp.md))
 * **interpolate\_holes** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **identify\_sinks** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
+* **INSTANTIATE\_TEST\_SUITE\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 
 
 ## j
@@ -88,6 +91,11 @@
 ## m
 
 * **main** ([**main.cpp**](main_8cpp.md), [**main\_3d.cpp**](main__3d_8cpp.md), [**blaze.cpp**](blaze_8cpp.md), [**unit\_tests.cpp**](unit__tests_8cpp.md))
+
+
+## n
+
+* **num\_cells\_by\_distance** ([**process.hpp**](process_8hpp.md))
 
 
 ## o
@@ -106,12 +114,11 @@
 
 * **rad2deg** ([**camera.hpp**](camera_8hpp.md))
 * **round\_down** ([**contour.hpp**](contour_8hpp.md))
-* **read\_dxf** ([**dxf.hpp**](dxf_8hpp.md))
 * **remove\_outliers** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **read\_gpkg** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **round** ([**las\_file.hpp**](las__file_8hpp.md))
 * **read\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **run\_loop** ([**progress\_tracker\_helper.cpp**](progress__tracker__helper_8cpp.md), [**progress\_tracker.hpp**](progress__tracker_8hpp.md))
-* **round\_up** ([**process.cpp**](process_8cpp.md))
 * **run\_with\_config** ([**run.cpp**](run_8cpp.md), [**run.hpp**](run_8hpp.md))
 
 
@@ -127,11 +134,12 @@
 
 ## t
 
-* **TEST** ([**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md))
+* **TEST** ([**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
 * **trim\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
 * **to\_cmyk** ([**colors.hpp**](colors_8hpp.md))
 * **to\_rgb** ([**colors.hpp**](colors_8hpp.md))
 * **to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
+* **TEST\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 
 
 ## u
@@ -143,13 +151,13 @@
 ## v
 
 * **validated** ([**config\_editor.cpp**](config__editor_8cpp.md))
-* **vertex\_from\_dxf** ([**dxf.hpp**](dxf_8hpp.md))
+* **verify\_raw\_vegetation\_tif** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **verify\_vegetation\_tif** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 
 
 ## w
 
-* **write\_to\_crt** ([**dxf.hpp**](dxf_8hpp.md))
-* **write\_to\_dxf** ([**dxf.hpp**](dxf_8hpp.md))
+* **write\_to\_crt** ([**crt.hpp**](crt_8hpp.md))
 * **write\_to\_image\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **write\_to\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 

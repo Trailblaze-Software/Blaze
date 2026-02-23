@@ -26,8 +26,14 @@
 ## d
 
 * **dataset** ([**GDALDataset\_w**](classGDALDataset__w.md), [**GPKGWriter**](classGPKGWriter.md))
+* **default\_layer\_name** ([**GPKGWriter**](classGPKGWriter.md))
 * **downsample\_factor** ([**GridConfig**](structGridConfig.md))
 * **dpi** ([**RenderConfig**](structRenderConfig.md))
+
+
+## e
+
+* **expect\_contours** ([**TerrainTestParams**](structTerrainTestParams.md))
 
 
 ## g
@@ -40,6 +46,7 @@
 
 ## h
 
+* **height\_function** ([**TerrainTestParams**](structTerrainTestParams.md))
 * **height\_configs** ([**VegeConfig**](structVegeConfig.md))
 
 
@@ -137,7 +144,7 @@
 
 ## n
 
-* **name** ([**Polyline**](classPolyline.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
+* **name** ([**Polyline**](classPolyline.md), [**TerrainTestParams**](structTerrainTestParams.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 
 
 ## o
@@ -181,6 +188,7 @@
 
 * **water** ([**Config**](structConfig.md))
 * **width** ([**ContourConfig**](structContourConfig.md), [**WaterConfig**](structWaterConfig.md))
+* **with\_vegetation** ([**TerrainTestParams**](structTerrainTestParams.md))
 
 
 

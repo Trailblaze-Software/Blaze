@@ -26,7 +26,7 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
         LineCoord2D<size_t> line_coord = {coord, dir};
         if (contour_heights.in_bounds(line_coord)) {
           contour_heights[line_coord] = get_contour_heights(
-              grid[line_coord.start()], grid[line_coord.end()], contour_interval);
+              {grid[line_coord.start()], grid[line_coord.end()]}, contour_interval);
         }
       }
     }
@@ -37,16 +37,15 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
 inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist = 15.0) {
   const double max_dist2 = max_dist * max_dist;
 
-  // Describes one of the four ways to combine contours
+  // Only consider the two cases that allow joining without reversal:
+  // a.back ↔ b.front (append) and a.front ↔ b.back (prepend)
   struct JoiningOption {
-    bool use_front_a;
-    bool use_front_b;
+    bool use_front_a;  // true = prepend to a.front, false = append to a.back
+    bool use_front_b;  // true = b.front matches, false = b.back matches
   };
   static constexpr JoiningOption cases[] = {
-      {true, true},   // a.front  ↔ b.front
-      {false, true},  // a.back   ↔ b.front
-      {true, false},  // a.front  ↔ b.back
-      {false, false}  // a.back   ↔ b.back
+      {false, true},  // a.back   ↔ b.front (append b forward)
+      {true, false},  // a.front  ↔ b.back (prepend b forward)
   };
 
   bool did_any_join = true;
@@ -77,15 +76,17 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
       }
       if (best_idx >= 0) {
         auto& acc = next_round[best_idx].points();
-        // If we matched its FRONT, reverse so the join point is at back()
+        // Join without reversing: only two cases are considered
         if (best_case.use_front_a) {
-          std::reverse(acc.begin(), acc.end());
-        }
-        // Then append src either forward or reversed
-        if (best_case.use_front_b) {
-          acc.insert(acc.end(), b.begin(), b.end());
+          // a.front ↔ b.back: prepend b forward (skip duplicate join point b.back)
+          if (b.size() > 1) {
+            acc.insert(acc.begin(), b.begin(), b.end() - 1);
+          }
         } else {
-          acc.insert(acc.end(), b.rbegin(), b.rend());
+          // a.back ↔ b.front: append b forward (skip duplicate join point b.front)
+          if (b.size() > 1) {
+            acc.insert(acc.end(), b.begin() + 1, b.end());
+          }
         }
         did_any_join = true;
       } else {
@@ -158,10 +159,10 @@ inline GeoGrid<std::optional<std::byte>> generate_naive_contours(const GeoGrid<d
       double z_south = ground[{i + 1, j}];
       double z_west = ground[{i, j - 1}];
       double z_east = ground[{i, j + 1}];
-      bool is_countour = crosses_contour(z, z_north, contour_interval) ||
-                         crosses_contour(z, z_south, contour_interval) ||
-                         crosses_contour(z, z_west, contour_interval) ||
-                         crosses_contour(z, z_east, contour_interval);
+      bool is_countour = crosses_contour({z, z_north}, contour_interval) ||
+                         crosses_contour({z, z_south}, contour_interval) ||
+                         crosses_contour({z, z_west}, contour_interval) ||
+                         crosses_contour({z, z_east}, contour_interval);
       naive_countours[{i, j}] = is_countour ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
     }
   }

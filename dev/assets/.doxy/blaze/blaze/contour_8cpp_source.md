@@ -12,7 +12,7 @@
 
 #include <string>
 
-#include "dxf/dxf.hpp"
+#include "polyline/polyline.hpp"
 #include "utilities/coordinate.hpp"
 
 Polyline Contour::to_polyline(const ContourConfigs& configs) const {

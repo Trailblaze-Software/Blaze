@@ -8,9 +8,10 @@
     <includes refid="to__string_8hpp" local="yes">printing/to_string.hpp</includes>
     <includes refid="progress__tracker_8hpp" local="yes">progress_tracker.hpp</includes>
     <includedby refid="contour__gen_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</includedby>
-    <includedby refid="dxf_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</includedby>
+    <includedby refid="crt_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/crt/crt.hpp</includedby>
     <includedby refid="grid_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp</includedby>
     <includedby refid="grid__ops_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</includedby>
+    <includedby refid="gpkg_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</includedby>
     <includedby refid="las__file_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</includedby>
     <includedby refid="tif_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp</includedby>
     <includedby refid="vegetation_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</includedby>
@@ -95,54 +96,68 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="8">
+      <node id="10">
         <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
         <link refid="gl__widget_8hpp_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
-        <link refid="layer_8hpp_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
-        <link refid="layer__renderer_8hpp_source"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
       </node>
       <node id="9">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
         <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
         <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp</label>
+        <link refid="contour_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
         <link refid="contour__gen_8hpp_source"/>
       </node>
       <node id="3">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</label>
-        <link refid="dxf_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
-        <link refid="grid__ops_8hpp_source"/>
+        <label>/home/runner/work/Blaze/Blaze/src/lib/crt/crt.hpp</label>
+        <link refid="crt_8hpp_source"/>
       </node>
       <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
+        <link refid="img__grid_8hpp_source"/>
+      </node>
+      <node id="7">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
       </node>
-      <node id="6">
+      <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
         <link refid="las__file_8hpp_source"/>
-        <childnode refid="7" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -152,24 +167,26 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="14">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
         <link refid="vegetation_8hpp_source"/>
       </node>
-      <node id="13">
+      <node id="15">
         <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
         <link refid="hill__shade_8hpp_source"/>
       </node>
-      <node id="11">
+      <node id="13">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>

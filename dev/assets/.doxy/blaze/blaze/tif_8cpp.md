@@ -16,6 +16,7 @@
 * `#include <type_traits>`
 * `#include "assert/gdal_assert.hpp"`
 * `#include "gdal_priv.h"`
+* `#include "io/gdal_init.hpp"`
 * `#include "isom/colors.hpp"`
 * `#include "utilities/timer.hpp"`
 

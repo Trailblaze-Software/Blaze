@@ -50,35 +50,35 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="23">
+      <node id="22">
         <label>/home/runner/work/Blaze/Blaze/src/gui/camera.hpp</label>
         <link refid="camera_8hpp_source"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
-        <link refid="gl__widget_8hpp_source"/>
         <childnode refid="15" relation="include">
         </childnode>
       </node>
       <node id="13">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
-        <link refid="layer_8hpp_source"/>
+        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
+        <link refid="gl__widget_8hpp_source"/>
         <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="16">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
-        <link refid="layer__renderer_8hpp_source"/>
-        <childnode refid="14" relation="include">
+      <node id="12">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
       <node id="15">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
         <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
         <link refid="main__3d__window_8hpp_source"/>
       </node>
@@ -89,9 +89,11 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -111,18 +113,16 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
         <link refid="contour__gen_8hpp_source"/>
       </node>
-      <node id="9">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/dxf/dxf.hpp</label>
-        <link refid="dxf_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
+      <node id="26">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/crt/crt.hpp</label>
+        <link refid="crt_8hpp_source"/>
       </node>
       <node id="5">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</label>
@@ -131,22 +131,24 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
-        <link refid="grid__ops_8hpp_source"/>
       </node>
       <node id="10">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
         <link refid="img__grid_8hpp_source"/>
       </node>
@@ -154,20 +156,26 @@
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
       </node>
-      <node id="12">
+      <node id="11">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
         <link refid="las__file_8hpp_source"/>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-      </node>
-      <node id="21">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
-        <link refid="las__point_8hpp_source"/>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
+        <link refid="las__point_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/polyline/polyline.hpp</label>
+        <link refid="polyline_8hpp_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -178,32 +186,32 @@
         <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="17">
         <label>/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</label>
         <link refid="tif_8hpp_source"/>
       </node>
-      <node id="22">
+      <node id="21">
         <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
-        <childnode refid="23" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
@@ -213,32 +221,32 @@
         <link refid="timer_8hpp_source"/>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
       </node>
-      <node id="19">
+      <node id="18">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
         <link refid="vegetation_8hpp_source"/>
       </node>
-      <node id="20">
+      <node id="19">
         <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
         <link refid="hill__shade_8hpp_source"/>
       </node>
       <node id="24">
         <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
         <link refid="water_8hpp_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
       </node>
-      <node id="17">
+      <node id="16">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>

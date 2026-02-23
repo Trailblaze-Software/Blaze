@@ -786,6 +786,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#public-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-read_gpkg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function read_gpkg
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -811,9 +850,14 @@
 <p><a href="../gpkg_8hpp_source/">Go to the source code of this file</a></p>
 <ul>
 <li><code>#include &lt;ogrsf_frmts.h&gt;</code></li>
+<li><code>#include "assert/assert.hpp"</code></li>
 <li><code>#include "assert/gdal_assert.hpp"</code></li>
-<li><code>#include "dxf/dxf.hpp"</code></li>
+<li><code>#include "contour/contour.hpp"</code></li>
 <li><code>#include "gdal_priv.h"</code></li>
+<li><code>#include "io/gdal_init.hpp"</code></li>
+<li><code>#include "polyline/polyline.hpp"</code></li>
+<li><code>#include "utilities/filesystem.hpp"</code></li>
+<li><code>#include "utilities/timer.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -834,6 +878,29 @@
 </tr>
 </tbody>
 </table>
+<h2 id="public-functions">Public Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#function-read_gpkg"><strong>read_gpkg</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename) <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-read_gpkg">function read_gpkg</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Contour</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_gpkg</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <hr />
 <p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</code></p>
 

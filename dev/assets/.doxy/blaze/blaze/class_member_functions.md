@@ -63,6 +63,7 @@
 ## e
 
 * **Extent3D** ([**Extent3D**](structExtent3D.md))
+* **ensure\_initialized** ([**GDALInitializer**](classGDALInitializer.md))
 * **extent** ([**Geo**](classGeo.md), [**LASLayer**](classLASLayer.md), [**Layer**](classLayer.md))
 * **end** ([**LASData**](classLASData.md), [**LineCoord2D**](classLineCoord2D.md))
 * **extract\_borders** ([**LASData**](classLASData.md))
@@ -100,6 +101,7 @@
 * **grow** ([**Extent2D**](structExtent2D.md), [**Extent3D**](structExtent3D.md))
 * **get** ([**FlexGrid**](classFlexGrid.md))
 * **GDALDataset\_w** ([**GDALDataset\_w**](classGDALDataset__w.md))
+* **GDALInitializer** ([**GDALInitializer**](classGDALInitializer.md))
 * **GLWidget** ([**GLWidget**](classGLWidget.md))
 * **GPKGWriter** ([**GPKGWriter**](classGPKGWriter.md))
 * **Geo** ([**Geo**](classGeo.md))
@@ -197,12 +199,13 @@
 ## o
 
 * **operator bool** ([**BlazeBool**](structBlazeBool.md))
-* **operator=** ([**BlazeBool**](structBlazeBool.md), [**Color**](classColor.md), [**Config**](structConfig.md), [**ProgressTracker**](classProgressTracker.md))
+* **operator=** ([**BlazeBool**](structBlazeBool.md), [**Color**](classColor.md), [**Config**](structConfig.md), [**GDALInitializer**](classGDALInitializer.md), [**GeoProjection**](classGeoProjection.md), [**ProgressTracker**](classProgressTracker.md))
 * **operator\*** ([**CMYKColor**](classCMYKColor.md))
 * **operator+** ([**CMYKColor**](classCMYKColor.md), [**Coordinate2D**](classCoordinate2D.md))
 * **operator[]** ([**CMYKColor**](classCMYKColor.md), [**ContourConfigs**](structContourConfigs.md), [**FlexGrid**](classFlexGrid.md), [**Grid**](classGrid.md), [**GridGraph**](classGridGraph.md), [**LASData**](classLASData.md), [**MultiBand**](classMultiBand.md), [**RGBColor**](classRGBColor.md))
 * **output\_path** ([**Config**](structConfig.md))
 * **open\_output\_directory** ([**ConfigEditor**](classConfigEditor.md))
+* **orient\_consistent** ([**Contour**](classContour.md))
 * **offset\_to\_center** ([**Coordinate2D**](classCoordinate2D.md))
 * **operator Coordinate2D&lt; U &gt;** ([**Coordinate2D**](classCoordinate2D.md))
 * **operator-** ([**Coordinate2D**](classCoordinate2D.md), [**Extent3D**](structExtent3D.md))
@@ -255,7 +258,6 @@
 * **rot\_y** ([**GeoTransform**](classGeoTransform.md))
 * **read\_points** ([**LASData**](classLASData.md))
 * **render** ([**LASLayerRenderer**](classLASLayerRenderer.md), [**LayerRenderer**](classLayerRenderer.md))
-* **read\_from\_dxf** ([**Polyline**](classPolyline.md))
 * **RGBColor** ([**RGBColor**](classRGBColor.md))
 * **raise** ([**TaskException**](classTaskException.md))
 
@@ -268,6 +270,7 @@
 * **set\_next** ([**ContourPoint**](classContourPoint.md))
 * **set\_previous** ([**ContourPoint**](classContourPoint.md))
 * **slope** ([**ContourPoint**](classContourPoint.md))
+* **SetUpTestSuite** ([**E2ETerrainTest**](classE2ETerrainTest.md))
 * **sizeHint** ([**GLWidget**](classGLWidget.md))
 * **slice** ([**Geo**](classGeo.md))
 * **save\_to** ([**GeoImgGrid**](classGeoImgGrid.md), [**ImgGrid**](classImgGrid.md))
@@ -325,7 +328,6 @@
 * **width** ([**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**LASFile**](classLASFile.md), [**MultiBand**](classMultiBand.md))
 * **with\_border** ([**LASData**](classLASData.md))
 * **write** ([**LASData**](classLASData.md))
-* **write\_to\_dxf** ([**Polyline**](classPolyline.md))
 * **what** ([**TaskException**](classTaskException.md))
 
 

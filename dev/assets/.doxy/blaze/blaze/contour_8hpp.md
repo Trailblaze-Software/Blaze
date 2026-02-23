@@ -10,9 +10,13 @@
 
 
 
+* `#include <algorithm>`
 * `#include <cmath>`
+* `#include <limits>`
+* `#include <utility>`
 * `#include "config_input/config_input.hpp"`
 * `#include "grid/grid.hpp"`
+* `#include "grid/grid_ops.hpp"`
 * `#include "utilities/coordinate.hpp"`
 
 
@@ -60,8 +64,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**crosses\_contour**](#function-crosses_contour) (T h1, T h2, T contour\_interval) <br> |
-|  std::set&lt; T &gt; | [**get\_contour\_heights**](#function-get_contour_heights) (T h1, T h2, T contour\_interval) <br> |
+|  [**bool**](classCoordinate2D.md) | [**crosses\_contour**](#function-crosses_contour) (std::pair&lt; T, T &gt; hs, T contour\_interval) <br> |
+|  std::set&lt; T &gt; | [**get\_contour\_heights**](#function-get_contour_heights) (std::pair&lt; T, T &gt; hs, T contour\_interval) <br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; | [**interpolate\_coordinates**](#function-interpolate_coordinates) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & a, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & b, [**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & a\_val, [**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & b\_val, [**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & target) <br> |
 |  T | [**round\_down**](#function-round_down) (T val, T interval) <br> |
 
@@ -102,8 +106,7 @@
 ```C++
 template<typename T>
 inline bool crosses_contour (
-    T h1,
-    T h2,
+    std::pair< T, T > hs,
     T contour_interval
 ) 
 ```
@@ -120,8 +123,7 @@ inline bool crosses_contour (
 ```C++
 template<typename T>
 inline std::set< T > get_contour_heights (
-    T h1,
-    T h2,
+    std::pair< T, T > hs,
     T contour_interval
 ) 
 ```

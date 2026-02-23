@@ -1138,6 +1138,7 @@
 <h2 id="e">e</h2>
 <ul>
 <li><strong>Extent3D</strong> (<a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
+<li><strong>ensure_initialized</strong> (<a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>)</li>
 <li><strong>extent</strong> (<a href="../classGeo/"><strong>Geo</strong></a>, <a href="../classLASLayer/"><strong>LASLayer</strong></a>, <a href="../classLayer/"><strong>Layer</strong></a>)</li>
 <li><strong>end</strong> (<a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a>)</li>
 <li><strong>extract_borders</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
@@ -1173,6 +1174,7 @@
 <li><strong>grow</strong> (<a href="../structExtent2D/"><strong>Extent2D</strong></a>, <a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
 <li><strong>get</strong> (<a href="../classFlexGrid/"><strong>FlexGrid</strong></a>)</li>
 <li><strong>GDALDataset_w</strong> (<a href="../classGDALDataset__w/"><strong>GDALDataset_w</strong></a>)</li>
+<li><strong>GDALInitializer</strong> (<a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>)</li>
 <li><strong>GLWidget</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>GPKGWriter</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>Geo</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
@@ -1263,12 +1265,13 @@
 <h2 id="o">o</h2>
 <ul>
 <li><strong>operator bool</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>)</li>
-<li><strong>operator=</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>, <a href="../classColor/"><strong>Color</strong></a>, <a href="../structConfig/"><strong>Config</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>)</li>
+<li><strong>operator=</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>, <a href="../classColor/"><strong>Color</strong></a>, <a href="../structConfig/"><strong>Config</strong></a>, <a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>)</li>
 <li><strong>operator*</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>)</li>
 <li><strong>operator+</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
 <li><strong>operator[]</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>, <a href="../classFlexGrid/"><strong>FlexGrid</strong></a>, <a href="../classGrid/"><strong>Grid</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>, <a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>output_path</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>open_output_directory</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>orient_consistent</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
 <li><strong>offset_to_center</strong> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
 <li><strong>operator Coordinate2D&lt; U &gt;</strong> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
 <li><strong>operator-</strong> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>, <a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
@@ -1319,7 +1322,6 @@
 <li><strong>rot_y</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
 <li><strong>read_points</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>render</strong> (<a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>, <a href="../classLayerRenderer/"><strong>LayerRenderer</strong></a>)</li>
-<li><strong>read_from_dxf</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>)</li>
 <li><strong>RGBColor</strong> (<a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>raise</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
 </ul>
@@ -1331,6 +1333,7 @@
 <li><strong>set_next</strong> (<a href="../classContourPoint/"><strong>ContourPoint</strong></a>)</li>
 <li><strong>set_previous</strong> (<a href="../classContourPoint/"><strong>ContourPoint</strong></a>)</li>
 <li><strong>slope</strong> (<a href="../classContourPoint/"><strong>ContourPoint</strong></a>)</li>
+<li><strong>SetUpTestSuite</strong> (<a href="../classE2ETerrainTest/"><strong>E2ETerrainTest</strong></a>)</li>
 <li><strong>sizeHint</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>slice</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
 <li><strong>save_to</strong> (<a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a>, <a href="../classImgGrid/"><strong>ImgGrid</strong></a>)</li>
@@ -1384,7 +1387,6 @@
 <li><strong>width</strong> (<a href="../classGridData/"><strong>GridData</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classLASFile/"><strong>LASFile</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>)</li>
 <li><strong>with_border</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>write</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
-<li><strong>write_to_dxf</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>)</li>
 <li><strong>what</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
 </ul>
 <h2 id="x">x</h2>

@@ -66,11 +66,15 @@
 | ---: | :--- |
 |  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**bool\_grid**](#function-bool_grid) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, T threshold) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; T &gt; | [**downsample**](#function-downsample) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**size\_t**](classCoordinate2D.md) factor, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, DownsampleMethod method=DownsampleMethod::MEDIAN) <br> |
+|  [**void**](classCoordinate2D.md) | [**interpolate\_holes**](#function-interpolate_holes) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|  [**void**](classCoordinate2D.md) | [**remove\_outliers**](#function-remove_outliers) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**double**](classCoordinate2D.md) z\_threshold=1, [**bool**](classCoordinate2D.md) z\_only=[**false**](classCoordinate2D.md)) <br> |
+
+
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
 |  [**bool**](classCoordinate2D.md) | [**has\_value**](#function-has_value) ([**double**](classCoordinate2D.md) value) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; T &gt; | [**interpolate\_holes**](#function-interpolate_holes) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; T &gt; | [**remove\_outliers**](#function-remove_outliers) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**double**](classCoordinate2D.md) z\_threshold=1, [**bool**](classCoordinate2D.md) z\_only=[**false**](classCoordinate2D.md)) <br> |
-
-
 
 
 
@@ -161,27 +165,12 @@ GeoGrid < T > downsample (
 
 
 
-### function has\_value 
-
-```C++
-bool has_value (
-    double value
-) 
-```
-
-
-
-
-<hr>
-
-
-
 ### function interpolate\_holes 
 
 ```C++
 template<typename T>
-GeoGrid < T > interpolate_holes (
-    const  GeoGrid < T > & grid,
+void interpolate_holes (
+    GeoGrid < T > & grid,
     ProgressTracker progress_tracker
 ) 
 ```
@@ -197,11 +186,28 @@ GeoGrid < T > interpolate_holes (
 
 ```C++
 template<typename T>
-GeoGrid < T > remove_outliers (
-    const  GeoGrid < T > & grid,
+void remove_outliers (
+    GeoGrid < T > & grid,
     ProgressTracker progress_tracker,
     double z_threshold=1,
     bool z_only=false
+) 
+```
+
+
+
+
+<hr>
+## Public Static Functions Documentation
+
+
+
+
+### function has\_value 
+
+```C++
+static inline bool has_value (
+    double value
 ) 
 ```
 

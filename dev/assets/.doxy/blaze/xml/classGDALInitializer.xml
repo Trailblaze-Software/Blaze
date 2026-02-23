@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGDALInitializer" kind="class" language="C++" prot="public">
+    <compoundname>GDALInitializer</compoundname>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classGDALInitializer_1a6a740fa8824daa7663edf564c592856e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>static void GDALInitializer::ensure_initialized</definition>
+        <argsstring>()</argsstring>
+        <name>ensure_initialized</name>
+        <qualifiedname>GDALInitializer::ensure_initialized</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" line="8" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" bodystart="8" bodyend="11"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGDALInitializer_1aa4561eda5c26e586f3088cee119321ac" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GDALInitializer::GDALInitializer</definition>
+        <argsstring>()</argsstring>
+        <name>GDALInitializer</name>
+        <qualifiedname>GDALInitializer::GDALInitializer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" line="14" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classGDALInitializer_1aba6a929b0c0a6c7a125331b7ca2b6b4c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GDALInitializer::GDALInitializer</definition>
+        <argsstring>(const GDALInitializer &amp;)=delete</argsstring>
+        <name>GDALInitializer</name>
+        <qualifiedname>GDALInitializer::GDALInitializer</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" line="16" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classGDALInitializer_1acbf30d082541364a21f218db6844e264" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref> &amp;</type>
+        <definition>GDALInitializer &amp; GDALInitializer::operator=</definition>
+        <argsstring>(const GDALInitializer &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>GDALInitializer::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" line="17" column="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" line="6" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" bodystart="6" bodyend="18"/>
+    <listofallmembers>
+      <member refid="classGDALInitializer_1a6a740fa8824daa7663edf564c592856e" prot="public" virt="non-virtual"><scope>GDALInitializer</scope><name>ensure_initialized</name></member>
+      <member refid="classGDALInitializer_1aa4561eda5c26e586f3088cee119321ac" prot="private" virt="non-virtual"><scope>GDALInitializer</scope><name>GDALInitializer</name></member>
+      <member refid="classGDALInitializer_1aba6a929b0c0a6c7a125331b7ca2b6b4c" prot="private" virt="non-virtual"><scope>GDALInitializer</scope><name>GDALInitializer</name></member>
+      <member refid="classGDALInitializer_1acbf30d082541364a21f218db6844e264" prot="private" virt="non-virtual"><scope>GDALInitializer</scope><name>operator=</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

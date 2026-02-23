@@ -54,6 +54,7 @@
 |   | [**Contour**](#function-contour) ([**double**](classCoordinate2D.md) height, std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; && points) <br> |
 |  [**double**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
 |  [**bool**](classCoordinate2D.md) | [**is\_loop**](#function-is_loop) () const<br> |
+|  [**void**](classCoordinate2D.md) | [**orient\_consistent**](#function-orient_consistent) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & elevation\_grid) <br> |
 |  [**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & | [**points**](#function-points-12) () const<br> |
 |  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & | [**points**](#function-points-22) () <br> |
 |  [**void**](classCoordinate2D.md) | [**push\_back**](#function-push_back) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & point) <br> |
@@ -130,6 +131,21 @@ inline double Contour::height () const
 
 ```C++
 inline bool Contour::is_loop () const
+```
+
+
+
+
+<hr>
+
+
+
+### function orient\_consistent 
+
+```C++
+inline void Contour::orient_consistent (
+    const  GeoGrid < double > & elevation_grid
+) 
 ```
 
 

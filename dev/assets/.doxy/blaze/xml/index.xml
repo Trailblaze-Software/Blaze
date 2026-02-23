@@ -239,6 +239,7 @@
     <member refid="classContour_1aa214a82225a16b84c60231949539f4bc" kind="function"><name>points</name></member>
     <member refid="classContour_1a1d61e1c2afc7ef7560aad582c5d70bd0" kind="function"><name>push_back</name></member>
     <member refid="classContour_1ac0daca06e6fa1e61482f0282d862b725" kind="function"><name>is_loop</name></member>
+    <member refid="classContour_1afb7f1f96f8a9d5ed62fbc89095f26ffd" kind="function"><name>orient_consistent</name></member>
     <member refid="classContour_1a60c51b12c0e358082cbb160df5d303a6" kind="function"><name>from_polyline</name></member>
     <member refid="classContour_1a5908d79e10a67bf26d726ddff3db886c" kind="function"><name>FromGridGraph</name></member>
     <member refid="classContour_1a042897eafa7388e9cf5536ca1cb28677" kind="friend"><name>operator&lt;&lt;</name></member>
@@ -320,6 +321,9 @@
     <member refid="classDirection2D_1afe4f58d8ba7947ed1debdb8533c5bd1d" kind="function"><name>opposite</name></member>
     <member refid="classDirection2D_1af139244586fa7308b1586c22ebe6e257" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
+  <compound refid="classE2ETerrainTest" kind="class"><name>E2ETerrainTest</name>
+    <member refid="classE2ETerrainTest_1a034514538a2a4d74eec831e8d3fd55a7" kind="function"><name>SetUpTestSuite</name></member>
+  </compound>
   <compound refid="structExtent2D" kind="struct"><name>Extent2D</name>
     <member refid="structExtent2D_1a83c81963ab031f3761ca6c0ccbe753e3" kind="variable"><name>minx</name></member>
     <member refid="structExtent2D_1a594ad91bcf308ee192c1e3266d45d546" kind="variable"><name>maxx</name></member>
@@ -366,6 +370,12 @@
     <member refid="classGDALDataset__w_1aeda67cdeb110764571fe3343419071b2" kind="function"><name>operator-&gt;</name></member>
     <member refid="classGDALDataset__w_1a1ee8b558215d7dcf90e6caecdbae2b4d" kind="function"><name>~GDALDataset_w</name></member>
   </compound>
+  <compound refid="classGDALInitializer" kind="class"><name>GDALInitializer</name>
+    <member refid="classGDALInitializer_1a6a740fa8824daa7663edf564c592856e" kind="function"><name>ensure_initialized</name></member>
+    <member refid="classGDALInitializer_1aa4561eda5c26e586f3088cee119321ac" kind="function"><name>GDALInitializer</name></member>
+    <member refid="classGDALInitializer_1aba6a929b0c0a6c7a125331b7ca2b6b4c" kind="function"><name>GDALInitializer</name></member>
+    <member refid="classGDALInitializer_1acbf30d082541364a21f218db6844e264" kind="function"><name>operator=</name></member>
+  </compound>
   <compound refid="classGeo" kind="class"><name>Geo</name>
     <member refid="classGeo_1a7af51f6bbf7e090aeb8931dfc864cae0" kind="function"><name>Geo</name></member>
     <member refid="classGeo_1ad7b2eadfa2e906546466b2d06565cb5d" kind="function"><name>Geo</name></member>
@@ -400,6 +410,10 @@
     <member refid="classGeoProjection_1ae99d3f55ebcff5341cc13c2b1cc4eba1" kind="variable"><name>m_projection</name></member>
     <member refid="classGeoProjection_1aa85a8e65aa88b8a591ac2af2dba34cd1" kind="function"><name>GeoProjection</name></member>
     <member refid="classGeoProjection_1aac2946f5ee68b9162ad8f60a92c0170b" kind="function"><name>GeoProjection</name></member>
+    <member refid="classGeoProjection_1a4b278ab792fa98e0ab719bc2fc1a43ba" kind="function"><name>GeoProjection</name></member>
+    <member refid="classGeoProjection_1aa8e7c891cf41c5256f397bda567463c6" kind="function"><name>GeoProjection</name></member>
+    <member refid="classGeoProjection_1ad63e46c1ed8d14fa05ca20da881ae2f8" kind="function"><name>operator=</name></member>
+    <member refid="classGeoProjection_1a73df94607371680887d568ed7ab5240d" kind="function"><name>operator=</name></member>
     <member refid="classGeoProjection_1ae29c1baae6504e84b136ab8abda40bab" kind="function"><name>to_string</name></member>
   </compound>
   <compound refid="classGeoTransform" kind="class"><name>GeoTransform</name>
@@ -448,7 +462,8 @@
     <member refid="classGPKGWriter_1addee2fe849af34082d114bbde1fce13e" kind="variable"><name>dataset</name></member>
     <member refid="classGPKGWriter_1ac7a4767bf261dfefa4829925e8b6fd05" kind="variable"><name>projection</name></member>
     <member refid="classGPKGWriter_1a384e0f52871861a5e09123fd1ba67a21" kind="variable"><name>layer_names</name></member>
-    <member refid="classGPKGWriter_1ac906831b99f689d7af87424c09b5ad6b" kind="function"><name>GPKGWriter</name></member>
+    <member refid="classGPKGWriter_1a9d7318b5fff34f1be4373c2fac716996" kind="variable"><name>default_layer_name</name></member>
+    <member refid="classGPKGWriter_1a3916ea8f1068c5ccb2e1572626ffa7e9" kind="function"><name>GPKGWriter</name></member>
     <member refid="classGPKGWriter_1ae108baa2d42c9829b7939c1d65fca2d6" kind="function"><name>add_layer</name></member>
     <member refid="classGPKGWriter_1a56b666e0e36b6cf968041da263bcd0cc" kind="function"><name>write_polyline</name></member>
   </compound>
@@ -663,8 +678,6 @@
     <member refid="classPolyline_1a3b75b4e8a8e7bc96b4cf3d7e5df324b0" kind="variable"><name>layer</name></member>
     <member refid="classPolyline_1ad8087c97bb9fe5173fcdc8c3691ed216" kind="variable"><name>name</name></member>
     <member refid="classPolyline_1a5f29744ccbf77b1e8f30c2e83f029ac4" kind="variable"><name>vertices</name></member>
-    <member refid="classPolyline_1aa63a7e72f64e44b4c319003159fbb5be" kind="function"><name>write_to_dxf</name></member>
-    <member refid="classPolyline_1ab12768361db80cd238012bfa51ef110a" kind="function"><name>read_from_dxf</name></member>
   </compound>
   <compound refid="structPriorityPoint" kind="struct"><name>PriorityPoint</name>
     <member refid="structPriorityPoint_1aaa4b85d6737dc39d61b542abdd1f10c5" kind="variable"><name>priority</name></member>
@@ -757,7 +770,17 @@
     <member refid="classTaskException_1a0f7bec166e9c37ddcc45c9ae6056c57a" kind="function"><name>clone</name></member>
     <member refid="classTaskException_1a773c2d48ff6d590a8b72c028b9e13bf6" kind="function"><name>what</name></member>
   </compound>
+  <compound refid="structTerrainTestParams" kind="struct"><name>TerrainTestParams</name>
+    <member refid="structTerrainTestParams_1a974d7c4a26ec56c4ba5c7fdff331bf58" kind="variable"><name>name</name></member>
+    <member refid="structTerrainTestParams_1a76c1e15802080c47b0ce1cd93190a110" kind="variable"><name>height_function</name></member>
+    <member refid="structTerrainTestParams_1a285c1e693a0b2b88350b81222f307dba" kind="variable"><name>with_vegetation</name></member>
+    <member refid="structTerrainTestParams_1a94fa8f0315ce2c3fc516d87edc3c5fd0" kind="variable"><name>expect_contours</name></member>
+    <member refid="structTerrainTestParams_1ab75bf8bd2e4f0fcd590407e30f4e309e" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
   <compound refid="classTestGrid" kind="class"><name>TestGrid</name>
+    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
+    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
+    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
     <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
     <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
   </compound>
@@ -803,6 +826,8 @@
   </compound>
   <compound refid="namespacestd" kind="namespace"><name>std</name>
     <member refid="assert_8hpp_1ac74d79874476d138b67e2fac5c4e5fee" kind="typedef"><name>source_location</name></member>
+  </compound>
+  <compound refid="namespacetesting" kind="namespace"><name>testing</name>
   </compound>
   <compound refid="namespaceUi" kind="namespace"><name>Ui</name>
   </compound>
@@ -890,8 +915,8 @@
   </compound>
   <compound refid="contour_8hpp" kind="file"><name>contour.hpp</name>
     <member refid="contour_8hpp_1aedb4bb4f011c2d02b88ff975b8db6ff1" kind="function"><name>round_down</name></member>
-    <member refid="contour_8hpp_1a6b496a1a2bbc1722804625966ff233a2" kind="function"><name>crosses_contour</name></member>
-    <member refid="contour_8hpp_1a63f4e868dc0703a5c72c446a740b4a52" kind="function"><name>get_contour_heights</name></member>
+    <member refid="contour_8hpp_1a01cbf7e2529219bc0478606694d2ed85" kind="function"><name>crosses_contour</name></member>
+    <member refid="contour_8hpp_1a9ce6a27e9e403ad847db8d2491b3c6ba" kind="function"><name>get_contour_heights</name></member>
     <member refid="contour_8hpp_1a921d0c36b61bce0705fc88b57544ba02" kind="function"><name>interpolate_coordinates</name></member>
   </compound>
   <compound refid="contour__gen_8hpp" kind="file"><name>contour_gen.hpp</name>
@@ -905,16 +930,15 @@
     <member refid="test__contour__gen_8cpp_1a94297b526abc7db20aa032be5607395e" kind="function"><name>TEST</name></member>
     <member refid="test__contour__gen_8cpp_1a7cae2c3089ff273b5949d229460965c0" kind="function"><name>TEST</name></member>
   </compound>
-  <compound refid="dxf_8hpp" kind="file"><name>dxf.hpp</name>
-    <member refid="dxf_8hpp_1a4c7913763552f01afd457b2a145d7706" kind="function"><name>vertex_from_dxf</name></member>
-    <member refid="dxf_8hpp_1a800d8507273e0482c47438ce857e6794" kind="function"><name>dxf_header</name></member>
-    <member refid="dxf_8hpp_1a6e958d9e1513cc36f7a4c6b2271c9857" kind="function"><name>dxf_entities</name></member>
-    <member refid="dxf_8hpp_1a5d7c16b43f3ec0cd1098bd33df1501ab" kind="function"><name>dxf_footer</name></member>
-    <member refid="dxf_8hpp_1a3be5c3b9a046a66805009bb7d0ac7eaa" kind="function"><name>write_to_dxf</name></member>
-    <member refid="dxf_8hpp_1ac85d952b723dd0068e8ffed208c60edf" kind="function"><name>write_to_dxf</name></member>
-    <member refid="dxf_8hpp_1aba36d544847c9f91c1bb3872f12791a9" kind="function"><name>write_to_dxf</name></member>
-    <member refid="dxf_8hpp_1a95d784d364707079d421fccdd954b941" kind="function"><name>read_dxf</name></member>
-    <member refid="dxf_8hpp_1a951e58fe40c8f042cfc0f35543f9950c" kind="function"><name>write_to_crt</name></member>
+  <compound refid="test__contour__utils_8cpp" kind="file"><name>test_contour_utils.cpp</name>
+    <member refid="test__contour__utils_8cpp_1a60b268e9642519db3068af5c94ee975a" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__utils_8cpp_1a463f269cec2417b69a8367c22c6f0651" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__utils_8cpp_1abed7279944d6eb321b5fe833e3396b63" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__utils_8cpp_1af0a61f8bbb4e35f480a432fd86b81206" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__utils_8cpp_1a50f12fb4b18bea658495e6807c4bdb8a" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="crt_8hpp" kind="file"><name>crt.hpp</name>
+    <member refid="crt_8hpp_1a951e58fe40c8f042cfc0f35543f9950c" kind="function"><name>write_to_crt</name></member>
   </compound>
   <compound refid="forward__grid_8hpp" kind="file"><name>forward_grid.hpp</name>
     <member refid="forward__grid_8hpp_1a8b4c026d2d7ea26001f8f0cafb50c643" kind="typedef"><name>GeoGrid</name></member>
@@ -936,16 +960,38 @@
     <member refid="grid__ops_8hpp_1a0ebc441eb680c6faa28abc20d29cf371a4ea6d1161ea24d7599365f574aff6610" kind="enumvalue"><name>MEAN</name></member>
     <member refid="grid__ops_8hpp_1a0ebc441eb680c6faa28abc20d29cf371a8ab0c3a037e882577dec378985477074" kind="enumvalue"><name>MEDIAN</name></member>
     <member refid="grid__ops_8hpp_1a26e7806231a3cf87ecfb81975ba58d85" kind="function"><name>downsample</name></member>
-    <member refid="grid__ops_8hpp_1a7781aaa088b9ed878a3910e73cc9ecdb" kind="function"><name>remove_outliers</name></member>
-    <member refid="grid__ops_8hpp_1a1e5727821625ee5c9ec9714728ab4379" kind="function"><name>has_value</name></member>
-    <member refid="grid__ops_8hpp_1a9d5931ebe6419307bce52dec2875152b" kind="function"><name>interpolate_holes</name></member>
+    <member refid="grid__ops_8hpp_1afc0f7cb2e0d1e880c492c448e71c274a" kind="function"><name>remove_outliers</name></member>
+    <member refid="grid__ops_8hpp_1a6455af79550120f5019efc362c8261e2" kind="function"><name>has_value</name></member>
+    <member refid="grid__ops_8hpp_1abca5f983ad3c1452df7a2b0cc2a9d3dc" kind="function"><name>interpolate_holes</name></member>
     <member refid="grid__ops_8hpp_1af28fb7802341bbfe703ff34252e75b96" kind="function"><name>bool_grid</name></member>
   </compound>
   <compound refid="img__grid_8cpp" kind="file"><name>img_grid.cpp</name>
   </compound>
   <compound refid="img__grid_8hpp" kind="file"><name>img_grid.hpp</name>
   </compound>
+  <compound refid="test__grid__ops_8cpp" kind="file"><name>test_grid_ops.cpp</name>
+    <member refid="test__grid__ops_8cpp_1ad50af153ae9bb4d54d463ac482b4f387" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1abde25a1889e4b436ec854bb6e027f72f" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a46632b1258b2ed9d9178215cbd4ffa9b" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a08fd4ea54b0a2bcd5ab7a5a96cef4875" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a19e24dcf29cbe3ff98b0f1be68e5d3fd" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a418016324bf57e5ba1e640d38dad42d9" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a5f60a096442cb9c3a4492d23e8a63765" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a1bb6b0f3d4890bea3adba2cef9a5e70f" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1adeeff98cab8cd6c2ea092d0f42f58d42" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="gdal__init_8hpp" kind="file"><name>gdal_init.hpp</name>
+    <member refid="gdal__init_8hpp_1a1223f04756c53e7e6bbe816c6b4d37ad" kind="function"><name>ensure_gdal_initialized</name></member>
+  </compound>
   <compound refid="gpkg_8hpp" kind="file"><name>gpkg.hpp</name>
+    <member refid="gpkg_8hpp_1aeacff6642f5d9f4283500b15c80c7ac5" kind="function"><name>read_gpkg</name></member>
+  </compound>
+  <compound refid="test__gpkg_8cpp" kind="file"><name>test_gpkg.cpp</name>
+    <member refid="test__gpkg_8cpp_1a5b91b14c28af9dc4c443081c3f1a52f7" kind="function"><name>TEST</name></member>
+    <member refid="test__gpkg_8cpp_1aeca25b2d62cb42e5fbaddb6daaaa190d" kind="function"><name>TEST</name></member>
+    <member refid="test__gpkg_8cpp_1a61149e1f20b0feafa79f2df2cb9df827" kind="function"><name>TEST</name></member>
+    <member refid="test__gpkg_8cpp_1aa86fa4a0a20d035337f5cc4e4d6f947a" kind="function"><name>TEST</name></member>
+    <member refid="test__gpkg_8cpp_1a109c9b79d63e4b49c97d7a818db6c912" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="colors_8cpp" kind="file"><name>colors.cpp</name>
     <member refid="colors_8cpp_1a890ad4c93a26f94d270c755f3aae8893" kind="variable"><name>COLOR_MAP</name></member>
@@ -991,6 +1037,8 @@
     <member refid="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a3075f89b4ee90468355bd6a3ba2daa81" kind="enumvalue"><name>ModelKeyPoint</name></member>
     <member refid="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a27634ff8002b12e75d98e07ccd005d18" kind="enumvalue"><name>Water</name></member>
     <member refid="las__point_8hpp_1a0d8dc8d0c8e3b6aa898ca3b3c3622794" kind="function"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="polyline_8hpp" kind="file"><name>polyline.hpp</name>
   </compound>
   <compound refid="to__string_8hpp" kind="file"><name>to_string.hpp</name>
     <member refid="to__string_8hpp_1a347ba8cb8f50c282fe1086a28fa844fd" kind="function"><name>operator&lt;&lt;</name></member>
@@ -1091,13 +1139,13 @@
     <member refid="process_8cpp_1a10fe7e7096d343cf6ff6a7543480b89fa97de31d3aa393012dac63d25a7a2fc1a" kind="enumvalue"><name>LOWEST_POINT</name></member>
     <member refid="process_8cpp_1a10fe7e7096d343cf6ff6a7543480b89fad586b7273e57cdd2c3d2c59b86e88f91" kind="enumvalue"><name>INTERPOLATE</name></member>
     <member refid="process_8cpp_1afed77da845e5643d82b1aea88b71849b" kind="variable"><name>OUT_LAS</name></member>
-    <member refid="process_8cpp_1ac04d541206106a196635a5af16fa8aaa" kind="function"><name>round_up</name></member>
     <member refid="process_8cpp_1ad524c80bee9a4b821650ba067987dc7e" kind="function"><name>get_pixel_heights</name></member>
     <member refid="process_8cpp_1a93a8e2cbdba3032bcb7c7cf5fb0457ed" kind="function"><name>adjust_ground_to_slope</name></member>
     <member refid="process_8cpp_1a0368f25f7fa5c838dafd86b50325e5e1" kind="function"><name>process_las_file</name></member>
     <member refid="process_8cpp_1a080cbff7aa1e3753860ecef27efc07e7" kind="function"><name>process_las_data</name></member>
   </compound>
   <compound refid="process_8hpp" kind="file"><name>process.hpp</name>
+    <member refid="process_8hpp_1a4254061d07e4bdc0b616612bbe25be7b" kind="function"><name>num_cells_by_distance</name></member>
     <member refid="process_8hpp_1a04d3c7f7a5b77c8326a08c94fc5358b3" kind="function"><name>process_las_file</name></member>
     <member refid="process_8hpp_1aeb0662915698e0171856cdc695cd6ab0" kind="function"><name>process_las_data</name></member>
   </compound>
@@ -1106,6 +1154,23 @@
   </compound>
   <compound refid="run_8hpp" kind="file"><name>run.hpp</name>
     <member refid="run_8hpp_1a134d17bfd7d9c82d7f0da255a105d35d" kind="function"><name>run_with_config</name></member>
+  </compound>
+  <compound refid="test__e2e_8cpp" kind="file"><name>test_e2e.cpp</name>
+    <member refid="test__e2e_8cpp_1abe9db4d88bd59879ea2943fb141fff8f" kind="function"><name>get_wgs84_wkt</name></member>
+    <member refid="test__e2e_8cpp_1a2bda96dbd03fa89c9700bc497a69f1ad" kind="function"><name>create_minimal_test_config</name></member>
+    <member refid="test__e2e_8cpp_1a520f2cc40123d3454613e2e65b0861dd" kind="function"><name>create_synthetic_las_data_ext</name></member>
+    <member refid="test__e2e_8cpp_1a5fe579aab7f58f5f3fafb1d7145b4a24" kind="function"><name>create_synthetic_las_data</name></member>
+    <member refid="test__e2e_8cpp_1a14d8c09d902f0fdb73df42616e99c684" kind="function"><name>TEST</name></member>
+    <member refid="test__e2e_8cpp_1a659d4909714122d3ded5cfb4ce677ce8" kind="function"><name>TEST</name></member>
+    <member refid="test__e2e_8cpp_1a6af42860a11f64939d9d6b81161b3d74" kind="function"><name>TEST</name></member>
+    <member refid="test__e2e_8cpp_1a7fefdfaf42c908ecad61a93df6563b13" kind="function"><name>TEST</name></member>
+    <member refid="test__e2e_8cpp_1a83f7200c32bbf6b04d6161c42650d7f9" kind="function"><name>verify_vegetation_tif</name></member>
+    <member refid="test__e2e_8cpp_1a22dfa8dbae053150c28b68e52757db8d" kind="function"><name>verify_raw_vegetation_tif</name></member>
+    <member refid="test__e2e_8cpp_1a86d2e410c5fe4aa1e3ef4ba4e4a00f09" kind="function"><name>TEST_P</name></member>
+    <member refid="test__e2e_8cpp_1a74a4f40b6267714ab86432f2c5313143" kind="function"><name>INSTANTIATE_TEST_SUITE_P</name></member>
+  </compound>
+  <compound refid="test__process_8cpp" kind="file"><name>test_process.cpp</name>
+    <member refid="test__process_8cpp_1ace7d092747ce30d703bb843d032f0dd7" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="unit__tests_8cpp" kind="file"><name>unit_tests.cpp</name>
     <member refid="unit__tests_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
@@ -1118,7 +1183,7 @@
   </compound>
   <compound refid="dir_168d7404e8aa1148a0abea8bd7ba0546" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/contour</name>
   </compound>
-  <compound refid="dir_f79adc6b9298312518c9c9a103ddabe7" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/dxf</name>
+  <compound refid="dir_c47672f86e16ff8bd68ad864d5061fa3" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/crt</name>
   </compound>
   <compound refid="dir_b440d1ddeab29faa8ab1c63476ee276f" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/grid</name>
   </compound>
@@ -1136,15 +1201,23 @@
   </compound>
   <compound refid="dir_0525f968218f30056a0344f59b10bbbb" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/methods</name>
   </compound>
+  <compound refid="dir_fb65ba27065765e3b5e423565f83186f" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/polyline</name>
+  </compound>
   <compound refid="dir_d9268aef91cea3e1dbca49ee670813aa" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/printing</name>
   </compound>
   <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>/home/runner/work/Blaze/Blaze/src</name>
   </compound>
   <compound refid="dir_af1ec3f63b3290d3c0b6a16b438b915c" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/contour/tests</name>
   </compound>
+  <compound refid="dir_7abe1d2e6c271935b6731dcf9a13a0e9" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/grid/tests</name>
+  </compound>
+  <compound refid="dir_48b62e9add78df78566b95ab9cc595a8" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/io/tests</name>
+  </compound>
   <compound refid="dir_61cbaf6f69b3ff38c8740f6eb1724d7a" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/utilities/tests</name>
   </compound>
   <compound refid="dir_bea8c7e26f40f75291ccc2650200ba17" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/methods/water/tests</name>
+  </compound>
+  <compound refid="dir_d93a1d4020dea85bb71b237545b5e722" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/tests</name>
   </compound>
   <compound refid="dir_ca784dd9e8c063f2791dae69e4495085" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/tif</name>
   </compound>
