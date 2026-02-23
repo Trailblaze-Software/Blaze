@@ -1,5 +1,5 @@
-<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis hasScaleBasedVisibilityFlag="0" version="3.34.3-Prizren" maxScale="0" minScale="1e+08" styleCategories="LayerConfiguration|Symbology|Symbology3D|Labeling|Fields|Forms|Actions|MapTips|Diagrams|AttributeTable|Rendering">
+<!DOCTYPE qgis PUBLIC "http://mrcc.com/qgis.dtd" "SYSTEM">
+<qgis hasScaleBasedVisibilityFlag="0" maxScale="0" minScale="1e+08" styleCategories="LayerConfiguration|Symbology|Symbology3D|Labeling|Fields|Forms|Actions|MapTips|Diagrams|AttributeTable|Rendering" version="3.34.3-Prizren">
   <flags>
     <Identifiable>1</Identifiable>
     <Removable>1</Removable>
@@ -9,17 +9,17 @@
   <mapTip enabled="1"></mapTip>
   <pipe-data-defined-properties>
     <Option type="Map">
-      <Option value="" type="QString" name="name"/>
-      <Option name="properties"/>
-      <Option value="collection" type="QString" name="type"/>
+      <Option name="name" type="QString" value=""></Option>
+      <Option name="properties"></Option>
+      <Option name="type" type="QString" value="collection"></Option>
     </Option>
   </pipe-data-defined-properties>
   <pipe>
     <provider>
-      <resampling zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="nearestNeighbour" maxOversampling="2" enabled="false"/>
+      <resampling enabled="false" maxOversampling="2" zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="nearestNeighbour"></resampling>
     </provider>
-    <rasterrenderer opacity="1" classificationMax="0.995762" alphaBand="-1" classificationMin="0" type="singlebandpseudocolor" nodataColor="" band="1">
-      <rasterTransparency/>
+    <rasterrenderer alphaBand="-1" band="1" classificationMax="0.995762" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
+      <rasterTransparency></rasterTransparency>
       <minMaxOrigin>
         <limits>MinMax</limits>
         <extent>WholeRaster</extent>
@@ -29,39 +29,39 @@
         <stdDevFactor>2</stdDevFactor>
       </minMaxOrigin>
       <rastershader>
-        <colorrampshader colorRampType="DISCRETE" clip="0" classificationMode="1" minimumValue="0" labelPrecision="6" maximumValue="0.99576200000000004">
-          <colorramp type="gradient" name="[source]">
+        <colorrampshader classificationMode="1" clip="0" colorRampType="DISCRETE" labelPrecision="6" maximumValue="0.99576200000000004" minimumValue="0">
+          <colorramp name="[source]" type="gradient">
             <Option type="Map">
-              <Option value="255,255,255,255" type="QString" name="color1"/>
-              <Option value="197,237,195,255" type="QString" name="color2"/>
-              <Option value="ccw" type="QString" name="direction"/>
-              <Option value="0" type="QString" name="discrete"/>
-              <Option value="gradient" type="QString" name="rampType"/>
-              <Option value="rgb" type="QString" name="spec"/>
-              <Option value="0.100426;255,255,255,255;rgb;ccw" type="QString" name="stops"/>
+              <Option name="color1" type="QString" value="255,255,255,255"></Option>
+              <Option name="color2" type="QString" value="197,237,195,255"></Option>
+              <Option name="direction" type="QString" value="ccw"></Option>
+              <Option name="discrete" type="QString" value="0"></Option>
+              <Option name="rampType" type="QString" value="gradient"></Option>
+              <Option name="spec" type="QString" value="rgb"></Option>
+              <Option name="stops" type="QString" value="0.100426;255,255,255,255;rgb;ccw"></Option>
             </Option>
           </colorramp>
-          <item label="Open" value="0.1" color="#ffffff" alpha="255"/>
-          <item label="Tree'd" value="inf" color="#c5edc3" alpha="255"/>
-          <rampLegendSettings useContinuousLegend="1" orientation="2" maximumLabel="" minimumLabel="" suffix="" direction="0" prefix="">
+          <item alpha="255" color="#ffffff" label="Open" value="0.1"></item>
+          <item alpha="255" color="#c5edc3" label="Tree'd" value="inf"></item>
+          <rampLegendSettings direction="0" maximumLabel="" minimumLabel="" orientation="2" prefix="" suffix="" useContinuousLegend="1">
             <numericFormat id="basic">
               <Option type="Map">
-                <Option type="invalid" name="decimal_separator"/>
-                <Option value="6" type="int" name="decimals"/>
-                <Option value="0" type="int" name="rounding_type"/>
-                <Option value="false" type="bool" name="show_plus"/>
-                <Option value="true" type="bool" name="show_thousand_separator"/>
-                <Option value="false" type="bool" name="show_trailing_zeros"/>
-                <Option type="invalid" name="thousand_separator"/>
+                <Option name="decimal_separator" type="invalid"></Option>
+                <Option name="decimals" type="int" value="6"></Option>
+                <Option name="rounding_type" type="int" value="0"></Option>
+                <Option name="show_plus" type="bool" value="false"></Option>
+                <Option name="show_thousand_separator" type="bool" value="true"></Option>
+                <Option name="show_trailing_zeros" type="bool" value="false"></Option>
+                <Option name="thousand_separator" type="invalid"></Option>
               </Option>
             </numericFormat>
           </rampLegendSettings>
         </colorrampshader>
       </rastershader>
     </rasterrenderer>
-    <brightnesscontrast gamma="1" brightness="0" contrast="0"/>
-    <huesaturation colorizeGreen="128" invertColors="0" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeOn="0" colorizeRed="255" colorizeStrength="100"/>
-    <rasterresampler maxOversampling="2"/>
+    <brightnesscontrast brightness="0" contrast="0" gamma="1"></brightnesscontrast>
+    <huesaturation colorizeBlue="128" colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeStrength="100" grayscaleMode="0" invertColors="0" saturation="0"></huesaturation>
+    <rasterresampler maxOversampling="2"></rasterresampler>
     <resamplingStage>resamplingFilter</resamplingStage>
   </pipe>
   <blendMode>0</blendMode>
