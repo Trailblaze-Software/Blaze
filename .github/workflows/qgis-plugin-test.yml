@@ -1,0 +1,50 @@
+# QGIS Plugin CI for Blaze
+# This GitHub Actions workflow uses the official QGIS Docker image for plugin testing
+---
+name: QGIS Plugin Pipeline Test
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: qgis/qgis:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          chmod +x scripts/install-ubuntu-deps.sh
+          ./scripts/install-ubuntu-deps.sh
+      - name: Build blaze-cli
+        run: |
+          cmake -S . -B build -G Ninja
+          cmake --build build --target blaze-cli
+      - name: Run blaze-cli to generate output
+        working-directory: ${{ github.workspace }}
+        run: |
+          ./build/blaze-cli assets/default_config.json assets/sample.laz
+      - name: Run create_qgis_project.py with QGIS
+        run: |
+          export PYTHONPATH=/usr/share/qgis/python:$PYTHONPATH
+          export LD_LIBRARY_PATH=/usr/lib/qgis:$LD_LIBRARY_PATH
+          export BLAZE_COMBINED_DIR=assets/out/combined
+          export BLAZE_OUTPUT_PATH=assets/out/combined.qgz
+          export BLAZE_EXIT_AFTER_RUN=1
+          export QT_QPA_PLATFORM=offscreen
+          timeout 300 xvfb-run -a qgis --nologo --code qgis_plugin/blaze_loader/create_qgis_project.py || true
+      - name: Check for QGIS project and required files
+        run: |
+          test -f assets/out/combined.qgz
+          test -f assets/out/combined/nsw_topo.gpkg
+      - name: Upload QGIS project with all layers
+        uses: actions/upload-artifact@v4
+        with:
+          name: qgis-project
+          path: |
+            assets/out/combined.qgz
+            assets/out/combined/
+          retention-days: 30

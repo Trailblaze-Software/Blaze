@@ -65,9 +65,9 @@ Full documentation, including installation guides, usage examples, and API refer
 
 **[https://Trailblaze-Software.github.io/Blaze/](https://Trailblaze-Software.github.io/Blaze/)**
 
-*   **[Installation Guide](https://Trailblaze-Software.github.io/Blaze/installation/)**
-*   **[Quick Start Guide](https://Trailblaze-Software.github.io/Blaze/usage/quick-guide/)**
-*   **[Developers Reference (C++ API)](https://Trailblaze-Software.github.io/Blaze/reference/)**
+*   **[Installation Guide](https://trailblaze-software.github.io/Blaze/latest/installation/)**
+*   **[Quick Start Guide](https://trailblaze-software.github.io/Blaze/latest/usage/)**
+*   **[Developers Reference (C++ API)](https://trailblaze-software.github.io/Blaze/latest/reference/)**
 
 ### Local Development
 

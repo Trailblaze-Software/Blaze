@@ -37,6 +37,8 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         # Connect load button
         self.loadButton.clicked.connect(self.accept)
 
+    # ...existing code...
+
     def browse_output_folder(self):
         folder = QFileDialog.getExistingDirectory(
             self,
@@ -87,6 +89,7 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
             "zoom_to_extent": self.zoomToExtentCheckBox.isChecked(),
             "add_controls": self.addControlsCheckBox.isChecked(),
             "gpkg_output_path": (self.gpkgLineEdit.text() if self.gpkgLineEdit.text() else None),
+            # contours_output_path removed - contours are merged automatically at runtime
         }
 
     def accept(self):
