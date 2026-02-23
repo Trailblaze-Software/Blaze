@@ -37,16 +37,6 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         # Connect load button
         self.loadButton.clicked.connect(self.accept)
 
-    def browse_contours_file(self):
-        file_path, _ = QFileDialog.getSaveFileName(
-            self,
-            "Save Merged Contours As",
-            self.contoursLineEdit.text() or str(Path.home()),
-            "GeoPackage (*.gpkg);;All Files (*)",
-        )
-        if file_path:
-            self.contoursLineEdit.setText(file_path)
-
     # ...existing code...
 
     def browse_output_folder(self):
@@ -99,7 +89,7 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
             "zoom_to_extent": self.zoomToExtentCheckBox.isChecked(),
             "add_controls": self.addControlsCheckBox.isChecked(),
             "gpkg_output_path": (self.gpkgLineEdit.text() if self.gpkgLineEdit.text() else None),
-            "contours_output_path": (self.contoursLineEdit.text() if self.contoursLineEdit.text() else None),
+            # contours_output_path removed - contours are merged automatically at runtime
         }
 
     def accept(self):

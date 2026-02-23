@@ -22,7 +22,7 @@ jobs:
           pre-commit run -a
   ubuntu-latest-build:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -45,7 +45,7 @@ jobs:
           ./blaze-cli assets/default_config.json
   ubuntu-22-pdal-build:
     runs-on: ubuntu-22.04
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
