@@ -66,16 +66,16 @@ TEST(Vegetation, LowPassSmoothing) {
   EXPECT_GT(neighbor_val, 0.0f);
 }
 
-TEST(Vegetation, LowPassDeltaOne) {
-  // With delta=1, only immediate neighbors are considered
+TEST(Vegetation, LowPassSmallDelta) {
+  // With delta=2, neighbors within radius 2 are weighted
   constexpr size_t N = 5;
   std::vector<std::vector<float>> data(N, std::vector<float>(N, 0.0f));
   data[2][2] = 10.0f;
   GeoGrid<float> grid = make_float_grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 1);
+  GeoGrid<float> result = low_pass(grid, 2);
 
-  // Center should still be the largest but reduced
+  // Center should still be the largest but reduced (neighbors dilute it)
   float center = result[{2, 2}];
   EXPECT_LT(center, 10.0f);
   EXPECT_GT(center, 0.0f);

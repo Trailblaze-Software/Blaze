@@ -195,11 +195,12 @@ TEST(ExternalBorderRanges, Corners) {
 // =============================================================================
 
 TEST(LASRound, BasicRounding) {
-  EXPECT_EQ(round(5.4), 5);
-  EXPECT_EQ(round(5.5), 6);
-  EXPECT_EQ(round(5.6), 6);
-  EXPECT_EQ(round(-5.4), -5);
-  EXPECT_EQ(round(-5.5), -6);
+  // Explicitly pass resolution=1.0 to avoid ambiguity with std::round on Linux
+  EXPECT_EQ(round(5.4, 1.0), 5);
+  EXPECT_EQ(round(5.5, 1.0), 6);
+  EXPECT_EQ(round(5.6, 1.0), 6);
+  EXPECT_EQ(round(-5.4, 1.0), -5);
+  EXPECT_EQ(round(-5.5, 1.0), -6);
 }
 
 TEST(LASRound, WithResolution) {
@@ -283,7 +284,9 @@ TEST(LASData, InsertAndAccess) {
 }
 
 TEST(LASData, InsertUpdatesBounds) {
-  Extent2D bounds{0.0, 0.0, 0.0, 0.0};
+  // Constructor initialises m_bounds x/y from the Extent2D; insert() only grows.
+  // Use an initial extent that sits inside the points so we can verify growth.
+  Extent2D bounds{25.0, 35.0, 35.0, 45.0};
   LASData data(bounds, GeoProjection());
 
   data.insert(LASPoint(10.0, 20.0, 5.0, 100, LASClassification::Ground));
@@ -291,10 +294,13 @@ TEST(LASData, InsertUpdatesBounds) {
   data.insert(LASPoint(30.0, 40.0, 10.0, 150, LASClassification::Ground));
 
   const Extent3D& b = data.bounds();
+  // minx = min(25, 10, 50, 30) = 10, maxx = max(35, 10, 50, 30) = 50
   EXPECT_DOUBLE_EQ(b.minx, 10.0);
   EXPECT_DOUBLE_EQ(b.maxx, 50.0);
+  // miny = min(35, 20, 60, 40) = 20, maxy = max(45, 20, 60, 40) = 60
   EXPECT_DOUBLE_EQ(b.miny, 20.0);
   EXPECT_DOUBLE_EQ(b.maxy, 60.0);
+  // z was initialised to sentinels (max, min), so only points matter
   EXPECT_DOUBLE_EQ(b.minz, 5.0);
   EXPECT_DOUBLE_EQ(b.maxz, 15.0);
 }
@@ -364,14 +370,15 @@ TEST(LASFile, TopLeft) {
 }
 
 TEST(LASFile, WidthHeight) {
-  Extent2D bounds{0.0, 0.0, 0.0, 0.0};
+  // Initial extent is included in bounds, so use the point range as the extent
+  Extent2D bounds{10.0, 60.0, 20.0, 80.0};
   LASData data(bounds, GeoProjection());
 
   data.insert(LASPoint(10.0, 20.0, 0.0, 0, LASClassification::Ground));
   data.insert(LASPoint(60.0, 80.0, 0.0, 0, LASClassification::Ground));
 
-  EXPECT_DOUBLE_EQ(data.width(), 50.0);
-  EXPECT_DOUBLE_EQ(data.height(), 60.0);
+  EXPECT_DOUBLE_EQ(data.width(), 50.0);   // 60 - 10
+  EXPECT_DOUBLE_EQ(data.height(), 60.0);  // 80 - 20
 }
 
 TEST(LASFile, HeightRange) {
