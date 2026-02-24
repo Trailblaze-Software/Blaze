@@ -1802,8 +1802,10 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override, output_gpkg):
     merged_layer = QgsVectorLayer(f"{geom_type_str}?crs={crs.authid()}", name, "memory")
     provider = merged_layer.dataProvider()
 
-    # Copy fields from first layer
-    provider.addAttributes(first_layer.fields())
+    # Copy fields from first layer, excluding 'fid' which is the GeoPackage
+    # auto-generated primary key. Including it causes UNIQUE constraint failures
+    # when merging multiple layers that each have their own fid sequences.
+    provider.addAttributes([f for f in first_layer.fields() if f.name() != "fid"])
     merged_layer.updateFields()
 
     # Add features from all layers
