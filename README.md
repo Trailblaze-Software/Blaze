@@ -1,19 +1,16 @@
-<div align="center" style="display: flex; align-items: center; justify-content: center; gap: 10px; flex-direction: column;">
+<div align="center">
 
-  <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0;">
-    <img src="assets/images/blaze_icon.png" alt="Blaze Icon" width="60" style="vertical-align: middle;">
-    <span style="font-family: 'Courier New', 'Consolas', 'Monaco', monospace; font-size: 2.8em; font-weight: 700; letter-spacing: 0.05em; color: #f36f21; display: inline-block; text-shadow: 1px 1px 2px rgba(128, 128, 128, 0.15);">BLAZE</span>
-  </h1>
+<img src="assets/images/blaze_icon.png" alt="Blaze Icon" width="120">
 
-  <p><strong>A LIDAR mapping tool for processing point cloud data</strong></p>
+# `BLAZE`
 
-  <p>
-    <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake"></a>
-    <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue?style=flat-square"></a>
-    <a href="https://Trailblaze-Software.github.io/Blaze/"><img src="https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square"></a>
-    <a href="https://github.com/Trailblaze-Software/Blaze"><img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square"></a>
-  </p>
+**A LIDAR mapping tool for processing point cloud data**
+
+[![CMake](https://img.shields.io/badge/CMake-3.20+-064F8C?style=flat-square&logo=cmake)](https://cmake.org/)
+[![C++](https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B)](https://isocpp.org/)
+[![License](https://img.shields.io/badge/license-GPLv3-blue?style=flat-square)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square)](https://Trailblaze-Software.github.io/Blaze/)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/Trailblaze-Software/Blaze)
 
 </div>
 
