@@ -162,6 +162,7 @@ def merge_contours_like_plugin(source_gpkg, output_gpkg, include_fid_field=True)
             written_count += 1
         ogr_feat = None
 
+    ds.FlushCache()
     ds = None  # Close datasource
     return written_count
 
@@ -275,6 +276,60 @@ class TestContourMerge:
         # Each layer has elevations: 100, 105, 110
         expected = sorted([100.0, 105.0, 110.0, 100.0, 105.0, 110.0])
         assert sorted(elevations) == expected, f"Elevation values don't match: {sorted(elevations)}"
+
+    def test_merged_gpkg_no_fid_in_regular_fields(self):
+        """The merged GeoPackage must not have 'fid' as a regular attribute field.
+
+        GeoPackage uses 'fid' as the auto-generated primary key column.
+        If 'fid' also appears as a regular field, OGR treats SetField('fid', val)
+        as setting the primary key value, causing UNIQUE constraint failures.
+        """
+        merge_contours_like_plugin(self.source_gpkg, self.merged_gpkg, include_fid_field=False)
+
+        ds = ogr.Open(self.merged_gpkg)
+        assert ds is not None
+        assert ds.GetLayerCount() > 0
+
+        lyr = ds.GetLayerByIndex(0)
+        layer_defn = lyr.GetLayerDefn()
+        field_names = [layer_defn.GetFieldDefn(i).GetName() for i in range(layer_defn.GetFieldCount())]
+        ds = None
+
+        assert "fid" not in field_names, (
+            f"'fid' found in regular fields: {field_names}. "
+            "This will conflict with the GeoPackage primary key column."
+        )
+
+    def test_merged_gpkg_reopens_as_valid_layer(self):
+        """The merged GeoPackage must be re-openable as a valid OGR layer.
+
+        This mirrors what QGIS does after the OGR write: it opens the file
+        as a QgsVectorLayer. If the file is corrupt or empty, the layer is
+        invalid and falls back to a temporary scratch layer.
+        """
+        merge_contours_like_plugin(self.source_gpkg, self.merged_gpkg, include_fid_field=False)
+
+        # Re-open with the same URI pattern QGIS uses: path|layername=name
+        ds = ogr.Open(self.merged_gpkg)
+        assert ds is not None, "Could not reopen merged GeoPackage"
+        assert ds.GetLayerCount() > 0, "Reopened GeoPackage has no layers"
+
+        lyr = ds.GetLayerByName("contours")
+        assert lyr is not None, "Layer 'contours' not found in reopened GeoPackage"
+        assert lyr.GetFeatureCount() == 6, f"Expected 6 features in reopened layer, got {lyr.GetFeatureCount()}"
+
+        # Verify features have valid geometries
+        lyr.ResetReading()
+        feat = lyr.GetNextFeature()
+        valid_geom_count = 0
+        while feat is not None:
+            geom = feat.GetGeometryRef()
+            if geom is not None and not geom.IsEmpty():
+                valid_geom_count += 1
+            feat = lyr.GetNextFeature()
+        ds = None
+
+        assert valid_geom_count == 6, f"Expected 6 features with valid geometry, got {valid_geom_count}"
 
     def test_including_fid_field_loses_features(self):
         """Demonstrate that including 'fid' in the merge loses features.

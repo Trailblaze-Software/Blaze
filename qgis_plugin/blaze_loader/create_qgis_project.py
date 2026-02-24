@@ -316,6 +316,9 @@ def create_qgis_project(
         if progress_callback:
             progress_callback(message, percent)
 
+    # Track what was loaded for summary popup
+    summary = {"loaded": [], "failed": [], "skipped": []}
+
     project = QgsProject.instance()
     if clear_project:
         project.clear()
@@ -403,13 +406,14 @@ def create_qgis_project(
             "final_img.tif",
             "final_img_extra_contours.tif",
             "ground_intensity.tif",
-            "hill_shade_multi.tif",
             "slope.tif",
         ]
+        raster_count = 0
         for i, f in enumerate(rasters):
             report_progress(f"Adding raster {f} ({i+1}/{len(rasters)})...", 5 + int((i / len(rasters)) * 10))
             layer = add_raster(combined_path / f, raster_group)
             if layer:
+                raster_count += 1
                 crs = layer.crs()
                 log(f"  {f}: CRS valid={crs.isValid()}, authid={crs.authid()}, desc={crs.description()}")
 
@@ -436,6 +440,11 @@ def create_qgis_project(
                 layer_node = root.findLayer(layer.id())
                 if layer_node:
                     layer_node.setItemVisibilityChecked(False)
+
+        if raster_count:
+            summary["loaded"].append(f"{raster_count} raster layer{'s' if raster_count != 1 else ''}")
+        else:
+            summary["failed"].append("Raster layers (no .tif files found)")
 
         # Summary of CRS detection
         if project_crs:
@@ -466,11 +475,13 @@ def create_qgis_project(
                 ("smoothed_canopy.tif", True),
             ]
 
+            vege_count = 0
             for filename, visible in vege_layers:
                 path = vege_dir / filename
                 if path.exists():
                     layer = add_raster(path, vege_group, prefix="raw_vege_")
                     if layer:
+                        vege_count += 1
                         # Also check vegetation rasters for CRS if not already found
                         crs = layer.crs()
                         log(
@@ -491,6 +502,9 @@ def create_qgis_project(
                         layer_node = root.findLayer(layer.id())
                         if layer_node:
                             layer_node.setItemVisibilityChecked(visible)
+
+            if vege_count:
+                summary["loaded"].append(f"{vege_count} vegetation layer{'s' if vege_count != 1 else ''}")
 
         # Set project CRS from raster FIRST (only when loading from rasters)
         if project_crs and project_crs.isValid():
@@ -584,9 +598,29 @@ def create_qgis_project(
                 output_dir.mkdir(parents=True, exist_ok=True)
             else:
                 output_dir = combined_path
-            add_nsw_topo_layers(
-                topo_group, project_extent, project_crs, output_dir, progress_callback, log, gpkg_output_path
+            topo_results = add_nsw_topo_layers(
+                topo_group,
+                project_extent,
+                project_crs,
+                output_dir,
+                progress_callback,
+                log,
+                gpkg_output_path,
+                parent_window=parent_window,
             )
+            if topo_results and topo_results.get("with_data"):
+                topo_count = len(topo_results["with_data"])
+                summary["loaded"].append(f"{topo_count} topo layer{'s' if topo_count != 1 else ''}")
+                summary["topo_details"] = topo_results
+            elif topo_results and (topo_results.get("empty") or topo_results.get("failed")):
+                summary["failed"].append("NSW topo layers (no data in area)")
+                summary["topo_details"] = topo_results
+            else:
+                summary["failed"].append("NSW topo layers (download failed)")
+        else:
+            summary["skipped"].append("NSW topo layers (user declined)")
+    elif download_topo:
+        summary["skipped"].append("NSW topo layers (no extent/CRS)")
     # Note: Empty group removal happens at the end
 
     # Add vector layers (contours, streams) AFTER topo layers so they render underneath
@@ -606,65 +640,89 @@ def create_qgis_project(
             else:
                 from qgis.PyQt.QtWidgets import (
                     QDialog,
+                    QDialogButtonBox,
                     QFileDialog,
                     QHBoxLayout,
                     QLabel,
                     QLineEdit,
+                    QMessageBox,
                     QPushButton,
                     QVBoxLayout,
                 )
 
-                # Create a dialog similar to the folder selection UI
-                contours_dialog = QDialog(parent_window)
-                contours_dialog.setWindowTitle("Merged Contours File")
-                contours_dialog.setMinimumWidth(500)
+                merged_contours_path = None
+                while merged_contours_path is None:
+                    # Create a dialog similar to the folder selection UI
+                    contours_dialog = QDialog(parent_window)
+                    contours_dialog.setWindowTitle("Merged Contours File")
+                    contours_dialog.setMinimumWidth(500)
 
-                layout = QVBoxLayout(contours_dialog)
+                    layout = QVBoxLayout(contours_dialog)
 
-                # Label
-                label = QLabel("Need to select where to save merged contour file:")
-                layout.addWidget(label)
+                    # Label
+                    label = QLabel("Select where to save merged contour file:")
+                    layout.addWidget(label)
 
-                # Path selection (similar to folder selection)
-                path_layout = QHBoxLayout()
-                path_label = QLabel("Path:")
-                path_edit = QLineEdit()
-                path_edit.setText(default_path)
-                browse_btn = QPushButton("Browse...")
+                    # Path selection (similar to folder selection)
+                    path_layout = QHBoxLayout()
+                    path_label = QLabel("Path:")
+                    path_edit = QLineEdit()
+                    path_edit.setText(default_path)
+                    browse_btn = QPushButton("Browse...")
 
-                def browse_contours_file():
-                    file_path, _ = QFileDialog.getSaveFileName(
-                        contours_dialog,
-                        "Save Merged Contours As",
-                        path_edit.text() or default_path,
-                        "GeoPackage (*.gpkg);;All Files (*)",
-                    )
-                    if file_path:
-                        path_edit.setText(file_path)
+                    def browse_contours_file():
+                        file_path, _ = QFileDialog.getSaveFileName(
+                            contours_dialog,
+                            "Save Merged Contours As",
+                            path_edit.text() or default_path,
+                            "GeoPackage (*.gpkg);;All Files (*)",
+                        )
+                        if file_path:
+                            path_edit.setText(file_path)
 
-                browse_btn.clicked.connect(browse_contours_file)
+                    browse_btn.clicked.connect(browse_contours_file)
 
-                path_layout.addWidget(path_label)
-                path_layout.addWidget(path_edit)
-                path_layout.addWidget(browse_btn)
-                layout.addLayout(path_layout)
+                    path_layout.addWidget(path_label)
+                    path_layout.addWidget(path_edit)
+                    path_layout.addWidget(browse_btn)
+                    layout.addLayout(path_layout)
 
-                # Buttons
-                from qgis.PyQt.QtWidgets import QDialogButtonBox
+                    # Buttons
+                    button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+                    button_box.accepted.connect(contours_dialog.accept)
+                    button_box.rejected.connect(contours_dialog.reject)
+                    layout.addWidget(button_box)
 
-                button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-                button_box.accepted.connect(contours_dialog.accept)
-                button_box.rejected.connect(contours_dialog.reject)
-                layout.addWidget(button_box)
+                    # Show dialog
+                    if contours_dialog.exec_() == QDialog.Accepted:
+                        chosen_path = path_edit.text() or default_path
+                    else:
+                        # User cancelled - use default
+                        chosen_path = default_path
 
-                # Show dialog
-                if contours_dialog.exec_() == QDialog.Accepted:
-                    merged_contours_path = path_edit.text() or default_path
-                else:
-                    # User cancelled - use default
-                    merged_contours_path = default_path
+                    # If the file already exists, ask for confirmation before overwriting
+                    if Path(chosen_path).exists():
+                        reply = QMessageBox.question(
+                            parent_window,
+                            "File Already Exists",
+                            f"{Path(chosen_path).name} already exists.\n\n" "Do you want to overwrite it?",
+                            QMessageBox.Yes | QMessageBox.No,
+                            QMessageBox.No,
+                        )
+                        if reply == QMessageBox.Yes:
+                            merged_contours_path = chosen_path
+                        # else: loop back to file selection dialog
+                    else:
+                        merged_contours_path = chosen_path
             layer = add_merged_gpkg_layer(contours_gpkg, "contours", vector_group, project_crs, merged_contours_path)
             if layer:
+                is_temp = layer.dataProvider().name() == "memory"
+                feat_count = layer.featureCount()
+                label = f"Contours ({feat_count} features"
+                label += ", temporary)" if is_temp else ")"
+                summary["loaded"].append(label)
+                if is_temp:
+                    summary["failed"].append("Contours file save (layer is temporary)")
                 # Apply QML style
                 qml_path = STYLES_DIR / "contours.qml"
                 if qml_path.exists():
@@ -675,11 +733,18 @@ def create_qgis_project(
                     log("Applied style: contours.qml")
                 if layer.extent() and not layer.extent().isEmpty():
                     vector_extent = layer.extent()
+            else:
+                summary["failed"].append("Contours (merge failed)")
 
         # Add streams with QML style
         streams_gpkg = combined_path / "streams.gpkg"
         if streams_gpkg.exists():
             layers = add_gpkg_layers(streams_gpkg, vector_group, project_crs, root, apply_default_style=False)
+            if layers:
+                stream_features = sum(lyr.featureCount() for lyr in layers)
+                summary["loaded"].append(f"Streams ({stream_features} features)")
+            else:
+                summary["failed"].append("Streams (no valid layers)")
             for layer in layers:
                 # Apply QML style
                 qml_path = STYLES_DIR / "streams.qml"
@@ -731,6 +796,7 @@ def create_qgis_project(
                     if reply != QMessageBox.Yes:
                         add_mag_north = False
                         log("Magnetic north lines skipped - user declined for large extent")
+                        summary["skipped"].append("Magnetic north lines (user declined)")
                 except Exception as e:
                     log(f"Could not show extent confirmation: {e}")
         if add_mag_north:
@@ -748,6 +814,7 @@ def create_qgis_project(
             # Line spacing: 4cm at 1:25000 scale = 1000m
             layer = add_magnetic_north_lines(project_extent, project_crs, north_lines_path, spacing=1000)
             if layer:
+                summary["loaded"].append("Magnetic north lines")
                 # Make layer name unique if a layer with this name already exists
                 layer_name = layer.name()
                 existing_names = set()
@@ -762,8 +829,11 @@ def create_qgis_project(
                 if layer_name in existing_names:
                     layer.setName(f"{layer_name} ({int(time.time())})")
                 markup_group.addLayer(layer)
+            else:
+                summary["failed"].append("Magnetic north lines")
     elif add_mag_north:
         log("Magnetic north lines skipped - project extent or CRS not available")
+        summary["skipped"].append("Magnetic north lines (no extent/CRS)")
     # Add controls layer with control point in center of map
     if add_controls and project_extent and project_crs:
         report_progress("Adding controls layer...", 92)
@@ -778,6 +848,7 @@ def create_qgis_project(
             controls_path = combined_path / "controls.gpkg"
         layer = add_controls_layer(project_extent, project_crs, markup_group, controls_path)
         if layer:
+            summary["loaded"].append("Controls layer")
             # Make layer name unique if a layer with this name already exists
             layer_name = layer.name()
             existing_names = set()
@@ -867,7 +938,7 @@ def create_qgis_project(
         log("Blaze layers added to current project")
 
     log("create_qgis_project() completed successfully")
-    return True
+    return summary
 
 
 def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500):
@@ -1020,11 +1091,14 @@ def add_controls_layer(extent, crs, group, output_path):
     return layer
 
 
-def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, log_func=None, gpkg_output_path=None):
+def add_nsw_topo_layers(
+    group, extent, crs, output_dir, progress_callback=None, log_func=None, gpkg_output_path=None, parent_window=None
+):
     """Download NSW topographic vector layers and save to files.
 
     Args:
         gpkg_output_path: Optional path for GPKG file. If None, uses output_dir/nsw_topo.gpkg
+        parent_window: Optional parent window for dialogs
     """
     import json
     import urllib.error
@@ -1035,7 +1109,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
     def local_log(message):
         """Log with optional callback support."""
         log(message)  # Use module-level log
-        if log_func:
+        if log_func and log_func is not log:  # Avoid double-logging if log_func is the same as log
             log_func(message)
 
     def report_progress(message, percent=None):
@@ -1132,42 +1206,104 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         (f"{base_url}/NSW_Features_of_Interest_Category/MapServer/9", "GeneralCulturalArea", True),
     ]
 
-    # Create or open existing GPKG file for all NSW topo data
+    # Create or re-use GPKG file for all NSW topo data
     if gpkg_output_path:
         gpkg_path = Path(gpkg_output_path)
     else:
         gpkg_path = output_dir / "nsw_topo.gpkg"
 
+    # Initialise result tracker early so early returns can use it
+    topo_results = {
+        "with_data": [],
+        "empty": [],
+        "failed": [],
+        "network_errors": [],
+        "total_dupes_skipped": 0,
+        "dedup_active": False,
+    }
+
     driver = ogr.GetDriverByName("GPKG")
     if driver is None:
         log("ERROR: GPKG driver not available!")
-        return
+        return topo_results
 
-    # Open existing GPKG in update mode, or create new one
-    gpkg_exists = gpkg_path.exists()
-    if gpkg_exists:
-        ds = driver.Open(str(gpkg_path), 1)  # 1 = update mode
+    # If GPKG already exists, ask user what to do
+    existing_layer_names = set()
+    reuse_existing = False
+    skip_dedup = False  # "Keep all" mode — append without checking duplicates
+
+    if gpkg_path.exists():
+        # Check what layers already exist
+        existing_ds = driver.Open(str(gpkg_path), 0)  # read-only
+        if existing_ds:
+            existing_layer_names = {
+                existing_ds.GetLayerByIndex(i).GetName() for i in range(existing_ds.GetLayerCount())
+            }
+            existing_ds = None
+
+        if existing_layer_names and parent_window and not os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+            try:
+                from qgis.PyQt.QtWidgets import QMessageBox
+
+                msg = (
+                    f"{gpkg_path.name} already exists with {len(existing_layer_names)} layers.\n\n"
+                    "• Update without duplicates — download and skip existing features\n"
+                    "• Download and keep all — append all features (may create duplicates)\n"
+                    "• Delete and re-download — remove existing file and start fresh"
+                )
+                box = QMessageBox(parent_window)
+                box.setWindowTitle("Existing topo data found")
+                box.setText(msg)
+                update_btn = box.addButton("Update without duplicates", QMessageBox.AcceptRole)
+                keep_all_btn = box.addButton("Download and keep all", QMessageBox.ActionRole)
+                box.addButton("Delete and re-download", QMessageBox.DestructiveRole)
+                box.setDefaultButton(update_btn)
+                box.exec_()
+
+                clicked = box.clickedButton()
+                if clicked == update_btn:
+                    reuse_existing = True
+                    log(f"Updating {gpkg_path.name} without duplicates ({len(existing_layer_names)} existing layers)")
+                elif clicked == keep_all_btn:
+                    reuse_existing = True
+                    skip_dedup = True
+                    log(f"Appending to {gpkg_path.name} (keeping all, no dedup)")
+                else:
+                    reuse_existing = False
+            except Exception as e:
+                log(f"Could not show GPKG dialog: {e}")
+
+        if not reuse_existing:
+            try:
+                for suffix in ["", "-wal", "-shm"]:
+                    p = Path(str(gpkg_path) + suffix)
+                    if p.exists():
+                        p.unlink()
+                existing_layer_names = set()
+                log(f"Removed existing {gpkg_path.name}")
+            except OSError as e:
+                log(f"WARNING: Could not delete existing {gpkg_path.name}: {e}")
+
+    # Open existing or create new GPKG
+    if reuse_existing and gpkg_path.exists():
+        ds = driver.Open(str(gpkg_path), 1)  # update mode
         if ds is None:
-            log(f"WARNING: Could not open existing GPKG at {gpkg_path}, creating new one")
+            log(f"WARNING: Could not open existing {gpkg_path.name}, creating new one")
             ds = driver.CreateDataSource(str(gpkg_path))
-            gpkg_exists = False
-        else:
-            log(f"Opened existing GPKG: {gpkg_path} (will append only new features)")
+            existing_layer_names = set()
     else:
         ds = driver.CreateDataSource(str(gpkg_path))
-        log(f"Created new GPKG: {gpkg_path}")
 
     if ds is None:
-        log(f"ERROR: Could not create/open GPKG at {gpkg_path}")
-        return
-
-    if ds is None:
-        log(f"ERROR: Could not create/open GPKG at {gpkg_path}")
-        return
+        log(f"ERROR: Could not create GPKG at {gpkg_path}")
+        return topo_results
 
     total_layers = len(layers)
     layers_with_data = 0
     total_features = 0
+
+    # Update dedup_active now that reuse_existing / skip_dedup are resolved
+    topo_results["dedup_active"] = reuse_existing and not skip_dedup
 
     log(f"NSW Topo: Querying bbox={bbox}")
 
@@ -1183,6 +1319,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
             offset = 0
             page_size = 1000  # Request this many at a time
             max_pages = 1000  # Safety limit
+            download_error = None
 
             while True:
                 url = (
@@ -1203,18 +1340,22 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                         raw = response.read().decode()
                         data = json.loads(raw)
                 except urllib.error.URLError as e:
+                    download_error = str(e)
                     log(f"Network error for {name}: {e}")
                     break
                 except json.JSONDecodeError as e:
+                    download_error = f"Invalid JSON: {e}"
                     log(f"Invalid JSON response for {name}: {e}")
                     break
                 except Exception as e:
-                    log(f"Unexpected error for {name}: {type(e).__name__}: {e}")
+                    download_error = f"{type(e).__name__}: {e}"
+                    log(f"Unexpected error for {name}: {download_error}")
                     break
 
                 # Check for API errors
                 if "error" in data:
                     err = data["error"]
+                    download_error = f"API error {err.get('code')}: {err.get('message')}"
                     log(f"API error for {name}: code={err.get('code')}, message={err.get('message')}")
                     break
 
@@ -1237,6 +1378,12 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                     log(f"  Reached max pages for {name}, stopping at {len(all_features)} features")
                     break
 
+            # Track network/server errors separately from genuinely empty layers
+            if download_error and not all_features:
+                # Use the base service URL (without query params) for cleaner display
+                topo_results["network_errors"].append((name, service_url))
+                continue
+
             features = all_features
 
             if offset > 0:
@@ -1245,6 +1392,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                 log(f"{name}: {len(features)} features")
 
             if not features:
+                topo_results["empty"].append(name)
                 continue
 
             layers_with_data += 1
@@ -1364,24 +1512,18 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
             srs = osr.SpatialReference()
             srs.ImportFromWkt(crs.toWkt())
 
-            # Get or create layer
+            # Get or create layer in GPKG
             ogr_layer = ds.GetLayerByName(name)
+            is_existing_layer = ogr_layer is not None
+
             if ogr_layer is None:
                 ogr_layer = ds.CreateLayer(name, srs, ogr_geom_type)
                 if ogr_layer is None:
                     log(f"ERROR: Could not create OGR layer for {name}")
                     continue
-                log(f"Created new layer: {name}")
-            else:
-                log(f"Using existing layer: {name}")
 
-            # Ensure all fields exist (add missing ones)
-            existing_field_names = {
-                ogr_layer.GetLayerDefn().GetFieldDefn(i).GetName()
-                for i in range(ogr_layer.GetLayerDefn().GetFieldCount())
-            }
-            for field in fields:
-                if field.name() not in existing_field_names:
+                # Add fields to new layer
+                for field in fields:
                     if field.type() == QVariant.Int:
                         ogr_layer.CreateField(ogr.FieldDefn(field.name(), ogr.OFTInteger64))
                     elif field.type() == QVariant.Double:
@@ -1391,118 +1533,73 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                         fld.SetWidth(254)
                         ogr_layer.CreateField(fld)
 
-            # Load existing features for duplicate checking
-            # Use attribute-based comparison, excluding auto-generated primary keys
-            exclude_fields = {"fid", "objectid", "ogc_fid", "rowid"}
-            existing_features = {}  # Key: (attrs tuple) -> (fid, geometry_wkt)
+            # Build set of existing feature fingerprints for dedup
+            existing_fingerprints = set()
+            oid_field_idx = None
 
-            if gpkg_exists:
+            if is_existing_layer and not skip_dedup:
+                # Find a unique ID field (OBJECTID is standard for ArcGIS services)
                 layer_defn = ogr_layer.GetLayerDefn()
-                field_names = [layer_defn.GetFieldDefn(i).GetName() for i in range(layer_defn.GetFieldCount())]
+                field_names_in_layer = [layer_defn.GetFieldDefn(i).GetName() for i in range(layer_defn.GetFieldCount())]
+
+                # Use OBJECTID if available (reliable unique key from ArcGIS)
+                oid_field = None
+                for candidate in ["OBJECTID", "objectid", "ObjectID", "FID"]:
+                    if candidate in field_names_in_layer:
+                        oid_field = candidate
+                        break
+
                 ogr_layer.ResetReading()
                 for existing_feat in ogr_layer:
-                    existing_geom = existing_feat.GetGeometryRef()
-                    if not existing_geom:
-                        continue
-
-                    existing_geom_wkt = existing_geom.ExportToWkt()
-
-                    # Build attributes dict, excluding auto-generated keys
-                    attrs_dict = {}
-                    for field_name in [f.name() for f in fields]:
-                        # Skip FID and other auto-generated primary key fields
-                        if field_name.lower() in exclude_fields:
-                            continue
-                        if field_name in field_names:
-                            field_idx = layer_defn.GetFieldIndex(field_name)
-                            if field_idx >= 0:
-                                attrs_dict[field_name] = existing_feat.GetField(field_name)
-
-                    # Create tuple key from attributes (only non-excluded fields)
-                    attrs = tuple(
-                        attrs_dict.get(f.name()) if attrs_dict.get(f.name()) is not None else ""
-                        for f in fields
-                        if f.name().lower() not in exclude_fields
-                    )
-                    existing_features[attrs] = (existing_feat.GetFID(), existing_geom_wkt)
+                    if oid_field:
+                        oid_val = existing_feat.GetField(oid_field)
+                        if oid_val is not None:
+                            existing_fingerprints.add(str(oid_val))
+                    else:
+                        # Fallback: fingerprint from all attribute values as strings
+                        fp_parts = []
+                        for fn in field_names_in_layer:
+                            val = existing_feat.GetField(fn)
+                            fp_parts.append(str(val) if val is not None else "")
+                        existing_fingerprints.add(tuple(fp_parts))
                 ogr_layer.ResetReading()
-                log(f"  Loaded {len(existing_features)} existing features for duplicate checking")
 
-            # Helper function to check if geometries are the same
-            def geometries_equal(geom1_wkt, geom2):
-                """Check if two geometries are equal."""
-                try:
-                    geom1_ogr = ogr.CreateGeometryFromWkt(geom1_wkt)
-                    geom2_ogr = ogr.CreateGeometryFromWkt(geom2.asWkt())
-                    if geom1_ogr and geom2_ogr:
-                        return geom1_ogr.Equals(geom2_ogr)
-                except Exception:
-                    pass
-                return False
+                if existing_fingerprints:
+                    key_type = "OBJECTID" if oid_field else "attrs"
+                    log(f"  {name}: {len(existing_fingerprints)} existing features for dedup (key={key_type})")
 
-            # Helper function to merge geometries (union for overlapping features)
-            def merge_geometries(geom1_wkt, geom2):
-                try:
-                    geom1_ogr = ogr.CreateGeometryFromWkt(geom1_wkt)
-                    geom2_ogr = ogr.CreateGeometryFromWkt(geom2.asWkt())
-                    if geom1_ogr and geom2_ogr:
-                        geom_type = geom1_ogr.GetGeometryType()
-                        # For points, don't merge (they're either duplicates or different locations)
-                        if geom_type == ogr.wkbPoint or geom_type == ogr.wkbMultiPoint:
-                            return None
-                        # For lines and polygons, merge if they overlap or are adjacent
-                        if geom1_ogr.Intersects(geom2_ogr) or geom1_ogr.Touches(geom2_ogr):
-                            merged = geom1_ogr.Union(geom2_ogr)
-                            if merged and not merged.IsEmpty():
-                                return merged.ExportToWkt()
-                except Exception as e:
-                    log(f"  Error merging geometries: {e}")
-                return None
+                # Find OID field index in new features
+                for i, field in enumerate(fields):
+                    if field.name() in ("OBJECTID", "objectid", "ObjectID", "FID"):
+                        oid_field_idx = i
+                        break
 
-            # Process new features
+            # Write features (skipping duplicates when dedup is active)
             saved_count = 0
-            skipped_duplicates = 0
-            merged_count = 0
+            skipped_count = 0
             for qf in qgs_features:
                 geom = qf.geometry()
                 if not geom or geom.isEmpty():
                     continue
 
-                geom_wkt = geom.asWkt()
-
-                # Build attribute key, excluding auto-generated primary keys
-                exclude_fields = {"fid", "objectid", "ogc_fid", "rowid"}
-                attrs = tuple(
-                    qf.attribute(i) if qf.attribute(i) is not None else ""
-                    for i, f in enumerate(fields)
-                    if f.name().lower() not in exclude_fields
-                )
-
-                # Check for duplicate (same attributes and geometry)
-                if attrs in existing_features:
-                    existing_fid, existing_geom_wkt = existing_features[attrs]
-                    if geometries_equal(existing_geom_wkt, geom):
-                        skipped_duplicates += 1
-                        continue
+                # Check for duplicate
+                if existing_fingerprints:
+                    if oid_field_idx is not None:
+                        oid_val = qf.attribute(oid_field_idx)
+                        if oid_val is not None and str(oid_val) in existing_fingerprints:
+                            skipped_count += 1
+                            continue
                     else:
-                        # Same attributes but different geometry - might be cropped version
-                        merged_wkt = merge_geometries(existing_geom_wkt, geom)
-                        if merged_wkt:
-                            # Update existing feature with merged geometry
-                            existing_feat = ogr_layer.GetFeature(existing_fid)
-                            if existing_feat:
-                                merged_geom = ogr.CreateGeometryFromWkt(merged_wkt)
-                                if merged_geom:
-                                    existing_feat.SetGeometry(merged_geom)
-                                    ogr_layer.SetFeature(existing_feat)
-                                    merged_count += 1
-                                    # Update our cache
-                                    existing_features[attrs] = (existing_fid, merged_wkt)
-                                    continue
+                        fp_parts = []
+                        for i, field in enumerate(fields):
+                            val = qf.attribute(i)
+                            fp_parts.append(str(val) if val is not None else "")
+                        if tuple(fp_parts) in existing_fingerprints:
+                            skipped_count += 1
+                            continue
 
-                # New feature - add it
                 ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
-                ogr_geom = ogr.CreateGeometryFromWkt(geom_wkt)
+                ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
                 ogr_feat.SetGeometry(ogr_geom)
                 for i, field in enumerate(fields):
                     val = qf.attribute(i)
@@ -1510,18 +1607,22 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                         ogr_feat.SetField(field.name(), val)
                 if ogr_layer.CreateFeature(ogr_feat) == ogr.OGRERR_NONE:
                     saved_count += 1
-                    # Add to cache (attrs already computed above)
-                    new_fid = ogr_feat.GetFID()
-                    if new_fid >= 0:
-                        existing_features[attrs] = (new_fid, geom_wkt)
 
-            log(f"Saved {name}: {saved_count} new, {merged_count} merged, {skipped_duplicates} duplicates skipped")
+            if skipped_count:
+                log(f"Added {name}: {saved_count} new, {skipped_count} duplicates skipped")
+                topo_results["total_dupes_skipped"] += skipped_count
+            else:
+                log(f"Added {name}: {saved_count} features")
+
+            total_count = ogr_layer.GetFeatureCount()
+            topo_results["with_data"].append((name, total_count, skipped_count))
 
         except Exception as e:
             import traceback
 
             log(f"Error loading {name}: {e}")
             traceback.print_exc()
+            topo_results["failed"].append(name)
 
     # Close GPKG datasource to save
     ds = None
@@ -1531,7 +1632,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
 
     if layers_with_data == 0:
         log("WARNING: No NSW topo data was downloaded. Check network connectivity and bbox.")
-        return
+        return topo_results
 
     report_progress("Adding NSW topo layers to map...", 88)
 
@@ -1543,29 +1644,7 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
         layer_names = [gpkg_ds.GetLayerByIndex(i).GetName() for i in range(layer_count)]
         gpkg_ds = None
 
-        # Re-iterate to add layers with visibility settings
         layer_visibility = {name: visible for _, name, visible in layers}
-
-        # Reload layers from GPKG to show updated features (new features appended, duplicates merged)
-        gpkg_path_str = str(gpkg_path)
-        layers_to_remove = []
-        for child in group.children():
-            try:
-                if child.nodeType() == 0:  # 0 = Layer node type
-                    layer = child.layer()
-                    if layer:
-                        layer_source = layer.source()
-                        # Check if this layer is from the same GPKG file
-                        if gpkg_path_str in layer_source or gpkg_path.name in layer_source:
-                            layers_to_remove.append((child, layer))
-            except (AttributeError, TypeError):
-                continue
-
-        # Remove old layers from this GPKG (will be reloaded with updated features)
-        for child_node, layer in layers_to_remove:
-            log(f"Reloading layer: {layer.name()} (to show updated features)")
-            group.removeLayer(layer)
-            QgsProject.instance().removeMapLayer(layer.id())
 
         for layer_name in layer_names:
 
@@ -1618,6 +1697,8 @@ def add_nsw_topo_layers(group, extent, crs, output_dir, progress_callback=None, 
                 log(f"WARNING: Failed to load layer: {layer_name}")
     else:
         log(f"WARNING: Could not open GPKG file: {gpkg_path}")
+
+    return topo_results
 
 
 def convert_geojson_geom(geom, transform):
@@ -1829,126 +1910,62 @@ def add_merged_gpkg_layer(gpkg_path, name, group, crs_override, output_gpkg):
     merged_layer.updateExtents()
     log(f"  Merged {total_features} features from {len(layer_names)} layers")
 
-    # Save merged layer to disk as GeoPackage using OGR directly
-    # This avoids FID preservation issues with QgsVectorFileWriter
-    output_gpkg_path = Path(output_gpkg)
+    # Save merged layer to disk as GeoPackage using QgsVectorFileWriter.
+    # Write to a temp file first, then move to the target path to avoid
+    # file-locking issues with existing files on Windows.
+    import shutil
 
-    # Ensure output directory exists
+    from qgis.core import QgsCoordinateTransformContext, QgsVectorFileWriter
+
+    output_gpkg_path = Path(output_gpkg)
     output_gpkg_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Delete output file if it exists
-    if output_gpkg_path.exists():
-        output_gpkg_path.unlink()
+    # Write to a temp file first
+    tmp_fd, tmp_path = tempfile.mkstemp(suffix=".gpkg")
+    os.close(tmp_fd)
+    os.unlink(tmp_path)  # QgsVectorFileWriter creates the file itself
 
-    # Use OGR to write features directly, which auto-generates FIDs
-    driver = ogr.GetDriverByName("GPKG")
-    if not driver:
-        log("GPKG driver not available")
-        # Fallback: add memory layer
+    options = QgsVectorFileWriter.SaveVectorOptions()
+    options.driverName = "GPKG"
+    options.layerName = name
+
+    error, error_msg = QgsVectorFileWriter.writeAsVectorFormatV3(
+        merged_layer, tmp_path, QgsCoordinateTransformContext(), options
+    )[:2]
+
+    if error != QgsVectorFileWriter.NoError:
+        log(f"  Failed to write GeoPackage: {error_msg}")
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
         QgsProject.instance().addMapLayer(merged_layer, False)
         group.addLayer(merged_layer)
         log(f"Added (temporary): {name}")
         return merged_layer
 
-    # Create datasource - try relative path first (like NSW topo code)
-    output_path_str = str(output_gpkg_path)
-    ds = driver.CreateDataSource(output_path_str)
-    if not ds:
-        # If file was created but datasource is None, try opening it in update mode
-        if output_gpkg_path.exists():
-            try:
-                # Try opening the existing file
-                ds = ogr.Open(output_path_str, 1)  # 1 = update mode
-                if not ds:
-                    # File might be corrupted, delete and try creating again
-                    output_gpkg_path.unlink()
-                    time.sleep(0.2)  # Longer pause to ensure filesystem sync
-                    # Try with absolute path
-                    abs_path = str(output_gpkg_path.resolve())
-                    ds = driver.CreateDataSource(abs_path)
-            except Exception:
-                pass
+    # Move temp file to target path
+    try:
+        for suffix in ["", "-wal", "-shm"]:
+            target = Path(str(output_gpkg_path) + suffix)
+            if target.exists():
+                target.unlink()
+        shutil.move(tmp_path, str(output_gpkg_path))
+    except OSError as e:
+        log(f"  Could not move to {output_gpkg_path.name}: {e}, loading from temp file")
+        output_gpkg_path = Path(tmp_path)
 
-        if not ds:
-            log(f"Failed to create GeoPackage: {output_gpkg_path}")
-            # Fallback: add memory layer
-            QgsProject.instance().addMapLayer(merged_layer, False)
-            group.addLayer(merged_layer)
-            log(f"Added (temporary): {name}")
-            return merged_layer
-
-    # Get geometry type
-    geom_type = merged_layer.geometryType()
-    ogr_geom_type_map = {
-        0: ogr.wkbPoint,
-        1: ogr.wkbLineString,
-        2: ogr.wkbPolygon,
-    }
-    ogr_geom_type = ogr_geom_type_map.get(geom_type, ogr.wkbLineString)
-
-    # Create layer
-    srs = ogr.SpatialReference()
-    crs = merged_layer.crs()
-    if crs.isValid() and crs.authid():
-        srs.ImportFromEPSG(int(crs.authid().split(":")[-1]))
-    else:
-        srs.ImportFromWkt(crs.toWkt())
-
-    ogr_layer = ds.CreateLayer(name, srs, ogr_geom_type)
-    if not ogr_layer:
-        log("Failed to create layer in GeoPackage")
-        ds = None
-        # Fallback: add memory layer
-        QgsProject.instance().addMapLayer(merged_layer, False)
-        group.addLayer(merged_layer)
-        log(f"Added (temporary): {name}")
-        return merged_layer
-
-    # Add fields
-    for field in merged_layer.fields():
-        field_defn = ogr.FieldDefn(field.name(), ogr.OFTString)
-        if field.type() == 2:  # QVariant.Int
-            field_defn.SetType(ogr.OFTInteger)
-        elif field.type() == 6:  # QVariant.Double
-            field_defn.SetType(ogr.OFTReal)
-        ogr_layer.CreateField(field_defn)
-
-    # Write features (FIDs will be auto-generated)
-    written_count = 0
-    for qgs_feat in merged_layer.getFeatures():
-        ogr_feat = ogr.Feature(ogr_layer.GetLayerDefn())
-        geom = qgs_feat.geometry()
-        if geom and not geom.isEmpty():
-            ogr_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
-            if ogr_geom:
-                ogr_feat.SetGeometry(ogr_geom)
-        # Set attributes
-        for i, field in enumerate(merged_layer.fields()):
-            val = qgs_feat.attribute(i)
-            if val is not None:
-                ogr_feat.SetField(field.name(), str(val))
-
-        # CreateFeature will auto-generate FID
-        if ogr_layer.CreateFeature(ogr_feat) == ogr.OGRERR_NONE:
-            written_count += 1
-        ogr_feat = None
-
-    ds = None  # Close datasource
-    log(f"  Saved {written_count} features to {output_gpkg_path.name}")
-
-    # Load the permanent layer
-    permanent_layer = QgsVectorLayer(f"{output_gpkg}|layername={name}", name, "ogr")
+    # Load the permanent layer from the saved GeoPackage
+    load_path = str(output_gpkg_path)
+    permanent_layer = QgsVectorLayer(f"{load_path}|layername={name}", name, "ogr")
     if not permanent_layer.isValid():
-        log(f"Failed to load permanent merged contours layer from {output_gpkg}")
-        # Fallback: add memory layer as before
+        log(f"Failed to load saved {output_gpkg_path.name}, using temporary layer")
         QgsProject.instance().addMapLayer(merged_layer, False)
         group.addLayer(merged_layer)
-        log(f"Added (temporary): {name}")
         return merged_layer
 
     QgsProject.instance().addMapLayer(permanent_layer, False)
     group.addLayer(permanent_layer)
-    log(f"Added (permanent): {name}")
     return permanent_layer
 
 
