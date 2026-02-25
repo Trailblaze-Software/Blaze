@@ -21,7 +21,7 @@ jobs:
             libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
             lcov gcovr
           install_recommends: true
-          version: 1.0
+          version: 1.1
       - name: Configure CMake with coverage
         run: |
           mkdir -p coverage-build
