@@ -104,10 +104,11 @@ jobs:
       - name: Install package
         run: |
           $installer = (Get-Item build/Blaze-*.exe).FullName
-          Start-Process -Wait -FilePath $installer -ArgumentList '/S'
+          Start-Process -Wait -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest'
       - name: Test installed package
         run: |
-          & "${env:ProgramFiles}\Blaze\bin\blaze-cli.exe"
+          Copy-Item -Recurse C:\BlazeTest\share\assets $env:TEMP\blaze-test
+          & C:\BlazeTest\bin\blaze-cli.exe $env:TEMP\blaze-test\default_config.json
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -162,7 +163,9 @@ jobs:
           sudo dpkg -i build/Blaze-*.deb || true
           sudo apt-get install -f -y
       - name: Test installed package
-        run: blaze-cli
+        run: |
+          cp -r /usr/share/assets /tmp/blaze-test
+          blaze-cli /tmp/blaze-test/default_config.json
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
