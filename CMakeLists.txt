@@ -209,7 +209,8 @@ if(NOT BLAZE_CLI_ONLY)
     add_custom_command(
       TARGET ${GUI_EXE_NAME}
       POST_BUILD
-      COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_EXE_NAME}>)
+      COMMAND Qt6::windeployqt ARGS --no-compiler-runtime
+              $<TARGET_FILE:${GUI_EXE_NAME}>)
   endif()
 
   set(GUI_3D_EXE_NAME Blaze3D)
@@ -235,7 +236,8 @@ if(NOT BLAZE_CLI_ONLY)
     add_custom_command(
       TARGET ${GUI_3D_EXE_NAME}
       POST_BUILD
-      COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_3D_EXE_NAME}>)
+      COMMAND Qt6::windeployqt ARGS --no-compiler-runtime
+              $<TARGET_FILE:${GUI_3D_EXE_NAME}>)
   endif()
 endif()
 set(ALL_TARGETS ${ALL_EXECUTABLES} ${LIBRARY_NAME})

@@ -2,27 +2,41 @@
 
 #include "config_input/config_input.hpp"
 
+#ifdef _WIN32
+#define ABS_CONFIG_DIR "C:/some/config/dir"
+#define ABS_CONFIG_DIR2 "C:/config/dir"
+#define ABS_OUTPUT "C:/absolute/output"
+#define ABS_FILE1 "C:/absolute/file1.las"
+#define ABS_FILE2 "C:/absolute/file2.laz"
+#else
+#define ABS_CONFIG_DIR "/some/config/dir"
+#define ABS_CONFIG_DIR2 "/config/dir"
+#define ABS_OUTPUT "/absolute/output"
+#define ABS_FILE1 "/absolute/file1.las"
+#define ABS_FILE2 "/absolute/file2.laz"
+#endif
+
 // =============================================================================
 // Config output_path tests
 // =============================================================================
 
 TEST(ConfigPaths, OutputPathAbsolute) {
   Config config;
-  config.relative_path_to_config = "C:/some/config/dir";
-  config.set_output_directory("C:/absolute/output");
+  config.relative_path_to_config = ABS_CONFIG_DIR;
+  config.set_output_directory(ABS_OUTPUT);
 
   fs::path result = config.output_path();
   EXPECT_TRUE(result.is_absolute());
-  EXPECT_EQ(result, fs::path("C:/absolute/output"));
+  EXPECT_EQ(result, fs::path(ABS_OUTPUT));
 }
 
 TEST(ConfigPaths, OutputPathRelative) {
   Config config;
-  config.relative_path_to_config = "C:/some/config/dir";
+  config.relative_path_to_config = ABS_CONFIG_DIR;
   config.set_output_directory("relative/output");
 
   fs::path result = config.output_path();
-  EXPECT_EQ(result, fs::path("C:/some/config/dir") / "relative/output");
+  EXPECT_EQ(result, fs::path(ABS_CONFIG_DIR) / "relative/output");
 }
 
 TEST(ConfigPaths, SetOutputDirectory) {
@@ -40,24 +54,24 @@ TEST(ConfigPaths, SetOutputDirectory) {
 
 TEST(ConfigPaths, LasFilepathsAbsolute) {
   Config config;
-  config.relative_path_to_config = "C:/config/dir";
-  config.las_files = {fs::path("C:/absolute/file1.las"), fs::path("C:/absolute/file2.laz")};
+  config.relative_path_to_config = ABS_CONFIG_DIR2;
+  config.las_files = {fs::path(ABS_FILE1), fs::path(ABS_FILE2)};
 
   auto paths = config.las_filepaths();
   EXPECT_EQ(paths.size(), 2u);
-  EXPECT_EQ(paths[0], fs::path("C:/absolute/file1.las"));
-  EXPECT_EQ(paths[1], fs::path("C:/absolute/file2.laz"));
+  EXPECT_EQ(paths[0], fs::path(ABS_FILE1));
+  EXPECT_EQ(paths[1], fs::path(ABS_FILE2));
 }
 
 TEST(ConfigPaths, LasFilepathsRelative) {
   Config config;
-  config.relative_path_to_config = "C:/config/dir";
+  config.relative_path_to_config = ABS_CONFIG_DIR2;
   config.las_files = {fs::path("data/file1.las"), fs::path("data/file2.laz")};
 
   auto paths = config.las_filepaths();
   EXPECT_EQ(paths.size(), 2u);
-  EXPECT_EQ(paths[0], fs::path("C:/config/dir") / "data/file1.las");
-  EXPECT_EQ(paths[1], fs::path("C:/config/dir") / "data/file2.laz");
+  EXPECT_EQ(paths[0], fs::path(ABS_CONFIG_DIR2) / "data/file1.las");
+  EXPECT_EQ(paths[1], fs::path(ABS_CONFIG_DIR2) / "data/file2.laz");
 }
 
 TEST(ConfigPaths, LasFilepathsEmpty) {
@@ -68,13 +82,13 @@ TEST(ConfigPaths, LasFilepathsEmpty) {
 
 TEST(ConfigPaths, LasFilepathsMixed) {
   Config config;
-  config.relative_path_to_config = "C:/config/dir";
-  config.las_files = {fs::path("C:/absolute/file1.las"), fs::path("relative/file2.laz")};
+  config.relative_path_to_config = ABS_CONFIG_DIR2;
+  config.las_files = {fs::path(ABS_FILE1), fs::path("relative/file2.laz")};
 
   auto paths = config.las_filepaths();
   EXPECT_EQ(paths.size(), 2u);
-  EXPECT_EQ(paths[0], fs::path("C:/absolute/file1.las"));
-  EXPECT_EQ(paths[1], fs::path("C:/config/dir") / "relative/file2.laz");
+  EXPECT_EQ(paths[0], fs::path(ABS_FILE1));
+  EXPECT_EQ(paths[1], fs::path(ABS_CONFIG_DIR2) / "relative/file2.laz");
 }
 
 // =============================================================================

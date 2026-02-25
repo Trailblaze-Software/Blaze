@@ -101,6 +101,13 @@ jobs:
           if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
             Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
           }
+      - name: Install package
+        run: |
+          $installer = (Get-Item build/Blaze-*.exe).FullName
+          Start-Process -Wait -FilePath $installer -ArgumentList '/S'
+      - name: Test installed package
+        run: |
+          & "${env:ProgramFiles}\Blaze\bin\blaze-cli.exe"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -150,6 +157,12 @@ jobs:
         run: |
           cd build
           cpack -C Release -G DEB
+      - name: Install DEB package
+        run: |
+          sudo dpkg -i build/Blaze-*.deb || true
+          sudo apt-get install -f -y
+      - name: Test installed package
+        run: blaze-cli
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
