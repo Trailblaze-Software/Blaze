@@ -2175,9 +2175,12 @@ def main():
             output_path = str(Path(combined_dir).parent / "combined.qgz")
         log(f"Using environment variables: {combined_dir} -> {output_path}")
 
+    # Allow CI to skip NSW topo downloads (they hit external APIs that can be slow/flaky)
+    download_topo = not os.environ.get("BLAZE_SKIP_TOPO_DOWNLOAD")
+
     log("Starting create_qgis_project()...")
     try:
-        result = create_qgis_project(combined_dir, output_path)
+        result = create_qgis_project(combined_dir, output_path, download_topo=download_topo)
         log(f"create_qgis_project() returned: {result}")
     except Exception as e:
         log(f"Error in create_qgis_project(): {e}")
