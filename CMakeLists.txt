@@ -319,10 +319,20 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
 
 add_subdirectory(src)
 
-# Discover and register all individual Google Test cases This replaces the need
-# for add_test() - gtest_discover_tests() automatically registers each TEST()
-# and TEST_F() as a separate ctest target
-gtest_discover_tests(${UNIT_TESTS_NAME})
+# Discover and register all individual Google Test cases. This replaces the need
+# for add_test() — gtest_discover_tests() automatically registers each TEST()
+# and TEST_F() as a separate ctest target.
+#
+# PRE_TEST: discover tests when ctest runs, not as a POST_BUILD step. The
+# default POST_BUILD mode runs the test executable during the build to enumerate
+# tests; on Windows CI the DLL-load time for GDAL/MKL/OpenCV/etc. exceeds the
+# default 5-second timeout and the build fails even when tests won't be run
+# (e.g. the release-app packaging workflow).
+#
+# DISCOVERY_TIMEOUT 120: generous timeout for the DLL-heavy Windows executable
+# when tests *are* actually discovered.
+gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_MODE PRE_TEST
+                     DISCOVERY_TIMEOUT 120)
 
 include(GNUInstallDirs)
 
