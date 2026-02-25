@@ -101,6 +101,14 @@ jobs:
           if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
             Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
           }
+      - name: Install package
+        run: |
+          $installer = (Get-Item build/Blaze-*.exe).FullName
+          Start-Process -Wait -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest'
+      - name: Test installed package
+        run: |
+          Copy-Item -Recurse C:\BlazeTest\share\assets $env:TEMP\blaze-test
+          & C:\BlazeTest\bin\blaze-cli.exe $env:TEMP\blaze-test\default_config.json
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -136,7 +144,12 @@ jobs:
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "Version: $TAG"
       - name: Install dependencies
-        run: ./scripts/install-ubuntu-deps.sh
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
+            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+          install_recommends: true
+          version: 1.1
       - name: Configure
         run: |
           CMAKE_ARGS=""
@@ -150,6 +163,14 @@ jobs:
         run: |
           cd build
           cpack -C Release -G DEB
+      - name: Install DEB package
+        run: |
+          sudo dpkg -i build/Blaze-*.deb || true
+          sudo apt-get install -f -y
+      - name: Test installed package
+        run: |
+          cp -r /usr/share/assets /tmp/blaze-test
+          blaze-cli /tmp/blaze-test/default_config.json
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:

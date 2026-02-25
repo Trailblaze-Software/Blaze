@@ -95,8 +95,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
         n_out_of_bounds++;
         continue;
       }
-      binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
-          las_point);
+      binned_points[pixel_coord.round()].emplace_back(las_point);
     }
     if (n_out_of_bounds > 0) {
       std::cerr << "Warning: " << n_out_of_bounds
@@ -131,7 +130,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       for (size_t j = 0; j < binned_points.width(); j++) {
         bool is_building = false;
         bool is_water = false;
-        double min = std::numeric_limits<unsigned int>::max();
+        double min = std::numeric_limits<double>::infinity();
         std::optional<LASPoint> min_point = std::nullopt;
         for (const LASPoint& las_point : binned_points[{j, i}]) {
           if (las_point.z() < min && (las_point.classification() == LASClassification::Ground ||

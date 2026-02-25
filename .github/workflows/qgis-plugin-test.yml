@@ -34,12 +34,12 @@ jobs:
           export BLAZE_COMBINED_DIR=assets/out/combined
           export BLAZE_OUTPUT_PATH=assets/out/combined.qgz
           export BLAZE_EXIT_AFTER_RUN=1
+          export BLAZE_SKIP_TOPO_DOWNLOAD=1
           export QT_QPA_PLATFORM=offscreen
           timeout 300 xvfb-run -a qgis --nologo --code qgis_plugin/blaze_loader/create_qgis_project.py || true
-      - name: Check for QGIS project and required files
+      - name: Check for QGIS project
         run: |
           test -f assets/out/combined.qgz
-          test -f assets/out/combined/nsw_topo.gpkg
       - name: Upload QGIS project with all layers
         uses: actions/upload-artifact@v4
         with:

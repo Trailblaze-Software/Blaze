@@ -315,16 +315,22 @@ Config Config::FromFile(const fs::path& filename) {
     throw e;
   }
   file.close();
-  for (const auto& color : j["colors"]["primitive"].items()) {
-    COLOR_MAP[color.key()] = color.value().get<ColorVariant>();
-  }
-  for (const auto& color : j["colors"]["composite"].items()) {
-    CMYKColor composite;
-    for (const auto& component : color.value().items()) {
-      composite =
-          composite + to_cmyk(COLOR_MAP.at(component.key())) * component.value().get<double>();
+  if (j.contains("colors")) {
+    if (j["colors"].contains("primitive")) {
+      for (const auto& color : j["colors"]["primitive"].items()) {
+        COLOR_MAP[color.key()] = color.value().get<ColorVariant>();
+      }
     }
-    COLOR_MAP[color.key()] = composite;
+    if (j["colors"].contains("composite")) {
+      for (const auto& color : j["colors"]["composite"].items()) {
+        CMYKColor composite;
+        for (const auto& component : color.value().items()) {
+          composite =
+              composite + to_cmyk(COLOR_MAP.at(component.key())) * component.value().get<double>();
+        }
+        COLOR_MAP[color.key()] = composite;
+      }
+    }
   }
   Config c = j.get<Config>();
   c.relative_path_to_config = filename.parent_path();
