@@ -205,14 +205,6 @@ if(NOT BLAZE_CLI_ONLY)
   qt_import_plugins(${GUI_EXE_NAME} INCLUDE_BY_TYPE imageformats
                     Qt6::QTiffPlugin)
 
-  if(WIN32)
-    add_custom_command(
-      TARGET ${GUI_EXE_NAME}
-      POST_BUILD
-      COMMAND Qt6::windeployqt ARGS --no-compiler-runtime
-              $<TARGET_FILE:${GUI_EXE_NAME}>)
-  endif()
-
   set(GUI_3D_EXE_NAME Blaze3D)
   list(APPEND ALL_EXECUTABLES ${GUI_3D_EXE_NAME})
   if(WIN32)
@@ -233,11 +225,21 @@ if(NOT BLAZE_CLI_ONLY)
                     Qt6::QTiffPlugin)
 
   if(WIN32)
-    add_custom_command(
-      TARGET ${GUI_3D_EXE_NAME}
-      POST_BUILD
-      COMMAND Qt6::windeployqt ARGS --no-compiler-runtime
-              $<TARGET_FILE:${GUI_3D_EXE_NAME}>)
+    # Deploy Qt runtime dependencies from a single target to avoid race
+    # conditions when Blaze and Blaze3D build in parallel. windeployqt uses
+    # QFile::copy() which fails when the destination file already exists, so
+    # running it per-target causes non-deterministic failures when both try to
+    # deploy to the same output directory. --force overwrites files from the
+    # first invocation; --no-compiler-runtime skips vc_redist.x64.exe which is
+    # not needed in the build tree.
+    add_custom_target(
+      deploy_qt ALL
+      COMMAND Qt6::windeployqt --force --no-compiler-runtime
+              $<TARGET_FILE:${GUI_EXE_NAME}>
+      COMMAND Qt6::windeployqt --force --no-compiler-runtime
+              $<TARGET_FILE:${GUI_3D_EXE_NAME}>
+      COMMENT "Deploying Qt runtime dependencies")
+    add_dependencies(deploy_qt ${GUI_EXE_NAME} ${GUI_3D_EXE_NAME})
   endif()
 endif()
 set(ALL_TARGETS ${ALL_EXECUTABLES} ${LIBRARY_NAME})
