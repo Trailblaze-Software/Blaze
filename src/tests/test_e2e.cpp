@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 
 #include "config_input/config_input.hpp"
@@ -692,3 +693,200 @@ INSTANTIATE_TEST_SUITE_P(
                             return 99.0 + std::max(0.0, 20.0 - dist * 0.5);
                           },
                           true, true}));
+
+// Test ground estimation on slopes in N, S, E, W directions
+TEST(E2E, GroundEstimationSlopes) {
+  fs::path test_output_dir = fs::temp_directory_path() / "blaze_slope_test";
+
+  // Clean up if exists
+  if (fs::exists(test_output_dir)) {
+    fs::remove_all(test_output_dir);
+  }
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  config.grid.bin_resolution = 5.0;
+
+  // Test only 45 degrees, North/South, downsample factor 1
+  const double angle_deg = 45.0;
+  const int downsample_factor = 1;
+  config.grid.downsample_factor = downsample_factor;
+
+  const double angle_rad = angle_deg * M_PI / 180.0;
+  const double slope_ratio = std::tan(angle_rad);  // rise over run
+  const double base_elevation = 100.0;
+  const double test_area_size = 50.0;  // 50m x 50m test area
+  const double point_spacing = 0.5;    // 0.5m spacing for dense point cloud
+
+  // Test only North and South directions
+  struct DirectionTest {
+    std::string name;
+    std::function<double(double, double)> height_func;
+  };
+
+  std::vector<DirectionTest> directions = {
+      {"North",
+       [=](double x, double y) { return base_elevation + (test_area_size - y) * slope_ratio; }},
+      {"South", [=](double x, double y) { return base_elevation + y * slope_ratio; }},
+  };
+
+  // Store statistics for summary table
+  struct TestStats {
+    std::string direction;
+    double angle;
+    int downsample_factor;
+    double avg_error;
+    double std_dev;
+    int valid_samples;
+  };
+  std::vector<TestStats> all_stats;
+
+  for (const auto& dir : directions) {
+    // Create extent for this test
+    Extent2D extent{0.0, test_area_size, 0.0, test_area_size};
+    const std::string proj_str = get_wgs84_wkt();
+    LASData las_data(extent, GeoProjection(proj_str));
+
+    // Generate ground points with the slope
+    for (double x = extent.minx; x <= extent.maxx; x += point_spacing) {
+      for (double y = extent.miny; y <= extent.maxy; y += point_spacing) {
+        double z = dir.height_func(x, y);
+        las_data.insert(LASPoint(x, y, z, 1000, LASClassification::Ground));
+      }
+    }
+
+    // Process the data
+    fs::path output_dir = test_output_dir / (dir.name + "_" + std::to_string((int)angle_deg) +
+                                             "deg_ds" + std::to_string(downsample_factor));
+    fs::create_directories(output_dir);
+    ProgressTracker tracker;
+    process_las_data(las_data, output_dir, config, std::move(tracker));
+
+    // Read back the ground estimate
+    fs::path ground_file = output_dir / "ground.tif";
+    if (!fs::exists(ground_file)) {
+      // If ground.tif doesn't exist, try smooth_ground.tif
+      ground_file = output_dir / "smooth_ground.tif";
+    }
+
+    if (fs::exists(ground_file)) {
+      Geo<MultiBand<FlexGrid>> tif_data = read_tif(ground_file);
+      GeoGrid<double> ground_grid(tif_data.width(), tif_data.height(),
+                                  GeoTransform(tif_data.transform()),
+                                  GeoProjection(tif_data.projection()));
+      ground_grid.fill_from(tif_data[0]);
+
+      // Print all samples with expected vs estimated values
+      std::cout << "\n========================================\n";
+      std::cout << "Direction: " << dir.name << ", Angle: " << angle_deg
+                << "°, Downsample: " << downsample_factor << "\n";
+      std::cout << "========================================\n";
+      std::cout << std::fixed << std::setprecision(4);
+      std::cout << std::setw(10) << "X" << std::setw(10) << "Y" << std::setw(12) << "Expected Z"
+                << std::setw(12) << "Estimated Z" << std::setw(12) << "Error" << std::endl;
+      std::cout << "----------------------------------------\n";
+
+      // Sample all grid cells
+      int valid_samples = 0;
+      double max_abs_error = 0.0;
+      double total_signed_error = 0.0;
+      std::vector<double> signed_errors;
+
+      // Sample at grid cell centers, but skip cells too close to edges
+      // Skip cells within downsample_factor pixels from each edge
+      // (since each pixel in the downsampled grid represents downsample_factor * bin_resolution
+      // meters)
+      size_t edge_padding = downsample_factor;
+
+      for (size_t i = edge_padding; i < ground_grid.height() - edge_padding; i++) {
+        for (size_t j = edge_padding; j < ground_grid.width() - edge_padding; j++) {
+          // Get the projection coordinate for this grid cell center
+          Coordinate2D<double> pixel_center(static_cast<double>(j) + 0.5,
+                                            static_cast<double>(i) + 0.5);
+          Coordinate2D<double> proj_coord =
+              ground_grid.transform().pixel_to_projection(pixel_center);
+
+          double x = proj_coord.x();
+          double y = proj_coord.y();
+          double expected_z = dir.height_func(x, y);
+          double estimated_z = ground_grid[{j, i}];
+
+          // Skip invalid values (NaN or infinity)
+          if (std::isfinite(estimated_z)) {
+            double signed_error =
+                estimated_z - expected_z;  // Positive = overestimate, negative = underestimate
+            double abs_error = std::abs(signed_error);
+            max_abs_error = std::max(max_abs_error, abs_error);
+            total_signed_error += signed_error;
+            signed_errors.push_back(signed_error);
+            valid_samples++;
+
+            // Print each sample
+            std::cout << std::setw(10) << x << std::setw(10) << y << std::setw(12) << expected_z
+                      << std::setw(12) << estimated_z << std::setw(12) << signed_error << std::endl;
+
+            // Allow some tolerance for binning and processing
+            double tolerance = std::abs(slope_ratio) * 0.1;
+            EXPECT_NEAR(estimated_z, expected_z, tolerance)
+                << "Direction: " << dir.name << ", Angle: " << angle_deg << "°, Position: (" << x
+                << ", " << y << "), Expected: " << expected_z << ", Got: " << estimated_z;
+          }
+        }
+      }
+
+      // Print summary statistics
+      std::cout << "----------------------------------------\n";
+      if (valid_samples > 0) {
+        double avg_signed_error = total_signed_error / valid_samples;
+
+        // Calculate standard deviation of signed errors
+        double variance = 0.0;
+        for (double error : signed_errors) {
+          double diff = error - avg_signed_error;
+          variance += diff * diff;
+        }
+        double std_dev = std::sqrt(variance / valid_samples);
+
+        std::cout << "Valid samples: " << valid_samples << "\n";
+        std::cout << "Average error: " << avg_signed_error << " m\n";
+        std::cout << "Std deviation: " << std_dev << " m\n";
+        std::cout << "Max abs error: " << max_abs_error << " m\n";
+
+        // Store statistics for summary table
+        all_stats.push_back(
+            {dir.name, angle_deg, downsample_factor, avg_signed_error, std_dev, valid_samples});
+      } else {
+        std::cout << "No valid samples found!\n";
+      }
+      std::cout << "========================================\n\n";
+    } else {
+      // If neither file exists, that's also a problem
+      ADD_FAILURE() << "Neither ground.tif nor smooth_ground.tif exists for " << dir.name << " "
+                    << angle_deg << "° (downsample=" << downsample_factor << ")";
+    }
+  }
+
+  // Print summary table
+  if (!all_stats.empty()) {
+    std::cout << "\n==================================================\n";
+    std::cout << "Ground Estimation Error Summary Table\n";
+    std::cout << "==================================================\n";
+    std::cout << std::fixed << std::setprecision(4);
+    std::cout << std::setw(10) << "Direction" << std::setw(8) << "Angle" << std::setw(6) << "DS"
+              << std::setw(12) << "Avg Error" << std::setw(12) << "Std Dev" << std::setw(10)
+              << "Samples" << std::endl;
+    std::cout << "--------------------------------------------------\n";
+
+    for (const auto& stats : all_stats) {
+      std::cout << std::setw(10) << stats.direction << std::setw(8) << stats.angle << std::setw(6)
+                << stats.downsample_factor << std::setw(12) << stats.avg_error << std::setw(12)
+                << stats.std_dev << std::setw(10) << stats.valid_samples << std::endl;
+    }
+    std::cout << "==================================================\n\n";
+  }
+
+  // Clean up
+  if (fs::exists(test_output_dir)) {
+    fs::remove_all(test_output_dir);
+  }
+}

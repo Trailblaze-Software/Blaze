@@ -91,11 +91,20 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       }
       auto pixel_coord = binned_points.transform().projection_to_pixel(
           Coordinate2D<double>(las_point.x(), las_point.y()));
-      if (pixel_coord.x() >= binned_points.width() || pixel_coord.y() >= binned_points.height()) {
+      // Check bounds accounting for rounding: round() adds 0.5, so we need to check
+      // that the coordinate is at least 0.5 away from the boundary
+      if (pixel_coord.x() < -0.5 || pixel_coord.x() >= binned_points.width() - 0.5 ||
+          pixel_coord.y() < -0.5 || pixel_coord.y() >= binned_points.height() - 0.5) {
         n_out_of_bounds++;
         continue;
       }
-      binned_points[pixel_coord.round()].emplace_back(las_point);
+      auto rounded_coord = pixel_coord.round();
+      // Double-check bounds after rounding (defensive programming)
+      if (!binned_points.in_bounds(rounded_coord)) {
+        n_out_of_bounds++;
+        continue;
+      }
+      binned_points[rounded_coord].emplace_back(las_point);
     }
     if (n_out_of_bounds > 0) {
       std::cerr << "Warning: " << n_out_of_bounds
