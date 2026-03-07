@@ -13,7 +13,16 @@ from pathlib import Path
 
 from qgis.core import Qgis, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QApplication, QMessageBox, QProgressDialog
+from qgis.PyQt.QtWidgets import (
+    QApplication,
+    QDialog,
+    QDialogButtonBox,
+    QLabel,
+    QMessageBox,
+    QProgressDialog,
+    QTextEdit,
+    QVBoxLayout,
+)
 
 from .blaze_loader_dialog import BlazeLoaderDialog
 
@@ -114,7 +123,7 @@ class BlazeLoader:
             last_folder=self.last_folder,
         )
 
-        if (folder or options.get("use_current_extent", False)) and options:
+        if options and (folder or options.get("use_current_extent", False)):
             if folder:
                 self.last_folder = folder
             self.load_blaze_project(folder, options)
@@ -198,7 +207,7 @@ class BlazeLoader:
             update_progress("Adding layers to project...", 2)
 
             # Call the function from the exec'd module (output_path=None means don't save)
-            module_globals["create_qgis_project"](
+            result = module_globals["create_qgis_project"](
                 str(folder_path) if folder_path else None,
                 output_path=None,  # Don't save - add to current project
                 download_topo=options.get("download_topo", True),
@@ -220,13 +229,8 @@ class BlazeLoader:
             # Refresh the map canvas to ensure new layers are visible
             self.iface.mapCanvas().refresh()
 
-            # Show success message
-            QMessageBox.information(
-                self.iface.mainWindow(),
-                "Blaze Map Loader",
-                f"Blaze layers added successfully!\n\nLayers from: {folder_path}\n\n"
-                f"Check the Log Messages panel (View > Panels > Log Messages > Blaze) for details.\n\n",
-            )
+            # Build summary dialog
+            self._show_summary_dialog(result, folder_path)
 
         except Exception as e:
             progress.close()
@@ -238,3 +242,96 @@ class BlazeLoader:
             import traceback
 
             traceback.print_exc()
+
+    def _show_summary_dialog(self, result, folder_path):
+        """Show a summary dialog with scrollable topo details."""
+        dlg = QDialog(self.iface.mainWindow())
+        dlg.setWindowTitle("Blaze Map Loader")
+        dlg.setMinimumWidth(420)
+        layout = QVBoxLayout(dlg)
+
+        # Top section: loaded / failed / skipped (compact)
+        top_lines = []
+        if isinstance(result, dict):
+            if result.get("loaded"):
+                top_lines.append("<b>Loaded:</b>")
+                for item in result["loaded"]:
+                    top_lines.append(f"&nbsp;&nbsp;✓ {item}")
+            if result.get("failed"):
+                top_lines.append("<b>Failed:</b>")
+                for item in result["failed"]:
+                    top_lines.append(f"&nbsp;&nbsp;✗ {item}")
+            if result.get("skipped"):
+                top_lines.append("<b>Skipped:</b>")
+                for item in result["skipped"]:
+                    top_lines.append(f"&nbsp;&nbsp;– {item}")
+
+        if top_lines:
+            top_label = QLabel("<br>".join(top_lines))
+            top_label.setTextFormat(Qt.RichText)
+            top_label.setWordWrap(True)
+            layout.addWidget(top_label)
+
+        # Topo details in a scrollable text area
+        topo = result.get("topo_details") if isinstance(result, dict) else None
+        if topo and (topo.get("with_data") or topo.get("empty") or topo.get("failed") or topo.get("network_errors")):
+            topo_lines = []
+            if topo.get("network_errors"):
+                topo_lines.append(f"Server errors ({len(topo['network_errors'])}):")
+                for entry in topo["network_errors"]:
+                    if isinstance(entry, tuple):
+                        name, url = entry
+                        topo_lines.append(f"  ⚠ {name}: {url}")
+                    else:
+                        # Backward compatibility
+                        topo_lines.append(f"  ⚠ {entry}")
+            if topo.get("failed"):
+                topo_lines.append(f"Failed ({len(topo['failed'])}):")
+                for name in topo["failed"]:
+                    topo_lines.append(f"  ✗ {name}")
+            if topo.get("with_data"):
+                if topo_lines:
+                    topo_lines.append("")
+                topo_lines.append(f"Layers ({len(topo['with_data'])}):")
+                for entry in topo["with_data"]:
+                    name, count = entry[0], entry[1]
+                    dupes = entry[2] if len(entry) > 2 else 0
+                    if dupes:
+                        topo_lines.append(f"  ✓ {name} ({count} features, {dupes} duplicates skipped)")
+                    else:
+                        topo_lines.append(f"  ✓ {name} ({count} features)")
+            if topo.get("empty"):
+                topo_lines.append(f"\nNo data in area ({len(topo['empty'])}):")
+                for name in topo["empty"]:
+                    topo_lines.append(f"  – {name}")
+
+            topo_label = QLabel("<b>Topo layers:</b>")
+            topo_label.setTextFormat(Qt.RichText)
+            layout.addWidget(topo_label)
+
+            topo_text = QTextEdit()
+            topo_text.setReadOnly(True)
+            topo_text.setPlainText("\n".join(topo_lines))
+            topo_text.setMaximumHeight(200)
+            layout.addWidget(topo_text)
+
+        # Footer
+        has_failures = isinstance(result, dict) and (
+            result.get("failed") or (topo or {}).get("failed") or (topo or {}).get("network_errors")
+        )
+        footer_parts = []
+        if has_failures:
+            footer_parts.append("See Log Messages (View > Panels > Log Messages > Blaze) for details.")
+        if folder_path:
+            footer_parts.append(f"Source: {folder_path}")
+        if footer_parts:
+            footer_label = QLabel("\n".join(footer_parts))
+            footer_label.setWordWrap(True)
+            layout.addWidget(footer_label)
+
+        # OK button
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+        buttons.accepted.connect(dlg.accept)
+        layout.addWidget(buttons)
+
+        dlg.exec_()

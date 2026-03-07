@@ -22,22 +22,16 @@ jobs:
           pre-commit run -a
   ubuntu-latest-build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Cache apt packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            /var/cache/apt
-            /var/lib/apt/lists
-          key: ${{ runner.os }}-apt-${{ hashFiles('scripts/install-ubuntu-deps.sh')
-            }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
       - name: Install dependencies
-        run: |
-          ./scripts/install-ubuntu-deps.sh
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
+            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+          install_recommends: true
+          version: 1.1
       - name: Build CLI code
         run: |
           ./scripts/linux-build.sh -DBLAZE_CLI_ONLY=True
@@ -55,25 +49,17 @@ jobs:
           ./blaze-cli assets/default_config.json
   ubuntu-22-pdal-build:
     runs-on: ubuntu-22.04
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Cache apt packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            /var/cache/apt
-            /var/lib/apt/lists
-          key: ${{ runner.os }}-apt-${{ hashFiles('scripts/install-ubuntu-deps.sh')
-            }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
       - name: Install dependencies
-        run: |
-          ./scripts/install-ubuntu-deps.sh
-      - name: Install pdal
-        run: |
-          sudo apt install -y libpdal-dev
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
+            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+            libpdal-dev
+          install_recommends: true
+          version: 1.1
       - name: Build CLI code
         run: |
           ./scripts/linux-build.sh -DBLAZE_CLI_ONLY=True -DBLAZE_USE_PDAL=True

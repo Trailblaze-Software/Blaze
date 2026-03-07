@@ -156,6 +156,8 @@ class Coordinate2D {
 
   Coordinate2D<size_t> round() const { return Coordinate2D<size_t>(x() + 0.5, y() + 0.5); }
 
+  Coordinate2D<size_t> round_down() const { return Coordinate2D<size_t>(x(), y()); }
+
   friend std::ostream& operator<<(std::ostream& os, const Coordinate2D& coord) {
     os << "Coordinate2D(" << coord.x() << ", " << coord.y() << ")";
     return os;
@@ -224,7 +226,7 @@ class Coordinate3D : public Coordinate2D<T> {
 
   Coordinate3D() = default;
 
-  const T z() const { return m_z; }
+  const T& z() const { return m_z; }
   T& z() { return m_z; }
 };
 
