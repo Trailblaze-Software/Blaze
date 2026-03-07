@@ -1,12 +1,40 @@
-# FindDependencyDLLs.cmake Finds and copies GDAL and OpenCV DLLs for Windows
-# builds without vcpkg
+# FindDependencyDLLs.cmake Finds and copies DLLs for Windows builds Handles both
+# vcpkg and non-vcpkg builds
 #
 # Usage: find_and_copy_dependency_dlls(<target1> [<target2> ...])
 
 function(find_and_copy_dependency_dlls)
-  if(NOT WIN32 OR BLAZE_USE_VCPKG)
+  if(NOT WIN32)
     return()
   endif()
+
+  # For vcpkg builds, copy all DLLs from vcpkg's bin directory
+  if(BLAZE_USE_VCPKG)
+    if(DEFINED VCPKG_INSTALLED_DIR)
+      set(VCPKG_BIN_DIR "${VCPKG_INSTALLED_DIR}/x64-windows/bin")
+    else()
+      set(VCPKG_BIN_DIR "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/bin")
+    endif()
+
+    foreach(target ${ARGN})
+      if(TARGET ${target})
+        add_custom_command(
+          TARGET ${target}
+          POST_BUILD
+          COMMAND
+            powershell -Command
+            "if (Test-Path '${VCPKG_BIN_DIR}') { Copy-Item -Path '${VCPKG_BIN_DIR}/*.dll' -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue }"
+          COMMAND
+            powershell -Command
+            "if (Test-Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>') { Copy-Item -Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>/*.dll' -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue }"
+          COMMENT "Copying vcpkg and gtest DLLs for ${target}"
+          VERBATIM)
+      endif()
+    endforeach()
+    return()
+  endif()
+
+  # For non-vcpkg builds, find and copy GDAL and OpenCV DLLs
 
   include(GNUInstallDirs)
 

@@ -140,6 +140,16 @@ find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Force CMake to use compiler for dependency scanning on Windows to detect file
+# changes
+if(WIN32 AND MSVC)
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
+    set(CMAKE_DEPENDS_USE_COMPILER
+        TRUE
+        CACHE BOOL "Use compiler for dependency scanning" FORCE)
+  endif()
+endif()
 if(WIN32)
   if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
     set(CMAKE_CXX_FLAGS
@@ -254,7 +264,7 @@ set(LASPP_BUILD_TESTS OFF)
 FetchContent_Declare(
   las++
   GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
-  GIT_TAG 78f13d018de9ba593e76bc2030c2c4a64d6497b7)
+  GIT_TAG ea724781f5f9360a8de49253872492147de6c877)
 set(LASPP_DEBUG_ASSERTS OFF)
 FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
@@ -299,9 +309,11 @@ endforeach()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOpenMPDLL.cmake)
 find_openmp_dll(${LIBRARY_NAME})
 
-# Find and copy GDAL and OpenCV DLLs for Windows builds without vcpkg. Copy to
-# all executables to ensure DLLs are available when tests run.
-if(WIN32 AND NOT BLAZE_USE_VCPKG)
+# Find and copy DLLs for Windows builds. Handles both vcpkg and non-vcpkg
+# builds. vcpkg doesn't automatically copy DLLs to build directories, only to
+# install directories. Copy to all executables to ensure DLLs are available when
+# tests run.
+if(WIN32)
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindDependencyDLLs.cmake)
   find_and_copy_dependency_dlls(${ALL_EXECUTABLES})
 endif()
@@ -319,20 +331,7 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
 
 add_subdirectory(src)
 
-# Discover and register all individual Google Test cases. This replaces the need
-# for add_test() — gtest_discover_tests() automatically registers each TEST()
-# and TEST_F() as a separate ctest target.
-#
-# PRE_TEST: discover tests when ctest runs, not as a POST_BUILD step. The
-# default POST_BUILD mode runs the test executable during the build to enumerate
-# tests; on Windows CI the DLL-load time for GDAL/MKL/OpenCV/etc. exceeds the
-# default 5-second timeout and the build fails even when tests won't be run
-# (e.g. the release-app packaging workflow).
-#
-# DISCOVERY_TIMEOUT 120: generous timeout for the DLL-heavy Windows executable
-# when tests *are* actually discovered.
-gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_MODE PRE_TEST
-                     DISCOVERY_TIMEOUT 120)
+gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120)
 
 include(GNUInstallDirs)
 
