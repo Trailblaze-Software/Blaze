@@ -8,6 +8,24 @@ function(find_and_copy_dependency_dlls)
     return()
   endif()
 
+  # Copy DLLs from all linked CMake targets (e.g. lazperf.dll built via
+  # FetchContent). $<TARGET_RUNTIME_DLLS:tgt> lists every SHARED_LIBRARY the
+  # target transitively depends on. Post-build steps are appended in order, so
+  # this runs before the gtest_discover_tests step added later in
+  # CMakeLists.txt.
+  foreach(target ${ARGN})
+    if(TARGET ${target})
+      add_custom_command(
+        TARGET ${target}
+        POST_BUILD
+        COMMAND
+          powershell -NonInteractive -Command
+          "$dllList = '$<JOIN:$<TARGET_RUNTIME_DLLS:${target}>,|>'; foreach ($dll in $dllList.Split('|')) { if ($dll) { Copy-Item -Path $dll -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue } }"
+        COMMENT "Copying target runtime DLLs for ${target}"
+        VERBATIM)
+    endif()
+  endforeach()
+
   # For vcpkg builds, copy all DLLs from vcpkg's bin directory
   if(BLAZE_USE_VCPKG)
     if(DEFINED VCPKG_INSTALLED_DIR)
