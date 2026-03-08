@@ -20,8 +20,10 @@ jobs:
           packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
             libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
             lcov gcovr liblapack-dev libblas-dev liblapack3 libblas3
-          install_recommends: true
           version: 1.1
+          execute_install_scripts: true
+      - name: Update library cache
+        run: sudo ldconfig
       - name: Configure CMake with coverage
         run: |
           mkdir -p coverage-build
