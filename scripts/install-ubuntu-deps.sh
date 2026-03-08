@@ -10,4 +10,4 @@ fi
 $SUDO apt-get update
 $SUDO apt-get install -y libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev \
 	libglx-dev libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build \
-	liblapack3 libblas3
+	liblapack-dev libblas-dev
