@@ -27,8 +27,11 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
 inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist = 15.0) {
   const double max_dist2 = max_dist * max_dist;
 
-  // Only consider the two cases that allow joining without reversal:
-  // a.back ↔ b.front (append) and a.front ↔ b.back (prepend)
+  // Only consider joins that preserve orientation (no reversing):
+  //   AppendForward:  a.back  ↔ b.front → append b forward
+  //   PrependForward: a.front ↔ b.back  → prepend b forward
+  // Contours are oriented so that left side (when following the line) is uphill,
+  // so we must not reverse them during joining.
   struct JoiningOption {
     bool use_front_a;  // true = prepend to a.front, false = append to a.back
     bool use_front_b;  // true = b.front matches, false = b.back matches
@@ -64,21 +67,69 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
           }
         }
       }
+
+      // Verify mutual closest: check if src is also the closest match for the target
       if (best_idx >= 0) {
-        auto& acc = next_round[best_idx].points();
-        // Join without reversing: only two cases are considered
-        if (best_case.use_front_a) {
-          // a.front ↔ b.back: prepend b forward (skip duplicate join point b.back)
-          if (b.size() > 1) {
-            acc.insert(acc.begin(), b.begin(), b.end() - 1);
-          }
-        } else {
-          // a.back ↔ b.front: append b forward (skip duplicate join point b.front)
-          if (b.size() > 1) {
-            acc.insert(acc.end(), b.begin() + 1, b.end());
+        const auto& target = next_round[best_idx].points();
+        double target_best_d2 = max_dist2;
+        int target_best_idx = -1;
+
+        // Check against all other contours in next_round (excluding itself)
+        for (int i = 0; i < (int)next_round.size(); ++i) {
+          if (i == best_idx) continue;
+          const auto& other = next_round[i].points();
+          for (JoiningOption c : cases) {
+            const auto& p_target = (c.use_front_a ? target.front() : target.back());
+            const auto& p_other = (c.use_front_b ? other.front() : other.back());
+            double d2 = (p_target - p_other).magnitude_sqd();
+            if (d2 < target_best_d2) {
+              target_best_d2 = d2;
+              target_best_idx = i;
+            }
           }
         }
-        did_any_join = true;
+
+        // Also check against src
+        for (JoiningOption c : cases) {
+          const auto& p_target = (c.use_front_a ? target.front() : target.back());
+          const auto& p_src = (c.use_front_b ? b.front() : b.back());
+          double d2 = (p_target - p_src).magnitude_sqd();
+          if (d2 < target_best_d2) {
+            target_best_d2 = d2;
+            target_best_idx = -1;  // -1 means src is the best match
+          }
+        }
+
+        // Only join if src is the closest match for the target (mutual closest)
+        if (target_best_idx == -1 && best_d2 < max_dist2) {
+          auto& acc = next_round[best_idx].points();
+          const auto& pa = (best_case.use_front_a ? acc.front() : acc.back());
+          const auto& pb = (best_case.use_front_b ? b.front() : b.back());
+
+          bool is_duplicate = (pa - pb).magnitude_sqd() < 1e-8;
+
+          if (best_case.use_front_a) {
+            // a.front ↔ b.back: prepend b to acc
+            // More efficient: append acc to b, then assign back to acc
+            std::vector<Coordinate2D<double>> result = b;
+            if (is_duplicate && acc.size() > 1) {
+              result.insert(result.end(), acc.begin() + 1, acc.end());
+            } else {
+              result.insert(result.end(), acc.begin(), acc.end());
+            }
+            acc = std::move(result);
+          } else {
+            // a.back ↔ b.front: append b forward
+            if (is_duplicate && b.size() > 1) {
+              acc.insert(acc.end(), b.begin() + 1, b.end());
+            } else {
+              acc.insert(acc.end(), b.begin(), b.end());
+            }
+          }
+          did_any_join = true;
+        } else {
+          next_round.emplace_back(std::move(src));
+        }
       } else {
         next_round.emplace_back(std::move(src));
       }

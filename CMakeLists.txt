@@ -260,12 +260,16 @@ else()
   enable_testing()
 endif()
 
-set(LASPP_BUILD_TESTS OFF)
+set(LASPP_BUILD_TESTS
+    OFF
+    CACHE BOOL "" FORCE)
+set(LASPP_DEBUG_ASSERTS
+    OFF
+    CACHE BOOL "" FORCE)
 FetchContent_Declare(
   las++
   GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
-  GIT_TAG ea724781f5f9360a8de49253872492147de6c877)
-set(LASPP_DEBUG_ASSERTS OFF)
+  GIT_TAG f7e7b59123d775b737ddd30b4a1cf7ea2cd98b26)
 FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
