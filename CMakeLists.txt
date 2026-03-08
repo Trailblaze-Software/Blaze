@@ -140,6 +140,16 @@ find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Force CMake to use compiler for dependency scanning on Windows to detect file
+# changes
+if(WIN32 AND MSVC)
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
+    set(CMAKE_DEPENDS_USE_COMPILER
+        TRUE
+        CACHE BOOL "Use compiler for dependency scanning" FORCE)
+  endif()
+endif()
 if(WIN32)
   if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
     set(CMAKE_CXX_FLAGS
@@ -205,13 +215,6 @@ if(NOT BLAZE_CLI_ONLY)
   qt_import_plugins(${GUI_EXE_NAME} INCLUDE_BY_TYPE imageformats
                     Qt6::QTiffPlugin)
 
-  if(WIN32)
-    add_custom_command(
-      TARGET ${GUI_EXE_NAME}
-      POST_BUILD
-      COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_EXE_NAME}>)
-  endif()
-
   set(GUI_3D_EXE_NAME Blaze3D)
   list(APPEND ALL_EXECUTABLES ${GUI_3D_EXE_NAME})
   if(WIN32)
@@ -232,10 +235,21 @@ if(NOT BLAZE_CLI_ONLY)
                     Qt6::QTiffPlugin)
 
   if(WIN32)
-    add_custom_command(
-      TARGET ${GUI_3D_EXE_NAME}
-      POST_BUILD
-      COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:${GUI_3D_EXE_NAME}>)
+    # Deploy Qt runtime dependencies from a single target to avoid race
+    # conditions when Blaze and Blaze3D build in parallel. windeployqt uses
+    # QFile::copy() which fails when the destination file already exists, so
+    # running it per-target causes non-deterministic failures when both try to
+    # deploy to the same output directory. --force overwrites files from the
+    # first invocation; --no-compiler-runtime skips vc_redist.x64.exe which is
+    # not needed in the build tree.
+    add_custom_target(
+      deploy_qt ALL
+      COMMAND Qt6::windeployqt --force --no-compiler-runtime
+              $<TARGET_FILE:${GUI_EXE_NAME}>
+      COMMAND Qt6::windeployqt --force --no-compiler-runtime
+              $<TARGET_FILE:${GUI_3D_EXE_NAME}>
+      COMMENT "Deploying Qt runtime dependencies")
+    add_dependencies(deploy_qt ${GUI_EXE_NAME} ${GUI_3D_EXE_NAME})
   endif()
 endif()
 set(ALL_TARGETS ${ALL_EXECUTABLES} ${LIBRARY_NAME})
@@ -246,12 +260,16 @@ else()
   enable_testing()
 endif()
 
-set(LASPP_BUILD_TESTS OFF)
+set(LASPP_BUILD_TESTS
+    OFF
+    CACHE BOOL "" FORCE)
+set(LASPP_DEBUG_ASSERTS
+    OFF
+    CACHE BOOL "" FORCE)
 FetchContent_Declare(
   las++
   GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
-  GIT_TAG 78f13d018de9ba593e76bc2030c2c4a64d6497b7)
-set(LASPP_DEBUG_ASSERTS OFF)
+  GIT_TAG f7e7b59123d775b737ddd30b4a1cf7ea2cd98b26)
 FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
@@ -295,9 +313,11 @@ endforeach()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOpenMPDLL.cmake)
 find_openmp_dll(${LIBRARY_NAME})
 
-# Find and copy GDAL and OpenCV DLLs for Windows builds without vcpkg. Copy to
-# all executables to ensure DLLs are available when tests run.
-if(WIN32 AND NOT BLAZE_USE_VCPKG)
+# Find and copy DLLs for Windows builds. Handles both vcpkg and non-vcpkg
+# builds. vcpkg doesn't automatically copy DLLs to build directories, only to
+# install directories. Copy to all executables to ensure DLLs are available when
+# tests run.
+if(WIN32)
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindDependencyDLLs.cmake)
   find_and_copy_dependency_dlls(${ALL_EXECUTABLES})
 endif()
@@ -315,10 +335,7 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
 
 add_subdirectory(src)
 
-# Discover and register all individual Google Test cases This replaces the need
-# for add_test() - gtest_discover_tests() automatically registers each TEST()
-# and TEST_F() as a separate ctest target
-gtest_discover_tests(${UNIT_TESTS_NAME})
+gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120)
 
 include(GNUInstallDirs)
 

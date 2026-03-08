@@ -42,17 +42,18 @@ GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground
   return ground;
 }
 
-GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid, double original_resolution) {
+GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid) {
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
 
   result.copy_from(grid);
   for (size_t i = 1; i < grid.height() - 1; i++) {
     for (size_t j = 1; j < grid.width() - 1; j++) {
-      double dz_dy = (grid[{j + 1, i}] - grid[{j - 1, i}]) / (2 * grid.dx());
-      double dz_dx = (grid[{j, i + 1}] - grid[{j, i - 1}]) / (2 * grid.dy());
-      result[{j, i}] =
-          grid[{j, i}] + 0.5 * (std::abs(dz_dx) + std::abs(dz_dy)) * original_resolution;
+      // The minimum point in each bin is at the downhill edge (half a bin away from center)
+      // To correct from edge value to center value, we need to raise the edge value by the gradient
+      // times the offset The correction accounts for the offset (half bin size) times the gradient
+      result[{j, i}] = grid[{j, i}] + 0.25 * (std::abs(grid[{j + 1, i}] - grid[{j - 1, i}]) +
+                                              std::abs(grid[{j, i + 1}] - grid[{j, i - 1}]));
     }
   }
   return result;
@@ -91,12 +92,17 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       }
       auto pixel_coord = binned_points.transform().projection_to_pixel(
           Coordinate2D<double>(las_point.x(), las_point.y()));
-      if (pixel_coord.x() >= binned_points.width() || pixel_coord.y() >= binned_points.height()) {
+      if (pixel_coord.x() < 0 || pixel_coord.x() >= binned_points.width() || pixel_coord.y() < 0 ||
+          pixel_coord.y() >= binned_points.height()) {
         n_out_of_bounds++;
         continue;
       }
-      binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
-          las_point);
+      auto rounded_coord = pixel_coord.round_down();
+      if (!binned_points.in_bounds(rounded_coord)) {
+        n_out_of_bounds++;
+        continue;
+      }
+      binned_points[rounded_coord].emplace_back(las_point);
     }
     if (n_out_of_bounds > 0) {
       std::cerr << "Warning: " << n_out_of_bounds
@@ -131,7 +137,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       for (size_t j = 0; j < binned_points.width(); j++) {
         bool is_building = false;
         bool is_water = false;
-        double min = std::numeric_limits<unsigned int>::max();
+        double min = std::numeric_limits<double>::infinity();
         std::optional<LASPoint> min_point = std::nullopt;
         for (const LASPoint& las_point : binned_points[{j, i}]) {
           if (las_point.z() < min && (las_point.classification() == LASClassification::Ground ||
@@ -175,6 +181,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                   config.ground.outlier_removal_height_diff);
   interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
 
+  // Adjust ground estimate to account for bias from taking minimum point in each bin
+  ground = adjust_ground_to_slope(ground);
+
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
                progress_tracker.subtracker(0.65, 0.66));
   write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif",
@@ -208,7 +217,6 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                        progress_tracker.subtracker(0.74, 0.75));
   }
 
-  smooth_ground = adjust_ground_to_slope(smooth_ground, ground.dx());
   if (OUT_LAS) LASData(smooth_ground).write(output_dir / "smooth_ground.las");
 
   const std::vector<Contour> contours =
