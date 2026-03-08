@@ -148,7 +148,7 @@ jobs:
         with:
           packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
             libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
-            liblapack-dev libblas-dev
+            liblapack-dev libblas-dev liblapack3 libblas3
           install_recommends: true
           version: 1.1
       - name: Configure
