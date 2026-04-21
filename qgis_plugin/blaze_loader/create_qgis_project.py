@@ -22,6 +22,17 @@ import tempfile
 import time
 from pathlib import Path
 
+# In CI / headless runs stdout is block-buffered (not a terminal). Combined with
+# main()'s os._exit(), any unflushed output is silently lost, which makes
+# timeouts impossible to diagnose. Force line buffering so every log() call
+# becomes immediately visible in CI logs.
+if os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+        sys.stderr.reconfigure(line_buffering=True)
+    except AttributeError:
+        pass  # Older Python without TextIOWrapper.reconfigure
+
 
 # Script directory (for finding styles)
 def _find_script_dir():
@@ -2219,6 +2230,17 @@ def main():
 # Check if we're being run as a script (has command line args) vs being exec'd by the plugin
 # When exec'd by the plugin, __name__ will be set to "create_qgis_project" (not "__main__")
 # When run with --code in headless mode, also execute main() directly
+if os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+    print(
+        f"[blaze] script evaluated: __name__={__name__!r}, "
+        f"QgsApplication.instance()={QgsApplication.instance() is not None}",
+        flush=True,
+    )
 if QgsApplication.instance() is not None:
     if __name__ == "__main__" or os.environ.get("BLAZE_EXIT_AFTER_RUN"):
         main()
+elif os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+    # In headless CI we can't proceed without QgsApplication; fail fast rather
+    # than waiting for the outer `timeout` to kill us.
+    print("[blaze] ERROR: QgsApplication.instance() is None; cannot run.", flush=True)
+    os._exit(2)
