@@ -3,6 +3,7 @@
 #include <array>
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <ostream>
 #include <type_traits>
 #include <vector>
@@ -156,7 +157,14 @@ class Coordinate2D {
 
   Coordinate2D<size_t> round() const { return Coordinate2D<size_t>(x() + 0.5, y() + 0.5); }
 
-  Coordinate2D<size_t> round_down() const { return Coordinate2D<size_t>(x(), y()); }
+  Coordinate2D<size_t> round_down() const {
+    AssertGE(x(), T(0));
+    AssertGE(y(), T(0));
+    AssertLE(x(), static_cast<T>(std::numeric_limits<size_t>::max()));
+    AssertLE(y(), static_cast<T>(std::numeric_limits<size_t>::max()));
+    return Coordinate2D<size_t>(static_cast<size_t>(std::floor(x())),
+                                static_cast<size_t>(std::floor(y())));
+  }
 
   friend std::ostream& operator<<(std::ostream& os, const Coordinate2D& coord) {
     os << "Coordinate2D(" << coord.x() << ", " << coord.y() << ")";

@@ -19,11 +19,8 @@ int main([[maybe_unused]] int argc, char* argv[]) {
       las_files.push_back(argv[2]);
     } else if (config.las_files.size() == 0) {
       std::cerr << "No LAS files specified in config.json" << std::endl;
-      if (argc != 3) {
-        std::cerr << "Usage: blaze <config_file> <las_file>" << std::endl;
-        exit(1);
-      }
-      las_files.push_back(argv[1]);
+      std::cerr << "Usage: blaze <config_file> <las_file>" << std::endl;
+      return 1;
     }
 
     ProgressBar progress_bar;

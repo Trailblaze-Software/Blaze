@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <functional>
 #include <iomanip>
 #include <iostream>
 #include <numbers>
@@ -824,15 +825,20 @@ TEST(E2E, GroundEstimationSlopes) {
                                     GeoProjection(tif_data.projection()));
         ground_grid.fill_from(tif_data[0]);
 
-        // Print all samples with expected vs estimated values
+        // Verbose per-sample output is gated behind an env var so normal CI runs
+        // don't produce huge logs. Set BLAZE_TEST_VERBOSE=1 to enable.
+        const bool verbose = std::getenv("BLAZE_TEST_VERBOSE") != nullptr;
+
         std::cout << "\n========================================\n";
         std::cout << "Direction: " << dir.name << ", Angle: " << angle_deg
                   << "°, Downsample: " << downsample_factor << "\n";
         std::cout << "========================================\n";
         std::cout << std::fixed << std::setprecision(4);
-        std::cout << std::setw(10) << "X" << std::setw(10) << "Y" << std::setw(12) << "Expected Z"
-                  << std::setw(12) << "Estimated Z" << std::setw(12) << "Error" << std::endl;
-        std::cout << "----------------------------------------\n";
+        if (verbose) {
+          std::cout << std::setw(10) << "X" << std::setw(10) << "Y" << std::setw(12) << "Expected Z"
+                    << std::setw(12) << "Estimated Z" << std::setw(12) << "Error" << std::endl;
+          std::cout << "----------------------------------------\n";
+        }
 
         // Sample all grid cells
         int valid_samples = 0;
@@ -869,14 +875,14 @@ TEST(E2E, GroundEstimationSlopes) {
               signed_errors.push_back(signed_error);
               valid_samples++;
 
-              // Print each sample
-              std::cout << std::setw(10) << x << std::setw(10) << y << std::setw(12) << expected_z
-                        << std::setw(12) << estimated_z << std::setw(12) << signed_error
-                        << std::endl;
+              if (verbose) {
+                std::cout << std::setw(10) << x << std::setw(10) << y << std::setw(12) << expected_z
+                          << std::setw(12) << estimated_z << std::setw(12) << signed_error
+                          << std::endl;
+              }
 
-              // Allow some tolerance for binning and processing
-              // Error should be less than 0.4 * slope
-              double tolerance = 0.4 * std::abs(slope_ratio);
+              const double baseline_tolerance = 1e-6;  // meters
+              double tolerance = std::max(baseline_tolerance, 0.4 * std::abs(slope_ratio));
               EXPECT_NEAR(estimated_z, expected_z, tolerance)
                   << "Direction: " << dir.name << ", Angle: " << angle_deg << "°, Position: (" << x
                   << ", " << y << "), Expected: " << expected_z << ", Got: " << estimated_z;
@@ -884,8 +890,9 @@ TEST(E2E, GroundEstimationSlopes) {
           }
         }
 
-        // Print summary statistics
-        std::cout << "----------------------------------------\n";
+        if (verbose) {
+          std::cout << "----------------------------------------\n";
+        }
         if (valid_samples > 0) {
           double avg_signed_error = total_signed_error / valid_samples;
 
@@ -917,7 +924,9 @@ TEST(E2E, GroundEstimationSlopes) {
           all_stats.push_back(
               {dir.name, angle_deg, downsample_factor, avg_signed_error, std_dev, valid_samples});
         } else {
-          std::cout << "No valid samples found!\n";
+          ADD_FAILURE() << "No valid samples found for Direction: " << dir.name
+                        << ", Angle: " << angle_deg << "°, Downsample: " << downsample_factor
+                        << ". All sampled cells were non-finite, indicating a processing failure.";
         }
         std::cout << "========================================\n\n";
       } else {
