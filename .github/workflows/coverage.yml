@@ -19,11 +19,25 @@ jobs:
         with:
           packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
             libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
-            lcov gcovr liblapack-dev libblas-dev liblapack3 libblas3
+            lcov gcovr
           version: 1.1
           execute_install_scripts: true
-      - name: Update library cache
-        run: sudo ldconfig
+      # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and
+      # libblas.so.3 are update-alternatives-managed symlinks; cache-apt-pkgs-action
+      # restores package files but does not run update-alternatives triggers, so the
+      # .so.3 symlinks are missing when restored from cache (breaks linking on arm64).
+      - name: Install LAPACK/BLAS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            liblapack-dev libblas-dev liblapack3 libblas3
+          sudo ldconfig
+      - name: Verify LAPACK installation
+        run: |
+          ldconfig -p | grep -E 'lapack|blas' \
+            || echo "Warning: LAPACK/BLAS not found in library cache"
+          ls -la /usr/lib/*/liblapack* /usr/lib/*/libblas* 2>/dev/null \
+            || echo "Warning: LAPACK/BLAS libraries not found"
       - name: Configure CMake with coverage
         run: |
           mkdir -p coverage-build
