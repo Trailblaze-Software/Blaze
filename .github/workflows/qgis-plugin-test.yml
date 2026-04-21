@@ -36,7 +36,14 @@ jobs:
           export BLAZE_EXIT_AFTER_RUN=1
           export BLAZE_SKIP_TOPO_DOWNLOAD=1
           export QT_QPA_PLATFORM=offscreen
-          timeout 300 xvfb-run -a qgis --nologo --code qgis_plugin/blaze_loader/create_qgis_project.py || true
+          # Invoke the script as a standalone PyQGIS Python program (with
+          # python -u for unbuffered output) rather than via `qgis --code`.
+          # The `qgis --code` path was not executing the script at all in the
+          # containerised, offscreen environment (QGIS's Python console isn't
+          # initialised before startup hangs), so nothing from the script ever
+          # appeared in logs. The script now creates its own headless
+          # QgsApplication when run this way — see its __main__ block.
+          timeout 300 python3 -u qgis_plugin/blaze_loader/create_qgis_project.py
       - name: Check for QGIS project
         run: |
           test -f assets/out/combined.qgz

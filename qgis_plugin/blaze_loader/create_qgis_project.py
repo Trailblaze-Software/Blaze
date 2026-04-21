@@ -2226,21 +2226,34 @@ def main():
     return result
 
 
-# Only run main() if this script is executed directly (not when imported/exec'd)
-# Check if we're being run as a script (has command line args) vs being exec'd by the plugin
-# When exec'd by the plugin, __name__ will be set to "create_qgis_project" (not "__main__")
-# When run with --code in headless mode, also execute main() directly
-if os.environ.get("BLAZE_EXIT_AFTER_RUN"):
-    print(
-        f"[blaze] script evaluated: __name__={__name__!r}, "
-        f"QgsApplication.instance()={QgsApplication.instance() is not None}",
-        flush=True,
-    )
-if QgsApplication.instance() is not None:
-    if __name__ == "__main__" or os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+# Entry points:
+#   1. Imported by the Blaze Loader QGIS plugin.
+#      __name__ is "create_qgis_project" (or similar) and a QgsApplication
+#      already exists — do nothing at import time.
+#   2. Run standalone as `python3 create_qgis_project.py`.
+#      __name__ is "__main__" and no QgsApplication exists — we create a
+#      headless QgsApplication ourselves, run main(), then shut it down.
+#      This is the canonical PyQGIS headless pattern and replaces the
+#      fragile `qgis --code` path (which silently fails under
+#      QT_QPA_PLATFORM=offscreen in containers).
+#   3. Legacy: run via `qgis --code create_qgis_project.py`.
+#      __name__ is "__main__" and a QgsApplication already exists — just run
+#      main() directly.
+if __name__ == "__main__":
+    if os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+        print(
+            f"[blaze] script evaluated: __name__={__name__!r}, "
+            f"QgsApplication.instance()={QgsApplication.instance() is not None}",
+            flush=True,
+        )
+
+    if QgsApplication.instance() is None:
+        # Standalone headless run. Set up a minimal QgsApplication without GUI.
+        _qgs_app = QgsApplication([], False)  # GUIenabled=False
+        _qgs_app.initQgis()
+        try:
+            main()
+        finally:
+            _qgs_app.exitQgis()
+    else:
         main()
-elif os.environ.get("BLAZE_EXIT_AFTER_RUN"):
-    # In headless CI we can't proceed without QgsApplication; fail fast rather
-    # than waiting for the outer `timeout` to kill us.
-    print("[blaze] ERROR: QgsApplication.instance() is None; cannot run.", flush=True)
-    os._exit(2)
