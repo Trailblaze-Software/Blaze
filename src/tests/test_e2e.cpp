@@ -825,8 +825,10 @@ TEST(E2E, GroundEstimationSlopes) {
 
         // Verbose per-case output (banner, per-sample rows, and stats) is gated behind an env var
         // so normal CI runs don't produce huge logs. Set BLAZE_TEST_VERBOSE=1 to enable.
+        // Unset or "0" is treated as disabled, matching the BLAZE_KEEP_TEST_OUTPUT convention.
         // The final summary table is always printed.
-        const bool verbose = blaze::test::get_env("BLAZE_TEST_VERBOSE") != nullptr;
+        const char* verbose_env = blaze::test::get_env("BLAZE_TEST_VERBOSE");
+        const bool verbose = (verbose_env != nullptr && std::string(verbose_env) != "0");
 
         if (verbose) {
           std::cout << "\n========================================\n";

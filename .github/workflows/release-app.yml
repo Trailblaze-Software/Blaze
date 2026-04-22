@@ -14,8 +14,7 @@ permissions:
   contents: write
   packages: write
 env:
-  VCPKG_BINARY_SOURCES: "clear;nuget,GitHub,readwrite"
-  NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED: "false"
+  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
 jobs:
   package-windows:
     runs-on: ${{ matrix.os }}
@@ -45,24 +44,12 @@ jobs:
           }
           echo "version=$tag" >> $env:GITHUB_OUTPUT
           echo "Version: $tag"
-      - name: Setup NuGet credentials
-        shell: pwsh
-        run: |
-          $owner = "${{ github.repository_owner }}".ToLower()
-          $feed_url = "https://nuget.pkg.github.com/$owner/index.json"
-
-          nuget sources remove -Name "GitHub" -ErrorAction SilentlyContinue
-          nuget sources add -Name "GitHub" `
-            -Source $feed_url `
-            -UserName "$owner" `
-            -Password "${{ secrets.VCPKG_PAT_TOKEN }}" `
-            -StorePasswordInClearText `
-            -NonInteractive
-
-          nuget setapikey "${{ secrets.VCPKG_PAT_TOKEN }}" -Source $feed_url -NonInteractive
-
-          echo "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,readwrite" >> $env:GITHUB_ENV
-          echo "VCPKG_NUGET_REPOSITORY=$feed_url" >> $env:GITHUB_ENV
+      - name: Export GitHub Actions cache environment variables
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
       - name: Cache NSIS
         id: nsis-cache
         uses: actions/cache@v4

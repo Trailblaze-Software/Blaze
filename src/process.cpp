@@ -47,6 +47,11 @@ GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid) {
                          GeoProjection(grid.projection()));
 
   result.copy_from(grid);
+  // Need at least one interior cell in each dimension to compute a central difference.
+  // Skip adjustment for degenerate/tiny grids to avoid size_t underflow in the loop bounds.
+  if (grid.width() < 3 || grid.height() < 3) {
+    return result;
+  }
   for (size_t i = 1; i < grid.height() - 1; i++) {
     for (size_t j = 1; j < grid.width() - 1; j++) {
       // The minimum point in each bin is at the downhill edge (half a bin away from center)
