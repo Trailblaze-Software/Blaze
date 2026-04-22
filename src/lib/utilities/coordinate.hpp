@@ -157,7 +157,9 @@ class Coordinate2D {
 
   Coordinate2D<size_t> round() const { return Coordinate2D<size_t>(x() + 0.5, y() + 0.5); }
 
-  Coordinate2D<size_t> round_down() const {
+  Coordinate2D<size_t> round_down() const
+    requires std::is_floating_point_v<T>
+  {
     AssertGE(x(), T(0));
     AssertGE(y(), T(0));
     AssertLE(x(), static_cast<T>(std::numeric_limits<size_t>::max()));

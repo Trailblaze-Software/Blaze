@@ -7,6 +7,7 @@
  ***************************************************************************/
 """
 
+import html
 import importlib
 import os
 from pathlib import Path
@@ -256,15 +257,15 @@ class BlazeLoader:
             if result.get("loaded"):
                 top_lines.append("<b>Loaded:</b>")
                 for item in result["loaded"]:
-                    top_lines.append(f"&nbsp;&nbsp;✓ {item}")
+                    top_lines.append(f"&nbsp;&nbsp;✓ {html.escape(str(item))}")
             if result.get("failed"):
                 top_lines.append("<b>Failed:</b>")
                 for item in result["failed"]:
-                    top_lines.append(f"&nbsp;&nbsp;✗ {item}")
+                    top_lines.append(f"&nbsp;&nbsp;✗ {html.escape(str(item))}")
             if result.get("skipped"):
                 top_lines.append("<b>Skipped:</b>")
                 for item in result["skipped"]:
-                    top_lines.append(f"&nbsp;&nbsp;– {item}")
+                    top_lines.append(f"&nbsp;&nbsp;– {html.escape(str(item))}")
 
         if top_lines:
             top_label = QLabel("<br>".join(top_lines))

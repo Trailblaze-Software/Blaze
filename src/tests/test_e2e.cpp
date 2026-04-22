@@ -699,6 +699,10 @@ INSTANTIATE_TEST_SUITE_P(
 
 // Test ground estimation on slopes in all directions
 TEST(E2E, GroundEstimationSlopes) {
+  // Check if we should keep output files (check early so files are preserved even on test failure)
+  const char* keep_output = blaze::test::get_env("BLAZE_KEEP_TEST_OUTPUT");
+  bool should_keep_output = (keep_output != nullptr && std::string(keep_output) != "0");
+
   fs::path test_output_dir = fs::temp_directory_path() / "blaze_slope_test";
 
   // Clean up if exists
@@ -819,16 +823,17 @@ TEST(E2E, GroundEstimationSlopes) {
                                     GeoProjection(tif_data.projection()));
         ground_grid.fill_from(tif_data[0]);
 
-        // Verbose per-sample output is gated behind an env var so normal CI runs
-        // don't produce huge logs. Set BLAZE_TEST_VERBOSE=1 to enable.
+        // Verbose per-case output (banner, per-sample rows, and stats) is gated behind an env var
+        // so normal CI runs don't produce huge logs. Set BLAZE_TEST_VERBOSE=1 to enable.
+        // The final summary table is always printed.
         const bool verbose = blaze::test::get_env("BLAZE_TEST_VERBOSE") != nullptr;
 
-        std::cout << "\n========================================\n";
-        std::cout << "Direction: " << dir.name << ", Angle: " << angle_deg
-                  << "°, Downsample: " << downsample_factor << "\n";
-        std::cout << "========================================\n";
-        std::cout << std::fixed << std::setprecision(4);
         if (verbose) {
+          std::cout << "\n========================================\n";
+          std::cout << "Direction: " << dir.name << ", Angle: " << angle_deg
+                    << "°, Downsample: " << downsample_factor << "\n";
+          std::cout << "========================================\n";
+          std::cout << std::fixed << std::setprecision(4);
           std::cout << std::setw(10) << "X" << std::setw(10) << "Y" << std::setw(12) << "Expected Z"
                     << std::setw(12) << "Estimated Z" << std::setw(12) << "Error" << std::endl;
           std::cout << "----------------------------------------\n";
@@ -898,10 +903,12 @@ TEST(E2E, GroundEstimationSlopes) {
           }
           double std_dev = std::sqrt(variance / valid_samples);
 
-          std::cout << "Valid samples: " << valid_samples << "\n";
-          std::cout << "Average error: " << avg_signed_error << " m\n";
-          std::cout << "Std deviation: " << std_dev << " m\n";
-          std::cout << "Max abs error: " << max_abs_error << " m\n";
+          if (verbose) {
+            std::cout << "Valid samples: " << valid_samples << "\n";
+            std::cout << "Average error: " << avg_signed_error << " m\n";
+            std::cout << "Std deviation: " << std_dev << " m\n";
+            std::cout << "Max abs error: " << max_abs_error << " m\n";
+          }
 
           // Check that average absolute error is less than or equal to 0.4 * slope
           double max_avg_error = 0.4 * std::abs(slope_ratio);
@@ -922,7 +929,9 @@ TEST(E2E, GroundEstimationSlopes) {
                         << ", Angle: " << angle_deg << "°, Downsample: " << downsample_factor
                         << ". All sampled cells were non-finite, indicating a processing failure.";
         }
-        std::cout << "========================================\n\n";
+        if (verbose) {
+          std::cout << "========================================\n\n";
+        }
       } else {
         // If neither file exists, that's also a problem
         ADD_FAILURE() << "Neither ground.tif nor smooth_ground.tif exists for " << dir.name << " "
@@ -950,8 +959,10 @@ TEST(E2E, GroundEstimationSlopes) {
     std::cout << "==================================================\n\n";
   }
 
-  // Clean up
-  if (fs::exists(test_output_dir)) {
+  // Keep output files if BLAZE_KEEP_TEST_OUTPUT environment variable is set
+  if (should_keep_output) {
+    std::cout << "Test output kept at: " << test_output_dir << std::endl;
+  } else if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
   }
 }
