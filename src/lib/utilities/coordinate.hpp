@@ -227,7 +227,7 @@ class LineCoord2D : public Coordinate2D<T> {
 
 template <typename T>
 class Coordinate3D : public Coordinate2D<T> {
-  double m_z;
+  T m_z;
 
  public:
   Coordinate3D(T x, T y, T z) : Coordinate2D<T>(x, y), m_z(z) {}

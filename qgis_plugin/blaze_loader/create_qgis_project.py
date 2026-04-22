@@ -319,6 +319,17 @@ def create_qgis_project(
         current_extent: QgsRectangle for current map extent (required if use_current_extent=True)
         current_crs: QgsCoordinateReferenceSystem for current map (required if use_current_extent=True)
         parent_window: Optional parent window for dialogs (QMainWindow or QWidget)
+
+    Returns:
+        A summary dict with keys:
+            success (bool)       — overall success/failure
+            loaded (list[str])   — human-readable descriptions of loaded items
+            failed (list[str])   — human-readable descriptions of failures
+            skipped (list[str])  — items deliberately skipped (e.g. by user)
+            topo_details (dict, optional) — NSW topo per-layer breakdown
+        Callers should use `result["success"]` to check overall status; the
+        dict is always returned (never False) so the summary UI can render
+        the failure reason consistently.
     """
 
     def report_progress(message, percent=None):
@@ -328,7 +339,14 @@ def create_qgis_project(
             progress_callback(message, percent)
 
     # Track what was loaded for summary popup
-    summary = {"loaded": [], "failed": [], "skipped": []}
+    summary = {"success": True, "loaded": [], "failed": [], "skipped": []}
+
+    def fail(reason):
+        """Record a fatal failure and return the summary dict."""
+        log(f"Error: {reason}")
+        summary["success"] = False
+        summary["failed"].append(reason)
+        return summary
 
     project = QgsProject.instance()
     if clear_project:
@@ -385,8 +403,7 @@ def create_qgis_project(
     # If using current extent, set project_crs and project_extent from parameters
     if use_current_extent:
         if current_extent is None or current_crs is None:
-            log("Error: current_extent and current_crs are required when use_current_extent=True")
-            return False
+            return fail("current_extent and current_crs are required when use_current_extent=True")
         project_crs = current_crs
         project_extent = current_extent
         log(
@@ -407,8 +424,7 @@ def create_qgis_project(
         # Normal flow: load Blaze layers
         combined_path = Path(combined_dir)
         if not combined_path.exists():
-            log(f"Error: Directory {combined_dir} does not exist")
-            return False
+            return fail(f"Directory {combined_dir} does not exist")
 
         report_progress("Adding raster layers (building pyramids for performance)...", 5)
 
@@ -940,8 +956,7 @@ def create_qgis_project(
         if project.write(str(output)):
             log(f"Project saved: {output}")
         else:
-            log("Error saving project")
-            return False
+            return fail(f"Failed to save project to {output}")
 
     if use_current_extent:
         log("Added layers using current map extent")
@@ -2198,7 +2213,10 @@ def main():
         import traceback
 
         log(f"Traceback: {traceback.format_exc()}")
-        result = False
+        result = {"success": False, "loaded": [], "failed": [f"Exception: {e}"], "skipped": []}
+
+    # `result` is always a summary dict; consult its success flag for exit code.
+    success = bool(result.get("success")) if isinstance(result, dict) else False
 
     # Exit QGIS when running in headless mode (CI/automated execution)
     # Use BLAZE_EXIT_AFTER_RUN environment variable to signal headless execution
@@ -2219,7 +2237,7 @@ def main():
             log(f"Error calling QApplication.quit(): {e}")
 
         # Force immediate exit - don't wait for cleanup
-        exit_code = 0 if result else 1
+        exit_code = 0 if success else 1
         log(f"Force exiting with code: {exit_code}")
         os._exit(exit_code)  # Use os._exit() to bypass Python cleanup and force immediate termination
 

@@ -20,6 +20,7 @@
 #include "lib/grid/grid.hpp"
 #include "ogr_srs_api.h"
 #include "process.hpp"
+#include "testing/env.hpp"
 #include "tif/tif.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
@@ -593,14 +594,7 @@ class E2ETerrainTest : public ::testing::TestWithParam<TerrainTestParams> {
 TEST_P(E2ETerrainTest, ProcessTerrain) {
   const TerrainTestParams& params = GetParam();
   // Check if we should keep output files (check early so files are preserved even on test failure)
-#ifdef _WIN32
-#pragma warning(push)
-#pragma warning(disable : 4996)  // getenv is safe for test code
-#endif
-  const char* keep_output = std::getenv("BLAZE_KEEP_TEST_OUTPUT");
-#ifdef _WIN32
-#pragma warning(pop)
-#endif
+  const char* keep_output = blaze::test::get_env("BLAZE_KEEP_TEST_OUTPUT");
   bool should_keep_output = (keep_output != nullptr && std::string(keep_output) != "0");
 
   fs::path test_output_dir = fs::temp_directory_path() / ("blaze_e2e_" + params.name);
@@ -827,7 +821,7 @@ TEST(E2E, GroundEstimationSlopes) {
 
         // Verbose per-sample output is gated behind an env var so normal CI runs
         // don't produce huge logs. Set BLAZE_TEST_VERBOSE=1 to enable.
-        const bool verbose = std::getenv("BLAZE_TEST_VERBOSE") != nullptr;
+        const bool verbose = blaze::test::get_env("BLAZE_TEST_VERBOSE") != nullptr;
 
         std::cout << "\n========================================\n";
         std::cout << "Direction: " << dir.name << ", Angle: " << angle_deg
