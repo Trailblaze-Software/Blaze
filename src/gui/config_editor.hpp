@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QToolBox>
+#include <cstddef>
+#include <cstdint>
 
 struct Config;
 class QComboBox;
@@ -19,6 +21,12 @@ class ConfigEditor : public QWidget {
   const Config& get_config() { return *m_config; }
 
   bool is_valid() const;
+
+  // Cached summary stats from the most recent update_las_stats() run. Returns
+  // 0 for all values if no LAS/LAZ files are selected or none could be read.
+  std::uint64_t last_total_points() const { return m_last_total_points; }
+  double last_total_area_m2() const { return m_last_total_area_m2; }
+  std::size_t last_file_count() const { return m_last_file_count; }
 
  public slots:
   void open_config_file();
@@ -81,5 +89,14 @@ class ConfigEditor : public QWidget {
   void load_color_details(const std::string& name);
   void populate_color_combo(QComboBox* combo);
 
+  void update_las_stats();
+
   bool m_updating_ui = false;
+
+  // Cached aggregate statistics across all selected LAS/LAZ inputs. These
+  // mirror what is shown in las_stats_label and are refreshed by
+  // update_las_stats().
+  std::uint64_t m_last_total_points = 0;
+  double m_last_total_area_m2 = 0.0;
+  std::size_t m_last_file_count = 0;
 };

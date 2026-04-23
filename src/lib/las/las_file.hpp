@@ -25,6 +25,7 @@
 #include <vector>
 
 #include "grid/grid.hpp"
+#include "io/crs.hpp"
 #include "las_point.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
@@ -152,6 +153,36 @@ inline void copy_from(laspp::LASPointFormat0& data, const LASPoint& point) {
       static_cast<laspp::LASClassification>(static_cast<uint8_t>(point.classification()));
 }
 
+// Convert a user-supplied CRS string ("EPSG:28355", proj.4 string, WKT, ...)
+// into a canonical WKT string. Returns empty string if the input was empty.
+// Aborts with a helpful error if the input is non-empty but cannot be parsed.
+inline std::string user_crs_to_wkt(const std::string& user_crs) {
+  if (user_crs.empty()) return {};
+  OGRSpatialReference srs;
+  if (srs.SetFromUserInput(user_crs.c_str()) != OGRERR_NONE) {
+    Fail("Could not interpret CRS '" + user_crs +
+         "'. Expected an EPSG code (e.g. 'EPSG:28355'), proj.4 string, or WKT.");
+  }
+  srs.StripVertical();
+  srs.AutoIdentifyEPSG();
+  char* wkt = nullptr;
+  srs.exportToWkt(&wkt);
+  std::string wkt_string = wkt ? wkt : std::string{};
+  CPLFree(wkt);
+  return wkt_string;
+}
+
+// Returns true if two WKT strings describe the same CRS (tolerating cosmetic
+// differences in the WKT representation). Empty strings are never "same".
+inline bool wkt_matches(const std::string& a, const std::string& b) {
+  if (a.empty() || b.empty()) return false;
+  OGRSpatialReference srs_a;
+  OGRSpatialReference srs_b;
+  if (srs_a.importFromWkt(a.c_str()) != OGRERR_NONE) return false;
+  if (srs_b.importFromWkt(b.c_str()) != OGRERR_NONE) return false;
+  return srs_a.IsSame(&srs_b) == TRUE;
+}
+
 inline std::string convert_geo_keys_to_wkt(const laspp::LASGeoKeys& geo_keys) {
   OGRSpatialReference srs;
   bool projectionSet = false;
@@ -203,17 +234,48 @@ class LASFile {
 #ifndef USE_PDAL
   laspp::QuadtreeSpatialIndex m_spatial_index;
 
-  void from_las_reader(const laspp::LASReader& reader) {
+  void from_las_reader(const laspp::LASReader& reader, const std::string& override_crs = "") {
     laspp::Bound3D bounds = reader.header().bounds();
     m_bounds = Extent3D(Extent2D(bounds.min_x(), bounds.max_x(), bounds.min_y(), bounds.max_y()),
                         bounds.min_z(), bounds.max_z());
     m_original_bounds = m_bounds;
-    if (reader.wkt().has_value())
-      m_projection = GeoProjection(reader.wkt().value());
-    else {
-      Assert(reader.geo_keys().has_value(), "No projection found in LAS file");
-      laspp::LASGeoKeys geo_keys = reader.geo_keys().value();
-      m_projection = GeoProjection(convert_geo_keys_to_wkt(geo_keys));
+
+    std::string raw_embedded_wkt;
+    std::string embedded_wkt;
+    if (reader.wkt().has_value()) {
+      raw_embedded_wkt = reader.wkt().value();
+      embedded_wkt = normalize_crs_wkt(raw_embedded_wkt);
+    } else if (reader.geo_keys().has_value()) {
+      raw_embedded_wkt = convert_geo_keys_to_wkt(reader.geo_keys().value());
+      embedded_wkt = normalize_crs_wkt(raw_embedded_wkt);
+    }
+
+    const std::string override_wkt = user_crs_to_wkt(override_crs);
+
+    if (!override_wkt.empty()) {
+      // "override_crs" wins unconditionally: use it for both the 2D-normalized
+      // horizontal WKT and the (possibly compound) WKT for DEM outputs. Warn
+      // if the file embeds a conflicting CRS so mistakes are visible.
+      m_projection = make_projection_from_wkt(override_crs);
+      if (!embedded_wkt.empty() && !wkt_matches(embedded_wkt, override_wkt)) {
+        std::cerr << "WARNING: LAS file "
+                  << (m_filename.has_value() ? m_filename->string() : std::string("<unknown>"))
+                  << " has an embedded CRS that differs from the config 'override_crs'.\n"
+                  << "  embedded: " << embedded_wkt << "\n"
+                  << "  override: " << override_wkt << "\n"
+                  << "  Using the override. Remove 'override_crs' from the config to use the"
+                  << " embedded CRS instead." << std::endl;
+      }
+    } else if (!embedded_wkt.empty()) {
+      // Use a GeoProjection that has both the EPSG-normalized horizontal WKT
+      // (for 2D outputs like GPKGs and image TIFs) and a compound WKT that
+      // preserves any original vertical datum (e.g. AHD) for DEM outputs.
+      m_projection = make_projection_from_wkt(raw_embedded_wkt);
+    } else {
+      Fail("No projection found in LAS file " +
+           (m_filename.has_value() ? m_filename->string() : std::string("<unknown>")) +
+           ". Either embed a CRS in the file or set the 'override_crs' field in the config"
+           " (e.g. \"override_crs\": \"EPSG:28355\").");
     }
 
     if (reader.has_lastools_spatial_index()) {
@@ -223,16 +285,17 @@ class LASFile {
 #endif
 
  public:
-  explicit LASFile(const fs::path& filename, ProgressTracker progress_tracker)
+  explicit LASFile(const fs::path& filename, ProgressTracker progress_tracker,
+                   [[maybe_unused]] const std::string& override_crs = "")
       : m_filename(filename) {
     Timer timer;
     progress_tracker.text_update(to_string("Reading ", filename, " metadata ..."));
 #ifdef USE_PDAL
-
+    (void)override_crs;
 #else
     std::ifstream file(filename, std::ios::binary);
     laspp::LASReader reader(file);
-    from_las_reader(reader);
+    from_las_reader(reader, override_crs);
     progress_tracker.text_update("Reading metadata took " + to_string(timer));
 #endif
   }
@@ -391,8 +454,9 @@ class LASData : public LASFile {
 
   explicit LASData(const fs::path& filename, ProgressTracker progress_tracker,
                    [[maybe_unused]] bool skip_reading_points = false,
-                   [[maybe_unused]] std::optional<Extent2D> bounds = std::nullopt)
-      : LASFile(filename, progress_tracker.subtracker(0, 0.1)) {
+                   [[maybe_unused]] std::optional<Extent2D> bounds = std::nullopt,
+                   [[maybe_unused]] const std::string& override_crs = "")
+      : LASFile(filename, progress_tracker.subtracker(0, 0.1), override_crs) {
     Timer timer;
     progress_tracker.text_update(to_string("Reading ", filename, " ..."));
     Assert(fs::exists(filename), "File does not exist: " + filename.string());
@@ -414,7 +478,22 @@ class LASData : public LASFile {
         Extent2D(header_bounds.minx, header_bounds.maxx, header_bounds.miny, header_bounds.maxy),
         header_bounds.minz, header_bounds.maxz);
     m_original_bounds = m_bounds;
-    m_projection = GeoProjection(las_header.srs().getWKT());
+    const std::string pdal_raw_wkt = las_header.srs().getWKT();
+    const std::string pdal_wkt = normalize_crs_wkt(pdal_raw_wkt);
+    const std::string pdal_override_wkt = user_crs_to_wkt(override_crs);
+    if (!pdal_override_wkt.empty()) {
+      m_projection = make_projection_from_wkt(override_crs);
+      if (!pdal_wkt.empty() && !wkt_matches(pdal_wkt, pdal_override_wkt)) {
+        std::cerr << "WARNING: LAS file " << filename.string()
+                  << " has an embedded CRS that differs from the config 'override_crs'."
+                  << " Using the override." << std::endl;
+      }
+    } else if (!pdal_wkt.empty()) {
+      m_projection = make_projection_from_wkt(pdal_raw_wkt);
+    } else {
+      Fail("No projection found in LAS file " + filename.string() +
+           ". Either embed a CRS in the file or set the 'override_crs' field in the config.");
+    }
 
     progress_tracker.text_update(to_string("Read ", point_view->size(), " points"));
     // std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT())
@@ -438,7 +517,7 @@ class LASData : public LASFile {
 #else
     std::ifstream file(filename, std::ios::binary);
     laspp::LASReader reader(file);
-    from_las_reader(reader);
+    from_las_reader(reader, override_crs);
     progress_tracker.text_update("Reading metadata took " + to_string(timer));
     if (skip_reading_points) {
       return;
@@ -454,8 +533,10 @@ class LASData : public LASFile {
 
   static LASData with_border(const fs::path& filename, double border_width,
                              const std::vector<std::pair<Extent3D, fs::path>>& all_las_file_extents,
-                             ProgressTracker progress_tracker) {
-    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6));
+                             ProgressTracker progress_tracker,
+                             const std::string& override_crs = "") {
+    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6), false, std::nullopt,
+                     override_crs);
     Extent3D original_bounds = las_file.bounds();
     Extent3D extended_bounds = original_bounds;
     extended_bounds.grow(border_width);
@@ -472,7 +553,7 @@ class LASData : public LASFile {
           border_filename.string(),
           progress_tracker.subtracker(0.6 + (double)i / overlapping_filenames.size() * 0.4,
                                       0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4),
-          false, extended_bounds);
+          false, extended_bounds, override_crs);
       for (const LASPoint& point : border_file) {
         if (!extended_bounds.contains(point.x(), point.y())) {
           continue;
@@ -488,8 +569,10 @@ class LASData : public LASFile {
   }
 
   static LASData with_border(const fs::path& filename, double border_width,
-                             ProgressTracker progress_tracker) {
-    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6));
+                             ProgressTracker progress_tracker,
+                             const std::string& override_crs = "") {
+    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6), false, std::nullopt,
+                     override_crs);
     Extent3D original_bounds = las_file.bounds();
     std::vector<fs::path> border_filenames;
     for (const BorderType border_type :

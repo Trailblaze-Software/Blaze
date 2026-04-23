@@ -70,8 +70,9 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   fs::path output_dir = config.output_path() / las_filename.stem();
   fs::create_directories(output_dir);
 
-  LASData las_file = LASData::with_border(las_filename, config.border_width,
-                                          progress_tracker.subtracker(0.0, 0.4));
+  LASData las_file =
+      LASData::with_border(las_filename, config.border_width, progress_tracker.subtracker(0.0, 0.4),
+                           config.override_crs);
   process_las_data(las_file, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
 }
 
@@ -190,7 +191,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   ground = adjust_ground_to_slope(ground);
 
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
-               progress_tracker.subtracker(0.65, 0.66));
+               progress_tracker.subtracker(0.65, 0.66), /*include_vertical_crs=*/true);
   write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif",
                progress_tracker.subtracker(0.66, 0.67));
   write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif",
@@ -209,7 +210,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   downsampled_ground.reset();
 
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif",
-               progress_tracker.subtracker(0.72, 0.73));
+               progress_tracker.subtracker(0.72, 0.73), /*include_vertical_crs=*/true);
 
   if (OUT_LAS)
     LASData(smooth_ground)
@@ -232,7 +233,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   std::vector<Coordinate2D<size_t>> sinks = identify_sinks(smooth_ground);
   GeoGrid<double> filled = fill_depressions(smooth_ground, sinks);
-  write_to_tif(filled.slice(las_file.export_bounds()), output_dir / "filled_dem.tif");
+  write_to_tif(filled.slice(las_file.export_bounds()), output_dir / "filled_dem.tif",
+               /*progress_tracker=*/std::nullopt, /*include_vertical_crs=*/true);
 
   double contour_points_resolution = 20;
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(

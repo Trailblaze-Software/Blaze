@@ -66,8 +66,10 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
     if (fs::is_directory(las_file)) {
       throw std::runtime_error("LAS file " + las_file.string() + " is a directory");
     }
-    LASFile las(las_file, tracker.subtracker(multiplier * idx / las_files.size(),
-                                             multiplier * (idx + 1) / las_files.size()));
+    LASFile las(las_file,
+                tracker.subtracker(multiplier * idx / las_files.size(),
+                                   multiplier * (idx + 1) / las_files.size()),
+                config.override_crs);
     las_bounds.emplace_back(
         std::pair<Extent3D, fs::path>{Extent3D(las.bounds()), fs::path(las_file)});
     idx++;
@@ -95,8 +97,9 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             fs::path output_dir = config.output_path() / las_files[i].stem();
             fs::create_directories(output_dir);
 
-            LASData las_file = LASData::with_border(las_files[i], config.border_width, las_bounds,
-                                                    progress_tracker.subtracker(0.0, 0.4));
+            LASData las_file =
+                LASData::with_border(las_files[i], config.border_width, las_bounds,
+                                     progress_tracker.subtracker(0.0, 0.4), config.override_crs);
             process_las_data(las_file, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
           }
 
@@ -171,7 +174,11 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           }
 
           fs::create_directories((config.output_path() / "combined" / filename).parent_path());
-          write_to_tif(combined_grid, config.output_path() / "combined" / filename);
+          const bool is_dem = filename == "filled_dem.tif" || filename == "ground.tif" ||
+                              filename == "smooth_ground.tif";
+          write_to_tif(combined_grid, config.output_path() / "combined" / filename,
+                       /*progress_tracker=*/std::nullopt,
+                       /*include_vertical_crs=*/is_dem);
 
           if (filename == "filled_dem.tif") {
             GeoGrid<double> filled_dem(combined_grid.width(), combined_grid.height(),
@@ -188,7 +195,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               }
             }
 
-            write_to_tif(filled_dem, config.output_path() / "combined" / "filled_filled_dem.tif");
+            write_to_tif(filled_dem, config.output_path() / "combined" / "filled_filled_dem.tif",
+                         /*progress_tracker=*/std::nullopt, /*include_vertical_crs=*/true);
 
             std::vector<Stream> stream_path =
                 stream_paths(filled_dem, config.water, step_tracker.subtracker(0.8, 0.9), false);

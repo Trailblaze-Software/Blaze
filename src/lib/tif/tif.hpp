@@ -6,7 +6,8 @@
 
 template <typename GridT>
 void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
-                  std::optional<ProgressTracker> progress_tracker = {});
+                  std::optional<ProgressTracker> progress_tracker = {},
+                  bool include_vertical_crs = false);
 
 Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename);
 

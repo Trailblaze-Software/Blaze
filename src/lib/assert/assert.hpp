@@ -33,9 +33,16 @@ using source_location = std::experimental::source_location;
 #endif
 }
 
-#define Assert(condition, ...)   \
-  if (!(condition)) [[unlikely]] \
-    _Assert(condition, #condition, std::optional<std::string>(__VA_ARGS__));
+// Wrapped in do { ... } while (0) so the macro expands to a single statement.
+// A bare `if (...)` would mis-bind a following `else` at the call site and
+// turn anything we append (e.g. the `unreachable()` in `Fail`) into a
+// statement that unconditionally runs after the `if`.
+#define Assert(condition, ...)                                                 \
+  do {                                                                         \
+    if (!(condition)) [[unlikely]] {                                           \
+      _Assert(condition, #condition, std::optional<std::string>(__VA_ARGS__)); \
+    }                                                                          \
+  } while (0)
 
 inline void _Assert(bool condition, const std::string& condition_str,
                     const std::optional<std::string>& message,
@@ -50,11 +57,13 @@ inline void _Assert(bool condition, const std::string& condition_str,
   }
 }
 
-#define Fail(...)             \
-  Assert(false, __VA_ARGS__); \
-  unreachable()
+#define Fail(...)               \
+  do {                          \
+    Assert(false, __VA_ARGS__); \
+    unreachable();              \
+  } while (0)
 
-#define Unimplemented(...) Assert(false, "Unimplemented");
+#define Unimplemented(...) Assert(false, "Unimplemented")
 
 template <typename A, typename B>
 inline void _AssertBinOp(const A& a, const B& b, const std::string& a_str, const std::string& b_str,
@@ -67,9 +76,12 @@ inline void _AssertBinOp(const A& a, const B& b, const std::string& a_str, const
   }
 }
 
-#define AssertBinOp(a, b, op, nop) \
-  if (!((a)op(b))) [[unlikely]]    \
-  _AssertBinOp(a, b, #a, #b, a op b, #op, #nop)
+#define AssertBinOp(a, b, op, nop)                   \
+  do {                                               \
+    if (!((a)op(b))) [[unlikely]] {                  \
+      _AssertBinOp(a, b, #a, #b, a op b, #op, #nop); \
+    }                                                \
+  } while (0)
 #define AssertGE(expr, val) AssertBinOp(expr, val, >=, <)
 #define AssertLE(expr, val) AssertBinOp(expr, val, <=, >)
 #define AssertGT(expr, val) AssertBinOp(expr, val, >, <=)

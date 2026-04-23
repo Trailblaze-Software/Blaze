@@ -21,6 +21,7 @@
 #include "ogr_srs_api.h"
 #include "process.hpp"
 #include "testing/env.hpp"
+#include "testing/output_dir.hpp"
 #include "tif/tif.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
@@ -180,7 +181,7 @@ LASData create_synthetic_las_data() {
 
 // Test end-to-end processing with synthetic data
 TEST(E2E, ProcessSyntheticData) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   // Clean up if exists
   if (fs::exists(test_output_dir)) {
@@ -237,7 +238,7 @@ TEST(E2E, ProcessSyntheticData) {
 
 // Test that processing handles empty data gracefully
 TEST(E2E, ProcessEmptyData) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test_empty";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -264,7 +265,7 @@ TEST(E2E, ProcessEmptyData) {
 
 // Test processing with different grid resolutions
 TEST(E2E, ProcessDifferentResolutions) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test_res";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -307,7 +308,7 @@ TEST(E2E, ProcessDifferentResolutions) {
 
 // Test that output files have valid structure
 TEST(E2E, VerifyOutputStructure) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test_structure";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -597,7 +598,7 @@ TEST_P(E2ETerrainTest, ProcessTerrain) {
   const char* keep_output = blaze::test::get_env("BLAZE_KEEP_TEST_OUTPUT");
   bool should_keep_output = (keep_output != nullptr && std::string(keep_output) != "0");
 
-  fs::path test_output_dir = fs::temp_directory_path() / ("blaze_e2e_" + params.name);
+  fs::path test_output_dir = blaze::test::unique_test_output_dir(params.name);
   if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
   fs::create_directories(test_output_dir);
 
@@ -703,7 +704,7 @@ TEST(E2E, GroundEstimationSlopes) {
   const char* keep_output = blaze::test::get_env("BLAZE_KEEP_TEST_OUTPUT");
   bool should_keep_output = (keep_output != nullptr && std::string(keep_output) != "0");
 
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_slope_test";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir("slope");
 
   // Clean up if exists
   if (fs::exists(test_output_dir)) {

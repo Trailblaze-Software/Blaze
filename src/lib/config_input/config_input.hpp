@@ -193,6 +193,14 @@ struct Config {
   std::set<ProcessingStep> processing_steps;
   fs::path output_directory;
   double border_width;
+  // Overrides the CRS of any input LAS/LAZ file regardless of whether the file
+  // embeds a projection. Useful for older ACT government datasets that ship
+  // with no projection at all, and for correcting files that embed the wrong
+  // CRS. When set, a warning is emitted if the embedded CRS (if any) disagrees
+  // with this value. Accepts anything OGRSpatialReference::SetFromUserInput
+  // understands, e.g. "EPSG:28355", a WKT string, or a proj.4 string. Empty
+  // string = use whatever the file embeds (error out if it embeds nothing).
+  std::string override_crs;
   fs::path relative_path_to_config;
 
   void set_output_directory(const fs::path& output_dir) { output_directory = output_dir; }

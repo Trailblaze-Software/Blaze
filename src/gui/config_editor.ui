@@ -48,13 +48,41 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
+          <widget class="QLabel" name="las_stats_label">
+           <property name="text">
+            <string>(no files selected)</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::TextSelectableByMouse</set>
+           </property>
+           <property name="toolTip">
+            <string>Summary of currently selected LAS/LAZ inputs (total files, points, area, density). Updates whenever files/folders are added or removed.</string>
+           </property>
+           <property name="styleSheet">
+            <string>QLabel { padding: 4px 6px; border: 1px solid palette(mid); border-radius: 3px; background: palette(alternate-base); }</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>12</width>
              <height>20</height>
             </size>
            </property>
@@ -350,6 +378,35 @@
                     </item>
                     <item row="0" column="1">
                         <widget class="QLineEdit" name="border_width"/>
+                    </item>
+                </layout>
+            </widget>
+        </item>
+        <item>
+            <widget class="QGroupBox" name="groupBox_Projection">
+                <property name="title">
+                    <string>Projection</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_Projection">
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="label_override_crs">
+                            <property name="text">
+                                <string>Override CRS:</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>CRS used to override every input LAS/LAZ file, regardless of whether the file embeds a projection. Accepts anything OGRSpatialReference::SetFromUserInput understands, e.g. EPSG:28355, a WKT string, or a proj.4 string. If a file embeds a different CRS, a warning is emitted and the override is used anyway. Leave blank to use whatever each file embeds.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="1">
+                        <widget class="QLineEdit" name="override_crs_edit">
+                            <property name="placeholderText">
+                                <string>e.g. EPSG:28355 (optional)</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>CRS used to override every input LAS/LAZ file, regardless of whether the file embeds a projection. Accepts anything OGRSpatialReference::SetFromUserInput understands, e.g. EPSG:28355, a WKT string, or a proj.4 string. If a file embeds a different CRS, a warning is emitted and the override is used anyway. Leave blank to use whatever each file embeds.</string>
+                            </property>
+                        </widget>
                     </item>
                 </layout>
             </widget>

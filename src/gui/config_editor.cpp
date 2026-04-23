@@ -12,9 +12,11 @@
 #include <QSpinBox>
 #include <QTableWidget>
 #include <filesystem>
+#include <set>
 
 #include "assert/assert.hpp"
 #include "config_input/config_input.hpp"
+#include "las_reader.hpp"
 #include "printing/to_string.hpp"
 #include "ui_config_editor.h"
 
@@ -169,6 +171,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   connect(ui->buildings_color, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
           &ConfigEditor::update_general_from_ui);
   connect_general(ui->border_width);
+  connect_general(ui->override_crs_edit);
 
   // Contours Tab
   connect(ui->contours_list_widget, &QListWidget::itemSelectionChanged, this,
@@ -344,6 +347,69 @@ void ConfigEditor::populate_color_combo(QComboBox* combo) {
   combo->blockSignals(was_blocked);
 }
 
+void ConfigEditor::update_las_stats() {
+  // Gather unique file paths across all configured inputs (folders get expanded
+  // to their .las/.laz children via Config::get_las_files). Using a set keeps
+  // the summary sane if the user accidentally added overlapping folders/files.
+  std::vector<fs::path> unique_files;
+  {
+    std::set<fs::path> seen;
+    for (const fs::path& path : m_config->las_files) {
+      for (const fs::path& f : m_config->get_las_files(path)) {
+        if (seen.insert(f).second) unique_files.push_back(f);
+      }
+    }
+  }
+
+  if (unique_files.empty()) {
+    m_last_total_points = 0;
+    m_last_total_area_m2 = 0.0;
+    m_last_file_count = 0;
+    ui->las_stats_label->setText("(no files selected)");
+    return;
+  }
+
+  std::uint64_t total_points = 0;
+  double total_area_m2 = 0.0;
+  std::size_t failed = 0;
+  for (const fs::path& file : unique_files) {
+    try {
+      laspp::LASReader reader(file);
+      const auto& b = reader.header().bounds();
+      const double w = b.max_x() - b.min_x();
+      const double h = b.max_y() - b.min_y();
+      if (w > 0 && h > 0) total_area_m2 += w * h;
+      total_points += reader.num_points();
+    } catch (const std::exception&) {
+      ++failed;
+    }
+  }
+
+  m_last_total_points = total_points;
+  m_last_total_area_m2 = total_area_m2;
+  m_last_file_count = unique_files.size();
+
+  auto format_number = [](double v, int decimals) {
+    // Thousands separators + fixed decimals, using the current locale.
+    return QLocale().toString(v, 'f', decimals);
+  };
+
+  const double area_km2 = total_area_m2 / 1'000'000.0;
+  const double density =
+      total_area_m2 > 0.0 ? static_cast<double>(total_points) / total_area_m2 : 0.0;
+
+  QString text = QString("%1 file%2 \u2022 %3 points \u2022 %4 km\u00B2 \u2022 %5 pts/m\u00B2")
+                     .arg(unique_files.size())
+                     .arg(unique_files.size() == 1 ? "" : "s")
+                     .arg(QLocale().toString(static_cast<qulonglong>(total_points)))
+                     .arg(format_number(area_km2, 3))
+                     .arg(format_number(density, 1));
+  if (failed > 0) {
+    text += QString(" (%1 file%2 failed to read)").arg(failed).arg(failed == 1 ? "" : "s");
+  }
+  ui->las_stats_label->setText(text);
+}
+
 void ConfigEditor::set_ui_to_config(const Config& config) {
   m_updating_ui = true;
 
@@ -396,6 +462,7 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   ui->ground_max_intensity->setValue(config.ground.max_ground_intensity);
   ui->buildings_color->setCurrentText(get_color_name(config.buildings.color));
   ui->border_width->setText(QString::number(config.border_width));
+  ui->override_crs_edit->setText(QString::fromStdString(config.override_crs));
 
   ui->vege_bg_color_combo->setCurrentText(get_color_name(config.vege.background_color));
 
@@ -405,6 +472,8 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   populate_water_list();
   populate_vege_list();
   populate_color_list();
+
+  update_las_stats();
 
   m_updating_ui = false;
   config_changed();
@@ -426,6 +495,7 @@ void ConfigEditor::update_general_from_ui() {
   m_config->ground.min_ground_intensity = ui->ground_min_intensity->value();
   m_config->ground.max_ground_intensity = ui->ground_max_intensity->value();
   m_config->border_width = ui->border_width->text().toDouble();
+  m_config->override_crs = ui->override_crs_edit->text().trimmed().toStdString();
 
   QString b_color = ui->buildings_color->currentText();
   if (COLOR_MAP.count(b_color.toStdString())) {
