@@ -12,6 +12,7 @@
 #include "grid/grid.hpp"
 #include "io/gpkg.hpp"
 #include "las/las_file.hpp"
+#include "las/tile_mode.hpp"
 #include "methods/water/water.hpp"
 #include "printing/to_string.hpp"
 #include "process.hpp"
@@ -56,27 +57,38 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
     total_time += time_ratios.back();
   }
 
-  int idx = 0;
-  std::vector<std::pair<Extent3D, fs::path>> las_bounds;
-  for (const fs::path& las_file : las_files) {
-    double multiplier = 0.01 / total_time;
-    if (!fs::exists(las_file)) {
-      throw std::runtime_error("LAS file " + las_file.string() + " does not exist");
-    }
-    if (fs::is_directory(las_file)) {
-      throw std::runtime_error("LAS file " + las_file.string() + " is a directory");
-    }
-    LASFile las(las_file,
-                tracker.subtracker(multiplier * idx / las_files.size(),
-                                   multiplier * (idx + 1) / las_files.size()),
-                config.override_crs);
-    las_bounds.emplace_back(
-        std::pair<Extent3D, fs::path>{Extent3D(las.bounds()), fs::path(las_file)});
-    idx++;
+  const bool tiled_mode = config.tile_size > 0.0;
+  std::string tile_output_crs_wkt;
+  std::vector<LASFileExtent> tile_input_extents =
+      load_input_extents(las_files, config.override_crs, tile_output_crs_wkt,
+                         tracker.subtracker(0.0, 0.01 / total_time));
+  const TileModeInfo tile_info = detect_tile_mode_needed(tile_input_extents);
+  if (tile_info.any_overlap) {
+    std::cerr << "Info: Input files overlap; tile reads will pull from every overlapping input."
+              << std::endl;
+  }
+  if (tile_info.crs_mismatch) {
+    std::cerr << "Info: Input files use different CRSes; points will be reprojected into the "
+              << "output CRS." << std::endl;
+  }
+  if (tile_info.required() && !tiled_mode) {
+    std::cerr << "WARNING: overlapping / mixed-CRS inputs are being processed one-tile-per-file."
+              << " For correct handling of the overlap regions, enable tiled mode by setting"
+              << " 'tile_size' in the config (meters)." << std::endl;
+  }
+
+  std::vector<Tile> tiles;
+  if (tiled_mode) {
+    Extent2D overall = union_extent(tile_input_extents);
+    tiles = compute_tiles(overall, config.tile_size, tile_input_extents);
+    tracker.text_update(
+        to_string("Planned ", tiles.size(), " tiles over extent ", overall, " in output CRS."));
+  } else {
+    tiles = tiles_per_file(tile_input_extents);
   }
 
   double current_time = 0.01 / total_time;
-  idx = 0;
+  int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
     TimeFunction timer(to_string("processing step ", step));
     tracker.text_update(to_string("Processing step ", step));
@@ -85,31 +97,36 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
     current_time += time_ratios[idx++] / total_time;
     switch (step) {
       case ProcessingStep::Tiles:
-        for (size_t i = 0; i < las_files.size(); i++) {
+        for (size_t i = 0; i < tiles.size(); i++) {
+          const Tile& tile = tiles[i];
           step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
-                                   std::to_string(las_files.size()) + ": " +
-                                   las_files[i].filename().string());
+                                   std::to_string(tiles.size()) + ": " + tile.output_name());
 
-          {
-            ProgressTracker progress_tracker = step_tracker.subtracker(
-                (double)i / las_files.size(), (double)(i + 1) / las_files.size());
+          ProgressTracker progress_tracker =
+              step_tracker.subtracker((double)i / tiles.size(), (double)(i + 1) / tiles.size());
 
-            fs::path output_dir = config.output_path() / las_files[i].stem();
-            fs::create_directories(output_dir);
+          fs::path output_dir = config.output_path() / tile.output_name();
+          fs::create_directories(output_dir);
 
-            LASData las_file =
-                LASData::with_border(las_files[i], config.border_width, las_bounds,
-                                     progress_tracker.subtracker(0.0, 0.4), config.override_crs);
-            process_las_data(las_file, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
+          LASData tile_data =
+              read_tile_from_inputs(tile.extent, config.border_width, tile_input_extents,
+                                    tile_output_crs_wkt, progress_tracker.subtracker(0.0, 0.4));
+          if (tile_data.n_points() == 0) {
+            step_tracker.text_update("Tile " + tile.output_name() + " has no points; skipping.");
+            continue;
           }
-
-          // process_las_file(las_files[i], config,
-          // step_tracker.subtracker((double)i / las_files.size(),
-          //(double)(i + 1) / las_files.size()));
+          process_las_data(tile_data, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
         }
         break;
       case ProcessingStep::Combine:
         std::optional<std::string> projection;
+
+        std::vector<fs::path> combine_dirs;
+        combine_dirs.reserve(tiles.size());
+        for (const Tile& t : tiles) {
+          fs::path d = config.output_path() / t.output_name();
+          if (fs::exists(d)) combine_dirs.push_back(d);
+        }
 
         // Combine TIFs
         fs::create_directories(config.output_path() / "combined" / "raw_vege");
@@ -126,8 +143,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
           Extent2D extent;
           std::optional<double> dx, dy;
-          for (const fs::path& las_file : las_files) {
-            fs::path output_dir = config.output_path() / las_file.stem();
+          for (const fs::path& output_dir : combine_dirs) {
             fs::path img_path = output_dir / filename;
             if (!fs::exists(img_path)) {
               std::cerr << "Image " << img_path << " does not exist" << std::endl;
@@ -216,8 +232,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
         // Combine contours
         std::map<double, std::vector<Contour>> contours_by_height;
-        for (const fs::path& las_file : las_files) {
-          fs::path output_dir = config.output_path() / las_file.stem();
+        for (const fs::path& output_dir : combine_dirs) {
           fs::path gpkg_path = output_dir / "trimmed_contours.gpkg";
           if (!fs::exists(gpkg_path)) {
             std::cerr << "GPKG " << gpkg_path << " does not exist" << std::endl;

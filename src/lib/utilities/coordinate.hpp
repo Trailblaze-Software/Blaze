@@ -309,6 +309,10 @@ struct Extent2D {
     return minx <= x && x <= maxx && miny <= y && y <= maxy;
   }
 
+  bool overlaps(const Extent2D& other) const {
+    return !(maxx <= other.minx || minx >= other.maxx || maxy <= other.miny || miny >= other.maxy);
+  }
+
   void grow(const Extent2D& other) {
     minx = std::min(minx, other.minx);
     maxx = std::max(maxx, other.maxx);

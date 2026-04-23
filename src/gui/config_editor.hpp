@@ -99,4 +99,15 @@ class ConfigEditor : public QWidget {
   std::uint64_t m_last_total_points = 0;
   double m_last_total_area_m2 = 0.0;
   std::size_t m_last_file_count = 0;
+
+  // Whether any pair of selected input files' bounding boxes overlap in xy,
+  // or whether different horizontal CRSes were detected. When either is true,
+  // tiled mode must be enabled (tile_size > 0) for Blaze to produce correct
+  // output. Recomputed by update_las_stats().
+  bool m_inputs_overlap = false;
+  bool m_inputs_mixed_crs = false;
+
+  // Refresh the tile-size status label and styling based on the current
+  // tile_size field, override_crs, and cached overlap/CRS flags.
+  void refresh_tile_size_status();
 };

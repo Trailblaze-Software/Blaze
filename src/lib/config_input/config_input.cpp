@@ -259,6 +259,7 @@ struct adl_serializer<Config> {
     config.processing_steps = j.value("steps", json({"tiles"})).get<std::set<ProcessingStep>>();
     config.output_directory = j.value("output_directory", "out");
     config.border_width = j.value("border_width", 100.0);
+    config.tile_size = j.value("tile_size", 0.0);
     config.override_crs = j.value("override_crs", std::string{});
     config.relative_path_to_config = "";
     return config;
@@ -277,6 +278,9 @@ struct adl_serializer<Config> {
     j["steps"] = gc.processing_steps;
     j["output_directory"] = gc.output_directory;
     j["border_width"] = gc.border_width;
+    if (gc.tile_size > 0.0) {
+      j["tile_size"] = gc.tile_size;
+    }
     if (!gc.override_crs.empty()) {
       j["override_crs"] = gc.override_crs;
     }

@@ -193,6 +193,13 @@ struct Config {
   std::set<ProcessingStep> processing_steps;
   fs::path output_directory;
   double border_width;
+  // When > 0, enables tiled processing mode. Blaze divides the union of all
+  // input files' extents (in the output CRS) into a regular grid of tiles
+  // with this side length (meters) and processes each tile independently,
+  // pulling and reprojecting points from every input LAS/LAZ file that
+  // overlaps the tile+border. Required when input files overlap each other
+  // or use different CRSes.
+  double tile_size = 0.0;
   // Overrides the CRS of any input LAS/LAZ file regardless of whether the file
   // embeds a projection. Useful for older ACT government datasets that ship
   // with no projection at all, and for correcting files that embed the wrong

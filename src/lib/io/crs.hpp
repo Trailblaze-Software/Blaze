@@ -87,3 +87,34 @@ inline GeoProjection make_projection_from_wkt(const std::string& raw_wkt) {
   const std::string compound = build_compound_crs_wkt(raw_wkt, horizontal);
   return GeoProjection(horizontal, compound);
 }
+
+// Convert a user-supplied CRS string ("EPSG:28355", proj.4 string, WKT, ...)
+// into a canonical 2D-normalized WKT string. Returns empty string if the
+// input was empty. Aborts with a helpful error if the input is non-empty but
+// cannot be parsed.
+inline std::string user_crs_to_wkt(const std::string& user_crs) {
+  if (user_crs.empty()) return {};
+  OGRSpatialReference srs;
+  if (srs.SetFromUserInput(user_crs.c_str()) != OGRERR_NONE) {
+    Fail("Could not interpret CRS '" + user_crs +
+         "'. Expected an EPSG code (e.g. 'EPSG:28355'), proj.4 string, or WKT.");
+  }
+  srs.StripVertical();
+  srs.AutoIdentifyEPSG();
+  char* wkt = nullptr;
+  srs.exportToWkt(&wkt);
+  std::string wkt_string = wkt ? wkt : std::string{};
+  CPLFree(wkt);
+  return wkt_string;
+}
+
+// Returns true if two WKT strings describe the same CRS (tolerating cosmetic
+// differences in the WKT representation). Empty strings are never "same".
+inline bool wkt_matches(const std::string& a, const std::string& b) {
+  if (a.empty() || b.empty()) return false;
+  OGRSpatialReference srs_a;
+  OGRSpatialReference srs_b;
+  if (srs_a.importFromWkt(a.c_str()) != OGRERR_NONE) return false;
+  if (srs_b.importFromWkt(b.c_str()) != OGRERR_NONE) return false;
+  return srs_a.IsSame(&srs_b) == TRUE;
+}

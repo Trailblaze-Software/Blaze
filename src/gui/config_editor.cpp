@@ -16,6 +16,8 @@
 
 #include "assert/assert.hpp"
 #include "config_input/config_input.hpp"
+#include "io/crs.hpp"
+#include "las/tile_mode.hpp"
 #include "las_reader.hpp"
 #include "printing/to_string.hpp"
 #include "ui_config_editor.h"
@@ -95,9 +97,14 @@ bool ConfigEditor::is_valid() const {
   bool all_las_files_exist = std::all_of(
       m_config->las_files.begin(), m_config->las_files.end(),
       [this](const fs::path& las_file) { return m_config->get_las_files(las_file).size(); });
+  // Tiled mode is required whenever the selected inputs overlap in xy or
+  // use different horizontal CRSes. Without it the per-file pipeline would
+  // double-count points or silently place them at the wrong coordinates.
+  const bool tile_size_required = m_inputs_overlap || m_inputs_mixed_crs;
+  const bool tile_size_ok = !tile_size_required || m_config->tile_size > 0.0;
   return validated(ui->scale_dropdown) && validated(ui->dpi_dropdown) &&
          validated(ui->out_dir_line_edit) && !m_config->processing_steps.empty() &&
-         !m_config->las_files.empty() && all_las_files_exist;
+         !m_config->las_files.empty() && all_las_files_exist && tile_size_ok;
 }
 
 ConfigEditor::ConfigEditor(QWidget* parent)
@@ -154,6 +161,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   ui->grid_bin_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->ground_outlier_removal->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->border_width->setValidator(new QDoubleValidator(0.0, 10000.0, 2, this));
+  ui->tile_size->setValidator(new QDoubleValidator(0.0, 1'000'000.0, 2, this));
 
   auto connect_general = [this](QWidget* widget) {
     if (auto* le = qobject_cast<QLineEdit*>(widget)) {
@@ -171,6 +179,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   connect(ui->buildings_color, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
           &ConfigEditor::update_general_from_ui);
   connect_general(ui->border_width);
+  connect_general(ui->tile_size);
   connect_general(ui->override_crs_edit);
 
   // Contours Tab
@@ -365,25 +374,43 @@ void ConfigEditor::update_las_stats() {
     m_last_total_points = 0;
     m_last_total_area_m2 = 0.0;
     m_last_file_count = 0;
+    m_inputs_overlap = false;
+    m_inputs_mixed_crs = false;
     ui->las_stats_label->setText("(no files selected)");
+    refresh_tile_size_status();
     return;
+  }
+
+  std::string override_wkt;
+  try {
+    override_wkt = user_crs_to_wkt(m_config->override_crs);
+  } catch (const std::exception&) {
   }
 
   std::uint64_t total_points = 0;
   double total_area_m2 = 0.0;
   std::size_t failed = 0;
+  std::vector<LASFileExtent> file_extents;
+  file_extents.reserve(unique_files.size());
   for (const fs::path& file : unique_files) {
     try {
       laspp::LASReader reader(file);
-      const auto& b = reader.header().bounds();
-      const double w = b.max_x() - b.min_x();
-      const double h = b.max_y() - b.min_y();
-      if (w > 0 && h > 0) total_area_m2 += w * h;
+      const laspp::Bound3D& b = reader.header().bounds();
+      total_area_m2 += (b.max_x() - b.min_x()) * (b.max_y() - b.min_y());
       total_points += reader.num_points();
+      LASFileExtent e;
+      e.path = file;
+      e.bounds_native = as_extent3d(b);
+      e.horizontal_wkt = reader_horizontal_wkt(reader, m_config->override_crs);
+      file_extents.push_back(std::move(e));
     } catch (const std::exception&) {
       ++failed;
     }
   }
+
+  const TileModeInfo tile_info = analyze_extents(file_extents, override_wkt);
+  m_inputs_overlap = tile_info.any_overlap;
+  m_inputs_mixed_crs = tile_info.crs_mismatch;
 
   m_last_total_points = total_points;
   m_last_total_area_m2 = total_area_m2;
@@ -408,6 +435,40 @@ void ConfigEditor::update_las_stats() {
     text += QString(" (%1 file%2 failed to read)").arg(failed).arg(failed == 1 ? "" : "s");
   }
   ui->las_stats_label->setText(text);
+  refresh_tile_size_status();
+}
+
+void ConfigEditor::refresh_tile_size_status() {
+  const bool required = m_inputs_overlap || m_inputs_mixed_crs;
+  const bool enabled = m_config->tile_size > 0.0;
+  QString reason;
+  if (m_inputs_overlap && m_inputs_mixed_crs) {
+    reason = "Input files overlap and use different CRSes";
+  } else if (m_inputs_overlap) {
+    reason = "Input files overlap in xy";
+  } else if (m_inputs_mixed_crs) {
+    reason = "Input files use different CRSes";
+  }
+
+  if (required && !enabled) {
+    ui->tile_size_status->setText(reason +
+                                  ": tiled processing is required. Set Tile Size "
+                                  "(m) to a positive value (e.g. 1000).");
+    ui->tile_size_status->setStyleSheet("QLabel { color: #b00020; }");
+    ui->tile_size->setStyleSheet("QLineEdit { border: 2px solid red; }");
+  } else if (required && enabled) {
+    ui->tile_size_status->setText(reason + ": tiled processing is enabled.");
+    ui->tile_size_status->setStyleSheet("QLabel { color: #1b5e20; }");
+    ui->tile_size->setStyleSheet("");
+  } else if (enabled) {
+    ui->tile_size_status->setText("Tiled processing enabled.");
+    ui->tile_size_status->setStyleSheet("QLabel { color: #555; }");
+    ui->tile_size->setStyleSheet("");
+  } else {
+    ui->tile_size_status->setText(QString());
+    ui->tile_size_status->setStyleSheet("");
+    ui->tile_size->setStyleSheet("");
+  }
 }
 
 void ConfigEditor::set_ui_to_config(const Config& config) {
@@ -462,6 +523,7 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   ui->ground_max_intensity->setValue(config.ground.max_ground_intensity);
   ui->buildings_color->setCurrentText(get_color_name(config.buildings.color));
   ui->border_width->setText(QString::number(config.border_width));
+  ui->tile_size->setText(config.tile_size > 0.0 ? QString::number(config.tile_size) : QString());
   ui->override_crs_edit->setText(QString::fromStdString(config.override_crs));
 
   ui->vege_bg_color_combo->setCurrentText(get_color_name(config.vege.background_color));
@@ -495,7 +557,12 @@ void ConfigEditor::update_general_from_ui() {
   m_config->ground.min_ground_intensity = ui->ground_min_intensity->value();
   m_config->ground.max_ground_intensity = ui->ground_max_intensity->value();
   m_config->border_width = ui->border_width->text().toDouble();
+  {
+    const QString raw = ui->tile_size->text().trimmed();
+    m_config->tile_size = raw.isEmpty() ? 0.0 : raw.toDouble();
+  }
   m_config->override_crs = ui->override_crs_edit->text().trimmed().toStdString();
+  refresh_tile_size_status();
 
   QString b_color = ui->buildings_color->currentText();
   if (COLOR_MAP.count(b_color.toStdString())) {

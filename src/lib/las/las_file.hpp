@@ -153,36 +153,6 @@ inline void copy_from(laspp::LASPointFormat0& data, const LASPoint& point) {
       static_cast<laspp::LASClassification>(static_cast<uint8_t>(point.classification()));
 }
 
-// Convert a user-supplied CRS string ("EPSG:28355", proj.4 string, WKT, ...)
-// into a canonical WKT string. Returns empty string if the input was empty.
-// Aborts with a helpful error if the input is non-empty but cannot be parsed.
-inline std::string user_crs_to_wkt(const std::string& user_crs) {
-  if (user_crs.empty()) return {};
-  OGRSpatialReference srs;
-  if (srs.SetFromUserInput(user_crs.c_str()) != OGRERR_NONE) {
-    Fail("Could not interpret CRS '" + user_crs +
-         "'. Expected an EPSG code (e.g. 'EPSG:28355'), proj.4 string, or WKT.");
-  }
-  srs.StripVertical();
-  srs.AutoIdentifyEPSG();
-  char* wkt = nullptr;
-  srs.exportToWkt(&wkt);
-  std::string wkt_string = wkt ? wkt : std::string{};
-  CPLFree(wkt);
-  return wkt_string;
-}
-
-// Returns true if two WKT strings describe the same CRS (tolerating cosmetic
-// differences in the WKT representation). Empty strings are never "same".
-inline bool wkt_matches(const std::string& a, const std::string& b) {
-  if (a.empty() || b.empty()) return false;
-  OGRSpatialReference srs_a;
-  OGRSpatialReference srs_b;
-  if (srs_a.importFromWkt(a.c_str()) != OGRERR_NONE) return false;
-  if (srs_b.importFromWkt(b.c_str()) != OGRERR_NONE) return false;
-  return srs_a.IsSame(&srs_b) == TRUE;
-}
-
 inline std::string convert_geo_keys_to_wkt(const laspp::LASGeoKeys& geo_keys) {
   OGRSpatialReference srs;
   bool projectionSet = false;
@@ -215,6 +185,32 @@ inline std::string convert_geo_keys_to_wkt(const laspp::LASGeoKeys& geo_keys) {
   return wktString;
 }
 
+inline Extent2D as_extent2d(const laspp::Bound3D& b) {
+  return Extent2D(b.min_x(), b.max_x(), b.min_y(), b.max_y());
+}
+
+inline Extent3D as_extent3d(const laspp::Bound3D& b) {
+  return Extent3D(as_extent2d(b), b.min_z(), b.max_z());
+}
+
+// Returns the normalized horizontal WKT for a reader, honouring override_crs
+// (a user-supplied shorthand like "EPSG:28355" or a full WKT). Falls back to
+// the file's embedded WKT/GeoKeys, then to an empty string if nothing is
+// available. Never throws.
+inline std::string reader_horizontal_wkt(const laspp::LASReader& reader,
+                                         const std::string& override_crs = "") {
+  const std::string override_wkt = user_crs_to_wkt(override_crs);
+  if (!override_wkt.empty()) return override_wkt;
+  if (reader.wkt().has_value()) return normalize_crs_wkt(reader.wkt().value());
+  if (reader.geo_keys().has_value()) {
+    try {
+      return normalize_crs_wkt(convert_geo_keys_to_wkt(reader.geo_keys().value()));
+    } catch (const std::exception&) {
+    }
+  }
+  return {};
+}
+
 #endif
 
 class LASFile {
@@ -235,28 +231,32 @@ class LASFile {
   laspp::QuadtreeSpatialIndex m_spatial_index;
 
   void from_las_reader(const laspp::LASReader& reader, const std::string& override_crs = "") {
-    laspp::Bound3D bounds = reader.header().bounds();
-    m_bounds = Extent3D(Extent2D(bounds.min_x(), bounds.max_x(), bounds.min_y(), bounds.max_y()),
-                        bounds.min_z(), bounds.max_z());
+    const laspp::Bound3D& bounds = reader.header().bounds();
+    m_bounds = as_extent3d(bounds);
     m_original_bounds = m_bounds;
 
+    // Keep the raw embedded WKT for compound-CRS preservation (vertical datum).
     std::string raw_embedded_wkt;
-    std::string embedded_wkt;
     if (reader.wkt().has_value()) {
       raw_embedded_wkt = reader.wkt().value();
-      embedded_wkt = normalize_crs_wkt(raw_embedded_wkt);
     } else if (reader.geo_keys().has_value()) {
-      raw_embedded_wkt = convert_geo_keys_to_wkt(reader.geo_keys().value());
-      embedded_wkt = normalize_crs_wkt(raw_embedded_wkt);
+      try {
+        raw_embedded_wkt = convert_geo_keys_to_wkt(reader.geo_keys().value());
+      } catch (const std::exception&) {
+      }
     }
+    const std::string embedded_wkt =
+        raw_embedded_wkt.empty() ? std::string{} : normalize_crs_wkt(raw_embedded_wkt);
 
     const std::string override_wkt = user_crs_to_wkt(override_crs);
 
     if (!override_wkt.empty()) {
-      // "override_crs" wins unconditionally: use it for both the 2D-normalized
-      // horizontal WKT and the (possibly compound) WKT for DEM outputs. Warn
-      // if the file embeds a conflicting CRS so mistakes are visible.
-      m_projection = make_projection_from_wkt(override_crs);
+      // "override_crs" wins unconditionally. override_wkt has already been
+      // canonicalized to a valid 2D WKT by user_crs_to_wkt(); feeding the raw
+      // user string (which can be a shorthand like "EPSG:28355") into
+      // make_projection_from_wkt() would leave m_projection holding that
+      // shorthand and later crash when GDAL tries to parse it as WKT.
+      m_projection = make_projection_from_wkt(override_wkt);
       if (!embedded_wkt.empty() && !wkt_matches(embedded_wkt, override_wkt)) {
         std::cerr << "WARNING: LAS file "
                   << (m_filename.has_value() ? m_filename->string() : std::string("<unknown>"))
@@ -482,7 +482,9 @@ class LASData : public LASFile {
     const std::string pdal_wkt = normalize_crs_wkt(pdal_raw_wkt);
     const std::string pdal_override_wkt = user_crs_to_wkt(override_crs);
     if (!pdal_override_wkt.empty()) {
-      m_projection = make_projection_from_wkt(override_crs);
+      // See matching comment in from_las_reader(): feed the canonicalized
+      // WKT, not the raw user string, so shorthands like "EPSG:28355" work.
+      m_projection = make_projection_from_wkt(pdal_override_wkt);
       if (!pdal_wkt.empty() && !wkt_matches(pdal_wkt, pdal_override_wkt)) {
         std::cerr << "WARNING: LAS file " << filename.string()
                   << " has an embedded CRS that differs from the config 'override_crs'."
