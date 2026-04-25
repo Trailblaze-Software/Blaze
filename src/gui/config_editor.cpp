@@ -5,11 +5,15 @@
 #include <QColorDialog>
 #include <QDoubleValidator>
 #include <QFileDialog>
+#include <QFrame>
 #include <QIntValidator>
 #include <QListWidget>
 #include <QPainter>
 #include <QPushButton>
+#include <QScrollArea>
+#include <QSet>
 #include <QSpinBox>
+#include <QTabWidget>
 #include <QTableWidget>
 #include <filesystem>
 #include <set>
@@ -107,11 +111,73 @@ bool ConfigEditor::is_valid() const {
          !m_config->las_files.empty() && all_las_files_exist && tile_size_ok;
 }
 
+void ConfigEditor::wrap_tabs_in_scroll_areas() {
+  QTabWidget* tabs = ui->tabWidget;
+  if (!tabs) return;
+  // Only wrap tabs that actually need scrolling at typical window sizes.
+  // Wrapping the IO tab proved counterproductive: its single Expanding
+  // QTreeWidget was capped at the viewport by setWidgetResizable() while
+  // the other controls' minimums drove the widget's minimumSizeHint above
+  // the viewport, so scrollbars appeared even though the tree had plenty
+  // of room to shrink. Leaving the IO tab un-wrapped lets the standard
+  // QVBoxLayout shrink the tree (Expanding, min=40) naturally when space
+  // is tight, which is the behaviour we actually want for that tab.
+  const QSet<QString> tabs_to_wrap{
+      QStringLiteral("General_tab"), QStringLiteral("Contours_tab"), QStringLiteral("Water_tab"),
+      QStringLiteral("Vege_tab"),    QStringLiteral("Colors_tab"),
+  };
+  // Each removeTab()/insertTab() pair nudges currentIndex forward by one,
+  // because removing the current tab promotes its neighbour and then the
+  // re-inserted scroll area lands to the left of that neighbour. Without
+  // this bookkeeping the editor would open on the last wrapped tab instead
+  // of the one configured in the .ui file.
+  const int original_current = tabs->currentIndex();
+  for (int i = 0; i < tabs->count(); ++i) {
+    QWidget* page = tabs->widget(i);
+    if (!page) continue;
+    if (qobject_cast<QScrollArea*>(page)) continue;
+    if (!tabs_to_wrap.contains(page->objectName())) continue;
+
+    const QString title = tabs->tabText(i);
+    const QIcon icon = tabs->tabIcon(i);
+    const QString tooltip = tabs->tabToolTip(i);
+
+    auto* scroll = new QScrollArea(tabs);
+    scroll->setWidgetResizable(true);
+    scroll->setFrameShape(QFrame::NoFrame);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+    tabs->removeTab(i);
+    scroll->setWidget(page);
+    tabs->insertTab(i, scroll, icon, title);
+    tabs->setTabToolTip(i, tooltip);
+  }
+  if (original_current >= 0 && original_current < tabs->count()) {
+    tabs->setCurrentIndex(original_current);
+  }
+}
+
+void ConfigEditor::activate_tab_containing(QWidget* content) {
+  if (!content || !ui->tabWidget) return;
+  QWidget* w = content;
+  while (w) {
+    const int idx = ui->tabWidget->indexOf(w);
+    if (idx >= 0) {
+      ui->tabWidget->setCurrentIndex(idx);
+      return;
+    }
+    w = w->parentWidget();
+  }
+}
+
 ConfigEditor::ConfigEditor(QWidget* parent)
     : QWidget(parent),
       ui(new Ui::ConfigEditor),
       m_config(std::make_unique<Config>(Config::Default())) {
   ui->setupUi(this);
+
+  wrap_tabs_in_scroll_areas();
 
   ui->scale_dropdown->setValidator(new QDoubleValidator(100.0, 100000.0, 2, this));
   connect(ui->scale_dropdown, &QComboBox::currentTextChanged, [this](const QString& text) {
@@ -546,7 +612,7 @@ void ConfigEditor::update_general_from_ui() {
   if (m_updating_ui) return;
 
   if (ui->buildings_color->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
@@ -638,7 +704,7 @@ void ConfigEditor::update_contour_from_ui() {
   if (items.empty()) return;
 
   if (ui->contour_color_combo->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
@@ -732,7 +798,7 @@ void ConfigEditor::update_water_from_ui() {
   if (items.empty()) return;
 
   if (ui->water_color_combo->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
@@ -833,7 +899,7 @@ void ConfigEditor::update_vege_from_ui() {
   if (m_updating_ui) return;
 
   if (ui->vege_bg_color_combo->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
@@ -889,7 +955,7 @@ void ConfigEditor::update_vege_color_from_ui(int row, int column) {
     QComboBox* combo = qobject_cast<QComboBox*>(ui->vege_colors_table->cellWidget(row, column));
     if (combo) {
       if (combo->currentText() == "Add new color...") {
-        ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+        activate_tab_containing(ui->Colors_tab);
         add_color();
         return;
       }

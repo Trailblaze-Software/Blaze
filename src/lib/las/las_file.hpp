@@ -293,8 +293,7 @@ class LASFile {
 #ifdef USE_PDAL
     (void)override_crs;
 #else
-    std::ifstream file(filename, std::ios::binary);
-    laspp::LASReader reader(file);
+    laspp::LASReader reader(filename);
     from_las_reader(reader, override_crs);
     progress_tracker.text_update("Reading metadata took " + to_string(timer));
 #endif
@@ -517,8 +516,7 @@ class LASData : public LASFile {
     progress_tracker.text_update(
         to_string("Reading ", point_view->size(), " points took ", point_timer));
 #else
-    std::ifstream file(filename, std::ios::binary);
-    laspp::LASReader reader(file);
+    laspp::LASReader reader(filename);
     from_las_reader(reader, override_crs);
     progress_tracker.text_update("Reading metadata took " + to_string(timer));
     if (skip_reading_points) {
@@ -699,8 +697,7 @@ class AsyncLASData : public LASData {
     m_thread =
         std::thread([this, filename, &metadata_promise, progress_tracker, callbacks]() mutable {
 #ifndef USE_PDAL
-          std::ifstream file(filename, std::ios::binary);
-          laspp::LASReader reader(file);
+          laspp::LASReader reader(filename);
           this->from_las_reader(reader);
           metadata_promise.set_value();
           std::lock_guard<std::mutex> lock(m_mutex);

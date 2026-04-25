@@ -105,9 +105,6 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           ProgressTracker progress_tracker =
               step_tracker.subtracker((double)i / tiles.size(), (double)(i + 1) / tiles.size());
 
-          fs::path output_dir = config.output_path() / tile.output_name();
-          fs::create_directories(output_dir);
-
           LASData tile_data =
               read_tile_from_inputs(tile.extent, config.border_width, tile_input_extents,
                                     tile_output_crs_wkt, progress_tracker.subtracker(0.0, 0.4));
@@ -115,6 +112,11 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             step_tracker.text_update("Tile " + tile.output_name() + " has no points; skipping.");
             continue;
           }
+          // Only create the output directory once we know the tile has points.
+          // Otherwise the Combine step below would pick up an empty directory
+          // and emit spurious "Image ... does not exist" warnings.
+          fs::path output_dir = config.output_path() / tile.output_name();
+          fs::create_directories(output_dir);
           process_las_data(tile_data, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
         }
         break;

@@ -14,7 +14,11 @@ permissions:
   contents: write
   packages: write
 env:
-  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+  # Binary cache stored in this repo's GitHub Packages (NuGet) feed. The
+  # previous `x-gha` backend was removed by vcpkg in 2025 and also capped at
+  # 10 GB per repo, causing constant cache eviction/thrashing with Qt+GDAL.
+  # GitHub Packages on a public repo has no practical storage limit.
+  VCPKG_BINARY_SOURCES: "clear;nuget,GitHub,readwrite"
 jobs:
   package-windows:
     runs-on: ${{ matrix.os }}
@@ -44,12 +48,27 @@ jobs:
           }
           echo "version=$tag" >> $env:GITHUB_OUTPUT
           echo "Version: $tag"
-      - name: Export GitHub Actions cache environment variables
-        uses: actions/github-script@v7
-        with:
-          script: |
-            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
-            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+      - name: Configure vcpkg binary cache (GitHub Packages NuGet)
+        shell: pwsh
+        run: |
+          # Locate a vcpkg.exe so we can use its bundled nuget. The
+          # runner-provided VCPKG_INSTALLATION_ROOT works; our project's
+          # FetchContent-managed vcpkg hasn't bootstrapped yet at this point.
+          $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+          if (-not (Test-Path $vcpkg)) {
+            Write-Error "vcpkg.exe not found at $vcpkg (VCPKG_INSTALLATION_ROOT=$env:VCPKG_INSTALLATION_ROOT)"
+            exit 1
+          }
+          $nuget = & $vcpkg fetch nuget | Select-Object -Last 1
+          $owner = '${{ github.repository_owner }}'
+          $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+          & $nuget sources add `
+              -Source $feed `
+              -StorePasswordInClearText `
+              -Name GitHub `
+              -UserName $owner `
+              -Password '${{ secrets.GITHUB_TOKEN }}'
+          & $nuget setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
       - name: Cache NSIS
         id: nsis-cache
         uses: actions/cache@v4

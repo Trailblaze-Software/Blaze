@@ -75,6 +75,17 @@ class ConfigEditor : public QWidget {
 
   void open_output_directory();
 
+  // Wrap each page of the main QTabWidget in a QScrollArea so that the tab
+  // contents keep their preferred size when the window is too small, with the
+  // user scrolling to reach off-screen widgets instead of Qt squishing them.
+  void wrap_tabs_in_scroll_areas();
+
+  // Activate the tab whose page (directly or transitively) contains
+  // `content`. Needed because after wrap_tabs_in_scroll_areas() the
+  // ui->*_tab widgets are nested inside a QScrollArea and are no longer
+  // direct children of the QTabWidget.
+  void activate_tab_containing(QWidget* content);
+
   std::unique_ptr<Ui::ConfigEditor> ui;
   std::unique_ptr<Config> m_config;
 

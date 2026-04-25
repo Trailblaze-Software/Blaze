@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: ["*"]
   workflow_dispatch:
-env:
-  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
