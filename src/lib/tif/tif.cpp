@@ -74,14 +74,6 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
   TimeFunction timer("writing to tif " + filename.string(), progress_tracker);
   ensure_gdal_initialized();
 
-  char** options = nullptr;
-  options = CSLSetNameValue(options, "COMPRESS", "LZW");
-  options = CSLSetNameValue(options, "NUM_THREADS", "8");
-  options = CSLSetNameValue(options, "ALPHA", "YES");
-  options = CSLSetNameValue(options, "BIGTIFF", "IF_NEEDED");
-
-  GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GTiff");
-
   int bands;
   GDALDataType datatype;
 
@@ -93,6 +85,21 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
     bands = is_std_optional_v<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
     datatype = gdal_type<T>();
   }
+
+  char** options = nullptr;
+  options = CSLSetNameValue(options, "COMPRESS", "LZW");
+  options = CSLSetNameValue(options, "NUM_THREADS", "8");
+  options = CSLSetNameValue(options, "ALPHA", "YES");
+
+  uint64_t estimated_size =
+      (uint64_t)grid.width() * grid.height() * bands * GDALGetDataTypeSizeBytes(datatype);
+  if (estimated_size > 4000000000ULL) {
+    options = CSLSetNameValue(options, "BIGTIFF", "YES");
+  } else {
+    options = CSLSetNameValue(options, "BIGTIFF", "IF_NEEDED");
+  }
+
+  GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GTiff");
   //
   GDALDataset* dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),
                                         bands, datatype, options);
