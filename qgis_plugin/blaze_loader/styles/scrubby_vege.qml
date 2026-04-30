@@ -33,18 +33,18 @@
           <colorramp name="[source]" type="gradient">
             <Option type="Map">
               <Option name="color1" type="QString" value="247,252,245,0"></Option>
-              <Option name="color2" type="QString" value="23,153,32,173"></Option>
+              <Option name="color2" type="QString" value="23,140,32,233"></Option>
               <Option name="direction" type="QString" value="ccw"></Option>
               <Option name="discrete" type="QString" value="0"></Option>
               <Option name="rampType" type="QString" value="gradient"></Option>
               <Option name="spec" type="QString" value="rgb"></Option>
-              <Option name="stops" type="QString" value="0.254808;95,194,101,105;rgb;ccw:0.480769;50,168,58,148;rgb;ccw"></Option>
+              <Option name="stops" type="QString" value="0.0456731;95,194,101,105;rgb;ccw:0.360577;50,155,58,193;rgb;ccw"></Option>
             </Option>
           </colorramp>
           <item alpha="0" color="#f7fcf5" label="0.000000" value="0"></item>
-          <item alpha="105" color="#5fc265" label="0.254808" value="0.254807692307692"></item>
-          <item alpha="148" color="#32a83a" label="0.480769" value="0.480769230769231"></item>
-          <item alpha="173" color="#179920" label="1.000000" value="1"></item>
+          <item alpha="105" color="#5fc265" label="0.045673" value="0.0456731"></item>
+          <item alpha="193" color="#329b3a" label="0.360577" value="0.360577"></item>
+          <item alpha="233" color="#178c20" label="1.000000" value="1"></item>
           <rampLegendSettings direction="0" maximumLabel="" minimumLabel="" orientation="2" prefix="" suffix="" useContinuousLegend="1">
             <numericFormat id="basic">
               <Option type="Map">

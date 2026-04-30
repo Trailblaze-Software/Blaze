@@ -1,17 +1,16 @@
 <!DOCTYPE qgis PUBLIC "http://mrcc.com/qgis.dtd" "SYSTEM">
-<qgis hasScaleBasedVisibilityFlag="1" labelsEnabled="1" maxScale="0" minScale="60000" readOnly="0" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="LayerConfiguration|Symbology|Symbology3D|Labeling|Fields|Forms|Actions|MapTips|Diagrams|AttributeTable|Rendering" symbologyReferenceScale="-1" version="3.34.3-Prizren">
+<qgis hasScaleBasedVisibilityFlag="1" labelsEnabled="1" maxScale="0" minScale="250000" readOnly="0" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="LayerConfiguration|Symbology|Symbology3D|Labeling|Fields|Forms|Actions|MapTips|Diagrams|AttributeTable|Rendering" symbologyReferenceScale="-1" version="3.34.3-Prizren">
   <flags>
     <Identifiable>1</Identifiable>
     <Removable>1</Removable>
     <Searchable>1</Searchable>
     <Private>0</Private>
   </flags>
-  <renderer-v2 attr="layer" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
-    <categories>
-      <category label="101_Contour" render="true" symbol="0" type="string" uuid="{c51efc7a-d69b-4e11-a363-59fdf1674d64}" value="101_Contour"></category>
-      <category label="102_Index_Contour" render="true" symbol="1" type="string" uuid="{ce954781-d0fa-4562-99be-f12d1d2d8114}" value="102_Index_Contour"></category>
-      <category label="" render="false" symbol="2" type="string" uuid="{f0544501-4425-4df9-8b2e-6e7e6e694714}" value=""></category>
-    </categories>
+  <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
+    <rules key="{4a3f6b1c-8b1a-4d2e-9a3a-1c2d3e4f5a01}">
+      <rule filter="(elevation % 5 = 0 AND elevation % 25 = 0 AND @map_scale &lt;= 25000) OR (elevation % 50 = 0 AND @map_scale > 25000 AND @map_scale &lt;= 50000) OR (elevation % 100 = 0 AND @map_scale > 50000 AND @map_scale &lt;= 100000) OR (elevation % 250 = 0 AND @map_scale > 100000 AND @map_scale &lt;= 250000)" key="{4a3f6b1c-8b1a-4d2e-9a3a-1c2d3e4f5a02}" label="Index contour (every 5th)" scalemaxdenom="250000" scalemindenom="0" symbol="1"></rule>
+      <rule filter="(elevation % 5 = 0 AND elevation % 25 != 0 AND @map_scale &lt;= 25000) OR (elevation % 10 = 0 AND elevation % 50 != 0 AND @map_scale > 25000 AND @map_scale &lt;= 50000) OR (elevation % 20 = 0 AND elevation % 100 != 0 AND @map_scale > 50000 AND @map_scale &lt;= 100000) OR (elevation % 50 = 0 AND elevation % 250 != 0 AND @map_scale > 100000 AND @map_scale &lt;= 250000)" key="{4a3f6b1c-8b1a-4d2e-9a3a-1c2d3e4f5a03}" label="Regular contour" scalemaxdenom="250000" scalemindenom="0" symbol="0"></rule>
+    </rules>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="line">
         <data_defined_properties>
@@ -83,53 +82,6 @@
             <Option name="line_color" type="QString" value="158,68,0,255"></Option>
             <Option name="line_style" type="QString" value="solid"></Option>
             <Option name="line_width" type="QString" value="0.23"></Option>
-            <Option name="line_width_unit" type="QString" value="MM"></Option>
-            <Option name="offset" type="QString" value="0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="ring_filter" type="QString" value="0"></Option>
-            <Option name="trim_distance_end" type="QString" value="0"></Option>
-            <Option name="trim_distance_end_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="trim_distance_end_unit" type="QString" value="MM"></Option>
-            <Option name="trim_distance_start" type="QString" value="0"></Option>
-            <Option name="trim_distance_start_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="trim_distance_start_unit" type="QString" value="MM"></Option>
-            <Option name="tweak_dash_pattern_on_corners" type="QString" value="0"></Option>
-            <Option name="use_custom_dash" type="QString" value="0"></Option>
-            <Option name="width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-      </symbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="2" type="line">
-        <data_defined_properties>
-          <Option type="Map">
-            <Option name="name" type="QString" value=""></Option>
-            <Option name="properties"></Option>
-            <Option name="type" type="QString" value="collection"></Option>
-          </Option>
-        </data_defined_properties>
-        <layer class="SimpleLine" enabled="1" id="{bc3e83cd-8387-46e4-ac87-60a60c08d63c}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="align_dash_pattern" type="QString" value="0"></Option>
-            <Option name="capstyle" type="QString" value="square"></Option>
-            <Option name="customdash" type="QString" value="5;2"></Option>
-            <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="customdash_unit" type="QString" value="MM"></Option>
-            <Option name="dash_pattern_offset" type="QString" value="0"></Option>
-            <Option name="dash_pattern_offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="dash_pattern_offset_unit" type="QString" value="MM"></Option>
-            <Option name="draw_inside_polygon" type="QString" value="0"></Option>
-            <Option name="joinstyle" type="QString" value="bevel"></Option>
-            <Option name="line_color" type="QString" value="131,202,96,255"></Option>
-            <Option name="line_style" type="QString" value="solid"></Option>
-            <Option name="line_width" type="QString" value="0.26"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
             <Option name="offset" type="QString" value="0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -261,7 +213,7 @@
   </selection>
   <labeling type="rule-based">
     <rules key="{0f271290-a463-4d41-a9a8-6157008fd971}">
-      <rule filter="elevation % 100 = 0 AND elevation != 0" key="{398b91a8-6333-4dd1-ab9d-8c9eea6aa5b4}">
+      <rule filter="elevation % 100 = 0 AND elevation != 0" key="{398b91a8-6333-4dd1-ab9d-8c9eea6aa5b4}" scalemaxdenom="100000" scalemindenom="0">
         <settings calloutType="simple">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="elevation" fontFamily="Open Sans" fontItalic="0" fontKerning="0" fontLetterSpacing="0" fontSize="5" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="63" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="SemiBold" previewBkgrdColor="255,255,255,255" textColor="130,74,0,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
@@ -511,7 +463,7 @@
           </callout>
         </settings>
       </rule>
-      <rule filter="elevation % 50 = 0 AND elevation % 100 != 0" key="{d22117a3-c7ba-471a-aebb-68382ada3bb3}" scalemaxdenom="30000" scalemindenom="1000">
+      <rule filter="elevation % 50 = 0 AND elevation % 100 != 0" key="{d22117a3-c7ba-471a-aebb-68382ada3bb3}" scalemaxdenom="25000" scalemindenom="0">
         <settings calloutType="simple">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="elevation" fontFamily="Open Sans" fontItalic="0" fontKerning="0" fontLetterSpacing="0" fontSize="5" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="63" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="SemiBold" previewBkgrdColor="255,255,255,255" textColor="130,74,0,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
