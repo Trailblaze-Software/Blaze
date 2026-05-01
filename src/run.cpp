@@ -248,8 +248,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         }
         std::vector<Contour> joined_contours;
         for (const auto& [height, contours] : contours_by_height) {
-          std::vector<Contour> jc = join_contours(
-              contours, 5 * config.grid.bin_resolution * config.grid.downsample_factor);
+          std::vector<Contour> jc = join_contours(contours, 5 * config.grid.contour_dem_resolution);
           for (Contour& contour : jc) {
             joined_contours.emplace_back(contour);
           }

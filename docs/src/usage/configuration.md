@@ -11,10 +11,11 @@ Blaze uses a JSON configuration file to control the processing pipeline. This fi
   "output_directory": "out",
   "grid": {
     "bin_resolution": 0.5,
-    "downsample_factor": 3
+    "downsample_factor": 3,
+    "vegetation_grid_resolution": 3.0,
+    "contour_dem_resolution": 9.0
   },
   "ground": {
-    "outlier_removal_height_diff": 0.3,
     "min_ground_intensity": 0,
     "max_ground_intensity": 65535
   },
@@ -78,16 +79,19 @@ Blaze uses a JSON configuration file to control the processing pipeline. This fi
 
 ### Grid
 
-Controls the resolution of the digital elevation model (DEM).
+Controls the resolutions used by various stages of the processing pipeline.
 
-- `bin_resolution`: Size of each grid cell in meters. We generally want about 5-10 points per cell for good contour generation, so this should be set based on your point density. For recent ACT LIDAR, this can be as low as 0.5m, whilst for the sparser NSW data 3m is a good choice.
-- `downsample_factor`: Factor to downsample the grid for smoother contours elevation model.
+- `bin_resolution`: Underlying grid cell size in meters. Raw LiDAR points are binned at this resolution; the ground / building / water / intensity rasters are produced here. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased. Default: `0.5`.
+- `downsample_factor`: Integer factor used to downsample the bin grid into the smooth ground DEM that is the basis for slope, hill-shade and `smooth_ground.tif`. Effective smooth-DEM resolution = `bin_resolution * downsample_factor`. Default: `3`.
+- `vegetation_grid_resolution`: Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be `>= bin_resolution`. Default: `3.0`.
+- `contour_dem_resolution`: Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Computed by further downsampling the smooth ground DEM. Should be `>= bin_resolution * downsample_factor`. Larger values produce smoother contours but lose fine terrain detail. Default: `9.0`.
+
+Older configs that only set `bin_resolution` and `downsample_factor` are still accepted; in that case `vegetation_grid_resolution` defaults to `bin_resolution` and `contour_dem_resolution` defaults to `bin_resolution * downsample_factor`, preserving the previous behaviour.
 
 ### Ground
 
-Parameters for ground point classification and filtering.
+Parameters for ground point classification and filtering. Ground spike removal automatically uses the relevant grid resolution as its height-diff threshold (so it scales naturally with `bin_resolution` and the smooth-DEM resolution); there is no longer a separate config option for it.
 
-- `outlier_removal_height_diff`: Minimum height difference for removing spikes.
 - `min_ground_intensity`: Minimum intensity value for ground points.
 - `max_ground_intensity`: Maximum intensity value for ground points.
 

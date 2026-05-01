@@ -279,22 +279,76 @@
                     <item row="0" column="0">
                         <widget class="QLabel" name="label_bin_res">
                             <property name="text">
-                                <string>Bin Resolution:</string>
+                                <string>Bin Resolution (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Underlying grid resolution (in meters) at which raw LiDAR points are binned. The ground / building / water / intensity rasters are produced at this resolution. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased.</string>
                             </property>
                         </widget>
                     </item>
                     <item row="0" column="1">
-                        <widget class="QLineEdit" name="grid_bin_resolution"/>
+                        <widget class="QLineEdit" name="grid_bin_resolution">
+                            <property name="toolTip">
+                                <string>Underlying grid resolution (in meters) at which raw LiDAR points are binned. The ground / building / water / intensity rasters are produced at this resolution. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased.</string>
+                            </property>
+                        </widget>
                     </item>
                     <item row="1" column="0">
                         <widget class="QLabel" name="label_downsample">
                             <property name="text">
                                 <string>Downsample Factor:</string>
                             </property>
+                            <property name="toolTip">
+                                <string>Integer factor used to downsample the bin grid into the smooth ground DEM. Slope, hill-shade and the smooth_ground.tif raster are computed from this DEM. Effective smooth-DEM resolution = Bin Resolution * Downsample Factor.</string>
+                            </property>
                         </widget>
                     </item>
                     <item row="1" column="1">
-                        <widget class="QSpinBox" name="grid_downsample_factor"/>
+                        <widget class="QSpinBox" name="grid_downsample_factor">
+                            <property name="minimum">
+                                <number>1</number>
+                            </property>
+                            <property name="maximum">
+                                <number>1000</number>
+                            </property>
+                            <property name="toolTip">
+                                <string>Integer factor used to downsample the bin grid into the smooth ground DEM. Slope, hill-shade and the smooth_ground.tif raster are computed from this DEM. Effective smooth-DEM resolution = Bin Resolution * Downsample Factor.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="0">
+                        <widget class="QLabel" name="label_veg_res">
+                            <property name="text">
+                                <string>Vegetation Grid Resolution (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be &gt;= Bin Resolution. For sparser data 3m (the default) is a good starting point.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="1">
+                        <widget class="QLineEdit" name="grid_vegetation_resolution">
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be &gt;= Bin Resolution. For sparser data 3m (the default) is a good starting point.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="0">
+                        <widget class="QLabel" name="label_contour_dem">
+                            <property name="text">
+                                <string>Contour DEM Resolution (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Should be &gt;= the smooth ground DEM resolution (Bin Resolution * Downsample Factor). Larger values produce smoother contours but lose fine terrain detail.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="1">
+                        <widget class="QLineEdit" name="grid_contour_dem_resolution">
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Should be &gt;= the smooth ground DEM resolution (Bin Resolution * Downsample Factor). Larger values produce smoother contours but lose fine terrain detail.</string>
+                            </property>
+                        </widget>
                     </item>
                 </layout>
             </widget>
@@ -306,37 +360,27 @@
                 </property>
                 <layout class="QFormLayout" name="formLayout_Ground">
                     <item row="0" column="0">
-                        <widget class="QLabel" name="label_outlier">
-                            <property name="text">
-                                <string>Outlier Removal Height Diff:</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item row="0" column="1">
-                        <widget class="QLineEdit" name="ground_outlier_removal"/>
-                    </item>
-                    <item row="1" column="0">
                         <widget class="QLabel" name="label_min_intensity">
                             <property name="text">
                                 <string>Min Intensity:</string>
                             </property>
                         </widget>
                     </item>
-                    <item row="1" column="1">
+                    <item row="0" column="1">
                         <widget class="QSpinBox" name="ground_min_intensity">
                             <property name="maximum">
                                 <number>65535</number>
                             </property>
                         </widget>
                     </item>
-                    <item row="2" column="0">
+                    <item row="1" column="0">
                         <widget class="QLabel" name="label_max_intensity">
                             <property name="text">
                                 <string>Max Intensity:</string>
                             </property>
                         </widget>
                     </item>
-                    <item row="2" column="1">
+                    <item row="1" column="1">
                         <widget class="QSpinBox" name="ground_max_intensity">
                             <property name="maximum">
                                 <number>65535</number>

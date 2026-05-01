@@ -16,7 +16,7 @@
   </pipe-data-defined-properties>
   <pipe>
     <provider>
-      <resampling enabled="false" maxOversampling="2" zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="nearestNeighbour"></resampling>
+      <resampling enabled="true" maxOversampling="2" zoomedInResamplingMethod="bilinear" zoomedOutResamplingMethod="average"></resampling>
     </provider>
     <rasterrenderer alphaBand="-1" band="1" classificationMax="1" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
       <rasterTransparency></rasterTransparency>

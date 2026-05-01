@@ -11,8 +11,43 @@
 #include "utilities/resources.hpp"
 
 struct GridConfig {
+  // Resolution (m) at which raw LiDAR points are binned. This is the
+  // underlying working grid: ground / building / water / intensity rasters
+  // are produced at this resolution.
   double bin_resolution;
+  // Integer factor by which the binned grid is downsampled to obtain the
+  // smoothed ground DEM. The smoothed DEM is what slope, hill-shade and the
+  // smooth_ground.tif raster are computed from. Effective smooth-DEM
+  // resolution = bin_resolution * downsample_factor.
   unsigned int downsample_factor;
+  // Resolution (m) of the vegetation/canopy maps. Vegetation point counts
+  // are aggregated to this resolution; final vege_color and raw_vege rasters
+  // are written at this resolution. Should be >= bin_resolution.
+  double vegetation_grid_resolution;
+  // Resolution (m) of the DEM used for contour generation, stream extraction,
+  // depression filling and contour orientation. Should be >= the smooth DEM
+  // resolution (bin_resolution * downsample_factor). Larger values produce
+  // smoother contours but lose fine terrain detail.
+  double contour_dem_resolution;
+
+  // Integer factor used to aggregate the bin grid into the vegetation grid.
+  // Always >= 1.
+  unsigned int vegetation_aggregation_factor() const {
+    if (bin_resolution <= 0.0) return 1u;
+    long rounded = std::lround(vegetation_grid_resolution / bin_resolution);
+    if (rounded < 1) rounded = 1;
+    return static_cast<unsigned int>(rounded);
+  }
+
+  // Integer factor used to further downsample the smooth ground DEM into the
+  // contour DEM. Always >= 1.
+  unsigned int contour_downsample_factor() const {
+    const double smooth_res = bin_resolution * static_cast<double>(downsample_factor);
+    if (smooth_res <= 0.0) return 1u;
+    long rounded = std::lround(contour_dem_resolution / smooth_res);
+    if (rounded < 1) rounded = 1;
+    return static_cast<unsigned int>(rounded);
+  }
 };
 
 #define SERIALIZE_ENUM_STRICT(ENUM_TYPE, ...)                                                    \
@@ -40,7 +75,6 @@ struct GridConfig {
   }
 
 struct GroundConfig {
-  double outlier_removal_height_diff;
   int min_ground_intensity;
   int max_ground_intensity;
 };

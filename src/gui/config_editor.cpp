@@ -225,7 +225,8 @@ ConfigEditor::ConfigEditor(QWidget* parent)
 
   // General Tab
   ui->grid_bin_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
-  ui->ground_outlier_removal->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
+  ui->grid_vegetation_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
+  ui->grid_contour_dem_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->border_width->setValidator(new QDoubleValidator(0.0, 10000.0, 2, this));
   ui->tile_size->setValidator(new QDoubleValidator(0.0, 1'000'000.0, 2, this));
 
@@ -239,7 +240,8 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   };
   connect_general(ui->grid_bin_resolution);
   connect_general(ui->grid_downsample_factor);
-  connect_general(ui->ground_outlier_removal);
+  connect_general(ui->grid_vegetation_resolution);
+  connect_general(ui->grid_contour_dem_resolution);
   connect_general(ui->ground_min_intensity);
   connect_general(ui->ground_max_intensity);
   connect(ui->buildings_color, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
@@ -584,7 +586,8 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   // 2. Set General Tab fields and specific color selections
   ui->grid_bin_resolution->setText(QString::number(config.grid.bin_resolution));
   ui->grid_downsample_factor->setValue(config.grid.downsample_factor);
-  ui->ground_outlier_removal->setText(QString::number(config.ground.outlier_removal_height_diff));
+  ui->grid_vegetation_resolution->setText(QString::number(config.grid.vegetation_grid_resolution));
+  ui->grid_contour_dem_resolution->setText(QString::number(config.grid.contour_dem_resolution));
   ui->ground_min_intensity->setValue(config.ground.min_ground_intensity);
   ui->ground_max_intensity->setValue(config.ground.max_ground_intensity);
   ui->buildings_color->setCurrentText(get_color_name(config.buildings.color));
@@ -619,7 +622,8 @@ void ConfigEditor::update_general_from_ui() {
 
   m_config->grid.bin_resolution = ui->grid_bin_resolution->text().toDouble();
   m_config->grid.downsample_factor = ui->grid_downsample_factor->value();
-  m_config->ground.outlier_removal_height_diff = ui->ground_outlier_removal->text().toDouble();
+  m_config->grid.vegetation_grid_resolution = ui->grid_vegetation_resolution->text().toDouble();
+  m_config->grid.contour_dem_resolution = ui->grid_contour_dem_resolution->text().toDouble();
   m_config->ground.min_ground_intensity = ui->ground_min_intensity->value();
   m_config->ground.max_ground_intensity = ui->ground_max_intensity->value();
   m_config->border_width = ui->border_width->text().toDouble();

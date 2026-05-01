@@ -47,25 +47,53 @@ namespace nlohmann {
 template <>
 struct adl_serializer<GridConfig> {
   static GridConfig from_json(const json& j) {
-    return GridConfig{j.value("bin_resolution", 1.0), j.value("downsample_factor", 3u)};
+    // Defaults for fresh configs.
+    constexpr double kDefaultBinRes = 0.5;
+    constexpr unsigned int kDefaultDownsample = 3u;
+    constexpr double kDefaultVegRes = 3.0;
+    constexpr double kDefaultContourRes = 9.0;
+
+    const double bin_res = j.value("bin_resolution", kDefaultBinRes);
+    const unsigned int downsample = j.value("downsample_factor", kDefaultDownsample);
+
+    // Vegetation / contour resolutions are independent of bin/downsample.
+    // For backward compatibility, configs that omit these but provide the
+    // legacy bin_resolution / downsample_factor keys get the legacy
+    // behaviour: vegetation at bin_resolution, contour DEM at the smooth-
+    // ground resolution (bin_resolution * downsample_factor). Configs that
+    // omit everything get the new defaults.
+    const bool has_legacy_only = !j.contains("vegetation_grid_resolution") &&
+                                 !j.contains("contour_dem_resolution") &&
+                                 (j.contains("bin_resolution") || j.contains("downsample_factor"));
+
+    double veg_res = kDefaultVegRes;
+    double contour_res = kDefaultContourRes;
+    if (has_legacy_only) {
+      veg_res = bin_res;
+      contour_res = bin_res * static_cast<double>(downsample);
+    }
+    veg_res = j.value("vegetation_grid_resolution", veg_res);
+    contour_res = j.value("contour_dem_resolution", contour_res);
+
+    return GridConfig{bin_res, downsample, veg_res, contour_res};
   }
 
   static void to_json(json& j, GridConfig gc) {
     j["bin_resolution"] = gc.bin_resolution;
     j["downsample_factor"] = gc.downsample_factor;
+    j["vegetation_grid_resolution"] = gc.vegetation_grid_resolution;
+    j["contour_dem_resolution"] = gc.contour_dem_resolution;
   }
 };
 
 template <>
 struct adl_serializer<GroundConfig> {
   static GroundConfig from_json(const json& j) {
-    return GroundConfig{j.value("outlier_removal_height_diff", 1.0),
-                        j.value("min_ground_intensity", 100),
+    return GroundConfig{j.value("min_ground_intensity", 100),
                         j.value("max_ground_intensity", 1000)};
   }
 
   static void to_json(json& j, GroundConfig gc) {
-    j["outlier_removal_height_diff"] = gc.outlier_removal_height_diff;
     j["min_ground_intensity"] = gc.min_ground_intensity;
     j["max_ground_intensity"] = gc.max_ground_intensity;
   }

@@ -393,6 +393,7 @@ def create_qgis_project(
     # Get or create groups
     markup_group = find_or_create_group(root, "Markup")  # Markup on top (magnetic north, controls)
     topo_group = find_or_create_group(root, "NSW Topo")
+    cliff_group = find_or_create_group(root, "Cliffs")  # Slope-based cliffs - above vectors
     vector_group = find_or_create_group(root, "Vectors")  # Contours/streams - below topo
     raster_group = find_or_create_group(root, "Rasters")
 
@@ -429,11 +430,11 @@ def create_qgis_project(
         report_progress("Adding raster layers (building pyramids for performance)...", 5)
 
         # Add raster layers first (they render on top of vegetation) - all hidden by default
+        # Note: slope.tif is added separately to the Cliffs group with cliff_from_slope.qml style
         rasters = [
             "final_img.tif",
             "final_img_extra_contours.tif",
             "ground_intensity.tif",
-            "slope.tif",
         ]
         raster_count = 0
         for i, f in enumerate(rasters):
@@ -493,13 +494,15 @@ def create_qgis_project(
         if vege_dir.exists():
             vege_group = find_or_create_group(raster_group, "Vegetation")
 
-            # Want smoothed_green on top of smoothed_canopy
+            # Want green on top of canopy
             # In QGIS: top of layer tree = renders on top
+            # Raw vege (green.tif, canopy.tif) is shown by default; smoothed
+            # variants are loaded but hidden so they're available if needed.
             vege_layers = [
-                ("green.tif", False),
-                ("smoothed_green.tif", True),  # Add first
-                ("canopy.tif", False),
-                ("smoothed_canopy.tif", True),
+                ("green.tif", True),  # Add first
+                ("smoothed_green.tif", False),
+                ("canopy.tif", True),
+                ("smoothed_canopy.tif", False),
             ]
 
             vege_count = 0
@@ -532,6 +535,25 @@ def create_qgis_project(
 
             if vege_count:
                 summary["loaded"].append(f"{vege_count} vegetation layer{'s' if vege_count != 1 else ''}")
+
+        # Add slope as a "Cliffs" layer with cliff_from_slope.qml style
+        # Loaded into the Cliffs group so it renders above vector layers
+        slope_path = combined_path / "slope.tif"
+        if slope_path.exists():
+            slope_layer = add_raster(slope_path, cliff_group, prefix="cliff_")
+            if slope_layer:
+                qml_path = STYLES_DIR / "cliff_from_slope.qml"
+                if qml_path.exists():
+                    result = slope_layer.loadNamedStyle(str(qml_path))
+                    if result[1]:
+                        log("Applied style: cliff_from_slope.qml")
+                        if not os.environ.get("BLAZE_EXIT_AFTER_RUN"):
+                            slope_layer.triggerRepaint()
+                    else:
+                        log(f"WARNING: Failed to apply cliff_from_slope.qml: {result[0]}")
+                else:
+                    log(f"WARNING: cliff_from_slope.qml not found at {qml_path}")
+                summary["loaded"].append("Cliffs (from slope)")
 
         # Set project CRS from raster FIRST (only when loading from rasters)
         if project_crs and project_crs.isValid():
@@ -833,29 +855,54 @@ def create_qgis_project(
                 output_dir = Path(tempfile.gettempdir()) / "blaze_plugin"
                 output_dir.mkdir(parents=True, exist_ok=True)
                 # Make filename unique to allow multiple calls
-
                 timestamp = int(time.time())
-                north_lines_path = output_dir / f"magnetic_north_lines_{timestamp}.gpkg"
+                path_1km = output_dir / f"magnetic_north_lines_1km_{timestamp}.gpkg"
+                path_2km = output_dir / f"magnetic_north_lines_2km_{timestamp}.gpkg"
             else:
-                north_lines_path = combined_path / "magnetic_north_lines.gpkg"
-            # Line spacing: 4cm at 1:25000 scale = 1000m
-            layer = add_magnetic_north_lines(project_extent, project_crs, north_lines_path, spacing=1000)
-            if layer:
-                summary["loaded"].append("Magnetic north lines")
-                # Make layer name unique if a layer with this name already exists
-                layer_name = layer.name()
-                existing_names = set()
-                for child in markup_group.children():
-                    try:
-                        if child.nodeType() == 0:  # 0 = Layer node type
-                            existing_layer = child.layer()
-                            if existing_layer:
-                                existing_names.add(existing_layer.name())
-                    except (AttributeError, TypeError):
-                        continue
-                if layer_name in existing_names:
-                    layer.setName(f"{layer_name} ({int(time.time())})")
-                markup_group.addLayer(layer)
+                path_1km = combined_path / "magnetic_north_lines_1km.gpkg"
+                path_2km = combined_path / "magnetic_north_lines_2km.gpkg"
+
+            # Two layers with scale-based visibility:
+            #   - 1km spacing  = 4cm @ 1:25,000  → visible when zoomed in beyond 1:37,500
+            #   - 2km spacing  = 4cm @ 1:50,000  → visible from 1:37,500 to 1:100,000
+            # Both layers are hidden when zoomed out beyond 1:100,000.
+            crossover_scale = 37500
+            min_scale_far = 100000
+            mag_specs = [
+                ("Magnetic North 1km", path_1km, 1000, crossover_scale, None),
+                ("Magnetic North 2km", path_2km, 2000, min_scale_far, crossover_scale),
+            ]
+
+            existing_names = set()
+            for child in markup_group.children():
+                try:
+                    if child.nodeType() == 0:  # 0 = Layer node type
+                        existing_layer = child.layer()
+                        if existing_layer:
+                            existing_names.add(existing_layer.name())
+                except (AttributeError, TypeError):
+                    continue
+
+            mag_added = 0
+            for name, out_path, spacing, min_scale, max_scale in mag_specs:
+                layer = add_magnetic_north_lines(
+                    project_extent,
+                    project_crs,
+                    out_path,
+                    spacing=spacing,
+                    layer_name=name,
+                    min_scale=min_scale,
+                    max_scale=max_scale,
+                )
+                if layer:
+                    if layer.name() in existing_names:
+                        layer.setName(f"{layer.name()} ({int(time.time())})")
+                    existing_names.add(layer.name())
+                    markup_group.addLayer(layer)
+                    mag_added += 1
+
+            if mag_added:
+                summary["loaded"].append(f"Magnetic north lines ({mag_added} layer{'s' if mag_added != 1 else ''})")
             else:
                 summary["failed"].append("Magnetic north lines")
     elif add_mag_north:
@@ -907,6 +954,7 @@ def create_qgis_project(
     # Remove empty groups
     remove_group_if_empty(markup_group)
     remove_group_if_empty(topo_group)
+    remove_group_if_empty(cliff_group)
     remove_group_if_empty(vector_group)
     remove_group_if_empty(raster_group)
 
@@ -967,10 +1015,29 @@ def create_qgis_project(
     return summary
 
 
-def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500):
+def add_magnetic_north_lines(
+    extent,
+    crs,
+    output_path,
+    spacing=1000,
+    margin=500,
+    layer_name="Magnetic North Lines",
+    min_scale=None,
+    max_scale=None,
+):
     """
     Generates magnetic north lines directly to file (EPSG:4326) with a safety buffer.
     Requires the Compass Routes plugin to be installed.
+
+    Args:
+        spacing: Line spacing in meters.
+        layer_name: Name of the resulting layer.
+        min_scale: Minimum scale (most zoomed-out) at which the layer is visible
+            — the scale denominator. e.g. 100000 hides the layer when zoomed out
+            beyond 1:100000.  ``None`` disables the lower bound.
+        max_scale: Maximum scale (most zoomed-in) at which the layer is visible
+            — the scale denominator. e.g. 37500 hides the layer when zoomed in
+            past 1:37500.  ``None`` disables the upper bound.
     """
     from qgis import processing
     from qgis.core import (
@@ -1019,16 +1086,24 @@ def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500)
     wgs84_extent = transform.transformBoundingBox(buffered_extent)
 
     # 3. Dynamic Parameter Setup
+    # Compass Routes algorithm uses these param names (see create_magnetic_north.py):
+    #   PrmExtent          = "Extent"
+    #   PrmLineDistance    = "LineDistance"        (distance between adjacent lines)
+    #   PrmUnitsOfMeasure  = "UnitsOfMeasure"      (0=km, 1=m, ...)
+    #   PrmOutputLayer     = "OutputLayer"
     param_names = [p.name() for p in alg.parameterDefinitions()] if alg else []
     out_param = "OutputLayer" if "OutputLayer" in param_names else "OUTPUT"
+    distance_param = "LineDistance" if "LineDistance" in param_names else "Distance"
 
     # 4. Run Algorithm directly to file
+    # spacing is in meters; UnitsOfMeasure=1 selects Meters in the plugin's enum.
     params = {
         "Extent": wgs84_extent,
-        "Distance": spacing,
-        "UnitsOfMeasure": 0,  # 0 = meters
+        distance_param: float(spacing),
+        "UnitsOfMeasure": 1,  # 0=Kilometers, 1=Meters, 2=Centimeters, ...
         out_param: str(output_path),
     }
+    log(f"Magnetic north algorithm '{algo_id}' params: " f"{distance_param}={spacing}m, output={output_path.name}")
 
     try:
         processing.run(algo_id, params)
@@ -1044,10 +1119,16 @@ def add_magnetic_north_lines(extent, crs, output_path, spacing=1000, margin=500)
         return None
 
     # 5. Load & Style
-    layer = QgsVectorLayer(str(output_path), "Magnetic North Lines", "ogr")
+    layer = QgsVectorLayer(str(output_path), layer_name, "ogr")
     if layer.isValid():
-        symbol = QgsLineSymbol.createSimple({"color": "#8B0000", "width": "0.15"})
+        symbol = QgsLineSymbol.createSimple({"color": "#8B0000", "width": "0.18", "width_unit": "MM"})
         layer.setRenderer(QgsSingleSymbolRenderer(symbol))
+        if min_scale is not None or max_scale is not None:
+            layer.setScaleBasedVisibility(True)
+            if min_scale is not None:
+                layer.setMinimumScale(float(min_scale))
+            if max_scale is not None:
+                layer.setMaximumScale(float(max_scale))
         QgsProject.instance().addMapLayer(layer, False)
         return layer
 
@@ -1857,24 +1938,21 @@ def style_vegetation(layer, filename):
     """Apply vegetation-specific styling. Try QML styles from styles folder."""
     name = filename.lower()
 
-    if "smoothed_green" in name or name == "green.tif":
-        # Try to load QML style (scrubby_vege.qml for smoothed_green)
-        if "smoothed_green" in name:
-            qml_path = STYLES_DIR / "scrubby_vege.qml"
-            if qml_path.exists():
-                result = layer.loadNamedStyle(str(qml_path))
-                if result[1]:
-                    log("Applied style: scrubby_vege.qml")
-                    layer.triggerRepaint()
-                    return
+    if "green" in name:
+        qml_path = STYLES_DIR / "scrubby_vege.qml"
+        if qml_path.exists():
+            result = layer.loadNamedStyle(str(qml_path))
+            if result[1]:
+                log(f"Applied style scrubby_vege.qml to {filename}")
+                layer.triggerRepaint()
+                return
 
-    elif "smoothed_canopy" in name or name == "canopy.tif":
-        # Try to load QML style (canopy.qml)
+    elif "canopy" in name:
         qml_path = STYLES_DIR / "canopy.qml"
         if qml_path.exists():
             result = layer.loadNamedStyle(str(qml_path))
             if result[1]:
-                log("Applied style: canopy.qml")
+                log(f"Applied style canopy.qml to {filename}")
                 layer.triggerRepaint()
                 return
 

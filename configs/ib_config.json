@@ -10,13 +10,12 @@
   ],
   "output_directory": "out",
   "grid": {
-    // Resolution of the binned grid in meters
     "bin_resolution": 2.5,
-    "downsample_factor": 3
+    "downsample_factor": 3,
+    "vegetation_grid_resolution": 2.5,
+    "contour_dem_resolution": 7.5
   },
   "ground": {
-    // Outlier removal height difference threshold
-    "outlier_removal_height_diff": 0.3,
     "min_ground_intensity": 0,
     "max_ground_intensity": 100
   },

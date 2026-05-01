@@ -63,7 +63,8 @@ Config create_minimal_test_config(const fs::path& output_dir) {
   config.set_output_directory(output_dir);
   config.grid.bin_resolution = 1.0;
   config.grid.downsample_factor = 2;
-  config.ground.outlier_removal_height_diff = 0.5;
+  config.grid.vegetation_grid_resolution = 1.0;
+  config.grid.contour_dem_resolution = 2.0;
   config.ground.min_ground_intensity = 0;
   config.ground.max_ground_intensity = 1000;
   config.border_width = 10.0;
@@ -277,6 +278,8 @@ TEST(E2E, ProcessDifferentResolutions) {
   // Test with different bin resolution
   config.grid.bin_resolution = 0.5;
   config.grid.downsample_factor = 1;
+  config.grid.vegetation_grid_resolution = 0.5;
+  config.grid.contour_dem_resolution = 0.5;
 
   LASData las_data = create_synthetic_las_data();
 
@@ -480,94 +483,36 @@ void verify_raw_vegetation_tif(const fs::path& raw_vege_tif_path, bool should_ha
     }
   }
 
-  // Read and validate TIF
+  // Raw and smoothed vegetation exports are stored as a single-band Byte raster.
+  // Values are 0..255 representing blocked proportion 0..1, with 0 also used
+  // for "no data" at export time (by design).
   auto grid = read_tif(raw_vege_tif_path);
-  if (is_smoothed) {
-    // Smoothed version is single-band float
-    ASSERT_EQ(grid.size(), 1) << "Smoothed raw vege TIF should have 1 band";
-    const auto& band = grid[0];
+  ASSERT_EQ(grid.size(), 1) << "Raw vege TIF should have 1 band (Byte)";
+  const auto& value_band = grid[0];
 
-    if (should_have_vegetation) {
-      // Every pixel should have a value >= 0.0 and <= 1.0 (blocked proportion)
-      for (size_t i = 0; i < band.height(); ++i) {
-        for (size_t j = 0; j < band.width(); ++j) {
-          float value = band.get<float>({(long long)j, (long long)i});
-          if (value < 0.0f || value > 1.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i
-                   << ") has invalid blocked proportion value: " << value
-                   << " (expected 0.0 to 1.0)";
-          }
-          // With vegetation, we expect at least some pixels to have non-zero values
-          // But we can't require all to be > 0 since some areas might not have vegetation
-        }
-      }
-    } else {
-      // All pixels should be 0.0 (no vegetation)
-      for (size_t i = 0; i < band.height(); ++i) {
-        for (size_t j = 0; j < band.width(); ++j) {
-          float value = band.get<float>({(long long)j, (long long)i});
-          if (value != 0.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i
-                   << ") should be 0.0 (no vegetation) but is: " << value;
-          }
-        }
+  bool has_any_nonzero = false;
+  for (size_t i = 0; i < value_band.height(); ++i) {
+    for (size_t j = 0; j < value_band.width(); ++j) {
+      const std::byte value = value_band.get<std::byte>({(long long)j, (long long)i});
+      const int v = static_cast<unsigned char>(value);
+      if (v != 0) {
+        has_any_nonzero = true;
+        break;
       }
     }
+    if (has_any_nonzero) break;
+  }
+
+  if (should_have_vegetation) {
+    ASSERT_TRUE(has_any_nonzero) << "Expected some non-zero vegetation values.";
   } else {
-    // Raw version is two-band: band 0 = value, band 1 = validity mask
-    ASSERT_EQ(grid.size(), 2) << "Raw vege TIF should have 2 bands (value and validity)";
-    const auto& value_band = grid[0];
-    const auto& validity_band = grid[1];
-
-    if (should_have_vegetation) {
-      // For unsmoothed raw vege: verify that cells with vegetation points have valid blocked
-      // proportion This checks "has vege point if and only if has valid blocked proportion" Note:
-      // We don't compare to vege_color here because vege_color uses smoothed data which spreads
-      // values
-      bool has_valid_vegetation = false;
-      for (size_t i = 0; i < value_band.height(); ++i) {
-        for (size_t j = 0; j < value_band.width(); ++j) {
-          float value = value_band.get<float>({(long long)j, (long long)i});
-          float validity = validity_band.get<float>({(long long)j, (long long)i});
-
-          if (validity == 255.0f) {
-            // Valid value means there are vegetation points - should be in range [0.0, 1.0]
-            if (value < 0.0f || value > 1.0f) {
-              FAIL() << "Pixel at (" << j << ", " << i
-                     << ") has invalid blocked proportion value: " << value
-                     << " (expected 0.0 to 1.0)";
-            }
-            if (value > 0.0f) {
-              has_valid_vegetation = true;
-            }
-            // Note: validity = 255 means there are vegetation points in this cell
-            // The blocked proportion should be > 0 if there are points in the height range
-          } else if (validity != 0.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i << ") has invalid validity mask: " << validity
-                   << " (expected 0.0 or 255.0)";
-          }
-          // validity = 0 means no vegetation points in this cell (which is correct)
-        }
-      }
-      ASSERT_TRUE(has_valid_vegetation)
-          << "Raw vegetation TIF should contain at least some valid vegetation data";
-    } else {
-      // All pixels should be nullopt (validity = 0) or have value = 0.0
-      for (size_t i = 0; i < value_band.height(); ++i) {
-        for (size_t j = 0; j < value_band.width(); ++j) {
-          float value = value_band.get<float>({(long long)j, (long long)i});
-          float validity = validity_band.get<float>({(long long)j, (long long)i});
-
-          if (validity == 255.0f) {
-            // If valid, value should be 0.0 (no vegetation)
-            if (value != 0.0f) {
-              FAIL() << "Pixel at (" << j << ", " << i
-                     << ") should be 0.0 (no vegetation) but is: " << value;
-            }
-          } else if (validity != 0.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i << ") has invalid validity mask: " << validity
-                   << " (expected 0.0 or 255.0)";
-          }
+    // With no vegetation, the blocked-proportion should export as all zeros.
+    for (size_t i = 0; i < value_band.height(); ++i) {
+      for (size_t j = 0; j < value_band.width(); ++j) {
+        const std::byte value = value_band.get<std::byte>({(long long)j, (long long)i});
+        const int v = static_cast<unsigned char>(value);
+        if (v != 0) {
+          FAIL() << "Pixel at (" << j << ", " << i << ") should be 0 (no vegetation) but is: " << v;
         }
       }
     }
@@ -714,9 +659,11 @@ TEST(E2E, GroundEstimationSlopes) {
 
   Config config = create_minimal_test_config(test_output_dir);
   config.grid.bin_resolution = 5.0;
+  config.grid.vegetation_grid_resolution = config.grid.bin_resolution;
 
   const int downsample_factor = 1;
   config.grid.downsample_factor = downsample_factor;
+  config.grid.contour_dem_resolution = config.grid.bin_resolution * downsample_factor;
 
   const double base_elevation = 100.0;
   const double test_area_size = 50.0;  // 50m x 50m test area
