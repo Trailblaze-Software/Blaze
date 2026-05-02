@@ -48,27 +48,6 @@ jobs:
           }
           echo "version=$tag" >> $env:GITHUB_OUTPUT
           echo "Version: $tag"
-      - name: Configure vcpkg binary cache (GitHub Packages NuGet)
-        shell: pwsh
-        run: |
-          # Locate a vcpkg.exe so we can use its bundled nuget. The
-          # runner-provided VCPKG_INSTALLATION_ROOT works; our project's
-          # FetchContent-managed vcpkg hasn't bootstrapped yet at this point.
-          $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-          if (-not (Test-Path $vcpkg)) {
-            Write-Error "vcpkg.exe not found at $vcpkg (VCPKG_INSTALLATION_ROOT=$env:VCPKG_INSTALLATION_ROOT)"
-            exit 1
-          }
-          $nuget = & $vcpkg fetch nuget | Select-Object -Last 1
-          $owner = '${{ github.repository_owner }}'
-          $feed  = "https://nuget.pkg.github.com/$owner/index.json"
-          & $nuget sources add `
-              -Source $feed `
-              -StorePasswordInClearText `
-              -Name GitHub `
-              -UserName $owner `
-              -Password '${{ secrets.GITHUB_TOKEN }}'
-          & $nuget setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
       - name: Cache NSIS
         id: nsis-cache
         uses: actions/cache@v4
@@ -80,6 +59,37 @@ jobs:
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
+      - name: Configure vcpkg binary cache (GitHub Packages NuGet)
+        shell: pwsh
+        run: |
+          # Locate a vcpkg.exe so we can use its bundled nuget. The
+          # runner-provided VCPKG_INSTALLATION_ROOT works; our project's
+          # FetchContent-managed vcpkg hasn't bootstrapped yet at this point.
+          $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+          if (-not (Test-Path $vcpkg)) {
+            Write-Error "vcpkg.exe not found at $vcpkg (VCPKG_INSTALLATION_ROOT=$env:VCPKG_INSTALLATION_ROOT)"
+            exit 1
+          }
+          $nuget = (& $vcpkg fetch nuget | Select-Object -Last 1).Trim()
+          if (-not (Test-Path -LiteralPath $nuget)) {
+            Write-Error "vcpkg fetch nuget did not return a valid path: $nuget"
+            exit 1
+          }
+          # vcpkg invokes `nuget` from PATH; runners often have Chocolatey's nuget
+          # first, which uses a different config — restores fail and pushes get 403.
+          # Append after NSIS so this directory is last in GITHUB_PATH (highest PATH
+          # precedence on Windows runners).
+          $nugetDir = Split-Path -LiteralPath $nuget
+          Add-Content -Path $env:GITHUB_PATH -Value $nugetDir
+          $owner = '${{ github.repository_owner }}'
+          $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+          & $nuget sources add `
+              -Source $feed `
+              -StorePasswordInClearText `
+              -Name GitHub `
+              -UserName $owner `
+              -Password '${{ secrets.GITHUB_TOKEN }}'
+          & $nuget setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
       - name: Set up MSVC dev cmd
         uses: ilammy/msvc-dev-cmd@v1
         with:
