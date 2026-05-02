@@ -16,12 +16,12 @@
   </pipe-data-defined-properties>
   <pipe>
     <provider>
-      <resampling enabled="true" maxOversampling="2" zoomedInResamplingMethod="bilinear" zoomedOutResamplingMethod="average"></resampling>
+      <resampling enabled="false" maxOversampling="2" zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="nearestNeighbour"></resampling>
     </provider>
-    <rasterrenderer alphaBand="-1" band="1" classificationMax="0.8966653" classificationMin="1e-07" nodataColor="" opacity="1" type="singlebandpseudocolor">
+    <rasterrenderer alphaBand="-1" band="1" classificationMax="255" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
       <rasterTransparency></rasterTransparency>
       <minMaxOrigin>
-        <limits>MinMax</limits>
+        <limits>None</limits>
         <extent>WholeRaster</extent>
         <statAccuracy>Estimated</statAccuracy>
         <cumulativeCutLower>0.02</cumulativeCutLower>
@@ -29,7 +29,7 @@
         <stdDevFactor>2</stdDevFactor>
       </minMaxOrigin>
       <rastershader>
-        <colorrampshader classificationMode="1" clip="0" colorRampType="DISCRETE" labelPrecision="6" maximumValue="0.8966653" minimumValue="9.9999999999999995e-08">
+        <colorrampshader classificationMode="1" clip="0" colorRampType="DISCRETE" labelPrecision="0" maximumValue="255" minimumValue="0">
           <colorramp name="[source]" type="gradient">
             <Option type="Map">
               <Option name="color1" type="QString" value="255,214,127,255"></Option>
@@ -38,11 +38,11 @@
               <Option name="discrete" type="QString" value="0"></Option>
               <Option name="rampType" type="QString" value="gradient"></Option>
               <Option name="spec" type="QString" value="rgb"></Option>
-              <Option name="stops" type="QString" value="0.0557621;255,214,127,255;rgb;ccw"></Option>
+              <Option name="stops" type="QString" value="0.0392157;255,214,127,255;rgb;ccw"></Option>
             </Option>
           </colorramp>
-          <item alpha="255" color="#ffd67f" label="&lt;= 0.050000" value="0.05"></item>
-          <item alpha="255" color="#ffffff" label="> 0.050000" value="inf"></item>
+          <item alpha="255" color="#ffd67f" label="&lt;= 10" value="10"></item>
+          <item alpha="255" color="#ffffff" label="> 10" value="inf"></item>
           <rampLegendSettings direction="0" maximumLabel="" minimumLabel="" orientation="2" prefix="" suffix="" useContinuousLegend="1">
             <numericFormat id="basic">
               <Option type="Map">

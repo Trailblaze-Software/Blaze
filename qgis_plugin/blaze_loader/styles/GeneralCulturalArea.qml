@@ -8,9 +8,9 @@
   </flags>
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
     <rules key="{fc7f8887-5f44-45ee-abb4-ca68c9f97c15}">
-      <rule filter="classsubtype = 3" key="{ff490839-4880-4ac5-aa11-93a2b2b4b852}" label="Restricted Area" symbol="0"></rule>
+      <rule checkstate="0" filter="classsubtype = 3" key="{ff490839-4880-4ac5-aa11-93a2b2b4b852}" label="Restricted Area" symbol="0"></rule>
       <rule filter="classsubtype = 5" key="{ee78b049-c4b8-42b1-94ef-2c25a9759551}" label="Building" symbol="1"></rule>
-      <rule filter="classsubtype = 6" key="{7f5270df-bba7-44c5-97d4-caef0e153458}" label="Plantation" symbol="2">
+      <rule checkstate="0" filter="classsubtype = 6" key="{7f5270df-bba7-44c5-97d4-caef0e153458}" label="Plantation" symbol="2">
         <rule filter="generalculturaltype = 1" key="{b3417fa6-2b3c-4001-b7ca-db506364973b}" label="Pine" symbol="3"></rule>
         <rule filter="generalculturaltype = 4" key="{d31aa465-8640-41d7-a354-7d5aa8db2110}" label="Horticulture" symbol="4"></rule>
       </rule>

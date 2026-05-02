@@ -236,7 +236,7 @@ class Coordinate3D : public Coordinate2D<T> {
 
   Coordinate3D() = default;
 
-  const T& z() const { return m_z; }
+  T z() const { return m_z; }
   T& z() { return m_z; }
 };
 

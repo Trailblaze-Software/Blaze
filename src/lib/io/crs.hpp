@@ -88,16 +88,26 @@ inline GeoProjection make_projection_from_wkt(const std::string& raw_wkt) {
   return GeoProjection(horizontal, compound);
 }
 
-// Convert a user-supplied CRS string ("EPSG:28355", proj.4 string, WKT, ...)
-// into a canonical 2D-normalized WKT string. Returns empty string if the
-// input was empty. Aborts with a helpful error if the input is non-empty but
-// cannot be parsed.
-inline std::string user_crs_to_wkt(const std::string& user_crs) {
-  if (user_crs.empty()) return {};
+// Result of attempting to parse a user-supplied CRS string. `ok` is true iff
+// parsing succeeded; for empty input parsing trivially succeeds and `wkt` is
+// empty. On failure, `wkt` is empty and `error` carries a human-readable
+// reason suitable for surfacing in the UI.
+struct UserCrsParseResult {
+  bool ok;
+  std::string wkt;
+  std::string error;
+};
+
+// Non-throwing variant of user_crs_to_wkt(). Use this in interactive contexts
+// (e.g. the GUI) where a parse failure should be reported rather than abort.
+inline UserCrsParseResult try_user_crs_to_wkt(const std::string& user_crs) {
+  if (user_crs.empty()) return {true, {}, {}};
   OGRSpatialReference srs;
   if (srs.SetFromUserInput(user_crs.c_str()) != OGRERR_NONE) {
-    Fail("Could not interpret CRS '" + user_crs +
-         "'. Expected an EPSG code (e.g. 'EPSG:28355'), proj.4 string, or WKT.");
+    return {false,
+            {},
+            "Could not interpret CRS '" + user_crs +
+                "'. Expected an EPSG code (e.g. 'EPSG:28355'), proj.4 string, or WKT."};
   }
   srs.StripVertical();
   srs.AutoIdentifyEPSG();
@@ -105,7 +115,17 @@ inline std::string user_crs_to_wkt(const std::string& user_crs) {
   srs.exportToWkt(&wkt);
   std::string wkt_string = wkt ? wkt : std::string{};
   CPLFree(wkt);
-  return wkt_string;
+  return {true, std::move(wkt_string), {}};
+}
+
+// Convert a user-supplied CRS string ("EPSG:28355", proj.4 string, WKT, ...)
+// into a canonical 2D-normalized WKT string. Returns empty string if the
+// input was empty. Aborts with a helpful error if the input is non-empty but
+// cannot be parsed.
+inline std::string user_crs_to_wkt(const std::string& user_crs) {
+  UserCrsParseResult result = try_user_crs_to_wkt(user_crs);
+  if (!result.ok) Fail(result.error);
+  return std::move(result.wkt);
 }
 
 // Returns true if two WKT strings describe the same CRS (tolerating cosmetic

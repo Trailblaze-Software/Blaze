@@ -432,8 +432,8 @@
         <layer class="SimpleLine" enabled="1" id="{1d34bb36-2774-4200-812e-095f8a2b5b19}" locked="0" pass="5">
           <Option type="Map">
             <Option name="align_dash_pattern" type="QString" value="0"></Option>
-            <Option name="capstyle" type="QString" value="square"></Option>
-            <Option name="customdash" type="QString" value="2;2"></Option>
+            <Option name="capstyle" type="QString" value="flat"></Option>
+            <Option name="customdash" type="QString" value="1.2;0.3;1.2;0.8"></Option>
             <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="customdash_unit" type="QString" value="MM"></Option>
             <Option name="dash_pattern_offset" type="QString" value="0"></Option>
@@ -443,7 +443,7 @@
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="line_color" type="QString" value="4,5,4,255"></Option>
             <Option name="line_style" type="QString" value="solid"></Option>
-            <Option name="line_width" type="QString" value="0.25"></Option>
+            <Option name="line_width" type="QString" value="0.28"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
             <Option name="offset" type="QString" value="0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>

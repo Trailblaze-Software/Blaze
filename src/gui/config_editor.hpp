@@ -118,7 +118,16 @@ class ConfigEditor : public QWidget {
   bool m_inputs_overlap = false;
   bool m_inputs_mixed_crs = false;
 
+  // Parse error for the current Override CRS field, or empty if the field
+  // parses cleanly (including when it is blank). Refreshed by
+  // refresh_override_crs_status() and consumed by is_valid().
+  std::string m_override_crs_error;
+
   // Refresh the tile-size status label and styling based on the current
   // tile_size field, override_crs, and cached overlap/CRS flags.
   void refresh_tile_size_status();
+
+  // Re-parse the current Override CRS field and update the line-edit styling
+  // and override_crs_status label accordingly. Updates m_override_crs_error.
+  void refresh_override_crs_status();
 };

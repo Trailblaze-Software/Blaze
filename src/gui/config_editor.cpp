@@ -106,9 +106,13 @@ bool ConfigEditor::is_valid() const {
   // double-count points or silently place them at the wrong coordinates.
   const bool tile_size_required = m_inputs_overlap || m_inputs_mixed_crs;
   const bool tile_size_ok = !tile_size_required || m_config->tile_size > 0.0;
+  // A non-empty Override CRS that we couldn't parse will silently fall back
+  // to "no override" for overlap analysis here in the GUI and then explode
+  // at processing time; refuse to mark the config valid in that state.
+  const bool override_crs_ok = m_override_crs_error.empty();
   return validated(ui->scale_dropdown) && validated(ui->dpi_dropdown) &&
          validated(ui->out_dir_line_edit) && !m_config->processing_steps.empty() &&
-         !m_config->las_files.empty() && all_las_files_exist && tile_size_ok;
+         !m_config->las_files.empty() && all_las_files_exist && tile_size_ok && override_crs_ok;
 }
 
 void ConfigEditor::wrap_tabs_in_scroll_areas() {
@@ -445,15 +449,19 @@ void ConfigEditor::update_las_stats() {
     m_inputs_overlap = false;
     m_inputs_mixed_crs = false;
     ui->las_stats_label->setText("(no files selected)");
+    refresh_override_crs_status();
     refresh_tile_size_status();
     return;
   }
 
-  std::string override_wkt;
-  try {
-    override_wkt = user_crs_to_wkt(m_config->override_crs);
-  } catch (const std::exception&) {
-  }
+  refresh_override_crs_status();
+  // Use the parsed override WKT for overlap/CRS analysis only when it parsed
+  // cleanly. If it didn't, m_override_crs_error is set, the UI surfaces the
+  // problem, and is_valid() will refuse to mark the config valid; treating
+  // the field as empty here keeps analyze_extents() honest about the per-
+  // file CRSes rather than silently pretending the override applies.
+  const UserCrsParseResult override_parse = try_user_crs_to_wkt(m_config->override_crs);
+  const std::string override_wkt = override_parse.ok ? override_parse.wkt : std::string{};
 
   std::uint64_t total_points = 0;
   double total_area_m2 = 0.0;
@@ -504,6 +512,23 @@ void ConfigEditor::update_las_stats() {
   }
   ui->las_stats_label->setText(text);
   refresh_tile_size_status();
+}
+
+void ConfigEditor::refresh_override_crs_status() {
+  const UserCrsParseResult parsed = try_user_crs_to_wkt(m_config->override_crs);
+  if (parsed.ok) {
+    m_override_crs_error.clear();
+    ui->override_crs_edit->setStyleSheet("");
+    ui->override_crs_edit->setToolTip(QString());
+    ui->override_crs_status->setText(QString());
+    ui->override_crs_status->setStyleSheet("");
+  } else {
+    m_override_crs_error = parsed.error;
+    ui->override_crs_edit->setStyleSheet("QLineEdit { border: 2px solid red; }");
+    ui->override_crs_edit->setToolTip(QString::fromStdString(parsed.error));
+    ui->override_crs_status->setText(QString::fromStdString(parsed.error));
+    ui->override_crs_status->setStyleSheet("QLabel { color: #b00020; }");
+  }
 }
 
 void ConfigEditor::refresh_tile_size_status() {
@@ -632,6 +657,7 @@ void ConfigEditor::update_general_from_ui() {
     m_config->tile_size = raw.isEmpty() ? 0.0 : raw.toDouble();
   }
   m_config->override_crs = ui->override_crs_edit->text().trimmed().toStdString();
+  refresh_override_crs_status();
   refresh_tile_size_status();
 
   QString b_color = ui->buildings_color->currentText();

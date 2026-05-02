@@ -199,8 +199,11 @@ inline Extent3D as_extent3d(const laspp::Bound3D& b) {
 // available. Never throws.
 inline std::string reader_horizontal_wkt(const laspp::LASReader& reader,
                                          const std::string& override_crs = "") {
-  const std::string override_wkt = user_crs_to_wkt(override_crs);
-  if (!override_wkt.empty()) return override_wkt;
+  // Use the non-throwing variant so an invalid override_crs degrades to
+  // "fall back to the file's embedded CRS" rather than propagating an
+  // exception out of a function documented as never throwing.
+  const UserCrsParseResult override_parsed = try_user_crs_to_wkt(override_crs);
+  if (override_parsed.ok && !override_parsed.wkt.empty()) return override_parsed.wkt;
   if (reader.wkt().has_value()) return normalize_crs_wkt(reader.wkt().value());
   if (reader.geo_keys().has_value()) {
     try {
