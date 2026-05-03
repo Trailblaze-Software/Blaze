@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLASLayerRenderer" kind="class" language="C++" prot="public">
+    <compoundname>LASLayerRenderer</compoundname>
+    <basecompoundref refid="classLayerRenderer" prot="public" virt="non-virtual">LayerRenderer</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classLASLayerRenderer_1a15083ddcff65f53a9bd588d8e2683af3" prot="private" static="no" mutable="no">
+        <type>std::weak_ptr&lt; <ref refid="classLASLayer" kindref="compound">LASLayer</ref> &gt;</type>
+        <definition>std::weak_ptr&lt;LASLayer&gt; LASLayerRenderer::m_layer</definition>
+        <argsstring></argsstring>
+        <name>m_layer</name>
+        <qualifiedname>LASLayerRenderer::m_layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="74" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1a7353b8720ce489a14728d79e4ad4b49c" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex LASLayerRenderer::m_data_mutex</definition>
+        <argsstring></argsstring>
+        <name>m_data_mutex</name>
+        <qualifiedname>LASLayerRenderer::m_data_mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="76" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1afbe7a56576aab8db861ef55ecd195d9e" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool LASLayerRenderer::m_data_updated</definition>
+        <argsstring></argsstring>
+        <name>m_data_updated</name>
+        <qualifiedname>LASLayerRenderer::m_data_updated</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="77" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1a2a0bdf4fd4c889fa3d5df8c838b846bb" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">GLfloat</ref> &gt;</type>
+        <definition>std::vector&lt;GLfloat&gt; LASLayerRenderer::m_points</definition>
+        <argsstring></argsstring>
+        <name>m_points</name>
+        <qualifiedname>LASLayerRenderer::m_points</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="78" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1a936a044533053499238e3bc87586adfb" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">QOpenGLVertexArrayObject</ref></type>
+        <definition>QOpenGLVertexArrayObject LASLayerRenderer::m_vao</definition>
+        <argsstring></argsstring>
+        <name>m_vao</name>
+        <qualifiedname>LASLayerRenderer::m_vao</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="80" column="28" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1ada0c287db30a481354c42ee2833a03aa" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">QOpenGLBuffer</ref></type>
+        <definition>QOpenGLBuffer LASLayerRenderer::m_vbo</definition>
+        <argsstring></argsstring>
+        <name>m_vbo</name>
+        <qualifiedname>LASLayerRenderer::m_vbo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="81" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1a15aa2ea1c2822d6137a162c868607bd8" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classCoordinate2D" kindref="compound">QOpenGLShaderProgram</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;QOpenGLShaderProgram&gt; LASLayerRenderer::m_shader</definition>
+        <argsstring></argsstring>
+        <name>m_shader</name>
+        <qualifiedname>LASLayerRenderer::m_shader</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="82" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1adeec41e46bd3f3f8a87d21e4d5081dc9" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <definition>int LASLayerRenderer::m_proj_matrix_loc</definition>
+        <argsstring></argsstring>
+        <name>m_proj_matrix_loc</name>
+        <qualifiedname>LASLayerRenderer::m_proj_matrix_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="84" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLASLayerRenderer_1a2cec1f9f8451e5ee2539f633e3160acb" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <definition>int LASLayerRenderer::m_point_radius_loc</definition>
+        <argsstring></argsstring>
+        <name>m_point_radius_loc</name>
+        <qualifiedname>LASLayerRenderer::m_point_radius_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="85" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLASLayerRenderer_1a05d05505cddf62fb564af428ce4e7d8d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LASLayerRenderer::LASLayerRenderer</definition>
+        <argsstring>(std::shared_ptr&lt; LASLayer &gt; layer, const Coordinate3D&lt; double &gt; &amp;offset)</argsstring>
+        <name>LASLayerRenderer</name>
+        <qualifiedname>LASLayerRenderer::LASLayerRenderer</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classLASLayer" kindref="compound">LASLayer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="88" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="88" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASLayerRenderer_1af11fcc8674a9ba330f7e2f41b8eeff7b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void LASLayerRenderer::load_data</definition>
+        <argsstring>(std::shared_ptr&lt; LASLayer &gt; layer, const Coordinate3D&lt; double &gt; &amp;offset)</argsstring>
+        <name>load_data</name>
+        <qualifiedname>LASLayerRenderer::load_data</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classLASLayer" kindref="compound">LASLayer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="94" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="94" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASLayerRenderer_1a97507f509351839c6f48ded57f454333" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>virtual void LASLayerRenderer::render</definition>
+        <argsstring>(const Camera &amp;camera) override</argsstring>
+        <name>render</name>
+        <qualifiedname>LASLayerRenderer::render</qualifiedname>
+        <reimplements refid="classLayerRenderer_1aead8c0f4aca5949539efe3bff2169694">render</reimplements>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCamera" kindref="compound">Camera</ref> &amp;</type>
+          <declname>camera</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="112" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="112" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classLASLayerRenderer_1a3276cd70f273ee0d9b980bf8e8176186" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual LASLayerRenderer::~LASLayerRenderer</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LASLayerRenderer</name>
+        <qualifiedname>LASLayerRenderer::~LASLayerRenderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="186" column="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>LASLayerRenderer</label>
+        <link refid="classLASLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>LASLayerRenderer</label>
+        <link refid="classLASLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="73" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="73" bodyend="187"/>
+    <listofallmembers>
+      <member refid="classLayerRenderer_1ac9702186c6039472bf58e1295fad80c1" prot="public" virt="non-virtual"><scope>LASLayerRenderer</scope><name>create</name></member>
+      <member refid="classLayerRenderer_1a3c4bb62a02bd94cd69ba955dad081515" prot="public" virt="non-virtual"><scope>LASLayerRenderer</scope><name>data_update_required</name></member>
+      <member refid="classLASLayerRenderer_1a05d05505cddf62fb564af428ce4e7d8d" prot="public" virt="non-virtual"><scope>LASLayerRenderer</scope><name>LASLayerRenderer</name></member>
+      <member refid="classLASLayerRenderer_1af11fcc8674a9ba330f7e2f41b8eeff7b" prot="public" virt="non-virtual"><scope>LASLayerRenderer</scope><name>load_data</name></member>
+      <member refid="classLASLayerRenderer_1a7353b8720ce489a14728d79e4ad4b49c" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_data_mutex</name></member>
+      <member refid="classLayerRenderer_1a7c16a5823a2c968a682a69ef11bf23e2" prot="protected" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_data_update_required</name></member>
+      <member refid="classLASLayerRenderer_1afbe7a56576aab8db861ef55ecd195d9e" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_data_updated</name></member>
+      <member refid="classLASLayerRenderer_1a15083ddcff65f53a9bd588d8e2683af3" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_layer</name></member>
+      <member refid="classLASLayerRenderer_1a2cec1f9f8451e5ee2539f633e3160acb" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_point_radius_loc</name></member>
+      <member refid="classLASLayerRenderer_1a2a0bdf4fd4c889fa3d5df8c838b846bb" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_points</name></member>
+      <member refid="classLASLayerRenderer_1adeec41e46bd3f3f8a87d21e4d5081dc9" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_proj_matrix_loc</name></member>
+      <member refid="classLASLayerRenderer_1a15aa2ea1c2822d6137a162c868607bd8" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_shader</name></member>
+      <member refid="classLASLayerRenderer_1a936a044533053499238e3bc87586adfb" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_vao</name></member>
+      <member refid="classLASLayerRenderer_1ada0c287db30a481354c42ee2833a03aa" prot="private" virt="non-virtual"><scope>LASLayerRenderer</scope><name>m_vbo</name></member>
+      <member refid="classLASLayerRenderer_1a97507f509351839c6f48ded57f454333" prot="public" virt="virtual"><scope>LASLayerRenderer</scope><name>render</name></member>
+      <member refid="classLayerRenderer_1a5ea8e6825f4c920eab84e512919f1318" prot="public" virt="non-virtual"><scope>LASLayerRenderer</scope><name>repaint_required</name></member>
+      <member refid="classLASLayerRenderer_1a3276cd70f273ee0d9b980bf8e8176186" prot="public" virt="virtual"><scope>LASLayerRenderer</scope><name>~LASLayerRenderer</name></member>
+      <member refid="classLayerRenderer_1a0395fb5e77055b10317e1572d9b832c4" prot="public" virt="virtual"><scope>LASLayerRenderer</scope><name>~LayerRenderer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

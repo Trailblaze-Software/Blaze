@@ -1,0 +1,419 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__config__lookup_8cpp" kind="file" language="C++">
+    <compoundname>test_config_lookup.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes refid="config__input_8hpp" local="yes">config_input/config_input.hpp</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>config_input/config_input.hpp</label>
+        <link refid="config__input_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp</label>
+        <link refid="test__config__lookup_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>array</label>
+      </node>
+      <node id="4">
+        <label>cmath</label>
+      </node>
+      <node id="2">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="11">
+        <label>map</label>
+      </node>
+      <node id="6">
+        <label>optional</label>
+      </node>
+      <node id="12">
+        <label>ostream</label>
+      </node>
+      <node id="7">
+        <label>set</label>
+      </node>
+      <node id="13">
+        <label>variant</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__config__lookup_8cpp_1a1d5d316a7eb6e9dd84db08fabf71b524" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, MinInterval)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">MinInterval</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="9" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="9" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1a96f77cd9f30e45652ebf2ab36a87ad18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, PickFromHeight)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PickFromHeight</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="15" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="15" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1afec9e7142e7c02a075fbf3eb36399346" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, LayerNameFromHeight)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">LayerNameFromHeight</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="36" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="36" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1a5905e04d01b466a2d6440b72292888a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, IndexOperator)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">IndexOperator</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="54" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="54" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1afca2ed0751164d08213d98e2c407b992" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, DefaultConstruction)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">DefaultConstruction</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="61" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="61" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1a2e163f9da9175cc7ed151e2dfca14668" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(WaterConfigs, ConfigFromCatchment)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ConfigFromCatchment</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="70" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="70" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1af71b255135b6e384a5b3ccdb1c563212" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(WaterConfigs, MinimumCatchment)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">MinimumCatchment</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="89" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="89" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1a32975dcd4c4c589682b6180fe48d856d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(VegeHeightConfig, PickFromBlockedProportion)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PickFromBlockedProportion</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="102" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="102" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1ab7fd9bf427a779fc7d612507eebd4b3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(VegeHeightConfig, PickFromBlockedProportionEmpty)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PickFromBlockedProportionEmpty</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="140" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="140" bodyend="149"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;config_input/config_input.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ContourConfigs<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">MinInterval</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs({{</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{2.5,<sp/>3,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.14}},</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;index&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{10.0,<sp/>5,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.25}}});</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(configs.min_interval,<sp/>2.5);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">PickFromHeight</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs({{</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{2.5,<sp/>3,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(100,<sp/>0,<sp/>0),<sp/>0.14}},</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;index&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{10.0,<sp/>5,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>100,<sp/>0),<sp/>0.25}}});</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>5.0<sp/>is<sp/>multiple<sp/>of<sp/>2.5<sp/>but<sp/>not<sp/>10.0<sp/>-&gt;<sp/>should<sp/>pick<sp/>&quot;normal&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c1</ref><sp/>=<sp/>configs.pick_from_height(5.0);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c1</ref>.interval,<sp/>2.5);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>10.0<sp/>is<sp/>multiple<sp/>of<sp/>both<sp/>2.5<sp/>and<sp/>10.0<sp/>-&gt;<sp/>should<sp/>pick<sp/>&quot;index&quot;<sp/>(larger<sp/>interval)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c2</ref><sp/>=<sp/>configs.pick_from_height(10.0);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c2</ref>.interval,<sp/>10.0);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>20.0<sp/>is<sp/>multiple<sp/>of<sp/>both<sp/>-&gt;<sp/>should<sp/>pick<sp/>&quot;index&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c3</ref><sp/>=<sp/>configs.pick_from_height(20.0);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c3</ref>.interval,<sp/>10.0);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>2.5<sp/>is<sp/>multiple<sp/>of<sp/>2.5<sp/>only<sp/>-&gt;<sp/>should<sp/>pick<sp/>&quot;normal&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c4</ref><sp/>=<sp/>configs.pick_from_height(2.5);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c4</ref>.interval,<sp/>2.5);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">LayerNameFromHeight</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs({{</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{2.5,<sp/>3,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.14}},</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;index&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{10.0,<sp/>5,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.25}},</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;form_line&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{1.25,<sp/>2,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.1}}});</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>10.0<sp/>matches<sp/>index<sp/>(largest<sp/>interval)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(configs.layer_name_from_height(10.0),<sp/></highlight><highlight class="stringliteral">&quot;102_Index_Contour&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>5.0<sp/>matches<sp/>normal<sp/>but<sp/>not<sp/>index</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(configs.layer_name_from_height(5.0),<sp/></highlight><highlight class="stringliteral">&quot;101_Contour&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>2.5<sp/>matches<sp/>normal<sp/>(interval<sp/>2.5)<sp/>which<sp/>is<sp/>bigger<sp/>than<sp/>form_line<sp/>(1.25)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(configs.layer_name_from_height(2.5),<sp/></highlight><highlight class="stringliteral">&quot;101_Contour&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Height<sp/>1.25<sp/>matches<sp/>form_line<sp/>only</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(configs.layer_name_from_height(1.25),<sp/></highlight><highlight class="stringliteral">&quot;103_Form_Line&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">IndexOperator</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs({{</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{2.5,<sp/>3,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.14}}});</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>=<sp/>configs[</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">];</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.interval,<sp/>2.5);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.min_points,<sp/>3u);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">DefaultConstruction</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(configs.min_interval,<sp/>std::numeric_limits&lt;double&gt;::max());</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//<sp/>WaterConfigs<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">TEST(<ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ConfigFromCatchment</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref><sp/>configs;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;minor&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{0.01,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.1};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;medium&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{0.1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.2};</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;major&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{1.0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.3};</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Catchment<sp/>of<sp/>0.5<sp/>-&gt;<sp/>should<sp/>pick<sp/>&quot;medium&quot;<sp/>(0.1<sp/>&lt;=<sp/>0.5<sp/>but<sp/>1.0<sp/>&gt;<sp/>0.5)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c1</ref><sp/>=<sp/>configs.config_from_catchment(0.5);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c1</ref>.catchment,<sp/>0.1);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Catchment<sp/>of<sp/>2.0<sp/>-&gt;<sp/>should<sp/>pick<sp/>&quot;major&quot;<sp/>(all<sp/>qualify,<sp/>&quot;major&quot;<sp/>has<sp/>largest<sp/>catchment)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c2</ref><sp/>=<sp/>configs.config_from_catchment(2.0);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c2</ref>.catchment,<sp/>1.0);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Catchment<sp/>of<sp/>0.05<sp/>-&gt;<sp/>should<sp/>pick<sp/>&quot;minor&quot;<sp/>(only<sp/>one<sp/>qualifies)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">c3</ref><sp/>=<sp/>configs.config_from_catchment(0.05);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c3</ref>.catchment,<sp/>0.01);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">TEST(<ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">MinimumCatchment</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref><sp/>configs;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;minor&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{0.01,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.1};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;medium&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{0.1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.2};</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;major&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{1.0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.3};</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(configs.minimum_catchment(),<sp/>0.01);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">//<sp/>VegeHeightConfig<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal">TEST(<ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">PickFromBlockedProportion</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;test&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.min_height<sp/>=<sp/>2.0;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.max_height<sp/>=<sp/>100.0;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><ref refid="structBlockingThresholdColorPair" kindref="compound">BlockingThresholdColorPair</ref><sp/><ref refid="classCoordinate2D" kindref="compound">green</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">green</ref>.blocking_threshold<sp/>=<sp/>0.01;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">green</ref>.color<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>255,<sp/>0);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="structBlockingThresholdColorPair" kindref="compound">BlockingThresholdColorPair</ref><sp/><ref refid="classCoordinate2D" kindref="compound">dark_green</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">dark_green</ref>.blocking_threshold<sp/>=<sp/>0.5;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">dark_green</ref>.color<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>128,<sp/>0);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.colors.push_back(<ref refid="classCoordinate2D" kindref="compound">green</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.colors.push_back(<ref refid="classCoordinate2D" kindref="compound">dark_green</ref>);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Below<sp/>all<sp/>thresholds<sp/>-&gt;<sp/>no<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">c1</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.pick_from_blocked_proportion(0.005);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(<ref refid="classCoordinate2D" kindref="compound">c1</ref>.has_value());</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Above<sp/>first<sp/>threshold<sp/>but<sp/>below<sp/>second</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">c2</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.pick_from_blocked_proportion(0.2);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">c2</ref>.has_value());</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb2</ref><sp/>=<sp/>to_rgb(*<ref refid="classCoordinate2D" kindref="compound">c2</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb2</ref>.getRed(),<sp/>0);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb2</ref>.getGreen(),<sp/>255);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb2</ref>.getBlue(),<sp/>0);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Above<sp/>both<sp/>thresholds<sp/>-&gt;<sp/>should<sp/>pick<sp/>last<sp/>qualifying<sp/>(dark_green)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">c3</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.pick_from_blocked_proportion(0.8);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">c3</ref>.has_value());</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb3</ref><sp/>=<sp/>to_rgb(*<ref refid="classCoordinate2D" kindref="compound">c3</ref>);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb3</ref>.getRed(),<sp/>0);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb3</ref>.getGreen(),<sp/>128);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb3</ref>.getBlue(),<sp/>0);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal">TEST(<ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">PickFromBlockedProportionEmpty</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;empty&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.min_height<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.max_height<sp/>=<sp/>10.0;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>No<sp/>colors<sp/>configured</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">vhc</ref>.pick_from_blocked_proportion(0.5);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.has_value());</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp"/>
+  </compounddef>
+</doxygen>

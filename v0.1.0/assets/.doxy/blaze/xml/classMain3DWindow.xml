@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMain3DWindow" kind="class" language="C++" prot="public">
+    <compoundname>Main3DWindow</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QMainWindow</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMain3DWindow_1a38582cf0396577428420c7ddd87c697b" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; Ui::Main3DWindow &gt;</type>
+        <definition>std::unique_ptr&lt;Ui::Main3DWindow&gt; Main3DWindow::ui</definition>
+        <argsstring></argsstring>
+        <name>ui</name>
+        <qualifiedname>Main3DWindow::ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="53" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a01c9ce8312efdcfed25b221a8fd863a8" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classGLWidget" kindref="compound">GLWidget</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;GLWidget&gt; Main3DWindow::gl_widget</definition>
+        <argsstring></argsstring>
+        <name>gl_widget</name>
+        <qualifiedname>Main3DWindow::gl_widget</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="54" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMain3DWindow_1ad47c23df59826617998190e990be59b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Main3DWindow::Main3DWindow</definition>
+        <argsstring>()</argsstring>
+        <name>Main3DWindow</name>
+        <qualifiedname>Main3DWindow::Main3DWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="42" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="9" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1ade62cfe13a779912805b513694a836af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Main3DWindow::~Main3DWindow</definition>
+        <argsstring>()</argsstring>
+        <name>~Main3DWindow</name>
+        <qualifiedname>Main3DWindow::~Main3DWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="43" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a36718111f758652e475bb871b1860987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Main3DWindow::add_layer</definition>
+        <argsstring>(std::unique_ptr&lt; Layer &gt; layer)</argsstring>
+        <name>add_layer</name>
+        <qualifiedname>Main3DWindow::add_layer</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="45" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="38" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1ab88a3fa1d7f75a8f3186ec67e318b563" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
+        <definition>AsyncProgressTracker Main3DWindow::add_progress_tracker</definition>
+        <argsstring>()</argsstring>
+        <name>add_progress_tracker</name>
+        <qualifiedname>Main3DWindow::add_progress_tracker</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="47" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="32" bodyend="36"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-slot">
+      <memberdef kind="slot" id="classMain3DWindow_1a0f0a2bf626dbf60827edfc295b297fed" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void Main3DWindow::open_layer_file</definition>
+        <argsstring>()</argsstring>
+        <name>open_layer_file</name>
+        <qualifiedname>Main3DWindow::open_layer_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="50" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="46" bodyend="51"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Main3DWindow</label>
+        <link refid="classMain3DWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QMainWindow</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Main3DWindow</label>
+        <link refid="classMain3DWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QMainWindow</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="38" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="38" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classMain3DWindow_1a36718111f758652e475bb871b1860987" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>add_layer</name></member>
+      <member refid="classMain3DWindow_1ab88a3fa1d7f75a8f3186ec67e318b563" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>add_progress_tracker</name></member>
+      <member refid="classMain3DWindow_1a01c9ce8312efdcfed25b221a8fd863a8" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>gl_widget</name></member>
+      <member refid="classMain3DWindow_1ad47c23df59826617998190e990be59b3" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>Main3DWindow</name></member>
+      <member refid="classMain3DWindow_1a0f0a2bf626dbf60827edfc295b297fed" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>open_layer_file</name></member>
+      <member refid="classMain3DWindow_1a38582cf0396577428420c7ddd87c697b" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>ui</name></member>
+      <member refid="classMain3DWindow_1ade62cfe13a779912805b513694a836af" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>~Main3DWindow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

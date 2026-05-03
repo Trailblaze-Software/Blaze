@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="gdal__init_8hpp" kind="file" language="C++">
+    <compoundname>gdal_init.hpp</compoundname>
+    <includes local="yes">gdal_priv.h</includes>
+    <includedby refid="gpkg_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</includedby>
+    <includedby refid="tif_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp</includedby>
+    <includedby refid="test__e2e_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp</label>
+        <link refid="gdal__init_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gdal_priv.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp</label>
+        <link refid="gdal__init_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
+        <link refid="gpkg_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classGDALInitializer" prot="public">GDALInitializer</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="gdal__init_8hpp_1a1223f04756c53e7e6bbe816c6b4d37ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ensure_gdal_initialized</definition>
+        <argsstring>()</argsstring>
+        <name>ensure_gdal_initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" line="21" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;gdal_priv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Singleton<sp/>to<sp/>ensure<sp/>GDAL<sp/>is<sp/>registered<sp/>only<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="classGDALInitializer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref><sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ensure_initialized()<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref><sp/><ref refid="classCoordinate2D" kindref="compound">instance</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>(<ref refid="classCoordinate2D" kindref="compound">void</ref>)<ref refid="classCoordinate2D" kindref="compound">instance</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>Suppress<sp/>unused<sp/>variable<sp/>warning</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref>()<sp/>{<sp/><ref refid="classCoordinate2D" kindref="compound">GDALAllRegister</ref>();<sp/>}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Prevent<sp/>copying</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGDALInitializer" kindref="compound">GDALInitializer</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Convenience<sp/>function<sp/>to<sp/>ensure<sp/>GDAL<sp/>is<sp/>initialized</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ensure_gdal_initialized()<sp/>{<sp/>GDALInitializer::ensure_initialized();<sp/>}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp"/>
+  </compounddef>
+</doxygen>
