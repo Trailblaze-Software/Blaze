@@ -24,7 +24,14 @@ You can optionally load a configuration you have saved earlier with `File > Open
 
 You can now load your LAS/LAZ files using the `-`, `+`, and `+ Folder` buttons. The `+ Folder` can be used to add an entire folder of LIDAR tiles that will be processed together and combined.
 
-You can now configure the parameters such as scale and output resolution. The most important configuration option to play around with is the "Bin Resolution". For dense LIDAR such as we have in the ACT, 0.5m works well, however for sparser LIDAR such as in NSW, it is generally better to increase it, with 3m generally working well. We highly recommend testing and refining on a single LIDAR tile until you are happy with the output before processing a large area.
+You can now configure the parameters such as scale and output resolution. The most important configuration options to play around with are the four resolution settings on the General tab:
+
+- "Bin Resolution" — the underlying point grid (where ground/buildings/water are produced).
+- "Downsample Factor" — integer factor that turns the bin grid into the smooth ground DEM used for slope/hill-shade and the underlying DEM for vegetation generation.
+- "Vegetation Grid Resolution" — resolution of the vegetation / canopy maps.
+- "Contour DEM Resolution" — resolution of the DEM used for contour generation and stream extraction.
+
+For dense LIDAR such as we have in the ACT, the defaults (0.5 m / 3 / 3 m / 9 m) work well. For sparser LIDAR such as in NSW, increase Bin Resolution — e.g. 3 m / 3 / 3 m / 9 m. We highly recommend testing and refining on a single LIDAR tile until you are happy with the output before processing a large area.
 
 ![Blaze bin resolution](screenshots/bin_resolution.png)
 

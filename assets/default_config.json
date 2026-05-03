@@ -8,13 +8,25 @@
   ],
   "output_directory": "out",
   "grid": {
-    // Resolution of the binned grid in meters
+    // Underlying grid resolution (m) at which raw LiDAR points are binned.
+    // Ground / building / water / intensity rasters are produced at this
+    // resolution.
     "bin_resolution": 0.5,
-    "downsample_factor": 3
+    // Integer factor used to downsample the bin grid into the smooth ground
+    // DEM. Slope, hill-shade and smooth_ground.tif are computed from this
+    // DEM (resolution = bin_resolution * downsample_factor).
+    "downsample_factor": 3,
+    // Resolution (m) of the vegetation / canopy maps. Should be >=
+    // bin_resolution.
+    "vegetation_grid_resolution": 3.0,
+    // Resolution (m) of the DEM used for contour generation, stream
+    // extraction and depression filling. Should be >= bin_resolution *
+    // downsample_factor.
+    "contour_dem_resolution": 9.0
   },
   "ground": {
-    // Outlier removal height difference threshold
-    "outlier_removal_height_diff": 0.3
+    "min_ground_intensity": 100,
+    "max_ground_intensity": 1000
   },
   "contours": {
     "formline": {

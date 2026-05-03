@@ -7,6 +7,7 @@
 
 #include "assert/gdal_assert.hpp"
 #include "gdal_priv.h"
+#include "io/crs.hpp"
 #include "io/gdal_init.hpp"
 #include "isom/colors.hpp"
 #include "utilities/timer.hpp"
@@ -53,7 +54,7 @@ Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename) {
   GDALDataType datatype = dataset->GetRasterBand(1)->GetRasterDataType();
   unsigned int n_bytes = GDALGetDataTypeSizeBytes(datatype);
   GeoTransform transform(*dataset);
-  GeoProjection projection(std::string(dataset->GetProjectionRef()));
+  GeoProjection projection = make_projection_from_wkt(std::string(dataset->GetProjectionRef()));
 
   Geo<MultiBand<FlexGrid>> result(std::move(transform), std::move(projection), bands, width, height,
                                   n_bytes, datatype);
@@ -69,17 +70,9 @@ Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename) {
 
 template <typename GridT>
 void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
-                  std::optional<ProgressTracker> progress_tracker) {
+                  std::optional<ProgressTracker> progress_tracker, bool include_vertical_crs) {
   TimeFunction timer("writing to tif " + filename.string(), progress_tracker);
   ensure_gdal_initialized();
-
-  char** options = nullptr;
-  options = CSLSetNameValue(options, "COMPRESS", "LZW");
-  options = CSLSetNameValue(options, "NUM_THREADS", "8");
-  options = CSLSetNameValue(options, "ALPHA", "YES");
-  options = CSLSetNameValue(options, "BIGTIFF", "IF_NEEDED");
-
-  GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GTiff");
 
   int bands;
   GDALDataType datatype;
@@ -92,6 +85,21 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
     bands = is_std_optional_v<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
     datatype = gdal_type<T>();
   }
+
+  char** options = nullptr;
+  options = CSLSetNameValue(options, "COMPRESS", "LZW");
+  options = CSLSetNameValue(options, "NUM_THREADS", "8");
+  options = CSLSetNameValue(options, "ALPHA", "YES");
+
+  uint64_t estimated_size =
+      (uint64_t)grid.width() * grid.height() * bands * GDALGetDataTypeSizeBytes(datatype);
+  if (estimated_size > 4000000000ULL) {
+    options = CSLSetNameValue(options, "BIGTIFF", "YES");
+  } else {
+    options = CSLSetNameValue(options, "BIGTIFF", "IF_NEEDED");
+  }
+
+  GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GTiff");
   //
   GDALDataset* dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),
                                         bands, datatype, options);
@@ -101,7 +109,9 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
   }
 
   dataset->SetGeoTransform(const_cast<double*>(grid.transform().get_raw()));
-  dataset->SetProjection(grid.projection().to_string().c_str());
+  const std::string& projection_wkt =
+      include_vertical_crs ? grid.projection().compound_wkt() : grid.projection().to_string();
+  dataset->SetProjection(projection_wkt.c_str());
 
   if constexpr (std::is_same_v<GridT, MultiBand<FlexGrid>>) {
     for (unsigned int band = 0; band < grid.size(); band++) {
@@ -152,23 +162,32 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
 }
 
 template void write_to_tif(const GeoGrid<double>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<float>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<std::byte>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<RGBColor>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<CMYKColor>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<std::optional<std::byte>>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<std::optional<double>>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<std::optional<float>>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 template void write_to_tif(const Geo<MultiBand<FlexGrid>>& grid, const fs::path& filename,
-                           std::optional<ProgressTracker> progress_tracker);
+                           std::optional<ProgressTracker> progress_tracker,
+                           bool include_vertical_crs);
 
 template <typename T>
 void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,

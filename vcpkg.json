@@ -4,10 +4,24 @@
   "dependencies": [
     {
       "name": "gdal",
+      "default-features": false,
+      "features": [
+        "geos",
+        "sqlite3"
+      ],
       "version>=": "3.9.0"
     },
     {
       "name": "opencv4",
+      "default-features": false,
+      "features": [
+        "fs",
+        "intrinsics",
+        "jpeg",
+        "png",
+        "thread",
+        "tiff"
+      ],
       "version>=": "4.10.0"
     }
   ],
@@ -23,15 +37,31 @@
       "dependencies": [
         {
           "name": "qtbase",
+          "default-features": false,
           "features": [
-            "gui",
-            "widgets",
+            "brotli",
             "concurrent",
-            "opengl"
+            "doubleconversion",
+            "freetype",
+            "gui",
+            "harfbuzz",
+            "icu",
+            "jpeg",
+            "opengl",
+            "pcre2",
+            "png",
+            "thread",
+            "widgets",
+            "zstd"
           ]
         },
-        "qtimageformats",
-        "qtsvg"
+        {
+          "name": "qtimageformats",
+          "default-features": false,
+          "features": [
+            "tiff"
+          ]
+        }
       ]
     }
   }

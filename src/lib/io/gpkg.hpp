@@ -75,18 +75,25 @@ class GPKGWriter {
       line.addPoint(vertex.x(), vertex.y());
     }
 
-    if (layer->GetLayerDefn()->GetFieldIndex("name") == -1)
-      layer->CreateField(new OGRFieldDefn("name", OFTString));
-    if (layer->GetLayerDefn()->GetFieldIndex("layer") == -1)
-      layer->CreateField(new OGRFieldDefn("layer", OFTString));
+    if (layer->GetLayerDefn()->GetFieldIndex("name") == -1) {
+      OGRFieldDefn defn("name", OFTString);
+      layer->CreateField(&defn);
+    }
+    if (layer->GetLayerDefn()->GetFieldIndex("layer") == -1) {
+      OGRFieldDefn defn("layer", OFTString);
+      layer->CreateField(&defn);
+    }
     for (const auto& [field_name, field_value] : data_fields) {
       if (layer->GetLayerDefn()->GetFieldIndex(field_name.c_str()) == -1) {
         if (std::holds_alternative<int>(field_value)) {
-          layer->CreateField(new OGRFieldDefn(field_name.c_str(), OFTInteger));
+          OGRFieldDefn defn(field_name.c_str(), OFTInteger);
+          layer->CreateField(&defn);
         } else if (std::holds_alternative<double>(field_value)) {
-          layer->CreateField(new OGRFieldDefn(field_name.c_str(), OFTReal));
+          OGRFieldDefn defn(field_name.c_str(), OFTReal);
+          layer->CreateField(&defn);
         } else if (std::holds_alternative<std::string>(field_value)) {
-          layer->CreateField(new OGRFieldDefn(field_name.c_str(), OFTString));
+          OGRFieldDefn defn(field_name.c_str(), OFTString);
+          layer->CreateField(&defn);
         } else {
           Assert(false, "Unknown field type.");
         }

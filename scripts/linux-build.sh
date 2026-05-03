@@ -6,6 +6,7 @@ DIR="linux-build"
 if [ ! -d $DIR ]; then
     mkdir $DIR
     cmake -B $DIR -DBLAZE_FETCHCONTENT_BASE_DIR="$(pwd)/linux-deps" \
+           -DFETCHCONTENT_UPDATES_DISCONNECTED=OFF \
            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
            -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
            $@

@@ -30,6 +30,12 @@
        </item>
        <item>
         <widget class="QTreeWidget" name="treeWidget">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="headerHidden">
           <bool>false</bool>
          </property>
@@ -48,13 +54,41 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
+          <widget class="QLabel" name="las_stats_label">
+           <property name="text">
+            <string>(no files selected)</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::TextSelectableByMouse</set>
+           </property>
+           <property name="toolTip">
+            <string>Summary of currently selected LAS/LAZ inputs (total files, points, area, density). Updates whenever files/folders are added or removed.</string>
+           </property>
+           <property name="styleSheet">
+            <string>QLabel { padding: 4px 6px; border: 1px solid palette(mid); border-radius: 3px; background: palette(alternate-base); }</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>12</width>
              <height>20</height>
             </size>
            </property>
@@ -245,22 +279,76 @@
                     <item row="0" column="0">
                         <widget class="QLabel" name="label_bin_res">
                             <property name="text">
-                                <string>Bin Resolution:</string>
+                                <string>Bin Resolution (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Underlying grid resolution (in meters) at which raw LiDAR points are binned. The ground / building / water / intensity rasters are produced at this resolution. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased.</string>
                             </property>
                         </widget>
                     </item>
                     <item row="0" column="1">
-                        <widget class="QLineEdit" name="grid_bin_resolution"/>
+                        <widget class="QLineEdit" name="grid_bin_resolution">
+                            <property name="toolTip">
+                                <string>Underlying grid resolution (in meters) at which raw LiDAR points are binned. The ground / building / water / intensity rasters are produced at this resolution. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased.</string>
+                            </property>
+                        </widget>
                     </item>
                     <item row="1" column="0">
                         <widget class="QLabel" name="label_downsample">
                             <property name="text">
                                 <string>Downsample Factor:</string>
                             </property>
+                            <property name="toolTip">
+                                <string>Integer factor used to downsample the bin grid into the smooth ground DEM. Slope, hill-shade and the smooth_ground.tif raster are computed from this DEM. Effective smooth-DEM resolution = Bin Resolution * Downsample Factor.</string>
+                            </property>
                         </widget>
                     </item>
                     <item row="1" column="1">
-                        <widget class="QSpinBox" name="grid_downsample_factor"/>
+                        <widget class="QSpinBox" name="grid_downsample_factor">
+                            <property name="minimum">
+                                <number>1</number>
+                            </property>
+                            <property name="maximum">
+                                <number>1000</number>
+                            </property>
+                            <property name="toolTip">
+                                <string>Integer factor used to downsample the bin grid into the smooth ground DEM. Slope, hill-shade and the smooth_ground.tif raster are computed from this DEM. Effective smooth-DEM resolution = Bin Resolution * Downsample Factor.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="0">
+                        <widget class="QLabel" name="label_veg_res">
+                            <property name="text">
+                                <string>Vegetation Grid Resolution (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be &gt;= Bin Resolution. For sparser data 3m (the default) is a good starting point.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="1">
+                        <widget class="QLineEdit" name="grid_vegetation_resolution">
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be &gt;= Bin Resolution. For sparser data 3m (the default) is a good starting point.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="0">
+                        <widget class="QLabel" name="label_contour_dem">
+                            <property name="text">
+                                <string>Contour DEM Resolution (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Should be &gt;= the smooth ground DEM resolution (Bin Resolution * Downsample Factor). Larger values produce smoother contours but lose fine terrain detail.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="1">
+                        <widget class="QLineEdit" name="grid_contour_dem_resolution">
+                            <property name="toolTip">
+                                <string>Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Should be &gt;= the smooth ground DEM resolution (Bin Resolution * Downsample Factor). Larger values produce smoother contours but lose fine terrain detail.</string>
+                            </property>
+                        </widget>
                     </item>
                 </layout>
             </widget>
@@ -272,37 +360,27 @@
                 </property>
                 <layout class="QFormLayout" name="formLayout_Ground">
                     <item row="0" column="0">
-                        <widget class="QLabel" name="label_outlier">
-                            <property name="text">
-                                <string>Outlier Removal Height Diff:</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item row="0" column="1">
-                        <widget class="QLineEdit" name="ground_outlier_removal"/>
-                    </item>
-                    <item row="1" column="0">
                         <widget class="QLabel" name="label_min_intensity">
                             <property name="text">
                                 <string>Min Intensity:</string>
                             </property>
                         </widget>
                     </item>
-                    <item row="1" column="1">
+                    <item row="0" column="1">
                         <widget class="QSpinBox" name="ground_min_intensity">
                             <property name="maximum">
                                 <number>65535</number>
                             </property>
                         </widget>
                     </item>
-                    <item row="2" column="0">
+                    <item row="1" column="0">
                         <widget class="QLabel" name="label_max_intensity">
                             <property name="text">
                                 <string>Max Intensity:</string>
                             </property>
                         </widget>
                     </item>
-                    <item row="2" column="1">
+                    <item row="1" column="1">
                         <widget class="QSpinBox" name="ground_max_intensity">
                             <property name="maximum">
                                 <number>65535</number>
@@ -350,6 +428,75 @@
                     </item>
                     <item row="0" column="1">
                         <widget class="QLineEdit" name="border_width"/>
+                    </item>
+                    <item row="1" column="0">
+                        <widget class="QLabel" name="label_tile_size">
+                            <property name="text">
+                                <string>Tile Size (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>When greater than 0, enables tiled processing. Blaze divides the union of all input extents (in the output CRS) into a regular grid of tiles of this side length (in meters) and processes each tile independently, pulling and reprojecting points from every input LAS/LAZ that overlaps the tile+border. Required when input files overlap each other or use different CRSes.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="1">
+                        <widget class="QLineEdit" name="tile_size">
+                            <property name="placeholderText">
+                                <string>e.g. 1000 (0 or blank to disable)</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>When greater than 0, enables tiled processing. Blaze divides the union of all input extents (in the output CRS) into a regular grid of tiles of this side length (in meters) and processes each tile independently, pulling and reprojecting points from every input LAS/LAZ that overlaps the tile+border. Required when input files overlap each other or use different CRSes.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="0" colspan="2">
+                        <widget class="QLabel" name="tile_size_status">
+                            <property name="text">
+                                <string/>
+                            </property>
+                            <property name="wordWrap">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </widget>
+        </item>
+        <item>
+            <widget class="QGroupBox" name="groupBox_Projection">
+                <property name="title">
+                    <string>Projection</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_Projection">
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="label_override_crs">
+                            <property name="text">
+                                <string>Override CRS:</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>CRS used to override every input LAS/LAZ file, regardless of whether the file embeds a projection. Accepts anything OGRSpatialReference::SetFromUserInput understands, e.g. EPSG:28355, a WKT string, or a proj.4 string. If a file embeds a different CRS, a warning is emitted and the override is used anyway. Leave blank to use whatever each file embeds.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="1">
+                        <widget class="QLineEdit" name="override_crs_edit">
+                            <property name="placeholderText">
+                                <string>e.g. EPSG:28355 (optional)</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>CRS used to override every input LAS/LAZ file, regardless of whether the file embeds a projection. Accepts anything OGRSpatialReference::SetFromUserInput understands, e.g. EPSG:28355, a WKT string, or a proj.4 string. If a file embeds a different CRS, a warning is emitted and the override is used anyway. Leave blank to use whatever each file embeds.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="0" colspan="2">
+                        <widget class="QLabel" name="override_crs_status">
+                            <property name="text">
+                                <string/>
+                            </property>
+                            <property name="wordWrap">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
                     </item>
                 </layout>
             </widget>

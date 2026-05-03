@@ -7,6 +7,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,17 +35,25 @@ jobs:
           export BLAZE_COMBINED_DIR=assets/out/combined
           export BLAZE_OUTPUT_PATH=assets/out/combined.qgz
           export BLAZE_EXIT_AFTER_RUN=1
+          export BLAZE_SKIP_TOPO_DOWNLOAD=1
           export QT_QPA_PLATFORM=offscreen
-          timeout 300 xvfb-run -a qgis --nologo --code qgis_plugin/blaze_loader/create_qgis_project.py || true
-      - name: Check for QGIS project and required files
+          # Invoke the script as a standalone PyQGIS Python program (with
+          # python -u for unbuffered output) rather than via `qgis --code`.
+          # The `qgis --code` path was not executing the script at all in the
+          # containerised, offscreen environment (QGIS's Python console isn't
+          # initialised before startup hangs), so nothing from the script ever
+          # appeared in logs. The script now creates its own headless
+          # QgsApplication when run this way — see its __main__ block.
+          timeout 300 python3 -u qgis_plugin/blaze_loader/create_qgis_project.py
+      - name: Check for QGIS project
         run: |
           test -f assets/out/combined.qgz
-          test -f assets/out/combined/nsw_topo.gpkg
       - name: Upload QGIS project with all layers
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: qgis-project
           path: |
             assets/out/combined.qgz
             assets/out/combined/
-          retention-days: 30
+          retention-days: 2

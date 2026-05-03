@@ -14,8 +14,11 @@ permissions:
   contents: write
   packages: write
 env:
+  # Binary cache stored in this repo's GitHub Packages (NuGet) feed. The
+  # previous `x-gha` backend was removed by vcpkg in 2025 and also capped at
+  # 10 GB per repo, causing constant cache eviction/thrashing with Qt+GDAL.
+  # GitHub Packages on a public repo has no practical storage limit.
   VCPKG_BINARY_SOURCES: "clear;nuget,GitHub,readwrite"
-  NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED: "false"
 jobs:
   package-windows:
     runs-on: ${{ matrix.os }}
@@ -45,24 +48,6 @@ jobs:
           }
           echo "version=$tag" >> $env:GITHUB_OUTPUT
           echo "Version: $tag"
-      - name: Setup NuGet credentials
-        shell: pwsh
-        run: |
-          $owner = "${{ github.repository_owner }}".ToLower()
-          $feed_url = "https://nuget.pkg.github.com/$owner/index.json"
-
-          nuget sources remove -Name "GitHub" -ErrorAction SilentlyContinue
-          nuget sources add -Name "GitHub" `
-            -Source $feed_url `
-            -UserName "$owner" `
-            -Password "${{ secrets.VCPKG_PAT_TOKEN }}" `
-            -StorePasswordInClearText `
-            -NonInteractive
-
-          nuget setapikey "${{ secrets.VCPKG_PAT_TOKEN }}" -Source $feed_url -NonInteractive
-
-          echo "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,readwrite" >> $env:GITHUB_ENV
-          echo "VCPKG_NUGET_REPOSITORY=$feed_url" >> $env:GITHUB_ENV
       - name: Cache NSIS
         id: nsis-cache
         uses: actions/cache@v4
@@ -74,12 +59,52 @@ jobs:
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
+      - name: Configure vcpkg binary cache (GitHub Packages NuGet)
+        shell: pwsh
+        run: |
+          # Locate a vcpkg.exe so we can use its bundled nuget. The
+          # runner-provided VCPKG_INSTALLATION_ROOT works; our project's
+          # FetchContent-managed vcpkg hasn't bootstrapped yet at this point.
+          $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+          if (-not (Test-Path $vcpkg)) {
+            Write-Error "vcpkg.exe not found at $vcpkg (VCPKG_INSTALLATION_ROOT=$env:VCPKG_INSTALLATION_ROOT)"
+            exit 1
+          }
+          $nuget = (& $vcpkg fetch nuget | Select-Object -Last 1).Trim()
+          if (-not (Test-Path -LiteralPath $nuget)) {
+            Write-Error "vcpkg fetch nuget did not return a valid path: $nuget"
+            exit 1
+          }
+          # vcpkg invokes `nuget` from PATH; runners often have Chocolatey's nuget
+          # first, which uses a different config — restores fail and pushes get 403.
+          # Append after NSIS so this directory is last in GITHUB_PATH (highest PATH
+          # precedence on Windows runners).
+          $nugetDir = Split-Path -LiteralPath $nuget
+          Add-Content -Path $env:GITHUB_PATH -Value $nugetDir
+          # GITHUB_PATH / GITHUB_ENV are unreliable once MSVC sets PATH; Configure/Build
+          # steps re-fetch this directory and prepend to PATH before cmake (see below).
+          $owner = '${{ github.repository_owner }}'
+          $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+          & $nuget sources add `
+              -Source $feed `
+              -StorePasswordInClearText `
+              -Name GitHub `
+              -UserName $owner `
+              -Password '${{ secrets.GITHUB_TOKEN }}'
+          & $nuget setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
       - name: Set up MSVC dev cmd
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: ${{ matrix.arch }}
       - name: Configure
+        shell: pwsh
         run: |
+          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
+          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
+          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
+          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
+          $env:PATH = "$nugetShimDir;$env:PATH"
           $cmakeArgs = @(
             "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}",
             "-DVCPKG_BUILD_TYPE=release",
@@ -90,7 +115,15 @@ jobs:
           }
           cmake -B build $cmakeArgs
       - name: Build
-        run: cmake --build build --config Release --parallel
+        shell: pwsh
+        run: |
+          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
+          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
+          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
+          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
+          $env:PATH = "$nugetShimDir;$env:PATH"
+          cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
         run: |
           cd build
@@ -101,11 +134,26 @@ jobs:
           if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
             Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
           }
+      - name: Install package
+        run: |
+          $installer = (Get-Item build/Blaze-*.exe).FullName
+          Start-Process -Wait -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest'
+      - name: Test installed package
+        run: |
+          Copy-Item -Recurse C:\BlazeTest\share\assets $env:TEMP\blaze-test
+          & C:\BlazeTest\bin\blaze-cli.exe $env:TEMP\blaze-test\default_config.json
+      # Skip on PRs and push-to-main to stay under the 0.5 GB Actions storage
+      # quota — installers are ~200 MB each and 4 platforms × every push fills
+      # the quota in a day. Tag builds publish to the GitHub Release (separate,
+      # unlimited storage on public repos), and workflow_dispatch keeps a
+      # short-retention artifact for manual debug runs.
       - name: Upload Artifact
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: blaze-windows-${{ matrix.arch }}-installer
           path: build/Blaze-*.exe
+          retention-days: 2
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
@@ -136,7 +184,28 @@ jobs:
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "Version: $TAG"
       - name: Install dependencies
-        run: ./scripts/install-ubuntu-deps.sh
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
+            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+          version: 1.1
+          execute_install_scripts: true
+      # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and
+      # libblas.so.3 are update-alternatives-managed symlinks; cache-apt-pkgs-action
+      # restores package files but does not run update-alternatives triggers, so the
+      # .so.3 symlinks are missing when restored from cache (breaks linking on arm64).
+      - name: Install LAPACK/BLAS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            liblapack-dev libblas-dev liblapack3 libblas3
+          sudo ldconfig
+      - name: Verify LAPACK installation
+        run: |
+          ldconfig -p | grep -E 'lapack|blas' \
+            || echo "Warning: LAPACK/BLAS not found in library cache"
+          ls -la /usr/lib/*/liblapack* /usr/lib/*/libblas* 2>/dev/null \
+            || echo "Warning: LAPACK/BLAS libraries not found"
       - name: Configure
         run: |
           CMAKE_ARGS=""
@@ -150,11 +219,22 @@ jobs:
         run: |
           cd build
           cpack -C Release -G DEB
+      - name: Install DEB package
+        run: |
+          sudo dpkg -i build/Blaze-*.deb || true
+          sudo apt-get install -f -y
+      - name: Test installed package
+        run: |
+          cp -r /usr/share/assets /tmp/blaze-test
+          blaze-cli /tmp/blaze-test/default_config.json
+      # See note on the Windows job — only keep artifacts on tags / debug runs.
       - name: Upload Artifact
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: blaze-linux-${{ matrix.arch }}-deb
           path: build/Blaze-*.deb
+          retention-days: 2
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
@@ -201,11 +281,15 @@ jobs:
           echo "Found zip: $ZIP_FILE"
           echo "zip_path=qgis_plugin/$ZIP_FILE" >> $GITHUB_OUTPUT
           echo "zip_name=$ZIP_FILE" >> $GITHUB_OUTPUT
+      # Plugin zip is published to the GitHub Release on tags; skip Actions
+      # artifact storage except for manual debug runs (see Windows job note).
       - name: Upload Artifact
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: blaze-qgis-plugin
           path: ${{ steps.plugin_zip.outputs.zip_path }}
+          retention-days: 2
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
