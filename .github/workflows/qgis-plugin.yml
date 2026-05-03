@@ -88,46 +88,48 @@ jobs:
           unzip -l "$ZIP_FILE"
           echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
       - name: Upload plugin artifact
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: blaze_loader-${{ steps.version.outputs.version }}
           path: ${{ steps.zip_file.outputs.zip_path }}
-          retention-days: 30
-  # Release job - only runs on version tags
+          retention-days: 2
+  # Release job - only runs on version tags; builds the zip here so we do not
+  # need a build-plugin artifact (saves Actions storage on every push/PR).
   release:
-    needs: build-plugin
     if: startsWith(github.ref, 'refs/tags/qgis-v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       - name: Get version from tag
         id: tag_version
         run: |
           TAG=${GITHUB_REF#refs/tags/qgis-v}
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "Release version: $TAG"
-      - name: Download plugin artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: blaze_loader-${{ steps.tag_version.outputs.version }}
-          path: ./
-      - name: Verify downloaded zip
+      - name: Update metadata version
         run: |
-          # The zip should already have the version in the name
-          ZIP_FILE=$(ls blaze_loader_qgis_plugin*.zip | head -1)
-          if [ -z "$ZIP_FILE" ]; then
-            echo "ERROR: No zip file found after download"
+          sed -i "s/^version=.*/version=${{ steps.tag_version.outputs.version }}/" \
+            qgis_plugin/blaze_loader/metadata.txt
+      - name: Build plugin zip
+        run: |
+          cd qgis_plugin
+          python package_plugin.py
+      - name: Verify zip
+        run: |
+          ZIP="qgis_plugin/blaze_loader_qgis_plugin_v${{ steps.tag_version.outputs.version }}.zip"
+          if [ ! -f "$ZIP" ]; then
+            echo "ERROR: Expected $ZIP not found"
+            ls -la qgis_plugin
             exit 1
           fi
-          echo "Found zip: $ZIP_FILE"
-          # Ensure it has the correct name
-          EXPECTED_NAME="blaze_loader_qgis_plugin_v${{ steps.tag_version.outputs.version }}.zip"
-          if [[ "$ZIP_FILE" != "$EXPECTED_NAME" ]]; then
-            mv "$ZIP_FILE" "$EXPECTED_NAME"
-            echo "Renamed to: $EXPECTED_NAME"
-          fi
+          unzip -l "$ZIP"
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -152,6 +154,6 @@ jobs:
             ### Requirements
             - QGIS 3.0 or later
           files: |
-            blaze_loader_qgis_plugin_v${{ steps.tag_version.outputs.version }}.zip
+            qgis_plugin/blaze_loader_qgis_plugin_v${{ steps.tag_version.outputs.version }}.zip
           draft: false
           prerelease: false

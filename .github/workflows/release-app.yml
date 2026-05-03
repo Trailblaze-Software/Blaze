@@ -81,6 +81,9 @@ jobs:
           # precedence on Windows runners).
           $nugetDir = Split-Path -LiteralPath $nuget
           Add-Content -Path $env:GITHUB_PATH -Value $nugetDir
+          # GITHUB_PATH alone is unreliable after ilammy/msvc-dev-cmd replaces PATH
+          # (seen on windows-11-arm: vcpkg still invoked Chocolatey's nuget → 403).
+          echo "BLAZE_VCPKG_NUGET_DIR=$nugetDir" >> $env:GITHUB_ENV
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
           & $nuget sources add `
@@ -95,7 +98,11 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
       - name: Configure
+        shell: pwsh
         run: |
+          if ($env:BLAZE_VCPKG_NUGET_DIR) {
+            $env:PATH = "$env:BLAZE_VCPKG_NUGET_DIR;$env:PATH"
+          }
           $cmakeArgs = @(
             "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}",
             "-DVCPKG_BUILD_TYPE=release",
@@ -106,7 +113,12 @@ jobs:
           }
           cmake -B build $cmakeArgs
       - name: Build
-        run: cmake --build build --config Release --parallel
+        shell: pwsh
+        run: |
+          if ($env:BLAZE_VCPKG_NUGET_DIR) {
+            $env:PATH = "$env:BLAZE_VCPKG_NUGET_DIR;$env:PATH"
+          }
+          cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
         run: |
           cd build
@@ -125,11 +137,18 @@ jobs:
         run: |
           Copy-Item -Recurse C:\BlazeTest\share\assets $env:TEMP\blaze-test
           & C:\BlazeTest\bin\blaze-cli.exe $env:TEMP\blaze-test\default_config.json
+      # Skip on PRs and push-to-main to stay under the 0.5 GB Actions storage
+      # quota — installers are ~200 MB each and 4 platforms × every push fills
+      # the quota in a day. Tag builds publish to the GitHub Release (separate,
+      # unlimited storage on public repos), and workflow_dispatch keeps a
+      # short-retention artifact for manual debug runs.
       - name: Upload Artifact
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: blaze-windows-${{ matrix.arch }}-installer
           path: build/Blaze-*.exe
+          retention-days: 2
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
@@ -203,11 +222,14 @@ jobs:
         run: |
           cp -r /usr/share/assets /tmp/blaze-test
           blaze-cli /tmp/blaze-test/default_config.json
+      # See note on the Windows job — only keep artifacts on tags / debug runs.
       - name: Upload Artifact
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: blaze-linux-${{ matrix.arch }}-deb
           path: build/Blaze-*.deb
+          retention-days: 2
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
@@ -254,11 +276,15 @@ jobs:
           echo "Found zip: $ZIP_FILE"
           echo "zip_path=qgis_plugin/$ZIP_FILE" >> $GITHUB_OUTPUT
           echo "zip_name=$ZIP_FILE" >> $GITHUB_OUTPUT
+      # Plugin zip is published to the GitHub Release on tags; skip Actions
+      # artifact storage except for manual debug runs (see Windows job note).
       - name: Upload Artifact
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: blaze-qgis-plugin
           path: ${{ steps.plugin_zip.outputs.zip_path }}
+          retention-days: 2
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
