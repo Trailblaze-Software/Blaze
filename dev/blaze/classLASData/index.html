@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1111,7 +1111,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-lasdata-33"><strong>LASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> skip_reading_points=<a href="../classCoordinate2D/"><strong>false</strong></a>, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt) <br></td>
+<td style="text-align: left;"><a href="#function-lasdata-33"><strong>LASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> skip_reading_points=<a href="../classCoordinate2D/"><strong>false</strong></a>, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>auto</strong></a></td>
@@ -1171,7 +1171,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp;</td>
@@ -1218,11 +1218,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="#function-with_border-12"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: left;"><a href="#function-with_border-12"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="#function-with_border-22"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: left;"><a href="#function-with_border-22"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>
@@ -1285,7 +1285,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-from_las_reader"><strong>from_las_reader</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader) <br></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-from_las_reader"><strong>from_las_reader</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>
@@ -1311,8 +1311,9 @@
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">skip_reading_points</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">bounds</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">bounds</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
@@ -1386,8 +1387,9 @@
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent3D</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">all_las_file_extents</span><span class="p">,</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
@@ -1395,8 +1397,9 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">LASData</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">with_border</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 <h2 id="protected-functions-documentation">Protected Functions Documentation</h2>

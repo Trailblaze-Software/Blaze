@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceblaze_1_1test" kind="namespace" language="C++">
+    <compoundname>blaze::test</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="env_8hpp_1a1822bde26e2c72ce8dcf2f18d37738ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref> *</type>
+        <definition>const char * blaze::test::get_env</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_env</name>
+        <qualifiedname>blaze::test::get_env</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref> *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/testing/env.hpp" line="11" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/testing/env.hpp" bodystart="11" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="output__dir_8hpp_1aadefed9391b172b3dfb0c97dc16a705c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string blaze::test::sanitize_for_path</definition>
+        <argsstring>(std::string_view s)</argsstring>
+        <name>sanitize_for_path</name>
+        <qualifiedname>blaze::test::sanitize_for_path</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/testing/output_dir.hpp" line="28" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/testing/output_dir.hpp" bodystart="28" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="output__dir_8hpp_1acb517029bd1ebd1b8dc77d3696c5c933" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::filesystem::path</type>
+        <definition>std::filesystem::path blaze::test::unique_test_output_dir</definition>
+        <argsstring>(std::string_view label={})</argsstring>
+        <name>unique_test_output_dir</name>
+        <qualifiedname>blaze::test::unique_test_output_dir</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>label</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/testing/output_dir.hpp" line="49" column="30" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/testing/output_dir.hpp" bodystart="49" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="output__dir_8hpp_1acfa7950bc9b21ce9f99253b30eb97ac4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::filesystem::path</type>
+        <definition>std::filesystem::path blaze::test::unique_test_output_path</definition>
+        <argsstring>(std::string_view label, std::string_view extension)</argsstring>
+        <name>unique_test_output_path</name>
+        <qualifiedname>blaze::test::unique_test_output_path</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>label</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>extension</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/testing/output_dir.hpp" line="79" column="30" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/testing/output_dir.hpp" bodystart="79" bodyend="86"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/testing/env.hpp" line="5" column="1"/>
+  </compounddef>
+</doxygen>

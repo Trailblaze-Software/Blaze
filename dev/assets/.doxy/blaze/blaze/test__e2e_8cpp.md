@@ -15,7 +15,10 @@
 * `#include <cstdlib>`
 * `#include <filesystem>`
 * `#include <fstream>`
+* `#include <functional>`
+* `#include <iomanip>`
 * `#include <iostream>`
+* `#include <numbers>`
 * `#include "config_input/config_input.hpp"`
 * `#include "contour/contour.hpp"`
 * `#include "gdal_priv.h"`
@@ -27,6 +30,8 @@
 * `#include "lib/grid/grid.hpp"`
 * `#include "ogr_srs_api.h"`
 * `#include "process.hpp"`
+* `#include "testing/env.hpp"`
+* `#include "testing/output_dir.hpp"`
 * `#include "tif/tif.hpp"`
 * `#include "utilities/filesystem.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
@@ -84,6 +89,7 @@
 |   | [**TEST**](#function-test) ([**E2E**](classCoordinate2D.md), [**ProcessEmptyData**](classCoordinate2D.md)) <br> |
 |   | [**TEST**](#function-test) ([**E2E**](classCoordinate2D.md), [**ProcessDifferentResolutions**](classCoordinate2D.md)) <br> |
 |   | [**TEST**](#function-test) ([**E2E**](classCoordinate2D.md), [**VerifyOutputStructure**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**E2E**](classCoordinate2D.md), [**GroundEstimationSlopes**](classCoordinate2D.md)) <br> |
 |   | [**TEST\_P**](#function-test_p) ([**E2ETerrainTest**](classE2ETerrainTest.md), [**ProcessTerrain**](classCoordinate2D.md)) <br> |
 |  [**Config**](structConfig.md) | [**create\_minimal\_test\_config**](#function-create_minimal_test_config) ([**const**](classCoordinate2D.md) fs::path & output\_dir) <br> |
 |  [**LASData**](classLASData.md) | [**create\_synthetic\_las\_data**](#function-create_synthetic_las_data) () <br> |
@@ -195,6 +201,22 @@ TEST (
 TEST (
     E2E,
     VerifyOutputStructure
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    E2E,
+    GroundEstimationSlopes
 ) 
 ```
 

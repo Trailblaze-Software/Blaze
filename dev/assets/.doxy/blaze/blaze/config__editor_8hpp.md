@@ -11,6 +11,8 @@
 
 
 * `#include <QToolBox>`
+* `#include <cstddef>`
+* `#include <cstdint>`
 
 
 

@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -776,6 +776,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        a
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#b" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -930,6 +941,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        t
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#u" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -983,12 +1005,18 @@
 
 
 <h1 id="class-member-variables">Class Member Variables</h1>
+<h2 id="a">a</h2>
+<ul>
+<li><strong>any_overlap</strong> (<a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a>)</li>
+</ul>
 <h2 id="b">b</h2>
 <ul>
 <li><strong>blocking_threshold</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>, <a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>)</li>
 <li><strong>border_width</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>buildings</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>bin_resolution</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
+<li><strong>bounds_native</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
+<li><strong>bounds_reprojected</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>background_color</strong> (<a href="../structVegeConfig/"><strong>VegeConfig</strong></a>)</li>
 </ul>
 <h2 id="c">c</h2>
@@ -996,9 +1024,11 @@
 <li><strong>color</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>, <a href="../structBuildingsConfig/"><strong>BuildingsConfig</strong></a>, <a href="../structContourConfig/"><strong>ContourConfig</strong></a>, <a href="../structWaterConfig/"><strong>WaterConfig</strong></a>)</li>
 <li><strong>contours</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>configs</strong> (<a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>, <a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a>)</li>
+<li><strong>contour_dem_resolution</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
 <li><strong>coord</strong> (<a href="../structPriorityPoint/"><strong>PriorityPoint</strong></a>)</li>
 <li><strong>catchment</strong> (<a href="../structStream/"><strong>Stream</strong></a>, <a href="../structWaterConfig/"><strong>WaterConfig</strong></a>)</li>
 <li><strong>coords</strong> (<a href="../structStream/"><strong>Stream</strong></a>)</li>
+<li><strong>crs_mismatch</strong> (<a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a>)</li>
 <li><strong>colors</strong> (<a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 </ul>
 <h2 id="d">d</h2>
@@ -1011,6 +1041,8 @@
 <h2 id="e">e</h2>
 <ul>
 <li><strong>expect_contours</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
+<li><strong>extent</strong> (<a href="../structTile/"><strong>Tile</strong></a>)</li>
+<li><strong>error</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
 </ul>
 <h2 id="g">g</h2>
 <ul>
@@ -1021,6 +1053,7 @@
 </ul>
 <h2 id="h">h</h2>
 <ul>
+<li><strong>horizontal_wkt</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>height_function</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
 <li><strong>height_configs</strong> (<a href="../structVegeConfig/"><strong>VegeConfig</strong></a>)</li>
 </ul>
@@ -1051,6 +1084,12 @@
 <li><strong>max_height</strong> (<a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>min_height</strong> (<a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>m_config</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_inputs_mixed_crs</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_inputs_overlap</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_last_file_count</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_last_total_area_m2</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_last_total_points</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_override_crs_error</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>m_updating_ui</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>m_is_loop</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
 <li><strong>m_points</strong> (<a href="../classContour/"><strong>Contour</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>)</li>
@@ -1080,6 +1119,7 @@
 <li><strong>m_vao</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>, <a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>)</li>
 <li><strong>m_vbo</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>, <a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>)</li>
 <li><strong>m_transform</strong> (<a href="../classGeoGridData/"><strong>GeoGridData</strong></a>)</li>
+<li><strong>m_compound_wkt</strong> (<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>)</li>
 <li><strong>m_repeats</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
 <li><strong>m_horizontal</strong> (<a href="../classGridGraph/"><strong>GridGraph</strong></a>)</li>
 <li><strong>m_vertical</strong> (<a href="../classGridGraph/"><strong>GridGraph</strong></a>)</li>
@@ -1115,17 +1155,19 @@
 </ul>
 <h2 id="n">n</h2>
 <ul>
-<li><strong>name</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
+<li><strong>name</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>, <a href="../structTile/"><strong>Tile</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 </ul>
 <h2 id="o">o</h2>
 <ul>
 <li><strong>output_directory</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
-<li><strong>outlier_removal_height_diff</strong> (<a href="../structGroundConfig/"><strong>GroundConfig</strong></a>)</li>
+<li><strong>override_crs</strong> (<a href="../structConfig/"><strong>Config</strong></a>, <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
+<li><strong>ok</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
 </ul>
 <h2 id="p">p</h2>
 <ul>
 <li><strong>processing_steps</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>projection</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
+<li><strong>path</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>priority</strong> (<a href="../structPriorityPoint/"><strong>PriorityPoint</strong></a>)</li>
 </ul>
 <h2 id="r">r</h2>
@@ -1138,6 +1180,10 @@
 <li><strong>secondary_priority</strong> (<a href="../structPriorityPoint/"><strong>PriorityPoint</strong></a>)</li>
 <li><strong>scale</strong> (<a href="../structRenderConfig/"><strong>RenderConfig</strong></a>)</li>
 </ul>
+<h2 id="t">t</h2>
+<ul>
+<li><strong>tile_size</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
+</ul>
 <h2 id="u">u</h2>
 <ul>
 <li><strong>ui</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>, <a href="../classMain3DWindow/"><strong>Main3DWindow</strong></a>, <a href="../classMainWindow/"><strong>MainWindow</strong></a>, <a href="../classProgressBox/"><strong>ProgressBox</strong></a>)</li>
@@ -1146,6 +1192,7 @@
 <ul>
 <li><strong>value</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>)</li>
 <li><strong>vege</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
+<li><strong>vegetation_grid_resolution</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
 <li><strong>vertices</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>)</li>
 </ul>
 <h2 id="w">w</h2>
@@ -1153,6 +1200,7 @@
 <li><strong>water</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>width</strong> (<a href="../structContourConfig/"><strong>ContourConfig</strong></a>, <a href="../structWaterConfig/"><strong>WaterConfig</strong></a>)</li>
 <li><strong>with_vegetation</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
+<li><strong>wkt</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
 </ul>
 
 

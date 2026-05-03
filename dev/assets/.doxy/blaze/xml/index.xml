@@ -166,6 +166,8 @@
     <member refid="structConfig_1ad1846f61c2c8c261d8a1b69b47244856" kind="variable"><name>processing_steps</name></member>
     <member refid="structConfig_1acf8742f3ac0691410d8d686bff88c870" kind="variable"><name>output_directory</name></member>
     <member refid="structConfig_1a0e310e706a0c2136de5d85ac2a6c515b" kind="variable"><name>border_width</name></member>
+    <member refid="structConfig_1ab63e6511f30a0ef261dd5306fb3697ae" kind="variable"><name>tile_size</name></member>
+    <member refid="structConfig_1a16bdfd1e1e362f91894513579214aba6" kind="variable"><name>override_crs</name></member>
     <member refid="structConfig_1acdb436f2afa573a2405b6917b88b16bc" kind="variable"><name>relative_path_to_config</name></member>
     <member refid="structConfig_1adc7fa0a653f4578f2f68233b11455a02" kind="function"><name>set_output_directory</name></member>
     <member refid="structConfig_1aafe793ed2d6324d49bab08359d07e002" kind="function"><name>output_path</name></member>
@@ -184,10 +186,19 @@
     <member refid="classConfigEditor_1afbd101f76851f3eb967cac0c6afadfd5" kind="variable"><name>ui</name></member>
     <member refid="classConfigEditor_1a9b6c95f7d1c549c404f76cb3be88f1c8" kind="variable"><name>m_config</name></member>
     <member refid="classConfigEditor_1a478d2f955bf50b911b28187221e8ac32" kind="variable"><name>m_updating_ui</name></member>
+    <member refid="classConfigEditor_1ac7c3203ba7caf3a2ecae18272737067f" kind="variable"><name>m_last_total_points</name></member>
+    <member refid="classConfigEditor_1a563ce718246db37d6a8fd28110c0ebca" kind="variable"><name>m_last_total_area_m2</name></member>
+    <member refid="classConfigEditor_1a798bc12d01b8e74b6c39ebc5d99e58f8" kind="variable"><name>m_last_file_count</name></member>
+    <member refid="classConfigEditor_1a97b347cf9b364a1a6fbe2ce6ca04b76d" kind="variable"><name>m_inputs_overlap</name></member>
+    <member refid="classConfigEditor_1a56014c07816192ab89dcdd07bcefeed1" kind="variable"><name>m_inputs_mixed_crs</name></member>
+    <member refid="classConfigEditor_1ab7ed868a5d00daf5856d77c62c88235b" kind="variable"><name>m_override_crs_error</name></member>
     <member refid="classConfigEditor_1a5a4d203d15933a166a80f7fbc6d5c16a" kind="function"><name>ConfigEditor</name></member>
     <member refid="classConfigEditor_1ae7209cc103866d65e833befc239af262" kind="function"><name>~ConfigEditor</name></member>
     <member refid="classConfigEditor_1a197848203c2b71314766dac08b804d81" kind="function"><name>get_config</name></member>
     <member refid="classConfigEditor_1a78f66e5745c3a4e15fa4ff7778955500" kind="function"><name>is_valid</name></member>
+    <member refid="classConfigEditor_1a80a8f7b330c071b4188164c0704bfd8d" kind="function"><name>last_total_points</name></member>
+    <member refid="classConfigEditor_1a74f2471fc535e84325a172ab019d1f2d" kind="function"><name>last_total_area_m2</name></member>
+    <member refid="classConfigEditor_1a83383f6ec73d3cb183f6124770e69970" kind="function"><name>last_file_count</name></member>
     <member refid="classConfigEditor_1a6a32fe881371c08687ec53d8edaa6648" kind="slot"><name>open_config_file</name></member>
     <member refid="classConfigEditor_1a36d7ed4e698d32762cb029f359772ecc" kind="slot"><name>save_config_file</name></member>
     <member refid="classConfigEditor_1a5e47e642cd4086a711bfbdba10e61b3a" kind="slot"><name>add_las_file</name></member>
@@ -218,6 +229,8 @@
     <member refid="classConfigEditor_1ab0415e243b7ade81688d2750eea9c562" kind="signal"><name>config_changed</name></member>
     <member refid="classConfigEditor_1aab34a08654fbab02e3436ec37d289eeb" kind="function"><name>set_ui_to_config</name></member>
     <member refid="classConfigEditor_1ad11922f5fdbdf27d32089efa46ce28e5" kind="function"><name>open_output_directory</name></member>
+    <member refid="classConfigEditor_1a553972a8d4bc012ead95ea9a468b4512" kind="function"><name>wrap_tabs_in_scroll_areas</name></member>
+    <member refid="classConfigEditor_1a11851f122c244ee582a15bb98cc2cea8" kind="function"><name>activate_tab_containing</name></member>
     <member refid="classConfigEditor_1a86bff2b1533bf818ac00590d82fbc643" kind="function"><name>populate_contour_list</name></member>
     <member refid="classConfigEditor_1afd9b92e20baca696dc2e574ca50d533a" kind="function"><name>populate_water_list</name></member>
     <member refid="classConfigEditor_1a428cf91a755dfaacfe99a0a4340d55fd" kind="function"><name>populate_vege_list</name></member>
@@ -227,6 +240,9 @@
     <member refid="classConfigEditor_1ab3983316e2f9d7504d845eb0afe9dfe7" kind="function"><name>load_vege_details</name></member>
     <member refid="classConfigEditor_1a30841a521570ee817438519697542a32" kind="function"><name>load_color_details</name></member>
     <member refid="classConfigEditor_1af44420c97f149443957948d95b9e2fbb" kind="function"><name>populate_color_combo</name></member>
+    <member refid="classConfigEditor_1aa635cbfb41077a59cf4ca88ed88ebdef" kind="function"><name>update_las_stats</name></member>
+    <member refid="classConfigEditor_1a80ece46d4f1b446b31c1d247e584a3d5" kind="function"><name>refresh_tile_size_status</name></member>
+    <member refid="classConfigEditor_1a23ac9461f668549aa09e2b5bf09efbbb" kind="function"><name>refresh_override_crs_status</name></member>
   </compound>
   <compound refid="classContour" kind="class"><name>Contour</name>
     <member refid="classContour_1a3957faae3d25b013b23f9c5ad799f9b1" kind="variable"><name>m_height</name></member>
@@ -238,6 +254,7 @@
     <member refid="classContour_1ad0aecc6e51e60849832e0d8ed743bbb9" kind="function"><name>points</name></member>
     <member refid="classContour_1aa214a82225a16b84c60231949539f4bc" kind="function"><name>points</name></member>
     <member refid="classContour_1a1d61e1c2afc7ef7560aad582c5d70bd0" kind="function"><name>push_back</name></member>
+    <member refid="classContour_1ab05735b3ed0c37e4b7ebda6bab04e1aa" kind="function"><name>close_loop</name></member>
     <member refid="classContour_1ac0daca06e6fa1e61482f0282d862b725" kind="function"><name>is_loop</name></member>
     <member refid="classContour_1afb7f1f96f8a9d5ed62fbc89095f26ffd" kind="function"><name>orient_consistent</name></member>
     <member refid="classContour_1a60c51b12c0e358082cbb160df5d303a6" kind="function"><name>from_polyline</name></member>
@@ -286,6 +303,7 @@
     <member refid="classCoordinate2D_1a4eb897a2eb8c0bee85ad57ea4aa7c9e5" kind="function"><name>offset_to_center</name></member>
     <member refid="classCoordinate2D_1a707a57d7525a36021b987bfde236848c" kind="function"><name>round_NW</name></member>
     <member refid="classCoordinate2D_1a53b0daa13cc0d36ae5d85bf68186191c" kind="function"><name>round</name></member>
+    <member refid="classCoordinate2D_1a05b6fe5d162dfa08d3ab4287f75b2f45" kind="function"><name>round_down</name></member>
     <member refid="classCoordinate2D_1a9354c7489797969a76ff20e7854dd0cd" kind="function"><name>operator+</name></member>
     <member refid="classCoordinate2D_1aef4a1027611401e761143909a3c322cc" kind="function"><name>operator+</name></member>
     <member refid="classCoordinate2D_1a5cd9d015d74d54a3c71dfcd420a0e50f" kind="function"><name>operator-</name></member>
@@ -295,10 +313,10 @@
     <member refid="classCoordinate2D_1a00232ccf6515d7ec1a3359a9cda9ac2d" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="classCoordinate3D" kind="class"><name>Coordinate3D</name>
-    <member refid="classCoordinate3D_1a24f91ffeed30495c82938a6fbdbf179d" kind="variable"><name>m_z</name></member>
+    <member refid="classCoordinate3D_1adf749807a7ca79492de0534beb9d6e52" kind="variable"><name>m_z</name></member>
     <member refid="classCoordinate3D_1a3d47427d9f73deb6f687106dee6585f8" kind="function"><name>Coordinate3D</name></member>
     <member refid="classCoordinate3D_1a616d0cdf7bddf4ff5fa6c16cb90fc33d" kind="function"><name>Coordinate3D</name></member>
-    <member refid="classCoordinate3D_1a0348b7573eb15897ca16aed17afa21af" kind="function"><name>z</name></member>
+    <member refid="classCoordinate3D_1aa4420fadba6b467cd9fd071f9087442f" kind="function"><name>z</name></member>
     <member refid="classCoordinate3D_1abd1b02e77ef72651288eb63aee3c3b05" kind="function"><name>z</name></member>
   </compound>
   <compound refid="classDirection2D" kind="class"><name>Direction2D</name>
@@ -330,6 +348,7 @@
     <member refid="structExtent2D_1a0359a7a40595852eac14aea2ec673278" kind="variable"><name>miny</name></member>
     <member refid="structExtent2D_1a44418b38c40ba7077bb0e5b3d0bff373" kind="variable"><name>maxy</name></member>
     <member refid="structExtent2D_1af9c76caf6f9feefad5b5979f7976a073" kind="function"><name>contains</name></member>
+    <member refid="structExtent2D_1abde9affe09ec45bf9a7bd5d0426ca5a2" kind="function"><name>overlaps</name></member>
     <member refid="structExtent2D_1a832629d544c1ded14a5c50ea7c4c5574" kind="function"><name>grow</name></member>
     <member refid="structExtent2D_1a4e0972c43062230ba5fcbf487ba81edd" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
@@ -408,13 +427,17 @@
   </compound>
   <compound refid="classGeoProjection" kind="class"><name>GeoProjection</name>
     <member refid="classGeoProjection_1ae99d3f55ebcff5341cc13c2b1cc4eba1" kind="variable"><name>m_projection</name></member>
+    <member refid="classGeoProjection_1a46e56dd67fe7ab67e91aecbb05de7912" kind="variable"><name>m_compound_wkt</name></member>
     <member refid="classGeoProjection_1aa85a8e65aa88b8a591ac2af2dba34cd1" kind="function"><name>GeoProjection</name></member>
+    <member refid="classGeoProjection_1a5bbe95c75c69286dab14368a05a73d32" kind="function"><name>GeoProjection</name></member>
     <member refid="classGeoProjection_1aac2946f5ee68b9162ad8f60a92c0170b" kind="function"><name>GeoProjection</name></member>
     <member refid="classGeoProjection_1a4b278ab792fa98e0ab719bc2fc1a43ba" kind="function"><name>GeoProjection</name></member>
     <member refid="classGeoProjection_1aa8e7c891cf41c5256f397bda567463c6" kind="function"><name>GeoProjection</name></member>
     <member refid="classGeoProjection_1ad63e46c1ed8d14fa05ca20da881ae2f8" kind="function"><name>operator=</name></member>
     <member refid="classGeoProjection_1a73df94607371680887d568ed7ab5240d" kind="function"><name>operator=</name></member>
     <member refid="classGeoProjection_1ae29c1baae6504e84b136ab8abda40bab" kind="function"><name>to_string</name></member>
+    <member refid="classGeoProjection_1a2f8c8ce68c609a0d1818f0e2a3a4ebf7" kind="function"><name>compound_wkt</name></member>
+    <member refid="classGeoProjection_1a3964f2abeae8a97785f9a3bf22e5cb2a" kind="function"><name>has_vertical</name></member>
   </compound>
   <compound refid="classGeoTransform" kind="class"><name>GeoTransform</name>
     <member refid="classGeoTransform_1a959218521dd763a10c740d7d4d95a568" kind="variable"><name>geoTransform</name></member>
@@ -487,6 +510,10 @@
   <compound refid="structGridConfig" kind="struct"><name>GridConfig</name>
     <member refid="structGridConfig_1a65a5c120c46690607e2d9300dfcd1c0e" kind="variable"><name>bin_resolution</name></member>
     <member refid="structGridConfig_1a6720fdab105e14159452fa29811e3c1a" kind="variable"><name>downsample_factor</name></member>
+    <member refid="structGridConfig_1a1a253d3ad7a4cef73147057497e31f91" kind="variable"><name>vegetation_grid_resolution</name></member>
+    <member refid="structGridConfig_1aeabb98d04f7d1a4d1f8e2aaf8884145e" kind="variable"><name>contour_dem_resolution</name></member>
+    <member refid="structGridConfig_1a1795d93a269938689ac0fd2a42917b85" kind="function"><name>vegetation_aggregation_factor</name></member>
+    <member refid="structGridConfig_1aa377917fd2213890575a98ea20725f7b" kind="function"><name>contour_downsample_factor</name></member>
   </compound>
   <compound refid="classGridData" kind="class"><name>GridData</name>
     <member refid="classGridData_1a13126024023e1abb5934579b8bd8f84f" kind="variable"><name>m_width</name></member>
@@ -512,7 +539,6 @@
     <member refid="classGridGraph_1aa3dbafdba09072b84af97252c88e3839" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="structGroundConfig" kind="struct"><name>GroundConfig</name>
-    <member refid="structGroundConfig_1afec2615448099fa9b7c7bcd1524b3135" kind="variable"><name>outlier_removal_height_diff</name></member>
     <member refid="structGroundConfig_1a3b746fccb68a2ffbb144695fbc952e1e" kind="variable"><name>min_ground_intensity</name></member>
     <member refid="structGroundConfig_1adb8eb179edb3b37703977eb34d943b84" kind="variable"><name>max_ground_intensity</name></member>
   </compound>
@@ -537,7 +563,7 @@
     <member refid="classLASData_1aa49c51e304c86170846674e60f4048e6" kind="function"><name>LASData</name></member>
     <member refid="classLASData_1afec8e01963b2d4e664a0fccac0ce90e8" kind="function"><name>LASData</name></member>
     <member refid="classLASData_1a665bffb012fe24bb02a4d8c89b35a8c5" kind="function"><name>insert</name></member>
-    <member refid="classLASData_1a003b387c33cb7949efd40c07d9aa1e25" kind="function"><name>LASData</name></member>
+    <member refid="classLASData_1a05c44b3a85b5241ae56a48ead1e12213" kind="function"><name>LASData</name></member>
     <member refid="classLASData_1ae738985aa77d7642126cc2cc6f6b994e" kind="function"><name>begin</name></member>
     <member refid="classLASData_1ad38462476686161be9ae093995e859a5" kind="function"><name>end</name></member>
     <member refid="classLASData_1adaa917138ade5d1ae1bd27f94747b0c7" kind="function"><name>intensity_range</name></member>
@@ -548,8 +574,8 @@
     <member refid="classLASData_1a2e296fb6b02f1593a22254ed33722bde" kind="function"><name>write</name></member>
     <member refid="classLASData_1a81e6439664e5eb16b9af57e87bec17bc" kind="function"><name>extract_borders</name></member>
     <member refid="classLASData_1aad306c36ac14b356b524553ac234f15d" kind="function"><name>read_points</name></member>
-    <member refid="classLASData_1a8f5eb6b8722b9a558f7c62d0bb857f1a" kind="function"><name>with_border</name></member>
-    <member refid="classLASData_1ab029d443828d7e1bda875f3218fb0557" kind="function"><name>with_border</name></member>
+    <member refid="classLASData_1a668c087294ae54e164d438690cbd15ea" kind="function"><name>with_border</name></member>
+    <member refid="classLASData_1abb09755ea2e472e78410c4fec6ff82a0" kind="function"><name>with_border</name></member>
   </compound>
   <compound refid="classLASFile" kind="class"><name>LASFile</name>
     <member refid="classLASFile_1a2586dbdf7c10c2630f102614d67866ec" kind="variable"><name>m_filename</name></member>
@@ -558,7 +584,7 @@
     <member refid="classLASFile_1a403817f7222cb5d9f6b1de03957bf299" kind="variable"><name>m_projection</name></member>
     <member refid="classLASFile_1aecf8aaa14dc832406d7d8c9a2ab04d25" kind="variable"><name>m_spatial_index</name></member>
     <member refid="classLASFile_1a3619a6a014c8c31209af6939fa6e25c1" kind="function"><name>LASFile</name></member>
-    <member refid="classLASFile_1aa95e172f0702a752aa00cfa52f22f8f7" kind="function"><name>LASFile</name></member>
+    <member refid="classLASFile_1af7a0cebe1d43a43d6bc80afd0ce2c3c1" kind="function"><name>LASFile</name></member>
     <member refid="classLASFile_1abab47a7a38d34a55f212d45c24048f1f" kind="function"><name>top_left</name></member>
     <member refid="classLASFile_1a5b755082279eaa000deb7f9980f10512" kind="function"><name>width</name></member>
     <member refid="classLASFile_1ab3ec9489b3a8d302417c45d0a16b3556" kind="function"><name>height</name></member>
@@ -567,7 +593,14 @@
     <member refid="classLASFile_1aae95e7f507c4193c4f1bed0d5ae4118b" kind="function"><name>bounds</name></member>
     <member refid="classLASFile_1aa405681af09edda1c5296b2e3c7b6d66" kind="function"><name>original_bounds</name></member>
     <member refid="classLASFile_1ad925bc2c7827d62ce704763b69f490c2" kind="function"><name>height_range</name></member>
-    <member refid="classLASFile_1a9323623064555d4cf84d06b058585b2e" kind="function"><name>from_las_reader</name></member>
+    <member refid="classLASFile_1a777ebd68ac6c251201ee22c68a2d2ffe" kind="function"><name>from_las_reader</name></member>
+  </compound>
+  <compound refid="structLASFileExtent" kind="struct"><name>LASFileExtent</name>
+    <member refid="structLASFileExtent_1ab105cf4e2313a7c27c5b6d65faad8967" kind="variable"><name>path</name></member>
+    <member refid="structLASFileExtent_1a5276239f7b77f9284cc008e1e52d5c48" kind="variable"><name>override_crs</name></member>
+    <member refid="structLASFileExtent_1ac6ee5c16abda57f41a882ad3a4632c1f" kind="variable"><name>horizontal_wkt</name></member>
+    <member refid="structLASFileExtent_1aaa02193106a93135080a88439a21941a" kind="variable"><name>bounds_native</name></member>
+    <member refid="structLASFileExtent_1a5ae3f8dbf222e44f5e2b74536fe36834" kind="variable"><name>bounds_reprojected</name></member>
   </compound>
   <compound refid="classLASLayer" kind="class"><name>LASLayer</name>
     <member refid="classLASLayer_1a4445f6e5fca95f6112e52b1263288db8" kind="variable"><name>m_las_file</name></member>
@@ -784,6 +817,16 @@
     <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
     <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
   </compound>
+  <compound refid="structTile" kind="struct"><name>Tile</name>
+    <member refid="structTile_1a9e10800de5ccb99c2babfeeb8f652c75" kind="variable"><name>extent</name></member>
+    <member refid="structTile_1aa5408d0f0f4a60f25796f651db2f84ac" kind="variable"><name>name</name></member>
+    <member refid="structTile_1a7c51d093327604b3b85fb6c65121c245" kind="function"><name>output_name</name></member>
+  </compound>
+  <compound refid="structTileModeInfo" kind="struct"><name>TileModeInfo</name>
+    <member refid="structTileModeInfo_1ab30f94baf37c18665d8a33a133ac9988" kind="variable"><name>any_overlap</name></member>
+    <member refid="structTileModeInfo_1a2c237cda8e7cc208faed82301505be4c" kind="variable"><name>crs_mismatch</name></member>
+    <member refid="structTileModeInfo_1a6f3f83117416c55b816d590c6a04de0e" kind="function"><name>required</name></member>
+  </compound>
   <compound refid="classTimeFunction" kind="class"><name>TimeFunction</name>
     <member refid="classTimeFunction_1a3268dd9d0b714dd40736550227129822" kind="variable"><name>m_name</name></member>
     <member refid="classTimeFunction_1a8938a87882f7241acae4340ebda19162" kind="variable"><name>m_progress_tracker</name></member>
@@ -796,6 +839,11 @@
     <member refid="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" kind="function"><name>Timer</name></member>
     <member refid="classTimer_1ab79e82b58e3044825ae1c885f38db102" kind="function"><name>duration</name></member>
     <member refid="classTimer_1a8e125e38ee1ec31b73d2e322c1ec93f2" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="structUserCrsParseResult" kind="struct"><name>UserCrsParseResult</name>
+    <member refid="structUserCrsParseResult_1a1c76d6d712bc766db39f0a9a85acb828" kind="variable"><name>ok</name></member>
+    <member refid="structUserCrsParseResult_1ade6b6225e33304e8ed47c505b8727b3c" kind="variable"><name>wkt</name></member>
+    <member refid="structUserCrsParseResult_1a66b6ab61fc79057355e885c22b41d106" kind="variable"><name>error</name></member>
   </compound>
   <compound refid="structVegeConfig" kind="struct"><name>VegeConfig</name>
     <member refid="structVegeConfig_1abe6ba03b3654ef6f6c765a199f3a1c14" kind="variable"><name>background_color</name></member>
@@ -817,6 +865,14 @@
     <member refid="structWaterConfigs_1aab01329205d311f3d2b07974bdfbf924" kind="variable"><name>configs</name></member>
     <member refid="structWaterConfigs_1afd55568428b9c87295ee013f945de0bf" kind="function"><name>config_from_catchment</name></member>
     <member refid="structWaterConfigs_1a58218cf2f9a1448a6bb2d37aa64b72ee" kind="function"><name>minimum_catchment</name></member>
+  </compound>
+  <compound refid="namespaceblaze" kind="namespace"><name>blaze</name>
+  </compound>
+  <compound refid="namespaceblaze_1_1test" kind="namespace"><name>blaze::test</name>
+    <member refid="env_8hpp_1a1822bde26e2c72ce8dcf2f18d37738ff" kind="function"><name>get_env</name></member>
+    <member refid="output__dir_8hpp_1aadefed9391b172b3dfb0c97dc16a705c" kind="function"><name>sanitize_for_path</name></member>
+    <member refid="output__dir_8hpp_1acb517029bd1ebd1b8dc77d3696c5c933" kind="function"><name>unique_test_output_dir</name></member>
+    <member refid="output__dir_8hpp_1acfa7950bc9b21ce9f99253b30eb97ac4" kind="function"><name>unique_test_output_path</name></member>
   </compound>
   <compound refid="namespacecv" kind="namespace"><name>cv</name>
     <member refid="colors_8hpp_1ad52afe4d3d634d04c7e8dcb7cccbff7b" kind="typedef"><name>Scalar</name></member>
@@ -911,6 +967,35 @@
     <member refid="config__input_8hpp_1a68d43f1268f48e7eddda6ba27dba0776ae7b3c0acb7168c7969b03e8aebc67ce7" kind="enumvalue"><name>Combine</name></member>
     <member refid="config__input_8hpp_1a51a8a07a8e5211322e780c12cc0cc211" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
+  <compound refid="test__config__lookup_8cpp" kind="file"><name>test_config_lookup.cpp</name>
+    <member refid="test__config__lookup_8cpp_1a1d5d316a7eb6e9dd84db08fabf71b524" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1a96f77cd9f30e45652ebf2ab36a87ad18" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1afec9e7142e7c02a075fbf3eb36399346" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1a5905e04d01b466a2d6440b72292888a7" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1afca2ed0751164d08213d98e2c407b992" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1a2e163f9da9175cc7ed151e2dfca14668" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1af71b255135b6e384a5b3ccdb1c563212" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1a32975dcd4c4c589682b6180fe48d856d" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1ab7fd9bf427a779fc7d612507eebd4b3e" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="test__config__paths_8cpp" kind="file"><name>test_config_paths.cpp</name>
+    <member refid="test__config__paths_8cpp_1a59831ba97afaa7097854b5c912610723" kind="define"><name>ABS_CONFIG_DIR</name></member>
+    <member refid="test__config__paths_8cpp_1a5dda00ef3dee0cff2eca677bd3f2020e" kind="define"><name>ABS_CONFIG_DIR2</name></member>
+    <member refid="test__config__paths_8cpp_1ac57e82ab2891867ad354842d5eb032e7" kind="define"><name>ABS_OUTPUT</name></member>
+    <member refid="test__config__paths_8cpp_1a68d57be47ea77513837cac630f9ec823" kind="define"><name>ABS_FILE1</name></member>
+    <member refid="test__config__paths_8cpp_1a7e21d3648c67f19c4cc9d76aedcfc59d" kind="define"><name>ABS_FILE2</name></member>
+    <member refid="test__config__paths_8cpp_1a893d527bed106ddb002731efad02f8d6" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a8d6c182c9af13dbb028d6c8580586941" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a34f88ec527253d6ff20f9d1a246f4fb0" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a1b44292183765d9e1d4136fe373996ac" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a7e8c556a782a4aa40129df270775c336" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a6300eecf76d73dab5d70428ed505a5ce" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a78c5d629d3696efbff4b4959585621e5" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a958c7ed0cb004f32d2f9a33b47c7780c" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1a04871dee6cbb2536e9ead7a9fb12c457" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1afd5d19d083ba75d28778eaa04113a2ad" kind="function"><name>TEST</name></member>
+    <member refid="test__config__paths_8cpp_1ab49bd01e29987ae11a33a371f60d777d" kind="function"><name>TEST</name></member>
+  </compound>
   <compound refid="contour_8cpp" kind="file"><name>contour.cpp</name>
   </compound>
   <compound refid="contour_8hpp" kind="file"><name>contour.hpp</name>
@@ -921,7 +1006,7 @@
   </compound>
   <compound refid="contour__gen_8hpp" kind="file"><name>contour_gen.hpp</name>
     <member refid="contour__gen_8hpp_1a3bc8b1db57479601f59105a9efdf88a1" kind="function"><name>identify_contours</name></member>
-    <member refid="contour__gen_8hpp_1a81d063712b6b8171c690f9fa1141d1c3" kind="function"><name>join_contours</name></member>
+    <member refid="contour__gen_8hpp_1aff55b99839c9a6be2a2a82ef45ecefef" kind="function"><name>join_contours</name></member>
     <member refid="contour__gen_8hpp_1a75ecdffc244aed4700e7d514ae370199" kind="function"><name>trim_contours</name></member>
     <member refid="contour__gen_8hpp_1a95822cfa391fa1f3fcf85c3c863b8b33" kind="function"><name>generate_contours</name></member>
     <member refid="contour__gen_8hpp_1acd8507a5c7960bbb8ff608c78e855993" kind="function"><name>generate_naive_contours</name></member>
@@ -929,6 +1014,26 @@
   <compound refid="test__contour__gen_8cpp" kind="file"><name>test_contour_gen.cpp</name>
     <member refid="test__contour__gen_8cpp_1a94297b526abc7db20aa032be5607395e" kind="function"><name>TEST</name></member>
     <member refid="test__contour__gen_8cpp_1a7cae2c3089ff273b5949d229460965c0" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="test__contour__ops_8cpp" kind="file"><name>test_contour_ops.cpp</name>
+    <member refid="test__contour__ops_8cpp_1a246bf04f33f856e8af92a8d18e1c4bb4" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1ad6d3af73e2c32ac8ee05e543228a35d2" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a1e698aa8fb5fb93f9622a0f7e33e1757" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a35776859503b331286eb5b0785e56edb" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a0784b01a51c88a01bd14c108b6ba1a91" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1ac3adc6552b22ca1492b9c9f6e47b693e" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a5356d3718e87bab7423790f0aa042536" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1ade8573d3f7f272877e55b03ab45ee63e" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a2adf8251d3e94c604f9bb9c83645587c" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a2f9d233bdb93ebf89782c56abf57cc50" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a1aa8fe5a121f352d6ee674770d978269" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a4a567a4d8a407087d0514d96afdb63c9" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a5d7b21c7e6b8ac3b2ba2ddda3403e903" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a5a06ced17e3939705cf19dc0bdda726d" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1a8707a73ac61682f5c97c0378f50d8970" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1af30db2949c7b4dfab092e66d735e4458" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1acb14d2e62053bd0661cee072406826c0" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__ops_8cpp_1ac806ffd5452d6ac85eb5a7330a928c3d" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__contour__utils_8cpp" kind="file"><name>test_contour_utils.cpp</name>
     <member refid="test__contour__utils_8cpp_1a60b268e9642519db3068af5c94ee975a" kind="function"><name>TEST</name></member>
@@ -969,6 +1074,28 @@
   </compound>
   <compound refid="img__grid_8hpp" kind="file"><name>img_grid.hpp</name>
   </compound>
+  <compound refid="test__grid_8cpp" kind="file"><name>test_grid.cpp</name>
+    <member refid="test__grid_8cpp_1a8b296cbc345f26001714afe44a5211ba" kind="function"><name>coord</name></member>
+    <member refid="test__grid_8cpp_1a97a61700d440e60624439e1e328b7037" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a0526c1e675a32c81dfc97a01f5ac90f2" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1ac7067e460d1178e15c248f38227a3c06" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a8dabb8e8bcce41d57fedf4e370c43016" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1adc0d95a49ccbca7be4b65702ea452a07" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a7babf5b0cd89612d8f7a4a983627cb45" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1ab45728a07a19debc7fb8ea9827a07710" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a197e5b601a4bb8dcd654a830ffb54472" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a9bed9f868ec620f9b0ad7eceb2645fd8" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a7b7997d18ef9964ee4e613cf517f2653" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a3c1bc1717caa820d02005d181c03216a" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1ac2d4b8e5ebecce68c76e6b4e351be8f3" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1ae17ba15c9f44e52280f93eb118361fa2" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a85526f9f8823af7792a265b8432d5aa1" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a9913104d273fbfe0fc43383020084fbb" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a6f450ddf24e67b8784e91e68f46308de" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a0720172d4e39aa3ceda8ee1312f091dc" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1af9f5d997aba577447bbbb80eb79a0a9d" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a4d6ab89c3325d87c2cfa9ca92360ccd4" kind="function"><name>TEST</name></member>
+  </compound>
   <compound refid="test__grid__ops_8cpp" kind="file"><name>test_grid_ops.cpp</name>
     <member refid="test__grid__ops_8cpp_1ad50af153ae9bb4d54d463ac482b4f387" kind="function"><name>TEST</name></member>
     <member refid="test__grid__ops_8cpp_1abde25a1889e4b436ec854bb6e027f72f" kind="function"><name>TEST</name></member>
@@ -979,6 +1106,14 @@
     <member refid="test__grid__ops_8cpp_1a5f60a096442cb9c3a4492d23e8a63765" kind="function"><name>TEST</name></member>
     <member refid="test__grid__ops_8cpp_1a1bb6b0f3d4890bea3adba2cef9a5e70f" kind="function"><name>TEST</name></member>
     <member refid="test__grid__ops_8cpp_1adeeff98cab8cd6c2ea092d0f42f58d42" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="crs_8hpp" kind="file"><name>crs.hpp</name>
+    <member refid="crs_8hpp_1a7ce8e5c93c885ef54a0ef521f638716b" kind="function"><name>normalize_crs_wkt</name></member>
+    <member refid="crs_8hpp_1a62dca438c25ce018d6a2416d69b12dce" kind="function"><name>build_compound_crs_wkt</name></member>
+    <member refid="crs_8hpp_1adadd0d09e8b93c1036055f0241fd8e27" kind="function"><name>make_projection_from_wkt</name></member>
+    <member refid="crs_8hpp_1a38c41a161f3098e6397851e46539f824" kind="function"><name>try_user_crs_to_wkt</name></member>
+    <member refid="crs_8hpp_1a371736115959050757d34d672705141b" kind="function"><name>user_crs_to_wkt</name></member>
+    <member refid="crs_8hpp_1ac573647e920378caf9e80976b0485dd1" kind="function"><name>wkt_matches</name></member>
   </compound>
   <compound refid="gdal__init_8hpp" kind="file"><name>gdal_init.hpp</name>
     <member refid="gdal__init_8hpp_1a1223f04756c53e7e6bbe816c6b4d37ad" kind="function"><name>ensure_gdal_initialized</name></member>
@@ -1002,6 +1137,30 @@
     <member refid="colors_8hpp_1ad9c98e979725c3921434b5788f306d26" kind="function"><name>to_rgb</name></member>
     <member refid="colors_8hpp_1aa2bc15b8e3161a9050572a42efb382a1" kind="function"><name>to_cmyk</name></member>
   </compound>
+  <compound refid="test__colors_8cpp" kind="file"><name>test_colors.cpp</name>
+    <member refid="test__colors_8cpp_1ac946d58014a9c7a67da1c9d8fc0a8788" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1ae6530fd45807a91182aa2b11698abf1f" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a9cf561de51aa7b9645f759102ce7588c" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a2d89634aa3878ec6df3c77f72609a056" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a67f07e27519327bb01bba171cb421c7d" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a99d8b1f8cdef38b6f3b98bc659091b86" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1afc1d82977e5440587d9dee1f3faf132f" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a13e3d9e220cdab2156032a55daa29b66" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a47f97bf8ec72d8532b8ccb17dd77ee1f" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1aa1130f60c81958328dd965b12962ecea" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a82adb343566b79472485353b261613f5" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1aaea4d5031b0a71b45d3f7254288b04d4" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a346c81b631f08d1e8d95ed1b61cee450" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a62523f3279b6e58af5d9a2894afebbe4" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a7ac64fb3176d35015159a081f0f6612a" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1af9ed7e3c8eb77609489058cfd633bb5c" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a64643c17ceb9e74e7032e7adb2cade29" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a09168ef390998b740d24dad9fb32b15c" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a03380bf8df3272a7b3b82ecf64d1d0d3" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1a234a06934067d1dd0d5a5e75929fb637" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1ac44f2baf5da8770e749e1e4aedfd3d4d" kind="function"><name>TEST</name></member>
+    <member refid="test__colors_8cpp_1adf93d9f333f44b23bbc7b31fa17cbbaf" kind="function"><name>TEST</name></member>
+  </compound>
   <compound refid="las__file_8hpp" kind="file"><name>las_file.hpp</name>
     <member refid="las__file_8hpp_1a62ba43b838957db08d5ecb9b46b8ca90" kind="enum"><name>BorderType</name></member>
     <member refid="las__file_8hpp_1a62ba43b838957db08d5ecb9b46b8ca90a8d9c307cb7f3c4a32822a51922d1ceaa" kind="enumvalue"><name>N</name></member>
@@ -1022,6 +1181,9 @@
     <member refid="las__file_8hpp_1a3ad5a186a8e43105a720762d71c95b30" kind="function"><name>copy_from</name></member>
     <member refid="las__file_8hpp_1acdd335e3d49ea5742d6efcbc96583cd2" kind="function"><name>copy_from</name></member>
     <member refid="las__file_8hpp_1a55c2628eba127a1697df81b235cd83a4" kind="function"><name>convert_geo_keys_to_wkt</name></member>
+    <member refid="las__file_8hpp_1acc9c02ee85d16f3b7e4ed9b0a722e011" kind="function"><name>as_extent2d</name></member>
+    <member refid="las__file_8hpp_1a9d9230a261d0354a6c2c8ce495859e00" kind="function"><name>as_extent3d</name></member>
+    <member refid="las__file_8hpp_1a26227b3f699716802e90ab01daaf28ea" kind="function"><name>reader_horizontal_wkt</name></member>
     <member refid="las__file_8hpp_1a257d688d34a664586e7e73dd89434273" kind="function"><name>extract_borders</name></member>
   </compound>
   <compound refid="las__point_8hpp" kind="file"><name>las_point.hpp</name>
@@ -1038,6 +1200,65 @@
     <member refid="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438a27634ff8002b12e75d98e07ccd005d18" kind="enumvalue"><name>Water</name></member>
     <member refid="las__point_8hpp_1a0d8dc8d0c8e3b6aa898ca3b3c3622794" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
+  <compound refid="test__las__file_8cpp" kind="file"><name>test_las_file.cpp</name>
+    <member refid="test__las__file_8cpp_1a660e518448d5e2c467523f44e1e30107" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a4f6682e188c745caa685a88ebfb88cce" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a39b9f41828fdb72be5060760878b9710" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1af1bdf299346e2df2143d5151b08f7aca" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1af0c98cbdfa769445ee7141635f614bf3" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1ab0f5be49754c91e2bcb0b1cea1a14ccf" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a11b3f7a317c80946e91670b8cbc5410e" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1abad98cdfb5091012f5a80ad338e1f482" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1acdbe57b702ab79d3ba2515faf02382e6" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1aee4005b18911f0f581af669bbaaadcad" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1afc6f036cfd3f113610e4fe2da86356cd" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1abcd971a4419c35d7de5192f86045c3a0" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1ad8912aa647e1c0b42b58bc8c2b8a4f89" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a16bebdc77bf55069b95caa971f4ea891" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a6c3d2484d5355cf402cebd5b557fcb68" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a0ca7b95e7fd19c07b35eb24792af2664" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1ae76995bf14bb976e1e714aa2a38a4157" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a166f4a378b85f8c10d197148221f75c8" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a53ce62c5908df981d87905b55abedd10" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a5e54e1c119170b8d882cecf29b624c6f" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a380ec0f0153d5ceadb6a97196b8054b7" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a35396c5a1e6d7469b83a09a97c6e26ed" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a1d7595d47206622ee1fd2d4980b141a7" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a634ea22c9936b95544d4ea8f61dabce0" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a4a47d868ada371816887a3643d8e249c" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1afce90d8283a1a7c95417a359c4dd5390" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a8839bafc8071bfb1c4523970039fa415" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a6f68e63c9bc3fac911a73445ef9603df" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1af8c7db0e064532b7e19e3c6be46797c4" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1adcb207edbf73de666dcfd868de02a4fb" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a086d579508b145e0fa67e22976d8a81d" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a7371b25bbb5ecbb74cd4b2b53666d098" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a98664a42f2e91b76ef2a1fa59a94d34f" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a1a9a1315ce55cffb6eb82d91b76346c0" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="test__las__point_8cpp" kind="file"><name>test_las_point.cpp</name>
+    <member refid="test__las__point_8cpp_1a24d41269f33676aae31af557ea8a4264" kind="function"><name>TEST</name></member>
+    <member refid="test__las__point_8cpp_1af11a2d1fd3a1302b200ff1869acb2d0d" kind="function"><name>TEST</name></member>
+    <member refid="test__las__point_8cpp_1ac445c1ab8ac6176ede4713f10bb7bb4f" kind="function"><name>TEST</name></member>
+    <member refid="test__las__point_8cpp_1a7f6f415bff7af0611c66d1109381e9d2" kind="function"><name>TEST</name></member>
+    <member refid="test__las__point_8cpp_1a2129ceabdf1f0fcf6e469527da60f330" kind="function"><name>TEST</name></member>
+    <member refid="test__las__point_8cpp_1a7a02d416eaa6d36978c0de0e85401687" kind="function"><name>TEST</name></member>
+    <member refid="test__las__point_8cpp_1a22947c00f39f2c451bdba60ab2cf574f" kind="function"><name>TEST</name></member>
+    <member refid="test__las__point_8cpp_1aec47d0d8cdf6491851c4dd6ee1919e4a" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="tile__mode_8hpp" kind="file"><name>tile_mode.hpp</name>
+    <member refid="tile__mode_8hpp_1ab0b25eb2be269dcb6e29495db6b8eac3" kind="function"><name>make_coord_transform</name></member>
+    <member refid="tile__mode_8hpp_1a2931499c5f171a4285c22265686d4155" kind="function"><name>reproject_extent</name></member>
+    <member refid="tile__mode_8hpp_1a8f63d4e5e4d73c628dafb9c948a7f92c" kind="function"><name>detect_tile_mode_needed</name></member>
+    <member refid="tile__mode_8hpp_1a67d8fd439ebbb8c5aaf824a9d9cfebb7" kind="function"><name>analyze_extents</name></member>
+    <member refid="tile__mode_8hpp_1ade253f33a28f35ef38e77fcc5624da50" kind="function"><name>load_input_extents</name></member>
+    <member refid="tile__mode_8hpp_1a940df066135697bd65e7fafc71900a3e" kind="function"><name>union_extent</name></member>
+    <member refid="tile__mode_8hpp_1a499bcdac603130ad171ab5934f622f3e" kind="function"><name>snap_down</name></member>
+    <member refid="tile__mode_8hpp_1a5a8c81f03c38f2c63ee0f5d08d4c5299" kind="function"><name>snap_up</name></member>
+    <member refid="tile__mode_8hpp_1ac708e7c2f198ce9e1cd11b5bd9a0a496" kind="function"><name>tiles_per_file</name></member>
+    <member refid="tile__mode_8hpp_1a244996058d21964527ba2aa1b4093337" kind="function"><name>read_tile_from_inputs</name></member>
+    <member refid="tile__mode_8hpp_1a7951cfe847f77be6dc533c0faba00086" kind="function"><name>compute_tiles</name></member>
+  </compound>
   <compound refid="polyline_8hpp" kind="file"><name>polyline.hpp</name>
   </compound>
   <compound refid="to__string_8hpp" kind="file"><name>to_string.hpp</name>
@@ -1049,25 +1270,30 @@
     <member refid="to__string_8hpp_1afb368d0c461707df8edcba54e08046f0" kind="function"><name>double_to_string</name></member>
     <member refid="to__string_8hpp_1a6ad4d477c0b0f64d72998843c81f078b" kind="function"><name>to_string</name></member>
   </compound>
+  <compound refid="env_8hpp" kind="file"><name>env.hpp</name>
+  </compound>
+  <compound refid="output__dir_8hpp" kind="file"><name>output_dir.hpp</name>
+    <member refid="output__dir_8hpp_1a18491972cad740359d6014efea66aec9" kind="define"><name>BLAZE_TEST_GETPID</name></member>
+  </compound>
   <compound refid="tif_8cpp" kind="file"><name>tif.cpp</name>
     <member refid="tif_8cpp_1a9f6bb3202e04497597ef6aea0aa70994" kind="variable"><name>is_std_optional_v</name></member>
     <member refid="tif_8cpp_1ac35493114df6e6e4839714befb4b667a" kind="function"><name>gdal_type</name></member>
     <member refid="tif_8cpp_1a5607df8328a05c02505fdfadda645152" kind="function"><name>read_tif</name></member>
-    <member refid="tif_8cpp_1a76a92de114c5bf46c066d25c03501695" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1ad36807bd78b570550a1b515b296f8d0c" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1abdeddcd3f878720e78ff4d928088b114" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a2f6f8ee6d40b807fe10eb171b9a0b36d" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a30b1d94745292b6c204bec45f6eec820" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a884af3c7557d8e2c46eb516d1d2cf6b8" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1ad30d5f1491ba6f6dd0d833c11c8b6209" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a2bf793c541e675fd3c1d25bcb6970f29" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a7f3f776fdae6fafa59fffdf7af5b729d" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1aceb413869cdeab4ed0936f37115ec852" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1ad435ae5ff08253cdaf53341452b1ea98" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a46d23bc5cb979061dd4f7becf401f5a9" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a300b2383b0309d9cda847bae41499a22" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a617881d9257f752dd34064d34779b266" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a510db6c236e62865228975553dc28359" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a65b864141ba04fa9fbfb69265a3ff4e9" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1ab6efffd5a70677b2a9ef86c42f7afa02" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1afeffc39e512b3b434585d3240228510b" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a880a7b66a7aa8bf2db83596d9ba4d9ff" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a2ad621aa7c6bffddc00042324384cbd3" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1a8806bb64a2cb289fede30ce0c7be09f9" kind="function"><name>write_to_image_tif</name></member>
     <member refid="tif_8cpp_1acd88c5e76c98c8ef3b3936a0a29d0969" kind="function"><name>write_to_image_tif</name></member>
   </compound>
   <compound refid="tif_8hpp" kind="file"><name>tif.hpp</name>
-    <member refid="tif_8hpp_1a547615912fcefa12d33ac7d75be28c7b" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8hpp_1af7bb1daa99c8ffaa16c90e18cc98b93b" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8hpp_1a5607df8328a05c02505fdfadda645152" kind="function"><name>read_tif</name></member>
     <member refid="tif_8hpp_1a963c58e644c0c26cf0b5284a8edc3bfe" kind="function"><name>write_to_image_tif</name></member>
   </compound>
@@ -1092,12 +1318,57 @@
   <compound refid="progress__tracker__helper_8cpp" kind="file"><name>progress_tracker_helper.cpp</name>
     <member refid="progress__tracker__helper_8cpp_1afb1637a522997a6b5649932f9f8dffa6" kind="function"><name>run_loop</name></member>
   </compound>
+  <compound refid="test__coordinate_8cpp" kind="file"><name>test_coordinate.cpp</name>
+    <member refid="test__coordinate_8cpp_1a9b764091c13072f3cc78669d6cc25089" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1abc9084075d5d7262a45332e32eeff51c" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a68e4d48a2889faa2951ae511d973e7f0" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1ada62f0c1d4a215862c4e2a0491f2c431" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1af480cb0d3adce2a0ad1c722ad7d1446a" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a7281b49fb1fc1de38fe7ca6ba75010ca" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a8ec51e4917dd154833569b7bcbe38623" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a505a7dc07d0fd826b4151394977722ca" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a61b45b4329417190842e49cc20c71958" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1ab1f8fed3818145996c692c5c8b1e643c" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a89b7d6e955a5a4b9b6ddf693600c5338" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1afbb7aa19ea1684fff474ffaa7f678b9d" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a605676b84b139c1e1b74c7e85362f236" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a5d50368b2aa8f330c5f9c83c9bb367c0" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a2d7cf596f6bcf8590e889bb50df9f5a3" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1aaa7040176c48bf242cff3d6944bb164f" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a0e1510307ee4eff4c9737ee3caba7d50" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1aab360b9eb7a79cd950bbdce94ccf7886" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1acd1ff46ae2d4d0bd217e7d82f1c95074" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1af799f2b7a1655981f6ceb128b957e8ef" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1ae40915f83de7654b2e2e6d5830f378d8" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1abbd41653f057d98af813f54b8218110e" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a660dc9ba952346efe1d878bd64ae66ca" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a18200e3b098f820ca743cc7fb430f115" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a051c241097d3741d4636849135a1ceb1" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a1e53d052356d83af4f5ecb12bcdb49bc" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1ab62f6e95ad81221474bff0c94fdb1947" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a12027c4513671d29c4ec1f445da13c20" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a397b5c4cb128d88a6868036ae142461c" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1aa09c3d30701460f329bc6ab6439b037b" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a29cdf12364e75f4ec33d57725521d6fe" kind="function"><name>TEST</name></member>
+    <member refid="test__coordinate_8cpp_1a40df6fd9dd9d2453682fbe84424237f7" kind="function"><name>TEST</name></member>
+  </compound>
   <compound refid="test__progress__tracker_8cpp" kind="file"><name>test_progress_tracker.cpp</name>
     <member refid="test__progress__tracker_8cpp_1ab1bba9e97777b2af9822b4e94d85543f" kind="function"><name>TEST</name></member>
     <member refid="test__progress__tracker_8cpp_1a3b34316f612c7555936f68e73666b337" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="timer_8hpp" kind="file"><name>timer.hpp</name>
     <member refid="timer_8hpp_1a10a0133cc00e8f784577f7a8243cf624" kind="function"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="test__vegetation_8cpp" kind="file"><name>test_vegetation.cpp</name>
+    <member refid="test__vegetation_8cpp_1af216d922161327980a05a7192c85a356" kind="function"><name>make_float_grid</name></member>
+    <member refid="test__vegetation_8cpp_1aac3ecf4b15fa2ffba4b3a1e96c8b667d" kind="function"><name>make_opt_float_grid</name></member>
+    <member refid="test__vegetation_8cpp_1a92e659bc568fb0a3b4153932535982e1" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation_8cpp_1a1831d74b8951f6856973d124a2fdd884" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation_8cpp_1a43950f4a8d20c9a48aaab391a271959c" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation_8cpp_1a0ee39fc0c58ea8275fc0a9b35109b795" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation_8cpp_1a0f425ebce13806043810e3cbc7dfad0a" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation_8cpp_1aab1f6885be2d3d7b5cd4a68c85859660" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation_8cpp_1aba45b183fedbf939b42ca447a9ee459d" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="vegetation_8hpp" kind="file"><name>vegetation.hpp</name>
     <member refid="vegetation_8hpp_1a3cbe5c44ab718a68a2e123450fd2568c" kind="function"><name>get_blocked_proportion</name></member>
@@ -1140,7 +1411,7 @@
     <member refid="process_8cpp_1a10fe7e7096d343cf6ff6a7543480b89fad586b7273e57cdd2c3d2c59b86e88f91" kind="enumvalue"><name>INTERPOLATE</name></member>
     <member refid="process_8cpp_1afed77da845e5643d82b1aea88b71849b" kind="variable"><name>OUT_LAS</name></member>
     <member refid="process_8cpp_1ad524c80bee9a4b821650ba067987dc7e" kind="function"><name>get_pixel_heights</name></member>
-    <member refid="process_8cpp_1a93a8e2cbdba3032bcb7c7cf5fb0457ed" kind="function"><name>adjust_ground_to_slope</name></member>
+    <member refid="process_8cpp_1a6986896f5e801bfba373e4c10d8b6dee" kind="function"><name>adjust_ground_to_slope</name></member>
     <member refid="process_8cpp_1a0368f25f7fa5c838dafd86b50325e5e1" kind="function"><name>process_las_file</name></member>
     <member refid="process_8cpp_1a080cbff7aa1e3753860ecef27efc07e7" kind="function"><name>process_las_data</name></member>
   </compound>
@@ -1168,6 +1439,7 @@
     <member refid="test__e2e_8cpp_1a22dfa8dbae053150c28b68e52757db8d" kind="function"><name>verify_raw_vegetation_tif</name></member>
     <member refid="test__e2e_8cpp_1a86d2e410c5fe4aa1e3ef4ba4e4a00f09" kind="function"><name>TEST_P</name></member>
     <member refid="test__e2e_8cpp_1a74a4f40b6267714ab86432f2c5313143" kind="function"><name>INSTANTIATE_TEST_SUITE_P</name></member>
+    <member refid="test__e2e_8cpp_1a2b15ca744b5a5df3dc726a8462b669d6" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__process_8cpp" kind="file"><name>test_process.cpp</name>
     <member refid="test__process_8cpp_1ace7d092747ce30d703bb843d032f0dd7" kind="function"><name>TEST</name></member>
@@ -1207,13 +1479,23 @@
   </compound>
   <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>/home/runner/work/Blaze/Blaze/src</name>
   </compound>
+  <compound refid="dir_30341ad8f18900961f37cfbd7fe13068" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/testing</name>
+  </compound>
+  <compound refid="dir_7e4ff660e0fa82332112dfaa3eba02fe" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/config_input/tests</name>
+  </compound>
   <compound refid="dir_af1ec3f63b3290d3c0b6a16b438b915c" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/contour/tests</name>
   </compound>
   <compound refid="dir_7abe1d2e6c271935b6731dcf9a13a0e9" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/grid/tests</name>
   </compound>
   <compound refid="dir_48b62e9add78df78566b95ab9cc595a8" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/io/tests</name>
   </compound>
+  <compound refid="dir_fd4bfd50a894f2f8cc4c88d12f7e8a3a" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/isom/tests</name>
+  </compound>
+  <compound refid="dir_cbe4df00df7a61fa7e328fcb8d7dc5eb" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/las/tests</name>
+  </compound>
   <compound refid="dir_61cbaf6f69b3ff38c8740f6eb1724d7a" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/utilities/tests</name>
+  </compound>
+  <compound refid="dir_f363110a8f8d8c62b28512efb8187aa9" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests</name>
   </compound>
   <compound refid="dir_bea8c7e26f40f75291ccc2650200ba17" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/methods/water/tests</name>
   </compound>

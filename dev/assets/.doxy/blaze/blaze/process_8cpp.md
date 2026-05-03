@@ -77,7 +77,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**adjust\_ground\_to\_slope**](#function-adjust_ground_to_slope) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & grid, [**double**](classCoordinate2D.md) original\_resolution) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**adjust\_ground\_to\_slope**](#function-adjust_ground_to_slope) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & grid) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**get\_pixel\_heights**](#function-get_pixel_heights) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & ground\_points, GroundMethod method=GroundMethod::LOWEST\_POINT) <br> |
 |  [**void**](classCoordinate2D.md) | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, [**const**](classCoordinate2D.md) fs::path & output\_dir, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
 |  [**void**](classCoordinate2D.md) | [**process\_las\_file**](#function-process_las_file) ([**const**](classCoordinate2D.md) fs::path & las\_filename, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
@@ -152,8 +152,7 @@ constexpr bool OUT_LAS;
 
 ```C++
 GeoGrid < double > adjust_ground_to_slope (
-    const  GeoGrid < double > & grid,
-    double original_resolution
+    const  GeoGrid < double > & grid
 ) 
 ```
 

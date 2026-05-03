@@ -23,6 +23,7 @@
 * `#include <string>`
 * `#include <vector>`
 * `#include "grid/grid.hpp"`
+* `#include "io/crs.hpp"`
 * `#include "las_point.hpp"`
 * `#include "utilities/filesystem.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
@@ -81,6 +82,8 @@
 
 | Type | Name |
 | ---: | :--- |
+|  [**Extent2D**](structExtent2D.md) | [**as\_extent2d**](#function-as_extent2d) ([**const**](classCoordinate2D.md) laspp::Bound3D & b) <br> |
+|  [**Extent3D**](structExtent3D.md) | [**as\_extent3d**](#function-as_extent3d) ([**const**](classCoordinate2D.md) laspp::Bound3D & b) <br> |
 |  T | [**average**](#function-average) (T a, T b) <br> |
 |  [**Extent2D**](structExtent2D.md) | [**border\_ranges**](#function-border_ranges) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, [**double**](classCoordinate2D.md) border\_width) <br> |
 |  std::string | [**convert\_geo\_keys\_to\_wkt**](#function-convert_geo_keys_to_wkt) ([**const**](classCoordinate2D.md) laspp::LASGeoKeys & geo\_keys) <br> |
@@ -90,6 +93,7 @@
 |  [**Extent2D**](structExtent2D.md) | [**external\_border\_ranges**](#function-external_border_ranges) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, [**double**](classCoordinate2D.md) border\_width) <br> |
 |  [**void**](classCoordinate2D.md) | [**extract\_borders**](#function-extract_borders) ([**const**](classCoordinate2D.md) fs::path & las\_filename, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
 |  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, BorderType border\_type) <br> |
+|  std::string | [**reader\_horizontal\_wkt**](#function-reader_horizontal_wkt) ([**const**](classCoordinate2D.md) laspp::LASReader & reader, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 |  [**long**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**round**](#function-round) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) resolution=1.0) <br> |
 |  std::string | [**unique\_coord\_name**](#function-unique_coord_name) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box) <br> |
 
@@ -146,6 +150,36 @@ enum BorderType {
 <hr>
 ## Public Functions Documentation
 
+
+
+
+### function as\_extent2d 
+
+```C++
+inline Extent2D as_extent2d (
+    const laspp::Bound3D & b
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function as\_extent3d 
+
+```C++
+inline Extent3D as_extent3d (
+    const laspp::Bound3D & b
+) 
+```
+
+
+
+
+<hr>
 
 
 
@@ -286,6 +320,22 @@ inline void extract_borders (
 inline std::ostream & operator<< (
     std::ostream & os,
     BorderType border_type
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function reader\_horizontal\_wkt 
+
+```C++
+inline std::string reader_horizontal_wkt (
+    const laspp::LASReader & reader,
+    const std::string & override_crs=""
 ) 
 ```
 

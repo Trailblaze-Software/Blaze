@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1073,7 +1073,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-lasfile-22"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: left;"><a href="#function-lasfile-22"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp;</td>
@@ -1151,7 +1151,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-from_las_reader"><strong>from_las_reader</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader) <br></td>
+<td style="text-align: left;"><a href="#function-from_las_reader"><strong>from_las_reader</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>
@@ -1167,8 +1167,9 @@
 <h3 id="function-lasfile-22">function LASFile [2/2]</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">explicit</span><span class="w"> </span><span class="n">LASFile</span><span class="o">::</span><span class="n">LASFile</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
@@ -1239,8 +1240,9 @@
 <h2 id="protected-functions-documentation">Protected Functions Documentation</h2>
 <h3 id="function-from_las_reader">function from_las_reader</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASFile</span><span class="o">::</span><span class="n">from_las_reader</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">laspp</span><span class="o">::</span><span class="n">LASReader</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">reader</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">laspp</span><span class="o">::</span><span class="n">LASReader</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

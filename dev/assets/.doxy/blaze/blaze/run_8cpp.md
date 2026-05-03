@@ -21,6 +21,7 @@
 * `#include "grid/grid.hpp"`
 * `#include "io/gpkg.hpp"`
 * `#include "las/las_file.hpp"`
+* `#include "las/tile_mode.hpp"`
 * `#include "methods/water/water.hpp"`
 * `#include "printing/to_string.hpp"`
 * `#include "process.hpp"`

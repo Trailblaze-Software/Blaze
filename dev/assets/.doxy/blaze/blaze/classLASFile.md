@@ -53,7 +53,7 @@ Inherited by the following classes: [LASData](classLASData.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**LASFile**](#function-lasfile-12) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**LASFile**](#function-lasfile-22) ([**const**](classCoordinate2D.md) fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|   | [**LASFile**](#function-lasfile-22) ([**const**](classCoordinate2D.md) fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 |  [**const**](classCoordinate2D.md) [**Extent3D**](structExtent3D.md) & | [**bounds**](#function-bounds) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**export\_bounds**](#function-export_bounds) () const<br> |
 |  [**double**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
@@ -99,7 +99,7 @@ Inherited by the following classes: [LASData](classLASData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**from\_las\_reader**](#function-from_las_reader) ([**const**](classCoordinate2D.md) laspp::LASReader & reader) <br> |
+|  [**void**](classCoordinate2D.md) | [**from\_las\_reader**](#function-from_las_reader) ([**const**](classCoordinate2D.md) laspp::LASReader & reader, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 
 
 
@@ -130,7 +130,8 @@ inline explicit LASFile::LASFile (
 ```C++
 inline explicit LASFile::LASFile (
     const fs::path & filename,
-    ProgressTracker progress_tracker
+    ProgressTracker progress_tracker,
+    const std::string & override_crs=""
 ) 
 ```
 
@@ -318,7 +319,8 @@ laspp::QuadtreeSpatialIndex LASFile::m_spatial_index;
 
 ```C++
 inline void LASFile::from_las_reader (
-    const laspp::LASReader & reader
+    const laspp::LASReader & reader,
+    const std::string & override_crs=""
 ) 
 ```
 

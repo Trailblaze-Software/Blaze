@@ -16,6 +16,7 @@
 * `#include "contour/contour.hpp"`
 * `#include "io/gpkg.hpp"`
 * `#include "polyline/polyline.hpp"`
+* `#include "testing/output_dir.hpp"`
 * `#include "utilities/coordinate.hpp"`
 * `#include "utilities/filesystem.hpp"`
 

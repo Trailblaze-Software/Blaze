@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1065,11 +1065,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;">define</td>
-<td style="text-align: left;"><a href="./#define-assert"><strong>Assert</strong></a> (condition, ...) <code>[**if**](classCoordinate2D.md) (!([**condition**](classCoordinate2D.md))) \_Assert([**condition**](classCoordinate2D.md), #[**condition**](classCoordinate2D.md), std::optional&amp;lt;std::string&amp;gt;([**\_\_VA\_ARGS\_\_**](classCoordinate2D.md)));</code><br></td>
+<td style="text-align: left;"><a href="./#define-assert"><strong>Assert</strong></a> (condition, ...) <code>/* multi line expression */</code><br></td>
 </tr>
 <tr>
 <td style="text-align: right;">define</td>
-<td style="text-align: left;"><a href="./#define-assertbinop"><strong>AssertBinOp</strong></a> (a, b, op, nop) <code>[**if**](classCoordinate2D.md) (!(([**a**](classCoordinate2D.md))[**op**](classCoordinate2D.md)([**b**](classCoordinate2D.md)))) \_AssertBinOp([**a**](classCoordinate2D.md), [**b**](classCoordinate2D.md), #[**a**](classCoordinate2D.md), #[**b**](classCoordinate2D.md), [**a**](classCoordinate2D.md) [**op**](classCoordinate2D.md) [**b**](classCoordinate2D.md), #[**op**](classCoordinate2D.md), #[**nop**](classCoordinate2D.md))</code><br></td>
+<td style="text-align: left;"><a href="./#define-assertbinop"><strong>AssertBinOp</strong></a> (a, b, op, nop) <code>/* multi line expression */</code><br></td>
 </tr>
 <tr>
 <td style="text-align: right;">define</td>
@@ -1101,7 +1101,7 @@
 </tr>
 <tr>
 <td style="text-align: right;">define</td>
-<td style="text-align: left;"><a href="./#define-unimplemented"><strong>Unimplemented</strong></a> (...) <code>Assert([**false**](classCoordinate2D.md), "Unimplemented");</code><br></td>
+<td style="text-align: left;"><a href="./#define-unimplemented"><strong>Unimplemented</strong></a> (...) <code>Assert([**false**](classCoordinate2D.md), "Unimplemented")</code><br></td>
 </tr>
 </tbody>
 </table>
@@ -1140,7 +1140,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#define Assert (</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">condition</span><span class="p">,</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p">...</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="p">))</span><span class="w"> </span><span class="n">_Assert</span><span class="p">(</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="w"> </span><span class="n">__VA_ARGS__</span><span class="w"> </span><span class="p">));</span><span class="err">`</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="cm">/* multi line expression */</span><span class="err">`</span>
 </code></pre></div>
 <hr>
 
@@ -1150,7 +1150,7 @@
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">b</span><span class="p">,</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">op</span><span class="p">,</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">nop</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">((</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">)))</span><span class="w"> </span><span class="n">_AssertBinOp</span><span class="p">(</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w">  </span><span class="n">op</span><span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">nop</span><span class="w"> </span><span class="p">)</span><span class="err">`</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="cm">/* multi line expression */</span><span class="err">`</span>
 </code></pre></div>
 <hr>
 
@@ -1211,7 +1211,7 @@
 <h3 id="define-unimplemented">define Unimplemented</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">#define Unimplemented (</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="p">...</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="n">Assert</span><span class="p">(</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unimplemented&quot;</span><span class="p">);</span><span class="err">`</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="n">Assert</span><span class="p">(</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unimplemented&quot;</span><span class="p">)</span><span class="err">`</span>
 </code></pre></div>
 <hr>
 

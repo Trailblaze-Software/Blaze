@@ -110,6 +110,7 @@ See [Extent2D](structExtent2D.md)
 | ---: | :--- |
 |  [**bool**](classCoordinate2D.md) | [**contains**](structExtent2D.md#function-contains) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) y) const<br> |
 |  [**void**](classCoordinate2D.md) | [**grow**](structExtent2D.md#function-grow) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) <br> |
+|  [**bool**](classCoordinate2D.md) | [**overlaps**](structExtent2D.md#function-overlaps) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) const<br> |
 
 
 

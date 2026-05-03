@@ -66,6 +66,7 @@ Inherited by the following classes: [Coordinate3D](classCoordinate3D.md),  [Coor
 |  [**bool**](classCoordinate2D.md) | [**operator==**](#function-operator_2) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md) & o) const<br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**round**](#function-round) () const<br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**round\_NW**](#function-round_nw) ([**double**](classCoordinate2D.md) grid\_size) const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**round\_down**](#function-round_down) () const<br> |
 |  [**const**](classCoordinate2D.md) T & | [**x**](#function-x-12) () const<br> |
 |  T & | [**x**](#function-x-22) () <br> |
 |  [**const**](classCoordinate2D.md) T & | [**y**](#function-y-12) () const<br> |
@@ -264,6 +265,19 @@ inline Coordinate2D < size_t > Coordinate2D::round () const
 inline Coordinate2D < double > Coordinate2D::round_NW (
     double grid_size
 ) const
+```
+
+
+
+
+<hr>
+
+
+
+### function round\_down 
+
+```C++
+inline Coordinate2D < size_t > Coordinate2D::round_down () const
 ```
 
 

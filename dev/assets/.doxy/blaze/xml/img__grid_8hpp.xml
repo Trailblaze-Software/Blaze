@@ -154,6 +154,8 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
         <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
@@ -292,7 +294,7 @@
 <codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="classImgGrid" kindref="compound">ImgGrid</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>height,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>width,<sp/>std::optional&lt;int&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">type</ref><sp/>=<sp/>{});</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classImgGrid" kindref="compound">~ImgGrid</ref>();</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>save_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>save_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>path);</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>get_rgb_color(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">row</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">col</ref>)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="22"><highlight class="normal">};</highlight></codeline>
@@ -314,7 +316,7 @@
 <codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>draw(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">in_points</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ColorVariant&amp;<sp/>color,</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>width);</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>save_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">path</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>save_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent);</highlight></codeline>
 <codeline lineno="42"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp"/>

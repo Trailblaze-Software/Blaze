@@ -34,66 +34,107 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
   return contour_heights;
 }
 
-inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist = 15.0) {
-  const double max_dist2 = max_dist * max_dist;
-
-  // Only consider the two cases that allow joining without reversal:
-  // a.back ↔ b.front (append) and a.front ↔ b.back (prepend)
-  struct JoiningOption {
-    bool use_front_a;  // true = prepend to a.front, false = append to a.back
-    bool use_front_b;  // true = b.front matches, false = b.back matches
+inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist) {
+  const double max_dist_sqd = max_dist * max_dist;
+  // Orientation-preserving endpoint pairings only (no reversing polylines):
+  //   {back_a, front_b} → append b to a; {front_a, back_b} → prepend b onto a.
+  struct JoinOrientation {
+    bool use_front_a;
+    bool use_front_b;
   };
-  static constexpr JoiningOption cases[] = {
-      {false, true},  // a.back   ↔ b.front (append b forward)
-      {true, false},  // a.front  ↔ b.back (prepend b forward)
+  static constexpr JoinOrientation legal_joins[] = {{false, true}, {true, false}};
+
+  auto append_contour = [](Contour& target, Contour&& source, JoinOrientation join) {
+    auto& target_pts = target.points();
+    const auto& source_pts = source.points();
+    const auto& target_end = join.use_front_a ? target_pts.front() : target_pts.back();
+    const auto& source_end = join.use_front_b ? source_pts.front() : source_pts.back();
+    const bool shared_endpoint = (target_end - source_end).magnitude_sqd() < 1e-8;
+    if (join.use_front_a) {
+      std::vector<Coordinate2D<double>> result = source_pts;
+      result.insert(
+          result.end(),
+          (shared_endpoint && target_pts.size() > 1) ? target_pts.begin() + 1 : target_pts.begin(),
+          target_pts.end());
+      target_pts = std::move(result);
+    } else {
+      target_pts.insert(
+          target_pts.end(),
+          (shared_endpoint && source_pts.size() > 1) ? source_pts.begin() + 1 : source_pts.begin(),
+          source_pts.end());
+    }
   };
 
-  bool did_any_join = true;
-  std::vector<Contour> next_round;
+  for (bool progressed = true; progressed;) {
+    progressed = false;
+    const int n = static_cast<int>(contours.size());
+    if (n < 2) {
+      break;
+    }
 
-  while (did_any_join) {
-    did_any_join = false;
-    next_round.clear();
+    std::vector<int> nearest_idx(n, -1);
+    std::vector<double> nearest_dist_sqd(n, max_dist_sqd);
+    std::vector<JoinOrientation> nearest_join(n);
 
-    for (auto& src : contours) {
-      const auto& b = src.points();
-
-      double best_d2 = max_dist2;
-      int best_idx = -1;
-      JoiningOption best_case{};
-      for (int i = 0; i < (int)next_round.size(); ++i) {
-        const auto& a = next_round[i].points();
-        for (JoiningOption c : cases) {
-          const auto& pa = (c.use_front_a ? a.front() : a.back());
-          const auto& pb = (c.use_front_b ? b.front() : b.back());
-          double d2 = (pa - pb).magnitude_sqd();
-          if (d2 < best_d2) {
-            best_d2 = d2;
-            best_idx = i;
-            best_case = c;
+    for (int i = 0; i < n; ++i) {
+      if (contours[i].is_loop()) {
+        continue;
+      }
+      const auto& pts_i = contours[i].points();
+      for (int j = 0; j < n; ++j) {
+        if (i == j || contours[j].is_loop()) {
+          continue;
+        }
+        const auto& pts_j = contours[j].points();
+        for (JoinOrientation join : legal_joins) {
+          const auto& endpoint_i = join.use_front_a ? pts_i.front() : pts_i.back();
+          const auto& endpoint_j = join.use_front_b ? pts_j.front() : pts_j.back();
+          const double dist_sqd = (endpoint_i - endpoint_j).magnitude_sqd();
+          if (dist_sqd < nearest_dist_sqd[i]) {
+            nearest_dist_sqd[i] = dist_sqd;
+            nearest_idx[i] = j;
+            nearest_join[i] = join;
           }
         }
       }
-      if (best_idx >= 0) {
-        auto& acc = next_round[best_idx].points();
-        // Join without reversing: only two cases are considered
-        if (best_case.use_front_a) {
-          // a.front ↔ b.back: prepend b forward (skip duplicate join point b.back)
-          if (b.size() > 1) {
-            acc.insert(acc.begin(), b.begin(), b.end() - 1);
-          }
-        } else {
-          // a.back ↔ b.front: append b forward (skip duplicate join point b.front)
-          if (b.size() > 1) {
-            acc.insert(acc.end(), b.begin() + 1, b.end());
-          }
-        }
-        did_any_join = true;
+    }
+
+    std::vector<char> used(n, 0);
+    std::vector<Contour> next_round;
+    next_round.reserve(static_cast<size_t>(n));
+
+    for (int i = 0; i < n; ++i) {
+      if (used[i]) {
+        continue;
+      }
+      const int j = nearest_idx[i];
+      if (j >= 0 && !used[j] && nearest_idx[j] == i && nearest_dist_sqd[i] < max_dist_sqd &&
+          i < j) {
+        Contour& target = contours[i];
+        append_contour(target, std::move(contours[j]), nearest_join[i]);
+        used[i] = used[j] = 1;
+        next_round.emplace_back(std::move(target));
+        progressed = true;
       } else {
-        next_round.emplace_back(std::move(src));
+        next_round.emplace_back(std::move(contours[i]));
       }
     }
     contours = std::move(next_round);
+  }
+
+  // Snap nearly-closed loops after all cross-contour joins are done.
+  for (Contour& c : contours) {
+    if (c.is_loop()) {
+      continue;
+    }
+    auto& pts = c.points();
+    if (pts.size() < 2) {
+      continue;
+    }
+    const double gap_sqd = (pts.front() - pts.back()).magnitude_sqd();
+    if (gap_sqd < max_dist_sqd) {
+      c.close_loop();
+    }
   }
 
   return contours;

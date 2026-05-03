@@ -15,15 +15,23 @@
 * `#include <QColorDialog>`
 * `#include <QDoubleValidator>`
 * `#include <QFileDialog>`
+* `#include <QFrame>`
 * `#include <QIntValidator>`
 * `#include <QListWidget>`
 * `#include <QPainter>`
 * `#include <QPushButton>`
+* `#include <QScrollArea>`
+* `#include <QSet>`
 * `#include <QSpinBox>`
+* `#include <QTabWidget>`
 * `#include <QTableWidget>`
 * `#include <filesystem>`
+* `#include <set>`
 * `#include "assert/assert.hpp"`
 * `#include "config_input/config_input.hpp"`
+* `#include "io/crs.hpp"`
+* `#include "las/tile_mode.hpp"`
+* `#include "las_reader.hpp"`
 * `#include "printing/to_string.hpp"`
 * `#include "ui_config_editor.h"`
 

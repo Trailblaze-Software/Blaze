@@ -107,7 +107,7 @@ See [LASData](classLASData.md)
 | ---: | :--- |
 |   | [**LASData**](classLASData.md#function-lasdata-13) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & projection) <br> |
 |   | [**LASData**](classLASData.md#function-lasdata-23) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid) <br> |
-|   | [**LASData**](classLASData.md#function-lasdata-33) ([**const**](classCoordinate2D.md) fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**bool**](classCoordinate2D.md) skip\_reading\_points=[**false**](classCoordinate2D.md), std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt) <br> |
+|   | [**LASData**](classLASData.md#function-lasdata-33) ([**const**](classCoordinate2D.md) fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**bool**](classCoordinate2D.md) skip\_reading\_points=[**false**](classCoordinate2D.md), std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 |  [**auto**](classCoordinate2D.md) | [**begin**](classLASData.md#function-begin) () <br> |
 |  [**auto**](classCoordinate2D.md) | [**end**](classLASData.md#function-end) () <br> |
 |  [**void**](classCoordinate2D.md) | [**extract\_borders**](classLASData.md#function-extract_borders) ([**const**](classCoordinate2D.md) fs::path & tmp\_dir, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) const<br> |
@@ -127,7 +127,7 @@ See [LASFile](classLASFile.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**LASFile**](classLASFile.md#function-lasfile-12) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**LASFile**](classLASFile.md#function-lasfile-22) ([**const**](classCoordinate2D.md) fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|   | [**LASFile**](classLASFile.md#function-lasfile-22) ([**const**](classCoordinate2D.md) fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 |  [**const**](classCoordinate2D.md) [**Extent3D**](structExtent3D.md) & | [**bounds**](classLASFile.md#function-bounds) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**export\_bounds**](classLASFile.md#function-export_bounds) () const<br> |
 |  [**double**](classCoordinate2D.md) | [**height**](classLASFile.md#function-height) () const<br> |
@@ -146,8 +146,8 @@ See [LASData](classLASData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-12) ([**const**](classCoordinate2D.md) fs::path & filename, [**double**](classCoordinate2D.md) border\_width, [**const**](classCoordinate2D.md) std::vector&lt; std::pair&lt; [**Extent3D**](structExtent3D.md), fs::path &gt; &gt; & all\_las\_file\_extents, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
-|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-22) ([**const**](classCoordinate2D.md) fs::path & filename, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-12) ([**const**](classCoordinate2D.md) fs::path & filename, [**double**](classCoordinate2D.md) border\_width, [**const**](classCoordinate2D.md) std::vector&lt; std::pair&lt; [**Extent3D**](structExtent3D.md), fs::path &gt; &gt; & all\_las\_file\_extents, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
+|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-22) ([**const**](classCoordinate2D.md) fs::path & filename, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 
 
 
@@ -240,7 +240,7 @@ See [LASFile](classLASFile.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**from\_las\_reader**](classLASFile.md#function-from_las_reader) ([**const**](classCoordinate2D.md) laspp::LASReader & reader) <br> |
+|  [**void**](classCoordinate2D.md) | [**from\_las\_reader**](classLASFile.md#function-from_las_reader) ([**const**](classCoordinate2D.md) laspp::LASReader & reader, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 
 
 

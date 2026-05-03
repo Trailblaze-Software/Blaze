@@ -52,6 +52,7 @@
 | Type | Name |
 | ---: | :--- |
 |   | [**Contour**](#function-contour) ([**double**](classCoordinate2D.md) height, std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; && points) <br> |
+|  [**void**](classCoordinate2D.md) | [**close\_loop**](#function-close_loop) () <br> |
 |  [**double**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
 |  [**bool**](classCoordinate2D.md) | [**is\_loop**](#function-is_loop) () const<br> |
 |  [**void**](classCoordinate2D.md) | [**orient\_consistent**](#function-orient_consistent) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & elevation\_grid) <br> |
@@ -105,6 +106,19 @@ inline Contour::Contour (
     double height,
     std::vector< Coordinate2D < double > > && points
 ) 
+```
+
+
+
+
+<hr>
+
+
+
+### function close\_loop 
+
+```C++
+inline void Contour::close_loop () 
 ```
 
 

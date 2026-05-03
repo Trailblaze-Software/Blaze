@@ -96,8 +96,8 @@
 
 | Type | Name |
 | ---: | :--- |
-| define  | [**Assert**](assert_8hpp.md#define-assert) (condition, ...) `[**if**](classCoordinate2D.md) (!([**condition**](classCoordinate2D.md))) \_Assert([**condition**](classCoordinate2D.md), #[**condition**](classCoordinate2D.md), std::optional&lt;std::string&gt;([**\_\_VA\_ARGS\_\_**](classCoordinate2D.md)));`<br> |
-| define  | [**AssertBinOp**](assert_8hpp.md#define-assertbinop) (a, b, op, nop) `[**if**](classCoordinate2D.md) (!(([**a**](classCoordinate2D.md))[**op**](classCoordinate2D.md)([**b**](classCoordinate2D.md)))) \_AssertBinOp([**a**](classCoordinate2D.md), [**b**](classCoordinate2D.md), #[**a**](classCoordinate2D.md), #[**b**](classCoordinate2D.md), [**a**](classCoordinate2D.md) [**op**](classCoordinate2D.md) [**b**](classCoordinate2D.md), #[**op**](classCoordinate2D.md), #[**nop**](classCoordinate2D.md))`<br> |
+| define  | [**Assert**](assert_8hpp.md#define-assert) (condition, ...) `/* multi line expression */`<br> |
+| define  | [**AssertBinOp**](assert_8hpp.md#define-assertbinop) (a, b, op, nop) `/* multi line expression */`<br> |
 | define  | [**AssertEQ**](assert_8hpp.md#define-asserteq) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), ==, !=)`<br> |
 | define  | [**AssertGE**](assert_8hpp.md#define-assertge) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), &gt;=, &lt;)`<br> |
 | define  | [**AssertGT**](assert_8hpp.md#define-assertgt) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), &gt;, &lt;=)`<br> |
@@ -105,7 +105,7 @@
 | define  | [**AssertNE**](assert_8hpp.md#define-assertne) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), !=, ==)`<br> |
 | define  | [**Fail**](assert_8hpp.md#define-fail) (...) `/* multi line expression */`<br> |
 | define  | [**HAS\_BUILTIN**](assert_8hpp.md#define-has_builtin) (x) `[**\_\_has\_builtin**](classCoordinate2D.md)(x)`<br> |
-| define  | [**Unimplemented**](assert_8hpp.md#define-unimplemented) (...) `Assert([**false**](classCoordinate2D.md), "Unimplemented");`<br> |
+| define  | [**Unimplemented**](assert_8hpp.md#define-unimplemented) (...) `Assert([**false**](classCoordinate2D.md), "Unimplemented")`<br> |
 
 ## Public Functions Documentation
 
@@ -175,7 +175,7 @@ inline void unreachable ()
 #define Assert (
     condition,
     ...
-) `if (!( condition )) _Assert( condition , # condition , std::optional<std::string>( __VA_ARGS__ ));`
+) `/* multi line expression */`
 ```
 
 
@@ -193,7 +193,7 @@ inline void unreachable ()
     b,
     op,
     nop
-) `if (!(( a ) op ( b ))) _AssertBinOp( a , b , # a , # b , a  op  b , # op , # nop )`
+) `/* multi line expression */`
 ```
 
 
@@ -318,7 +318,7 @@ inline void unreachable ()
 ```C++
 #define Unimplemented (
     ...
-) `Assert( false , "Unimplemented");`
+) `Assert( false , "Unimplemented")`
 ```
 
 

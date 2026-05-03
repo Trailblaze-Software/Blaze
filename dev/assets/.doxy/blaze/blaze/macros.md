@@ -12,6 +12,16 @@
 * **AssertGT** ([**assert.hpp**](assert_8hpp.md))
 * **AssertLE** ([**assert.hpp**](assert_8hpp.md))
 * **AssertNE** ([**assert.hpp**](assert_8hpp.md))
+* **ABS\_CONFIG\_DIR** ([**test\_config\_paths.cpp**](test__config__paths_8cpp.md))
+* **ABS\_CONFIG\_DIR2** ([**test\_config\_paths.cpp**](test__config__paths_8cpp.md))
+* **ABS\_FILE1** ([**test\_config\_paths.cpp**](test__config__paths_8cpp.md))
+* **ABS\_FILE2** ([**test\_config\_paths.cpp**](test__config__paths_8cpp.md))
+* **ABS\_OUTPUT** ([**test\_config\_paths.cpp**](test__config__paths_8cpp.md))
+
+
+## b
+
+* **BLAZE\_TEST\_GETPID** ([**output\_dir.hpp**](output__dir_8hpp.md))
 
 
 ## c

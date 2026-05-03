@@ -5,13 +5,17 @@
 
 ## a
 
+* **as\_extent2d** ([**las\_file.hpp**](las__file_8hpp.md))
+* **as\_extent3d** ([**las\_file.hpp**](las__file_8hpp.md))
 * **average** ([**las\_file.hpp**](las__file_8hpp.md))
+* **analyze\_extents** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **adjust\_ground\_to\_slope** ([**process.cpp**](process_8cpp.md))
 
 
 ## b
 
 * **bool\_grid** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **build\_compound\_crs\_wkt** ([**crs.hpp**](crs_8hpp.md))
 * **border\_ranges** ([**las\_file.hpp**](las__file_8hpp.md))
 
 
@@ -20,8 +24,10 @@
 * **color\_equals** ([**config\_editor.cpp**](config__editor_8cpp.md))
 * **create\_color\_icon** ([**config\_editor.cpp**](config__editor_8cpp.md))
 * **crosses\_contour** ([**contour.hpp**](contour_8hpp.md))
+* **coord** ([**test\_grid.cpp**](test__grid_8cpp.md))
 * **convert\_geo\_keys\_to\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
 * **copy\_from** ([**las\_file.hpp**](las__file_8hpp.md))
+* **compute\_tiles** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **catchment\_size** ([**water.cpp**](water_8cpp.md))
 * **create\_minimal\_test\_config** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **create\_synthetic\_las\_data** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
@@ -32,6 +38,7 @@
 
 * **deg2rad** ([**camera.hpp**](camera_8hpp.md))
 * **downsample** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **detect\_tile\_mode\_needed** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **double\_to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
 
 
@@ -85,16 +92,22 @@
 
 ## l
 
+* **load\_input\_extents** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **low\_pass** ([**vegetation.hpp**](vegetation_8hpp.md))
 
 
 ## m
 
 * **main** ([**main.cpp**](main_8cpp.md), [**main\_3d.cpp**](main__3d_8cpp.md), [**blaze.cpp**](blaze_8cpp.md), [**unit\_tests.cpp**](unit__tests_8cpp.md))
+* **make\_projection\_from\_wkt** ([**crs.hpp**](crs_8hpp.md))
+* **make\_coord\_transform** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **make\_float\_grid** ([**test\_vegetation.cpp**](test__vegetation_8cpp.md))
+* **make\_opt\_float\_grid** ([**test\_vegetation.cpp**](test__vegetation_8cpp.md))
 
 
 ## n
 
+* **normalize\_crs\_wkt** ([**crs.hpp**](crs_8hpp.md))
 * **num\_cells\_by\_distance** ([**process.hpp**](process_8hpp.md))
 
 
@@ -116,7 +129,10 @@
 * **round\_down** ([**contour.hpp**](contour_8hpp.md))
 * **remove\_outliers** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **read\_gpkg** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **reader\_horizontal\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
 * **round** ([**las\_file.hpp**](las__file_8hpp.md))
+* **read\_tile\_from\_inputs** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **reproject\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **read\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **run\_loop** ([**progress\_tracker\_helper.cpp**](progress__tracker__helper_8cpp.md), [**progress\_tracker.hpp**](progress__tracker_8hpp.md))
 * **run\_with\_config** ([**run.cpp**](run_8cpp.md), [**run.hpp**](run_8hpp.md))
@@ -125,6 +141,8 @@
 ## s
 
 * **same\_type\_different\_size** ([**grid.cpp**](grid_8cpp.md))
+* **snap\_down** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **snap\_up** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **slope** ([**hill\_shade.hpp**](hill__shade_8hpp.md))
 * **smoothify** ([**water.cpp**](water_8cpp.md))
 * **stream\_path** ([**water.cpp**](water_8cpp.md))
@@ -134,10 +152,12 @@
 
 ## t
 
-* **TEST** ([**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
+* **TEST** ([**test\_config\_lookup.cpp**](test__config__lookup_8cpp.md), [**test\_config\_paths.cpp**](test__config__paths_8cpp.md), [**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_ops.cpp**](test__contour__ops_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_grid.cpp**](test__grid_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_colors.cpp**](test__colors_8cpp.md), [**test\_las\_file.cpp**](test__las__file_8cpp.md), [**test\_las\_point.cpp**](test__las__point_8cpp.md), [**test\_coordinate.cpp**](test__coordinate_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_vegetation.cpp**](test__vegetation_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
 * **trim\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **try\_user\_crs\_to\_wkt** ([**crs.hpp**](crs_8hpp.md))
 * **to\_cmyk** ([**colors.hpp**](colors_8hpp.md))
 * **to\_rgb** ([**colors.hpp**](colors_8hpp.md))
+* **tiles\_per\_file** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
 * **TEST\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 
@@ -145,7 +165,9 @@
 ## u
 
 * **unreachable** ([**assert.hpp**](assert_8hpp.md))
+* **user\_crs\_to\_wkt** ([**crs.hpp**](crs_8hpp.md))
 * **unique\_coord\_name** ([**las\_file.hpp**](las__file_8hpp.md))
+* **union\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 
 
 ## v
@@ -158,6 +180,7 @@
 ## w
 
 * **write\_to\_crt** ([**crt.hpp**](crt_8hpp.md))
+* **wkt\_matches** ([**crs.hpp**](crs_8hpp.md))
 * **write\_to\_image\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **write\_to\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 

@@ -138,6 +138,14 @@ class Contour {
     }
   }
 
+  // Snap the back endpoint onto the front to close a near-loop. No-op if the
+  // contour has fewer than two points.
+  void close_loop() {
+    if (m_points.size() < 2) return;
+    m_points.back() = m_points.front();
+    m_is_loop = true;
+  }
+
   friend std::ostream& operator<<(std::ostream& os, const Contour& contour) {
     os << "Contour at height " << contour.height() << " with " << contour.points().size()
        << " points";

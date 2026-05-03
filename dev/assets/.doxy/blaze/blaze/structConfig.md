@@ -42,9 +42,11 @@
 |  [**GroundConfig**](structGroundConfig.md) | [**ground**](#variable-ground)  <br> |
 |  std::vector&lt; fs::path &gt; | [**las\_files**](#variable-las_files)  <br> |
 |  fs::path | [**output\_directory**](#variable-output_directory)  <br> |
+|  std::string | [**override\_crs**](#variable-override_crs)  <br> |
 |  std::set&lt; ProcessingStep &gt; | [**processing\_steps**](#variable-processing_steps)  <br> |
 |  fs::path | [**relative\_path\_to\_config**](#variable-relative_path_to_config)  <br> |
 |  [**RenderConfig**](structRenderConfig.md) | [**render**](#variable-render)  <br> |
+|  [**double**](classCoordinate2D.md) | [**tile\_size**](#variable-tile_size)   = `0.0`<br> |
 |  [**VegeConfig**](structVegeConfig.md) | [**vege**](#variable-vege)  <br> |
 |  [**WaterConfigs**](structWaterConfigs.md) | [**water**](#variable-water)  <br> |
 
@@ -206,6 +208,19 @@ fs::path Config::output_directory;
 
 
 
+### variable override\_crs 
+
+```C++
+std::string Config::override_crs;
+```
+
+
+
+
+<hr>
+
+
+
 ### variable processing\_steps 
 
 ```C++
@@ -236,6 +251,19 @@ fs::path Config::relative_path_to_config;
 
 ```C++
 RenderConfig Config::render;
+```
+
+
+
+
+<hr>
+
+
+
+### variable tile\_size 
+
+```C++
+double Config::tile_size;
 ```
 
 

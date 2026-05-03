@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -998,7 +998,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASData/#function-lasdata-33"><strong>LASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> skip_reading_points=<a href="../classCoordinate2D/"><strong>false</strong></a>, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt) <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-lasdata-33"><strong>LASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> skip_reading_points=<a href="../classCoordinate2D/"><strong>false</strong></a>, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>auto</strong></a></td>
@@ -1058,7 +1058,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp;</td>
@@ -1106,11 +1106,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-with_border-12"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-with_border-12"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-with_border-22"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-with_border-22"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>
@@ -1174,7 +1174,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-from_las_reader"><strong>from_las_reader</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader) <br></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-from_las_reader"><strong>from_las_reader</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>

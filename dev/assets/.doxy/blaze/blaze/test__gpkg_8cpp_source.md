@@ -16,13 +16,14 @@
 #include "contour/contour.hpp"
 #include "io/gpkg.hpp"
 #include "polyline/polyline.hpp"
+#include "testing/output_dir.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/filesystem.hpp"
 
 // Test GPKGWriter basic functionality
 TEST(GPKG, WriteAndReadContours) {
   // Create a temporary file path
-  fs::path test_file = fs::temp_directory_path() / "test_contours.gpkg";
+  fs::path test_file = blaze::test::unique_test_output_path("contours", ".gpkg");
 
   // Clean up if file exists
   if (fs::exists(test_file)) {
@@ -82,7 +83,7 @@ TEST(GPKG, WriteAndReadContours) {
 
 // Test GPKGWriter with multiple layers
 TEST(GPKG, MultipleLayers) {
-  fs::path test_file = fs::temp_directory_path() / "test_multilayer.gpkg";
+  fs::path test_file = blaze::test::unique_test_output_path("multilayer", ".gpkg");
 
   if (fs::exists(test_file)) {
     fs::remove(test_file);
@@ -119,7 +120,7 @@ TEST(GPKG, MultipleLayers) {
 
 // Test GPKGWriter with different field types
 TEST(GPKG, DifferentFieldTypes) {
-  fs::path test_file = fs::temp_directory_path() / "test_fields.gpkg";
+  fs::path test_file = blaze::test::unique_test_output_path("fields", ".gpkg");
 
   if (fs::exists(test_file)) {
     fs::remove(test_file);
@@ -154,7 +155,7 @@ TEST(GPKG, DifferentFieldTypes) {
 
 // Test read_gpkg with non-existent file
 TEST(GPKG, ReadNonExistentFile) {
-  fs::path test_file = fs::temp_directory_path() / "nonexistent.gpkg";
+  fs::path test_file = blaze::test::unique_test_output_path("nonexistent", ".gpkg");
 
   // Ensure file doesn't exist
   if (fs::exists(test_file)) {
@@ -167,7 +168,7 @@ TEST(GPKG, ReadNonExistentFile) {
 
 // Test read_gpkg with empty file (not a valid GPKG)
 TEST(GPKG, ReadEmptyFile) {
-  fs::path test_file = fs::temp_directory_path() / "empty.gpkg";
+  fs::path test_file = blaze::test::unique_test_output_path("empty", ".gpkg");
 
   if (fs::exists(test_file)) {
     fs::remove(test_file);

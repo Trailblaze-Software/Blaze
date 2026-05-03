@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1086,8 +1086,10 @@
 <ul>
 <li><strong>AsyncLASData</strong> (<a href="../classAsyncLASData/"><strong>AsyncLASData</strong></a>)</li>
 <li><strong>AsyncProgressTracker</strong> (<a href="../classAsyncProgressTracker/"><strong>AsyncProgressTracker</strong></a>)</li>
+<li><strong>activate_tab_containing</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>add_layer</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>, <a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>, <a href="../classMain3DWindow/"><strong>Main3DWindow</strong></a>)</li>
 <li><strong>add_progress_tracker</strong> (<a href="../classMain3DWindow/"><strong>Main3DWindow</strong></a>)</li>
+<li><strong>any_overlap</strong> (<a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a>)</li>
 </ul>
 <h2 id="b">b</h2>
 <ul>
@@ -1099,6 +1101,8 @@
 <li><strong>bin_resolution</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
 <li><strong>begin</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>bounds</strong> (<a href="../classLASFile/"><strong>LASFile</strong></a>)</li>
+<li><strong>bounds_native</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
+<li><strong>bounds_reprojected</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>background_color</strong> (<a href="../structVegeConfig/"><strong>VegeConfig</strong></a>)</li>
 </ul>
 <h2 id="c">c</h2>
@@ -1112,6 +1116,7 @@
 <li><strong>contours</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>ConfigEditor</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>Contour</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
+<li><strong>close_loop</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
 <li><strong>ContourConfigs</strong> (<a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>)</li>
 <li><strong>configs</strong> (<a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>, <a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a>)</li>
 <li><strong>ContourPoint</strong> (<a href="../classContourPoint/"><strong>ContourPoint</strong></a>)</li>
@@ -1119,7 +1124,10 @@
 <li><strong>Coordinate3D</strong> (<a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>)</li>
 <li><strong>contains</strong> (<a href="../structExtent2D/"><strong>Extent2D</strong></a>)</li>
 <li><strong>center</strong> (<a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
+<li><strong>compound_wkt</strong> (<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>)</li>
 <li><strong>copy_from</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
+<li><strong>contour_dem_resolution</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
+<li><strong>contour_downsample_factor</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
 <li><strong>classification</strong> (<a href="../classLASPoint/"><strong>LASPoint</strong></a>)</li>
 <li><strong>create</strong> (<a href="../classLayerRenderer/"><strong>LayerRenderer</strong></a>)</li>
 <li><strong>crossing_dir</strong> (<a href="../classLineCoord2DCrossing/"><strong>LineCoord2DCrossing</strong></a>)</li>
@@ -1128,6 +1136,7 @@
 <li><strong>catchment</strong> (<a href="../structStream/"><strong>Stream</strong></a>, <a href="../structWaterConfig/"><strong>WaterConfig</strong></a>)</li>
 <li><strong>coords</strong> (<a href="../structStream/"><strong>Stream</strong></a>)</li>
 <li><strong>clone</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
+<li><strong>crs_mismatch</strong> (<a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a>)</li>
 <li><strong>colors</strong> (<a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>config_from_catchment</strong> (<a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a>)</li>
 </ul>
@@ -1156,11 +1165,12 @@
 <ul>
 <li><strong>Extent3D</strong> (<a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
 <li><strong>ensure_initialized</strong> (<a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>)</li>
-<li><strong>extent</strong> (<a href="../classGeo/"><strong>Geo</strong></a>, <a href="../classLASLayer/"><strong>LASLayer</strong></a>, <a href="../classLayer/"><strong>Layer</strong></a>)</li>
+<li><strong>extent</strong> (<a href="../classGeo/"><strong>Geo</strong></a>, <a href="../classLASLayer/"><strong>LASLayer</strong></a>, <a href="../classLayer/"><strong>Layer</strong></a>, <a href="../structTile/"><strong>Tile</strong></a>)</li>
 <li><strong>end</strong> (<a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a>)</li>
 <li><strong>extract_borders</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>export_bounds</strong> (<a href="../classLASFile/"><strong>LASFile</strong></a>)</li>
 <li><strong>expect_contours</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
+<li><strong>error</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
 </ul>
 <h2 id="f">f</h2>
 <ul>
@@ -1220,8 +1230,10 @@
 <ul>
 <li><strong>height</strong> (<a href="../classContour/"><strong>Contour</strong></a>, <a href="../classContourPoint/"><strong>ContourPoint</strong></a>, <a href="../classGridData/"><strong>GridData</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classLASFile/"><strong>LASFile</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>)</li>
 <li><strong>height_m</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
+<li><strong>has_vertical</strong> (<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>)</li>
 <li><strong>horizontal</strong> (<a href="../classGridGraph/"><strong>GridGraph</strong></a>)</li>
 <li><strong>height_range</strong> (<a href="../classLASFile/"><strong>LASFile</strong></a>)</li>
+<li><strong>horizontal_wkt</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>height_function</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
 <li><strong>height_configs</strong> (<a href="../structVegeConfig/"><strong>VegeConfig</strong></a>)</li>
 </ul>
@@ -1247,6 +1259,9 @@
 <ul>
 <li><strong>las_filepaths</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>las_files</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
+<li><strong>last_file_count</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>last_total_area_m2</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>last_total_points</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>load_color_details</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>load_contour_details</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>load_vege_details</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
@@ -1285,6 +1300,12 @@
 <li><strong>max_height</strong> (<a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>min_height</strong> (<a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>m_config</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_inputs_mixed_crs</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_inputs_overlap</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_last_file_count</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_last_total_area_m2</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_last_total_points</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>m_override_crs_error</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>m_updating_ui</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>m_is_loop</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
 <li><strong>m_points</strong> (<a href="../classContour/"><strong>Contour</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>)</li>
@@ -1320,6 +1341,7 @@
 <li><strong>mouseMoveEvent</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>mousePressEvent</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>m_transform</strong> (<a href="../classGeoGridData/"><strong>GeoGridData</strong></a>)</li>
+<li><strong>m_compound_wkt</strong> (<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>)</li>
 <li><strong>m_repeats</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
 <li><strong>max_value</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
 <li><strong>min_value</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
@@ -1363,7 +1385,7 @@
 <ul>
 <li><strong>n_bytes</strong> (<a href="../classFlexGrid/"><strong>FlexGrid</strong></a>)</li>
 <li><strong>n_points</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
-<li><strong>name</strong> (<a href="../classLayer/"><strong>Layer</strong></a>, <a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
+<li><strong>name</strong> (<a href="../classLayer/"><strong>Layer</strong></a>, <a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>, <a href="../structTile/"><strong>Tile</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>next_points</strong> (<a href="../classLineCoord2DCrossing/"><strong>LineCoord2DCrossing</strong></a>)</li>
 </ul>
 <h2 id="o">o</h2>
@@ -1375,6 +1397,7 @@
 <li><strong>operator[]</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>, <a href="../classFlexGrid/"><strong>FlexGrid</strong></a>, <a href="../classGrid/"><strong>Grid</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>, <a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>output_directory</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>output_path</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
+<li><strong>override_crs</strong> (<a href="../structConfig/"><strong>Config</strong></a>, <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>open_output_directory</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>orient_consistent</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
 <li><strong>offset_to_center</strong> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
@@ -1385,11 +1408,13 @@
 <li><strong>opposite</strong> (<a href="../classDirection2D/"><strong>Direction2D</strong></a>)</li>
 <li><strong>orthogonal_dirs</strong> (<a href="../classDirection2D/"><strong>Direction2D</strong></a>)</li>
 <li><strong>orthogonal_to</strong> (<a href="../classDirection2D/"><strong>Direction2D</strong></a>)</li>
+<li><strong>overlaps</strong> (<a href="../structExtent2D/"><strong>Extent2D</strong></a>)</li>
 <li><strong>operator!=</strong> (<a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
 <li><strong>operator-&gt;</strong> (<a href="../classGDALDataset__w/"><strong>GDALDataset_w</strong></a>)</li>
-<li><strong>outlier_removal_height_diff</strong> (<a href="../structGroundConfig/"><strong>GroundConfig</strong></a>)</li>
 <li><strong>original_bounds</strong> (<a href="../classLASFile/"><strong>LASFile</strong></a>)</li>
 <li><strong>operator&lt;</strong> (<a href="../structPriorityPoint/"><strong>PriorityPoint</strong></a>)</li>
+<li><strong>output_name</strong> (<a href="../structTile/"><strong>Tile</strong></a>)</li>
+<li><strong>ok</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
 </ul>
 <h2 id="p">p</h2>
 <ul>
@@ -1411,6 +1436,7 @@
 <li><strong>projection</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>, <a href="../classGeoGridData/"><strong>GeoGridData</strong></a>, <a href="../classLASFile/"><strong>LASFile</strong></a>, <a href="../classLASLayer/"><strong>LASLayer</strong></a>, <a href="../classLayer/"><strong>Layer</strong></a>)</li>
 <li><strong>pixel_to_projection</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
 <li><strong>projection_to_pixel</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
+<li><strong>path</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>priority</strong> (<a href="../structPriorityPoint/"><strong>PriorityPoint</strong></a>)</li>
 <li><strong>ProgressBox</strong> (<a href="../classProgressBox/"><strong>ProgressBox</strong></a>)</li>
 <li><strong>ProgressObserver</strong> (<a href="../classProgressObserver/"><strong>ProgressObserver</strong></a>)</li>
@@ -1426,13 +1452,17 @@
 <li><strong>rotate_view</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>relative_path_to_config</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>render</strong> (<a href="../structConfig/"><strong>Config</strong></a>, <a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>, <a href="../classLayerRenderer/"><strong>LayerRenderer</strong></a>)</li>
+<li><strong>refresh_override_crs_status</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
+<li><strong>refresh_tile_size_status</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>round</strong> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
 <li><strong>round_NW</strong> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
+<li><strong>round_down</strong> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
 <li><strong>rot_x</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
 <li><strong>rot_y</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
 <li><strong>read_points</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>RGBColor</strong> (<a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>raise</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
+<li><strong>required</strong> (<a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a>)</li>
 </ul>
 <h2 id="s">s</h2>
 <ul>
@@ -1461,6 +1491,7 @@
 <li><strong>tracker</strong> (<a href="../classAsyncProgressTracker/"><strong>AsyncProgressTracker</strong></a>, <a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>)</li>
 <li><strong>toCMYK</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../classColor/"><strong>Color</strong></a>, <a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>toRGB</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../classColor/"><strong>Color</strong></a>, <a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
+<li><strong>tile_size</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>to_polyline</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
 <li><strong>transform</strong> (<a href="../classGeoGridData/"><strong>GeoGridData</strong></a>)</li>
 <li><strong>to_string</strong> (<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>)</li>
@@ -1479,6 +1510,7 @@
 <li><strong>unproject</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>up</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>ui</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>, <a href="../classMain3DWindow/"><strong>Main3DWindow</strong></a>, <a href="../classMainWindow/"><strong>MainWindow</strong></a>, <a href="../classProgressBox/"><strong>ProgressBox</strong></a>)</li>
+<li><strong>update_las_stats</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>update_progress</strong> (<a href="../classProgressBar/"><strong>ProgressBar</strong></a>, <a href="../classProgressBox/"><strong>ProgressBox</strong></a>, <a href="../classProgressObserver/"><strong>ProgressObserver</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>, <a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>)</li>
 </ul>
 <h2 id="v">v</h2>
@@ -1488,6 +1520,8 @@
 <li><strong>view_up</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>vege</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>value_type</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
+<li><strong>vegetation_aggregation_factor</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
+<li><strong>vegetation_grid_resolution</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
 <li><strong>vertical</strong> (<a href="../classGridGraph/"><strong>GridGraph</strong></a>)</li>
 <li><strong>validate</strong> (<a href="../classParentFolderExistsValidator/"><strong>ParentFolderExistsValidator</strong></a>)</li>
 <li><strong>vertices</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>)</li>
@@ -1498,6 +1532,7 @@
 <li><strong>world_offset</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>water</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>write_to_file</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
+<li><strong>wrap_tabs_in_scroll_areas</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>width</strong> (<a href="../structContourConfig/"><strong>ContourConfig</strong></a>, <a href="../classGridData/"><strong>GridData</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classLASFile/"><strong>LASFile</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>, <a href="../structWaterConfig/"><strong>WaterConfig</strong></a>)</li>
 <li><strong>wheelEvent</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>write_polyline</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
@@ -1507,6 +1542,7 @@
 <li><strong>write</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>what</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
 <li><strong>with_vegetation</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
+<li><strong>wkt</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
 </ul>
 <h2 id="x">x</h2>
 <ul>

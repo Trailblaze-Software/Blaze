@@ -7,8 +7,10 @@
 
 * **AsyncLASData** ([**AsyncLASData**](classAsyncLASData.md))
 * **AsyncProgressTracker** ([**AsyncProgressTracker**](classAsyncProgressTracker.md))
+* **activate\_tab\_containing** ([**ConfigEditor**](classConfigEditor.md))
 * **add\_layer** ([**GLWidget**](classGLWidget.md), [**GPKGWriter**](classGPKGWriter.md), [**Main3DWindow**](classMain3DWindow.md))
 * **add\_progress\_tracker** ([**Main3DWindow**](classMain3DWindow.md))
+* **any\_overlap** ([**TileModeInfo**](structTileModeInfo.md))
 
 
 ## b
@@ -21,6 +23,8 @@
 * **bin\_resolution** ([**GridConfig**](structGridConfig.md))
 * **begin** ([**LASData**](classLASData.md))
 * **bounds** ([**LASFile**](classLASFile.md))
+* **bounds\_native** ([**LASFileExtent**](structLASFileExtent.md))
+* **bounds\_reprojected** ([**LASFileExtent**](structLASFileExtent.md))
 * **background\_color** ([**VegeConfig**](structVegeConfig.md))
 
 
@@ -35,6 +39,7 @@
 * **contours** ([**Config**](structConfig.md))
 * **ConfigEditor** ([**ConfigEditor**](classConfigEditor.md))
 * **Contour** ([**Contour**](classContour.md))
+* **close\_loop** ([**Contour**](classContour.md))
 * **ContourConfigs** ([**ContourConfigs**](structContourConfigs.md))
 * **configs** ([**ContourConfigs**](structContourConfigs.md), [**WaterConfigs**](structWaterConfigs.md))
 * **ContourPoint** ([**ContourPoint**](classContourPoint.md))
@@ -42,7 +47,10 @@
 * **Coordinate3D** ([**Coordinate3D**](classCoordinate3D.md))
 * **contains** ([**Extent2D**](structExtent2D.md))
 * **center** ([**Extent3D**](structExtent3D.md))
+* **compound\_wkt** ([**GeoProjection**](classGeoProjection.md))
 * **copy\_from** ([**Grid**](classGrid.md))
+* **contour\_dem\_resolution** ([**GridConfig**](structGridConfig.md))
+* **contour\_downsample\_factor** ([**GridConfig**](structGridConfig.md))
 * **classification** ([**LASPoint**](classLASPoint.md))
 * **create** ([**LayerRenderer**](classLayerRenderer.md))
 * **crossing\_dir** ([**LineCoord2DCrossing**](classLineCoord2DCrossing.md))
@@ -51,6 +59,7 @@
 * **catchment** ([**Stream**](structStream.md), [**WaterConfig**](structWaterConfig.md))
 * **coords** ([**Stream**](structStream.md))
 * **clone** ([**TaskException**](classTaskException.md))
+* **crs\_mismatch** ([**TileModeInfo**](structTileModeInfo.md))
 * **colors** ([**VegeHeightConfig**](structVegeHeightConfig.md))
 * **config\_from\_catchment** ([**WaterConfigs**](structWaterConfigs.md))
 
@@ -81,11 +90,12 @@
 
 * **Extent3D** ([**Extent3D**](structExtent3D.md))
 * **ensure\_initialized** ([**GDALInitializer**](classGDALInitializer.md))
-* **extent** ([**Geo**](classGeo.md), [**LASLayer**](classLASLayer.md), [**Layer**](classLayer.md))
+* **extent** ([**Geo**](classGeo.md), [**LASLayer**](classLASLayer.md), [**Layer**](classLayer.md), [**Tile**](structTile.md))
 * **end** ([**LASData**](classLASData.md), [**LineCoord2D**](classLineCoord2D.md))
 * **extract\_borders** ([**LASData**](classLASData.md))
 * **export\_bounds** ([**LASFile**](classLASFile.md))
 * **expect\_contours** ([**TerrainTestParams**](structTerrainTestParams.md))
+* **error** ([**UserCrsParseResult**](structUserCrsParseResult.md))
 
 
 ## f
@@ -148,8 +158,10 @@
 
 * **height** ([**Contour**](classContour.md), [**ContourPoint**](classContourPoint.md), [**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**LASFile**](classLASFile.md), [**MultiBand**](classMultiBand.md))
 * **height\_m** ([**Geo**](classGeo.md))
+* **has\_vertical** ([**GeoProjection**](classGeoProjection.md))
 * **horizontal** ([**GridGraph**](classGridGraph.md))
 * **height\_range** ([**LASFile**](classLASFile.md))
+* **horizontal\_wkt** ([**LASFileExtent**](structLASFileExtent.md))
 * **height\_function** ([**TerrainTestParams**](structTerrainTestParams.md))
 * **height\_configs** ([**VegeConfig**](structVegeConfig.md))
 
@@ -178,6 +190,9 @@
 
 * **las\_filepaths** ([**Config**](structConfig.md))
 * **las\_files** ([**Config**](structConfig.md))
+* **last\_file\_count** ([**ConfigEditor**](classConfigEditor.md))
+* **last\_total\_area\_m2** ([**ConfigEditor**](classConfigEditor.md))
+* **last\_total\_points** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_color\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_contour\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_vege\_details** ([**ConfigEditor**](classConfigEditor.md))
@@ -217,6 +232,12 @@
 * **max\_height** ([**CanopyConfig**](structCanopyConfig.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 * **min\_height** ([**CanopyConfig**](structCanopyConfig.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 * **m\_config** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_inputs\_mixed\_crs** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_inputs\_overlap** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_last\_file\_count** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_last\_total\_area\_m2** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_last\_total\_points** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_override\_crs\_error** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_updating\_ui** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_is\_loop** ([**Contour**](classContour.md))
 * **m\_points** ([**Contour**](classContour.md), [**LASData**](classLASData.md), [**LASLayerRenderer**](classLASLayerRenderer.md))
@@ -252,6 +273,7 @@
 * **mouseMoveEvent** ([**GLWidget**](classGLWidget.md))
 * **mousePressEvent** ([**GLWidget**](classGLWidget.md))
 * **m\_transform** ([**GeoGridData**](classGeoGridData.md))
+* **m\_compound\_wkt** ([**GeoProjection**](classGeoProjection.md))
 * **m\_repeats** ([**Grid**](classGrid.md))
 * **max\_value** ([**Grid**](classGrid.md))
 * **min\_value** ([**Grid**](classGrid.md))
@@ -296,7 +318,7 @@
 
 * **n\_bytes** ([**FlexGrid**](classFlexGrid.md))
 * **n\_points** ([**LASData**](classLASData.md))
-* **name** ([**Layer**](classLayer.md), [**Polyline**](classPolyline.md), [**TerrainTestParams**](structTerrainTestParams.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
+* **name** ([**Layer**](classLayer.md), [**Polyline**](classPolyline.md), [**TerrainTestParams**](structTerrainTestParams.md), [**Tile**](structTile.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 * **next\_points** ([**LineCoord2DCrossing**](classLineCoord2DCrossing.md))
 
 
@@ -309,6 +331,7 @@
 * **operator[]** ([**CMYKColor**](classCMYKColor.md), [**ContourConfigs**](structContourConfigs.md), [**FlexGrid**](classFlexGrid.md), [**Grid**](classGrid.md), [**GridGraph**](classGridGraph.md), [**LASData**](classLASData.md), [**MultiBand**](classMultiBand.md), [**RGBColor**](classRGBColor.md))
 * **output\_directory** ([**Config**](structConfig.md))
 * **output\_path** ([**Config**](structConfig.md))
+* **override\_crs** ([**Config**](structConfig.md), [**LASFileExtent**](structLASFileExtent.md))
 * **open\_output\_directory** ([**ConfigEditor**](classConfigEditor.md))
 * **orient\_consistent** ([**Contour**](classContour.md))
 * **offset\_to\_center** ([**Coordinate2D**](classCoordinate2D.md))
@@ -319,11 +342,13 @@
 * **opposite** ([**Direction2D**](classDirection2D.md))
 * **orthogonal\_dirs** ([**Direction2D**](classDirection2D.md))
 * **orthogonal\_to** ([**Direction2D**](classDirection2D.md))
+* **overlaps** ([**Extent2D**](structExtent2D.md))
 * **operator!=** ([**Extent3D**](structExtent3D.md))
 * **operator-&gt;** ([**GDALDataset\_w**](classGDALDataset__w.md))
-* **outlier\_removal\_height\_diff** ([**GroundConfig**](structGroundConfig.md))
 * **original\_bounds** ([**LASFile**](classLASFile.md))
 * **operator&lt;** ([**PriorityPoint**](structPriorityPoint.md))
+* **output\_name** ([**Tile**](structTile.md))
+* **ok** ([**UserCrsParseResult**](structUserCrsParseResult.md))
 
 
 ## p
@@ -346,6 +371,7 @@
 * **projection** ([**GPKGWriter**](classGPKGWriter.md), [**GeoGridData**](classGeoGridData.md), [**LASFile**](classLASFile.md), [**LASLayer**](classLASLayer.md), [**Layer**](classLayer.md))
 * **pixel\_to\_projection** ([**GeoTransform**](classGeoTransform.md))
 * **projection\_to\_pixel** ([**GeoTransform**](classGeoTransform.md))
+* **path** ([**LASFileExtent**](structLASFileExtent.md))
 * **priority** ([**PriorityPoint**](structPriorityPoint.md))
 * **ProgressBox** ([**ProgressBox**](classProgressBox.md))
 * **ProgressObserver** ([**ProgressObserver**](classProgressObserver.md))
@@ -362,13 +388,17 @@
 * **rotate\_view** ([**Camera**](classCamera.md))
 * **relative\_path\_to\_config** ([**Config**](structConfig.md))
 * **render** ([**Config**](structConfig.md), [**LASLayerRenderer**](classLASLayerRenderer.md), [**LayerRenderer**](classLayerRenderer.md))
+* **refresh\_override\_crs\_status** ([**ConfigEditor**](classConfigEditor.md))
+* **refresh\_tile\_size\_status** ([**ConfigEditor**](classConfigEditor.md))
 * **round** ([**Coordinate2D**](classCoordinate2D.md))
 * **round\_NW** ([**Coordinate2D**](classCoordinate2D.md))
+* **round\_down** ([**Coordinate2D**](classCoordinate2D.md))
 * **rot\_x** ([**GeoTransform**](classGeoTransform.md))
 * **rot\_y** ([**GeoTransform**](classGeoTransform.md))
 * **read\_points** ([**LASData**](classLASData.md))
 * **RGBColor** ([**RGBColor**](classRGBColor.md))
 * **raise** ([**TaskException**](classTaskException.md))
+* **required** ([**TileModeInfo**](structTileModeInfo.md))
 
 
 ## s
@@ -399,6 +429,7 @@
 * **tracker** ([**AsyncProgressTracker**](classAsyncProgressTracker.md), [**ProgressTrackerBar**](classProgressTrackerBar.md))
 * **toCMYK** ([**CMYKColor**](classCMYKColor.md), [**Color**](classColor.md), [**RGBColor**](classRGBColor.md))
 * **toRGB** ([**CMYKColor**](classCMYKColor.md), [**Color**](classColor.md), [**RGBColor**](classRGBColor.md))
+* **tile\_size** ([**Config**](structConfig.md))
 * **to\_polyline** ([**Contour**](classContour.md))
 * **transform** ([**GeoGridData**](classGeoGridData.md))
 * **to\_string** ([**GeoProjection**](classGeoProjection.md))
@@ -418,6 +449,7 @@
 * **unproject** ([**Camera**](classCamera.md))
 * **up** ([**Camera**](classCamera.md))
 * **ui** ([**ConfigEditor**](classConfigEditor.md), [**Main3DWindow**](classMain3DWindow.md), [**MainWindow**](classMainWindow.md), [**ProgressBox**](classProgressBox.md))
+* **update\_las\_stats** ([**ConfigEditor**](classConfigEditor.md))
 * **update\_progress** ([**ProgressBar**](classProgressBar.md), [**ProgressBox**](classProgressBox.md), [**ProgressObserver**](classProgressObserver.md), [**ProgressTracker**](classProgressTracker.md), [**ProgressTrackerBar**](classProgressTrackerBar.md))
 
 
@@ -428,6 +460,8 @@
 * **view\_up** ([**Camera**](classCamera.md))
 * **vege** ([**Config**](structConfig.md))
 * **value\_type** ([**Grid**](classGrid.md))
+* **vegetation\_aggregation\_factor** ([**GridConfig**](structGridConfig.md))
+* **vegetation\_grid\_resolution** ([**GridConfig**](structGridConfig.md))
 * **vertical** ([**GridGraph**](classGridGraph.md))
 * **validate** ([**ParentFolderExistsValidator**](classParentFolderExistsValidator.md))
 * **vertices** ([**Polyline**](classPolyline.md))
@@ -439,6 +473,7 @@
 * **world\_offset** ([**Camera**](classCamera.md))
 * **water** ([**Config**](structConfig.md))
 * **write\_to\_file** ([**Config**](structConfig.md))
+* **wrap\_tabs\_in\_scroll\_areas** ([**ConfigEditor**](classConfigEditor.md))
 * **width** ([**ContourConfig**](structContourConfig.md), [**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**LASFile**](classLASFile.md), [**MultiBand**](classMultiBand.md), [**WaterConfig**](structWaterConfig.md))
 * **wheelEvent** ([**GLWidget**](classGLWidget.md))
 * **write\_polyline** ([**GPKGWriter**](classGPKGWriter.md))
@@ -448,6 +483,7 @@
 * **write** ([**LASData**](classLASData.md))
 * **what** ([**TaskException**](classTaskException.md))
 * **with\_vegetation** ([**TerrainTestParams**](structTerrainTestParams.md))
+* **wkt** ([**UserCrsParseResult**](structUserCrsParseResult.md))
 
 
 ## x

@@ -158,21 +158,45 @@ GeoGrid<double> catchment_size(const GeoGrid<double>& filled) {
 
   GeoGrid<double> result(filled.width(), filled.height(), GeoTransform(filled.transform()),
                          GeoProjection(filled.projection()));
+  result.fill(0);
 
-  std::vector<std::pair<double, Coordinate2D<size_t>>> cells;
+  GeoGrid<uint32_t> dependency_count(filled.width(), filled.height(),
+                                     GeoTransform(filled.transform()),
+                                     GeoProjection(filled.projection()));
+  dependency_count.fill(0);
+
+  // Pre-calculate dependency count
   for (size_t i = 0; i < filled.height(); i++) {
     for (size_t j = 0; j < filled.width(); j++) {
-      cells.emplace_back(filled[{j, i}], Coordinate2D<size_t>{j, i});
-      result[{j, i}] = 0;
+      std::optional<Coordinate2D<size_t>> next = flows_to(filled, {j, i});
+      if (next) {
+        dependency_count[*next]++;
+      }
     }
   }
-  std::sort(cells.begin(), cells.end(),
-            [](const auto& a, const auto& b) { return a.first > b.first; });
 
-  for (const auto& [_, coord] : cells) {
-    std::optional<Coordinate2D<size_t>> steepest_neighbour = flows_to(filled, coord);
-    if (steepest_neighbour)
-      result[*steepest_neighbour] += result[coord] + std::abs(filled.dx() * filled.dy());
+  std::queue<Coordinate2D<size_t>> queue;
+  for (size_t i = 0; i < filled.height(); i++) {
+    for (size_t j = 0; j < filled.width(); j++) {
+      if (dependency_count[{j, i}] == 0) {
+        queue.push({j, i});
+      }
+    }
+  }
+
+  double area_per_cell = std::abs(filled.dx() * filled.dy());
+
+  while (!queue.empty()) {
+    Coordinate2D<size_t> current = queue.front();
+    queue.pop();
+
+    std::optional<Coordinate2D<size_t>> next = flows_to(filled, current);
+    if (next) {
+      result[*next] += result[current] + area_per_cell;
+      if (--dependency_count[*next] == 0) {
+        queue.push(*next);
+      }
+    }
   }
 
   return result;

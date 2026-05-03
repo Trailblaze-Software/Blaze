@@ -91,6 +91,9 @@ Inherits the following classes: QWidget
 |   | [**ConfigEditor**](#function-configeditor) (QWidget \* parent=[**nullptr**](classCoordinate2D.md)) <br> |
 |  [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & | [**get\_config**](#function-get_config) () <br> |
 |  [**bool**](classCoordinate2D.md) | [**is\_valid**](#function-is_valid) () const<br> |
+|  std::size\_t | [**last\_file\_count**](#function-last_file_count) () const<br> |
+|  [**double**](classCoordinate2D.md) | [**last\_total\_area\_m2**](#function-last_total_area_m2) () const<br> |
+|  std::uint64\_t | [**last\_total\_points**](#function-last_total_points) () const<br> |
 |   | [**~ConfigEditor**](#function-configeditor) () <br> |
 
 
@@ -525,6 +528,45 @@ inline const  Config & ConfigEditor::get_config ()
 
 ```C++
 bool ConfigEditor::is_valid () const
+```
+
+
+
+
+<hr>
+
+
+
+### function last\_file\_count 
+
+```C++
+inline std::size_t ConfigEditor::last_file_count () const
+```
+
+
+
+
+<hr>
+
+
+
+### function last\_total\_area\_m2 
+
+```C++
+inline double ConfigEditor::last_total_area_m2 () const
+```
+
+
+
+
+<hr>
+
+
+
+### function last\_total\_points 
+
+```C++
+inline std::uint64_t ConfigEditor::last_total_points () const
 ```
 
 

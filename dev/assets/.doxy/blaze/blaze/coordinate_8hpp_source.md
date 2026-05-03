@@ -13,6 +13,7 @@
 #include <array>
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <ostream>
 #include <type_traits>
 #include <vector>
@@ -166,6 +167,17 @@ class Coordinate2D {
 
   Coordinate2D<size_t> round() const { return Coordinate2D<size_t>(x() + 0.5, y() + 0.5); }
 
+  Coordinate2D<size_t> round_down() const
+    requires std::is_floating_point_v<T>
+  {
+    AssertGE(x(), T(0));
+    AssertGE(y(), T(0));
+    AssertLE(x(), static_cast<T>(std::numeric_limits<size_t>::max()));
+    AssertLE(y(), static_cast<T>(std::numeric_limits<size_t>::max()));
+    return Coordinate2D<size_t>(static_cast<size_t>(std::floor(x())),
+                                static_cast<size_t>(std::floor(y())));
+  }
+
   friend std::ostream& operator<<(std::ostream& os, const Coordinate2D& coord) {
     os << "Coordinate2D(" << coord.x() << ", " << coord.y() << ")";
     return os;
@@ -227,14 +239,14 @@ class LineCoord2D : public Coordinate2D<T> {
 
 template <typename T>
 class Coordinate3D : public Coordinate2D<T> {
-  double m_z;
+  T m_z;
 
  public:
   Coordinate3D(T x, T y, T z) : Coordinate2D<T>(x, y), m_z(z) {}
 
   Coordinate3D() = default;
 
-  const T z() const { return m_z; }
+  T z() const { return m_z; }
   T& z() { return m_z; }
 };
 
@@ -305,6 +317,10 @@ struct Extent2D {
 
   bool contains(double x, double y) const {
     return minx <= x && x <= maxx && miny <= y && y <= maxy;
+  }
+
+  bool overlaps(const Extent2D& other) const {
+    return !(maxx <= other.minx || minx >= other.maxx || maxy <= other.miny || miny >= other.maxy);
   }
 
   void grow(const Extent2D& other) {

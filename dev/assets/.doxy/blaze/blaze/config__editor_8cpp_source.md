@@ -15,16 +15,24 @@
 #include <QColorDialog>
 #include <QDoubleValidator>
 #include <QFileDialog>
+#include <QFrame>
 #include <QIntValidator>
 #include <QListWidget>
 #include <QPainter>
 #include <QPushButton>
+#include <QScrollArea>
+#include <QSet>
 #include <QSpinBox>
+#include <QTabWidget>
 #include <QTableWidget>
 #include <filesystem>
+#include <set>
 
 #include "assert/assert.hpp"
 #include "config_input/config_input.hpp"
+#include "io/crs.hpp"
+#include "las/tile_mode.hpp"
+#include "las_reader.hpp"
 #include "printing/to_string.hpp"
 #include "ui_config_editor.h"
 
@@ -103,9 +111,78 @@ bool ConfigEditor::is_valid() const {
   bool all_las_files_exist = std::all_of(
       m_config->las_files.begin(), m_config->las_files.end(),
       [this](const fs::path& las_file) { return m_config->get_las_files(las_file).size(); });
+  // Tiled mode is required whenever the selected inputs overlap in xy or
+  // use different horizontal CRSes. Without it the per-file pipeline would
+  // double-count points or silently place them at the wrong coordinates.
+  const bool tile_size_required = m_inputs_overlap || m_inputs_mixed_crs;
+  const bool tile_size_ok = !tile_size_required || m_config->tile_size > 0.0;
+  // A non-empty Override CRS that we couldn't parse will silently fall back
+  // to "no override" for overlap analysis here in the GUI and then explode
+  // at processing time; refuse to mark the config valid in that state.
+  const bool override_crs_ok = m_override_crs_error.empty();
   return validated(ui->scale_dropdown) && validated(ui->dpi_dropdown) &&
          validated(ui->out_dir_line_edit) && !m_config->processing_steps.empty() &&
-         !m_config->las_files.empty() && all_las_files_exist;
+         !m_config->las_files.empty() && all_las_files_exist && tile_size_ok && override_crs_ok;
+}
+
+void ConfigEditor::wrap_tabs_in_scroll_areas() {
+  QTabWidget* tabs = ui->tabWidget;
+  if (!tabs) return;
+  // Only wrap tabs that actually need scrolling at typical window sizes.
+  // Wrapping the IO tab proved counterproductive: its single Expanding
+  // QTreeWidget was capped at the viewport by setWidgetResizable() while
+  // the other controls' minimums drove the widget's minimumSizeHint above
+  // the viewport, so scrollbars appeared even though the tree had plenty
+  // of room to shrink. Leaving the IO tab un-wrapped lets the standard
+  // QVBoxLayout shrink the tree (Expanding, min=40) naturally when space
+  // is tight, which is the behaviour we actually want for that tab.
+  const QSet<QString> tabs_to_wrap{
+      QStringLiteral("General_tab"), QStringLiteral("Contours_tab"), QStringLiteral("Water_tab"),
+      QStringLiteral("Vege_tab"),    QStringLiteral("Colors_tab"),
+  };
+  // Each removeTab()/insertTab() pair nudges currentIndex forward by one,
+  // because removing the current tab promotes its neighbour and then the
+  // re-inserted scroll area lands to the left of that neighbour. Without
+  // this bookkeeping the editor would open on the last wrapped tab instead
+  // of the one configured in the .ui file.
+  const int original_current = tabs->currentIndex();
+  for (int i = 0; i < tabs->count(); ++i) {
+    QWidget* page = tabs->widget(i);
+    if (!page) continue;
+    if (qobject_cast<QScrollArea*>(page)) continue;
+    if (!tabs_to_wrap.contains(page->objectName())) continue;
+
+    const QString title = tabs->tabText(i);
+    const QIcon icon = tabs->tabIcon(i);
+    const QString tooltip = tabs->tabToolTip(i);
+
+    auto* scroll = new QScrollArea(tabs);
+    scroll->setWidgetResizable(true);
+    scroll->setFrameShape(QFrame::NoFrame);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+    tabs->removeTab(i);
+    scroll->setWidget(page);
+    tabs->insertTab(i, scroll, icon, title);
+    tabs->setTabToolTip(i, tooltip);
+  }
+  if (original_current >= 0 && original_current < tabs->count()) {
+    tabs->setCurrentIndex(original_current);
+  }
+}
+
+void ConfigEditor::activate_tab_containing(QWidget* content) {
+  if (!content || !ui->tabWidget) return;
+  QWidget* w = content;
+  while (w) {
+    const int idx = ui->tabWidget->indexOf(w);
+    if (idx >= 0) {
+      ui->tabWidget->setCurrentIndex(idx);
+      return;
+    }
+    w = w->parentWidget();
+  }
 }
 
 ConfigEditor::ConfigEditor(QWidget* parent)
@@ -113,6 +190,8 @@ ConfigEditor::ConfigEditor(QWidget* parent)
       ui(new Ui::ConfigEditor),
       m_config(std::make_unique<Config>(Config::Default())) {
   ui->setupUi(this);
+
+  wrap_tabs_in_scroll_areas();
 
   ui->scale_dropdown->setValidator(new QDoubleValidator(100.0, 100000.0, 2, this));
   connect(ui->scale_dropdown, &QComboBox::currentTextChanged, [this](const QString& text) {
@@ -160,8 +239,10 @@ ConfigEditor::ConfigEditor(QWidget* parent)
 
   // General Tab
   ui->grid_bin_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
-  ui->ground_outlier_removal->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
+  ui->grid_vegetation_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
+  ui->grid_contour_dem_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->border_width->setValidator(new QDoubleValidator(0.0, 10000.0, 2, this));
+  ui->tile_size->setValidator(new QDoubleValidator(0.0, 1'000'000.0, 2, this));
 
   auto connect_general = [this](QWidget* widget) {
     if (auto* le = qobject_cast<QLineEdit*>(widget)) {
@@ -173,12 +254,15 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   };
   connect_general(ui->grid_bin_resolution);
   connect_general(ui->grid_downsample_factor);
-  connect_general(ui->ground_outlier_removal);
+  connect_general(ui->grid_vegetation_resolution);
+  connect_general(ui->grid_contour_dem_resolution);
   connect_general(ui->ground_min_intensity);
   connect_general(ui->ground_max_intensity);
   connect(ui->buildings_color, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
           &ConfigEditor::update_general_from_ui);
   connect_general(ui->border_width);
+  connect_general(ui->tile_size);
+  connect_general(ui->override_crs_edit);
 
   // Contours Tab
   connect(ui->contours_list_widget, &QListWidget::itemSelectionChanged, this,
@@ -354,6 +438,142 @@ void ConfigEditor::populate_color_combo(QComboBox* combo) {
   combo->blockSignals(was_blocked);
 }
 
+void ConfigEditor::update_las_stats() {
+  // Gather unique file paths across all configured inputs (folders get expanded
+  // to their .las/.laz children via Config::get_las_files). Using a set keeps
+  // the summary sane if the user accidentally added overlapping folders/files.
+  std::vector<fs::path> unique_files;
+  {
+    std::set<fs::path> seen;
+    for (const fs::path& path : m_config->las_files) {
+      for (const fs::path& f : m_config->get_las_files(path)) {
+        if (seen.insert(f).second) unique_files.push_back(f);
+      }
+    }
+  }
+
+  if (unique_files.empty()) {
+    m_last_total_points = 0;
+    m_last_total_area_m2 = 0.0;
+    m_last_file_count = 0;
+    m_inputs_overlap = false;
+    m_inputs_mixed_crs = false;
+    ui->las_stats_label->setText("(no files selected)");
+    refresh_override_crs_status();
+    refresh_tile_size_status();
+    return;
+  }
+
+  refresh_override_crs_status();
+  // Use the parsed override WKT for overlap/CRS analysis only when it parsed
+  // cleanly. If it didn't, m_override_crs_error is set, the UI surfaces the
+  // problem, and is_valid() will refuse to mark the config valid; treating
+  // the field as empty here keeps analyze_extents() honest about the per-
+  // file CRSes rather than silently pretending the override applies.
+  const UserCrsParseResult override_parse = try_user_crs_to_wkt(m_config->override_crs);
+  const std::string override_wkt = override_parse.ok ? override_parse.wkt : std::string{};
+
+  std::uint64_t total_points = 0;
+  double total_area_m2 = 0.0;
+  std::size_t failed = 0;
+  std::vector<LASFileExtent> file_extents;
+  file_extents.reserve(unique_files.size());
+  for (const fs::path& file : unique_files) {
+    try {
+      laspp::LASReader reader(file);
+      const laspp::Bound3D& b = reader.header().bounds();
+      total_area_m2 += (b.max_x() - b.min_x()) * (b.max_y() - b.min_y());
+      total_points += reader.num_points();
+      LASFileExtent e;
+      e.path = file;
+      e.bounds_native = as_extent3d(b);
+      e.horizontal_wkt = reader_horizontal_wkt(reader, m_config->override_crs);
+      file_extents.push_back(std::move(e));
+    } catch (const std::exception&) {
+      ++failed;
+    }
+  }
+
+  const TileModeInfo tile_info = analyze_extents(file_extents, override_wkt);
+  m_inputs_overlap = tile_info.any_overlap;
+  m_inputs_mixed_crs = tile_info.crs_mismatch;
+
+  m_last_total_points = total_points;
+  m_last_total_area_m2 = total_area_m2;
+  m_last_file_count = unique_files.size();
+
+  auto format_number = [](double v, int decimals) {
+    // Thousands separators + fixed decimals, using the current locale.
+    return QLocale().toString(v, 'f', decimals);
+  };
+
+  const double area_km2 = total_area_m2 / 1'000'000.0;
+  const double density =
+      total_area_m2 > 0.0 ? static_cast<double>(total_points) / total_area_m2 : 0.0;
+
+  QString text = QString("%1 file%2 \u2022 %3 points \u2022 %4 km\u00B2 \u2022 %5 pts/m\u00B2")
+                     .arg(unique_files.size())
+                     .arg(unique_files.size() == 1 ? "" : "s")
+                     .arg(QLocale().toString(static_cast<qulonglong>(total_points)))
+                     .arg(format_number(area_km2, 3))
+                     .arg(format_number(density, 1));
+  if (failed > 0) {
+    text += QString(" (%1 file%2 failed to read)").arg(failed).arg(failed == 1 ? "" : "s");
+  }
+  ui->las_stats_label->setText(text);
+  refresh_tile_size_status();
+}
+
+void ConfigEditor::refresh_override_crs_status() {
+  const UserCrsParseResult parsed = try_user_crs_to_wkt(m_config->override_crs);
+  if (parsed.ok) {
+    m_override_crs_error.clear();
+    ui->override_crs_edit->setStyleSheet("");
+    ui->override_crs_edit->setToolTip(QString());
+    ui->override_crs_status->setText(QString());
+    ui->override_crs_status->setStyleSheet("");
+  } else {
+    m_override_crs_error = parsed.error;
+    ui->override_crs_edit->setStyleSheet("QLineEdit { border: 2px solid red; }");
+    ui->override_crs_edit->setToolTip(QString::fromStdString(parsed.error));
+    ui->override_crs_status->setText(QString::fromStdString(parsed.error));
+    ui->override_crs_status->setStyleSheet("QLabel { color: #b00020; }");
+  }
+}
+
+void ConfigEditor::refresh_tile_size_status() {
+  const bool required = m_inputs_overlap || m_inputs_mixed_crs;
+  const bool enabled = m_config->tile_size > 0.0;
+  QString reason;
+  if (m_inputs_overlap && m_inputs_mixed_crs) {
+    reason = "Input files overlap and use different CRSes";
+  } else if (m_inputs_overlap) {
+    reason = "Input files overlap in xy";
+  } else if (m_inputs_mixed_crs) {
+    reason = "Input files use different CRSes";
+  }
+
+  if (required && !enabled) {
+    ui->tile_size_status->setText(reason +
+                                  ": tiled processing is required. Set Tile Size "
+                                  "(m) to a positive value (e.g. 1000).");
+    ui->tile_size_status->setStyleSheet("QLabel { color: #b00020; }");
+    ui->tile_size->setStyleSheet("QLineEdit { border: 2px solid red; }");
+  } else if (required && enabled) {
+    ui->tile_size_status->setText(reason + ": tiled processing is enabled.");
+    ui->tile_size_status->setStyleSheet("QLabel { color: #1b5e20; }");
+    ui->tile_size->setStyleSheet("");
+  } else if (enabled) {
+    ui->tile_size_status->setText("Tiled processing enabled.");
+    ui->tile_size_status->setStyleSheet("QLabel { color: #555; }");
+    ui->tile_size->setStyleSheet("");
+  } else {
+    ui->tile_size_status->setText(QString());
+    ui->tile_size_status->setStyleSheet("");
+    ui->tile_size->setStyleSheet("");
+  }
+}
+
 void ConfigEditor::set_ui_to_config(const Config& config) {
   m_updating_ui = true;
 
@@ -401,11 +621,14 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   // 2. Set General Tab fields and specific color selections
   ui->grid_bin_resolution->setText(QString::number(config.grid.bin_resolution));
   ui->grid_downsample_factor->setValue(config.grid.downsample_factor);
-  ui->ground_outlier_removal->setText(QString::number(config.ground.outlier_removal_height_diff));
+  ui->grid_vegetation_resolution->setText(QString::number(config.grid.vegetation_grid_resolution));
+  ui->grid_contour_dem_resolution->setText(QString::number(config.grid.contour_dem_resolution));
   ui->ground_min_intensity->setValue(config.ground.min_ground_intensity);
   ui->ground_max_intensity->setValue(config.ground.max_ground_intensity);
   ui->buildings_color->setCurrentText(get_color_name(config.buildings.color));
   ui->border_width->setText(QString::number(config.border_width));
+  ui->tile_size->setText(config.tile_size > 0.0 ? QString::number(config.tile_size) : QString());
+  ui->override_crs_edit->setText(QString::fromStdString(config.override_crs));
 
   ui->vege_bg_color_combo->setCurrentText(get_color_name(config.vege.background_color));
 
@@ -416,6 +639,8 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   populate_vege_list();
   populate_color_list();
 
+  update_las_stats();
+
   m_updating_ui = false;
   config_changed();
 }
@@ -425,17 +650,25 @@ void ConfigEditor::update_general_from_ui() {
   if (m_updating_ui) return;
 
   if (ui->buildings_color->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
 
   m_config->grid.bin_resolution = ui->grid_bin_resolution->text().toDouble();
   m_config->grid.downsample_factor = ui->grid_downsample_factor->value();
-  m_config->ground.outlier_removal_height_diff = ui->ground_outlier_removal->text().toDouble();
+  m_config->grid.vegetation_grid_resolution = ui->grid_vegetation_resolution->text().toDouble();
+  m_config->grid.contour_dem_resolution = ui->grid_contour_dem_resolution->text().toDouble();
   m_config->ground.min_ground_intensity = ui->ground_min_intensity->value();
   m_config->ground.max_ground_intensity = ui->ground_max_intensity->value();
   m_config->border_width = ui->border_width->text().toDouble();
+  {
+    const QString raw = ui->tile_size->text().trimmed();
+    m_config->tile_size = raw.isEmpty() ? 0.0 : raw.toDouble();
+  }
+  m_config->override_crs = ui->override_crs_edit->text().trimmed().toStdString();
+  refresh_override_crs_status();
+  refresh_tile_size_status();
 
   QString b_color = ui->buildings_color->currentText();
   if (COLOR_MAP.count(b_color.toStdString())) {
@@ -511,7 +744,7 @@ void ConfigEditor::update_contour_from_ui() {
   if (items.empty()) return;
 
   if (ui->contour_color_combo->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
@@ -605,7 +838,7 @@ void ConfigEditor::update_water_from_ui() {
   if (items.empty()) return;
 
   if (ui->water_color_combo->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
@@ -706,7 +939,7 @@ void ConfigEditor::update_vege_from_ui() {
   if (m_updating_ui) return;
 
   if (ui->vege_bg_color_combo->currentText() == "Add new color...") {
-    ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+    activate_tab_containing(ui->Colors_tab);
     add_color();
     return;
   }
@@ -762,7 +995,7 @@ void ConfigEditor::update_vege_color_from_ui(int row, int column) {
     QComboBox* combo = qobject_cast<QComboBox*>(ui->vege_colors_table->cellWidget(row, column));
     if (combo) {
       if (combo->currentText() == "Add new color...") {
-        ui->tabWidget->setCurrentWidget(ui->Colors_tab);
+        activate_tab_containing(ui->Colors_tab);
         add_color();
         return;
       }

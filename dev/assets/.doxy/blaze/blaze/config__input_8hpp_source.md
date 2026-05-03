@@ -21,8 +21,43 @@
 #include "utilities/resources.hpp"
 
 struct GridConfig {
+  // Resolution (m) at which raw LiDAR points are binned. This is the
+  // underlying working grid: ground / building / water / intensity rasters
+  // are produced at this resolution.
   double bin_resolution;
+  // Integer factor by which the binned grid is downsampled to obtain the
+  // smoothed ground DEM. The smoothed DEM is what slope, hill-shade and the
+  // smooth_ground.tif raster are computed from. Effective smooth-DEM
+  // resolution = bin_resolution * downsample_factor.
   unsigned int downsample_factor;
+  // Resolution (m) of the vegetation/canopy maps. Vegetation point counts
+  // are aggregated to this resolution; final vege_color and raw_vege rasters
+  // are written at this resolution. Should be >= bin_resolution.
+  double vegetation_grid_resolution;
+  // Resolution (m) of the DEM used for contour generation, stream extraction,
+  // depression filling and contour orientation. Should be >= the smooth DEM
+  // resolution (bin_resolution * downsample_factor). Larger values produce
+  // smoother contours but lose fine terrain detail.
+  double contour_dem_resolution;
+
+  // Integer factor used to aggregate the bin grid into the vegetation grid.
+  // Always >= 1.
+  unsigned int vegetation_aggregation_factor() const {
+    if (bin_resolution <= 0.0) return 1u;
+    long rounded = std::lround(vegetation_grid_resolution / bin_resolution);
+    if (rounded < 1) rounded = 1;
+    return static_cast<unsigned int>(rounded);
+  }
+
+  // Integer factor used to further downsample the smooth ground DEM into the
+  // contour DEM. Always >= 1.
+  unsigned int contour_downsample_factor() const {
+    const double smooth_res = bin_resolution * static_cast<double>(downsample_factor);
+    if (smooth_res <= 0.0) return 1u;
+    long rounded = std::lround(contour_dem_resolution / smooth_res);
+    if (rounded < 1) rounded = 1;
+    return static_cast<unsigned int>(rounded);
+  }
 };
 
 #define SERIALIZE_ENUM_STRICT(ENUM_TYPE, ...)                                                    \
@@ -50,7 +85,6 @@ struct GridConfig {
   }
 
 struct GroundConfig {
-  double outlier_removal_height_diff;
   int min_ground_intensity;
   int max_ground_intensity;
 };
@@ -203,6 +237,21 @@ struct Config {
   std::set<ProcessingStep> processing_steps;
   fs::path output_directory;
   double border_width;
+  // When > 0, enables tiled processing mode. Blaze divides the union of all
+  // input files' extents (in the output CRS) into a regular grid of tiles
+  // with this side length (meters) and processes each tile independently,
+  // pulling and reprojecting points from every input LAS/LAZ file that
+  // overlaps the tile+border. Required when input files overlap each other
+  // or use different CRSes.
+  double tile_size = 0.0;
+  // Overrides the CRS of any input LAS/LAZ file regardless of whether the file
+  // embeds a projection. Useful for older ACT government datasets that ship
+  // with no projection at all, and for correcting files that embed the wrong
+  // CRS. When set, a warning is emitted if the embedded CRS (if any) disagrees
+  // with this value. Accepts anything OGRSpatialReference::SetFromUserInput
+  // understands, e.g. "EPSG:28355", a WKT string, or a proj.4 string. Empty
+  // string = use whatever the file embeds (error out if it embeds nothing).
+  std::string override_crs;
   fs::path relative_path_to_config;
 
   void set_output_directory(const fs::path& output_dir) { output_directory = output_dir; }

@@ -76,7 +76,7 @@ Inherits the following classes: [Coordinate2D](classCoordinate2D.md)
 | ---: | :--- |
 |   | [**Coordinate3D**](#function-coordinate3d-12) (T x, T y, T z) <br> |
 |   | [**Coordinate3D**](#function-coordinate3d-22) () = default<br> |
-|  [**const**](classCoordinate2D.md) T | [**z**](#function-z-12) () const<br> |
+|  T | [**z**](#function-z-12) () const<br> |
 |  T & | [**z**](#function-z-22) () <br> |
 
 
@@ -98,6 +98,7 @@ See [Coordinate2D](classCoordinate2D.md)
 |  [**bool**](classCoordinate2D.md) | [**operator==**](classCoordinate2D.md#function-operator_2) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md) & o) const<br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**round**](classCoordinate2D.md#function-round) () const<br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**round\_NW**](classCoordinate2D.md#function-round_nw) ([**double**](classCoordinate2D.md) grid\_size) const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**round\_down**](classCoordinate2D.md#function-round_down) () const<br> |
 |  [**const**](classCoordinate2D.md) T & | [**x**](classCoordinate2D.md#function-x-12) () const<br> |
 |  T & | [**x**](classCoordinate2D.md#function-x-22) () <br> |
 |  [**const**](classCoordinate2D.md) T & | [**y**](classCoordinate2D.md#function-y-12) () const<br> |
@@ -194,7 +195,7 @@ Coordinate3D::Coordinate3D () = default
 ### function z [1/2]
 
 ```C++
-inline const T Coordinate3D::z () const
+inline T Coordinate3D::z () const
 ```
 
 

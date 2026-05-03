@@ -83,10 +83,24 @@ class GeoTransform {
 };
 
 class GeoProjection {
+  // 2D-normalized horizontal WKT used for all spatial operations and for
+  // outputs (vectors, image rasters) where a vertical component would confuse
+  // GIS tools that don't understand COMPOUNDCRS.
   std::string m_projection;
 
+  // Optional compound WKT (horizontal + vertical). Preserved so DEM-style
+  // elevation rasters can keep the original vertical datum (e.g. AHD) in
+  // their metadata. Empty / equal to m_projection if the input had no
+  // vertical component.
+  std::string m_compound_wkt;
+
  public:
-  explicit GeoProjection(const std::string& projection) : m_projection(projection) {}
+  explicit GeoProjection(const std::string& projection)
+      : m_projection(projection), m_compound_wkt(projection) {}
+
+  GeoProjection(const std::string& horizontal_projection, const std::string& compound_wkt)
+      : m_projection(horizontal_projection),
+        m_compound_wkt(compound_wkt.empty() ? horizontal_projection : compound_wkt) {}
 
   GeoProjection() = default;
 
@@ -96,6 +110,10 @@ class GeoProjection {
   GeoProjection& operator=(GeoProjection&& other) noexcept = default;
 
   const std::string& to_string() const { return m_projection; }
+  const std::string& compound_wkt() const {
+    return m_compound_wkt.empty() ? m_projection : m_compound_wkt;
+  }
+  bool has_vertical() const { return !m_compound_wkt.empty() && m_compound_wkt != m_projection; }
 };
 
 class GridData {

@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -787,6 +787,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#public-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#public-attributes-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -810,10 +821,71 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#variable-contour_dem_resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable contour_dem_resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#variable-downsample_factor" class="md-nav__link">
     <span class="md-ellipsis">
       
         variable downsample_factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-vegetation_grid_resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable vegetation_grid_resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-contour_downsample_factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function contour_downsample_factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-vegetation_aggregation_factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function vegetation_aggregation_factor
       
     </span>
   </a>
@@ -861,8 +933,35 @@
 <td style="text-align: left;"><a href="#variable-bin_resolution"><strong>bin_resolution</strong></a>  <br></td>
 </tr>
 <tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: left;"><a href="#variable-contour_dem_resolution"><strong>contour_dem_resolution</strong></a>  <br></td>
+</tr>
+<tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
 <td style="text-align: left;"><a href="#variable-downsample_factor"><strong>downsample_factor</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: left;"><a href="#variable-vegetation_grid_resolution"><strong>vegetation_grid_resolution</strong></a>  <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions">Public Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: left;"><a href="#function-contour_downsample_factor"><strong>contour_downsample_factor</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: left;"><a href="#function-vegetation_aggregation_factor"><strong>vegetation_aggregation_factor</strong></a> () const<br></td>
 </tr>
 </tbody>
 </table>
@@ -872,8 +971,28 @@
 </code></pre></div>
 <hr>
 
+<h3 id="variable-contour_dem_resolution">variable contour_dem_resolution</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">contour_dem_resolution</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
 <h3 id="variable-downsample_factor">variable downsample_factor</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">downsample_factor</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">downsample_factor</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-vegetation_grid_resolution">variable vegetation_grid_resolution</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">vegetation_grid_resolution</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-contour_downsample_factor">function contour_downsample_factor</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">contour_downsample_factor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-vegetation_aggregation_factor">function vegetation_aggregation_factor</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">vegetation_aggregation_factor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 

@@ -51,10 +51,13 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GeoProjection**](#function-geoprojection-14) ([**const**](classCoordinate2D.md) std::string & projection) <br> |
-|   | [**GeoProjection**](#function-geoprojection-24) () = default<br> |
-|   | [**GeoProjection**](#function-geoprojection-34) ([**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & other) = default<br> |
-|   | [**GeoProjection**](#function-geoprojection-44) ([**GeoProjection**](classGeoProjection.md) && other) noexcept<br> |
+|   | [**GeoProjection**](#function-geoprojection-15) ([**const**](classCoordinate2D.md) std::string & projection) <br> |
+|   | [**GeoProjection**](#function-geoprojection-25) ([**const**](classCoordinate2D.md) std::string & horizontal\_projection, [**const**](classCoordinate2D.md) std::string & compound\_wkt) <br> |
+|   | [**GeoProjection**](#function-geoprojection-35) () = default<br> |
+|   | [**GeoProjection**](#function-geoprojection-45) ([**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & other) = default<br> |
+|   | [**GeoProjection**](#function-geoprojection-55) ([**GeoProjection**](classGeoProjection.md) && other) noexcept<br> |
+|  [**const**](classCoordinate2D.md) std::string & | [**compound\_wkt**](#function-compound_wkt) () const<br> |
+|  [**bool**](classCoordinate2D.md) | [**has\_vertical**](#function-has_vertical) () const<br> |
 |  [**GeoProjection**](classGeoProjection.md) & | [**operator=**](#function-operator) ([**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & other) = default<br> |
 |  [**GeoProjection**](classGeoProjection.md) & | [**operator=**](#function-operator_1) ([**GeoProjection**](classGeoProjection.md) && other) noexcept<br> |
 |  [**const**](classCoordinate2D.md) std::string & | [**to\_string**](#function-to_string) () const<br> |
@@ -91,7 +94,7 @@
 
 
 
-### function GeoProjection [1/4]
+### function GeoProjection [1/5]
 
 ```C++
 inline explicit GeoProjection::GeoProjection (
@@ -106,7 +109,23 @@ inline explicit GeoProjection::GeoProjection (
 
 
 
-### function GeoProjection [2/4]
+### function GeoProjection [2/5]
+
+```C++
+inline GeoProjection::GeoProjection (
+    const std::string & horizontal_projection,
+    const std::string & compound_wkt
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function GeoProjection [3/5]
 
 ```C++
 GeoProjection::GeoProjection () = default
@@ -119,7 +138,7 @@ GeoProjection::GeoProjection () = default
 
 
 
-### function GeoProjection [3/4]
+### function GeoProjection [4/5]
 
 ```C++
 GeoProjection::GeoProjection (
@@ -134,12 +153,38 @@ GeoProjection::GeoProjection (
 
 
 
-### function GeoProjection [4/4]
+### function GeoProjection [5/5]
 
 ```C++
 GeoProjection::GeoProjection (
     GeoProjection && other
 ) noexcept
+```
+
+
+
+
+<hr>
+
+
+
+### function compound\_wkt 
+
+```C++
+inline const std::string & GeoProjection::compound_wkt () const
+```
+
+
+
+
+<hr>
+
+
+
+### function has\_vertical 
+
+```C++
+inline bool GeoProjection::has_vertical () const
 ```
 
 

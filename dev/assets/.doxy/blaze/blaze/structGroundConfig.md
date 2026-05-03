@@ -37,7 +37,6 @@
 | ---: | :--- |
 |  [**int**](classCoordinate2D.md) | [**max\_ground\_intensity**](#variable-max_ground_intensity)  <br> |
 |  [**int**](classCoordinate2D.md) | [**min\_ground\_intensity**](#variable-min_ground_intensity)  <br> |
-|  [**double**](classCoordinate2D.md) | [**outlier\_removal\_height\_diff**](#variable-outlier_removal_height_diff)  <br> |
 
 
 
@@ -104,19 +103,6 @@ int GroundConfig::max_ground_intensity;
 
 ```C++
 int GroundConfig::min_ground_intensity;
-```
-
-
-
-
-<hr>
-
-
-
-### variable outlier\_removal\_height\_diff 
-
-```C++
-double GroundConfig::outlier_removal_height_diff;
 ```
 
 

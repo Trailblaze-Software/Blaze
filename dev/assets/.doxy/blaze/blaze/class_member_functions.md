@@ -7,6 +7,7 @@
 
 * **AsyncLASData** ([**AsyncLASData**](classAsyncLASData.md))
 * **AsyncProgressTracker** ([**AsyncProgressTracker**](classAsyncProgressTracker.md))
+* **activate\_tab\_containing** ([**ConfigEditor**](classConfigEditor.md))
 * **add\_layer** ([**GLWidget**](classGLWidget.md), [**GPKGWriter**](classGPKGWriter.md), [**Main3DWindow**](classMain3DWindow.md))
 * **add\_progress\_tracker** ([**Main3DWindow**](classMain3DWindow.md))
 
@@ -28,13 +29,16 @@
 * **Config** ([**Config**](structConfig.md))
 * **ConfigEditor** ([**ConfigEditor**](classConfigEditor.md))
 * **Contour** ([**Contour**](classContour.md))
+* **close\_loop** ([**Contour**](classContour.md))
 * **ContourConfigs** ([**ContourConfigs**](structContourConfigs.md))
 * **ContourPoint** ([**ContourPoint**](classContourPoint.md))
 * **Coordinate2D** ([**Coordinate2D**](classCoordinate2D.md))
 * **Coordinate3D** ([**Coordinate3D**](classCoordinate3D.md))
 * **contains** ([**Extent2D**](structExtent2D.md))
 * **center** ([**Extent3D**](structExtent3D.md))
+* **compound\_wkt** ([**GeoProjection**](classGeoProjection.md))
 * **copy\_from** ([**Grid**](classGrid.md))
+* **contour\_downsample\_factor** ([**GridConfig**](structGridConfig.md))
 * **classification** ([**LASPoint**](classLASPoint.md))
 * **create** ([**LayerRenderer**](classLayerRenderer.md))
 * **crossing\_dir** ([**LineCoord2DCrossing**](classLineCoord2DCrossing.md))
@@ -126,6 +130,7 @@
 
 * **height** ([**Contour**](classContour.md), [**ContourPoint**](classContourPoint.md), [**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**LASFile**](classLASFile.md), [**MultiBand**](classMultiBand.md))
 * **height\_m** ([**Geo**](classGeo.md))
+* **has\_vertical** ([**GeoProjection**](classGeoProjection.md))
 * **horizontal** ([**GridGraph**](classGridGraph.md))
 * **height\_range** ([**LASFile**](classLASFile.md))
 
@@ -152,6 +157,9 @@
 ## l
 
 * **las\_filepaths** ([**Config**](structConfig.md))
+* **last\_file\_count** ([**ConfigEditor**](classConfigEditor.md))
+* **last\_total\_area\_m2** ([**ConfigEditor**](classConfigEditor.md))
+* **last\_total\_points** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_color\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_contour\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_vege\_details** ([**ConfigEditor**](classConfigEditor.md))
@@ -214,10 +222,12 @@
 * **opposite** ([**Direction2D**](classDirection2D.md))
 * **orthogonal\_dirs** ([**Direction2D**](classDirection2D.md))
 * **orthogonal\_to** ([**Direction2D**](classDirection2D.md))
+* **overlaps** ([**Extent2D**](structExtent2D.md))
 * **operator!=** ([**Extent3D**](structExtent3D.md))
 * **operator-&gt;** ([**GDALDataset\_w**](classGDALDataset__w.md))
 * **original\_bounds** ([**LASFile**](classLASFile.md))
 * **operator&lt;** ([**PriorityPoint**](structPriorityPoint.md))
+* **output\_name** ([**Tile**](structTile.md))
 
 
 ## p
@@ -252,14 +262,18 @@
 * **reset\_to\_origin** ([**Camera**](classCamera.md))
 * **rotate\_around\_center** ([**Camera**](classCamera.md))
 * **rotate\_view** ([**Camera**](classCamera.md))
+* **refresh\_override\_crs\_status** ([**ConfigEditor**](classConfigEditor.md))
+* **refresh\_tile\_size\_status** ([**ConfigEditor**](classConfigEditor.md))
 * **round** ([**Coordinate2D**](classCoordinate2D.md))
 * **round\_NW** ([**Coordinate2D**](classCoordinate2D.md))
+* **round\_down** ([**Coordinate2D**](classCoordinate2D.md))
 * **rot\_x** ([**GeoTransform**](classGeoTransform.md))
 * **rot\_y** ([**GeoTransform**](classGeoTransform.md))
 * **read\_points** ([**LASData**](classLASData.md))
 * **render** ([**LASLayerRenderer**](classLASLayerRenderer.md), [**LayerRenderer**](classLayerRenderer.md))
 * **RGBColor** ([**RGBColor**](classRGBColor.md))
 * **raise** ([**TaskException**](classTaskException.md))
+* **required** ([**TileModeInfo**](structTileModeInfo.md))
 
 
 ## s
@@ -305,6 +319,7 @@
 
 * **unproject** ([**Camera**](classCamera.md))
 * **up** ([**Camera**](classCamera.md))
+* **update\_las\_stats** ([**ConfigEditor**](classConfigEditor.md))
 * **update\_progress** ([**ProgressBar**](classProgressBar.md), [**ProgressBox**](classProgressBox.md), [**ProgressObserver**](classProgressObserver.md), [**ProgressTracker**](classProgressTracker.md), [**ProgressTrackerBar**](classProgressTrackerBar.md))
 
 
@@ -312,6 +327,7 @@
 
 * **view\_right** ([**Camera**](classCamera.md))
 * **view\_up** ([**Camera**](classCamera.md))
+* **vegetation\_aggregation\_factor** ([**GridConfig**](structGridConfig.md))
 * **vertical** ([**GridGraph**](classGridGraph.md))
 * **validate** ([**ParentFolderExistsValidator**](classParentFolderExistsValidator.md))
 
@@ -321,6 +337,7 @@
 * **wait\_for\_data** ([**AsyncLASData**](classAsyncLASData.md))
 * **world\_offset** ([**Camera**](classCamera.md))
 * **write\_to\_file** ([**Config**](structConfig.md))
+* **wrap\_tabs\_in\_scroll\_areas** ([**ConfigEditor**](classConfigEditor.md))
 * **wheelEvent** ([**GLWidget**](classGLWidget.md))
 * **write\_polyline** ([**GPKGWriter**](classGPKGWriter.md))
 * **width\_m** ([**Geo**](classGeo.md))

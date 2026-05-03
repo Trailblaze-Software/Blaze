@@ -57,7 +57,7 @@
 |  std::vector&lt; [**Contour**](classContour.md) &gt; | [**generate\_contours**](#function-generate_contours) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**const**](classCoordinate2D.md) [**ContourConfigs**](structContourConfigs.md) & contour\_config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**generate\_naive\_contours**](#function-generate_naive_contours) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & ground) <br> |
 |  [**GridGraph**](classGridGraph.md)&lt; std::set&lt; [**double**](classCoordinate2D.md) &gt; &gt; | [**identify\_contours**](#function-identify_contours) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, T contour\_interval) <br> |
-|  std::vector&lt; [**Contour**](classContour.md) &gt; | [**join\_contours**](#function-join_contours) (std::vector&lt; [**Contour**](classContour.md) &gt; contours, [**double**](classCoordinate2D.md) max\_dist=15.0) <br> |
+|  std::vector&lt; [**Contour**](classContour.md) &gt; | [**join\_contours**](#function-join_contours) (std::vector&lt; [**Contour**](classContour.md) &gt; contours, [**double**](classCoordinate2D.md) max\_dist) <br> |
 |  std::vector&lt; [**Contour**](classContour.md) &gt; | [**trim\_contours**](#function-trim_contours) ([**const**](classCoordinate2D.md) std::vector&lt; [**Contour**](classContour.md) &gt; & contours, [**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds) <br> |
 
 
@@ -147,7 +147,7 @@ GridGraph < std::set< double > > identify_contours (
 ```C++
 inline std::vector< Contour > join_contours (
     std::vector< Contour > contours,
-    double max_dist=15.0
+    double max_dist
 ) 
 ```
 

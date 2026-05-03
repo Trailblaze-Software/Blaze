@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1196,6 +1196,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#function-last_file_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function last_file_count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-last_total_area_m2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function last_total_area_m2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-last_total_points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function last_total_points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-configeditor_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1390,6 +1423,18 @@
 <td style="text-align: left;"><a href="#function-is_valid"><strong>is_valid</strong></a> () const<br></td>
 </tr>
 <tr>
+<td style="text-align: right;">std::size_t</td>
+<td style="text-align: left;"><a href="#function-last_file_count"><strong>last_file_count</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: left;"><a href="#function-last_total_area_m2"><strong>last_total_area_m2</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::uint64_t</td>
+<td style="text-align: left;"><a href="#function-last_total_points"><strong>last_total_points</strong></a> () const<br></td>
+</tr>
+<tr>
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><a href="#function-configeditor"><strong>~ConfigEditor</strong></a> () <br></td>
 </tr>
@@ -1538,7 +1583,7 @@
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-configeditor">function ConfigEditor</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">explicit</span><span class="w"> </span><span class="n">ConfigEditor</span><span class="o">::</span><span class="n">ConfigEditor</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="n">QWidget</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">parent</span><span class="o">=</span><span class="k">nullptr</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="n">QWidget</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">parent</span><span class="o">=</span><span class="nb">nullptr</span>
 <a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1553,8 +1598,23 @@
 </code></pre></div>
 <hr>
 
+<h3 id="function-last_file_count">function last_file_count</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">ConfigEditor</span><span class="o">::</span><span class="n">last_file_count</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-last_total_area_m2">function last_total_area_m2</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">ConfigEditor</span><span class="o">::</span><span class="n">last_total_area_m2</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-last_total_points">function last_total_points</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">ConfigEditor</span><span class="o">::</span><span class="n">last_total_points</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-configeditor_1">function ~ConfigEditor</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">ConfigEditor</span><span class="o">::~</span><span class="n">ConfigEditor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">ConfigEditor</span><span class="o">::~</span><span class="n">ConfigEditor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

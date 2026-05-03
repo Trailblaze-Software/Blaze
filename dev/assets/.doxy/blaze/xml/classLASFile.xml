@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="191" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="191" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="221" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="221" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classLASFile_1ad8d405f1645125ef8de8c663d53a0126" prot="protected" static="no" mutable="no">
         <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="192" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="192" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="222" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="222" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classLASFile_1a54b87f3e0c5b9d5ab8160ef9464ae3b9" prot="protected" static="no" mutable="no">
         <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="193" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="193" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="223" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="223" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classLASFile_1a403817f7222cb5d9f6b1de03957bf299" prot="protected" static="no" mutable="no">
         <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref></type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="194" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="194" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="224" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="224" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classLASFile_1aecf8aaa14dc832406d7d8c9a2ab04d25" prot="protected" static="no" mutable="no">
         <type>laspp::QuadtreeSpatialIndex</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="204" column="31" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="204" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="234" column="31" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="234" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -96,12 +96,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="197" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="197" bodyend="200"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="227" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="227" bodyend="230"/>
       </memberdef>
-      <memberdef kind="function" id="classLASFile_1aa95e172f0702a752aa00cfa52f22f8f7" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classLASFile_1af7a0cebe1d43a43d6bc80afd0ce2c3c1" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
         <type></type>
         <definition>LASFile::LASFile</definition>
-        <argsstring>(const fs::path &amp;filename, ProgressTracker progress_tracker)</argsstring>
+        <argsstring>(const fs::path &amp;filename, ProgressTracker progress_tracker, const std::string &amp;override_crs=&quot;&quot;)</argsstring>
         <name>LASFile</name>
         <qualifiedname>LASFile::LASFile</qualifiedname>
         <param>
@@ -112,13 +112,18 @@
           <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
           <declname>progress_tracker</declname>
         </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>override_crs</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="226" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="226" bodyend="238"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="291" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="291" bodyend="303"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1abab47a7a38d34a55f212d45c24048f1f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
@@ -132,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="240" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="240" bodyend="240"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="305" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="305" bodyend="305"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1a5b755082279eaa000deb7f9980f10512" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
@@ -146,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="241" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="241" bodyend="241"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="306" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="306" bodyend="306"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1ab3ec9489b3a8d302417c45d0a16b3556" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
@@ -160,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="242" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="242" bodyend="242"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="307" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="307" bodyend="307"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1a74988d01c9604f26f0662db81e67fe4d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
@@ -174,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="243" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="243" bodyend="243"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="308" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="308" bodyend="308"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1a172765e45294b24a4250e3f252ef80d4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structExtent2D" kindref="compound">Extent2D</ref></type>
@@ -188,7 +193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="245" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="245" bodyend="250"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="310" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="310" bodyend="315"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1aae95e7f507c4193c4f1bed0d5ae4118b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
@@ -202,7 +207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="252" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="252" bodyend="252"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="317" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="317" bodyend="317"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1aa405681af09edda1c5296b2e3c7b6d66" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structExtent2D" kindref="compound">Extent2D</ref></type>
@@ -216,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="253" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="253" bodyend="253"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="318" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="318" bodyend="318"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1ad925bc2c7827d62ce704763b69f490c2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>std::pair&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref>, <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
@@ -230,19 +235,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="255" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="255" bodyend="255"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="320" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="320" bodyend="320"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classLASFile_1a9323623064555d4cf84d06b058585b2e" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classLASFile_1a777ebd68ac6c251201ee22c68a2d2ffe" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
         <definition>void LASFile::from_las_reader</definition>
-        <argsstring>(const laspp::LASReader &amp;reader)</argsstring>
+        <argsstring>(const laspp::LASReader &amp;reader, const std::string &amp;override_crs=&quot;&quot;)</argsstring>
         <name>from_las_reader</name>
         <qualifiedname>LASFile::from_las_reader</qualifiedname>
         <param>
           <type><ref refid="classCoordinate2D" kindref="compound">const</ref> laspp::LASReader &amp;</type>
           <declname>reader</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>override_crs</declname>
+          <defval>&quot;&quot;</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -250,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="206" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="206" bodyend="222"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="236" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="236" bodyend="287"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -302,15 +312,15 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="189" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="189" bodyend="256"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="219" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="219" bodyend="321"/>
     <listofallmembers>
       <member refid="classLASFile_1aae95e7f507c4193c4f1bed0d5ae4118b" prot="public" virt="non-virtual"><scope>LASFile</scope><name>bounds</name></member>
       <member refid="classLASFile_1a172765e45294b24a4250e3f252ef80d4" prot="public" virt="non-virtual"><scope>LASFile</scope><name>export_bounds</name></member>
-      <member refid="classLASFile_1a9323623064555d4cf84d06b058585b2e" prot="protected" virt="non-virtual"><scope>LASFile</scope><name>from_las_reader</name></member>
+      <member refid="classLASFile_1a777ebd68ac6c251201ee22c68a2d2ffe" prot="protected" virt="non-virtual"><scope>LASFile</scope><name>from_las_reader</name></member>
       <member refid="classLASFile_1ab3ec9489b3a8d302417c45d0a16b3556" prot="public" virt="non-virtual"><scope>LASFile</scope><name>height</name></member>
       <member refid="classLASFile_1ad925bc2c7827d62ce704763b69f490c2" prot="public" virt="non-virtual"><scope>LASFile</scope><name>height_range</name></member>
       <member refid="classLASFile_1a3619a6a014c8c31209af6939fa6e25c1" prot="public" virt="non-virtual"><scope>LASFile</scope><name>LASFile</name></member>
-      <member refid="classLASFile_1aa95e172f0702a752aa00cfa52f22f8f7" prot="public" virt="non-virtual"><scope>LASFile</scope><name>LASFile</name></member>
+      <member refid="classLASFile_1af7a0cebe1d43a43d6bc80afd0ce2c3c1" prot="public" virt="non-virtual"><scope>LASFile</scope><name>LASFile</name></member>
       <member refid="classLASFile_1ad8d405f1645125ef8de8c663d53a0126" prot="protected" virt="non-virtual"><scope>LASFile</scope><name>m_bounds</name></member>
       <member refid="classLASFile_1a2586dbdf7c10c2630f102614d67866ec" prot="protected" virt="non-virtual"><scope>LASFile</scope><name>m_filename</name></member>
       <member refid="classLASFile_1a54b87f3e0c5b9d5ab8160ef9464ae3b9" prot="protected" virt="non-virtual"><scope>LASFile</scope><name>m_original_bounds</name></member>

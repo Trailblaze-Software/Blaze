@@ -52,17 +52,23 @@ GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground
   return ground;
 }
 
-GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid, double original_resolution) {
+GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid) {
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
 
   result.copy_from(grid);
+  // Need at least one interior cell in each dimension to compute a central difference.
+  // Skip adjustment for degenerate/tiny grids to avoid size_t underflow in the loop bounds.
+  if (grid.width() < 3 || grid.height() < 3) {
+    return result;
+  }
   for (size_t i = 1; i < grid.height() - 1; i++) {
     for (size_t j = 1; j < grid.width() - 1; j++) {
-      double dz_dy = (grid[{j + 1, i}] - grid[{j - 1, i}]) / (2 * grid.dx());
-      double dz_dx = (grid[{j, i + 1}] - grid[{j, i - 1}]) / (2 * grid.dy());
-      result[{j, i}] =
-          grid[{j, i}] + 0.5 * (std::abs(dz_dx) + std::abs(dz_dy)) * original_resolution;
+      // The minimum point in each bin is at the downhill edge (half a bin away from center)
+      // To correct from edge value to center value, we need to raise the edge value by the gradient
+      // times the offset The correction accounts for the offset (half bin size) times the gradient
+      result[{j, i}] = grid[{j, i}] + 0.25 * (std::abs(grid[{j + 1, i}] - grid[{j - 1, i}]) +
+                                              std::abs(grid[{j, i + 1}] - grid[{j, i - 1}]));
     }
   }
   return result;
@@ -74,20 +80,20 @@ void process_las_file(const fs::path& las_filename, const Config& config,
   fs::path output_dir = config.output_path() / las_filename.stem();
   fs::create_directories(output_dir);
 
-  LASData las_file = LASData::with_border(las_filename, config.border_width,
-                                          progress_tracker.subtracker(0.0, 0.4));
+  LASData las_file =
+      LASData::with_border(las_filename, config.border_width, progress_tracker.subtracker(0.0, 0.4),
+                           config.override_crs);
   process_las_data(las_file, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
 }
 
 void process_las_data(LASData& las_file, const fs::path& output_dir, const Config& config,
                       ProgressTracker progress_tracker) {
-  double bin_resolution = config.grid.bin_resolution;
+  const double bin_resolution = config.grid.bin_resolution;
+  const unsigned int downsample_factor = config.grid.downsample_factor;
   GeoGrid<std::vector<LASPoint>> binned_points(
-      num_cells_by_distance(las_file.width() + config.grid.downsample_factor * bin_resolution,
-                            bin_resolution),
-      num_cells_by_distance(las_file.height() + config.grid.downsample_factor * bin_resolution,
-                            bin_resolution),
-      GeoTransform(las_file.top_left().round_NW(bin_resolution * config.grid.downsample_factor),
+      num_cells_by_distance(las_file.width() + downsample_factor * bin_resolution, bin_resolution),
+      num_cells_by_distance(las_file.height() + downsample_factor * bin_resolution, bin_resolution),
+      GeoTransform(las_file.top_left().round_NW(bin_resolution * downsample_factor),
                    bin_resolution),
       GeoProjection(las_file.projection()));
 
@@ -101,12 +107,17 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       }
       auto pixel_coord = binned_points.transform().projection_to_pixel(
           Coordinate2D<double>(las_point.x(), las_point.y()));
-      if (pixel_coord.x() >= binned_points.width() || pixel_coord.y() >= binned_points.height()) {
+      if (pixel_coord.x() < 0 || pixel_coord.x() >= binned_points.width() || pixel_coord.y() < 0 ||
+          pixel_coord.y() >= binned_points.height()) {
         n_out_of_bounds++;
         continue;
       }
-      binned_points[binned_points.transform().projection_to_pixel(las_point)].emplace_back(
-          las_point);
+      auto rounded_coord = pixel_coord.round_down();
+      if (!binned_points.in_bounds(rounded_coord)) {
+        n_out_of_bounds++;
+        continue;
+      }
+      binned_points[rounded_coord].emplace_back(las_point);
     }
     if (n_out_of_bounds > 0) {
       std::cerr << "Warning: " << n_out_of_bounds
@@ -141,7 +152,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       for (size_t j = 0; j < binned_points.width(); j++) {
         bool is_building = false;
         bool is_water = false;
-        double min = std::numeric_limits<unsigned int>::max();
+        double min = std::numeric_limits<double>::infinity();
         std::optional<LASPoint> min_point = std::nullopt;
         for (const LASPoint& las_point : binned_points[{j, i}]) {
           if (las_point.z() < min && (las_point.classification() == LASClassification::Ground ||
@@ -181,12 +192,14 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   write_to_tif(ground_intensity_img.slice(las_file.export_bounds()),
                output_dir / "ground_intensity.tif", progress_tracker.subtracker(0.62, 0.63));
 
-  remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64),
-                  config.ground.outlier_removal_height_diff);
+  remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64), bin_resolution);
   interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
 
+  // Adjust ground estimate to account for bias from taking minimum point in each bin
+  ground = adjust_ground_to_slope(ground);
+
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
-               progress_tracker.subtracker(0.65, 0.66));
+               progress_tracker.subtracker(0.65, 0.66), /*include_vertical_crs=*/true);
   write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif",
                progress_tracker.subtracker(0.66, 0.67));
   write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif",
@@ -196,16 +209,16 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     LASData(ground).write(output_dir / "ground.las", progress_tracker.subtracker(0.68, 0.69));
 
   std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
-      downsample(ground, config.grid.downsample_factor, progress_tracker.subtracker(0.69, 0.7)));
+      downsample(ground, downsample_factor, progress_tracker.subtracker(0.69, 0.7)));
   remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
-                  config.ground.outlier_removal_height_diff * config.grid.downsample_factor);
+                  bin_resolution * downsample_factor);
   GeoGrid<double> smooth_ground = *downsampled_ground;
   if (OUT_LAS)
     LASData(*downsampled_ground).write(output_dir / "smooth_ground_no_outlier_removal.las");
   downsampled_ground.reset();
 
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif",
-               progress_tracker.subtracker(0.72, 0.73));
+               progress_tracker.subtracker(0.72, 0.73), /*include_vertical_crs=*/true);
 
   if (OUT_LAS)
     LASData(smooth_ground)
@@ -218,25 +231,33 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                        progress_tracker.subtracker(0.74, 0.75));
   }
 
-  smooth_ground = adjust_ground_to_slope(smooth_ground, ground.dx());
   if (OUT_LAS) LASData(smooth_ground).write(output_dir / "smooth_ground.las");
 
+  // Build the contour DEM by further downsampling the smooth ground DEM.
+  // contour_downsample_factor() is the integer ratio between the requested
+  // contour DEM resolution and the smooth-ground resolution (always >= 1).
+  // When the factor is 1 the contour DEM is just the smooth ground.
+  const unsigned int contour_factor = config.grid.contour_downsample_factor();
+  GeoGrid<double> contour_dem = contour_factor > 1
+                                    ? downsample(smooth_ground, contour_factor, ProgressTracker())
+                                    : smooth_ground;
+
   const std::vector<Contour> contours =
-      generate_contours(smooth_ground, config.contours, progress_tracker.subtracker(0.75, 0.76));
+      generate_contours(contour_dem, config.contours, progress_tracker.subtracker(0.75, 0.76));
 
   std::vector<Stream> stream_path =
-      stream_paths(smooth_ground, config.water, progress_tracker.subtracker(0.76, 0.77));
+      stream_paths(contour_dem, config.water, progress_tracker.subtracker(0.76, 0.77));
 
-  std::vector<Coordinate2D<size_t>> sinks = identify_sinks(smooth_ground);
-  GeoGrid<double> filled = fill_depressions(smooth_ground, sinks);
-  write_to_tif(filled.slice(las_file.export_bounds()), output_dir / "filled_dem.tif");
+  std::vector<Coordinate2D<size_t>> sinks = identify_sinks(contour_dem);
+  GeoGrid<double> filled = fill_depressions(contour_dem, sinks);
+  write_to_tif(filled.slice(las_file.export_bounds()), output_dir / "filled_dem.tif",
+               /*progress_tracker=*/std::nullopt, /*include_vertical_crs=*/true);
 
   double contour_points_resolution = 20;
   GeoGrid<std::vector<std::shared_ptr<ContourPoint>>> contour_points(
-      num_cells_by_distance(smooth_ground.width_m(), contour_points_resolution) + 1,
-      num_cells_by_distance(smooth_ground.height_m(), contour_points_resolution) + 1,
-      GeoTransform(smooth_ground.transform().pixel_to_projection({0, 0}),
-                   contour_points_resolution),
+      num_cells_by_distance(contour_dem.width_m(), contour_points_resolution) + 1,
+      num_cells_by_distance(contour_dem.height_m(), contour_points_resolution) + 1,
+      GeoTransform(contour_dem.transform().pixel_to_projection({0, 0}), contour_points_resolution),
       GeoProjection(las_file.projection()));
 
   std::vector<std::shared_ptr<ContourPoint>> all_contour_points;
@@ -274,7 +295,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     std::vector<Contour> oriented_contours = contours;
 #pragma omp parallel for
     for (size_t i = 0; i < oriented_contours.size(); i++) {
-      oriented_contours[i].orient_consistent(smooth_ground);
+      oriented_contours[i].orient_consistent(contour_dem);
     }
 
     // Write contours to GPKG (always create file, even if empty)
@@ -293,7 +314,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     std::vector<Contour> oriented_trimmed_contours = trimmed_contours;
 #pragma omp parallel for
     for (size_t i = 0; i < oriented_trimmed_contours.size(); i++) {
-      oriented_trimmed_contours[i].orient_consistent(smooth_ground);
+      oriented_trimmed_contours[i].orient_consistent(contour_dem);
     }
 
     // Write trimmed contours to GPKG (always create file, even if empty)
@@ -322,17 +343,69 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   }
 
   // VEGE
+  // Vegetation maps are produced at vegetation_grid_resolution. We compute
+  // blocked-proportion at the underlying bin_resolution (so each LiDAR point
+  // contributes to the cell it actually falls in) and then aggregate to the
+  // coarser vegetation grid via mean downsampling.
+  const unsigned int veg_factor = config.grid.vegetation_aggregation_factor();
   std::map<std::string, GeoGrid<float>> vege_maps;
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
     GeoGrid<std::optional<float>> blocked_proportion =
         get_blocked_proportion(binned_points, smooth_ground, vege_config);
     fs::create_directories(output_dir / "raw_vege");
-    write_to_tif(blocked_proportion.slice(las_file.export_bounds()),
+
+    auto float01_to_byte_grid = [](const GeoGrid<float>& grid) {
+      GeoGrid<std::byte> out(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                             GeoProjection(grid.projection()));
+#pragma omp parallel for
+      for (size_t i = 0; i < grid.height(); i++) {
+        for (size_t j = 0; j < grid.width(); j++) {
+          const float v = grid[{j, i}];
+          if (!std::isfinite(v)) {
+            out[{j, i}] = std::byte(0);
+            continue;
+          }
+          const float clamped = std::clamp(v, 0.0f, 1.0f);
+          const int scaled = static_cast<int>(std::lround(clamped * 255.0f));
+          out[{j, i}] = static_cast<std::byte>(std::clamp(scaled, 0, 255));
+        }
+      }
+      return out;
+    };
+
+    // Raw blocked-proportion (0..1) at vegetation resolution, exported as Byte.
+    // We convert optional<float> to float with NaNs for nodata so downsample()
+    // can ignore missing values (it only includes finite values in the mean).
+    GeoGrid<float> raw_bp_float(blocked_proportion.width(), blocked_proportion.height(),
+                                GeoTransform(blocked_proportion.transform()),
+                                GeoProjection(blocked_proportion.projection()));
+#pragma omp parallel for
+    for (size_t i = 0; i < blocked_proportion.height(); i++) {
+      for (size_t j = 0; j < blocked_proportion.width(); j++) {
+        raw_bp_float[{j, i}] = blocked_proportion[{j, i}].has_value()
+                                   ? *blocked_proportion[{j, i}]
+                                   : std::numeric_limits<float>::quiet_NaN();
+      }
+    }
+    GeoGrid<float> raw_vege_grid =
+        veg_factor > 1
+            ? downsample(raw_bp_float, veg_factor, ProgressTracker(), DownsampleMethod::MEAN)
+            : std::move(raw_bp_float);
+    write_to_tif(float01_to_byte_grid(raw_vege_grid).slice(las_file.export_bounds()),
                  output_dir / "raw_vege" / (vege_config.name + ".tif"));
+
+    // Smoothed blocked-proportion (low-pass + aggregated) at vegetation resolution, exported as
+    // Byte.
     GeoGrid<float> smooth_blocked_proportion = low_pass(blocked_proportion, 5);
-    write_to_tif(smooth_blocked_proportion.slice(las_file.export_bounds()),
+    GeoGrid<float> vege_grid =
+        veg_factor > 1 ? downsample(smooth_blocked_proportion, veg_factor,
+                                    /*progress_tracker=*/ProgressTracker(), DownsampleMethod::MEAN)
+                       : std::move(smooth_blocked_proportion);
+    write_to_tif(float01_to_byte_grid(vege_grid).slice(las_file.export_bounds()),
                  output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif"));
-    vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
+
+    // Keep float vegetation grid for the coloring stage.
+    vege_maps.emplace(vege_config.name, std::move(vege_grid));
   }
 
   progress_tracker.set_proportion(0.78);
@@ -340,9 +413,14 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   write_to_image_tif(hill_shade(smooth_ground).slice(las_file.export_bounds()),
                      output_dir / "hill_shade_multi.tif");
 
-  GeoGrid<CMYKColor> vege_color(binned_points.width(), binned_points.height(),
-                                GeoTransform(binned_points.transform()),
-                                GeoProjection(binned_points.projection()));
+  // vege_color is at vegetation_grid_resolution (matching the aggregated
+  // vege_maps), so its dimensions are the bin grid divided by veg_factor.
+  const size_t vege_color_width = (binned_points.width() + veg_factor - 1) / veg_factor;
+  const size_t vege_color_height = (binned_points.height() + veg_factor - 1) / veg_factor;
+  GeoGrid<CMYKColor> vege_color(
+      vege_color_width, vege_color_height,
+      GeoTransform(binned_points.transform().with_new_resolution(bin_resolution * veg_factor)),
+      GeoProjection(binned_points.projection()));
 
   GeoGrid<RGBColor> building_color(buildings.width(), buildings.height(),
                                    GeoTransform(buildings.transform()),
@@ -354,6 +432,11 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   for (size_t i = 0; i < vege_color.height(); i++) {
     for (size_t j = 0; j < vege_color.width(); j++) {
       vege_color[{j, i}] = to_cmyk(config.vege.background_color);
+    }
+  }
+#pragma omp parallel for
+  for (size_t i = 0; i < buildings.height(); i++) {
+    for (size_t j = 0; j < buildings.width(); j++) {
       if (buildings[{j, i}]) building_color[{j, i}] = to_rgb(config.buildings.color);
       if (water[{j, i}]) water_color[{j, i}] = to_rgb(CMYKColor(100, 0, 0, 0));
     }

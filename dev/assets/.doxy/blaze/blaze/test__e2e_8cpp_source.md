@@ -14,7 +14,10 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <functional>
+#include <iomanip>
 #include <iostream>
+#include <numbers>
 
 #include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
@@ -27,6 +30,8 @@
 #include "lib/grid/grid.hpp"
 #include "ogr_srs_api.h"
 #include "process.hpp"
+#include "testing/env.hpp"
+#include "testing/output_dir.hpp"
 #include "tif/tif.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
@@ -68,7 +73,8 @@ Config create_minimal_test_config(const fs::path& output_dir) {
   config.set_output_directory(output_dir);
   config.grid.bin_resolution = 1.0;
   config.grid.downsample_factor = 2;
-  config.ground.outlier_removal_height_diff = 0.5;
+  config.grid.vegetation_grid_resolution = 1.0;
+  config.grid.contour_dem_resolution = 2.0;
   config.ground.min_ground_intensity = 0;
   config.ground.max_ground_intensity = 1000;
   config.border_width = 10.0;
@@ -186,7 +192,7 @@ LASData create_synthetic_las_data() {
 
 // Test end-to-end processing with synthetic data
 TEST(E2E, ProcessSyntheticData) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   // Clean up if exists
   if (fs::exists(test_output_dir)) {
@@ -243,7 +249,7 @@ TEST(E2E, ProcessSyntheticData) {
 
 // Test that processing handles empty data gracefully
 TEST(E2E, ProcessEmptyData) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test_empty";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -270,7 +276,7 @@ TEST(E2E, ProcessEmptyData) {
 
 // Test processing with different grid resolutions
 TEST(E2E, ProcessDifferentResolutions) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test_res";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -282,6 +288,8 @@ TEST(E2E, ProcessDifferentResolutions) {
   // Test with different bin resolution
   config.grid.bin_resolution = 0.5;
   config.grid.downsample_factor = 1;
+  config.grid.vegetation_grid_resolution = 0.5;
+  config.grid.contour_dem_resolution = 0.5;
 
   LASData las_data = create_synthetic_las_data();
 
@@ -313,7 +321,7 @@ TEST(E2E, ProcessDifferentResolutions) {
 
 // Test that output files have valid structure
 TEST(E2E, VerifyOutputStructure) {
-  fs::path test_output_dir = fs::temp_directory_path() / "blaze_e2e_test_structure";
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
 
   if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
@@ -485,94 +493,36 @@ void verify_raw_vegetation_tif(const fs::path& raw_vege_tif_path, bool should_ha
     }
   }
 
-  // Read and validate TIF
+  // Raw and smoothed vegetation exports are stored as a single-band Byte raster.
+  // Values are 0..255 representing blocked proportion 0..1, with 0 also used
+  // for "no data" at export time (by design).
   auto grid = read_tif(raw_vege_tif_path);
-  if (is_smoothed) {
-    // Smoothed version is single-band float
-    ASSERT_EQ(grid.size(), 1) << "Smoothed raw vege TIF should have 1 band";
-    const auto& band = grid[0];
+  ASSERT_EQ(grid.size(), 1) << "Raw vege TIF should have 1 band (Byte)";
+  const auto& value_band = grid[0];
 
-    if (should_have_vegetation) {
-      // Every pixel should have a value >= 0.0 and <= 1.0 (blocked proportion)
-      for (size_t i = 0; i < band.height(); ++i) {
-        for (size_t j = 0; j < band.width(); ++j) {
-          float value = band.get<float>({(long long)j, (long long)i});
-          if (value < 0.0f || value > 1.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i
-                   << ") has invalid blocked proportion value: " << value
-                   << " (expected 0.0 to 1.0)";
-          }
-          // With vegetation, we expect at least some pixels to have non-zero values
-          // But we can't require all to be > 0 since some areas might not have vegetation
-        }
-      }
-    } else {
-      // All pixels should be 0.0 (no vegetation)
-      for (size_t i = 0; i < band.height(); ++i) {
-        for (size_t j = 0; j < band.width(); ++j) {
-          float value = band.get<float>({(long long)j, (long long)i});
-          if (value != 0.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i
-                   << ") should be 0.0 (no vegetation) but is: " << value;
-          }
-        }
+  bool has_any_nonzero = false;
+  for (size_t i = 0; i < value_band.height(); ++i) {
+    for (size_t j = 0; j < value_band.width(); ++j) {
+      const std::byte value = value_band.get<std::byte>({(long long)j, (long long)i});
+      const int v = static_cast<unsigned char>(value);
+      if (v != 0) {
+        has_any_nonzero = true;
+        break;
       }
     }
+    if (has_any_nonzero) break;
+  }
+
+  if (should_have_vegetation) {
+    ASSERT_TRUE(has_any_nonzero) << "Expected some non-zero vegetation values.";
   } else {
-    // Raw version is two-band: band 0 = value, band 1 = validity mask
-    ASSERT_EQ(grid.size(), 2) << "Raw vege TIF should have 2 bands (value and validity)";
-    const auto& value_band = grid[0];
-    const auto& validity_band = grid[1];
-
-    if (should_have_vegetation) {
-      // For unsmoothed raw vege: verify that cells with vegetation points have valid blocked
-      // proportion This checks "has vege point if and only if has valid blocked proportion" Note:
-      // We don't compare to vege_color here because vege_color uses smoothed data which spreads
-      // values
-      bool has_valid_vegetation = false;
-      for (size_t i = 0; i < value_band.height(); ++i) {
-        for (size_t j = 0; j < value_band.width(); ++j) {
-          float value = value_band.get<float>({(long long)j, (long long)i});
-          float validity = validity_band.get<float>({(long long)j, (long long)i});
-
-          if (validity == 255.0f) {
-            // Valid value means there are vegetation points - should be in range [0.0, 1.0]
-            if (value < 0.0f || value > 1.0f) {
-              FAIL() << "Pixel at (" << j << ", " << i
-                     << ") has invalid blocked proportion value: " << value
-                     << " (expected 0.0 to 1.0)";
-            }
-            if (value > 0.0f) {
-              has_valid_vegetation = true;
-            }
-            // Note: validity = 255 means there are vegetation points in this cell
-            // The blocked proportion should be > 0 if there are points in the height range
-          } else if (validity != 0.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i << ") has invalid validity mask: " << validity
-                   << " (expected 0.0 or 255.0)";
-          }
-          // validity = 0 means no vegetation points in this cell (which is correct)
-        }
-      }
-      ASSERT_TRUE(has_valid_vegetation)
-          << "Raw vegetation TIF should contain at least some valid vegetation data";
-    } else {
-      // All pixels should be nullopt (validity = 0) or have value = 0.0
-      for (size_t i = 0; i < value_band.height(); ++i) {
-        for (size_t j = 0; j < value_band.width(); ++j) {
-          float value = value_band.get<float>({(long long)j, (long long)i});
-          float validity = validity_band.get<float>({(long long)j, (long long)i});
-
-          if (validity == 255.0f) {
-            // If valid, value should be 0.0 (no vegetation)
-            if (value != 0.0f) {
-              FAIL() << "Pixel at (" << j << ", " << i
-                     << ") should be 0.0 (no vegetation) but is: " << value;
-            }
-          } else if (validity != 0.0f) {
-            FAIL() << "Pixel at (" << j << ", " << i << ") has invalid validity mask: " << validity
-                   << " (expected 0.0 or 255.0)";
-          }
+    // With no vegetation, the blocked-proportion should export as all zeros.
+    for (size_t i = 0; i < value_band.height(); ++i) {
+      for (size_t j = 0; j < value_band.width(); ++j) {
+        const std::byte value = value_band.get<std::byte>({(long long)j, (long long)i});
+        const int v = static_cast<unsigned char>(value);
+        if (v != 0) {
+          FAIL() << "Pixel at (" << j << ", " << i << ") should be 0 (no vegetation) but is: " << v;
         }
       }
     }
@@ -600,10 +550,10 @@ class E2ETerrainTest : public ::testing::TestWithParam<TerrainTestParams> {
 TEST_P(E2ETerrainTest, ProcessTerrain) {
   const TerrainTestParams& params = GetParam();
   // Check if we should keep output files (check early so files are preserved even on test failure)
-  const char* keep_output = std::getenv("BLAZE_KEEP_TEST_OUTPUT");
+  const char* keep_output = blaze::test::get_env("BLAZE_KEEP_TEST_OUTPUT");
   bool should_keep_output = (keep_output != nullptr && std::string(keep_output) != "0");
 
-  fs::path test_output_dir = fs::temp_directory_path() / ("blaze_e2e_" + params.name);
+  fs::path test_output_dir = blaze::test::unique_test_output_dir(params.name);
   if (fs::exists(test_output_dir)) fs::remove_all(test_output_dir);
   fs::create_directories(test_output_dir);
 
@@ -702,6 +652,280 @@ INSTANTIATE_TEST_SUITE_P(
                             return 99.0 + std::max(0.0, 20.0 - dist * 0.5);
                           },
                           true, true}));
+
+// Test ground estimation on slopes in all directions
+TEST(E2E, GroundEstimationSlopes) {
+  // Check if we should keep output files (check early so files are preserved even on test failure)
+  const char* keep_output = blaze::test::get_env("BLAZE_KEEP_TEST_OUTPUT");
+  bool should_keep_output = (keep_output != nullptr && std::string(keep_output) != "0");
+
+  fs::path test_output_dir = blaze::test::unique_test_output_dir("slope");
+
+  // Clean up if exists
+  if (fs::exists(test_output_dir)) {
+    fs::remove_all(test_output_dir);
+  }
+  fs::create_directories(test_output_dir);
+
+  Config config = create_minimal_test_config(test_output_dir);
+  config.grid.bin_resolution = 5.0;
+  config.grid.vegetation_grid_resolution = config.grid.bin_resolution;
+
+  const int downsample_factor = 1;
+  config.grid.downsample_factor = downsample_factor;
+  config.grid.contour_dem_resolution = config.grid.bin_resolution * downsample_factor;
+
+  const double base_elevation = 100.0;
+  const double test_area_size = 50.0;  // 50m x 50m test area
+  const double point_spacing = 0.5;    // 0.5m spacing for dense point cloud
+
+  // Test angles: flat (0°), 25°, and 45°
+  std::vector<double> angles_deg = {0.0, 25.0, 45.0};
+
+  // Define all 8 directions plus flat
+  struct DirectionTest {
+    std::string name;
+    std::function<double(double, double, double)> height_func;  // (x, y, slope_ratio)
+  };
+
+  std::vector<DirectionTest> directions = {
+      {"Flat", [=](double /*x*/, double /*y*/, double /*slope_ratio*/) { return base_elevation; }},
+      {"North",
+       [=](double /*x*/, double y, double slope_ratio) {
+         return base_elevation + (test_area_size - y) * slope_ratio;
+       }},
+      {"South", [=](double /*x*/, double y,
+                    double slope_ratio) { return base_elevation + y * slope_ratio; }},
+      {"East", [=](double x, double /*y*/,
+                   double slope_ratio) { return base_elevation + x * slope_ratio; }},
+      {"West",
+       [=](double x, double /*y*/, double slope_ratio) {
+         return base_elevation + (test_area_size - x) * slope_ratio;
+       }},
+      {"NE",
+       [=](double x, double y, double slope_ratio) {
+         return base_elevation + (x + (test_area_size - y)) * slope_ratio / std::sqrt(2.0);
+       }},
+      {"NW",
+       [=](double x, double y, double slope_ratio) {
+         return base_elevation +
+                ((test_area_size - x) + (test_area_size - y)) * slope_ratio / std::sqrt(2.0);
+       }},
+      {"SE",
+       [=](double x, double y, double slope_ratio) {
+         return base_elevation + (x + y) * slope_ratio / std::sqrt(2.0);
+       }},
+      {"SW",
+       [=](double x, double y, double slope_ratio) {
+         return base_elevation + ((test_area_size - x) + y) * slope_ratio / std::sqrt(2.0);
+       }},
+  };
+
+  // Store statistics for summary table
+  struct TestStats {
+    std::string direction;
+    double angle;
+    int downsample_factor;
+    double avg_error;
+    double std_dev;
+    int valid_samples;
+  };
+  std::vector<TestStats> all_stats;
+
+  // Loop over angles and directions
+  for (double angle_deg : angles_deg) {
+    const double angle_rad = angle_deg * std::numbers::pi / 180.0;
+    const double slope_ratio = std::tan(angle_rad);  // rise over run (0 for flat)
+
+    for (const auto& dir : directions) {
+      // Skip non-flat directions when angle is 0
+      if (angle_deg == 0.0 && dir.name != "Flat") {
+        continue;
+      }
+      // Skip flat when angle is not 0
+      if (angle_deg != 0.0 && dir.name == "Flat") {
+        continue;
+      }
+
+      // Create extent for this test
+      Extent2D extent{0.0, test_area_size, 0.0, test_area_size};
+      const std::string proj_str = get_wgs84_wkt();
+      LASData las_data(extent, GeoProjection(proj_str));
+
+      // Generate ground points with the slope
+      for (double x = extent.minx + 0.5 * point_spacing; x <= extent.maxx; x += point_spacing) {
+        for (double y = extent.miny + 0.5 * point_spacing; y <= extent.maxy; y += point_spacing) {
+          double z = dir.height_func(x, y, slope_ratio);
+          las_data.insert(LASPoint(x, y, z, 1000, LASClassification::Ground));
+        }
+      }
+
+      // Process the data
+      fs::path output_dir = test_output_dir / (dir.name + "_" + std::to_string((int)angle_deg) +
+                                               "deg_ds" + std::to_string(downsample_factor));
+      fs::create_directories(output_dir);
+      ProgressTracker tracker;
+      process_las_data(las_data, output_dir, config, std::move(tracker));
+
+      // Read back the ground estimate
+      fs::path ground_file = output_dir / "ground.tif";
+      if (!fs::exists(ground_file)) {
+        // If ground.tif doesn't exist, try smooth_ground.tif
+        ground_file = output_dir / "smooth_ground.tif";
+      }
+
+      if (fs::exists(ground_file)) {
+        Geo<MultiBand<FlexGrid>> tif_data = read_tif(ground_file);
+        GeoGrid<double> ground_grid(tif_data.width(), tif_data.height(),
+                                    GeoTransform(tif_data.transform()),
+                                    GeoProjection(tif_data.projection()));
+        ground_grid.fill_from(tif_data[0]);
+
+        // Verbose per-case output (banner, per-sample rows, and stats) is gated behind an env var
+        // so normal CI runs don't produce huge logs. Set BLAZE_TEST_VERBOSE=1 to enable.
+        // Unset or "0" is treated as disabled, matching the BLAZE_KEEP_TEST_OUTPUT convention.
+        // The final summary table is always printed.
+        const char* verbose_env = blaze::test::get_env("BLAZE_TEST_VERBOSE");
+        const bool verbose = (verbose_env != nullptr && std::string(verbose_env) != "0");
+
+        if (verbose) {
+          std::cout << "\n========================================\n";
+          std::cout << "Direction: " << dir.name << ", Angle: " << angle_deg
+                    << "°, Downsample: " << downsample_factor << "\n";
+          std::cout << "========================================\n";
+          std::cout << std::fixed << std::setprecision(4);
+          std::cout << std::setw(10) << "X" << std::setw(10) << "Y" << std::setw(12) << "Expected Z"
+                    << std::setw(12) << "Estimated Z" << std::setw(12) << "Error" << std::endl;
+          std::cout << "----------------------------------------\n";
+        }
+
+        // Sample all grid cells
+        int valid_samples = 0;
+        double max_abs_error = 0.0;
+        double total_signed_error = 0.0;
+        std::vector<double> signed_errors;
+
+        // Sample at grid cell centers, but skip cells too close to edges
+        // Skip cells within downsample_factor pixels from each edge
+        // (since each pixel in the downsampled grid represents downsample_factor * bin_resolution
+        // meters)
+        size_t edge_padding = downsample_factor;
+
+        for (size_t i = edge_padding; i < ground_grid.height() - edge_padding; i++) {
+          for (size_t j = edge_padding; j < ground_grid.width() - edge_padding; j++) {
+            // Get the projection coordinate for this grid cell center
+            Coordinate2D<double> pixel_center(static_cast<double>(j) + 0.5,
+                                              static_cast<double>(i) + 0.5);
+            Coordinate2D<double> proj_coord =
+                ground_grid.transform().pixel_to_projection(pixel_center);
+
+            double x = proj_coord.x();
+            double y = proj_coord.y();
+            double expected_z = dir.height_func(x, y, slope_ratio);
+            double estimated_z = ground_grid[{j, i}];
+
+            // Skip invalid values (NaN or infinity)
+            if (std::isfinite(estimated_z)) {
+              double signed_error =
+                  estimated_z - expected_z;  // Positive = overestimate, negative = underestimate
+              double abs_error = std::abs(signed_error);
+              max_abs_error = std::max(max_abs_error, abs_error);
+              total_signed_error += signed_error;
+              signed_errors.push_back(signed_error);
+              valid_samples++;
+
+              if (verbose) {
+                std::cout << std::setw(10) << x << std::setw(10) << y << std::setw(12) << expected_z
+                          << std::setw(12) << estimated_z << std::setw(12) << signed_error
+                          << std::endl;
+              }
+
+              const double baseline_tolerance = 1e-6;  // meters
+              double tolerance = std::max(baseline_tolerance, 0.4 * std::abs(slope_ratio));
+              EXPECT_NEAR(estimated_z, expected_z, tolerance)
+                  << "Direction: " << dir.name << ", Angle: " << angle_deg << "°, Position: (" << x
+                  << ", " << y << "), Expected: " << expected_z << ", Got: " << estimated_z;
+            }
+          }
+        }
+
+        if (verbose) {
+          std::cout << "----------------------------------------\n";
+        }
+        if (valid_samples > 0) {
+          double avg_signed_error = total_signed_error / valid_samples;
+
+          // Calculate standard deviation of signed errors
+          double variance = 0.0;
+          for (double error : signed_errors) {
+            double diff = error - avg_signed_error;
+            variance += diff * diff;
+          }
+          double std_dev = std::sqrt(variance / valid_samples);
+
+          if (verbose) {
+            std::cout << "Valid samples: " << valid_samples << "\n";
+            std::cout << "Average error: " << avg_signed_error << " m\n";
+            std::cout << "Std deviation: " << std_dev << " m\n";
+            std::cout << "Max abs error: " << max_abs_error << " m\n";
+          }
+
+          // Check that average absolute error is less than or equal to 0.4 * slope
+          double max_avg_error = 0.4 * std::abs(slope_ratio);
+          EXPECT_LE(std::abs(avg_signed_error), max_avg_error)
+              << "Direction: " << dir.name << ", Angle: " << angle_deg << "°, Average error "
+              << avg_signed_error << " exceeds threshold " << max_avg_error;
+
+          // Check that standard deviation is less than or equal to 0.001
+          EXPECT_LE(std_dev, 0.001)
+              << "Direction: " << dir.name << ", Angle: " << angle_deg << "°, Standard deviation "
+              << std_dev << " exceeds threshold 0.001";
+
+          // Store statistics for summary table
+          all_stats.push_back(
+              {dir.name, angle_deg, downsample_factor, avg_signed_error, std_dev, valid_samples});
+        } else {
+          ADD_FAILURE() << "No valid samples found for Direction: " << dir.name
+                        << ", Angle: " << angle_deg << "°, Downsample: " << downsample_factor
+                        << ". All sampled cells were non-finite, indicating a processing failure.";
+        }
+        if (verbose) {
+          std::cout << "========================================\n\n";
+        }
+      } else {
+        // If neither file exists, that's also a problem
+        ADD_FAILURE() << "Neither ground.tif nor smooth_ground.tif exists for " << dir.name << " "
+                      << angle_deg << "° (downsample=" << downsample_factor << ")";
+      }
+    }
+  }
+
+  // Print summary table
+  if (!all_stats.empty()) {
+    std::cout << "\n==================================================\n";
+    std::cout << "Ground Estimation Error Summary Table\n";
+    std::cout << "==================================================\n";
+    std::cout << std::fixed << std::setprecision(4);
+    std::cout << std::setw(10) << "Direction" << std::setw(8) << "Angle" << std::setw(6) << "DS"
+              << std::setw(12) << "Avg Error" << std::setw(12) << "Std Dev" << std::setw(10)
+              << "Samples" << std::endl;
+    std::cout << "--------------------------------------------------\n";
+
+    for (const auto& stats : all_stats) {
+      std::cout << std::setw(10) << stats.direction << std::setw(8) << stats.angle << std::setw(6)
+                << stats.downsample_factor << std::setw(12) << stats.avg_error << std::setw(12)
+                << stats.std_dev << std::setw(10) << stats.valid_samples << std::endl;
+    }
+    std::cout << "==================================================\n\n";
+  }
+
+  // Keep output files if BLAZE_KEEP_TEST_OUTPUT environment variable is set
+  if (should_keep_output) {
+    std::cout << "Test output kept at: " << test_output_dir << std::endl;
+  } else if (fs::exists(test_output_dir)) {
+    fs::remove_all(test_output_dir);
+  }
+}
 ```
 
 

@@ -59,9 +59,46 @@ void MainWindow::about() {
 }
 
 void MainWindow::run_blaze() {
+  const Config& config = ui->config_editor->get_config();
+
+  // Warn if the requested bin resolution will leave fewer than 5 LiDAR points
+  // per bin on average. At that density ground/vegetation classifications and
+  // contours tend to become noisy; it usually indicates the user either picked
+  // too fine a bin resolution or loaded too little data for the area.
+  constexpr double kMinPointsPerBin = 5.0;
+  const double total_area = ui->config_editor->last_total_area_m2();
+  const std::uint64_t total_points = ui->config_editor->last_total_points();
+  const double bin_res = config.grid.bin_resolution;
+  if (total_area > 0.0 && total_points > 0 && bin_res > 0.0) {
+    const double density = static_cast<double>(total_points) / total_area;  // pts/m^2
+    const double points_per_bin = density * bin_res * bin_res;
+    if (points_per_bin < kMinPointsPerBin) {
+      QMessageBox box(this);
+      box.setIcon(QMessageBox::Warning);
+      box.setWindowTitle("Low point density");
+      box.setText(QString("Average density is only %1 point(s) per %2 m bin "
+                          "(below the recommended minimum of %3).")
+                      .arg(points_per_bin, 0, 'f', 2)
+                      .arg(bin_res, 0, 'f', 2)
+                      .arg(kMinPointsPerBin, 0, 'f', 0));
+      box.setInformativeText(QString("Overall: %1 points over %2 km\u00B2 (%3 pts/m\u00B2).\n\n"
+                                     "Consider increasing \"Bin Resolution\" on the General tab, "
+                                     "or adding more LAS/LAZ data, before processing. Continue "
+                                     "anyway?")
+                                 .arg(QLocale().toString(static_cast<qulonglong>(total_points)))
+                                 .arg(total_area / 1'000'000.0, 0, 'f', 3)
+                                 .arg(density, 0, 'f', 2));
+      box.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+      box.setDefaultButton(QMessageBox::Cancel);
+      box.button(QMessageBox::Yes)->setText("Run anyway");
+      if (box.exec() != QMessageBox::Yes) {
+        return;
+      }
+    }
+  }
+
   ProgressBox* message_box = new ProgressBox(this);
   message_box->show();
-  const Config& config = ui->config_editor->get_config();
   message_box->start_task(
       [&config, message_box] {
         run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));

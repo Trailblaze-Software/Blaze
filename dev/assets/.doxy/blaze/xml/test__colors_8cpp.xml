@@ -1,0 +1,689 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__colors_8cpp" kind="file" language="C++">
+    <compoundname>test_colors.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes refid="colors_8hpp" local="yes">isom/colors.hpp</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp</label>
+        <link refid="test__colors_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>array</label>
+      </node>
+      <node id="2">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
+      <node id="6">
+        <label>ostream</label>
+      </node>
+      <node id="7">
+        <label>variant</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__colors_8cpp_1ac946d58014a9c7a67da1c9d8fc0a8788" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(RGBColor, Construction)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Construction</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="9" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="9" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1ae6530fd45807a91182aa2b11698abf1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(RGBColor, ConstructionWithAlpha)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ConstructionWithAlpha</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="17" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="17" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a9cf561de51aa7b9645f759102ce7588c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(RGBColor, DefaultConstruction)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">DefaultConstruction</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="25" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="25" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a2d89634aa3878ec6df3c77f72609a056" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(RGBColor, IndexOperator)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">IndexOperator</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="33" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="33" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a67f07e27519327bb01bba171cb421c7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CMYKColor, Construction)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Construction</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="45" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="45" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a99d8b1f8cdef38b6f3b98bc659091b86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CMYKColor, DefaultConstruction)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">DefaultConstruction</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="53" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="53" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1afc1d82977e5440587d9dee1f3faf132f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CMYKColor, Addition)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Addition</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="61" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="61" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a13e3d9e220cdab2156032a55daa29b66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CMYKColor, AdditionClamping)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">AdditionClamping</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="71" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="71" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a47f97bf8ec72d8532b8ccb17dd77ee1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CMYKColor, Multiply)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Multiply</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="82" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="82" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1aa1130f60c81958328dd965b12962ecea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, CMYKToRGB_Black)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Black</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="95" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="95" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a82adb343566b79472485353b261613f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, CMYKToRGB_White)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_White</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="103" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="103" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1aaea4d5031b0a71b45d3f7254288b04d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, CMYKToRGB_Red)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Red</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="111" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="111" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a346c81b631f08d1e8d95ed1b61cee450" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, CMYKToRGB_Green)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Green</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="119" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="119" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a62523f3279b6e58af5d9a2894afebbe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, CMYKToRGB_Blue)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Blue</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="127" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="127" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a7ac64fb3176d35015159a081f0f6612a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, RGBToCMYK_Black)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Black</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="135" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="135" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1af9ed7e3c8eb77609489058cfd633bb5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, RGBToCMYK_White)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_White</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="144" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="144" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a64643c17ceb9e74e7032e7adb2cade29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, RGBToCMYK_Red)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Red</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="153" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="153" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a09168ef390998b740d24dad9fb32b15c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, RGBToCMYK_Green)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Green</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="162" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="162" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a03380bf8df3272a7b3b82ecf64d1d0d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, RGBToCMYK_Blue)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Blue</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="171" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="171" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1a234a06934067d1dd0d5a5e75929fb637" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorConversion, RoundTripRGBToCMYKToRGB)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RoundTripRGBToCMYKToRGB</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="180" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="180" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1ac44f2baf5da8770e749e1e4aedfd3d4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorVariant, ToRGB)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ColorVariant</type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ToRGB</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="196" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="196" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="test__colors_8cpp_1adf93d9f333f44b23bbc7b31fa17cbbaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ColorVariant, ToCMYK)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ColorVariant</type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ToCMYK</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" line="210" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp" bodystart="210" bodyend="217"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;isom/colors.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>RGBColor<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">TEST(<ref refid="classRGBColor" kindref="compound">RGBColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">Construction</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>(128,<sp/>64,<sp/>32);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getRed(),<sp/>128);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getGreen(),<sp/>64);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getBlue(),<sp/>32);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getAlpha(),<sp/>255);<sp/><sp/></highlight><highlight class="comment">//<sp/>Default<sp/>alpha</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">TEST(<ref refid="classRGBColor" kindref="compound">RGBColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ConstructionWithAlpha</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>(128,<sp/>64,<sp/>32,<sp/>100);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getRed(),<sp/>128);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getGreen(),<sp/>64);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getBlue(),<sp/>32);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getAlpha(),<sp/>100);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">TEST(<ref refid="classRGBColor" kindref="compound">RGBColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">DefaultConstruction</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getRed(),<sp/>0);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getGreen(),<sp/>0);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getBlue(),<sp/>0);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getAlpha(),<sp/>0);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">TEST(<ref refid="classRGBColor" kindref="compound">RGBColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">IndexOperator</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>(10,<sp/>20,<sp/>30,<sp/>40);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>[0],<sp/>10);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>[1],<sp/>20);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>[2],<sp/>30);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>[3],<sp/>40);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CMYKColor<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">TEST(<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">Construction</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>(50,<sp/>30,<sp/>20,<sp/>10);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getCyan(),<sp/>50);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getMagenta(),<sp/>30);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getYellow(),<sp/>20);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getBlack(),<sp/>10);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">TEST(<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">DefaultConstruction</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getCyan(),<sp/>0);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getMagenta(),<sp/>0);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getYellow(),<sp/>0);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">c</ref>.getBlack(),<sp/>0);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">TEST(<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">Addition</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>(30,<sp/>20,<sp/>10,<sp/>5);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>(40,<sp/>50,<sp/>60,<sp/>70);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getCyan(),<sp/>70);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getMagenta(),<sp/>70);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getYellow(),<sp/>70);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getBlack(),<sp/>75);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">TEST(<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">AdditionClamping</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>(80,<sp/>80,<sp/>80,<sp/>80);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>(30,<sp/>30,<sp/>30,<sp/>30);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Should<sp/>be<sp/>clamped<sp/>to<sp/>100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getCyan(),<sp/>100);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getMagenta(),<sp/>100);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getYellow(),<sp/>100);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getBlack(),<sp/>100);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal">TEST(<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">Multiply</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref>(50,<sp/>40,<sp/>30,<sp/>20);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>*<sp/>0.5;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getCyan(),<sp/>25);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getMagenta(),<sp/>20);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getYellow(),<sp/>15);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.getBlack(),<sp/>10);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CMYK<sp/>&lt;-&gt;<sp/>RGB<sp/>conversion<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Black</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>(0,<sp/>0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.toRGB();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getRed(),<sp/>0);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getGreen(),<sp/>0);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getBlue(),<sp/>0);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_White</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>(0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.toRGB();</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getRed(),<sp/>255);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getGreen(),<sp/>255);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getBlue(),<sp/>255);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Red</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>(0,<sp/>100,<sp/>100,<sp/>0);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.toRGB();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getRed(),<sp/>255);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getGreen(),<sp/>0);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getBlue(),<sp/>0);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Green</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>(100,<sp/>0,<sp/>100,<sp/>0);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.toRGB();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getRed(),<sp/>0);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getGreen(),<sp/>255);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getBlue(),<sp/>0);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CMYKToRGB_Blue</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>(100,<sp/>100,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.toRGB();</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getRed(),<sp/>0);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getGreen(),<sp/>0);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getBlue(),<sp/>255);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Black</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>(0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>.toCMYK();</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getCyan(),<sp/>0);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getMagenta(),<sp/>0);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getYellow(),<sp/>0);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getBlack(),<sp/>100);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_White</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>(255,<sp/>255,<sp/>255);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>.toCMYK();</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getCyan(),<sp/>0);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getMagenta(),<sp/>0);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getYellow(),<sp/>0);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getBlack(),<sp/>0);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Red</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>(255,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>.toCMYK();</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getCyan(),<sp/>0);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getMagenta(),<sp/>100);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getYellow(),<sp/>100);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getBlack(),<sp/>0);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Green</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>(0,<sp/>255,<sp/>0);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>.toCMYK();</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getCyan(),<sp/>100);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getMagenta(),<sp/>0);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getYellow(),<sp/>100);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getBlack(),<sp/>0);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RGBToCMYK_Blue</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>(0,<sp/>0,<sp/>255);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref>.toCMYK();</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getCyan(),<sp/>100);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getMagenta(),<sp/>100);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getYellow(),<sp/>0);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getBlack(),<sp/>0);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ColorConversion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RoundTripRGBToCMYKToRGB</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>mid-range<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">original</ref>(128,<sp/>64,<sp/>192);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">original</ref>.toCMYK();</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">back</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.toRGB();</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Allow<sp/>some<sp/>tolerance<sp/>due<sp/>to<sp/>integer<sp/>rounding<sp/>in<sp/>CMYK<sp/>(0-100<sp/>range)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">back</ref>.getRed(),<sp/><ref refid="classCoordinate2D" kindref="compound">original</ref>.getRed(),<sp/>5);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">back</ref>.getGreen(),<sp/><ref refid="classCoordinate2D" kindref="compound">original</ref>.getGreen(),<sp/>5);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">back</ref>.getBlue(),<sp/><ref refid="classCoordinate2D" kindref="compound">original</ref>.getBlue(),<sp/>5);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ColorVariant<sp/>helper<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal">TEST(ColorVariant,<sp/><ref refid="classCoordinate2D" kindref="compound">ToRGB</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/>ColorVariant<sp/><ref refid="classCoordinate2D" kindref="compound">cv_rgb</ref><sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(100,<sp/>200,<sp/>50);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb</ref><sp/>=<sp/>to_rgb(<ref refid="classCoordinate2D" kindref="compound">cv_rgb</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getRed(),<sp/>100);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getGreen(),<sp/>200);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb</ref>.getBlue(),<sp/>50);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/>ColorVariant<sp/><ref refid="classCoordinate2D" kindref="compound">cv_cmyk</ref><sp/>=<sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>(0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">rgb_from_cmyk</ref><sp/>=<sp/>to_rgb(<ref refid="classCoordinate2D" kindref="compound">cv_cmyk</ref>);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb_from_cmyk</ref>.getRed(),<sp/>255);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb_from_cmyk</ref>.getGreen(),<sp/>255);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">rgb_from_cmyk</ref>.getBlue(),<sp/>255);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">TEST(ColorVariant,<sp/><ref refid="classCoordinate2D" kindref="compound">ToCMYK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/>ColorVariant<sp/><ref refid="classCoordinate2D" kindref="compound">cv_cmyk</ref><sp/>=<sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>(50,<sp/>30,<sp/>20,<sp/>10);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cmyk</ref><sp/>=<sp/>to_cmyk(<ref refid="classCoordinate2D" kindref="compound">cv_cmyk</ref>);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getCyan(),<sp/>50);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getMagenta(),<sp/>30);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getYellow(),<sp/>20);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">cmyk</ref>.getBlack(),<sp/>10);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/tests/test_colors.cpp"/>
+  </compounddef>
+</doxygen>
