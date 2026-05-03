@@ -8,7 +8,8 @@
 #include "polyline/polyline.hpp"
 
 // =============================================================================
-// join_contours tests
+// join_contours tests (max_dist: 2.0 avoids auto-closing merged straight
+// chains; 1.0 for a single unit segment so endpoints are not snapped shut)
 // =============================================================================
 
 TEST(ContourOps, JoinContoursAppend) {
@@ -24,7 +25,7 @@ TEST(ContourOps, JoinContoursAppend) {
   contours.emplace_back(Contour(10.0, std::move(pts_a)));
   contours.emplace_back(Contour(10.0, std::move(pts_b)));
 
-  std::vector<Contour> joined = join_contours(std::move(contours));
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
   EXPECT_EQ(joined.size(), 1);
   EXPECT_EQ(joined[0].points().size(), 3);
   EXPECT_DOUBLE_EQ(joined[0].points()[0].x(), 0.0);
@@ -44,7 +45,7 @@ TEST(ContourOps, JoinContoursPrepend) {
   contours.emplace_back(Contour(10.0, std::move(pts_a)));
   contours.emplace_back(Contour(10.0, std::move(pts_b)));
 
-  std::vector<Contour> joined = join_contours(std::move(contours));
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
   EXPECT_EQ(joined.size(), 1);
   EXPECT_EQ(joined[0].points().size(), 3);
   EXPECT_DOUBLE_EQ(joined[0].points().front().x(), 0.0);
@@ -62,13 +63,13 @@ TEST(ContourOps, JoinContoursNoJoin) {
   contours.emplace_back(Contour(10.0, std::move(pts_a)));
   contours.emplace_back(Contour(10.0, std::move(pts_b)));
 
-  std::vector<Contour> joined = join_contours(std::move(contours));
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
   EXPECT_EQ(joined.size(), 2);
 }
 
 TEST(ContourOps, JoinContoursEmpty) {
   std::vector<Contour> contours;
-  std::vector<Contour> joined = join_contours(std::move(contours));
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
   EXPECT_EQ(joined.size(), 0);
 }
 
@@ -78,9 +79,60 @@ TEST(ContourOps, JoinContoursSingle) {
   std::vector<Contour> contours;
   contours.emplace_back(Contour(10.0, std::move(pts)));
 
-  std::vector<Contour> joined = join_contours(std::move(contours));
+  std::vector<Contour> joined = join_contours(std::move(contours), 1.0);
   EXPECT_EQ(joined.size(), 1);
   EXPECT_EQ(joined[0].points().size(), 2);
+}
+
+TEST(ContourOps, JoinContoursClosesNearLoop) {
+  // A single contour whose own front and back are close together (within
+  // max_dist) should be snapped into a closed loop.
+  std::vector<Coordinate2D<double>> pts = {
+      Coordinate2D<double>(0.0, 0.0), Coordinate2D<double>(10.0, 0.0),
+      Coordinate2D<double>(10.0, 10.0), Coordinate2D<double>(0.0, 10.0),
+      Coordinate2D<double>(0.5, 0.5)};
+  std::vector<Contour> contours;
+  contours.emplace_back(Contour(10.0, std::move(pts)));
+  EXPECT_FALSE(contours[0].is_loop());
+
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
+  ASSERT_EQ(joined.size(), 1);
+  EXPECT_TRUE(joined[0].is_loop());
+  EXPECT_DOUBLE_EQ(joined[0].points().front().x(), joined[0].points().back().x());
+  EXPECT_DOUBLE_EQ(joined[0].points().front().y(), joined[0].points().back().y());
+}
+
+TEST(ContourOps, JoinContoursLeavesFarEndpointsOpen) {
+  // A single contour whose own front and back are farther apart than max_dist
+  // should be left open.
+  std::vector<Coordinate2D<double>> pts = {Coordinate2D<double>(0.0, 0.0),
+                                           Coordinate2D<double>(50.0, 0.0),
+                                           Coordinate2D<double>(50.0, 50.0)};
+  std::vector<Contour> contours;
+  contours.emplace_back(Contour(10.0, std::move(pts)));
+
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
+  ASSERT_EQ(joined.size(), 1);
+  EXPECT_FALSE(joined[0].is_loop());
+  EXPECT_EQ(joined[0].points().size(), 3);
+}
+
+TEST(ContourOps, JoinContoursPrefersCrossJoinOverSelfClose) {
+  // Contour a's back is closer to contour b's front (1.0 away) than to its
+  // own front (5.0 away), so a should join with b instead of self-closing.
+  std::vector<Coordinate2D<double>> pts_a = {Coordinate2D<double>(0.0, 0.0),
+                                             Coordinate2D<double>(5.0, 0.0)};
+  std::vector<Coordinate2D<double>> pts_b = {Coordinate2D<double>(6.0, 0.0),
+                                             Coordinate2D<double>(10.0, 0.0)};
+
+  std::vector<Contour> contours;
+  contours.emplace_back(Contour(10.0, std::move(pts_a)));
+  contours.emplace_back(Contour(10.0, std::move(pts_b)));
+
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
+  ASSERT_EQ(joined.size(), 1);
+  EXPECT_FALSE(joined[0].is_loop());
+  EXPECT_EQ(joined[0].points().size(), 4);
 }
 
 TEST(ContourOps, JoinContoursChain) {
@@ -97,7 +149,7 @@ TEST(ContourOps, JoinContoursChain) {
   contours.emplace_back(Contour(10.0, std::move(pts_b)));
   contours.emplace_back(Contour(10.0, std::move(pts_c)));
 
-  std::vector<Contour> joined = join_contours(std::move(contours));
+  std::vector<Contour> joined = join_contours(std::move(contours), 2.0);
   EXPECT_EQ(joined.size(), 1);
   EXPECT_DOUBLE_EQ(joined[0].points().front().x(), 0.0);
   EXPECT_DOUBLE_EQ(joined[0].points().back().x(), 3.0);

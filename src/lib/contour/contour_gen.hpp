@@ -24,7 +24,7 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
   return contour_heights;
 }
 
-inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist = 15.0) {
+inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist) {
   const double max_dist_sqd = max_dist * max_dist;
   // Orientation-preserving endpoint pairings only (no reversing polylines):
   //   {back_a, front_b} → append b to a; {front_a, back_b} → prepend b onto a.
@@ -110,6 +110,21 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
       }
     }
     contours = std::move(next_round);
+  }
+
+  // Snap nearly-closed loops after all cross-contour joins are done.
+  for (Contour& c : contours) {
+    if (c.is_loop()) {
+      continue;
+    }
+    auto& pts = c.points();
+    if (pts.size() < 2) {
+      continue;
+    }
+    const double gap_sqd = (pts.front() - pts.back()).magnitude_sqd();
+    if (gap_sqd < max_dist_sqd) {
+      c.close_loop();
+    }
   }
 
   return contours;

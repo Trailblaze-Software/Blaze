@@ -81,9 +81,8 @@ jobs:
           # precedence on Windows runners).
           $nugetDir = Split-Path -LiteralPath $nuget
           Add-Content -Path $env:GITHUB_PATH -Value $nugetDir
-          # GITHUB_PATH alone is unreliable after ilammy/msvc-dev-cmd replaces PATH
-          # (seen on windows-11-arm: vcpkg still invoked Chocolatey's nuget → 403).
-          echo "BLAZE_VCPKG_NUGET_DIR=$nugetDir" >> $env:GITHUB_ENV
+          # GITHUB_PATH / GITHUB_ENV are unreliable once MSVC sets PATH; Configure/Build
+          # steps re-fetch this directory and prepend to PATH before cmake (see below).
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
           & $nuget sources add `
@@ -100,9 +99,12 @@ jobs:
       - name: Configure
         shell: pwsh
         run: |
-          if ($env:BLAZE_VCPKG_NUGET_DIR) {
-            $env:PATH = "$env:BLAZE_VCPKG_NUGET_DIR;$env:PATH"
-          }
+          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
+          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
+          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
+          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
+          $env:PATH = "$nugetShimDir;$env:PATH"
           $cmakeArgs = @(
             "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}",
             "-DVCPKG_BUILD_TYPE=release",
@@ -115,9 +117,12 @@ jobs:
       - name: Build
         shell: pwsh
         run: |
-          if ($env:BLAZE_VCPKG_NUGET_DIR) {
-            $env:PATH = "$env:BLAZE_VCPKG_NUGET_DIR;$env:PATH"
-          }
+          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
+          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
+          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
+          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
+          $env:PATH = "$nugetShimDir;$env:PATH"
           cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
         run: |
