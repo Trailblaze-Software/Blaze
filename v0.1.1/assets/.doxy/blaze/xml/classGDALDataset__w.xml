@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGDALDataset__w" kind="class" language="C++" prot="public">
+    <compoundname>GDALDataset_w</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGDALDataset__w_1a6fa9416f2222877694924d3377a3b8f7" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate2D" kindref="compound">GDALDataset</ref> *</type>
+        <definition>GDALDataset* GDALDataset_w::dataset</definition>
+        <argsstring></argsstring>
+        <name>dataset</name>
+        <qualifiedname>GDALDataset_w::dataset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="15" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGDALDataset__w_1a34e0f79820e10011eb2bb66e2d80bc7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GDALDataset_w::GDALDataset_w</definition>
+        <argsstring>(const std::string &amp;filename, const std::string &amp;projection)</argsstring>
+        <name>GDALDataset_w</name>
+        <qualifiedname>GDALDataset_w::GDALDataset_w</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>projection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="18" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="18" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classGDALDataset__w_1aeda67cdeb110764571fe3343419071b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">GDALDataset</ref> *</type>
+        <definition>GDALDataset * GDALDataset_w::operator-&gt;</definition>
+        <argsstring>()</argsstring>
+        <name>operator-&gt;</name>
+        <qualifiedname>GDALDataset_w::operator-&gt;</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="31" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classGDALDataset__w_1a1ee8b558215d7dcf90e6caecdbae2b4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GDALDataset_w::~GDALDataset_w</definition>
+        <argsstring>()</argsstring>
+        <name>~GDALDataset_w</name>
+        <qualifiedname>GDALDataset_w::~GDALDataset_w</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="33" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="33" bodyend="33"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="14" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="14" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classGDALDataset__w_1a6fa9416f2222877694924d3377a3b8f7" prot="private" virt="non-virtual"><scope>GDALDataset_w</scope><name>dataset</name></member>
+      <member refid="classGDALDataset__w_1a34e0f79820e10011eb2bb66e2d80bc7f" prot="public" virt="non-virtual"><scope>GDALDataset_w</scope><name>GDALDataset_w</name></member>
+      <member refid="classGDALDataset__w_1aeda67cdeb110764571fe3343419071b2" prot="public" virt="non-virtual"><scope>GDALDataset_w</scope><name>operator-&gt;</name></member>
+      <member refid="classGDALDataset__w_1a1ee8b558215d7dcf90e6caecdbae2b4d" prot="public" virt="non-virtual"><scope>GDALDataset_w</scope><name>~GDALDataset_w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
