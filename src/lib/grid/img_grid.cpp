@@ -44,31 +44,43 @@ void GeoImgGrid::draw(const GeoImgGrid& other, std::optional<int> interpolation)
       transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0}));
   double dx_ratio = other.transform().dx() / transform().dx();
   double dy_ratio = other.transform().dy() / transform().dy();
-  cv::Rect roi(top_left.x(), top_left.y(), other.width() * dx_ratio, other.height() * dy_ratio);
+  const int full_w = static_cast<int>(other.width() * dx_ratio);
+  const int full_h = static_cast<int>(other.height() * dy_ratio);
+  const cv::Rect roi_full(static_cast<int>(top_left.x()), static_cast<int>(top_left.y()), full_w,
+                          full_h);
   cv::Mat resized_img;
-  cv::resize(*other.m_img, resized_img,
-             cv::Size(other.width() * dx_ratio, other.height() * dy_ratio), 0, 0,
+  cv::resize(*other.m_img, resized_img, cv::Size(full_w, full_h), 0, 0,
              interpolation.value_or(cv::INTER_NEAREST));
-  if (resized_img.channels() == 4 && m_img->channels() == 4) {
+
+  const cv::Rect img_bounds(0, 0, m_img->cols, m_img->rows);
+  const cv::Rect roi = roi_full & img_bounds;
+  if (roi.width <= 0 || roi.height <= 0) {
+    return;
+  }
+  const cv::Rect src_rect(roi.x - roi_full.x, roi.y - roi_full.y, roi.width, roi.height);
+  cv::Mat resized_roi = resized_img(src_rect);
+  cv::Mat dest_roi = (*m_img)(roi);
+
+  if (resized_roi.channels() == 4 && m_img->channels() == 4) {
     cv::Mat alpha_other, alpha_m_img;
     std::vector<cv::Mat> channels_other, channels_m_img;
-    cv::split(resized_img, channels_other);
-    cv::split((*m_img)(roi), channels_m_img);
+    cv::split(resized_roi, channels_other);
+    cv::split(dest_roi, channels_m_img);
     alpha_other = channels_other[3];
     alpha_m_img = channels_m_img[3];
 
     alpha_other.convertTo(alpha_other, CV_32F, 1.0 / 255.0);
     alpha_m_img.convertTo(alpha_m_img, CV_32F, 1.0 / 255.0);
 
-    cv::Mat blended_img = cv::Mat::zeros((*m_img)(roi).size(), CV_8UC4);
+    cv::Mat blended_img = cv::Mat::zeros(dest_roi.size(), CV_8UC4);
 #pragma omp parallel for
-    for (int y = 0; y < (*m_img)(roi).rows; ++y) {
-      for (int x = 0; x < (*m_img)(roi).cols; ++x) {
+    for (int y = 0; y < dest_roi.rows; ++y) {
+      for (int x = 0; x < dest_roi.cols; ++x) {
         float alpha = alpha_other.at<float>(y, x);
         float beta = alpha_m_img.at<float>(y, x);
 
-        cv::Vec4b color_resized = resized_img.at<cv::Vec4b>(y, x);
-        cv::Vec4b color_m_img = (*m_img)(roi).at<cv::Vec4b>(y, x);
+        cv::Vec4b color_resized = resized_roi.at<cv::Vec4b>(y, x);
+        cv::Vec4b color_m_img = dest_roi.at<cv::Vec4b>(y, x);
 
         for (int c = 0; c < 3; ++c) {
           blended_img.at<cv::Vec4b>(y, x)[c] =
@@ -79,9 +91,9 @@ void GeoImgGrid::draw(const GeoImgGrid& other, std::optional<int> interpolation)
       }
     }
 
-    blended_img.copyTo((*m_img)(roi));
+    blended_img.copyTo(dest_roi);
   } else {
-    resized_img.copyTo((*m_img)(roi));
+    resized_roi.copyTo(dest_roi);
   }
 }
 void GeoImgGrid::draw_point(const Coordinate2D<double>& point, const ColorVariant& color,
