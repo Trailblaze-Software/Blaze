@@ -11,10 +11,10 @@
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
         <layer class="SimpleFill" enabled="1" id="{osm-landform-poly}" locked="0" pass="0">
           <Option type="Map">
-            <Option name="color" type="QString" value="210,190,160,80"></Option>
-            <Option name="outline_color" type="QString" value="140,120,90,255"></Option>
-            <Option name="outline_style" type="QString" value="dash"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="color" type="QString" value="255,235,130,200"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,0"></Option>
+            <Option name="outline_style" type="QString" value="no"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>
@@ -24,7 +24,7 @@
   </renderer-v2>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontItalic="1" fontSize="8" fontSizeUnit="Point" fontWeight="50" textColor="90,60,30,255" textOpacity="1">
+      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontItalic="1" fontSize="8" fontSizeUnit="Point" fontWeight="50" textColor="120,65,15,255" textOpacity="1">
         <text-buffer bufferColor="250,250,250,255" bufferDraw="1" bufferNoFill="1" bufferOpacity="1" bufferSize="0.35" bufferSizeUnits="MM"></text-buffer>
       </text-style>
       <placement overlapHandling="PreventOverlap" placement="4" priority="3"></placement>

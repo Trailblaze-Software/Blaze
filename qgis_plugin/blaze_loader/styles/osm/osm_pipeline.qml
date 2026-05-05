@@ -9,24 +9,69 @@
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="line">
-        <layer class="SimpleLine" enabled="1" id="{osm-pipeline}" locked="0" pass="0">
+        <layer class="SimpleLine" enabled="1" id="{osm-pipeline-base}" locked="0" pass="0">
           <Option type="Map">
             <Option name="capstyle" type="QString" value="round"></Option>
             <Option name="joinstyle" type="QString" value="round"></Option>
-            <Option name="line_color" type="QString" value="160,110,60,255"></Option>
-            <Option name="line_style" type="QString" value="dash"></Option>
+            <Option name="line_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="line_style" type="QString" value="solid"></Option>
             <Option name="line_width" type="QString" value="0.25"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
             <Option name="use_custom_dash" type="QString" value="0"></Option>
             <Option name="width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
           </Option>
         </layer>
+        <layer class="MarkerLine" enabled="1" id="{osm-pipeline-bars}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="average_angle_length" type="QString" value="4"></Option>
+            <Option name="average_angle_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="average_angle_unit" type="QString" value="MM"></Option>
+            <Option name="interval" type="QString" value="3.5"></Option>
+            <Option name="interval_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="interval_unit" type="QString" value="MM"></Option>
+            <Option name="offset" type="QString" value="0"></Option>
+            <Option name="offset_along_line" type="QString" value="0"></Option>
+            <Option name="offset_along_line_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_along_line_unit" type="QString" value="MM"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="place_on_every_part" type="bool" value="true"></Option>
+            <Option name="placements" type="QString" value="Interval"></Option>
+            <Option name="ring_filter" type="QString" value="0"></Option>
+            <Option name="rotate" type="QString" value="1"></Option>
+          </Option>
+          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="@0@1" type="marker">
+            <layer class="SimpleMarker" enabled="1" id="{osm-pipeline-bar-marker}" locked="0" pass="0">
+              <Option type="Map">
+                <Option name="angle" type="QString" value="0"></Option>
+                <Option name="cap_style" type="QString" value="square"></Option>
+                <Option name="color" type="QString" value="0,0,0,255"></Option>
+                <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+                <Option name="joinstyle" type="QString" value="bevel"></Option>
+                <Option name="name" type="QString" value="line"></Option>
+                <Option name="offset" type="QString" value="0,0"></Option>
+                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+                <Option name="offset_unit" type="QString" value="MM"></Option>
+                <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
+                <Option name="outline_style" type="QString" value="solid"></Option>
+                <Option name="outline_width" type="QString" value="0.25"></Option>
+                <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+                <Option name="outline_width_unit" type="QString" value="MM"></Option>
+                <Option name="scale_method" type="QString" value="diameter"></Option>
+                <Option name="size" type="QString" value="1.6"></Option>
+                <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+                <Option name="size_unit" type="QString" value="MM"></Option>
+                <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+              </Option>
+            </layer>
+          </symbol>
+        </layer>
       </symbol>
     </symbols>
   </renderer-v2>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontSize="7" fontSizeUnit="Point" fontWeight="50" textColor="120,80,40,255" textOpacity="1">
+      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontSize="7" fontSizeUnit="Point" fontWeight="50" textColor="0,0,0,255" textOpacity="1">
         <text-buffer bufferColor="250,250,250,255" bufferDraw="1" bufferNoFill="1" bufferOpacity="1" bufferSize="0.3" bufferSizeUnits="MM"></text-buffer>
       </text-style>
       <placement allowDegraded="0" maxCurvedCharAngleIn="40" maxCurvedCharAngleOut="-40" overlapHandling="PreventOverlap" placement="3" placementFlags="10" preserveRotation="1" priority="4" repeatDistance="400" repeatDistanceUnit="MM"></placement>

@@ -6,17 +6,76 @@
     <Searchable>1</Searchable>
     <Private>0</Private>
   </flags>
-  <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
+  <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
+    <rules key="{osm-am-root}">
+      <rule filter="&quot;amenity&quot; = 'shelter'" key="{am-shelter}" label="Shelter" symbol="0"></rule>
+      <rule filter="&quot;amenity&quot; = 'toilets'" key="{am-toilets}" label="Toilets" symbol="1"></rule>
+      <rule filter="&quot;amenity&quot; = 'drinking_water'" key="{am-water}" label="Drinking water" symbol="2"></rule>
+      <rule filter="&quot;amenity&quot; = 'fountain'" key="{am-fountain}" label="Fountain" symbol="3"></rule>
+      <rule filter="ELSE" key="{am-other}" label="Other" symbol="4"></rule>
+    </rules>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
-        <layer class="SimpleMarker" enabled="1" id="{osm-amenity}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{osm-amenity-shelter}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="name" type="QString" value="square"></Option>
+            <Option name="size" type="QString" value="2.1"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="color" type="QString" value="255,255,255,255"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_width" type="QString" value="0.35"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+          </Option>
+        </layer>
+      </symbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="1" type="marker">
+        <layer class="SimpleMarker" enabled="1" id="{osm-amenity-toilets}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="name" type="QString" value="triangle"></Option>
+            <Option name="size" type="QString" value="2.2"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+          </Option>
+        </layer>
+      </symbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="2" type="marker">
+        <layer class="SimpleMarker" enabled="1" id="{osm-amenity-drinking}" locked="0" pass="0">
           <Option type="Map">
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="size" type="QString" value="2.0"></Option>
             <Option name="size_unit" type="QString" value="MM"></Option>
-            <Option name="color" type="QString" value="70,130,200,255"></Option>
-            <Option name="outline_color" type="QString" value="20,60,110,255"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="color" type="QString" value="0,158,224,255"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_width" type="QString" value="0.25"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+          </Option>
+        </layer>
+      </symbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="3" type="marker">
+        <layer class="SimpleMarker" enabled="1" id="{osm-amenity-fountain}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="name" type="QString" value="diamond"></Option>
+            <Option name="size" type="QString" value="2.0"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="color" type="QString" value="0,158,224,255"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_width" type="QString" value="0.25"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+          </Option>
+        </layer>
+      </symbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="4" type="marker">
+        <layer class="SimpleMarker" enabled="1" id="{osm-amenity-other}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="name" type="QString" value="circle"></Option>
+            <Option name="size" type="QString" value="1.6"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_width" type="QString" value="0.15"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
           </Option>
         </layer>
@@ -25,7 +84,7 @@
   </renderer-v2>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontSize="8" fontSizeUnit="Point" fontWeight="50" textColor="20,60,110,255" textOpacity="1">
+      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontSize="8" fontSizeUnit="Point" fontWeight="50" textColor="0,0,0,255" textOpacity="1">
         <text-buffer bufferColor="250,250,250,255" bufferDraw="1" bufferNoFill="1" bufferOpacity="1" bufferSize="0.35" bufferSizeUnits="MM"></text-buffer>
       </text-style>
       <placement dist="2" distUnits="MM" overlapHandling="PreventOverlap" placement="6" priority="4" quadOffset="2"></placement>

@@ -11,13 +11,17 @@
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
         <layer class="SimpleMarker" enabled="1" id="{osm-cave}" locked="0" pass="0">
           <Option type="Map">
-            <Option name="name" type="QString" value="pentagon"></Option>
-            <Option name="size" type="QString" value="2.2"></Option>
-            <Option name="size_unit" type="QString" value="MM"></Option>
-            <Option name="color" type="QString" value="90,60,30,255"></Option>
-            <Option name="outline_color" type="QString" value="40,25,10,255"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="angle" type="QString" value="180"></Option>
+            <Option name="color" type="QString" value="0,0,0,255"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="half_arc"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_style" type="QString" value="solid"></Option>
+            <Option name="outline_width" type="QString" value="0.4"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="size" type="QString" value="1.8"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
           </Option>
         </layer>
       </symbol>
@@ -25,7 +29,7 @@
   </renderer-v2>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontItalic="1" fontSize="8" fontSizeUnit="Point" fontWeight="50" textColor="60,40,20,255" textOpacity="1">
+      <text-style allowHtml="0" capitalization="1004" fieldName="name" fontFamily="Arial" fontItalic="1" fontSize="8" fontSizeUnit="Point" fontWeight="50" textColor="0,0,0,255" textOpacity="1">
         <text-buffer bufferColor="250,250,250,255" bufferDraw="1" bufferNoFill="1" bufferOpacity="1" bufferSize="0.35" bufferSizeUnits="MM"></text-buffer>
       </text-style>
       <placement dist="2" distUnits="MM" overlapHandling="PreventOverlap" placement="6" priority="4" quadOffset="2"></placement>

@@ -8,19 +8,19 @@
   </flags>
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
     <rules key="{wd-root}">
-      <rule filter="&quot;natural&quot; = 'wood'" key="{wd-w}" label="Wood" symbol="0"></rule>
+      <rule filter="&quot;natural&quot; = 'wood'" key="{wd-w}" label="Wood (forest)" symbol="0"></rule>
       <rule filter="&quot;natural&quot; = 'scrub'" key="{wd-s}" label="Scrub" symbol="1"></rule>
-      <rule filter="ELSE" key="{wd-o}" label="Other" symbol="2"></rule>
+      <rule filter="ELSE" key="{wd-o}" label="Heath / other" symbol="2"></rule>
     </rules>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
         <layer class="SimpleFill" enabled="1" id="{wd-wood}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="80,150,80,150"></Option>
-            <Option name="outline_color" type="QString" value="40,100,40,200"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0.15"></Option>
+            <Option name="color" type="QString" value="133,199,159,200"></Option>
+            <Option name="outline_color" type="QString" value="0,156,89,0"></Option>
+            <Option name="outline_style" type="QString" value="no"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>
@@ -30,23 +30,23 @@
         <layer class="SimpleFill" enabled="1" id="{wd-scrub}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="170,200,140,150"></Option>
-            <Option name="outline_color" type="QString" value="120,150,90,200"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0.15"></Option>
+            <Option name="color" type="QString" value="195,227,198,200"></Option>
+            <Option name="outline_color" type="QString" value="0,156,89,0"></Option>
+            <Option name="outline_style" type="QString" value="no"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>
         </layer>
       </symbol>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="2" type="fill">
-        <layer class="SimpleFill" enabled="1" id="{wd-other}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{wd-heath}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="200,210,170,150"></Option>
-            <Option name="outline_color" type="QString" value="140,150,110,200"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0.15"></Option>
+            <Option name="color" type="QString" value="225,238,200,200"></Option>
+            <Option name="outline_color" type="QString" value="0,156,89,0"></Option>
+            <Option name="outline_style" type="QString" value="no"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>

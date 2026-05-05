@@ -9,13 +9,13 @@
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
-        <layer class="SimpleFill" enabled="1" id="{wf}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{wf-fill}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="160,200,235,180"></Option>
-            <Option name="outline_color" type="QString" value="40,100,200,255"></Option>
+            <Option name="color" type="QString" value="0,158,224,200"></Option>
+            <Option name="outline_color" type="QString" value="0,110,170,255"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="outline_width" type="QString" value="0.18"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>

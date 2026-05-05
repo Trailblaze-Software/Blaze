@@ -749,7 +749,7 @@ def create_qgis_project(
             "filters": ['["railway"~"^(rail|light_rail|subway|tram|monorail|narrow_gauge|preserved)$"]'],
             "tag": "railway",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_rail_abandoned",
@@ -757,7 +757,7 @@ def create_qgis_project(
             "filters": ['["railway"~"^(abandoned|disused|razed)$"]'],
             "tag": "railway",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_station_pts",
@@ -765,7 +765,7 @@ def create_qgis_project(
             "filters": ['["railway"~"^(station|halt|tram_stop)$"]'],
             "tag": "railway",
             "geom": "point",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_station_ways",
@@ -790,7 +790,7 @@ def create_qgis_project(
             "filters": ['["natural"="coastline"]'],
             "tag": "natural",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_water",
@@ -810,7 +810,7 @@ def create_qgis_project(
             ],
             "tag": "natural",
             "geom": "polygon",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_leisure_water",
@@ -818,7 +818,7 @@ def create_qgis_project(
             "filters": ['["leisure"="swimming_area"]', '["leisure"="slipway"]', '["leisure"="marina"]'],
             "tag": "leisure",
             "geom": "polygon",
-            "visible": False,
+            "visible": True,
         },
         # Natural / landcover
         {
@@ -851,7 +851,7 @@ def create_qgis_project(
             "filters": ['["natural"~"^(cliff|ridge|arete)$"]'],
             "tag": "natural",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_landform_poly",
@@ -859,7 +859,7 @@ def create_qgis_project(
             "filters": ['["natural"="fell"]'],
             "tag": "natural",
             "geom": "polygon",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_natural_surface",
@@ -867,7 +867,7 @@ def create_qgis_project(
             "filters": ['["natural"~"^(grassland|sand|beach|rock|shingle)$"]'],
             "tag": "natural",
             "geom": "polygon",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_natural_surface_mp",
@@ -875,7 +875,7 @@ def create_qgis_project(
             "filters": ['["type"="multipolygon"]["natural"~"^(grassland|sand|beach|rock|shingle|fell)$"]'],
             "tag": "natural",
             "geom": "polygon",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_peaks",
@@ -891,7 +891,7 @@ def create_qgis_project(
             "filters": ['["natural"="cave_entrance"]'],
             "tag": "natural",
             "geom": "point",
-            "visible": False,
+            "visible": True,
         },
         # Boundaries (protected areas)
         {
@@ -917,7 +917,7 @@ def create_qgis_project(
             "filters": ['["barrier"]'],
             "tag": "barrier",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_barrier_points",
@@ -925,7 +925,7 @@ def create_qgis_project(
             "filters": ['["barrier"]'],
             "tag": "barrier",
             "geom": "point",
-            "visible": False,
+            "visible": True,
         },
         # Power / pipelines
         {
@@ -934,7 +934,7 @@ def create_qgis_project(
             "filters": ['["power"~"^(line|minor_line)$"]'],
             "tag": "power",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_power_towers_pts",
@@ -958,7 +958,7 @@ def create_qgis_project(
             "filters": ['["man_made"="pipeline"]'],
             "tag": "man_made",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         # POIs / amenities / tourism
         {
@@ -975,7 +975,7 @@ def create_qgis_project(
             "filters": ['["man_made"~"^(tower|mast|chimney)$"]'],
             "tag": "man_made",
             "geom": "point",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_embankment",
@@ -983,7 +983,7 @@ def create_qgis_project(
             "filters": ['["man_made"~"^(cutline|embankment)$"]'],
             "tag": "man_made",
             "geom": "line",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_tourism_pts",
@@ -1007,7 +1007,7 @@ def create_qgis_project(
             "filters": ['["amenity"~"^(shelter|toilets|drinking_water|fountain)$"]'],
             "tag": "amenity",
             "geom": "point",
-            "visible": False,
+            "visible": True,
         },
         # Places
         {
@@ -1033,7 +1033,7 @@ def create_qgis_project(
             "filters": ['["natural"="tree"]'],
             "tag": "natural",
             "geom": "point",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_tree_rows",
@@ -1065,7 +1065,7 @@ def create_qgis_project(
             "filters": ['["man_made"~"^(silo|storage_tank)$"]'],
             "tag": "man_made",
             "geom": "point",
-            "visible": False,
+            "visible": True,
         },
         {
             "name": "osm_water_towers_windmills",
@@ -2497,6 +2497,21 @@ def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
     if not styles_dir.exists():
         return False
 
+    # OSM layers have their QML styles in styles/osm/<layer_name>.qml.
+    # Avoid the generic fallback mappings ("road" -> RoadSegment.qml, etc.)
+    # which are intended for NSW Topo layers and will mis-style OSM layers.
+    name_lower = name.lower()
+    if name_lower.startswith("osm_"):
+        osm_dir = styles_dir / "osm"
+        if osm_dir.exists():
+            qml_path = osm_dir / f"{name}.qml"
+            if qml_path.exists():
+                result = layer.loadNamedStyle(str(qml_path))
+                if result[1]:
+                    log(f"    Applied style: osm/{name}.qml")
+                    return True
+        return False
+
     # Try exact name match first
     qml_path = styles_dir / f"{name}.qml"
     if qml_path.exists():
@@ -2506,7 +2521,6 @@ def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
             return True
 
     # Fallback mappings for common layers
-    name_lower = name.lower()
     qml_mappings = {
         "roadsegment": "RoadSegment.qml",
         "road": "RoadSegment.qml",

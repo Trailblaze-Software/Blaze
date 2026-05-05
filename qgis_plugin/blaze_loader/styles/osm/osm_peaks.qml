@@ -12,14 +12,14 @@
         <layer class="SimpleMarker" enabled="1" id="{pk}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="120,80,40,255"></Option>
+            <Option name="color" type="QString" value="187,100,25,255"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="name" type="QString" value="triangle"></Option>
-            <Option name="outline_color" type="QString" value="60,40,20,255"></Option>
+            <Option name="outline_color" type="QString" value="187,100,25,255"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0.2"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
-            <Option name="size" type="QString" value="3"></Option>
+            <Option name="size" type="QString" value="2.6"></Option>
             <Option name="size_unit" type="QString" value="MM"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
           </Option>
@@ -29,7 +29,7 @@
   </renderer-v2>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style fieldName="name" fontFamily="Arial" fontItalic="1" fontSize="9" fontWeight="50" textColor="80,40,10,255" textOpacity="1">
+      <text-style fieldName="name" fontFamily="Arial" fontItalic="1" fontSize="9" fontWeight="50" textColor="120,65,15,255" textOpacity="1">
         <text-buffer bufferColor="255,255,255,200" bufferDraw="1" bufferSize="1" bufferSizeUnits="MM"></text-buffer>
       </text-style>
       <text-format addDirectionSymbol="0" decimals="3" multilineAlign="3" placeDirectionSymbol="0" plural="0" wrapChar=""></text-format>

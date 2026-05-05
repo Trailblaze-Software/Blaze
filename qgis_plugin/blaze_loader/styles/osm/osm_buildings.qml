@@ -12,10 +12,10 @@
         <layer class="SimpleFill" enabled="1" id="{bld}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="180,170,160,200"></Option>
-            <Option name="outline_color" type="QString" value="80,70,60,255"></Option>
+            <Option name="color" type="QString" value="0,0,0,255"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="outline_width" type="QString" value="0.15"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>

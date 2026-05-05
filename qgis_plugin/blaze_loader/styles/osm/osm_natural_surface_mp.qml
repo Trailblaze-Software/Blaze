@@ -9,17 +9,19 @@
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
     <rules key="{osm-nat-surface-mp}">
       <rule filter="&quot;natural&quot; IN ('sand','beach')" label="Sand / beach" symbol="0"></rule>
-      <rule filter="&quot;natural&quot; IN ('rock','shingle')" label="Rock" symbol="1"></rule>
-      <rule filter="ELSE" label="Other" symbol="2"></rule>
+      <rule filter="&quot;natural&quot; IN ('rock','shingle','bare_rock')" label="Rock" symbol="1"></rule>
+      <rule filter="&quot;natural&quot; = 'grassland'" label="Grassland" symbol="2"></rule>
+      <rule filter="&quot;natural&quot; = 'fell'" label="Fell" symbol="3"></rule>
+      <rule filter="ELSE" label="Other open" symbol="4"></rule>
     </rules>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
         <layer class="SimpleFill" enabled="1" id="{osm-sand-mp}" locked="0" pass="0">
           <Option type="Map">
-            <Option name="color" type="QString" value="245,235,200,120"></Option>
-            <Option name="outline_color" type="QString" value="200,190,160,255"></Option>
+            <Option name="color" type="QString" value="255,235,130,220"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,0"></Option>
             <Option name="outline_style" type="QString" value="no"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>
@@ -28,22 +30,46 @@
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="1" type="fill">
         <layer class="SimpleFill" enabled="1" id="{osm-rock-mp}" locked="0" pass="0">
           <Option type="Map">
-            <Option name="color" type="QString" value="220,220,220,120"></Option>
-            <Option name="outline_color" type="QString" value="160,160,160,255"></Option>
+            <Option name="color" type="QString" value="200,200,200,200"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,0"></Option>
             <Option name="outline_style" type="QString" value="no"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>
         </layer>
       </symbol>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="2" type="fill">
+        <layer class="SimpleFill" enabled="1" id="{osm-grassland-mp}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="color" type="QString" value="255,243,170,220"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,0"></Option>
+            <Option name="outline_style" type="QString" value="no"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="style" type="QString" value="solid"></Option>
+          </Option>
+        </layer>
+      </symbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="3" type="fill">
+        <layer class="SimpleFill" enabled="1" id="{osm-fell-mp}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="color" type="QString" value="255,235,130,200"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,0"></Option>
+            <Option name="outline_style" type="QString" value="no"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="style" type="QString" value="solid"></Option>
+          </Option>
+        </layer>
+      </symbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="4" type="fill">
         <layer class="SimpleFill" enabled="1" id="{osm-surface-other-mp}" locked="0" pass="0">
           <Option type="Map">
-            <Option name="color" type="QString" value="210,240,200,80"></Option>
-            <Option name="outline_color" type="QString" value="160,200,150,255"></Option>
+            <Option name="color" type="QString" value="225,238,200,200"></Option>
+            <Option name="outline_color" type="QString" value="0,0,0,0"></Option>
             <Option name="outline_style" type="QString" value="no"></Option>
-            <Option name="outline_width" type="QString" value="0.2"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>

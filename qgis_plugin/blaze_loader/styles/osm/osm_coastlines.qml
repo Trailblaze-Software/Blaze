@@ -13,7 +13,7 @@
           <Option type="Map">
             <Option name="capstyle" type="QString" value="round"></Option>
             <Option name="joinstyle" type="QString" value="round"></Option>
-            <Option name="line_color" type="QString" value="30,30,30,255"></Option>
+            <Option name="line_color" type="QString" value="0,110,170,255"></Option>
             <Option name="line_style" type="QString" value="solid"></Option>
             <Option name="line_width" type="QString" value="0.5"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
