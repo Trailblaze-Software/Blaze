@@ -66,6 +66,62 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="downloadOsmCheckBox">
+         <property name="text">
+          <string>Download OpenStreetMap (OSM) layers</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="osmSourceLayout">
+         <item>
+          <widget class="QLabel" name="osmSourceLabel">
+           <property name="text">
+            <string>OSM source:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="osmSourceComboBox">
+           <item>
+            <property name="text">
+             <string>Overpass API</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Geofabrik regional extract</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="osmGpkgLayout">
+         <item>
+          <widget class="QLabel" name="osmGpkgLabel">
+           <property name="text">
+            <string>OSM GPKG Save Location (optional):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="osmGpkgLineEdit"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="osmGpkgBrowseButton">
+           <property name="text">
+            <string>Browse...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="gpkgLayout">
          <item>
           <widget class="QLabel" name="gpkgLabel">

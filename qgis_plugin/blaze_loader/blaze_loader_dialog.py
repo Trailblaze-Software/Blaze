@@ -24,11 +24,13 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         # Connect browse buttons
         self.browseButton.clicked.connect(self.browse_output_folder)
         self.gpkgBrowseButton.clicked.connect(self.browse_gpkg_file)
+        self.osmGpkgBrowseButton.clicked.connect(self.browse_osm_gpkg_file)
 
         # Set up button enable/disable logic
         self.loadButton.setEnabled(bool(self.folderLineEdit.text()))
         self.folderLineEdit.textChanged.connect(self.update_load_button_state)
         self.useCurrentExtentCheckBox.toggled.connect(self.on_use_current_extent_toggled)
+        self.downloadOsmCheckBox.toggled.connect(self.on_download_osm_toggled)
 
         # Connect button box signals
         self.buttonBox.accepted.connect(self.accept)
@@ -36,6 +38,10 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
 
         # Connect load button
         self.loadButton.clicked.connect(self.accept)
+
+        # Defaults
+        self.osmSourceComboBox.setCurrentIndex(0)  # Overpass by default
+        self.on_download_osm_toggled(self.downloadOsmCheckBox.isChecked())
 
     # ...existing code...
 
@@ -57,6 +63,16 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         )
         if file_path:
             self.gpkgLineEdit.setText(file_path)
+
+    def browse_osm_gpkg_file(self):
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            "Save OSM GPKG As",
+            self.osmGpkgLineEdit.text() or str(Path.home()),
+            "GeoPackage (*.gpkg);;All Files (*)",
+        )
+        if file_path:
+            self.osmGpkgLineEdit.setText(file_path)
 
     def get_folder(self):
         return self.folderLineEdit.text()
@@ -81,14 +97,24 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         else:
             self.zoomToExtentCheckBox.setEnabled(True)
 
+    def on_download_osm_toggled(self, checked):
+        """Enable/disable OSM-specific options."""
+        self.osmSourceComboBox.setEnabled(checked)
+        self.osmGpkgLineEdit.setEnabled(checked)
+        self.osmGpkgBrowseButton.setEnabled(checked)
+
     def get_options(self):
+        osm_source = "overpass" if self.osmSourceComboBox.currentIndex() == 0 else "geofabrik"
         return {
             "use_current_extent": self.useCurrentExtentCheckBox.isChecked(),
             "download_topo": self.downloadTopoCheckBox.isChecked(),
+            "download_osm": self.downloadOsmCheckBox.isChecked(),
+            "osm_source": osm_source,
             "add_mag_north": self.addMagNorthCheckBox.isChecked(),
             "zoom_to_extent": self.zoomToExtentCheckBox.isChecked(),
             "add_controls": self.addControlsCheckBox.isChecked(),
             "gpkg_output_path": (self.gpkgLineEdit.text() if self.gpkgLineEdit.text() else None),
+            "osm_gpkg_output_path": (self.osmGpkgLineEdit.text() if self.osmGpkgLineEdit.text() else None),
             # contours_output_path removed - contours are merged automatically at runtime
         }
 
