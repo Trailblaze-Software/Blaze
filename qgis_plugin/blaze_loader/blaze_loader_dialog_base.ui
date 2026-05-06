@@ -76,50 +76,59 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="osmSourceLayout">
-         <item>
-          <widget class="QLabel" name="osmSourceLabel">
-           <property name="text">
-            <string>OSM source:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="osmSourceComboBox">
-           <item>
-            <property name="text">
-             <string>Overpass API</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Geofabrik regional extract</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="osmGpkgLayout">
-         <item>
-          <widget class="QLabel" name="osmGpkgLabel">
-           <property name="text">
-            <string>OSM GPKG Save Location (optional):</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="osmGpkgLineEdit"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="osmGpkgBrowseButton">
-           <property name="text">
-            <string>Browse...</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QGroupBox" name="osmDownloadGroupBox">
+         <property name="title">
+          <string>OSM download</string>
+         </property>
+         <layout class="QVBoxLayout" name="osmDownloadGroupLayout">
+          <item>
+           <layout class="QHBoxLayout" name="osmSourceLayout">
+            <item>
+             <widget class="QLabel" name="osmSourceLabel">
+              <property name="text">
+               <string>OSM source:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="osmSourceComboBox">
+              <item>
+               <property name="text">
+                <string>Overpass API</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Geofabrik regional extract</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="osmGpkgLayout">
+            <item>
+             <widget class="QLabel" name="osmGpkgLabel">
+              <property name="text">
+               <string>OSM GPKG Save Location (optional):</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="osmGpkgLineEdit"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="osmGpkgBrowseButton">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="gpkgLayout">

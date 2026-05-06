@@ -203,7 +203,8 @@ class BlazeLoader:
                 output_path=None,  # Don't save - add to current project
                 download_topo=options.get("download_topo", True),
                 download_osm=options.get("download_osm", False),
-                osm_source=options.get("osm_source", "overpass"),
+                # Force Geofabrik mode (no Overpass option in UI)
+                osm_source="geofabrik",
                 add_mag_north=options.get("add_mag_north", True),
                 zoom_to_extent=options.get("zoom_to_extent", True),
                 add_controls=options.get("add_controls", False),

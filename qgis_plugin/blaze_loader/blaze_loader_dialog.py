@@ -40,7 +40,11 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         self.loadButton.clicked.connect(self.accept)
 
         # Defaults
-        self.osmSourceComboBox.setCurrentIndex(0)  # Overpass by default
+        # Force Geofabrik mode (do not expose Overpass choice)
+        self.osmSourceComboBox.setCurrentIndex(1)
+        self.osmSourceComboBox.setEnabled(False)
+        self.osmSourceLabel.setVisible(False)
+        self.osmSourceComboBox.setVisible(False)
         self.on_download_osm_toggled(self.downloadOsmCheckBox.isChecked())
 
     # ...existing code...
@@ -99,12 +103,13 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
 
     def on_download_osm_toggled(self, checked):
         """Enable/disable OSM-specific options."""
-        self.osmSourceComboBox.setEnabled(checked)
+        # Source is forced to Geofabrik; keep hidden/disabled
+        self.osmSourceComboBox.setEnabled(False)
         self.osmGpkgLineEdit.setEnabled(checked)
         self.osmGpkgBrowseButton.setEnabled(checked)
 
     def get_options(self):
-        osm_source = "overpass" if self.osmSourceComboBox.currentIndex() == 0 else "geofabrik"
+        osm_source = "geofabrik"
         return {
             "use_current_extent": self.useCurrentExtentCheckBox.isChecked(),
             "download_topo": self.downloadTopoCheckBox.isChecked(),

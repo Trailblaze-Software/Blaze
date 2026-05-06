@@ -827,7 +827,7 @@ def create_qgis_project(
             "filters": ['["natural"~"^(wood|scrub|heath)$"]'],
             "tag": "natural",
             "geom": "polygon",
-            "visible": True,
+            "visible": False,
         },
         {
             "name": "osm_landuse",
