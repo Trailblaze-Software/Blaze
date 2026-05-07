@@ -711,14 +711,6 @@ def create_qgis_project(
             "visible": True,
         },
         {
-            "name": "osm_bus_guideways",
-            "element": "way",
-            "filters": ['["highway"="bus_guideway"]', '["busway"]'],
-            "tag": "highway",
-            "geom": "line",
-            "visible": False,
-        },
-        {
             "name": "osm_via_ferrata",
             "element": "way",
             "filters": ['["highway"="via_ferrata"]'],
@@ -732,14 +724,6 @@ def create_qgis_project(
             "filters": ['["highway"="rest_area"]', '["highway"="services"]'],
             "tag": "highway",
             "geom": "point",
-            "visible": False,
-        },
-        {
-            "name": "osm_rest_areas_ways",
-            "element": "way",
-            "filters": ['["highway"="rest_area"]', '["highway"="services"]'],
-            "tag": "highway",
-            "geom": "line_or_polygon",
             "visible": False,
         },
         # Rail
@@ -758,22 +742,6 @@ def create_qgis_project(
             "tag": "railway",
             "geom": "line",
             "visible": True,
-        },
-        {
-            "name": "osm_station_pts",
-            "element": "node",
-            "filters": ['["railway"~"^(station|halt|tram_stop)$"]'],
-            "tag": "railway",
-            "geom": "point",
-            "visible": True,
-        },
-        {
-            "name": "osm_station_ways",
-            "element": "way",
-            "filters": ['["railway"~"^(station|halt|tram_stop)$"]'],
-            "tag": "railway",
-            "geom": "line_or_polygon",
-            "visible": False,
         },
         # Water (lines + polygons)
         {
@@ -794,19 +762,21 @@ def create_qgis_project(
         },
         {
             "name": "osm_water",
-            "element": "way",
-            "filters": ['["natural"="water"]', '["water"]', '["landuse"~"^(reservoir|basin|reservoir)$"]'],
-            "tag": "natural",
-            "geom": "polygon",
-            "visible": True,
-        },
-        {
-            "name": "osm_water_multipolygon",
-            "element": "rel",
-            "filters": [
-                '["type"="multipolygon"]["natural"="water"]',
-                '["type"="multipolygon"]["water"]',
-                '["type"="multipolygon"]["landuse"~"^(reservoir|basin|reservoir)$"]',
+            # Single water layer: include both closed ways and multipolygon relations.
+            # (Overpass: query ways + relations; Geofabrik: accept way + relation features.)
+            "query_batches": [
+                {
+                    "element": "way",
+                    "filters": ['["natural"="water"]', '["water"]', '["landuse"~"^(reservoir|basin|reservoir)$"]'],
+                },
+                {
+                    "element": "rel",
+                    "filters": [
+                        '["type"="multipolygon"]["natural"="water"]',
+                        '["type"="multipolygon"]["water"]',
+                        '["type"="multipolygon"]["landuse"~"^(reservoir|basin|reservoir)$"]',
+                    ],
+                },
             ],
             "tag": "natural",
             "geom": "polygon",
@@ -814,8 +784,30 @@ def create_qgis_project(
         },
         {
             "name": "osm_leisure_water",
-            "element": "way",
-            "filters": ['["leisure"="swimming_area"]', '["leisure"="slipway"]', '["leisure"="marina"]'],
+            "query_batches": [
+                {
+                    "element": "way",
+                    "filters": ['["leisure"="swimming_area"]', '["leisure"="slipway"]', '["leisure"="marina"]'],
+                },
+                {
+                    "element": "rel",
+                    "filters": [
+                        '["type"="multipolygon"]["leisure"="swimming_area"]',
+                        '["type"="multipolygon"]["leisure"="slipway"]',
+                        '["type"="multipolygon"]["leisure"="marina"]',
+                    ],
+                },
+            ],
+            "tag": "leisure",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_swimming_pools",
+            "query_batches": [
+                {"element": "way", "filters": ['["leisure"="swimming_pool"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["leisure"="swimming_pool"]']},
+            ],
             "tag": "leisure",
             "geom": "polygon",
             "visible": True,
@@ -823,24 +815,32 @@ def create_qgis_project(
         # Natural / landcover
         {
             "name": "osm_wood",
-            "element": "way",
-            "filters": ['["natural"~"^(wood|scrub|heath)$"]'],
+            "query_batches": [
+                {"element": "way", "filters": ['["natural"~"^(wood|scrub|heath)$"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["natural"~"^(wood|scrub|heath)$"]']},
+            ],
             "tag": "natural",
             "geom": "polygon",
             "visible": False,
         },
         {
             "name": "osm_landuse",
-            "element": "way",
-            "filters": ['["landuse"]'],
+            # Single landuse layer: include both ways and multipolygon relations.
+            # (Relation geometries are handled in Geofabrik mode; Overpass mode remains ways-only.)
+            "query_batches": [
+                {"element": "way", "filters": ['["landuse"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["landuse"]']},
+            ],
             "tag": "landuse",
             "geom": "polygon",
             "visible": True,
         },
         {
             "name": "osm_leisure",
-            "element": "way",
-            "filters": ['["leisure"]'],
+            "query_batches": [
+                {"element": "way", "filters": ['["leisure"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["leisure"]']},
+            ],
             "tag": "leisure",
             "geom": "polygon",
             "visible": True,
@@ -851,28 +851,27 @@ def create_qgis_project(
             "filters": ['["natural"~"^(cliff|ridge|arete)$"]'],
             "tag": "natural",
             "geom": "line",
-            "visible": True,
+            "visible": False,
         },
         {
             "name": "osm_landform_poly",
-            "element": "way",
-            "filters": ['["natural"="fell"]'],
+            "query_batches": [
+                {"element": "way", "filters": ['["natural"="fell"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["natural"="fell"]']},
+            ],
             "tag": "natural",
             "geom": "polygon",
             "visible": True,
         },
         {
             "name": "osm_natural_surface",
-            "element": "way",
-            "filters": ['["natural"~"^(grassland|sand|beach|rock|shingle)$"]'],
-            "tag": "natural",
-            "geom": "polygon",
-            "visible": True,
-        },
-        {
-            "name": "osm_natural_surface_mp",
-            "element": "rel",
-            "filters": ['["type"="multipolygon"]["natural"~"^(grassland|sand|beach|rock|shingle|fell)$"]'],
+            "query_batches": [
+                {"element": "way", "filters": ['["natural"~"^(grassland|sand|beach|rock|shingle)$"]']},
+                {
+                    "element": "rel",
+                    "filters": ['["type"="multipolygon"]["natural"~"^(grassland|sand|beach|rock|shingle)$"]'],
+                },
+            ],
             "tag": "natural",
             "geom": "polygon",
             "visible": True,
@@ -905,8 +904,11 @@ def create_qgis_project(
         # Buildings & barriers
         {
             "name": "osm_buildings",
-            "element": "way",
-            "filters": ['["building"]'],
+            # Single buildings layer: include both ways and multipolygon relations.
+            "query_batches": [
+                {"element": "way", "filters": ['["building"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["building"]']},
+            ],
             "tag": "building",
             "geom": "polygon",
             "visible": True,
@@ -917,6 +919,16 @@ def create_qgis_project(
             "filters": ['["barrier"]'],
             "tag": "barrier",
             "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_fences",
+            "query_batches": [
+                {"element": "way", "filters": ['["barrier"="fence"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["barrier"="fence"]']},
+            ],
+            "tag": "barrier",
+            "geom": "line_or_polygon",
             "visible": True,
         },
         {
@@ -955,7 +967,11 @@ def create_qgis_project(
         {
             "name": "osm_pipeline",
             "element": "way",
-            "filters": ['["man_made"="pipeline"]'],
+            # Exclude underground / tunnelled pipelines (keep only surface/unknown location).
+            # Using !~ keeps features where the tag is missing.
+            "filters": [
+                '["man_made"="pipeline"]["location"!~"^underground$"]["tunnel"!~"^(yes|culvert)$"]["covered"!~"^yes$"]'
+            ],
             "tag": "man_made",
             "geom": "line",
             "visible": True,
@@ -994,9 +1010,38 @@ def create_qgis_project(
             "visible": False,
         },
         {
+            "name": "osm_camp_sites_pts",
+            "element": "node",
+            "filters": ['["tourism"="camp_site"]'],
+            "tag": "tourism",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_picnic_sites_pts",
+            "element": "node",
+            "filters": ['["tourism"="picnic_site"]', '["leisure"="picnic_table"]'],
+            "tag": "tourism",
+            "geom": "point",
+            "visible": True,
+        },
+        {
             "name": "osm_tourism_poly",
-            "element": "way",
-            "filters": ['["tourism"~"^(viewpoint|information|alpine_hut|wilderness_hut|camp_site|picnic_site)$"]'],
+            "query_batches": [
+                {
+                    "element": "way",
+                    "filters": [
+                        '["tourism"~"^(viewpoint|information|alpine_hut|wilderness_hut|camp_site|picnic_site)$"]'
+                    ],
+                },
+                {
+                    "element": "rel",
+                    "filters": [
+                        '["type"="multipolygon"]["tourism"~"^(viewpoint|information|alpine_hut'
+                        + '|wilderness_hut|camp_site|picnic_site)$"]'
+                    ],
+                },
+            ],
             "tag": "tourism",
             "geom": "polygon",
             "visible": False,
@@ -1008,6 +1053,14 @@ def create_qgis_project(
             "tag": "amenity",
             "geom": "point",
             "visible": True,
+        },
+        {
+            "name": "osm_benches_pts",
+            "element": "node",
+            "filters": ['["amenity"="bench"]'],
+            "tag": "amenity",
+            "geom": "point",
+            "visible": False,
         },
         # Places
         {
@@ -1045,8 +1098,10 @@ def create_qgis_project(
         },
         {
             "name": "osm_building_parts",
-            "element": "way",
-            "filters": ['["building:part"]'],
+            "query_batches": [
+                {"element": "way", "filters": ['["building:part"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["building:part"]']},
+            ],
             "tag": "building",
             "geom": "polygon",
             "visible": False,
@@ -1153,6 +1208,110 @@ def create_qgis_project(
             layer.CreateField(_ogr.FieldDefn("tags", _ogr.OFTString))
             return layer
 
+        def _chain_way_segments_into_rings(segments):
+            """Combine a list of way coord-sequences into closed rings.
+
+            Each segment is a list of ``(lon, lat)`` tuples. Segments that share
+            endpoints are chained until they close. Returns a list of rings
+            (each ring is itself a list of ``(lon, lat)`` tuples with the first
+            point repeated at the end).
+            """
+            rings = []
+            remaining = [list(s) for s in segments if len(s) >= 2]
+            while remaining:
+                cur = remaining.pop(0)
+                # Already-closed segment.
+                if cur[0] == cur[-1]:
+                    if len(cur) >= 4:
+                        rings.append(cur)
+                    continue
+                # Try to chain other segments onto either end until closed or
+                # no more candidates can be joined.
+                while cur[0] != cur[-1]:
+                    joined = False
+                    for i, other in enumerate(remaining):
+                        if other[0] == cur[-1]:
+                            cur.extend(other[1:])
+                        elif other[-1] == cur[-1]:
+                            cur.extend(reversed(other[:-1]))
+                        elif other[-1] == cur[0]:
+                            cur = other + cur[1:]
+                        elif other[0] == cur[0]:
+                            cur = list(reversed(other))[:-1] + cur
+                        else:
+                            continue
+                        remaining.pop(i)
+                        joined = True
+                        break
+                    if not joined:
+                        break
+                if cur[0] == cur[-1] and len(cur) >= 4:
+                    rings.append(cur)
+            return rings
+
+        def _relation_multipolygon_geom(el):
+            """Build an OGR multipolygon from an Overpass relation element.
+
+            Handles ``type=multipolygon`` relations returned by ``out body geom``
+            where each member way carries its own ``geometry``. Inner rings are
+            attached to the outer ring that contains them (point-in-polygon).
+            """
+            members = el.get("members") or []
+            outer_segments = []
+            inner_segments = []
+            for m in members:
+                if m.get("type") != "way":
+                    continue
+                geom = m.get("geometry") or []
+                seg = [(float(p["lon"]), float(p["lat"])) for p in geom if "lon" in p and "lat" in p]
+                if len(seg) < 2:
+                    continue
+                if (m.get("role") or "outer") == "inner":
+                    inner_segments.append(seg)
+                else:
+                    outer_segments.append(seg)
+
+            outer_rings = _chain_way_segments_into_rings(outer_segments)
+            inner_rings = _chain_way_segments_into_rings(inner_segments)
+            if not outer_rings:
+                return None
+
+            def _make_poly(outer, inners):
+                poly = _ogr.Geometry(_ogr.wkbPolygon)
+                ring = _ogr.Geometry(_ogr.wkbLinearRing)
+                for x, y in outer:
+                    ring.AddPoint(x, y)
+                poly.AddGeometry(ring)
+                for inr in inners:
+                    iring = _ogr.Geometry(_ogr.wkbLinearRing)
+                    for x, y in inr:
+                        iring.AddPoint(x, y)
+                    poly.AddGeometry(iring)
+                return poly
+
+            outer_with_holes = [(o, []) for o in outer_rings]
+            outer_polys_for_test = [_make_poly(o, []) for o in outer_rings]
+            for inr in inner_rings:
+                if not inr:
+                    continue
+                test_pt = _ogr.Geometry(_ogr.wkbPoint)
+                test_pt.AddPoint(inr[0][0], inr[0][1])
+                for idx, op in enumerate(outer_polys_for_test):
+                    try:
+                        if op.Contains(test_pt):
+                            outer_with_holes[idx][1].append(inr)
+                            break
+                    except Exception:
+                        continue
+
+            if len(outer_with_holes) == 1:
+                outer, holes = outer_with_holes[0]
+                return _make_poly(outer, holes)
+            multi = _ogr.Geometry(_ogr.wkbMultiPolygon)
+            for outer, holes in outer_with_holes:
+                multi.AddGeometry(_make_poly(outer, holes))
+            return multi
+
         def element_geom(el, geom_kind):
             t = el.get("type")
             if t == "node":
@@ -1180,11 +1339,19 @@ def create_qgis_project(
                 for c in coords:
                     line.AddPoint(float(c["lon"]), float(c["lat"]))
                 return line
+            if t == "relation":
+                # Only multipolygon relations carry polygonal geometry. Other
+                # relation types (boundary/route) need bespoke handling and
+                # aren't currently materialised in Overpass mode.
+                if (el.get("tags") or {}).get("type") != "multipolygon":
+                    return None
+                if geom_kind not in ("polygon", "line_or_polygon"):
+                    return None
+                return _relation_multipolygon_geom(el)
             return None
 
         for idx, spec in enumerate(layer_defs, start=1):
             name = spec["name"]
-            element = spec["element"]
             filters = spec.get("filters") or []
             primary_tag = spec.get("tag") or "type"
             geom_kind = spec.get("geom") or "line"
@@ -1192,7 +1359,15 @@ def create_qgis_project(
             report_progress(f"OSM: downloading {name} ({idx}/{len(layer_defs)})…", None)
 
             layer = mk_layer(name, geom_kind, primary_tag)
-            parts = [f"{element}{f}({bbox});" for f in filters]
+            if spec.get("query_batches"):
+                parts = []
+                for b in spec["query_batches"]:
+                    be = b["element"]
+                    bfs = b.get("filters") or []
+                    parts.extend([f"{be}{f}({bbox});" for f in bfs])
+            else:
+                element = spec["element"]
+                parts = [f"{element}{f}({bbox});" for f in filters]
             if not parts:
                 continue
             query = "[out:json][timeout:180];(" + "".join(parts) + ");out body geom;"
@@ -1216,7 +1391,10 @@ def create_qgis_project(
                 feat.SetGeometry(g)
                 if "name" in tags:
                     feat.SetField("name", str(tags.get("name"))[:254])
-                pv = tags.get(primary_tag) or ""
+                if name == "osm_water" and primary_tag == "natural":
+                    pv = tags.get("natural") or tags.get("water") or tags.get("landuse") or ""
+                else:
+                    pv = tags.get(primary_tag) or ""
                 if pv:
                     feat.SetField(primary_tag, str(pv)[:254])
                 try:
@@ -1245,6 +1423,78 @@ def create_qgis_project(
                     node.setItemVisibilityChecked(False)
             except Exception:
                 pass
+
+        # Reorder children of the OSM group so that, by geometry, points render
+        # above lines and lines render above polygons. ``osm_trees_pts`` is a
+        # special case: trees should render UNDER all line layers, otherwise the
+        # dense point cloud obscures roads / tracks / streams.
+        # In QGIS the layer tree top-to-bottom matches render order top-to-bottom
+        # (top of tree = drawn on top), so a smaller priority key means rendered
+        # later (on top).
+        #
+        # Polygon layers also have an explicit cartographic sub-order so that
+        # small/distinct features (buildings, swimming pools, water) draw on top
+        # of broad land cover (landuse, leisure, wood) and protected-area
+        # backgrounds. Layers not in the table fall through and keep their
+        # original order within the polygon priority bucket.
+        try:
+            name_to_geom = {d["name"]: d.get("geom") for d in OSM_LAYER_DEFS}
+
+            polygon_render_order = [
+                "osm_buildings",
+                "osm_building_parts",
+                "osm_swimming_pools",
+                "osm_leisure_water",
+                "osm_water",
+                "osm_tourism_poly",
+                "osm_landform_poly",
+                "osm_natural_surface",
+                "osm_wood",
+                "osm_leisure",
+                "osm_landuse",
+                "osm_boundary_protected",
+            ]
+            polygon_sub_priority = {n: i for i, n in enumerate(polygon_render_order)}
+            polygon_default_sub = len(polygon_render_order)
+
+            def _osm_layer_priority(layer_name):
+                if layer_name == "osm_trees_pts":
+                    return (2, 0)  # below lines, above polygons
+                g = name_to_geom.get(layer_name)
+                if g == "point":
+                    return (0, 0)
+                if g in ("line", "line_or_polygon"):
+                    return (1, 0)
+                if g == "polygon":
+                    return (3, polygon_sub_priority.get(layer_name, polygon_default_sub))
+                return (4, 0)  # unknown geometry: send to the bottom
+
+            layer_children = [
+                c for c in osm_group.children() if c.nodeType() == 0 and c.layer() is not None  # NodeLayer
+            ]
+
+            desired_layer_nodes = [
+                c
+                for _, c in sorted(
+                    enumerate(layer_children),
+                    key=lambda iv: (_osm_layer_priority(iv[1].layer().name()), iv[0]),
+                )
+            ]
+
+            if desired_layer_nodes != layer_children:
+                # ``removeChildNode`` deletes the underlying tree node, so we
+                # clone first to keep the layer references valid before adding
+                # them back in the new order. Map layers themselves are owned by
+                # ``QgsProject`` so they survive the tree node deletion. Any
+                # non-layer children (e.g. nested sub-groups) are left alone in
+                # their original positions; layer clones get appended after.
+                layer_clones = [c.clone() for c in desired_layer_nodes]
+                for c in layer_children:
+                    osm_group.removeChildNode(c)
+                for c in layer_clones:
+                    osm_group.addChildNode(c)
+        except Exception as e:
+            log(f"OSM layer ordering: failed to reorder ({e})")
 
     if download_osm and project_extent and project_crs:
         try:
@@ -1486,21 +1736,26 @@ def create_qgis_project(
                 output_dir.mkdir(parents=True, exist_ok=True)
                 # Make filename unique to allow multiple calls
                 timestamp = int(time.time())
+                path_500m = output_dir / f"magnetic_north_lines_500m_{timestamp}.gpkg"
                 path_1km = output_dir / f"magnetic_north_lines_1km_{timestamp}.gpkg"
                 path_2km = output_dir / f"magnetic_north_lines_2km_{timestamp}.gpkg"
             else:
+                path_500m = combined_path / "magnetic_north_lines_500m.gpkg"
                 path_1km = combined_path / "magnetic_north_lines_1km.gpkg"
                 path_2km = combined_path / "magnetic_north_lines_2km.gpkg"
 
-            # Two layers with scale-based visibility:
-            #   - 1km spacing  = 4cm @ 1:25,000  → visible when zoomed in beyond 1:37,500
-            #   - 2km spacing  = 4cm @ 1:50,000  → visible from 1:37,500 to 1:100,000
-            # Both layers are hidden when zoomed out beyond 1:100,000.
-            crossover_scale = 37500
-            min_scale_far = 100000
+            # Three layers with scale-based visibility.
+            # Breakpoints tuned to reduce clutter while still giving fine grids when zoomed in:
+            #   - 500m spacing: visible when zoomed in past 1:20,000
+            #   - 1km  spacing: visible 1:20,000–1:40,000
+            #   - 2km  spacing: visible 1:40,000–1:100,000
+            s500 = 20000
+            s1k = 40000
+            s2k = 100000
             mag_specs = [
-                ("Magnetic North 1km", path_1km, 1000, crossover_scale, None),
-                ("Magnetic North 2km", path_2km, 2000, min_scale_far, crossover_scale),
+                ("Magnetic North 0.5km", path_500m, 500, s500, None),
+                ("Magnetic North 1km", path_1km, 1000, s1k, s500),
+                ("Magnetic North 2km", path_2km, 2000, s2k, s1k),
             ]
 
             existing_names = set()
@@ -1733,6 +1988,15 @@ def add_magnetic_north_lines(
         "UnitsOfMeasure": 1,  # 0=Kilometers, 1=Meters, 2=Centimeters, ...
         out_param: str(output_path),
     }
+
+    # Compass Routes performance/quality knobs (names from `create_magnetic_north.py`).
+    if "TraceInterval" in param_names:
+        params["TraceInterval"] = 200.0  # meters
+    if "DistanceTolerance" in param_names:
+        params["DistanceTolerance"] = float(spacing) * 0.05  # meters
+    if "VariationTolerance" in param_names:
+        params["VariationTolerance"] = 0.1  # degrees
+
     log(f"Magnetic north algorithm '{algo_id}' params: " f"{distance_param}={spacing}m, output={output_path.name}")
 
     try:
@@ -2510,6 +2774,8 @@ def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
                 if result[1]:
                     log(f"    Applied style: osm/{name}.qml")
                     return True
+            # (optional) common fallbacks can be added here if we introduce
+            # derived OSM layers that don't have their own QML.
         return False
 
     # Try exact name match first

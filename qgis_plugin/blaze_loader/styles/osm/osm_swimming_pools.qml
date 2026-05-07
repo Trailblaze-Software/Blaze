@@ -16,17 +16,17 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{bld}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{lw-pool-fill}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255"></Option>
+            <Option name="color" type="QString" value="0,158,224,255"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
             <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0.15"></Option>
+            <Option name="outline_width" type="QString" value="0.3"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="style" type="QString" value="solid"></Option>
           </Option>
@@ -54,7 +54,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{b80af881-6d59-4872-bcc3-ee8d9c598b0e}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{f6310dba-df28-4257-bb55-c7caad78e121}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="color" type="QString" value="0,0,255,255"></Option>
@@ -87,7 +87,7 @@
     <field configurationFlags="NoFlag" name="osm_id"></field>
     <field configurationFlags="NoFlag" name="osm_type"></field>
     <field configurationFlags="NoFlag" name="name"></field>
-    <field configurationFlags="NoFlag" name="building"></field>
+    <field configurationFlags="NoFlag" name="leisure"></field>
     <field configurationFlags="NoFlag" name="tags"></field>
   </fieldConfiguration>
   <aliases>
@@ -95,7 +95,7 @@
     <alias field="osm_id" index="1" name=""></alias>
     <alias field="osm_type" index="2" name=""></alias>
     <alias field="name" index="3" name=""></alias>
-    <alias field="building" index="4" name=""></alias>
+    <alias field="leisure" index="4" name=""></alias>
     <alias field="tags" index="5" name=""></alias>
   </aliases>
   <splitPolicies>
@@ -103,7 +103,7 @@
     <policy field="osm_id" policy="Duplicate"></policy>
     <policy field="osm_type" policy="Duplicate"></policy>
     <policy field="name" policy="Duplicate"></policy>
-    <policy field="building" policy="Duplicate"></policy>
+    <policy field="leisure" policy="Duplicate"></policy>
     <policy field="tags" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
@@ -111,7 +111,7 @@
     <default applyOnUpdate="0" expression="" field="osm_id"></default>
     <default applyOnUpdate="0" expression="" field="osm_type"></default>
     <default applyOnUpdate="0" expression="" field="name"></default>
-    <default applyOnUpdate="0" expression="" field="building"></default>
+    <default applyOnUpdate="0" expression="" field="leisure"></default>
     <default applyOnUpdate="0" expression="" field="tags"></default>
   </defaults>
   <constraints>
@@ -119,7 +119,7 @@
     <constraint constraints="0" exp_strength="0" field="osm_id" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="osm_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="name" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="building" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="leisure" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="tags" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
@@ -127,7 +127,7 @@
     <constraint desc="" exp="" field="osm_id"></constraint>
     <constraint desc="" exp="" field="osm_type"></constraint>
     <constraint desc="" exp="" field="name"></constraint>
-    <constraint desc="" exp="" field="building"></constraint>
+    <constraint desc="" exp="" field="leisure"></constraint>
     <constraint desc="" exp="" field="tags"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>

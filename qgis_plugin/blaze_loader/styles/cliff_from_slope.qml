@@ -1,12 +1,11 @@
 <!DOCTYPE qgis PUBLIC "http://mrcc.com/qgis.dtd" "SYSTEM">
-<qgis hasScaleBasedVisibilityFlag="0" maxScale="0" minScale="1e+08" styleCategories="LayerConfiguration|Symbology|Symbology3D|Labeling|Fields|Forms|Actions|MapTips|Diagrams|AttributeTable|Rendering" version="3.34.3-Prizren">
+<qgis hasScaleBasedVisibilityFlag="0" maxScale="0" minScale="1e+08" styleCategories="LayerConfiguration|Symbology|Labeling|Fields|Rendering" version="3.34.3-Prizren">
   <flags>
     <Identifiable>1</Identifiable>
     <Removable>1</Removable>
     <Searchable>1</Searchable>
     <Private>0</Private>
   </flags>
-  <mapTip enabled="1"></mapTip>
   <pipe-data-defined-properties>
     <Option type="Map">
       <Option name="name" type="QString" value=""></Option>
@@ -16,9 +15,9 @@
   </pipe-data-defined-properties>
   <pipe>
     <provider>
-      <resampling enabled="true" maxOversampling="2" zoomedInResamplingMethod="bilinear" zoomedOutResamplingMethod="average"></resampling>
+      <resampling enabled="false" maxOversampling="5" zoomedInResamplingMethod="bilinear" zoomedOutResamplingMethod="bilinear"></resampling>
     </provider>
-    <rasterrenderer alphaBand="-1" band="1" classificationMax="255" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
+    <rasterrenderer alphaBand="-1" band="1" classificationMax="254" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
       <rasterTransparency></rasterTransparency>
       <minMaxOrigin>
         <limits>MinMax</limits>
@@ -29,7 +28,7 @@
         <stdDevFactor>2</stdDevFactor>
       </minMaxOrigin>
       <rastershader>
-        <colorrampshader classificationMode="1" clip="0" colorRampType="INTERPOLATED" labelPrecision="0" maximumValue="255" minimumValue="0">
+        <colorrampshader classificationMode="1" clip="0" colorRampType="INTERPOLATED" labelPrecision="0" maximumValue="254" minimumValue="0">
           <colorramp name="[source]" type="gradient">
             <Option type="Map">
               <Option name="color1" type="QString" value="0,0,0,255"></Option>
@@ -42,14 +41,9 @@
             </Option>
           </colorramp>
           <item alpha="255" color="#000000" label="0" value="0"></item>
-          <item alpha="255" color="#000000" label="33" value="33.15"></item>
-          <item alpha="255" color="#000000" label="66" value="66.3"></item>
-          <item alpha="158" color="#5e5e5e" label="99" value="99.45"></item>
-          <item alpha="0" color="#f9f9f9" label="133" value="132.6"></item>
-          <item alpha="0" color="#fafafa" label="166" value="165.75"></item>
-          <item alpha="0" color="#fcfcfc" label="199" value="198.9"></item>
-          <item alpha="0" color="#fefefe" label="230" value="229.5"></item>
-          <item alpha="0" color="#ffffff" label="255" value="255"></item>
+          <item alpha="255" color="#000000" label="85" value="85.175598"></item>
+          <item alpha="0" color="#f8f8f8" label="122" value="121.810018"></item>
+          <item alpha="0" color="#ffffff" label="254" value="254"></item>
           <rampLegendSettings direction="0" maximumLabel="" minimumLabel="" orientation="2" prefix="" suffix="" useContinuousLegend="1">
             <numericFormat id="basic">
               <Option type="Map">
@@ -68,7 +62,7 @@
     </rasterrenderer>
     <brightnesscontrast brightness="0" contrast="0" gamma="1"></brightnesscontrast>
     <huesaturation colorizeBlue="128" colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeStrength="100" grayscaleMode="0" invertColors="0" saturation="0"></huesaturation>
-    <rasterresampler maxOversampling="2"></rasterresampler>
+    <rasterresampler maxOversampling="5" zoomedInResampler="bilinear" zoomedOutResampler="bilinear"></rasterresampler>
     <resamplingStage>resamplingFilter</resamplingStage>
   </pipe>
   <blendMode>0</blendMode>

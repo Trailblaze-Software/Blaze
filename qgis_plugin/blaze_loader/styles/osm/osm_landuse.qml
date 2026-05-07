@@ -12,7 +12,7 @@
       <rule checkstate="0" filter="&quot;landuse&quot; IN ('grass','meadow','pasture','recreation_ground','village_green')" key="{lu-g}" label="Open / Grass" symbol="1"></rule>
       <rule checkstate="0" filter="&quot;landuse&quot; IN ('farmland','orchard','vineyard','allotments')" key="{lu-fa}" label="Cultivated" symbol="2"></rule>
       <rule filter="&quot;landuse&quot; IN ('residential','industrial','commercial','retail')" key="{lu-r}" label="Built-up" symbol="3"></rule>
-      <rule filter="&quot;landuse&quot; IN ('quarry','landfill','brownfield')" key="{lu-q}" label="Bare / disturbed" symbol="4"></rule>
+      <rule checkstate="0" filter="&quot;landuse&quot; IN ('quarry','landfill','brownfield')" key="{lu-q}" label="Bare / disturbed" symbol="4"></rule>
       <rule filter="&quot;landuse&quot; = 'military'" key="{lu-mil}" label="Military" symbol="5"></rule>
       <rule checkstate="0" filter="ELSE" key="{lu-o}" label="Other" symbol="6"></rule>
     </rules>

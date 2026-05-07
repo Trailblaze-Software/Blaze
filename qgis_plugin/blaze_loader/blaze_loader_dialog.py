@@ -31,6 +31,7 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         self.folderLineEdit.textChanged.connect(self.update_load_button_state)
         self.useCurrentExtentCheckBox.toggled.connect(self.on_use_current_extent_toggled)
         self.downloadOsmCheckBox.toggled.connect(self.on_download_osm_toggled)
+        self.downloadTopoCheckBox.toggled.connect(self.on_download_topo_toggled)
 
         # Connect button box signals
         self.buttonBox.accepted.connect(self.accept)
@@ -46,6 +47,7 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         self.osmSourceLabel.setVisible(False)
         self.osmSourceComboBox.setVisible(False)
         self.on_download_osm_toggled(self.downloadOsmCheckBox.isChecked())
+        self.on_download_topo_toggled(self.downloadTopoCheckBox.isChecked())
 
     # ...existing code...
 
@@ -105,8 +107,20 @@ class BlazeLoaderDialog(QDialog, FORM_CLASS):
         """Enable/disable OSM-specific options."""
         # Source is forced to Geofabrik; keep hidden/disabled
         self.osmSourceComboBox.setEnabled(False)
+        # Show/hide save location row entirely
+        self.osmGpkgLabel.setVisible(checked)
+        self.osmGpkgLineEdit.setVisible(checked)
+        self.osmGpkgBrowseButton.setVisible(checked)
         self.osmGpkgLineEdit.setEnabled(checked)
         self.osmGpkgBrowseButton.setEnabled(checked)
+
+    def on_download_topo_toggled(self, checked):
+        """Show/hide NSW Topo save-location options."""
+        self.gpkgLabel.setVisible(checked)
+        self.gpkgLineEdit.setVisible(checked)
+        self.gpkgBrowseButton.setVisible(checked)
+        self.gpkgLineEdit.setEnabled(checked)
+        self.gpkgBrowseButton.setEnabled(checked)
 
     def get_options(self):
         osm_source = "geofabrik"

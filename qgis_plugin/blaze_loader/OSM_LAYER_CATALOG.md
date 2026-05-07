@@ -22,13 +22,13 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | Motor roads | `highway=motorway/trunk/primary/...` | W | **Done** | `osm_roads` |
 | Paths & tracks | `highway=track/path/footway/...` | W | **Done** | `osm_tracks` |
 | Link roads | `*_link` variants | W | **Done** | In `osm_roads` |
-| Bus / guideway | `highway=bus_guideway`, `busway=*` | W | **Done** | `osm_bus_guideways` |
+| Bus / guideway | `highway=bus_guideway`, `busway=*` | W | **Skip** | Removed - too noisy |
 | Steps / escalator | `highway=steps`, `highway=elevator` | W | **Done** (steps) | Escalator rare outdoors |
 | Via ferrata | `highway=via_ferrata` | W | **Done** | `osm_via_ferrata` |
 | Proposed / construction | `highway=proposed`, `construction=*` | W | **Later** | Dashed styling |
 | Raceway | `highway=raceway` | W | **Later** | Niche |
 | Escape / emergency | `highway=escape` | W | **Later** | Rare |
-| Rest area / services | `highway=rest_area`, `highway=services` | W/N | **Done** | `osm_rest_areas_pts`, `osm_rest_areas_ways` |
+| Rest area / services | `highway=rest_area`, `highway=services` | W/N | **Partial** | `osm_rest_areas_pts` only; way footprints removed |
 | Turning circle / loop | `highway=turning_circle`, `turning_loop` | N | **Later** | Minor |
 | Passing place | `highway=passing_place` | N | **Later** | Rural roads |
 | Junction ref | `highway=motorway_junction` | N | **Later** | Label nodes |
@@ -47,7 +47,7 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | All rail ways | `railway=rail/light_rail/subway/tram/...` | W | **Done** | `osm_railways` excludes abandoned/disused/razed |
 | Abandoned / disused / razed | `railway=abandoned/disused/razed` | W | **Done** | `osm_rail_abandoned` |
 | Narrow gauge / preserved | `railway=narrow_gauge`, `preserved` | W | **Done** | In generic `railway` |
-| Station / halt / tram_stop | `railway=station`, `halt`, `tram_stop` | N/W | **Done** | `osm_station_pts`, `osm_station_ways` |
+| Station / halt / tram_stop | `railway=station`, `halt`, `tram_stop` | N/W | **Skip** | Removed - urban-only, low value for topo / orienteering |
 | Subway entrance | `railway=subway_entrance` | N | **Later** | Urban |
 | Level crossing | `railway=level_crossing` | N | **Later** | |
 | Public transport stop | `public_transport=stop_position`, `platform` | N/W | **Later** | GTFS-like; busy |
@@ -75,7 +75,7 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | Natural water areas | `natural=water`, `bay`, `wetland`, `pond` | W | **Done** | `osm_water` |
 | `water=*` lakes/ponds | `water=lake/pond/reservoir/...` | W | **Done** | |
 | Reservoir / basin | `landuse=reservoir/basin/water` | W | **Done** | |
-| Multipolygon water | `type=multipolygon` + water tags | R | **Done** | `osm_water_multipolygon` |
+| Multipolygon water | `type=multipolygon` + water tags | R | **Done** | Merged into `osm_water` |
 | Swimming / marina / dock | `leisure=swimming_area`, `natural=beach` + harbour | W/R | **Done** | `osm_leisure_water`; beaches also `osm_natural_surface` |
 | Wastewater / basin | `man_made=wastewater_basin` | W/R | **Later** | |
 | Salt pond | `salt_pond=yes` / landuse | W/R | **Later** | |
@@ -87,7 +87,7 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | Topic | Typical tags | Geom | Status | Notes |
 |-------|----------------|------|--------|-------|
 | Wood / scrub / heath | `natural=wood/scrub/heath` | W | **Done** | `osm_wood` |
-| Grassland / sand / beach / rock | `natural=grassland/sand/beach/rock/shingle` | W | **Done** | `osm_natural_surface`, `osm_natural_surface_mp` (incl. `fell`) |
+| Grassland / sand / beach / rock | `natural=grassland/sand/beach/rock/shingle` | W | **Done** | `osm_natural_surface` (relations may be missing in Overpass mode) |
 | Cliff / ridge / arete | `natural=cliff/ridge/arete/fell` | W | **Done** | `osm_landform_lines` (`cliff`/`ridge`/`arete`), `osm_landform_poly` (`fell`) |
 | Peak / volcano / saddle | `natural=peak/volcano/saddle` | N | **Done** | `osm_peaks` |
 | Cave entrance | `natural=cave_entrance` | N | **Done** | `osm_cave_entrances` |
@@ -117,8 +117,8 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | Track (running) | `leisure=track` | W | **Done** | `osm_leisure` |
 | Swimming pool | `leisure=swimming_pool` | W | **Later** | |
 | Slipway / marina (leisure) | `leisure=slipway`, overlaps water | W | **Done** | `osm_leisure_water` |
-| Tourism | `tourism=viewpoint/information/alpine_hut/wilderness_hut/camp_site` | N/W | **Done** | `osm_tourism_pts`, `osm_tourism_poly` (`picnic_site` included) |
-| Picnic site | `tourism=picnic_site` | N/W | **Done** | Same layers |
+| Tourism | `tourism=viewpoint/information/alpine_hut/wilderness_hut/camp_site` | N/W | **Done** | `osm_tourism_pts`, `osm_tourism_poly` (`picnic_site` included); dedicated `osm_camp_sites_pts`/`osm_picnic_sites_pts` for points |
+| Picnic site | `tourism=picnic_site` | N/W | **Done** | Same layers (point-only dedicated layer, polygons via `osm_tourism_poly`) |
 | Artwork | `tourism=artwork` | N | **Later** | |
 
 ---
@@ -253,14 +253,10 @@ Requires **merging member ways** into LineString/MultiLineString (no simple `out
 |----------|----------------|
 | `osm_roads` | Motorised `highway` classes |
 | `osm_tracks` | Track, path, footway, cycleway, steps, pedestrian |
-| `osm_bus_guideways` | `highway=bus_guideway`, `busway=*` |
 | `osm_via_ferrata` | `highway=via_ferrata` |
 | `osm_rest_areas_pts` | `highway=rest_area`, `services` (nodes) |
-| `osm_rest_areas_ways` | `highway=rest_area`, `services` (ways; line or closed polygon) |
 | `osm_railways` | `railway=*` ways except `abandoned` / `disused` / `razed` |
 | `osm_rail_abandoned` | `railway=abandoned`, `disused`, `razed` |
-| `osm_station_pts` | `railway=station`, `halt`, `tram_stop` (nodes) |
-| `osm_station_ways` | Same tags on ways (footprint / platform outline) |
 | `osm_power_lines` | `power=line`, `minor_line` |
 | `osm_power_towers_pts` | `power=tower`, `pole` |
 | `osm_pipeline` | `man_made=pipeline` |
@@ -268,12 +264,12 @@ Requires **merging member ways** into LineString/MultiLineString (no simple `out
 | `osm_waterways` | All `waterway=*` ways |
 | `osm_coastlines` | `natural=coastline` |
 | `osm_water` | Area water (many tag combinations, ways) |
-| `osm_water_multipolygon` | `type=multipolygon` water-related relations |
+| `osm_water` | Area water (ways + multipolygon relations) |
 | `osm_leisure_water` | `leisure=swimming_area`, `slipway`, `marina` |
 | `osm_landform_lines` | `natural=cliff`, `ridge`, `arete` |
 | `osm_landform_poly` | `natural=fell` |
 | `osm_natural_surface` | `natural=grassland`, `sand`, `beach`, `rock`, `shingle` |
-| `osm_natural_surface_mp` | Multipolygon relations for those `natural` values (incl. `fell`) |
+| `osm_natural_surface` | Natural surface polygons (ways; relations may be missing in Overpass mode) |
 | `osm_boundary_protected` | `boundary=national_park`, `protected_area`; `leisure=nature_reserve` relations |
 | `osm_buildings` | `building=*` |
 | `osm_wood` | `natural=wood/scrub/heath` |

@@ -7,9 +7,9 @@
     <Private>0</Private>
   </flags>
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
-    <rules key="{pwr-root}">
-      <rule filter="&quot;power&quot; = 'line'" key="{pwr-line}" label="High-voltage line" symbol="0"></rule>
-      <rule filter="ELSE" key="{pwr-minor}" label="Minor power line" symbol="1"></rule>
+    <rules key="{62e6b032-e07d-473e-a289-aec103e270bf}">
+      <rule filter="@map_scale &lt; 20000" key="{e0194a1b-7f74-4b50-83e5-ae49b13ae43e}" symbol="0"></rule>
+      <rule filter="ELSE" key="{faafec44-3d2c-4ac2-8735-96a6a8a5ba91}" symbol="1"></rule>
     </rules>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="line">
@@ -34,7 +34,7 @@
             <Option name="joinstyle" type="QString" value="round"></Option>
             <Option name="line_color" type="QString" value="0,0,0,255"></Option>
             <Option name="line_style" type="QString" value="solid"></Option>
-            <Option name="line_width" type="QString" value="0.3"></Option>
+            <Option name="line_width" type="QString" value="0.233333"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
             <Option name="offset" type="QString" value="0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -60,20 +60,20 @@
         </layer>
         <layer class="MarkerLine" enabled="1" id="{pwr-line-pylons}" locked="0" pass="0">
           <Option type="Map">
-            <Option name="average_angle_length" type="QString" value="4"></Option>
+            <Option name="average_angle_length" type="QString" value="0"></Option>
             <Option name="average_angle_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="average_angle_unit" type="QString" value="MM"></Option>
-            <Option name="interval" type="QString" value="3"></Option>
+            <Option name="interval" type="QString" value="2.5"></Option>
             <Option name="interval_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="interval_unit" type="QString" value="MM"></Option>
-            <Option name="offset" type="QString" value="0"></Option>
-            <Option name="offset_along_line" type="QString" value="0"></Option>
+            <Option name="offset" type="QString" value="0.5"></Option>
+            <Option name="offset_along_line" type="QString" value="1"></Option>
             <Option name="offset_along_line_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_along_line_unit" type="QString" value="MM"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
             <Option name="place_on_every_part" type="bool" value="true"></Option>
-            <Option name="placements" type="QString" value="InnerVertices"></Option>
+            <Option name="placements" type="QString" value="Interval"></Option>
             <Option name="ring_filter" type="QString" value="0"></Option>
             <Option name="rotate" type="QString" value="1"></Option>
           </Option>
@@ -94,7 +94,7 @@
             </data_defined_properties>
             <layer class="SimpleMarker" enabled="1" id="{pwr-line-pylon-marker}" locked="0" pass="0">
               <Option type="Map">
-                <Option name="angle" type="QString" value="0"></Option>
+                <Option name="angle" type="QString" value="-30"></Option>
                 <Option name="cap_style" type="QString" value="square"></Option>
                 <Option name="color" type="QString" value="0,0,0,255"></Option>
                 <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
@@ -105,11 +105,11 @@
                 <Option name="offset_unit" type="QString" value="MM"></Option>
                 <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
                 <Option name="outline_style" type="QString" value="solid"></Option>
-                <Option name="outline_width" type="QString" value="0.35"></Option>
+                <Option name="outline_width" type="QString" value="0.14"></Option>
                 <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="outline_width_unit" type="QString" value="MM"></Option>
                 <Option name="scale_method" type="QString" value="diameter"></Option>
-                <Option name="size" type="QString" value="2"></Option>
+                <Option name="size" type="QString" value="0.6"></Option>
                 <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="size_unit" type="QString" value="MM"></Option>
                 <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -133,10 +133,10 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleLine" enabled="1" id="{pwr-minor-base}" locked="0" pass="0">
+        <layer class="SimpleLine" enabled="1" id="{e7964227-eb72-4de1-aa80-c18a754290c2}" locked="0" pass="0">
           <Option type="Map">
             <Option name="align_dash_pattern" type="QString" value="0"></Option>
-            <Option name="capstyle" type="QString" value="round"></Option>
+            <Option name="capstyle" type="QString" value="square"></Option>
             <Option name="customdash" type="QString" value="5;2"></Option>
             <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="customdash_unit" type="QString" value="MM"></Option>
@@ -144,10 +144,10 @@
             <Option name="dash_pattern_offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="dash_pattern_offset_unit" type="QString" value="MM"></Option>
             <Option name="draw_inside_polygon" type="QString" value="0"></Option>
-            <Option name="joinstyle" type="QString" value="round"></Option>
-            <Option name="line_color" type="QString" value="0,0,0,255"></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="line_color" type="QString" value="0,0,0,149"></Option>
             <Option name="line_style" type="QString" value="solid"></Option>
-            <Option name="line_width" type="QString" value="0.22"></Option>
+            <Option name="line_width" type="QString" value="0.14"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
             <Option name="offset" type="QString" value="0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -171,72 +171,6 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="MarkerLine" enabled="1" id="{pwr-minor-pylons}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="average_angle_length" type="QString" value="4"></Option>
-            <Option name="average_angle_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="average_angle_unit" type="QString" value="MM"></Option>
-            <Option name="interval" type="QString" value="3"></Option>
-            <Option name="interval_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="interval_unit" type="QString" value="MM"></Option>
-            <Option name="offset" type="QString" value="0"></Option>
-            <Option name="offset_along_line" type="QString" value="0"></Option>
-            <Option name="offset_along_line_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_along_line_unit" type="QString" value="MM"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="place_on_every_part" type="bool" value="true"></Option>
-            <Option name="placements" type="QString" value="InnerVertices"></Option>
-            <Option name="ring_filter" type="QString" value="0"></Option>
-            <Option name="rotate" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="@1@1" type="marker">
-            <data_defined_properties>
-              <Option type="Map">
-                <Option name="name" type="QString" value=""></Option>
-                <Option name="properties"></Option>
-                <Option name="type" type="QString" value="collection"></Option>
-              </Option>
-            </data_defined_properties>
-            <layer class="SimpleMarker" enabled="1" id="{pwr-minor-pylon-marker}" locked="0" pass="0">
-              <Option type="Map">
-                <Option name="angle" type="QString" value="0"></Option>
-                <Option name="cap_style" type="QString" value="square"></Option>
-                <Option name="color" type="QString" value="0,0,0,255"></Option>
-                <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-                <Option name="joinstyle" type="QString" value="bevel"></Option>
-                <Option name="name" type="QString" value="line"></Option>
-                <Option name="offset" type="QString" value="0,0"></Option>
-                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-                <Option name="offset_unit" type="QString" value="MM"></Option>
-                <Option name="outline_color" type="QString" value="0,0,0,255"></Option>
-                <Option name="outline_style" type="QString" value="solid"></Option>
-                <Option name="outline_width" type="QString" value="0.25"></Option>
-                <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-                <Option name="outline_width_unit" type="QString" value="MM"></Option>
-                <Option name="scale_method" type="QString" value="diameter"></Option>
-                <Option name="size" type="QString" value="1.4"></Option>
-                <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-                <Option name="size_unit" type="QString" value="MM"></Option>
-                <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-              </Option>
-              <data_defined_properties>
-                <Option type="Map">
-                  <Option name="name" type="QString" value=""></Option>
-                  <Option name="properties"></Option>
-                  <Option name="type" type="QString" value="collection"></Option>
-                </Option>
-              </data_defined_properties>
-            </layer>
-          </symbol>
-        </layer>
       </symbol>
     </symbols>
   </renderer-v2>
@@ -251,7 +185,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleLine" enabled="1" id="{dad3942a-d7d0-4a19-851c-7cb828fc8513}" locked="0" pass="0">
+        <layer class="SimpleLine" enabled="1" id="{69614870-0859-4ad8-982b-108a735d2689}" locked="0" pass="0">
           <Option type="Map">
             <Option name="align_dash_pattern" type="QString" value="0"></Option>
             <Option name="capstyle" type="QString" value="square"></Option>
@@ -300,7 +234,7 @@
     <field configurationFlags="NoFlag" name="osm_id"></field>
     <field configurationFlags="NoFlag" name="osm_type"></field>
     <field configurationFlags="NoFlag" name="name"></field>
-    <field configurationFlags="NoFlag" name="power"></field>
+    <field configurationFlags="NoFlag" name="barrier"></field>
     <field configurationFlags="NoFlag" name="tags"></field>
   </fieldConfiguration>
   <aliases>
@@ -308,7 +242,7 @@
     <alias field="osm_id" index="1" name=""></alias>
     <alias field="osm_type" index="2" name=""></alias>
     <alias field="name" index="3" name=""></alias>
-    <alias field="power" index="4" name=""></alias>
+    <alias field="barrier" index="4" name=""></alias>
     <alias field="tags" index="5" name=""></alias>
   </aliases>
   <splitPolicies>
@@ -316,7 +250,7 @@
     <policy field="osm_id" policy="Duplicate"></policy>
     <policy field="osm_type" policy="Duplicate"></policy>
     <policy field="name" policy="Duplicate"></policy>
-    <policy field="power" policy="Duplicate"></policy>
+    <policy field="barrier" policy="Duplicate"></policy>
     <policy field="tags" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
@@ -324,7 +258,7 @@
     <default applyOnUpdate="0" expression="" field="osm_id"></default>
     <default applyOnUpdate="0" expression="" field="osm_type"></default>
     <default applyOnUpdate="0" expression="" field="name"></default>
-    <default applyOnUpdate="0" expression="" field="power"></default>
+    <default applyOnUpdate="0" expression="" field="barrier"></default>
     <default applyOnUpdate="0" expression="" field="tags"></default>
   </defaults>
   <constraints>
@@ -332,7 +266,7 @@
     <constraint constraints="0" exp_strength="0" field="osm_id" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="osm_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="name" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="power" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="barrier" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="tags" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
@@ -340,7 +274,7 @@
     <constraint desc="" exp="" field="osm_id"></constraint>
     <constraint desc="" exp="" field="osm_type"></constraint>
     <constraint desc="" exp="" field="name"></constraint>
-    <constraint desc="" exp="" field="power"></constraint>
+    <constraint desc="" exp="" field="barrier"></constraint>
     <constraint desc="" exp="" field="tags"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>

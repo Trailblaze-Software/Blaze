@@ -56,23 +56,43 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="downloadTopoCheckBox">
-         <property name="text">
-          <string>Download NSW topographic layers</string>
+        <widget class="QGroupBox" name="topoDownloadGroupBox">
+         <property name="title">
+          <string>NSW topo download</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="downloadOsmCheckBox">
-         <property name="text">
-          <string>Download OpenStreetMap (OSM) layers</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
+         <layout class="QVBoxLayout" name="topoDownloadGroupLayout">
+          <item>
+           <widget class="QCheckBox" name="downloadTopoCheckBox">
+            <property name="text">
+             <string>Download NSW topographic layers</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="gpkgLayout">
+            <item>
+             <widget class="QLabel" name="gpkgLabel">
+              <property name="text">
+               <string>NSW Topo GPKG save location (optional):</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="gpkgLineEdit"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="gpkgBrowseButton">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -81,6 +101,16 @@
           <string>OSM download</string>
          </property>
          <layout class="QVBoxLayout" name="osmDownloadGroupLayout">
+          <item>
+           <widget class="QCheckBox" name="downloadOsmCheckBox">
+            <property name="text">
+             <string>Download OpenStreetMap (OSM) layers</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
           <item>
            <layout class="QHBoxLayout" name="osmSourceLayout">
             <item>
@@ -111,7 +141,7 @@
             <item>
              <widget class="QLabel" name="osmGpkgLabel">
               <property name="text">
-               <string>OSM GPKG Save Location (optional):</string>
+               <string>OSM GPKG save location (optional):</string>
               </property>
              </widget>
             </item>
@@ -129,27 +159,6 @@
           </item>
          </layout>
         </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="gpkgLayout">
-         <item>
-          <widget class="QLabel" name="gpkgLabel">
-           <property name="text">
-            <string>NSW Topo GPKG Save Location (optional):</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="gpkgLineEdit"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="gpkgBrowseButton">
-           <property name="text">
-            <string>Browse...</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </item>
     <item>
      <widget class="QCheckBox" name="addMagNorthCheckBox">

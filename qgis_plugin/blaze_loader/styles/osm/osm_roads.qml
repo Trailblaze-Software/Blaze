@@ -199,9 +199,9 @@
             <Option name="dash_pattern_offset_unit" type="QString" value="MM"></Option>
             <Option name="draw_inside_polygon" type="QString" value="0"></Option>
             <Option name="joinstyle" type="QString" value="round"></Option>
-            <Option name="line_color" type="QString" value="214,0,0,255"></Option>
+            <Option name="line_color" type="QString" value="214,0,0,0"></Option>
             <Option name="line_style" type="QString" value="solid"></Option>
-            <Option name="line_width" type="QString" value="0.4"></Option>
+            <Option name="line_width" type="QString" value="0"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
             <Option name="offset" type="QString" value="0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -220,13 +220,7 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="outlineWidth" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="expression" type="QString" value="case when @map_scale &lt; 100000 then case  when &quot;highway&quot; in ('motorway','trunk','motorway_link','trunk_link')   then 0.7  when &quot;highway&quot; in ('primary','primary_link')   then 0.55  when &quot;highway&quot; in ('secondary','secondary_link')   then 0.45  when &quot;highway&quot; in ('tertiary','tertiary_link')   then 0.4  else 0.3 end else case  when &quot;highway&quot; in ('motorway','trunk','motorway_link','trunk_link')   then 0.6  when &quot;highway&quot; in ('primary','primary_link')   then 0.3  else 0 end end"></Option>
-                  <Option name="type" type="int" value="3"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -373,7 +367,7 @@
               <Option name="properties" type="Map">
                 <Option name="outlineWidth" type="Map">
                   <Option name="active" type="bool" value="true"></Option>
-                  <Option name="expression" type="QString" value="case  when &quot;highway&quot; in ('motorway','trunk','motorway_link','trunk_link')   then 0.6  when &quot;highway&quot; in ('primary','primary_link')   then 0.4  else 0 end"></Option>
+                  <Option name="expression" type="QString" value="case  when &quot;highway&quot; in ('motorway','trunk','motorway_link','trunk_link')   then 0.7  when &quot;highway&quot; in ('primary','primary_link')   then 0.55  when &quot;highway&quot; in ('secondary','secondary_link')   then 0.45  when &quot;highway&quot; in ('tertiary','tertiary_link')   then 0.4  else 0.3 end"></Option>
                   <Option name="type" type="int" value="3"></Option>
                 </Option>
               </Option>
@@ -390,10 +384,10 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleLine" enabled="1" id="{rd-sealed}" locked="0" pass="5">
+        <layer class="SimpleLine" enabled="1" id="{3b2466a5-9b12-4db5-9460-7398bb2875d7}" locked="0" pass="0">
           <Option type="Map">
             <Option name="align_dash_pattern" type="QString" value="0"></Option>
-            <Option name="capstyle" type="QString" value="round"></Option>
+            <Option name="capstyle" type="QString" value="square"></Option>
             <Option name="customdash" type="QString" value="5;2"></Option>
             <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="customdash_unit" type="QString" value="MM"></Option>
@@ -401,10 +395,10 @@
             <Option name="dash_pattern_offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="dash_pattern_offset_unit" type="QString" value="MM"></Option>
             <Option name="draw_inside_polygon" type="QString" value="0"></Option>
-            <Option name="joinstyle" type="QString" value="round"></Option>
-            <Option name="line_color" type="QString" value="214,0,0,255"></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="line_color" type="QString" value="230,0,23,255"></Option>
             <Option name="line_style" type="QString" value="solid"></Option>
-            <Option name="line_width" type="QString" value="0.4"></Option>
+            <Option name="line_width" type="QString" value="0.26"></Option>
             <Option name="line_width_unit" type="QString" value="MM"></Option>
             <Option name="offset" type="QString" value="0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -426,7 +420,7 @@
               <Option name="properties" type="Map">
                 <Option name="outlineWidth" type="Map">
                   <Option name="active" type="bool" value="true"></Option>
-                  <Option name="expression" type="QString" value="case when @map_scale &lt; 100000 then case  when &quot;highway&quot; in ('motorway','trunk','motorway_link','trunk_link')   then 0.7  when &quot;highway&quot; in ('primary','primary_link')   then 0.55  when &quot;highway&quot; in ('secondary','secondary_link')   then 0.45  when &quot;highway&quot; in ('tertiary','tertiary_link')   then 0.4  else 0.3 end else case  when &quot;highway&quot; in ('motorway','trunk','motorway_link','trunk_link')   then 0.6  when &quot;highway&quot; in ('primary','primary_link')   then 0.3  else 0 end end"></Option>
+                  <Option name="expression" type="QString" value="(case when &quot;highway&quot; in ('motorway','trunk','motorway_link','trunk_link')   then 0.6 when &quot;highway&quot; in ('primary','primary_link')   then 0.4 when &quot;highway&quot; in ('secondary', 'secondary_link')   then 0.3 when &quot;highway&quot; in ('tertiary', 'tertiary_link')   then 0.3 else 0.0001 end)"></Option>
                   <Option name="type" type="int" value="3"></Option>
                 </Option>
               </Option>

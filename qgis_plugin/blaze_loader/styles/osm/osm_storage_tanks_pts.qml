@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC "http://mrcc.com/qgis.dtd" "SYSTEM">
-<qgis hasScaleBasedVisibilityFlag="1" labelsEnabled="1" maxScale="0" minScale="600000" readOnly="0" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="LayerConfiguration|Symbology|Labeling|Fields|Rendering" symbologyReferenceScale="-1" version="3.34.3-Prizren">
+<qgis hasScaleBasedVisibilityFlag="1" labelsEnabled="1" maxScale="0" minScale="60000" readOnly="0" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="LayerConfiguration|Symbology|Labeling|Fields|Rendering" symbologyReferenceScale="-1" version="3.34.3-Prizren">
   <flags>
     <Identifiable>1</Identifiable>
     <Removable>1</Removable>
@@ -33,7 +33,7 @@
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="1.4"></Option>
+            <Option name="size" type="QString" value="1.2"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="MM"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
