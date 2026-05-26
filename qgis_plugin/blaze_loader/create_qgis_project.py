@@ -686,6 +686,188 @@ def create_qgis_project(
     # consumed by `osm_regional_extract.py` (Geofabrik mode).
     #
     # IMPORTANT: `name` must match `styles/osm/<name>.qml` for styling to apply.
+    #
+    # Layer rendering order inside the OSM group, top of tree -> bottom of tree.
+    # QGIS renders the top of the tree on top of the map, so this list goes from
+    # foreground (points / labels) to background (large landuse polygons).
+    #
+    # General convention: points > lines > polygons. The one explicit exception is
+    # `osm_trees_pts`, which is a point layer but renders under all line layers
+    # so the tree dots don't cover roads, paths, fences, etc.
+    OSM_RENDER_ORDER = [
+        # ---- Points (foreground) ----
+        "osm_peaks",
+        "osm_cave_entrances",
+        "osm_places",
+        "osm_place_regions",
+        "osm_camp_sites_pts",
+        "osm_picnic_sites_pts",
+        "osm_tourism_pts",
+        "osm_remote_amenities",
+        "osm_benches_pts",
+        "osm_survey_points",
+        "osm_mast_pts",
+        "osm_storage_tanks_pts",
+        "osm_water_towers_windmills",
+        "osm_power_towers_pts",
+        "osm_rest_areas_pts",
+        "osm_station_pts",
+        "osm_barrier_points",
+        # ---- Lines ----
+        "osm_admin_boundaries",
+        "osm_landform_lines",
+        "osm_tracks",
+        "osm_roads",
+        "osm_via_ferrata",
+        "osm_bus_guideways",
+        "osm_railways",
+        "osm_rail_abandoned",
+        "osm_pipeline",
+        "osm_power_lines",
+        "osm_embankment",
+        "osm_barriers",
+        "osm_tree_rows",
+        "osm_waterways",
+        "osm_coastlines",
+        "osm_rest_areas_ways",
+        "osm_station_ways",
+        "osm_power_areas",
+        "osm_storage_tanks",
+        # ---- Tree points sit just under all line layers (special case) ----
+        "osm_trees_pts",
+        # ---- Polygons (smaller / "in front" features above land use) ----
+        "osm_fences",
+        "osm_swimming_pools",
+        "osm_buildings",
+        "osm_building_parts",
+        "osm_water",
+        "osm_leisure_water",
+        "osm_landform_poly",
+        "osm_natural_surface",
+        "osm_wood",
+        "osm_camp_sites_poly",
+        "osm_picnic_sites_poly",
+        "osm_tourism_poly",
+        "osm_leisure",
+        "osm_landuse",
+        "osm_boundary_protected",
+    ]
+
+    def _reorder_osm_group_children(group, layer_defs):
+        """Re-order the OSM group's layer children to match ``OSM_RENDER_ORDER``.
+
+        Uses ``QgsLayerTreeNode.clone()`` to avoid the well-known "remove + re-insert"
+        gotcha (``removeChildNode`` deletes the underlying C++ node, leaving any
+        Python proxy dangling). Layers not present in ``OSM_RENDER_ORDER`` keep
+        their original relative order and are appended after the explicitly
+        ordered ones, grouped by geometry tier (points -> lines -> polygons) so
+        new layers slot in roughly where they belong without code changes.
+        """
+        try:
+            import re
+
+            order_index = {n: i for i, n in enumerate(OSM_RENDER_ORDER)}
+            geom_tier = {"point": 0, "line": 1, "line_or_polygon": 2, "polygon": 3}
+            name_to_geom = {d["name"]: d.get("geom", "line") for d in layer_defs}
+
+            originals = []
+            for i, child in enumerate(list(group.children())):
+                if child.nodeType() != 0:  # QgsLayerTreeNode.NodeLayer == 0
+                    continue
+                lyr = child.layer()
+                if lyr is None:
+                    continue
+                raw_name = lyr.name()
+                # QGIS may auto-suffix duplicate layer names as "name (2)" etc.
+                # Keep ordering stable by mapping back to the base catalog name.
+                base_name = re.sub(r"\s*\(\d+\)\s*$", "", raw_name).strip()
+                if base_name in order_index:
+                    primary = (0, order_index[base_name], "")
+                else:
+                    g = name_to_geom.get(base_name, "line")
+                    primary = (1, geom_tier.get(g, 1), base_name)
+                originals.append((primary, i, child, base_name, raw_name, lyr.id()))
+
+            if not originals:
+                return
+
+            originals.sort(key=lambda t: (t[0], t[1]))
+
+            # originals tuples are: (primary, original_idx, node, base_name, raw_name, layer_id)
+            cloned = [t[2].clone() for t in originals]
+            for c in cloned:
+                group.addChildNode(c)
+            for _, _, orig, *_rest in originals:
+                try:
+                    group.removeChildNode(orig)
+                except Exception:
+                    pass
+
+            # "Added:" logs above follow GeoPackage layer enumeration order, not
+            # ``OSM_RENDER_ORDER``. Log the actual layer-tree order after reorder.
+            final_order = []
+            for child in list(group.children()):
+                if child.nodeType() != 0:
+                    continue
+                lyr = child.layer()
+                if lyr is not None:
+                    final_order.append(lyr.name())
+            log("OSM group layer order (top of tree = drawn on top of map): " + ", ".join(final_order))
+
+            # If the project is using Custom Layer Order, tree reordering won't
+            # affect rendering. Update the custom order list to match the new
+            # OSM ordering while keeping non-OSM layers in place.
+            try:
+                root = QgsProject.instance().layerTreeRoot()
+                if hasattr(root, "hasCustomLayerOrder") and root.hasCustomLayerOrder():
+                    current = list(root.customLayerOrder())
+
+                    def _as_layer_id(v):
+                        try:
+                            # QgsMapLayer
+                            return v.id()
+                        except Exception:
+                            return str(v)
+
+                    current_ids = [_as_layer_id(v) for v in current]
+                    osm_ids = [lid for *_x, lid in originals if lid]
+                    osm_set = set(osm_ids)
+
+                    ordered_osm_ids = []
+                    for child in list(group.children()):
+                        if child.nodeType() != 0:
+                            continue
+                        lyr = child.layer()
+                        if lyr is None:
+                            continue
+                        if lyr.id() in osm_set:
+                            ordered_osm_ids.append(lyr.id())
+
+                    if ordered_osm_ids:
+                        first_osm_idx = None
+                        for idx, lid in enumerate(current_ids):
+                            if lid in osm_set:
+                                first_osm_idx = idx
+                                break
+
+                        if first_osm_idx is None:
+                            new_ids = current_ids + ordered_osm_ids
+                        else:
+                            new_ids = []
+                            inserted = False
+                            for lid in current_ids:
+                                if lid in osm_set:
+                                    if not inserted:
+                                        new_ids.extend(ordered_osm_ids)
+                                        inserted = True
+                                    continue
+                                new_ids.append(lid)
+                        root.setCustomLayerOrder(new_ids)
+            except Exception:
+                pass
+        except Exception as e:
+            log(f"OSM layer reorder failed: {e}")
+
     OSM_LAYER_DEFS = [
         # Highways & access
         {
@@ -711,6 +893,14 @@ def create_qgis_project(
             "visible": True,
         },
         {
+            "name": "osm_bus_guideways",
+            "element": "way",
+            "filters": ['["highway"="bus_guideway"]', '["busway"]'],
+            "tag": "highway",
+            "geom": "line",
+            "visible": False,
+        },
+        {
             "name": "osm_via_ferrata",
             "element": "way",
             "filters": ['["highway"="via_ferrata"]'],
@@ -724,6 +914,14 @@ def create_qgis_project(
             "filters": ['["highway"="rest_area"]', '["highway"="services"]'],
             "tag": "highway",
             "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_rest_areas_ways",
+            "element": "way",
+            "filters": ['["highway"="rest_area"]', '["highway"="services"]'],
+            "tag": "highway",
+            "geom": "line_or_polygon",
             "visible": False,
         },
         # Rail
@@ -742,6 +940,22 @@ def create_qgis_project(
             "tag": "railway",
             "geom": "line",
             "visible": True,
+        },
+        {
+            "name": "osm_station_pts",
+            "element": "node",
+            "filters": ['["railway"~"^(station|halt|tram_stop)$"]'],
+            "tag": "railway",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_station_ways",
+            "element": "way",
+            "filters": ['["railway"~"^(station|halt|tram_stop)$"]'],
+            "tag": "railway",
+            "geom": "line_or_polygon",
+            "visible": False,
         },
         # Water (lines + polygons)
         {
@@ -922,13 +1136,16 @@ def create_qgis_project(
             "visible": True,
         },
         {
+            # Polygon-only: closed `barrier=fence` ways and multipolygon relations
+            # representing fenced enclosures. Linear `barrier=fence` ways flow into
+            # `osm_barriers` (geom: line) instead, so there is no overlap.
             "name": "osm_fences",
             "query_batches": [
                 {"element": "way", "filters": ['["barrier"="fence"]']},
                 {"element": "rel", "filters": ['["type"="multipolygon"]["barrier"="fence"]']},
             ],
             "tag": "barrier",
-            "geom": "line_or_polygon",
+            "geom": "polygon",
             "visible": True,
         },
         {
@@ -1037,14 +1254,34 @@ def create_qgis_project(
                 {
                     "element": "rel",
                     "filters": [
-                        '["type"="multipolygon"]["tourism"~"^(viewpoint|information|alpine_hut'
-                        + '|wilderness_hut|camp_site|picnic_site)$"]'
+                        '["type"="multipolygon"]'
+                        '["tourism"~"^(viewpoint|information|alpine_hut|wilderness_hut|camp_site|picnic_site)$"]'
                     ],
                 },
             ],
             "tag": "tourism",
             "geom": "polygon",
             "visible": False,
+        },
+        {
+            "name": "osm_camp_sites_poly",
+            "query_batches": [
+                {"element": "way", "filters": ['["tourism"="camp_site"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["tourism"="camp_site"]']},
+            ],
+            "tag": "tourism",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_picnic_sites_poly",
+            "query_batches": [
+                {"element": "way", "filters": ['["tourism"="picnic_site"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["tourism"="picnic_site"]']},
+            ],
+            "tag": "tourism",
+            "geom": "polygon",
+            "visible": True,
         },
         {
             "name": "osm_remote_amenities",
@@ -1208,110 +1445,6 @@ def create_qgis_project(
             layer.CreateField(_ogr.FieldDefn("tags", _ogr.OFTString))
             return layer
 
-        def _chain_way_segments_into_rings(segments):
-            """Combine a list of way coord-sequences into closed rings.
-
-            Each segment is a list of ``(lon, lat)`` tuples. Segments that share
-            endpoints are chained until they close. Returns a list of rings
-            (each ring is itself a list of ``(lon, lat)`` tuples with the first
-            point repeated at the end).
-            """
-            rings = []
-            remaining = [list(s) for s in segments if len(s) >= 2]
-            while remaining:
-                cur = remaining.pop(0)
-                # Already-closed segment.
-                if cur[0] == cur[-1]:
-                    if len(cur) >= 4:
-                        rings.append(cur)
-                    continue
-                # Try to chain other segments onto either end until closed or
-                # no more candidates can be joined.
-                while cur[0] != cur[-1]:
-                    joined = False
-                    for i, other in enumerate(remaining):
-                        if other[0] == cur[-1]:
-                            cur.extend(other[1:])
-                        elif other[-1] == cur[-1]:
-                            cur.extend(reversed(other[:-1]))
-                        elif other[-1] == cur[0]:
-                            cur = other + cur[1:]
-                        elif other[0] == cur[0]:
-                            cur = list(reversed(other))[:-1] + cur
-                        else:
-                            continue
-                        remaining.pop(i)
-                        joined = True
-                        break
-                    if not joined:
-                        break
-                if cur[0] == cur[-1] and len(cur) >= 4:
-                    rings.append(cur)
-            return rings
-
-        def _relation_multipolygon_geom(el):
-            """Build an OGR multipolygon from an Overpass relation element.
-
-            Handles ``type=multipolygon`` relations returned by ``out body geom``
-            where each member way carries its own ``geometry``. Inner rings are
-            attached to the outer ring that contains them (point-in-polygon).
-            """
-            members = el.get("members") or []
-            outer_segments = []
-            inner_segments = []
-            for m in members:
-                if m.get("type") != "way":
-                    continue
-                geom = m.get("geometry") or []
-                seg = [(float(p["lon"]), float(p["lat"])) for p in geom if "lon" in p and "lat" in p]
-                if len(seg) < 2:
-                    continue
-                if (m.get("role") or "outer") == "inner":
-                    inner_segments.append(seg)
-                else:
-                    outer_segments.append(seg)
-
-            outer_rings = _chain_way_segments_into_rings(outer_segments)
-            inner_rings = _chain_way_segments_into_rings(inner_segments)
-            if not outer_rings:
-                return None
-
-            def _make_poly(outer, inners):
-                poly = _ogr.Geometry(_ogr.wkbPolygon)
-                ring = _ogr.Geometry(_ogr.wkbLinearRing)
-                for x, y in outer:
-                    ring.AddPoint(x, y)
-                poly.AddGeometry(ring)
-                for inr in inners:
-                    iring = _ogr.Geometry(_ogr.wkbLinearRing)
-                    for x, y in inr:
-                        iring.AddPoint(x, y)
-                    poly.AddGeometry(iring)
-                return poly
-
-            outer_with_holes = [(o, []) for o in outer_rings]
-            outer_polys_for_test = [_make_poly(o, []) for o in outer_rings]
-            for inr in inner_rings:
-                if not inr:
-                    continue
-                test_pt = _ogr.Geometry(_ogr.wkbPoint)
-                test_pt.AddPoint(inr[0][0], inr[0][1])
-                for idx, op in enumerate(outer_polys_for_test):
-                    try:
-                        if op.Contains(test_pt):
-                            outer_with_holes[idx][1].append(inr)
-                            break
-                    except Exception:
-                        continue
-
-            if len(outer_with_holes) == 1:
-                outer, holes = outer_with_holes[0]
-                return _make_poly(outer, holes)
-            multi = _ogr.Geometry(_ogr.wkbMultiPolygon)
-            for outer, holes in outer_with_holes:
-                multi.AddGeometry(_make_poly(outer, holes))
-            return multi
-
         def element_geom(el, geom_kind):
             t = el.get("type")
             if t == "node":
@@ -1328,7 +1461,19 @@ def create_qgis_project(
                 is_closed = coords[0].get("lon") == coords[-1].get("lon") and coords[0].get("lat") == coords[-1].get(
                     "lat"
                 )
-                if geom_kind == "polygon" or (geom_kind == "line_or_polygon" and is_closed and len(coords) >= 4):
+                # Polygon-only layers reject open ways (would produce invalid
+                # ringless polygons). `line_or_polygon` only emits a polygon for
+                # closed ways with enough points and otherwise falls through to a line.
+                if geom_kind == "polygon":
+                    if not (is_closed and len(coords) >= 4):
+                        return None
+                    ring = _ogr.Geometry(_ogr.wkbLinearRing)
+                    for c in coords:
+                        ring.AddPoint(float(c["lon"]), float(c["lat"]))
+                    poly = _ogr.Geometry(_ogr.wkbPolygon)
+                    poly.AddGeometry(ring)
+                    return poly
+                if geom_kind == "line_or_polygon" and is_closed and len(coords) >= 4:
                     ring = _ogr.Geometry(_ogr.wkbLinearRing)
                     for c in coords:
                         ring.AddPoint(float(c["lon"]), float(c["lat"]))
@@ -1339,15 +1484,6 @@ def create_qgis_project(
                 for c in coords:
                     line.AddPoint(float(c["lon"]), float(c["lat"]))
                 return line
-            if t == "relation":
-                # Only multipolygon relations carry polygonal geometry. Other
-                # relation types (boundary/route) need bespoke handling and
-                # aren't currently materialised in Overpass mode.
-                if (el.get("tags") or {}).get("type") != "multipolygon":
-                    return None
-                if geom_kind not in ("polygon", "line_or_polygon"):
-                    return None
-                return _relation_multipolygon_geom(el)
             return None
 
         for idx, spec in enumerate(layer_defs, start=1):
@@ -1424,77 +1560,7 @@ def create_qgis_project(
             except Exception:
                 pass
 
-        # Reorder children of the OSM group so that, by geometry, points render
-        # above lines and lines render above polygons. ``osm_trees_pts`` is a
-        # special case: trees should render UNDER all line layers, otherwise the
-        # dense point cloud obscures roads / tracks / streams.
-        # In QGIS the layer tree top-to-bottom matches render order top-to-bottom
-        # (top of tree = drawn on top), so a smaller priority key means rendered
-        # later (on top).
-        #
-        # Polygon layers also have an explicit cartographic sub-order so that
-        # small/distinct features (buildings, swimming pools, water) draw on top
-        # of broad land cover (landuse, leisure, wood) and protected-area
-        # backgrounds. Layers not in the table fall through and keep their
-        # original order within the polygon priority bucket.
-        try:
-            name_to_geom = {d["name"]: d.get("geom") for d in OSM_LAYER_DEFS}
-
-            polygon_render_order = [
-                "osm_buildings",
-                "osm_building_parts",
-                "osm_swimming_pools",
-                "osm_leisure_water",
-                "osm_water",
-                "osm_tourism_poly",
-                "osm_landform_poly",
-                "osm_natural_surface",
-                "osm_wood",
-                "osm_leisure",
-                "osm_landuse",
-                "osm_boundary_protected",
-            ]
-            polygon_sub_priority = {n: i for i, n in enumerate(polygon_render_order)}
-            polygon_default_sub = len(polygon_render_order)
-
-            def _osm_layer_priority(layer_name):
-                if layer_name == "osm_trees_pts":
-                    return (2, 0)  # below lines, above polygons
-                g = name_to_geom.get(layer_name)
-                if g == "point":
-                    return (0, 0)
-                if g in ("line", "line_or_polygon"):
-                    return (1, 0)
-                if g == "polygon":
-                    return (3, polygon_sub_priority.get(layer_name, polygon_default_sub))
-                return (4, 0)  # unknown geometry: send to the bottom
-
-            layer_children = [
-                c for c in osm_group.children() if c.nodeType() == 0 and c.layer() is not None  # NodeLayer
-            ]
-
-            desired_layer_nodes = [
-                c
-                for _, c in sorted(
-                    enumerate(layer_children),
-                    key=lambda iv: (_osm_layer_priority(iv[1].layer().name()), iv[0]),
-                )
-            ]
-
-            if desired_layer_nodes != layer_children:
-                # ``removeChildNode`` deletes the underlying tree node, so we
-                # clone first to keep the layer references valid before adding
-                # them back in the new order. Map layers themselves are owned by
-                # ``QgsProject`` so they survive the tree node deletion. Any
-                # non-layer children (e.g. nested sub-groups) are left alone in
-                # their original positions; layer clones get appended after.
-                layer_clones = [c.clone() for c in desired_layer_nodes]
-                for c in layer_children:
-                    osm_group.removeChildNode(c)
-                for c in layer_clones:
-                    osm_group.addChildNode(c)
-        except Exception as e:
-            log(f"OSM layer ordering: failed to reorder ({e})")
+        _reorder_osm_group_children(osm_group, OSM_LAYER_DEFS)
 
     if download_osm and project_extent and project_crs:
         try:

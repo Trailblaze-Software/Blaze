@@ -256,8 +256,10 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
+    // Scale absolutely: flat (pi/2 as min) → 255, vertical (0 as max) → 0.
     write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif",
-                       progress_tracker.subtracker(0.74, 0.75));
+                       progress_tracker.subtracker(0.74, 0.75),
+                       std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
   }
 
   if (OUT_LAS) LASData(smooth_ground).write(output_dir / "smooth_ground.las");

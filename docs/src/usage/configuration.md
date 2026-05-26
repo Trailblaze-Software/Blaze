@@ -81,7 +81,7 @@ Blaze uses a JSON configuration file to control the processing pipeline. This fi
 
 Controls the resolutions used by various stages of the processing pipeline.
 
-- `bin_resolution`: Underlying grid cell size in meters. Raw LiDAR points are binned at this resolution; the ground / building / water / intensity rasters are produced here. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased. Default: `0.5`.
+- `bin_resolution`: Underlying grid cell size in meters. Raw LiDAR points are binned at this resolution; the ground / building / water / intensity rasters are produced at this resolution. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased (e.g. ~2.5m for NSW). Default: `0.5`.
 - `downsample_factor`: Integer factor used to downsample the bin grid into the smooth ground DEM that is the basis for slope, hill-shade and `smooth_ground.tif`. Effective smooth-DEM resolution = `bin_resolution * downsample_factor`. Default: `3`.
 - `vegetation_grid_resolution`: Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be `>= bin_resolution`. Default: `3.0`.
 - `contour_dem_resolution`: Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Computed by further downsampling the smooth ground DEM. Should be `>= bin_resolution * downsample_factor`. Larger values produce smoother contours but lose fine terrain detail. Default: `9.0`.
@@ -90,7 +90,7 @@ Older configs that only set `bin_resolution` and `downsample_factor` are still a
 
 ### Ground
 
-Parameters for ground point classification and filtering. Ground spike removal automatically uses the relevant grid resolution as its height-diff threshold (so it scales naturally with `bin_resolution` and the smooth-DEM resolution); there is no longer a separate config option for it.
+Parameters for ground point classification and filtering.
 
 - `min_ground_intensity`: Minimum intensity value for ground points.
 - `max_ground_intensity`: Maximum intensity value for ground points.

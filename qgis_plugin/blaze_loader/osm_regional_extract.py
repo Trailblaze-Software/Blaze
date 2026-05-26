@@ -364,36 +364,6 @@ def _geom_compatible(qgs_geom, geom_kind: str) -> bool:
     return False
 
 
-def _promote_closed_line_to_polygon(qgs_geom):
-    """Return a polygon QgsGeometry if ``qgs_geom`` is a closed line, else ``None``.
-
-    OGR's OSM driver routes closed ways for "linear" tags (e.g. ``barrier=fence``
-    without ``area=yes``) into the ``lines`` PBF layer as LineStrings. For
-    ``line_or_polygon`` output layers we want closed-way features to appear as
-    polygons - matching the Overpass code path which auto-promotes closed ways.
-    """
-    from qgis.core import QgsGeometry, QgsWkbTypes
-
-    if qgs_geom is None or qgs_geom.isEmpty():
-        return None
-    if qgs_geom.type() != QgsWkbTypes.LineGeometry:
-        return None
-    if not qgs_geom.isMultipart():
-        line = qgs_geom.asPolyline()
-        if len(line) < 4 or line[0] != line[-1]:
-            return None
-        return QgsGeometry.fromPolygonXY([line])
-    polys = []
-    for part in qgs_geom.asMultiPolyline():
-        if len(part) >= 4 and part[0] == part[-1]:
-            polys.append([part])
-    if not polys:
-        return None
-    if len(polys) == 1:
-        return QgsGeometry.fromPolygonXY(polys[0])
-    return QgsGeometry.fromMultiPolygonXY(polys)
-
-
 def _set_primary_fields(name, primary_tag, tags, ogr_feat):
     import json as _json
 
@@ -647,31 +617,18 @@ def add_osm_layers_from_regional_extract(
                         if dedupe_key in seen:
                             dupes += 1
                             continue
-                        # For line_or_polygon output layers, promote closed
-                        # LineStrings to Polygons. The OGR OSM driver routes
-                        # closed ways with "linear" tags (e.g. barrier=fence)
-                        # into the lines layer; the Overpass code path already
-                        # makes the same promotion, and downstream styling
-                        # expects fenced enclosures to render as polygons.
-                        # Use a local variable so the mutation doesn't leak
-                        # into other ``out_layers`` iterations on the same feat.
-                        match_geom = qgs_geom
-                        if geom_kind == "line_or_polygon":
-                            promoted = _promote_closed_line_to_polygon(match_geom)
-                            if promoted is not None:
-                                match_geom = promoted
-                        if not match_geom.intersects(clip_rect):
+                        if not qgs_geom.intersects(clip_rect):
                             continue
-                        gbox = match_geom.boundingBox()
+                        gbox = qgs_geom.boundingBox()
                         needs_clip = (
                             gbox.xMinimum() < buffered_extent.xMinimum()
                             or gbox.xMaximum() > buffered_extent.xMaximum()
                             or gbox.yMinimum() < buffered_extent.yMinimum()
                             or gbox.yMaximum() > buffered_extent.yMaximum()
                         )
-                        q_write = match_geom
+                        q_write = qgs_geom
                         if needs_clip:
-                            clipped = match_geom.intersection(clip_rect)
+                            clipped = qgs_geom.intersection(clip_rect)
                             if clipped is None or clipped.isEmpty():
                                 continue
                             q_write = clipped

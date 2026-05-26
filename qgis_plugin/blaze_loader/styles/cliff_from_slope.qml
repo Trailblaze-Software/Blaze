@@ -15,7 +15,7 @@
   </pipe-data-defined-properties>
   <pipe>
     <provider>
-      <resampling enabled="false" maxOversampling="5" zoomedInResamplingMethod="bilinear" zoomedOutResamplingMethod="bilinear"></resampling>
+      <resampling enabled="false" maxOversampling="5" zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="bilinear"></resampling>
     </provider>
     <rasterrenderer alphaBand="-1" band="1" classificationMax="254" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
       <rasterTransparency></rasterTransparency>
@@ -62,7 +62,7 @@
     </rasterrenderer>
     <brightnesscontrast brightness="0" contrast="0" gamma="1"></brightnesscontrast>
     <huesaturation colorizeBlue="128" colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeStrength="100" grayscaleMode="0" invertColors="0" saturation="0"></huesaturation>
-    <rasterresampler maxOversampling="5" zoomedInResampler="bilinear" zoomedOutResampler="bilinear"></rasterresampler>
+    <rasterresampler maxOversampling="5" zoomedOutResampler="bilinear"></rasterresampler>
     <resamplingStage>resamplingFilter</resamplingStage>
   </pipe>
   <blendMode>0</blendMode>

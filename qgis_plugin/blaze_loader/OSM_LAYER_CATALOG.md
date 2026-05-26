@@ -22,13 +22,13 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | Motor roads | `highway=motorway/trunk/primary/...` | W | **Done** | `osm_roads` |
 | Paths & tracks | `highway=track/path/footway/...` | W | **Done** | `osm_tracks` |
 | Link roads | `*_link` variants | W | **Done** | In `osm_roads` |
-| Bus / guideway | `highway=bus_guideway`, `busway=*` | W | **Skip** | Removed - too noisy |
+| Bus / guideway | `highway=bus_guideway`, `busway=*` | W | **Done** | `osm_bus_guideways` |
 | Steps / escalator | `highway=steps`, `highway=elevator` | W | **Done** (steps) | Escalator rare outdoors |
 | Via ferrata | `highway=via_ferrata` | W | **Done** | `osm_via_ferrata` |
 | Proposed / construction | `highway=proposed`, `construction=*` | W | **Later** | Dashed styling |
 | Raceway | `highway=raceway` | W | **Later** | Niche |
 | Escape / emergency | `highway=escape` | W | **Later** | Rare |
-| Rest area / services | `highway=rest_area`, `highway=services` | W/N | **Partial** | `osm_rest_areas_pts` only; way footprints removed |
+| Rest area / services | `highway=rest_area`, `highway=services` | W/N | **Done** | `osm_rest_areas_pts`, `osm_rest_areas_ways` |
 | Turning circle / loop | `highway=turning_circle`, `turning_loop` | N | **Later** | Minor |
 | Passing place | `highway=passing_place` | N | **Later** | Rural roads |
 | Junction ref | `highway=motorway_junction` | N | **Later** | Label nodes |
@@ -47,7 +47,7 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | All rail ways | `railway=rail/light_rail/subway/tram/...` | W | **Done** | `osm_railways` excludes abandoned/disused/razed |
 | Abandoned / disused / razed | `railway=abandoned/disused/razed` | W | **Done** | `osm_rail_abandoned` |
 | Narrow gauge / preserved | `railway=narrow_gauge`, `preserved` | W | **Done** | In generic `railway` |
-| Station / halt / tram_stop | `railway=station`, `halt`, `tram_stop` | N/W | **Skip** | Removed - urban-only, low value for topo / orienteering |
+| Station / halt / tram_stop | `railway=station`, `halt`, `tram_stop` | N/W | **Done** | `osm_station_pts`, `osm_station_ways` |
 | Subway entrance | `railway=subway_entrance` | N | **Later** | Urban |
 | Level crossing | `railway=level_crossing` | N | **Later** | |
 | Public transport stop | `public_transport=stop_position`, `platform` | N/W | **Later** | GTFS-like; busy |
@@ -117,8 +117,8 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 | Track (running) | `leisure=track` | W | **Done** | `osm_leisure` |
 | Swimming pool | `leisure=swimming_pool` | W | **Later** | |
 | Slipway / marina (leisure) | `leisure=slipway`, overlaps water | W | **Done** | `osm_leisure_water` |
-| Tourism | `tourism=viewpoint/information/alpine_hut/wilderness_hut/camp_site` | N/W | **Done** | `osm_tourism_pts`, `osm_tourism_poly` (`picnic_site` included); dedicated `osm_camp_sites_pts`/`osm_picnic_sites_pts` for points |
-| Picnic site | `tourism=picnic_site` | N/W | **Done** | Same layers (point-only dedicated layer, polygons via `osm_tourism_poly`) |
+| Tourism | `tourism=viewpoint/information/alpine_hut/wilderness_hut/camp_site` | N/W | **Done** | `osm_tourism_pts`, `osm_tourism_poly` (`picnic_site` included) |
+| Picnic site | `tourism=picnic_site` | N/W | **Done** | Same layers |
 | Artwork | `tourism=artwork` | N | **Later** | |
 
 ---
@@ -137,10 +137,11 @@ Geometry column: **W** = way, **N** = node, **R** = relation (often `type=multip
 
 | Topic | Typical tags | Geom | Status | Notes |
 |-------|----------------|------|--------|-------|
-| All barrier ways | `barrier=*` on ways | W | **Done** | `osm_barriers` + skip list |
+| Barrier lines (incl. line fences) | `barrier=*` on ways (open + closed) | W | **Done** | `osm_barriers` (geom: line) + skip list |
+| Fenced enclosures (polygons) | `barrier=fence` closed ways + multipolygon relations | W/R | **Done** | `osm_fences` (geom: polygon) |
 | All barrier nodes | `barrier=*` on nodes | N | **Done** | `osm_barrier_points` |
-| Retaining wall / ditch | `barrier=retaining_wall`, `ditch` | W | **Done** | |
-| Trench | `barrier=trench` | W | **Done** | In generic barrier |
+| Retaining wall / ditch | `barrier=retaining_wall`, `ditch` | W | **Done** | In `osm_barriers` |
+| Trench | `barrier=trench` | W | **Done** | In `osm_barriers` |
 
 ---
 
@@ -253,10 +254,14 @@ Requires **merging member ways** into LineString/MultiLineString (no simple `out
 |----------|----------------|
 | `osm_roads` | Motorised `highway` classes |
 | `osm_tracks` | Track, path, footway, cycleway, steps, pedestrian |
+| `osm_bus_guideways` | `highway=bus_guideway`, `busway=*` |
 | `osm_via_ferrata` | `highway=via_ferrata` |
 | `osm_rest_areas_pts` | `highway=rest_area`, `services` (nodes) |
+| `osm_rest_areas_ways` | `highway=rest_area`, `services` (ways; line or closed polygon) |
 | `osm_railways` | `railway=*` ways except `abandoned` / `disused` / `razed` |
 | `osm_rail_abandoned` | `railway=abandoned`, `disused`, `razed` |
+| `osm_station_pts` | `railway=station`, `halt`, `tram_stop` (nodes) |
+| `osm_station_ways` | Same tags on ways (footprint / platform outline) |
 | `osm_power_lines` | `power=line`, `minor_line` |
 | `osm_power_towers_pts` | `power=tower`, `pole` |
 | `osm_pipeline` | `man_made=pipeline` |
@@ -275,7 +280,8 @@ Requires **merging member ways** into LineString/MultiLineString (no simple `out
 | `osm_wood` | `natural=wood/scrub/heath` |
 | `osm_landuse` | Selected `landuse=*` (incl. brownfield, greenfield, allotments) |
 | `osm_leisure` | Parks, reserves, golf, playground, pitch, sports_centre, `leisure=track` |
-| `osm_barriers` | All `barrier=*` ways (with skip list) |
+| `osm_barriers` | All `barrier=*` ways as lines (with skip list); includes line fences |
+| `osm_fences` | `barrier=fence` polygons (closed ways + multipolygon relations) |
 | `osm_barrier_points` | All `barrier=*` nodes (with skip list) |
 | `osm_survey_points` | `man_made=survey_point`, `benchmark`; `historic=benchmark` |
 | `osm_mast_pts` | `man_made=tower`, `mast`, `chimney` |
@@ -297,8 +303,9 @@ In the loader dialog, **OSM data source** can be set to **Geofabrik regional ext
 ## How to extend the plugin
 
 1. Add a dict entry to **`OSM_LAYER_DEFS`** in `create_qgis_project.py` (`name`, `element`, `filters`, `tag`, `geom`, `visible`, optional `timeout`). Use **`query_batches`** (list of `{element, filters}`) instead of `element` when one logical layer needs multiple Overpass element types (e.g. only nodes). Use **`geom`: `line_or_polygon`** for ways that may be open lines or closed areas (stored in a single GPKG layer with mixed geometry type). The same definitions are used for **Geofabrik** mode in `osm_regional_extract.py`.
-2. Add matching **`styles/osm/<name>.qml`** (optional—fallback symbology still applies).
-3. For **new geometry kinds** (e.g. route relations), add a code path in `add_osm_layers` similar to `relation` + `_osm_relation_polygon_geometry`.
-4. Prefer **one Overpass round-trip per layer** with multiple `way[...](bbox);` lines in one query; use **higher `timeout`** for heavy layers.
+2. Add the layer name to **`OSM_RENDER_ORDER`** (in the same file, just above `OSM_LAYER_DEFS`) at the slot you want it to occupy in the OSM group: top of the list = renders on top of the map. The list goes points → lines → polygons by convention, with `osm_trees_pts` deliberately placed under all line layers. Layers missing from the list still get sorted by geometry tier so they render somewhere sensible.
+3. Add matching **`styles/osm/<name>.qml`** (optional—fallback symbology still applies).
+4. For **new geometry kinds** (e.g. route relations), add a code path in `add_osm_layers` similar to `relation` + `_osm_relation_polygon_geometry`.
+5. Prefer **one Overpass round-trip per layer** with multiple `way[...](bbox);` lines in one query; use **higher `timeout`** for heavy layers.
 
 This catalog should be updated whenever new layers are merged so it stays the single checklist for “what OSM can do” in Blaze.

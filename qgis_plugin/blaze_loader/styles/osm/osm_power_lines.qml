@@ -9,7 +9,7 @@
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
     <rules key="{pwr-root}">
       <rule filter="&quot;power&quot; = 'line'" key="{pwr-line}" label="High-voltage line" symbol="0"></rule>
-      <rule filter="ELSE" key="{pwr-minor}" label="Minor power line" symbol="1"></rule>
+      <rule filter="ELSE" key="{pwr-minor}" label="Minor power line" scalemaxdenom="30000" scalemindenom="1000" symbol="1"></rule>
     </rules>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="line">
@@ -73,7 +73,7 @@
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
             <Option name="place_on_every_part" type="bool" value="true"></Option>
-            <Option name="placements" type="QString" value="InnerVertices"></Option>
+            <Option name="placements" type="QString" value="LastVertex|FirstVertex|InnerVertices"></Option>
             <Option name="ring_filter" type="QString" value="0"></Option>
             <Option name="rotate" type="QString" value="1"></Option>
           </Option>
@@ -186,7 +186,7 @@
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
             <Option name="place_on_every_part" type="bool" value="true"></Option>
-            <Option name="placements" type="QString" value="InnerVertices"></Option>
+            <Option name="placements" type="QString" value="LastVertex|FirstVertex|InnerVertices"></Option>
             <Option name="ring_filter" type="QString" value="0"></Option>
             <Option name="rotate" type="QString" value="1"></Option>
           </Option>
