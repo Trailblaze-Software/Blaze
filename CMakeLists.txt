@@ -354,15 +354,17 @@ install_proj_data()
 if(NOT BLAZE_CLI_ONLY)
   install(
     TARGETS ${GUI_EXE_NAME}
+    BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
   install(
     TARGETS ${GUI_3D_EXE_NAME}
+    BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
-  if(NOT WIN32)
+  if(UNIX AND NOT APPLE)
     set(ENTRY_NAME "blaze")
     configure_file(${PROJECT_SOURCE_DIR}/packaging/Blaze.desktop.in
                    ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop)
@@ -396,6 +398,33 @@ if(NOT BLAZE_CLI_ONLY)
       $<$<CONFIG:DEBUG>:--qtpaths
       ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
     install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
+  elseif(APPLE)
+    qt_generate_deploy_app_script(TARGET ${GUI_EXE_NAME} OUTPUT_SCRIPT
+                                  deploy_script NO_UNSUPPORTED_PLATFORM_ERROR)
+    install(SCRIPT ${deploy_script} COMPONENT GUI)
+    qt_generate_deploy_app_script(
+      TARGET ${GUI_3D_EXE_NAME} OUTPUT_SCRIPT deploy_script_3D
+      NO_UNSUPPORTED_PLATFORM_ERROR)
+    install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
+    # Bundle libomp.dylib (Homebrew/system) into each .app so the installer is
+    # self-contained. The path is resolved at configure time and baked in.
+    find_library(LIBOMP_LIBRARY omp)
+    if(LIBOMP_LIBRARY)
+      install(
+        CODE "
+          foreach(_exe Blaze Blaze3D)
+            set(_macdir \"\${CMAKE_INSTALL_PREFIX}/\${_exe}.app/Contents/MacOS\")
+            set(_dst \"\${_macdir}/libomp.dylib\")
+            if(EXISTS \"\${_macdir}/\${_exe}\" AND NOT EXISTS \"\${_dst}\")
+              file(COPY \"${LIBOMP_LIBRARY}\" DESTINATION \"\${_macdir}\")
+              execute_process(COMMAND install_name_tool
+                -change \"${LIBOMP_LIBRARY}\" \"@executable_path/libomp.dylib\"
+                \"\${_macdir}/\${_exe}\")
+            endif()
+          endforeach()
+        "
+        COMPONENT GUI)
+    endif()
 
   endif()
 endif()
@@ -423,6 +452,11 @@ if(WIN32)
   else()
     set(CPACK_SYSTEM_NAME "win64-x64")
   endif()
+elseif(APPLE)
+  set(CPACK_GENERATOR "DragNDrop")
+  set(CPACK_SYSTEM_NAME "macOS-${CMAKE_SYSTEM_PROCESSOR}")
+  set(CPACK_DMG_VOLUME_NAME "Blaze")
+  set(CPACK_DMG_FORMAT "UDZO")
 elseif(UNIX)
   set(CPACK_GENERATOR "STGZ;TGZ;DEB;RPM")
   set(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")

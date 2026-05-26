@@ -241,6 +241,80 @@ jobs:
         with:
           token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
           files: build/Blaze-*.deb
+  package-macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            os: macos-latest
+          - arch: x86_64
+            os: macos-13
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get version from tag
+        id: version
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+            TAG=${GITHUB_EVENT_RELEASE_TAG_NAME#v}
+          else
+            TAG=${GITHUB_REF#refs/tags/v}
+          fi
+          echo "version=$TAG" >> $GITHUB_OUTPUT
+          echo "Version: $TAG"
+      - name: Install dependencies
+        run: |
+          brew install cmake ninja ccache gdal opencv qt@6 libomp openblas lapack
+          echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
+      - name: Configure
+        run: |
+          LIBOMP=$(brew --prefix libomp)
+          QT=$(brew --prefix qt@6)
+          CMAKE_ARGS=(
+            "-DCMAKE_BUILD_TYPE=Release"
+            "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include"
+            "-DOpenMP_CXX_LIB_NAMES=omp"
+            "-DOpenMP_omp_LIBRARY=${LIBOMP}/lib/libomp.dylib"
+            "-DOpenMP_C_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include"
+            "-DOpenMP_C_LIB_NAMES=omp"
+            "-DOpenMP_C_LIBRARY=${LIBOMP}/lib/libomp.dylib"
+            "-DCMAKE_PREFIX_PATH=${QT}"
+          )
+          if [ -n "${{ steps.version.outputs.version }}" ]; then
+            CMAKE_ARGS+=("-DBLAZE_VERSION=${{ steps.version.outputs.version }}")
+          fi
+          cmake -B build "${CMAKE_ARGS[@]}"
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Package (DMG)
+        run: cd build && cpack -C Release -G DragNDrop
+      - name: Debug DMG failure
+        if: failure()
+        run: |
+          find build/_CPack_Packages -name "*.log" -exec cat {} \; 2>/dev/null || true
+      - name: Test installer
+        run: |
+          DMG=$(ls build/Blaze-*.dmg | head -1)
+          hdiutil attach "$DMG" -mountpoint /Volumes/Blaze -readonly
+          cp -r "/Volumes/Blaze/share/assets" /tmp/blaze-test
+          "/Volumes/Blaze/bin/blaze-cli" /tmp/blaze-test/default_config.json
+          hdiutil detach /Volumes/Blaze
+      # See note on the Windows job — only keep artifacts on tags / debug runs.
+      - name: Upload Artifact
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: blaze-macos-${{ matrix.arch }}-dmg
+          path: build/Blaze-*.dmg
+          retention-days: 2
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
+          files: build/Blaze-*.dmg
   package-plugin:
     runs-on: ubuntu-latest
     steps:
