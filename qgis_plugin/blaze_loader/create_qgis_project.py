@@ -443,10 +443,19 @@ def create_qgis_project(
             "final_img_extra_contours.tif",
             "ground_intensity.tif",
         ]
+
+        # If rasters aren't in combined_path directly, try combined_path/combined
+        raster_base = combined_path
+        if not any((combined_path / f).exists() for f in rasters + ["slope.tif"]):
+            alt_path = combined_path / "combined"
+            if alt_path.exists():
+                raster_base = alt_path
+                log(f"Rasters not found in {combined_path}, falling back to {raster_base}")
+
         raster_count = 0
         for i, f in enumerate(rasters):
             report_progress(f"Adding raster {f} ({i+1}/{len(rasters)})...", 5 + int((i / len(rasters)) * 10))
-            layer = add_raster(combined_path / f, raster_group)
+            layer = add_raster(raster_base / f, raster_group)
             if layer:
                 raster_count += 1
                 crs = layer.crs()
@@ -497,7 +506,7 @@ def create_qgis_project(
         report_progress("Adding vegetation layers...", 15)
 
         # Add vegetation layers LAST (so they're at bottom = render behind other rasters)
-        vege_dir = combined_path / "raw_vege"
+        vege_dir = raster_base / "raw_vege"
         if vege_dir.exists():
             vege_group = find_or_create_group(raster_group, "Vegetation")
 
@@ -545,7 +554,7 @@ def create_qgis_project(
 
         # Add slope as a "Cliffs" layer with cliff_from_slope.qml style
         # Loaded into the Cliffs group so it renders above vector layers
-        slope_path = combined_path / "slope.tif"
+        slope_path = raster_base / "slope.tif"
         if slope_path.exists():
             slope_layer = add_raster(slope_path, cliff_group, prefix="cliff_")
             if slope_layer:
@@ -745,8 +754,6 @@ def create_qgis_project(
         "osm_landform_poly",
         "osm_natural_surface",
         "osm_wood",
-        "osm_camp_sites_poly",
-        "osm_picnic_sites_poly",
         "osm_tourism_poly",
         "osm_leisure",
         "osm_landuse",
@@ -1262,26 +1269,6 @@ def create_qgis_project(
             "tag": "tourism",
             "geom": "polygon",
             "visible": False,
-        },
-        {
-            "name": "osm_camp_sites_poly",
-            "query_batches": [
-                {"element": "way", "filters": ['["tourism"="camp_site"]']},
-                {"element": "rel", "filters": ['["type"="multipolygon"]["tourism"="camp_site"]']},
-            ],
-            "tag": "tourism",
-            "geom": "polygon",
-            "visible": True,
-        },
-        {
-            "name": "osm_picnic_sites_poly",
-            "query_batches": [
-                {"element": "way", "filters": ['["tourism"="picnic_site"]']},
-                {"element": "rel", "filters": ['["type"="multipolygon"]["tourism"="picnic_site"]']},
-            ],
-            "tag": "tourism",
-            "geom": "polygon",
-            "visible": True,
         },
         {
             "name": "osm_remote_amenities",
@@ -2402,17 +2389,26 @@ def add_nsw_topo_layers(
                 if idx == 0 and offset == 0:
                     log(f"First URL: {url}")
 
+                raw = ""
                 try:
                     with urllib.request.urlopen(url, timeout=60) as response:
-                        raw = response.read().decode()
+                        raw = response.read().decode("utf-8", errors="replace")
                         data = json.loads(raw)
+                except urllib.error.HTTPError as e:
+                    try:
+                        raw = e.read().decode("utf-8", errors="replace")
+                    except Exception:
+                        raw = ""
+                    download_error = f"HTTP {e.code}: {e.reason}"
+                    log(f"HTTP error for {name}: {e.code} {e.reason} — response: {raw[:300]!r}")
+                    break
                 except urllib.error.URLError as e:
                     download_error = str(e)
                     log(f"Network error for {name}: {e}")
                     break
                 except json.JSONDecodeError as e:
                     download_error = f"Invalid JSON: {e}"
-                    log(f"Invalid JSON response for {name}: {e}")
+                    log(f"Invalid JSON response for {name}: {e} — raw ({len(raw)} chars): {raw[:300]!r}")
                     break
                 except Exception as e:
                     download_error = f"{type(e).__name__}: {e}"

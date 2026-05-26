@@ -217,14 +217,18 @@ ConfigEditor::ConfigEditor(QWidget* parent)
            {ui->process_tiles_checkbox, ProcessingStep::Tiles},
            {ui->combine_tiles_checkbox, ProcessingStep::Combine}}) {
     ProcessingStep ps = step;
+    // checkStateChanged was added in Qt 6.7; stateChanged covers all Qt 6 versions.
+    QT_WARNING_PUSH
+    QT_WARNING_DISABLE_DEPRECATED
     connect(checkbox, &QCheckBox::stateChanged, [this, ps](int state) {
-      if (state == Qt::Checked) {
+      if (static_cast<Qt::CheckState>(state) == Qt::Checked) {
         m_config->processing_steps.insert(ps);
       } else {
         m_config->processing_steps.erase(ps);
       }
       config_changed();
     });
+    QT_WARNING_POP
   }
 
   // General Tab

@@ -393,7 +393,6 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
     // color Pixels can be either background or vegetation colors, but we expect mostly vegetation
     size_t vegetation_pixel_count = 0;
     size_t background_pixel_count = 0;
-    size_t invalid_pixel_count = 0;
 
     for (size_t i = 0; i < grid.height(); ++i) {
       for (size_t j = 0; j < grid.width(); ++j) {
@@ -412,7 +411,6 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
             }
           }
           if (!matches_vege) {
-            invalid_pixel_count++;
             FAIL() << "Pixel at (" << j << ", " << i
                    << ") does not match expected color (background or vegetation). Got RGB("
                    << static_cast<int>(pixel.getRed()) << ", " << static_cast<int>(pixel.getGreen())

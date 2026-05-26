@@ -80,46 +80,34 @@ jobs:
       - name: Configure vcpkg binary cache (GitHub Packages NuGet)
         shell: pwsh
         run: |
-          # Locate a vcpkg.exe so we can use its bundled nuget. The
-          # runner-provided VCPKG_INSTALLATION_ROOT works; our project's
-          # FetchContent-managed vcpkg hasn't bootstrapped yet at this point.
-          $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-          if (-not (Test-Path $vcpkg)) {
-            Write-Error "vcpkg.exe not found at $vcpkg (VCPKG_INSTALLATION_ROOT=$env:VCPKG_INSTALLATION_ROOT)"
-            exit 1
-          }
-          $nuget = (& $vcpkg fetch nuget | Select-Object -Last 1).Trim()
-          if (-not (Test-Path -LiteralPath $nuget)) {
-            Write-Error "vcpkg fetch nuget did not return a valid path: $nuget"
-            exit 1
-          }
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+          $token = '${{ secrets.GITHUB_TOKEN }}'
 
-          # Register credentials on every nuget.exe that vcpkg might invoke.
-          # vcpkg resolves nuget from PATH, and ilammy/msvc-dev-cmd replaces PATH
-          # via vcvarsall.bat (wiping GITHUB_PATH entries), so the GITHUB_PATH /
-          # shim approach is unreliable.  Registering on all known nugets is the
-          # only robust approach.
-          $nugets = @($nuget)
-          # Collect any other nuget.exe instances already on PATH (e.g. Chocolatey's).
-          Get-Command nuget -All -ErrorAction SilentlyContinue |
-            Select-Object -ExpandProperty Source |
-            Where-Object { $_ -ne $nuget } |
-            ForEach-Object { $nugets += $_ }
-          Write-Host "Registering GitHub NuGet credentials on: $($nugets -join ', ')"
-
-          foreach ($n in $nugets) {
-            # 'sources add' fails if the source already exists; remove first.
-            & $n sources remove -Name GitHub 2>&1 | Out-Null
-            & $n sources add `
-                -Source $feed `
-                -StorePasswordInClearText `
-                -Name GitHub `
-                -UserName $owner `
-                -Password '${{ secrets.GITHUB_TOKEN }}'
-            & $n setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
+          # All nuget.exe instances (Chocolatey, VS, vcpkg-bundled) share the
+          # same user-level config at %APPDATA%\NuGet\NuGet.Config, so one
+          # registration is sufficient — including after ilammy/msvc-dev-cmd
+          # rewrites PATH via vcvarsall.bat.
+          $nuget = (Get-Command nuget -ErrorAction SilentlyContinue)?.Source
+          if (-not $nuget) {
+            $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
+            $nuget = (& $vcpkg fetch nuget | Select-Object -Last 1).Trim()
           }
+          Write-Host "nuget.exe    : $nuget"
+          Write-Host "Feed         : $feed"
+          Write-Host "Token length : $($token.Length) (prefix: $($token.Substring(0, [Math]::Min(8,$token.Length)))...)"
+
+          & $nuget sources remove -Name GitHub 2>&1 | Out-Null
+          & $nuget sources add `
+              -Source $feed `
+              -StorePasswordInClearText `
+              -Name GitHub `
+              -UserName $owner `
+              -Password $token
+          & $nuget setapikey $token -Source $feed
+
+          Write-Host "Registered sources:"
+          & $nuget sources list
       - name: Set up MSVC dev cmd
         uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -136,6 +124,39 @@ jobs:
             $cmakeArgs += "-DBLAZE_VERSION=${{ steps.version.outputs.version }}"
           }
           cmake -B build $cmakeArgs
+      - name: Debug vcpkg NuGet auth
+        if: failure()
+        shell: pwsh
+        run: |
+          $owner = '${{ github.repository_owner }}'
+          $token = '${{ secrets.GITHUB_TOKEN }}'
+          $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+
+          Write-Host "=== NuGet sources ==="
+          nuget sources list 2>&1
+
+          Write-Host "`n=== Token auth test against GitHub Packages feed ==="
+          try {
+            $r = Invoke-WebRequest -Uri $feed `
+              -Headers @{ Authorization = "Bearer $token" } `
+              -UseBasicParsing -ErrorAction Stop
+            Write-Host "HTTP $($r.StatusCode) — feed reachable, token accepted"
+          } catch {
+            Write-Host "HTTP $($_.Exception.Response.StatusCode.value__) — $($_.Exception.Message)"
+          }
+
+          Write-Host "`n=== NuGet.Config (token redacted) ==="
+          $f = "$env:APPDATA\NuGet\NuGet.Config"
+          if (Test-Path $f) {
+            (Get-Content $f) -replace '(?<=ClearTextPassword value=")[^"]*', '[REDACTED]' |
+              Write-Host
+          } else {
+            Write-Host "Not found: $f"
+          }
+
+          Write-Host "`n=== nuget.exe on PATH ==="
+          Get-Command nuget -All -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty Source | Write-Host
       - name: Build
         shell: pwsh
         run: |
