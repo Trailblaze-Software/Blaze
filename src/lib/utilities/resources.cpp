@@ -10,6 +10,9 @@
 #include <shlobj.h>
 #include <windows.h>
 #endif
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#endif
 #ifdef __linux__
 #include <linux/limits.h>
 #include <unistd.h>
@@ -19,6 +22,14 @@ fs::path get_asset_dir() {
 #if defined(__WIN32__) || defined(_WIN32)
   char buffer[MAX_PATH];
   GetModuleFileNameA(NULL, buffer, MAX_PATH);
+  fs::path path(buffer);
+#endif
+#ifdef __APPLE__
+  char buffer[4096];
+  uint32_t size = sizeof(buffer);
+  if (_NSGetExecutablePath(buffer, &size) != 0) {
+    Fail("Could not get executable path on macOS");
+  }
   fs::path path(buffer);
 #endif
 #ifdef __linux__
@@ -58,6 +69,15 @@ fs::path get_local_data_dir() {
   }
   Fail("Could not get local windows data directory");
 #endif
+#ifdef __APPLE__
+  const char* home_dir = getenv("HOME");
+  if (home_dir == nullptr) {
+    Fail("Could not get local macOS data directory");
+  }
+  fs::path path = fs::path(home_dir) / "Library" / "Application Support" / "blaze";
+  fs::create_directories(path);
+  return path;
+#endif
 #ifdef __linux__
   const char* home_dir = getenv("HOME");
   if (home_dir == nullptr) {
@@ -67,6 +87,7 @@ fs::path get_local_data_dir() {
   fs::create_directories(path);
   return path;
 #endif
+  Fail("Unsupported platform for get_local_data_dir");
 }
 
 fs::path LocalDataRetriever::get_local_data(const fs::path& asset) {

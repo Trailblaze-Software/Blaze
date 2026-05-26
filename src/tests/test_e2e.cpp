@@ -927,7 +927,8 @@ static std::vector<uint8_t> read_byte_tif_pixels(const fs::path& path) {
   GDALRasterBand* band = ds->GetRasterBand(1);
   int w = band->GetXSize(), h = band->GetYSize();
   std::vector<uint8_t> pixels(static_cast<size_t>(w * h));
-  band->RasterIO(GF_Read, 0, 0, w, h, pixels.data(), w, h, GDT_Byte, 0, 0);
+  CPLErr err = band->RasterIO(GF_Read, 0, 0, w, h, pixels.data(), w, h, GDT_Byte, 0, 0);
+  Assert(err == CE_None, "RasterIO failed for: " + path.string());
   GDALClose(ds);
   return pixels;
 }

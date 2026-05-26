@@ -18,6 +18,8 @@ env:
   # previous `x-gha` backend was removed by vcpkg in 2025 and also capped at
   # 10 GB per repo, causing constant cache eviction/thrashing with Qt+GDAL.
   # GitHub Packages on a public repo has no practical storage limit.
+  # Default to readwrite; overridden to read-only for fork PRs (see step below)
+  # because GITHUB_TOKEN on a fork PR never has packages:write on the upstream.
   VCPKG_BINARY_SOURCES: "clear;nuget,GitHub,readwrite"
 jobs:
   package-windows:
@@ -59,6 +61,22 @@ jobs:
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
+      - name: Set vcpkg binary cache write mode
+        shell: pwsh
+        run: |
+          # Fork PRs receive a GITHUB_TOKEN scoped to the fork — it has no
+          # packages:write on the upstream org, so any push attempt gets a 403.
+          # Fall back to read-only so the build still benefits from cached
+          # packages without trying (and failing) to push new ones.
+          $isForkPR = ("${{ github.event_name }}" -eq "pull_request") -and `
+                      ("${{ github.event.pull_request.head.repo.full_name }}" -ne "${{ github.repository }}")
+          if ($isForkPR) {
+            "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,read" |
+              Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            Write-Host "Fork PR detected — vcpkg binary cache set to read-only"
+          } else {
+            Write-Host "vcpkg binary cache remains readwrite"
+          }
       - name: Configure vcpkg binary cache (GitHub Packages NuGet)
         shell: pwsh
         run: |
@@ -75,23 +93,33 @@ jobs:
             Write-Error "vcpkg fetch nuget did not return a valid path: $nuget"
             exit 1
           }
-          # vcpkg invokes `nuget` from PATH; runners often have Chocolatey's nuget
-          # first, which uses a different config — restores fail and pushes get 403.
-          # Append after NSIS so this directory is last in GITHUB_PATH (highest PATH
-          # precedence on Windows runners).
-          $nugetDir = Split-Path -LiteralPath $nuget
-          Add-Content -Path $env:GITHUB_PATH -Value $nugetDir
-          # GITHUB_PATH / GITHUB_ENV are unreliable once MSVC sets PATH; Configure/Build
-          # steps re-fetch this directory and prepend to PATH before cmake (see below).
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
-          & $nuget sources add `
-              -Source $feed `
-              -StorePasswordInClearText `
-              -Name GitHub `
-              -UserName $owner `
-              -Password '${{ secrets.GITHUB_TOKEN }}'
-          & $nuget setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
+
+          # Register credentials on every nuget.exe that vcpkg might invoke.
+          # vcpkg resolves nuget from PATH, and ilammy/msvc-dev-cmd replaces PATH
+          # via vcvarsall.bat (wiping GITHUB_PATH entries), so the GITHUB_PATH /
+          # shim approach is unreliable.  Registering on all known nugets is the
+          # only robust approach.
+          $nugets = @($nuget)
+          # Collect any other nuget.exe instances already on PATH (e.g. Chocolatey's).
+          Get-Command nuget -All -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty Source |
+            Where-Object { $_ -ne $nuget } |
+            ForEach-Object { $nugets += $_ }
+          Write-Host "Registering GitHub NuGet credentials on: $($nugets -join ', ')"
+
+          foreach ($n in $nugets) {
+            # 'sources add' fails if the source already exists; remove first.
+            & $n sources remove -Name GitHub 2>&1 | Out-Null
+            & $n sources add `
+                -Source $feed `
+                -StorePasswordInClearText `
+                -Name GitHub `
+                -UserName $owner `
+                -Password '${{ secrets.GITHUB_TOKEN }}'
+            & $n setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
+          }
       - name: Set up MSVC dev cmd
         uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -99,12 +127,6 @@ jobs:
       - name: Configure
         shell: pwsh
         run: |
-          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
-          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
-          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
-          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
-          $env:PATH = "$nugetShimDir;$env:PATH"
           $cmakeArgs = @(
             "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}",
             "-DVCPKG_BUILD_TYPE=release",
@@ -117,12 +139,6 @@ jobs:
       - name: Build
         shell: pwsh
         run: |
-          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
-          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
-          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
-          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
-          $env:PATH = "$nugetShimDir;$env:PATH"
           cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
         run: |
