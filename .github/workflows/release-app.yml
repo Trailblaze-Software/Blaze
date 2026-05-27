@@ -360,19 +360,27 @@ jobs:
       - name: Deploy Qt frameworks
         run: |
           QT_BIN=$(brew --prefix qt@6)/bin
-          QT_LIB=$(brew --prefix qt@6)/lib
+
+          # Homebrew splits Qt6 across multiple kegs (qtbase, qtsvg, …).
+          # Build a -libpath argument for every qt* opt directory so that
+          # macdeployqt can locate frameworks regardless of which sub-formula
+          # they live in.
+          LIBPATH_ARGS=()
+          for dir in /opt/homebrew/opt/qt*/lib; do
+            [ -d "$dir" ] && LIBPATH_ARGS+=("-libpath=$dir")
+          done
+
           for APP in Blaze Blaze3D; do
             if [ -d "staging/$APP.app" ]; then
-              # -libpath tells macdeployqt where to find Qt frameworks so it can
-              # resolve @rpath entries. The "|| true" is needed because Qt 6.9+
-              # uses @executable_path rpaths internally that macdeployqt flags as
-              # ERRORs and exits non-zero, even though all Blaze-required frameworks
-              # are deployed correctly.
+              # || true: Qt 6.9+ uses @executable_path rpaths in its own
+              # binaries that macdeployqt doesn't understand and exits non-zero
+              # for, even after successfully deploying all required frameworks.
               "$QT_BIN/macdeployqt" "staging/$APP.app" \
                 -always-overwrite \
-                "-libpath=$QT_LIB" || true
+                "${LIBPATH_ARGS[@]}" || true
             fi
           done
+
           # Verify the Qt frameworks Blaze actually uses were bundled.
           for APP in Blaze Blaze3D; do
             if [ -d "staging/$APP.app" ]; then
