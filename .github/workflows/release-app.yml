@@ -82,17 +82,17 @@ jobs:
         run: |
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+          $push  = "https://nuget.pkg.github.com/$owner/"
           $token = '${{ secrets.GITHUB_TOKEN }}'
 
           Write-Host "Feed  : $feed"
+          Write-Host "Push  : $push"
           Write-Host "Token : length=$($token.Length) prefix=$($token.Substring(0, [Math]::Min(8,$token.Length)))..."
 
           # Write NuGet.Config directly so the credentials are available to every
           # nuget.exe (Chocolatey, VS, vcpkg-bundled) without relying on nuget.exe
-          # command-line registration. GitHub Packages uses credential-based auth
-          # (packageSourceCredentials), not API key auth, so <apikeys> is omitted —
-          # NuGet v7+ attempts to DPAPI-decrypt plain-text values in that section
-          # and throws a Base-64 FormatException when the raw token is not encrypted.
+          # command-line registration. PackageSourceCredentials provides Basic auth
+          # and <apikeys> provides the X-NuGet-ApiKey header for the push URL.
           $configPath = "$env:APPDATA\NuGet\NuGet.Config"
           New-Item -Force -ItemType Directory (Split-Path $configPath) | Out-Null
 
@@ -108,12 +108,36 @@ jobs:
             "      <add key=""ClearTextPassword"" value=""$token"" />",
             '    </GitHub>',
             '  </packageSourceCredentials>',
+            '  <apikeys>',
+            "    <add key=""$push"" value=""$token"" />",
+            '  </apikeys>',
             '</configuration>'
           ) -join "`n"
           Set-Content -Path $configPath -Value $configContent -Encoding UTF8
           Write-Host "Wrote $configPath"
           Write-Host "--- NuGet.Config (token redacted) ---"
           (Get-Content $configPath) -replace '(?<=value=")[^"]*ghs[^"]*', '[REDACTED]' | Write-Host
+
+          # Export env vars that must be visible to the cmake step (where vcpkg
+          # actually invokes nuget push). GITHUB_ENV persists values across steps.
+          #
+          # VSS_NUGET_EXTERNAL_FEED_ENDPOINTS: tells the Azure Artifacts Credential
+          # Provider (pre-installed on GitHub Actions Windows runners) that this feed
+          # has credentials available, so it returns them non-interactively instead
+          # of demanding interactive OAuth (which would fail with -NonInteractive).
+          #
+          # NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED: prevents ACCP from
+          # trying to refresh a cached interactive session token.
+          $endpoints = [ordered]@{
+            endpointCredentials = @(
+              [ordered]@{ endpoint = $feed; username = "x-access-token"; password = $token }
+            )
+          } | ConvertTo-Json -Compress
+          "VSS_NUGET_EXTERNAL_FEED_ENDPOINTS=$endpoints" |
+            Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED=false" |
+            Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host "Exported VSS_NUGET_EXTERNAL_FEED_ENDPOINTS and NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED"
       - name: Set up MSVC dev cmd
         uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -346,7 +370,7 @@ jobs:
               # are deployed correctly.
               "$QT_BIN/macdeployqt" "staging/$APP.app" \
                 -always-overwrite \
-                -libpath "$QT_LIB" || true
+                "-libpath=$QT_LIB" || true
             fi
           done
       - name: Bundle libomp
