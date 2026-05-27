@@ -336,9 +336,17 @@ jobs:
       - name: Deploy Qt frameworks
         run: |
           QT_BIN=$(brew --prefix qt@6)/bin
+          QT_LIB=$(brew --prefix qt@6)/lib
           for APP in Blaze Blaze3D; do
             if [ -d "staging/$APP.app" ]; then
-              "$QT_BIN/macdeployqt" "staging/$APP.app" -always-overwrite
+              # -libpath tells macdeployqt where to find Qt frameworks so it can
+              # resolve @rpath entries. The "|| true" is needed because Qt 6.9+
+              # uses @executable_path rpaths internally that macdeployqt flags as
+              # ERRORs and exits non-zero, even though all Blaze-required frameworks
+              # are deployed correctly.
+              "$QT_BIN/macdeployqt" "staging/$APP.app" \
+                -always-overwrite \
+                -libpath "$QT_LIB" || true
             fi
           done
       - name: Bundle libomp
