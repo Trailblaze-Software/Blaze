@@ -2241,7 +2241,7 @@ def add_nsw_topo_layers(
         (f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/6", "NPWSReserve", True),
         (f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/3", "StateForest", True),
         # Land/Property
-        (f"{base_url}/NSW_Land_Parcel_Property_Theme/MapServer/12", "Property", False),
+        (f"{base_url}/NSW_Land_Parcel_Property_Theme_multiCRS/FeatureServer/12", "Property", False),
         # Cadastre (from maps.six.nsw.gov.au)
         ("https://maps.six.nsw.gov.au/arcgis/rest/services/public/NSW_Cadastre/MapServer/9", "CadastreLot", True),
         # Physiography

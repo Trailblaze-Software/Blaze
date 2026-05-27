@@ -261,6 +261,16 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QCheckBox" name="delete_tile_folders_checkbox">
+           <property name="text">
+            <string>Delete tile folders when done</string>
+           </property>
+           <property name="toolTip">
+            <string>Remove each per-tile output folder after all tiles have been processed. Frees disk space once the combined/ output has been produced.</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>

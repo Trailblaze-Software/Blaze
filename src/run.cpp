@@ -96,7 +96,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
     current_time += time_ratios[idx++] / total_time;
     switch (step) {
-      case ProcessingStep::Tiles:
+      case ProcessingStep::Tiles: {
+        std::vector<fs::path> processed_tile_dirs;
         for (size_t i = 0; i < tiles.size(); i++) {
           const Tile& tile = tiles[i];
           step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
@@ -118,8 +119,23 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           fs::path output_dir = config.output_path() / tile.output_name();
           fs::create_directories(output_dir);
           process_las_data(tile_data, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
+          processed_tile_dirs.push_back(output_dir);
+        }
+        if (config.delete_tile_folders) {
+          step_tracker.text_update("Deleting tile folders...");
+          for (const fs::path& dir : processed_tile_dirs) {
+            std::error_code ec;
+            fs::remove_all(dir, ec);
+            if (ec) {
+              std::cerr << "Warning: failed to delete tile folder " << dir << ": " << ec.message()
+                        << std::endl;
+            } else {
+              std::cout << "Deleted tile folder: " << dir << std::endl;
+            }
+          }
         }
         break;
+      }
       case ProcessingStep::Combine:
         std::optional<std::string> projection;
 

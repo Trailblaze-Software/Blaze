@@ -231,6 +231,14 @@ ConfigEditor::ConfigEditor(QWidget* parent)
     QT_WARNING_POP
   }
 
+  QT_WARNING_PUSH
+  QT_WARNING_DISABLE_DEPRECATED
+  connect(ui->delete_tile_folders_checkbox, &QCheckBox::stateChanged, [this](int state) {
+    m_config->delete_tile_folders = (static_cast<Qt::CheckState>(state) == Qt::Checked);
+    config_changed();
+  });
+  QT_WARNING_POP
+
   // General Tab
   ui->grid_bin_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->grid_vegetation_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
@@ -588,6 +596,7 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   ui->combine_tiles_checkbox->setChecked(
       std::find(config.processing_steps.begin(), config.processing_steps.end(),
                 ProcessingStep::Combine) != config.processing_steps.end());
+  ui->delete_tile_folders_checkbox->setChecked(config.delete_tile_folders);
 
   ui->treeWidget->clear();
   ui->treeWidget->setColumnWidth(0, 60);
