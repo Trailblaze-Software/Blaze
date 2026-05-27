@@ -272,6 +272,12 @@ FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
 set(INSTALL_GTEST OFF)
+# Match the shared CRT (/MD) used by the rest of the project on MSVC; without
+# this, googletest defaults to /MT and the linker cannot resolve gtest symbols
+# (LNK2001 on MakeAndRegisterTestInfo, etc.).
+set(gtest_force_shared_crt
+    ON
+    CACHE BOOL "" FORCE)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.15.2.zip)
@@ -279,11 +285,11 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 # Apple clang raises -Wcharacter-conversion (promoted to error) on the char8_t
-# -> char32_t implicit cast inside gtest-printers.h. Suppress it only for the
-# gtest target since we cannot modify the upstream source.
-if(APPLE)
-  target_compile_options(gtest PRIVATE -Wno-character-conversion)
-endif()
+# -> char32_t implicit cast inside gtest-printers.h. The flag name is not
+# individually suppressible on all Apple clang versions, so demote -Werror to a
+# warning for the gtest target only.
+target_compile_options(gtest
+                       PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-error>)
 
 FetchContent_Declare(
   nlohmann_json
