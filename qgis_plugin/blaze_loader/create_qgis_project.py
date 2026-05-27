@@ -444,13 +444,16 @@ def create_qgis_project(
             "ground_intensity.tif",
         ]
 
-        # If rasters aren't in combined_path directly, try combined_path/combined
-        raster_base = combined_path
-        if not any((combined_path / f).exists() for f in rasters + ["slope.tif"]):
-            alt_path = combined_path / "combined"
-            if alt_path.exists():
-                raster_base = alt_path
-                log(f"Rasters not found in {combined_path}, falling back to {raster_base}")
+        # If output files aren't in combined_path directly, try combined_path/combined.
+        # This covers rasters, contours, streams, and all other generated outputs.
+        data_base = combined_path
+        alt_path = combined_path / "combined"
+        if alt_path.exists() and not any(
+            (combined_path / f).exists() for f in rasters + ["slope.tif", "contours.gpkg", "streams.gpkg"]
+        ):
+            data_base = alt_path
+            log(f"Output files not found in {combined_path}, falling back to {data_base}")
+        raster_base = data_base
 
         raster_count = 0
         for i, f in enumerate(rasters):
@@ -1555,7 +1558,7 @@ def create_qgis_project(
                 Path(osm_gpkg_output_path)
                 if osm_gpkg_output_path
                 else (
-                    combined_path / "osm.gpkg"
+                    data_base / "osm.gpkg"
                     if not use_current_extent
                     else (Path(tempfile.gettempdir()) / "blaze_plugin" / "osm.gpkg")
                 )
@@ -1612,9 +1615,9 @@ def create_qgis_project(
         report_progress("Adding vector layers (contours, streams)...", 50)
 
         # Add contours - merge all layers into single layer with QML style
-        contours_gpkg = combined_path / "contours.gpkg"
+        contours_gpkg = data_base / "contours.gpkg"
         if contours_gpkg.exists():
-            default_path = str(combined_path / "contours_merged.gpkg")
+            default_path = str(data_base / "contours_merged.gpkg")
 
             # Skip file dialog in headless mode (CI/automated execution)
             if os.environ.get("BLAZE_EXIT_AFTER_RUN") or parent_window is None:
@@ -1719,7 +1722,7 @@ def create_qgis_project(
                 summary["failed"].append("Contours (merge failed)")
 
         # Add streams with QML style
-        streams_gpkg = combined_path / "streams.gpkg"
+        streams_gpkg = data_base / "streams.gpkg"
         if streams_gpkg.exists():
             layers = add_gpkg_layers(streams_gpkg, vector_group, project_crs, root, apply_default_style=False)
             if layers:
@@ -1793,9 +1796,9 @@ def create_qgis_project(
                 path_1km = output_dir / f"magnetic_north_lines_1km_{timestamp}.gpkg"
                 path_2km = output_dir / f"magnetic_north_lines_2km_{timestamp}.gpkg"
             else:
-                path_500m = combined_path / "magnetic_north_lines_500m.gpkg"
-                path_1km = combined_path / "magnetic_north_lines_1km.gpkg"
-                path_2km = combined_path / "magnetic_north_lines_2km.gpkg"
+                path_500m = data_base / "magnetic_north_lines_500m.gpkg"
+                path_1km = data_base / "magnetic_north_lines_1km.gpkg"
+                path_2km = data_base / "magnetic_north_lines_2km.gpkg"
 
             # Three layers with scale-based visibility.
             # Breakpoints tuned to reduce clutter while still giving fine grids when zoomed in:
@@ -1857,7 +1860,7 @@ def create_qgis_project(
             timestamp = int(time.time())
             controls_path = output_dir / f"controls_{timestamp}.gpkg"
         else:
-            controls_path = combined_path / "controls.gpkg"
+            controls_path = data_base / "controls.gpkg"
         layer = add_controls_layer(project_extent, project_crs, markup_group, controls_path)
         if layer:
             summary["loaded"].append("Controls layer")
@@ -2390,29 +2393,56 @@ def add_nsw_topo_layers(
                     log(f"First URL: {url}")
 
                 raw = ""
-                try:
-                    with urllib.request.urlopen(url, timeout=60) as response:
-                        raw = response.read().decode("utf-8", errors="replace")
-                        data = json.loads(raw)
-                except urllib.error.HTTPError as e:
+                last_error = None
+                for attempt in range(3):
+                    if attempt > 0:
+                        wait = 5 * attempt
+                        log(f"  Retry {attempt}/2 for {name} (waiting {wait}s)...")
+                        time.sleep(wait)
                     try:
-                        raw = e.read().decode("utf-8", errors="replace")
-                    except Exception:
-                        raw = ""
-                    download_error = f"HTTP {e.code}: {e.reason}"
-                    log(f"HTTP error for {name}: {e.code} {e.reason} — response: {raw[:300]!r}")
-                    break
-                except urllib.error.URLError as e:
-                    download_error = str(e)
-                    log(f"Network error for {name}: {e}")
-                    break
-                except json.JSONDecodeError as e:
-                    download_error = f"Invalid JSON: {e}"
-                    log(f"Invalid JSON response for {name}: {e} — raw ({len(raw)} chars): {raw[:300]!r}")
-                    break
-                except Exception as e:
-                    download_error = f"{type(e).__name__}: {e}"
-                    log(f"Unexpected error for {name}: {download_error}")
+                        with urllib.request.urlopen(url, timeout=60) as response:
+                            content_type = response.headers.get("Content-Type", "")
+                            raw = response.read().decode("utf-8", errors="replace")
+                            data = json.loads(raw.strip())
+                            last_error = None
+                            break
+                    except urllib.error.HTTPError as e:
+                        try:
+                            raw = e.read().decode("utf-8", errors="replace")
+                        except Exception:
+                            raw = ""
+                        last_error = ("http", e.code, e.reason, raw)
+                    except urllib.error.URLError as e:
+                        last_error = ("url", str(e))
+                    except json.JSONDecodeError as e:
+                        last_error = ("json", e, raw)
+                    except Exception as e:
+                        last_error = ("other", type(e).__name__, str(e))
+                        break  # Non-transient; don't retry
+
+                if last_error is not None:
+                    kind = last_error[0]
+                    if kind == "http":
+                        _, code, reason, body = last_error
+                        download_error = f"HTTP {code}: {reason}"
+                        log(f"HTTP error for {name}: {code} {reason} — body: {body.strip()[:400]!r}")
+                    elif kind == "url":
+                        download_error = last_error[1]
+                        log(f"Network error for {name}: {download_error}")
+                    elif kind == "json":
+                        _, exc, body = last_error
+                        stripped = body.strip()
+                        content_type_str = content_type if "content_type" in dir() else "unknown"
+                        hint = " (HTML)" if stripped.lower().startswith(("<html", "<!doctype")) else ""
+                        log(
+                            f"Invalid JSON{hint} for {name} after 3 attempts: {exc}"
+                            f" — Content-Type: {content_type_str}"
+                            f" — body ({len(body)} chars): {stripped[:400]!r}"
+                        )
+                        download_error = f"Invalid JSON: {exc}"
+                    else:
+                        download_error = f"{last_error[1]}: {last_error[2]}"
+                        log(f"Unexpected error for {name}: {download_error}")
                     break
 
                 # Check for API errors

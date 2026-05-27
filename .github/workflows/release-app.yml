@@ -286,7 +286,7 @@ jobs:
           - arch: arm64
             os: macos-latest
           - arch: x86_64
-            os: macos-13
+            os: macos-26-intel
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -325,12 +325,37 @@ jobs:
           cmake -B build "${CMAKE_ARGS[@]}"
       - name: Build
         run: cmake --build build --config Release --parallel
-      - name: Package (DMG)
-        run: cd build && cpack -C Release -G DragNDrop
-      - name: Debug DMG failure
-        if: failure()
+      - name: Stage install
+        run: cmake --install build --prefix staging --config Release
+      - name: Deploy Qt frameworks
         run: |
-          find build/_CPack_Packages -name "*.log" -exec cat {} \; 2>/dev/null || true
+          QT_BIN=$(brew --prefix qt@6)/bin
+          for APP in Blaze Blaze3D; do
+            if [ -d "staging/$APP.app" ]; then
+              "$QT_BIN/macdeployqt" "staging/$APP.app" -always-overwrite
+            fi
+          done
+      - name: Bundle libomp
+        run: |
+          LIBOMP=$(brew --prefix libomp)/lib/libomp.dylib
+          for APP in Blaze Blaze3D; do
+            MACDIR="staging/$APP.app/Contents/MacOS"
+            if [ -f "$MACDIR/$APP" ] && [ ! -f "$MACDIR/libomp.dylib" ]; then
+              cp "$LIBOMP" "$MACDIR/"
+              install_name_tool -change "$LIBOMP" "@executable_path/libomp.dylib" "$MACDIR/$APP"
+            fi
+          done
+      - name: Package (DMG)
+        run: |
+          if [ -n "${{ steps.version.outputs.version }}" ]; then
+            VERSION="${{ steps.version.outputs.version }}"
+          else
+            VERSION=$(cmake -L -N build 2>/dev/null | grep "^PROJECT_VERSION:STATIC=" | cut -d= -f2 || echo "dev")
+          fi
+          ARCH=$(uname -m)
+          DMG="build/Blaze-${VERSION}-macOS-${ARCH}.dmg"
+          hdiutil create -volname "Blaze" -srcfolder staging -ov -format UDZO "$DMG"
+          echo "DMG: $DMG"
       - name: Test installer
         run: |
           DMG=$(ls build/Blaze-*.dmg | head -1)

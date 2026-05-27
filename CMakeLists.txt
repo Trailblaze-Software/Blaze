@@ -398,34 +398,6 @@ if(NOT BLAZE_CLI_ONLY)
       $<$<CONFIG:DEBUG>:--qtpaths
       ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
     install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
-  elseif(APPLE)
-    qt_generate_deploy_app_script(TARGET ${GUI_EXE_NAME} OUTPUT_SCRIPT
-                                  deploy_script NO_UNSUPPORTED_PLATFORM_ERROR)
-    install(SCRIPT ${deploy_script} COMPONENT GUI)
-    qt_generate_deploy_app_script(
-      TARGET ${GUI_3D_EXE_NAME} OUTPUT_SCRIPT deploy_script_3D
-      NO_UNSUPPORTED_PLATFORM_ERROR)
-    install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
-    # Bundle libomp.dylib (Homebrew/system) into each .app so the installer is
-    # self-contained. The path is resolved at configure time and baked in.
-    find_library(LIBOMP_LIBRARY omp)
-    if(LIBOMP_LIBRARY)
-      install(
-        CODE "
-          foreach(_exe Blaze Blaze3D)
-            set(_macdir \"\${CMAKE_INSTALL_PREFIX}/\${_exe}.app/Contents/MacOS\")
-            set(_dst \"\${_macdir}/libomp.dylib\")
-            if(EXISTS \"\${_macdir}/\${_exe}\" AND NOT EXISTS \"\${_dst}\")
-              file(COPY \"${LIBOMP_LIBRARY}\" DESTINATION \"\${_macdir}\")
-              execute_process(COMMAND install_name_tool
-                -change \"${LIBOMP_LIBRARY}\" \"@executable_path/libomp.dylib\"
-                \"\${_macdir}/\${_exe}\")
-            endif()
-          endforeach()
-        "
-        COMPONENT GUI)
-    endif()
-
   endif()
 endif()
 
