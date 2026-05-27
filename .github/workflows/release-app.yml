@@ -83,7 +83,7 @@ jobs:
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
           $push  = "https://nuget.pkg.github.com/$owner/"
-          $token = '${{ secrets.GITHUB_TOKEN }}'
+          $token = '${{ secrets.VCPKG_NUGET_TOKEN }}'
 
           Write-Host "Feed  : $feed"
           Write-Host "Push  : $push"
