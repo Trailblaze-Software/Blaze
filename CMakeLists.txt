@@ -278,6 +278,13 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
+# Apple clang raises -Wcharacter-conversion (promoted to error) on the char8_t
+# -> char32_t implicit cast inside gtest-printers.h. Suppress it only for the
+# gtest target since we cannot modify the upstream source.
+if(APPLE)
+  target_compile_options(gtest PRIVATE -Wno-character-conversion)
+endif()
+
 FetchContent_Declare(
   nlohmann_json
   GIT_REPOSITORY https://github.com/nlohmann/json.git

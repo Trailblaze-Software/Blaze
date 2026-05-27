@@ -82,32 +82,42 @@ jobs:
         run: |
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+          $push  = "https://nuget.pkg.github.com/$owner/"
           $token = '${{ secrets.GITHUB_TOKEN }}'
 
-          # All nuget.exe instances (Chocolatey, VS, vcpkg-bundled) share the
-          # same user-level config at %APPDATA%\NuGet\NuGet.Config, so one
-          # registration is sufficient — including after ilammy/msvc-dev-cmd
-          # rewrites PATH via vcvarsall.bat.
-          $nuget = (Get-Command nuget -ErrorAction SilentlyContinue)?.Source
-          if (-not $nuget) {
-            $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-            $nuget = (& $vcpkg fetch nuget | Select-Object -Last 1).Trim()
-          }
-          Write-Host "nuget.exe    : $nuget"
-          Write-Host "Feed         : $feed"
-          Write-Host "Token length : $($token.Length) (prefix: $($token.Substring(0, [Math]::Min(8,$token.Length)))...)"
+          Write-Host "Feed  : $feed"
+          Write-Host "Push  : $push"
+          Write-Host "Token : length=$($token.Length) prefix=$($token.Substring(0, [Math]::Min(8,$token.Length)))..."
 
-          & $nuget sources remove -Name GitHub 2>&1 | Out-Null
-          & $nuget sources add `
-              -Source $feed `
-              -StorePasswordInClearText `
-              -Name GitHub `
-              -UserName "x-access-token" `
-              -Password $token
-          & $nuget setapikey $token -Source $feed
+          # Write NuGet.Config directly so the credentials are available to every
+          # nuget.exe (Chocolatey, VS, vcpkg-bundled) without relying on nuget.exe
+          # command-line registration. We set the API key for both the service-index
+          # URL and the push URL so NuGet can match whichever it resolves first.
+          $configPath = "$env:APPDATA\NuGet\NuGet.Config"
+          New-Item -Force -ItemType Directory (Split-Path $configPath) | Out-Null
 
-          Write-Host "Registered sources:"
-          & $nuget sources list
+          $configContent = @(
+            '<?xml version="1.0" encoding="utf-8"?>',
+            '<configuration>',
+            '  <packageSources>',
+            "    <add key=""GitHub"" value=""$feed"" protocolVersion=""3"" />",
+            '  </packageSources>',
+            '  <packageSourceCredentials>',
+            '    <GitHub>',
+            '      <add key="Username" value="x-access-token" />',
+            "      <add key=""ClearTextPassword"" value=""$token"" />",
+            '    </GitHub>',
+            '  </packageSourceCredentials>',
+            '  <apikeys>',
+            "    <add key=""$feed"" value=""$token"" />",
+            "    <add key=""$push"" value=""$token"" />",
+            '  </apikeys>',
+            '</configuration>'
+          ) -join "`n"
+          Set-Content -Path $configPath -Value $configContent -Encoding UTF8
+          Write-Host "Wrote $configPath"
+          Write-Host "--- NuGet.Config (token redacted) ---"
+          (Get-Content $configPath) -replace '(?<=value=")[^"]*ghs[^"]*', '[REDACTED]' | Write-Host
       - name: Set up MSVC dev cmd
         uses: ilammy/msvc-dev-cmd@v1
         with:

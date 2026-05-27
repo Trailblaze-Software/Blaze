@@ -10,7 +10,7 @@
 [![C++](https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B)](https://isocpp.org/)
 [![License](https://img.shields.io/badge/license-GPLv3-blue?style=flat-square)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square)](https://Trailblaze-Software.github.io/Blaze/)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/Trailblaze-Software/Blaze)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/Trailblaze-Software/Blaze)
 
 </div>
 
@@ -95,6 +95,47 @@ The following executables will be available in the `build` directory:
 - `blaze-cli` - Command-line interface
 - `Blaze` - Desktop GUI application (WIP)
 - `Blaze3D` - 3D visualization application (very WIP)
+
+### macOS
+
+#### Prerequisites
+
+Install the required dependencies using Homebrew:
+
+```bash
+./scripts/install-macos-deps.sh
+```
+
+This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
+
+#### Building from Source
+
+1. **Configure and compile:**
+   ```bash
+   ./scripts/macos-build.sh
+   ```
+
+   Or manually:
+   ```bash
+   LIBOMP=$(brew --prefix libomp)
+   cmake -B build \
+       -DCMAKE_BUILD_TYPE=Release \
+       "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include" \
+       "-DOpenMP_CXX_LIB_NAMES=omp" \
+       "-DOpenMP_omp_LIBRARY=${LIBOMP}/lib/libomp.dylib" \
+       "-DCMAKE_PREFIX_PATH=$(brew --prefix qt@6)"
+   cmake --build build --parallel
+   ```
+
+2. **Install (optional):**
+   ```bash
+   sudo cmake --install build
+   ```
+
+The following executables will be available in the build directory:
+- `blaze-cli` - Command-line interface
+- `Blaze.app` - Desktop GUI application (WIP)
+- `Blaze3D.app` - 3D visualization application (very WIP)
 
 ### Windows
 
