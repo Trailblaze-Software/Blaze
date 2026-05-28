@@ -5,18 +5,12 @@ if(CMAKE_VERSION GREATER 3.24)
   cmake_policy(SET CMP0135 NEW)
 endif()
 
-# Force CMP0091 NEW for every subdirectory, including FetchContent deps whose
-# own cmake_minimum_required() is older than 3.15 (notably googletest 1.15.x,
-# which declares VERSION 3.13). Without this, googletest's targets run with
-# CMP0091 OLD on MSVC, MSVC_RUNTIME_LIBRARY is ignored, and
-# gtest_force_shared_crt is a no-op under modern CMake (which has already
-# stripped /MD from CMAKE_CXX_FLAGS_<CONFIG>). The mismatched CRT linkage
-# between gtest.lib and unit_tests then surfaces as LNK2001 unresolved gtest
-# internal symbols (MakeAndRegisterTestInfo, ReportInvalidTestSuiteType) in the
-# no-vcpkg Windows build; the vcpkg toolchain happens to set this for us.
-# CMake's default value under CMP0091 NEW is already
-# MultiThreaded$<$<CONFIG:Debug>:Debug>DLL (/MD, /MDd), so the policy is all we
-# need — no explicit CMAKE_MSVC_RUNTIME_LIBRARY.
+# Propagate CMP0091 NEW into FetchContent subdirectories whose own
+# cmake_minimum_required() predates 3.15 (notably googletest 1.15.x, which
+# declares VERSION 3.13). Without this, googletest's targets run under CMP0091
+# OLD on MSVC and MSVC_RUNTIME_LIBRARY is silently ignored for them. This is a
+# defensive correctness fix; the MSBuild default of /MD happens to match what we
+# want, but relying on the default is fragile.
 set(CMAKE_POLICY_DEFAULT_CMP0091 NEW)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -49,12 +43,7 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   set(X_VCPKG_APPLOCAL_DEPS_INSTALL
       TRUE
       CACHE BOOL "")
-  # NOTE: triplet detection used to live here, but both branches (MINGW match on
-  # CMAKE_CXX_COMPILER and elseif(MSVC)) were dead at this point in the file —
-  # the compiler hasn't been detected yet because project() runs further down.
-  # vcpkg's own auto-detection picks the right Windows triplet for MSVC builds,
-  # and CI passes -DVCPKG_TARGET_TRIPLET= explicitly. MinGW users should set
-  # -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic on the cmake command line.
+
   set(VCPKG_BUILD_TYPE "release")
   FetchContent_Declare(
     vcpkg
@@ -339,7 +328,17 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindProjData.cmake)
 find_proj_data(${LIBRARY_NAME})
 
-target_include_directories(${UNIT_TESTS_NAME}
+# BEFORE PRIVATE so FetchContent's gtest headers are searched *before* the
+# broader include dirs added in the foreach() above (notably GDAL's include
+# directory, which on the no-vcpkg Windows build points to conda's shared
+# C:\Program Files\Miniconda3\Library\include — a directory that turns out to
+# ship its own older <gtest/gtest.h>). Without BEFORE, the test .cpp files
+# compiled against the older header (e.g. MakeAndRegisterTestInfo took `const
+# char*` as its first argument in gtest <=1.14, vs. `std::string` in 1.15+), and
+# the resulting LNK2001 unresolved external symbol errors blamed
+# MakeAndRegisterTestInfo and ReportInvalidTestSuiteType because the gtest.lib
+# built from FetchContent's 1.15.2 source has different mangled names.
+target_include_directories(${UNIT_TESTS_NAME} BEFORE
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
 # unit_tests.cpp defines its own main(); link only gtest (not gtest_main) to
 # avoid a duplicate-symbol error.
