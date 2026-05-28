@@ -333,8 +333,15 @@ jobs:
           echo "Version: $TAG"
       - name: Install dependencies
         run: |
-          brew install cmake ninja ccache gdal opencv qt@6 libomp openblas lapack
+          # qt@6 only opt-links qtbase on modern Homebrew; the other Qt modules
+          # must be installed explicitly so macdeployqt can find their
+          # frameworks at /opt/homebrew/opt/<keg>/lib (and so qttools provides
+          # macdeployqt itself + qtimageformats provides QTiffPlugin at runtime).
+          brew install cmake ninja ccache gdal opencv qt@6 qtsvg qttools \
+            qtimageformats libomp openblas lapack
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
+          # macdeployqt lives in qttools on modern Homebrew, not qtbase/qt@6.
+          echo "$(brew --prefix qttools)/bin" >> $GITHUB_PATH
       - name: Configure
         run: |
           LIBOMP=$(brew --prefix libomp)
@@ -359,35 +366,49 @@ jobs:
         run: cmake --install build --prefix staging --config Release
       - name: Deploy Qt frameworks
         run: |
-          QT_BIN=$(brew --prefix qt@6)/bin
+          # macdeployqt ships in qttools (not qtbase) on modern Homebrew.
+          MACDEPLOYQT="$(brew --prefix qttools)/bin/macdeployqt"
+          BREW_PREFIX="$(brew --prefix)"
 
-          # Homebrew splits Qt6 across multiple kegs (qtbase, qtsvg, …).
-          # Build a -libpath argument for every qt* opt directory so that
-          # macdeployqt can locate frameworks regardless of which sub-formula
-          # they live in.
+          # Homebrew splits Qt6 across multiple kegs (qtbase, qtsvg, qttools,
+          # qtimageformats, …). Build a -libpath argument for every qt* opt
+          # directory so that macdeployqt can locate frameworks regardless of
+          # which sub-formula they live in. Use $(brew --prefix) so the same
+          # logic works on Intel runners (/usr/local) and Apple Silicon
+          # (/opt/homebrew).
           LIBPATH_ARGS=()
-          for dir in /opt/homebrew/opt/qt*/lib; do
+          for dir in "$BREW_PREFIX"/opt/qt*/lib; do
             [ -d "$dir" ] && LIBPATH_ARGS+=("-libpath=$dir")
           done
+          echo "macdeployqt libpath args:"
+          printf '  %s\n' "${LIBPATH_ARGS[@]}"
 
           for APP in Blaze Blaze3D; do
             if [ -d "staging/$APP.app" ]; then
-              # || true: Qt 6.9+ uses @executable_path rpaths in its own
-              # binaries that macdeployqt doesn't understand and exits non-zero
-              # for, even after successfully deploying all required frameworks.
-              "$QT_BIN/macdeployqt" "staging/$APP.app" \
+              # || true: Qt 6.9+ from Homebrew uses @executable_path rpaths in
+              # its own framework binaries that macdeployqt doesn't process
+              # ("Unexpected prefix" warnings) and exits non-zero for. The
+              # rpaths resolve correctly at runtime; the required frameworks
+              # are still copied into the bundle. The verification step below
+              # catches any framework that genuinely failed to deploy.
+              "$MACDEPLOYQT" "staging/$APP.app" \
                 -always-overwrite \
                 "${LIBPATH_ARGS[@]}" || true
             fi
           done
 
-          # Verify the Qt frameworks Blaze actually uses were bundled.
+          # Verify the Qt frameworks Blaze actually uses were bundled. QtSvg
+          # is required because macdeployqt installs the qsvgicon iconengine
+          # plugin (used by Qt for standard SVG icons in widgets); the plugin
+          # would crash at startup if its QtSvg dependency wasn't bundled.
           for APP in Blaze Blaze3D; do
             if [ -d "staging/$APP.app" ]; then
               FW_DIR="staging/$APP.app/Contents/Frameworks"
               for FW in QtCore QtGui QtWidgets QtSvg QtConcurrent QtOpenGL; do
                 if [ ! -d "$FW_DIR/$FW.framework" ]; then
                   echo "ERROR: $FW.framework missing from $APP.app bundle" >&2
+                  echo "Contents of $FW_DIR:" >&2
+                  ls -la "$FW_DIR" >&2 || true
                   exit 1
                 fi
               done

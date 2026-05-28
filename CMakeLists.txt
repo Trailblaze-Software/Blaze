@@ -341,7 +341,9 @@ find_proj_data(${LIBRARY_NAME})
 
 target_include_directories(${UNIT_TESTS_NAME}
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
-target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
+# unit_tests.cpp defines its own main(); link only gtest (not gtest_main) to
+# avoid a duplicate-symbol error.
+target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest)
 
 add_subdirectory(src)
 

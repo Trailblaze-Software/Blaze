@@ -14,6 +14,9 @@ brew install \
     gdal \
     opencv \
     qt@6 \
+    qtsvg \
+    qttools \
+    qtimageformats \
     libomp \
     openblas \
     lapack
