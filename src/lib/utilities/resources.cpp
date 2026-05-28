@@ -15,8 +15,9 @@
 #include <unistd.h>
 #endif
 #ifdef __APPLE__
-#include <climits>
 #include <mach-o/dyld.h>
+
+#include <climits>
 #endif
 
 fs::path get_asset_dir() {

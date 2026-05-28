@@ -131,8 +131,7 @@ if(APPLE)
   execute_process(
     COMMAND brew --prefix
     OUTPUT_VARIABLE HOMEBREW_PREFIX
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    ERROR_QUIET)
+    OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_QUIET)
   if(HOMEBREW_PREFIX)
     # qt6/qt is the meta-package; qtbase has the actual cmake configs and tools.
     # qtimageformats provides Qt6::QTiffPlugin.
@@ -148,15 +147,17 @@ if(APPLE)
   execute_process(
     COMMAND brew --prefix libomp
     OUTPUT_VARIABLE LIBOMP_PREFIX
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    ERROR_QUIET)
+    OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_QUIET)
   if(LIBOMP_PREFIX AND EXISTS "${LIBOMP_PREFIX}")
     set(OpenMP_CXX_FLAGS "-Xpreprocessor -fopenmp -I${LIBOMP_PREFIX}/include")
     set(OpenMP_CXX_LIB_NAMES "omp")
     set(OpenMP_omp_LIBRARY "${LIBOMP_PREFIX}/lib/libomp.dylib")
     message(STATUS "macOS: Using libomp from ${LIBOMP_PREFIX}")
   else()
-    message(WARNING "macOS: libomp not found via Homebrew. Install with: brew install libomp")
+    message(
+      WARNING
+        "macOS: libomp not found via Homebrew. Install with: brew install libomp"
+    )
   endif()
 endif()
 
@@ -290,41 +291,53 @@ if(NOT BLAZE_CLI_ONLY)
     # KMP_DUPLICATE_LIB_OK is needed because macdeployqt bundles a libomp from
     # one of GDAL/OpenCV's transitive deps alongside the one the app links
     # directly, causing a double-init error at startup.
-    find_program(MACDEPLOYQT_EXECUTABLE macdeployqt
+    find_program(
+      MACDEPLOYQT_EXECUTABLE macdeployqt
       HINTS "${HOMEBREW_PREFIX}/opt/qtbase/bin" "${HOMEBREW_PREFIX}/opt/qt/bin")
     find_program(PLISTBUDDY_EXECUTABLE PlistBuddy HINTS /usr/libexec)
 
     foreach(_gui_target ${GUI_EXE_NAME} ${GUI_3D_EXE_NAME})
       if(MACDEPLOYQT_EXECUTABLE)
         add_custom_command(
-          TARGET ${_gui_target} POST_BUILD
-          COMMAND ${MACDEPLOYQT_EXECUTABLE} "$<TARGET_BUNDLE_DIR:${_gui_target}>"
+          TARGET ${_gui_target}
+          POST_BUILD
+          COMMAND ${MACDEPLOYQT_EXECUTABLE}
+                  "$<TARGET_BUNDLE_DIR:${_gui_target}>"
           COMMENT "Running macdeployqt on ${_gui_target}")
       endif()
       # Copy the cocoa platform plugin (Homebrew puts it in share/qt/plugins/).
       add_custom_command(
-        TARGET ${_gui_target} POST_BUILD
+        TARGET ${_gui_target}
+        POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory
                 "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/PlugIns/platforms"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                "${HOMEBREW_PREFIX}/opt/qtbase/share/qt/plugins/platforms/libqcocoa.dylib"
-                "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/PlugIns/platforms/libqcocoa.dylib"
+        COMMAND
+          ${CMAKE_COMMAND} -E copy_if_different
+          "${HOMEBREW_PREFIX}/opt/qtbase/share/qt/plugins/platforms/libqcocoa.dylib"
+          "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/PlugIns/platforms/libqcocoa.dylib"
         COMMENT "Copying cocoa platform plugin into ${_gui_target}")
       # Embed KMP_DUPLICATE_LIB_OK=TRUE via LSEnvironment in Info.plist so the
-      # app can be launched from Finder without hitting the duplicate-libomp error.
+      # app can be launched from Finder without hitting the duplicate-libomp
+      # error.
       if(PLISTBUDDY_EXECUTABLE)
         add_custom_command(
-          TARGET ${_gui_target} POST_BUILD
-          COMMAND chmod 644 "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/Info.plist"
-          COMMAND ${PLISTBUDDY_EXECUTABLE} -c "Add :LSEnvironment dict"
-                  "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/Info.plist" || true
-          COMMAND ${PLISTBUDDY_EXECUTABLE} -c "Add :LSEnvironment:KMP_DUPLICATE_LIB_OK string TRUE"
-                  "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/Info.plist" || true
+          TARGET ${_gui_target}
+          POST_BUILD
+          COMMAND chmod 644
+                  "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/Info.plist"
+          COMMAND
+            ${PLISTBUDDY_EXECUTABLE} -c "Add :LSEnvironment dict"
+            "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/Info.plist" || true
+          COMMAND
+            ${PLISTBUDDY_EXECUTABLE} -c
+            "Add :LSEnvironment:KMP_DUPLICATE_LIB_OK string TRUE"
+            "$<TARGET_BUNDLE_DIR:${_gui_target}>/Contents/Info.plist" || true
           COMMENT "Setting KMP_DUPLICATE_LIB_OK in ${_gui_target} Info.plist")
       endif()
       # Re-sign with an ad-hoc signature after all modifications.
       add_custom_command(
-        TARGET ${_gui_target} POST_BUILD
+        TARGET ${_gui_target}
+        POST_BUILD
         COMMAND codesign --force --deep --sign -
                 "$<TARGET_BUNDLE_DIR:${_gui_target}>"
         COMMENT "Re-signing ${_gui_target} after post-build modifications")
@@ -414,7 +427,8 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
 
 add_subdirectory(src)
 
-gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120 DISCOVERY_MODE PRE_TEST)
+gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120 DISCOVERY_MODE
+                     PRE_TEST)
 
 include(GNUInstallDirs)
 
