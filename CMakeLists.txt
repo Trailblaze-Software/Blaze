@@ -5,19 +5,26 @@ if(CMAKE_VERSION GREATER 3.24)
   cmake_policy(SET CMP0135 NEW)
 endif()
 
+# Force CMP0091 NEW for every subdirectory, including FetchContent deps whose
+# own cmake_minimum_required() is older than 3.15 (notably googletest 1.15.x,
+# which declares VERSION 3.13). Without this, googletest's targets run with
+# CMP0091 OLD on MSVC, MSVC_RUNTIME_LIBRARY is ignored, and
+# gtest_force_shared_crt is a no-op under modern CMake (which has already
+# stripped /MD from CMAKE_CXX_FLAGS_<CONFIG>). The mismatched CRT linkage
+# between gtest.lib and unit_tests then surfaces as LNK2001 unresolved gtest
+# internal symbols (MakeAndRegisterTestInfo, ReportInvalidTestSuiteType) in the
+# no-vcpkg Windows build; the vcpkg toolchain happens to set this for us.
+# CMake's default value under CMP0091 NEW is already
+# MultiThreaded$<$<CONFIG:Debug>:Debug>DLL (/MD, /MDd), so the policy is all we
+# need — no explicit CMAKE_MSVC_RUNTIME_LIBRARY.
+set(CMAKE_POLICY_DEFAULT_CMP0091 NEW)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release")
 endif()
 message(STATUS "CMake Build Type: ${CMAKE_BUILD_TYPE}")
-
-if(MSVC)
-  if(CMAKE_GENERATOR_PLATFORM)
-    message(STATUS "Target Architecture (from -A): ${CMAKE_GENERATOR_PLATFORM}")
-  endif()
-  message(STATUS "Detected MSVC Architecture: ${MSVC_CXX_ARCHITECTURE_ID}")
-endif()
 
 include(FetchContent)
 if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
@@ -42,19 +49,12 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   set(X_VCPKG_APPLOCAL_DEPS_INSTALL
       TRUE
       CACHE BOOL "")
-  if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
-    set(VCPKG_TARGET_TRIPLET "x64-mingw-dynamic")
-    set(VCPKG_HOST_TRIPLET "x64-mingw-dynamic")
-  elseif(MSVC)
-    if(NOT DEFINED VCPKG_TARGET_TRIPLET)
-      if(CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64" OR CMAKE_VS_PLATFORM_NAME
-                                                      STREQUAL "ARM64")
-        set(VCPKG_TARGET_TRIPLET "arm64-windows")
-      else()
-        set(VCPKG_TARGET_TRIPLET "x64-windows")
-      endif()
-    endif()
-  endif()
+  # NOTE: triplet detection used to live here, but both branches (MINGW match on
+  # CMAKE_CXX_COMPILER and elseif(MSVC)) were dead at this point in the file —
+  # the compiler hasn't been detected yet because project() runs further down.
+  # vcpkg's own auto-detection picks the right Windows triplet for MSVC builds,
+  # and CI passes -DVCPKG_TARGET_TRIPLET= explicitly. MinGW users should set
+  # -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic on the cmake command line.
   set(VCPKG_BUILD_TYPE "release")
   FetchContent_Declare(
     vcpkg

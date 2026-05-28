@@ -25,12 +25,18 @@ fs::path get_asset_dir() {
   fs::path path(buffer);
 #endif
 #ifdef __APPLE__
-  char buffer[4096];
-  uint32_t size = sizeof(buffer);
-  if (_NSGetExecutablePath(buffer, &size) != 0) {
-    Fail("Could not get executable path on macOS");
+  char stack_buffer[4096];
+  uint32_t size = sizeof(stack_buffer);
+  std::vector<char> heap_buffer;
+  char* buf_ptr = stack_buffer;
+  if (_NSGetExecutablePath(buf_ptr, &size) != 0) {
+    heap_buffer.resize(size);
+    buf_ptr = heap_buffer.data();
+    if (_NSGetExecutablePath(buf_ptr, &size) != 0) {
+      Fail("Could not get executable path on macOS");
+    }
   }
-  fs::path path(buffer);
+  fs::path path(buf_ptr);
 #endif
 #ifdef __linux__
   char buffer[PATH_MAX];
@@ -41,6 +47,13 @@ fs::path get_asset_dir() {
   fs::path path(buffer);
 #endif
   std::vector<fs::path> asset_paths = {path.parent_path().parent_path() / "share" / "assets"};
+#ifdef __APPLE__
+  // For .app bundles the executable lives at MyApp.app/Contents/MacOS/<exe>.
+  // Assets installed next to the bundle sit at <prefix>/share/assets, which is
+  // four directory levels above the executable.
+  asset_paths.push_back(path.parent_path().parent_path().parent_path().parent_path() / "share" /
+                        "assets");
+#endif
   while (path.has_parent_path() && path.parent_path() != path) {
     path = path.parent_path();
     asset_paths.push_back(path / "assets");

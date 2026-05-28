@@ -46,8 +46,11 @@ GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground
 // cell is set if any of the input sub-cells were set. Used to bring the
 // buildings mask onto the same resolution as the smooth-ground DEM (slope,
 // hill-shade, etc.) for export.
-GeoGrid<std::optional<std::byte>> downsample_mask_any(const GeoGrid<std::optional<std::byte>>& grid,
-                                                      size_t factor) {
+static GeoGrid<std::optional<std::byte>> downsample_mask_any(
+    const GeoGrid<std::optional<std::byte>>& grid, size_t factor) {
+  if (factor == 0) {
+    Fail("downsample_mask_any factor must be > 0");
+  }
   GeoGrid<std::optional<std::byte>> result(
       (grid.width() + factor - 1) / factor, (grid.height() + factor - 1) / factor,
       grid.transform().with_new_resolution(grid.transform().dx() * factor),

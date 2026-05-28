@@ -114,7 +114,7 @@ class BlazeLoader:
             last_folder=self.last_folder,
         )
 
-        if (folder or options.get("use_current_extent", False)) and options:
+        if options and (folder or options.get("use_current_extent", False)):
             if folder:
                 self.last_folder = folder
             self.load_blaze_project(folder, options)

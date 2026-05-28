@@ -333,15 +333,14 @@ jobs:
           echo "Version: $TAG"
       - name: Install dependencies
         run: |
-          # qt@6 only opt-links qtbase on modern Homebrew; the other Qt modules
-          # must be installed explicitly so macdeployqt can find their
-          # frameworks at /opt/homebrew/opt/<keg>/lib (and so qttools provides
-          # macdeployqt itself + qtimageformats provides QTiffPlugin at runtime).
-          brew install cmake ninja ccache gdal opencv qt@6 qtsvg qttools \
+          # Modern Homebrew opt-links every Qt6 sub-formula as its own keg
+          # under $(brew --prefix)/opt/<keg>. macdeployqt is in qtbase/bin
+          # (qt@6's /bin symlinks to it). qtsvg is required for the qsvgicon
+          # iconengine plugin that macdeployqt auto-bundles; qtimageformats
+          # provides QTiffPlugin which Blaze imports.
+          brew install cmake ninja ccache gdal opencv qt@6 qtsvg \
             qtimageformats libomp openblas lapack
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
-          # macdeployqt lives in qttools on modern Homebrew, not qtbase/qt@6.
-          echo "$(brew --prefix qttools)/bin" >> $GITHUB_PATH
       - name: Configure
         run: |
           LIBOMP=$(brew --prefix libomp)
@@ -366,8 +365,20 @@ jobs:
         run: cmake --install build --prefix staging --config Release
       - name: Deploy Qt frameworks
         run: |
-          # macdeployqt ships in qttools (not qtbase) on modern Homebrew.
-          MACDEPLOYQT="$(brew --prefix qttools)/bin/macdeployqt"
+          # macdeployqt lives in qtbase/bin (and qt@6/bin symlinks to it).
+          # Resolve it via PATH (set up by the install step) so the location
+          # follows whatever the Homebrew formula does in the future.
+          MACDEPLOYQT="$(command -v macdeployqt)"
+          if [ -z "$MACDEPLOYQT" ]; then
+            echo "ERROR: macdeployqt not found on PATH" >&2
+            echo "Searched these brew prefixes:" >&2
+            for keg in qt@6 qt qtbase qttools; do
+              p="$(brew --prefix "$keg" 2>/dev/null || true)"
+              [ -n "$p" ] && ls -la "$p/bin/macdeployqt" 2>&1 || true
+            done
+            exit 1
+          fi
+          echo "Using macdeployqt: $MACDEPLOYQT"
           BREW_PREFIX="$(brew --prefix)"
 
           # Homebrew splits Qt6 across multiple kegs (qtbase, qtsvg, qttools,
