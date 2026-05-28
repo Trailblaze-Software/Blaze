@@ -331,20 +331,34 @@ jobs:
           fi
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "Version: $TAG"
-      - name: Install dependencies
+      - name: Install dependencies (non-Qt)
         run: |
-          # Modern Homebrew opt-links every Qt6 sub-formula as its own keg
-          # under $(brew --prefix)/opt/<keg>. macdeployqt is in qtbase/bin
-          # (qt@6's /bin symlinks to it). qtsvg is required for the qsvgicon
-          # iconengine plugin that macdeployqt auto-bundles; qtimageformats
-          # provides QTiffPlugin which Blaze imports.
-          brew install cmake ninja ccache gdal opencv qt@6 qtsvg \
-            qtimageformats libomp openblas lapack
-          echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
+          # Qt comes from the official online installer (jurplel/install-qt-action
+          # below), NOT from Homebrew. Homebrew's Qt6 is patched with
+          # @executable_path rpaths and split across ~40 separate kegs, both
+          # of which break macdeployqt's framework deployment in ways that
+          # require ugly manual workarounds. The official Qt distribution
+          # is what macdeployqt was designed for and "just works".
+          brew install cmake ninja ccache gdal opencv libomp openblas lapack
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.9.0'
+          host: 'mac'
+          target: 'desktop'
+          # clang_64 is a universal binary on macOS Qt 6 — same archive
+          # works for both Apple Silicon and Intel runners.
+          arch: 'clang_64'
+          # qtimageformats provides Qt6::QTiffPlugin which Blaze imports.
+          # qtbase/qtsvg/qttools come by default; macdeployqt ships in qttools.
+          modules: 'qtimageformats'
+          cache: true
       - name: Configure
         run: |
           LIBOMP=$(brew --prefix libomp)
-          QT=$(brew --prefix qt@6)
+          # install-qt-action exports QT_ROOT_DIR pointing at the Qt
+          # installation (e.g. .../Qt/6.9.0/macos) and adds its bin/ to
+          # PATH so macdeployqt is found automatically downstream.
           CMAKE_ARGS=(
             "-DCMAKE_BUILD_TYPE=Release"
             "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include"
@@ -353,7 +367,7 @@ jobs:
             "-DOpenMP_C_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include"
             "-DOpenMP_C_LIB_NAMES=omp"
             "-DOpenMP_C_LIBRARY=${LIBOMP}/lib/libomp.dylib"
-            "-DCMAKE_PREFIX_PATH=${QT}"
+            "-DCMAKE_PREFIX_PATH=${QT_ROOT_DIR}"
           )
           if [ -n "${{ steps.version.outputs.version }}" ]; then
             CMAKE_ARGS+=("-DBLAZE_VERSION=${{ steps.version.outputs.version }}")
@@ -365,57 +379,24 @@ jobs:
         run: cmake --install build --prefix staging --config Release
       - name: Deploy Qt frameworks
         run: |
-          # macdeployqt lives in qtbase/bin (and qt@6/bin symlinks to it).
-          # Resolve it via PATH (set up by the install step) so the location
-          # follows whatever the Homebrew formula does in the future.
-          MACDEPLOYQT="$(command -v macdeployqt)"
-          if [ -z "$MACDEPLOYQT" ]; then
-            echo "ERROR: macdeployqt not found on PATH" >&2
-            echo "Searched these brew prefixes:" >&2
-            for keg in qt@6 qt qtbase qttools; do
-              p="$(brew --prefix "$keg" 2>/dev/null || true)"
-              [ -n "$p" ] && ls -la "$p/bin/macdeployqt" 2>&1 || true
-            done
-            exit 1
-          fi
-          echo "Using macdeployqt: $MACDEPLOYQT"
-          BREW_PREFIX="$(brew --prefix)"
-
-          # Homebrew splits Qt6 across multiple kegs (qtbase, qtsvg, qttools,
-          # qtimageformats, …). Build a -libpath argument for every qt* opt
-          # directory so that macdeployqt can locate frameworks regardless of
-          # which sub-formula they live in. Use $(brew --prefix) so the same
-          # logic works on Intel runners (/usr/local) and Apple Silicon
-          # (/opt/homebrew).
-          LIBPATH_ARGS=()
-          for dir in "$BREW_PREFIX"/opt/qt*/lib; do
-            [ -d "$dir" ] && LIBPATH_ARGS+=("-libpath=$dir")
-          done
-          echo "macdeployqt libpath args:"
-          printf '  %s\n' "${LIBPATH_ARGS[@]}"
-
+          # macdeployqt comes from the official Qt distribution (installed
+          # by jurplel/install-qt-action, which prepends its bin/ to PATH).
+          # No -libpath gymnastics needed: official Qt has all modules
+          # under a single prefix and uses standard @rpath references that
+          # macdeployqt resolves natively.
           for APP in Blaze Blaze3D; do
             if [ -d "staging/$APP.app" ]; then
-              # || true: Qt 6.9+ from Homebrew uses @executable_path rpaths in
-              # its own framework binaries that macdeployqt doesn't process
-              # ("Unexpected prefix" warnings) and exits non-zero for. The
-              # rpaths resolve correctly at runtime; the required frameworks
-              # are still copied into the bundle. The verification step below
-              # catches any framework that genuinely failed to deploy.
-              "$MACDEPLOYQT" "staging/$APP.app" \
-                -always-overwrite \
-                "${LIBPATH_ARGS[@]}" || true
+              macdeployqt "staging/$APP.app" -always-overwrite
             fi
           done
 
-          # Verify the Qt frameworks Blaze actually uses were bundled. QtSvg
-          # is required because macdeployqt installs the qsvgicon iconengine
-          # plugin (used by Qt for standard SVG icons in widgets); the plugin
-          # would crash at startup if its QtSvg dependency wasn't bundled.
+          # Sanity check that every Qt framework Blaze actually links got
+          # bundled — catches future surprises (e.g. a missing module
+          # request in install-qt-action) before they reach end users.
           for APP in Blaze Blaze3D; do
             if [ -d "staging/$APP.app" ]; then
               FW_DIR="staging/$APP.app/Contents/Frameworks"
-              for FW in QtCore QtGui QtWidgets QtSvg QtConcurrent QtOpenGL; do
+              for FW in QtCore QtGui QtWidgets QtConcurrent QtOpenGL; do
                 if [ ! -d "$FW_DIR/$FW.framework" ]; then
                   echo "ERROR: $FW.framework missing from $APP.app bundle" >&2
                   echo "Contents of $FW_DIR:" >&2
