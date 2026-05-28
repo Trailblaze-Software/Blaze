@@ -10,7 +10,7 @@
 [![C++](https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B)](https://isocpp.org/)
 [![License](https://img.shields.io/badge/license-GPLv3-blue?style=flat-square)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square)](https://Trailblaze-Software.github.io/Blaze/)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/Trailblaze-Software/Blaze)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/Trailblaze-Software/Blaze)
 
 </div>
 
@@ -95,6 +95,49 @@ The following executables will be available in the `build` directory:
 - `blaze-cli` - Command-line interface
 - `Blaze` - Desktop GUI application (WIP)
 - `Blaze3D` - 3D visualization application (very WIP)
+
+### macOS
+
+#### Prerequisites
+
+Install the required dependencies via [Homebrew](https://brew.sh):
+
+```bash
+./scripts/install-mac-deps.sh
+```
+
+This installs: CMake, GDAL, OpenCV, libomp (OpenMP for Apple Clang), Qt6, Ninja, and ccache.
+
+#### Building from Source
+
+1. **Configure the build:**
+   ```bash
+   cmake -B build
+   ```
+
+   For CLI-only build (without GUI):
+   ```bash
+   cmake -B build -DBLAZE_CLI_ONLY=ON
+   ```
+
+   CMake automatically detects Homebrew packages and configures OpenMP for Apple Clang.
+
+2. **Compile:**
+   ```bash
+   cmake --build build --config Release -j$(sysctl -n hw.logicalcpu)
+   ```
+
+3. **Install (optional):**
+   ```bash
+   sudo cmake --install build
+   ```
+
+The following executables will be available in the `build` directory:
+- `blaze-cli` - Command-line interface
+- `Blaze.app` - Desktop GUI application (WIP)
+- `Blaze3D.app` - 3D visualization application (very WIP)
+
+> **Note:** `configs/config.json` uses example LAS file paths and includes a `tmp_borders` step that may not apply to your data. Remove or update the `las_files` entries and remove `"tmp_borders"` from `steps` before running.
 
 ### Windows
 

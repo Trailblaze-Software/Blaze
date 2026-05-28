@@ -125,6 +125,41 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 add_compile_definitions(GIT_COMMIT_HASH="${GIT_COMMIT_HASH}")
 
+if(APPLE)
+  # Homebrew doesn't add keg-only packages to the default search paths.
+  # Auto-detect the Homebrew prefix so CMake can find Qt6, GDAL, OpenCV, etc.
+  execute_process(
+    COMMAND brew --prefix
+    OUTPUT_VARIABLE HOMEBREW_PREFIX
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET)
+  if(HOMEBREW_PREFIX)
+    # qt6/qt is the meta-package; qtbase has the actual cmake configs and tools.
+    # qtimageformats provides Qt6::QTiffPlugin.
+    foreach(_pkg qtbase qtimageformats qt6 gdal opencv libomp)
+      if(EXISTS "${HOMEBREW_PREFIX}/opt/${_pkg}")
+        list(APPEND CMAKE_PREFIX_PATH "${HOMEBREW_PREFIX}/opt/${_pkg}")
+      endif()
+    endforeach()
+    message(STATUS "macOS: Homebrew prefix = ${HOMEBREW_PREFIX}")
+  endif()
+
+  # Apple Clang doesn't ship with OpenMP; configure for Homebrew libomp.
+  execute_process(
+    COMMAND brew --prefix libomp
+    OUTPUT_VARIABLE LIBOMP_PREFIX
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET)
+  if(LIBOMP_PREFIX AND EXISTS "${LIBOMP_PREFIX}")
+    set(OpenMP_CXX_FLAGS "-Xpreprocessor -fopenmp -I${LIBOMP_PREFIX}/include")
+    set(OpenMP_CXX_LIB_NAMES "omp")
+    set(OpenMP_omp_LIBRARY "${LIBOMP_PREFIX}/lib/libomp.dylib")
+    message(STATUS "macOS: Using libomp from ${LIBOMP_PREFIX}")
+  else()
+    message(WARNING "macOS: libomp not found via Homebrew. Install with: brew install libomp")
+  endif()
+endif()
+
 if(BLAZE_USE_PDAL)
   add_compile_definitions(USE_PDAL)
   find_package(PDAL REQUIRED CONFIG)
@@ -333,7 +368,7 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
 
 add_subdirectory(src)
 
-gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120)
+gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120 DISCOVERY_MODE PRE_TEST)
 
 include(GNUInstallDirs)
 
@@ -354,11 +389,13 @@ install_proj_data()
 if(NOT BLAZE_CLI_ONLY)
   install(
     TARGETS ${GUI_EXE_NAME}
+    BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
   install(
     TARGETS ${GUI_3D_EXE_NAME}
+    BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)

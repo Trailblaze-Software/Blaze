@@ -217,7 +217,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
            {ui->process_tiles_checkbox, ProcessingStep::Tiles},
            {ui->combine_tiles_checkbox, ProcessingStep::Combine}}) {
     ProcessingStep ps = step;
-    connect(checkbox, &QCheckBox::stateChanged, [this, ps](int state) {
+    connect(checkbox, &QCheckBox::checkStateChanged, [this, ps](Qt::CheckState state) {
       if (state == Qt::Checked) {
         m_config->processing_steps.insert(ps);
       } else {
