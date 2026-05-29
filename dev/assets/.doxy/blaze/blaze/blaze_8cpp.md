@@ -59,6 +59,11 @@
 |  [**int**](classCoordinate2D.md) | [**main**](#function-main) ([**int**](classCoordinate2D.md) argc, [**char**](classCoordinate2D.md) \* argv) <br> |
 
 
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
+|  [**bool**](classCoordinate2D.md) | [**is\_las\_file**](#function-is_las_file) ([**const**](classCoordinate2D.md) fs::path & p) <br> |
 
 
 
@@ -96,6 +101,23 @@
 int main (
     int argc,
     char * argv
+) 
+```
+
+
+
+
+<hr>
+## Public Static Functions Documentation
+
+
+
+
+### function is\_las\_file 
+
+```C++
+static bool is_las_file (
+    const fs::path & p
 ) 
 ```
 

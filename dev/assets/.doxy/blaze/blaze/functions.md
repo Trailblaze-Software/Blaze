@@ -84,6 +84,7 @@
 * **interpolate\_holes** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **identify\_sinks** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
 * **INSTANTIATE\_TEST\_SUITE\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **is\_las\_file** ([**blaze.cpp**](blaze_8cpp.md))
 
 
 ## j
