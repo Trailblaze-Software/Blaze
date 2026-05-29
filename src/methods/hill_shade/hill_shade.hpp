@@ -49,7 +49,7 @@ GeoGrid<double> slope(const GeoGrid<T>& grid) {
     for (size_t j = 1; j < grid.width() - 1; j++) {
       double dz_dy = (grid[{j + 1, i}] - grid[{j - 1, i}]) / (2 * grid.dx());
       double dz_dx = (grid[{j, i + 1}] - grid[{j, i - 1}]) / (2 * grid.dy());
-      result[{j, i}] = -atan(sqrt(dz_dx * dz_dx + dz_dy * dz_dy));
+      result[{j, i}] = atan(sqrt(dz_dx * dz_dx + dz_dy * dz_dy));
     }
   }
   return result;

@@ -100,19 +100,19 @@ The following executables will be available in the `build` directory:
 
 #### Prerequisites
 
-Install the required dependencies via [Homebrew](https://brew.sh):
+Install the required dependencies using [Homebrew](https://brew.sh):
 
 ```bash
-./scripts/install-mac-deps.sh
+./scripts/install-macos-deps.sh
 ```
 
-This installs: CMake, GDAL, OpenCV, libomp (OpenMP for Apple Clang), Qt6, Ninja, and ccache.
+This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
 
 #### Building from Source
 
-1. **Configure the build:**
+1. **Configure and compile:**
    ```bash
-   cmake -B build
+   ./scripts/macos-build.sh
    ```
 
    For CLI-only build (without GUI):
@@ -120,14 +120,19 @@ This installs: CMake, GDAL, OpenCV, libomp (OpenMP for Apple Clang), Qt6, Ninja,
    cmake -B build -DBLAZE_CLI_ONLY=ON
    ```
 
-   CMake automatically detects Homebrew packages and configures OpenMP for Apple Clang.
-
-2. **Compile:**
+   Or configure manually:
    ```bash
-   cmake --build build --config Release -j$(sysctl -n hw.logicalcpu)
+   LIBOMP=$(brew --prefix libomp)
+   cmake -B build \
+       -DCMAKE_BUILD_TYPE=Release \
+       "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include" \
+       "-DOpenMP_CXX_LIB_NAMES=omp" \
+       "-DOpenMP_omp_LIBRARY=${LIBOMP}/lib/libomp.dylib" \
+       "-DCMAKE_PREFIX_PATH=$(brew --prefix qt@6)"
+   cmake --build build --parallel
    ```
 
-3. **Install (optional):**
+2. **Install (optional):**
    ```bash
    sudo cmake --install build
    ```

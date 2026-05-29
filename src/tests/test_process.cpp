@@ -2,9 +2,11 @@
 
 #include <cmath>
 #include <limits>
+#include <numbers>
 
 #include "las/las_point.hpp"
 #include "lib/grid/grid.hpp"
+#include "methods/hill_shade/hill_shade.hpp"
 #include "process.hpp"
 
 // Helper class to create test grids
@@ -61,4 +63,66 @@ TEST(Process, NumCellsByDistance) {
   EXPECT_EQ(num_cells_by_distance(1e-6, 1.0), 1);
   EXPECT_EQ(num_cells_by_distance(100.0, 1.0), 101);
   EXPECT_EQ(num_cells_by_distance(100.1, 1.0), 101);
+}
+
+// ---- slope() tests -------------------------------------------------------
+
+// A flat surface has zero gradient everywhere, so slope should be 0.
+TEST(Slope, FlatSurface) {
+  TestGrid flat({{10, 10, 10, 10, 10},
+                 {10, 10, 10, 10, 10},
+                 {10, 10, 10, 10, 10},
+                 {10, 10, 10, 10, 10},
+                 {10, 10, 10, 10, 10}});
+  auto result = slope(flat);
+  for (size_t i = 1; i < 4; i++) {
+    for (size_t j = 1; j < 4; j++) {
+      double val = result[{j, i}];
+      EXPECT_NEAR(val, 0.0, 1e-9) << "at (" << j << "," << i << ")";
+    }
+  }
+}
+
+// A uniform 45-degree slope (rise = run = 1 cell) produces atan(1) = pi/4.
+TEST(Slope, FortyFiveDegreeSlope) {
+  // Height increases by 1 per row (dy = -1, so dz/dy magnitude = 1).
+  TestGrid sloped(
+      {{0, 0, 0, 0, 0}, {1, 1, 1, 1, 1}, {2, 2, 2, 2, 2}, {3, 3, 3, 3, 3}, {4, 4, 4, 4, 4}});
+  auto result = slope(sloped);
+  for (size_t i = 1; i < 4; i++) {
+    for (size_t j = 1; j < 4; j++) {
+      double val = result[{j, i}];
+      EXPECT_NEAR(val, std::numbers::pi / 4, 1e-9) << "at (" << j << "," << i << ")";
+    }
+  }
+}
+
+// Slope values are always non-negative (range [0, pi/2]).
+TEST(Slope, AlwaysNonNegative) {
+  TestGrid mixed(
+      {{5, 3, 7, 1, 9}, {2, 8, 4, 6, 0}, {9, 1, 5, 3, 7}, {4, 6, 2, 8, 4}, {7, 0, 9, 5, 2}});
+  auto result = slope(mixed);
+  for (size_t i = 1; i < 4; i++) {
+    for (size_t j = 1; j < 4; j++) {
+      double val = result[{j, i}];
+      EXPECT_GE(val, 0.0) << "at (" << j << "," << i << ")";
+    }
+  }
+}
+
+// Slope values never exceed pi/2 (vertical).
+TEST(Slope, NeverExceedsVertical) {
+  // Extreme height differences to stress-test the upper bound.
+  TestGrid steep({{0, 0, 1e6, 0, 0},
+                  {0, 0, 1e6, 0, 0},
+                  {0, 0, 1e6, 0, 0},
+                  {0, 0, 1e6, 0, 0},
+                  {0, 0, 1e6, 0, 0}});
+  auto result = slope(steep);
+  for (size_t i = 1; i < 4; i++) {
+    for (size_t j = 1; j < 4; j++) {
+      double val = result[{j, i}];
+      EXPECT_LE(val, std::numbers::pi / 2) << "at (" << j << "," << i << ")";
+    }
+  }
 }

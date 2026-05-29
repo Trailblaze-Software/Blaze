@@ -10,6 +10,9 @@
 #include <shlobj.h>
 #include <windows.h>
 #endif
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#endif
 #ifdef __linux__
 #include <linux/limits.h>
 #include <unistd.h>
@@ -25,6 +28,20 @@ fs::path get_asset_dir() {
   char buffer[MAX_PATH];
   GetModuleFileNameA(NULL, buffer, MAX_PATH);
   fs::path path(buffer);
+#endif
+#ifdef __APPLE__
+  char stack_buffer[4096];
+  uint32_t size = sizeof(stack_buffer);
+  std::vector<char> heap_buffer;
+  char* buf_ptr = stack_buffer;
+  if (_NSGetExecutablePath(buf_ptr, &size) != 0) {
+    heap_buffer.resize(size);
+    buf_ptr = heap_buffer.data();
+    if (_NSGetExecutablePath(buf_ptr, &size) != 0) {
+      Fail("Could not get executable path on macOS");
+    }
+  }
+  fs::path path(buf_ptr);
 #endif
 #ifdef __linux__
   char buffer[PATH_MAX];
@@ -47,6 +64,13 @@ fs::path get_asset_dir() {
   fs::path path(resolved);
 #endif
   std::vector<fs::path> asset_paths = {path.parent_path().parent_path() / "share" / "assets"};
+#ifdef __APPLE__
+  // For .app bundles the executable lives at MyApp.app/Contents/MacOS/<exe>.
+  // Assets installed next to the bundle sit at <prefix>/share/assets, which is
+  // four directory levels above the executable.
+  asset_paths.push_back(path.parent_path().parent_path().parent_path().parent_path() / "share" /
+                        "assets");
+#endif
   while (path.has_parent_path() && path.parent_path() != path) {
     path = path.parent_path();
     asset_paths.push_back(path / "assets");
@@ -75,6 +99,15 @@ fs::path get_local_data_dir() {
   }
   Fail("Could not get local windows data directory");
 #endif
+#ifdef __APPLE__
+  const char* home_dir = getenv("HOME");
+  if (home_dir == nullptr) {
+    Fail("Could not get local macOS data directory");
+  }
+  fs::path path = fs::path(home_dir) / "Library" / "Application Support" / "blaze";
+  fs::create_directories(path);
+  return path;
+#endif
 #ifdef __linux__
   const char* home_dir = getenv("HOME");
   if (home_dir == nullptr) {
@@ -93,6 +126,7 @@ fs::path get_local_data_dir() {
   fs::create_directories(path);
   return path;
 #endif
+  Fail("Unsupported platform for get_local_data_dir");
 }
 
 fs::path LocalDataRetriever::get_local_data(const fs::path& asset) {

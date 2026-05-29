@@ -5,19 +5,20 @@ if(CMAKE_VERSION GREATER 3.24)
   cmake_policy(SET CMP0135 NEW)
 endif()
 
+# Propagate CMP0091 NEW into FetchContent subdirectories whose own
+# cmake_minimum_required() predates 3.15 (notably googletest 1.15.x, which
+# declares VERSION 3.13). Without this, googletest's targets run under CMP0091
+# OLD on MSVC and MSVC_RUNTIME_LIBRARY is silently ignored for them. This is a
+# defensive correctness fix; the MSBuild default of /MD happens to match what we
+# want, but relying on the default is fragile.
+set(CMAKE_POLICY_DEFAULT_CMP0091 NEW)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release")
 endif()
 message(STATUS "CMake Build Type: ${CMAKE_BUILD_TYPE}")
-
-if(MSVC)
-  if(CMAKE_GENERATOR_PLATFORM)
-    message(STATUS "Target Architecture (from -A): ${CMAKE_GENERATOR_PLATFORM}")
-  endif()
-  message(STATUS "Detected MSVC Architecture: ${MSVC_CXX_ARCHITECTURE_ID}")
-endif()
 
 include(FetchContent)
 if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
@@ -42,19 +43,21 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   set(X_VCPKG_APPLOCAL_DEPS_INSTALL
       TRUE
       CACHE BOOL "")
-  if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
-    set(VCPKG_TARGET_TRIPLET "x64-mingw-dynamic")
-    set(VCPKG_HOST_TRIPLET "x64-mingw-dynamic")
-  elseif(MSVC)
-    if(NOT DEFINED VCPKG_TARGET_TRIPLET)
-      if(CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64" OR CMAKE_VS_PLATFORM_NAME
-                                                      STREQUAL "ARM64")
-        set(VCPKG_TARGET_TRIPLET "arm64-windows")
-      else()
-        set(VCPKG_TARGET_TRIPLET "x64-windows")
-      endif()
-    endif()
-  endif()
+
+  # Disable vcpkg's *build-tree* app-local DLL deployment. It injects an
+  # applocal.ps1 POST_BUILD step into every executable target, all of which copy
+  # dependent DLLs into the same shared build/<config> directory. When Blaze and
+  # Blaze3D build in parallel (cmake --build --parallel), these steps race and
+  # one fails with "The process cannot access the file 'brotlicommon.dll'
+  # because it is being used by another process" — and applocal.ps1 (unlike our
+  # own copies) is not error-tolerant, so the whole post-build chain exits 1
+  # (MSB3073). We already copy the full vcpkg bin dir ourselves in
+  # cmake/FindDependencyDLLs.cmake with -ErrorAction SilentlyContinue, which is
+  # lock-tolerant and a superset of what applocal deploys, so the build tree
+  # loses nothing. X_VCPKG_APPLOCAL_DEPS_INSTALL stays TRUE so the
+  # *installed*/packaged GUI binaries still get their deps.
+  set(VCPKG_APPLOCAL_DEPS OFF)
+
   set(VCPKG_BUILD_TYPE "release")
   FetchContent_Declare(
     vcpkg
@@ -231,6 +234,25 @@ if(NOT BLAZE_CLI_ONLY)
   list(APPEND ALL_EXECUTABLES ${GUI_EXE_NAME})
   find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core OpenGL)
   find_package(Qt6OpenGLWidgets REQUIRED)
+
+  # Qt < 6.9.2 injects "-framework AGL" into WrapOpenGL's link interface
+  # (Qt6::Gui depends on it transitively). AGL was removed from the macOS 26
+  # SDK, so linking any Qt GUI target fails with "framework 'AGL' not found".
+  # Strip AGL out of the imported target; it's unused legacy Carbon OpenGL.
+  # Fixed upstream in qtbase commit cdb33c3d (6.9.2+), but filtering here keeps
+  # older Qt and Homebrew Qt building too. No-op on non-Apple platforms and on
+  # Qt versions that don't create the target.
+  if(APPLE AND TARGET WrapOpenGL::WrapOpenGL)
+    get_target_property(_wrap_opengl_libs WrapOpenGL::WrapOpenGL
+                        INTERFACE_LINK_LIBRARIES)
+    if(_wrap_opengl_libs)
+      list(FILTER _wrap_opengl_libs EXCLUDE REGEX "AGL")
+      set_target_properties(
+        WrapOpenGL::WrapOpenGL PROPERTIES INTERFACE_LINK_LIBRARIES
+                                          "${_wrap_opengl_libs}")
+    endif()
+  endif()
+
   if(WIN32)
     qt_standard_project_setup()
   endif()
@@ -366,12 +388,24 @@ FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
 set(INSTALL_GTEST OFF)
+# Match the shared CRT (/MD) used by the rest of the project on MSVC; without
+# this, googletest defaults to /MT and the linker cannot resolve gtest symbols
+# (LNK2001 on MakeAndRegisterTestInfo, etc.).
+set(gtest_force_shared_crt
+    ON
+    CACHE BOOL "" FORCE)
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-)
+  URL https://github.com/google/googletest/archive/refs/tags/v1.15.2.zip)
 FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
+
+# Apple clang raises -Wcharacter-conversion (promoted to error) on the char8_t
+# -> char32_t implicit cast inside gtest-printers.h. The flag name is not
+# individually suppressible on all Apple clang versions, so demote -Werror to a
+# warning for the gtest target only.
+target_compile_options(gtest
+                       PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-error>)
 
 FetchContent_Declare(
   nlohmann_json
@@ -421,9 +455,21 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindProjData.cmake)
 find_proj_data(${LIBRARY_NAME})
 
-target_include_directories(${UNIT_TESTS_NAME}
+# BEFORE PRIVATE so FetchContent's gtest headers are searched *before* the
+# broader include dirs added in the foreach() above (notably GDAL's include
+# directory, which on the no-vcpkg Windows build points to conda's shared
+# C:\Program Files\Miniconda3\Library\include — a directory that turns out to
+# ship its own older <gtest/gtest.h>). Without BEFORE, the test .cpp files
+# compiled against the older header (e.g. MakeAndRegisterTestInfo took `const
+# char*` as its first argument in gtest <=1.14, vs. `std::string` in 1.15+), and
+# the resulting LNK2001 unresolved external symbol errors blamed
+# MakeAndRegisterTestInfo and ReportInvalidTestSuiteType because the gtest.lib
+# built from FetchContent's 1.15.2 source has different mangled names.
+target_include_directories(${UNIT_TESTS_NAME} BEFORE
                            PRIVATE ${googletest_SOURCE_DIR}/googletest/include)
-target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest gtest_main)
+# unit_tests.cpp defines its own main(); link only gtest (not gtest_main) to
+# avoid a duplicate-symbol error.
+target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest)
 
 add_subdirectory(src)
 
@@ -459,7 +505,7 @@ if(NOT BLAZE_CLI_ONLY)
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
-  if(NOT WIN32)
+  if(UNIX AND NOT APPLE)
     set(ENTRY_NAME "blaze")
     configure_file(${PROJECT_SOURCE_DIR}/packaging/Blaze.desktop.in
                    ${CMAKE_CURRENT_BINARY_DIR}/${ENTRY_NAME}.desktop)
@@ -493,7 +539,6 @@ if(NOT BLAZE_CLI_ONLY)
       $<$<CONFIG:DEBUG>:--qtpaths
       ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
     install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
-
   endif()
 endif()
 
@@ -520,6 +565,11 @@ if(WIN32)
   else()
     set(CPACK_SYSTEM_NAME "win64-x64")
   endif()
+elseif(APPLE)
+  set(CPACK_GENERATOR "DragNDrop")
+  set(CPACK_SYSTEM_NAME "macOS-${CMAKE_SYSTEM_PROCESSOR}")
+  set(CPACK_DMG_VOLUME_NAME "Blaze")
+  set(CPACK_DMG_FORMAT "UDZO")
 elseif(UNIX)
   set(CPACK_GENERATOR "STGZ;TGZ;DEB;RPM")
   set(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")

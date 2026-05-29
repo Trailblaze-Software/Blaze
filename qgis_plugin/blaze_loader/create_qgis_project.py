@@ -291,12 +291,15 @@ def create_qgis_project(
     combined_dir="out/combined",
     output_path=None,
     download_topo=True,
+    download_osm=False,
+    osm_source="overpass",
     add_mag_north=True,
     zoom_to_extent=True,
     add_controls=False,
     clear_project=False,
     progress_callback=None,
     gpkg_output_path=None,
+    osm_gpkg_output_path=None,
     # contours_output_path removed, will be set at merge time
     use_current_extent=False,
     current_extent=None,
@@ -315,6 +318,9 @@ def create_qgis_project(
         clear_project: If True, clear existing project first (default: False)
         progress_callback: Optional callback function(message, percent) for progress updates
         gpkg_output_path: Optional path for NSW topo GPKG file (if None, uses combined_dir/nsw_topo.gpkg)
+        download_osm: Download OpenStreetMap layers and attach to project
+        osm_source: OSM source, "overpass" or "geofabrik"
+        osm_gpkg_output_path: Optional path for OSM GPKG file (if None, uses combined_dir/osm.gpkg)
         use_current_extent: If True, use current map extent instead of loading Blaze layers
         current_extent: QgsRectangle for current map extent (required if use_current_extent=True)
         current_crs: QgsCoordinateReferenceSystem for current map (required if use_current_extent=True)
@@ -393,6 +399,7 @@ def create_qgis_project(
     # Get or create groups
     markup_group = find_or_create_group(root, "Markup")  # Markup on top (magnetic north, controls)
     topo_group = find_or_create_group(root, "NSW Topo")
+    osm_group = find_or_create_group(root, "OSM")  # OSM above vectors, below topo
     cliff_group = find_or_create_group(root, "Cliffs")  # Slope-based cliffs - above vectors
     vector_group = find_or_create_group(root, "Vectors")  # Contours/streams - below topo
     raster_group = find_or_create_group(root, "Rasters")
@@ -436,10 +443,22 @@ def create_qgis_project(
             "final_img_extra_contours.tif",
             "ground_intensity.tif",
         ]
+
+        # If output files aren't in combined_path directly, try combined_path/combined.
+        # This covers rasters, contours, streams, and all other generated outputs.
+        data_base = combined_path
+        alt_path = combined_path / "combined"
+        if alt_path.exists() and not any(
+            (combined_path / f).exists() for f in rasters + ["slope.tif", "contours.gpkg", "streams.gpkg"]
+        ):
+            data_base = alt_path
+            log(f"Output files not found in {combined_path}, falling back to {data_base}")
+        raster_base = data_base
+
         raster_count = 0
         for i, f in enumerate(rasters):
             report_progress(f"Adding raster {f} ({i+1}/{len(rasters)})...", 5 + int((i / len(rasters)) * 10))
-            layer = add_raster(combined_path / f, raster_group)
+            layer = add_raster(raster_base / f, raster_group)
             if layer:
                 raster_count += 1
                 crs = layer.crs()
@@ -490,7 +509,7 @@ def create_qgis_project(
         report_progress("Adding vegetation layers...", 15)
 
         # Add vegetation layers LAST (so they're at bottom = render behind other rasters)
-        vege_dir = combined_path / "raw_vege"
+        vege_dir = raster_base / "raw_vege"
         if vege_dir.exists():
             vege_group = find_or_create_group(raster_group, "Vegetation")
 
@@ -538,7 +557,7 @@ def create_qgis_project(
 
         # Add slope as a "Cliffs" layer with cliff_from_slope.qml style
         # Loaded into the Cliffs group so it renders above vector layers
-        slope_path = combined_path / "slope.tif"
+        slope_path = raster_base / "slope.tif"
         if slope_path.exists():
             slope_layer = add_raster(slope_path, cliff_group, prefix="cliff_")
             if slope_layer:
@@ -672,6 +691,923 @@ def create_qgis_project(
         summary["skipped"].append("NSW topo layers (no extent/CRS)")
     # Note: Empty group removal happens at the end
 
+    # -----------------------------
+    # Optional OSM download + attach
+    # -----------------------------
+    # OSM download is driven by a list of layer specs. The spec structure is also
+    # consumed by `osm_regional_extract.py` (Geofabrik mode).
+    #
+    # IMPORTANT: `name` must match `styles/osm/<name>.qml` for styling to apply.
+    #
+    # Layer rendering order inside the OSM group, top of tree -> bottom of tree.
+    # QGIS renders the top of the tree on top of the map, so this list goes from
+    # foreground (points / labels) to background (large landuse polygons).
+    #
+    # General convention: points > lines > polygons. The one explicit exception is
+    # `osm_trees_pts`, which is a point layer but renders under all line layers
+    # so the tree dots don't cover roads, paths, fences, etc.
+    OSM_RENDER_ORDER = [
+        # ---- Points (foreground) ----
+        "osm_peaks",
+        "osm_cave_entrances",
+        "osm_places",
+        "osm_place_regions",
+        "osm_camp_sites_pts",
+        "osm_picnic_sites_pts",
+        "osm_tourism_pts",
+        "osm_remote_amenities",
+        "osm_benches_pts",
+        "osm_survey_points",
+        "osm_mast_pts",
+        "osm_storage_tanks_pts",
+        "osm_water_towers_windmills",
+        "osm_power_towers_pts",
+        "osm_rest_areas_pts",
+        "osm_station_pts",
+        "osm_barrier_points",
+        # ---- Lines ----
+        "osm_admin_boundaries",
+        "osm_landform_lines",
+        "osm_tracks",
+        "osm_roads",
+        "osm_via_ferrata",
+        "osm_bus_guideways",
+        "osm_railways",
+        "osm_rail_abandoned",
+        "osm_pipeline",
+        "osm_power_lines",
+        "osm_embankment",
+        "osm_barriers",
+        "osm_tree_rows",
+        "osm_waterways",
+        "osm_coastlines",
+        "osm_rest_areas_ways",
+        "osm_station_ways",
+        "osm_power_areas",
+        "osm_storage_tanks",
+        # ---- Tree points sit just under all line layers (special case) ----
+        "osm_trees_pts",
+        # ---- Polygons (smaller / "in front" features above land use) ----
+        "osm_fences",
+        "osm_swimming_pools",
+        "osm_buildings",
+        "osm_building_parts",
+        "osm_water",
+        "osm_leisure_water",
+        "osm_landform_poly",
+        "osm_natural_surface",
+        "osm_wood",
+        "osm_tourism_poly",
+        "osm_leisure",
+        "osm_landuse",
+        "osm_boundary_protected",
+    ]
+
+    def _reorder_osm_group_children(group, layer_defs):
+        """Re-order the OSM group's layer children to match ``OSM_RENDER_ORDER``.
+
+        Uses ``QgsLayerTreeNode.clone()`` to avoid the well-known "remove + re-insert"
+        gotcha (``removeChildNode`` deletes the underlying C++ node, leaving any
+        Python proxy dangling). Layers not present in ``OSM_RENDER_ORDER`` keep
+        their original relative order and are appended after the explicitly
+        ordered ones, grouped by geometry tier (points -> lines -> polygons) so
+        new layers slot in roughly where they belong without code changes.
+        """
+        try:
+            import re
+
+            order_index = {n: i for i, n in enumerate(OSM_RENDER_ORDER)}
+            geom_tier = {"point": 0, "line": 1, "line_or_polygon": 2, "polygon": 3}
+            name_to_geom = {d["name"]: d.get("geom", "line") for d in layer_defs}
+
+            originals = []
+            for i, child in enumerate(list(group.children())):
+                if child.nodeType() != 0:  # QgsLayerTreeNode.NodeLayer == 0
+                    continue
+                lyr = child.layer()
+                if lyr is None:
+                    continue
+                raw_name = lyr.name()
+                # QGIS may auto-suffix duplicate layer names as "name (2)" etc.
+                # Keep ordering stable by mapping back to the base catalog name.
+                base_name = re.sub(r"\s*\(\d+\)\s*$", "", raw_name).strip()
+                if base_name in order_index:
+                    primary = (0, order_index[base_name], "")
+                else:
+                    g = name_to_geom.get(base_name, "line")
+                    primary = (1, geom_tier.get(g, 1), base_name)
+                originals.append((primary, i, child, base_name, raw_name, lyr.id()))
+
+            if not originals:
+                return
+
+            originals.sort(key=lambda t: (t[0], t[1]))
+
+            # originals tuples are: (primary, original_idx, node, base_name, raw_name, layer_id)
+            cloned = [t[2].clone() for t in originals]
+            for c in cloned:
+                group.addChildNode(c)
+            for _, _, orig, *_rest in originals:
+                try:
+                    group.removeChildNode(orig)
+                except Exception:
+                    pass
+
+            # "Added:" logs above follow GeoPackage layer enumeration order, not
+            # ``OSM_RENDER_ORDER``. Log the actual layer-tree order after reorder.
+            final_order = []
+            for child in list(group.children()):
+                if child.nodeType() != 0:
+                    continue
+                lyr = child.layer()
+                if lyr is not None:
+                    final_order.append(lyr.name())
+            log("OSM group layer order (top of tree = drawn on top of map): " + ", ".join(final_order))
+
+            # If the project is using Custom Layer Order, tree reordering won't
+            # affect rendering. Update the custom order list to match the new
+            # OSM ordering while keeping non-OSM layers in place.
+            try:
+                root = QgsProject.instance().layerTreeRoot()
+                if hasattr(root, "hasCustomLayerOrder") and root.hasCustomLayerOrder():
+                    current = list(root.customLayerOrder())
+
+                    def _as_layer_id(v):
+                        try:
+                            # QgsMapLayer
+                            return v.id()
+                        except Exception:
+                            return str(v)
+
+                    current_ids = [_as_layer_id(v) for v in current]
+                    osm_ids = [lid for *_x, lid in originals if lid]
+                    osm_set = set(osm_ids)
+
+                    ordered_osm_ids = []
+                    for child in list(group.children()):
+                        if child.nodeType() != 0:
+                            continue
+                        lyr = child.layer()
+                        if lyr is None:
+                            continue
+                        if lyr.id() in osm_set:
+                            ordered_osm_ids.append(lyr.id())
+
+                    if ordered_osm_ids:
+                        first_osm_idx = None
+                        for idx, lid in enumerate(current_ids):
+                            if lid in osm_set:
+                                first_osm_idx = idx
+                                break
+
+                        if first_osm_idx is None:
+                            new_ids = current_ids + ordered_osm_ids
+                        else:
+                            new_ids = []
+                            inserted = False
+                            for lid in current_ids:
+                                if lid in osm_set:
+                                    if not inserted:
+                                        new_ids.extend(ordered_osm_ids)
+                                        inserted = True
+                                    continue
+                                new_ids.append(lid)
+                        root.setCustomLayerOrder(new_ids)
+            except Exception:
+                pass
+        except Exception as e:
+            log(f"OSM layer reorder failed: {e}")
+
+    OSM_LAYER_DEFS = [
+        # Highways & access
+        {
+            "name": "osm_roads",
+            "element": "way",
+            "filters": [
+                '["highway"~"^('
+                "motorway|trunk|primary|secondary|tertiary|"
+                "unclassified|residential|service|living_street|road|"
+                "motorway_link|trunk_link|primary_link|secondary_link|tertiary_link"
+                ')$"]'
+            ],
+            "tag": "highway",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_tracks",
+            "element": "way",
+            "filters": ['["highway"~"^(track|path|bridleway|footway|cycleway|steps|pedestrian)$"]'],
+            "tag": "highway",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_bus_guideways",
+            "element": "way",
+            "filters": ['["highway"="bus_guideway"]', '["busway"]'],
+            "tag": "highway",
+            "geom": "line",
+            "visible": False,
+        },
+        {
+            "name": "osm_via_ferrata",
+            "element": "way",
+            "filters": ['["highway"="via_ferrata"]'],
+            "tag": "highway",
+            "geom": "line",
+            "visible": False,
+        },
+        {
+            "name": "osm_rest_areas_pts",
+            "element": "node",
+            "filters": ['["highway"="rest_area"]', '["highway"="services"]'],
+            "tag": "highway",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_rest_areas_ways",
+            "element": "way",
+            "filters": ['["highway"="rest_area"]', '["highway"="services"]'],
+            "tag": "highway",
+            "geom": "line_or_polygon",
+            "visible": False,
+        },
+        # Rail
+        {
+            "name": "osm_railways",
+            "element": "way",
+            "filters": ['["railway"~"^(rail|light_rail|subway|tram|monorail|narrow_gauge|preserved)$"]'],
+            "tag": "railway",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_rail_abandoned",
+            "element": "way",
+            "filters": ['["railway"~"^(abandoned|disused|razed)$"]'],
+            "tag": "railway",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_station_pts",
+            "element": "node",
+            "filters": ['["railway"~"^(station|halt|tram_stop)$"]'],
+            "tag": "railway",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_station_ways",
+            "element": "way",
+            "filters": ['["railway"~"^(station|halt|tram_stop)$"]'],
+            "tag": "railway",
+            "geom": "line_or_polygon",
+            "visible": False,
+        },
+        # Water (lines + polygons)
+        {
+            "name": "osm_waterways",
+            "element": "way",
+            "filters": ['["waterway"]'],
+            "tag": "waterway",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_coastlines",
+            "element": "way",
+            "filters": ['["natural"="coastline"]'],
+            "tag": "natural",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_water",
+            # Single water layer: include both closed ways and multipolygon relations.
+            # (Overpass: query ways + relations; Geofabrik: accept way + relation features.)
+            "query_batches": [
+                {
+                    "element": "way",
+                    "filters": ['["natural"="water"]', '["water"]', '["landuse"~"^(reservoir|basin|reservoir)$"]'],
+                },
+                {
+                    "element": "rel",
+                    "filters": [
+                        '["type"="multipolygon"]["natural"="water"]',
+                        '["type"="multipolygon"]["water"]',
+                        '["type"="multipolygon"]["landuse"~"^(reservoir|basin|reservoir)$"]',
+                    ],
+                },
+            ],
+            "tag": "natural",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_leisure_water",
+            "query_batches": [
+                {
+                    "element": "way",
+                    "filters": ['["leisure"="swimming_area"]', '["leisure"="slipway"]', '["leisure"="marina"]'],
+                },
+                {
+                    "element": "rel",
+                    "filters": [
+                        '["type"="multipolygon"]["leisure"="swimming_area"]',
+                        '["type"="multipolygon"]["leisure"="slipway"]',
+                        '["type"="multipolygon"]["leisure"="marina"]',
+                    ],
+                },
+            ],
+            "tag": "leisure",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_swimming_pools",
+            "query_batches": [
+                {"element": "way", "filters": ['["leisure"="swimming_pool"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["leisure"="swimming_pool"]']},
+            ],
+            "tag": "leisure",
+            "geom": "polygon",
+            "visible": True,
+        },
+        # Natural / landcover
+        {
+            "name": "osm_wood",
+            "query_batches": [
+                {"element": "way", "filters": ['["natural"~"^(wood|scrub|heath)$"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["natural"~"^(wood|scrub|heath)$"]']},
+            ],
+            "tag": "natural",
+            "geom": "polygon",
+            "visible": False,
+        },
+        {
+            "name": "osm_landuse",
+            # Single landuse layer: include both ways and multipolygon relations.
+            # (Relation geometries are handled in Geofabrik mode; Overpass mode remains ways-only.)
+            "query_batches": [
+                {"element": "way", "filters": ['["landuse"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["landuse"]']},
+            ],
+            "tag": "landuse",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_leisure",
+            "query_batches": [
+                {"element": "way", "filters": ['["leisure"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["leisure"]']},
+            ],
+            "tag": "leisure",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_landform_lines",
+            "element": "way",
+            "filters": ['["natural"~"^(cliff|ridge|arete)$"]'],
+            "tag": "natural",
+            "geom": "line",
+            "visible": False,
+        },
+        {
+            "name": "osm_landform_poly",
+            "query_batches": [
+                {"element": "way", "filters": ['["natural"="fell"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["natural"="fell"]']},
+            ],
+            "tag": "natural",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_natural_surface",
+            "query_batches": [
+                {"element": "way", "filters": ['["natural"~"^(grassland|sand|beach|rock|shingle)$"]']},
+                {
+                    "element": "rel",
+                    "filters": ['["type"="multipolygon"]["natural"~"^(grassland|sand|beach|rock|shingle)$"]'],
+                },
+            ],
+            "tag": "natural",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_peaks",
+            "element": "node",
+            "filters": ['["natural"~"^(peak|volcano|saddle)$"]'],
+            "tag": "natural",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_cave_entrances",
+            "element": "node",
+            "filters": ['["natural"="cave_entrance"]'],
+            "tag": "natural",
+            "geom": "point",
+            "visible": True,
+        },
+        # Boundaries (protected areas)
+        {
+            "name": "osm_boundary_protected",
+            "element": "rel",
+            "filters": ['["boundary"~"^(national_park|protected_area)$"]', '["leisure"="nature_reserve"]'],
+            "tag": "boundary",
+            "geom": "polygon",
+            "visible": False,
+        },
+        # Buildings & barriers
+        {
+            "name": "osm_buildings",
+            # Single buildings layer: include both ways and multipolygon relations.
+            "query_batches": [
+                {"element": "way", "filters": ['["building"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["building"]']},
+            ],
+            "tag": "building",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_barriers",
+            "element": "way",
+            "filters": ['["barrier"]'],
+            "tag": "barrier",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            # Polygon-only: closed `barrier=fence` ways and multipolygon relations
+            # representing fenced enclosures. Linear `barrier=fence` ways flow into
+            # `osm_barriers` (geom: line) instead, so there is no overlap.
+            "name": "osm_fences",
+            "query_batches": [
+                {"element": "way", "filters": ['["barrier"="fence"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["barrier"="fence"]']},
+            ],
+            "tag": "barrier",
+            "geom": "polygon",
+            "visible": True,
+        },
+        {
+            "name": "osm_barrier_points",
+            "element": "node",
+            "filters": ['["barrier"]'],
+            "tag": "barrier",
+            "geom": "point",
+            "visible": True,
+        },
+        # Power / pipelines
+        {
+            "name": "osm_power_lines",
+            "element": "way",
+            "filters": ['["power"~"^(line|minor_line)$"]'],
+            "tag": "power",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_power_towers_pts",
+            "element": "node",
+            "filters": ['["power"~"^(tower|pole)$"]'],
+            "tag": "power",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_power_areas",
+            "element": "way",
+            "filters": ['["power"~"^(substation|plant|generator)$"]'],
+            "tag": "power",
+            "geom": "line_or_polygon",
+            "visible": False,
+        },
+        {
+            "name": "osm_pipeline",
+            "element": "way",
+            # Exclude underground / tunnelled pipelines (keep only surface/unknown location).
+            # Using !~ keeps features where the tag is missing.
+            "filters": [
+                '["man_made"="pipeline"]["location"!~"^underground$"]["tunnel"!~"^(yes|culvert)$"]["covered"!~"^yes$"]'
+            ],
+            "tag": "man_made",
+            "geom": "line",
+            "visible": True,
+        },
+        # POIs / amenities / tourism
+        {
+            "name": "osm_survey_points",
+            "element": "node",
+            "filters": ['["man_made"="survey_point"]', '["man_made"="benchmark"]', '["historic"="benchmark"]'],
+            "tag": "man_made",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_mast_pts",
+            "element": "node",
+            "filters": ['["man_made"~"^(tower|mast|chimney)$"]'],
+            "tag": "man_made",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_embankment",
+            "element": "way",
+            "filters": ['["man_made"~"^(cutline|embankment)$"]'],
+            "tag": "man_made",
+            "geom": "line",
+            "visible": True,
+        },
+        {
+            "name": "osm_tourism_pts",
+            "element": "node",
+            "filters": ['["tourism"~"^(viewpoint|information|alpine_hut|wilderness_hut|camp_site|picnic_site)$"]'],
+            "tag": "tourism",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_camp_sites_pts",
+            "element": "node",
+            "filters": ['["tourism"="camp_site"]'],
+            "tag": "tourism",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_picnic_sites_pts",
+            "element": "node",
+            "filters": ['["tourism"="picnic_site"]', '["leisure"="picnic_table"]'],
+            "tag": "tourism",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_tourism_poly",
+            "query_batches": [
+                {
+                    "element": "way",
+                    "filters": [
+                        '["tourism"~"^(viewpoint|information|alpine_hut|wilderness_hut|camp_site|picnic_site)$"]'
+                    ],
+                },
+                {
+                    "element": "rel",
+                    "filters": [
+                        '["type"="multipolygon"]'
+                        '["tourism"~"^(viewpoint|information|alpine_hut|wilderness_hut|camp_site|picnic_site)$"]'
+                    ],
+                },
+            ],
+            "tag": "tourism",
+            "geom": "polygon",
+            "visible": False,
+        },
+        {
+            "name": "osm_remote_amenities",
+            "element": "node",
+            "filters": ['["amenity"~"^(shelter|toilets|drinking_water|fountain)$"]'],
+            "tag": "amenity",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_benches_pts",
+            "element": "node",
+            "filters": ['["amenity"="bench"]'],
+            "tag": "amenity",
+            "geom": "point",
+            "visible": False,
+        },
+        # Places
+        {
+            "name": "osm_place_regions",
+            "element": "node",
+            "filters": ['["place"~"^(region|island|islet)$"]'],
+            "tag": "place",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_places",
+            "element": "node",
+            "filters": ['["place"]'],
+            "tag": "place",
+            "geom": "point",
+            "visible": True,
+        },
+        # --- requested additions ---
+        {
+            "name": "osm_trees_pts",
+            "element": "node",
+            "filters": ['["natural"="tree"]'],
+            "tag": "natural",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_tree_rows",
+            "element": "way",
+            "filters": ['["natural"="tree_row"]'],
+            "tag": "natural",
+            "geom": "line",
+            "visible": False,
+        },
+        {
+            "name": "osm_building_parts",
+            "query_batches": [
+                {"element": "way", "filters": ['["building:part"]']},
+                {"element": "rel", "filters": ['["type"="multipolygon"]["building:part"]']},
+            ],
+            "tag": "building",
+            "geom": "polygon",
+            "visible": False,
+        },
+        {
+            "name": "osm_storage_tanks",
+            "element": "way",
+            "filters": ['["man_made"~"^(silo|storage_tank)$"]'],
+            "tag": "man_made",
+            "geom": "line_or_polygon",
+            "visible": False,
+        },
+        {
+            "name": "osm_storage_tanks_pts",
+            "element": "node",
+            "filters": ['["man_made"~"^(silo|storage_tank)$"]'],
+            "tag": "man_made",
+            "geom": "point",
+            "visible": True,
+        },
+        {
+            "name": "osm_water_towers_windmills",
+            "element": "node",
+            "filters": ['["man_made"~"^(water_tower|windmill)$"]'],
+            "tag": "man_made",
+            "geom": "point",
+            "visible": False,
+        },
+        {
+            "name": "osm_admin_boundaries",
+            "element": "way",
+            "filters": ['["boundary"="administrative"]'],
+            "tag": "boundary",
+            "geom": "line",
+            "visible": False,
+        },
+    ]
+
+    def _osm_bbox_wgs84(extent, crs):
+        """Return (south,west,north,east) bbox in WGS84 for Overpass."""
+        from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
+
+        wgs84 = QgsCoordinateReferenceSystem("EPSG:4326")
+        try:
+            transform = QgsCoordinateTransform(crs, wgs84, QgsProject.instance())
+            r = transform.transformBoundingBox(extent)
+            return (r.yMinimum(), r.xMinimum(), r.yMaximum(), r.xMaximum())
+        except Exception:
+            return (extent.yMinimum(), extent.xMinimum(), extent.yMaximum(), extent.xMaximum())
+
+    def _download_osm_overpass(layer_defs, extent, crs, gpkg_path):
+        """Download OSM layers using Overpass JSON and write to a GeoPackage."""
+        import json
+        import urllib.parse
+        import urllib.request
+
+        from osgeo import ogr as _ogr
+
+        gpkg_path = Path(gpkg_path)
+        gpkg_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Delete existing
+        driver = _ogr.GetDriverByName("GPKG")
+        if driver is None:
+            raise RuntimeError("GPKG driver not available")
+        for suffix in ("", "-wal", "-shm"):
+            p = Path(str(gpkg_path) + suffix)
+            if p.exists():
+                try:
+                    p.unlink()
+                except OSError:
+                    pass
+
+        ds = driver.CreateDataSource(str(gpkg_path))
+        if ds is None:
+            raise RuntimeError(f"Could not create {gpkg_path}")
+
+        srs = None
+        try:
+            from osgeo import osr as _osr
+
+            srs = _osr.SpatialReference()
+            srs.ImportFromWkt(crs.toWkt())
+        except Exception:
+            srs = None
+
+        south, west, north, east = _osm_bbox_wgs84(extent, crs)
+        bbox = f"{south},{west},{north},{east}"
+
+        endpoint = "https://overpass-api.de/api/interpreter"
+
+        def mk_layer(name, geom_kind, primary_tag):
+            geom_map = {
+                "point": _ogr.wkbPoint,
+                "line": _ogr.wkbLineString,
+                "polygon": _ogr.wkbPolygon,
+                "line_or_polygon": _ogr.wkbUnknown,
+            }
+            layer = ds.CreateLayer(name, srs=srs, geom_type=geom_map.get(geom_kind, _ogr.wkbUnknown))
+            if layer is None:
+                raise RuntimeError(f"Could not create layer {name}")
+            layer.CreateField(_ogr.FieldDefn("name", _ogr.OFTString))
+            layer.CreateField(_ogr.FieldDefn(primary_tag, _ogr.OFTString))
+            layer.CreateField(_ogr.FieldDefn("tags", _ogr.OFTString))
+            return layer
+
+        def element_geom(el, geom_kind):
+            t = el.get("type")
+            if t == "node":
+                lon, lat = el.get("lon"), el.get("lat")
+                if lon is None or lat is None:
+                    return None
+                g = _ogr.Geometry(_ogr.wkbPoint)
+                g.AddPoint(float(lon), float(lat))
+                return g
+            if t == "way":
+                coords = el.get("geometry") or []
+                if len(coords) < 2:
+                    return None
+                is_closed = coords[0].get("lon") == coords[-1].get("lon") and coords[0].get("lat") == coords[-1].get(
+                    "lat"
+                )
+                # Polygon-only layers reject open ways (would produce invalid
+                # ringless polygons). `line_or_polygon` only emits a polygon for
+                # closed ways with enough points and otherwise falls through to a line.
+                if geom_kind == "polygon":
+                    if not (is_closed and len(coords) >= 4):
+                        return None
+                    ring = _ogr.Geometry(_ogr.wkbLinearRing)
+                    for c in coords:
+                        ring.AddPoint(float(c["lon"]), float(c["lat"]))
+                    poly = _ogr.Geometry(_ogr.wkbPolygon)
+                    poly.AddGeometry(ring)
+                    return poly
+                if geom_kind == "line_or_polygon" and is_closed and len(coords) >= 4:
+                    ring = _ogr.Geometry(_ogr.wkbLinearRing)
+                    for c in coords:
+                        ring.AddPoint(float(c["lon"]), float(c["lat"]))
+                    poly = _ogr.Geometry(_ogr.wkbPolygon)
+                    poly.AddGeometry(ring)
+                    return poly
+                line = _ogr.Geometry(_ogr.wkbLineString)
+                for c in coords:
+                    line.AddPoint(float(c["lon"]), float(c["lat"]))
+                return line
+            return None
+
+        for idx, spec in enumerate(layer_defs, start=1):
+            name = spec["name"]
+            filters = spec.get("filters") or []
+            primary_tag = spec.get("tag") or "type"
+            geom_kind = spec.get("geom") or "line"
+
+            report_progress(f"OSM: downloading {name} ({idx}/{len(layer_defs)})…", None)
+
+            layer = mk_layer(name, geom_kind, primary_tag)
+            if spec.get("query_batches"):
+                parts = []
+                for b in spec["query_batches"]:
+                    be = b["element"]
+                    bfs = b.get("filters") or []
+                    parts.extend([f"{be}{f}({bbox});" for f in bfs])
+            else:
+                element = spec["element"]
+                parts = [f"{element}{f}({bbox});" for f in filters]
+            if not parts:
+                continue
+            query = "[out:json][timeout:180];(" + "".join(parts) + ");out body geom;"
+            data = urllib.parse.urlencode({"data": query}).encode("utf-8")
+
+            try:
+                with urllib.request.urlopen(endpoint, data=data, timeout=240) as resp:
+                    payload = resp.read().decode("utf-8", errors="replace")
+                js = json.loads(payload)
+            except Exception as e:
+                log(f"  OSM download failed for {name}: {e}")
+                continue
+
+            count = 0
+            for el in js.get("elements", []):
+                tags = el.get("tags") or {}
+                g = element_geom(el, geom_kind)
+                if g is None:
+                    continue
+                feat = _ogr.Feature(layer.GetLayerDefn())
+                feat.SetGeometry(g)
+                if "name" in tags:
+                    feat.SetField("name", str(tags.get("name"))[:254])
+                if name == "osm_water" and primary_tag == "natural":
+                    pv = tags.get("natural") or tags.get("water") or tags.get("landuse") or ""
+                else:
+                    pv = tags.get(primary_tag) or ""
+                if pv:
+                    feat.SetField(primary_tag, str(pv)[:254])
+                try:
+                    tag_json = json.dumps(tags, ensure_ascii=False)
+                    if len(tag_json) > 4096:
+                        tag_json = tag_json[:4093] + "..."
+                    feat.SetField("tags", tag_json)
+                except Exception:
+                    pass
+                layer.CreateFeature(feat)
+                count += 1
+            log(f"  OSM {name}: {count} features")
+
+        ds = None
+        return gpkg_path
+
+    def _attach_osm_gpkg_to_project(gpkg_path):
+        """Attach OSM GPKG layers to the current QGIS project."""
+        # Attach to the pre-created OSM group so render order is stable.
+        layers = add_gpkg_layers(str(gpkg_path), osm_group, None, root, apply_default_style=True)
+        visible = {d["name"] for d in OSM_LAYER_DEFS if d.get("visible")}
+        for lyr in layers:
+            try:
+                node = osm_group.findLayer(lyr.id())
+                if node and lyr.name() not in visible:
+                    node.setItemVisibilityChecked(False)
+            except Exception:
+                pass
+
+        _reorder_osm_group_children(osm_group, OSM_LAYER_DEFS)
+
+    if download_osm and project_extent and project_crs:
+        try:
+            osm_gpkg = (
+                Path(osm_gpkg_output_path)
+                if osm_gpkg_output_path
+                else (
+                    data_base / "osm.gpkg"
+                    if not use_current_extent
+                    else (Path(tempfile.gettempdir()) / "blaze_plugin" / "osm.gpkg")
+                )
+            )
+            if str(osm_source).lower() == "geofabrik":
+                # `create_qgis_project.py` is executed via `exec()` by the plugin, so
+                # it has no package context and cannot use relative imports.
+                # Load sibling module directly from disk instead.
+                import importlib.util
+
+                osm_regional_extract_path = SCRIPT_DIR / "osm_regional_extract.py"
+                spec = importlib.util.spec_from_file_location(
+                    "blaze_loader_osm_regional_extract", str(osm_regional_extract_path)
+                )
+                if spec is None or spec.loader is None:
+                    raise RuntimeError("Could not load osm_regional_extract.py")
+                osm_regional_extract = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(osm_regional_extract)  # type: ignore[attr-defined]
+                add_osm_layers_from_regional_extract = osm_regional_extract.add_osm_layers_from_regional_extract
+
+                def _attach_fn(group, gpkg_path, progress_callback=None, log_func=None):
+                    # Signature matches `osm_regional_extract.add_osm_layers_from_regional_extract`.
+                    # We ignore the passed `group` and attach into the current project.
+                    _attach_osm_gpkg_to_project(gpkg_path)
+
+                osm_details = add_osm_layers_from_regional_extract(
+                    group=None,
+                    extent=project_extent,
+                    crs=project_crs,
+                    output_dir=str(osm_gpkg.parent),
+                    layer_defs=OSM_LAYER_DEFS,
+                    attach_fn=_attach_fn,
+                    progress_callback=progress_callback,
+                    log_func=log,
+                    gpkg_output_path=str(osm_gpkg),
+                    parent_window=parent_window,
+                )
+                summary["loaded"].append("OSM layers (Geofabrik)")
+                summary["osm_details"] = osm_details
+            else:
+                gpkg_path = _download_osm_overpass(OSM_LAYER_DEFS, project_extent, project_crs, osm_gpkg)
+                _attach_osm_gpkg_to_project(gpkg_path)
+                summary["loaded"].append("OSM layers (Overpass)")
+        except Exception as e:
+            log(f"OSM: failed: {e}")
+            summary["failed"].append(f"OSM download failed: {e}")
+    elif download_osm:
+        summary["skipped"].append("OSM layers (no extent/CRS)")
+
     # Add vector layers (contours, streams) AFTER topo layers so they render underneath
     # Only if not using current extent
     vector_extent = None
@@ -679,9 +1615,9 @@ def create_qgis_project(
         report_progress("Adding vector layers (contours, streams)...", 50)
 
         # Add contours - merge all layers into single layer with QML style
-        contours_gpkg = combined_path / "contours.gpkg"
+        contours_gpkg = data_base / "contours.gpkg"
         if contours_gpkg.exists():
-            default_path = str(combined_path / "contours_merged.gpkg")
+            default_path = str(data_base / "contours_merged.gpkg")
 
             # Skip file dialog in headless mode (CI/automated execution)
             if os.environ.get("BLAZE_EXIT_AFTER_RUN") or parent_window is None:
@@ -786,7 +1722,7 @@ def create_qgis_project(
                 summary["failed"].append("Contours (merge failed)")
 
         # Add streams with QML style
-        streams_gpkg = combined_path / "streams.gpkg"
+        streams_gpkg = data_base / "streams.gpkg"
         if streams_gpkg.exists():
             layers = add_gpkg_layers(streams_gpkg, vector_group, project_crs, root, apply_default_style=False)
             if layers:
@@ -856,21 +1792,26 @@ def create_qgis_project(
                 output_dir.mkdir(parents=True, exist_ok=True)
                 # Make filename unique to allow multiple calls
                 timestamp = int(time.time())
+                path_500m = output_dir / f"magnetic_north_lines_500m_{timestamp}.gpkg"
                 path_1km = output_dir / f"magnetic_north_lines_1km_{timestamp}.gpkg"
                 path_2km = output_dir / f"magnetic_north_lines_2km_{timestamp}.gpkg"
             else:
-                path_1km = combined_path / "magnetic_north_lines_1km.gpkg"
-                path_2km = combined_path / "magnetic_north_lines_2km.gpkg"
+                path_500m = data_base / "magnetic_north_lines_500m.gpkg"
+                path_1km = data_base / "magnetic_north_lines_1km.gpkg"
+                path_2km = data_base / "magnetic_north_lines_2km.gpkg"
 
-            # Two layers with scale-based visibility:
-            #   - 1km spacing  = 4cm @ 1:25,000  → visible when zoomed in beyond 1:37,500
-            #   - 2km spacing  = 4cm @ 1:50,000  → visible from 1:37,500 to 1:100,000
-            # Both layers are hidden when zoomed out beyond 1:100,000.
-            crossover_scale = 37500
-            min_scale_far = 100000
+            # Three layers with scale-based visibility.
+            # Breakpoints tuned to reduce clutter while still giving fine grids when zoomed in:
+            #   - 500m spacing: visible when zoomed in past 1:20,000
+            #   - 1km  spacing: visible 1:20,000–1:40,000
+            #   - 2km  spacing: visible 1:40,000–1:100,000
+            s500 = 20000
+            s1k = 40000
+            s2k = 100000
             mag_specs = [
-                ("Magnetic North 1km", path_1km, 1000, crossover_scale, None),
-                ("Magnetic North 2km", path_2km, 2000, min_scale_far, crossover_scale),
+                ("Magnetic North 0.5km", path_500m, 500, s500, None),
+                ("Magnetic North 1km", path_1km, 1000, s1k, s500),
+                ("Magnetic North 2km", path_2km, 2000, s2k, s1k),
             ]
 
             existing_names = set()
@@ -919,7 +1860,7 @@ def create_qgis_project(
             timestamp = int(time.time())
             controls_path = output_dir / f"controls_{timestamp}.gpkg"
         else:
-            controls_path = combined_path / "controls.gpkg"
+            controls_path = data_base / "controls.gpkg"
         layer = add_controls_layer(project_extent, project_crs, markup_group, controls_path)
         if layer:
             summary["loaded"].append("Controls layer")
@@ -1103,6 +2044,15 @@ def add_magnetic_north_lines(
         "UnitsOfMeasure": 1,  # 0=Kilometers, 1=Meters, 2=Centimeters, ...
         out_param: str(output_path),
     }
+
+    # Compass Routes performance/quality knobs (names from `create_magnetic_north.py`).
+    if "TraceInterval" in param_names:
+        params["TraceInterval"] = 200.0  # meters
+    if "DistanceTolerance" in param_names:
+        params["DistanceTolerance"] = float(spacing) * 0.05  # meters
+    if "VariationTolerance" in param_names:
+        params["VariationTolerance"] = 0.1  # degrees
+
     log(f"Magnetic north algorithm '{algo_id}' params: " f"{distance_param}={spacing}m, output={output_path.name}")
 
     try:
@@ -1291,7 +2241,7 @@ def add_nsw_topo_layers(
         (f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/6", "NPWSReserve", True),
         (f"{base_url}/NSW_Administrative_Boundaries_Theme/MapServer/3", "StateForest", True),
         # Land/Property
-        (f"{base_url}/NSW_Land_Parcel_Property_Theme/MapServer/12", "Property", False),
+        (f"{base_url}/NSW_Land_Parcel_Property_Theme_multiCRS/FeatureServer/12", "Property", False),
         # Cadastre (from maps.six.nsw.gov.au)
         ("https://maps.six.nsw.gov.au/arcgis/rest/services/public/NSW_Cadastre/MapServer/9", "CadastreLot", True),
         # Physiography
@@ -1442,21 +2392,57 @@ def add_nsw_topo_layers(
                 if idx == 0 and offset == 0:
                     log(f"First URL: {url}")
 
-                try:
-                    with urllib.request.urlopen(url, timeout=60) as response:
-                        raw = response.read().decode()
-                        data = json.loads(raw)
-                except urllib.error.URLError as e:
-                    download_error = str(e)
-                    log(f"Network error for {name}: {e}")
-                    break
-                except json.JSONDecodeError as e:
-                    download_error = f"Invalid JSON: {e}"
-                    log(f"Invalid JSON response for {name}: {e}")
-                    break
-                except Exception as e:
-                    download_error = f"{type(e).__name__}: {e}"
-                    log(f"Unexpected error for {name}: {download_error}")
+                raw = ""
+                last_error = None
+                for attempt in range(3):
+                    if attempt > 0:
+                        wait = 5 * attempt
+                        log(f"  Retry {attempt}/2 for {name} (waiting {wait}s)...")
+                        time.sleep(wait)
+                    try:
+                        with urllib.request.urlopen(url, timeout=60) as response:
+                            content_type = response.headers.get("Content-Type", "")
+                            raw = response.read().decode("utf-8", errors="replace")
+                            data = json.loads(raw.strip())
+                            last_error = None
+                            break
+                    except urllib.error.HTTPError as e:
+                        try:
+                            raw = e.read().decode("utf-8", errors="replace")
+                        except Exception:
+                            raw = ""
+                        last_error = ("http", e.code, e.reason, raw)
+                    except urllib.error.URLError as e:
+                        last_error = ("url", str(e))
+                    except json.JSONDecodeError as e:
+                        last_error = ("json", e, raw)
+                    except Exception as e:
+                        last_error = ("other", type(e).__name__, str(e))
+                        break  # Non-transient; don't retry
+
+                if last_error is not None:
+                    kind = last_error[0]
+                    if kind == "http":
+                        _, code, reason, body = last_error
+                        download_error = f"HTTP {code}: {reason}"
+                        log(f"HTTP error for {name}: {code} {reason} — body: {body.strip()[:400]!r}")
+                    elif kind == "url":
+                        download_error = last_error[1]
+                        log(f"Network error for {name}: {download_error}")
+                    elif kind == "json":
+                        _, exc, body = last_error
+                        stripped = body.strip()
+                        content_type_str = content_type if "content_type" in dir() else "unknown"
+                        hint = " (HTML)" if stripped.lower().startswith(("<html", "<!doctype")) else ""
+                        log(
+                            f"Invalid JSON{hint} for {name} after 3 attempts: {exc}"
+                            f" — Content-Type: {content_type_str}"
+                            f" — body ({len(body)} chars): {stripped[:400]!r}"
+                        )
+                        download_error = f"Invalid JSON: {exc}"
+                    else:
+                        download_error = f"{last_error[1]}: {last_error[2]}"
+                        log(f"Unexpected error for {name}: {download_error}")
                     break
 
                 # Check for API errors
@@ -1867,6 +2853,23 @@ def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
     if not styles_dir.exists():
         return False
 
+    # OSM layers have their QML styles in styles/osm/<layer_name>.qml.
+    # Avoid the generic fallback mappings ("road" -> RoadSegment.qml, etc.)
+    # which are intended for NSW Topo layers and will mis-style OSM layers.
+    name_lower = name.lower()
+    if name_lower.startswith("osm_"):
+        osm_dir = styles_dir / "osm"
+        if osm_dir.exists():
+            qml_path = osm_dir / f"{name}.qml"
+            if qml_path.exists():
+                result = layer.loadNamedStyle(str(qml_path))
+                if result[1]:
+                    log(f"    Applied style: osm/{name}.qml")
+                    return True
+            # (optional) common fallbacks can be added here if we introduce
+            # derived OSM layers that don't have their own QML.
+        return False
+
     # Try exact name match first
     qml_path = styles_dir / f"{name}.qml"
     if qml_path.exists():
@@ -1876,7 +2879,6 @@ def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
             return True
 
     # Fallback mappings for common layers
-    name_lower = name.lower()
     qml_mappings = {
         "roadsegment": "RoadSegment.qml",
         "road": "RoadSegment.qml",

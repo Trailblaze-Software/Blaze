@@ -59,39 +59,83 @@ jobs:
         run: choco install nsis -y
       - name: Add NSIS to PATH
         run: echo "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
+      - name: Set vcpkg binary cache write mode
+        shell: pwsh
+        run: |
+          # Fork PRs receive a GITHUB_TOKEN scoped to the fork — it has no
+          # packages:write on the upstream org, so any push attempt gets a 403.
+          # Fall back to read-only so the build still benefits from cached
+          # packages without trying (and failing) to push new ones.
+          $isForkPR = ("${{ github.event_name }}" -eq "pull_request") -and `
+                      ("${{ github.event.pull_request.head.repo.full_name }}" -ne "${{ github.repository }}")
+          if ($isForkPR) {
+            "VCPKG_BINARY_SOURCES=clear;nuget,GitHub,read" |
+              Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            Write-Host "Fork PR detected — vcpkg binary cache set to read-only"
+          } else {
+            Write-Host "vcpkg binary cache remains readwrite"
+          }
       - name: Configure vcpkg binary cache (GitHub Packages NuGet)
         shell: pwsh
         run: |
-          # Locate a vcpkg.exe so we can use its bundled nuget. The
-          # runner-provided VCPKG_INSTALLATION_ROOT works; our project's
-          # FetchContent-managed vcpkg hasn't bootstrapped yet at this point.
-          $vcpkg = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-          if (-not (Test-Path $vcpkg)) {
-            Write-Error "vcpkg.exe not found at $vcpkg (VCPKG_INSTALLATION_ROOT=$env:VCPKG_INSTALLATION_ROOT)"
-            exit 1
-          }
-          $nuget = (& $vcpkg fetch nuget | Select-Object -Last 1).Trim()
-          if (-not (Test-Path -LiteralPath $nuget)) {
-            Write-Error "vcpkg fetch nuget did not return a valid path: $nuget"
-            exit 1
-          }
-          # vcpkg invokes `nuget` from PATH; runners often have Chocolatey's nuget
-          # first, which uses a different config — restores fail and pushes get 403.
-          # Append after NSIS so this directory is last in GITHUB_PATH (highest PATH
-          # precedence on Windows runners).
-          $nugetDir = Split-Path -LiteralPath $nuget
-          Add-Content -Path $env:GITHUB_PATH -Value $nugetDir
-          # GITHUB_PATH / GITHUB_ENV are unreliable once MSVC sets PATH; Configure/Build
-          # steps re-fetch this directory and prepend to PATH before cmake (see below).
           $owner = '${{ github.repository_owner }}'
           $feed  = "https://nuget.pkg.github.com/$owner/index.json"
-          & $nuget sources add `
-              -Source $feed `
-              -StorePasswordInClearText `
-              -Name GitHub `
-              -UserName $owner `
-              -Password '${{ secrets.GITHUB_TOKEN }}'
-          & $nuget setapikey '${{ secrets.GITHUB_TOKEN }}' -Source $feed
+          $push  = "https://nuget.pkg.github.com/$owner/"
+          $token = '${{ secrets.VCPKG_NUGET_TOKEN }}'
+
+          Write-Host "Feed  : $feed"
+          Write-Host "Push  : $push"
+          Write-Host "Token : length=$($token.Length) prefix=$($token.Substring(0, [Math]::Min(8,$token.Length)))..."
+
+          # Write NuGet.Config directly so the credentials are available to every
+          # nuget.exe (Chocolatey, VS, vcpkg-bundled) without relying on nuget.exe
+          # command-line registration. PackageSourceCredentials provides Basic auth
+          # and <apikeys> provides the X-NuGet-ApiKey header for the push URL.
+          $configPath = "$env:APPDATA\NuGet\NuGet.Config"
+          New-Item -Force -ItemType Directory (Split-Path $configPath) | Out-Null
+
+          $configContent = @(
+            '<?xml version="1.0" encoding="utf-8"?>',
+            '<configuration>',
+            '  <packageSources>',
+            "    <add key=""GitHub"" value=""$feed"" protocolVersion=""3"" />",
+            '  </packageSources>',
+            '  <packageSourceCredentials>',
+            '    <GitHub>',
+            '      <add key="Username" value="x-access-token" />',
+            "      <add key=""ClearTextPassword"" value=""$token"" />",
+            '    </GitHub>',
+            '  </packageSourceCredentials>',
+            '  <apikeys>',
+            "    <add key=""$push"" value=""$token"" />",
+            '  </apikeys>',
+            '</configuration>'
+          ) -join "`n"
+          Set-Content -Path $configPath -Value $configContent -Encoding UTF8
+          Write-Host "Wrote $configPath"
+          Write-Host "--- NuGet.Config (token redacted) ---"
+          (Get-Content $configPath) -replace '(?<=value=")[^"]*ghs[^"]*', '[REDACTED]' | Write-Host
+
+          # Export env vars that must be visible to the cmake step (where vcpkg
+          # actually invokes nuget push). GITHUB_ENV persists values across steps.
+          #
+          # VSS_NUGET_EXTERNAL_FEED_ENDPOINTS: tells the Azure Artifacts Credential
+          # Provider (pre-installed on GitHub Actions Windows runners) that this feed
+          # has credentials available, so it returns them non-interactively instead
+          # of demanding interactive OAuth (which would fail with -NonInteractive).
+          #
+          # NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED: prevents ACCP from
+          # trying to refresh a cached interactive session token.
+          $endpoints = [ordered]@{
+            endpointCredentials = @(
+              [ordered]@{ endpoint = $feed; username = "x-access-token"; password = $token }
+            )
+          } | ConvertTo-Json -Compress
+          "VSS_NUGET_EXTERNAL_FEED_ENDPOINTS=$endpoints" |
+            Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED=false" |
+            Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host "Exported VSS_NUGET_EXTERNAL_FEED_ENDPOINTS and NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED"
       - name: Set up MSVC dev cmd
         uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -99,12 +143,6 @@ jobs:
       - name: Configure
         shell: pwsh
         run: |
-          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
-          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
-          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
-          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
-          $env:PATH = "$nugetShimDir;$env:PATH"
           $cmakeArgs = @(
             "-DVCPKG_TARGET_TRIPLET=${{ env.VCPKG_TARGET_TRIPLET }}",
             "-DVCPKG_BUILD_TYPE=release",
@@ -114,15 +152,42 @@ jobs:
             $cmakeArgs += "-DBLAZE_VERSION=${{ steps.version.outputs.version }}"
           }
           cmake -B build $cmakeArgs
+      - name: Debug vcpkg NuGet auth
+        if: failure()
+        shell: pwsh
+        run: |
+          $owner = '${{ github.repository_owner }}'
+          $token = '${{ secrets.GITHUB_TOKEN }}'
+          $feed  = "https://nuget.pkg.github.com/$owner/index.json"
+
+          Write-Host "=== NuGet sources ==="
+          nuget sources list 2>&1
+
+          Write-Host "`n=== Token auth test against GitHub Packages feed ==="
+          try {
+            $r = Invoke-WebRequest -Uri $feed `
+              -Headers @{ Authorization = "Bearer $token" } `
+              -UseBasicParsing -ErrorAction Stop
+            Write-Host "HTTP $($r.StatusCode) — feed reachable, token accepted"
+          } catch {
+            Write-Host "HTTP $($_.Exception.Response.StatusCode.value__) — $($_.Exception.Message)"
+          }
+
+          Write-Host "`n=== NuGet.Config (token redacted) ==="
+          $f = "$env:APPDATA\NuGet\NuGet.Config"
+          if (Test-Path $f) {
+            (Get-Content $f) -replace '(?<=ClearTextPassword value=")[^"]*', '[REDACTED]' |
+              Write-Host
+          } else {
+            Write-Host "Not found: $f"
+          }
+
+          Write-Host "`n=== nuget.exe on PATH ==="
+          Get-Command nuget -All -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty Source | Write-Host
       - name: Build
         shell: pwsh
         run: |
-          $vcpkgHost = Join-Path $env:VCPKG_INSTALLATION_ROOT 'vcpkg.exe'
-          $nugetExe = (& $vcpkgHost fetch nuget | Select-Object -Last 1).Trim()
-          $nugetShimDir = Join-Path $env:RUNNER_TEMP 'blaze-vcpkg-nuget'
-          New-Item -ItemType Directory -Force -Path $nugetShimDir | Out-Null
-          Copy-Item -LiteralPath $nugetExe -Destination (Join-Path $nugetShimDir 'nuget.exe') -Force
-          $env:PATH = "$nugetShimDir;$env:PATH"
           cmake --build build --config Release --parallel
       - name: Package (NSIS Installer)
         run: |
@@ -241,6 +306,161 @@ jobs:
         with:
           token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
           files: build/Blaze-*.deb
+  package-macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            os: macos-latest
+          - arch: x86_64
+            os: macos-26-intel
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get version from tag
+        id: version
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+            TAG=${GITHUB_EVENT_RELEASE_TAG_NAME#v}
+          else
+            TAG=${GITHUB_REF#refs/tags/v}
+          fi
+          echo "version=$TAG" >> $GITHUB_OUTPUT
+          echo "Version: $TAG"
+      - name: Install dependencies (non-Qt)
+        run: |
+          # Qt comes from the official online installer (jurplel/install-qt-action
+          # below), NOT from Homebrew. Homebrew's Qt6 is patched with
+          # @executable_path rpaths and split across ~40 separate kegs, both
+          # of which break macdeployqt's framework deployment in ways that
+          # require ugly manual workarounds. The official Qt distribution
+          # is what macdeployqt was designed for and "just works".
+          brew install cmake ninja ccache gdal opencv libomp openblas lapack
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          # 6.9.2+ removes the broken "-framework AGL" reference from
+          # WrapOpenGL that breaks linking on the macOS 26 SDK (where AGL
+          # no longer exists). CMakeLists also filters it defensively.
+          version: '6.9.2'
+          host: 'mac'
+          target: 'desktop'
+          # clang_64 is a universal binary on macOS Qt 6 — same archive
+          # works for both Apple Silicon and Intel runners.
+          arch: 'clang_64'
+          # qtimageformats provides Qt6::QTiffPlugin which Blaze imports.
+          # qtbase/qtsvg/qttools come by default; macdeployqt ships in qttools.
+          modules: 'qtimageformats'
+          cache: true
+      - name: Configure
+        run: |
+          LIBOMP=$(brew --prefix libomp)
+          # install-qt-action exports QT_ROOT_DIR pointing at the Qt
+          # installation (e.g. .../Qt/6.9.0/macos) and adds its bin/ to
+          # PATH so macdeployqt is found automatically downstream.
+          CMAKE_ARGS=(
+            "-DCMAKE_BUILD_TYPE=Release"
+            "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include"
+            "-DOpenMP_CXX_LIB_NAMES=omp"
+            "-DOpenMP_omp_LIBRARY=${LIBOMP}/lib/libomp.dylib"
+            "-DOpenMP_C_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include"
+            "-DOpenMP_C_LIB_NAMES=omp"
+            "-DOpenMP_C_LIBRARY=${LIBOMP}/lib/libomp.dylib"
+            "-DCMAKE_PREFIX_PATH=${QT_ROOT_DIR}"
+          )
+          if [ -n "${{ steps.version.outputs.version }}" ]; then
+            CMAKE_ARGS+=("-DBLAZE_VERSION=${{ steps.version.outputs.version }}")
+          fi
+          cmake -B build "${CMAKE_ARGS[@]}"
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Stage install
+        run: cmake --install build --prefix staging --config Release
+      - name: Deploy Qt frameworks
+        run: |
+          # macdeployqt comes from the official Qt distribution (installed
+          # by jurplel/install-qt-action, which prepends its bin/ to PATH).
+          # No -libpath gymnastics needed: official Qt has all modules
+          # under a single prefix and uses standard @rpath references that
+          # macdeployqt resolves natively.
+          for APP in Blaze Blaze3D; do
+            if [ -d "staging/$APP.app" ]; then
+              macdeployqt "staging/$APP.app" -always-overwrite
+            fi
+          done
+
+          # Sanity check that every Qt framework each app actually links
+          # got bundled — catches future surprises (e.g. a missing module
+          # request in install-qt-action) before they reach end users.
+          # Blaze links only Widgets/Concurrent (→ Core, Gui); Blaze3D
+          # additionally links OpenGL/OpenGLWidgets, so only it needs
+          # QtOpenGL bundled.
+          verify_frameworks() {
+            local app="$1"; shift
+            local fw_dir="staging/$app.app/Contents/Frameworks"
+            local fw
+            for fw in "$@"; do
+              if [ ! -d "$fw_dir/$fw.framework" ]; then
+                echo "ERROR: $fw.framework missing from $app.app bundle" >&2
+                echo "Contents of $fw_dir:" >&2
+                ls -la "$fw_dir" >&2 || true
+                exit 1
+              fi
+            done
+            echo "$app.app: all required Qt frameworks present"
+          }
+
+          if [ -d "staging/Blaze.app" ]; then
+            verify_frameworks Blaze QtCore QtGui QtWidgets QtConcurrent
+          fi
+          if [ -d "staging/Blaze3D.app" ]; then
+            verify_frameworks Blaze3D QtCore QtGui QtWidgets QtConcurrent \
+              QtOpenGL
+          fi
+      - name: Bundle libomp
+        run: |
+          LIBOMP=$(brew --prefix libomp)/lib/libomp.dylib
+          for APP in Blaze Blaze3D; do
+            MACDIR="staging/$APP.app/Contents/MacOS"
+            if [ -f "$MACDIR/$APP" ] && [ ! -f "$MACDIR/libomp.dylib" ]; then
+              cp "$LIBOMP" "$MACDIR/"
+              install_name_tool -change "$LIBOMP" "@executable_path/libomp.dylib" "$MACDIR/$APP"
+            fi
+          done
+      - name: Package (DMG)
+        run: |
+          if [ -n "${{ steps.version.outputs.version }}" ]; then
+            VERSION="${{ steps.version.outputs.version }}"
+          else
+            VERSION=$(cmake -L -N build 2>/dev/null | grep "^PROJECT_VERSION:STATIC=" | cut -d= -f2 || echo "dev")
+          fi
+          ARCH=$(uname -m)
+          DMG="build/Blaze-${VERSION}-macOS-${ARCH}.dmg"
+          hdiutil create -volname "Blaze" -srcfolder staging -ov -format UDZO "$DMG"
+          echo "DMG: $DMG"
+      - name: Test installer
+        run: |
+          DMG=$(ls build/Blaze-*.dmg | head -1)
+          hdiutil attach "$DMG" -mountpoint /Volumes/Blaze -readonly
+          cp -r "/Volumes/Blaze/share/assets" /tmp/blaze-test
+          "/Volumes/Blaze/bin/blaze-cli" /tmp/blaze-test/default_config.json
+          hdiutil detach /Volumes/Blaze
+      # See note on the Windows job — only keep artifacts on tags / debug runs.
+      - name: Upload Artifact
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: blaze-macos-${{ matrix.arch }}-dmg
+          path: build/Blaze-*.dmg
+          retention-days: 2
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          token: ${{ secrets.BLAZE_RELEASE_TOKEN }}
+          files: build/Blaze-*.dmg
   package-plugin:
     runs-on: ubuntu-latest
     steps:

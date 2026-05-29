@@ -28,10 +28,21 @@ function(find_and_copy_dependency_dlls)
 
   # For vcpkg builds, copy all DLLs from vcpkg's bin directory
   if(BLAZE_USE_VCPKG)
-    if(DEFINED VCPKG_INSTALLED_DIR)
-      set(VCPKG_BIN_DIR "${VCPKG_INSTALLED_DIR}/x64-windows/bin")
+    # Use the active triplet rather than hardcoding x64-windows; otherwise the
+    # arm64-windows build copies nothing here (the x64 path doesn't exist), the
+    # executables miss vcpkg's transitive runtime DLLs (proj, geos, …), and
+    # running them — e.g. gtest_discover_tests launching unit_tests.exe at build
+    # time — fails with 0xc0000135 (STATUS_DLL_NOT_FOUND).
+    if(DEFINED VCPKG_TARGET_TRIPLET AND VCPKG_TARGET_TRIPLET)
+      set(_blaze_vcpkg_triplet "${VCPKG_TARGET_TRIPLET}")
     else()
-      set(VCPKG_BIN_DIR "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/bin")
+      set(_blaze_vcpkg_triplet "x64-windows")
+    endif()
+    if(DEFINED VCPKG_INSTALLED_DIR)
+      set(VCPKG_BIN_DIR "${VCPKG_INSTALLED_DIR}/${_blaze_vcpkg_triplet}/bin")
+    else()
+      set(VCPKG_BIN_DIR
+          "${CMAKE_BINARY_DIR}/vcpkg_installed/${_blaze_vcpkg_triplet}/bin")
     endif()
 
     foreach(target ${ARGN})

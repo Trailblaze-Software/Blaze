@@ -191,11 +191,12 @@ template void write_to_tif(const Geo<MultiBand<FlexGrid>>& grid, const fs::path&
 
 template <typename T>
 void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
-                        std::optional<ProgressTracker> progress_tracker) {
+                        std::optional<ProgressTracker> progress_tracker, std::optional<T> min_val,
+                        std::optional<T> max_val) {
   GeoGrid<std::byte> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                             GeoProjection(grid.projection()));
-  T min = grid.min_value();
-  T max = grid.max_value();
+  T min = min_val.value_or(grid.min_value());
+  T max = max_val.value_or(grid.max_value());
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
@@ -215,4 +216,5 @@ void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
 }
 
 template void write_to_image_tif(const GeoGrid<double>& grid, const fs::path& filename,
-                                 std::optional<ProgressTracker> progress_tracker);
+                                 std::optional<ProgressTracker> progress_tracker,
+                                 std::optional<double> min_val, std::optional<double> max_val);

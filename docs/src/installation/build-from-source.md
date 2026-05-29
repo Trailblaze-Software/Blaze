@@ -1,6 +1,6 @@
 # Building from Source
 
-This guide covers how to build Blaze from source on Linux and Windows.
+This guide covers how to build Blaze from source on Linux, macOS, and Windows.
 
 ## Linux (Ubuntu/Debian)
 
@@ -47,6 +47,60 @@ The following executables will be available in the `build` directory:
 - `blaze-cli` - Command-line interface
 - `Blaze` - Desktop GUI application (WIP)
 - `Blaze3D` - 3D visualization application (very WIP)
+
+## macOS
+
+### Prerequisites
+
+Install the required dependencies using Homebrew:
+
+```bash
+./scripts/install-macos-deps.sh
+```
+
+This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
+Homebrew will be installed automatically if it is not already present.
+
+### Building from Source
+
+#### 1. **Configure and compile:**
+
+Use the provided build script:
+
+```bash
+./scripts/macos-build.sh
+```
+
+Or manually:
+
+```bash
+LIBOMP=$(brew --prefix libomp)
+cmake -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include" \
+    "-DOpenMP_CXX_LIB_NAMES=omp" \
+    "-DOpenMP_omp_LIBRARY=${LIBOMP}/lib/libomp.dylib" \
+    "-DCMAKE_PREFIX_PATH=$(brew --prefix qt@6)"
+cmake --build build --parallel
+```
+
+For a CLI-only build (no GUI):
+
+```bash
+./scripts/macos-build.sh -DBLAZE_CLI_ONLY=ON
+```
+
+#### 2. **Install (optional):**
+
+```bash
+sudo cmake --install build
+```
+
+The following executables will be available in the build directory:
+
+- `blaze-cli` - Command-line interface
+- `Blaze.app` - Desktop GUI application (WIP)
+- `Blaze3D.app` - 3D visualization application (very WIP)
 
 ## Windows
 

@@ -289,6 +289,7 @@ struct adl_serializer<Config> {
     config.border_width = j.value("border_width", 100.0);
     config.tile_size = j.value("tile_size", 0.0);
     config.override_crs = j.value("override_crs", std::string{});
+    config.delete_tile_folders = j.value("delete_tile_folders", false);
     config.relative_path_to_config = "";
     return config;
   }
@@ -311,6 +312,9 @@ struct adl_serializer<Config> {
     }
     if (!gc.override_crs.empty()) {
       j["override_crs"] = gc.override_crs;
+    }
+    if (gc.delete_tile_folders) {
+      j["delete_tile_folders"] = gc.delete_tile_folders;
     }
   }
 };

@@ -102,6 +102,19 @@ jobs:
       - name: Run default config
         run: |
           ./blaze-cli assets/default_config.json
+  macos-build:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: ./scripts/install-macos-deps.sh
+      - name: Build
+        run: ./scripts/macos-build.sh -DBLAZE_CLI_ONLY=True
+      - name: Unit tests
+        run: cmake --build macos-build --target test
+      - name: Run default config
+        run: ./blaze-cli assets/default_config.json
 
 # windows-latest-build:
 #     runs-on: windows-latest
