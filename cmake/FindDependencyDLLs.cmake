@@ -20,7 +20,7 @@ function(find_and_copy_dependency_dlls)
         POST_BUILD
         COMMAND
           powershell -NonInteractive -Command
-          "$dllList = '$<JOIN:$<TARGET_RUNTIME_DLLS:${target}>,|>'; foreach ($dll in $dllList.Split('|')) { if ($dll) { Copy-Item -Path $dll -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue } }"
+          "$dllList = '$<JOIN:$<TARGET_RUNTIME_DLLS:${target}>,|>'; foreach ($dll in $dllList.Split('|')) { if ($dll) { try { Copy-Item -Path $dll -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
         COMMENT "Copying target runtime DLLs for ${target}"
         VERBATIM)
     endif()
@@ -52,10 +52,10 @@ function(find_and_copy_dependency_dlls)
           POST_BUILD
           COMMAND
             powershell -Command
-            "if (Test-Path '${VCPKG_BIN_DIR}') { Copy-Item -Path '${VCPKG_BIN_DIR}/*.dll' -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue }"
+            "if (Test-Path '${VCPKG_BIN_DIR}') { foreach ($f in Get-ChildItem -Path '${VCPKG_BIN_DIR}/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
           COMMAND
             powershell -Command
-            "if (Test-Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>') { Copy-Item -Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>/*.dll' -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue }"
+            "if (Test-Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>') { foreach ($f in Get-ChildItem -Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
           COMMENT "Copying vcpkg and gtest DLLs for ${target}"
           VERBATIM)
       endif()

@@ -61,6 +61,36 @@ def _find_script_dir():
 
 SCRIPT_DIR = _find_script_dir()
 STYLES_DIR = SCRIPT_DIR / "styles"
+BLAZE_STYLES_DIR = STYLES_DIR / "blaze"
+NSW_TOPO_STYLES_DIR = STYLES_DIR / "nsw_topo"
+OSM_STYLES_DIR = STYLES_DIR / "osm"
+
+# Blaze output / vegetation / controls styles (everything else is under nsw_topo/).
+BLAZE_STYLE_FILES = frozenset(
+    {
+        "Controls.qml",
+        "canopy.qml",
+        "cliff_from_slope.qml",
+        "contours.qml",
+        "scrubby_vege.qml",
+        "streams.qml",
+        "_fallback_line.qml",
+        "_fallback_point.qml",
+        "_fallback_polygon.qml",
+    }
+)
+
+
+def qml_style_path(filename):
+    """Resolve path to a QML style file under styles/{blaze,nsw_topo,osm}/."""
+    if not filename.endswith(".qml"):
+        filename = f"{filename}.qml"
+    if filename.lower().startswith("osm_"):
+        return OSM_STYLES_DIR / filename
+    if filename in BLAZE_STYLE_FILES:
+        return BLAZE_STYLES_DIR / filename
+    return NSW_TOPO_STYLES_DIR / filename
+
 
 # Warn if styles directory not found
 if not STYLES_DIR.is_dir():
@@ -561,7 +591,7 @@ def create_qgis_project(
         if slope_path.exists():
             slope_layer = add_raster(slope_path, cliff_group, prefix="cliff_")
             if slope_layer:
-                qml_path = STYLES_DIR / "cliff_from_slope.qml"
+                qml_path = qml_style_path("cliff_from_slope.qml")
                 if qml_path.exists():
                     result = slope_layer.loadNamedStyle(str(qml_path))
                     if result[1]:
@@ -1709,7 +1739,7 @@ def create_qgis_project(
                 if is_temp:
                     summary["failed"].append("Contours file save (layer is temporary)")
                 # Apply QML style
-                qml_path = STYLES_DIR / "contours.qml"
+                qml_path = qml_style_path("contours.qml")
                 if qml_path.exists():
                     layer.loadNamedStyle(str(qml_path))
                     # Skip triggerRepaint in headless mode as it may block
@@ -1732,7 +1762,7 @@ def create_qgis_project(
                 summary["failed"].append("Streams (no valid layers)")
             for layer in layers:
                 # Apply QML style
-                qml_path = STYLES_DIR / "streams.qml"
+                qml_path = qml_style_path("streams.qml")
                 if qml_path.exists():
                     log("  Found streams.qml, attempting to load...")
                     result = layer.loadNamedStyle(str(qml_path))
@@ -2134,7 +2164,7 @@ def add_controls_layer(extent, crs, group, output_path):
         return None
 
     # Apply Controls.qml style
-    qml_path = STYLES_DIR / "Controls.qml"
+    qml_path = qml_style_path("Controls.qml")
     if qml_path.exists():
         layer.loadNamedStyle(str(qml_path))
         layer.triggerRepaint()
@@ -2745,11 +2775,11 @@ def add_nsw_topo_layers(
             layer = QgsVectorLayer(uri, layer_name, "ogr")
             if layer.isValid():
                 feat_count = layer.featureCount()
-                # Apply QML style from to_qgis/styles
-                qml_path = STYLES_DIR / f"{layer_name}.qml"
+                # Apply QML style from styles/nsw_topo/
+                qml_path = qml_style_path(f"{layer_name}.qml")
                 # Fallback for CadastreLot to use cadastre.qml
                 if layer_name == "CadastreLot" and not qml_path.exists():
-                    qml_path = STYLES_DIR / "cadastre.qml"
+                    qml_path = qml_style_path("cadastre.qml")
                 if qml_path.exists():
                     result = layer.loadNamedStyle(str(qml_path))
                     if result[1]:
@@ -2845,6 +2875,21 @@ def convert_geojson_geom(geom, transform):
     return None
 
 
+def _load_qml_style(layer, qml_path):
+    """Load a QML style onto layer if the file exists. Returns True on success."""
+    if not qml_path.exists():
+        return False
+    result = layer.loadNamedStyle(str(qml_path))
+    if result[1]:
+        try:
+            rel = qml_path.relative_to(STYLES_DIR)
+        except ValueError:
+            rel = qml_path.name
+        log(f"    Applied style: {rel}")
+        return True
+    return False
+
+
 def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
     """Try to apply a QML style file to a layer. Returns True if successful."""
     if styles_dir is None:
@@ -2858,24 +2903,24 @@ def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
     # which are intended for NSW Topo layers and will mis-style OSM layers.
     name_lower = name.lower()
     if name_lower.startswith("osm_"):
-        osm_dir = styles_dir / "osm"
-        if osm_dir.exists():
-            qml_path = osm_dir / f"{name}.qml"
-            if qml_path.exists():
-                result = layer.loadNamedStyle(str(qml_path))
-                if result[1]:
-                    log(f"    Applied style: osm/{name}.qml")
-                    return True
-            # (optional) common fallbacks can be added here if we introduce
-            # derived OSM layers that don't have their own QML.
+        qml_path = OSM_STYLES_DIR / f"{name}.qml"
+        if _load_qml_style(layer, qml_path):
+            return True
         return False
 
+    if is_nsw_layer:
+        search_dirs = (NSW_TOPO_STYLES_DIR,)
+    else:
+        search_dirs = (BLAZE_STYLES_DIR, NSW_TOPO_STYLES_DIR)
+
     # Try exact name match first
-    qml_path = styles_dir / f"{name}.qml"
-    if qml_path.exists():
-        result = layer.loadNamedStyle(str(qml_path))
-        if result[1]:
-            log(f"    Applied style: {name}.qml")
+    for subdir in search_dirs:
+        qml_path = subdir / f"{name}.qml"
+        if _load_qml_style(layer, qml_path):
+            return True
+
+    if is_nsw_layer and name == "CadastreLot":
+        if _load_qml_style(layer, qml_style_path("cadastre.qml")):
             return True
 
     # Fallback mappings for common layers
@@ -2920,12 +2965,8 @@ def try_apply_qml_style(layer, name, styles_dir=None, is_nsw_layer=False):
 
     for keyword, qml_file in qml_mappings.items():
         if keyword in name_lower:
-            qml_path = styles_dir / qml_file
-            if qml_path.exists():
-                result = layer.loadNamedStyle(str(qml_path))
-                if result[1]:
-                    log(f"    Applied style: {qml_file}")
-                    return True
+            if _load_qml_style(layer, qml_style_path(qml_file)):
+                return True
     return False
 
 
@@ -2941,20 +2982,20 @@ def style_vegetation(layer, filename):
     name = filename.lower()
 
     if "green" in name:
-        qml_path = STYLES_DIR / "scrubby_vege.qml"
+        qml_path = qml_style_path("scrubby_vege.qml")
         if qml_path.exists():
             result = layer.loadNamedStyle(str(qml_path))
             if result[1]:
-                log(f"Applied style scrubby_vege.qml to {filename}")
+                log(f"Applied style {qml_path.relative_to(STYLES_DIR)} to {filename}")
                 layer.triggerRepaint()
                 return
 
     elif "canopy" in name:
-        qml_path = STYLES_DIR / "canopy.qml"
+        qml_path = qml_style_path("canopy.qml")
         if qml_path.exists():
             result = layer.loadNamedStyle(str(qml_path))
             if result[1]:
-                log(f"Applied style canopy.qml to {filename}")
+                log(f"Applied style {qml_path.relative_to(STYLES_DIR)} to {filename}")
                 layer.triggerRepaint()
                 return
 

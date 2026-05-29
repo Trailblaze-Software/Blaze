@@ -52,10 +52,11 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   # because it is being used by another process" — and applocal.ps1 (unlike our
   # own copies) is not error-tolerant, so the whole post-build chain exits 1
   # (MSB3073). We already copy the full vcpkg bin dir ourselves in
-  # cmake/FindDependencyDLLs.cmake with -ErrorAction SilentlyContinue, which is
-  # lock-tolerant and a superset of what applocal deploys, so the build tree
-  # loses nothing. X_VCPKG_APPLOCAL_DEPS_INSTALL stays TRUE so the
-  # *installed*/packaged GUI binaries still get their deps.
+  # cmake/FindDependencyDLLs.cmake, wrapping each copy in try/catch so a file
+  # locked by a racing sibling target is skipped (the target holding the lock
+  # finishes the copy), which is lock-tolerant and a superset of what applocal
+  # deploys, so the build tree loses nothing. X_VCPKG_APPLOCAL_DEPS_INSTALL
+  # stays TRUE so the *installed*/packaged GUI binaries still get their deps.
   set(VCPKG_APPLOCAL_DEPS OFF)
 
   set(VCPKG_BUILD_TYPE "release")

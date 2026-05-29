@@ -51,6 +51,9 @@ static GeoGrid<std::optional<std::byte>> downsample_mask_any(
   if (factor == 0) {
     Fail("downsample_mask_any factor must be > 0");
   }
+  if (grid.transform().dx() != -grid.transform().dy()) {
+    Fail("downsample_mask_any requires square pixels (dx == -dy)");
+  }
   GeoGrid<std::optional<std::byte>> result(
       (grid.width() + factor - 1) / factor, (grid.height() + factor - 1) / factor,
       grid.transform().with_new_resolution(grid.transform().dx() * factor),
@@ -259,7 +262,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
-    // Scale absolutely: flat (pi/2 as min) → 255, vertical (0 as max) → 0.
+    // Scale absolutely with min=pi/2, max=0: flat terrain (slope≈0) → 255, vertical (slope≈pi/2) →
+    // 0.
     write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif",
                        progress_tracker.subtracker(0.74, 0.75),
                        std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
