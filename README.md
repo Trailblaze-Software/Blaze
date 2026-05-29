@@ -96,47 +96,6 @@ The following executables will be available in the `build` directory:
 - `Blaze` - Desktop GUI application (WIP)
 - `Blaze3D` - 3D visualization application (very WIP)
 
-### macOS
-
-#### Prerequisites
-
-Install the required dependencies using Homebrew:
-
-```bash
-./scripts/install-macos-deps.sh
-```
-
-This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
-
-#### Building from Source
-
-1. **Configure and compile:**
-   ```bash
-   ./scripts/macos-build.sh
-   ```
-
-   Or manually:
-   ```bash
-   LIBOMP=$(brew --prefix libomp)
-   cmake -B build \
-       -DCMAKE_BUILD_TYPE=Release \
-       "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include" \
-       "-DOpenMP_CXX_LIB_NAMES=omp" \
-       "-DOpenMP_omp_LIBRARY=${LIBOMP}/lib/libomp.dylib" \
-       "-DCMAKE_PREFIX_PATH=$(brew --prefix qt@6)"
-   cmake --build build --parallel
-   ```
-
-2. **Install (optional):**
-   ```bash
-   sudo cmake --install build
-   ```
-
-The following executables will be available in the build directory:
-- `blaze-cli` - Command-line interface
-- `Blaze.app` - Desktop GUI application (WIP)
-- `Blaze3D.app` - 3D visualization application (very WIP)
-
 ### Windows
 
 #### Prerequisites
@@ -202,6 +161,47 @@ A Windows installer (NSIS) can be created using CPack:
 cd build
 cpack -C Release -G NSIS
 ```
+
+### macOS
+
+#### Prerequisites
+
+Install the required dependencies using [Homebrew](https://brew.sh):
+
+```bash
+./scripts/install-macos-deps.sh
+```
+
+This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
+
+#### Building from Source
+
+1. **Configure and compile:**
+   ```bash
+   ./scripts/macos-build.sh
+   ```
+
+   Or configure manually:
+   ```bash
+   LIBOMP=$(brew --prefix libomp)
+   cmake -B build \
+       -DCMAKE_BUILD_TYPE=Release \
+       "-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I${LIBOMP}/include" \
+       "-DOpenMP_CXX_LIB_NAMES=omp" \
+       "-DOpenMP_omp_LIBRARY=${LIBOMP}/lib/libomp.dylib" \
+       "-DCMAKE_PREFIX_PATH=$(brew --prefix qt@6)"
+   cmake --build build --parallel
+   ```
+
+2. **Install (optional):**
+   ```bash
+   sudo cmake --install build
+   ```
+
+The following executables will be available in the `build` directory:
+- `blaze-cli` - Command-line interface
+- `Blaze.app` - Desktop GUI application (WIP)
+- `Blaze3D.app` - 3D visualization application (very WIP)
 
 ## Usage
 
