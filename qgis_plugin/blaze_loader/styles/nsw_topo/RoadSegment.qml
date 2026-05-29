@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC "http://mrcc.com/qgis.dtd" "SYSTEM">
-<qgis hasScaleBasedVisibilityFlag="0" labelsEnabled="0" maxScale="0" minScale="100000000" readOnly="0" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="LayerConfiguration|Symbology|Symbology3D|Labeling|Fields|Forms|Actions|MapTips|Diagrams|AttributeTable|Rendering" symbologyReferenceScale="-1" version="3.34.3-Prizren">
+<qgis hasScaleBasedVisibilityFlag="0" labelsEnabled="0" maxScale="0" minScale="100000000" readOnly="0" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="LayerConfiguration|Symbology|Labeling|Fields|Rendering" symbologyReferenceScale="-1" version="3.34.3-Prizren">
   <flags>
     <Identifiable>1</Identifiable>
     <Removable>1</Removable>
@@ -8,8 +8,8 @@
   </flags>
   <renderer-v2 enableorderby="1" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
     <rules key="{90a5cbaa-c1d8-49da-820e-fd9b053d63e8}">
-      <rule filter="roadontype in (4,7)" key="{855240d1-685f-48e1-b9da-fc329ea593e5}" label="Ford/Floodway" symbol="0"></rule>
-      <rule description="Bridge width set by 'Data defined override', layer variable @road_width" filter="roadontype in (2,5,6)" key="{6bf31a68-44aa-4dc1-a641-4511ccc5c2d5}" label="Bridge" symbol="1"></rule>
+      <rule filter="roadontype in (4,7)" key="{855240d1-685f-48e1-b9da-fc329ea593e5}" label="Ford/Floodway" scalemaxdenom="75000" symbol="0"></rule>
+      <rule description="Bridge width set by 'Data defined override', layer variable @road_width" filter="roadontype in (2,5,6)" key="{6bf31a68-44aa-4dc1-a641-4511ccc5c2d5}" label="Bridge" scalemaxdenom="75000" scalemindenom="1000" symbol="1"></rule>
       <rule description="Road width set by 'Data defined override', layer variable @road_width" filter="surface in (0, 1) and (functionhierarchy &lt; 8 or functionhierarchy = 10)" key="{f6d75ae4-08e2-48c3-8753-895dc1a193cf}" label="Sealed" symbol="2"></rule>
       <rule description="Road width set by 'Data defined override', layer variable @road_width" filter="surface = 2 and (functionhierarchy &lt; 9 ) and not classsubtype = 5" key="{43bec151-7591-4f3c-a021-99fafda9dac1}" label="Unsealed" symbol="3"></rule>
       <rule filter="surface = 2  and functionhierarchy &lt; 9 and classsubtype = 5" key="{ca095e73-3de9-426e-9ac5-8a8ae8b3b196}" label="2wd - dry weather" symbol="4"></rule>
@@ -659,309 +659,41 @@
   <blendMode>0</blendMode>
   <featureBlendMode>0</featureBlendMode>
   <layerOpacity>1</layerOpacity>
-  <SingleCategoryDiagramRenderer attributeLegend="1" diagramType="Histogram">
-    <DiagramCategory backgroundAlpha="255" backgroundColor="#ffffff" barWidth="5" diagramOrientation="Up" direction="0" enabled="0" height="15" labelPlacementMethod="XHeight" lineSizeScale="3x:0,0,0,0,0,0" lineSizeType="MM" maxScaleDenominator="1e+08" minScaleDenominator="0" minimumSize="0" opacity="1" penAlpha="255" penColor="#000000" penWidth="0" rotationOffset="270" scaleBasedVisibility="0" scaleDependency="Area" showAxis="1" sizeScale="3x:0,0,0,0,0,0" sizeType="MM" spacing="5" spacingUnit="MM" spacingUnitScale="3x:0,0,0,0,0,0" width="15">
-      <fontProperties bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></fontProperties>
-      <attribute color="#000000" colorOpacity="1" field="" label=""></attribute>
-      <axisSymbol>
-        <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="line">
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-          <layer class="SimpleLine" enabled="1" id="{03860f5a-f41d-4aea-8226-063aecbf4220}" locked="0" pass="0">
-            <Option type="Map">
-              <Option name="align_dash_pattern" type="QString" value="0"></Option>
-              <Option name="capstyle" type="QString" value="square"></Option>
-              <Option name="customdash" type="QString" value="5;2"></Option>
-              <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="customdash_unit" type="QString" value="MM"></Option>
-              <Option name="dash_pattern_offset" type="QString" value="0"></Option>
-              <Option name="dash_pattern_offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="dash_pattern_offset_unit" type="QString" value="MM"></Option>
-              <Option name="draw_inside_polygon" type="QString" value="0"></Option>
-              <Option name="joinstyle" type="QString" value="bevel"></Option>
-              <Option name="line_color" type="QString" value="35,35,35,255"></Option>
-              <Option name="line_style" type="QString" value="solid"></Option>
-              <Option name="line_width" type="QString" value="0.26"></Option>
-              <Option name="line_width_unit" type="QString" value="MM"></Option>
-              <Option name="offset" type="QString" value="0"></Option>
-              <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="offset_unit" type="QString" value="MM"></Option>
-              <Option name="ring_filter" type="QString" value="0"></Option>
-              <Option name="trim_distance_end" type="QString" value="0"></Option>
-              <Option name="trim_distance_end_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="trim_distance_end_unit" type="QString" value="MM"></Option>
-              <Option name="trim_distance_start" type="QString" value="0"></Option>
-              <Option name="trim_distance_start_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="trim_distance_start_unit" type="QString" value="MM"></Option>
-              <Option name="tweak_dash_pattern_on_corners" type="QString" value="0"></Option>
-              <Option name="use_custom_dash" type="QString" value="0"></Option>
-              <Option name="width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            </Option>
-            <data_defined_properties>
-              <Option type="Map">
-                <Option name="name" type="QString" value=""></Option>
-                <Option name="properties"></Option>
-                <Option name="type" type="QString" value="collection"></Option>
-              </Option>
-            </data_defined_properties>
-          </layer>
-        </symbol>
-      </axisSymbol>
-    </DiagramCategory>
-  </SingleCategoryDiagramRenderer>
-  <DiagramLayerSettings dist="0" linePlacementFlags="18" obstacle="0" placement="2" priority="0" showAll="1" zIndex="0">
-    <properties>
-      <Option type="Map">
-        <Option name="name" type="QString" value=""></Option>
-        <Option name="properties"></Option>
-        <Option name="type" type="QString" value="collection"></Option>
-      </Option>
-    </properties>
-  </DiagramLayerSettings>
   <fieldConfiguration>
-    <field configurationFlags="NoFlag" name="fid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="objectid">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="topoid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="createdate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="objectmoddate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="featuremoddate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="classsubtype">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="featurereliabilitydate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="attributereliabilitydate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="capturesourcecode">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="capturemethodcode">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="planimetricaccuracy">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="verticalaccuracy">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="operationalstatus">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="roadnameoid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="roadnamebase">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="roadnametype">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="roadnamesuffix">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="functionhierarchy">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="roadontype">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="surface">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="lanecount">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="roadnameextentoid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="relevance">
-      <editWidget type="Range">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="startdate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="enddate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="lastupdate">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="msoid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="centroidid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="shapeuuid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="changetype">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="processstate">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="urbanity">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="shape_Length">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
+    <field configurationFlags="NoFlag" name="fid"></field>
+    <field configurationFlags="NoFlag" name="objectid"></field>
+    <field configurationFlags="NoFlag" name="topoid"></field>
+    <field configurationFlags="NoFlag" name="createdate"></field>
+    <field configurationFlags="NoFlag" name="objectmoddate"></field>
+    <field configurationFlags="NoFlag" name="featuremoddate"></field>
+    <field configurationFlags="NoFlag" name="classsubtype"></field>
+    <field configurationFlags="NoFlag" name="featurereliabilitydate"></field>
+    <field configurationFlags="NoFlag" name="attributereliabilitydate"></field>
+    <field configurationFlags="NoFlag" name="capturesourcecode"></field>
+    <field configurationFlags="NoFlag" name="capturemethodcode"></field>
+    <field configurationFlags="NoFlag" name="planimetricaccuracy"></field>
+    <field configurationFlags="NoFlag" name="verticalaccuracy"></field>
+    <field configurationFlags="NoFlag" name="operationalstatus"></field>
+    <field configurationFlags="NoFlag" name="roadnameoid"></field>
+    <field configurationFlags="NoFlag" name="roadnamebase"></field>
+    <field configurationFlags="NoFlag" name="roadnametype"></field>
+    <field configurationFlags="NoFlag" name="roadnamesuffix"></field>
+    <field configurationFlags="NoFlag" name="functionhierarchy"></field>
+    <field configurationFlags="NoFlag" name="roadontype"></field>
+    <field configurationFlags="NoFlag" name="surface"></field>
+    <field configurationFlags="NoFlag" name="lanecount"></field>
+    <field configurationFlags="NoFlag" name="roadnameextentoid"></field>
+    <field configurationFlags="NoFlag" name="relevance"></field>
+    <field configurationFlags="NoFlag" name="startdate"></field>
+    <field configurationFlags="NoFlag" name="enddate"></field>
+    <field configurationFlags="NoFlag" name="lastupdate"></field>
+    <field configurationFlags="NoFlag" name="msoid"></field>
+    <field configurationFlags="NoFlag" name="centroidid"></field>
+    <field configurationFlags="NoFlag" name="shapeuuid"></field>
+    <field configurationFlags="NoFlag" name="changetype"></field>
+    <field configurationFlags="NoFlag" name="processstate"></field>
+    <field configurationFlags="NoFlag" name="urbanity"></field>
+    <field configurationFlags="NoFlag" name="shape_Length"></field>
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
@@ -1144,193 +876,6 @@
     <constraint desc="" exp="" field="shape_Length"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
-  <attributeactions>
-    <defaultAction key="Canvas" value="{00000000-0000-0000-0000-000000000000}"></defaultAction>
-  </attributeactions>
-  <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
-    <columns>
-      <column hidden="0" name="fid" type="field" width="-1"></column>
-      <column hidden="0" name="topoid" type="field" width="-1"></column>
-      <column hidden="0" name="createdate" type="field" width="-1"></column>
-      <column hidden="0" name="objectmoddate" type="field" width="-1"></column>
-      <column hidden="0" name="featuremoddate" type="field" width="-1"></column>
-      <column hidden="0" name="classsubtype" type="field" width="-1"></column>
-      <column hidden="0" name="featurereliabilitydate" type="field" width="-1"></column>
-      <column hidden="0" name="attributereliabilitydate" type="field" width="-1"></column>
-      <column hidden="0" name="capturesourcecode" type="field" width="-1"></column>
-      <column hidden="0" name="capturemethodcode" type="field" width="-1"></column>
-      <column hidden="0" name="planimetricaccuracy" type="field" width="-1"></column>
-      <column hidden="0" name="verticalaccuracy" type="field" width="-1"></column>
-      <column hidden="0" name="operationalstatus" type="field" width="-1"></column>
-      <column hidden="0" name="roadnameoid" type="field" width="-1"></column>
-      <column hidden="0" name="roadnamebase" type="field" width="-1"></column>
-      <column hidden="0" name="roadnametype" type="field" width="-1"></column>
-      <column hidden="0" name="roadnamesuffix" type="field" width="-1"></column>
-      <column hidden="0" name="functionhierarchy" type="field" width="-1"></column>
-      <column hidden="0" name="roadontype" type="field" width="-1"></column>
-      <column hidden="0" name="surface" type="field" width="-1"></column>
-      <column hidden="0" name="lanecount" type="field" width="-1"></column>
-      <column hidden="0" name="roadnameextentoid" type="field" width="-1"></column>
-      <column hidden="0" name="relevance" type="field" width="-1"></column>
-      <column hidden="0" name="startdate" type="field" width="-1"></column>
-      <column hidden="0" name="enddate" type="field" width="-1"></column>
-      <column hidden="0" name="lastupdate" type="field" width="-1"></column>
-      <column hidden="0" name="msoid" type="field" width="-1"></column>
-      <column hidden="0" name="centroidid" type="field" width="-1"></column>
-      <column hidden="0" name="shapeuuid" type="field" width="-1"></column>
-      <column hidden="0" name="changetype" type="field" width="-1"></column>
-      <column hidden="0" name="processstate" type="field" width="-1"></column>
-      <column hidden="0" name="urbanity" type="field" width="-1"></column>
-      <column hidden="0" name="objectid" type="field" width="-1"></column>
-      <column hidden="0" name="shape_Length" type="field" width="-1"></column>
-      <column hidden="1" type="actions" width="-1"></column>
-    </columns>
-  </attributetableconfig>
-  <conditionalstyles>
-    <rowstyles></rowstyles>
-    <fieldstyles></fieldstyles>
-  </conditionalstyles>
-  <storedexpressions></storedexpressions>
-  <editform tolerant="1"></editform>
-  <editforminit></editforminit>
-  <editforminitcodesource>0</editforminitcodesource>
-  <editforminitfilepath></editforminitfilepath>
-  <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
-"""
-QGIS forms can have a Python function that is called when the form is
-opened.
-
-Use this function to add extra logic to your forms.
-
-Enter the name of the function in the "Python Init function"
-field.
-An example follows:
-"""
-from qgis.PyQt.QtWidgets import QWidget
-
-def my_form_open(dialog, layer, feature):
-    geom = feature.geometry()
-    control = dialog.findChild(QWidget, "MyLineEdit")
-]]></editforminitcode>
-  <featformsuppress>0</featformsuppress>
-  <editorlayout>generatedlayout</editorlayout>
-  <editable>
-    <field editable="1" name="OBJECTID"></field>
-    <field editable="1" name="Shape__Length"></field>
-    <field editable="1" name="attributereliabilitydate"></field>
-    <field editable="1" name="capturemethodcode"></field>
-    <field editable="1" name="capturesourcecode"></field>
-    <field editable="1" name="centroidid"></field>
-    <field editable="1" name="changetype"></field>
-    <field editable="1" name="classsubtype"></field>
-    <field editable="1" name="createdate"></field>
-    <field editable="1" name="enddate"></field>
-    <field editable="1" name="featuremoddate"></field>
-    <field editable="1" name="featurereliabilitydate"></field>
-    <field editable="1" name="fid"></field>
-    <field editable="1" name="functionhierarchy"></field>
-    <field editable="1" name="lanecount"></field>
-    <field editable="1" name="lastupdate"></field>
-    <field editable="1" name="msoid"></field>
-    <field editable="1" name="objectid"></field>
-    <field editable="1" name="objectmoddate"></field>
-    <field editable="1" name="operationalstatus"></field>
-    <field editable="1" name="planimetricaccuracy"></field>
-    <field editable="1" name="processstate"></field>
-    <field editable="1" name="relevance"></field>
-    <field editable="1" name="roadnamebase"></field>
-    <field editable="1" name="roadnameextentoid"></field>
-    <field editable="1" name="roadnameoid"></field>
-    <field editable="1" name="roadnamesuffix"></field>
-    <field editable="1" name="roadnametype"></field>
-    <field editable="1" name="roadontype"></field>
-    <field editable="1" name="shape_Length"></field>
-    <field editable="1" name="shapeuuid"></field>
-    <field editable="1" name="startdate"></field>
-    <field editable="1" name="surface"></field>
-    <field editable="1" name="topoid"></field>
-    <field editable="1" name="urbanity"></field>
-    <field editable="1" name="verticalaccuracy"></field>
-  </editable>
-  <labelOnTop>
-    <field labelOnTop="0" name="OBJECTID"></field>
-    <field labelOnTop="0" name="Shape__Length"></field>
-    <field labelOnTop="0" name="attributereliabilitydate"></field>
-    <field labelOnTop="0" name="capturemethodcode"></field>
-    <field labelOnTop="0" name="capturesourcecode"></field>
-    <field labelOnTop="0" name="centroidid"></field>
-    <field labelOnTop="0" name="changetype"></field>
-    <field labelOnTop="0" name="classsubtype"></field>
-    <field labelOnTop="0" name="createdate"></field>
-    <field labelOnTop="0" name="enddate"></field>
-    <field labelOnTop="0" name="featuremoddate"></field>
-    <field labelOnTop="0" name="featurereliabilitydate"></field>
-    <field labelOnTop="0" name="fid"></field>
-    <field labelOnTop="0" name="functionhierarchy"></field>
-    <field labelOnTop="0" name="lanecount"></field>
-    <field labelOnTop="0" name="lastupdate"></field>
-    <field labelOnTop="0" name="msoid"></field>
-    <field labelOnTop="0" name="objectid"></field>
-    <field labelOnTop="0" name="objectmoddate"></field>
-    <field labelOnTop="0" name="operationalstatus"></field>
-    <field labelOnTop="0" name="planimetricaccuracy"></field>
-    <field labelOnTop="0" name="processstate"></field>
-    <field labelOnTop="0" name="relevance"></field>
-    <field labelOnTop="0" name="roadnamebase"></field>
-    <field labelOnTop="0" name="roadnameextentoid"></field>
-    <field labelOnTop="0" name="roadnameoid"></field>
-    <field labelOnTop="0" name="roadnamesuffix"></field>
-    <field labelOnTop="0" name="roadnametype"></field>
-    <field labelOnTop="0" name="roadontype"></field>
-    <field labelOnTop="0" name="shape_Length"></field>
-    <field labelOnTop="0" name="shapeuuid"></field>
-    <field labelOnTop="0" name="startdate"></field>
-    <field labelOnTop="0" name="surface"></field>
-    <field labelOnTop="0" name="topoid"></field>
-    <field labelOnTop="0" name="urbanity"></field>
-    <field labelOnTop="0" name="verticalaccuracy"></field>
-  </labelOnTop>
-  <reuseLastValue>
-    <field name="OBJECTID" reuseLastValue="0"></field>
-    <field name="Shape__Length" reuseLastValue="0"></field>
-    <field name="attributereliabilitydate" reuseLastValue="0"></field>
-    <field name="capturemethodcode" reuseLastValue="0"></field>
-    <field name="capturesourcecode" reuseLastValue="0"></field>
-    <field name="centroidid" reuseLastValue="0"></field>
-    <field name="changetype" reuseLastValue="0"></field>
-    <field name="classsubtype" reuseLastValue="0"></field>
-    <field name="createdate" reuseLastValue="0"></field>
-    <field name="enddate" reuseLastValue="0"></field>
-    <field name="featuremoddate" reuseLastValue="0"></field>
-    <field name="featurereliabilitydate" reuseLastValue="0"></field>
-    <field name="fid" reuseLastValue="0"></field>
-    <field name="functionhierarchy" reuseLastValue="0"></field>
-    <field name="lanecount" reuseLastValue="0"></field>
-    <field name="lastupdate" reuseLastValue="0"></field>
-    <field name="msoid" reuseLastValue="0"></field>
-    <field name="objectid" reuseLastValue="0"></field>
-    <field name="objectmoddate" reuseLastValue="0"></field>
-    <field name="operationalstatus" reuseLastValue="0"></field>
-    <field name="planimetricaccuracy" reuseLastValue="0"></field>
-    <field name="processstate" reuseLastValue="0"></field>
-    <field name="relevance" reuseLastValue="0"></field>
-    <field name="roadnamebase" reuseLastValue="0"></field>
-    <field name="roadnameextentoid" reuseLastValue="0"></field>
-    <field name="roadnameoid" reuseLastValue="0"></field>
-    <field name="roadnamesuffix" reuseLastValue="0"></field>
-    <field name="roadnametype" reuseLastValue="0"></field>
-    <field name="roadontype" reuseLastValue="0"></field>
-    <field name="shape_Length" reuseLastValue="0"></field>
-    <field name="shapeuuid" reuseLastValue="0"></field>
-    <field name="startdate" reuseLastValue="0"></field>
-    <field name="surface" reuseLastValue="0"></field>
-    <field name="topoid" reuseLastValue="0"></field>
-    <field name="urbanity" reuseLastValue="0"></field>
-    <field name="verticalaccuracy" reuseLastValue="0"></field>
-  </reuseLastValue>
-  <dataDefinedFieldProperties></dataDefinedFieldProperties>
-  <widgets></widgets>
   <previewExpression>"roadnameoid"</previewExpression>
-  <mapTip enabled="1"></mapTip>
   <layerGeometryType>1</layerGeometryType>
 </qgis>

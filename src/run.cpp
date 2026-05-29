@@ -87,6 +87,10 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
     tiles = tiles_per_file(tile_input_extents);
   }
 
+  // Collected during the Tiles step; deleted after all steps complete so that
+  // a subsequent Combine step can still read from them.
+  std::vector<fs::path> processed_tile_dirs;
+
   double current_time = 0.01 / total_time;
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
@@ -96,7 +100,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
     current_time += time_ratios[idx++] / total_time;
     switch (step) {
-      case ProcessingStep::Tiles:
+      case ProcessingStep::Tiles: {
         for (size_t i = 0; i < tiles.size(); i++) {
           const Tile& tile = tiles[i];
           step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
@@ -118,8 +122,10 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           fs::path output_dir = config.output_path() / tile.output_name();
           fs::create_directories(output_dir);
           process_las_data(tile_data, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
+          processed_tile_dirs.push_back(output_dir);
         }
         break;
+      }
       case ProcessingStep::Combine:
         std::optional<std::string> projection;
 
@@ -265,6 +271,21 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         write_to_crt(config.output_path() / "combined" / "contours.crt");
 
         break;
+    }
+  }
+
+  if (config.delete_tile_folders && config.processing_steps.count(ProcessingStep::Combine) > 0 &&
+      !processed_tile_dirs.empty()) {
+    tracker.text_update("Deleting tile folders...");
+    for (const fs::path& dir : processed_tile_dirs) {
+      std::error_code ec;
+      fs::remove_all(dir, ec);
+      if (ec) {
+        std::cerr << "Warning: failed to delete tile folder " << dir << ": " << ec.message()
+                  << std::endl;
+      } else {
+        std::cout << "Deleted tile folder: " << dir << std::endl;
+      }
     }
   }
 }

@@ -20,7 +20,7 @@ function(find_and_copy_dependency_dlls)
         POST_BUILD
         COMMAND
           powershell -NonInteractive -Command
-          "$dllList = '$<JOIN:$<TARGET_RUNTIME_DLLS:${target}>,|>'; foreach ($dll in $dllList.Split('|')) { if ($dll) { Copy-Item -Path $dll -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue } }"
+          "$dllList = '$<JOIN:$<TARGET_RUNTIME_DLLS:${target}>,|>'; foreach ($dll in $dllList.Split('|')) { if ($dll) { try { Copy-Item -Path $dll -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
         COMMENT "Copying target runtime DLLs for ${target}"
         VERBATIM)
     endif()
@@ -28,10 +28,21 @@ function(find_and_copy_dependency_dlls)
 
   # For vcpkg builds, copy all DLLs from vcpkg's bin directory
   if(BLAZE_USE_VCPKG)
-    if(DEFINED VCPKG_INSTALLED_DIR)
-      set(VCPKG_BIN_DIR "${VCPKG_INSTALLED_DIR}/x64-windows/bin")
+    # Use the active triplet rather than hardcoding x64-windows; otherwise the
+    # arm64-windows build copies nothing here (the x64 path doesn't exist), the
+    # executables miss vcpkg's transitive runtime DLLs (proj, geos, …), and
+    # running them — e.g. gtest_discover_tests launching unit_tests.exe at build
+    # time — fails with 0xc0000135 (STATUS_DLL_NOT_FOUND).
+    if(DEFINED VCPKG_TARGET_TRIPLET AND VCPKG_TARGET_TRIPLET)
+      set(_blaze_vcpkg_triplet "${VCPKG_TARGET_TRIPLET}")
     else()
-      set(VCPKG_BIN_DIR "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/bin")
+      set(_blaze_vcpkg_triplet "x64-windows")
+    endif()
+    if(DEFINED VCPKG_INSTALLED_DIR)
+      set(VCPKG_BIN_DIR "${VCPKG_INSTALLED_DIR}/${_blaze_vcpkg_triplet}/bin")
+    else()
+      set(VCPKG_BIN_DIR
+          "${CMAKE_BINARY_DIR}/vcpkg_installed/${_blaze_vcpkg_triplet}/bin")
     endif()
 
     foreach(target ${ARGN})
@@ -41,10 +52,10 @@ function(find_and_copy_dependency_dlls)
           POST_BUILD
           COMMAND
             powershell -Command
-            "if (Test-Path '${VCPKG_BIN_DIR}') { Copy-Item -Path '${VCPKG_BIN_DIR}/*.dll' -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue }"
+            "if (Test-Path '${VCPKG_BIN_DIR}') { foreach ($f in Get-ChildItem -Path '${VCPKG_BIN_DIR}/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
           COMMAND
             powershell -Command
-            "if (Test-Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>') { Copy-Item -Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>/*.dll' -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction SilentlyContinue }"
+            "if (Test-Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>') { foreach ($f in Get-ChildItem -Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
           COMMENT "Copying vcpkg and gtest DLLs for ${target}"
           VERBATIM)
       endif()

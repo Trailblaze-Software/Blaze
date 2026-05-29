@@ -242,6 +242,10 @@ struct Config {
   // understands, e.g. "EPSG:28355", a WKT string, or a proj.4 string. Empty
   // string = use whatever the file embeds (error out if it embeds nothing).
   std::string override_crs;
+  // When true, each per-tile output directory is removed after all tiles have
+  // been processed. Useful for freeing disk space once the Combine step has
+  // merged the individual tile outputs into the combined/ directory.
+  bool delete_tile_folders = false;
   fs::path relative_path_to_config;
 
   void set_output_directory(const fs::path& output_dir) { output_directory = output_dir; }
