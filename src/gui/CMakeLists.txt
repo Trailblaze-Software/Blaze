@@ -11,13 +11,15 @@ target_sources(
           config_editor.cpp
           config_editor.ui)
 
-target_sources(
-  ${GUI_3D_EXE_NAME}
-  PRIVATE main_3d.cpp
-          main_3d_window.hpp
-          main_3d_window.cpp
-          layer_renderer.hpp
-          main_3d_window.ui
-          gl_widget.hpp
-          gl_widget.cpp
-          layer.hpp)
+if(BLAZE_BUILD_3D_GUI)
+  target_sources(
+    ${GUI_3D_EXE_NAME}
+    PRIVATE main_3d.cpp
+            main_3d_window.hpp
+            main_3d_window.cpp
+            layer_renderer.hpp
+            main_3d_window.ui
+            gl_widget.hpp
+            gl_widget.cpp
+            layer.hpp)
+endif()

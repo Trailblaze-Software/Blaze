@@ -21,6 +21,8 @@ MainWindow::MainWindow() : ui(std::make_unique<Ui::MainWindow>()) {
             [this] { ui->config_editor->open_config_file(); });
     connect(ui->actionSaveAs, &QAction::triggered, this,
             [this] { ui->config_editor->save_config_file(); });
+    connect(ui->actionResetDefaults, &QAction::triggered, this,
+            [this] { ui->config_editor->reset_to_defaults(); });
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
     connect(ui->config_editor, &ConfigEditor::config_changed,
             [this] { ui->runButton->setEnabled(ui->config_editor->is_valid()); });
