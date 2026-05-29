@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTimeFunction" kind="class" language="C++" prot="public">
+    <compoundname>TimeFunction</compoundname>
+    <basecompoundref refid="classTimer" prot="public" virt="non-virtual">Timer</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classTimeFunction_1a3268dd9d0b714dd40736550227129822" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string TimeFunction::m_name</definition>
+        <argsstring></argsstring>
+        <name>m_name</name>
+        <qualifiedname>TimeFunction::m_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="41" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTimeFunction_1a8938a87882f7241acae4340ebda19162" prot="private" static="no" mutable="no">
+        <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> *</type>
+        <definition>ProgressTracker* TimeFunction::m_progress_tracker</definition>
+        <argsstring></argsstring>
+        <name>m_progress_tracker</name>
+        <qualifiedname>TimeFunction::m_progress_tracker</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="42" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTimeFunction_1ac13a91fa58866706891b238ce6e8fe90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TimeFunction::TimeFunction</definition>
+        <argsstring>(const std::string &amp;name, ProgressTracker *progress_tracker=nullptr)</argsstring>
+        <name>TimeFunction</name>
+        <qualifiedname>TimeFunction::TimeFunction</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> *</type>
+          <declname>progress_tracker</declname>
+          <defval><ref refid="classCoordinate2D" kindref="compound">nullptr</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="45" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="45" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classTimeFunction_1ae5b0ec8a377aeeb95a3c7a1953429ee5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TimeFunction::TimeFunction</definition>
+        <argsstring>(const std::string &amp;name, std::optional&lt; ProgressTracker &gt; &amp;progress_tracker)</argsstring>
+        <name>TimeFunction</name>
+        <qualifiedname>TimeFunction::TimeFunction</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::optional&lt; <ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &gt; &amp;</type>
+          <declname>progress_tracker</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="54" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="54" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classTimeFunction_1a1bc53998328c1c556535d0bc98046484" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TimeFunction::~TimeFunction</definition>
+        <argsstring>()</argsstring>
+        <name>~TimeFunction</name>
+        <qualifiedname>TimeFunction::~TimeFunction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="57" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="57" bodyend="63"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>TimeFunction</label>
+        <link refid="classTimeFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>TimeFunction</label>
+        <link refid="classTimeFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="40" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="40" bodyend="64"/>
+    <listofallmembers>
+      <member refid="classTimer_1ab79e82b58e3044825ae1c885f38db102" prot="public" virt="non-virtual"><scope>TimeFunction</scope><name>duration</name></member>
+      <member refid="classTimeFunction_1a3268dd9d0b714dd40736550227129822" prot="private" virt="non-virtual"><scope>TimeFunction</scope><name>m_name</name></member>
+      <member refid="classTimeFunction_1a8938a87882f7241acae4340ebda19162" prot="private" virt="non-virtual"><scope>TimeFunction</scope><name>m_progress_tracker</name></member>
+      <member refid="classTimeFunction_1ac13a91fa58866706891b238ce6e8fe90" prot="public" virt="non-virtual"><scope>TimeFunction</scope><name>TimeFunction</name></member>
+      <member refid="classTimeFunction_1ae5b0ec8a377aeeb95a3c7a1953429ee5" prot="public" virt="non-virtual"><scope>TimeFunction</scope><name>TimeFunction</name></member>
+      <member refid="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" prot="public" virt="non-virtual"><scope>TimeFunction</scope><name>Timer</name></member>
+      <member refid="classTimeFunction_1a1bc53998328c1c556535d0bc98046484" prot="public" virt="non-virtual"><scope>TimeFunction</scope><name>~TimeFunction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
