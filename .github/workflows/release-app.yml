@@ -443,10 +443,26 @@ jobs:
       - name: Test installer
         run: |
           DMG=$(ls build/Blaze-*.dmg | head -1)
-          hdiutil attach "$DMG" -mountpoint /Volumes/Blaze -readonly
+
+          hdiutil detach /Volumes/Blaze -force 2>/dev/null || true
+
+          attached=false
+          for i in 1 2 3 4 5; do
+            if hdiutil attach "$DMG" -mountpoint /Volumes/Blaze -readonly -nobrowse -noautoopen; then
+              attached=true
+              break
+            fi
+            echo "hdiutil attach failed (attempt $i), retrying in 5s..."
+            sleep 5
+          done
+          if [ "$attached" != true ]; then
+            echo "Failed to attach DMG after 5 attempts"
+            exit 1
+          fi
+
           cp -r "/Volumes/Blaze/share/assets" /tmp/blaze-test
           "/Volumes/Blaze/bin/blaze-cli" /tmp/blaze-test/default_config.json
-          hdiutil detach /Volumes/Blaze
+          hdiutil detach /Volumes/Blaze -force
       # See note on the Windows job — only keep artifacts on tags / debug runs.
       - name: Upload Artifact
         if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
