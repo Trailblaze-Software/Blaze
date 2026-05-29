@@ -274,7 +274,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
     }
   }
 
-  if (config.delete_tile_folders && !processed_tile_dirs.empty()) {
+  if (config.delete_tile_folders && config.processing_steps.count(ProcessingStep::Combine) > 0 &&
+      !processed_tile_dirs.empty()) {
     tracker.text_update("Deleting tile folders...");
     for (const fs::path& dir : processed_tile_dirs) {
       std::error_code ec;
