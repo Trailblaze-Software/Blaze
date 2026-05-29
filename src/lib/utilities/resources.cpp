@@ -17,11 +17,6 @@
 #include <linux/limits.h>
 #include <unistd.h>
 #endif
-#ifdef __APPLE__
-#include <mach-o/dyld.h>
-
-#include <climits>
-#endif
 
 fs::path get_asset_dir() {
 #if defined(__WIN32__) || defined(_WIN32)
@@ -50,18 +45,6 @@ fs::path get_asset_dir() {
     buffer[len] = '\0';
   }
   fs::path path(buffer);
-#endif
-#ifdef __APPLE__
-  char buffer[PATH_MAX];
-  uint32_t size = sizeof(buffer);
-  if (_NSGetExecutablePath(buffer, &size) != 0) {
-    Fail("Could not get executable path on macOS");
-  }
-  char resolved[PATH_MAX];
-  if (realpath(buffer, resolved) == nullptr) {
-    Fail("Could not resolve executable path on macOS");
-  }
-  fs::path path(resolved);
 #endif
   std::vector<fs::path> asset_paths = {path.parent_path().parent_path() / "share" / "assets"};
 #ifdef __APPLE__
@@ -114,15 +97,6 @@ fs::path get_local_data_dir() {
     Fail("Could not get local linux data directory");
   }
   fs::path path = fs::path(home_dir) / ".local" / "share" / "blaze";
-  fs::create_directories(path);
-  return path;
-#endif
-#ifdef __APPLE__
-  const char* home_dir = getenv("HOME");
-  if (home_dir == nullptr) {
-    Fail("Could not get home directory on macOS");
-  }
-  fs::path path = fs::path(home_dir) / "Library" / "Application Support" / "blaze";
   fs::create_directories(path);
   return path;
 #endif
