@@ -87,23 +87,23 @@ class GPKGWriter {
 
     if (layer->GetLayerDefn()->GetFieldIndex("name") == -1) {
       OGRFieldDefn defn("name", OFTString);
-      layer->CreateField(&defn);
+      (void)layer->CreateField(&defn);
     }
     if (layer->GetLayerDefn()->GetFieldIndex("layer") == -1) {
       OGRFieldDefn defn("layer", OFTString);
-      layer->CreateField(&defn);
+      (void)layer->CreateField(&defn);
     }
     for (const auto& [field_name, field_value] : data_fields) {
       if (layer->GetLayerDefn()->GetFieldIndex(field_name.c_str()) == -1) {
         if (std::holds_alternative<int>(field_value)) {
           OGRFieldDefn defn(field_name.c_str(), OFTInteger);
-          layer->CreateField(&defn);
+          (void)layer->CreateField(&defn);
         } else if (std::holds_alternative<double>(field_value)) {
           OGRFieldDefn defn(field_name.c_str(), OFTReal);
-          layer->CreateField(&defn);
+          (void)layer->CreateField(&defn);
         } else if (std::holds_alternative<std::string>(field_value)) {
           OGRFieldDefn defn(field_name.c_str(), OFTString);
-          layer->CreateField(&defn);
+          (void)layer->CreateField(&defn);
         } else {
           Assert(false, "Unknown field type.");
         }

@@ -83,6 +83,11 @@
 |  [**void**](classCoordinate2D.md) | [**process\_las\_file**](#function-process_las_file) ([**const**](classCoordinate2D.md) fs::path & las\_filename, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
 
 
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
+|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**downsample\_mask\_any**](#function-downsample_mask_any) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; & grid, [**size\_t**](classCoordinate2D.md) factor) <br> |
 
 
 
@@ -204,6 +209,24 @@ void process_las_file (
     const fs::path & las_filename,
     const  Config & config,
     ProgressTracker progress_tracker
+) 
+```
+
+
+
+
+<hr>
+## Public Static Functions Documentation
+
+
+
+
+### function downsample\_mask\_any 
+
+```C++
+static GeoGrid < std::optional< std::byte > > downsample_mask_any (
+    const  GeoGrid < std::optional< std::byte > > & grid,
+    size_t factor
 ) 
 ```
 

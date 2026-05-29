@@ -40,6 +40,7 @@
 * **downsample** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **detect\_tile\_mode\_needed** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **double\_to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
+* **downsample\_mask\_any** ([**process.cpp**](process_8cpp.md))
 
 
 ## e
@@ -135,6 +136,7 @@
 * **reproject\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **read\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **run\_loop** ([**progress\_tracker\_helper.cpp**](progress__tracker__helper_8cpp.md), [**progress\_tracker.hpp**](progress__tracker_8hpp.md))
+* **read\_byte\_tif\_pixels** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **run\_with\_config** ([**run.cpp**](run_8cpp.md), [**run.hpp**](run_8hpp.md))
 
 

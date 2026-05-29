@@ -403,7 +403,6 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
     // color Pixels can be either background or vegetation colors, but we expect mostly vegetation
     size_t vegetation_pixel_count = 0;
     size_t background_pixel_count = 0;
-    size_t invalid_pixel_count = 0;
 
     for (size_t i = 0; i < grid.height(); ++i) {
       for (size_t j = 0; j < grid.width(); ++j) {
@@ -422,7 +421,6 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
             }
           }
           if (!matches_vege) {
-            invalid_pixel_count++;
             FAIL() << "Pixel at (" << j << ", " << i
                    << ") does not match expected color (background or vegetation). Got RGB("
                    << static_cast<int>(pixel.getRed()) << ", " << static_cast<int>(pixel.getGreen())
@@ -925,6 +923,90 @@ TEST(E2E, GroundEstimationSlopes) {
   } else if (fs::exists(test_output_dir)) {
     fs::remove_all(test_output_dir);
   }
+}
+
+// ---- write_to_image_tif explicit bounds tests ----------------------------
+
+// Helper: read back a single-band byte TIF and return its pixel values.
+static std::vector<uint8_t> read_byte_tif_pixels(const fs::path& path) {
+  ensure_gdal_initialized();
+  GDALDataset* ds = static_cast<GDALDataset*>(GDALOpen(path.string().c_str(), GA_ReadOnly));
+  Assert(ds != nullptr, "Failed to open TIF: " + path.string());
+  GDALRasterBand* band = ds->GetRasterBand(1);
+  int w = band->GetXSize(), h = band->GetYSize();
+  std::vector<uint8_t> pixels(static_cast<size_t>(w * h));
+  CPLErr err = band->RasterIO(GF_Read, 0, 0, w, h, pixels.data(), w, h, GDT_Byte, 0, 0);
+  Assert(err == CE_None, "RasterIO failed for: " + path.string());
+  GDALClose(ds);
+  return pixels;
+}
+
+// With explicit bounds [pi/2 (min), 0 (max)]:
+//   flat     (slope = 0)    -> pixel 255 (bright, no cliff)
+//   vertical (slope = pi/2) -> pixel 0   (dark, cliff)
+TEST(WriteToImageTif, AbsoluteSlopeBounds) {
+  fs::path tmp = blaze::test::unique_test_output_dir("slope_bounds");
+  fs::create_directories(tmp);
+  fs::path out = tmp / "test_slope.tif";
+
+  GeoGrid<double> grid(3, 3, GeoTransform(), GeoProjection());
+
+  // Flat: all zeros -> pixel should be 255.
+  for (size_t i = 0; i < 3; i++)
+    for (size_t j = 0; j < 3; j++) grid[{j, i}] = 0.0;
+
+  write_to_image_tif(grid, out, std::optional<ProgressTracker>{},
+                     std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
+  {
+    auto pixels = read_byte_tif_pixels(out);
+    for (auto p : pixels) EXPECT_EQ(p, 255) << "flat grid should produce all-255 pixels";
+  }
+
+  // Fully vertical: all pi/2 -> pixel should be 0.
+  for (size_t i = 0; i < 3; i++)
+    for (size_t j = 0; j < 3; j++) grid[{j, i}] = std::numbers::pi / 2;
+
+  write_to_image_tif(grid, out, std::optional<ProgressTracker>{},
+                     std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
+  {
+    auto pixels = read_byte_tif_pixels(out);
+    for (auto p : pixels) EXPECT_EQ(p, 0) << "vertical grid should produce all-zero pixels";
+  }
+
+  // Mid-point: pi/4 -> pixel should be 127 (truncation of 255 * 0.5).
+  for (size_t i = 0; i < 3; i++)
+    for (size_t j = 0; j < 3; j++) grid[{j, i}] = std::numbers::pi / 4;
+
+  write_to_image_tif(grid, out, std::optional<ProgressTracker>{},
+                     std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
+  {
+    auto pixels = read_byte_tif_pixels(out);
+    for (auto p : pixels) EXPECT_EQ(p, 127) << "45-degree slope should produce pixel 127";
+  }
+
+  fs::remove_all(tmp);
+}
+
+// Without explicit bounds the original per-tile behaviour is preserved:
+// min is always mapped to 0, max always to 255.
+TEST(WriteToImageTif, PerTileBoundsDefault) {
+  fs::path tmp = blaze::test::unique_test_output_dir("slope_per_tile");
+  fs::create_directories(tmp);
+  fs::path out = tmp / "test_pertile.tif";
+
+  GeoGrid<double> grid(3, 3, GeoTransform(), GeoProjection());
+  // Arbitrary range [2, 4].
+  for (size_t i = 0; i < 3; i++)
+    for (size_t j = 0; j < 3; j++) grid[{j, i}] = (j == 0 && i == 0) ? 2.0 : 4.0;
+
+  write_to_image_tif(grid, out);
+  auto pixels = read_byte_tif_pixels(out);
+
+  // The minimum value (2.0) should map to 0, maximum (4.0) to 255.
+  EXPECT_EQ(pixels[0], 0);    // top-left has value 2.0 (min)
+  EXPECT_EQ(pixels[1], 255);  // next pixel has value 4.0 (max)
+
+  fs::remove_all(tmp);
 }
 ```
 

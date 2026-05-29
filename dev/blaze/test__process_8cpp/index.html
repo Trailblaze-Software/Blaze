@@ -820,6 +820,50 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#function-test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -852,8 +896,10 @@
 <li><code>#include &lt;gtest/gtest.h&gt;</code></li>
 <li><code>#include &lt;cmath&gt;</code></li>
 <li><code>#include &lt;limits&gt;</code></li>
+<li><code>#include &lt;numbers&gt;</code></li>
 <li><code>#include "las/las_point.hpp"</code></li>
 <li><code>#include "lib/grid/grid.hpp"</code></li>
+<li><code>#include "methods/hill_shade/hill_shade.hpp"</code></li>
 <li><code>#include "process.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
@@ -884,6 +930,22 @@
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>Process</strong></a>, <a href="../classCoordinate2D/"><strong>NumCellsByDistance</strong></a>) <br></td>
 </tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>Slope</strong></a>, <a href="../classCoordinate2D/"><strong>FlatSurface</strong></a>) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>Slope</strong></a>, <a href="../classCoordinate2D/"><strong>FortyFiveDegreeSlope</strong></a>) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>Slope</strong></a>, <a href="../classCoordinate2D/"><strong>AlwaysNonNegative</strong></a>) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>Slope</strong></a>, <a href="../classCoordinate2D/"><strong>NeverExceedsVertical</strong></a>) <br></td>
+</tr>
 </tbody>
 </table>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
@@ -892,6 +954,38 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">Process</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">NumCellsByDistance</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_1">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">Slope</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">FlatSurface</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_2">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">Slope</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">FortyFiveDegreeSlope</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_3">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">Slope</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">AlwaysNonNegative</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_4">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">Slope</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">NeverExceedsVertical</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

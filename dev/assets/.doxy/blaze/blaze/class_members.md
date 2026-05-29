@@ -69,6 +69,7 @@
 * **data\_ready** ([**AsyncLASData**](classAsyncLASData.md))
 * **direction** ([**Camera**](classCamera.md))
 * **Default** ([**Config**](structConfig.md))
+* **delete\_tile\_folders** ([**Config**](structConfig.md))
 * **Dir** ([**Direction2D**](classDirection2D.md))
 * **Direction2D** ([**Direction2D**](classDirection2D.md))
 * **dx** ([**Direction2D**](classDirection2D.md), [**GeoGridData**](classGeoGridData.md), [**GeoTransform**](classGeoTransform.md))

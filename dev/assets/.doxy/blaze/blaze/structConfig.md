@@ -38,6 +38,7 @@
 |  [**double**](classCoordinate2D.md) | [**border\_width**](#variable-border_width)  <br> |
 |  [**BuildingsConfig**](structBuildingsConfig.md) | [**buildings**](#variable-buildings)  <br> |
 |  [**ContourConfigs**](structContourConfigs.md) | [**contours**](#variable-contours)  <br> |
+|  [**bool**](classCoordinate2D.md) | [**delete\_tile\_folders**](#variable-delete_tile_folders)   = `[**false**](classCoordinate2D.md)`<br> |
 |  [**GridConfig**](structGridConfig.md) | [**grid**](#variable-grid)  <br> |
 |  [**GroundConfig**](structGroundConfig.md) | [**ground**](#variable-ground)  <br> |
 |  std::vector&lt; fs::path &gt; | [**las\_files**](#variable-las_files)  <br> |
@@ -147,6 +148,19 @@ BuildingsConfig Config::buildings;
 
 ```C++
 ContourConfigs Config::contours;
+```
+
+
+
+
+<hr>
+
+
+
+### variable delete\_tile\_folders 
+
+```C++
+bool Config::delete_tile_folders;
 ```
 
 

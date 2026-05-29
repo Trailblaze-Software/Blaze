@@ -90,6 +90,8 @@
 |   | [**TEST**](#function-test) ([**E2E**](classCoordinate2D.md), [**ProcessDifferentResolutions**](classCoordinate2D.md)) <br> |
 |   | [**TEST**](#function-test) ([**E2E**](classCoordinate2D.md), [**VerifyOutputStructure**](classCoordinate2D.md)) <br> |
 |   | [**TEST**](#function-test) ([**E2E**](classCoordinate2D.md), [**GroundEstimationSlopes**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**WriteToImageTif**](classCoordinate2D.md), [**AbsoluteSlopeBounds**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**WriteToImageTif**](classCoordinate2D.md), [**PerTileBoundsDefault**](classCoordinate2D.md)) <br> |
 |   | [**TEST\_P**](#function-test_p) ([**E2ETerrainTest**](classE2ETerrainTest.md), [**ProcessTerrain**](classCoordinate2D.md)) <br> |
 |  [**Config**](structConfig.md) | [**create\_minimal\_test\_config**](#function-create_minimal_test_config) ([**const**](classCoordinate2D.md) fs::path & output\_dir) <br> |
 |  [**LASData**](classLASData.md) | [**create\_synthetic\_las\_data**](#function-create_synthetic_las_data) () <br> |
@@ -99,6 +101,11 @@
 |  [**void**](classCoordinate2D.md) | [**verify\_vegetation\_tif**](#function-verify_vegetation_tif) ([**const**](classCoordinate2D.md) fs::path & vege\_tif\_path, [**bool**](classCoordinate2D.md) should\_have\_vegetation, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config) <br> |
 
 
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
+|  std::vector&lt; [**uint8\_t**](classCoordinate2D.md) &gt; | [**read\_byte\_tif\_pixels**](#function-read_byte_tif_pixels) ([**const**](classCoordinate2D.md) fs::path & path) <br> |
 
 
 
@@ -227,6 +234,38 @@ TEST (
 
 
 
+### function TEST 
+
+```C++
+TEST (
+    WriteToImageTif,
+    AbsoluteSlopeBounds
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    WriteToImageTif,
+    PerTileBoundsDefault
+) 
+```
+
+
+
+
+<hr>
+
+
+
 ### function TEST\_P 
 
 ```C++
@@ -325,6 +364,23 @@ void verify_vegetation_tif (
     const fs::path & vege_tif_path,
     bool should_have_vegetation,
     const  Config & config
+) 
+```
+
+
+
+
+<hr>
+## Public Static Functions Documentation
+
+
+
+
+### function read\_byte\_tif\_pixels 
+
+```C++
+static std::vector< uint8_t > read_byte_tif_pixels (
+    const fs::path & path
 ) 
 ```
 

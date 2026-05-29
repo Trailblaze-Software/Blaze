@@ -34,6 +34,7 @@
 
 ## d
 
+* **delete\_tile\_folders** ([**Config**](structConfig.md))
 * **dataset** ([**GDALDataset\_w**](classGDALDataset__w.md), [**GPKGWriter**](classGPKGWriter.md))
 * **default\_layer\_name** ([**GPKGWriter**](classGPKGWriter.md))
 * **downsample\_factor** ([**GridConfig**](structGridConfig.md))

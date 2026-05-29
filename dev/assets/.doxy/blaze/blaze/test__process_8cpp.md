@@ -13,8 +13,10 @@
 * `#include <gtest/gtest.h>`
 * `#include <cmath>`
 * `#include <limits>`
+* `#include <numbers>`
 * `#include "las/las_point.hpp"`
 * `#include "lib/grid/grid.hpp"`
+* `#include "methods/hill_shade/hill_shade.hpp"`
 * `#include "process.hpp"`
 
 
@@ -63,6 +65,10 @@
 | Type | Name |
 | ---: | :--- |
 |   | [**TEST**](#function-test) ([**Process**](classCoordinate2D.md), [**NumCellsByDistance**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**FlatSurface**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**FortyFiveDegreeSlope**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**AlwaysNonNegative**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**NeverExceedsVertical**](classCoordinate2D.md)) <br> |
 
 
 
@@ -102,6 +108,70 @@
 TEST (
     Process,
     NumCellsByDistance
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    Slope,
+    FlatSurface
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    Slope,
+    FortyFiveDegreeSlope
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    Slope,
+    AlwaysNonNegative
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    Slope,
+    NeverExceedsVertical
 ) 
 ```
 

@@ -23,7 +23,8 @@ Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename);
 
 template <typename T>
 void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
-                        std::optional<ProgressTracker> progress_tracker = {});
+                        std::optional<ProgressTracker> progress_tracker = {},
+                        std::optional<T> min_val = {}, std::optional<T> max_val = {});
 ```
 
 

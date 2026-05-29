@@ -52,6 +52,40 @@ GeoGrid<double> get_pixel_heights(const GeoGrid<std::optional<LASPoint>>& ground
   return ground;
 }
 
+// Downsample a binary mask grid by `factor` using "any" aggregation: an output
+// cell is set if any of the input sub-cells were set. Used to bring the
+// buildings mask onto the same resolution as the smooth-ground DEM (slope,
+// hill-shade, etc.) for export.
+static GeoGrid<std::optional<std::byte>> downsample_mask_any(
+    const GeoGrid<std::optional<std::byte>>& grid, size_t factor) {
+  if (factor == 0) {
+    Fail("downsample_mask_any factor must be > 0");
+  }
+  if (grid.transform().dx() != -grid.transform().dy()) {
+    Fail("downsample_mask_any requires square pixels (dx == -dy)");
+  }
+  GeoGrid<std::optional<std::byte>> result(
+      (grid.width() + factor - 1) / factor, (grid.height() + factor - 1) / factor,
+      grid.transform().with_new_resolution(grid.transform().dx() * factor),
+      GeoProjection(grid.projection()));
+#pragma omp parallel for
+  for (size_t i = 0; i < result.height(); i++) {
+    for (size_t j = 0; j < result.width(); j++) {
+      bool any_set = false;
+      for (size_t k = 0; k < factor && i * factor + k < grid.height() && !any_set; k++) {
+        for (size_t l = 0; l < factor && j * factor + l < grid.width(); l++) {
+          if (grid[{j * factor + l, i * factor + k}]) {
+            any_set = true;
+            break;
+          }
+        }
+      }
+      result[{j, i}] = any_set ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
+    }
+  }
+  return result;
+}
+
 GeoGrid<double> adjust_ground_to_slope(const GeoGrid<double>& grid) {
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
@@ -200,8 +234,19 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
                progress_tracker.subtracker(0.65, 0.66), /*include_vertical_crs=*/true);
-  write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif",
-               progress_tracker.subtracker(0.66, 0.67));
+  // Export buildings.tif at the smooth-ground resolution (bin_resolution *
+  // downsample_factor) to match slope.tif / hill_shade / smooth_ground.tif.
+  // The internal `buildings` grid is kept at bin_resolution so that the
+  // building_color raster drawn onto the final image preserves fine outlines.
+  if (downsample_factor > 1) {
+    GeoGrid<std::optional<std::byte>> buildings_export =
+        downsample_mask_any(buildings, downsample_factor);
+    write_to_tif(buildings_export.slice(las_file.export_bounds()), output_dir / "buildings.tif",
+                 progress_tracker.subtracker(0.66, 0.67));
+  } else {
+    write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif",
+                 progress_tracker.subtracker(0.66, 0.67));
+  }
   write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif",
                progress_tracker.subtracker(0.67, 0.68));
 
@@ -227,8 +272,11 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
+    // Scale absolutely with min=pi/2, max=0: flat terrain (slope≈0) → 255, vertical (slope≈pi/2) →
+    // 0.
     write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif",
-                       progress_tracker.subtracker(0.74, 0.75));
+                       progress_tracker.subtracker(0.74, 0.75),
+                       std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
   }
 
   if (OUT_LAS) LASData(smooth_ground).write(output_dir / "smooth_ground.las");

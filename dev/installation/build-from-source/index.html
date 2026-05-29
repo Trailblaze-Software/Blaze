@@ -493,15 +493,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
+  <a href="#macos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Windows
+        macOS
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Windows">
+    <nav class="md-nav" aria-label="macOS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -517,6 +517,73 @@
         
           <li class="md-nav__item">
   <a href="#building-from-source_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building from Source
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building from Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-configure-and-compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Configure and compile:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-install-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Install (optional):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-from-source_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Building from Source
@@ -1085,15 +1152,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
+  <a href="#macos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Windows
+        macOS
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Windows">
+    <nav class="md-nav" aria-label="macOS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1109,6 +1176,73 @@
         
           <li class="md-nav__item">
   <a href="#building-from-source_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building from Source
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building from Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-configure-and-compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Configure and compile:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-install-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Install (optional):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-from-source_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Building from Source
@@ -1205,7 +1339,7 @@
 
 
 <h1 id="building-from-source">Building from Source</h1>
-<p>This guide covers how to build Blaze from source on Linux and Windows.</p>
+<p>This guide covers how to build Blaze from source on Linux, macOS, and Windows.</p>
 <h2 id="linux-ubuntudebian">Linux (Ubuntu/Debian)</h2>
 <h3 id="prerequisites">Prerequisites</h3>
 <p>Install the required dependencies:</p>
@@ -1238,14 +1372,48 @@
 <li><code>Blaze</code> - Desktop GUI application (WIP)</li>
 <li><code>Blaze3D</code> - 3D visualization application (very WIP)</li>
 </ul>
-<h2 id="windows">Windows</h2>
+<h2 id="macos">macOS</h2>
 <h3 id="prerequisites_1">Prerequisites</h3>
+<p>Install the required dependencies using Homebrew:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./scripts/install-macos-deps.sh
+</code></pre></div>
+<p>This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
+Homebrew will be installed automatically if it is not already present.</p>
+<h3 id="building-from-source_2">Building from Source</h3>
+<h4 id="1-configure-and-compile">1. <strong>Configure and compile:</strong></h4>
+<p>Use the provided build script:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./scripts/macos-build.sh
+</code></pre></div>
+<p>Or manually:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">LIBOMP</span><span class="o">=</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>libomp<span class="k">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="s2">&quot;-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I</span><span class="si">${</span><span class="nv">LIBOMP</span><span class="si">}</span><span class="s2">/include&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="s2">&quot;-DOpenMP_CXX_LIB_NAMES=omp&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="s2">&quot;-DOpenMP_omp_LIBRARY=</span><span class="si">${</span><span class="nv">LIBOMP</span><span class="si">}</span><span class="s2">/lib/libomp.dylib&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="s2">&quot;-DCMAKE_PREFIX_PATH=</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>qt@6<span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--parallel
+</code></pre></div>
+<p>For a CLI-only build (no GUI):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./scripts/macos-build.sh<span class="w"> </span>-DBLAZE_CLI_ONLY<span class="o">=</span>ON
+</code></pre></div>
+<h4 id="2-install-optional">2. <strong>Install (optional):</strong></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span>build
+</code></pre></div>
+<p>The following executables will be available in the build directory:</p>
+<ul>
+<li><code>blaze-cli</code> - Command-line interface</li>
+<li><code>Blaze.app</code> - Desktop GUI application (WIP)</li>
+<li><code>Blaze3D.app</code> - 3D visualization application (very WIP)</li>
+</ul>
+<h2 id="windows">Windows</h2>
+<h3 id="prerequisites_2">Prerequisites</h3>
 <p><strong>Option 1: Using vcpkg (Recommended)</strong></p>
 <p>Blaze uses vcpkg for dependency management on Windows. The build system will automatically fetch, configure, and build dependencies but this can take several hours.</p>
 <p><strong>Option 2: Manual Installation</strong></p>
 <p>Install dependencies using Chocolatey:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">.\</span><span class="n">scripts</span><span class="p">\</span><span class="nb">install-deps</span><span class="n">-windows</span><span class="p">.</span><span class="n">ps1</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="p">.\</span><span class="n">scripts</span><span class="p">\</span><span class="nb">install-deps</span><span class="n">-windows</span><span class="p">.</span><span class="n">ps1</span>
 </code></pre></div>
 <p>This script installs:</p>
 <ul>
@@ -1255,21 +1423,21 @@
 <li>OpenCV</li>
 </ul>
 <p><strong>Note:</strong> You may need to run PowerShell as Administrator.</p>
-<h3 id="building-from-source_2">Building from Source</h3>
+<h3 id="building-from-source_3">Building from Source</h3>
 <h4 id="1-configure-the-build_1">1. <strong>Configure the build:</strong></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>cmake -B build
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>cmake -B build
 </code></pre></div>
 <p>For CLI-only build (without GUI):
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cmake -B build -DBLAZE_CLI_ONLY=ON
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cmake -B build -DBLAZE_CLI_ONLY=ON
 </code></pre></div></p>
 <p>To disable vcpkg and use system packages:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cmake -B build -DBLAZE_USE_VCPKG=OFF
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cmake -B build -DBLAZE_USE_VCPKG=OFF
 </code></pre></div></p>
 <h4 id="2-compile_1">2. <strong>Compile:</strong></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cmake --build build --config Release --parallel
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>cmake --build build --config Release --parallel
 </code></pre></div>
 <h4 id="3-install-optional_1">3. <strong>Install (optional):</strong></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cmake --install build --config Release
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cmake --install build --config Release
 </code></pre></div>
 <p>The executables will be available in the <code>build</code> directory:</p>
 <ul>
@@ -1279,8 +1447,8 @@
 </ul>
 <h3 id="windows-installer">Windows Installer</h3>
 <p>A Windows installer (NSIS) can be created using CPack:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>cd build
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>cpack -C Release -G NSIS
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cd build
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>cpack -C Release -G NSIS
 </code></pre></div>
 <h3 id="speeding-up-builds-vcpkg-caching">Speeding up Builds (vcpkg Caching)</h3>
 <p>Blaze supports binary caching via GitHub Packages. This allows you to download pre-compiled dependencies instead of building them locally.</p>
@@ -1288,7 +1456,7 @@
 <li>
 <p><strong>Install NuGet CLI</strong>:
    If you don't have it already, install it via Chocolatey (run as Administrator):
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">choco</span> <span class="n">install</span> <span class="n">nuget</span><span class="p">.</span><span class="n">commandline</span>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">choco</span> <span class="n">install</span> <span class="n">nuget</span><span class="p">.</span><span class="n">commandline</span>
 </code></pre></div></p>
 </li>
 <li>
@@ -1297,16 +1465,16 @@
 </li>
 <li>
 <p><strong>Add the NuGet source</strong>:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">nuget</span> <span class="n">sources</span> <span class="n">add</span> <span class="n">-Name</span> <span class="s2">&quot;GitHub&quot;</span> <span class="p">`</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  <span class="n">-Source</span> <span class="s2">&quot;https://nuget.pkg.github.com/Trailblaze-Software/index.json&quot;</span> <span class="p">`</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  <span class="n">-UserName</span> <span class="s2">&quot;YOUR_GITHUB_USERNAME&quot;</span> <span class="p">`</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  <span class="n">-Password</span> <span class="s2">&quot;YOUR_PAT&quot;</span>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">nuget</span> <span class="n">sources</span> <span class="n">add</span> <span class="n">-Name</span> <span class="s2">&quot;GitHub&quot;</span> <span class="p">`</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  <span class="n">-Source</span> <span class="s2">&quot;https://nuget.pkg.github.com/Trailblaze-Software/index.json&quot;</span> <span class="p">`</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  <span class="n">-UserName</span> <span class="s2">&quot;YOUR_GITHUB_USERNAME&quot;</span> <span class="p">`</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  <span class="n">-Password</span> <span class="s2">&quot;YOUR_PAT&quot;</span>
 </code></pre></div></p>
 </li>
 <li>
 <p><strong>Enable the cache</strong>:
    Set the following environment variable before running CMake:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nv">$env:VCPKG_BINARY_SOURCES</span><span class="p">=</span><span class="s2">&quot;clear;nuget,GitHub,readwrite&quot;</span>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nv">$env:VCPKG_BINARY_SOURCES</span><span class="p">=</span><span class="s2">&quot;clear;nuget,GitHub,readwrite&quot;</span>
 </code></pre></div></p>
 </li>
 </ol>

@@ -168,6 +168,7 @@
     <member refid="structConfig_1a0e310e706a0c2136de5d85ac2a6c515b" kind="variable"><name>border_width</name></member>
     <member refid="structConfig_1ab63e6511f30a0ef261dd5306fb3697ae" kind="variable"><name>tile_size</name></member>
     <member refid="structConfig_1a16bdfd1e1e362f91894513579214aba6" kind="variable"><name>override_crs</name></member>
+    <member refid="structConfig_1aacbbfcc97fcee3f3f4c51811603af0b7" kind="variable"><name>delete_tile_folders</name></member>
     <member refid="structConfig_1acdb436f2afa573a2405b6917b88b16bc" kind="variable"><name>relative_path_to_config</name></member>
     <member refid="structConfig_1adc7fa0a653f4578f2f68233b11455a02" kind="function"><name>set_output_directory</name></member>
     <member refid="structConfig_1aafe793ed2d6324d49bab08359d07e002" kind="function"><name>output_path</name></member>
@@ -1289,13 +1290,13 @@
     <member refid="tif_8cpp_1afeffc39e512b3b434585d3240228510b" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1a880a7b66a7aa8bf2db83596d9ba4d9ff" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1a2ad621aa7c6bffddc00042324384cbd3" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a8806bb64a2cb289fede30ce0c7be09f9" kind="function"><name>write_to_image_tif</name></member>
-    <member refid="tif_8cpp_1acd88c5e76c98c8ef3b3936a0a29d0969" kind="function"><name>write_to_image_tif</name></member>
+    <member refid="tif_8cpp_1afb6c1d65829a86fee85b86de513cc306" kind="function"><name>write_to_image_tif</name></member>
+    <member refid="tif_8cpp_1a0ddf12a5fca97e394adbf3fb2e644473" kind="function"><name>write_to_image_tif</name></member>
   </compound>
   <compound refid="tif_8hpp" kind="file"><name>tif.hpp</name>
     <member refid="tif_8hpp_1af7bb1daa99c8ffaa16c90e18cc98b93b" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8hpp_1a5607df8328a05c02505fdfadda645152" kind="function"><name>read_tif</name></member>
-    <member refid="tif_8hpp_1a963c58e644c0c26cf0b5284a8edc3bfe" kind="function"><name>write_to_image_tif</name></member>
+    <member refid="tif_8hpp_1a05d36c7305350990048fd73b285a0515" kind="function"><name>write_to_image_tif</name></member>
   </compound>
   <compound refid="coordinate_8hpp" kind="file"><name>coordinate.hpp</name>
     <member refid="coordinate_8hpp_1aa440e390dd684dd56af9365f469eeab4" kind="variable"><name>ORTHOGONAL_DIRECTIONS</name></member>
@@ -1411,6 +1412,7 @@
     <member refid="process_8cpp_1a10fe7e7096d343cf6ff6a7543480b89fad586b7273e57cdd2c3d2c59b86e88f91" kind="enumvalue"><name>INTERPOLATE</name></member>
     <member refid="process_8cpp_1afed77da845e5643d82b1aea88b71849b" kind="variable"><name>OUT_LAS</name></member>
     <member refid="process_8cpp_1ad524c80bee9a4b821650ba067987dc7e" kind="function"><name>get_pixel_heights</name></member>
+    <member refid="process_8cpp_1aa626f09fc2f6adff7f6dd05f1bf319d9" kind="function"><name>downsample_mask_any</name></member>
     <member refid="process_8cpp_1a6986896f5e801bfba373e4c10d8b6dee" kind="function"><name>adjust_ground_to_slope</name></member>
     <member refid="process_8cpp_1a0368f25f7fa5c838dafd86b50325e5e1" kind="function"><name>process_las_file</name></member>
     <member refid="process_8cpp_1a080cbff7aa1e3753860ecef27efc07e7" kind="function"><name>process_las_data</name></member>
@@ -1440,9 +1442,16 @@
     <member refid="test__e2e_8cpp_1a86d2e410c5fe4aa1e3ef4ba4e4a00f09" kind="function"><name>TEST_P</name></member>
     <member refid="test__e2e_8cpp_1a74a4f40b6267714ab86432f2c5313143" kind="function"><name>INSTANTIATE_TEST_SUITE_P</name></member>
     <member refid="test__e2e_8cpp_1a2b15ca744b5a5df3dc726a8462b669d6" kind="function"><name>TEST</name></member>
+    <member refid="test__e2e_8cpp_1aca61e827a850f489db57cae66bf1a577" kind="function"><name>read_byte_tif_pixels</name></member>
+    <member refid="test__e2e_8cpp_1ab322b4d91570604212b00fa00265e93d" kind="function"><name>TEST</name></member>
+    <member refid="test__e2e_8cpp_1afc2662204af08ab4993550a9bf41c636" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__process_8cpp" kind="file"><name>test_process.cpp</name>
     <member refid="test__process_8cpp_1ace7d092747ce30d703bb843d032f0dd7" kind="function"><name>TEST</name></member>
+    <member refid="test__process_8cpp_1a61689e02000739e602a3d0aec7f23fc2" kind="function"><name>TEST</name></member>
+    <member refid="test__process_8cpp_1aff5f72624fe697dbf52a73d66ba6e40a" kind="function"><name>TEST</name></member>
+    <member refid="test__process_8cpp_1ab8a9222bf2dcf0a74e43fe5c63fa22cd" kind="function"><name>TEST</name></member>
+    <member refid="test__process_8cpp_1a67668377dd56258a823dbcd81efa136a" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="unit__tests_8cpp" kind="file"><name>unit_tests.cpp</name>
     <member refid="unit__tests_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>

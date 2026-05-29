@@ -1156,14 +1156,14 @@
 <h3 id="grid">Grid</h3>
 <p>Controls the resolutions used by various stages of the processing pipeline.</p>
 <ul>
-<li><code>bin_resolution</code>: Underlying grid cell size in meters. Raw LiDAR points are binned at this resolution; the ground / building / water / intensity rasters are produced here. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased. Default: <code>0.5</code>.</li>
+<li><code>bin_resolution</code>: Underlying grid cell size in meters. Raw LiDAR points are binned at this resolution; the ground / building / water / intensity rasters are produced at this resolution. For dense LIDAR (e.g. ACT) values around 0.5m work well; for sparser data this should be increased (e.g. ~2.5m for NSW). Default: <code>0.5</code>.</li>
 <li><code>downsample_factor</code>: Integer factor used to downsample the bin grid into the smooth ground DEM that is the basis for slope, hill-shade and <code>smooth_ground.tif</code>. Effective smooth-DEM resolution = <code>bin_resolution * downsample_factor</code>. Default: <code>3</code>.</li>
 <li><code>vegetation_grid_resolution</code>: Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be <code>&gt;= bin_resolution</code>. Default: <code>3.0</code>.</li>
 <li><code>contour_dem_resolution</code>: Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Computed by further downsampling the smooth ground DEM. Should be <code>&gt;= bin_resolution * downsample_factor</code>. Larger values produce smoother contours but lose fine terrain detail. Default: <code>9.0</code>.</li>
 </ul>
 <p>Older configs that only set <code>bin_resolution</code> and <code>downsample_factor</code> are still accepted; in that case <code>vegetation_grid_resolution</code> defaults to <code>bin_resolution</code> and <code>contour_dem_resolution</code> defaults to <code>bin_resolution * downsample_factor</code>, preserving the previous behaviour.</p>
 <h3 id="ground">Ground</h3>
-<p>Parameters for ground point classification and filtering. Ground spike removal automatically uses the relevant grid resolution as its height-diff threshold (so it scales naturally with <code>bin_resolution</code> and the smooth-DEM resolution); there is no longer a separate config option for it.</p>
+<p>Parameters for ground point classification and filtering.</p>
 <ul>
 <li><code>min_ground_intensity</code>: Minimum intensity value for ground points.</li>
 <li><code>max_ground_intensity</code>: Maximum intensity value for ground points.</li>
