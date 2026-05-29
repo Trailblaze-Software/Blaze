@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classProgressObserver" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>ProgressObserver</compoundname>
+    <derivedcompoundref refid="classProgressBar" prot="public" virt="non-virtual">ProgressBar</derivedcompoundref>
+    <derivedcompoundref refid="classProgressBox" prot="public" virt="non-virtual">ProgressBox</derivedcompoundref>
+    <derivedcompoundref refid="classProgressTracker" prot="public" virt="non-virtual">ProgressTracker</derivedcompoundref>
+    <derivedcompoundref refid="classProgressTrackerBar" prot="public" virt="non-virtual">ProgressTrackerBar</derivedcompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classProgressObserver_1ade04299b5e51053786c0ccfe896ad5d2" prot="private" static="no" mutable="no">
+        <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> *</type>
+        <definition>ProgressTracker* ProgressObserver::m_child</definition>
+        <argsstring></argsstring>
+        <name>m_child</name>
+        <qualifiedname>ProgressObserver::m_child</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="11" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classProgressObserver_1a91a71b3c41895c781ad347eaa6835c66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">class</ref></type>
+        <definition>friend class ProgressTracker</definition>
+        <argsstring></argsstring>
+        <name>ProgressTracker</name>
+        <qualifiedname>ProgressObserver::ProgressTracker</qualifiedname>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="23" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classProgressObserver_1a502166abd43c403c82ad269f382a4f4a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>virtual void ProgressObserver::update_progress</definition>
+        <argsstring>(double progress)=0</argsstring>
+        <name>update_progress</name>
+        <qualifiedname>ProgressObserver::update_progress</qualifiedname>
+        <reimplementedby refid="classProgressTrackerBar_1a0652db5878dcb6352c200a7c557bf2b2">update_progress</reimplementedby>
+        <reimplementedby refid="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08">update_progress</reimplementedby>
+        <reimplementedby refid="classProgressTracker_1a8cd68e23a30a0f466043cee0e4f49319">update_progress</reimplementedby>
+        <reimplementedby refid="classProgressBox_1a08a3e5791918847d41341e919d5fad22">update_progress</reimplementedby>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="14" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgressObserver_1a1529b72f3ca12c12bcb0be81eea8aabe" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>virtual void ProgressObserver::text_update</definition>
+        <argsstring>(const std::string &amp;text, int depth=0)=0</argsstring>
+        <name>text_update</name>
+        <qualifiedname>ProgressObserver::text_update</qualifiedname>
+        <reimplementedby refid="classProgressTrackerBar_1a4534823a24ddde8bc15d4cd972caa70f">text_update</reimplementedby>
+        <reimplementedby refid="classProgressBox_1af75b7c251206e81e678f28106a99baec">text_update</reimplementedby>
+        <reimplementedby refid="classProgressBar_1aa5fa842bcef66aed32ea6c7c79c44e5e">text_update</reimplementedby>
+        <reimplementedby refid="classProgressTracker_1aee39c73c1440e2649c02b986e7afbefc">text_update</reimplementedby>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <declname>depth</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="15" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgressObserver_1a91848627d3c0148811430f0480c0d906" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ProgressObserver::ProgressObserver</definition>
+        <argsstring>()</argsstring>
+        <name>ProgressObserver</name>
+        <qualifiedname>ProgressObserver::ProgressObserver</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="17" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="17" bodyend="17"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classProgressObserver_1a5ffae3404e579191612b2946e81373e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> *</type>
+        <definition>ProgressTracker * ProgressObserver::child</definition>
+        <argsstring>()</argsstring>
+        <name>child</name>
+        <qualifiedname>ProgressObserver::child</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="20" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgressObserver_1a88351d1c134e9edf4e716e930b6d3c53" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>ProgressObserver::~ProgressObserver</definition>
+        <argsstring>()</argsstring>
+        <name>~ProgressObserver</name>
+        <qualifiedname>ProgressObserver::~ProgressObserver</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="22" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="9" bodyend="9"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ProgressBar</label>
+        <link refid="classProgressBar"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ProgressBox</label>
+        <link refid="classProgressBox"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ProgressObserver</label>
+        <link refid="classProgressObserver"/>
+      </node>
+      <node id="4">
+        <label>ProgressTracker</label>
+        <link refid="classProgressTracker"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ProgressTrackerBar</label>
+        <link refid="classProgressTrackerBar"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="10" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="10" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classProgressObserver_1a5ffae3404e579191612b2946e81373e3" prot="public" virt="non-virtual"><scope>ProgressObserver</scope><name>child</name></member>
+      <member refid="classProgressObserver_1ade04299b5e51053786c0ccfe896ad5d2" prot="private" virt="non-virtual"><scope>ProgressObserver</scope><name>m_child</name></member>
+      <member refid="classProgressObserver_1a91848627d3c0148811430f0480c0d906" prot="protected" virt="non-virtual"><scope>ProgressObserver</scope><name>ProgressObserver</name></member>
+      <member refid="classProgressObserver_1a91a71b3c41895c781ad347eaa6835c66" prot="public" virt="non-virtual"><scope>ProgressObserver</scope><name>ProgressTracker</name></member>
+      <member refid="classProgressObserver_1a1529b72f3ca12c12bcb0be81eea8aabe" prot="protected" virt="pure-virtual"><scope>ProgressObserver</scope><name>text_update</name></member>
+      <member refid="classProgressObserver_1a502166abd43c403c82ad269f382a4f4a" prot="protected" virt="pure-virtual"><scope>ProgressObserver</scope><name>update_progress</name></member>
+      <member refid="classProgressObserver_1a88351d1c134e9edf4e716e930b6d3c53" prot="public" virt="virtual"><scope>ProgressObserver</scope><name>~ProgressObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
