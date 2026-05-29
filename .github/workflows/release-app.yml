@@ -1,8 +1,6 @@
 ---
 name: Release Application
 on:
-  release:
-    types: [published]
   push:
     branches: [main]
     tags:
@@ -39,13 +37,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get version from tag
         id: version
-        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          if ($env:GITHUB_EVENT_NAME -eq 'release') {
-            $tag = $env:GITHUB_EVENT_RELEASE_TAG_NAME -replace '^v', ''
-          } else {
-            $tag = $env:GITHUB_REF -replace 'refs/tags/v', ''
-          }
+          $tag = $env:GITHUB_REF -replace 'refs/tags/v', ''
           echo "version=$tag" >> $env:GITHUB_OUTPUT
           echo "Version: $tag"
       - name: Cache NSIS
@@ -239,13 +233,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get version from tag
         id: version
-        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
-            TAG=${GITHUB_EVENT_RELEASE_TAG_NAME#v}
-          else
-            TAG=${GITHUB_REF#refs/tags/v}
-          fi
+          TAG=${GITHUB_REF#refs/tags/v}
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "Version: $TAG"
       - name: Install dependencies
@@ -320,13 +310,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get version from tag
         id: version
-        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
-            TAG=${GITHUB_EVENT_RELEASE_TAG_NAME#v}
-          else
-            TAG=${GITHUB_REF#refs/tags/v}
-          fi
+          TAG=${GITHUB_REF#refs/tags/v}
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "Version: $TAG"
       - name: Install dependencies (non-Qt)
@@ -369,6 +355,9 @@ jobs:
             "-DOpenMP_C_LIB_NAMES=omp"
             "-DOpenMP_C_LIBRARY=${LIBOMP}/lib/libomp.dylib"
             "-DCMAKE_PREFIX_PATH=${QT_ROOT_DIR}"
+            # Blaze3D doubles DMG size (second full Qt+GDAL bundle via
+            # macdeployqt). Omit from macOS releases until we share frameworks.
+            "-DBLAZE_BUILD_3D_GUI=OFF"
           )
           if [ -n "${{ steps.version.outputs.version }}" ]; then
             CMAKE_ARGS+=("-DBLAZE_VERSION=${{ steps.version.outputs.version }}")
@@ -385,18 +374,11 @@ jobs:
           # No -libpath gymnastics needed: official Qt has all modules
           # under a single prefix and uses standard @rpath references that
           # macdeployqt resolves natively.
-          for APP in Blaze Blaze3D; do
-            if [ -d "staging/$APP.app" ]; then
-              macdeployqt "staging/$APP.app" -always-overwrite
-            fi
-          done
+          if [ -d "staging/Blaze.app" ]; then
+            macdeployqt "staging/Blaze.app" -always-overwrite
+          fi
 
-          # Sanity check that every Qt framework each app actually links
-          # got bundled — catches future surprises (e.g. a missing module
-          # request in install-qt-action) before they reach end users.
-          # Blaze links only Widgets/Concurrent (→ Core, Gui); Blaze3D
-          # additionally links OpenGL/OpenGLWidgets, so only it needs
-          # QtOpenGL bundled.
+          # Sanity check that every Qt framework Blaze links got bundled.
           verify_frameworks() {
             local app="$1"; shift
             local fw_dir="staging/$app.app/Contents/Frameworks"
@@ -415,26 +397,20 @@ jobs:
           if [ -d "staging/Blaze.app" ]; then
             verify_frameworks Blaze QtCore QtGui QtWidgets QtConcurrent
           fi
-          if [ -d "staging/Blaze3D.app" ]; then
-            verify_frameworks Blaze3D QtCore QtGui QtWidgets QtConcurrent \
-              QtOpenGL
-          fi
       - name: Bundle libomp
         run: |
           LIBOMP=$(brew --prefix libomp)/lib/libomp.dylib
-          for APP in Blaze Blaze3D; do
-            MACDIR="staging/$APP.app/Contents/MacOS"
-            if [ -f "$MACDIR/$APP" ] && [ ! -f "$MACDIR/libomp.dylib" ]; then
-              cp "$LIBOMP" "$MACDIR/"
-              install_name_tool -change "$LIBOMP" "@executable_path/libomp.dylib" "$MACDIR/$APP"
-            fi
-          done
+          MACDIR="staging/Blaze.app/Contents/MacOS"
+          if [ -f "$MACDIR/Blaze" ] && [ ! -f "$MACDIR/libomp.dylib" ]; then
+            cp "$LIBOMP" "$MACDIR/"
+            install_name_tool -change "$LIBOMP" "@executable_path/libomp.dylib" "$MACDIR/Blaze"
+          fi
       - name: Package (DMG)
         run: |
           if [ -n "${{ steps.version.outputs.version }}" ]; then
             VERSION="${{ steps.version.outputs.version }}"
           else
-            VERSION=$(cmake -L -N build 2>/dev/null | grep "^PROJECT_VERSION:STATIC=" | cut -d= -f2 || echo "dev")
+            VERSION=$(cmake -L -N build 2>/dev/null | grep "^CMAKE_PROJECT_VERSION:STATIC=" | cut -d= -f2 || echo "dev")
           fi
           ARCH=$(uname -m)
           DMG="build/Blaze-${VERSION}-macOS-${ARCH}.dmg"
@@ -483,13 +459,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get version from tag
         id: version
-        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
-            TAG=${GITHUB_EVENT_RELEASE_TAG_NAME#v}
-          else
-            TAG=${GITHUB_REF#refs/tags/v}
-          fi
+          TAG=${GITHUB_REF#refs/tags/v}
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "Version: $TAG"
       - name: Set up Python
