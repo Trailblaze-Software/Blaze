@@ -44,6 +44,20 @@ if(WIN32 AND BLAZE_USE_VCPKG)
       TRUE
       CACHE BOOL "")
 
+  # Disable vcpkg's *build-tree* app-local DLL deployment. It injects an
+  # applocal.ps1 POST_BUILD step into every executable target, all of which copy
+  # dependent DLLs into the same shared build/<config> directory. When Blaze and
+  # Blaze3D build in parallel (cmake --build --parallel), these steps race and
+  # one fails with "The process cannot access the file 'brotlicommon.dll'
+  # because it is being used by another process" — and applocal.ps1 (unlike our
+  # own copies) is not error-tolerant, so the whole post-build chain exits 1
+  # (MSB3073). We already copy the full vcpkg bin dir ourselves in
+  # cmake/FindDependencyDLLs.cmake with -ErrorAction SilentlyContinue, which is
+  # lock-tolerant and a superset of what applocal deploys, so the build tree
+  # loses nothing. X_VCPKG_APPLOCAL_DEPS_INSTALL stays TRUE so the
+  # *installed*/packaged GUI binaries still get their deps.
+  set(VCPKG_APPLOCAL_DEPS OFF)
+
   set(VCPKG_BUILD_TYPE "release")
   FetchContent_Declare(
     vcpkg
@@ -184,6 +198,25 @@ if(NOT BLAZE_CLI_ONLY)
   list(APPEND ALL_EXECUTABLES ${GUI_EXE_NAME})
   find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent Core OpenGL)
   find_package(Qt6OpenGLWidgets REQUIRED)
+
+  # Qt < 6.9.2 injects "-framework AGL" into WrapOpenGL's link interface
+  # (Qt6::Gui depends on it transitively). AGL was removed from the macOS 26
+  # SDK, so linking any Qt GUI target fails with "framework 'AGL' not found".
+  # Strip AGL out of the imported target; it's unused legacy Carbon OpenGL.
+  # Fixed upstream in qtbase commit cdb33c3d (6.9.2+), but filtering here keeps
+  # older Qt and Homebrew Qt building too. No-op on non-Apple platforms and on
+  # Qt versions that don't create the target.
+  if(APPLE AND TARGET WrapOpenGL::WrapOpenGL)
+    get_target_property(_wrap_opengl_libs WrapOpenGL::WrapOpenGL
+                        INTERFACE_LINK_LIBRARIES)
+    if(_wrap_opengl_libs)
+      list(FILTER _wrap_opengl_libs EXCLUDE REGEX "AGL")
+      set_target_properties(
+        WrapOpenGL::WrapOpenGL PROPERTIES INTERFACE_LINK_LIBRARIES
+                                          "${_wrap_opengl_libs}")
+    endif()
+  endif()
+
   if(WIN32)
     qt_standard_project_setup()
   endif()

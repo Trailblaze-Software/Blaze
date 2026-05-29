@@ -18,8 +18,6 @@ env:
   # previous `x-gha` backend was removed by vcpkg in 2025 and also capped at
   # 10 GB per repo, causing constant cache eviction/thrashing with Qt+GDAL.
   # GitHub Packages on a public repo has no practical storage limit.
-  # Default to readwrite; overridden to read-only for fork PRs (see step below)
-  # because GITHUB_TOKEN on a fork PR never has packages:write on the upstream.
   VCPKG_BINARY_SOURCES: "clear;nuget,GitHub,readwrite"
 jobs:
   package-windows:
@@ -343,7 +341,10 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.9.0'
+          # 6.9.2+ removes the broken "-framework AGL" reference from
+          # WrapOpenGL that breaks linking on the macOS 26 SDK (where AGL
+          # no longer exists). CMakeLists also filters it defensively.
+          version: '6.9.2'
           host: 'mac'
           target: 'desktop'
           # clang_64 is a universal binary on macOS Qt 6 — same archive
@@ -390,23 +391,34 @@ jobs:
             fi
           done
 
-          # Sanity check that every Qt framework Blaze actually links got
-          # bundled — catches future surprises (e.g. a missing module
+          # Sanity check that every Qt framework each app actually links
+          # got bundled — catches future surprises (e.g. a missing module
           # request in install-qt-action) before they reach end users.
-          for APP in Blaze Blaze3D; do
-            if [ -d "staging/$APP.app" ]; then
-              FW_DIR="staging/$APP.app/Contents/Frameworks"
-              for FW in QtCore QtGui QtWidgets QtConcurrent QtOpenGL; do
-                if [ ! -d "$FW_DIR/$FW.framework" ]; then
-                  echo "ERROR: $FW.framework missing from $APP.app bundle" >&2
-                  echo "Contents of $FW_DIR:" >&2
-                  ls -la "$FW_DIR" >&2 || true
-                  exit 1
-                fi
-              done
-              echo "$APP.app: all required Qt frameworks present"
-            fi
-          done
+          # Blaze links only Widgets/Concurrent (→ Core, Gui); Blaze3D
+          # additionally links OpenGL/OpenGLWidgets, so only it needs
+          # QtOpenGL bundled.
+          verify_frameworks() {
+            local app="$1"; shift
+            local fw_dir="staging/$app.app/Contents/Frameworks"
+            local fw
+            for fw in "$@"; do
+              if [ ! -d "$fw_dir/$fw.framework" ]; then
+                echo "ERROR: $fw.framework missing from $app.app bundle" >&2
+                echo "Contents of $fw_dir:" >&2
+                ls -la "$fw_dir" >&2 || true
+                exit 1
+              fi
+            done
+            echo "$app.app: all required Qt frameworks present"
+          }
+
+          if [ -d "staging/Blaze.app" ]; then
+            verify_frameworks Blaze QtCore QtGui QtWidgets QtConcurrent
+          fi
+          if [ -d "staging/Blaze3D.app" ]; then
+            verify_frameworks Blaze3D QtCore QtGui QtWidgets QtConcurrent \
+              QtOpenGL
+          fi
       - name: Bundle libomp
         run: |
           LIBOMP=$(brew --prefix libomp)/lib/libomp.dylib
