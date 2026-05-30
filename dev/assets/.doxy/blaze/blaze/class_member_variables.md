@@ -98,6 +98,8 @@
 * **m\_last\_total\_area\_m2** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_last\_total\_points** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_override\_crs\_error** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_persist\_enabled** ([**ConfigEditor**](classConfigEditor.md))
+* **m\_save\_debounce\_timer** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_updating\_ui** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_is\_loop** ([**Contour**](classContour.md))
 * **m\_points** ([**Contour**](classContour.md), [**LASData**](classLASData.md), [**LASLayerRenderer**](classLASLayerRenderer.md))

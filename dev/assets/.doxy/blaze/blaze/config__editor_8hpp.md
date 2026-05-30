@@ -10,6 +10,7 @@
 
 
 
+* `#include <QTimer>`
 * `#include <QToolBox>`
 * `#include <cstddef>`
 * `#include <cstdint>`

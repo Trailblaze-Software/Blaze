@@ -13,6 +13,7 @@
 * `#include "config_editor.hpp"`
 * `#include <qdebug.h>`
 * `#include <QColorDialog>`
+* `#include <QDir>`
 * `#include <QDoubleValidator>`
 * `#include <QFileDialog>`
 * `#include <QFrame>`
@@ -23,6 +24,7 @@
 * `#include <QScrollArea>`
 * `#include <QSet>`
 * `#include <QSpinBox>`
+* `#include <QStandardPaths>`
 * `#include <QTabWidget>`
 * `#include <QTableWidget>`
 * `#include <filesystem>`

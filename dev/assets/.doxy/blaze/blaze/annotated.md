@@ -81,6 +81,7 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
 * **struct** [**VegeHeightConfig**](structVegeHeightConfig.md)     
 * **struct** [**WaterConfig**](structWaterConfig.md)     
 * **struct** [**WaterConfigs**](structWaterConfigs.md)     
+* **namespace** [**anonymous namespace{/home/runner/work/Blaze/Blaze/src/gui/config\_editor.cpp}**](namespace_0d2.md) 
 * **namespace** [**blaze**](namespaceblaze.md)     
     * **namespace** [**test**](namespaceblaze_1_1test.md)     
 * **namespace** [**cv**](namespacecv.md)     

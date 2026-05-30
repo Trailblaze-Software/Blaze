@@ -187,6 +187,8 @@
     <member refid="classConfigEditor_1afbd101f76851f3eb967cac0c6afadfd5" kind="variable"><name>ui</name></member>
     <member refid="classConfigEditor_1a9b6c95f7d1c549c404f76cb3be88f1c8" kind="variable"><name>m_config</name></member>
     <member refid="classConfigEditor_1a478d2f955bf50b911b28187221e8ac32" kind="variable"><name>m_updating_ui</name></member>
+    <member refid="classConfigEditor_1a57c5743f14eda41e026db36c022f5810" kind="variable"><name>m_persist_enabled</name></member>
+    <member refid="classConfigEditor_1a72c775d7e53867fac55def94d4b057bb" kind="variable"><name>m_save_debounce_timer</name></member>
     <member refid="classConfigEditor_1ac7c3203ba7caf3a2ecae18272737067f" kind="variable"><name>m_last_total_points</name></member>
     <member refid="classConfigEditor_1a563ce718246db37d6a8fd28110c0ebca" kind="variable"><name>m_last_total_area_m2</name></member>
     <member refid="classConfigEditor_1a798bc12d01b8e74b6c39ebc5d99e58f8" kind="variable"><name>m_last_file_count</name></member>
@@ -202,6 +204,7 @@
     <member refid="classConfigEditor_1a83383f6ec73d3cb183f6124770e69970" kind="function"><name>last_file_count</name></member>
     <member refid="classConfigEditor_1a6a32fe881371c08687ec53d8edaa6648" kind="slot"><name>open_config_file</name></member>
     <member refid="classConfigEditor_1a36d7ed4e698d32762cb029f359772ecc" kind="slot"><name>save_config_file</name></member>
+    <member refid="classConfigEditor_1a6494d054c0930355c7b7d5b99708f586" kind="slot"><name>reset_to_defaults</name></member>
     <member refid="classConfigEditor_1a5e47e642cd4086a711bfbdba10e61b3a" kind="slot"><name>add_las_file</name></member>
     <member refid="classConfigEditor_1a78d2b762fd95574fb3c85839f7047ec6" kind="slot"><name>remove_las_file</name></member>
     <member refid="classConfigEditor_1a99f69fad5f708f9fe6b4b5783e589f8c" kind="slot"><name>add_las_folder</name></member>
@@ -228,6 +231,8 @@
     <member refid="classConfigEditor_1a05b91c00447e9800d78be17bc7346de5" kind="slot"><name>on_color_type_changed</name></member>
     <member refid="classConfigEditor_1a949153b749475f46dec2f52b6008ff0b" kind="slot"><name>update_general_from_ui</name></member>
     <member refid="classConfigEditor_1ab0415e243b7ade81688d2750eea9c562" kind="signal"><name>config_changed</name></member>
+    <member refid="classConfigEditor_1aa63bec3f83506e0a81b5390ae315a88b" kind="function"><name>load_initial_config</name></member>
+    <member refid="classConfigEditor_1a87309d79e15fe47b05cf8e204b8b179b" kind="function"><name>save_last_used_config</name></member>
     <member refid="classConfigEditor_1aab34a08654fbab02e3436ec37d289eeb" kind="function"><name>set_ui_to_config</name></member>
     <member refid="classConfigEditor_1ad11922f5fdbdf27d32089efa46ce28e5" kind="function"><name>open_output_directory</name></member>
     <member refid="classConfigEditor_1a553972a8d4bc012ead95ea9a468b4512" kind="function"><name>wrap_tabs_in_scroll_areas</name></member>
@@ -866,6 +871,8 @@
     <member refid="structWaterConfigs_1aab01329205d311f3d2b07974bdfbf924" kind="variable"><name>configs</name></member>
     <member refid="structWaterConfigs_1afd55568428b9c87295ee013f945de0bf" kind="function"><name>config_from_catchment</name></member>
     <member refid="structWaterConfigs_1a58218cf2f9a1448a6bb2d37aa64b72ee" kind="function"><name>minimum_catchment</name></member>
+  </compound>
+  <compound refid="namespace_0d2" kind="namespace"><name>@2</name>
   </compound>
   <compound refid="namespaceblaze" kind="namespace"><name>blaze</name>
   </compound>

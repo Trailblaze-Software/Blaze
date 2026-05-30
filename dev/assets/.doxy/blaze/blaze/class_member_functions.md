@@ -162,6 +162,7 @@
 * **last\_total\_points** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_color\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_contour\_details** ([**ConfigEditor**](classConfigEditor.md))
+* **load\_initial\_config** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_vege\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **load\_water\_details** ([**ConfigEditor**](classConfigEditor.md))
 * **layer\_name\_from\_height** ([**ContourConfigs**](structContourConfigs.md))
@@ -280,6 +281,7 @@
 
 * **set\_screen\_size** ([**Camera**](classCamera.md))
 * **set\_output\_directory** ([**Config**](structConfig.md))
+* **save\_last\_used\_config** ([**ConfigEditor**](classConfigEditor.md))
 * **set\_ui\_to\_config** ([**ConfigEditor**](classConfigEditor.md))
 * **set\_next** ([**ContourPoint**](classContourPoint.md))
 * **set\_previous** ([**ContourPoint**](classContourPoint.md))

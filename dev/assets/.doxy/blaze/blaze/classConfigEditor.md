@@ -60,6 +60,7 @@ Inherits the following classes: QWidget
 | slot [**void**](classCoordinate2D.md) | [**remove\_vege**](classConfigEditor.md#slot-remove_vege)  <br> |
 | slot [**void**](classCoordinate2D.md) | [**remove\_vege\_color**](classConfigEditor.md#slot-remove_vege_color)  <br> |
 | slot [**void**](classCoordinate2D.md) | [**remove\_water**](classConfigEditor.md#slot-remove_water)  <br> |
+| slot [**void**](classCoordinate2D.md) | [**reset\_to\_defaults**](classConfigEditor.md#slot-reset_to_defaults)  <br> |
 | slot [**void**](classCoordinate2D.md) | [**save\_config\_file**](classConfigEditor.md#slot-save_config_file)  <br> |
 | slot [**void**](classCoordinate2D.md) | [**update\_color\_from\_ui**](classConfigEditor.md#slot-update_color_from_ui)  <br> |
 | slot [**void**](classCoordinate2D.md) | [**update\_contour\_from\_ui**](classConfigEditor.md#slot-update_contour_from_ui)  <br> |
@@ -379,6 +380,19 @@ void ConfigEditor::remove_vege_color;
 
 ```C++
 void ConfigEditor::remove_water;
+```
+
+
+
+
+<hr>
+
+
+
+### slot reset\_to\_defaults 
+
+```C++
+void ConfigEditor::reset_to_defaults;
 ```
 
 
