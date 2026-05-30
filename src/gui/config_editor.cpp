@@ -3,6 +3,7 @@
 #include <qdebug.h>
 
 #include <QColorDialog>
+#include <QDir>
 #include <QDoubleValidator>
 #include <QFileDialog>
 #include <QFrame>
@@ -13,6 +14,7 @@
 #include <QScrollArea>
 #include <QSet>
 #include <QSpinBox>
+#include <QStandardPaths>
 #include <QTabWidget>
 #include <QTableWidget>
 #include <filesystem>
@@ -97,6 +99,26 @@ QIcon create_color_icon(const ColorVariant& color) {
   return QIcon(pixmap);
 }
 
+namespace {
+
+fs::path last_used_config_path() {
+  const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+  if (dir.isEmpty()) {
+    return fs::path{};
+  }
+  QDir().mkpath(dir);
+  return fs::path(dir.toStdString()) / "last_config.json";
+}
+
+fs::path absolutize_path(const fs::path& path, const fs::path& base) {
+  if (path.empty() || path.is_absolute() || base.empty()) {
+    return path;
+  }
+  return fs::absolute(base / path);
+}
+
+}  // namespace
+
 bool ConfigEditor::is_valid() const {
   bool all_las_files_exist = std::all_of(
       m_config->las_files.begin(), m_config->las_files.end(),
@@ -178,8 +200,17 @@ void ConfigEditor::activate_tab_containing(QWidget* content) {
 ConfigEditor::ConfigEditor(QWidget* parent)
     : QWidget(parent),
       ui(new Ui::ConfigEditor),
-      m_config(std::make_unique<Config>(Config::Default())) {
+      m_config(std::make_unique<Config>(load_initial_config())) {
   ui->setupUi(this);
+
+  m_save_debounce_timer.setSingleShot(true);
+  m_save_debounce_timer.setInterval(500);
+  connect(&m_save_debounce_timer, &QTimer::timeout, this, &ConfigEditor::save_last_used_config);
+  connect(this, &ConfigEditor::config_changed, this, [this]() {
+    if (m_persist_enabled) {
+      m_save_debounce_timer.start();
+    }
+  });
 
   wrap_tabs_in_scroll_areas();
 
@@ -356,9 +387,60 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   connect_color(ui->color_c4_spin);
 
   set_ui_to_config(*m_config);
+  m_persist_enabled = true;
 }
 
-ConfigEditor::~ConfigEditor() {}
+ConfigEditor::~ConfigEditor() {
+  m_save_debounce_timer.stop();
+  save_last_used_config();
+}
+
+Config ConfigEditor::load_initial_config() {
+  const fs::path path = last_used_config_path();
+  if (path.empty() || !fs::exists(path)) {
+    return Config::Default();
+  }
+  try {
+    return Config::FromFile(path);
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to load last-used config from " << path << ": " << e.what() << std::endl;
+    return Config::Default();
+  }
+}
+
+void ConfigEditor::save_last_used_config() {
+  const fs::path path = last_used_config_path();
+  if (path.empty()) {
+    return;
+  }
+
+  const fs::path base = m_config->relative_path_to_config;
+  const fs::path saved_output = m_config->output_directory;
+  const std::vector<fs::path> saved_las = m_config->las_files;
+  const fs::path saved_relative = m_config->relative_path_to_config;
+
+  m_config->output_directory = absolutize_path(saved_output, base);
+  for (fs::path& las_file : m_config->las_files) {
+    las_file = absolutize_path(las_file, base);
+  }
+  m_config->relative_path_to_config = path.parent_path();
+
+  try {
+    m_config->write_to_file(path);
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to save last-used config to " << path << ": " << e.what() << std::endl;
+  }
+
+  m_config->output_directory = saved_output;
+  m_config->las_files = saved_las;
+  m_config->relative_path_to_config = saved_relative;
+}
+
+void ConfigEditor::reset_to_defaults() {
+  COLOR_MAP.clear();
+  m_config = std::make_unique<Config>(Config::Default());
+  set_ui_to_config(*m_config);
+}
 
 void ConfigEditor::open_config_file() {
   QString config_file_name = QFileDialog::getOpenFileName(

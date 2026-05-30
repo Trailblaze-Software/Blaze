@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QTimer>
 #include <QToolBox>
 #include <cstddef>
 #include <cstdint>
@@ -31,6 +32,7 @@ class ConfigEditor : public QWidget {
  public slots:
   void open_config_file();
   void save_config_file();
+  void reset_to_defaults();
   void add_las_file();
   void remove_las_file();
   void add_las_folder();
@@ -71,6 +73,9 @@ class ConfigEditor : public QWidget {
   void config_changed();
 
  private:
+  static Config load_initial_config();
+  void save_last_used_config();
+
   void set_ui_to_config(const Config& config);
 
   void open_output_directory();
@@ -103,6 +108,8 @@ class ConfigEditor : public QWidget {
   void update_las_stats();
 
   bool m_updating_ui = false;
+  bool m_persist_enabled = false;
+  QTimer m_save_debounce_timer;
 
   // Cached aggregate statistics across all selected LAS/LAZ inputs. These
   // mirror what is shown in las_stats_label and are refreshed by

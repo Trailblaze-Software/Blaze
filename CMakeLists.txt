@@ -28,6 +28,7 @@ else()
 endif()
 
 option(BLAZE_CLI_ONLY "Build Blaze CLI only" OFF)
+option(BLAZE_BUILD_3D_GUI "Build Blaze3D GUI application" ON)
 option(BLAZE_USE_PDAL "Use PDAL for Blaze LAS IO" OFF)
 option(BLAZE_USE_VCPKG "Use vcpkg for dependency management on Windows" ON)
 
@@ -236,24 +237,26 @@ if(NOT BLAZE_CLI_ONLY)
   qt_import_plugins(${GUI_EXE_NAME} INCLUDE_BY_TYPE imageformats
                     Qt6::QTiffPlugin)
 
-  set(GUI_3D_EXE_NAME Blaze3D)
-  list(APPEND ALL_EXECUTABLES ${GUI_3D_EXE_NAME})
-  if(WIN32)
-    qt_add_executable(${GUI_3D_EXE_NAME} WIN32
-                      ${CMAKE_CURRENT_BINARY_DIR}/resources.rc)
-  else()
-    qt_add_executable(${GUI_3D_EXE_NAME})
-  endif()
-  target_precompile_headers(${GUI_3D_EXE_NAME} PRIVATE
-                            src/precompiled_headers.hpp)
-  target_link_libraries(
-    ${GUI_3D_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent Qt6::OpenGL
-                               Qt6::OpenGLWidgets)
-  set_target_properties(${GUI_3D_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
-                                                      MACOSX_BUNDLE ON)
+  if(BLAZE_BUILD_3D_GUI)
+    set(GUI_3D_EXE_NAME Blaze3D)
+    list(APPEND ALL_EXECUTABLES ${GUI_3D_EXE_NAME})
+    if(WIN32)
+      qt_add_executable(${GUI_3D_EXE_NAME} WIN32
+                        ${CMAKE_CURRENT_BINARY_DIR}/resources.rc)
+    else()
+      qt_add_executable(${GUI_3D_EXE_NAME})
+    endif()
+    target_precompile_headers(${GUI_3D_EXE_NAME} PRIVATE
+                              src/precompiled_headers.hpp)
+    target_link_libraries(
+      ${GUI_3D_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent Qt6::OpenGL
+                                 Qt6::OpenGLWidgets)
+    set_target_properties(${GUI_3D_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
+                                                        MACOSX_BUNDLE ON)
 
-  qt_import_plugins(${GUI_3D_EXE_NAME} INCLUDE_BY_TYPE imageformats
-                    Qt6::QTiffPlugin)
+    qt_import_plugins(${GUI_3D_EXE_NAME} INCLUDE_BY_TYPE imageformats
+                      Qt6::QTiffPlugin)
+  endif()
 
   if(WIN32)
     # Deploy Qt runtime dependencies from a single target to avoid race
@@ -263,14 +266,23 @@ if(NOT BLAZE_CLI_ONLY)
     # deploy to the same output directory. --force overwrites files from the
     # first invocation; --no-compiler-runtime skips vc_redist.x64.exe which is
     # not needed in the build tree.
-    add_custom_target(
-      deploy_qt ALL
-      COMMAND Qt6::windeployqt --force --no-compiler-runtime
-              $<TARGET_FILE:${GUI_EXE_NAME}>
-      COMMAND Qt6::windeployqt --force --no-compiler-runtime
-              $<TARGET_FILE:${GUI_3D_EXE_NAME}>
-      COMMENT "Deploying Qt runtime dependencies")
-    add_dependencies(deploy_qt ${GUI_EXE_NAME} ${GUI_3D_EXE_NAME})
+    if(BLAZE_BUILD_3D_GUI)
+      add_custom_target(
+        deploy_qt ALL
+        COMMAND Qt6::windeployqt --force --no-compiler-runtime
+                $<TARGET_FILE:${GUI_EXE_NAME}>
+        COMMAND Qt6::windeployqt --force --no-compiler-runtime
+                $<TARGET_FILE:${GUI_3D_EXE_NAME}>
+        COMMENT "Deploying Qt runtime dependencies")
+      add_dependencies(deploy_qt ${GUI_EXE_NAME} ${GUI_3D_EXE_NAME})
+    else()
+      add_custom_target(
+        deploy_qt ALL
+        COMMAND Qt6::windeployqt --force --no-compiler-runtime
+                $<TARGET_FILE:${GUI_EXE_NAME}>
+        COMMENT "Deploying Qt runtime dependencies")
+      add_dependencies(deploy_qt ${GUI_EXE_NAME})
+    endif()
   endif()
 endif()
 set(ALL_TARGETS ${ALL_EXECUTABLES} ${LIBRARY_NAME})
@@ -405,12 +417,14 @@ if(NOT BLAZE_CLI_ONLY)
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
-  install(
-    TARGETS ${GUI_3D_EXE_NAME}
-    BUNDLE DESTINATION .
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
+  if(BLAZE_BUILD_3D_GUI)
+    install(
+      TARGETS ${GUI_3D_EXE_NAME}
+      BUNDLE DESTINATION .
+      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT GUI)
+  endif()
   if(UNIX AND NOT APPLE)
     set(ENTRY_NAME "blaze")
     configure_file(${PROJECT_SOURCE_DIR}/packaging/Blaze.desktop.in
@@ -435,16 +449,18 @@ if(NOT BLAZE_CLI_ONLY)
       $<$<CONFIG:DEBUG>:--qtpaths
       ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
     install(SCRIPT ${deploy_script} COMPONENT GUI)
-    qt_generate_deploy_app_script(
-      TARGET
-      ${GUI_3D_EXE_NAME}
-      OUTPUT_SCRIPT
-      deploy_script_3D
-      NO_UNSUPPORTED_PLATFORM_ERROR
-      DEPLOY_TOOL_OPTIONS
-      $<$<CONFIG:DEBUG>:--qtpaths
-      ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
-    install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
+    if(BLAZE_BUILD_3D_GUI)
+      qt_generate_deploy_app_script(
+        TARGET
+        ${GUI_3D_EXE_NAME}
+        OUTPUT_SCRIPT
+        deploy_script_3D
+        NO_UNSUPPORTED_PLATFORM_ERROR
+        DEPLOY_TOOL_OPTIONS
+        $<$<CONFIG:DEBUG>:--qtpaths
+        ${WINDOWS_DEPENDENCY_VCPKG_DIR}/tools/Qt6/bin/qtpaths.debug.bat>)
+      install(SCRIPT ${deploy_script_3D} COMPONENT GUI)
+    endif()
   endif()
 endif()
 
@@ -488,8 +504,11 @@ set(CPACK_PACKAGE_VENDOR "Trailblaze Software")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://Trailblaze-Software.github.io/Blaze/")
 set(CPACK_PACKAGE_CONTACT "Ryan Stocks ryan.stocks00@gmail.com")
-set(CPACK_PACKAGE_EXECUTABLES "bin/Blaze" "Blaze" "bin/Blaze3D" "Blaze3D"
-                              "bin/blaze-cli" "blaze-cli")
+set(_cpack_executables "bin/Blaze" "Blaze" "bin/blaze-cli" "blaze-cli")
+if(NOT BLAZE_CLI_ONLY AND BLAZE_BUILD_3D_GUI)
+  list(APPEND _cpack_executables "bin/Blaze3D" "Blaze3D")
+endif()
+set(CPACK_PACKAGE_EXECUTABLES ${_cpack_executables})
 
 # set(CPACK_NSIS_MODIFY_PATH "ON")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON")
@@ -498,7 +517,11 @@ set(CPACK_NSIS_DISPLAY_NAME "Blaze")
 # works across versions
 set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "Blaze")
 set(CPACK_NSIS_URL_INFO_ABOUT "https://Trailblaze-Software.github.io/Blaze/")
-set(CPACK_NSIS_MENU_LINKS "bin/Blaze.exe" "Blaze" "bin/Blaze3D.exe" "Blaze3D")
+set(_cpack_nsis_links "bin/Blaze.exe" "Blaze")
+if(NOT BLAZE_CLI_ONLY AND BLAZE_BUILD_3D_GUI)
+  list(APPEND _cpack_nsis_links "bin/Blaze3D.exe" "Blaze3D")
+endif()
+set(CPACK_NSIS_MENU_LINKS ${_cpack_nsis_links})
 set(CPACK_NSIS_MUI_ICON "${CPACK_NSIS_MUI_ICON}")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "qt6-image-formats-plugins")
 
