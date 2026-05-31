@@ -5,7 +5,10 @@ DIR="macos-build"
 
 # Resolve Homebrew prefixes; fall back gracefully if a formula is missing.
 LIBOMP_PREFIX=$(brew --prefix libomp 2>/dev/null || true)
-QT_PREFIX=$(brew --prefix qt@6 2>/dev/null || brew --prefix qt6 2>/dev/null || true)
+# Homebrew splits Qt6 across many kegs. Try the split-package keg first
+# (qtbase has Qt6Config.cmake); fall back to the monolithic qt@6/qt6 alias
+# for older Homebrew setups where Qt ships as a single formula.
+QT_PREFIX=$(brew --prefix qtbase 2>/dev/null || brew --prefix qt@6 2>/dev/null || brew --prefix qt6 2>/dev/null || true)
 
 CMAKE_EXTRA=()
 
