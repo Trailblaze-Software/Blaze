@@ -290,7 +290,16 @@ struct Config {
 
   void write_to_file(const fs::path& filename) const;
 
-  static Config Default() { return FromFile(AssetRetriever::get_asset("default_config.json")); }
+  static Config Default() {
+    Config c = FromFile(AssetRetriever::get_asset("default_config.json"));
+    // The asset directory may be read-only (e.g. inside a mounted DMG or an
+    // installed .app bundle). Redirect any relative output path to a writable
+    // per-user data directory so the first run doesn't hit a read-only error.
+    if (!c.output_directory.is_absolute()) {
+      c.output_directory = LocalDataRetriever::get_local_data(c.output_directory);
+    }
+    return c;
+  }
 
   Config& operator=(const Config& config) = default;
   Config(const Config& config) = delete;

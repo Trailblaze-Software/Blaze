@@ -39,6 +39,24 @@ cmake --build "$DIR" --parallel "$(sysctl -n hw.logicalcpu)"
 
 cp "$DIR/blaze-cli" .
 if [ -d "$DIR/Blaze.app" ]; then
+    # Remove first in case a previous copy came from a read-only source (e.g. a
+    # mounted DMG), which leaves files with 444 permissions that cp can't overwrite.
+    rm -rf ./Blaze.app ./Blaze3D.app
     cp -r "$DIR/Blaze.app" .
     cp -r "$DIR/Blaze3D.app" .
+fi
+
+# Write qt.conf into each development-build .app so Qt can find its platform
+# plugin (libqcocoa.dylib) without needing QT_PLUGIN_PATH in the environment.
+# Homebrew's split-package Qt puts plugins in a non-standard per-keg path that
+# Qt's compiled-in default search doesn't discover automatically; qt.conf
+# overrides the search path for this local build only.
+if [ -n "$QT_PREFIX" ]; then
+    QT_PLUGINS="$QT_PREFIX/share/qt/plugins"
+    [ -d "$QT_PLUGINS" ] || QT_PLUGINS="$QT_PREFIX/plugins"
+
+    for APP in "$DIR/Blaze.app" "$DIR/Blaze3D.app" ./Blaze.app ./Blaze3D.app; do
+        [ -d "$APP/Contents/MacOS" ] || continue
+        printf '[Paths]\nPlugins = %s\n' "$QT_PLUGINS" > "$APP/Contents/MacOS/qt.conf"
+    done
 fi
