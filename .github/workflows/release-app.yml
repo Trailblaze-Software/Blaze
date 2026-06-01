@@ -405,6 +405,19 @@ jobs:
             cp "$LIBOMP" "$MACDIR/"
             install_name_tool -change "$LIBOMP" "@executable_path/libomp.dylib" "$MACDIR/Blaze"
           fi
+      - name: Bundle missing transitive libraries
+        run: |
+          # macdeployqt leaves out transitive dependencies of the Homebrew GDAL
+          # stack (e.g. GDAL -> libgeos_c -> libgeos, jpeg-xl, the AWS SDK)
+          # because those dylibs carry a "@loader_path/../lib" rpath that breaks
+          # once relocated into Contents/Frameworks. Without this the .dmg
+          # crashes on a clean Mac with "Library not loaded: @rpath/libgeos...".
+          # This walks the dependency closure, pulls in whatever is missing,
+          # normalizes install names and re-signs (mandatory on Apple Silicon).
+          chmod +x scripts/macos-fix-deps.sh
+          if [ -d "staging/Blaze.app" ]; then
+            scripts/macos-fix-deps.sh "staging/Blaze.app"
+          fi
       - name: Package (DMG)
         run: |
           if [ -n "${{ steps.version.outputs.version }}" ]; then
