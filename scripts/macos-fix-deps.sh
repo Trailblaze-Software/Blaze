@@ -18,19 +18,29 @@
 #   1. Closure: repeatedly scan Contents/Frameworks for @rpath/ or Homebrew
 #      absolute dependencies that aren't present yet, locate them on the host
 #      (via the Homebrew prefix, so no version numbers are hardcoded) and copy
-#      them in, until nothing is missing.
-#   2. Normalize: rewrite every bundled dylib's id to @rpath/<name>, repoint the
-#      broken "@loader_path/../lib" rpath at "@loader_path", and rewrite any
-#      remaining Homebrew-absolute dependency references (incl. OpenCV's
+#      them in, until nothing is missing. Once a library physically sits in
+#      Contents/Frameworks, the app executable's own
+#      "@executable_path/../Frameworks" rpath resolves the @rpath reference, so
+#      the broken per-library rpath does not need rewriting.
+#   2. Normalize: rewrite every bundled dylib's id to @rpath/<name> and repoint
+#      any remaining Homebrew-absolute dependency references (including OpenCV's
 #      hardcoded self-referential ids) to @rpath/<name>.
 #   3. Re-sign: ad-hoc codesign everything that was modified. Apple Silicon
 #      refuses to load dylibs whose signature install_name_tool invalidated, so
 #      this is mandatory for the arm64 build, and harmless on Intel.
-#   4. Verify: fail if any @rpath/*.dylib dependency is still unresolved.
+#   4. Verify: exit non-zero if any @rpath/*.dylib dependency is still
+#      unresolved.
+#
+# Implementation note: this deliberately does NOT use `set -e`/`pipefail`, and
+# it reads each dependency list fully into a variable before iterating (rather
+# than piping a live `otool` into a loop that runs install_name_tool). A live
+# pipe feeding a loop that runs crash-prone tools, combined with `set -e`, can
+# tear the shell down mid-pipe and abort the whole script. Errors are handled
+# explicitly and the final verify determines success.
 #
 # Usage: scripts/macos-fix-deps.sh path/to/Foo.app [path/to/Bar.app ...]
 
-set -euo pipefail
+set -u
 
 BREW_PREFIX="$(brew --prefix 2>/dev/null || echo /usr/local)"
 
@@ -40,8 +50,7 @@ for d in "$BREW_PREFIX"/opt/*/lib; do
     [ -d "$d" ] && SEARCH_DIRS+=("$d")
 done
 
-# Print a dylib/executable's dependency install names (skip the header line;
-# the id line of a dylib is harmless here and filtered downstream).
+# Print a dylib/executable's dependency install names (skipping the header).
 deps_of() { otool -L "$1" 2>/dev/null | tail -n +2 | awk '{print $1}'; }
 
 # Locate a library by basename on the host. Echoes the path, or returns 1.
@@ -55,141 +64,134 @@ find_host_lib() {
 
 # Phase 1: copy missing dependencies into Frameworks until the graph is closed.
 copy_missing() {
-    local fw="$1"
-    local progressed=1 round=0 lib dep depbase src
-    while [ "$progressed" -eq 1 ]; do
+    local fw="$1" progressed=1 round=0 lib dep depbase src deps
+    while [ "$progressed" -eq 1 ] && [ "$round" -lt 25 ]; do
         progressed=0
         round=$((round + 1))
         for lib in "$fw"/*.dylib; do
             [ -e "$lib" ] || continue
+            deps="$(deps_of "$lib")" # consume the pipe fully, THEN iterate
             while IFS= read -r dep; do
+                [ -n "$dep" ] || continue
                 case "$dep" in
                     @rpath/*.dylib) depbase="${dep#@rpath/}" ;;
                     "$BREW_PREFIX"/*.dylib | /usr/local/*.dylib) depbase="$(basename "$dep")" ;;
                     *) continue ;;
                 esac
                 [ -f "$fw/$depbase" ] && continue
+                src=""
                 if [ "${dep:0:1}" = "/" ] && [ -f "$dep" ]; then
                     src="$dep"
                 else
-                    src="$(find_host_lib "$depbase" || true)"
+                    src="$(find_host_lib "$depbase" 2>/dev/null || true)"
                 fi
-                if [ -n "${src:-}" ] && [ -f "$src" ]; then
-                    cp "$src" "$fw/$depbase"
-                    chmod u+w "$fw/$depbase"
-                    echo "    + bundled $depbase"
-                    progressed=1
+                if [ -n "$src" ] && [ -f "$src" ]; then
+                    if cp "$src" "$fw/$depbase"; then
+                        chmod u+w "$fw/$depbase" 2>/dev/null
+                        echo "    + bundled $depbase"
+                        progressed=1
+                    fi
                 else
                     echo "    ! could not locate $depbase (needed by $(basename "$lib"))" >&2
                 fi
-            done < <(deps_of "$lib")
+            done <<EOF
+$deps
+EOF
         done
-        [ "$round" -gt 25 ] && break
     done
-    return 0
 }
 
-# Phase 2: normalize install names / rpaths so every lookup resolves in-bundle.
-normalize() {
-    local app="$1"
-    local fw="$app/Contents/Frameworks"
-    local lib base dep db rp exe
+# Phase 2: normalize install names so every lookup resolves in-bundle.
+normalize_one() {
+    # $1 = mach-o file, $2 = Frameworks dir, $3 = "id" to also set the id
+    local f="$1" fw="$2" setid="${3:-}" dep db deps
+    chmod u+w "$f" 2>/dev/null
+    if [ "$setid" = "id" ]; then
+        install_name_tool -id "@rpath/$(basename "$f")" "$f" 2>/dev/null
+    fi
+    deps="$(deps_of "$f")"
+    while IFS= read -r dep; do
+        [ -n "$dep" ] || continue
+        case "$dep" in
+            "$BREW_PREFIX"/*.dylib | /usr/local/*.dylib)
+                db="$(basename "$dep")"
+                if [ -f "$fw/$db" ]; then
+                    install_name_tool -change "$dep" "@rpath/$db" "$f" 2>/dev/null
+                fi
+                ;;
+        esac
+    done <<EOF
+$deps
+EOF
+}
 
+normalize() {
+    local app="$1" fw="$app/Contents/Frameworks" lib exe
     for lib in "$fw"/*.dylib; do
         [ -e "$lib" ] || continue
-        base="$(basename "$lib")"
-        chmod u+w "$lib"
-        install_name_tool -id "@rpath/$base" "$lib" 2>/dev/null || true
-        # Repoint the broken "@loader_path/../lib" rpath at the Frameworks dir
-        # the library now lives in.
-        while IFS= read -r rp; do
-            [ "$rp" = "@loader_path/../lib" ] &&
-                install_name_tool -rpath "@loader_path/../lib" "@loader_path" "$lib" 2>/dev/null || true
-        done < <(otool -l "$lib" | awk '/LC_RPATH/{f=1} f&&/ path /{print $2; f=0}')
-        # Repoint any Homebrew-absolute dependency that is now bundled.
-        while IFS= read -r dep; do
-            case "$dep" in
-                "$BREW_PREFIX"/*.dylib | /usr/local/*.dylib)
-                    db="$(basename "$dep")"
-                    [ -f "$fw/$db" ] &&
-                        install_name_tool -change "$dep" "@rpath/$db" "$lib" 2>/dev/null || true
-                    ;;
-            esac
-        done < <(deps_of "$lib")
+        normalize_one "$lib" "$fw" id
     done
-
-    # Fix the same Homebrew-absolute references in the Mach-O executables.
     for exe in "$app/Contents/MacOS/"*; do
         [ -f "$exe" ] || continue
         case "$(file -b "$exe" 2>/dev/null)" in *Mach-O*) ;; *) continue ;; esac
-        while IFS= read -r dep; do
-            case "$dep" in
-                "$BREW_PREFIX"/*.dylib | /usr/local/*.dylib)
-                    db="$(basename "$dep")"
-                    [ -f "$fw/$db" ] &&
-                        install_name_tool -change "$dep" "@rpath/$db" "$exe" 2>/dev/null || true
-                    ;;
-            esac
-        done < <(deps_of "$exe")
+        normalize_one "$exe" "$fw"
     done
-    return 0
 }
 
 # Phase 3: ad-hoc re-sign everything install_name_tool touched.
 resign() {
-    local app="$1"
-    find "$app" -name '*.dylib' -exec codesign --remove-signature {} + 2>/dev/null || true
-    find "$app" -name '*.dylib' -exec codesign --force --sign - {} + 2>/dev/null || true
-    local exe
+    local app="$1" f exe
+    while IFS= read -r f; do
+        [ -n "$f" ] && codesign --force --sign - "$f" 2>/dev/null
+    done <<EOF
+$(find "$app" -name '*.dylib')
+EOF
     for exe in "$app/Contents/MacOS/"*; do
         [ -f "$exe" ] || continue
-        case "$(file -b "$exe" 2>/dev/null)" in *Mach-O*) ;; *) continue ;; esac
-        codesign --force --sign - "$exe" 2>/dev/null || true
+        case "$(file -b "$exe" 2>/dev/null)" in *Mach-O*) codesign --force --sign - "$exe" 2>/dev/null ;; esac
     done
-    codesign --force --sign - "$app" 2>/dev/null || true
-    return 0
+    codesign --force --sign - "$app" 2>/dev/null
 }
 
-# Phase 4: fail if any @rpath/*.dylib dependency is still unresolved.
+# Phase 4: report any @rpath/*.dylib dependency still unresolved.
 verify() {
-    local app="$1"
-    local fw="$app/Contents/Frameworks"
-    local missing=0 lib dep db
+    local app="$1" fw="$app/Contents/Frameworks" missing=0 lib dep db deps
     for lib in "$fw"/*.dylib "$app/Contents/MacOS/"*; do
         [ -f "$lib" ] || continue
+        deps="$(deps_of "$lib")"
         while IFS= read -r dep; do
             case "$dep" in
                 @rpath/*.dylib)
                     db="${dep#@rpath/}"
-                    [ -f "$fw/$db" ] || {
+                    if [ ! -f "$fw/$db" ]; then
                         echo "    MISSING: $db (needed by $(basename "$lib"))" >&2
                         missing=1
-                    }
+                    fi
                     ;;
             esac
-        done < <(deps_of "$lib")
+        done <<EOF
+$deps
+EOF
     done
     return $missing
 }
 
-main() {
-    [ "$#" -ge 1 ] || { echo "usage: $0 App.app [App2.app ...]" >&2; exit 2; }
-    for app in "$@"; do
-        if [ ! -d "$app/Contents/Frameworks" ]; then
-            echo "==> $app: no Contents/Frameworks, skipping"
-            continue
-        fi
-        echo "==> Fixing $app"
-        copy_missing "$app/Contents/Frameworks"
-        normalize "$app"
-        resign "$app"
-        if verify "$app"; then
-            echo "    OK: all @rpath dependencies resolve inside the bundle"
-        else
-            echo "    FAILED: unresolved dependencies remain in $app" >&2
-            exit 1
-        fi
-    done
-}
-
-main "$@"
+rc=0
+[ "$#" -ge 1 ] || { echo "usage: $0 App.app [App2.app ...]" >&2; exit 2; }
+for app in "$@"; do
+    if [ ! -d "$app/Contents/Frameworks" ]; then
+        echo "==> $app: no Contents/Frameworks, skipping"
+        continue
+    fi
+    echo "==> Fixing $app"
+    copy_missing "$app/Contents/Frameworks"
+    normalize "$app"
+    resign "$app"
+    if verify "$app"; then
+        echo "    OK: all @rpath dependencies resolve inside the bundle"
+    else
+        echo "    FAILED: unresolved dependencies remain in $app" >&2
+        rc=1
+    fi
+done
+exit $rc
