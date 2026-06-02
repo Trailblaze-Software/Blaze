@@ -166,6 +166,21 @@ for APP in "$STAGING"/Blaze.app "$STAGING"/Blaze3D.app; do
 done
 
 # ---------------------------------------------------------------------------
+# 6b. Verify each bundle is self-contained and validly signed
+#
+# Hard gate before we ship: macos-verify-bundle.sh fails if any bundle still
+# references a host-only library (Homebrew/Qt/Cellar) or has an invalid code
+# seal — i.e. anything that would crash or show "damaged" on a clean Mac. This
+# is the same check the CI release workflow runs.
+# ---------------------------------------------------------------------------
+echo "==> Verifying bundles are self-contained + validly signed..."
+VERIFY_APPS=()
+for APP in "$STAGING"/Blaze.app "$STAGING"/Blaze3D.app; do
+    [ -d "$APP/Contents/Frameworks" ] && VERIFY_APPS+=("$APP")
+done
+scripts/macos-verify-bundle.sh "${VERIFY_APPS[@]}"
+
+# ---------------------------------------------------------------------------
 # 7. Package as DMG
 # ---------------------------------------------------------------------------
 VERSION=$(cmake -L -N "$BUILD_DIR" 2>/dev/null \

@@ -15,10 +15,13 @@
 #   have the same shape).
 #
 # What it does, for each .app passed as an argument:
-#   1. Closure: repeatedly scan Contents/Frameworks for @rpath/ or Homebrew
-#      absolute dependencies that aren't present yet, locate them on the host
-#      (via the Homebrew prefix, so no version numbers are hardcoded) and copy
-#      them in, until nothing is missing. Once a library physically sits in
+#   1. Closure: repeatedly scan the bundle's Mach-O files — the executables in
+#      Contents/MacOS, the plugins, and everything in Contents/Frameworks — for
+#      @rpath/ or Homebrew absolute dependencies that aren't present yet, locate
+#      them on the host (via the Homebrew prefix, so no version numbers are
+#      hardcoded) and copy them in, until nothing is missing. Seeding from the
+#      executables (not just Frameworks) is what bundles libraries the binary
+#      links directly, e.g. libomp. Once a library physically sits in
 #      Contents/Frameworks, the app executable's own
 #      "@executable_path/../Frameworks" rpath resolves the @rpath reference, so
 #      the broken per-library rpath does not need rewriting.
@@ -68,14 +71,30 @@ find_host_lib() {
     return 1
 }
 
+# All Mach-O files to walk as roots of the dependency closure: everything
+# already in Frameworks, the app's main executables, and bundled plugins.
+# Seeding from the executables (not just Frameworks) is what pulls in libraries
+# the binary links DIRECTLY — e.g. libomp from OpenMP — so they get bundled,
+# id-normalized and signed by this one code path instead of a bespoke step.
+closure_roots() {
+    local app="$1"
+    ls "$app"/Contents/Frameworks/*.dylib 2>/dev/null
+    find "$app/Contents/MacOS" -type f 2>/dev/null
+    find "$app/Contents/PlugIns" -name '*.dylib' 2>/dev/null
+}
+
 # Phase 1: copy missing dependencies into Frameworks until the graph is closed.
 copy_missing() {
-    local fw="$1" progressed=1 round=0 lib dep depbase src deps
+    local app="$1" fw="$app/Contents/Frameworks"
+    local progressed=1 round=0 lib dep depbase src deps roots
     while [ "$progressed" -eq 1 ] && [ "$round" -lt 25 ]; do
         progressed=0
         round=$((round + 1))
-        for lib in "$fw"/*.dylib; do
+        roots="$(closure_roots "$app")"
+        while IFS= read -r lib; do
             [ -e "$lib" ] || continue
+            # Skip non-Mach-O entries (e.g. shell scripts that live in MacOS/).
+            case "$(file -b "$lib" 2>/dev/null)" in *Mach-O*) ;; *) continue ;; esac
             deps="$(deps_of "$lib")" # consume the pipe fully, THEN iterate
             while IFS= read -r dep; do
                 [ -n "$dep" ] || continue
@@ -103,7 +122,9 @@ copy_missing() {
             done <<EOF
 $deps
 EOF
-        done
+        done <<ROOTS
+$roots
+ROOTS
     done
 }
 
@@ -131,12 +152,50 @@ $deps
 EOF
 }
 
+# Frameworks need their own pass: a framework's load name is the multi-segment
+# path Foo.framework/Versions/A/Foo, not a leaf Foo.dylib, so normalize_one's
+# basename logic can't id them. Homebrew/Qt leave some framework binaries with
+# an absolute self-id (e.g. /usr/local/opt/qtbase/lib/QtDBus.framework/.../QtDBus)
+# and absolute references to sibling frameworks; rewrite both to the bundle's
+# @rpath/<relative-path> so they resolve on a machine without Qt installed.
+normalize_frameworks() {
+    local app="$1" fw="$app/Contents/Frameworks" binfile relpath dep drel deps bins
+    # Real versioned binaries only (-type f skips the Current/leaf symlinks).
+    bins="$(find "$fw" -type f -path '*.framework/Versions/*' 2>/dev/null)"
+    while IFS= read -r binfile; do
+        [ -n "$binfile" ] || continue
+        case "$(file -b "$binfile" 2>/dev/null)" in *Mach-O*) ;; *) continue ;; esac
+        chmod u+w "$binfile" 2>/dev/null
+        relpath="${binfile#"$fw"/}"
+        install_name_tool -id "@rpath/$relpath" "$binfile" 2>/dev/null
+        deps="$(deps_of "$binfile")"
+        while IFS= read -r dep; do
+            case "$dep" in
+                "$BREW_PREFIX"/*.framework/*|/usr/local/*.framework/*)
+                    # .../lib/QtCore.framework/Versions/A/QtCore -> QtCore.framework/Versions/A/QtCore
+                    drel="$(printf '%s\n' "$dep" | sed -E 's#^.*/([^/]+\.framework/)#\1#')"
+                    [ -e "$fw/$drel" ] && install_name_tool -change "$dep" "@rpath/$drel" "$binfile" 2>/dev/null
+                    ;;
+                "$BREW_PREFIX"/*.dylib|/usr/local/*.dylib)
+                    drel="$(basename "$dep")"
+                    [ -f "$fw/$drel" ] && install_name_tool -change "$dep" "@rpath/$drel" "$binfile" 2>/dev/null
+                    ;;
+            esac
+        done <<EOF
+$deps
+EOF
+    done <<FWBINS
+$bins
+FWBINS
+}
+
 normalize() {
     local app="$1" fw="$app/Contents/Frameworks" lib exe
     for lib in "$fw"/*.dylib; do
         [ -e "$lib" ] || continue
         normalize_one "$lib" "$fw" id
     done
+    normalize_frameworks "$app"
     for exe in "$app/Contents/MacOS/"*; do
         [ -f "$exe" ] || continue
         case "$(file -b "$exe" 2>/dev/null)" in *Mach-O*) ;; *) continue ;; esac
@@ -144,19 +203,57 @@ normalize() {
     done
 }
 
-# Phase 3: ad-hoc re-sign everything install_name_tool touched.
+# Phase 3: ad-hoc re-sign everything, inside-out.
+#
+# Order matters: codesign seals a container over its current contents, so every
+# nested item must be signed BEFORE the thing that contains it, and the .app
+# itself signed last. The critical, easy-to-miss case is frameworks: a
+# framework's binary is Contents/Frameworks/QtGui.framework/Versions/A/QtGui —
+# it has NO .dylib extension, so the *.dylib sweep skips it. The official Qt
+# frameworks ship with a Developer-ID + hardened-runtime signature; the
+# install_name_tool edits above invalidate it, and if we never re-sign the
+# framework the whole app seal is invalid and Gatekeeper reports the downloaded
+# app as "damaged and can't be opened". So we explicitly sign each framework.
 resign() {
-    local app="$1" f exe
+    local app="$1" f exe fw
+    # 1. Every dylib anywhere (loose libs, plugins, any nested inside frameworks)
+    #    so the containers below seal over already-valid contents.
     while IFS= read -r f; do
         [ -n "$f" ] && codesign --force --sign - "$f" 2>/dev/null
     done <<EOF
 $(find "$app" -name '*.dylib')
 EOF
+    # 2. Each nested framework (signs its versioned binary + seals its resources).
+    for fw in "$app"/Contents/Frameworks/*.framework; do
+        [ -d "$fw" ] && codesign --force --sign - "$fw" 2>/dev/null
+    done
+    # 3. Main executables.
     for exe in "$app/Contents/MacOS/"*; do
         [ -f "$exe" ] || continue
         case "$(file -b "$exe" 2>/dev/null)" in *Mach-O*) codesign --force --sign - "$exe" 2>/dev/null ;; esac
     done
+    # 4. The app bundle last.
     codesign --force --sign - "$app" 2>/dev/null
+}
+
+# Phase 0: drop plugins Blaze does not use whose own (heavy) framework
+# dependencies macdeployqt fails to bundle. The virtual-keyboard input method
+# (platforminputcontexts) drags in the QtQuick/QtVirtualKeyboard QML stack, and
+# the PDF image format (imageformats/libqpdf) needs QtPdf — neither is used by a
+# desktop GIS app, and bundling those frameworks just to satisfy an unused
+# plugin would bloat the DMG. Removing the plugin removes the dependency, so the
+# closure stays self-contained.
+prune_unused_plugins() {
+    local app="$1" p
+    for p in \
+        Contents/PlugIns/platforminputcontexts \
+        Contents/PlugIns/imageformats/libqpdf.dylib
+    do
+        if [ -e "$app/$p" ]; then
+            rm -rf "$app/$p"
+            echo "    - pruned ${p#Contents/PlugIns/}"
+        fi
+    done
 }
 
 # Phase 4: report any @rpath/*.dylib dependency still unresolved.
@@ -190,7 +287,8 @@ for app in "$@"; do
         continue
     fi
     echo "==> Fixing $app"
-    copy_missing "$app/Contents/Frameworks"
+    prune_unused_plugins "$app"
+    copy_missing "$app"
     normalize "$app"
     resign "$app"
     if verify "$app"; then
