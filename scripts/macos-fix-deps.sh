@@ -55,10 +55,16 @@ deps_of() { otool -L "$1" 2>/dev/null | tail -n +2 | awk '{print $1}'; }
 
 # Locate a library by basename on the host. Echoes the path, or returns 1.
 find_host_lib() {
-    local name="$1" d
+    local name="$1" d hit
     for d in "${SEARCH_DIRS[@]}"; do
         [ -f "$d/$name" ] && { printf '%s\n' "$d/$name"; return 0; }
     done
+    # Fallback: some Homebrew libraries live in nested directories the flat
+    # opt/*/lib globs miss — notably gcc, which keeps libgcc_s / libgfortran
+    # under opt/gcc/lib/gcc/current. Search the real Cellar tree (no symlinks
+    # to chase) for the basename and take the first match.
+    hit="$(find "$BREW_PREFIX/Cellar" -name "$name" -type f 2>/dev/null | head -1)"
+    [ -n "$hit" ] && { printf '%s\n' "$hit"; return 0; }
     return 1
 }
 

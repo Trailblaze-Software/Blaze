@@ -150,68 +150,19 @@ for APP in "$STAGING"/Blaze.app "$STAGING"/Blaze3D.app; do
 done
 
 # ---------------------------------------------------------------------------
-# 6. Fix hardcoded Homebrew library paths
+# 6. Bundle transitive deps, normalize install names, and re-sign
 #
-# Some Homebrew dylibs embed their Cellar/opt install path as their own
-# LC_ID_DYLIB. macdeployqt copies them but doesn't update the ID, so dyld
-# can't match them when other libraries look them up by name. We rewrite each
-# ID to @rpath/<name> and fix every caller in the same bundle.
+# Delegate to the shared scripts/macos-fix-deps.sh (also used by the CI release
+# workflow) so there is a single source of truth: it pulls in any transitive
+# libraries macdeployqt missed, rewrites hardcoded Homebrew install names to
+# @rpath, and — crucially — ad-hoc re-signs every modified binary. Without the
+# re-sign the app seal is invalid and a downloaded copy is rejected by
+# Gatekeeper as "damaged".
 # ---------------------------------------------------------------------------
-echo "==> Fixing hardcoded Homebrew library IDs..."
-
-fix_abs_id() {
-    local APP="$1"
-    local FW="$APP/Contents/Frameworks"
-    local MACOS="$APP/Contents/MacOS"
-
-    [ -d "$FW" ] || return
-
-    # First pass: collect old→new pairs and fix each dylib's self-ID.
-    # Write to a temp file so the second pass can iterate without bash 4
-    # associative arrays (macOS ships bash 3.2).
-    local pairs
-    pairs=$(mktemp)
-    for lib in "$FW"/*.dylib; do
-        [ -f "$lib" ] || continue
-        local old_id
-        old_id=$(otool -D "$lib" 2>/dev/null | tail -1)
-        case "$old_id" in
-            /usr/local/*)
-                local libname new_id
-                libname=$(basename "$lib")
-                new_id="@rpath/$libname"
-                echo "$old_id|$new_id" >> "$pairs"
-                chmod 755 "$lib"
-                install_name_tool -id "$new_id" "$lib" 2>/dev/null || true
-                ;;
-        esac
-    done
-
-    local count
-    count=$(wc -l < "$pairs" | tr -d ' ')
-    if [ "$count" -eq 0 ]; then
-        rm "$pairs"
-        return
-    fi
-
-    # Second pass: fix every caller (main binary + all dylibs).
-    for f in "$MACOS"/* "$FW"/*.dylib; do
-        [ -f "$f" ] || continue
-        while IFS='|' read -r old new; do
-            if otool -L "$f" 2>/dev/null | grep -qF "$old"; then
-                chmod 755 "$f"
-                install_name_tool -change "$old" "$new" "$f" 2>/dev/null || true
-            fi
-        done < "$pairs"
-    done
-    rm "$pairs"
-
-    echo "    $(basename $APP): fixed $count hardcoded IDs"
-}
-
+echo "==> Bundling transitive deps + normalizing + re-signing..."
 for APP in "$STAGING"/Blaze.app "$STAGING"/Blaze3D.app; do
-    [ -d "$APP" ] || continue
-    fix_abs_id "$APP"
+    [ -d "$APP/Contents/Frameworks" ] || continue
+    scripts/macos-fix-deps.sh "$APP"
 done
 
 # ---------------------------------------------------------------------------
