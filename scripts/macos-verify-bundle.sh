@@ -109,5 +109,16 @@ for app in "$@"; do
         rc=1
     fi
     rm -f /tmp/codesign-verify.$$
+
+    # Assets must be bundled at Contents/share/assets — get_asset_dir() checks
+    # this path first, and it is the only one that survives App Translocation.
+    # Missing it means the GUI aborts on launch from a downloaded DMG.
+    if [ -n "$(find "$app/Contents/share/assets" -type f 2>/dev/null | head -1)" ]; then
+        echo "    assets OK: bundled at Contents/share/assets"
+    else
+        echo "    assets FAILED: Contents/share/assets missing or empty — GUI will" >&2
+        echo "                  abort on launch under Gatekeeper App Translocation" >&2
+        rc=1
+    fi
 done
 exit $rc

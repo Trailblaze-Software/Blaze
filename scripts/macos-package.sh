@@ -73,6 +73,16 @@ cmake --install "$BUILD_DIR" --prefix "$STAGING" --config Release 2>&1 \
     | grep -v "^-- Install\|^-- Up-to-date"
 
 # ---------------------------------------------------------------------------
+# 3b. Bundle assets inside each .app (translocation-proof; see script header)
+# ---------------------------------------------------------------------------
+echo "==> Bundling assets inside .app bundles..."
+ASSET_APPS=()
+for APP in "$STAGING"/Blaze.app "$STAGING"/Blaze3D.app; do
+    [ -d "$APP" ] && ASSET_APPS+=("$APP")
+done
+scripts/macos-bundle-assets.sh "$STAGING/share/assets" "${ASSET_APPS[@]}"
+
+# ---------------------------------------------------------------------------
 # 4. Bundle Qt frameworks with macdeployqt
 #
 # Homebrew's macdeployqt can abort mid-process and DELETE the .app it was

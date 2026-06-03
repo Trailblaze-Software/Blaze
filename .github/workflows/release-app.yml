@@ -368,6 +368,18 @@ jobs:
         run: cmake --build build --config Release --parallel
       - name: Stage install
         run: cmake --install build --prefix staging --config Release
+      - name: Bundle assets inside .app bundles
+        run: |
+          # Make each GUI app self-contained by copying assets into the bundle.
+          # Without this the downloaded, quarantined .app crashes on launch under
+          # Gatekeeper App Translocation (runs from a random temp dir with no
+          # sibling share/assets). See scripts/macos-bundle-assets.sh header.
+          chmod +x scripts/macos-bundle-assets.sh
+          apps=()
+          for app in staging/Blaze.app staging/Blaze3D.app; do
+            [ -d "$app" ] && apps+=("$app")
+          done
+          scripts/macos-bundle-assets.sh staging/share/assets "${apps[@]}"
       - name: Deploy Qt frameworks
         run: |
           # macdeployqt comes from the official Qt distribution (installed
