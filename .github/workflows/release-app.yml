@@ -447,7 +447,27 @@ jobs:
           fi
           ARCH=$(uname -m)
           DMG="build/Blaze-${VERSION}-macOS-${ARCH}.dmg"
-          hdiutil create -volname "Blaze" -srcfolder staging -ov -format UDZO "$DMG"
+
+          # hdiutil create intermittently fails with "Resource busy" on the
+          # macOS runners (Spotlight/mds is still indexing the freshly written
+          # staging tree — more so now that we copy the asset tree into each
+          # .app). Flush pending writes, detach any stale Blaze volume, and
+          # retry with backoff so a transient lock doesn't fail the release.
+          sync
+          hdiutil detach /Volumes/Blaze -force 2>/dev/null || true
+          created=false
+          for i in 1 2 3 4 5; do
+            if hdiutil create -volname "Blaze" -srcfolder staging -ov -format UDZO "$DMG"; then
+              created=true
+              break
+            fi
+            echo "hdiutil create failed (attempt $i), retrying in 10s..."
+            sleep 10
+          done
+          if [ "$created" != true ]; then
+            echo "Failed to create DMG after 5 attempts"
+            exit 1
+          fi
           echo "DMG: $DMG"
       - name: Test installer
         run: |

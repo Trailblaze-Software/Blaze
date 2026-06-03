@@ -200,11 +200,28 @@ ARCH=$(uname -m)
 DMG="$BUILD_DIR/Blaze-${VERSION}-macOS-${ARCH}.dmg"
 
 echo "==> Creating $DMG..."
-hdiutil create \
-    -volname "Blaze" \
-    -srcfolder "$STAGING" \
-    -ov -format UDZO \
-    "$DMG" 2>&1 | grep -v "^Checksumming\|^  \|^verified\|^created:"
+# hdiutil create can fail with "Resource busy" while Spotlight/mds is still
+# indexing the freshly written staging tree; flush, detach any stale volume and
+# retry with backoff (same guard as the CI release workflow). Output goes to a
+# log so the retry can test hdiutil's own exit status (not a piped grep's).
+sync
+hdiutil detach /Volumes/Blaze -force 2>/dev/null || true
+created=false
+for i in 1 2 3 4 5; do
+    if hdiutil create -volname "Blaze" -srcfolder "$STAGING" -ov -format UDZO "$DMG" \
+        >"$BUILD_DIR/hdiutil-create.log" 2>&1; then
+        created=true
+        break
+    fi
+    echo "    hdiutil create failed (attempt $i), retrying in 10s..."
+    sleep 10
+done
+if [ "$created" != true ]; then
+    echo "Error: failed to create DMG after 5 attempts" >&2
+    cat "$BUILD_DIR/hdiutil-create.log" >&2
+    exit 1
+fi
+rm -f "$BUILD_DIR/hdiutil-create.log"
 
 rm -rf "$STAGING"
 echo ""
