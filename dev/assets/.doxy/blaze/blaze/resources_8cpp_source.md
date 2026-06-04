@@ -56,11 +56,19 @@ fs::path get_asset_dir() {
   }
   fs::path path(buffer);
 #endif
+  // First candidate, "<exe>/../../share/assets": on Linux/Windows the installed
+  // <prefix>/share/assets; on a macOS .app it resolves to
+  // MyApp.app/Contents/share/assets. The macOS packaging deliberately copies the
+  // assets THERE (scripts/macos-bundle-assets.sh) so the app is self-contained:
+  // a downloaded app runs under Gatekeeper App Translocation from a random temp
+  // dir with NO sibling share/, and only this in-bundle path survives. Do not
+  // remove it as "dead Linux code" — it is what keeps the GUI from aborting at
+  // launch on a clean Mac.
   std::vector<fs::path> asset_paths = {path.parent_path().parent_path() / "share" / "assets"};
 #ifdef __APPLE__
-  // For .app bundles the executable lives at MyApp.app/Contents/MacOS/<exe>.
-  // Assets installed next to the bundle sit at <prefix>/share/assets, which is
-  // four directory levels above the executable.
+  // Fallback for a non-translocated launch straight from the DMG/install tree:
+  // assets sitting next to the bundle at <prefix>/share/assets, four directory
+  // levels above the executable (MyApp.app/Contents/MacOS/<exe>).
   asset_paths.push_back(path.parent_path().parent_path().parent_path().parent_path() / "share" /
                         "assets");
 #endif
