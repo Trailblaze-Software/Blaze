@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classColor" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Color</compoundname>
+    <derivedcompoundref refid="classCMYKColor" prot="public" virt="non-virtual">CMYKColor</derivedcompoundref>
+    <derivedcompoundref refid="classRGBColor" prot="public" virt="non-virtual">RGBColor</derivedcompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classColor_1ab496ff1619342415ed4ef58363283abe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
+        <definition>virtual RGBColor Color::toRGB</definition>
+        <argsstring>() const =0</argsstring>
+        <name>toRGB</name>
+        <qualifiedname>Color::toRGB</qualifiedname>
+        <reimplementedby refid="classRGBColor_1a77b3b23a1ad2d5ec45b62b372507a0a1">toRGB</reimplementedby>
+        <reimplementedby refid="classCMYKColor_1af8aaa980f1d768d53c3c57aed155f1a8">toRGB</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="19" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classColor_1a2e95c9206cd8cf1ff7655c5b61e69eab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref></type>
+        <definition>virtual CMYKColor Color::toCMYK</definition>
+        <argsstring>() const =0</argsstring>
+        <name>toCMYK</name>
+        <qualifiedname>Color::toCMYK</qualifiedname>
+        <reimplementedby refid="classRGBColor_1a238baca8984d89ff73633ba9207da24e">toCMYK</reimplementedby>
+        <reimplementedby refid="classCMYKColor_1a00478ffbea8ef526bb158c04a8737324">toCMYK</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="20" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classColor_1a2c0b567ad3430b6fe40f8b06c12654eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Color::~Color</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Color</name>
+        <qualifiedname>Color::~Color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="21" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classColor_1a657a535afe4c508702120e1d1401608a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classColor" kindref="compound">Color</ref> &amp;</type>
+        <definition>Color &amp; Color::operator=</definition>
+        <argsstring>(const Color &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>Color::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classColor" kindref="compound">Color</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="22" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classColor_1a33bde70fd42b5fe7bc75e335c076fa8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Color::Color</definition>
+        <argsstring>(const Color &amp;)=default</argsstring>
+        <name>Color</name>
+        <qualifiedname>Color::Color</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classColor" kindref="compound">Color</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="23" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classColor_1a6fae8aa8b75d27cb134234e75b41caf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Color::Color</definition>
+        <argsstring>()=default</argsstring>
+        <name>Color</name>
+        <qualifiedname>Color::Color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="24" column="3"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CMYKColor</label>
+        <link refid="classCMYKColor"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Color</label>
+        <link refid="classColor"/>
+      </node>
+      <node id="3">
+        <label>RGBColor</label>
+        <link refid="classRGBColor"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" line="17" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/isom/colors.hpp" bodystart="17" bodyend="25"/>
+    <listofallmembers>
+      <member refid="classColor_1a33bde70fd42b5fe7bc75e335c076fa8b" prot="public" virt="non-virtual"><scope>Color</scope><name>Color</name></member>
+      <member refid="classColor_1a6fae8aa8b75d27cb134234e75b41caf2" prot="public" virt="non-virtual"><scope>Color</scope><name>Color</name></member>
+      <member refid="classColor_1a657a535afe4c508702120e1d1401608a" prot="public" virt="non-virtual"><scope>Color</scope><name>operator=</name></member>
+      <member refid="classColor_1a2e95c9206cd8cf1ff7655c5b61e69eab" prot="public" virt="pure-virtual"><scope>Color</scope><name>toCMYK</name></member>
+      <member refid="classColor_1ab496ff1619342415ed4ef58363283abe" prot="public" virt="pure-virtual"><scope>Color</scope><name>toRGB</name></member>
+      <member refid="classColor_1a2c0b567ad3430b6fe40f8b06c12654eb" prot="public" virt="virtual"><scope>Color</scope><name>~Color</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

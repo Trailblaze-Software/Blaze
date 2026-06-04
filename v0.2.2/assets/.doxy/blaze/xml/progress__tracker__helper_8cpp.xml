@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="progress__tracker__helper_8cpp" kind="file" language="C++">
+    <compoundname>progress_tracker_helper.cpp</compoundname>
+    <includes refid="progress__tracker_8hpp" local="yes">utilities/progress_tracker.hpp</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/progress_tracker_helper.cpp</label>
+        <link refid="progress__tracker__helper_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>memory</label>
+      </node>
+      <node id="4">
+        <label>optional</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="6">
+        <label>utility</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="progress__tracker__helper_8cpp_1afb1637a522997a6b5649932f9f8dffa6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void run_loop</definition>
+        <argsstring>(ProgressTracker tracker)</argsstring>
+        <name>run_loop</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+          <declname>tracker</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/progress_tracker_helper.cpp" line="3" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/progress_tracker_helper.cpp" bodystart="3" bodyend="7"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>run_loop(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker)<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>10;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerA</ref><sp/>=<sp/>tracker.subtracker(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>/<sp/>10.0,<sp/>(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>+<sp/>1)<sp/>/<sp/>10.0);</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/progress_tracker_helper.cpp"/>
+  </compounddef>
+</doxygen>
