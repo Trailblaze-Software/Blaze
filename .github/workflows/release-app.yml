@@ -355,9 +355,10 @@ jobs:
             "-DOpenMP_C_LIB_NAMES=omp"
             "-DOpenMP_C_LIBRARY=${LIBOMP}/lib/libomp.dylib"
             "-DCMAKE_PREFIX_PATH=${QT_ROOT_DIR}"
-            # Blaze3D doubles DMG size (second full Qt+GDAL bundle via
-            # macdeployqt). Omit from macOS releases until we share frameworks.
-            "-DBLAZE_BUILD_3D_GUI=OFF"
+            # Blaze3D is included. It costs ~2x DMG size because macdeployqt
+            # bundles a second full copy of the Qt+GDAL stack into Blaze3D.app
+            # (the two apps don't yet share frameworks).
+            "-DBLAZE_BUILD_3D_GUI=ON"
           )
           if [ -n "${{ steps.version.outputs.version }}" ]; then
             CMAKE_ARGS+=("-DBLAZE_VERSION=${{ steps.version.outputs.version }}")
@@ -367,6 +368,18 @@ jobs:
         run: cmake --build build --config Release --parallel
       - name: Stage install
         run: cmake --install build --prefix staging --config Release
+      - name: Bundle assets inside .app bundles
+        run: |
+          # Make each GUI app self-contained by copying assets into the bundle.
+          # Without this the downloaded, quarantined .app crashes on launch under
+          # Gatekeeper App Translocation (runs from a random temp dir with no
+          # sibling share/assets). See scripts/macos-bundle-assets.sh header.
+          chmod +x scripts/macos-bundle-assets.sh
+          apps=()
+          for app in staging/Blaze.app staging/Blaze3D.app; do
+            [ -d "$app" ] && apps+=("$app")
+          done
+          scripts/macos-bundle-assets.sh staging/share/assets "${apps[@]}"
       - name: Deploy Qt frameworks
         run: |
           # macdeployqt comes from the official Qt distribution (installed
@@ -374,11 +387,11 @@ jobs:
           # No -libpath gymnastics needed: official Qt has all modules
           # under a single prefix and uses standard @rpath references that
           # macdeployqt resolves natively.
-          if [ -d "staging/Blaze.app" ]; then
-            macdeployqt "staging/Blaze.app" -always-overwrite
-          fi
+          for app in staging/Blaze.app staging/Blaze3D.app; do
+            [ -d "$app" ] && macdeployqt "$app" -always-overwrite
+          done
 
-          # Sanity check that every Qt framework Blaze links got bundled.
+          # Sanity check that every Qt framework each app links got bundled.
           verify_frameworks() {
             local app="$1"; shift
             local fw_dir="staging/$app.app/Contents/Frameworks"
@@ -394,17 +407,37 @@ jobs:
             echo "$app.app: all required Qt frameworks present"
           }
 
-          if [ -d "staging/Blaze.app" ]; then
-            verify_frameworks Blaze QtCore QtGui QtWidgets QtConcurrent
-          fi
-      - name: Bundle libomp
+          [ -d staging/Blaze.app ]   && verify_frameworks Blaze   QtCore QtGui QtWidgets QtConcurrent
+          [ -d staging/Blaze3D.app ] && verify_frameworks Blaze3D QtCore QtGui QtWidgets QtConcurrent
+      - name: Bundle missing transitive libraries
         run: |
-          LIBOMP=$(brew --prefix libomp)/lib/libomp.dylib
-          MACDIR="staging/Blaze.app/Contents/MacOS"
-          if [ -f "$MACDIR/Blaze" ] && [ ! -f "$MACDIR/libomp.dylib" ]; then
-            cp "$LIBOMP" "$MACDIR/"
-            install_name_tool -change "$LIBOMP" "@executable_path/libomp.dylib" "$MACDIR/Blaze"
-          fi
+          # macdeployqt leaves out (a) transitive dependencies of the Homebrew
+          # GDAL stack (GDAL -> libgeos_c -> libgeos, jpeg-xl, the AWS SDK),
+          # whose "@loader_path/../lib" rpath breaks once relocated into
+          # Contents/Frameworks, and (b) libraries the executable links directly
+          # such as libomp. Without this the .dmg crashes on a clean Mac with
+          # "Library not loaded: @rpath/libgeos...". The script walks the
+          # dependency closure from the executables AND frameworks, pulls in
+          # whatever is missing, normalizes install names, and re-signs every
+          # binary it touched — including the Qt frameworks, without which the
+          # invalidated code seal makes Gatekeeper report the app as "damaged".
+          chmod +x scripts/macos-fix-deps.sh
+          for app in staging/Blaze.app staging/Blaze3D.app; do
+            [ -d "$app/Contents/Frameworks" ] && scripts/macos-fix-deps.sh "$app"
+          done
+      - name: Verify bundles are self-contained + validly signed
+        run: |
+          # Hard gate: fail the build if any bundle still references a host-only
+          # library (Homebrew/Qt/Cellar) or has an invalid code signature — i.e.
+          # anything that would crash or show "damaged" on a clean Mac. The CI
+          # runner HAS Qt/GDAL/Homebrew, so without this check a half-bundled app
+          # can pass the blaze-cli smoke test yet be broken for end users.
+          chmod +x scripts/macos-verify-bundle.sh
+          apps=()
+          for app in staging/Blaze.app staging/Blaze3D.app; do
+            [ -d "$app/Contents/Frameworks" ] && apps+=("$app")
+          done
+          scripts/macos-verify-bundle.sh "${apps[@]}"
       - name: Package (DMG)
         run: |
           if [ -n "${{ steps.version.outputs.version }}" ]; then
@@ -414,7 +447,27 @@ jobs:
           fi
           ARCH=$(uname -m)
           DMG="build/Blaze-${VERSION}-macOS-${ARCH}.dmg"
-          hdiutil create -volname "Blaze" -srcfolder staging -ov -format UDZO "$DMG"
+
+          # hdiutil create intermittently fails with "Resource busy" on the
+          # macOS runners (Spotlight/mds is still indexing the freshly written
+          # staging tree — more so now that we copy the asset tree into each
+          # .app). Flush pending writes, detach any stale Blaze volume, and
+          # retry with backoff so a transient lock doesn't fail the release.
+          sync
+          hdiutil detach /Volumes/Blaze -force 2>/dev/null || true
+          created=false
+          for i in 1 2 3 4 5; do
+            if hdiutil create -volname "Blaze" -srcfolder staging -ov -format UDZO "$DMG"; then
+              created=true
+              break
+            fi
+            echo "hdiutil create failed (attempt $i), retrying in 10s..."
+            sleep 10
+          done
+          if [ "$created" != true ]; then
+            echo "Failed to create DMG after 5 attempts"
+            exit 1
+          fi
           echo "DMG: $DMG"
       - name: Test installer
         run: |

@@ -13,8 +13,9 @@ static bool is_las_file(const fs::path& p) {
 
 int main([[maybe_unused]] int argc, char* argv[]) {
   try {
-    fs::path config_path = AssetRetriever::get_asset("default_config.json");
+    fs::path config_path;
     std::vector<fs::path> las_files;
+    bool use_default_config = true;
 
     if (argc == 2 && is_las_file(argv[1])) {
       // Single-file mode: blaze-cli file.laz
@@ -22,13 +23,17 @@ int main([[maybe_unused]] int argc, char* argv[]) {
     } else {
       if (argc > 1) {
         config_path = argv[1];
+        use_default_config = false;
       }
       if (argc > 2) {
         las_files.push_back(argv[2]);
       }
     }
 
-    Config config = Config::FromFile(config_path);
+    // Use Config::Default() when no explicit config is given so the output
+    // directory resolves to a writable location even when the default config
+    // lives inside a read-only bundle or mounted DMG.
+    Config config = use_default_config ? Config::Default() : Config::FromFile(config_path);
     std::cout << config << std::endl;
 
     if (las_files.empty() && config.las_files.size() == 0) {
