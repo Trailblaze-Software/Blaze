@@ -616,6 +616,31 @@ class LASData : public LASFile {
   LASPoint& operator[](std::size_t i) { return m_points[i]; }
   void push_back(const LASPoint& point) { m_points.push_back(point); }
 
+  std::span<const LASPoint> points() const { return m_points; }
+
+  void insert(std::span<const LASPoint> pts) {
+    m_points.insert(m_points.end(), pts.begin(), pts.end());
+    const long long n = static_cast<long long>(pts.size());
+#pragma omp parallel
+    {
+      auto local_range = m_intensity_range;
+      Extent3D local_bounds;
+#pragma omp for
+      for (long long i = 0; i < n; i++) {
+        const LASPoint& pt = pts[static_cast<size_t>(i)];
+        local_range.first = std::min(local_range.first, pt.intensity());
+        local_range.second = std::max(local_range.second, pt.intensity());
+        local_bounds.grow(pt.x(), pt.y(), pt.z());
+      }
+#pragma omp critical
+      {
+        m_intensity_range.first = std::min(m_intensity_range.first, local_range.first);
+        m_intensity_range.second = std::max(m_intensity_range.second, local_range.second);
+        m_bounds.grow(local_bounds);
+      }
+    }
+  }
+
   void write(const fs::path& filename, std::optional<ProgressTracker> progress_tracker = {}) const {
     (void)progress_tracker;
 #ifdef USE_PDAL

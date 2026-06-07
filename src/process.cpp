@@ -7,6 +7,7 @@
 #include "grid/img_grid.hpp"
 #include "io/gpkg.hpp"
 #include "isom/colors.hpp"
+#include "las/binned_points.hpp"
 #include "las/las_file.hpp"
 #include "las/las_point.hpp"
 #include "lib/grid/grid.hpp"
@@ -15,8 +16,6 @@
 #include "methods/water/water.hpp"
 #include "tif/tif.hpp"
 #include "utilities/progress_tracker.hpp"
-
-constexpr bool OUT_LAS = false;
 
 enum class GroundMethod { LOWER_BOUND, LOWEST_POINT, INTERPOLATE };
 
@@ -114,41 +113,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                       ProgressTracker progress_tracker) {
   const double bin_resolution = config.grid.bin_resolution;
   const unsigned int downsample_factor = config.grid.downsample_factor;
-  GeoGrid<std::vector<LASPoint>> binned_points(
-      num_cells_by_distance(las_file.width() + downsample_factor * bin_resolution, bin_resolution),
-      num_cells_by_distance(las_file.height() + downsample_factor * bin_resolution, bin_resolution),
-      GeoTransform(las_file.top_left().round_NW(bin_resolution * downsample_factor),
-                   bin_resolution),
-      GeoProjection(las_file.projection()));
-
-  {
-    TimeFunction timer("binning points", &progress_tracker);
-    size_t n_out_of_bounds = 0;
-    for (const LASPoint& las_point : las_file) {
-      if (!binned_points.extent()->contains(las_point.x(), las_point.y())) {
-        n_out_of_bounds++;
-        continue;
-      }
-      auto pixel_coord = binned_points.transform().projection_to_pixel(
-          Coordinate2D<double>(las_point.x(), las_point.y()));
-      if (pixel_coord.x() < 0 || pixel_coord.x() >= binned_points.width() || pixel_coord.y() < 0 ||
-          pixel_coord.y() >= binned_points.height()) {
-        n_out_of_bounds++;
-        continue;
-      }
-      auto rounded_coord = pixel_coord.round_down();
-      if (!binned_points.in_bounds(rounded_coord)) {
-        n_out_of_bounds++;
-        continue;
-      }
-      binned_points[rounded_coord].emplace_back(las_point);
-    }
-    if (n_out_of_bounds > 0) {
-      std::cerr << "Warning: " << n_out_of_bounds
-                << " points were out of bounds and were not included in the processing.\n";
-    }
-  }
-  progress_tracker.set_proportion(0.5);
+  BinnedPoints binned_points(las_file, bin_resolution, downsample_factor,
+                             progress_tracker.subtracker(0.0, 0.5));
+  // progress_tracker is now at 0.5 — mapped from BinnedPoints' internal set_proportion(1.0)
 
   GeoGrid<std::optional<LASPoint>> ground_points(binned_points.width(), binned_points.height(),
                                                  GeoTransform(binned_points.transform()),
@@ -168,8 +135,6 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   {
     bool only_classified_ground = true;
-    LASData ground_points_las =
-        LASData(*ground_points.extent(), GeoProjection(ground_points.projection()));
     TimeFunction timer("min finding", &progress_tracker);
 #pragma omp parallel for
     for (size_t i = 0; i < binned_points.height(); i++) {
@@ -197,17 +162,10 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
           }
         }
         ground_points[{j, i}] = min_point;
-        if (min_point) {
-#pragma omp critical
-          ground_points_las.insert(min_point.value());
-        }
         buildings[{j, i}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
         water[{j, i}] = is_water ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
       }
     }
-    if (OUT_LAS)
-      ground_points_las.write(output_dir / "ground_points_mins.las",
-                              progress_tracker.subtracker(0.59, 0.6));
   }
   progress_tracker.set_proportion(0.6);
 
@@ -240,25 +198,15 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif",
                progress_tracker.subtracker(0.67, 0.68));
 
-  if (OUT_LAS)
-    LASData(ground).write(output_dir / "ground.las", progress_tracker.subtracker(0.68, 0.69));
-
   std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
       downsample(ground, downsample_factor, progress_tracker.subtracker(0.69, 0.7)));
   remove_outliers(*downsampled_ground, progress_tracker.subtracker(0.7, 0.71),
                   bin_resolution * downsample_factor);
   GeoGrid<double> smooth_ground = *downsampled_ground;
-  if (OUT_LAS)
-    LASData(*downsampled_ground).write(output_dir / "smooth_ground_no_outlier_removal.las");
   downsampled_ground.reset();
 
   write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif",
                progress_tracker.subtracker(0.72, 0.73), /*include_vertical_crs=*/true);
-
-  if (OUT_LAS)
-    LASData(smooth_ground)
-        .write(output_dir.parent_path() / "smooth_ground.las",
-               progress_tracker.subtracker(0.73, 0.74));
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
@@ -268,8 +216,6 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                        progress_tracker.subtracker(0.74, 0.75),
                        std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
   }
-
-  if (OUT_LAS) LASData(smooth_ground).write(output_dir / "smooth_ground.las");
 
   // Build the contour DEM by further downsampling the smooth ground DEM.
   // contour_downsample_factor() is the integer ratio between the requested

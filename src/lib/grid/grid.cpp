@@ -1,5 +1,7 @@
 #include "grid.hpp"
 
+#include <span>
+
 #include "gdal_priv.h"
 #include "img_grid.hpp"
 #include "isom/colors.hpp"
@@ -115,7 +117,7 @@ template class Geo<Grid<std::optional<float>>>;
 template class Geo<Grid<std::optional<std::byte>>>;
 template class Geo<Grid<std::byte>>;
 template class Geo<Grid<std::optional<LASPoint>>>;
-template class Geo<Grid<std::vector<LASPoint>>>;
+template class Geo<Grid<std::span<LASPoint>>>;
 
 template class Geo<MultiBand<FlexGrid>>;
 

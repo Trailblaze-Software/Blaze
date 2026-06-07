@@ -99,6 +99,11 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
     options = CSLSetNameValue(options, "BIGTIFF", "IF_NEEDED");
   }
 
+  if (grid.width() == 0 || grid.height() == 0) {
+    std::cerr << "Warning: skipping TIF write for empty grid: " << filename.string() << "\n";
+    return;
+  }
+
   GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GTiff");
   //
   GDALDataset* dataset = driver->Create(filename.string().c_str(), grid.width(), grid.height(),

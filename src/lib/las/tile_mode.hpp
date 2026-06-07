@@ -282,17 +282,11 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
 
   LASData tile_data(tile_extent, GeoProjection(output_crs_wkt));
 
-  if (overlapping.empty()) {
-    return tile_data;
-  }
-
   for (size_t i = 0; i < overlapping.size(); i++) {
     const LASFileExtent& extent = *overlapping[i];
     ProgressTracker sub = progress.subtracker(static_cast<double>(i) / overlapping.size(),
                                               static_cast<double>(i + 1) / overlapping.size());
 
-    // Compute a bounds filter in the source file's own CRS (densified to
-    // account for curvature when the CRSes differ).
     const bool same_crs = wkt_matches(extent.horizontal_wkt, output_crs_wkt);
     Extent2D filter_bounds =
         same_crs ? bordered_extent
@@ -302,25 +296,33 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
                 /*bounds=*/filter_bounds,
                 /*override_crs=*/extent.override_crs);
 
-    auto ct = make_coord_transform(extent.horizontal_wkt, output_crs_wkt);
+    // Single file with matching CRS — already filtered, no copy needed.
+    if (overlapping.size() == 1 && same_crs) {
+      progress.text_update(to_string("Tile read ", src.n_points(), " points from single file ",
+                                     extent.path.filename().string()));
+      return src;
+    }
+
     size_t kept = 0;
-    for (const LASPoint& src_point : src) {
-      double x = src_point.x();
-      double y = src_point.y();
-      double z = src_point.z();
-      if (ct) {
-        int status = 0;
-        if (!ct->Transform(1, &x, &y, &z, &status) || !status || !std::isfinite(x) ||
-            !std::isfinite(y) || !std::isfinite(z)) {
-          continue;
+
+    if (same_crs) {
+      tile_data.insert(src.points());
+      kept = src.n_points();
+    } else {
+      sub.text_update(to_string("Reprojecting points from ", extent.path.filename().string()));
+      auto ct = make_coord_transform(extent.horizontal_wkt, output_crs_wkt);
+      for (const LASPoint& pt : src) {
+        double x = pt.x(), y = pt.y(), z = pt.z();
+        if (ct) {
+          int status = 0;
+          if (!ct->Transform(1, &x, &y, &z, &status) || !status || !std::isfinite(x) ||
+              !std::isfinite(y) || !std::isfinite(z))
+            continue;
         }
+        if (!bordered_extent.contains(x, y)) continue;
+        tile_data.insert(LASPoint(x, y, z, pt.intensity(), pt.classification()));
+        kept++;
       }
-      if (!bordered_extent.contains(x, y)) {
-        continue;
-      }
-      LASPoint reprojected(x, y, z, src_point.intensity(), src_point.classification());
-      tile_data.insert(reprojected);
-      kept++;
     }
     sub.text_update(
         to_string("Tile read ", kept, " points from ", extent.path.filename().string()));
