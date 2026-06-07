@@ -101,6 +101,7 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
 
   if (grid.width() == 0 || grid.height() == 0) {
     std::cerr << "Warning: skipping TIF write for empty grid: " << filename.string() << "\n";
+    CSLDestroy(options);
     return;
   }
 

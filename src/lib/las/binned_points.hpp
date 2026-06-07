@@ -93,10 +93,10 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
         row_sorted.resize(total_points);
 
         thread_write_starts.resize(thread_hists.size());
+        for (size_t t = 0; t < thread_hists.size(); t++) thread_write_starts[t].resize(rows);
         for (size_t row = 0; row < rows; row++) {
           size_t running = row_offsets[row];
           for (size_t t = 0; t < thread_hists.size(); t++) {
-            thread_write_starts[t].resize(rows);
             thread_write_starts[t][row] = running;
             running += thread_hists[t][row];
           }

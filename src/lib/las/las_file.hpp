@@ -240,6 +240,14 @@ class LASFile {
         m_original_bounds(m_bounds),
         m_projection(std::move(projection)) {};
 
+  void set_bounds(const Extent2D& bounds) {
+    m_bounds.minx = bounds.minx;
+    m_bounds.maxx = bounds.maxx;
+    m_bounds.miny = bounds.miny;
+    m_bounds.maxy = bounds.maxy;
+    m_original_bounds = m_bounds;
+  }
+
  protected:
 #ifndef USE_PDAL
   laspp::QuadtreeSpatialIndex m_spatial_index;
@@ -616,7 +624,7 @@ class LASData : public LASFile {
   LASPoint& operator[](std::size_t i) { return m_points[i]; }
   void push_back(const LASPoint& point) { m_points.push_back(point); }
 
-  std::span<const LASPoint> points() const { return m_points; }
+  std::span<const LASPoint> points() const { return {m_points.data(), m_points.size()}; }
 
   void insert(std::span<const LASPoint> pts) {
     m_points.insert(m_points.end(), pts.begin(), pts.end());

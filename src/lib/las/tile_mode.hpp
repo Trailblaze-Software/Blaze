@@ -296,8 +296,10 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
                 /*bounds=*/filter_bounds,
                 /*override_crs=*/extent.override_crs);
 
-    // Single file with matching CRS — already filtered, no copy needed.
+    // Single file with matching CRS — already filtered. Fix bounds so
+    // downstream uses the tile+border extent, not the full file extent.
     if (overlapping.size() == 1 && same_crs) {
+      src.set_bounds(bordered_extent);
       progress.text_update(to_string("Tile read ", src.n_points(), " points from single file ",
                                      extent.path.filename().string()));
       return src;
