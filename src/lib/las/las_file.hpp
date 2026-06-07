@@ -193,6 +193,22 @@ inline Extent3D as_extent3d(const laspp::Bound3D& b) {
   return Extent3D(as_extent2d(b), b.min_z(), b.max_z());
 }
 
+// Returns embedded CRS WKT from a reader, preferring the WKT VLR but falling back
+// to GeoKeys when the WKT is missing or cannot be parsed (some writers omit the
+// trailing null byte in the WKT VLR, which truncates the string by one character).
+inline std::string reader_embedded_wkt(const laspp::LASReader& reader) {
+  if (reader.wkt().has_value() && wkt_parses(reader.wkt().value())) {
+    return reader.wkt().value();
+  }
+  if (reader.geo_keys().has_value()) {
+    try {
+      return convert_geo_keys_to_wkt(reader.geo_keys().value());
+    } catch (const std::exception&) {
+    }
+  }
+  return {};
+}
+
 // Returns the normalized horizontal WKT for a reader, honouring override_crs
 // (a user-supplied shorthand like "EPSG:28355" or a full WKT). Falls back to
 // the file's embedded WKT/GeoKeys, then to an empty string if nothing is
@@ -204,13 +220,8 @@ inline std::string reader_horizontal_wkt(const laspp::LASReader& reader,
   // exception out of a function documented as never throwing.
   const UserCrsParseResult override_parsed = try_user_crs_to_wkt(override_crs);
   if (override_parsed.ok && !override_parsed.wkt.empty()) return override_parsed.wkt;
-  if (reader.wkt().has_value()) return normalize_crs_wkt(reader.wkt().value());
-  if (reader.geo_keys().has_value()) {
-    try {
-      return normalize_crs_wkt(convert_geo_keys_to_wkt(reader.geo_keys().value()));
-    } catch (const std::exception&) {
-    }
-  }
+  const std::string embedded = reader_embedded_wkt(reader);
+  if (!embedded.empty()) return normalize_crs_wkt(embedded);
   return {};
 }
 
@@ -239,15 +250,7 @@ class LASFile {
     m_original_bounds = m_bounds;
 
     // Keep the raw embedded WKT for compound-CRS preservation (vertical datum).
-    std::string raw_embedded_wkt;
-    if (reader.wkt().has_value()) {
-      raw_embedded_wkt = reader.wkt().value();
-    } else if (reader.geo_keys().has_value()) {
-      try {
-        raw_embedded_wkt = convert_geo_keys_to_wkt(reader.geo_keys().value());
-      } catch (const std::exception&) {
-      }
-    }
+    std::string raw_embedded_wkt = reader_embedded_wkt(reader);
     const std::string embedded_wkt =
         raw_embedded_wkt.empty() ? std::string{} : normalize_crs_wkt(raw_embedded_wkt);
 

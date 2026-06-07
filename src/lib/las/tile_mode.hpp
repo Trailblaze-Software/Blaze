@@ -38,7 +38,7 @@ struct LASFileExtent {
 inline std::unique_ptr<OGRCoordinateTransformation> make_coord_transform(
     const std::string& src_wkt, const std::string& dst_wkt) {
   if (src_wkt.empty() || dst_wkt.empty()) return {};
-  if (wkt_matches(src_wkt, dst_wkt)) return {};
+  if (src_wkt == dst_wkt || wkt_matches(src_wkt, dst_wkt)) return {};
   OGRSpatialReference src_srs;
   OGRSpatialReference dst_srs;
   if (src_srs.importFromWkt(src_wkt.c_str()) != OGRERR_NONE) {
