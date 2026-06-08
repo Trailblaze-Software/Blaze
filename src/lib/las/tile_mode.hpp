@@ -84,7 +84,8 @@ inline Extent2D reproject_extent(const Extent2D& extent, const std::string& src_
     if (status[i] && std::isfinite(xs[i]) && std::isfinite(ys[i]))
       out.grow(Extent2D{xs[i], xs[i], ys[i], ys[i]});
   }
-  Assert(std::isfinite(out.minx) && std::isfinite(out.maxy),
+  Assert(std::isfinite(out.minx) && std::isfinite(out.maxx) && std::isfinite(out.miny) &&
+             std::isfinite(out.maxy),
          "Reprojected extent has no finite samples.");
 
   double margin = std::max(out.maxx - out.minx, out.maxy - out.miny) * 0.05;
@@ -183,13 +184,16 @@ inline std::vector<LASFileExtent> load_input_extents(const std::vector<fs::path>
     auto sub = progress.subtracker(static_cast<double>(i) / files.size(),
                                    static_cast<double>(i + 1) / files.size());
 
-    // Read metadata without override to get the file's native CRS.
-    LASFile las_native(f, sub.subtracker(0.0, 0.5), "");
     LASFileExtent extent;
     extent.path = f;
     extent.override_crs = override_crs;
+
+    LASFile las_native(f, sub.subtracker(0.0, 0.5), "");
     extent.native_wkt = las_native.projection().to_string();
     extent.horizontal_wkt = override_wkt.empty() ? extent.native_wkt : override_wkt;
+
+    if (extent.native_wkt.empty() && override_wkt.empty())
+      Fail("LAS file " + f.string() + " has no embedded CRS. Set 'override_crs' in the config.");
 
     // Read with override for the actual bounds (CRS metadata may differ).
     LASFile las(f, sub.subtracker(0.5, 1.0), override_crs);
@@ -287,8 +291,7 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
                  : reproject_extent(bordered_extent, output_crs_wkt, extent.native_wkt);
 
     LASData src(extent.path, sub.subtracker(0.0, 0.8), /*skip_reading_points=*/false,
-                /*bounds=*/filter_bounds,
-                /*override_crs=*/extent.override_crs);
+                /*bounds=*/filter_bounds);
 
     // Single file with matching CRS — already filtered by bounds during read.
     // Return directly; the point extent already reflects the filter, so no copy

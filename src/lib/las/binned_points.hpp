@@ -178,9 +178,11 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
   // Uses cell corners (not centers) so slice() includes edge cells fully.
   Extent2D data_extent() const {
     Extent2D ext;
+    bool any = false;
     for (size_t row = 0; row < this->height(); row++) {
       for (size_t col = 0; col < this->width(); col++) {
         if (!(*this)[{col, row}].empty()) {
+          any = true;
           auto c0 = this->transform().pixel_to_projection(
               {static_cast<double>(col), static_cast<double>(row)});
           auto c1 = this->transform().pixel_to_projection(
@@ -189,6 +191,10 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
                             std::min(c0.y(), c1.y()), std::max(c0.y(), c1.y())});
         }
       }
+    }
+    if (!any) {
+      const Extent2D grid_ext = *this->extent();
+      return {grid_ext.minx, grid_ext.minx, grid_ext.miny, grid_ext.miny};
     }
     return ext;
   }

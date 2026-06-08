@@ -117,6 +117,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                              progress_tracker.subtracker(0.0, 0.5));
   // progress_tracker is now at 0.5 — mapped from BinnedPoints' internal set_proportion(1.0)
 
+  // Export extent: midpoint between data and tile core, clipped to actual data.
+  Extent2D data_ext = binned_points.data_extent().intersection(las_file.export_bounds());
+
   GeoGrid<std::optional<LASPoint>> ground_points(binned_points.width(), binned_points.height(),
                                                  GeoTransform(binned_points.transform()),
                                                  GeoProjection(las_file.projection()));
@@ -171,8 +174,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   GeoGrid<double> ground = get_pixel_heights(ground_points);
 
-  write_to_tif(ground_intensity_img.slice(las_file.export_bounds()),
-               output_dir / "ground_intensity.tif", progress_tracker.subtracker(0.62, 0.63));
+  write_to_tif(ground_intensity_img.slice(data_ext), output_dir / "ground_intensity.tif",
+               progress_tracker.subtracker(0.62, 0.63));
 
   remove_outliers(ground, progress_tracker.subtracker(0.63, 0.64), bin_resolution);
   interpolate_holes(ground, progress_tracker.subtracker(0.64, 0.65));
@@ -180,7 +183,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   // Adjust ground estimate to account for bias from taking minimum point in each bin
   ground = adjust_ground_to_slope(ground);
 
-  write_to_tif(ground.slice(las_file.export_bounds()), output_dir / "ground.tif",
+  write_to_tif(ground.slice(data_ext), output_dir / "ground.tif",
                progress_tracker.subtracker(0.65, 0.66), /*include_vertical_crs=*/true);
   // Export buildings.tif at the smooth-ground resolution (bin_resolution *
   // downsample_factor) to match slope.tif / hill_shade / smooth_ground.tif.
@@ -189,13 +192,13 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   if (downsample_factor > 1) {
     GeoGrid<std::optional<std::byte>> buildings_export =
         downsample_mask_any(buildings, downsample_factor);
-    write_to_tif(buildings_export.slice(las_file.export_bounds()), output_dir / "buildings.tif",
+    write_to_tif(buildings_export.slice(data_ext), output_dir / "buildings.tif",
                  progress_tracker.subtracker(0.66, 0.67));
   } else {
-    write_to_tif(buildings.slice(las_file.export_bounds()), output_dir / "buildings.tif",
+    write_to_tif(buildings.slice(data_ext), output_dir / "buildings.tif",
                  progress_tracker.subtracker(0.66, 0.67));
   }
-  write_to_tif(water.slice(las_file.export_bounds()), output_dir / "water.tif",
+  write_to_tif(water.slice(data_ext), output_dir / "water.tif",
                progress_tracker.subtracker(0.67, 0.68));
 
   std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
@@ -205,14 +208,14 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   GeoGrid<double> smooth_ground = *downsampled_ground;
   downsampled_ground.reset();
 
-  write_to_tif(smooth_ground.slice(las_file.export_bounds()), output_dir / "smooth_ground.tif",
+  write_to_tif(smooth_ground.slice(data_ext), output_dir / "smooth_ground.tif",
                progress_tracker.subtracker(0.72, 0.73), /*include_vertical_crs=*/true);
 
   {
     GeoGrid<double> slope_grid = slope(smooth_ground);
     // Scale absolutely with min=pi/2, max=0: flat terrain (slope≈0) → 255, vertical (slope≈pi/2) →
     // 0.
-    write_to_image_tif(slope_grid.slice(las_file.export_bounds()), output_dir / "slope.tif",
+    write_to_image_tif(slope_grid.slice(data_ext), output_dir / "slope.tif",
                        progress_tracker.subtracker(0.74, 0.75),
                        std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
   }
@@ -234,7 +237,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   std::vector<Coordinate2D<size_t>> sinks = identify_sinks(contour_dem);
   GeoGrid<double> filled = fill_depressions(contour_dem, sinks);
-  write_to_tif(filled.slice(las_file.export_bounds()), output_dir / "filled_dem.tif",
+  write_to_tif(filled.slice(data_ext), output_dir / "filled_dem.tif",
                /*progress_tracker=*/std::nullopt, /*include_vertical_crs=*/true);
 
   double contour_points_resolution = 20;
@@ -375,7 +378,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
         veg_factor > 1
             ? downsample(raw_bp_float, veg_factor, ProgressTracker(), DownsampleMethod::MEAN)
             : std::move(raw_bp_float);
-    write_to_tif(float01_to_byte_grid(raw_vege_grid).slice(las_file.export_bounds()),
+    write_to_tif(float01_to_byte_grid(raw_vege_grid).slice(data_ext),
                  output_dir / "raw_vege" / (vege_config.name + ".tif"));
 
     // Smoothed blocked-proportion (low-pass + aggregated) at vegetation resolution, exported as
@@ -385,7 +388,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
         veg_factor > 1 ? downsample(smooth_blocked_proportion, veg_factor,
                                     /*progress_tracker=*/ProgressTracker(), DownsampleMethod::MEAN)
                        : std::move(smooth_blocked_proportion);
-    write_to_tif(float01_to_byte_grid(vege_grid).slice(las_file.export_bounds()),
+    write_to_tif(float01_to_byte_grid(vege_grid).slice(data_ext),
                  output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif"));
 
     // Keep float vegetation grid for the coloring stage.
@@ -394,7 +397,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   progress_tracker.set_proportion(0.78);
 
-  write_to_image_tif(hill_shade(smooth_ground).slice(las_file.export_bounds()),
+  write_to_image_tif(hill_shade(smooth_ground).slice(data_ext),
                      output_dir / "hill_shade_multi.tif");
 
   // vege_color is at vegetation_grid_resolution (matching the aggregated
@@ -437,7 +440,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
       }
     }
   }
-  write_to_tif(vege_color.slice(las_file.export_bounds()), output_dir / "vege_color.tif");
+  write_to_tif(vege_color.slice(data_ext), output_dir / "vege_color.tif");
 
   constexpr double INCHES_PER_METER = 39.3701;
   double render_pixel_resolution = config.render.scale / config.render.dpi / INCHES_PER_METER;
@@ -482,7 +485,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     final_img.draw(GeoImgGrid(building_color));
   }
 
-  final_img.save_to(output_dir / "final_img.tif", las_file.export_bounds());
+  final_img.save_to(output_dir / "final_img.tif", data_ext);
 
   progress_tracker.set_proportion(0.9);
 
@@ -510,5 +513,5 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     }
   }
 
-  final_img.save_to(output_dir / "final_img_extra_contours.tif", las_file.export_bounds());
+  final_img.save_to(output_dir / "final_img_extra_contours.tif", data_ext);
 }

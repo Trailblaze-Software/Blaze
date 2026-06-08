@@ -291,11 +291,6 @@ class LASFile {
       // (for 2D outputs like GPKGs and image TIFs) and a compound WKT that
       // preserves any original vertical datum (e.g. AHD) for DEM outputs.
       m_projection = make_projection_from_wkt(raw_embedded_wkt);
-    } else {
-      Fail("No projection found in LAS file " +
-           (m_filename.has_value() ? m_filename->string() : std::string("<unknown>")) +
-           ". Either embed a CRS in the file or set the 'override_crs' field in the config"
-           " (e.g. \"override_crs\": \"EPSG:28355\").");
     }
 
     if (reader.has_lastools_spatial_index()) {
@@ -326,15 +321,13 @@ class LASFile {
 
   Extent2D export_bounds() const {
     // Midpoint between current bounds (data+border) and original (tile core),
-    // then clipped to both — never export beyond the core or past the data.
+    // clipped to the data extent — never export beyond actual points.
     Extent2D midpoint(average(m_bounds.minx, m_original_bounds.minx),
                       average(m_bounds.maxx, m_original_bounds.maxx),
                       average(m_bounds.miny, m_original_bounds.miny),
                       average(m_bounds.maxy, m_original_bounds.maxy));
-    Extent2D core(m_original_bounds.minx, m_original_bounds.maxx, m_original_bounds.miny,
-                  m_original_bounds.maxy);
     Extent2D data(m_bounds.minx, m_bounds.maxx, m_bounds.miny, m_bounds.maxy);
-    return midpoint.intersection(core).intersection(data);
+    return midpoint.intersection(data);
   }
 
   const Extent3D& bounds() const { return m_bounds; }
