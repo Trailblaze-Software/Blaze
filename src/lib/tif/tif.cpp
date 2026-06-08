@@ -199,6 +199,10 @@ template <typename T>
 void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
                         std::optional<ProgressTracker> progress_tracker, std::optional<T> min_val,
                         std::optional<T> max_val) {
+  if (grid.width() == 0 || grid.height() == 0) {
+    std::cerr << "Warning: skipping TIF write for empty grid: " << filename.string() << "\n";
+    return;
+  }
   GeoGrid<std::byte> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                             GeoProjection(grid.projection()));
   T min = min_val.value_or(grid.min_value());
