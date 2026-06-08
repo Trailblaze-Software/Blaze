@@ -26,6 +26,9 @@ struct LASFileExtent {
   std::string override_crs;
   // Horizontal-only WKT normalized via make_projection_from_wkt().
   std::string horizontal_wkt;
+  // The file's original CRS before any override_crs is applied — used as the
+  // transform source when override_crs differs from the embedded CRS.
+  std::string native_wkt;
   Extent3D bounds_native;
   // Axis-aligned bounding box of the file's extent reprojected into the
   // chosen output CRS
@@ -156,11 +159,10 @@ inline TileModeInfo analyze_extents(std::vector<LASFileExtent>& extents,
   }
 
   for (LASFileExtent& e : extents) {
-    if (!target_wkt.empty() && !e.horizontal_wkt.empty() &&
-        !wkt_matches(e.horizontal_wkt, target_wkt)) {
+    if (!target_wkt.empty() && !e.native_wkt.empty() && !wkt_matches(e.native_wkt, target_wkt)) {
       try {
         e.bounds_reprojected = reproject_extent(static_cast<const Extent2D&>(e.bounds_native),
-                                                e.horizontal_wkt, target_wkt);
+                                                e.native_wkt, target_wkt);
       } catch (const std::exception&) {
         e.bounds_reprojected = static_cast<const Extent2D&>(e.bounds_native);
       }
@@ -188,17 +190,19 @@ inline std::vector<LASFileExtent> load_input_extents(const std::vector<fs::path>
 
   for (size_t i = 0; i < files.size(); i++) {
     const fs::path& f = files[i];
-    LASFile las(f,
-                progress.subtracker(static_cast<double>(i) / files.size(),
-                                    static_cast<double>(i + 1) / files.size()),
-                override_crs);
+    auto sub = progress.subtracker(static_cast<double>(i) / files.size(),
+                                   static_cast<double>(i + 1) / files.size());
+
+    // Read metadata without override to get the file's native CRS.
+    LASFile las_native(f, sub.subtracker(0.0, 0.5), "");
     LASFileExtent extent;
     extent.path = f;
     extent.override_crs = override_crs;
-    // horizontal_wkt is always the actual WKT (never a shorthand like
-    // "EPSG:28355") so that wkt_matches() and OGRSpatialReference parsing
-    // work reliably.
-    extent.horizontal_wkt = override_wkt.empty() ? las.projection().to_string() : override_wkt;
+    extent.native_wkt = las_native.projection().to_string();
+    extent.horizontal_wkt = override_wkt.empty() ? extent.native_wkt : override_wkt;
+
+    // Read with override for the actual bounds (CRS metadata may differ).
+    LASFile las(f, sub.subtracker(0.5, 1.0), override_crs);
     extent.bounds_native = las.bounds();
     extents.push_back(std::move(extent));
   }
@@ -213,7 +217,7 @@ inline std::vector<LASFileExtent> load_input_extents(const std::vector<fs::path>
 
   for (LASFileExtent& extent : extents) {
     extent.bounds_reprojected = reproject_extent(static_cast<const Extent2D&>(extent.bounds_native),
-                                                 extent.horizontal_wkt, output_crs_wkt);
+                                                 extent.native_wkt, output_crs_wkt);
   }
 
   return extents;
@@ -287,19 +291,29 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
     ProgressTracker sub = progress.subtracker(static_cast<double>(i) / overlapping.size(),
                                               static_cast<double>(i + 1) / overlapping.size());
 
-    const bool same_crs = wkt_matches(extent.horizontal_wkt, output_crs_wkt);
+    const bool same_crs = wkt_matches(extent.native_wkt, output_crs_wkt);
     Extent2D filter_bounds =
         same_crs ? bordered_extent
-                 : reproject_extent(bordered_extent, output_crs_wkt, extent.horizontal_wkt);
+                 : reproject_extent(bordered_extent, output_crs_wkt, extent.native_wkt);
 
     LASData src(extent.path, sub.subtracker(0.0, 0.8), /*skip_reading_points=*/false,
                 /*bounds=*/filter_bounds,
                 /*override_crs=*/extent.override_crs);
 
-    // Single file with matching CRS — already filtered. Fix bounds so
-    // downstream uses the tile+border extent, not the full file extent.
+    // Single file with matching CRS — already filtered by bounds during read.
+    // Return directly; the point extent already reflects the filter, so no copy
+    // needed. Just fix m_original_bounds so export_bounds() doesn't average in
+    // the full file extent.
     if (overlapping.size() == 1 && same_crs) {
-      src.set_bounds(bordered_extent);
+      // Clip to the actual extent of the source — avoids empty border cells
+      // when the file doesn't extend beyond the tile edge.
+      Extent2D clipped = bordered_extent;
+      const auto& b = src.bounds();
+      clipped.minx = std::max(clipped.minx, b.minx);
+      clipped.maxx = std::min(clipped.maxx, b.maxx);
+      clipped.miny = std::max(clipped.miny, b.miny);
+      clipped.maxy = std::min(clipped.maxy, b.maxy);
+      src.set_bounds(clipped);
       progress.text_update(to_string("Tile read ", src.n_points(), " points from single file ",
                                      extent.path.filename().string()));
       return src;
@@ -312,7 +326,7 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
       kept = src.n_points();
     } else {
       sub.text_update(to_string("Reprojecting points from ", extent.path.filename().string()));
-      auto ct = make_coord_transform(extent.horizontal_wkt, output_crs_wkt);
+      auto ct = make_coord_transform(extent.native_wkt, output_crs_wkt);
       for (const LASPoint& pt : src) {
         double x = pt.x(), y = pt.y(), z = pt.z();
         if (ct) {
