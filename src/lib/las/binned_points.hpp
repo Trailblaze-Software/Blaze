@@ -173,4 +173,23 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
                 << " points were out of bounds and were not included in the processing.\n";
     }
   }
+
+  // Bounding extent of non-empty cells in projection coordinates.
+  // Uses cell corners (not centers) so slice() includes edge cells fully.
+  Extent2D data_extent() const {
+    Extent2D ext;
+    for (size_t row = 0; row < this->height(); row++) {
+      for (size_t col = 0; col < this->width(); col++) {
+        if (!(*this)[{col, row}].empty()) {
+          auto c0 = this->transform().pixel_to_projection(
+              {static_cast<double>(col), static_cast<double>(row)});
+          auto c1 = this->transform().pixel_to_projection(
+              {static_cast<double>(col + 1), static_cast<double>(row + 1)});
+          ext.grow(Extent2D{std::min(c0.x(), c1.x()), std::max(c0.x(), c1.x()),
+                            std::min(c0.y(), c1.y()), std::max(c0.y(), c1.y())});
+        }
+      }
+    }
+    return ext;
+  }
 };

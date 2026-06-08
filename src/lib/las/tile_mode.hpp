@@ -68,40 +68,30 @@ inline Extent2D reproject_extent(const Extent2D& extent, const std::string& src_
   auto ct = make_coord_transform(src_wkt, dst_wkt);
   if (!ct) return extent;
 
-  constexpr int samples_per_edge = 16;
-  std::vector<double> xs;
-  std::vector<double> ys;
-  xs.reserve(samples_per_edge * 4);
-  ys.reserve(samples_per_edge * 4);
-  const double dx = extent.maxx - extent.minx;
-  const double dy = extent.maxy - extent.miny;
-  for (int k = 0; k <= samples_per_edge; k++) {
-    const double t = static_cast<double>(k) / samples_per_edge;
-    xs.push_back(extent.minx + t * dx);
-    ys.push_back(extent.miny);
-    xs.push_back(extent.minx + t * dx);
-    ys.push_back(extent.maxy);
-    xs.push_back(extent.minx);
-    ys.push_back(extent.miny + t * dy);
-    xs.push_back(extent.maxx);
-    ys.push_back(extent.miny + t * dy);
-  }
-  std::vector<int> status(xs.size(), 0);
-  const int ok =
-      ct->Transform(static_cast<int>(xs.size()), xs.data(), ys.data(), nullptr, status.data());
-  if (!ok) {
+  // Reproject the 4 corners and take the axis-aligned bounding box.
+  // Then expand by 5% — the actual tile-in-CRS check happens in the
+  // output CRS, so the filter only needs to be loose enough to not
+  // miss points near curved tile edges.
+  std::vector<double> xs = {extent.minx, extent.maxx, extent.minx, extent.maxx};
+  std::vector<double> ys = {extent.miny, extent.miny, extent.maxy, extent.maxy};
+  std::vector<int> status(4, 0);
+  if (!ct->Transform(4, xs.data(), ys.data(), nullptr, status.data())) {
     Fail("Failed to reproject extent corners between CRSes.");
   }
 
   Extent2D out;
-  for (size_t i = 0; i < xs.size(); i++) {
-    if (status[i] && std::isfinite(xs[i]) && std::isfinite(ys[i])) {
+  for (int i = 0; i < 4; i++) {
+    if (status[i] && std::isfinite(xs[i]) && std::isfinite(ys[i]))
       out.grow(Extent2D{xs[i], xs[i], ys[i], ys[i]});
-    }
   }
-  Assert(std::isfinite(out.minx) && std::isfinite(out.maxx) && std::isfinite(out.miny) &&
-             std::isfinite(out.maxy),
+  Assert(std::isfinite(out.minx) && std::isfinite(out.maxy),
          "Reprojected extent has no finite samples.");
+
+  double margin = std::max(out.maxx - out.minx, out.maxy - out.miny) * 0.05;
+  out.minx -= margin;
+  out.maxx += margin;
+  out.miny -= margin;
+  out.maxy += margin;
   return out;
 }
 
@@ -313,7 +303,7 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
       clipped.maxx = std::min(clipped.maxx, b.maxx);
       clipped.miny = std::max(clipped.miny, b.miny);
       clipped.maxy = std::min(clipped.maxy, b.maxy);
-      src.set_bounds(clipped);
+      src.set_bounds(clipped, tile_extent);
       progress.text_update(to_string("Tile read ", src.n_points(), " points from single file ",
                                      extent.path.filename().string()));
       return src;
@@ -343,6 +333,7 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
     sub.text_update(
         to_string("Tile read ", kept, " points from ", extent.path.filename().string()));
   }
+  tile_data.set_bounds(bordered_extent, tile_extent);
   return tile_data;
 }
 

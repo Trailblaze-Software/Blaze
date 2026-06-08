@@ -313,6 +313,11 @@ struct Extent2D {
     return !(maxx <= other.minx || minx >= other.maxx || maxy <= other.miny || miny >= other.maxy);
   }
 
+  Extent2D intersection(const Extent2D& other) const {
+    return {std::max(minx, other.minx), std::min(maxx, other.maxx), std::max(miny, other.miny),
+            std::min(maxy, other.maxy)};
+  }
+
   void grow(const Extent2D& other) {
     minx = std::min(minx, other.minx);
     maxx = std::max(maxx, other.maxx);

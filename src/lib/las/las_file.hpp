@@ -240,12 +240,18 @@ class LASFile {
         m_original_bounds(m_bounds),
         m_projection(std::move(projection)) {};
 
-  void set_bounds(const Extent2D& bounds) {
+  void set_bounds(const Extent2D& bounds, std::optional<Extent2D> tile_core = std::nullopt) {
     m_bounds.minx = bounds.minx;
     m_bounds.maxx = bounds.maxx;
     m_bounds.miny = bounds.miny;
     m_bounds.maxy = bounds.maxy;
     m_original_bounds = m_bounds;
+    if (tile_core) {
+      m_original_bounds.minx = tile_core->minx;
+      m_original_bounds.maxx = tile_core->maxx;
+      m_original_bounds.miny = tile_core->miny;
+      m_original_bounds.maxy = tile_core->maxy;
+    }
   }
 
  protected:
@@ -319,10 +325,16 @@ class LASFile {
   const GeoProjection& projection() const { return m_projection; }
 
   Extent2D export_bounds() const {
-    return Extent2D(average(m_bounds.minx, m_original_bounds.minx),
-                    average(m_bounds.maxx, m_original_bounds.maxx),
-                    average(m_bounds.miny, m_original_bounds.miny),
-                    average(m_bounds.maxy, m_original_bounds.maxy));
+    // Midpoint between current bounds (data+border) and original (tile core),
+    // then clipped to both — never export beyond the core or past the data.
+    Extent2D midpoint(average(m_bounds.minx, m_original_bounds.minx),
+                      average(m_bounds.maxx, m_original_bounds.maxx),
+                      average(m_bounds.miny, m_original_bounds.miny),
+                      average(m_bounds.maxy, m_original_bounds.maxy));
+    Extent2D core(m_original_bounds.minx, m_original_bounds.maxx, m_original_bounds.miny,
+                  m_original_bounds.maxy);
+    Extent2D data(m_bounds.minx, m_bounds.maxx, m_bounds.miny, m_bounds.maxy);
+    return midpoint.intersection(core).intersection(data);
   }
 
   const Extent3D& bounds() const { return m_bounds; }
@@ -447,6 +459,16 @@ class LASData : public LASFile {
         point.x() = coords.x();
         point.y() = coords.y();
         point.z() = coords.z();
+      }
+
+      // Software filter when bounds was specified but no spatial index available
+      if (bounds.has_value()) {
+        std::vector<LASPoint> filtered;
+        filtered.reserve(m_points.size());
+        for (const LASPoint& pt : m_points) {
+          if (bounds->contains(pt.x(), pt.y())) filtered.push_back(pt);
+        }
+        m_points = std::move(filtered);
       }
     }
 
