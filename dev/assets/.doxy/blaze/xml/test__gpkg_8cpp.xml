@@ -12,32 +12,32 @@
     <includes refid="coordinate_8hpp" local="yes">utilities/coordinate.hpp</includes>
     <includes refid="filesystem_8hpp" local="yes">utilities/filesystem.hpp</includes>
     <incdepgraph>
-      <node id="27">
+      <node id="28">
         <label>assert/assert.hpp</label>
         <link refid="assert_8hpp_source"/>
         <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
         <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="42">
         <label>assert/gdal_assert.hpp</label>
         <link refid="gdal__assert_8hpp_source"/>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
         <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
       <node id="10">
@@ -75,9 +75,9 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
       <node id="21">
@@ -85,9 +85,13 @@
         <link refid="grid_8hpp_source"/>
         <childnode refid="6" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
@@ -95,14 +99,16 @@
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="34">
         <label>grid/grid_ops.hpp</label>
         <link refid="grid__ops_8hpp_source"/>
         <childnode refid="7" relation="include">
@@ -111,43 +117,45 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="46">
         <label>io/gdal_init.hpp</label>
         <link refid="gdal__init_8hpp_source"/>
-        <childnode refid="44" relation="include">
+        <childnode refid="45" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="39">
         <label>io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
         <childnode refid="40" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="41" relation="include">
         </childnode>
-        <childnode refid="44" relation="include">
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -161,13 +169,13 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="46" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="47" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
@@ -184,20 +192,20 @@
         <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="47">
         <label>polyline/polyline.hpp</label>
         <link refid="polyline_8hpp_source"/>
-        <childnode refid="25" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="31">
         <label>printing/to_string.hpp</label>
         <link refid="to__string_8hpp_source"/>
-        <childnode refid="31" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
@@ -210,14 +218,12 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="47">
+      <node id="48">
         <label>testing/output_dir.hpp</label>
         <link refid="output__dir_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="48" relation="include">
         </childnode>
         <childnode refid="49" relation="include">
         </childnode>
@@ -225,16 +231,18 @@
         </childnode>
         <childnode refid="51" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
         <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="53" relation="include">
         </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
       </node>
-      <node id="32">
+      <node id="33">
         <label>utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
         <childnode refid="15" relation="include">
@@ -247,25 +255,25 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
       </node>
       <node id="19">
         <label>utilities/filesystem.hpp</label>
         <link refid="filesystem_8hpp_source"/>
       </node>
-      <node id="37">
+      <node id="38">
         <label>progress_tracker.hpp</label>
         <link refid="progress__tracker_8hpp_source"/>
         <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -276,18 +284,18 @@
         <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="36">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
-        <childnode refid="36" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
       </node>
       <node id="6">
@@ -296,43 +304,43 @@
       <node id="15">
         <label>array</label>
       </node>
-      <node id="48">
+      <node id="49">
         <label>atomic</label>
       </node>
-      <node id="36">
+      <node id="37">
         <label>chrono</label>
       </node>
       <node id="7">
         <label>cmath</label>
       </node>
-      <node id="41">
+      <node id="40">
         <label>cpl_error.h</label>
       </node>
       <node id="22">
         <label>cstddef</label>
       </node>
-      <node id="49">
+      <node id="50">
         <label>cstdint</label>
       </node>
       <node id="23">
         <label>cstring</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>experimental/source_location</label>
       </node>
-      <node id="50">
+      <node id="51">
         <label>filesystem</label>
       </node>
       <node id="3">
         <label>fstream</label>
       </node>
-      <node id="44">
+      <node id="45">
         <label>gdal_priv.h</label>
       </node>
       <node id="2">
         <label>gtest/gtest.h</label>
       </node>
-      <node id="31">
+      <node id="32">
         <label>iomanip</label>
       </node>
       <node id="11">
@@ -347,13 +355,13 @@
       <node id="24">
         <label>memory</label>
       </node>
-      <node id="34">
+      <node id="35">
         <label>numeric</label>
       </node>
-      <node id="43">
+      <node id="44">
         <label>ogr_core.h</label>
       </node>
-      <node id="39">
+      <node id="41">
         <label>ogrsf_frmts.h</label>
       </node>
       <node id="12">
@@ -362,28 +370,31 @@
       <node id="17">
         <label>ostream</label>
       </node>
-      <node id="51">
+      <node id="52">
         <label>random</label>
       </node>
       <node id="13">
         <label>set</label>
       </node>
-      <node id="42">
+      <node id="43">
         <label>source_location</label>
       </node>
-      <node id="29">
+      <node id="30">
         <label>sstream</label>
       </node>
       <node id="25">
-        <label>string</label>
-      </node>
-      <node id="52">
-        <label>string_view</label>
+        <label>stdexcept</label>
       </node>
       <node id="26">
-        <label>type_traits</label>
+        <label>string</label>
       </node>
       <node id="53">
+        <label>string_view</label>
+      </node>
+      <node id="27">
+        <label>type_traits</label>
+      </node>
+      <node id="54">
         <label>unistd.h</label>
       </node>
       <node id="9">

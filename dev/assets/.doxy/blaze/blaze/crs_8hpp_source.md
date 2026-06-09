@@ -140,8 +140,15 @@ inline std::string user_crs_to_wkt(const std::string& user_crs) {
 
 // Returns true if two WKT strings describe the same CRS (tolerating cosmetic
 // differences in the WKT representation). Empty strings are never "same".
+inline bool wkt_parses(const std::string& wkt) {
+  if (wkt.empty()) return false;
+  OGRSpatialReference srs;
+  return srs.importFromWkt(wkt.c_str()) == OGRERR_NONE;
+}
+
 inline bool wkt_matches(const std::string& a, const std::string& b) {
   if (a.empty() || b.empty()) return false;
+  if (a == b) return true;
   OGRSpatialReference srs_a;
   OGRSpatialReference srs_b;
   if (srs_a.importFromWkt(a.c_str()) != OGRERR_NONE) return false;

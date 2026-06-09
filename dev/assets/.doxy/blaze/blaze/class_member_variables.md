@@ -81,6 +81,7 @@
 * **m\_mutex** ([**AsyncLASData**](classAsyncLASData.md))
 * **m\_thread** ([**AsyncLASData**](classAsyncLASData.md))
 * **m\_tracker** ([**AsyncProgressTracker**](classAsyncProgressTracker.md))
+* **m\_storage** ([**BinnedPoints**](classBinnedPoints.md))
 * **m\_data** ([**CMYKColor**](classCMYKColor.md), [**Coordinate2D**](classCoordinate2D.md), [**FlexGrid**](classFlexGrid.md), [**Grid**](classGrid.md), [**RGBColor**](classRGBColor.md))
 * **m\_direction** ([**Camera**](classCamera.md))
 * **m\_fov** ([**Camera**](classCamera.md))
@@ -166,6 +167,7 @@
 
 ## n
 
+* **native\_wkt** ([**LASFileExtent**](structLASFileExtent.md))
 * **name** ([**Polyline**](classPolyline.md), [**TerrainTestParams**](structTerrainTestParams.md), [**Tile**](structTile.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 
 

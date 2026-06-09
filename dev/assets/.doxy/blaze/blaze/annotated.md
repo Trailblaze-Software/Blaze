@@ -7,6 +7,7 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
 * **class** [**AssetRetriever**](classAssetRetriever.md)     
 * **class** [**AsyncLASData**](classAsyncLASData.md)     
 * **class** [**AsyncProgressTracker**](classAsyncProgressTracker.md)     
+* **class** [**BinnedPoints**](classBinnedPoints.md)     
 * **struct** [**BlazeBool**](structBlazeBool.md)     
 * **struct** [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md)     
 * **struct** [**BuildingsConfig**](structBuildingsConfig.md)     

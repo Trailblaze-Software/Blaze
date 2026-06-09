@@ -909,6 +909,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#function-num_cells_by_distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function num_cells_by_distance
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -939,9 +950,12 @@
 <p><a href="../grid_8hpp_source/">Go to the source code of this file</a></p>
 <ul>
 <li><code>#include &lt;algorithm&gt;</code></li>
+<li><code>#include &lt;cmath&gt;</code></li>
 <li><code>#include &lt;cstddef&gt;</code></li>
 <li><code>#include &lt;cstring&gt;</code></li>
+<li><code>#include &lt;limits&gt;</code></li>
 <li><code>#include &lt;memory&gt;</code></li>
+<li><code>#include &lt;stdexcept&gt;</code></li>
 <li><code>#include &lt;string&gt;</code></li>
 <li><code>#include &lt;type_traits&gt;</code></li>
 <li><code>#include &lt;vector&gt;</code></li>
@@ -1054,6 +1068,10 @@
 <td style="text-align: right;">T</td>
 <td style="text-align: left;"><a href="#function-interpolate_value"><strong>interpolate_value</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; projection_coord) <br></td>
 </tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: left;"><a href="#function-num_cells_by_distance"><strong>num_cells_by_distance</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> x, <a href="../classCoordinate2D/"><strong>double</strong></a> dx) <br></td>
+</tr>
 </tbody>
 </table>
 <h2 id="public-types-documentation">Public Types Documentation</h2>
@@ -1078,6 +1096,14 @@
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection_coord</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-num_cells_by_distance">function num_cells_by_distance</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_cells_by_distance</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

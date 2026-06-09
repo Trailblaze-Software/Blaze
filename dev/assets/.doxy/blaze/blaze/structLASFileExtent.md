@@ -38,6 +38,7 @@
 |  [**Extent3D**](structExtent3D.md) | [**bounds\_native**](#variable-bounds_native)  <br> |
 |  [**Extent2D**](structExtent2D.md) | [**bounds\_reprojected**](#variable-bounds_reprojected)  <br> |
 |  std::string | [**horizontal\_wkt**](#variable-horizontal_wkt)  <br> |
+|  std::string | [**native\_wkt**](#variable-native_wkt)  <br> |
 |  std::string | [**override\_crs**](#variable-override_crs)  <br> |
 |  fs::path | [**path**](#variable-path)  <br> |
 
@@ -119,6 +120,19 @@ Extent2D LASFileExtent::bounds_reprojected;
 
 ```C++
 std::string LASFileExtent::horizontal_wkt;
+```
+
+
+
+
+<hr>
+
+
+
+### variable native\_wkt 
+
+```C++
+std::string LASFileExtent::native_wkt;
 ```
 
 

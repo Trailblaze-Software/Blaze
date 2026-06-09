@@ -11,6 +11,7 @@
 
 
 * `#include <cstddef>`
+* `#include <span>`
 * `#include "config_input/config_input.hpp"`
 * `#include "grid/grid.hpp"`
 * `#include "las/las_point.hpp"`
@@ -57,7 +58,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; | [**get\_blocked\_proportion**](#function-get_blocked_proportion) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::vector&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & grid, [**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & ground, [**const**](classCoordinate2D.md) [**VegeHeightConfig**](structVegeHeightConfig.md) & vege\_config) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; | [**get\_blocked\_proportion**](#function-get_blocked_proportion) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::span&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & grid, [**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & ground, [**const**](classCoordinate2D.md) [**VegeHeightConfig**](structVegeHeightConfig.md) & vege\_config) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; | [**low\_pass**](#function-low_pass) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; & grid, [**int**](classCoordinate2D.md) delta=8) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; | [**low\_pass**](#function-low_pass) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; & grid, [**int**](classCoordinate2D.md) delta=8) <br> |
 
@@ -97,7 +98,7 @@
 
 ```C++
 inline GeoGrid < std::optional< float > > get_blocked_proportion (
-    const  GeoGrid < std::vector< LASPoint > > & grid,
+    const  GeoGrid < std::span< LASPoint > > & grid,
     const  GeoGrid < double > & ground,
     const  VegeHeightConfig & vege_config
 ) 

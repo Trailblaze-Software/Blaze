@@ -109,8 +109,8 @@
 
 ## n
 
+* **num\_cells\_by\_distance** ([**grid.hpp**](grid_8hpp.md))
 * **normalize\_crs\_wkt** ([**crs.hpp**](crs_8hpp.md))
-* **num\_cells\_by\_distance** ([**process.hpp**](process_8hpp.md))
 
 
 ## o
@@ -131,6 +131,7 @@
 * **round\_down** ([**contour.hpp**](contour_8hpp.md))
 * **remove\_outliers** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **read\_gpkg** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **reader\_embedded\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
 * **reader\_horizontal\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
 * **round** ([**las\_file.hpp**](las__file_8hpp.md))
 * **read\_tile\_from\_inputs** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
@@ -184,6 +185,7 @@
 
 * **write\_to\_crt** ([**crt.hpp**](crt_8hpp.md))
 * **wkt\_matches** ([**crs.hpp**](crs_8hpp.md))
+* **wkt\_parses** ([**crs.hpp**](crs_8hpp.md))
 * **write\_to\_image\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **write\_to\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 

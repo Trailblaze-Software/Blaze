@@ -55,7 +55,6 @@
 ## o
 
 * **ORTHOGONAL\_DIRECTIONS** ([**coordinate.hpp**](coordinate_8hpp.md))
-* **OUT\_LAS** ([**process.cpp**](process_8cpp.md))
 
 
 ## p

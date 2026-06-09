@@ -106,6 +106,24 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="312" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="312" bodyend="314"/>
       </memberdef>
+      <memberdef kind="function" id="structExtent2D_1ae44191e7d9b7f4e4b24f3d7d5492bc01" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent2D" kindref="compound">Extent2D</ref></type>
+        <definition>Extent2D Extent2D::intersection</definition>
+        <argsstring>(const Extent2D &amp;other) const</argsstring>
+        <name>intersection</name>
+        <qualifiedname>Extent2D::intersection</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="316" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="316" bodyend="325"/>
+      </memberdef>
       <memberdef kind="function" id="structExtent2D_1a832629d544c1ded14a5c50ea7c4c5574" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
         <definition>void Extent2D::grow</definition>
@@ -122,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="316" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="316" bodyend="321"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="327" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="327" bodyend="332"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="friend">
@@ -146,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="323" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="323" bodyend="326"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="334" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="334" bodyend="337"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -165,10 +183,11 @@
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="302" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="302" bodyend="327"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" line="302" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp" bodystart="302" bodyend="338"/>
     <listofallmembers>
       <member refid="structExtent2D_1af9c76caf6f9feefad5b5979f7976a073" prot="public" virt="non-virtual"><scope>Extent2D</scope><name>contains</name></member>
       <member refid="structExtent2D_1a832629d544c1ded14a5c50ea7c4c5574" prot="public" virt="non-virtual"><scope>Extent2D</scope><name>grow</name></member>
+      <member refid="structExtent2D_1ae44191e7d9b7f4e4b24f3d7d5492bc01" prot="public" virt="non-virtual"><scope>Extent2D</scope><name>intersection</name></member>
       <member refid="structExtent2D_1a594ad91bcf308ee192c1e3266d45d546" prot="public" virt="non-virtual"><scope>Extent2D</scope><name>maxx</name></member>
       <member refid="structExtent2D_1a44418b38c40ba7077bb0e5b3d0bff373" prot="public" virt="non-virtual"><scope>Extent2D</scope><name>maxy</name></member>
       <member refid="structExtent2D_1a83c81963ab031f3761ca6c0ccbe753e3" prot="public" virt="non-virtual"><scope>Extent2D</scope><name>minx</name></member>

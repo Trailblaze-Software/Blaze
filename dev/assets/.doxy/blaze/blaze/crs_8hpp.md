@@ -66,6 +66,7 @@
 |  [**UserCrsParseResult**](structUserCrsParseResult.md) | [**try\_user\_crs\_to\_wkt**](#function-try_user_crs_to_wkt) ([**const**](classCoordinate2D.md) std::string & user\_crs) <br> |
 |  std::string | [**user\_crs\_to\_wkt**](#function-user_crs_to_wkt) ([**const**](classCoordinate2D.md) std::string & user\_crs) <br> |
 |  [**bool**](classCoordinate2D.md) | [**wkt\_matches**](#function-wkt_matches) ([**const**](classCoordinate2D.md) std::string & a, [**const**](classCoordinate2D.md) std::string & b) <br> |
+|  [**bool**](classCoordinate2D.md) | [**wkt\_parses**](#function-wkt_parses) ([**const**](classCoordinate2D.md) std::string & wkt) <br> |
 
 
 
@@ -181,6 +182,21 @@ inline std::string user_crs_to_wkt (
 inline bool wkt_matches (
     const std::string & a,
     const std::string & b
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function wkt\_parses 
+
+```C++
+inline bool wkt_parses (
+    const std::string & wkt
 ) 
 ```
 

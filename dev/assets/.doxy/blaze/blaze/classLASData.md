@@ -79,11 +79,13 @@ Inherited by the following classes: [AsyncLASData](classAsyncLASData.md)
 |  [**auto**](classCoordinate2D.md) | [**begin**](#function-begin) () <br> |
 |  [**auto**](classCoordinate2D.md) | [**end**](#function-end) () <br> |
 |  [**void**](classCoordinate2D.md) | [**extract\_borders**](#function-extract_borders) ([**const**](classCoordinate2D.md) fs::path & tmp\_dir, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) const<br> |
-|  [**void**](classCoordinate2D.md) | [**insert**](#function-insert) ([**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & point) <br> |
+|  [**void**](classCoordinate2D.md) | [**insert**](#function-insert-12) ([**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & point) <br> |
+|  [**void**](classCoordinate2D.md) | [**insert**](#function-insert-22) (std::span&lt; [**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) &gt; pts) <br> |
 |  std::pair&lt; [**uint16\_t**](classCoordinate2D.md), [**uint16\_t**](classCoordinate2D.md) &gt; | [**intensity\_range**](#function-intensity_range) () const<br> |
 |  std::size\_t | [**n\_points**](#function-n_points) () const<br> |
 |  [**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & | [**operator[]**](#function-operator) (std::size\_t i) const<br> |
 |  [**LASPoint**](classLASPoint.md) & | [**operator[]**](#function-operator_1) (std::size\_t i) <br> |
+|  std::span&lt; [**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) &gt; | [**points**](#function-points) () const<br> |
 |  [**void**](classCoordinate2D.md) | [**push\_back**](#function-push_back) ([**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & point) <br> |
 |  [**void**](classCoordinate2D.md) | [**write**](#function-write) ([**const**](classCoordinate2D.md) fs::path & filename, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; progress\_tracker={}) const<br> |
 
@@ -102,6 +104,7 @@ See [LASFile](classLASFile.md)
 |  std::pair&lt; [**double**](classCoordinate2D.md), [**double**](classCoordinate2D.md) &gt; | [**height\_range**](classLASFile.md#function-height_range) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**original\_bounds**](classLASFile.md#function-original_bounds) () const<br> |
 |  [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & | [**projection**](classLASFile.md#function-projection) () const<br> |
+|  [**void**](classCoordinate2D.md) | [**set\_bounds**](classLASFile.md#function-set_bounds) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; tile\_core=std::nullopt) <br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**top\_left**](classLASFile.md#function-top_left) () const<br> |
 |  [**double**](classCoordinate2D.md) | [**width**](classLASFile.md#function-width) () const<br> |
 
@@ -286,11 +289,26 @@ inline void LASData::extract_borders (
 
 
 
-### function insert 
+### function insert [1/2]
 
 ```C++
 inline void LASData::insert (
     const  LASPoint & point
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function insert [2/2]
+
+```C++
+inline void LASData::insert (
+    std::span< const  LASPoint > pts
 ) 
 ```
 
@@ -348,6 +366,19 @@ inline const  LASPoint & LASData::operator[] (
 inline LASPoint & LASData::operator[] (
     std::size_t i
 ) 
+```
+
+
+
+
+<hr>
+
+
+
+### function points 
+
+```C++
+inline std::span< const  LASPoint > LASData::points () const
 ```
 
 

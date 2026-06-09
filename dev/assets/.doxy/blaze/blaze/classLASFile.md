@@ -60,6 +60,7 @@ Inherited by the following classes: [LASData](classLASData.md)
 |  std::pair&lt; [**double**](classCoordinate2D.md), [**double**](classCoordinate2D.md) &gt; | [**height\_range**](#function-height_range) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**original\_bounds**](#function-original_bounds) () const<br> |
 |  [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & | [**projection**](#function-projection) () const<br> |
+|  [**void**](classCoordinate2D.md) | [**set\_bounds**](#function-set_bounds) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; tile\_core=std::nullopt) <br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**top\_left**](#function-top_left) () const<br> |
 |  [**double**](classCoordinate2D.md) | [**width**](#function-width) () const<br> |
 
@@ -211,6 +212,22 @@ inline Extent2D LASFile::original_bounds () const
 
 ```C++
 inline const  GeoProjection & LASFile::projection () const
+```
+
+
+
+
+<hr>
+
+
+
+### function set\_bounds 
+
+```C++
+inline void LASFile::set_bounds (
+    const  Extent2D & bounds,
+    std::optional< Extent2D > tile_core=std::nullopt
+) 
 ```
 
 

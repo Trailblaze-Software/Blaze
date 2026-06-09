@@ -920,10 +920,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#function-insert" class="md-nav__link">
+  <a href="#function-insert-12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        function insert
+        function insert [1/2]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-insert-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function insert [2/2]
       
     </span>
   </a>
@@ -968,6 +979,17 @@
     <span class="md-ellipsis">
       
         function operator[]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function points
       
     </span>
   </a>
@@ -1127,7 +1149,11 @@
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-insert"><strong>insert</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
+<td style="text-align: left;"><a href="#function-insert-12"><strong>insert</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: left;"><a href="#function-insert-22"><strong>insert</strong></a> (std::span&lt; <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; pts) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::pair&lt; <a href="../classCoordinate2D/"><strong>uint16_t</strong></a>, <a href="../classCoordinate2D/"><strong>uint16_t</strong></a> &gt;</td>
@@ -1144,6 +1170,10 @@
 <tr>
 <td style="text-align: right;"><a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="#function-operator_1"><strong>operator[]</strong></a> (std::size_t i) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::span&lt; <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#function-points"><strong>points</strong></a> () const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
@@ -1196,6 +1226,10 @@
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-projection"><strong>projection</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-set_bounds"><strong>set_bounds</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; tile_core=std::nullopt) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>
@@ -1336,79 +1370,91 @@
 </code></pre></div>
 <hr>
 
-<h3 id="function-insert">function insert</h3>
+<h3 id="function-insert-12">function insert [1/2]</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">insert</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
+<h3 id="function-insert-22">function insert [2/2]</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">insert</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">pts</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-intensity_range">function intensity_range</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">intensity_range</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">intensity_range</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-n_points">function n_points</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">n_points</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">n_points</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-operator">function operator[]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="k">operator</span><span class="p">[]</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="k">operator</span><span class="p">[]</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-operator_1">function operator[]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="k">operator</span><span class="p">[]</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
-<h3 id="function-push_back">function push_back</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">push_back</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="k">operator</span><span class="p">[]</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
+<h3 id="function-points">function points</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">points</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-push_back">function push_back</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">push_back</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-write">function write</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">write</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="p">{}</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">write</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="p">{}</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 <h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
 <h3 id="function-with_border-12">function with_border [1/2]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">LASData</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">with_border</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent3D</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">all_las_file_extents</span><span class="p">,</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">LASData</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">with_border</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent3D</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">all_las_file_extents</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-with_border-22">function with_border [2/2]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">LASData</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">with_border</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">LASData</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">with_border</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 <h2 id="protected-functions-documentation">Protected Functions Documentation</h2>
 <h3 id="function-read_points">function read_points</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">read_points</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="n">laspp</span><span class="o">::</span><span class="n">LASReader</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">,</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">bounds</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LASData</span><span class="o">::</span><span class="n">read_points</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="n">laspp</span><span class="o">::</span><span class="n">LASReader</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">bounds</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

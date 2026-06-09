@@ -10,6 +10,7 @@
 
 
 
+* `#include <cpl_error.h>`
 * `#include <ogrsf_frmts.h>`
 * `#include "assert/assert.hpp"`
 * `#include "assert/gdal_assert.hpp"`

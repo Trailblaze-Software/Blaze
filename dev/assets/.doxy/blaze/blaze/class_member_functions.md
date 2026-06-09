@@ -14,6 +14,7 @@
 
 ## b
 
+* **BinnedPoints** ([**BinnedPoints**](classBinnedPoints.md))
 * **BlazeBool** ([**BlazeBool**](structBlazeBool.md))
 * **bound\_rotation** ([**Camera**](classCamera.md))
 * **begin** ([**LASData**](classLASData.md))
@@ -50,6 +51,7 @@
 ## d
 
 * **data\_ready** ([**AsyncLASData**](classAsyncLASData.md))
+* **data\_extent** ([**BinnedPoints**](classBinnedPoints.md))
 * **direction** ([**Camera**](classCamera.md))
 * **Default** ([**Config**](structConfig.md))
 * **Direction2D** ([**Direction2D**](classDirection2D.md))
@@ -139,7 +141,7 @@
 
 * **is\_valid** ([**ConfigEditor**](classConfigEditor.md))
 * **is\_loop** ([**Contour**](classContour.md))
-* **intersection** ([**Extent3D**](structExtent3D.md))
+* **intersection** ([**Extent2D**](structExtent2D.md), [**Extent3D**](structExtent3D.md))
 * **intersects** ([**Extent3D**](structExtent3D.md))
 * **initializeGL** ([**GLWidget**](classGLWidget.md))
 * **in\_bounds** ([**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**MultiBand**](classMultiBand.md))
@@ -243,7 +245,7 @@
 * **populate\_contour\_list** ([**ConfigEditor**](classConfigEditor.md))
 * **populate\_vege\_list** ([**ConfigEditor**](classConfigEditor.md))
 * **populate\_water\_list** ([**ConfigEditor**](classConfigEditor.md))
-* **points** ([**Contour**](classContour.md))
+* **points** ([**Contour**](classContour.md), [**LASData**](classLASData.md))
 * **push\_back** ([**Contour**](classContour.md), [**LASData**](classLASData.md))
 * **pick\_from\_height** ([**ContourConfigs**](structContourConfigs.md))
 * **paintGL** ([**GLWidget**](classGLWidget.md))
@@ -292,6 +294,7 @@
 * **save\_to** ([**GeoImgGrid**](classGeoImgGrid.md), [**ImgGrid**](classImgGrid.md))
 * **set\_dx** ([**GeoTransform**](classGeoTransform.md))
 * **set\_dy** ([**GeoTransform**](classGeoTransform.md))
+* **set\_bounds** ([**LASFile**](classLASFile.md))
 * **start** ([**LineCoord2D**](classLineCoord2D.md))
 * **size** ([**MultiBand**](classMultiBand.md))
 * **start\_task** ([**ProgressBox**](classProgressBox.md))

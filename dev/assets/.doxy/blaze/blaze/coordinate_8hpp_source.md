@@ -323,6 +323,17 @@ struct Extent2D {
     return !(maxx <= other.minx || minx >= other.maxx || maxy <= other.miny || miny >= other.maxy);
   }
 
+  Extent2D intersection(const Extent2D& other) const {
+    double x0 = std::max(minx, other.minx);
+    double x1 = std::min(maxx, other.maxx);
+    double y0 = std::max(miny, other.miny);
+    double y1 = std::min(maxy, other.maxy);
+    // Clamp to zero area when there is no overlap, so the result is never inverted.
+    if (x0 > x1) x0 = x1 = (x0 + x1) / 2;
+    if (y0 > y1) y0 = y1 = (y0 + y1) / 2;
+    return {x0, x1, y0, y1};
+  }
+
   void grow(const Extent2D& other) {
     minx = std::min(minx, other.minx);
     maxx = std::max(maxx, other.maxx);
@@ -387,8 +398,16 @@ struct Extent3D : Extent2D {
   }
 
   Extent3D intersection(const Extent3D& other) const {
-    return {std::max(minx, other.minx), std::min(maxx, other.maxx), std::max(miny, other.miny),
-            std::min(maxy, other.maxy), std::max(minz, other.minz), std::min(maxz, other.maxz)};
+    double x0 = std::max(minx, other.minx);
+    double x1 = std::min(maxx, other.maxx);
+    double y0 = std::max(miny, other.miny);
+    double y1 = std::min(maxy, other.maxy);
+    double z0 = std::max(minz, other.minz);
+    double z1 = std::min(maxz, other.maxz);
+    if (x0 > x1) x0 = x1 = (x0 + x1) / 2;
+    if (y0 > y1) y0 = y1 = (y0 + y1) / 2;
+    if (z0 > z1) z0 = z1 = (z0 + z1) / 2;
+    return {x0, x1, y0, y1, z0, z1};
   }
 
   bool operator!=(const Extent3D& other) const {

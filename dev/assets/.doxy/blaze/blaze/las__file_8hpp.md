@@ -93,6 +93,7 @@
 |  [**Extent2D**](structExtent2D.md) | [**external\_border\_ranges**](#function-external_border_ranges) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, [**double**](classCoordinate2D.md) border\_width) <br> |
 |  [**void**](classCoordinate2D.md) | [**extract\_borders**](#function-extract_borders) ([**const**](classCoordinate2D.md) fs::path & las\_filename, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
 |  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, BorderType border\_type) <br> |
+|  std::string | [**reader\_embedded\_wkt**](#function-reader_embedded_wkt) ([**const**](classCoordinate2D.md) laspp::LASReader & reader) <br> |
 |  std::string | [**reader\_horizontal\_wkt**](#function-reader_horizontal_wkt) ([**const**](classCoordinate2D.md) laspp::LASReader & reader, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
 |  [**long**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**round**](#function-round) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) resolution=1.0) <br> |
 |  std::string | [**unique\_coord\_name**](#function-unique_coord_name) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box) <br> |
@@ -320,6 +321,21 @@ inline void extract_borders (
 inline std::ostream & operator<< (
     std::ostream & os,
     BorderType border_type
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function reader\_embedded\_wkt 
+
+```C++
+inline std::string reader_embedded_wkt (
+    const laspp::LASReader & reader
 ) 
 ```
 

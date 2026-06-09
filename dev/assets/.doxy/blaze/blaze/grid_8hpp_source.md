@@ -11,9 +11,12 @@
 #pragma once
 
 #include <algorithm>
+#include <cmath>
 #include <cstddef>
 #include <cstring>
+#include <limits>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -23,6 +26,19 @@
 
 class GDALDataset;
 class RGBColor;
+
+inline size_t num_cells_by_distance(double x, double dx) {
+  if (dx == 0.0) {
+    throw std::invalid_argument("num_cells_by_distance: cell size cannot be zero");
+  }
+  const double abs_x = std::abs(x);
+  const double abs_dx = std::abs(dx);
+  const double cells = abs_x / abs_dx;
+  constexpr double min_epsilon = 1e-6;
+  const double relative_epsilon = std::numeric_limits<double>::epsilon() * cells;
+  const double epsilon = std::max(min_epsilon, relative_epsilon);
+  return static_cast<size_t>(std::ceil(cells + epsilon));
+}
 
 class GeoTransform {
   double geoTransform[6];

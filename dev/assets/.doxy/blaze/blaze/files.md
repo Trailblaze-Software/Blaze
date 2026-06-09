@@ -68,6 +68,7 @@ Here is a list of all files with brief descriptions:
             * **dir** [**tests**](dir_cbe4df00df7a61fa7e328fcb8d7dc5eb.md)     
                 * **file** [**test\_las\_file.cpp**](test__las__file_8cpp.md)     
                 * **file** [**test\_las\_point.cpp**](test__las__point_8cpp.md)     
+            * **file** [**binned\_points.hpp**](binned__points_8hpp.md)     
             * **file** [**las\_file.hpp**](las__file_8hpp.md)     
             * **file** [**las\_point.hpp**](las__point_8hpp.md)     
             * **file** [**tile\_mode.hpp**](tile__mode_8hpp.md)     

@@ -41,6 +41,7 @@
 
 ## b
 
+* [**BinnedPoints**](classBinnedPoints.md)
 * [**BlazeBool**](structBlazeBool.md)
 * [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md)
 * [**BuildingsConfig**](structBuildingsConfig.md)

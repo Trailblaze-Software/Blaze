@@ -1014,7 +1014,11 @@
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-insert"><strong>insert</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-insert-12"><strong>insert</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: left;"><a href="../classLASData/#function-insert-22"><strong>insert</strong></a> (std::span&lt; <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; pts) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::pair&lt; <a href="../classCoordinate2D/"><strong>uint16_t</strong></a>, <a href="../classCoordinate2D/"><strong>uint16_t</strong></a> &gt;</td>
@@ -1031,6 +1035,10 @@
 <tr>
 <td style="text-align: right;"><a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classLASData/#function-operator_1"><strong>operator[]</strong></a> (std::size_t i) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::span&lt; <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="../classLASData/#function-points"><strong>points</strong></a> () const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
@@ -1083,6 +1091,10 @@
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-projection"><strong>projection</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-set_bounds"><strong>set_bounds</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; tile_core=std::nullopt) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>

@@ -62,6 +62,7 @@ Inherited by the following classes: [Extent3D](structExtent3D.md)
 | ---: | :--- |
 |  [**bool**](classCoordinate2D.md) | [**contains**](#function-contains) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) y) const<br> |
 |  [**void**](classCoordinate2D.md) | [**grow**](#function-grow) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**intersection**](#function-intersection) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) const<br> |
 |  [**bool**](classCoordinate2D.md) | [**overlaps**](#function-overlaps) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) const<br> |
 
 
@@ -172,6 +173,21 @@ inline bool Extent2D::contains (
 inline void Extent2D::grow (
     const  Extent2D & other
 ) 
+```
+
+
+
+
+<hr>
+
+
+
+### function intersection 
+
+```C++
+inline Extent2D Extent2D::intersection (
+    const  Extent2D & other
+) const
 ```
 
 

@@ -9,20 +9,20 @@
     <includes refid="colors_8hpp" local="yes">isom/colors.hpp</includes>
     <includes refid="grid_8hpp" local="yes">lib/grid/grid.hpp</includes>
     <incdepgraph>
-      <node id="26">
+      <node id="27">
         <label>assert/assert.hpp</label>
         <link refid="assert_8hpp_source"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
         <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -60,19 +60,19 @@
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
       </node>
-      <node id="37">
+      <node id="38">
         <label>contour/contour_gen.hpp</label>
         <link refid="contour__gen_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -84,7 +84,7 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -96,9 +96,13 @@
         <link refid="grid_8hpp_source"/>
         <childnode refid="17" relation="include">
         </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
         <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
@@ -106,14 +110,16 @@
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="33">
         <label>grid/grid_ops.hpp</label>
         <link refid="grid__ops_8hpp_source"/>
         <childnode refid="4" relation="include">
@@ -122,15 +128,15 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -145,10 +151,10 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="30">
         <label>printing/to_string.hpp</label>
         <link refid="to__string_8hpp_source"/>
-        <childnode refid="30" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -161,7 +167,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="32">
         <label>utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
         <childnode refid="10" relation="include">
@@ -174,25 +180,25 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="14">
         <label>utilities/filesystem.hpp</label>
         <link refid="filesystem_8hpp_source"/>
       </node>
-      <node id="36">
+      <node id="37">
         <label>progress_tracker.hpp</label>
         <link refid="progress__tracker_8hpp_source"/>
         <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
@@ -203,18 +209,18 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="35">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
       <node id="17">
@@ -223,7 +229,7 @@
       <node id="10">
         <label>array</label>
       </node>
-      <node id="35">
+      <node id="36">
         <label>chrono</label>
       </node>
       <node id="4">
@@ -235,13 +241,13 @@
       <node id="22">
         <label>cstring</label>
       </node>
-      <node id="27">
+      <node id="28">
         <label>experimental/source_location</label>
       </node>
       <node id="2">
         <label>gtest/gtest.h</label>
       </node>
-      <node id="30">
+      <node id="31">
         <label>iomanip</label>
       </node>
       <node id="5">
@@ -256,7 +262,7 @@
       <node id="23">
         <label>memory</label>
       </node>
-      <node id="33">
+      <node id="34">
         <label>numeric</label>
       </node>
       <node id="6">
@@ -268,13 +274,16 @@
       <node id="7">
         <label>set</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>sstream</label>
       </node>
       <node id="24">
-        <label>string</label>
+        <label>stdexcept</label>
       </node>
       <node id="25">
+        <label>string</label>
+      </node>
+      <node id="26">
         <label>type_traits</label>
       </node>
       <node id="19">

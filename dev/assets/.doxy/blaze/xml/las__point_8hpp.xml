@@ -6,6 +6,7 @@
     <includes refid="coordinate_8hpp" local="no">utilities/coordinate.hpp</includes>
     <includes refid="assert_8hpp" local="yes">assert/assert.hpp</includes>
     <includedby refid="grid_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp</includedby>
+    <includedby refid="binned__points_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</includedby>
     <includedby refid="las__file_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</includedby>
     <includedby refid="test__las__point_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/tests/test_las_point.cpp</includedby>
     <includedby refid="vegetation_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</includedby>
@@ -122,38 +123,44 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4">
+      <node id="5">
         <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
         <link refid="gl__widget_8hpp_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
-        <link refid="layer_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="6">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
-        <link refid="layer__renderer_8hpp_source"/>
-        <childnode refid="4" relation="include">
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="5">
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
         <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
         <link refid="main__3d__window_8hpp_source"/>
       </node>
       <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</label>
+        <link refid="binned__points_8hpp_source"/>
+      </node>
+      <node id="3">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
         <link refid="las__file_8hpp_source"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -161,18 +168,20 @@
         <link refid="las__point_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="7">
+      <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</label>
         <link refid="tile__mode_8hpp_source"/>
       </node>
-      <node id="9">
+      <node id="10">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
         <link refid="vegetation_8hpp_source"/>
       </node>
-      <node id="8">
+      <node id="9">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>

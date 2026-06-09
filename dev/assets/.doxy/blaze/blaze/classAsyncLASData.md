@@ -111,11 +111,13 @@ See [LASData](classLASData.md)
 |  [**auto**](classCoordinate2D.md) | [**begin**](classLASData.md#function-begin) () <br> |
 |  [**auto**](classCoordinate2D.md) | [**end**](classLASData.md#function-end) () <br> |
 |  [**void**](classCoordinate2D.md) | [**extract\_borders**](classLASData.md#function-extract_borders) ([**const**](classCoordinate2D.md) fs::path & tmp\_dir, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) const<br> |
-|  [**void**](classCoordinate2D.md) | [**insert**](classLASData.md#function-insert) ([**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & point) <br> |
+|  [**void**](classCoordinate2D.md) | [**insert**](classLASData.md#function-insert-12) ([**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & point) <br> |
+|  [**void**](classCoordinate2D.md) | [**insert**](classLASData.md#function-insert-22) (std::span&lt; [**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) &gt; pts) <br> |
 |  std::pair&lt; [**uint16\_t**](classCoordinate2D.md), [**uint16\_t**](classCoordinate2D.md) &gt; | [**intensity\_range**](classLASData.md#function-intensity_range) () const<br> |
 |  std::size\_t | [**n\_points**](classLASData.md#function-n_points) () const<br> |
 |  [**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & | [**operator[]**](classLASData.md#function-operator) (std::size\_t i) const<br> |
 |  [**LASPoint**](classLASPoint.md) & | [**operator[]**](classLASData.md#function-operator_1) (std::size\_t i) <br> |
+|  std::span&lt; [**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) &gt; | [**points**](classLASData.md#function-points) () const<br> |
 |  [**void**](classCoordinate2D.md) | [**push\_back**](classLASData.md#function-push_back) ([**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & point) <br> |
 |  [**void**](classCoordinate2D.md) | [**write**](classLASData.md#function-write) ([**const**](classCoordinate2D.md) fs::path & filename, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; progress\_tracker={}) const<br> |
 
@@ -134,6 +136,7 @@ See [LASFile](classLASFile.md)
 |  std::pair&lt; [**double**](classCoordinate2D.md), [**double**](classCoordinate2D.md) &gt; | [**height\_range**](classLASFile.md#function-height_range) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**original\_bounds**](classLASFile.md#function-original_bounds) () const<br> |
 |  [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & | [**projection**](classLASFile.md#function-projection) () const<br> |
+|  [**void**](classCoordinate2D.md) | [**set\_bounds**](classLASFile.md#function-set_bounds) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; tile\_core=std::nullopt) <br> |
 |  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**top\_left**](classLASFile.md#function-top_left) () const<br> |
 |  [**double**](classCoordinate2D.md) | [**width**](classLASFile.md#function-width) () const<br> |
 

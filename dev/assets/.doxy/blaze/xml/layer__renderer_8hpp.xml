@@ -26,9 +26,9 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
         <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -70,11 +70,17 @@
         <link refid="grid_8hpp_source"/>
         <childnode refid="36" relation="include">
         </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
         <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
         <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
@@ -87,7 +93,7 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="41">
         <label>io/crs.hpp</label>
         <link refid="crs_8hpp_source"/>
         <childnode refid="31" relation="include">
@@ -128,20 +134,20 @@
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
         </childnode>
         <childnode refid="43" relation="include">
         </childnode>
-        <childnode refid="45" relation="include">
+        <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
       </node>
-      <node id="41">
+      <node id="42">
         <label>las_point.hpp</label>
         <link refid="las__point_8hpp_source"/>
         <childnode refid="28" relation="include">
@@ -187,11 +193,11 @@
         <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="43">
         <label>utilities/filesystem.hpp</label>
         <link refid="filesystem_8hpp_source"/>
       </node>
-      <node id="43">
+      <node id="44">
         <label>utilities/progress_tracker.hpp</label>
         <link refid="progress__tracker_8hpp_source"/>
         <childnode refid="39" relation="include">
@@ -200,19 +206,19 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="44" relation="include">
-        </childnode>
-      </node>
-      <node id="45">
-        <label>utilities/resources.hpp</label>
-        <link refid="resources_8hpp_source"/>
-        <childnode refid="42" relation="include">
+        <childnode refid="45" relation="include">
         </childnode>
       </node>
       <node id="46">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
-        <childnode refid="47" relation="include">
+        <childnode refid="48" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -220,7 +226,7 @@
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
       <node id="8">
@@ -244,7 +250,7 @@
       <node id="10">
         <label>array</label>
       </node>
-      <node id="47">
+      <node id="48">
         <label>chrono</label>
       </node>
       <node id="11">
@@ -310,13 +316,16 @@
       <node id="20">
         <label>sstream</label>
       </node>
+      <node id="40">
+        <label>stdexcept</label>
+      </node>
       <node id="21">
         <label>string</label>
       </node>
       <node id="15">
         <label>type_traits</label>
       </node>
-      <node id="44">
+      <node id="45">
         <label>utility</label>
       </node>
       <node id="16">

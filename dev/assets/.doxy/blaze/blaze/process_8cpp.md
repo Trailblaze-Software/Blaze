@@ -18,6 +18,7 @@
 * `#include "grid/img_grid.hpp"`
 * `#include "io/gpkg.hpp"`
 * `#include "isom/colors.hpp"`
+* `#include "las/binned_points.hpp"`
 * `#include "las/las_file.hpp"`
 * `#include "las/las_point.hpp"`
 * `#include "lib/grid/grid.hpp"`
@@ -52,11 +53,6 @@
 
 
 
-## Public Attributes
-
-| Type | Name |
-| ---: | :--- |
-|  [**constexpr**](classCoordinate2D.md) [**bool**](classCoordinate2D.md) | [**OUT\_LAS**](#variable-out_las)   = `[**false**](classCoordinate2D.md)`<br> |
 
 
 
@@ -127,21 +123,6 @@ enum GroundMethod {
     LOWEST_POINT,
     INTERPOLATE
 };
-```
-
-
-
-
-<hr>
-## Public Attributes Documentation
-
-
-
-
-### variable OUT\_LAS 
-
-```C++
-constexpr bool OUT_LAS;
 ```
 
 

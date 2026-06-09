@@ -38,15 +38,21 @@
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -77,20 +83,20 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="23">
         <label>utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
@@ -100,16 +106,16 @@
       <node id="15">
         <label>algorithm</label>
       </node>
-      <node id="21">
+      <node id="24">
         <label>array</label>
       </node>
-      <node id="22">
+      <node id="16">
         <label>cmath</label>
       </node>
-      <node id="16">
+      <node id="17">
         <label>cstddef</label>
       </node>
-      <node id="17">
+      <node id="18">
         <label>cstring</label>
       </node>
       <node id="7">
@@ -121,13 +127,13 @@
       <node id="5">
         <label>iostream</label>
       </node>
-      <node id="23">
+      <node id="19">
         <label>limits</label>
       </node>
       <node id="11">
         <label>map</label>
       </node>
-      <node id="18">
+      <node id="20">
         <label>memory</label>
       </node>
       <node id="2">
@@ -136,7 +142,7 @@
       <node id="6">
         <label>optional</label>
       </node>
-      <node id="24">
+      <node id="25">
         <label>ostream</label>
       </node>
       <node id="12">
@@ -145,10 +151,13 @@
       <node id="8">
         <label>sstream</label>
       </node>
+      <node id="21">
+        <label>stdexcept</label>
+      </node>
       <node id="3">
         <label>string</label>
       </node>
-      <node id="19">
+      <node id="22">
         <label>type_traits</label>
       </node>
       <node id="13">
@@ -185,8 +194,12 @@
         <link refid="crs_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
+      </node>
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</label>
+        <link refid="binned__points_8hpp_source"/>
       </node>
       <node id="2">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
@@ -197,12 +210,14 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
-      <node id="7">
+      <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</label>
         <link refid="tile__mode_8hpp_source"/>
       </node>
-      <node id="8">
+      <node id="9">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>
@@ -298,6 +313,23 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="125" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="125" bodyend="129"/>
       </memberdef>
+      <memberdef kind="function" id="crs_8hpp_1a288446aff7e07bf473ce8f422f957c9e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool wkt_parses</definition>
+        <argsstring>(const std::string &amp;wkt)</argsstring>
+        <name>wkt_parses</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>wkt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="133" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="133" bodyend="137"/>
+      </memberdef>
       <memberdef kind="function" id="crs_8hpp_1ac573647e920378caf9e80976b0485dd1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
         <definition>bool wkt_matches</definition>
@@ -317,7 +349,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="133" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="133" bodyend="140"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="139" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="139" bodyend="147"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -457,14 +489,21 @@
 <codeline lineno="130"><highlight class="normal"></highlight></codeline>
 <codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Returns<sp/>true<sp/>if<sp/>two<sp/>WKT<sp/>strings<sp/>describe<sp/>the<sp/>same<sp/>CRS<sp/>(tolerating<sp/>cosmetic</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">//<sp/>differences<sp/>in<sp/>the<sp/>WKT<sp/>representation).<sp/>Empty<sp/>strings<sp/>are<sp/>never<sp/>&quot;same&quot;.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wkt_matches(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">a</ref>.empty()<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs_a</ref>;</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs_b</ref>;</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs_a</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">a</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs_b</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">b</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">srs_a</ref>.IsSame(&amp;<ref refid="classCoordinate2D" kindref="compound">srs_b</ref>)<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">TRUE</ref>;</highlight></codeline>
-<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wkt_parses(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>wkt)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.importFromWkt(wkt.c_str())<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wkt_matches(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">a</ref>.empty()<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">a</ref><sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs_a</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs_b</ref>;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs_a</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">a</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs_b</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">b</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">srs_a</ref>.IsSame(&amp;<ref refid="classCoordinate2D" kindref="compound">srs_b</ref>)<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">TRUE</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp"/>
   </compounddef>

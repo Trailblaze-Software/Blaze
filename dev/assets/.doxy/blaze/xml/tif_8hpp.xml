@@ -11,20 +11,20 @@
     <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
     <includedby refid="test__e2e_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp</includedby>
     <incdepgraph>
-      <node id="10">
+      <node id="13">
         <label>assert/assert.hpp</label>
         <link refid="assert_8hpp_source"/>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
         <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -46,23 +46,29 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-      </node>
-      <node id="15">
-        <label>printing/to_string.hpp</label>
-        <link refid="to__string_8hpp_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -70,102 +76,105 @@
         <link refid="tif_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="25" relation="include">
         </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
       </node>
-      <node id="19">
+      <node id="22">
         <label>utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="24">
-        <label>utilities/filesystem.hpp</label>
-        <link refid="filesystem_8hpp_source"/>
-      </node>
-      <node id="25">
-        <label>utilities/progress_tracker.hpp</label>
-        <link refid="progress__tracker_8hpp_source"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="26">
+        <label>utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>algorithm</label>
       </node>
-      <node id="20">
+      <node id="23">
         <label>array</label>
       </node>
-      <node id="21">
+      <node id="4">
         <label>cmath</label>
       </node>
-      <node id="4">
+      <node id="5">
         <label>cstddef</label>
       </node>
-      <node id="5">
+      <node id="6">
         <label>cstring</label>
       </node>
-      <node id="13">
+      <node id="16">
         <label>experimental/source_location</label>
       </node>
-      <node id="16">
+      <node id="19">
         <label>iomanip</label>
       </node>
-      <node id="11">
+      <node id="14">
         <label>iostream</label>
       </node>
-      <node id="22">
+      <node id="7">
         <label>limits</label>
       </node>
-      <node id="17">
+      <node id="20">
         <label>map</label>
       </node>
-      <node id="6">
+      <node id="8">
         <label>memory</label>
       </node>
-      <node id="12">
+      <node id="15">
         <label>optional</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>ostream</label>
       </node>
-      <node id="18">
+      <node id="21">
         <label>set</label>
       </node>
-      <node id="14">
+      <node id="17">
         <label>sstream</label>
       </node>
-      <node id="7">
+      <node id="9">
+        <label>stdexcept</label>
+      </node>
+      <node id="10">
         <label>string</label>
       </node>
-      <node id="8">
+      <node id="11">
         <label>type_traits</label>
       </node>
-      <node id="26">
+      <node id="27">
         <label>utility</label>
       </node>
-      <node id="9">
+      <node id="12">
         <label>vector</label>
       </node>
     </incdepgraph>
@@ -204,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" line="8" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp" bodystart="72" bodyend="162" declfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" declline="8" declcolumn="6"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" line="8" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp" bodystart="72" bodyend="168" declfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" declline="8" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tif_8hpp_1a5607df8328a05c02505fdfadda645152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classMultiBand" kindref="compound">MultiBand</ref>&lt; <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &gt; &gt;</type>
@@ -262,7 +271,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" line="15" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp" bodystart="193" bodyend="216" declfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" declline="15" declcolumn="6"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" line="15" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp" bodystart="199" bodyend="226" declfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" declline="15" declcolumn="6"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

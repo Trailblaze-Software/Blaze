@@ -203,6 +203,22 @@ inline Extent3D as_extent3d(const laspp::Bound3D& b) {
   return Extent3D(as_extent2d(b), b.min_z(), b.max_z());
 }
 
+// Returns embedded CRS WKT from a reader, preferring the WKT VLR but falling back
+// to GeoKeys when the WKT is missing or cannot be parsed (some writers omit the
+// trailing null byte in the WKT VLR, which truncates the string by one character).
+inline std::string reader_embedded_wkt(const laspp::LASReader& reader) {
+  if (reader.wkt().has_value() && wkt_parses(reader.wkt().value())) {
+    return reader.wkt().value();
+  }
+  if (reader.geo_keys().has_value()) {
+    try {
+      return convert_geo_keys_to_wkt(reader.geo_keys().value());
+    } catch (const std::exception&) {
+    }
+  }
+  return {};
+}
+
 // Returns the normalized horizontal WKT for a reader, honouring override_crs
 // (a user-supplied shorthand like "EPSG:28355" or a full WKT). Falls back to
 // the file's embedded WKT/GeoKeys, then to an empty string if nothing is
@@ -214,13 +230,8 @@ inline std::string reader_horizontal_wkt(const laspp::LASReader& reader,
   // exception out of a function documented as never throwing.
   const UserCrsParseResult override_parsed = try_user_crs_to_wkt(override_crs);
   if (override_parsed.ok && !override_parsed.wkt.empty()) return override_parsed.wkt;
-  if (reader.wkt().has_value()) return normalize_crs_wkt(reader.wkt().value());
-  if (reader.geo_keys().has_value()) {
-    try {
-      return normalize_crs_wkt(convert_geo_keys_to_wkt(reader.geo_keys().value()));
-    } catch (const std::exception&) {
-    }
-  }
+  const std::string embedded = reader_embedded_wkt(reader);
+  if (!embedded.empty()) return normalize_crs_wkt(embedded);
   return {};
 }
 
@@ -239,6 +250,20 @@ class LASFile {
         m_original_bounds(m_bounds),
         m_projection(std::move(projection)) {};
 
+  void set_bounds(const Extent2D& bounds, std::optional<Extent2D> tile_core = std::nullopt) {
+    m_bounds.minx = bounds.minx;
+    m_bounds.maxx = bounds.maxx;
+    m_bounds.miny = bounds.miny;
+    m_bounds.maxy = bounds.maxy;
+    m_original_bounds = m_bounds;
+    if (tile_core) {
+      m_original_bounds.minx = tile_core->minx;
+      m_original_bounds.maxx = tile_core->maxx;
+      m_original_bounds.miny = tile_core->miny;
+      m_original_bounds.maxy = tile_core->maxy;
+    }
+  }
+
  protected:
 #ifndef USE_PDAL
   laspp::QuadtreeSpatialIndex m_spatial_index;
@@ -249,15 +274,7 @@ class LASFile {
     m_original_bounds = m_bounds;
 
     // Keep the raw embedded WKT for compound-CRS preservation (vertical datum).
-    std::string raw_embedded_wkt;
-    if (reader.wkt().has_value()) {
-      raw_embedded_wkt = reader.wkt().value();
-    } else if (reader.geo_keys().has_value()) {
-      try {
-        raw_embedded_wkt = convert_geo_keys_to_wkt(reader.geo_keys().value());
-      } catch (const std::exception&) {
-      }
-    }
+    std::string raw_embedded_wkt = reader_embedded_wkt(reader);
     const std::string embedded_wkt =
         raw_embedded_wkt.empty() ? std::string{} : normalize_crs_wkt(raw_embedded_wkt);
 
@@ -284,11 +301,6 @@ class LASFile {
       // (for 2D outputs like GPKGs and image TIFs) and a compound WKT that
       // preserves any original vertical datum (e.g. AHD) for DEM outputs.
       m_projection = make_projection_from_wkt(raw_embedded_wkt);
-    } else {
-      Fail("No projection found in LAS file " +
-           (m_filename.has_value() ? m_filename->string() : std::string("<unknown>")) +
-           ". Either embed a CRS in the file or set the 'override_crs' field in the config"
-           " (e.g. \"override_crs\": \"EPSG:28355\").");
     }
 
     if (reader.has_lastools_spatial_index()) {
@@ -318,10 +330,14 @@ class LASFile {
   const GeoProjection& projection() const { return m_projection; }
 
   Extent2D export_bounds() const {
-    return Extent2D(average(m_bounds.minx, m_original_bounds.minx),
-                    average(m_bounds.maxx, m_original_bounds.maxx),
-                    average(m_bounds.miny, m_original_bounds.miny),
-                    average(m_bounds.maxy, m_original_bounds.maxy));
+    // Midpoint between current bounds (data+border) and original (tile core),
+    // clipped to the data extent — never export beyond actual points.
+    Extent2D midpoint(average(m_bounds.minx, m_original_bounds.minx),
+                      average(m_bounds.maxx, m_original_bounds.maxx),
+                      average(m_bounds.miny, m_original_bounds.miny),
+                      average(m_bounds.maxy, m_original_bounds.maxy));
+    Extent2D data(m_bounds.minx, m_bounds.maxx, m_bounds.miny, m_bounds.maxy);
+    return midpoint.intersection(data);
   }
 
   const Extent3D& bounds() const { return m_bounds; }
@@ -446,6 +462,16 @@ class LASData : public LASFile {
         point.x() = coords.x();
         point.y() = coords.y();
         point.z() = coords.z();
+      }
+
+      // Software filter when bounds was specified but no spatial index available
+      if (bounds.has_value()) {
+        std::vector<LASPoint> filtered;
+        filtered.reserve(m_points.size());
+        for (const LASPoint& pt : m_points) {
+          if (bounds->contains(pt.x(), pt.y())) filtered.push_back(pt);
+        }
+        m_points = std::move(filtered);
       }
     }
 
@@ -622,6 +648,31 @@ class LASData : public LASFile {
 
   LASPoint& operator[](std::size_t i) { return m_points[i]; }
   void push_back(const LASPoint& point) { m_points.push_back(point); }
+
+  std::span<const LASPoint> points() const { return {m_points.data(), m_points.size()}; }
+
+  void insert(std::span<const LASPoint> pts) {
+    m_points.insert(m_points.end(), pts.begin(), pts.end());
+    const long long n = static_cast<long long>(pts.size());
+#pragma omp parallel
+    {
+      auto local_range = m_intensity_range;
+      Extent3D local_bounds;
+#pragma omp for
+      for (long long i = 0; i < n; i++) {
+        const LASPoint& pt = pts[static_cast<size_t>(i)];
+        local_range.first = std::min(local_range.first, pt.intensity());
+        local_range.second = std::max(local_range.second, pt.intensity());
+        local_bounds.grow(pt.x(), pt.y(), pt.z());
+      }
+#pragma omp critical
+      {
+        m_intensity_range.first = std::min(m_intensity_range.first, local_range.first);
+        m_intensity_range.second = std::max(m_intensity_range.second, local_range.second);
+        m_bounds.grow(local_bounds);
+      }
+    }
+  }
 
   void write(const fs::path& filename, std::optional<ProgressTracker> progress_tracker = {}) const {
     (void)progress_tracker;

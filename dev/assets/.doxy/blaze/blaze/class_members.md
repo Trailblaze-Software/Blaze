@@ -15,6 +15,7 @@
 
 ## b
 
+* **BinnedPoints** ([**BinnedPoints**](classBinnedPoints.md))
 * **BlazeBool** ([**BlazeBool**](structBlazeBool.md))
 * **blocking\_threshold** ([**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md), [**CanopyConfig**](structCanopyConfig.md))
 * **bound\_rotation** ([**Camera**](classCamera.md))
@@ -67,6 +68,7 @@
 ## d
 
 * **data\_ready** ([**AsyncLASData**](classAsyncLASData.md))
+* **data\_extent** ([**BinnedPoints**](classBinnedPoints.md))
 * **direction** ([**Camera**](classCamera.md))
 * **Default** ([**Config**](structConfig.md))
 * **delete\_tile\_folders** ([**Config**](structConfig.md))
@@ -172,7 +174,7 @@
 * **is\_valid** ([**ConfigEditor**](classConfigEditor.md))
 * **is\_loop** ([**Contour**](classContour.md))
 * **interval** ([**ContourConfig**](structContourConfig.md))
-* **intersection** ([**Extent3D**](structExtent3D.md))
+* **intersection** ([**Extent2D**](structExtent2D.md), [**Extent3D**](structExtent3D.md))
 * **intersects** ([**Extent3D**](structExtent3D.md))
 * **initializeGL** ([**GLWidget**](classGLWidget.md))
 * **in\_bounds** ([**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**MultiBand**](classMultiBand.md))
@@ -221,6 +223,7 @@
 * **m\_thread** ([**AsyncLASData**](classAsyncLASData.md))
 * **mutex** ([**AsyncLASData**](classAsyncLASData.md))
 * **m\_tracker** ([**AsyncProgressTracker**](classAsyncProgressTracker.md))
+* **m\_storage** ([**BinnedPoints**](classBinnedPoints.md))
 * **m\_data** ([**CMYKColor**](classCMYKColor.md), [**Coordinate2D**](classCoordinate2D.md), [**FlexGrid**](classFlexGrid.md), [**Grid**](classGrid.md), [**RGBColor**](classRGBColor.md))
 * **m\_direction** ([**Camera**](classCamera.md))
 * **m\_fov** ([**Camera**](classCamera.md))
@@ -322,6 +325,7 @@
 
 * **n\_bytes** ([**FlexGrid**](classFlexGrid.md))
 * **n\_points** ([**LASData**](classLASData.md))
+* **native\_wkt** ([**LASFileExtent**](structLASFileExtent.md))
 * **name** ([**Layer**](classLayer.md), [**Polyline**](classPolyline.md), [**TerrainTestParams**](structTerrainTestParams.md), [**Tile**](structTile.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 * **next\_points** ([**LineCoord2DCrossing**](classLineCoord2DCrossing.md))
 
@@ -368,7 +372,7 @@
 * **populate\_contour\_list** ([**ConfigEditor**](classConfigEditor.md))
 * **populate\_vege\_list** ([**ConfigEditor**](classConfigEditor.md))
 * **populate\_water\_list** ([**ConfigEditor**](classConfigEditor.md))
-* **points** ([**Contour**](classContour.md))
+* **points** ([**Contour**](classContour.md), [**LASData**](classLASData.md))
 * **push\_back** ([**Contour**](classContour.md), [**LASData**](classLASData.md))
 * **pick\_from\_height** ([**ContourConfigs**](structContourConfigs.md))
 * **paintGL** ([**GLWidget**](classGLWidget.md))
@@ -420,6 +424,7 @@
 * **save\_to** ([**GeoImgGrid**](classGeoImgGrid.md), [**ImgGrid**](classImgGrid.md))
 * **set\_dx** ([**GeoTransform**](classGeoTransform.md))
 * **set\_dy** ([**GeoTransform**](classGeoTransform.md))
+* **set\_bounds** ([**LASFile**](classLASFile.md))
 * **start** ([**LineCoord2D**](classLineCoord2D.md))
 * **size** ([**MultiBand**](classMultiBand.md))
 * **secondary\_priority** ([**PriorityPoint**](structPriorityPoint.md))

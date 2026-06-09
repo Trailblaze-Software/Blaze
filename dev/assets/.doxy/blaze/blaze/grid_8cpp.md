@@ -11,6 +11,7 @@
 
 
 * `#include "grid.hpp"`
+* `#include <span>`
 * `#include "gdal_priv.h"`
 * `#include "img_grid.hpp"`
 * `#include "isom/colors.hpp"`

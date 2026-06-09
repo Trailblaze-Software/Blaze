@@ -1093,6 +1093,7 @@
 </ul>
 <h2 id="b">b</h2>
 <ul>
+<li><strong>BinnedPoints</strong> (<a href="../classBinnedPoints/"><strong>BinnedPoints</strong></a>)</li>
 <li><strong>BlazeBool</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>)</li>
 <li><strong>blocking_threshold</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>, <a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>)</li>
 <li><strong>bound_rotation</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
@@ -1143,6 +1144,7 @@
 <h2 id="d">d</h2>
 <ul>
 <li><strong>data_ready</strong> (<a href="../classAsyncLASData/"><strong>AsyncLASData</strong></a>)</li>
+<li><strong>data_extent</strong> (<a href="../classBinnedPoints/"><strong>BinnedPoints</strong></a>)</li>
 <li><strong>direction</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>Default</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>delete_tile_folders</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
@@ -1243,7 +1245,7 @@
 <li><strong>is_valid</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>is_loop</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
 <li><strong>interval</strong> (<a href="../structContourConfig/"><strong>ContourConfig</strong></a>)</li>
-<li><strong>intersection</strong> (<a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
+<li><strong>intersection</strong> (<a href="../structExtent2D/"><strong>Extent2D</strong></a>, <a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
 <li><strong>intersects</strong> (<a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
 <li><strong>initializeGL</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>in_bounds</strong> (<a href="../classGridData/"><strong>GridData</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>)</li>
@@ -1289,6 +1291,7 @@
 <li><strong>m_thread</strong> (<a href="../classAsyncLASData/"><strong>AsyncLASData</strong></a>)</li>
 <li><strong>mutex</strong> (<a href="../classAsyncLASData/"><strong>AsyncLASData</strong></a>)</li>
 <li><strong>m_tracker</strong> (<a href="../classAsyncProgressTracker/"><strong>AsyncProgressTracker</strong></a>)</li>
+<li><strong>m_storage</strong> (<a href="../classBinnedPoints/"><strong>BinnedPoints</strong></a>)</li>
 <li><strong>m_data</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>, <a href="../classFlexGrid/"><strong>FlexGrid</strong></a>, <a href="../classGrid/"><strong>Grid</strong></a>, <a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>m_direction</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>m_fov</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
@@ -1389,6 +1392,7 @@
 <ul>
 <li><strong>n_bytes</strong> (<a href="../classFlexGrid/"><strong>FlexGrid</strong></a>)</li>
 <li><strong>n_points</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
+<li><strong>native_wkt</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
 <li><strong>name</strong> (<a href="../classLayer/"><strong>Layer</strong></a>, <a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>, <a href="../structTile/"><strong>Tile</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>next_points</strong> (<a href="../classLineCoord2DCrossing/"><strong>LineCoord2DCrossing</strong></a>)</li>
 </ul>
@@ -1433,7 +1437,7 @@
 <li><strong>populate_contour_list</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>populate_vege_list</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>populate_water_list</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
-<li><strong>points</strong> (<a href="../classContour/"><strong>Contour</strong></a>)</li>
+<li><strong>points</strong> (<a href="../classContour/"><strong>Contour</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>push_back</strong> (<a href="../classContour/"><strong>Contour</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>pick_from_height</strong> (<a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>)</li>
 <li><strong>paintGL</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
@@ -1483,6 +1487,7 @@
 <li><strong>save_to</strong> (<a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a>, <a href="../classImgGrid/"><strong>ImgGrid</strong></a>)</li>
 <li><strong>set_dx</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
 <li><strong>set_dy</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
+<li><strong>set_bounds</strong> (<a href="../classLASFile/"><strong>LASFile</strong></a>)</li>
 <li><strong>start</strong> (<a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a>)</li>
 <li><strong>size</strong> (<a href="../classMultiBand/"><strong>MultiBand</strong></a>)</li>
 <li><strong>secondary_priority</strong> (<a href="../structPriorityPoint/"><strong>PriorityPoint</strong></a>)</li>

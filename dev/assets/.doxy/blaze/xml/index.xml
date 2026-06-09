@@ -78,6 +78,11 @@
     <member refid="classAsyncProgressTracker_1a0545b496d37e84fb3b3438801e28e41a" kind="function"><name>AsyncProgressTracker</name></member>
     <member refid="classAsyncProgressTracker_1a67f79b457881a97b498f2879d63ab015" kind="function"><name>tracker</name></member>
   </compound>
+  <compound refid="classBinnedPoints" kind="class"><name>BinnedPoints</name>
+    <member refid="classBinnedPoints_1a6ec12d8f6d0cf492d0fc34633ce42e15" kind="variable"><name>m_storage</name></member>
+    <member refid="classBinnedPoints_1a4ce64e2ef0966b4d099177e552ef8147" kind="function"><name>BinnedPoints</name></member>
+    <member refid="classBinnedPoints_1a4a798846ab75a58b09f54e74750514f1" kind="function"><name>data_extent</name></member>
+  </compound>
   <compound refid="structBlazeBool" kind="struct"><name>BlazeBool</name>
     <member refid="structBlazeBool_1ad80a94d4ac361959fe45f40adf0c9aaa" kind="variable"><name>value</name></member>
     <member refid="structBlazeBool_1a8b576d05e0d3e63d0bbf0e48b62aa3b3" kind="function"><name>BlazeBool</name></member>
@@ -355,6 +360,7 @@
     <member refid="structExtent2D_1a44418b38c40ba7077bb0e5b3d0bff373" kind="variable"><name>maxy</name></member>
     <member refid="structExtent2D_1af9c76caf6f9feefad5b5979f7976a073" kind="function"><name>contains</name></member>
     <member refid="structExtent2D_1abde9affe09ec45bf9a7bd5d0426ca5a2" kind="function"><name>overlaps</name></member>
+    <member refid="structExtent2D_1ae44191e7d9b7f4e4b24f3d7d5492bc01" kind="function"><name>intersection</name></member>
     <member refid="structExtent2D_1a832629d544c1ded14a5c50ea7c4c5574" kind="function"><name>grow</name></member>
     <member refid="structExtent2D_1a4e0972c43062230ba5fcbf487ba81edd" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
@@ -577,6 +583,8 @@
     <member refid="classLASData_1a19c128b8cc7049a906e73452c8fce685" kind="function"><name>operator[]</name></member>
     <member refid="classLASData_1a94e222f45ce00330493f3f1fc7cc141f" kind="function"><name>operator[]</name></member>
     <member refid="classLASData_1a379f252ce60ca19cd902f31a86fc7ff3" kind="function"><name>push_back</name></member>
+    <member refid="classLASData_1a642345bdb5b51d8fe5f0fe192d4aa13b" kind="function"><name>points</name></member>
+    <member refid="classLASData_1a6b9b609cfcdce04684ff43bfa1b97048" kind="function"><name>insert</name></member>
     <member refid="classLASData_1a2e296fb6b02f1593a22254ed33722bde" kind="function"><name>write</name></member>
     <member refid="classLASData_1a81e6439664e5eb16b9af57e87bec17bc" kind="function"><name>extract_borders</name></member>
     <member refid="classLASData_1aad306c36ac14b356b524553ac234f15d" kind="function"><name>read_points</name></member>
@@ -590,6 +598,7 @@
     <member refid="classLASFile_1a403817f7222cb5d9f6b1de03957bf299" kind="variable"><name>m_projection</name></member>
     <member refid="classLASFile_1aecf8aaa14dc832406d7d8c9a2ab04d25" kind="variable"><name>m_spatial_index</name></member>
     <member refid="classLASFile_1a3619a6a014c8c31209af6939fa6e25c1" kind="function"><name>LASFile</name></member>
+    <member refid="classLASFile_1aaa43a5786f0ef8be1189bc256e89e5f9" kind="function"><name>set_bounds</name></member>
     <member refid="classLASFile_1af7a0cebe1d43a43d6bc80afd0ce2c3c1" kind="function"><name>LASFile</name></member>
     <member refid="classLASFile_1abab47a7a38d34a55f212d45c24048f1f" kind="function"><name>top_left</name></member>
     <member refid="classLASFile_1a5b755082279eaa000deb7f9980f10512" kind="function"><name>width</name></member>
@@ -605,6 +614,7 @@
     <member refid="structLASFileExtent_1ab105cf4e2313a7c27c5b6d65faad8967" kind="variable"><name>path</name></member>
     <member refid="structLASFileExtent_1a5276239f7b77f9284cc008e1e52d5c48" kind="variable"><name>override_crs</name></member>
     <member refid="structLASFileExtent_1ac6ee5c16abda57f41a882ad3a4632c1f" kind="variable"><name>horizontal_wkt</name></member>
+    <member refid="structLASFileExtent_1a6f63c7a18b06567fac6fdde9deb9eacc" kind="variable"><name>native_wkt</name></member>
     <member refid="structLASFileExtent_1aaa02193106a93135080a88439a21941a" kind="variable"><name>bounds_native</name></member>
     <member refid="structLASFileExtent_1a5ae3f8dbf222e44f5e2b74536fe36834" kind="variable"><name>bounds_reprojected</name></member>
   </compound>
@@ -1066,6 +1076,7 @@
     <member refid="grid_8hpp_1a8b4c026d2d7ea26001f8f0cafb50c643" kind="typedef"><name>GeoGrid</name></member>
     <member refid="grid_8hpp_1ae3f928a7b2cc379d4ca9d8b7411c9cf3" kind="typedef"><name>GeoFlexGrid</name></member>
     <member refid="grid_8hpp_1a2e81b25ed6afcaf83a4f96dd2ffd3349" kind="variable"><name>is_specialization_v</name></member>
+    <member refid="grid_8hpp_1a4254061d07e4bdc0b616612bbe25be7b" kind="function"><name>num_cells_by_distance</name></member>
     <member refid="grid_8hpp_1ab0324ff273d55dadb7ef56bf2341397f" kind="function"><name>interpolate_value</name></member>
   </compound>
   <compound refid="grid__ops_8hpp" kind="file"><name>grid_ops.hpp</name>
@@ -1122,6 +1133,7 @@
     <member refid="crs_8hpp_1adadd0d09e8b93c1036055f0241fd8e27" kind="function"><name>make_projection_from_wkt</name></member>
     <member refid="crs_8hpp_1a38c41a161f3098e6397851e46539f824" kind="function"><name>try_user_crs_to_wkt</name></member>
     <member refid="crs_8hpp_1a371736115959050757d34d672705141b" kind="function"><name>user_crs_to_wkt</name></member>
+    <member refid="crs_8hpp_1a288446aff7e07bf473ce8f422f957c9e" kind="function"><name>wkt_parses</name></member>
     <member refid="crs_8hpp_1ac573647e920378caf9e80976b0485dd1" kind="function"><name>wkt_matches</name></member>
   </compound>
   <compound refid="gdal__init_8hpp" kind="file"><name>gdal_init.hpp</name>
@@ -1170,6 +1182,8 @@
     <member refid="test__colors_8cpp_1ac44f2baf5da8770e749e1e4aedfd3d4d" kind="function"><name>TEST</name></member>
     <member refid="test__colors_8cpp_1adf93d9f333f44b23bbc7b31fa17cbbaf" kind="function"><name>TEST</name></member>
   </compound>
+  <compound refid="binned__points_8hpp" kind="file"><name>binned_points.hpp</name>
+  </compound>
   <compound refid="las__file_8hpp" kind="file"><name>las_file.hpp</name>
     <member refid="las__file_8hpp_1a62ba43b838957db08d5ecb9b46b8ca90" kind="enum"><name>BorderType</name></member>
     <member refid="las__file_8hpp_1a62ba43b838957db08d5ecb9b46b8ca90a8d9c307cb7f3c4a32822a51922d1ceaa" kind="enumvalue"><name>N</name></member>
@@ -1192,6 +1206,7 @@
     <member refid="las__file_8hpp_1a55c2628eba127a1697df81b235cd83a4" kind="function"><name>convert_geo_keys_to_wkt</name></member>
     <member refid="las__file_8hpp_1acc9c02ee85d16f3b7e4ed9b0a722e011" kind="function"><name>as_extent2d</name></member>
     <member refid="las__file_8hpp_1a9d9230a261d0354a6c2c8ce495859e00" kind="function"><name>as_extent3d</name></member>
+    <member refid="las__file_8hpp_1abb45162178b50fec35cc43e6dacd1cb9" kind="function"><name>reader_embedded_wkt</name></member>
     <member refid="las__file_8hpp_1a26227b3f699716802e90ab01daaf28ea" kind="function"><name>reader_horizontal_wkt</name></member>
     <member refid="las__file_8hpp_1a257d688d34a664586e7e73dd89434273" kind="function"><name>extract_borders</name></member>
   </compound>
@@ -1380,7 +1395,7 @@
     <member refid="test__vegetation_8cpp_1aba45b183fedbf939b42ca447a9ee459d" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="vegetation_8hpp" kind="file"><name>vegetation.hpp</name>
-    <member refid="vegetation_8hpp_1a3cbe5c44ab718a68a2e123450fd2568c" kind="function"><name>get_blocked_proportion</name></member>
+    <member refid="vegetation_8hpp_1aa05586e6600f269c91e00c93663cbef8" kind="function"><name>get_blocked_proportion</name></member>
     <member refid="vegetation_8hpp_1a5e8338491fba9513756dd4dcdbfa3e0d" kind="function"><name>low_pass</name></member>
     <member refid="vegetation_8hpp_1ac3350d3073632da851187de625e2a827" kind="function"><name>low_pass</name></member>
   </compound>
@@ -1418,7 +1433,6 @@
     <member refid="process_8cpp_1a10fe7e7096d343cf6ff6a7543480b89fa75fe593b97fa52826f3dd3eb2b92ff57" kind="enumvalue"><name>LOWER_BOUND</name></member>
     <member refid="process_8cpp_1a10fe7e7096d343cf6ff6a7543480b89fa97de31d3aa393012dac63d25a7a2fc1a" kind="enumvalue"><name>LOWEST_POINT</name></member>
     <member refid="process_8cpp_1a10fe7e7096d343cf6ff6a7543480b89fad586b7273e57cdd2c3d2c59b86e88f91" kind="enumvalue"><name>INTERPOLATE</name></member>
-    <member refid="process_8cpp_1afed77da845e5643d82b1aea88b71849b" kind="variable"><name>OUT_LAS</name></member>
     <member refid="process_8cpp_1ad524c80bee9a4b821650ba067987dc7e" kind="function"><name>get_pixel_heights</name></member>
     <member refid="process_8cpp_1aa626f09fc2f6adff7f6dd05f1bf319d9" kind="function"><name>downsample_mask_any</name></member>
     <member refid="process_8cpp_1a6986896f5e801bfba373e4c10d8b6dee" kind="function"><name>adjust_ground_to_slope</name></member>
@@ -1426,7 +1440,6 @@
     <member refid="process_8cpp_1a080cbff7aa1e3753860ecef27efc07e7" kind="function"><name>process_las_data</name></member>
   </compound>
   <compound refid="process_8hpp" kind="file"><name>process.hpp</name>
-    <member refid="process_8hpp_1a4254061d07e4bdc0b616612bbe25be7b" kind="function"><name>num_cells_by_distance</name></member>
     <member refid="process_8hpp_1a04d3c7f7a5b77c8326a08c94fc5358b3" kind="function"><name>process_las_file</name></member>
     <member refid="process_8hpp_1aeb0662915698e0171856cdc695cd6ab0" kind="function"><name>process_las_data</name></member>
   </compound>

@@ -970,6 +970,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#function-reader_embedded_wkt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function reader_embedded_wkt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-reader_horizontal_wkt" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1144,6 +1155,10 @@
 </tr>
 <tr>
 <td style="text-align: right;">std::string</td>
+<td style="text-align: left;"><a href="#function-reader_embedded_wkt"><strong>reader_embedded_wkt</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::string</td>
 <td style="text-align: left;"><a href="#function-reader_horizontal_wkt"><strong>reader_horizontal_wkt</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
@@ -1260,26 +1275,33 @@
 </code></pre></div>
 <hr>
 
-<h3 id="function-reader_horizontal_wkt">function reader_horizontal_wkt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">reader_horizontal_wkt</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">laspp</span><span class="o">::</span><span class="n">LASReader</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">,</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">)</span><span class="w"> </span>
+<h3 id="function-reader_embedded_wkt">function reader_embedded_wkt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">reader_embedded_wkt</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">laspp</span><span class="o">::</span><span class="n">LASReader</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">reader</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
-<h3 id="function-round">function round</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">resolution</span><span class="o">=</span><span class="mf">1.0</span>
+<h3 id="function-reader_horizontal_wkt">function reader_horizontal_wkt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">reader_horizontal_wkt</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">laspp</span><span class="o">::</span><span class="n">LASReader</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="o">=</span><span class="s">&quot;&quot;</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
+<h3 id="function-round">function round</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">resolution</span><span class="o">=</span><span class="mf">1.0</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-unique_coord_name">function unique_coord_name</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">unique_coord_name</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">box</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">unique_coord_name</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">box</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

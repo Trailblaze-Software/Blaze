@@ -10,6 +10,8 @@
 ```C++
 #include "grid.hpp"
 
+#include <span>
+
 #include "gdal_priv.h"
 #include "img_grid.hpp"
 #include "isom/colors.hpp"
@@ -64,6 +66,10 @@ Geo<GridT> same_type_different_size(const Geo<GridT>& grid, size_t new_width, si
 
 template <typename GridT>
 Geo<GridT> Geo<GridT>::slice(const Extent2D& extent) {
+  // Degenerate or inverted extent — return a zero-size grid.
+  if (extent.maxx <= extent.minx || extent.maxy <= extent.miny) {
+    return same_type_different_size(*this, 0, 0, {extent.minx, extent.maxy});
+  }
   Coordinate2D<size_t> top_left = transform().projection_to_pixel({extent.minx, extent.maxy});
   Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
   size_t new_width = bottom_right.x() - top_left.x();
@@ -125,7 +131,7 @@ template class Geo<Grid<std::optional<float>>>;
 template class Geo<Grid<std::optional<std::byte>>>;
 template class Geo<Grid<std::byte>>;
 template class Geo<Grid<std::optional<LASPoint>>>;
-template class Geo<Grid<std::vector<LASPoint>>>;
+template class Geo<Grid<std::span<LASPoint>>>;
 
 template class Geo<MultiBand<FlexGrid>>;
 

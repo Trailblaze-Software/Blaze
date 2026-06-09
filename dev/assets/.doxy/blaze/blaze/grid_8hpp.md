@@ -11,9 +11,12 @@
 
 
 * `#include <algorithm>`
+* `#include <cmath>`
 * `#include <cstddef>`
 * `#include <cstring>`
+* `#include <limits>`
 * `#include <memory>`
+* `#include <stdexcept>`
 * `#include <string>`
 * `#include <type_traits>`
 * `#include <vector>`
@@ -88,6 +91,7 @@
 | Type | Name |
 | ---: | :--- |
 |  T | [**interpolate\_value**](#function-interpolate_value) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & projection\_coord) <br> |
+|  [**size\_t**](classCoordinate2D.md) | [**num\_cells\_by\_distance**](#function-num_cells_by_distance) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) dx) <br> |
 
 
 
@@ -171,6 +175,22 @@ template<typename T>
 T interpolate_value (
     const  GeoGrid < T > & grid,
     const  Coordinate2D < double > & projection_coord
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function num\_cells\_by\_distance 
+
+```C++
+inline size_t num_cells_by_distance (
+    double x,
+    double dx
 ) 
 ```
 

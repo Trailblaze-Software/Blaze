@@ -861,6 +861,7 @@
 <p><a href="../vegetation_8hpp_source/">Go to the source code of this file</a></p>
 <ul>
 <li><code>#include &lt;cstddef&gt;</code></li>
+<li><code>#include &lt;span&gt;</code></li>
 <li><code>#include "config_input/config_input.hpp"</code></li>
 <li><code>#include "grid/grid.hpp"</code></li>
 <li><code>#include "las/las_point.hpp"</code></li>
@@ -878,7 +879,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-get_blocked_proportion"><strong>get_blocked_proportion</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::vector&lt; <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; ground, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a> &amp; vege_config) <br></td>
+<td style="text-align: left;"><a href="#function-get_blocked_proportion"><strong>get_blocked_proportion</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::span&lt; <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; ground, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a> &amp; vege_config) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt;</td>
@@ -893,7 +894,7 @@
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-get_blocked_proportion">function get_blocked_proportion</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_blocked_proportion</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ground</span><span class="p">,</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">VegeHeightConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">vege_config</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span><span class="w"> </span>
