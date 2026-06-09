@@ -1,5 +1,6 @@
 
 
+#include <cpl_error.h>
 #include <ogrsf_frmts.h>
 
 #include "assert/assert.hpp"
@@ -23,9 +24,11 @@ class GDALDataset_w {
     dataset = driver->Create(filename.c_str(), 0, 0, 0, GDT_Unknown, nullptr);
     Assert(dataset, "Failed to create GeoPackage file " + filename);
 
-    // OGRSpatialReference srs;
-    // GDALAssert(srs.importFromWkt(projection.c_str()));
+    // SetProjection on a 0x0x0 dataset triggers a spurious "0 band" error
+    // in some GDAL builds. Suppress it — layers add dimensions later.
+    CPLPushErrorHandler(CPLQuietErrorHandler);
     dataset->SetProjection(projection.c_str());
+    CPLPopErrorHandler();
   }
 
   GDALDataset* operator->() { return dataset; }

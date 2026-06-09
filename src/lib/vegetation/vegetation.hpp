@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <span>
 
 #include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
@@ -9,7 +10,7 @@
 #include "utilities/timer.hpp"
 
 inline GeoGrid<std::optional<float>> get_blocked_proportion(
-    const GeoGrid<std::vector<LASPoint>>& grid, const GeoGrid<double>& ground,
+    const GeoGrid<std::span<LASPoint>>& grid, const GeoGrid<double>& ground,
     const VegeHeightConfig& vege_config) {
   TimeFunction timer("counting " + vege_config.name + " blocked proportion");
   GeoGrid<std::optional<float>> blocked_proportion(grid.width(), grid.height(),
