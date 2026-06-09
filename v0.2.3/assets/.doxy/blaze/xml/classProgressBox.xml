@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classProgressBox" kind="class" language="C++" prot="public">
+    <compoundname>ProgressBox</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QDialog</basecompoundref>
+    <basecompoundref refid="classProgressObserver" prot="public" virt="non-virtual">ProgressObserver</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classProgressBox_1ab033810c301434d7ccf811268fd78936" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; Ui::ProgressBox &gt;</type>
+        <definition>std::unique_ptr&lt;Ui::ProgressBox&gt; ProgressBox::ui</definition>
+        <argsstring></argsstring>
+        <name>ui</name>
+        <qualifiedname>ProgressBox::ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="20" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProgressBox_1a68938f6ca0169501c4f7334586cf07b9" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::pair&lt; QProgressBar *, <ref refid="classCoordinate2D" kindref="compound">QLabel</ref> * &gt; &gt;</type>
+        <definition>std::vector&lt;std::pair&lt;QProgressBar*, QLabel*&gt; &gt; ProgressBox::m_progress</definition>
+        <argsstring></argsstring>
+        <name>m_progress</name>
+        <qualifiedname>ProgressBox::m_progress</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="22" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-slot">
+      <memberdef kind="slot" id="classProgressBox_1a64ddc6dcdee9d3cbfcc87dd9240a69aa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::receive_progress_bars</definition>
+        <argsstring>(std::vector&lt; double &gt; progress)</argsstring>
+        <name>receive_progress_bars</name>
+        <qualifiedname>ProgressBox::receive_progress_bars</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="25" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp" bodystart="20" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="slot" id="classProgressBox_1a9d591d4bc0394d980b1992e243e1ad9d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::receive_status_text</definition>
+        <argsstring>(std::string text, int depth)</argsstring>
+        <name>receive_status_text</name>
+        <qualifiedname>ProgressBox::receive_status_text</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <declname>depth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="26" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp" bodystart="41" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="slot" id="classProgressBox_1ab8c3db51598726e922bb44a9d91f32bd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::abort</definition>
+        <argsstring>()</argsstring>
+        <name>abort</name>
+        <qualifiedname>ProgressBox::abort</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="28" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp" bodystart="11" bodyend="11"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="signal">
+      <memberdef kind="signal" id="classProgressBox_1aa303d854cb53c860e395d242f5a7fc8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::send_progress_bars</definition>
+        <argsstring>(std::vector&lt; double &gt; progress)</argsstring>
+        <name>send_progress_bars</name>
+        <qualifiedname>ProgressBox::send_progress_bars</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="31" column="8"/>
+      </memberdef>
+      <memberdef kind="signal" id="classProgressBox_1a3a5221f643b9b426b1604e601c5ccdae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::send_status_text</definition>
+        <argsstring>(std::string text, int depth)</argsstring>
+        <name>send_status_text</name>
+        <qualifiedname>ProgressBox::send_status_text</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <declname>depth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="32" column="8"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classProgressBox_1a0e17f7e050f5996b6953a3e698d1355c" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ProgressBox::ProgressBox</definition>
+        <argsstring>(QWidget *parent=nullptr)</argsstring>
+        <name>ProgressBox</name>
+        <qualifiedname>ProgressBox::ProgressBox</qualifiedname>
+        <param>
+          <type>QWidget *</type>
+          <declname>parent</declname>
+          <defval><ref refid="classCoordinate2D" kindref="compound">nullptr</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="35" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp" bodystart="13" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgressBox_1a08a3e5791918847d41341e919d5fad22" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::update_progress</definition>
+        <argsstring>(double proportion) override</argsstring>
+        <name>update_progress</name>
+        <qualifiedname>ProgressBox::update_progress</qualifiedname>
+        <reimplements refid="classProgressObserver_1a502166abd43c403c82ad269f382a4f4a">update_progress</reimplements>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>proportion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="37" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp" bodystart="47" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgressBox_1af75b7c251206e81e678f28106a99baec" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::text_update</definition>
+        <argsstring>(const std::string &amp;text, int depth=0) override</argsstring>
+        <name>text_update</name>
+        <qualifiedname>ProgressBox::text_update</qualifiedname>
+        <reimplements refid="classProgressObserver_1a1529b72f3ca12c12bcb0be81eea8aabe">text_update</reimplements>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <declname>depth</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="38" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp" bodystart="58" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgressBox_1ae8d543b16523336973f14098bd1c5a1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void ProgressBox::start_task</definition>
+        <argsstring>(std::function&lt; void()&gt; task, std::function&lt; void()&gt; on_finish=[] {})</argsstring>
+        <name>start_task</name>
+        <qualifiedname>ProgressBox::start_task</qualifiedname>
+        <param>
+          <type>std::function&lt; <ref refid="classCoordinate2D" kindref="compound">void</ref>()&gt;</type>
+          <declname>task</declname>
+        </param>
+        <param>
+          <type>std::function&lt; <ref refid="classCoordinate2D" kindref="compound">void</ref>()&gt;</type>
+          <declname>on_finish</declname>
+          <defval>[] {}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="40" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp" bodystart="72" bodyend="95"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ProgressBox</label>
+        <link refid="classProgressBox"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ProgressObserver</label>
+        <link refid="classProgressObserver"/>
+      </node>
+      <node id="2">
+        <label>QDialog</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ProgressBox</label>
+        <link refid="classProgressBox"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ProgressObserver</label>
+        <link refid="classProgressObserver"/>
+      </node>
+      <node id="2">
+        <label>QDialog</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" line="17" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp" bodystart="17" bodyend="43"/>
+    <listofallmembers>
+      <member refid="classProgressBox_1ab8c3db51598726e922bb44a9d91f32bd" prot="private" virt="non-virtual"><scope>ProgressBox</scope><name>abort</name></member>
+      <member refid="classProgressObserver_1a5ffae3404e579191612b2946e81373e3" prot="public" virt="non-virtual"><scope>ProgressBox</scope><name>child</name></member>
+      <member refid="classProgressBox_1a68938f6ca0169501c4f7334586cf07b9" prot="private" virt="non-virtual"><scope>ProgressBox</scope><name>m_progress</name></member>
+      <member refid="classProgressBox_1a0e17f7e050f5996b6953a3e698d1355c" prot="public" virt="non-virtual"><scope>ProgressBox</scope><name>ProgressBox</name></member>
+      <member refid="classProgressObserver_1a91848627d3c0148811430f0480c0d906" prot="protected" virt="non-virtual"><scope>ProgressBox</scope><name>ProgressObserver</name></member>
+      <member refid="classProgressBox_1a64ddc6dcdee9d3cbfcc87dd9240a69aa" prot="private" virt="non-virtual"><scope>ProgressBox</scope><name>receive_progress_bars</name></member>
+      <member refid="classProgressBox_1a9d591d4bc0394d980b1992e243e1ad9d" prot="private" virt="non-virtual"><scope>ProgressBox</scope><name>receive_status_text</name></member>
+      <member refid="classProgressBox_1aa303d854cb53c860e395d242f5a7fc8c" prot="public" virt="non-virtual"><scope>ProgressBox</scope><name>send_progress_bars</name></member>
+      <member refid="classProgressBox_1a3a5221f643b9b426b1604e601c5ccdae" prot="public" virt="non-virtual"><scope>ProgressBox</scope><name>send_status_text</name></member>
+      <member refid="classProgressBox_1ae8d543b16523336973f14098bd1c5a1e" prot="public" virt="non-virtual"><scope>ProgressBox</scope><name>start_task</name></member>
+      <member refid="classProgressBox_1af75b7c251206e81e678f28106a99baec" prot="public" virt="virtual"><scope>ProgressBox</scope><name>text_update</name></member>
+      <member refid="classProgressBox_1ab033810c301434d7ccf811268fd78936" prot="private" virt="non-virtual"><scope>ProgressBox</scope><name>ui</name></member>
+      <member refid="classProgressBox_1a08a3e5791918847d41341e919d5fad22" prot="public" virt="virtual"><scope>ProgressBox</scope><name>update_progress</name></member>
+      <member refid="classProgressObserver_1a88351d1c134e9edf4e716e930b6d3c53" prot="public" virt="virtual"><scope>ProgressBox</scope><name>~ProgressObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

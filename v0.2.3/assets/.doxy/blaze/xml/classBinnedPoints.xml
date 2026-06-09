@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classBinnedPoints" kind="class" language="C++" prot="public">
+    <compoundname>BinnedPoints</compoundname>
+    <basecompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; Grid&lt; std::span&lt; LASPoint &gt; &gt; &gt;</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classBinnedPoints_1a6ec12d8f6d0cf492d0fc34633ce42e15" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classLASPoint" kindref="compound">LASPoint</ref> &gt;</type>
+        <definition>std::vector&lt;LASPoint&gt; BinnedPoints::m_storage</definition>
+        <argsstring></argsstring>
+        <name>m_storage</name>
+        <qualifiedname>BinnedPoints::m_storage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" line="13" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBinnedPoints_1a4ce64e2ef0966b4d099177e552ef8147" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BinnedPoints::BinnedPoints</definition>
+        <argsstring>(LASData &amp;las_file, double bin_resolution, unsigned int downsample_factor, ProgressTracker progress)</argsstring>
+        <name>BinnedPoints</name>
+        <qualifiedname>BinnedPoints::BinnedPoints</qualifiedname>
+        <param>
+          <type><ref refid="classLASData" kindref="compound">LASData</ref> &amp;</type>
+          <declname>las_file</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <declname>bin_resolution</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <declname>downsample_factor</declname>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" line="16" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" bodystart="16" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="classBinnedPoints_1a4a798846ab75a58b09f54e74750514f1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent2D" kindref="compound">Extent2D</ref></type>
+        <definition>Extent2D BinnedPoints::data_extent</definition>
+        <argsstring>() const</argsstring>
+        <name>data_extent</name>
+        <qualifiedname>BinnedPoints::data_extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" line="179" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" bodystart="179" bodyend="200"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>BinnedPoints</label>
+        <link refid="classBinnedPoints"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Geo&lt; Grid&lt; std::span&lt; LASPoint &gt; &gt; &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GeoGridData</label>
+        <link refid="classGeoGridData"/>
+      </node>
+      <node id="3">
+        <label>Grid&lt; std::span&lt; LASPoint &gt; &gt;</label>
+        <link refid="classGrid"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GridData</label>
+        <link refid="classGridData"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>BinnedPoints</label>
+        <link refid="classBinnedPoints"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Geo&lt; Grid&lt; std::span&lt; LASPoint &gt; &gt; &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GeoGridData</label>
+        <link refid="classGeoGridData"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_transform</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_projection</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>GeoProjection</label>
+        <link refid="classGeoProjection"/>
+      </node>
+      <node id="6">
+        <label>GeoTransform</label>
+        <link refid="classGeoTransform"/>
+      </node>
+      <node id="3">
+        <label>Grid&lt; std::span&lt; LASPoint &gt; &gt;</label>
+        <link refid="classGrid"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GridData</label>
+        <link refid="classGridData"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" line="12" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp" bodystart="12" bodyend="201"/>
+    <listofallmembers>
+      <member refid="classBinnedPoints_1a4ce64e2ef0966b4d099177e552ef8147" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>BinnedPoints</name></member>
+      <member refid="classGrid_1afd9f36cadd4e0aaa7db63844786c68f7" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>copy_from</name></member>
+      <member refid="classBinnedPoints_1a4a798846ab75a58b09f54e74750514f1" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>data_extent</name></member>
+      <member refid="classGeoGridData_1a0ee5acf21c13784d123d1237c9854cc5" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>dx</name></member>
+      <member refid="classGeoGridData_1a874882ebb49e607f6e96f5d1ede82899" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>dy</name></member>
+      <member refid="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>extent</name></member>
+      <member refid="classGrid_1a44cc9f209f78ca947024e9c72d73fa16" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>fill</name></member>
+      <member refid="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>fill_from</name></member>
+      <member refid="classGeo_1a52eff035fc897e9650b678645521d642" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>fill_from</name></member>
+      <member refid="classGrid_1aa451f4b0fe215f9a868bb1474854ab5e" prot="public" virt="non-virtual" ambiguityscope="Grid&lt; std::span&lt; LASPoint &gt; &gt;::"><scope>BinnedPoints</scope><name>fill_from</name></member>
+      <member refid="classGrid_1adabb6e7d161770de143561a3b795617a" prot="public" virt="non-virtual" ambiguityscope="Grid&lt; std::span&lt; LASPoint &gt; &gt;::"><scope>BinnedPoints</scope><name>fill_from</name></member>
+      <member refid="classGeo_1ad657f28d10a41b7e04e0da9180e7d169" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>FromGeoImg</name></member>
+      <member refid="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>FromPoints</name></member>
+      <member refid="classGeo_1a7af51f6bbf7e090aeb8931dfc864cae0" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Geo</name></member>
+      <member refid="classGeo_1ad7b2eadfa2e906546466b2d06565cb5d" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Geo</name></member>
+      <member refid="classGeoGridData_1a6e1191a0d4ee036284d22587da150ec4" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>GeoGridData</name></member>
+      <member refid="classGrid_1acbe5d0e166627d56cc6ad36a422edf6a" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>get_values</name></member>
+      <member refid="classGrid_1a9a1e1807e0692fe9cf0ef3cf88a4a1fc" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Grid</name></member>
+      <member refid="classGridData_1ad3de1079142a49044d2cc5dce8c77be2" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>GridData</name></member>
+      <member refid="classGridData_1af50b2f20899510c2b9373bacbb217b7f" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>height</name></member>
+      <member refid="classGeo_1a1098c30d81601a5e885405f61f15bfbd" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>height_m</name></member>
+      <member refid="classGridData_1ae4531fee4184ca64a5c9b16488d253ba" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>in_bounds</name></member>
+      <member refid="classGrid_1a0a66b22fe3ec47361eb6f749b18dc209" prot="protected" virt="non-virtual"><scope>BinnedPoints</scope><name>m_data</name></member>
+      <member refid="classGridData_1a4c3d85fe603a4d61b8dff291ff527141" prot="protected" virt="non-virtual"><scope>BinnedPoints</scope><name>m_height</name></member>
+      <member refid="classGeoGridData_1a8bf48dae7b2472d11c2d464890e9abde" prot="protected" virt="non-virtual"><scope>BinnedPoints</scope><name>m_projection</name></member>
+      <member refid="classGrid_1a429f1852fcc96c707d7b6367b140d5b9" prot="protected" virt="non-virtual"><scope>BinnedPoints</scope><name>m_repeats</name></member>
+      <member refid="classBinnedPoints_1a6ec12d8f6d0cf492d0fc34633ce42e15" prot="private" virt="non-virtual"><scope>BinnedPoints</scope><name>m_storage</name></member>
+      <member refid="classGeoGridData_1a9742659082271d75bb7840c6dd52e37f" prot="protected" virt="non-virtual"><scope>BinnedPoints</scope><name>m_transform</name></member>
+      <member refid="classGridData_1a13126024023e1abb5934579b8bd8f84f" prot="protected" virt="non-virtual"><scope>BinnedPoints</scope><name>m_width</name></member>
+      <member refid="classGrid_1a4e221bd89bcb14a2eb6a2ebd99e8e063" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>max_value</name></member>
+      <member refid="classGrid_1ab0077114cdb846bf93624ad89782ec71" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>min_value</name></member>
+      <member refid="classGrid_1a48dbbee2e03f5ec23abd9628eeea1dcf" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>operator[]</name></member>
+      <member refid="classGrid_1afd98fad7ec8aab40d9bf9faf66ef9c13" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>operator[]</name></member>
+      <member refid="classGeoGridData_1a93f9478e0ca3db8a9f86dc1d150bb844" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>projection</name></member>
+      <member refid="classGeo_1ac61ddc1c4de1cc766bd1b7b8cbbdca08" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>slice</name></member>
+      <member refid="classGrid_1aa7926f3fe7486904e03553443b94ffdb" prot="protected" virt="non-virtual"><scope>BinnedPoints</scope><name>T</name></member>
+      <member refid="classGeoGridData_1a277d0935ec991450c89f2bfed2a1385f" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>transform</name></member>
+      <member refid="classGrid_1ab1af859c9a334e6897624ba1222f96c7" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>value_type</name></member>
+      <member refid="classGridData_1ab0725a01420119c3a572e56671389870" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>width</name></member>
+      <member refid="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>width_m</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTile" kind="struct" language="C++" prot="public">
+    <compoundname>Tile</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTile_1a9e10800de5ccb99c2babfeeb8f652c75" prot="public" static="no" mutable="no">
+        <type><ref refid="structExtent2D" kindref="compound">Extent2D</ref></type>
+        <definition>Extent2D Tile::extent</definition>
+        <argsstring></argsstring>
+        <name>extent</name>
+        <qualifiedname>Tile::extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="237" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTile_1aa5408d0f0f4a60f25796f651db2f84ac" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Tile::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>Tile::name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="240" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="240" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTile_1a7c51d093327604b3b85fb6c65121c245" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Tile::output_name</definition>
+        <argsstring>() const</argsstring>
+        <name>output_name</name>
+        <qualifiedname>Tile::output_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="242" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="242" bodyend="247"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Extent2D</label>
+        <link refid="structExtent2D"/>
+      </node>
+      <node id="1">
+        <label>Tile</label>
+        <link refid="structTile"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>extent</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="235" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="235" bodyend="248"/>
+    <listofallmembers>
+      <member refid="structTile_1a9e10800de5ccb99c2babfeeb8f652c75" prot="public" virt="non-virtual"><scope>Tile</scope><name>extent</name></member>
+      <member refid="structTile_1aa5408d0f0f4a60f25796f651db2f84ac" prot="public" virt="non-virtual"><scope>Tile</scope><name>name</name></member>
+      <member refid="structTile_1a7c51d093327604b3b85fb6c65121c245" prot="public" virt="non-virtual"><scope>Tile</scope><name>output_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__progress__tracker_8cpp" kind="file" language="C++">
+    <compoundname>test_progress_tracker.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes refid="progress__tracker_8hpp" local="yes">utilities/progress_tracker.hpp</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp</label>
+        <link refid="test__progress__tracker_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="4">
+        <label>memory</label>
+      </node>
+      <node id="5">
+        <label>optional</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="7">
+        <label>utility</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1ab1bba9e97777b2af9822b4e94d85543f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, ProgressTracker)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="5" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="5" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1a3b34316f612c7555936f68e73666b337" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, ForLoop)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ForLoop</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="39" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="39" bodyend="49"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.0);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.set_proportion(0.1);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.1);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerA</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(0.2,<sp/>0.6));</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.2);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trackerA</ref>.set_proportion(0.25);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.3);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.6);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerB</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(0.7,<sp/>0.9);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trackerB</ref>.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.8);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerC</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(0.9,<sp/>0.9);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trackerC</ref>.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.9);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.9);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ForLoop</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.0);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>10;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerA</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>/<sp/>10.0,<sp/>(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>+<sp/>1)<sp/>/<sp/>10.0);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/><ref refid="classCoordinate2D" kindref="compound">bar</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>run_loop(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(&amp;<ref refid="classCoordinate2D" kindref="compound">bar</ref>));</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp"/>
+  </compounddef>
+</doxygen>
