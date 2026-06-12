@@ -1,5 +1,6 @@
 #include "progress_tracker.hpp"
 
+#include <cmath>
 #include <iostream>
 #include <optional>
 #include <utility>
@@ -17,6 +18,7 @@ void ProgressBar::update_progress(double progress) {
 }
 
 void ProgressBar::text_update(const std::string& text, int depth) {
+  if (text.empty()) return;
   std::cout << std::string(2 * (depth - 1), ' ') << text << std::endl;
 };
 
@@ -43,6 +45,7 @@ ProgressTracker::ProgressTracker(ProgressObserver* observer)
 ProgressTracker::ProgressTracker(ProgressTracker&& other) {
   m_proportion = other.m_proportion;
   m_observer = other.m_observer;
+  m_visible = other.m_visible;
   Assert(!other.m_subtracker_range.has_value());
   other.m_observer = nullptr;
 };
@@ -64,12 +67,13 @@ void ProgressTracker::text_update(const std::string& text, int depth) {
   }
 };
 
-ProgressTracker ProgressTracker::subtracker(double start, double end) {
+ProgressTracker ProgressTracker::subtracker(double start, double end, std::optional<bool> visible) {
   set_proportion(start);
   AssertGE(end, start);
   AssertGE(1, end);
   m_subtracker_range = std::make_pair(start, end);
   ProgressTracker to_return(this);
+  to_return.m_visible = visible.value_or(m_visible);
   m_child = &to_return;
   m_child->_set_proportion(0);
   return to_return;
@@ -77,7 +81,9 @@ ProgressTracker ProgressTracker::subtracker(double start, double end) {
 
 ProgressTracker::~ProgressTracker() {
   _set_proportion(1);
+  // Clear label text before breaking the chain so stale text doesn't linger
   if (m_observer != nullptr) {
+    text_update("", 0);
     m_observer->m_child = nullptr;
   }
   ProgressTracker* ptr = dynamic_cast<ProgressTracker*>(m_observer);

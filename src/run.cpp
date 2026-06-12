@@ -44,7 +44,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   }
 
   std::vector<double> time_ratios;
-  double total_time = 0.01;
+  double total_time = 0.001;
   for (ProcessingStep step : config.processing_steps) {
     switch (step) {
       case ProcessingStep::Tiles:
@@ -61,7 +61,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   std::string tile_output_crs_wkt;
   std::vector<LASFileExtent> tile_input_extents =
       load_input_extents(las_files, config.override_crs, tile_output_crs_wkt,
-                         tracker.subtracker(0.0, 0.01 / total_time));
+                         tracker.subtracker(0.0, 0.001 / total_time, false));
   const TileModeInfo tile_info = detect_tile_mode_needed(tile_input_extents);
   if (tile_info.any_overlap) {
     std::cerr << "Info: Input files overlap; tile reads will pull from every overlapping input."
@@ -91,13 +91,13 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   // a subsequent Combine step can still read from them.
   std::vector<fs::path> processed_tile_dirs;
 
-  double current_time = 0.01 / total_time;
+  double current_time = 0.001 / total_time;
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
     TimeFunction timer(to_string("processing step ", step));
     tracker.text_update(to_string("Processing step ", step));
     ProgressTracker step_tracker =
-        tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
+        tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time, false);
     current_time += time_ratios[idx++] / total_time;
     switch (step) {
       case ProcessingStep::Tiles: {
@@ -106,12 +106,12 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
                                    std::to_string(tiles.size()) + ": " + tile.output_name());
 
-          ProgressTracker progress_tracker =
-              step_tracker.subtracker((double)i / tiles.size(), (double)(i + 1) / tiles.size());
+          ProgressTracker progress_tracker = step_tracker.subtracker(
+              (double)i / tiles.size(), (double)(i + 1) / tiles.size(), true);
 
-          LASData tile_data =
-              read_tile_from_inputs(tile.extent, config.border_width, tile_input_extents,
-                                    tile_output_crs_wkt, progress_tracker.subtracker(0.0, 0.4));
+          LASData tile_data = read_tile_from_inputs(tile.extent, config.border_width,
+                                                    tile_input_extents, tile_output_crs_wkt,
+                                                    progress_tracker.subtracker(0.0, 0.5, false));
           if (tile_data.n_points() == 0) {
             step_tracker.text_update("Tile " + tile.output_name() + " has no points; skipping.");
             continue;
@@ -121,7 +121,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           // and emit spurious "Image ... does not exist" warnings.
           fs::path output_dir = config.output_path() / tile.output_name();
           fs::create_directories(output_dir);
-          process_las_data(tile_data, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
+          process_las_data(tile_data, output_dir, config,
+                           progress_tracker.subtracker(0.5, 1.0, false));
           processed_tile_dirs.push_back(output_dir);
         }
         break;

@@ -35,6 +35,7 @@ class ProgressTracker : public ProgressObserver {
   double m_proportion;
   ProgressObserver* m_observer;
   std::optional<std::pair<double, double>> m_subtracker_range;
+  bool m_visible = true;
 
   void _set_proportion(double proportion);
 
@@ -52,8 +53,11 @@ class ProgressTracker : public ProgressObserver {
   ProgressTracker& operator=(ProgressTracker&& other) = delete;
 
   void set_proportion(double proportion);
+  void set_visible(bool v) { m_visible = v; }
+  bool is_visible() const { return m_visible; }
 
-  ProgressTracker subtracker(double start, double end);
+  // visible: nullopt = inherit parent, true = force visible, false = force invisible
+  ProgressTracker subtracker(double start, double end, std::optional<bool> visible = std::nullopt);
 
   virtual ~ProgressTracker();
 

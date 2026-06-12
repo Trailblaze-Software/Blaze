@@ -3,56 +3,133 @@
 #include <QException>
 #include <QFutureWatcher>
 #include <QMessageBox>
+#include <QProgressBar>
+#include <QTimer>
 #include <QtConcurrent>
+#include <chrono>
+#include <cmath>
+#include <sstream>
 
 #include "ui_progress_box.h"
 #include "utilities/progress_tracker.hpp"
 
+namespace {
+
+class DecimalProgressBar : public QProgressBar {
+ public:
+  using QProgressBar::QProgressBar;
+  QString text() const override {
+    double pct = static_cast<double>(value()) / static_cast<double>(maximum()) * 100.0;
+    if (std::abs(pct - std::round(pct)) < 0.05)
+      return QString("%1%").arg(static_cast<int>(std::round(pct)));
+    return QString("%1%").arg(pct, 0, 'f', 1);
+  }
+};
+
+}  // namespace
+
 void ProgressBox::abort() { done(1); }
 
-ProgressBox::ProgressBox(QWidget* parent) : QDialog(parent), ui(new Ui::ProgressBox) {
+ProgressBox::ProgressBox(QWidget* parent)
+    : QDialog(parent), ui(new Ui::ProgressBox), m_start_time(std::chrono::steady_clock::now()) {
   ui->setupUi(this);
   setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+  // ETA label is defined in the .ui file
+  m_eta_label = ui->etaLabel;
+  m_eta_label->setStyleSheet("QLabel { color: #888; font-size: 11px; }");
+
+  // Timer to refresh elapsed every second even when no progress events fire
+  auto* elapsed_timer = new QTimer(this);
+  connect(elapsed_timer, &QTimer::timeout, this, &ProgressBox::update_elapsed);
+  elapsed_timer->start(1000);
+
   connect(this, &ProgressBox::send_progress_bars, this, &ProgressBox::receive_progress_bars);
   connect(this, &ProgressBox::send_status_text, this, &ProgressBox::receive_status_text);
 }
 
-void ProgressBox::receive_progress_bars(std::vector<double> progress) {
-  for (size_t i = 0; i < progress.size(); i++) {
+static std::string format_duration(double seconds) {
+  int total_secs = static_cast<int>(std::round(seconds));
+  if (total_secs < 60) {
+    return std::to_string(total_secs) + "s";
+  }
+  int mins = total_secs / 60;
+  int secs = total_secs % 60;
+  if (mins < 60) {
+    return std::to_string(mins) + "m " + std::to_string(secs) + "s";
+  }
+  int hrs = mins / 60;
+  mins = mins % 60;
+  return std::to_string(hrs) + "h " + std::to_string(mins) + "m " + std::to_string(secs) + "s";
+}
+
+void ProgressBox::receive_progress_bars(std::vector<std::pair<double, bool>> bars) {
+  for (size_t i = 0; i < bars.size(); i++) {
     if (i >= m_progress.size()) {
-      m_progress.emplace_back(
-          std::pair<QProgressBar*, QLabel*>{new QProgressBar(ui->scrollAreaWidgetContents_2),
-                                            new QLabel(ui->scrollAreaWidgetContents_2)});
-      ui->verticalLayout_3->addWidget(m_progress.back().first);
-      m_progress.back().first->setMaximum(1000);
-      m_progress.back().second->setWordWrap(true);
-      ui->verticalLayout_3->addWidget(m_progress.back().second);
+      auto* bar = new DecimalProgressBar(ui->barsContainer);
+      auto* lbl = new QLabel(ui->barsContainer);
+      bar->setMaximum(10000);
+      lbl->setWordWrap(true);
+      lbl->hide();
+      m_progress.push_back({bar, lbl});
+      ui->verticalLayout_3->addWidget(bar);
+      ui->verticalLayout_3->addWidget(lbl);
     }
-    m_progress[i].first->setValue(progress[i] * 1000);
+    bool vis = bars[i].second;
+    m_progress[i].bar->setVisible(vis);
+    m_progress[i].bar->setValue(static_cast<int>(bars[i].first * 10000.0));
   }
-  for (size_t i = progress.size(); i < m_progress.size(); i++) {
-    ui->verticalLayout_3->removeWidget(m_progress[i].first);
-    delete m_progress[i].first;
-    delete m_progress[i].second;
+  for (size_t i = bars.size(); i < m_progress.size(); i++) {
+    ui->verticalLayout_3->removeWidget(m_progress[i].bar);
+    ui->verticalLayout_3->removeWidget(m_progress[i].label);
+    delete m_progress[i].bar;
+    delete m_progress[i].label;
   }
-  m_progress.resize(progress.size());
+  m_progress.resize(bars.size());
+
+  if (!bars.empty()) m_last_overall = bars[0].first;
+  update_elapsed();
 }
 
 void ProgressBox::receive_status_text(std::string text, int depth) {
-  if ((unsigned int)(depth - 1) < m_progress.size()) {
-    m_progress[depth - 1].second->setText(QString::fromStdString(text));
+  int idx = depth - 1;
+  if (idx >= 0 && static_cast<size_t>(idx) < m_progress.size()) {
+    m_progress[idx].label->setText(QString::fromStdString(text));
+    m_progress[idx].label->show();
+  }
+}
+
+void ProgressBox::update_elapsed() {
+  auto now = std::chrono::steady_clock::now();
+  double elapsed = std::chrono::duration<double>(now - m_start_time).count();
+
+  if (m_last_overall > 0.999) {
+    std::ostringstream ss;
+    ss << "Total time: " << format_duration(elapsed);
+    m_eta_label->setText(QString::fromStdString(ss.str()));
+    m_eta_label->setStyleSheet("QLabel { color: #4a4; font-size: 12px; font-weight: bold; }");
+  } else if (m_last_overall > 0.001) {
+    double eta = elapsed * (1.0 - m_last_overall) / m_last_overall;
+    std::ostringstream ss;
+    ss << "Elapsed: " << format_duration(elapsed) << "  |  ETA: " << format_duration(eta)
+       << " remaining";
+    m_eta_label->setText(QString::fromStdString(ss.str()));
+  } else if (elapsed > 1.0) {
+    std::ostringstream ss;
+    ss << "Elapsed: " << format_duration(elapsed) << "  |  Estimating…";
+    m_eta_label->setText(QString::fromStdString(ss.str()));
   }
 }
 
 void ProgressBox::update_progress(double _) {
   (void)_;
-  std::vector<double> progress;
+  std::vector<std::pair<double, bool>> bars;
   ProgressTracker* child = this->child();
   while (child != nullptr) {
-    progress.push_back(child->proportion());
+    bars.emplace_back(child->proportion(), child->is_visible());
     child = child->child();
   }
-  emit send_progress_bars(std::move(progress));
+  emit send_progress_bars(std::move(bars));
 }
 
 void ProgressBox::text_update(const std::string& text, int depth) {
@@ -70,6 +147,7 @@ class TaskException : public QException {
 };
 
 void ProgressBox::start_task(std::function<void()> task, std::function<void()> on_finish) {
+  m_start_time = std::chrono::steady_clock::now();
   QFutureWatcher<int>* watcher = new QFutureWatcher<int>(this);
   connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher, on_finish] {
     if (watcher->future().isCanceled()) {

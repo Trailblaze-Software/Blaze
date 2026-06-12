@@ -19,16 +19,25 @@ class ProgressBox : public QDialog, public ProgressObserver {
 
   std::unique_ptr<Ui::ProgressBox> ui;
 
-  std::vector<std::pair<QProgressBar*, QLabel*>> m_progress;
+  struct BarRow {
+    QProgressBar* bar = nullptr;
+    QLabel* label = nullptr;
+  };
+  std::vector<BarRow> m_progress;
+  QLabel* m_eta_label = nullptr;
+  double m_last_overall = 0.0;
+
+  std::chrono::steady_clock::time_point m_start_time;
 
  private slots:
-  void receive_progress_bars(std::vector<double> progress);
+  void receive_progress_bars(std::vector<std::pair<double, bool>> bars);
   void receive_status_text(std::string text, int depth);
+  void update_elapsed();
 
   void abort();
 
  signals:
-  void send_progress_bars(std::vector<double> progress);
+  void send_progress_bars(std::vector<std::pair<double, bool>> bars);
   void send_status_text(std::string text, int depth);
 
  public:
