@@ -1,0 +1,374 @@
+#pragma once
+
+#include <omp.h>
+
+#include <atomic>
+#include <functional>
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <vector>
+
+#include "gui/point_octree.hpp"
+#include "io/crs.hpp"
+#include "las/las_file.hpp"
+#include "utilities/progress_tracker.hpp"
+
+#ifndef USE_PDAL
+#include "las_reader.hpp"
+
+namespace {
+
+static constexpr size_t kMaxPreviewPoints = 500'000;
+
+// ProgressTracker requires monotonically increasing proportions; parallel loaders
+// must funnel updates through here.
+class MonotonicProgress {
+  ProgressTracker& m_tracker;
+  std::mutex m_mutex;
+  double m_last = -1.0;
+
+ public:
+  explicit MonotonicProgress(ProgressTracker& tracker) : m_tracker(tracker) {}
+
+  void set_proportion(double proportion) {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if (proportion <= m_last) {
+      return;
+    }
+    m_last = proportion;
+    m_tracker.set_proportion(proportion);
+  }
+};
+
+template <typename LasPt>
+uint8_t las_point_classification(const LasPt& pt) {
+  if constexpr (requires { pt.classification(); }) {
+    return static_cast<uint8_t>(pt.classification());
+  } else {
+    return static_cast<uint8_t>(pt.classification);
+  }
+}
+
+template <typename LasPt>
+void las_point_file_color(const LasPt& pt, OctreePoint& out) {
+  if constexpr (requires {
+                  pt.red;
+                  pt.green;
+                  pt.blue;
+                }) {
+    out.file_r = static_cast<uint8_t>(pt.red >> 8);
+    out.file_g = static_cast<uint8_t>(pt.green >> 8);
+    out.file_b = static_cast<uint8_t>(pt.blue >> 8);
+    out.has_file_rgb = (pt.red | pt.green | pt.blue) != 0 ? uint8_t{1} : uint8_t{0};
+  } else {
+    out.has_file_rgb = 0;
+  }
+}
+
+template <typename LasPt>
+OctreePoint convert_las_point(const LasPt& pt, const laspp::LASHeader& header,
+                              OGRCoordinateTransformation* coord_transform,
+                              const Coordinate3D<double>& origin) {
+  const auto& transform = header.transform();
+  const auto coords = transform.transform_point(pt.x, pt.y, pt.z);
+  double x = coords.x();
+  double y = coords.y();
+  if (coord_transform && !transform_xy_h(coord_transform, x, y)) {
+    Fail("Failed to reproject LAS point coordinates.");
+  }
+  OctreePoint octree_point;
+  octree_point.x = static_cast<float>(x - origin.x());
+  octree_point.y = static_cast<float>(y - origin.y());
+  octree_point.z = static_cast<float>(coords.z() - origin.z());
+  octree_point.intensity = pt.intensity;
+  octree_point.classification = las_point_classification(pt);
+  las_point_file_color(pt, octree_point);
+  return octree_point;
+}
+
+using PreviewCallback = std::function<void(const std::vector<OctreePoint>& preview,
+                                           size_t points_loaded, const Extent3D& bounds)>;
+
+template <typename LasPt>
+void load_points_parallel(laspp::LASReader& reader, OGRCoordinateTransformation* coord_transform,
+                          const Coordinate3D<double>& origin, size_t preview_stride,
+                          std::vector<OctreePoint>& converted, std::vector<OctreePoint>& preview,
+                          Extent3D& bounds, ProgressTracker& tracker,
+                          const PreviewCallback& publish_preview,
+                          const std::atomic<bool>* cancel = nullptr) {
+  MonotonicProgress progress(tracker);
+  const size_t num_points = reader.num_points();
+  const size_t num_chunks = reader.num_chunks();
+  const auto& points_per_chunk = reader.points_per_chunk();
+
+  converted.reserve(num_points);
+  preview.reserve(std::min(num_points / preview_stride + 1, kMaxPreviewPoints));
+  bounds = Extent3D();
+
+  bool preview_published = false;
+  size_t global_index = 0;
+
+  for (size_t chunk_idx = 0; chunk_idx < num_chunks; ++chunk_idx) {
+    if (cancel && cancel->load(std::memory_order_relaxed)) {
+      return;
+    }
+    const size_t chunk_size = points_per_chunk[chunk_idx];
+    std::vector<LasPt> raw_chunk(chunk_size);
+    reader.read_chunks_list(std::span<LasPt>(raw_chunk), {chunk_idx});
+
+    const size_t chunk_start = converted.size();
+    converted.resize(chunk_start + chunk_size);
+
+    if (coord_transform) {
+      for (size_t i = 0; i < chunk_size; ++i) {
+        converted[chunk_start + i] =
+            convert_las_point(raw_chunk[i], reader.header(), coord_transform, origin);
+        const size_t global_i = global_index + i;
+        if (global_i % preview_stride == 0 && preview.size() < kMaxPreviewPoints) {
+          preview.push_back(converted[chunk_start + i]);
+        }
+        const OctreePoint& point = converted[chunk_start + i];
+        bounds.grow(point.x + origin.x(), point.y + origin.y(), point.z + origin.z());
+      }
+    } else {
+#pragma omp parallel for schedule(static)
+      for (ptrdiff_t i = 0; i < static_cast<ptrdiff_t>(chunk_size); ++i) {
+        converted[chunk_start + static_cast<size_t>(i)] =
+            convert_las_point(raw_chunk[static_cast<size_t>(i)], reader.header(), nullptr, origin);
+      }
+      for (size_t i = 0; i < chunk_size; ++i) {
+        const size_t global_i = global_index + i;
+        if (global_i % preview_stride == 0 && preview.size() < kMaxPreviewPoints) {
+          preview.push_back(converted[chunk_start + i]);
+        }
+        const OctreePoint& point = converted[chunk_start + i];
+        bounds.grow(point.x + origin.x(), point.y + origin.y(), point.z + origin.z());
+      }
+    }
+
+    global_index += chunk_size;
+    if (num_points > 0) {
+      progress.set_proportion(0.70 * static_cast<double>(global_index) / num_points);
+    }
+
+    if (!preview.empty() && publish_preview &&
+        (!preview_published || chunk_idx + 1 == num_chunks || (chunk_idx % 4) == 3)) {
+      publish_preview(preview, global_index, bounds);
+      preview_published = true;
+    }
+  }
+
+  progress.set_proportion(0.72);
+}
+
+void load_points_dispatch(laspp::LASReader& reader, OGRCoordinateTransformation* coord_transform,
+                          const Coordinate3D<double>& origin, size_t preview_stride,
+                          std::vector<OctreePoint>& converted, std::vector<OctreePoint>& preview,
+                          Extent3D& bounds, ProgressTracker& tracker,
+                          const PreviewCallback& publish_preview,
+                          const std::atomic<bool>* cancel = nullptr) {
+  switch (reader.header().point_format() & 0x7Fu) {
+    case 0:
+      load_points_parallel<laspp::LASPointFormat0>(reader, coord_transform, origin, preview_stride,
+                                                   converted, preview, bounds, tracker,
+                                                   publish_preview, cancel);
+      break;
+    case 1:
+      load_points_parallel<laspp::LASPointFormat1>(reader, coord_transform, origin, preview_stride,
+                                                   converted, preview, bounds, tracker,
+                                                   publish_preview, cancel);
+      break;
+    case 2:
+      load_points_parallel<laspp::LASPointFormat2>(reader, coord_transform, origin, preview_stride,
+                                                   converted, preview, bounds, tracker,
+                                                   publish_preview, cancel);
+      break;
+    case 3:
+      load_points_parallel<laspp::LASPointFormat3>(reader, coord_transform, origin, preview_stride,
+                                                   converted, preview, bounds, tracker,
+                                                   publish_preview, cancel);
+      break;
+    case 6:
+      load_points_parallel<laspp::LASPointFormat6>(reader, coord_transform, origin, preview_stride,
+                                                   converted, preview, bounds, tracker,
+                                                   publish_preview, cancel);
+      break;
+    case 7:
+      load_points_parallel<laspp::LASPointFormat7>(reader, coord_transform, origin, preview_stride,
+                                                   converted, preview, bounds, tracker,
+                                                   publish_preview, cancel);
+      break;
+    default:
+      load_points_parallel<laspp::LASPointFormat0>(reader, coord_transform, origin, preview_stride,
+                                                   converted, preview, bounds, tracker,
+                                                   publish_preview, cancel);
+      break;
+  }
+}
+
+}  // namespace
+#endif
+
+// Immutable point cloud state published by the loader thread. Renderers hold a
+// shared_ptr for the duration of a frame; no mutex needed on the hot path.
+struct LasRenderSnapshot {
+  PointOctree octree;
+  std::vector<OctreePoint> preview_points;
+  size_t points_loaded = 0;
+  Extent3D bounds;
+  bool bounds_valid = false;
+};
+
+class AsyncOctreeLASData {
+ public:
+  static constexpr size_t kMaxPreviewPoints = 500'000;
+
+ private:
+  Extent3D m_initial_bounds;
+  Coordinate3D<double> m_coordinate_origin;
+  GeoProjection m_projection;
+  GeoProjection m_native_projection;
+  size_t m_total_points = 0;
+  std::atomic<std::shared_ptr<const LasRenderSnapshot>> m_snapshot;
+  std::atomic<bool> m_load_complete{false};
+  std::atomic<bool> m_cancel{false};
+  std::thread m_thread;
+
+  void publish_snapshot(std::shared_ptr<const LasRenderSnapshot> snapshot) {
+    m_snapshot.store(std::move(snapshot), std::memory_order_release);
+  }
+
+ public:
+  AsyncOctreeLASData(const fs::path& filename, AsyncProgressTracker progress_tracker,
+                     std::vector<std::function<void()>> callbacks = {},
+                     const std::string& target_crs_wkt = {})
+      : m_projection("") {
+#ifndef USE_PDAL
+    laspp::LASReader reader(filename);
+    m_initial_bounds = as_extent3d(reader.header().bounds());
+    m_total_points = reader.num_points();
+    std::string wkt = reader_embedded_wkt(reader);
+    if (!wkt.empty()) {
+      m_projection = make_projection_from_wkt(wkt);
+      m_native_projection = m_projection;
+    }
+
+    std::unique_ptr<OGRCoordinateTransformation> coord_transform =
+        make_coord_transform(m_projection.to_string(), target_crs_wkt);
+    if (coord_transform) {
+      m_initial_bounds = reproject_extent3d_horizontal(m_initial_bounds, coord_transform.get());
+      m_projection = make_projection_from_wkt(target_crs_wkt);
+    }
+
+    m_coordinate_origin = m_initial_bounds.center();
+
+    m_thread = std::thread([this, filename, origin = m_coordinate_origin,
+                            local_bounds = m_initial_bounds - m_coordinate_origin,
+                            progress_tracker = std::move(progress_tracker),
+                            callbacks = std::move(callbacks),
+                            coord_transform = std::move(coord_transform)]() mutable {
+      laspp::LASReader reader(filename);
+      ProgressTracker tracker = progress_tracker.tracker()->subtracker(0.0, 1.0);
+
+      const size_t preview_stride =
+          std::max(size_t{1}, (m_total_points + kMaxPreviewPoints - 1) / kMaxPreviewPoints);
+
+      std::vector<OctreePoint> converted;
+      std::vector<OctreePoint> preview;
+      Extent3D bounds;
+      bool preview_callbacks_fired = false;
+      const auto publish_preview = [this, &preview_callbacks_fired, &callbacks](
+                                       const std::vector<OctreePoint>& preview_pts,
+                                       size_t points_loaded, const Extent3D& loaded_bounds) {
+        auto preview_snapshot = std::make_shared<LasRenderSnapshot>();
+        preview_snapshot->preview_points = preview_pts;
+        preview_snapshot->points_loaded = points_loaded;
+        preview_snapshot->bounds = loaded_bounds;
+        preview_snapshot->bounds_valid = true;
+        publish_snapshot(std::move(preview_snapshot));
+        if (!preview_callbacks_fired) {
+          preview_callbacks_fired = true;
+          for (const auto& callback : callbacks) {
+            callback();
+          }
+        }
+      };
+      load_points_dispatch(reader, coord_transform.get(), origin, preview_stride, converted,
+                           preview, bounds, tracker, publish_preview, &m_cancel);
+
+      if (m_cancel.load(std::memory_order_relaxed)) {
+        return;
+      }
+
+      tracker.set_proportion(0.72);
+      MonotonicProgress octree_progress(tracker);
+
+      PointOctree octree(local_bounds);
+      octree.insert_batch(std::move(converted), [&octree_progress](size_t done, size_t total) {
+        octree_progress.set_proportion(0.72 + 0.26 * static_cast<double>(done) / total);
+      });
+      octree.shuffle_leaves();
+      octree_progress.set_proportion(0.99);
+
+      auto final_snapshot = std::make_shared<LasRenderSnapshot>();
+      final_snapshot->octree = std::move(octree);
+      final_snapshot->points_loaded = final_snapshot->octree.total_points();
+      final_snapshot->bounds = bounds;
+      final_snapshot->bounds_valid = true;
+      publish_snapshot(std::move(final_snapshot));
+      m_load_complete.store(true, std::memory_order_release);
+
+      tracker.set_proportion(1.0);
+      for (const auto& callback : callbacks) {
+        callback();
+      }
+    });
+#else
+    (void)filename;
+    (void)progress_tracker;
+    (void)callbacks;
+    (void)target_crs_wkt;
+    Fail("Blaze3D octree LAS loading requires las++ (BLAZE_USE_PDAL=OFF)");
+#endif
+  }
+
+  ~AsyncOctreeLASData() {
+    m_cancel.store(true, std::memory_order_release);
+    if (!m_thread.joinable()) {
+      return;
+    }
+    // Match legacy AsyncLASData: do not block process exit while loading.
+    if (m_load_complete.load(std::memory_order_acquire)) {
+      m_thread.join();
+    } else {
+      m_thread.detach();
+    }
+  }
+
+  std::shared_ptr<const LasRenderSnapshot> snapshot() const {
+    return m_snapshot.load(std::memory_order_acquire);
+  }
+
+  Extent3D bounds() const {
+    if (!load_complete()) {
+      return m_initial_bounds;
+    }
+    const auto snap = snapshot();
+    if (snap && snap->bounds_valid) {
+      return snap->bounds;
+    }
+    return m_initial_bounds;
+  }
+  const Coordinate3D<double>& coordinate_origin() const { return m_coordinate_origin; }
+  const GeoProjection& projection() const { return m_projection; }
+  const GeoProjection& native_projection() const { return m_native_projection; }
+
+  size_t points_loaded() const {
+    const auto snap = snapshot();
+    return snap ? snap->points_loaded : 0;
+  }
+
+  size_t total_points() const { return m_total_points; }
+  bool load_complete() const { return m_load_complete.load(std::memory_order_acquire); }
+};

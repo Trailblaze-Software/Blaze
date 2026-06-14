@@ -18,7 +18,12 @@ if(BLAZE_BUILD_3D_GUI)
             main_3d_window.hpp
             main_3d_window.cpp
             layer_renderer.hpp
+            layer_renderer.cpp
             main_3d_window.ui
+            point_cloud_framebuffer.hpp
+            point_cloud_framebuffer.cpp
+            point_cloud_gl.hpp
+            point_cloud_gl.cpp
             gl_widget.hpp
             gl_widget.cpp
             layer.hpp)

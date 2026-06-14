@@ -24,7 +24,9 @@ include(FetchContent)
 if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
   set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 else()
-  set(FETCHCONTENT_BASE_DIR ${BLAZE_FETCHCONTENT_BASE_DIR})
+  # Resolve to absolute so unexpanded shell vars like $(pwd) don't reach ninja
+  get_filename_component(FETCHCONTENT_BASE_DIR "${BLAZE_FETCHCONTENT_BASE_DIR}"
+                         ABSOLUTE)
 endif()
 
 option(BLAZE_CLI_ONLY "Build Blaze CLI only" OFF)

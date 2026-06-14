@@ -2,19 +2,25 @@
 
 #include <QtConcurrent>
 #include <QtWidgets>
+#include <cstdlib>
 
 #include "config_input/config_input.hpp"
 #include "progress_box.hpp"
 #include "run.hpp"
 #include "ui_main_window.h"
 
-MainWindow::MainWindow() : ui(std::make_unique<Ui::MainWindow>()) {
+MainWindow::MainWindow(const std::vector<fs::path>& initial_las_files)
+    : ui(std::make_unique<Ui::MainWindow>()) {
   try {
     if (!QIcon::hasThemeIcon("list-add")) {
       QIcon::setThemeName("Humanity");
       QIcon::setFallbackThemeName("default");
     }
     ui->setupUi(this);
+
+    if (!initial_las_files.empty()) {
+      ui->config_editor->set_las_files(initial_las_files);
+    }
 
     connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run_blaze);
     connect(ui->actionOpen, &QAction::triggered, this,
@@ -89,13 +95,25 @@ void MainWindow::run_blaze() {
     }
   }
 
+  // When Blaze is launched by Blaze3D it sets BLAZE_EXIT_AFTER_RUN so that the
+  // window closes itself once processing is done. In that headless mode we must
+  // exit on *both* success and failure (with a distinct exit code), and we must
+  // not pop a blocking modal dialog, otherwise the window would stay open
+  // waiting for the user to dismiss it and Blaze3D could never tell whether the
+  // run actually succeeded.
+  const bool exit_after_run = std::getenv("BLAZE_EXIT_AFTER_RUN") != nullptr;
+
   ProgressBox* message_box = new ProgressBox(this);
   message_box->show();
   message_box->start_task(
       [&config, message_box] {
         run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
       },
-      [&config] {
+      [&config, exit_after_run] {
+        if (exit_after_run) {
+          QApplication::exit(0);
+          return;
+        }
         QDialog* dialog = new QDialog();
         dialog->setWindowTitle("Blaze processing done!");
         QVBoxLayout* layout = new QVBoxLayout();
@@ -125,5 +143,16 @@ void MainWindow::run_blaze() {
         layout->addWidget(button);
         connect(button, &QPushButton::clicked, dialog, &QDialog::accept);
         dialog->exec();
+      },
+      [this, exit_after_run](const QString& message) {
+        if (exit_after_run) {
+          // Headless run: report on stderr (captured by Blaze3D) and exit with a
+          // non-zero code so the launching process knows the run failed instead
+          // of silently finding no output.
+          std::cerr << "Blaze processing failed: " << message.toStdString() << std::endl;
+          QApplication::exit(1);
+          return;
+        }
+        QMessageBox::critical(this, "Error running task", message);
       });
 }

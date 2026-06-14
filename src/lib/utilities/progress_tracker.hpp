@@ -68,7 +68,8 @@ class AsyncProgressTracker {
   std::shared_ptr<ProgressTracker> m_tracker;
 
  public:
-  AsyncProgressTracker() : m_tracker(std::make_shared<ProgressTracker>()) {}
+  explicit AsyncProgressTracker(ProgressObserver* observer = nullptr)
+      : m_tracker(std::make_shared<ProgressTracker>(observer)) {}
 
   std::shared_ptr<ProgressTracker> tracker() { return m_tracker; }
 };

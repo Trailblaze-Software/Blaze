@@ -3,12 +3,106 @@
 #include <qmessagebox.h>
 #include <qtreewidget.h>
 
+#include <QColorDialog>
+#include <QComboBox>
+#include <QCoreApplication>
+#include <QFileInfo>
+#include <QGroupBox>
+#include <QLabel>
+#include <QMenu>
+#include <QOpenGLWidget>
+#include <QProcessEnvironment>
+#include <QPushButton>
+#include <QShortcut>
+#include <QSignalBlocker>
+#include <QSizePolicy>
+#include <QSlider>
+#include <QVBoxLayout>
+#include <algorithm>
+#include <cmath>
+#include <cstdlib>
+#include <iostream>
+#include <utility>
+
+#include "blaze_output_loader.hpp"
+#include "gui/point_cloud_visualization.hpp"
 #include "ui_main_3d_window.h"
 #include "utilities/progress_tracker.hpp"
 
+namespace {
+
+bool is_las_extension(const fs::path& path) {
+  std::string ext = path.extension().string();
+  for (char& c : ext) {
+    c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+  }
+  return ext == ".las" || ext == ".laz";
+}
+
+std::vector<fs::path> collect_open_las_files(const std::vector<std::shared_ptr<Layer>>& layers) {
+  std::vector<fs::path> las_files;
+  for (const auto& layer : layers) {
+    if (layer->kind() != LayerKind::PointCloud) {
+      continue;
+    }
+    const auto* las_layer = dynamic_cast<const LASLayer*>(layer.get());
+    if (!las_layer) {
+      continue;
+    }
+    const fs::path& path = las_layer->file_path();
+    if (!path.empty() && fs::exists(path) && is_las_extension(path)) {
+      las_files.push_back(fs::absolute(path));
+    }
+  }
+  return las_files;
+}
+
+QString blaze_gui_executable_path() {
+  QString path = QCoreApplication::applicationDirPath();
+#ifdef _WIN32
+  path += "/Blaze.exe";
+#else
+  path += "/Blaze";
+#endif
+  return path;
+}
+
+bool is_draped_surface_layer(LayerKind kind) {
+  return kind == LayerKind::DemSurface || kind == LayerKind::SlopeSurface ||
+         kind == LayerKind::TexturedDem;
+}
+
+QString classification_label(uint8_t classification) {
+  switch (classification) {
+    case 2:
+      return QStringLiteral("Ground");
+    case 3:
+      return QStringLiteral("Low vegetation");
+    case 4:
+      return QStringLiteral("Medium vegetation");
+    case 5:
+      return QStringLiteral("High vegetation");
+    case 6:
+      return QStringLiteral("Building");
+    case 7:
+      return QStringLiteral("Low point");
+    case 8:
+      return QStringLiteral("Model key point");
+    case 9:
+      return QStringLiteral("Water");
+    case 17:
+      return QStringLiteral("Bridge deck");
+    default:
+      return QStringLiteral("Class %1").arg(classification);
+  }
+}
+
+}  // namespace
+
+Q_DECLARE_METATYPE(std::shared_ptr<Layer>)
+
 Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
   gl_widget = std::make_unique<GLWidget>(this);
-  // setCentralWidget(gl_widget.get());
   setWindowTitle(tr("Blaze 3D"));
   try {
     if (!QIcon::hasThemeIcon("list-add")) {
@@ -18,8 +112,46 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
     ui->setupUi(this);
 
     connect(ui->actionOpen, &QAction::triggered, this, &Main3DWindow::open_layer_file);
-    // connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
-    ui->horizontalLayout->addWidget(gl_widget.get());
+    connect(ui->actionImportBlazeOutput, &QAction::triggered, this,
+            &Main3DWindow::import_blaze_output);
+    connect(ui->actionRunBlaze, &QAction::triggered, this, &Main3DWindow::run_blaze_on_layers);
+    if (!m_blaze_process) {
+      m_blaze_process = std::make_unique<QProcess>(this);
+      m_blaze_process->setProcessChannelMode(QProcess::MergedChannels);
+      connect(m_blaze_process.get(), &QProcess::readyReadStandardOutput, this, [this] {
+        const QByteArray chunk = m_blaze_process->readAllStandardOutput();
+        m_blaze_output.append(QString::fromLocal8Bit(chunk));
+        // Echo Blaze's output to Blaze3D's console so it can be followed live.
+        std::cout << chunk.toStdString() << std::flush;
+      });
+      connect(m_blaze_process.get(), &QProcess::finished, this,
+              &Main3DWindow::on_blaze_process_finished);
+    }
+    ui->horizontalLayout->addWidget(gl_widget.get(), 1);
+    gl_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    gl_widget->setMinimumSize(320, 240);
+    gl_widget->set_point_pick_callback([this](const std::optional<PointPickResult>& pick) {
+      if (pick) {
+        show_point_pick_details(*pick);
+      } else {
+        clear_point_pick_details();
+      }
+    });
+
+    qRegisterMetaType<std::shared_ptr<Layer>>();
+    ui->treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->treeWidget, &QTreeWidget::customContextMenuRequested, this,
+            &Main3DWindow::on_treeWidget_customContextMenuRequested);
+    connect(ui->treeWidget, &QTreeWidget::currentItemChanged, this,
+            [this](QTreeWidgetItem* current, QTreeWidgetItem* previous) {
+              (void)previous;
+              (void)current;
+              update_point_cloud_panel_for_selection();
+            });
+    setup_point_cloud_panel();
+    setup_point_details_panel();
+    auto* remove_shortcut = new QShortcut(QKeySequence::Delete, ui->treeWidget);
+    connect(remove_shortcut, &QShortcut::activated, this, &Main3DWindow::remove_selected_layer);
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error", e.what());
@@ -29,23 +161,512 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
 
 Main3DWindow::~Main3DWindow() {}
 
+void Main3DWindow::setup_point_cloud_panel() {
+  m_point_cloud_panel = new QGroupBox(tr("Point Cloud"), this);
+  auto* layout = new QVBoxLayout(m_point_cloud_panel);
+
+  auto* size_label = new QLabel(tr("Point size"), m_point_cloud_panel);
+  m_point_size_slider = new QSlider(Qt::Horizontal, m_point_cloud_panel);
+  m_point_size_slider->setRange(5, 800);
+  m_point_size_slider->setValue(100);
+  layout->addWidget(size_label);
+  layout->addWidget(m_point_size_slider);
+
+  auto* alpha_label = new QLabel(tr("Opacity"), m_point_cloud_panel);
+  m_point_alpha_slider = new QSlider(Qt::Horizontal, m_point_cloud_panel);
+  m_point_alpha_slider->setRange(0, 100);
+  m_point_alpha_slider->setValue(100);
+  layout->addWidget(alpha_label);
+  layout->addWidget(m_point_alpha_slider);
+
+  auto* budget_label = new QLabel(tr("Stream budget (ms)"), m_point_cloud_panel);
+  m_point_stream_budget_slider = new QSlider(Qt::Horizontal, m_point_cloud_panel);
+  m_point_stream_budget_slider->setRange(8, 200);
+  m_point_stream_budget_slider->setValue(40);
+  m_point_stream_budget_slider->setToolTip(
+      tr("Target GPU time per streaming frame. Higher = denser points when zoomed out, slower."));
+  layout->addWidget(budget_label);
+  layout->addWidget(m_point_stream_budget_slider);
+
+  auto* color_label = new QLabel(tr("Color mode"), m_point_cloud_panel);
+  m_point_color_mode_combo = new QComboBox(m_point_cloud_panel);
+  m_point_color_mode_combo->addItem(tr("From file"), static_cast<int>(PointColorMode::File));
+  m_point_color_mode_combo->addItem(tr("Classification"),
+                                    static_cast<int>(PointColorMode::Classification));
+  m_point_color_mode_combo->addItem(tr("Fixed color"), static_cast<int>(PointColorMode::Fixed));
+  layout->addWidget(color_label);
+  layout->addWidget(m_point_color_mode_combo);
+
+  m_point_fixed_color_button = new QPushButton(tr("Choose color..."), m_point_cloud_panel);
+  layout->addWidget(m_point_fixed_color_button);
+
+  ui->verticalLayout->insertWidget(1, m_point_cloud_panel);
+  m_point_cloud_panel->hide();
+
+  connect(m_point_size_slider, &QSlider::valueChanged, this,
+          [this](int) { apply_point_cloud_style_from_ui(); });
+  connect(m_point_alpha_slider, &QSlider::valueChanged, this,
+          [this](int) { apply_point_cloud_style_from_ui(); });
+  connect(m_point_stream_budget_slider, &QSlider::valueChanged, this,
+          [this](int) { apply_point_cloud_style_from_ui(); });
+  connect(m_point_color_mode_combo, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          [this](int) { apply_point_cloud_style_from_ui(); });
+  connect(m_point_fixed_color_button, &QPushButton::clicked, this, [this] {
+    auto layer = m_active_las_layer.lock();
+    if (!layer) {
+      return;
+    }
+    const std::array<uint8_t, 3>& rgb = layer->fixed_point_color();
+    const QColor initial(rgb[0], rgb[1], rgb[2]);
+    const QColor chosen = QColorDialog::getColor(initial, this, tr("Point cloud color"),
+                                                 QColorDialog::DontUseNativeDialog);
+    if (!chosen.isValid()) {
+      return;
+    }
+    layer->set_fixed_point_color({static_cast<uint8_t>(chosen.red()),
+                                  static_cast<uint8_t>(chosen.green()),
+                                  static_cast<uint8_t>(chosen.blue())});
+    layer->set_point_color_mode(PointColorMode::Fixed);
+    m_updating_point_cloud_ui = true;
+    m_point_color_mode_combo->setCurrentIndex(
+        m_point_color_mode_combo->findData(static_cast<int>(PointColorMode::Fixed)));
+    m_updating_point_cloud_ui = false;
+    update_point_cloud_panel_for_selection();
+    gl_widget->update();
+  });
+}
+
+void Main3DWindow::setup_point_details_panel() {
+  m_point_details_panel = new QGroupBox(tr("Selected Point"), this);
+  auto* layout = new QVBoxLayout(m_point_details_panel);
+  m_point_details_label =
+      new QLabel(tr("Click a point in the viewer to inspect it."), m_point_details_panel);
+  m_point_details_label->setWordWrap(true);
+  m_point_details_label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+  layout->addWidget(m_point_details_label);
+  ui->verticalLayout->insertWidget(2, m_point_details_panel);
+}
+
+void Main3DWindow::show_point_pick_details(const PointPickResult& pick) {
+  if (!m_point_details_label) {
+    return;
+  }
+
+  const OctreePoint& point = pick.point;
+  QString color_line;
+  if (point.has_file_rgb) {
+    color_line = tr("RGB: %1, %2, %3").arg(point.file_r).arg(point.file_g).arg(point.file_b);
+  } else {
+    color_line = tr("RGB: (not stored)");
+  }
+
+  m_point_details_label->setText(tr("Layer: %1\n"
+                                    "World X: %2\n"
+                                    "World Y: %3\n"
+                                    "World Z: %4\n"
+                                    "Intensity: %5\n"
+                                    "Classification: %6 (%7)\n"
+                                    "%8")
+                                     .arg(QString::fromStdString(pick.layer_name))
+                                     .arg(pick.world_x, 0, 'f', 3)
+                                     .arg(pick.world_y, 0, 'f', 3)
+                                     .arg(pick.world_z, 0, 'f', 3)
+                                     .arg(point.intensity)
+                                     .arg(point.classification)
+                                     .arg(classification_label(point.classification))
+                                     .arg(color_line));
+}
+
+void Main3DWindow::clear_point_pick_details() {
+  if (m_point_details_label) {
+    m_point_details_label->setText(tr("Click a point in the viewer to inspect it."));
+  }
+}
+
+void Main3DWindow::update_point_cloud_panel_for_selection() {
+  QTreeWidgetItem* item = ui->treeWidget->currentItem();
+  std::shared_ptr<LASLayer> las_layer;
+  if (item) {
+    const auto layer = item->data(0, Qt::UserRole).value<std::shared_ptr<Layer>>();
+    las_layer = std::dynamic_pointer_cast<LASLayer>(layer);
+  }
+  m_active_las_layer = las_layer;
+  if (!las_layer) {
+    m_point_cloud_panel->hide();
+    return;
+  }
+
+  m_updating_point_cloud_ui = true;
+  m_point_size_slider->setValue(
+      static_cast<int>(std::lround(las_layer->point_size_scale() * 100.0f)));
+  m_point_alpha_slider->setValue(static_cast<int>(std::lround(las_layer->point_alpha() * 100.0f)));
+  m_point_stream_budget_slider->setValue(
+      static_cast<int>(std::lround(las_layer->point_stream_budget_ms())));
+  const int mode_index =
+      m_point_color_mode_combo->findData(static_cast<int>(las_layer->point_color_mode()));
+  if (mode_index >= 0) {
+    m_point_color_mode_combo->setCurrentIndex(mode_index);
+  }
+  const std::array<uint8_t, 3>& rgb = las_layer->fixed_point_color();
+  m_point_fixed_color_button->setStyleSheet(
+      QString("background-color: rgb(%1,%2,%3);").arg(rgb[0]).arg(rgb[1]).arg(rgb[2]));
+  m_point_fixed_color_button->setEnabled(las_layer->point_color_mode() == PointColorMode::Fixed);
+  m_point_cloud_panel->show();
+  m_updating_point_cloud_ui = false;
+}
+
+void Main3DWindow::apply_point_cloud_style_from_ui() {
+  if (m_updating_point_cloud_ui) {
+    return;
+  }
+  auto layer = m_active_las_layer.lock();
+  if (!layer || !m_point_size_slider || !m_point_alpha_slider || !m_point_stream_budget_slider ||
+      !m_point_color_mode_combo) {
+    return;
+  }
+  layer->set_point_size_scale(static_cast<float>(m_point_size_slider->value()) / 100.0f);
+  layer->set_point_alpha(static_cast<float>(m_point_alpha_slider->value()) / 100.0f);
+  layer->set_point_stream_budget_ms(static_cast<float>(m_point_stream_budget_slider->value()));
+  const PointColorMode mode =
+      static_cast<PointColorMode>(m_point_color_mode_combo->currentData().toInt());
+  layer->set_point_color_mode(mode);
+  m_point_fixed_color_button->setEnabled(mode == PointColorMode::Fixed);
+  gl_widget->update();
+}
+
 AsyncProgressTracker Main3DWindow::add_progress_tracker() {
   ProgressTrackerBar* bar = new ProgressTrackerBar(ui->statusBar);
   ui->statusBar->addPermanentWidget(bar);
+  m_layer_progress_bars.push_back(bar);
   return bar->tracker();
 }
 
-void Main3DWindow::add_layer(std::unique_ptr<Layer> layer) {
+void Main3DWindow::add_layer_to_tree(std::shared_ptr<Layer> layer) {
   QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget);
   item->setText(0, QString::fromStdString(layer->name()));
+  item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+  item->setCheckState(0, layer->visible() ? Qt::Checked : Qt::Unchecked);
+  item->setData(0, Qt::UserRole, QVariant::fromValue(layer));
   ui->treeWidget->addTopLevelItem(item);
   ui->treeWidget->resizeColumnToContents(0);
-  gl_widget->add_layer(std::move(layer));
+}
+
+void Main3DWindow::add_layer(std::unique_ptr<Layer> layer) {
+  auto shared = std::shared_ptr<Layer>(std::move(layer));
+  m_layers.push_back(shared);
+  add_layer_to_tree(shared);
+  gl_widget->add_layer(shared);
+  connect(shared.get(), &Layer::data_updated, this, &Main3DWindow::maybe_exit_after_load);
+  update_render_mode();
+  maybe_exit_after_load();
 }
 
 void Main3DWindow::open_layer_file() {
   std::string filename =
       QFileDialog::getOpenFileName(this, "Open LAS file", "", "LIDAR Point Clouds (*.las, *.laz)")
           .toStdString();
-  add_layer(std::make_unique<LASLayer>(filename, add_progress_tracker()));
+  if (filename.empty()) {
+    return;
+  }
+  m_defer_render_until_loaded = false;
+  add_layer(std::make_unique<LASLayer>(filename, add_progress_tracker(), scene_reference_crs()));
+}
+
+void Main3DWindow::import_blaze_output() {
+  QString dir = QFileDialog::getExistingDirectory(this, "Import Blaze Output Folder", QString());
+  if (dir.isEmpty()) {
+    return;
+  }
+  import_blaze_output_from_path(dir.toStdString());
+}
+
+void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
+  m_defer_render_until_loaded = true;
+  const BlazeOutputDiscovery discovery = discover_blaze_output_with_info(directory);
+  const BlazeOutputSet& outputs = discovery.outputs;
+  if (!outputs.filled_dem && !outputs.contours) {
+    const std::string message = format_blaze_output_discovery_error(directory, discovery);
+    if (isVisible()) {
+      QMessageBox::warning(this, "No outputs found", QString::fromStdString(message));
+    } else {
+      std::cerr << message << std::endl;
+      exit(1);
+    }
+    return;
+  }
+  if (outputs.filled_dem) {
+    if (outputs.final_img) {
+      add_layer(std::make_unique<TexturedDemLayer>(*outputs.filled_dem, *outputs.final_img,
+                                                   add_progress_tracker(), scene_reference_crs()));
+    } else {
+      add_layer(std::make_unique<DemLayer>(*outputs.filled_dem, add_progress_tracker(),
+                                           std::nullopt, scene_reference_crs()));
+    }
+
+    if (outputs.slope) {
+      const fs::path& slope_dem =
+          outputs.smooth_ground ? *outputs.smooth_ground : *outputs.filled_dem;
+      auto slope_layer = std::make_unique<SlopeLayer>(
+          slope_dem, *outputs.slope, add_progress_tracker(), scene_reference_crs());
+      if (outputs.final_img) {
+        slope_layer->set_visible(false);
+      }
+      add_layer(std::move(slope_layer));
+    }
+  }
+
+  if (outputs.contours) {
+    add_layer(std::make_unique<ContourLayer>(*outputs.contours, add_progress_tracker(),
+                                             scene_reference_crs()));
+  }
+  update_render_mode();
+  maybe_exit_after_load();
+}
+
+void Main3DWindow::set_exit_after_load(bool exit_after_load) {
+  m_exit_after_load = exit_after_load;
+  update_render_mode();
+}
+
+void Main3DWindow::set_defer_render_until_loaded(bool defer) {
+  m_defer_render_until_loaded = defer;
+  update_render_mode();
+}
+
+void Main3DWindow::update_render_mode() {
+  if (!gl_widget) {
+    return;
+  }
+  const bool all_ready = !m_layers.empty() && std::all_of(m_layers.begin(), m_layers.end(),
+                                                          [](const std::shared_ptr<Layer>& layer) {
+                                                            return layer_is_ready(*layer);
+                                                          });
+  const char* platform = std::getenv("QT_QPA_PLATFORM");
+  const bool offscreen = platform != nullptr && std::string(platform) == "offscreen";
+  const bool load_only = offscreen || (m_defer_render_until_loaded && !all_ready) ||
+                         (m_exit_after_load && !m_exit_after_render);
+  gl_widget->set_load_only_mode(load_only);
+  if (all_ready && !offscreen) {
+    gl_widget->update();
+  }
+}
+
+bool Main3DWindow::layer_is_ready(const Layer& layer) {
+  switch (layer.kind()) {
+    case LayerKind::DemSurface:
+      return static_cast<const DemLayer&>(layer).raster().ready();
+    case LayerKind::SlopeSurface:
+      return static_cast<const SlopeLayer&>(layer).raster().ready();
+    case LayerKind::TexturedDem:
+      return static_cast<const TexturedDemLayer&>(layer).raster().ready();
+    case LayerKind::Contours:
+      return static_cast<const ContourLayer&>(layer).ready();
+    case LayerKind::PointCloud:
+      return static_cast<const LASLayer&>(layer).las_data().load_complete();
+  }
+  return true;
+}
+
+void Main3DWindow::maybe_exit_after_load() {
+  update_render_mode();
+  if (!m_exit_after_load || m_layers.empty()) {
+    return;
+  }
+  for (const auto& layer : m_layers) {
+    if (!layer_is_ready(*layer)) {
+      return;
+    }
+  }
+  if (!m_exit_after_render) {
+    m_exit_after_render = true;
+    update_render_mode();
+    connect(gl_widget.get(), &QOpenGLWidget::frameSwapped, this,
+            &Main3DWindow::finish_exit_after_load, Qt::SingleShotConnection);
+    gl_widget->update();
+    return;
+  }
+}
+
+void Main3DWindow::finish_exit_after_load() {
+  if (!m_exit_after_load) {
+    return;
+  }
+  std::cout << "All layers loaded successfully." << std::endl;
+  QApplication::quit();
+}
+
+void Main3DWindow::run_blaze_on_layers() {
+  const std::vector<fs::path> las_files = collect_open_las_files(m_layers);
+  if (las_files.empty()) {
+    QMessageBox::warning(this, "No LAS layers",
+                         "Open one or more LAS/LAZ point cloud layers before running Blaze.");
+    return;
+  }
+
+  if (m_blaze_process->state() != QProcess::NotRunning) {
+    QMessageBox::information(this, "Blaze running",
+                             "Blaze is already running. Wait for it to finish before starting "
+                             "another run.");
+    return;
+  }
+
+  const QString blaze_exe = blaze_gui_executable_path();
+  if (!QFileInfo::exists(blaze_exe)) {
+    QMessageBox::critical(this, "Blaze not found",
+                          "Could not find the Blaze GUI executable next to Blaze3D:\n" + blaze_exe);
+    return;
+  }
+
+  const fs::path output_dir = fs::absolute(las_files.front().parent_path() / "out");
+  m_pending_blaze_output = output_dir;
+  m_blaze_output.clear();
+
+  QStringList args;
+  for (const fs::path& las_file : las_files) {
+    args << "--las-file" << QString::fromStdString(las_file.string());
+  }
+
+  QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+  env.insert("BLAZE3D_EXPECT_OUTPUT", QString::fromStdString(output_dir.string()));
+  env.insert("BLAZE_EXIT_AFTER_RUN", "1");
+  m_blaze_process->setProcessEnvironment(env);
+  m_blaze_process->setProgram(blaze_exe);
+  m_blaze_process->setArguments(args);
+  m_blaze_process->start();
+
+  if (m_blaze_process->state() == QProcess::NotRunning) {
+    m_pending_blaze_output.reset();
+    QMessageBox::critical(this, "Launch failed",
+                          "Failed to start Blaze.\n\nExecutable: " + blaze_exe);
+  }
+}
+
+void Main3DWindow::on_blaze_process_finished(int exit_code, QProcess::ExitStatus status) {
+  const std::optional<fs::path> output_dir = std::exchange(m_pending_blaze_output, std::nullopt);
+  if (!output_dir) {
+    return;
+  }
+  if (status != QProcess::NormalExit || exit_code != 0) {
+    QString detail = m_blaze_output.trimmed();
+    // Keep the dialog readable: only show the tail of the captured log.
+    constexpr int kMaxDetailChars = 2000;
+    if (detail.size() > kMaxDetailChars) {
+      detail = "...\n" + detail.right(kMaxDetailChars);
+    }
+    QString message =
+        status != QProcess::NormalExit
+            ? QString("Blaze crashed before finishing. Output was not imported.")
+            : QString("Blaze exited with code %1. Output was not imported.").arg(exit_code);
+    if (!detail.isEmpty()) {
+      message += "\n\nBlaze output:\n" + detail;
+    }
+    QMessageBox::warning(this, "Blaze failed", message);
+    return;
+  }
+
+  import_blaze_output_from_path(output_dir->string());
+  QMessageBox::information(this, "Blaze output imported",
+                           QString("Imported blaze outputs from:\n%1")
+                               .arg(QString::fromStdString(output_dir->string())));
+}
+
+void Main3DWindow::on_treeWidget_itemChanged(QTreeWidgetItem* item, int column) {
+  if (column != 0) {
+    return;
+  }
+  const auto layer = item->data(0, Qt::UserRole).value<std::shared_ptr<Layer>>();
+  if (!layer) {
+    return;
+  }
+  const bool visible = item->checkState(0) == Qt::Checked;
+  layer->set_visible(visible);
+  gl_widget->set_layer_visible(layer.get(), visible);
+
+  if (visible && is_draped_surface_layer(layer->kind())) {
+    for (const std::shared_ptr<Layer>& other : m_layers) {
+      if (!other || other == layer || !is_draped_surface_layer(other->kind()) ||
+          !other->visible()) {
+        continue;
+      }
+      other->set_visible(false);
+      gl_widget->set_layer_visible(other.get(), false);
+      if (QTreeWidgetItem* other_item = find_tree_item_for_layer(other.get())) {
+        QSignalBlocker blocker(ui->treeWidget);
+        other_item->setCheckState(0, Qt::Unchecked);
+      }
+    }
+  }
+}
+
+QTreeWidgetItem* Main3DWindow::find_tree_item_for_layer(Layer* layer) const {
+  for (int i = 0; i < ui->treeWidget->topLevelItemCount(); ++i) {
+    QTreeWidgetItem* item = ui->treeWidget->topLevelItem(i);
+    const auto item_layer = item->data(0, Qt::UserRole).value<std::shared_ptr<Layer>>();
+    if (item_layer && item_layer.get() == layer) {
+      return item;
+    }
+  }
+  return nullptr;
+}
+
+void Main3DWindow::remove_layer(const std::shared_ptr<Layer>& layer) {
+  if (!layer) {
+    return;
+  }
+  const auto it =
+      std::find_if(m_layers.begin(), m_layers.end(),
+                   [&layer](const std::shared_ptr<Layer>& ptr) { return ptr == layer; });
+  if (it == m_layers.end()) {
+    return;
+  }
+  const size_t index = static_cast<size_t>(std::distance(m_layers.begin(), it));
+
+  disconnect(layer.get(), &Layer::data_updated, this, &Main3DWindow::maybe_exit_after_load);
+
+  if (QTreeWidgetItem* item = find_tree_item_for_layer(layer.get())) {
+    item->setData(0, Qt::UserRole, QVariant());
+    delete ui->treeWidget->takeTopLevelItem(ui->treeWidget->indexOfTopLevelItem(item));
+  }
+
+  gl_widget->remove_layer(layer.get());
+  m_layers.erase(it);
+
+  if (index < m_layer_progress_bars.size()) {
+    ui->statusBar->removeWidget(m_layer_progress_bars[index]);
+    delete m_layer_progress_bars[index];
+    m_layer_progress_bars.erase(m_layer_progress_bars.begin() + static_cast<std::ptrdiff_t>(index));
+  }
+
+  update_render_mode();
+}
+
+void Main3DWindow::remove_selected_layer() {
+  const QList<QTreeWidgetItem*> selected = ui->treeWidget->selectedItems();
+  if (selected.isEmpty()) {
+    return;
+  }
+  const auto layer = selected.front()->data(0, Qt::UserRole).value<std::shared_ptr<Layer>>();
+  remove_layer(layer);
+}
+
+void Main3DWindow::on_treeWidget_customContextMenuRequested(const QPoint& pos) {
+  QTreeWidgetItem* item = ui->treeWidget->itemAt(pos);
+  if (!item) {
+    return;
+  }
+  ui->treeWidget->setCurrentItem(item);
+
+  QMenu menu(this);
+  QAction* zoom_action = menu.addAction(tr("Zoom to Layer"));
+  menu.addSeparator();
+  QAction* remove_action = menu.addAction(tr("Remove Layer"));
+  QAction* chosen = menu.exec(ui->treeWidget->viewport()->mapToGlobal(pos));
+  if (chosen == zoom_action) {
+    const auto layer = item->data(0, Qt::UserRole).value<std::shared_ptr<Layer>>();
+    if (layer) {
+      gl_widget->zoom_to_layer(layer.get());
+    }
+  } else if (chosen == remove_action) {
+    remove_selected_layer();
+  }
 }

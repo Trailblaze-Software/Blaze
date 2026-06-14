@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMatrix4x4>
+#include <algorithm>
 
 #include "utilities/coordinate.hpp"
 
@@ -74,7 +75,9 @@ class Camera {
   }
 
   void zoom_to_fit(const Extent3D& extent) {
-    // Coordinate3D<double> center = extent.center();
+    if (extent.max_extent() <= 0 || m_width <= 0 || m_height <= 0) {
+      return;
+    }
     double max_extent = extent.max_extent();
     QVector3D qcenter(extent.maxx + extent.minx, extent.maxy + extent.miny,
                       extent.maxz + extent.minz);
@@ -87,9 +90,8 @@ class Camera {
     for (size_t i = 0; i < 2; i++) {
       for (size_t j = 0; j < 2; j++) {
         for (size_t k = 0; k < 2; k++) {
-          QVector3D corner(i == 0 ? 0 : extent.maxx - extent.minx,
-                           j == 0 ? 0 : extent.maxy - extent.miny,
-                           k == 0 ? 0 : extent.maxz - extent.minz);
+          QVector3D corner(i == 0 ? extent.minx : extent.maxx, j == 0 ? extent.miny : extent.maxy,
+                           k == 0 ? extent.minz : extent.maxz);
           QVector3D screen_pos = proj.map(corner);
           zoom_out_amount = std::max(zoom_out_amount,
                                      std::max(std::abs(screen_pos.x()), std::abs(screen_pos.y())));
@@ -99,10 +101,6 @@ class Camera {
 
     m_position = qcenter - m_direction.normalized() * 10 * max_extent * zoom_out_amount;
     m_direction = qcenter - m_position;
-    std::cout << "New position: " << m_position.x() << " " << m_position.y() << " "
-              << m_position.z() << std::endl;
-    std::cout << "New direction: " << m_direction.x() << " " << m_direction.y() << " "
-              << m_direction.z() << std::endl;
   }
 
   void rotate_view(double dx, double dy) { rotate_around_center(dx, dy, m_position); }
@@ -115,8 +113,6 @@ class Camera {
 
  private:
   double bound_rotation(double current_angle, double angle, double min_angle, double max_angle) {
-    std::cout << "Bounding rotation: " << current_angle << " " << angle << " " << min_angle << " "
-              << max_angle << std::endl;
     if (current_angle + angle > max_angle) {
       angle = max_angle - current_angle;
     } else if (current_angle + angle < min_angle) {
@@ -139,11 +135,47 @@ class Camera {
     m_position = cor - (m_position - cor).length() * m_direction.normalized();
   }
 
+  // Reorient the view to look at target without moving the camera position.
+  // The target becomes the orbit pivot (m_position + m_direction).
+  void look_at_target(const QVector3D& target) {
+    const QVector3D offset = target - m_position;
+    if (offset.lengthSquared() < 1e-8f) {
+      return;
+    }
+    m_direction = offset;
+  }
+
   QMatrix4x4 proj_matrix() const {
     QMatrix4x4 proj;
-    proj.perspective(m_fov, (double)m_width / m_height, 1e-2f, 1e5f);
+    const double view_distance = std::max(static_cast<double>(m_direction.length()), 0.1);
+    const float near_plane =
+        static_cast<float>(std::clamp(view_distance * 0.002, 0.05, view_distance * 0.25));
+    const float far_plane = static_cast<float>(std::max(1e6, view_distance * 1e4));
+    proj.perspective(m_fov, (double)m_width / m_height, near_plane, far_plane);
     proj.lookAt(m_position, m_position + m_direction, m_up);
     return proj;
+  }
+
+  int screen_width() const { return m_width; }
+  int screen_height() const { return m_height; }
+
+  struct PickRay {
+    QVector3D origin;
+    QVector3D direction;
+  };
+
+  PickRay pick_ray(const QPointF& screen_pos) const {
+    const QRect viewport(0, 0, m_width, m_height);
+    QMatrix4x4 identity;
+    identity.setToIdentity();
+    const QMatrix4x4 proj = proj_matrix();
+    const float win_y = static_cast<float>(m_height) - static_cast<float>(screen_pos.y());
+    const QVector3D win_near(static_cast<float>(screen_pos.x()), win_y, 0.0f);
+    const QVector3D win_far(static_cast<float>(screen_pos.x()), win_y, 1.0f);
+    const QVector3D origin = win_near.unproject(proj, identity, viewport);
+    const QVector3D far_pt = win_far.unproject(proj, identity, viewport);
+    const QVector3D direction = (far_pt - origin).normalized();
+    return {origin, direction};
   }
 
   QVector3D unproject(const QPointF& screen_pos) const {
@@ -154,4 +186,5 @@ class Camera {
   const QVector3D& position() const { return m_position; }
   const QVector3D& direction() const { return m_direction; }
   const QVector3D& up() const { return m_up; }
+  QVector3D focal_point() const { return m_position + m_direction; }
 };

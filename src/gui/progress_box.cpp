@@ -146,17 +146,24 @@ class TaskException : public QException {
   inline virtual const char* what() const noexcept { return m_what.c_str(); }
 };
 
-void ProgressBox::start_task(std::function<void()> task, std::function<void()> on_finish) {
+void ProgressBox::start_task(std::function<void()> task, std::function<void()> on_finish,
+                             std::function<void(const QString&)> on_error) {
   m_start_time = std::chrono::steady_clock::now();
   QFutureWatcher<int>* watcher = new QFutureWatcher<int>(this);
-  connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher, on_finish] {
+  connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher, on_finish, on_error] {
     if (watcher->future().isCanceled()) {
+      QString message = "Unknown error";
       try {
         watcher->future().result();
       } catch (TaskException& e) {
-        QMessageBox::critical(this, "Error running task", e.what());
+        message = e.what();
       }
       this->done(1);
+      if (on_error) {
+        on_error(message);
+      } else {
+        QMessageBox::critical(this, "Error running task", message);
+      }
     } else {
       this->done(0);
       on_finish();

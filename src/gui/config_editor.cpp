@@ -1,7 +1,5 @@
 #include "config_editor.hpp"
 
-#include <qdebug.h>
-
 #include <QColorDialog>
 #include <QDir>
 #include <QDoubleValidator>
@@ -17,6 +15,7 @@
 #include <QStandardPaths>
 #include <QTabWidget>
 #include <QTableWidget>
+#include <cstdlib>
 #include <filesystem>
 #include <set>
 
@@ -396,16 +395,19 @@ ConfigEditor::~ConfigEditor() {
 }
 
 Config ConfigEditor::load_initial_config() {
+  Config config = Config::Default();
   const fs::path path = last_used_config_path();
-  if (path.empty() || !fs::exists(path)) {
-    return Config::Default();
+  if (!path.empty() && fs::exists(path)) {
+    try {
+      config = Config::FromFile(path);
+    } catch (const std::exception& e) {
+      std::cerr << "Failed to load last-used config from " << path << ": " << e.what() << std::endl;
+    }
   }
-  try {
-    return Config::FromFile(path);
-  } catch (const std::exception& e) {
-    std::cerr << "Failed to load last-used config from " << path << ": " << e.what() << std::endl;
-    return Config::Default();
+  if (const char* env = std::getenv("BLAZE3D_EXPECT_OUTPUT")) {
+    config.set_output_directory(env);
   }
+  return config;
 }
 
 void ConfigEditor::save_last_used_config() {
@@ -450,6 +452,11 @@ void ConfigEditor::open_config_file() {
     return;
   }
   m_config = std::make_unique<Config>(Config::FromFile(config_file_name.toStdString()));
+  set_ui_to_config(*m_config);
+}
+
+void ConfigEditor::set_las_files(const std::vector<fs::path>& files) {
+  m_config->las_files = files;
   set_ui_to_config(*m_config);
 }
 

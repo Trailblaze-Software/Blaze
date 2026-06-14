@@ -1,0 +1,1413 @@
+#include "gui/layer_renderer.hpp"
+
+#include <QOpenGLContext>
+#include <QPoint>
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <cstddef>
+#include <limits>
+#include <mutex>
+#include <unordered_map>
+
+namespace {
+
+constexpr double kDrawCallOverheadMs = 0.012;
+constexpr size_t kMaxPreviewDrawVertices = 500'000;
+constexpr size_t kMaxDrawSamples = 20;
+constexpr float kStreamViewResetDistance = 25.0f;
+
+const char* kPointVertexShader = R"(
+    #version 330 core
+    in vec3 local_position;
+    in float intensity;
+    in float classification;
+    in vec3 file_color;
+    in float has_file_rgb;
+    uniform float point_radius;
+    uniform mat4 proj_matrix;
+    uniform vec3 point_offset;
+    uniform int color_mode;
+    uniform vec3 fixed_color;
+    uniform float point_alpha;
+    flat out int vtx_class_id;
+    out vec4 vtx_color;
+
+    vec3 classification_color(int class_id) {
+        if (class_id == 2) return vec3(160.0, 120.0, 80.0) / 255.0;
+        if (class_id == 3) return vec3(100.0, 180.0, 100.0) / 255.0;
+        if (class_id == 4) return vec3(60.0, 140.0, 60.0) / 255.0;
+        if (class_id == 5) return vec3(30.0, 100.0, 30.0) / 255.0;
+        if (class_id == 6) return vec3(200.0, 80.0, 80.0) / 255.0;
+        if (class_id == 7) return vec3(120.0, 120.0, 120.0) / 255.0;
+        if (class_id == 8) return vec3(255.0, 200.0, 0.0) / 255.0;
+        if (class_id == 9) return vec3(60.0, 120.0, 220.0) / 255.0;
+        if (class_id == 17) return vec3(180.0, 180.0, 180.0) / 255.0;
+        return vec3(200.0, 200.0, 200.0) / 255.0;
+    }
+
+    void main() {
+        vec3 position = local_position + point_offset;
+        vec3 rgb = fixed_color;
+        if (color_mode == 0) {
+            if (has_file_rgb > 0.5) {
+                rgb = file_color;
+            } else {
+                rgb = vec3(intensity);
+            }
+        } else if (color_mode == 1) {
+            rgb = classification_color(int(classification + 0.5));
+        }
+        vtx_class_id = int(classification + 0.5);
+        vtx_color = vec4(rgb, point_alpha);
+        gl_Position = proj_matrix * vec4(position, 1.0);
+        gl_PointSize = clamp(point_radius / gl_Position.w, 1.0, 512.0);
+    }
+)";
+
+const char* kPointFragmentShader = R"(
+    #version 330 core
+    flat in int vtx_class_id;
+    in vec4 vtx_color;
+    uniform int color_mode;
+    out vec4 fragColor;
+    void main() {
+        if (length(gl_PointCoord - vec2(0.5)) > 0.5) discard;
+        fragColor = vtx_color;
+    }
+)";
+
+const char* kMeshVertexShader = R"(
+    #version 330 core
+    in vec3 position;
+    in vec3 color;
+    uniform mat4 proj_matrix;
+    out vec3 vtx_color;
+    out vec3 vtx_world_pos;
+    void main() {
+        vtx_color = color;
+        vtx_world_pos = position;
+        gl_Position = proj_matrix * vec4(position, 1.0);
+    }
+)";
+
+const char* kMeshFragmentShader = R"(
+    #version 330 core
+    in vec3 vtx_color;
+    in vec3 vtx_world_pos;
+    out vec4 fragColor;
+    void main() {
+        vec3 dx = dFdx(vtx_world_pos);
+        vec3 dy = dFdy(vtx_world_pos);
+        vec3 n = normalize(cross(dx, dy));
+        if (!gl_FrontFacing) {
+            n = -n;
+        }
+        vec3 light_dir = normalize(vec3(0.65, 0.35, 0.67));
+        float diffuse = clamp(dot(n, light_dir), 0.0, 1.0);
+        float lighting = mix(0.45, 1.1, diffuse);
+        fragColor = vec4(vtx_color * lighting, 0.92);
+    }
+)";
+
+const char* kTexturedMeshVertexShader = R"(
+    #version 330 core
+    in vec3 position;
+    in vec2 texcoord;
+    uniform mat4 proj_matrix;
+    out vec2 vtx_texcoord;
+    out vec3 vtx_world_pos;
+    void main() {
+        vtx_texcoord = texcoord;
+        vtx_world_pos = position;
+        gl_Position = proj_matrix * vec4(position, 1.0);
+    }
+)";
+
+const char* kTexturedMeshFragmentShader = R"(
+    #version 330 core
+    in vec2 vtx_texcoord;
+    in vec3 vtx_world_pos;
+    uniform sampler2D dem_texture;
+    out vec4 fragColor;
+    void main() {
+        vec3 color = texture(dem_texture, vtx_texcoord).rgb;
+        vec3 dx = dFdx(vtx_world_pos);
+        vec3 dy = dFdy(vtx_world_pos);
+        vec3 n = normalize(cross(dx, dy));
+        if (!gl_FrontFacing) {
+            n = -n;
+        }
+        vec3 light_dir = normalize(vec3(0.65, 0.35, 0.67));
+        float diffuse = clamp(dot(n, light_dir), 0.0, 1.0);
+        float lighting = mix(0.45, 1.1, diffuse);
+        fragColor = vec4(color * lighting, 0.95);
+    }
+)";
+
+const char* kCrosshairLineVertexShader = R"(
+    #version 330 core
+    in vec3 position;
+    uniform mat4 proj_matrix;
+    void main() {
+        gl_Position = proj_matrix * vec4(position, 1.0);
+    }
+)";
+
+const char* kCrosshairLineFragmentShader = R"(
+    #version 330 core
+    uniform vec3 line_color;
+    out vec4 fragColor;
+    void main() {
+        fragColor = vec4(line_color, 1.0);
+    }
+)";
+
+const char* kLineVertexShader = R"(
+    #version 330 core
+    in vec3 position;
+    uniform mat4 proj_matrix;
+    void main() {
+        gl_Position = proj_matrix * vec4(position, 1.0);
+    }
+)";
+
+const char* kLineFragmentShader = R"(
+    #version 330 core
+    out vec4 fragColor;
+    void main() {
+        fragColor = vec4(0.6, 0.35, 0.1, 1.0);
+    }
+)";
+
+bool bind_shader(QOpenGLShaderProgram* shader) {
+  if (!shader->bind()) {
+    std::cout << "Shader bind error: " << shader->log().toStdString() << std::endl;
+    return false;
+  }
+  return true;
+}
+
+}  // namespace
+
+std::unique_ptr<LayerRenderer> LayerRenderer::create(std::shared_ptr<Layer> layer,
+                                                     const Coordinate3D<double>& offset) {
+  if (auto las_layer = std::dynamic_pointer_cast<LASLayer>(layer)) {
+    return std::make_unique<OctreeLASLayerRenderer>(las_layer, offset);
+  }
+  if (auto dem_layer = std::dynamic_pointer_cast<DemLayer>(layer)) {
+    return std::make_unique<MeshLayerRenderer>(
+        [dem_layer]() -> const AsyncRasterData* { return &dem_layer->raster(); }, offset);
+  }
+  if (auto slope_layer = std::dynamic_pointer_cast<SlopeLayer>(layer)) {
+    return std::make_unique<MeshLayerRenderer>(
+        [slope_layer]() -> const AsyncRasterData* { return &slope_layer->raster(); }, offset);
+  }
+  if (auto textured_layer = std::dynamic_pointer_cast<TexturedDemLayer>(layer)) {
+    return std::make_unique<MeshLayerRenderer>(
+        [textured_layer]() -> const AsyncRasterData* { return &textured_layer->raster(); }, offset,
+        true);
+  }
+  if (auto contour_layer = std::dynamic_pointer_cast<ContourLayer>(layer)) {
+    return std::make_unique<ContourLayerRenderer>(contour_layer, offset);
+  }
+  return nullptr;
+}
+
+OctreeLASLayerRenderer::OctreeLASLayerRenderer(std::shared_ptr<LASLayer> layer,
+                                               const Coordinate3D<double>& /*offset*/)
+    : m_layer(layer) {}
+
+void OctreeLASLayerRenderer::ensure_shader() {
+  if (m_shader) {
+    return;
+  }
+  m_shader = std::make_unique<QOpenGLShaderProgram>();
+  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kPointVertexShader) ||
+      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kPointFragmentShader)) {
+    std::cout << "Point shader error: " << m_shader->log().toStdString() << std::endl;
+    m_shader.reset();
+    return;
+  }
+  m_shader->bindAttributeLocation("local_position", 0);
+  m_shader->bindAttributeLocation("intensity", 1);
+  m_shader->bindAttributeLocation("classification", 2);
+  m_shader->bindAttributeLocation("file_color", 3);
+  m_shader->bindAttributeLocation("has_file_rgb", 4);
+  if (!m_shader->link()) {
+    std::cout << "Point shader link error: " << m_shader->log().toStdString() << std::endl;
+    m_shader.reset();
+    return;
+  }
+  m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
+  m_point_radius_loc = m_shader->uniformLocation("point_radius");
+  m_color_mode_loc = m_shader->uniformLocation("color_mode");
+  m_fixed_color_loc = m_shader->uniformLocation("fixed_color");
+  m_point_alpha_loc = m_shader->uniformLocation("point_alpha");
+  m_point_offset_loc = m_shader->uniformLocation("point_offset");
+}
+
+void OctreeLASLayerRenderer::ensure_crosshair_shader() {
+  if (m_crosshair_shader) {
+    return;
+  }
+  m_crosshair_shader = std::make_unique<QOpenGLShaderProgram>();
+  if (!m_crosshair_shader->addShaderFromSourceCode(QOpenGLShader::Vertex,
+                                                   kCrosshairLineVertexShader) ||
+      !m_crosshair_shader->addShaderFromSourceCode(QOpenGLShader::Fragment,
+                                                   kCrosshairLineFragmentShader)) {
+    std::cout << "Crosshair shader error: " << m_crosshair_shader->log().toStdString() << std::endl;
+    m_crosshair_shader.reset();
+    return;
+  }
+  m_crosshair_shader->bindAttributeLocation("position", 0);
+  if (!m_crosshair_shader->link()) {
+    std::cout << "Crosshair shader link error: " << m_crosshair_shader->log().toStdString()
+              << std::endl;
+    m_crosshair_shader.reset();
+    return;
+  }
+  m_crosshair_proj_loc = m_crosshair_shader->uniformLocation("proj_matrix");
+  m_crosshair_color_loc = m_crosshair_shader->uniformLocation("line_color");
+}
+
+void OctreeLASLayerRenderer::reset_stream_cache() {
+  m_node_stream.clear();
+  m_stream_backlog = false;
+}
+
+void OctreeLASLayerRenderer::refresh_after_style_change() {
+  m_node_stream.clear();
+  m_stream_backlog = true;
+}
+
+size_t OctreeLASLayerRenderer::visible_nodes_fingerprint(
+    const std::vector<PointOctree::VisibleNode>& visible_nodes) const {
+  size_t fingerprint = visible_nodes.size();
+  for (const auto& visible : visible_nodes) {
+    fingerprint ^= std::hash<const void*>{}(visible.node) + 0x9e3779b9 + (fingerprint << 6) +
+                   (fingerprint >> 2);
+  }
+  return fingerprint;
+}
+
+bool OctreeLASLayerRenderer::stream_camera_changed(const Camera& camera) const {
+  if ((camera.position() - m_stream_camera_pos).lengthSquared() >
+      kStreamViewResetDistance * kStreamViewResetDistance) {
+    return true;
+  }
+  if ((camera.direction() - m_stream_camera_dir).lengthSquared() > 0.01f) {
+    return true;
+  }
+  return false;
+}
+
+bool OctreeLASLayerRenderer::visible_set_changed(
+    const std::vector<PointOctree::VisibleNode>& visible_nodes) const {
+  return visible_nodes_fingerprint(visible_nodes) != m_visible_fingerprint;
+}
+
+void OctreeLASLayerRenderer::sort_visible_by_lod(
+    std::vector<PointOctree::VisibleNode>& visible_nodes) {
+  if (visible_nodes.size() <= 1) {
+    return;
+  }
+  const bool needs_sort =
+      std::adjacent_find(visible_nodes.begin(), visible_nodes.end(),
+                         [](const PointOctree::VisibleNode& a, const PointOctree::VisibleNode& b) {
+                           return a.lod_distance > b.lod_distance;
+                         }) != visible_nodes.end();
+  if (!needs_sort) {
+    return;
+  }
+  std::stable_sort(visible_nodes.begin(), visible_nodes.end(),
+                   [](const PointOctree::VisibleNode& a, const PointOctree::VisibleNode& b) {
+                     if (a.lod_distance != b.lod_distance) {
+                       return a.lod_distance < b.lod_distance;
+                     }
+                     return a.node < b.node;
+                   });
+}
+
+void OctreeLASLayerRenderer::collect_visible_octree_nodes(
+    const LasRenderSnapshot& snap, const Camera& camera, double vis_quality,
+    const Coordinate3D<double>& file_origin,
+    std::vector<PointOctree::VisibleNode>& visible_nodes) const {
+  const Frustum frustum = Frustum::from_matrix(camera.proj_matrix());
+  const Coordinate3D<double> camera_local(camera.position().x(), camera.position().y(),
+                                          camera.position().z());
+  snap.octree.collect_visible(frustum, camera.projection_scale(), vis_quality,
+                              camera.world_offset(), file_origin, camera_local, visible_nodes);
+  sort_visible_by_lod(visible_nodes);
+}
+
+size_t OctreeLASLayerRenderer::estimate_draw_vertices(
+    const std::vector<PointOctree::VisibleNode>& visible_nodes, double quality,
+    bool incremental) const {
+  size_t total = 0;
+  for (const auto& visible : visible_nodes) {
+    if (!visible.node || visible.node->point_count() == 0) {
+      continue;
+    }
+    const size_t point_count = visible.node->point_count();
+    const size_t chunk_size =
+        PointOctree::node_draw_chunk_size(point_count, visible.lod_distance, quality);
+    if (incremental) {
+      const auto it = m_node_stream.find(visible.node);
+      const size_t streamed =
+          it != m_node_stream.end() ? std::min(it->second.streamed_count, point_count) : 0;
+      if (streamed >= point_count) {
+        continue;
+      }
+      total += std::min(chunk_size, point_count - streamed);
+    } else {
+      total += std::min(chunk_size, point_count);
+    }
+  }
+  return total;
+}
+
+double OctreeLASLayerRenderer::select_draw_quality(
+    const std::vector<PointOctree::VisibleNode>& visible_nodes, bool incremental,
+    bool lod_base_from_incremental, double target_draw_ms) const {
+  const double base = lod_base_from_incremental ? m_inc_lod_quality : m_lod_quality;
+  constexpr int num_samples = 4;
+  const double qualities[num_samples] = {base / 20.0, base / 4.0, base, base * 4.0};
+  double frame_time_est[num_samples] = {0};
+  for (int i = 0; i < num_samples; ++i) {
+    const size_t vertices = estimate_draw_vertices(visible_nodes, qualities[i], incremental);
+    frame_time_est[i] = static_cast<double>(vertices) * m_ms_per_vertex +
+                        (vertices > 0 ? kDrawCallOverheadMs : 0.0);
+  }
+
+  double quality = base;
+  if (target_draw_ms <= frame_time_est[0]) {
+    quality = qualities[0];
+  } else if (target_draw_ms >= frame_time_est[num_samples - 1]) {
+    quality = qualities[num_samples - 1];
+  } else {
+    int i = 0;
+    while (i < num_samples - 2 && frame_time_est[i + 1] < target_draw_ms) {
+      ++i;
+    }
+    const double denom = frame_time_est[i + 1] - frame_time_est[i];
+    const double interp = denom > 0.0 ? (target_draw_ms - frame_time_est[i]) / denom : 0.0;
+    quality = (1.0 - interp) * qualities[i] + interp * qualities[i + 1];
+  }
+  return std::clamp(quality, 0.05, 64.0);
+}
+
+void OctreeLASLayerRenderer::record_draw_sample(size_t vertices, double ms) {
+  if (vertices == 0 || ms <= 0.0) {
+    return;
+  }
+  m_draw_samples.push_back({vertices, ms});
+  while (m_draw_samples.size() > kMaxDrawSamples) {
+    m_draw_samples.pop_front();
+  }
+
+  double weighted_vertices = 0.0;
+  double weighted_ms = 0.0;
+  double weight_sum = 0.0;
+  const size_t count = m_draw_samples.size();
+  for (size_t i = 0; i < count; ++i) {
+    const double weight = std::exp(-0.2 * static_cast<double>(count - 1 - i));
+    weighted_vertices += weight * static_cast<double>(m_draw_samples[i].vertices);
+    weighted_ms += weight * m_draw_samples[i].ms;
+    weight_sum += weight;
+  }
+  if (weighted_vertices > 0.0 && weight_sum > 0.0) {
+    m_ms_per_vertex = weighted_ms / weighted_vertices;
+  }
+}
+
+size_t OctreeLASLayerRenderer::draw_octree_nodes(
+    QOpenGLFunctions* f, const std::vector<OctreePoint>& point_storage,
+    const std::vector<PointOctree::VisibleNode>& visible_nodes,
+    const Coordinate3D<double>& file_origin, const Coordinate3D<double>& scene_offset,
+    double quality, bool incremental) {
+  m_stream_backlog = false;
+
+  if (!m_shader) {
+    return 0;
+  }
+  m_point_gl.ensure_initialized(f, static_cast<GLuint>(m_shader->programId()));
+  m_point_gl.bind(f);
+
+  const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
+                               static_cast<float>(file_origin.y() - scene_offset.y()),
+                               static_cast<float>(file_origin.z() - scene_offset.z()));
+  m_shader->setUniformValue(m_point_offset_loc, point_offset);
+
+  if (!incremental) {
+    for (const auto& visible : visible_nodes) {
+      if (!visible.node) {
+        continue;
+      }
+      NodeStreamState& state = m_node_stream[visible.node];
+      state.point_count = visible.node->point_count();
+      state.streamed_count = 0;
+      state.locked_chunk_size = 0;
+    }
+  }
+
+  m_draw_batch.clear();
+  m_draw_batch.reserve(estimate_draw_vertices(visible_nodes, quality, incremental));
+
+  for (const auto& visible : visible_nodes) {
+    if (!visible.node || visible.node->point_count() == 0) {
+      continue;
+    }
+    const PointOctreeNode* node = visible.node;
+    const size_t point_count = node->point_count();
+
+    NodeStreamState& state = m_node_stream[node];
+    if (state.point_count != point_count) {
+      state.point_count = point_count;
+      state.streamed_count = 0;
+    }
+
+    const size_t chunk_size =
+        PointOctree::node_draw_chunk_size(point_count, visible.lod_distance, quality);
+    if (state.locked_chunk_size == 0) {
+      state.locked_chunk_size = chunk_size;
+    }
+    size_t to_draw = 0;
+    if (incremental) {
+      if (state.streamed_count >= point_count) {
+        continue;
+      }
+      to_draw = std::min(state.locked_chunk_size, point_count - state.streamed_count);
+    } else {
+      to_draw = std::min(state.locked_chunk_size, point_count);
+    }
+    if (to_draw == 0) {
+      continue;
+    }
+
+    const OctreePoint* src = point_storage.data() + node->begin_index + state.streamed_count;
+    m_draw_batch.insert(m_draw_batch.end(), src, src + to_draw);
+
+    if (incremental) {
+      state.streamed_count += to_draw;
+    }
+  }
+
+  size_t total_vertices = 0;
+  if (!m_draw_batch.empty()) {
+    total_vertices = m_point_gl.draw_slice(f, m_draw_batch.data(), m_draw_batch.size());
+  }
+
+  for (const auto& visible : visible_nodes) {
+    if (!visible.node || visible.node->point_count() == 0) {
+      continue;
+    }
+    const auto it = m_node_stream.find(visible.node);
+    const size_t point_count = visible.node->point_count();
+    const size_t streamed =
+        it != m_node_stream.end() ? std::min(it->second.streamed_count, point_count) : 0;
+    if (streamed < point_count) {
+      m_stream_backlog = true;
+      break;
+    }
+  }
+
+  return total_vertices;
+}
+
+size_t OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions* f,
+                                                   const std::vector<OctreePoint>& preview,
+                                                   const Coordinate3D<double>& file_origin,
+                                                   const Coordinate3D<double>& scene_offset) {
+  if (preview.empty() || !m_shader) {
+    return 0;
+  }
+
+  m_point_gl.ensure_initialized(f, static_cast<GLuint>(m_shader->programId()));
+  m_point_gl.bind(f);
+
+  const size_t count = std::min(preview.size(), kMaxPreviewDrawVertices);
+  const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
+                               static_cast<float>(file_origin.y() - scene_offset.y()),
+                               static_cast<float>(file_origin.z() - scene_offset.z()));
+  m_shader->setUniformValue(m_point_offset_loc, point_offset);
+
+  const size_t total_vertices = m_point_gl.draw_slice(f, preview.data(), count);
+  m_stream_backlog = preview.size() > count;
+  return total_vertices;
+}
+
+std::optional<PointPickResult> OctreeLASLayerRenderer::pick_point(const Camera& camera,
+                                                                  const QPoint& pixel) const {
+  auto layer = m_layer.lock();
+  if (!layer || !m_visible) {
+    return std::nullopt;
+  }
+
+  std::vector<PointOctree::VisibleNode> visible_nodes;
+  const Coordinate3D<double>& scene_offset = camera.world_offset();
+  const Coordinate3D<double>& file_origin = layer->las_data().coordinate_origin();
+  const std::vector<OctreePoint>* point_storage = nullptr;
+
+  const auto snap = layer->las_data().snapshot();
+  if (!snap || snap->octree.total_points() == 0) {
+    return std::nullopt;
+  }
+  point_storage = &snap->octree.points();
+
+  collect_visible_octree_nodes(*snap, camera, std::max(m_lod_quality, 1.0), file_origin,
+                               visible_nodes);
+
+  if (visible_nodes.empty()) {
+    return std::nullopt;
+  }
+
+  const QMatrix4x4 proj = camera.proj_matrix();
+  const float pick_x = static_cast<float>(pixel.x());
+  const float pick_y = static_cast<float>(pixel.y());
+  const float pick_radius = std::max(8.0f, static_cast<float>(0.15 * layer->point_size_scale() *
+                                                              camera.projection_scale() * 0.35));
+  const float pick_radius_sq = pick_radius * pick_radius;
+
+  struct NodeScreenDistance {
+    const PointOctreeNode* node = nullptr;
+    float screen_dist_sq = 0.0f;
+  };
+
+  std::vector<NodeScreenDistance> node_candidates;
+  node_candidates.reserve(visible_nodes.size());
+  for (const auto& visible : visible_nodes) {
+    if (!visible.node || visible.node->point_count() == 0) {
+      continue;
+    }
+    const Extent3D& bounds = visible.node->bounds;
+    const double cx = 0.5 * (bounds.minx + bounds.maxx) + file_origin.x() - scene_offset.x();
+    const double cy = 0.5 * (bounds.miny + bounds.maxy) + file_origin.y() - scene_offset.y();
+    const double cz = 0.5 * (bounds.minz + bounds.maxz) + file_origin.z() - scene_offset.z();
+    const QVector4D clip = proj * QVector4D(static_cast<float>(cx), static_cast<float>(cy),
+                                            static_cast<float>(cz), 1.0f);
+    if (clip.w() <= 0.0f) {
+      continue;
+    }
+    const float inv_w = 1.0f / clip.w();
+    const float screen_x = (clip.x() * inv_w * 0.5f + 0.5f) * camera.screen_width();
+    const float screen_y = (1.0f - (clip.y() * inv_w * 0.5f + 0.5f)) * camera.screen_height();
+    const float dx = screen_x - pick_x;
+    const float dy = screen_y - pick_y;
+    node_candidates.push_back({visible.node, dx * dx + dy * dy});
+  }
+
+  std::sort(node_candidates.begin(), node_candidates.end(),
+            [](const NodeScreenDistance& a, const NodeScreenDistance& b) {
+              return a.screen_dist_sq < b.screen_dist_sq;
+            });
+
+  const size_t max_nodes = std::min(node_candidates.size(), size_t{256});
+  float best_screen_dist_sq = pick_radius_sq;
+  float best_depth = std::numeric_limits<float>::infinity();
+  std::optional<PointPickResult> best;
+
+  for (size_t n = 0; n < max_nodes; ++n) {
+    const PointOctreeNode* node = node_candidates[n].node;
+    if (!node) {
+      continue;
+    }
+    for (size_t pi = node->begin_index; pi < node->end_index; ++pi) {
+      const OctreePoint& point = (*point_storage)[pi];
+      const float wx =
+          static_cast<float>(static_cast<double>(point.x) + file_origin.x() - scene_offset.x());
+      const float wy =
+          static_cast<float>(static_cast<double>(point.y) + file_origin.y() - scene_offset.y());
+      const float wz =
+          static_cast<float>(static_cast<double>(point.z) + file_origin.z() - scene_offset.z());
+      const QVector4D clip = proj * QVector4D(wx, wy, wz, 1.0f);
+      if (clip.w() <= 0.0f) {
+        continue;
+      }
+      const float inv_w = 1.0f / clip.w();
+      const float ndc_x = clip.x() * inv_w;
+      const float ndc_y = clip.y() * inv_w;
+      if (ndc_x < -1.05f || ndc_x > 1.05f || ndc_y < -1.05f || ndc_y > 1.05f) {
+        continue;
+      }
+      const float screen_x = (ndc_x * 0.5f + 0.5f) * camera.screen_width();
+      const float screen_y = (1.0f - (ndc_y * 0.5f + 0.5f)) * camera.screen_height();
+      const float dx = screen_x - pick_x;
+      const float dy = screen_y - pick_y;
+      const float screen_dist_sq = dx * dx + dy * dy;
+      if (screen_dist_sq > pick_radius_sq) {
+        continue;
+      }
+      const float depth = clip.z() * inv_w;
+      if (screen_dist_sq < best_screen_dist_sq - 1.0f ||
+          (screen_dist_sq <= best_screen_dist_sq + 1.0f && depth < best_depth)) {
+        best_screen_dist_sq = screen_dist_sq;
+        best_depth = depth;
+        PointPickResult result;
+        result.point = point;
+        result.world_x = wx;
+        result.world_y = wy;
+        result.world_z = wz;
+        result.layer_name = layer->name();
+        best = std::move(result);
+      }
+    }
+  }
+
+  return best;
+}
+
+void OctreeLASLayerRenderer::set_highlight(const std::optional<PointPickResult>& pick) {
+  auto layer = m_layer.lock();
+  if (!pick || !layer || pick->layer_name != layer->name()) {
+    m_highlight.reset();
+    return;
+  }
+  m_highlight = pick;
+}
+
+void OctreeLASLayerRenderer::render_selection_highlight(const Camera& camera,
+                                                        const RenderContext& ctx) {
+  (void)ctx;
+  auto layer = m_layer.lock();
+  if (!m_highlight || !layer || !m_visible) {
+    return;
+  }
+
+  ensure_shader();
+  ensure_crosshair_shader();
+  if (!m_shader || !m_crosshair_shader) {
+    return;
+  }
+
+  QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
+  if (!f) {
+    return;
+  }
+
+  const float cx = static_cast<float>(m_highlight->world_x);
+  const float cy = static_cast<float>(m_highlight->world_y);
+  const float cz = static_cast<float>(m_highlight->world_z);
+  const QVector3D center(cx, cy, cz);
+
+  const float view_distance = std::max(static_cast<float>(camera.direction().length()), 0.1f);
+  const float half_len = std::max(0.25f, view_distance * 0.018f);
+  const QVector3D view_dir = camera.direction().normalized();
+  QVector3D right = QVector3D::crossProduct(camera.up(), view_dir);
+  if (right.lengthSquared() < 1e-8f) {
+    right = camera.view_right();
+  } else {
+    right.normalize();
+  }
+  const QVector3D billboard_up = QVector3D::crossProduct(view_dir, right).normalized();
+
+  const float line_vertices[] = {
+      cx - right.x() * half_len,        cy - right.y() * half_len,
+      cz - right.z() * half_len,        cx + right.x() * half_len,
+      cy + right.y() * half_len,        cz + right.z() * half_len,
+      cx - billboard_up.x() * half_len, cy - billboard_up.y() * half_len,
+      cz - billboard_up.z() * half_len, cx + billboard_up.x() * half_len,
+      cy + billboard_up.y() * half_len, cz + billboard_up.z() * half_len,
+  };
+
+  if (!m_highlight_vao.isCreated()) {
+    m_highlight_vao.create();
+  }
+  if (!m_highlight_vbo.isCreated()) {
+    m_highlight_vbo.create();
+  }
+
+  QOpenGLVertexArrayObject::Binder vao_binder(&m_highlight_vao);
+  m_highlight_vbo.bind();
+  m_highlight_vbo.allocate(line_vertices, static_cast<int>(sizeof(line_vertices)));
+
+  const GLboolean depth_test_enabled = f->glIsEnabled(GL_DEPTH_TEST);
+  f->glDisable(GL_DEPTH_TEST);
+
+  if (bind_shader(m_crosshair_shader.get())) {
+    m_crosshair_shader->enableAttributeArray(0);
+    m_crosshair_shader->setAttributeBuffer(0, GL_FLOAT, 0, 3, 0);
+    m_crosshair_shader->setUniformValue(m_crosshair_proj_loc, camera.proj_matrix());
+    m_crosshair_shader->setUniformValue(m_crosshair_color_loc, QVector3D(1.0f, 0.92f, 0.15f));
+    f->glDrawArrays(GL_LINES, 0, 4);
+    m_crosshair_shader->release();
+  }
+
+  if (depth_test_enabled) {
+    f->glEnable(GL_DEPTH_TEST);
+  }
+
+  if (bind_shader(m_shader.get())) {
+    const OctreePoint& point = m_highlight->point;
+    m_highlight_vbo.allocate(&point, static_cast<int>(sizeof(OctreePoint)));
+
+    const Coordinate3D<double>& file_origin = layer->las_data().coordinate_origin();
+    const Coordinate3D<double>& scene_offset = camera.world_offset();
+    const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
+                                 static_cast<float>(file_origin.y() - scene_offset.y()),
+                                 static_cast<float>(file_origin.z() - scene_offset.z()));
+
+    QOpenGLFunctions* gl_f = QOpenGLContext::currentContext()->functions();
+    const GLsizei stride = static_cast<GLsizei>(sizeof(OctreePoint));
+    m_shader->enableAttributeArray(0);
+    gl_f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride,
+                                reinterpret_cast<const void*>(offsetof(OctreePoint, x)));
+    m_shader->enableAttributeArray(1);
+    gl_f->glVertexAttribPointer(1, 1, GL_UNSIGNED_SHORT, GL_TRUE, stride,
+                                reinterpret_cast<const void*>(offsetof(OctreePoint, intensity)));
+    m_shader->enableAttributeArray(2);
+    gl_f->glVertexAttribPointer(
+        2, 1, GL_UNSIGNED_BYTE, GL_FALSE, stride,
+        reinterpret_cast<const void*>(offsetof(OctreePoint, classification)));
+    m_shader->enableAttributeArray(3);
+    gl_f->glVertexAttribPointer(3, 3, GL_UNSIGNED_BYTE, GL_TRUE, stride,
+                                reinterpret_cast<const void*>(offsetof(OctreePoint, file_r)));
+    m_shader->enableAttributeArray(4);
+    gl_f->glVertexAttribPointer(4, 1, GL_UNSIGNED_BYTE, GL_FALSE, stride,
+                                reinterpret_cast<const void*>(offsetof(OctreePoint, has_file_rgb)));
+
+    const float base_radius =
+        static_cast<float>(0.15 * layer->point_size_scale() * camera.projection_scale());
+    m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+    m_shader->setUniformValue(m_point_offset_loc, point_offset);
+    m_shader->setUniformValue(m_point_radius_loc, base_radius * 2.0f);
+    m_shader->setUniformValue(m_color_mode_loc, static_cast<int>(PointColorMode::Fixed));
+    m_shader->setUniformValue(m_fixed_color_loc, QVector3D(1.0f, 0.92f, 0.15f));
+    m_shader->setUniformValue(m_point_alpha_loc, 1.0f);
+
+    f->glDisable(GL_DEPTH_TEST);
+    f->glDrawArrays(GL_POINTS, 0, 1);
+    if (depth_test_enabled) {
+      f->glEnable(GL_DEPTH_TEST);
+    }
+    m_shader->release();
+  }
+
+  m_highlight_vbo.release();
+}
+
+void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
+  if (!m_visible) {
+    return;
+  }
+  auto layer = m_layer.lock();
+  if (!layer) {
+    return;
+  }
+
+  m_last_point_draw_ms = 0.0;
+  m_last_point_vertices_drawn = 0;
+
+  const bool incremental = ctx.incremental_points;
+
+  std::vector<PointOctree::VisibleNode> visible_nodes;
+  size_t loaded_octree_points = 0;
+  bool load_complete = false;
+  bool use_preview = false;
+  const Coordinate3D<double>& scene_offset = camera.world_offset();
+  const Coordinate3D<double>& file_origin = layer->las_data().coordinate_origin();
+
+  const auto snap = layer->las_data().snapshot();
+  if (!snap) {
+    if (!layer->las_data().load_complete()) {
+      emit repaint_required();
+    }
+    return;
+  }
+
+  loaded_octree_points = snap->octree.total_points();
+  load_complete = layer->las_data().load_complete();
+
+  if (loaded_octree_points == 0 && snap->preview_points.empty()) {
+    if (!load_complete) {
+      emit repaint_required();
+    }
+    return;
+  }
+
+  use_preview = !load_complete && loaded_octree_points == 0 && !snap->preview_points.empty();
+  if (!use_preview) {
+    collect_visible_octree_nodes(*snap, camera, std::max(m_lod_quality, 0.25), file_origin,
+                                 visible_nodes);
+  }
+
+  const bool camera_moved = stream_camera_changed(camera);
+  const bool visible_changed = load_complete && !use_preview && visible_set_changed(visible_nodes);
+  const bool reset_stream = camera_moved || visible_changed;
+
+  if (camera_moved || visible_changed) {
+    m_stream_camera_pos = camera.position();
+    m_stream_camera_dir = camera.direction();
+  }
+  if (visible_changed) {
+    m_visible_fingerprint = visible_nodes_fingerprint(visible_nodes);
+  }
+
+  if (m_data_update_required) {
+    if (load_complete) {
+      reset_stream_cache();
+    }
+    m_data_update_required = false;
+  }
+
+  if (reset_stream) {
+    reset_stream_cache();
+  }
+
+  ensure_shader();
+  if (!m_shader) {
+    std::cerr << "LAS render: point shader failed to compile or link\n";
+    return;
+  }
+
+  QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
+  if (!f) {
+    return;
+  }
+
+  const double target_draw_ms = layer->point_stream_budget_ms();
+  const bool stream_mode_changed = incremental != m_prev_incremental_stream;
+  m_prev_incremental_stream = incremental;
+
+  double draw_quality = 1.0;
+  if (!use_preview) {
+    // After incremental<->restart transitions, seed LOD from the incremental pass quality.
+    draw_quality =
+        select_draw_quality(visible_nodes, incremental, stream_mode_changed, target_draw_ms);
+  }
+
+  const auto draw_start = std::chrono::steady_clock::now();
+
+  if (!bind_shader(m_shader.get())) {
+    return;
+  }
+  f->glEnable(GL_PROGRAM_POINT_SIZE);
+  m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+  m_shader->setUniformValue(
+      m_point_radius_loc,
+      static_cast<float>(0.15 * layer->point_size_scale() * camera.projection_scale()));
+  m_shader->setUniformValue(m_color_mode_loc, static_cast<int>(layer->point_color_mode()));
+  const std::array<uint8_t, 3>& fixed = layer->fixed_point_color();
+  m_shader->setUniformValue(m_fixed_color_loc,
+                            QVector3D(fixed[0] / 255.f, fixed[1] / 255.f, fixed[2] / 255.f));
+  m_shader->setUniformValue(m_point_alpha_loc, 1.0f);
+
+  f->glEnable(GL_DEPTH_TEST);
+  f->glDepthFunc(ctx.incremental_points ? GL_LEQUAL : GL_LESS);
+  f->glDepthMask(GL_TRUE);
+  f->glDisable(GL_BLEND);
+
+  size_t vertices_drawn = 0;
+  if (use_preview) {
+    vertices_drawn = draw_preview_points(f, snap->preview_points, file_origin, scene_offset);
+  } else {
+    vertices_drawn = draw_octree_nodes(f, snap->octree.points(), visible_nodes, file_origin,
+                                       scene_offset, draw_quality, incremental);
+  }
+
+  m_shader->release();
+
+  const double draw_ms =
+      std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - draw_start)
+          .count();
+  m_last_point_draw_ms = draw_ms;
+  m_last_point_vertices_drawn = vertices_drawn;
+
+  if (vertices_drawn == 0) {
+    if (!load_complete) {
+      emit repaint_required();
+    } else if (m_stream_backlog) {
+      emit repaint_required();
+    }
+    return;
+  }
+
+  record_draw_sample(vertices_drawn, draw_ms);
+  if (incremental) {
+    m_inc_lod_quality = draw_quality;
+    if (m_stream_backlog && !stream_mode_changed) {
+      m_lod_quality = draw_quality;
+    }
+  } else {
+    m_lod_quality = draw_quality;
+    m_inc_lod_quality = draw_quality;
+  }
+
+  if (!load_complete) {
+    emit repaint_required();
+  } else if (m_stream_backlog) {
+    emit repaint_required();
+  }
+}
+
+MeshLayerRenderer::MeshLayerRenderer(std::function<const AsyncRasterData*()> data_accessor,
+                                     const Coordinate3D<double>& offset, bool gpu_texture)
+    : m_data_accessor(std::move(data_accessor)), m_offset(offset), m_gpu_texture(gpu_texture) {}
+
+namespace {
+
+struct MeshVertex {
+  float position[3];
+  float color[3];
+};
+
+struct TexturedMeshVertex {
+  float position[3];
+  float texcoord[2];
+};
+
+std::vector<uint8_t> build_texture_rgb(const Geo<MultiBand<FlexGrid>>& texture) {
+  const size_t width = texture.width();
+  const size_t height = texture.height();
+  const size_t rgb_bands = std::min<size_t>(texture.size(), 3);
+  std::vector<uint8_t> rgb(width * height * 3);
+  for (size_t y = 0; y < height; ++y) {
+    const size_t dest_y = height - 1 - y;
+    for (size_t x = 0; x < width; ++x) {
+      const size_t i = (dest_y * width + x) * 3;
+      const double r = flex_grid_value(texture[0], x, y);
+      const double g = rgb_bands > 1 ? flex_grid_value(texture[1], x, y) : r;
+      const double b = rgb_bands > 2 ? flex_grid_value(texture[2], x, y) : r;
+      rgb[i] = static_cast<uint8_t>(std::clamp(r, 0.0, 255.0));
+      rgb[i + 1] = static_cast<uint8_t>(std::clamp(g, 0.0, 255.0));
+      rgb[i + 2] = static_cast<uint8_t>(std::clamp(b, 0.0, 255.0));
+    }
+  }
+  return rgb;
+}
+
+}  // namespace
+
+void MeshLayerRenderer::upload_texture(const Geo<MultiBand<FlexGrid>>& texture) {
+  const size_t width = texture.width();
+  const size_t height = texture.height();
+  if (width == 0 || height == 0) {
+    return;
+  }
+
+  const std::vector<uint8_t> rgb = build_texture_rgb(texture);
+  QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
+  GLint unpack_alignment = 4;
+  f->glGetIntegerv(GL_UNPACK_ALIGNMENT, &unpack_alignment);
+  f->glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+  m_texture = std::make_unique<QOpenGLTexture>(QOpenGLTexture::Target2D);
+  m_texture->setSize(static_cast<int>(width), static_cast<int>(height));
+  m_texture->setFormat(QOpenGLTexture::RGB8_UNorm);
+  m_texture->allocateStorage(QOpenGLTexture::RGB, QOpenGLTexture::UInt8);
+  m_texture->setData(QOpenGLTexture::RGB, QOpenGLTexture::UInt8, rgb.data());
+  f->glPixelStorei(GL_UNPACK_ALIGNMENT, unpack_alignment);
+  m_texture->setMinificationFilter(QOpenGLTexture::Linear);
+  m_texture->setMagnificationFilter(QOpenGLTexture::Linear);
+  m_texture->setWrapMode(QOpenGLTexture::ClampToEdge);
+  m_texture_uploaded = true;
+}
+
+void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<double>& offset) {
+  if (mesh.vertices.empty() || mesh.indices.empty()) {
+    return;
+  }
+  const size_t vertex_count = mesh.vertices.size() / 3;
+  const bool use_texture = m_gpu_texture && mesh.has_texture;
+  if (!use_texture && mesh.colors.empty()) {
+    return;
+  }
+  if (!use_texture && mesh.colors.size() != mesh.vertices.size()) {
+    std::cerr << "Mesh color/vertex size mismatch" << std::endl;
+    return;
+  }
+  if (use_texture && mesh.texcoords.size() != vertex_count * 2) {
+    std::cerr << "Mesh texcoord/vertex size mismatch" << std::endl;
+    return;
+  }
+  for (unsigned int index : mesh.indices) {
+    if (index >= vertex_count) {
+      std::cerr << "Mesh index out of range: " << index << " >= " << vertex_count << std::endl;
+      return;
+    }
+  }
+
+  if (!m_shader) {
+    m_shader = std::make_unique<QOpenGLShaderProgram>();
+    if (use_texture) {
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kTexturedMeshVertexShader);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kTexturedMeshFragmentShader);
+      m_shader->bindAttributeLocation("position", 0);
+      m_shader->bindAttributeLocation("texcoord", 1);
+    } else {
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kMeshVertexShader);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kMeshFragmentShader);
+      m_shader->bindAttributeLocation("position", 0);
+      m_shader->bindAttributeLocation("color", 1);
+    }
+    if (!m_shader->link()) {
+      std::cout << "Mesh shader link error: " << m_shader->log().toStdString() << std::endl;
+      m_shader.reset();
+      return;
+    }
+  }
+  m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
+  if (use_texture) {
+    m_texture_sampler_loc = m_shader->uniformLocation("dem_texture");
+  }
+
+  if (m_vao.isCreated()) {
+    m_vao.destroy();
+  }
+  if (m_vbo.isCreated()) {
+    m_vbo.destroy();
+  }
+  if (m_ibo.isCreated()) {
+    m_ibo.destroy();
+  }
+
+  m_vao.create();
+  {
+    QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
+
+    m_vbo.create();
+    m_vbo.bind();
+
+    m_ibo = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
+    m_ibo.create();
+    m_ibo.bind();
+    m_ibo.allocate(mesh.indices.data(),
+                   static_cast<int>(mesh.indices.size() * sizeof(unsigned int)));
+
+    if (!bind_shader(m_shader.get())) {
+      return;
+    }
+
+    if (use_texture) {
+      std::vector<TexturedMeshVertex> interleaved;
+      interleaved.reserve(vertex_count);
+      for (size_t i = 0; i < mesh.vertices.size(); i += 3) {
+        TexturedMeshVertex vertex;
+        vertex.position[0] = static_cast<float>(mesh.vertices[i] - offset.x());
+        vertex.position[1] = static_cast<float>(mesh.vertices[i + 1] - offset.y());
+        vertex.position[2] = static_cast<float>(mesh.vertices[i + 2] - offset.z());
+        const size_t tex_index = (i / 3) * 2;
+        vertex.texcoord[0] = mesh.texcoords[tex_index];
+        vertex.texcoord[1] = mesh.texcoords[tex_index + 1];
+        for (float component : vertex.position) {
+          if (!std::isfinite(component)) {
+            return;
+          }
+        }
+        interleaved.push_back(vertex);
+      }
+      m_vbo.allocate(interleaved.data(),
+                     static_cast<int>(interleaved.size() * sizeof(TexturedMeshVertex)));
+      const int stride = static_cast<int>(sizeof(TexturedMeshVertex));
+      m_shader->enableAttributeArray(0);
+      m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(TexturedMeshVertex, position), 3, stride);
+      m_shader->enableAttributeArray(1);
+      m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(TexturedMeshVertex, texcoord), 2, stride);
+    } else {
+      std::vector<MeshVertex> interleaved;
+      interleaved.reserve(vertex_count);
+      for (size_t i = 0; i < mesh.vertices.size(); i += 3) {
+        MeshVertex vertex;
+        vertex.position[0] = static_cast<float>(mesh.vertices[i] - offset.x());
+        vertex.position[1] = static_cast<float>(mesh.vertices[i + 1] - offset.y());
+        vertex.position[2] = static_cast<float>(mesh.vertices[i + 2] - offset.z());
+        vertex.color[0] = mesh.colors[i];
+        vertex.color[1] = mesh.colors[i + 1];
+        vertex.color[2] = mesh.colors[i + 2];
+        for (float component : vertex.position) {
+          if (!std::isfinite(component)) {
+            return;
+          }
+        }
+        interleaved.push_back(vertex);
+      }
+      m_vbo.allocate(interleaved.data(), static_cast<int>(interleaved.size() * sizeof(MeshVertex)));
+      const int stride = static_cast<int>(sizeof(MeshVertex));
+      m_shader->enableAttributeArray(0);
+      m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
+      m_shader->enableAttributeArray(1);
+      m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+    }
+    m_shader->release();
+  }
+
+  m_index_count = mesh.indices.size();
+  m_mesh_uploaded = true;
+}
+
+void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
+  if (ctx.incremental_points) {
+    return;
+  }
+  if (!m_visible) {
+    return;
+  }
+  const AsyncRasterData* data = m_data_accessor();
+  if (!data) {
+    return;
+  }
+
+  if (!data->ready()) {
+    emit repaint_required();
+    return;
+  }
+
+  if (m_data_update_required) {
+    m_mesh_uploaded = false;
+    m_texture_uploaded = false;
+    m_texture.reset();
+    m_shader.reset();
+    m_data_update_required = false;
+  }
+
+  if (!m_mesh_uploaded || (m_gpu_texture && !m_texture_uploaded)) {
+    DemMeshData mesh_copy;
+    const Geo<MultiBand<FlexGrid>>* texture_grid = nullptr;
+    {
+      std::unique_lock<std::mutex> lock(data->mutex(), std::try_to_lock);
+      if (!lock.owns_lock() || !data->ready()) {
+        emit repaint_required();
+        return;
+      }
+      mesh_copy = data->mesh();
+      if (m_gpu_texture && mesh_copy.has_texture) {
+        texture_grid = &data->texture_grid();
+      }
+    }
+    if (!m_mesh_uploaded) {
+      upload_mesh(mesh_copy, camera.world_offset());
+    }
+    if (m_gpu_texture && !m_texture_uploaded && texture_grid != nullptr) {
+      upload_texture(*texture_grid);
+    }
+    m_data_update_required = false;
+  }
+  if (!m_shader || !m_mesh_uploaded || m_index_count == 0) {
+    return;
+  }
+  if (m_gpu_texture && !m_texture_uploaded) {
+    return;
+  }
+
+  QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
+  if (!f) {
+    return;
+  }
+  f->glEnable(GL_DEPTH_TEST);
+  if (!bind_shader(m_shader.get())) {
+    return;
+  }
+  m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+  if (m_gpu_texture && m_texture) {
+    m_texture->bind(0);
+    m_shader->setUniformValue(m_texture_sampler_loc, 0);
+  }
+
+  QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
+  if (!m_vao.isCreated() || !m_vbo.isCreated() || !m_ibo.isCreated()) {
+    if (m_gpu_texture && m_texture) {
+      m_texture->release();
+    }
+    m_shader->release();
+    return;
+  }
+  m_vbo.bind();
+  m_ibo.bind();
+  if (m_gpu_texture) {
+    const int stride = static_cast<int>(sizeof(TexturedMeshVertex));
+    m_shader->enableAttributeArray(0);
+    m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(TexturedMeshVertex, position), 3, stride);
+    m_shader->enableAttributeArray(1);
+    m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(TexturedMeshVertex, texcoord), 2, stride);
+  } else {
+    const int stride = static_cast<int>(sizeof(MeshVertex));
+    m_shader->enableAttributeArray(0);
+    m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
+    m_shader->enableAttributeArray(1);
+    m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+  }
+  f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT, nullptr);
+  if (m_gpu_texture && m_texture) {
+    m_texture->release();
+  }
+  m_shader->release();
+}
+
+ContourLayerRenderer::ContourLayerRenderer(std::shared_ptr<ContourLayer> layer,
+                                           const Coordinate3D<double>& offset)
+    : m_layer(layer), m_offset(offset) {}
+
+namespace {
+
+void append_contour_ribbon(const Contour& contour, double half_width,
+                           std::vector<MeshVertex>& vertices, std::vector<unsigned int>& indices) {
+  const auto& points = contour.points();
+  if (points.size() < 2) {
+    return;
+  }
+
+  const float z = static_cast<float>(contour.height() + 0.5);
+  const std::array<float, 3> color{0.6f, 0.35f, 0.1f};
+
+  auto add_vertex = [&](double x, double y) {
+    MeshVertex vertex;
+    vertex.position[0] = static_cast<float>(x);
+    vertex.position[1] = static_cast<float>(y);
+    vertex.position[2] = z;
+    vertex.color[0] = color[0];
+    vertex.color[1] = color[1];
+    vertex.color[2] = color[2];
+    vertices.push_back(vertex);
+    return static_cast<unsigned int>(vertices.size() - 1);
+  };
+
+  for (size_t i = 0; i + 1 < points.size(); ++i) {
+    const double x0 = points[i].x();
+    const double y0 = points[i].y();
+    const double x1 = points[i + 1].x();
+    const double y1 = points[i + 1].y();
+    const double dx = x1 - x0;
+    const double dy = y1 - y0;
+    const double len = std::hypot(dx, dy);
+    if (len < 1e-6) {
+      continue;
+    }
+    const double nx = -dy / len * half_width;
+    const double ny = dx / len * half_width;
+
+    const unsigned int v0 = add_vertex(x0 - nx, y0 - ny);
+    const unsigned int v1 = add_vertex(x0 + nx, y0 + ny);
+    const unsigned int v2 = add_vertex(x1 + nx, y1 + ny);
+    const unsigned int v3 = add_vertex(x1 - nx, y1 - ny);
+    indices.push_back(v0);
+    indices.push_back(v1);
+    indices.push_back(v2);
+    indices.push_back(v0);
+    indices.push_back(v2);
+    indices.push_back(v3);
+  }
+}
+
+}  // namespace
+
+void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
+                                           const Coordinate3D<double>& offset) {
+  std::vector<MeshVertex> vertices;
+  std::vector<unsigned int> indices;
+  vertices.reserve(contours.size() * 8);
+  indices.reserve(contours.size() * 12);
+
+  // World-space half-width in meters; appears wider on screen as you zoom in.
+  constexpr double kHalfWidthMeters = 1.5;
+  for (const auto& contour : contours) {
+    append_contour_ribbon(contour, kHalfWidthMeters, vertices, indices);
+  }
+  if (vertices.empty() || indices.empty()) {
+    return;
+  }
+
+  for (MeshVertex& vertex : vertices) {
+    vertex.position[0] -= static_cast<float>(offset.x());
+    vertex.position[1] -= static_cast<float>(offset.y());
+    vertex.position[2] -= static_cast<float>(offset.z());
+  }
+
+  m_shader = std::make_unique<QOpenGLShaderProgram>();
+  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kMeshVertexShader) ||
+      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kMeshFragmentShader)) {
+    m_shader.reset();
+    return;
+  }
+  m_shader->bindAttributeLocation("position", 0);
+  m_shader->bindAttributeLocation("color", 1);
+  if (!m_shader->link()) {
+    m_shader.reset();
+    return;
+  }
+  m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
+
+  if (m_vao.isCreated()) {
+    m_vao.destroy();
+  }
+  if (m_vbo.isCreated()) {
+    m_vbo.destroy();
+  }
+  if (m_ibo.isCreated()) {
+    m_ibo.destroy();
+  }
+
+  m_vao.create();
+  QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
+  m_vbo.create();
+  m_vbo.bind();
+  m_vbo.allocate(vertices.data(), static_cast<int>(vertices.size() * sizeof(MeshVertex)));
+
+  m_ibo.create();
+  m_ibo.bind();
+  m_ibo.allocate(indices.data(), static_cast<int>(indices.size() * sizeof(unsigned int)));
+
+  if (!bind_shader(m_shader.get())) {
+    return;
+  }
+  const int stride = static_cast<int>(sizeof(MeshVertex));
+  m_shader->enableAttributeArray(0);
+  m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
+  m_shader->enableAttributeArray(1);
+  m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+  m_shader->release();
+
+  m_index_count = indices.size();
+  m_uploaded = true;
+  m_vbo.release();
+}
+
+void ContourLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
+  if (ctx.incremental_points) {
+    return;
+  }
+  if (!m_visible) {
+    return;
+  }
+  auto layer = m_layer.lock();
+  if (!layer) {
+    return;
+  }
+
+  if (!m_uploaded) {
+    std::vector<Contour> contours;
+    {
+      if (!layer->ready()) {
+        emit repaint_required();
+        return;
+      }
+      contours = layer->copy_contours();
+    }
+    if (contours.empty()) {
+      emit repaint_required();
+      return;
+    }
+    upload_contours(contours, camera.world_offset());
+  }
+  if (!m_shader || !m_uploaded || m_index_count == 0) {
+    return;
+  }
+
+  QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
+  if (!f) {
+    return;
+  }
+  f->glEnable(GL_DEPTH_TEST);
+  if (!bind_shader(m_shader.get())) {
+    return;
+  }
+  m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+  QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
+  m_vbo.bind();
+  m_ibo.bind();
+  const int stride = static_cast<int>(sizeof(MeshVertex));
+  m_shader->enableAttributeArray(0);
+  m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
+  m_shader->enableAttributeArray(1);
+  m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+  f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT, nullptr);
+  m_shader->release();
+}
