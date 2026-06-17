@@ -367,6 +367,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   }
   // crt name must match gpkg name (keeping for compatibility)
   write_to_crt(output_dir / "contours.crt");
+  write_to_crt(output_dir / "vege_color.crt");
 
   // Write streams to GPKG
   {
@@ -387,6 +388,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   // coarser vegetation grid via mean downsampling.
   const unsigned int veg_factor = config.grid.vegetation_aggregation_factor();
   std::map<std::string, GeoGrid<float>> vege_maps;
+  std::map<std::string, GeoGrid<float>> smooth_vege_maps;
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
     GeoGrid<std::optional<float>> blocked_proportion =
         get_blocked_proportion(binned_points, smooth_ground, vege_config);
@@ -438,12 +440,13 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     GeoGrid<float> vege_grid =
         veg_factor > 1 ? downsample(smooth_blocked_proportion, veg_factor,
                                     /*progress_tracker=*/ProgressTracker(), DownsampleMethod::MEAN)
-                       : std::move(smooth_blocked_proportion);
+                       : smooth_blocked_proportion;
     write_to_tif(float01_to_byte_grid(vege_grid).slice(las_file.export_bounds()),
                  output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif"));
 
     // Keep float vegetation grid for the coloring stage.
     vege_maps.emplace(vege_config.name, std::move(vege_grid));
+    smooth_vege_maps.emplace(vege_config.name, std::move(smooth_blocked_proportion));
   }
 
   progress_tracker.set_proportion(0.78);
@@ -492,6 +495,176 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     }
   }
   write_to_tif(vege_color.slice(las_file.export_bounds()), output_dir / "vege_color.tif");
+
+  {
+    struct VegeThresholdShape {
+      int id;
+      std::string layer_name;
+      std::string category_name;
+      std::string color_hex;
+      const GeoGrid<float>* blocked_proportion = nullptr;
+      double threshold;
+    };
+
+    auto vege_layer_name = [&](const std::string& height_name, size_t color_index,
+                               size_t color_count) {
+      if (height_name == "canopy" && color_count == 1) {
+        return std::string("405_Forest");
+      }
+      if (height_name == "green" && color_count == 3) {
+        switch (color_index) {
+          case 0:
+            return std::string("406_Vegetation:_Slow_Running");
+          case 1:
+            return std::string("408_Vegetation:_Walk");
+          case 2:
+            return std::string("410_Vegetation:_Fight");
+          default:
+            break;
+        }
+      }
+      return height_name + "_" + std::to_string(color_index + 1);
+    };
+
+    std::vector<VegeThresholdShape> shapes;
+    int shape_id = 1;
+    for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
+      const GeoGrid<float>& blocked_proportion = smooth_vege_maps.at(vege_config.name);
+      for (size_t color_index = 0; color_index < vege_config.colors.size(); color_index++) {
+        const BlockingThresholdColorPair& threshold_color = vege_config.colors[color_index];
+        RGBColor color = to_rgb(threshold_color.color);
+        std::string color_hex = rgb_to_hex(color);
+        std::string layer_name = vege_layer_name(vege_config.name, color_index, vege_config.colors.size());
+        shapes.push_back(VegeThresholdShape{shape_id++, layer_name, vege_config.name, color_hex,
+                                           &blocked_proportion, threshold_color.blocking_threshold});
+      }
+    }
+
+    ContourConfigs vege_contour_configs({
+        {"mask", ContourConfig{1.0, 1, RGBColor(0, 0, 0), 0.14}}});
+    GPKGWriter writer((output_dir / "vege_color.gpkg").string(),
+                      las_file.projection().to_string(), "");
+
+    auto padded_threshold_mask = [&](const GeoGrid<double>& mask) {
+      GeoTransform original = mask.transform();
+      // Padding must be larger than the low_pass filter radius (5) to ensure
+      // contours generated near the edge are closed loops.
+      const size_t pad_pixels = 7;
+      const size_t w = mask.width();
+      const size_t h = mask.height();
+
+      GeoGrid<double> padded(
+          w + 2 * pad_pixels, h + 2 * pad_pixels,
+          GeoTransform(original.x() - pad_pixels * original.dx(),
+                       original.y() - pad_pixels * original.dy(), original.dx(),
+                       original.dy()),
+          GeoProjection(mask.projection()));
+
+#pragma omp parallel for
+      for (size_t i = 0; i < padded.height(); i++) {
+        for (size_t j = 0; j < padded.width(); j++) {
+          size_t src_x = std::clamp(static_cast<int>(j) - static_cast<int>(pad_pixels), 0, static_cast<int>(w) - 1);
+          size_t src_y = std::clamp(static_cast<int>(i) - static_cast<int>(pad_pixels), 0, static_cast<int>(h) - 1);
+          padded[{j, i}] = mask[{src_x, src_y}];
+        }
+      }
+
+      return padded;
+    };
+
+    for (const VegeThresholdShape& shape : shapes) {
+      GeoGrid<double> threshold_mask(shape.blocked_proportion->width(),
+                                     shape.blocked_proportion->height(),
+                                     GeoTransform(shape.blocked_proportion->transform()),
+                                     GeoProjection(shape.blocked_proportion->projection()));
+      double threshold = shape.threshold > 0.0 ? shape.threshold : 1e-5;
+#pragma omp parallel for
+      for (size_t i = 0; i < threshold_mask.height(); i++) {
+        for (size_t j = 0; j < threshold_mask.width(); j++) {
+          double val = (*shape.blocked_proportion)[{j, i}];
+          threshold_mask[{j, i}] = std::min(val / threshold, 1.9999);
+        }
+      }
+
+      GeoGrid<double> padded_mask = padded_threshold_mask(threshold_mask);
+      std::vector<Contour> contours = generate_contours(padded_mask, vege_contour_configs,
+                                                        ProgressTracker());
+      Extent2D clip_extent = las_file.export_bounds();
+      
+      auto clip_polygon = [&](std::vector<Coordinate2D<double>> poly, const Extent2D& bounds) {
+        if (poly.size() < 3) return poly;
+        
+        auto clip_against_line = [](const std::vector<Coordinate2D<double>>& input,
+                                    int axis, double value, bool keep_greater) {
+          if (input.empty()) return input;
+          std::vector<Coordinate2D<double>> output;
+          output.reserve(input.size() + 2);
+          
+          auto is_inside = [&](const Coordinate2D<double>& p) {
+            double v = (axis == 0) ? p.x() : p.y();
+            return keep_greater ? (v >= value) : (v <= value);
+          };
+          
+          auto intersect = [&](const Coordinate2D<double>& p1, const Coordinate2D<double>& p2) {
+            double v1 = (axis == 0) ? p1.x() : p1.y();
+            double v2 = (axis == 0) ? p2.x() : p2.y();
+            double t = (value - v1) / (v2 - v1);
+            return Coordinate2D<double>(
+              p1.x() + t * (p2.x() - p1.x()),
+              p1.y() + t * (p2.y() - p1.y())
+            );
+          };
+          
+          Coordinate2D<double> S = input.back();
+          for (const Coordinate2D<double>& E : input) {
+            if (is_inside(E)) {
+              if (!is_inside(S)) {
+                output.push_back(intersect(S, E));
+              }
+              output.push_back(E);
+            } else if (is_inside(S)) {
+              output.push_back(intersect(S, E));
+            }
+            S = E;
+          }
+          return output;
+        };
+
+        poly = clip_against_line(poly, 0, bounds.minx, true);
+        poly = clip_against_line(poly, 0, bounds.maxx, false);
+        poly = clip_against_line(poly, 1, bounds.miny, true);
+        poly = clip_against_line(poly, 1, bounds.maxy, false);
+        
+        std::vector<Coordinate2D<double>> clean_poly;
+        for (const auto& p : poly) {
+          if (clean_poly.empty() || (clean_poly.back() - p).magnitude_sqd() > 1e-10) {
+            clean_poly.push_back(p);
+          }
+        }
+        if (!clean_poly.empty() && (clean_poly.back() - clean_poly.front()).magnitude_sqd() > 1e-10) {
+          clean_poly.push_back(clean_poly.front());
+        }
+        return clean_poly;
+      };
+
+      for (Contour& contour : contours) {
+        contour.points() = clip_polygon(std::move(contour.points()), clip_extent);
+        if (contour.points().size() > 1) {
+          contour.close_loop();
+        }
+      }
+
+      for (const Contour& contour : contours) {
+        if (contour.points().size() <= 2) {
+          continue;
+        }
+        writer.write_polygon(contour, shape.layer_name,
+                              {{"threshold", shape.threshold},
+                               {"category_name", shape.category_name},
+                               {"color", shape.color_hex}});
+      }
+    }
+  }
 
   constexpr double INCHES_PER_METER = 39.3701;
   double render_pixel_resolution = config.render.scale / config.render.dpi / INCHES_PER_METER;

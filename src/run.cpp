@@ -1,6 +1,8 @@
 #include "run.hpp"
 
 #include <omp.h>
+#include <tuple>
+#include <variant>
 
 #include <filesystem>
 #include <iostream>
@@ -168,8 +170,11 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               dx = grids.back().transform().dx();
               dy = grids.back().transform().dy();
             } else {
-              if (dx != grids.back().transform().dx() || dy != grids.back().transform().dy()) {
-                Fail("dx or dy mismatch");
+              if (std::abs(dx.value() - grids.back().transform().dx()) > 1e-9 ||
+                  std::abs(dy.value() - grids.back().transform().dy()) > 1e-9) {
+                Fail(to_string("dx or dy mismatch when combining ", filename, ". Expected ",
+                               dx.value(), ", ", dy.value(), " but got ",
+                               grids.back().transform().dx(), ", ", grids.back().transform().dy()));
               }
             }
           }
@@ -177,8 +182,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           AssertGE(grids.size(), 1);
           AssertGE(grids[0].size(), 1);
 
-          size_t width = (extent.maxx - extent.minx) / (*dx);
-          size_t height = (extent.maxy - extent.miny) / (std::abs(*dy));
+          size_t width = num_cells_by_distance(extent.maxx - extent.minx, *dx);
+          size_t height = num_cells_by_distance(extent.maxy - extent.miny, std::abs(*dy));
 
           size_t required_memory = width * height * grids[0].size() * grids[0][0].n_bytes();
           std::cout << "Creating combined grid with dimensions " << width << "x" << height
@@ -190,8 +195,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           Geo<MultiBand<FlexGrid>> combined_grid(
               GeoTransform(extent.minx, extent.maxy, *dx, *dy),
               GeoProjection(grids[0].projection()), grids[0].size(),
-              (extent.maxx - extent.minx) / (*dx), (extent.maxy - extent.miny) / (std::abs(*dy)),
-              grids[0][0].n_bytes(), grids[0][0].data_type());
+              width, height, grids[0][0].n_bytes(), grids[0][0].data_type());
 
           for (const auto& grid : grids) {
             combined_grid.fill_from(grid);
@@ -269,6 +273,158 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         }
 
         write_to_crt(config.output_path() / "combined" / "contours.crt");
+
+        // Combine vege_color.gpkg
+        {
+            TimeFunction timer("Combining vege_color.gpkg");
+
+            struct VegeFeature {
+                std::unique_ptr<OGRGeometry, decltype(&OGRGeometryFactory::destroyGeometry)> geom;
+                std::string layer_name;
+                std::string category_name;
+                double threshold;
+                std::string color_hex;
+            };
+
+            auto read_vege_gpkg =
+                [](const fs::path& filename) -> std::vector<VegeFeature> {
+                std::vector<VegeFeature> features;
+                ensure_gdal_initialized();
+                auto* dataset = (GDALDataset*)GDALOpenEx(filename.string().c_str(), GDAL_OF_VECTOR, nullptr, nullptr, nullptr);
+                if (!dataset) {
+                    std::cerr << "Warning: Failed to open GPKG file for reading: " << filename.string() << std::endl;
+                    return features;
+                }
+
+                for (int i = 0; i < dataset->GetLayerCount(); i++) {
+                    OGRLayer* layer = dataset->GetLayer(i);
+                    if (!layer) continue;
+
+                    OGRFeature* feature;
+                    layer->ResetReading();
+                    while ((feature = layer->GetNextFeature()) != nullptr) {
+                        OGRGeometry* geometry = feature->GetGeometryRef();
+                        if (!geometry || (wkbFlatten(geometry->getGeometryType()) != wkbPolygon && 
+                                          wkbFlatten(geometry->getGeometryType()) != wkbMultiPolygon)) {
+                            OGRFeature::DestroyFeature(feature);
+                            continue;
+                        }
+
+                        VegeFeature vf{
+                            .geom = {geometry->clone(), &OGRGeometryFactory::destroyGeometry},
+                            .layer_name = layer->GetName(),
+                            .category_name = "",
+                            .threshold = 0.0,
+                            .color_hex = ""
+                        };
+                        int category_idx = feature->GetFieldIndex("category_name");
+                        if (category_idx >= 0) vf.category_name = feature->GetFieldAsString(category_idx);
+                        int threshold_idx = feature->GetFieldIndex("threshold");
+                        if (threshold_idx >= 0) vf.threshold = feature->GetFieldAsDouble(threshold_idx);
+                        int color_idx = feature->GetFieldIndex("color");
+                        if (color_idx >= 0) vf.color_hex = feature->GetFieldAsString(color_idx);
+
+                        features.push_back(std::move(vf));
+                        OGRFeature::DestroyFeature(feature);
+                    }
+                }
+                GDALClose(dataset);
+                return features;
+            };
+
+            using VegePolyKey = std::tuple<std::string, std::string, double>;
+            using VegeGeomOwner =
+                std::unique_ptr<OGRGeometry, decltype(&OGRGeometryFactory::destroyGeometry)>;
+            std::map<VegePolyKey, std::vector<VegeGeomOwner>> vege_geoms_by_key;
+            std::map<VegePolyKey, std::map<std::string, std::variant<int, double, std::string>>> vege_attrs_by_key;
+
+            for (const fs::path& output_dir : combine_dirs) {
+                fs::path gpkg_path = output_dir / "vege_color.gpkg";
+                if (!fs::exists(gpkg_path)) continue;
+
+                for (auto&& feature : read_vege_gpkg(gpkg_path)) {
+                    VegePolyKey key = std::make_tuple(feature.layer_name, feature.category_name, feature.threshold);
+                    vege_geoms_by_key[key].push_back(std::move(feature.geom));
+                    if (vege_attrs_by_key.find(key) == vege_attrs_by_key.end()) {
+                        vege_attrs_by_key[key] = {
+                            {"threshold", feature.threshold},
+                            {"category_name", feature.category_name},
+                            {"color", feature.color_hex}
+                        };
+                    }
+                }
+            }
+
+            if (projection.has_value()) {
+                GPKGWriter writer((config.output_path() / "combined" / "vege_color.gpkg").string(), projection.value());
+
+                // The UnionCascaded operation is CPU-intensive and can be parallelized.
+                // We process each vegetation key in parallel and store the results.
+                // Writing to the GPKG is done sequentially afterwards, as the GDAL
+                // GPKG driver may not be thread-safe for concurrent writes.
+                struct MergedVegeFeature {
+                    std::unique_ptr<OGRGeometry, decltype(&OGRGeometryFactory::destroyGeometry)> geom{nullptr, &OGRGeometryFactory::destroyGeometry};
+                    std::string layer_name;
+                    std::map<std::string, std::variant<int, double, std::string>> attrs;
+                };
+
+                std::vector<VegePolyKey> keys;
+                keys.reserve(vege_geoms_by_key.size());
+                for (const auto& pair : vege_geoms_by_key) {
+                    keys.push_back(pair.first);
+                }
+
+                std::vector<MergedVegeFeature> merged_features(keys.size());
+
+#pragma omp parallel for
+                for (size_t i = 0; i < keys.size(); ++i) {
+                    const auto& key = keys[i];
+                    const auto& geoms = vege_geoms_by_key.at(key);
+
+                    OGRMultiPolygon collection;
+                    for (const auto& geom : geoms) {
+                        OGRwkbGeometryType type = wkbFlatten(geom->getGeometryType());
+                        if (type == wkbPolygon) {
+                            collection.addGeometry(geom.get());
+                        } else if (type == wkbMultiPolygon) {
+                            OGRMultiPolygon* mp = static_cast<OGRMultiPolygon*>(geom.get());
+                            for (int j = 0; j < mp->getNumGeometries(); j++) {
+                                collection.addGeometry(mp->getGeometryRef(j));
+                            }
+                        }
+                    }
+                    OGRGeometry* merged = collection.UnionCascaded();
+                    
+                    if (!merged) {
+                        // GEOS UnaryUnion can throw topology exceptions on large collections of perfectly 
+                        // adjacent polygons (e.g. from tile boundaries). Buffer(0) is a robust fallback.
+                        merged = collection.Buffer(0);
+                    }
+
+                    if (!merged) {
+                        // Absolute fallback to avoid silent data loss of the entire layer
+                        merged = collection.clone();
+                    }
+
+                    if (merged) {
+                        merged = OGRGeometryFactory::forceToMultiPolygon(merged);
+                    }
+
+                    if (merged) {
+                        merged_features[i] = {{merged, &OGRGeometryFactory::destroyGeometry},
+                                              std::get<0>(key), vege_attrs_by_key.at(key)};
+                    }
+                }
+
+                for (const auto& feature : merged_features) {
+                    if (feature.geom) {
+                        writer.write_geometry(feature.geom.get(), feature.layer_name, feature.attrs,
+                                              wkbMultiPolygon);
+                    }
+                }
+            }
+            write_to_crt(config.output_path() / "combined" / "vege_color.crt");
+        }
 
         break;
     }

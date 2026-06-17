@@ -99,12 +99,62 @@ class Contour {
             grid.transform().pixel_to_projection(current_point.end().offset_to_center()),
             grid[current_point.start()], grid[current_point.end()], height));
         end = true;
-        for (LineCoord2DCrossing<size_t> next_point : current_point.next_points()) {
+        
+        // Try standard next points first
+        std::vector<LineCoord2DCrossing<size_t>> next_candidates = current_point.next_points();
+        for (LineCoord2DCrossing<size_t> next_point : next_candidates) {
           if (contour_heights.in_bounds(next_point) &&
               contour_heights[next_point].contains(height)) {
             current_point = next_point;
             end = false;
             break;
+          }
+        }
+        
+        // If no valid next point found and we're near a boundary, try edge traversal
+        if (end && this_contour_points.size() > 0) {
+          Coordinate2D<size_t> start_cell = current_point.start();
+          Coordinate2D<size_t> end_cell = current_point.end();
+          bool at_left_edge = (start_cell.x() == 0 || end_cell.x() == 0);
+          bool at_right_edge = (start_cell.x() >= contour_heights.width() - 1 || 
+                               end_cell.x() >= contour_heights.width() - 1);
+          bool at_top_edge = (start_cell.y() == 0 || end_cell.y() == 0);
+          bool at_bottom_edge = (start_cell.y() >= contour_heights.height() - 1 || 
+                                end_cell.y() >= contour_heights.height() - 1);
+          
+          // Try to walk along the boundary parallel to the current direction
+          if ((at_left_edge || at_right_edge || at_top_edge || at_bottom_edge) && 
+              current_point.dir() != Direction2D::UP && current_point.dir() != Direction2D::DOWN) {
+            // For LEFT/RIGHT crossings, try moving up/down along the edge
+            for (Direction2D edge_dir : {Direction2D::UP, Direction2D::DOWN}) {
+              LineCoord2DCrossing<size_t> edge_point(
+                  start_cell.x() + edge_dir.dx(),
+                  start_cell.y() + edge_dir.dy(),
+                  current_point.dir(),
+                  current_point.crossing_dir());
+              if (contour_heights.in_bounds(edge_point) &&
+                  contour_heights[edge_point].contains(height)) {
+                current_point = edge_point;
+                end = false;
+                break;
+              }
+            }
+          } else if ((at_left_edge || at_right_edge || at_top_edge || at_bottom_edge) &&
+                     current_point.dir() != Direction2D::LEFT && current_point.dir() != Direction2D::RIGHT) {
+            // For UP/DOWN crossings, try moving left/right along the edge
+            for (Direction2D edge_dir : {Direction2D::LEFT, Direction2D::RIGHT}) {
+              LineCoord2DCrossing<size_t> edge_point(
+                  start_cell.x() + edge_dir.dx(),
+                  start_cell.y() + edge_dir.dy(),
+                  current_point.dir(),
+                  current_point.crossing_dir());
+              if (contour_heights.in_bounds(edge_point) &&
+                  contour_heights[edge_point].contains(height)) {
+                current_point = edge_point;
+                end = false;
+                break;
+              }
+            }
           }
         }
       }

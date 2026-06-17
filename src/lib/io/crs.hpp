@@ -6,6 +6,7 @@
 
 #include "assert/assert.hpp"
 #include "grid/grid.hpp"
+#include "io/gdal_init.hpp"
 
 // Normalize a WKT CRS string for downstream use by blaze:
 //   - Strip any vertical (3D / COMPD_CS) component, since blaze only works in 2D.
@@ -14,6 +15,7 @@
 // Falls back to returning the input unchanged if the WKT can't be parsed.
 inline std::string normalize_crs_wkt(const std::string& wkt) {
   if (wkt.empty()) return {};
+  ensure_gdal_initialized();
   OGRSpatialReference srs;
   if (srs.importFromWkt(wkt.c_str()) != OGRERR_NONE) return wkt;
   srs.StripVertical();
@@ -35,6 +37,7 @@ inline std::string normalize_crs_wkt(const std::string& wkt) {
 inline std::string build_compound_crs_wkt(const std::string& wkt,
                                           const std::string& normalized_horizontal) {
   if (wkt.empty()) return normalized_horizontal;
+  ensure_gdal_initialized();
   OGRSpatialReference srs;
   if (srs.importFromWkt(wkt.c_str()) != OGRERR_NONE) return normalized_horizontal;
   if (!srs.IsCompound()) return normalized_horizontal;
@@ -101,6 +104,7 @@ struct UserCrsParseResult {
 // Non-throwing variant of user_crs_to_wkt(). Use this in interactive contexts
 // (e.g. the GUI) where a parse failure should be reported rather than abort.
 inline UserCrsParseResult try_user_crs_to_wkt(const std::string& user_crs) {
+  ensure_gdal_initialized();
   if (user_crs.empty()) return {true, {}, {}};
   OGRSpatialReference srs;
   if (srs.SetFromUserInput(user_crs.c_str()) != OGRERR_NONE) {
@@ -132,6 +136,7 @@ inline std::string user_crs_to_wkt(const std::string& user_crs) {
 // differences in the WKT representation). Empty strings are never "same".
 inline bool wkt_matches(const std::string& a, const std::string& b) {
   if (a.empty() || b.empty()) return false;
+  ensure_gdal_initialized();
   OGRSpatialReference srs_a;
   OGRSpatialReference srs_b;
   if (srs_a.importFromWkt(a.c_str()) != OGRERR_NONE) return false;

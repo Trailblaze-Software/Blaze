@@ -5,7 +5,7 @@
 #include "utilities/timer.hpp"
 
 template <typename T>
-GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_interval) {
+GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, double contour_interval) {
   TimeFunction timer("identifying contours");
   GridGraph contour_heights = GridGraph<std::set<double>>(grid);
 #pragma omp parallel for

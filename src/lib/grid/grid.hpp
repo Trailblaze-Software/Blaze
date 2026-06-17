@@ -172,12 +172,13 @@ class Grid : public GridData {
 
   typedef T value_type;
 
-  void fill_from(const Grid& other, const Coordinate2D<size_t>& top_left = {0, 0}) {
+  void fill_from(const Grid& other, const Coordinate2D<long long>& top_left = {0, 0}) {
 #pragma omp parallel for
     for (size_t i = 0; i < other.height(); i++) {
       for (size_t j = 0; j < other.width(); j++) {
-        if (this->in_bounds(top_left + Coordinate2D<size_t>{j, i}))
-          (*this)[top_left + Coordinate2D<size_t>{j, i}] = other[{j, i}];
+        Coordinate2D<long long> target(top_left.x() + j, top_left.y() + i);
+        if (target.x() >= 0 && target.y() >= 0 && this->in_bounds(Coordinate2D<size_t>(target.x(), target.y())))
+          (*this)[Coordinate2D<size_t>(target.x(), target.y())] = other[{j, i}];
       }
     }
   }
@@ -228,7 +229,7 @@ class FlexGrid : public GridData {
     for (size_t i = 0; i < other.height(); i++) {
       Coordinate2D<long long> start(std::max(top_left.x(), 0ll), (top_left.y() + i));
       size_t diff = start.x() - top_left.x();
-      long long num_elements = std::min((long long)other.width(), (long long)width() - start.x());
+      long long num_elements = std::min((long long)other.width() - (long long)diff, (long long)width() - start.x());
       if (this->in_bounds(start) && num_elements > 0) {
         std::memcpy((*this)[start], other[{diff, i}], num_elements * m_data_size);
       }
@@ -265,7 +266,7 @@ class MultiBand {
   size_t height() const { return m_grids[0].height(); }
   bool in_bounds(const Coordinate2D<size_t>& coord) const { return m_grids[0].in_bounds(coord); }
 
-  void fill_from(const MultiBand& other, const Coordinate2D<size_t>& top_left = {0, 0}) {
+  void fill_from(const MultiBand& other, const Coordinate2D<long long>& top_left = {0, 0}) {
     AssertEQ(size(), other.size());
     for (size_t i = 0; i < size(); i++) {
       m_grids[i].fill_from(other[i], top_left);
@@ -332,7 +333,7 @@ class Geo : public GridT, public GeoGridData {
 
   template <typename U>
   void fill_from(const Geo<U>& other) {
-    Coordinate2D<size_t> top_left =
+    Coordinate2D<long long> top_left =
         transform().projection_to_pixel(other.transform().pixel_to_projection({0, 0})).round();
     GridT::fill_from(other, top_left);
   }

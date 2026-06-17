@@ -54,18 +54,24 @@ Geo<GridT> same_type_different_size(const Geo<GridT>& grid, size_t new_width, si
 
 template <typename GridT>
 Geo<GridT> Geo<GridT>::slice(const Extent2D& extent) {
-  Coordinate2D<size_t> top_left = transform().projection_to_pixel({extent.minx, extent.maxy});
-  Coordinate2D<size_t> bottom_right = transform().projection_to_pixel({extent.maxx, extent.miny});
-  size_t new_width = bottom_right.x() - top_left.x();
-  size_t new_height = bottom_right.y() - top_left.y();
+  Coordinate2D<double> tl_d = transform().projection_to_pixel({extent.minx, extent.maxy});
+  Coordinate2D<double> br_d = transform().projection_to_pixel({extent.maxx, extent.miny});
 
-  Coordinate2D<double> new_top_left = transform().pixel_to_projection(top_left);
+  size_t tl_x = static_cast<size_t>(std::max(0.0, std::floor(tl_d.x())));
+  size_t tl_y = static_cast<size_t>(std::max(0.0, std::floor(tl_d.y())));
+  size_t br_x = static_cast<size_t>(std::min(static_cast<double>(this->width()), std::ceil(br_d.x())));
+  size_t br_y = static_cast<size_t>(std::min(static_cast<double>(this->height()), std::ceil(br_d.y())));
+
+  size_t new_width = br_x > tl_x ? br_x - tl_x : 0;
+  size_t new_height = br_y > tl_y ? br_y - tl_y : 0;
+
+  Coordinate2D<double> new_top_left = transform().pixel_to_projection({static_cast<double>(tl_x), static_cast<double>(tl_y)});
   Geo result = same_type_different_size(*this, new_width, new_height, new_top_left);
   if constexpr (is_specialization_v<GridT, Grid>) {
 #pragma omp parallel for
     for (size_t i = 0; i < new_height; i++) {
       for (size_t j = 0; j < new_width; j++) {
-        result[{j, i}] = (*this)[{j + top_left.x(), i + top_left.y()}];
+        result[{j, i}] = (*this)[{j + tl_x, i + tl_y}];
       }
     }
   } else if constexpr (std::is_same_v<GridT, FlexGrid>) {
@@ -73,7 +79,7 @@ Geo<GridT> Geo<GridT>::slice(const Extent2D& extent) {
     for (size_t i = 0; i < new_height; i++) {
       for (size_t j = 0; j < new_width; j++) {
         for (int k = 0; k < FlexGrid::m_data_size; k++) {
-          result[{j, i}][k] = (*this)[{j + top_left.x(), i + top_left.y()}][k];
+          result[{j, i}][k] = (*this)[{j + tl_x, i + tl_y}][k];
         }
       }
     }
@@ -83,7 +89,7 @@ Geo<GridT> Geo<GridT>::slice(const Extent2D& extent) {
       for (size_t i = 0; i < new_height; i++) {
         for (size_t j = 0; j < new_width; j++) {
           for (unsigned int k = 0; k < (*this)[band].n_bytes(); k++) {
-            result[band][{j, i}][k] = (*this)[band][{j + top_left.x(), i + top_left.y()}][k];
+            result[band][{j, i}][k] = (*this)[band][{j + tl_x, i + tl_y}][k];
           }
         }
       }

@@ -12,6 +12,7 @@
 
 #include "assert/assert.hpp"
 #include "io/crs.hpp"
+#include "io/gdal_init.hpp"
 #include "las/las_file.hpp"
 #include "printing/to_string.hpp"
 #include "utilities/coordinate.hpp"
@@ -35,10 +36,12 @@ struct LASFileExtent {
 // Build a coordinate transformation between two WKT CRSes. Returns nullptr
 // when the two CRSes match or either WKT is empty (caller must treat this as
 // an identity transform).
-inline std::unique_ptr<OGRCoordinateTransformation> make_coord_transform(
+inline std::unique_ptr<OGRCoordinateTransformation, void(*)(OGRCoordinateTransformation*)> make_coord_transform(
     const std::string& src_wkt, const std::string& dst_wkt) {
-  if (src_wkt.empty() || dst_wkt.empty()) return {};
-  if (wkt_matches(src_wkt, dst_wkt)) return {};
+  ensure_gdal_initialized();
+  auto deleter = [](OGRCoordinateTransformation* p) { if (p) OGRCoordinateTransformation::DestroyCT(p); };
+  if (src_wkt.empty() || dst_wkt.empty()) return {nullptr, deleter};
+  if (wkt_matches(src_wkt, dst_wkt)) return {nullptr, deleter};
   OGRSpatialReference src_srs;
   OGRSpatialReference dst_srs;
   if (src_srs.importFromWkt(src_wkt.c_str()) != OGRERR_NONE) {
@@ -51,8 +54,8 @@ inline std::unique_ptr<OGRCoordinateTransformation> make_coord_transform(
   // existing LAS x/y semantics continue to hold on either side.
   src_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
   dst_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
-  std::unique_ptr<OGRCoordinateTransformation> ct(
-      OGRCreateCoordinateTransformation(&src_srs, &dst_srs));
+  std::unique_ptr<OGRCoordinateTransformation, void(*)(OGRCoordinateTransformation*)> ct(
+      OGRCreateCoordinateTransformation(&src_srs, &dst_srs), deleter);
   if (!ct) {
     Fail("Could not construct coordinate transformation between CRSes.");
   }
