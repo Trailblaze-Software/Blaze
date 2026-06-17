@@ -302,7 +302,7 @@ set(LASPP_DEBUG_ASSERTS
 FetchContent_Declare(
   las++
   GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
-  GIT_TAG 4667bf1c440b38f82237e7985ceeeb15272b915f)
+  GIT_TAG a55eff6227db23de27b177c87ce315d7cca83004)
 FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
