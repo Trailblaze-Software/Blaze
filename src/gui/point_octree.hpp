@@ -17,8 +17,6 @@
 #include "gui/frustum.hpp"
 #include "utilities/coordinate.hpp"
 
-class PointOctreeNode;
-
 // AoS layout: one struct per point, contiguous in m_points. Matches GPU interleaved
 // attributes and allows zero-copy glBufferSubData slices per octree leaf (Displaz-style).
 struct OctreePoint {
@@ -32,6 +30,20 @@ struct OctreePoint {
   uint8_t file_b = 0;
   uint8_t has_file_rgb = 0;
 };
+
+// Fast Fisher-Yates shuffle with xorshift64 — shared by both classes.
+inline void octree_shuffle_range(std::vector<OctreePoint>& points, size_t begin, size_t end) {
+  if (end <= begin + 1) return;
+  static thread_local uint64_t rng_state = std::random_device{}();
+  for (size_t i = end - 1; i > begin; --i) {
+    uint64_t x = rng_state;
+    x ^= x << 13;
+    x ^= x >> 7;
+    x ^= x << 17;
+    rng_state = x;
+    std::swap(points[i], points[begin + static_cast<size_t>(x % (i - begin + 1))]);
+  }
+}
 
 class PointOctreeNode {
  public:
@@ -81,12 +93,7 @@ class PointOctreeNode {
   }
 
   void shuffle_range(std::vector<OctreePoint>& points) const {
-    if (end_index <= begin_index + 1) {
-      return;
-    }
-    static thread_local std::mt19937 rng{std::random_device{}()};
-    std::shuffle(points.begin() + static_cast<std::ptrdiff_t>(begin_index),
-                 points.begin() + static_cast<std::ptrdiff_t>(end_index), rng);
+    octree_shuffle_range(points, begin_index, end_index);
   }
 
   void shuffle_recursive(std::vector<OctreePoint>& points) {
@@ -260,41 +267,43 @@ class PointOctree {
   static constexpr size_t kParallelBuildMinPoints = 64'000;
 
   static void shuffle_range(std::vector<OctreePoint>& points, size_t begin, size_t end) {
-    if (end <= begin + 1) {
-      return;
-    }
-    static thread_local std::mt19937 rng{std::random_device{}()};
-    std::shuffle(points.begin() + static_cast<std::ptrdiff_t>(begin),
-                 points.begin() + static_cast<std::ptrdiff_t>(end), rng);
+    octree_shuffle_range(points, begin, end);
   }
 
   static void partition_range(PointOctreeNode& node, std::vector<OctreePoint>& points, size_t begin,
                               size_t end, std::array<size_t, 9>& child_ends) {
-    const size_t count = end - begin;
-    std::vector<OctreePoint> temp(count);
+    // Count buckets.
     std::array<size_t, 8> bucket_counts{};
     for (size_t i = begin; i < end; ++i) {
       ++bucket_counts[static_cast<size_t>(node.child_index(points[i]))];
     }
+    // Compute bucket boundaries.
     child_ends[0] = begin;
     for (int i = 0; i < 8; ++i) {
       child_ends[static_cast<size_t>(i + 1)] =
           child_ends[static_cast<size_t>(i)] + bucket_counts[static_cast<size_t>(i)];
     }
+    // In-place 8-way partition: walk each bucket's final range and swap
+    // misplaced elements into their correct buckets. Each swap fixes one
+    // element, so at most N swaps total. No temp buffer needed.
     std::array<size_t, 8> write_pos = {child_ends[0], child_ends[1], child_ends[2], child_ends[3],
                                        child_ends[4], child_ends[5], child_ends[6], child_ends[7]};
-    for (size_t i = begin; i < end; ++i) {
-      temp[i - begin] = points[i];
-    }
-    for (size_t i = 0; i < count; ++i) {
-      const int child = node.child_index(temp[i]);
-      points[write_pos[static_cast<size_t>(child)]++] = temp[i];
+    for (int b = 0; b < 8; ++b) {
+      for (size_t i = write_pos[static_cast<size_t>(b)]; i < child_ends[static_cast<size_t>(b + 1)];
+           ++i) {
+        int c;
+        while ((c = node.child_index(points[i])) != b) {
+          std::swap(points[i], points[write_pos[static_cast<size_t>(c)]]);
+          ++write_pos[static_cast<size_t>(c)];
+        }
+      }
     }
   }
 
   static void split_subtree_job(PointOctreeNode& node, size_t begin, size_t end,
                                 std::vector<OctreePoint>& points, std::vector<BuildJob>& out_jobs) {
-    shuffle_range(points, begin, end);
+    // Shuffle is deferred to shuffle_leaves() after build — per-level shuffles
+    // are redundant since children will be shuffled again at lower levels.
     node.begin_index = 0;
     node.end_index = 0;
 

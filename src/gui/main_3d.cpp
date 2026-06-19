@@ -33,6 +33,8 @@ struct LaunchOptions {
   std::optional<fs::path> import_path;
   std::optional<fs::path> las_path;
   bool exit_after_load = false;
+  bool exit_after_render = false;
+  bool bench_mode = false;
   bool probe_las = false;
 };
 
@@ -43,6 +45,8 @@ static void print_usage(const char* program) {
       << "Options:\n"
       << "  --import-blaze-output <dir>  Import blaze outputs from directory on startup\n"
       << "  --exit-after-load            Exit once all layers finish loading (for automation)\n"
+      << "  --exit-after-render          Exit after first full render (for automation)\n"
+      << "  --bench                      Load, render 60 frames headless, print stats, exit\n"
       << "  --probe-las <file>           Load first LAS batch and print diagnostics (no GUI)\n"
       << "  --help                       Show this help\n"
       << "\n"
@@ -71,6 +75,11 @@ static LaunchOptions parse_args(int argc, char* argv[]) {
     }
     if (arg == "--exit-after-load") {
       opts.exit_after_load = true;
+    } else if (arg == "--exit-after-render") {
+      opts.exit_after_render = true;
+    } else if (arg == "--bench") {
+      opts.exit_after_load = true;
+      opts.bench_mode = true;
     } else if (arg == "--probe-las") {
       if (i + 1 >= argc) {
         std::cerr << "Missing path after --probe-las\n";
@@ -322,6 +331,8 @@ int main(int argc, char* argv[]) {
 
   Main3DWindow window;
   window.set_exit_after_load(opts.exit_after_load);
+  window.set_exit_after_render(opts.exit_after_render);
+  window.set_bench_mode(opts.bench_mode);
 
   window.show();
 

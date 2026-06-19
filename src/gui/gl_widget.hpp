@@ -93,12 +93,27 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
               restart_render();
               update();
             });
+    connect(m_layers.back().get(), &Layer::opacity_changed, this, [this] { update(); });
     if (layer->extent().max_extent() > 0) {
       request_zoom_to_extent(layer->extent() - m_camera.world_offset());
     }
     restart_render();
     update();
   }
+
+  enum class AnimType { None, Orbit, Wobble };
+  void start_bench_orbit(double duration_seconds = 10.0);
+  void start_animation(AnimType type);
+  void stop_animation();
+  void set_anim_type(int t);
+  int anim_type() const { return static_cast<int>(m_anim_type); }
+  void set_orbit_period(double secs) { m_orbit_period_secs = secs; }
+  double orbit_period() const { return m_orbit_period_secs; }
+  void set_wobble_period(double secs) { m_wobble_period_secs = secs; }
+  double wobble_period() const { return m_wobble_period_secs; }
+  void set_wobble_amplitude(double deg) { m_wobble_amplitude_deg = deg; }
+  double wobble_amplitude() const { return m_wobble_amplitude_deg; }
+  bool is_anim_active() const { return m_orbit_timer && m_orbit_timer->isActive(); }
 
   void set_layer_visible(Layer* layer, bool visible) {
     for (size_t i = 0; i < m_layers.size(); ++i) {
@@ -157,6 +172,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
  private slots:
   void on_camera_idle();
   void on_stream_tick();
+  void on_orbit_tick();
 
  private:
   void request_zoom_to_extent(const Extent3D& extent) {
@@ -184,6 +200,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   void try_pick_point(const QPoint& pixel, bool focus_on_pick = false);
   void focus_on_selected_point();
   void draw_stats_overlay();
+  void update_scene_bounds();
 
   IncrementalFramebuffer m_scene_fbo;
   PointCloudFramebuffer m_points_fbo;
@@ -194,6 +211,16 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   int m_framebuffer_height = 0;
   QTimer* m_idle_timer = nullptr;
   QTimer* m_stream_timer = nullptr;
+  QTimer* m_orbit_timer = nullptr;
+  std::chrono::steady_clock::time_point m_last_orbit_tick;
+  double m_anim_phase = 0.0;
+  AnimType m_anim_type = AnimType::None;
+  AnimType m_last_anim_type = AnimType::Orbit;  // remembered for Space toggle
+  double m_orbit_period_secs = 15.0;
+  double m_wobble_period_secs = 4.0;
+  double m_wobble_amplitude_deg = 0.5;
+  int m_bench_frame_count = 0;
+  static constexpr int kBenchFrameCount = 300;
 
   QPoint m_last_mouse_pos;
   QPoint m_press_mouse_pos;

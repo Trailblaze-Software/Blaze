@@ -18,6 +18,13 @@ class Camera {
 
   int m_width;
   int m_height;
+  double m_device_pixel_ratio = 1.0;
+
+  // Scene bounding sphere in camera-local coords (relative to world_offset).
+  // Used to keep the far plane large enough that in-view geometry is never
+  // culled when the focal distance shrinks on zoom-in. Radius <= 0 means unset.
+  QVector3D m_scene_center;
+  float m_scene_radius = 0.0f;
 
   double m_fov = 45.0f;
 
@@ -51,6 +58,16 @@ class Camera {
     m_width = width;
     m_height = height;
   }
+
+  void set_device_pixel_ratio(double ratio) { m_device_pixel_ratio = ratio > 0.0 ? ratio : 1.0; }
+
+  void set_scene_bounds(const QVector3D& center, float radius) {
+    m_scene_center = center;
+    m_scene_radius = radius;
+  }
+
+  // Framebuffer height in physical pixels (gl_PointSize is in physical pixels).
+  double framebuffer_height() const { return m_height * m_device_pixel_ratio; }
 
   void reset_to_origin() {
     m_position = QVector3D(1, 1, 1);
@@ -111,6 +128,8 @@ class Camera {
 
   double projection_scale() const { return m_height / (2.0f * std::tan(deg2rad(m_fov) / 2)); }
 
+  double fov_rad() const { return deg2rad(m_fov); }
+
  private:
   double bound_rotation(double current_angle, double angle, double min_angle, double max_angle) {
     if (current_angle + angle > max_angle) {
@@ -145,16 +164,31 @@ class Camera {
     m_direction = offset;
   }
 
-  QMatrix4x4 proj_matrix() const {
+  // Projection (perspective) matrix only — no view transform.
+  QMatrix4x4 projection_matrix() const {
     QMatrix4x4 proj;
     const double view_distance = std::max(static_cast<double>(m_direction.length()), 0.1);
     const float near_plane =
-        static_cast<float>(std::clamp(view_distance * 0.002, 0.05, view_distance * 0.25));
-    const float far_plane = static_cast<float>(std::max(1e6, view_distance * 1e4));
-    proj.perspective(m_fov, (double)m_width / m_height, near_plane, far_plane);
-    proj.lookAt(m_position, m_position + m_direction, m_up);
+        static_cast<float>(std::clamp(view_distance * 0.002, 0.01, view_distance * 0.1));
+    double far_plane = view_distance * 50.0;
+    // Extend the far plane to enclose the whole scene so distant-but-visible
+    // nodes are not culled when the focal distance shrinks on zoom-in.
+    if (m_scene_radius > 0.0f) {
+      const double dist_to_center = (m_position - m_scene_center).length();
+      far_plane = std::max(far_plane, dist_to_center + m_scene_radius * 1.05 + 1.0);
+    }
+    proj.perspective(m_fov, (double)m_width / m_height, near_plane, static_cast<float>(far_plane));
     return proj;
   }
+
+  // View (eye/lookAt) matrix only.
+  QMatrix4x4 view_matrix() const {
+    QMatrix4x4 view;
+    view.lookAt(m_position, m_position + m_direction, m_up);
+    return view;
+  }
+
+  QMatrix4x4 proj_matrix() const { return projection_matrix() * view_matrix(); }
 
   int screen_width() const { return m_width; }
   int screen_height() const { return m_height; }

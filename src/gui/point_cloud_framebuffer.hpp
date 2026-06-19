@@ -16,6 +16,7 @@ class PointCloudFramebuffer {
   void bind() const;
   void clear() const;
   bool valid() const { return m_fbo != 0; }
+  GLuint fbo() const { return m_fbo; }
   GLuint color_texture() const { return m_color_tex; }
   GLuint depth_texture() const { return m_depth_tex; }
 
@@ -35,6 +36,9 @@ class PointCloudCompositor {
   void ensure_initialized(QOpenGLFunctions* f);
   void composite(QOpenGLExtraFunctions* gl, GLuint dest_fbo, GLuint point_color_tex,
                  GLuint point_depth_tex, float layer_alpha, int width, int height);
+  // Multiplicative fade of the point FBO for temporal anti-aliasing.
+  void fade_points_fbo(QOpenGLExtraFunctions* gl, GLuint points_fbo, float decay, int width,
+                       int height);
 
  private:
   std::unique_ptr<QOpenGLShaderProgram> m_shader;

@@ -4,6 +4,15 @@
 
 namespace {
 
+const char* kFullscreenTriangleVS = R"(
+    #version 330 core
+    void main() {
+        const vec2 positions[3] = vec2[](
+            vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
+        gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
+    }
+)";
+
 const char* kCompositeVertexShader = R"(
     #version 330 core
     out vec2 texCoord;
@@ -151,4 +160,36 @@ void PointCloudCompositor::composite(QOpenGLExtraFunctions* gl, GLuint dest_fbo,
 
   m_shader->release();
   gl->glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void PointCloudCompositor::fade_points_fbo(QOpenGLExtraFunctions* gl, GLuint points_fbo,
+                                           float decay, int width, int height) {
+  if (points_fbo == 0 || decay >= 1.0f) return;
+  // Simple full-screen pass: multiply existing content by decay using a
+  // trivial fragment shader and the compositor's existing VAO.
+  static const char* kFadeFS = R"(
+      #version 330 core
+      uniform float uDecay;
+      out vec4 fragColor;
+      void main() { fragColor = vec4(vec3(uDecay), 1.0); }
+  )";
+  static QOpenGLShaderProgram* s_fade_shader = nullptr;
+  if (!s_fade_shader) {
+    s_fade_shader = new QOpenGLShaderProgram();
+    s_fade_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kFullscreenTriangleVS);
+    s_fade_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kFadeFS);
+    s_fade_shader->link();
+  }
+
+  gl->glBindFramebuffer(GL_FRAMEBUFFER, points_fbo);
+  gl->glViewport(0, 0, width, height);
+  gl->glEnable(GL_BLEND);
+  gl->glBlendFunc(GL_DST_COLOR, GL_ZERO);  // multiply dst by src color
+  gl->glDisable(GL_DEPTH_TEST);
+
+  s_fade_shader->bind();
+  s_fade_shader->setUniformValue("uDecay", decay);
+  QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
+  gl->glDrawArrays(GL_TRIANGLES, 0, 3);
+  s_fade_shader->release();
 }

@@ -13,6 +13,7 @@
 #include <QtWidgets>
 #include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <iostream>
 #include <limits>
 
@@ -25,6 +26,10 @@ GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent), m_camera(width(), h
   m_stream_timer = new QTimer(this);
   m_stream_timer->setInterval(16);
   connect(m_stream_timer, &QTimer::timeout, this, &GLWidget::on_stream_tick);
+
+  m_orbit_timer = new QTimer(this);
+  m_orbit_timer->setInterval(16);
+  connect(m_orbit_timer, &QTimer::timeout, this, &GLWidget::on_orbit_tick);
 }
 
 GLWidget::~GLWidget() {
@@ -112,6 +117,28 @@ void GLWidget::resizeGL(int w, int h) {
 
 void GLWidget::restart_render() { m_incremental_draw = false; }
 
+void GLWidget::update_scene_bounds() {
+  Extent3D bounds;
+  for (const auto& layer : m_layers) {
+    if (!layer->visible() || layer->extent().max_extent() <= 0) {
+      continue;
+    }
+    bounds.grow(layer->extent() - m_camera.world_offset());
+  }
+  if (bounds.max_extent() <= 0) {
+    m_camera.set_scene_bounds(QVector3D(), 0.0f);
+    return;
+  }
+  const QVector3D center(static_cast<float>(0.5 * (bounds.minx + bounds.maxx)),
+                         static_cast<float>(0.5 * (bounds.miny + bounds.maxy)),
+                         static_cast<float>(0.5 * (bounds.minz + bounds.maxz)));
+  const double dx = bounds.maxx - bounds.minx;
+  const double dy = bounds.maxy - bounds.miny;
+  const double dz = bounds.maxz - bounds.minz;
+  const float radius = static_cast<float>(0.5 * std::sqrt(dx * dx + dy * dy + dz * dz));
+  m_camera.set_scene_bounds(center, radius);
+}
+
 void GLWidget::paintGL() {
   if (m_painting) {
     return;
@@ -124,6 +151,8 @@ void GLWidget::paintGL() {
 
   if (width() > 0 && height() > 0) {
     m_camera.set_screen_size(width(), height());
+    m_camera.set_device_pixel_ratio(devicePixelRatioF());
+    update_scene_bounds();
     apply_pending_zoom();
     const int fb_w = static_cast<int>(width() * devicePixelRatioF());
     const int fb_h = static_cast<int>(height() * devicePixelRatioF());
@@ -263,6 +292,18 @@ void GLWidget::paintGL() {
       std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - frame_start)
           .count();
   m_frame_ms_ema = m_frame_ms_ema * 0.88 + m_last_frame_ms * 0.12;
+
+  // Periodic frame benchmark (every 60 frames).
+  {
+    static int bench_frame = 0;
+    if (++bench_frame % 60 == 0) {
+      const double fps = m_frame_ms_ema > 0.0 ? 1000.0 / m_frame_ms_ema : 0.0;
+      std::cerr << "[blaze bench frame] fps=" << fps << "  frame_ms=" << m_last_frame_ms
+                << "  pts_ms=" << m_last_point_draw_ms << "  verts=" << m_last_point_vertices
+                << "  cam=(" << m_camera.position().x() << "," << m_camera.position().y() << ","
+                << m_camera.position().z() << ")" << std::endl;
+    }
+  }
 
   draw_stats_overlay();
 
@@ -508,7 +549,80 @@ void GLWidget::keyPressEvent(QKeyEvent* event) {
   } else if (event->key() == Qt::Key_Z && m_selected_point.has_value()) {
     focus_on_selected_point();
     return;
+  } else if (event->key() == Qt::Key_Space) {
+    if (m_orbit_timer->isActive())
+      stop_animation();
+    else
+      start_animation(m_last_anim_type);
+    return;
+  } else {
+    event->ignore();
+    return;
   }
   note_camera_motion();
+  update();
+}
+
+void GLWidget::set_anim_type(int t) {
+  AnimType type = static_cast<AnimType>(t);
+  if (type != AnimType::None) m_last_anim_type = type;
+  if (type == m_anim_type) return;
+  m_anim_type = type;
+  if (type == AnimType::None)
+    stop_animation();
+  else
+    start_animation(type);
+}
+
+void GLWidget::start_animation(AnimType type) {
+  if (m_layers.empty()) return;
+  m_anim_type = type;
+  m_last_orbit_tick = std::chrono::steady_clock::now();
+  m_anim_phase = 0.0;
+  restart_render();
+  m_bench_frame_count = 0;
+  m_orbit_timer->start();
+  update();
+}
+
+void GLWidget::stop_animation() {
+  m_anim_type = AnimType::None;
+  m_orbit_timer->stop();
+  update();
+}
+
+void GLWidget::start_bench_orbit(double duration_seconds) {
+  start_animation(AnimType::Orbit);
+  QTimer::singleShot(static_cast<int>(duration_seconds * 1000), [] { std::exit(0); });
+}
+
+void GLWidget::on_orbit_tick() {
+  if (m_layers.empty() || m_anim_type == AnimType::None) return;
+  ++m_bench_frame_count;
+  auto now = std::chrono::steady_clock::now();
+  double dt = std::chrono::duration<double>(now - m_last_orbit_tick).count();
+  m_last_orbit_tick = now;
+  constexpr double kFullCircleDeg = 360.0;
+  double period = (m_anim_type == AnimType::Orbit) ? m_orbit_period_secs : m_wobble_period_secs;
+  double degrees = kFullCircleDeg * dt / period;
+  m_anim_phase += 2.0 * 3.1415926535 * dt / period;  // radians
+
+  switch (m_anim_type) {
+    case AnimType::Orbit:
+      m_camera.rotate_around_center(degrees, 0);
+      break;
+    case AnimType::Wobble: {
+      // Wobble traces a circle with angular radius = amplitude (degrees).
+      // Per-tick rotation must be scaled by dt/period to convert position to velocity.
+      double dphase = 2.0 * 3.1415926535 * dt / period;
+      double h = m_wobble_amplitude_deg * dphase * std::cos(m_anim_phase);
+      double v = -m_wobble_amplitude_deg * dphase * std::sin(m_anim_phase);
+      m_camera.rotate_around_center(h, v);
+      break;
+    }
+    case AnimType::None:
+      break;
+  }
+  restart_render();
   update();
 }

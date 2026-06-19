@@ -29,10 +29,12 @@ class Layer : public QObject {
   std::string m_name;
   LayerKind m_kind;
   bool m_visible = true;
+  float m_opacity = 1.0f;
 
  signals:
   void data_updated() const;
   void visibility_changed(bool visible) const;
+  void opacity_changed() const;
 
  public:
   Layer(std::string name, LayerKind kind) : m_name(std::move(name)), m_kind(kind) {}
@@ -42,10 +44,18 @@ class Layer : public QObject {
   virtual std::string name() const { return m_name; }
   LayerKind kind() const { return m_kind; }
   bool visible() const { return m_visible; }
+  float opacity() const { return m_opacity; }
   void set_visible(bool visible) {
     if (m_visible != visible) {
       m_visible = visible;
       emit visibility_changed(visible);
+    }
+  }
+  void set_opacity(float opacity) {
+    const float clamped = std::clamp(opacity, 0.0f, 1.0f);
+    if (m_opacity != clamped) {
+      m_opacity = clamped;
+      emit opacity_changed();
     }
   }
   virtual ~Layer() = default;
@@ -62,9 +72,9 @@ class LASLayer : public PointLayer {
 
   fs::path m_file_path;
   AsyncOctreeLASData m_las_data;
-  float m_point_size_scale = 1.0f;
+  float m_point_radius_m = 0.15f;
   float m_point_alpha = 1.0f;
-  float m_point_stream_budget_ms = 40.0f;
+  float m_point_stream_budget_ms = 30.0f;
   PointColorMode m_point_color_mode = PointColorMode::File;
   std::array<uint8_t, 3> m_fixed_point_color = {217, 230, 255};
 
@@ -86,16 +96,16 @@ class LASLayer : public PointLayer {
 
   const fs::path& file_path() const { return m_file_path; }
 
-  float point_size_scale() const { return m_point_size_scale; }
+  float point_radius_m() const { return m_point_radius_m; }
   float point_alpha() const { return m_point_alpha; }
   float point_stream_budget_ms() const { return m_point_stream_budget_ms; }
   PointColorMode point_color_mode() const { return m_point_color_mode; }
   const std::array<uint8_t, 3>& fixed_point_color() const { return m_fixed_point_color; }
 
-  void set_point_size_scale(float scale) {
-    const float clamped = std::clamp(scale, 0.05f, 12.0f);
-    if (m_point_size_scale != clamped) {
-      m_point_size_scale = clamped;
+  void set_point_radius_m(float radius_m) {
+    const float clamped = std::clamp(radius_m, 0.008f, 1.2f);
+    if (m_point_radius_m != clamped) {
+      m_point_radius_m = clamped;
       emit point_size_changed();
     }
   }

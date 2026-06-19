@@ -3,6 +3,7 @@
 #include <QOpenGLContext>
 #include <QPoint>
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <cmath>
 #include <cstddef>
@@ -17,6 +18,11 @@ constexpr size_t kMaxPreviewDrawVertices = 500'000;
 constexpr size_t kMaxDrawSamples = 20;
 constexpr float kStreamViewResetDistance = 25.0f;
 
+// Analytic ray-traced sphere impostors. Each point is a screen-aligned point
+// sprite sized to the sphere's perspective silhouette; the fragment shader casts
+// an eye-space ray, intersects the analytic sphere, and writes the exact depth
+// and surface normal. This keeps the one-vertex-per-point fast path while giving
+// geometrically correct spheres of the requested world-space radius.
 const char* kPointVertexShader = R"(
     #version 330 core
     in vec3 local_position;
@@ -24,14 +30,18 @@ const char* kPointVertexShader = R"(
     in float classification;
     in vec3 file_color;
     in float has_file_rgb;
-    uniform float point_radius;
-    uniform mat4 proj_matrix;
+    uniform float point_radius_m;   // world-space sphere radius (metres)
+    uniform float viewport_height;  // framebuffer height in pixels
+    uniform float fov_rad;          // vertical field of view (radians)
+    uniform mat4 u_view;
+    uniform mat4 u_proj;
     uniform vec3 point_offset;
     uniform int color_mode;
     uniform vec3 fixed_color;
     uniform float point_alpha;
-    flat out int vtx_class_id;
     out vec4 vtx_color;
+    out vec3 eye_center;            // sphere centre in eye space
+    out float eye_radius;
 
     vec3 classification_color(int class_id) {
         if (class_id == 2) return vec3(160.0, 120.0, 80.0) / 255.0;
@@ -48,6 +58,10 @@ const char* kPointVertexShader = R"(
 
     void main() {
         vec3 position = local_position + point_offset;
+        vec4 eye = u_view * vec4(position, 1.0);
+        eye_center = eye.xyz;
+        eye_radius = point_radius_m;
+
         vec3 rgb = fixed_color;
         if (color_mode == 0) {
             if (has_file_rgb > 0.5) {
@@ -58,22 +72,48 @@ const char* kPointVertexShader = R"(
         } else if (color_mode == 1) {
             rgb = classification_color(int(classification + 0.5));
         }
-        vtx_class_id = int(classification + 0.5);
         vtx_color = vec4(rgb, point_alpha);
-        gl_Position = proj_matrix * vec4(position, 1.0);
-        gl_PointSize = clamp(point_radius / gl_Position.w, 1.0, 512.0);
+
+        gl_Position = u_proj * eye;
+        // Sprite diameter in pixels = 2 * R * focal_length / depth.
+        float depth = max(-eye.z, 1e-4);
+        float proj_scale = viewport_height / (2.0 * tan(fov_rad * 0.5));
+        gl_PointSize = clamp(2.0 * point_radius_m * proj_scale / depth, 1.0, 4096.0);
     }
 )";
 
 const char* kPointFragmentShader = R"(
     #version 330 core
-    flat in int vtx_class_id;
     in vec4 vtx_color;
-    uniform int color_mode;
+    in vec3 eye_center;
+    in float eye_radius;
+    uniform mat4 u_proj;
     out vec4 fragColor;
     void main() {
-        if (length(gl_PointCoord - vec2(0.5)) > 0.5) discard;
-        fragColor = vtx_color;
+        // Reconstruct the eye-space ray through this fragment. The sprite spans
+        // the sphere's silhouette: UV in [-1,1] maps to a lateral offset of
+        // R metres on the tangent plane at the sphere's depth.
+        vec2 uv = gl_PointCoord * 2.0 - 1.0;
+        uv.y = -uv.y;
+        vec3 ray_dir = normalize(vec3(eye_center.xy + uv * eye_radius, eye_center.z));
+
+        // Ray from the eye (origin) vs analytic sphere: |t*dir - center|^2 = r^2.
+        float b = dot(ray_dir, eye_center);
+        float c = dot(eye_center, eye_center) - eye_radius * eye_radius;
+        float disc = b * b - c;
+        if (disc < 0.0) discard;
+        float t = b - sqrt(disc);
+        vec3 hit = ray_dir * t;              // eye-space surface point
+        vec3 normal = normalize(hit - eye_center);
+
+        // Exact, projection-correct depth so spheres interlock without z-fighting.
+        vec4 clip = u_proj * vec4(hit, 1.0);
+        gl_FragDepth = 0.5 * (clip.z / clip.w) + 0.5;
+
+        // Eye-space lighting stays consistent as the camera orbits.
+        vec3 light_dir = normalize(vec3(0.3, 0.5, 0.8));
+        float lighting = 0.4 + 0.6 * max(dot(normal, light_dir), 0.0);
+        fragColor = vec4(vtx_color.rgb * lighting, 1.0);
     }
 )";
 
@@ -163,23 +203,6 @@ const char* kCrosshairLineFragmentShader = R"(
     }
 )";
 
-const char* kLineVertexShader = R"(
-    #version 330 core
-    in vec3 position;
-    uniform mat4 proj_matrix;
-    void main() {
-        gl_Position = proj_matrix * vec4(position, 1.0);
-    }
-)";
-
-const char* kLineFragmentShader = R"(
-    #version 330 core
-    out vec4 fragColor;
-    void main() {
-        fragColor = vec4(0.6, 0.35, 0.1, 1.0);
-    }
-)";
-
 bool bind_shader(QOpenGLShaderProgram* shader) {
   if (!shader->bind()) {
     std::cout << "Shader bind error: " << shader->log().toStdString() << std::endl;
@@ -239,8 +262,11 @@ void OctreeLASLayerRenderer::ensure_shader() {
     m_shader.reset();
     return;
   }
-  m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
-  m_point_radius_loc = m_shader->uniformLocation("point_radius");
+  m_view_matrix_loc = m_shader->uniformLocation("u_view");
+  m_proj_matrix_loc = m_shader->uniformLocation("u_proj");
+  m_point_radius_loc = m_shader->uniformLocation("point_radius_m");
+  m_viewport_height_loc = m_shader->uniformLocation("viewport_height");
+  m_fov_rad_loc = m_shader->uniformLocation("fov_rad");
   m_color_mode_loc = m_shader->uniformLocation("color_mode");
   m_fixed_color_loc = m_shader->uniformLocation("fixed_color");
   m_point_alpha_loc = m_shader->uniformLocation("point_alpha");
@@ -431,7 +457,7 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
   if (!m_shader) {
     return 0;
   }
-  m_point_gl.ensure_initialized(f, static_cast<GLuint>(m_shader->programId()));
+  m_point_gl.ensure_initialized(f);
   m_point_gl.bind(f);
 
   const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
@@ -439,11 +465,15 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
                                static_cast<float>(file_origin.z() - scene_offset.z()));
   m_shader->setUniformValue(m_point_offset_loc, point_offset);
 
+  // Upload entire point cloud to GPU once; subsequent frames draw sub-ranges.
+  if (!m_points_uploaded && !point_storage.empty()) {
+    m_point_gl.upload_points(f, point_storage.data(), point_storage.size());
+    m_points_uploaded = true;
+  }
+
   if (!incremental) {
     for (const auto& visible : visible_nodes) {
-      if (!visible.node) {
-        continue;
-      }
+      if (!visible.node) continue;
       NodeStreamState& state = m_node_stream[visible.node];
       state.point_count = visible.node->point_count();
       state.streamed_count = 0;
@@ -451,13 +481,11 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
     }
   }
 
-  m_draw_batch.clear();
-  m_draw_batch.reserve(estimate_draw_vertices(visible_nodes, quality, incremental));
+  m_firsts.clear();
+  m_counts.clear();
 
   for (const auto& visible : visible_nodes) {
-    if (!visible.node || visible.node->point_count() == 0) {
-      continue;
-    }
+    if (!visible.node || visible.node->point_count() == 0) continue;
     const PointOctreeNode* node = visible.node;
     const size_t point_count = node->point_count();
 
@@ -469,50 +497,25 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
 
     const size_t chunk_size =
         PointOctree::node_draw_chunk_size(point_count, visible.lod_distance, quality);
-    if (state.locked_chunk_size == 0) {
-      state.locked_chunk_size = chunk_size;
-    }
+    if (state.locked_chunk_size == 0) state.locked_chunk_size = chunk_size;
+
     size_t to_draw = 0;
     if (incremental) {
-      if (state.streamed_count >= point_count) {
-        continue;
-      }
+      if (state.streamed_count >= point_count) continue;
       to_draw = std::min(state.locked_chunk_size, point_count - state.streamed_count);
     } else {
       to_draw = std::min(state.locked_chunk_size, point_count);
     }
-    if (to_draw == 0) {
-      continue;
-    }
+    if (to_draw == 0) continue;
 
-    const OctreePoint* src = point_storage.data() + node->begin_index + state.streamed_count;
-    m_draw_batch.insert(m_draw_batch.end(), src, src + to_draw);
+    m_firsts.push_back(static_cast<GLint>(node->begin_index + state.streamed_count));
+    m_counts.push_back(static_cast<GLsizei>(to_draw));
 
-    if (incremental) {
-      state.streamed_count += to_draw;
-    }
+    if (incremental) state.streamed_count += to_draw;
+    if (state.streamed_count < point_count) m_stream_backlog = true;
   }
 
-  size_t total_vertices = 0;
-  if (!m_draw_batch.empty()) {
-    total_vertices = m_point_gl.draw_slice(f, m_draw_batch.data(), m_draw_batch.size());
-  }
-
-  for (const auto& visible : visible_nodes) {
-    if (!visible.node || visible.node->point_count() == 0) {
-      continue;
-    }
-    const auto it = m_node_stream.find(visible.node);
-    const size_t point_count = visible.node->point_count();
-    const size_t streamed =
-        it != m_node_stream.end() ? std::min(it->second.streamed_count, point_count) : 0;
-    if (streamed < point_count) {
-      m_stream_backlog = true;
-      break;
-    }
-  }
-
-  return total_vertices;
+  return m_point_gl.draw_leaves(f, m_firsts.data(), m_counts.data(), m_firsts.size());
 }
 
 size_t OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions* f,
@@ -523,7 +526,7 @@ size_t OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions* f,
     return 0;
   }
 
-  m_point_gl.ensure_initialized(f, static_cast<GLuint>(m_shader->programId()));
+  m_point_gl.ensure_initialized(f);
   m_point_gl.bind(f);
 
   const size_t count = std::min(preview.size(), kMaxPreviewDrawVertices);
@@ -532,7 +535,7 @@ size_t OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions* f,
                                static_cast<float>(file_origin.z() - scene_offset.z()));
   m_shader->setUniformValue(m_point_offset_loc, point_offset);
 
-  const size_t total_vertices = m_point_gl.draw_slice(f, preview.data(), count);
+  const size_t total_vertices = m_point_gl.draw_points(f, preview.data(), count);
   m_stream_backlog = preview.size() > count;
   return total_vertices;
 }
@@ -565,8 +568,8 @@ std::optional<PointPickResult> OctreeLASLayerRenderer::pick_point(const Camera& 
   const QMatrix4x4 proj = camera.proj_matrix();
   const float pick_x = static_cast<float>(pixel.x());
   const float pick_y = static_cast<float>(pixel.y());
-  const float pick_radius = std::max(8.0f, static_cast<float>(0.15 * layer->point_size_scale() *
-                                                              camera.projection_scale() * 0.35));
+  const float pick_radius = std::max(
+      8.0f, static_cast<float>(layer->point_radius_m() * camera.projection_scale() * 0.35));
   const float pick_radius_sq = pick_radius * pick_radius;
 
   struct NodeScreenDistance {
@@ -603,9 +606,30 @@ std::optional<PointPickResult> OctreeLASLayerRenderer::pick_point(const Camera& 
             });
 
   const size_t max_nodes = std::min(node_candidates.size(), size_t{256});
-  float best_screen_dist_sq = pick_radius_sq;
-  float best_depth = std::numeric_limits<float>::infinity();
-  std::optional<PointPickResult> best;
+
+  // Two-tier selection that matches what the user sees:
+  //  1. "Cover" hits: the cursor lies within a point's rendered sphere disc.
+  //     Among these, pick the front-most (nearest eye depth) — i.e. the sphere
+  //     drawn on top — which is the occlusion-correct, intuitive choice.
+  //  2. Fallback: if no sphere covers the cursor (tiny/distant points), pick the
+  //     nearest one within the pixel tolerance so points stay clickable.
+  const float point_radius_px =
+      static_cast<float>(layer->point_radius_m() * camera.projection_scale());
+
+  float best_cover_eye_w = std::numeric_limits<float>::infinity();
+  std::optional<PointPickResult> best_cover;
+  float best_fallback_dist_sq = pick_radius_sq;
+  std::optional<PointPickResult> best_fallback;
+
+  auto make_result = [&](const OctreePoint& point, float wx, float wy, float wz) {
+    PointPickResult result;
+    result.point = point;
+    result.world_x = wx;
+    result.world_y = wy;
+    result.world_z = wz;
+    result.layer_name = layer->name();
+    return result;
+  };
 
   for (size_t n = 0; n < max_nodes; ++n) {
     const PointOctreeNode* node = node_candidates[n].node;
@@ -635,26 +659,28 @@ std::optional<PointPickResult> OctreeLASLayerRenderer::pick_point(const Camera& 
       const float dx = screen_x - pick_x;
       const float dy = screen_y - pick_y;
       const float screen_dist_sq = dx * dx + dy * dy;
-      if (screen_dist_sq > pick_radius_sq) {
-        continue;
+
+      // clip.w() is the eye-space depth (distance along the view axis); smaller
+      // is closer to the camera. The point's on-screen radius matches the
+      // rendered sphere: r_px = R * projection_scale / depth.
+      const float eye_w = clip.w();
+      const float proj_radius_px = point_radius_px * inv_w;
+      const float proj_radius_sq = proj_radius_px * proj_radius_px;
+
+      if (screen_dist_sq <= proj_radius_sq) {
+        if (eye_w < best_cover_eye_w) {
+          best_cover_eye_w = eye_w;
+          best_cover = make_result(point, wx, wy, wz);
+        }
       }
-      const float depth = clip.z() * inv_w;
-      if (screen_dist_sq < best_screen_dist_sq - 1.0f ||
-          (screen_dist_sq <= best_screen_dist_sq + 1.0f && depth < best_depth)) {
-        best_screen_dist_sq = screen_dist_sq;
-        best_depth = depth;
-        PointPickResult result;
-        result.point = point;
-        result.world_x = wx;
-        result.world_y = wy;
-        result.world_z = wz;
-        result.layer_name = layer->name();
-        best = std::move(result);
+      if (!best_cover && screen_dist_sq <= best_fallback_dist_sq) {
+        best_fallback_dist_sq = screen_dist_sq;
+        best_fallback = make_result(point, wx, wy, wz);
       }
     }
   }
 
-  return best;
+  return best_cover ? best_cover : best_fallback;
 }
 
 void OctreeLASLayerRenderer::set_highlight(const std::optional<PointPickResult>& pick) {
@@ -674,9 +700,8 @@ void OctreeLASLayerRenderer::render_selection_highlight(const Camera& camera,
     return;
   }
 
-  ensure_shader();
   ensure_crosshair_shader();
-  if (!m_shader || !m_crosshair_shader) {
+  if (!m_crosshair_shader) {
     return;
   }
 
@@ -688,10 +713,12 @@ void OctreeLASLayerRenderer::render_selection_highlight(const Camera& camera,
   const float cx = static_cast<float>(m_highlight->world_x);
   const float cy = static_cast<float>(m_highlight->world_y);
   const float cz = static_cast<float>(m_highlight->world_z);
-  const QVector3D center(cx, cy, cz);
 
+  // Screen-facing crosshair with a gap at the centre so the selected point stays
+  // visible inside the marker. Sized in world units relative to the view distance.
   const float view_distance = std::max(static_cast<float>(camera.direction().length()), 0.1f);
-  const float half_len = std::max(0.25f, view_distance * 0.018f);
+  const float arm = std::max(0.25f, view_distance * 0.022f);
+  const float gap = arm * 0.32f;
   const QVector3D view_dir = camera.direction().normalized();
   QVector3D right = QVector3D::crossProduct(camera.up(), view_dir);
   if (right.lengthSquared() < 1e-8f) {
@@ -699,15 +726,20 @@ void OctreeLASLayerRenderer::render_selection_highlight(const Camera& camera,
   } else {
     right.normalize();
   }
-  const QVector3D billboard_up = QVector3D::crossProduct(view_dir, right).normalized();
+  const QVector3D up = QVector3D::crossProduct(view_dir, right).normalized();
 
-  const float line_vertices[] = {
-      cx - right.x() * half_len,        cy - right.y() * half_len,
-      cz - right.z() * half_len,        cx + right.x() * half_len,
-      cy + right.y() * half_len,        cz + right.z() * half_len,
-      cx - billboard_up.x() * half_len, cy - billboard_up.y() * half_len,
-      cz - billboard_up.z() * half_len, cx + billboard_up.x() * half_len,
-      cy + billboard_up.y() * half_len, cz + billboard_up.z() * half_len,
+  auto seg = [&](const QVector3D& dir, float inner, float outer, std::array<float, 6>& out) {
+    out = {cx + dir.x() * inner, cy + dir.y() * inner, cz + dir.z() * inner,
+           cx + dir.x() * outer, cy + dir.y() * outer, cz + dir.z() * outer};
+  };
+  std::array<float, 6> s0, s1, s2, s3;
+  seg(right, gap, arm, s0);
+  seg(-right, gap, arm, s1);
+  seg(up, gap, arm, s2);
+  seg(-up, gap, arm, s3);
+  const float line_vertices[24] = {
+      s0[0], s0[1], s0[2], s0[3], s0[4], s0[5], s1[0], s1[1], s1[2], s1[3], s1[4], s1[5],
+      s2[0], s2[1], s2[2], s2[3], s2[4], s2[5], s3[0], s3[1], s3[2], s3[3], s3[4], s3[5],
   };
 
   if (!m_highlight_vao.isCreated()) {
@@ -729,58 +761,12 @@ void OctreeLASLayerRenderer::render_selection_highlight(const Camera& camera,
     m_crosshair_shader->setAttributeBuffer(0, GL_FLOAT, 0, 3, 0);
     m_crosshair_shader->setUniformValue(m_crosshair_proj_loc, camera.proj_matrix());
     m_crosshair_shader->setUniformValue(m_crosshair_color_loc, QVector3D(1.0f, 0.92f, 0.15f));
-    f->glDrawArrays(GL_LINES, 0, 4);
+    f->glDrawArrays(GL_LINES, 0, 8);
     m_crosshair_shader->release();
   }
 
   if (depth_test_enabled) {
     f->glEnable(GL_DEPTH_TEST);
-  }
-
-  if (bind_shader(m_shader.get())) {
-    const OctreePoint& point = m_highlight->point;
-    m_highlight_vbo.allocate(&point, static_cast<int>(sizeof(OctreePoint)));
-
-    const Coordinate3D<double>& file_origin = layer->las_data().coordinate_origin();
-    const Coordinate3D<double>& scene_offset = camera.world_offset();
-    const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
-                                 static_cast<float>(file_origin.y() - scene_offset.y()),
-                                 static_cast<float>(file_origin.z() - scene_offset.z()));
-
-    QOpenGLFunctions* gl_f = QOpenGLContext::currentContext()->functions();
-    const GLsizei stride = static_cast<GLsizei>(sizeof(OctreePoint));
-    m_shader->enableAttributeArray(0);
-    gl_f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride,
-                                reinterpret_cast<const void*>(offsetof(OctreePoint, x)));
-    m_shader->enableAttributeArray(1);
-    gl_f->glVertexAttribPointer(1, 1, GL_UNSIGNED_SHORT, GL_TRUE, stride,
-                                reinterpret_cast<const void*>(offsetof(OctreePoint, intensity)));
-    m_shader->enableAttributeArray(2);
-    gl_f->glVertexAttribPointer(
-        2, 1, GL_UNSIGNED_BYTE, GL_FALSE, stride,
-        reinterpret_cast<const void*>(offsetof(OctreePoint, classification)));
-    m_shader->enableAttributeArray(3);
-    gl_f->glVertexAttribPointer(3, 3, GL_UNSIGNED_BYTE, GL_TRUE, stride,
-                                reinterpret_cast<const void*>(offsetof(OctreePoint, file_r)));
-    m_shader->enableAttributeArray(4);
-    gl_f->glVertexAttribPointer(4, 1, GL_UNSIGNED_BYTE, GL_FALSE, stride,
-                                reinterpret_cast<const void*>(offsetof(OctreePoint, has_file_rgb)));
-
-    const float base_radius =
-        static_cast<float>(0.15 * layer->point_size_scale() * camera.projection_scale());
-    m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
-    m_shader->setUniformValue(m_point_offset_loc, point_offset);
-    m_shader->setUniformValue(m_point_radius_loc, base_radius * 2.0f);
-    m_shader->setUniformValue(m_color_mode_loc, static_cast<int>(PointColorMode::Fixed));
-    m_shader->setUniformValue(m_fixed_color_loc, QVector3D(1.0f, 0.92f, 0.15f));
-    m_shader->setUniformValue(m_point_alpha_loc, 1.0f);
-
-    f->glDisable(GL_DEPTH_TEST);
-    f->glDrawArrays(GL_POINTS, 0, 1);
-    if (depth_test_enabled) {
-      f->glEnable(GL_DEPTH_TEST);
-    }
-    m_shader->release();
   }
 
   m_highlight_vbo.release();
@@ -882,10 +868,11 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
     return;
   }
   f->glEnable(GL_PROGRAM_POINT_SIZE);
-  m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
-  m_shader->setUniformValue(
-      m_point_radius_loc,
-      static_cast<float>(0.15 * layer->point_size_scale() * camera.projection_scale()));
+  m_shader->setUniformValue(m_view_matrix_loc, camera.view_matrix());
+  m_shader->setUniformValue(m_proj_matrix_loc, camera.projection_matrix());
+  m_shader->setUniformValue(m_point_radius_loc, layer->point_radius_m());
+  m_shader->setUniformValue(m_viewport_height_loc, static_cast<float>(camera.framebuffer_height()));
+  m_shader->setUniformValue(m_fov_rad_loc, static_cast<float>(camera.fov_rad()));
   m_shader->setUniformValue(m_color_mode_loc, static_cast<int>(layer->point_color_mode()));
   const std::array<uint8_t, 3>& fixed = layer->fixed_point_color();
   m_shader->setUniformValue(m_fixed_color_loc,

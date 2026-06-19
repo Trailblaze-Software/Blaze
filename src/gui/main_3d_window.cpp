@@ -3,11 +3,13 @@
 #include <qmessagebox.h>
 #include <qtreewidget.h>
 
+#include <QCheckBox>
 #include <QColorDialog>
 #include <QComboBox>
 #include <QCoreApplication>
 #include <QFileInfo>
 #include <QGroupBox>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QMenu>
 #include <QOpenGLWidget>
@@ -72,7 +74,11 @@ bool is_draped_surface_layer(LayerKind kind) {
          kind == LayerKind::TexturedDem;
 }
 
-QString classification_label(uint8_t classification) {
+bool is_surface_style_layer(LayerKind kind) {
+  return is_draped_surface_layer(kind) || kind == LayerKind::Contours;
+}
+
+QString format_classification_label(uint8_t classification) {
   switch (classification) {
     case 2:
       return QStringLiteral("Ground");
@@ -125,7 +131,7 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
         std::cout << chunk.toStdString() << std::flush;
       });
       connect(m_blaze_process.get(), &QProcess::finished, this,
-              &Main3DWindow::on_blaze_process_finished);
+              &Main3DWindow::handle_blaze_process_finished);
     }
     ui->horizontalLayout->addWidget(gl_widget.get(), 1);
     gl_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -146,9 +152,11 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
             [this](QTreeWidgetItem* current, QTreeWidgetItem* previous) {
               (void)previous;
               (void)current;
-              update_point_cloud_panel_for_selection();
+              update_layer_panels_for_selection();
             });
+    setup_animation_panel();
     setup_point_cloud_panel();
+    setup_surface_layer_panel();
     setup_point_details_panel();
     auto* remove_shortcut = new QShortcut(QKeySequence::Delete, ui->treeWidget);
     connect(remove_shortcut, &QShortcut::activated, this, &Main3DWindow::remove_selected_layer);
@@ -161,32 +169,150 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
 
 Main3DWindow::~Main3DWindow() {}
 
+void Main3DWindow::setup_animation_panel() {
+  auto* panel = new QGroupBox(tr("Animation"), this);
+  auto* layout = new QVBoxLayout(panel);
+
+  // Type selector
+  auto* type_label = new QLabel(tr("Type"), panel);
+  layout->addWidget(type_label);
+  auto* type_combo = new QComboBox(panel);
+  type_combo->addItem(tr("None"), static_cast<int>(GLWidget::AnimType::None));
+  type_combo->addItem(tr("Orbit"), static_cast<int>(GLWidget::AnimType::Orbit));
+  type_combo->addItem(tr("Wobble"), static_cast<int>(GLWidget::AnimType::Wobble));
+  layout->addWidget(type_combo);
+
+  // Orbit settings
+  auto* orbit_group = new QWidget(panel);
+  auto* orbit_layout = new QVBoxLayout(orbit_group);
+  orbit_layout->setContentsMargins(0, 0, 0, 0);
+  auto* orbit_period_label = new QLabel(tr("Period (s)"), orbit_group);
+  orbit_layout->addWidget(orbit_period_label);
+  auto* orbit_period_slider = new QSlider(Qt::Horizontal, orbit_group);
+  orbit_period_slider->setRange(2, 120);
+  orbit_period_slider->setValue(static_cast<int>(gl_widget->orbit_period()));
+  auto* orbit_period_value = new QLabel(orbit_group);
+  orbit_period_value->setNum(static_cast<int>(gl_widget->orbit_period()));
+  orbit_period_value->setMinimumWidth(36);
+  orbit_period_value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  auto* orbit_period_row = new QHBoxLayout();
+  orbit_period_row->addWidget(orbit_period_slider);
+  orbit_period_row->addWidget(orbit_period_value);
+  orbit_layout->addLayout(orbit_period_row);
+  layout->addWidget(orbit_group);
+
+  // Wobble settings
+  auto* wobble_group = new QWidget(panel);
+  auto* wobble_layout = new QVBoxLayout(wobble_group);
+  wobble_layout->setContentsMargins(0, 0, 0, 0);
+
+  auto* wobble_period_label = new QLabel(tr("Period (s)"), wobble_group);
+  wobble_layout->addWidget(wobble_period_label);
+  auto* wobble_period_slider = new QSlider(Qt::Horizontal, wobble_group);
+  wobble_period_slider->setRange(3, 100);  // 0.3 to 10.0 seconds in 0.1 increments
+  wobble_period_slider->setValue(static_cast<int>(gl_widget->wobble_period() * 10.0));
+  auto* wobble_period_value = new QLabel(wobble_group);
+  wobble_period_value->setText(QString::number(gl_widget->wobble_period(), 'f', 1));
+  wobble_period_value->setMinimumWidth(36);
+  wobble_period_value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  auto* wobble_period_row = new QHBoxLayout();
+  wobble_period_row->addWidget(wobble_period_slider);
+  wobble_period_row->addWidget(wobble_period_value);
+  wobble_layout->addLayout(wobble_period_row);
+
+  auto* wobble_amp_label = new QLabel(tr("Amplitude (deg)"), wobble_group);
+  wobble_layout->addWidget(wobble_amp_label);
+  auto* wobble_amp_slider = new QSlider(Qt::Horizontal, wobble_group);
+  wobble_amp_slider->setRange(1, 50);  // 0.1 to 5.0 degrees
+  wobble_amp_slider->setValue(static_cast<int>(gl_widget->wobble_amplitude() * 10.0));
+  auto* wobble_amp_value = new QLabel(wobble_group);
+  wobble_amp_value->setText(QString::number(gl_widget->wobble_amplitude(), 'f', 1));
+  wobble_amp_value->setMinimumWidth(36);
+  wobble_amp_value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  auto* wobble_amp_row = new QHBoxLayout();
+  wobble_amp_row->addWidget(wobble_amp_slider);
+  wobble_amp_row->addWidget(wobble_amp_value);
+  wobble_layout->addLayout(wobble_amp_row);
+  layout->addWidget(wobble_group);
+
+  // Show/hide settings based on type
+  auto update_visibility = [=](int type) {
+    orbit_group->setVisible(type == static_cast<int>(GLWidget::AnimType::Orbit));
+    wobble_group->setVisible(type == static_cast<int>(GLWidget::AnimType::Wobble));
+  };
+  update_visibility(static_cast<int>(GLWidget::AnimType::None));
+  wobble_group->hide();
+  orbit_group->hide();
+
+  // Connections
+  connect(type_combo, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          [this, type_combo, update_visibility](int /*idx*/) {
+            int t = type_combo->currentData().toInt();
+            update_visibility(t);
+            gl_widget->set_anim_type(t);
+          });
+  connect(orbit_period_slider, &QSlider::valueChanged, this, [this, orbit_period_value](int v) {
+    orbit_period_value->setNum(v);
+    gl_widget->set_orbit_period(static_cast<double>(v));
+  });
+  connect(wobble_period_slider, &QSlider::valueChanged, this, [this, wobble_period_value](int v) {
+    double secs = static_cast<double>(v) * 0.1;
+    wobble_period_value->setText(QString::number(secs, 'f', 1));
+    gl_widget->set_wobble_period(secs);
+  });
+  connect(wobble_amp_slider, &QSlider::valueChanged, this, [this, wobble_amp_value](int v) {
+    double deg = static_cast<double>(v) * 0.1;
+    wobble_amp_value->setText(QString::number(deg, 'f', 1));
+    gl_widget->set_wobble_amplitude(deg);
+  });
+
+  ui->verticalLayout->insertWidget(0, panel);
+}
+
 void Main3DWindow::setup_point_cloud_panel() {
   m_point_cloud_panel = new QGroupBox(tr("Point Cloud"), this);
   auto* layout = new QVBoxLayout(m_point_cloud_panel);
 
-  auto* size_label = new QLabel(tr("Point size"), m_point_cloud_panel);
+  auto* size_label = new QLabel(tr("Point radius (m)"), m_point_cloud_panel);
   m_point_size_slider = new QSlider(Qt::Horizontal, m_point_cloud_panel);
-  m_point_size_slider->setRange(5, 800);
-  m_point_size_slider->setValue(100);
+  m_point_size_slider->setRange(8, 1200);
+  m_point_size_slider->setValue(150);
+  m_point_size_value_label = new QLabel(m_point_cloud_panel);
+  m_point_size_value_label->setMinimumWidth(60);
+  m_point_size_value_label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  auto* size_row = new QHBoxLayout();
+  size_row->addWidget(m_point_size_slider);
+  size_row->addWidget(m_point_size_value_label);
   layout->addWidget(size_label);
-  layout->addWidget(m_point_size_slider);
+  layout->addLayout(size_row);
 
   auto* alpha_label = new QLabel(tr("Opacity"), m_point_cloud_panel);
   m_point_alpha_slider = new QSlider(Qt::Horizontal, m_point_cloud_panel);
   m_point_alpha_slider->setRange(0, 100);
   m_point_alpha_slider->setValue(100);
+  m_point_alpha_value_label = new QLabel(m_point_cloud_panel);
+  m_point_alpha_value_label->setMinimumWidth(52);
+  m_point_alpha_value_label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  auto* alpha_row = new QHBoxLayout();
+  alpha_row->addWidget(m_point_alpha_slider);
+  alpha_row->addWidget(m_point_alpha_value_label);
   layout->addWidget(alpha_label);
-  layout->addWidget(m_point_alpha_slider);
+  layout->addLayout(alpha_row);
 
   auto* budget_label = new QLabel(tr("Stream budget (ms)"), m_point_cloud_panel);
   m_point_stream_budget_slider = new QSlider(Qt::Horizontal, m_point_cloud_panel);
   m_point_stream_budget_slider->setRange(8, 200);
-  m_point_stream_budget_slider->setValue(40);
+  m_point_stream_budget_slider->setValue(30);
   m_point_stream_budget_slider->setToolTip(
       tr("Target GPU time per streaming frame. Higher = denser points when zoomed out, slower."));
+  m_point_stream_budget_value_label = new QLabel(m_point_cloud_panel);
+  m_point_stream_budget_value_label->setMinimumWidth(52);
+  m_point_stream_budget_value_label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  auto* budget_row = new QHBoxLayout();
+  budget_row->addWidget(m_point_stream_budget_slider);
+  budget_row->addWidget(m_point_stream_budget_value_label);
   layout->addWidget(budget_label);
-  layout->addWidget(m_point_stream_budget_slider);
+  layout->addLayout(budget_row);
 
   auto* color_label = new QLabel(tr("Color mode"), m_point_cloud_panel);
   m_point_color_mode_combo = new QComboBox(m_point_cloud_panel);
@@ -203,12 +329,19 @@ void Main3DWindow::setup_point_cloud_panel() {
   ui->verticalLayout->insertWidget(1, m_point_cloud_panel);
   m_point_cloud_panel->hide();
 
-  connect(m_point_size_slider, &QSlider::valueChanged, this,
-          [this](int) { apply_point_cloud_style_from_ui(); });
-  connect(m_point_alpha_slider, &QSlider::valueChanged, this,
-          [this](int) { apply_point_cloud_style_from_ui(); });
-  connect(m_point_stream_budget_slider, &QSlider::valueChanged, this,
-          [this](int) { apply_point_cloud_style_from_ui(); });
+  connect(m_point_size_slider, &QSlider::valueChanged, this, [this](int) {
+    update_point_cloud_value_labels();
+    apply_point_cloud_style_from_ui();
+  });
+  connect(m_point_alpha_slider, &QSlider::valueChanged, this, [this](int) {
+    update_point_cloud_value_labels();
+    apply_point_cloud_style_from_ui();
+  });
+  connect(m_point_stream_budget_slider, &QSlider::valueChanged, this, [this](int) {
+    update_point_cloud_value_labels();
+    apply_point_cloud_style_from_ui();
+  });
+  update_point_cloud_value_labels();
   connect(m_point_color_mode_combo, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
           [this](int) { apply_point_cloud_style_from_ui(); });
   connect(m_point_fixed_color_button, &QPushButton::clicked, this, [this] {
@@ -231,9 +364,36 @@ void Main3DWindow::setup_point_cloud_panel() {
     m_point_color_mode_combo->setCurrentIndex(
         m_point_color_mode_combo->findData(static_cast<int>(PointColorMode::Fixed)));
     m_updating_point_cloud_ui = false;
-    update_point_cloud_panel_for_selection();
+    update_layer_panels_for_selection();
     gl_widget->update();
   });
+}
+
+void Main3DWindow::setup_surface_layer_panel() {
+  m_surface_layer_panel = new QGroupBox(tr("Surface Layer"), this);
+  auto* layout = new QVBoxLayout(m_surface_layer_panel);
+
+  auto* opacity_label = new QLabel(tr("Opacity"), m_surface_layer_panel);
+  m_surface_opacity_slider = new QSlider(Qt::Horizontal, m_surface_layer_panel);
+  m_surface_opacity_slider->setRange(0, 100);
+  m_surface_opacity_slider->setValue(100);
+  m_surface_opacity_value_label = new QLabel(m_surface_layer_panel);
+  m_surface_opacity_value_label->setMinimumWidth(52);
+  m_surface_opacity_value_label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  auto* opacity_row = new QHBoxLayout();
+  opacity_row->addWidget(m_surface_opacity_slider);
+  opacity_row->addWidget(m_surface_opacity_value_label);
+  layout->addWidget(opacity_label);
+  layout->addLayout(opacity_row);
+
+  ui->verticalLayout->insertWidget(2, m_surface_layer_panel);
+  m_surface_layer_panel->hide();
+
+  connect(m_surface_opacity_slider, &QSlider::valueChanged, this, [this](int) {
+    update_surface_layer_value_labels();
+    apply_surface_layer_style_from_ui();
+  });
+  update_surface_layer_value_labels();
 }
 
 void Main3DWindow::setup_point_details_panel() {
@@ -244,7 +404,7 @@ void Main3DWindow::setup_point_details_panel() {
   m_point_details_label->setWordWrap(true);
   m_point_details_label->setTextInteractionFlags(Qt::TextSelectableByMouse);
   layout->addWidget(m_point_details_label);
-  ui->verticalLayout->insertWidget(2, m_point_details_panel);
+  ui->verticalLayout->insertWidget(3, m_point_details_panel);
 }
 
 void Main3DWindow::show_point_pick_details(const PointPickResult& pick) {
@@ -273,7 +433,7 @@ void Main3DWindow::show_point_pick_details(const PointPickResult& pick) {
                                      .arg(pick.world_z, 0, 'f', 3)
                                      .arg(point.intensity)
                                      .arg(point.classification)
-                                     .arg(classification_label(point.classification))
+                                     .arg(format_classification_label(point.classification))
                                      .arg(color_line));
 }
 
@@ -281,6 +441,11 @@ void Main3DWindow::clear_point_pick_details() {
   if (m_point_details_label) {
     m_point_details_label->setText(tr("Click a point in the viewer to inspect it."));
   }
+}
+
+void Main3DWindow::update_layer_panels_for_selection() {
+  update_point_cloud_panel_for_selection();
+  update_surface_layer_panel_for_selection();
 }
 
 void Main3DWindow::update_point_cloud_panel_for_selection() {
@@ -298,7 +463,7 @@ void Main3DWindow::update_point_cloud_panel_for_selection() {
 
   m_updating_point_cloud_ui = true;
   m_point_size_slider->setValue(
-      static_cast<int>(std::lround(las_layer->point_size_scale() * 100.0f)));
+      static_cast<int>(std::lround(las_layer->point_radius_m() * 1000.0f)));
   m_point_alpha_slider->setValue(static_cast<int>(std::lround(las_layer->point_alpha() * 100.0f)));
   m_point_stream_budget_slider->setValue(
       static_cast<int>(std::lround(las_layer->point_stream_budget_ms())));
@@ -312,7 +477,64 @@ void Main3DWindow::update_point_cloud_panel_for_selection() {
       QString("background-color: rgb(%1,%2,%3);").arg(rgb[0]).arg(rgb[1]).arg(rgb[2]));
   m_point_fixed_color_button->setEnabled(las_layer->point_color_mode() == PointColorMode::Fixed);
   m_point_cloud_panel->show();
+  update_point_cloud_value_labels();
   m_updating_point_cloud_ui = false;
+}
+
+void Main3DWindow::update_surface_layer_panel_for_selection() {
+  QTreeWidgetItem* item = ui->treeWidget->currentItem();
+  std::shared_ptr<Layer> surface_layer;
+  if (item) {
+    const auto layer = item->data(0, Qt::UserRole).value<std::shared_ptr<Layer>>();
+    if (layer && is_surface_style_layer(layer->kind())) {
+      surface_layer = layer;
+    }
+  }
+  m_active_surface_layer = surface_layer;
+  if (!surface_layer) {
+    m_surface_layer_panel->hide();
+    return;
+  }
+
+  m_updating_surface_ui = true;
+  m_surface_opacity_slider->setValue(
+      static_cast<int>(std::lround(surface_layer->opacity() * 100.0f)));
+  m_surface_layer_panel->show();
+  update_surface_layer_value_labels();
+  m_updating_surface_ui = false;
+}
+
+void Main3DWindow::update_surface_layer_value_labels() {
+  if (!m_surface_opacity_slider || !m_surface_opacity_value_label) {
+    return;
+  }
+  m_surface_opacity_value_label->setText(QString("%1%").arg(m_surface_opacity_slider->value()));
+}
+
+void Main3DWindow::apply_surface_layer_style_from_ui() {
+  if (m_updating_surface_ui) {
+    return;
+  }
+  auto layer = m_active_surface_layer.lock();
+  if (!layer || !m_surface_opacity_slider) {
+    return;
+  }
+  layer->set_opacity(static_cast<float>(m_surface_opacity_slider->value()) / 100.0f);
+  gl_widget->update();
+}
+
+void Main3DWindow::update_point_cloud_value_labels() {
+  if (!m_point_size_value_label || !m_point_alpha_value_label ||
+      !m_point_stream_budget_value_label || !m_point_size_slider || !m_point_alpha_slider ||
+      !m_point_stream_budget_slider) {
+    return;
+  }
+  const double radius_m = m_point_size_slider->value() / 1000.0;
+  m_point_size_value_label->setText(radius_m >= 0.1 ? QString("%1 m").arg(radius_m, 0, 'f', 2)
+                                                    : QString("%1 m").arg(radius_m, 0, 'f', 3));
+  m_point_alpha_value_label->setText(QString("%1%").arg(m_point_alpha_slider->value()));
+  m_point_stream_budget_value_label->setText(
+      tr("%1 ms").arg(m_point_stream_budget_slider->value()));
 }
 
 void Main3DWindow::apply_point_cloud_style_from_ui() {
@@ -324,7 +546,7 @@ void Main3DWindow::apply_point_cloud_style_from_ui() {
       !m_point_color_mode_combo) {
     return;
   }
-  layer->set_point_size_scale(static_cast<float>(m_point_size_slider->value()) / 100.0f);
+  layer->set_point_radius_m(static_cast<float>(m_point_size_slider->value()) / 1000.0f);
   layer->set_point_alpha(static_cast<float>(m_point_alpha_slider->value()) / 100.0f);
   layer->set_point_stream_budget_ms(static_cast<float>(m_point_stream_budget_slider->value()));
   const PointColorMode mode =
@@ -480,18 +702,20 @@ void Main3DWindow::maybe_exit_after_load() {
   if (!m_exit_after_render) {
     m_exit_after_render = true;
     update_render_mode();
-    connect(gl_widget.get(), &QOpenGLWidget::frameSwapped, this,
-            &Main3DWindow::finish_exit_after_load, Qt::SingleShotConnection);
-    gl_widget->update();
-    return;
   }
+  connect(gl_widget.get(), &QOpenGLWidget::frameSwapped, this,
+          &Main3DWindow::finish_exit_after_load, Qt::SingleShotConnection);
+  gl_widget->update();
 }
 
 void Main3DWindow::finish_exit_after_load() {
-  if (!m_exit_after_load) {
+  if (!m_exit_after_load || m_exit_after_load_fired) return;
+  m_exit_after_load_fired = true;
+  std::cout << "All layers loaded successfully." << std::endl;
+  if (m_bench_mode) {
+    QTimer::singleShot(100, this, [this] { gl_widget->start_bench_orbit(10.0); });
     return;
   }
-  std::cout << "All layers loaded successfully." << std::endl;
   QApplication::quit();
 }
 
@@ -541,7 +765,7 @@ void Main3DWindow::run_blaze_on_layers() {
   }
 }
 
-void Main3DWindow::on_blaze_process_finished(int exit_code, QProcess::ExitStatus status) {
+void Main3DWindow::handle_blaze_process_finished(int exit_code, QProcess::ExitStatus status) {
   const std::optional<fs::path> output_dir = std::exchange(m_pending_blaze_output, std::nullopt);
   if (!output_dir) {
     return;

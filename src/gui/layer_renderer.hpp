@@ -68,8 +68,11 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   std::vector<OctreePoint> m_draw_batch;
 
   std::unique_ptr<QOpenGLShaderProgram> m_shader;
+  int m_view_matrix_loc = 0;
   int m_proj_matrix_loc = 0;
   int m_point_radius_loc = 0;
+  int m_viewport_height_loc = 0;
+  int m_fov_rad_loc = 0;
   int m_color_mode_loc = 0;
   int m_fixed_color_loc = 0;
   int m_point_alpha_loc = 0;
@@ -96,6 +99,9 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   };
 
   std::unordered_map<const PointOctreeNode*, NodeStreamState> m_node_stream;
+  bool m_points_uploaded = false;
+  std::vector<GLint> m_firsts;
+  std::vector<GLsizei> m_counts;
   QVector3D m_stream_camera_pos;
   QVector3D m_stream_camera_dir;
   size_t m_visible_fingerprint = 0;

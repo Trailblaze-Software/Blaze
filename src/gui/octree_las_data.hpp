@@ -3,7 +3,9 @@
 #include <omp.h>
 
 #include <atomic>
+#include <chrono>
 #include <functional>
+#include <iostream>
 #include <memory>
 #include <mutex>
 #include <thread>
@@ -17,7 +19,26 @@
 #ifndef USE_PDAL
 #include "las_reader.hpp"
 
-namespace {
+namespace octree_las_detail {
+
+// Simple RAII timer for benchmarking.
+struct BenchTimer {
+  using Clock = std::chrono::high_resolution_clock;
+  const char* m_label;
+  size_t m_point_count;
+  Clock::time_point m_start;
+  BenchTimer(const char* label, size_t n = 0)
+      : m_label(label), m_point_count(n), m_start(Clock::now()) {}
+  ~BenchTimer() {
+    auto ms = std::chrono::duration<double, std::milli>(Clock::now() - m_start).count();
+    if (m_point_count > 0) {
+      std::cerr << "[blaze bench] [" << m_label << "] " << ms << " ms  ("
+                << static_cast<double>(m_point_count) / (ms * 1000.0) << " M pts/s)" << std::endl;
+    } else {
+      std::cerr << "[blaze bench] [" << m_label << "] " << ms << " ms" << std::endl;
+    }
+  }
+};
 
 static constexpr size_t kMaxPreviewPoints = 500'000;
 
@@ -91,83 +112,108 @@ using PreviewCallback = std::function<void(const std::vector<OctreePoint>& previ
                                            size_t points_loaded, const Extent3D& bounds)>;
 
 template <typename LasPt>
-void load_points_parallel(laspp::LASReader& reader, OGRCoordinateTransformation* coord_transform,
-                          const Coordinate3D<double>& origin, size_t preview_stride,
-                          std::vector<OctreePoint>& converted, std::vector<OctreePoint>& preview,
-                          Extent3D& bounds, ProgressTracker& tracker,
-                          const PreviewCallback& publish_preview,
-                          const std::atomic<bool>* cancel = nullptr) {
+inline void load_points_parallel(laspp::LASReader& reader,
+                                 OGRCoordinateTransformation* coord_transform,
+                                 const Coordinate3D<double>& origin, size_t preview_stride,
+                                 std::vector<OctreePoint>& converted,
+                                 std::vector<OctreePoint>& preview, Extent3D& bounds,
+                                 ProgressTracker& tracker, const PreviewCallback& publish_preview,
+                                 const std::atomic<bool>* cancel = nullptr) {
   MonotonicProgress progress(tracker);
   const size_t num_points = reader.num_points();
   const size_t num_chunks = reader.num_chunks();
   const auto& points_per_chunk = reader.points_per_chunk();
 
-  converted.reserve(num_points);
+  BenchTimer total_timer("load total", num_points);
+  double decompress_ms = 0;
+  double convert_ms = 0;
+
+  converted.resize(num_points);
   preview.reserve(std::min(num_points / preview_stride + 1, kMaxPreviewPoints));
   bounds = Extent3D();
 
-  bool preview_published = false;
-  size_t global_index = 0;
+  // Read in batches: parallel decompression within each batch, incremental progress
+  // and previews between batches. Progress range: 0.0→0.35 decompress, 0.35→0.70 convert+bounds.
+  constexpr size_t kBatchChunks = 64;
+  size_t converted_offset = 0;
+  if (num_points > 0) progress.set_proportion(0.0);
 
-  for (size_t chunk_idx = 0; chunk_idx < num_chunks; ++chunk_idx) {
-    if (cancel && cancel->load(std::memory_order_relaxed)) {
-      return;
+  for (size_t batch_start = 0; batch_start < num_chunks; batch_start += kBatchChunks) {
+    if (cancel && cancel->load(std::memory_order_relaxed)) return;
+
+    const size_t batch_end = std::min(batch_start + kBatchChunks, num_chunks);
+    size_t batch_points = 0;
+    for (size_t ci = batch_start; ci < batch_end; ++ci) {
+      batch_points += points_per_chunk[ci];
     }
-    const size_t chunk_size = points_per_chunk[chunk_idx];
-    std::vector<LasPt> raw_chunk(chunk_size);
-    reader.read_chunks_list(std::span<LasPt>(raw_chunk), {chunk_idx});
 
-    const size_t chunk_start = converted.size();
-    converted.resize(chunk_start + chunk_size);
+    // Show progress advancing into this batch before the (blocking) decompress.
+    if (num_points > 0) {
+      progress.set_proportion(0.35 * static_cast<double>(converted_offset) / num_points);
+    }
 
+    auto t0 = std::chrono::high_resolution_clock::now();
+    std::vector<LasPt> raw_batch(batch_points);
+    reader.read_chunks(std::span<LasPt>(raw_batch), {batch_start, batch_end});
+    auto t1 = std::chrono::high_resolution_clock::now();
+    decompress_ms += std::chrono::duration<double, std::milli>(t1 - t0).count();
+
+    if (num_points > 0) {
+      progress.set_proportion(0.35 * static_cast<double>(converted_offset + batch_points) /
+                              num_points);
+    }
+
+    // Convert batch in parallel.
+    auto tc0 = std::chrono::high_resolution_clock::now();
     if (coord_transform) {
-      for (size_t i = 0; i < chunk_size; ++i) {
-        converted[chunk_start + i] =
-            convert_las_point(raw_chunk[i], reader.header(), coord_transform, origin);
-        const size_t global_i = global_index + i;
-        if (global_i % preview_stride == 0 && preview.size() < kMaxPreviewPoints) {
-          preview.push_back(converted[chunk_start + i]);
-        }
-        const OctreePoint& point = converted[chunk_start + i];
-        bounds.grow(point.x + origin.x(), point.y + origin.y(), point.z + origin.z());
+      for (size_t i = 0; i < batch_points; ++i) {
+        converted[converted_offset + i] =
+            convert_las_point(raw_batch[i], reader.header(), coord_transform, origin);
       }
     } else {
 #pragma omp parallel for schedule(static)
-      for (ptrdiff_t i = 0; i < static_cast<ptrdiff_t>(chunk_size); ++i) {
-        converted[chunk_start + static_cast<size_t>(i)] =
-            convert_las_point(raw_chunk[static_cast<size_t>(i)], reader.header(), nullptr, origin);
-      }
-      for (size_t i = 0; i < chunk_size; ++i) {
-        const size_t global_i = global_index + i;
-        if (global_i % preview_stride == 0 && preview.size() < kMaxPreviewPoints) {
-          preview.push_back(converted[chunk_start + i]);
-        }
-        const OctreePoint& point = converted[chunk_start + i];
-        bounds.grow(point.x + origin.x(), point.y + origin.y(), point.z + origin.z());
+      for (ptrdiff_t i = 0; i < static_cast<ptrdiff_t>(batch_points); ++i) {
+        converted[converted_offset + static_cast<size_t>(i)] =
+            convert_las_point(raw_batch[static_cast<size_t>(i)], reader.header(), nullptr, origin);
       }
     }
+    auto tc1 = std::chrono::high_resolution_clock::now();
+    convert_ms += std::chrono::duration<double, std::milli>(tc1 - tc0).count();
 
-    global_index += chunk_size;
+    // Grow bounds and extract preview for this batch.
+    for (size_t i = 0; i < batch_points; ++i) {
+      const size_t global_i = converted_offset + i;
+      if (global_i % preview_stride == 0 && preview.size() < kMaxPreviewPoints) {
+        preview.push_back(converted[global_i]);
+      }
+      const OctreePoint& point = converted[global_i];
+      bounds.grow(point.x + origin.x(), point.y + origin.y(), point.z + origin.z());
+    }
+
+    converted_offset += batch_points;
     if (num_points > 0) {
-      progress.set_proportion(0.70 * static_cast<double>(global_index) / num_points);
+      progress.set_proportion(0.35 + 0.35 * static_cast<double>(converted_offset) / num_points);
     }
 
-    if (!preview.empty() && publish_preview &&
-        (!preview_published || chunk_idx + 1 == num_chunks || (chunk_idx % 4) == 3)) {
-      publish_preview(preview, global_index, bounds);
-      preview_published = true;
+    // Publish incremental preview so the user sees points appearing.
+    if (!preview.empty() && publish_preview) {
+      publish_preview(preview, converted_offset, bounds);
     }
   }
+
+  std::cerr << "[blaze bench]   decompress: " << decompress_ms << " ms  convert: " << convert_ms
+            << " ms" << std::endl;
 
   progress.set_proportion(0.72);
 }
 
-void load_points_dispatch(laspp::LASReader& reader, OGRCoordinateTransformation* coord_transform,
-                          const Coordinate3D<double>& origin, size_t preview_stride,
-                          std::vector<OctreePoint>& converted, std::vector<OctreePoint>& preview,
-                          Extent3D& bounds, ProgressTracker& tracker,
-                          const PreviewCallback& publish_preview,
-                          const std::atomic<bool>* cancel = nullptr) {
+inline void load_points_dispatch(laspp::LASReader& reader,
+                                 OGRCoordinateTransformation* coord_transform,
+                                 const Coordinate3D<double>& origin, size_t preview_stride,
+                                 std::vector<OctreePoint>& converted,
+                                 std::vector<OctreePoint>& preview, Extent3D& bounds,
+                                 ProgressTracker& tracker, const PreviewCallback& publish_preview,
+                                 const std::atomic<bool>* cancel = nullptr) {
   switch (reader.header().point_format() & 0x7Fu) {
     case 0:
       load_points_parallel<laspp::LASPointFormat0>(reader, coord_transform, origin, preview_stride,
@@ -207,7 +253,7 @@ void load_points_dispatch(laspp::LASReader& reader, OGRCoordinateTransformation*
   }
 }
 
-}  // namespace
+}  // namespace octree_las_detail
 #endif
 
 // Immutable point cloud state published by the loader thread. Renderers hold a
@@ -230,13 +276,13 @@ class AsyncOctreeLASData {
   GeoProjection m_projection;
   GeoProjection m_native_projection;
   size_t m_total_points = 0;
-  std::atomic<std::shared_ptr<const LasRenderSnapshot>> m_snapshot;
+  std::shared_ptr<const LasRenderSnapshot> m_snapshot;
   std::atomic<bool> m_load_complete{false};
   std::atomic<bool> m_cancel{false};
   std::thread m_thread;
 
   void publish_snapshot(std::shared_ptr<const LasRenderSnapshot> snapshot) {
-    m_snapshot.store(std::move(snapshot), std::memory_order_release);
+    std::atomic_store_explicit(&m_snapshot, std::move(snapshot), std::memory_order_release);
   }
 
  public:
@@ -268,6 +314,10 @@ class AsyncOctreeLASData {
                             progress_tracker = std::move(progress_tracker),
                             callbacks = std::move(callbacks),
                             coord_transform = std::move(coord_transform)]() mutable {
+      octree_las_detail::BenchTimer file_timer("load file", m_total_points);
+      std::cerr << "[blaze bench] " << filename.string() << "  points=" << m_total_points
+                << std::endl;
+
       laspp::LASReader reader(filename);
       ProgressTracker tracker = progress_tracker.tracker()->subtracker(0.0, 1.0);
 
@@ -294,29 +344,34 @@ class AsyncOctreeLASData {
           }
         }
       };
-      load_points_dispatch(reader, coord_transform.get(), origin, preview_stride, converted,
-                           preview, bounds, tracker, publish_preview, &m_cancel);
+      octree_las_detail::load_points_dispatch(reader, coord_transform.get(), origin, preview_stride,
+                                              converted, preview, bounds, tracker, publish_preview,
+                                              &m_cancel);
 
       if (m_cancel.load(std::memory_order_relaxed)) {
         return;
       }
 
       tracker.set_proportion(0.72);
-      MonotonicProgress octree_progress(tracker);
+      octree_las_detail::MonotonicProgress octree_progress(tracker);
 
-      PointOctree octree(local_bounds);
-      octree.insert_batch(std::move(converted), [&octree_progress](size_t done, size_t total) {
-        octree_progress.set_proportion(0.72 + 0.26 * static_cast<double>(done) / total);
-      });
-      octree.shuffle_leaves();
-      octree_progress.set_proportion(0.99);
+      {
+        octree_las_detail::BenchTimer octree_timer("build octree", converted.size());
+        PointOctree octree(local_bounds);
+        octree.insert_batch(std::move(converted), [&octree_progress](size_t done, size_t total) {
+          octree_progress.set_proportion(0.72 + 0.26 * static_cast<double>(done) / total);
+        });
+        octree.shuffle_leaves();
+        octree_progress.set_proportion(0.99);
 
-      auto final_snapshot = std::make_shared<LasRenderSnapshot>();
-      final_snapshot->octree = std::move(octree);
-      final_snapshot->points_loaded = final_snapshot->octree.total_points();
-      final_snapshot->bounds = bounds;
-      final_snapshot->bounds_valid = true;
-      publish_snapshot(std::move(final_snapshot));
+        auto final_snapshot = std::make_shared<LasRenderSnapshot>();
+        final_snapshot->octree = std::move(octree);
+        final_snapshot->points_loaded = final_snapshot->octree.total_points();
+        final_snapshot->bounds = bounds;
+        final_snapshot->bounds_valid = true;
+        publish_snapshot(std::move(final_snapshot));
+      }
+
       m_load_complete.store(true, std::memory_order_release);
 
       tracker.set_proportion(1.0);
@@ -347,7 +402,7 @@ class AsyncOctreeLASData {
   }
 
   std::shared_ptr<const LasRenderSnapshot> snapshot() const {
-    return m_snapshot.load(std::memory_order_acquire);
+    return std::atomic_load_explicit(&m_snapshot, std::memory_order_acquire);
   }
 
   Extent3D bounds() const {
