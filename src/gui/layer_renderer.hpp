@@ -148,7 +148,6 @@ class OctreeLASLayerRenderer : public LayerRenderer {
 
 class MeshLayerRenderer : public LayerRenderer {
   std::function<const AsyncRasterData*()> m_data_accessor;
-  Coordinate3D<double> m_offset;
   bool m_gpu_texture = false;
 
   QOpenGLVertexArrayObject m_vao;
@@ -174,7 +173,6 @@ class MeshLayerRenderer : public LayerRenderer {
 
 class ContourLayerRenderer : public LayerRenderer {
   std::weak_ptr<ContourLayer> m_layer;
-  Coordinate3D<double> m_offset;
 
   QOpenGLVertexArrayObject m_vao;
   QOpenGLBuffer m_vbo;

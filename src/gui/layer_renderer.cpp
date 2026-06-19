@@ -928,8 +928,8 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
 }
 
 MeshLayerRenderer::MeshLayerRenderer(std::function<const AsyncRasterData*()> data_accessor,
-                                     const Coordinate3D<double>& offset, bool gpu_texture)
-    : m_data_accessor(std::move(data_accessor)), m_offset(offset), m_gpu_texture(gpu_texture) {}
+                                     const Coordinate3D<double>& /*offset*/, bool gpu_texture)
+    : m_data_accessor(std::move(data_accessor)), m_gpu_texture(gpu_texture) {}
 
 namespace {
 
@@ -1220,8 +1220,8 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
 }
 
 ContourLayerRenderer::ContourLayerRenderer(std::shared_ptr<ContourLayer> layer,
-                                           const Coordinate3D<double>& offset)
-    : m_layer(layer), m_offset(offset) {}
+                                           const Coordinate3D<double>& /*offset*/)
+    : m_layer(layer) {}
 
 namespace {
 
