@@ -17,6 +17,7 @@ class QGroupBox;
 class QLabel;
 class QPushButton;
 class QSlider;
+class QListWidget;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -130,6 +131,7 @@ class Main3DWindow : public QMainWindow {
   std::weak_ptr<Layer> m_active_surface_layer;
   bool m_updating_point_cloud_ui = false;
   bool m_updating_surface_ui = false;
+  QListWidget* m_classification_list = nullptr;
 
   void setup_animation_panel();
   void setup_point_cloud_panel();
@@ -144,4 +146,5 @@ class Main3DWindow : public QMainWindow {
   void update_surface_layer_value_labels();
   void apply_point_cloud_style_from_ui();
   void apply_surface_layer_style_from_ui();
+  void update_classification_list_from_active_layer();
 };

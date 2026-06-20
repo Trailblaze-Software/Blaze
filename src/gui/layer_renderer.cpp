@@ -40,6 +40,7 @@ const char* kPointVertexShader = R"(
     uniform int color_mode;
     uniform vec3 fixed_color;
     uniform float point_alpha;
+    uniform int classification_mask[8];
     out vec4 vtx_color;
     out vec3 eye_center;            // sphere centre in eye space
     out float eye_radius;
@@ -58,6 +59,16 @@ const char* kPointVertexShader = R"(
     }
 
     void main() {
+        int class_id = int(classification + 0.5);
+        if (class_id >= 0 && class_id < 256) {
+            int idx = class_id / 32;
+            int bit = class_id % 32;
+            if (((classification_mask[idx] >> bit) & 1) == 0) {
+                gl_Position = vec4(9999.0, 9999.0, 9999.0, 1.0);
+                return;
+            }
+        }
+
         vec3 position = local_position + point_offset;
         vec4 eye = u_view * vec4(position, 1.0);
         eye_center = eye.xyz;
@@ -272,6 +283,7 @@ void OctreeLASLayerRenderer::ensure_shader() {
   m_fixed_color_loc = m_shader->uniformLocation("fixed_color");
   m_point_alpha_loc = m_shader->uniformLocation("point_alpha");
   m_point_offset_loc = m_shader->uniformLocation("point_offset");
+  m_classification_mask_loc = m_shader->uniformLocation("classification_mask");
 }
 
 void OctreeLASLayerRenderer::ensure_crosshair_shader() {
@@ -681,6 +693,9 @@ std::optional<PointPickResult> OctreeLASLayerRenderer::pick_point(const Camera& 
     }
     for (size_t pi = node->begin_index; pi < node->end_index; ++pi) {
       const OctreePoint& point = (*point_storage)[pi];
+      if (!layer->classification_enabled()[point.classification]) {
+        continue;
+      }
       const float wx =
           static_cast<float>(static_cast<double>(point.x) + file_origin.x() - scene_offset.x());
       const float wy =
@@ -925,6 +940,15 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   m_shader->setUniformValue(m_fixed_color_loc,
                             QVector3D(fixed[0] / 255.f, fixed[1] / 255.f, fixed[2] / 255.f));
   m_shader->setUniformValue(m_point_alpha_loc, 1.0f);
+
+  std::array<GLint, 8> mask = {};
+  const auto& enabled = layer->classification_enabled();
+  for (int i = 0; i < 256; ++i) {
+    if (enabled[i]) {
+      mask[i / 32] |= static_cast<GLint>(1u << (i % 32));
+    }
+  }
+  m_shader->setUniformValueArray(m_classification_mask_loc, mask.data(), 8);
 
   f->glEnable(GL_DEPTH_TEST);
   f->glDepthFunc(ctx.incremental_points ? GL_LEQUAL : GL_LESS);

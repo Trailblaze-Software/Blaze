@@ -77,6 +77,11 @@ class LASLayer : public PointLayer {
   float m_point_stream_budget_ms = 30.0f;
   PointColorMode m_point_color_mode = PointColorMode::File;
   std::array<uint8_t, 3> m_fixed_point_color = {217, 230, 255};
+  std::array<bool, 256> m_classification_enabled = []() {
+    std::array<bool, 256> enabled;
+    enabled.fill(true);
+    return enabled;
+  }();
 
  signals:
   void point_size_changed() const;
@@ -101,6 +106,37 @@ class LASLayer : public PointLayer {
   float point_stream_budget_ms() const { return m_point_stream_budget_ms; }
   PointColorMode point_color_mode() const { return m_point_color_mode; }
   const std::array<uint8_t, 3>& fixed_point_color() const { return m_fixed_point_color; }
+  const std::array<bool, 256>& classification_enabled() const { return m_classification_enabled; }
+
+  void set_classification_enabled(uint8_t classification, bool enabled) {
+    if (m_classification_enabled[classification] != enabled) {
+      m_classification_enabled[classification] = enabled;
+      emit point_colors_changed();
+    }
+  }
+
+  std::vector<uint8_t> present_classifications() const {
+    std::vector<uint8_t> classes;
+    std::array<bool, 256> present = {};
+    const auto snap = m_las_data.snapshot();
+    if (snap) {
+      if (!snap->octree.points().empty()) {
+        for (const auto& pt : snap->octree.points()) {
+          present[pt.classification] = true;
+        }
+      } else {
+        for (const auto& pt : snap->preview_points) {
+          present[pt.classification] = true;
+        }
+      }
+    }
+    for (int i = 0; i < 256; ++i) {
+      if (present[i]) {
+        classes.push_back(static_cast<uint8_t>(i));
+      }
+    }
+    return classes;
+  }
 
   void set_point_radius_m(float radius_m) {
     const float clamped = std::clamp(radius_m, 0.008f, 1.2f);

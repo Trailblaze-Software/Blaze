@@ -1,2 +1,5 @@
 # QGIS layer style files use the .qml extension but are XML assets, not Qt Quick.
 qgis_plugin/**/*.qml linguist-detectable=false
+
+# Enforce LF line endings for all shell scripts so they execute correctly on Linux/WSL.
+*.sh text eol=lf

@@ -77,6 +77,7 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   int m_fixed_color_loc = 0;
   int m_point_alpha_loc = 0;
   int m_point_offset_loc = 0;
+  int m_classification_mask_loc = 0;
 
   std::unique_ptr<QOpenGLShaderProgram> m_crosshair_shader;
   int m_crosshair_proj_loc = 0;

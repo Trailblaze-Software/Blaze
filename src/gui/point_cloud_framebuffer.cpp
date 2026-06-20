@@ -141,7 +141,7 @@ void PointCloudCompositor::composite(QOpenGLExtraFunctions* gl, GLuint dest_fbo,
   gl->glBindFramebuffer(GL_FRAMEBUFFER, dest_fbo);
   gl->glViewport(0, 0, width, height);
   gl->glEnable(GL_BLEND);
-  gl->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  gl->glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE);
   gl->glEnable(GL_DEPTH_TEST);
   gl->glDepthFunc(GL_LESS);
   gl->glDepthMask(GL_TRUE);

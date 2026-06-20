@@ -6,6 +6,8 @@
 #include <QCheckBox>
 #include <QColorDialog>
 #include <QComboBox>
+#include <QDialog>
+#include <QTextBrowser>
 #include <QCoreApplication>
 #include <QFileInfo>
 #include <QGroupBox>
@@ -19,6 +21,8 @@
 #include <QSignalBlocker>
 #include <QSizePolicy>
 #include <QSlider>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <QVBoxLayout>
 #include <algorithm>
 #include <cmath>
@@ -121,6 +125,71 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
     connect(ui->actionImportBlazeOutput, &QAction::triggered, this,
             &Main3DWindow::import_blaze_output);
     connect(ui->actionRunBlaze, &QAction::triggered, this, &Main3DWindow::run_blaze_on_layers);
+    connect(ui->actionAbout, &QAction::triggered, this, [this] {
+      QMessageBox::about(this, tr("About Blaze 3D"),
+                         tr("<h2>Blaze 3D Viewer</h2>"
+                            "<p>A high-performance interactive 3D point cloud and terrain visualizer.</p>"
+                            "<p>Copyright &copy; 2026 Trailblaze Software</p>"));
+    });
+
+    QAction* actionControlsGuide = ui->menuHelp->addAction(tr("Controls Guide..."));
+    connect(actionControlsGuide, &QAction::triggered, this, [this] {
+      QDialog* dialog = new QDialog(this);
+      dialog->setWindowTitle(tr("Blaze3D User Guide & Controls"));
+      dialog->resize(700, 550);
+      auto* layout = new QVBoxLayout(dialog);
+      auto* browser = new QTextBrowser(dialog);
+      browser->setOpenExternalLinks(true);
+      
+      QString markdown = tr(R"MARKDOWN(
+# Blaze3D User Guide & Interface Controls
+
+Blaze3D is a high-performance 3D visualizer for LiDAR point clouds (LAS/LAZ format) and Digital Elevation Model (DEM) surfaces.
+
+### 🎮 Viewport Navigation (Mouse Controls)
+
+*   **Left Click & Drag:** Rotate Around Center
+*   **Middle Click & Drag:** First-Person Look
+*   **Right Click & Drag:** Pan Camera
+*   **Scroll Wheel:** Zoom In / Out
+*   **Left Click (on a point):** Select Point (Displays coordinates, intensity, and classification in the side panel)
+*   **Shift + Left Click (on a point):** Select & Focus camera on the point
+
+### ⌨️ Keyboard Shortcuts
+
+Use these keys when the 3D viewport has focus:
+
+*   **W / S:** Fly Forward / Backward
+*   **A / D:** Fly Left / Right
+*   **Q / E:** Fly Down / Up
+*   **R:** Reset View to origin
+*   **F:** Fit to Screen (zoom to all layers)
+*   **Z:** Focus camera on selected point
+*   **Space:** Play / Pause Orbit animation
+
+### 🎛️ Settings Panels
+
+*   **Size:** Adjusts the world-space radius of the point spheres (in meters).
+*   **Opacity:** Controls the opacity/transparency of the points.
+*   **Stream budget (ms):** Sets target GPU budget per frame. Increase for denser points on fast GPUs, decrease to maintain high framerates on slower GPUs.
+*   **Color Mode:** Toggle between *From file* (RGB/intensity), *Classification* (standard ASPRS colors), and *Fixed color*.
+*   **Classification Filter:** Check/uncheck individual classifications (e.g. Ground, Buildings, Vegetation) to filter them dynamically on the GPU.
+
+### 💡 Tips
+
+*   **Incremental Rendering:** If points stream in slowly during movement, release navigation controls to let the level-of-detail loader refine the resolution.
+*   **Performance:** Unchecking hidden layers in the Layers Tree releases their GPU memory buffers immediately.
+)MARKDOWN");
+
+      browser->setMarkdown(markdown);
+      layout->addWidget(browser);
+      
+      auto* close_button = new QPushButton(tr("Close"), dialog);
+      connect(close_button, &QPushButton::clicked, dialog, &QDialog::accept);
+      layout->addWidget(close_button);
+      
+      dialog->exec();
+    });
     if (!m_blaze_process) {
       m_blaze_process = std::make_unique<QProcess>(this);
       m_blaze_process->setProcessChannelMode(QProcess::MergedChannels);
@@ -326,6 +395,27 @@ void Main3DWindow::setup_point_cloud_panel() {
   m_point_fixed_color_button = new QPushButton(tr("Choose color..."), m_point_cloud_panel);
   layout->addWidget(m_point_fixed_color_button);
 
+  auto* filter_group = new QGroupBox(tr("Classification filter"), m_point_cloud_panel);
+  auto* filter_layout = new QVBoxLayout(filter_group);
+  m_classification_list = new QListWidget(filter_group);
+  m_classification_list->setMaximumHeight(120);
+  filter_layout->addWidget(m_classification_list);
+  layout->addWidget(filter_group);
+
+  connect(m_classification_list, &QListWidget::itemChanged, this, [this](QListWidgetItem* item) {
+    if (m_updating_point_cloud_ui) {
+      return;
+    }
+    auto layer = m_active_las_layer.lock();
+    if (!layer) {
+      return;
+    }
+    bool checked = item->checkState() == Qt::Checked;
+    uint8_t classification = static_cast<uint8_t>(item->data(Qt::UserRole).toUInt());
+    layer->set_classification_enabled(classification, checked);
+    gl_widget->update();
+  });
+
   ui->verticalLayout->insertWidget(1, m_point_cloud_panel);
   m_point_cloud_panel->hide();
 
@@ -476,6 +566,7 @@ void Main3DWindow::update_point_cloud_panel_for_selection() {
   m_point_fixed_color_button->setStyleSheet(
       QString("background-color: rgb(%1,%2,%3);").arg(rgb[0]).arg(rgb[1]).arg(rgb[2]));
   m_point_fixed_color_button->setEnabled(las_layer->point_color_mode() == PointColorMode::Fixed);
+  update_classification_list_from_active_layer();
   m_point_cloud_panel->show();
   update_point_cloud_value_labels();
   m_updating_point_cloud_ui = false;
@@ -579,6 +670,15 @@ void Main3DWindow::add_layer(std::unique_ptr<Layer> layer) {
   add_layer_to_tree(shared);
   gl_widget->add_layer(shared);
   connect(shared.get(), &Layer::data_updated, this, &Main3DWindow::maybe_exit_after_load);
+  connect(shared.get(), &Layer::data_updated, this, [this, weak = std::weak_ptr<Layer>(shared)]() {
+    auto active = m_active_las_layer.lock();
+    auto layer = weak.lock();
+    if (active && layer && active == layer) {
+      m_updating_point_cloud_ui = true;
+      update_classification_list_from_active_layer();
+      m_updating_point_cloud_ui = false;
+    }
+  });
   update_render_mode();
   maybe_exit_after_load();
 }
@@ -892,5 +992,27 @@ void Main3DWindow::on_treeWidget_customContextMenuRequested(const QPoint& pos) {
     }
   } else if (chosen == remove_action) {
     remove_selected_layer();
+  }
+}
+
+void Main3DWindow::update_classification_list_from_active_layer() {
+  if (!m_classification_list) {
+    return;
+  }
+  m_classification_list->clear();
+  auto layer = m_active_las_layer.lock();
+  if (!layer) {
+    return;
+  }
+
+  const auto classes = layer->present_classifications();
+  const auto& enabled = layer->classification_enabled();
+
+  for (uint8_t c : classes) {
+    QString label = format_classification_label(c);
+    auto* item = new QListWidgetItem(label, m_classification_list);
+    item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+    item->setCheckState(enabled[c] ? Qt::Checked : Qt::Unchecked);
+    item->setData(Qt::UserRole, QVariant(static_cast<unsigned int>(c)));
   }
 }
