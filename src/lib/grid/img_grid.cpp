@@ -1,8 +1,8 @@
 #include "img_grid.hpp"
 
-#include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include "opencv_compat.hpp"
 #include "tif/tif.hpp"
 
 ImgGrid::~ImgGrid() = default;
@@ -18,7 +18,7 @@ void GeoImgGrid::save_to(const fs::path& path, const Extent2D& extent) {
 ImgGrid::ImgGrid(size_t height, size_t width, std::optional<int> type)
     : GridData(height, width),
       m_img(std::make_unique<cv::Mat>(width, height, type.value_or(CV_8UC4))) {}
-void ImgGrid::save_to(const fs::path& path) { cv::imwrite(path.string(), *m_img); }
+void ImgGrid::save_to(const fs::path& path) { blaze_cv_imwrite(path.string(), *m_img); }
 RGBColor ImgGrid::get_rgb_color(size_t row, size_t col) const {
   cv::Vec4b v = m_img->at<cv::Vec4b>(row, col);
   return RGBColor(v[2], v[1], v[0], v[3]);

@@ -145,10 +145,10 @@ set(OpenCV_STATIC ON)
 find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
 
 # System OpenCV packages (apt, Homebrew) and vcpkg (VCPKG_BUILD_TYPE=release)
-# only ship release libraries. In Debug builds OpenCV headers switch to a
-# debug_build_guard ABI that those libs do not export.
+# only ship release libraries. OpenCV's debug_build_guard ABI (enabled by _DEBUG
+# on MSVC or _GLIBCXX_DEBUG on GCC) is incompatible with those libs.
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_definitions(CV_CXX_DEBUG=0)
+  add_compile_definitions(CV_IGNORE_DEBUG_BUILD_GUARD)
 endif()
 
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)

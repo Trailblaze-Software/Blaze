@@ -250,19 +250,19 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   std::vector<std::shared_ptr<ContourPoint>> all_contour_points;
 
   for (const Contour& contour : contours) {
-    std::shared_ptr<ContourPoint> last_point = nullptr;
+    ContourPoint* last_point = nullptr;
     for (size_t i = 0; i < contour.points().size(); i++) {
       const Coordinate2D<double>& point = contour.points().at(i);
       std::shared_ptr<ContourPoint> contour_point =
           std::make_shared<ContourPoint>(point.x(), point.y(), contour.height());
       if (last_point) {
         contour_point->set_previous(last_point);
-        last_point->set_next(contour_point);
+        last_point->set_next(contour_point.get());
       }
       contour_points[contour_points.transform().projection_to_pixel(point)].emplace_back(
           contour_point);
       all_contour_points.emplace_back(contour_point);
-      last_point = contour_point;
+      last_point = contour_point.get();
     }
   }
 
