@@ -49,8 +49,8 @@ void GeoImgGrid::draw(const GeoImgGrid& other, std::optional<int> interpolation)
   const cv::Rect roi_full(static_cast<int>(top_left.x()), static_cast<int>(top_left.y()), full_w,
                           full_h);
   cv::Mat resized_img;
-  cv::resize(*other.m_img, resized_img, cv::Size(full_w, full_h), 0, 0,
-             interpolation.value_or(cv::INTER_NEAREST));
+  blaze_cv_resize(*other.m_img, resized_img, cv::Size(full_w, full_h),
+                  interpolation.value_or(cv::INTER_NEAREST));
 
   const cv::Rect img_bounds(0, 0, m_img->cols, m_img->rows);
   const cv::Rect roi = roi_full & img_bounds;
@@ -63,14 +63,11 @@ void GeoImgGrid::draw(const GeoImgGrid& other, std::optional<int> interpolation)
 
   if (resized_roi.channels() == 4 && m_img->channels() == 4) {
     cv::Mat alpha_other, alpha_m_img;
-    std::vector<cv::Mat> channels_other, channels_m_img;
-    cv::split(resized_roi, channels_other);
-    cv::split(dest_roi, channels_m_img);
-    alpha_other = channels_other[3];
-    alpha_m_img = channels_m_img[3];
+    blaze_cv_extract_channel(resized_roi, alpha_other, 3);
+    blaze_cv_extract_channel(dest_roi, alpha_m_img, 3);
 
-    alpha_other.convertTo(alpha_other, CV_32F, 1.0 / 255.0);
-    alpha_m_img.convertTo(alpha_m_img, CV_32F, 1.0 / 255.0);
+    blaze_cv_convert_to(alpha_other, alpha_other, CV_32F, 1.0 / 255.0, 0);
+    blaze_cv_convert_to(alpha_m_img, alpha_m_img, CV_32F, 1.0 / 255.0, 0);
 
     cv::Mat blended_img = cv::Mat::zeros(dest_roi.size(), CV_8UC4);
 #pragma omp parallel for
@@ -91,35 +88,35 @@ void GeoImgGrid::draw(const GeoImgGrid& other, std::optional<int> interpolation)
       }
     }
 
-    blended_img.copyTo(dest_roi);
+    blaze_cv_copy_to(blended_img, dest_roi);
   } else {
-    resized_roi.copyTo(dest_roi);
+    blaze_cv_copy_to(resized_roi, dest_roi);
   }
 }
 void GeoImgGrid::draw_point(const Coordinate2D<double>& point, const ColorVariant& color,
                             double size) {
   Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
-  cv::circle(*m_img, cv::Point(pixel_coord.x(), pixel_coord.y()), size / transform().dx(),
-             to_rgb(color).toScalar(), -1);
+  blaze_cv_circle(*m_img, cv::Point(pixel_coord.x(), pixel_coord.y()), size / transform().dx(),
+                  to_rgb(color).toScalar(), -1);
 }
 void GeoImgGrid::draw(const Contour& contour, const ColorVariant& color, double width) {
-  std::vector<std::vector<cv::Point>> points;
-  points.push_back({});
+  std::vector<cv::Point> points;
+  points.reserve(contour.points().size());
   for (const auto& point : contour.points()) {
     Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
-    points[0].push_back({cv::Point(pixel_coord.x(), pixel_coord.y())});
+    points.emplace_back(pixel_coord.x(), pixel_coord.y());
   }
-  int line_width_pixels = width / transform().dx();
-  cv::polylines(*m_img, points, false, to_rgb(color).toScalar(), line_width_pixels, cv::LINE_8);
+  blaze_cv_polylines(*m_img, points.data(), static_cast<int>(points.size()), false,
+                     to_rgb(color).toScalar(), width / transform().dx());
 }
 void GeoImgGrid::draw(const std::vector<Coordinate2D<double>>& in_points, const ColorVariant& color,
                       double width) {
-  std::vector<std::vector<cv::Point>> points;
-  points.push_back({});
+  std::vector<cv::Point> points;
+  points.reserve(in_points.size());
   for (const auto& point : in_points) {
     Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
-    points[0].push_back({cv::Point(pixel_coord.x(), pixel_coord.y())});
+    points.emplace_back(pixel_coord.x(), pixel_coord.y());
   }
-  int line_width_pixels = width / transform().dx();
-  cv::polylines(*m_img, points, false, to_rgb(color).toScalar(), line_width_pixels, cv::LINE_8);
+  blaze_cv_polylines(*m_img, points.data(), static_cast<int>(points.size()), false,
+                     to_rgb(color).toScalar(), width / transform().dx());
 }
