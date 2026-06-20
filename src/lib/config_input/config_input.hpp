@@ -95,6 +95,10 @@ struct CanopyConfig {
 struct BlockingThresholdColorPair {
   double blocking_threshold;
   ColorVariant color;
+  std::string
+      layer;  // CRT layer name, e.g. "405_Forest". Empty → default from config name + threshold.
+  double min_area_m2 = 0;       // minimum polygon area in m²; smaller polygons are dropped
+  double min_hole_area_m2 = 0;  // minimum hole area in m²; smaller holes are filled
 };
 
 struct VegeHeightConfig {
@@ -190,7 +194,7 @@ struct ContourConfigs {
     for (const auto& [name, config] : configs) {
       if (config.interval > max_valid_interval &&
           std::fmod(std::abs(height), config.interval) < 1e-8) {
-        if (name == "form_line") {
+        if (name == "form_line" || name == "formline") {
           layer_name = "103_Form_Line";
         } else if (name == "index") {
           layer_name = "102_Index_Contour";

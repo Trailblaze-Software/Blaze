@@ -16,6 +16,7 @@
 #include "methods/water/water.hpp"
 #include "tif/tif.hpp"
 #include "utilities/progress_tracker.hpp"
+#include "vegetation/vegetation_polygon.hpp"
 
 enum class GroundMethod { LOWER_BOUND, LOWEST_POINT, INTERPOLATE };
 
@@ -393,6 +394,17 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
     // Keep float vegetation grid for the coloring stage.
     vege_maps.emplace(vege_config.name, std::move(vege_grid));
+  }
+
+  // --- Vegetation polygon export ---
+  std::vector<VegePolygon> vege_polygons = generate_vege_polygons(config.vege, vege_maps);
+  if (!vege_polygons.empty()) {
+    GPKGWriter vege_writer((output_dir / "vegetation.gpkg").string(),
+                           las_file.projection().to_string(), "vegetation");
+    for (const VegePolygon& poly : vege_polygons) {
+      vege_writer.write_polygon(poly.layer, poly.name, poly.exterior_ring, poly.holes);
+    }
+    write_vegetation_crt(output_dir / "vegetation.crt");
   }
 
   progress_tracker.set_proportion(0.78);

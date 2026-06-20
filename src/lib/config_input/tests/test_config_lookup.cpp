@@ -51,6 +51,15 @@ TEST(ContourConfigs, LayerNameFromHeight) {
   EXPECT_EQ(configs.layer_name_from_height(1.25), "103_Form_Line");
 }
 
+TEST(ContourConfigs, LayerNameFromHeightFormlineAlias) {
+  // Config JSON uses "formline" (no underscore), matching default_config.json.
+  ContourConfigs configs({{"normal", ContourConfig{5.0, 3, RGBColor(0, 0, 0), 0.14}},
+                          {"formline", ContourConfig{2.5, 2, RGBColor(0, 0, 0), 0.1}}});
+
+  EXPECT_EQ(configs.layer_name_from_height(2.5), "103_Form_Line");
+  EXPECT_EQ(configs.layer_name_from_height(5.0), "101_Contour");
+}
+
 TEST(ContourConfigs, IndexOperator) {
   ContourConfigs configs({{"normal", ContourConfig{2.5, 3, RGBColor(0, 0, 0), 0.14}}});
   const ContourConfig& c = configs["normal"];

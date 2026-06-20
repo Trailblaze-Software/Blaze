@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <limits>
 #include <utility>
@@ -73,8 +74,9 @@ class Contour {
   const std::vector<Coordinate2D<double>>& points() const { return m_points; }
   std::vector<Coordinate2D<double>>& points() { return m_points; }
 
+  template <typename T>
   static Contour FromGridGraph(const LineCoord2D<size_t>& starting_point, double height,
-                               const GeoGrid<double>& grid,
+                               const GeoGrid<T>& grid,
                                GridGraph<std::set<double>>& contour_heights) {
     std::vector<Coordinate2D<double>> contour_points;
     int pass = 0;
@@ -97,7 +99,7 @@ class Contour {
         this_contour_points.emplace_back(interpolate_coordinates(
             grid.transform().pixel_to_projection(current_point.start().offset_to_center()),
             grid.transform().pixel_to_projection(current_point.end().offset_to_center()),
-            grid[current_point.start()], grid[current_point.end()], height));
+            grid[current_point.start()], grid[current_point.end()], static_cast<T>(height)));
         end = true;
         for (LineCoord2DCrossing<size_t> next_point : current_point.next_points()) {
           if (contour_heights.in_bounds(next_point) &&
@@ -144,8 +146,12 @@ class Contour {
 
   bool is_loop() const { return m_is_loop; }
 
-  // Orient contour so that left side (when following the line) is uphill
-  void orient_consistent(const GeoGrid<double>& elevation_grid) {
+  // Orient contour so that higher grid values are on the left when following the
+  // line. For elevation contours this means uphill is on the left; for density
+  // grids the above-threshold side is on the left. CCW outer rings then have
+  // positive signed area; CW hole rings have negative signed area.
+  template <typename T>
+  void orient_consistent(const GeoGrid<T>& value_grid) {
     if (m_points.size() < 2) return;
 
     // Sample several points along the contour to determine orientation
@@ -156,7 +162,7 @@ class Contour {
 
     int left_higher_count = 0;
     int right_higher_count = 0;
-    double offset_distance = elevation_grid.transform().dx() * 0.1;  // 10% of grid resolution
+    double offset_distance = value_grid.transform().dx() * 0.1;  // 10% of grid resolution
 
     for (size_t i = 0; i < m_points.size() - 1; i += step) {
       const auto& p1 = m_points[i];
@@ -185,27 +191,26 @@ class Contour {
           mid_point -
           Coordinate2D<double>(left_perp.x() * offset_distance, left_perp.y() * offset_distance);
 
-      // Sample elevations (with bounds checking)
+      // Sample values (with bounds checking)
       // Check if points are within grid bounds before interpolating
       // interpolate_value requires points to be at least 0.5 pixels from edges for bilinear
       // interpolation
-      Coordinate2D<double> left_pixel = elevation_grid.transform().projection_to_pixel(left_point);
-      Coordinate2D<double> right_pixel =
-          elevation_grid.transform().projection_to_pixel(right_point);
+      Coordinate2D<double> left_pixel = value_grid.transform().projection_to_pixel(left_point);
+      Coordinate2D<double> right_pixel = value_grid.transform().projection_to_pixel(right_point);
 
       if (left_pixel.x() >= 0.5 && left_pixel.y() >= 0.5 &&
-          left_pixel.x() < elevation_grid.width() - 0.5 &&
-          left_pixel.y() < elevation_grid.height() - 0.5 && right_pixel.x() >= 0.5 &&
-          right_pixel.y() >= 0.5 && right_pixel.x() < elevation_grid.width() - 0.5 &&
-          right_pixel.y() < elevation_grid.height() - 0.5) {
-        double left_elev = interpolate_value(elevation_grid, left_point);
-        double right_elev = interpolate_value(elevation_grid, right_point);
+          left_pixel.x() < value_grid.width() - 0.5 && left_pixel.y() < value_grid.height() - 0.5 &&
+          right_pixel.x() >= 0.5 && right_pixel.y() >= 0.5 &&
+          right_pixel.x() < value_grid.width() - 0.5 &&
+          right_pixel.y() < value_grid.height() - 0.5) {
+        double left_val = interpolate_value(value_grid, left_point);
+        double right_val = interpolate_value(value_grid, right_point);
 
-        if (std::isfinite(left_elev) && std::isfinite(right_elev) && left_elev < 1e6 &&
-            right_elev < 1e6) {  // Check for valid elevation values
-          if (left_elev > right_elev) {
+        if (std::isfinite(left_val) && std::isfinite(right_val) && left_val < 1e6 &&
+            right_val < 1e6) {  // Check for valid values
+          if (left_val > right_val) {
             left_higher_count++;
-          } else if (right_elev > left_elev) {
+          } else if (right_val > left_val) {
             right_higher_count++;
           }
         }

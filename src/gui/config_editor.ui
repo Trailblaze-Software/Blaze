@@ -730,7 +730,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_VegeMain">
+        <layout class="QHBoxLayout" name="horizontalLayout_VegeMain" stretch="1,5">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_VegeList">
            <item>
@@ -741,7 +741,20 @@
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="vege_list_widget"/>
+            <widget class="QListWidget" name="vege_list_widget">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>180</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_VegeButtons">
@@ -820,6 +833,21 @@
               <column>
                <property name="text">
                 <string>Color</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Layer</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Min Area (m²)</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Min Hole (m²)</string>
                </property>
               </column>
              </widget>

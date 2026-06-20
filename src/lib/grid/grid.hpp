@@ -329,6 +329,19 @@ class Geo : public GridT, public GeoGridData {
   Geo(GeoTransform&& transform, GeoProjection&& projection, Args... args)
       : GridT(args...), GeoGridData(std::move(transform), std::move(projection)) {}
 
+  template <typename U>
+    requires std::same_as<GridT, Grid<U>>
+  Geo(const std::vector<std::vector<U>>& data, GeoTransform transform = GeoTransform(),
+      GeoProjection projection = GeoProjection())
+      : GridT(data.empty() ? 0 : data[0].size(), data.size()),
+        GeoGridData(std::move(transform), std::move(projection)) {
+    for (size_t i = 0; i < data.size(); i++) {
+      for (size_t j = 0; j < data[i].size(); j++) {
+        (*this)[{j, i}] = data[i][j];
+      }
+    }
+  }
+
   double width_m() const { return GridT::width() * dx(); }
   double height_m() const { return GridT::height() * dx(); }
 
@@ -356,6 +369,33 @@ class Geo : public GridT, public GeoGridData {
   template <typename U>
   void fill_from(const U& other) {
     GridT::fill_from(other);
+  }
+
+  template <typename U>
+    requires std::same_as<GridT, Grid<U>>
+  Geo pad(U pad_value = {}) const {
+    size_t new_width = GridT::width() + 2;
+    size_t new_height = GridT::height() + 2;
+
+    Coordinate2D<double> origin = transform().pixel_to_projection(Coordinate2D<double>(-1.0, -1.0));
+
+    Geo padded(new_width, new_height,
+               GeoTransform(origin.x(), origin.y(), transform().dx(), transform().dy()),
+               GeoProjection(projection()));
+
+#pragma omp parallel for
+    for (size_t i = 0; i < new_height; i++) {
+      for (size_t j = 0; j < new_width; j++) {
+        const bool on_border = i == 0 || i == new_height - 1 || j == 0 || j == new_width - 1;
+        if (on_border) {
+          padded[{j, i}] = pad_value;
+        } else {
+          padded[{j, i}] = (*this)[{j - 1, i - 1}];
+        }
+      }
+    }
+
+    return padded;
   }
 };
 

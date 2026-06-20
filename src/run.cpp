@@ -21,6 +21,7 @@
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
+#include "vegetation/vegetation_polygon.hpp"
 
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
                      ProgressTracker&& tracker) {
@@ -269,6 +270,25 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         }
 
         write_to_crt(config.output_path() / "combined" / "contours.crt");
+
+        // Combine vegetation polygons
+        combine_vege_gpkgs(combine_dirs, config.output_path() / "combined", projection.value());
+        write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt");
+
+        {
+          const fs::path combined_dir = config.output_path() / "combined";
+          std::vector<fs::path> map_sources = {combined_dir / "contours.gpkg",
+                                               combined_dir / "streams.gpkg",
+                                               combined_dir / "vegetation.gpkg"};
+          if (projection.has_value()) {
+            combine_gpkgs(map_sources, combined_dir / "map.gpkg", projection.value());
+          } else {
+            combine_gpkgs(map_sources, combined_dir / "map.gpkg");
+          }
+          if (fs::exists(combined_dir / "map.gpkg")) {
+            write_to_crt(combined_dir / "map.crt");
+          }
+        }
 
         break;
     }

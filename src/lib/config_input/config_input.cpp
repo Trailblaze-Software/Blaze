@@ -176,12 +176,20 @@ template <>
 struct adl_serializer<BlockingThresholdColorPair> {
   static BlockingThresholdColorPair from_json(const json& j) {
     return BlockingThresholdColorPair{j.value("blocking_threshold", 0.1),
-                                      j.value("color", json("white")).get<ColorVariant>()};
+                                      j.value("color", json("white")).get<ColorVariant>(),
+                                      j.value("layer", std::string{}), j.value("min_area_m2", 0.0),
+                                      j.value("min_hole_area_m2", 0.0)};
   }
 
   static void to_json(json& j, BlockingThresholdColorPair btc) {
     j["blocking_threshold"] = btc.blocking_threshold;
     j["color"] = btc.color;
+    if (!btc.layer.empty()) {
+      j["layer"] = btc.layer;
+    }
+    if (btc.min_area_m2 > 0) {
+      j["min_area_m2"] = btc.min_area_m2;
+    }
   }
 };
 template <>
