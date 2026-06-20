@@ -241,8 +241,11 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   std::optional<Extent3D> m_pending_zoom_extent;
   std::unordered_set<Layer*> m_zoomed_layers;
 
-  double m_frame_ms_ema = 16.0;
-  double m_last_frame_ms = 0.0;
+  std::optional<std::chrono::steady_clock::time_point> m_prev_paint_time;
+  double m_present_frame_ms_ema = 16.0;
+  double m_last_present_frame_ms = 0.0;
+  double m_last_paint_ms = 0.0;
   double m_last_point_draw_ms = 0.0;
+  double m_last_point_gpu_ms = 0.0;
   size_t m_last_point_vertices = 0;
 };

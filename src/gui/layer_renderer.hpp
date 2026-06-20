@@ -89,8 +89,12 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   bool m_stream_backlog = false;
   bool m_prev_incremental_stream = false;
   double m_last_point_draw_ms = 0.0;
+  double m_last_point_gpu_ms = 0.0;
   size_t m_last_point_vertices_drawn = 0;
   std::optional<PointPickResult> m_highlight;
+
+  GLuint m_gpu_timer_query = 0;
+  size_t m_lod_query_vertices = 0;
 
   struct NodeStreamState {
     size_t point_count = 0;
@@ -123,7 +127,11 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   double select_draw_quality(const std::vector<PointOctree::VisibleNode>& visible_nodes,
                              bool incremental, bool lod_base_from_incremental,
                              double target_draw_ms) const;
-  void record_draw_sample(size_t vertices, double ms);
+  void record_lod_sample(size_t vertices, double ms);
+  void ensure_gpu_timer(class QOpenGLExtraFunctions* gl);
+  void consume_gpu_timer_sample(class QOpenGLExtraFunctions* gl);
+  void begin_gpu_timer(class QOpenGLExtraFunctions* gl);
+  void end_gpu_timer(class QOpenGLExtraFunctions* gl, size_t vertices_drawn);
   size_t draw_octree_nodes(QOpenGLFunctions* f, const std::vector<OctreePoint>& point_storage,
                            const std::vector<PointOctree::VisibleNode>& visible_nodes,
                            const Coordinate3D<double>& file_origin,
@@ -138,6 +146,7 @@ class OctreeLASLayerRenderer : public LayerRenderer {
 
   bool has_stream_backlog() const { return m_stream_backlog; }
   double last_point_draw_ms() const { return m_last_point_draw_ms; }
+  double last_point_gpu_ms() const { return m_last_point_gpu_ms; }
   size_t last_point_vertices_drawn() const { return m_last_point_vertices_drawn; }
   void refresh_after_style_change();
   void set_highlight(const std::optional<PointPickResult>& pick);

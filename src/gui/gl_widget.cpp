@@ -145,7 +145,13 @@ void GLWidget::paintGL() {
   }
   m_painting = true;
 
-  const auto frame_start = std::chrono::steady_clock::now();
+  const auto paint_start = std::chrono::steady_clock::now();
+  if (m_prev_paint_time) {
+    m_last_present_frame_ms =
+        std::chrono::duration<double, std::milli>(paint_start - *m_prev_paint_time).count();
+    m_present_frame_ms_ema = m_present_frame_ms_ema * 0.88 + m_last_present_frame_ms * 0.12;
+  }
+  m_prev_paint_time = paint_start;
 
   QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
 
@@ -277,6 +283,7 @@ void GLWidget::paintGL() {
   }
 
   m_last_point_draw_ms = 0.0;
+  m_last_point_gpu_ms = 0.0;
   m_last_point_vertices = 0;
   for (size_t i = 0; i < m_renderers.size(); ++i) {
     if (m_layers[i]->kind() != LayerKind::PointCloud) {
@@ -284,21 +291,22 @@ void GLWidget::paintGL() {
     }
     if (auto* las_renderer = dynamic_cast<OctreeLASLayerRenderer*>(m_renderers[i].get())) {
       m_last_point_draw_ms += las_renderer->last_point_draw_ms();
+      m_last_point_gpu_ms += las_renderer->last_point_gpu_ms();
       m_last_point_vertices += las_renderer->last_point_vertices_drawn();
     }
   }
 
-  m_last_frame_ms =
-      std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - frame_start)
+  m_last_paint_ms =
+      std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - paint_start)
           .count();
-  m_frame_ms_ema = m_frame_ms_ema * 0.88 + m_last_frame_ms * 0.12;
 
   // Periodic frame benchmark (every 60 frames).
   {
     static int bench_frame = 0;
     if (++bench_frame % 60 == 0) {
-      const double fps = m_frame_ms_ema > 0.0 ? 1000.0 / m_frame_ms_ema : 0.0;
-      std::cerr << "[blaze bench frame] fps=" << fps << "  frame_ms=" << m_last_frame_ms
+      const double fps = m_present_frame_ms_ema > 0.0 ? 1000.0 / m_present_frame_ms_ema : 0.0;
+      std::cerr << "[blaze bench frame] fps=" << fps << "  present_ms=" << m_last_present_frame_ms
+                << "  paint_ms=" << m_last_paint_ms << "  gpu_ms=" << m_last_point_gpu_ms
                 << "  pts_ms=" << m_last_point_draw_ms << "  verts=" << m_last_point_vertices
                 << "  cam=(" << m_camera.position().x() << "," << m_camera.position().y() << ","
                 << m_camera.position().z() << ")" << std::endl;
@@ -319,11 +327,11 @@ void GLWidget::draw_stats_overlay() {
   QPainter painter(this);
   painter.setRenderHint(QPainter::TextAntialiasing);
 
-  const double fps = m_frame_ms_ema > 0.0 ? 1000.0 / m_frame_ms_ema : 0.0;
-  const QString text = tr("%1 fps  %2 ms frame  %3 ms buf  %4k verts")
+  const double fps = m_present_frame_ms_ema > 0.0 ? 1000.0 / m_present_frame_ms_ema : 0.0;
+  const QString text = tr("%1 fps  %2 ms  %3 ms gpu  %4k verts")
                            .arg(fps, 0, 'f', 0)
-                           .arg(m_last_frame_ms, 0, 'f', 1)
-                           .arg(m_last_point_draw_ms, 0, 'f', 2)
+                           .arg(m_last_present_frame_ms, 0, 'f', 1)
+                           .arg(m_last_point_gpu_ms, 0, 'f', 1)
                            .arg(static_cast<double>(m_last_point_vertices) / 1000.0, 0, 'f', 1);
 
   const QFontMetrics fm(painter.font());

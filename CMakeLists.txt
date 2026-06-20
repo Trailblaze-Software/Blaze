@@ -144,19 +144,16 @@ find_package(OpenMP REQUIRED)
 set(OpenCV_STATIC ON)
 find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
 
+# System OpenCV packages (apt, Homebrew) and vcpkg (VCPKG_BUILD_TYPE=release)
+# only ship release libraries. In Debug builds OpenCV headers switch to a
+# debug_build_guard ABI that those libs do not export.
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_compile_definitions(CV_CXX_DEBUG=0)
+endif()
+
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Force CMake to use compiler for dependency scanning on Windows to detect file
-# changes
-if(WIN32 AND MSVC)
-  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
-    set(CMAKE_DEPENDS_USE_COMPILER
-        TRUE
-        CACHE BOOL "Use compiler for dependency scanning" FORCE)
-  endif()
-endif()
 if(WIN32)
   if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
     set(CMAKE_CXX_FLAGS

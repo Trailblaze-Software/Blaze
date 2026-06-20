@@ -1,6 +1,7 @@
 #include "gui/layer_renderer.hpp"
 
 #include <QOpenGLContext>
+#include <QOpenGLExtraFunctions>
 #include <QPoint>
 #include <algorithm>
 #include <array>
@@ -305,6 +306,8 @@ void OctreeLASLayerRenderer::reset_stream_cache() {
 void OctreeLASLayerRenderer::refresh_after_style_change() {
   m_node_stream.clear();
   m_stream_backlog = true;
+  m_lod_query_vertices = 0;
+  m_draw_samples.clear();
 }
 
 size_t OctreeLASLayerRenderer::visible_nodes_fingerprint(
@@ -423,7 +426,7 @@ double OctreeLASLayerRenderer::select_draw_quality(
   return std::clamp(quality, 0.05, 64.0);
 }
 
-void OctreeLASLayerRenderer::record_draw_sample(size_t vertices, double ms) {
+void OctreeLASLayerRenderer::record_lod_sample(size_t vertices, double ms) {
   if (vertices == 0 || ms <= 0.0) {
     return;
   }
@@ -445,6 +448,46 @@ void OctreeLASLayerRenderer::record_draw_sample(size_t vertices, double ms) {
   if (weighted_vertices > 0.0 && weight_sum > 0.0) {
     m_ms_per_vertex = weighted_ms / weighted_vertices;
   }
+}
+
+void OctreeLASLayerRenderer::ensure_gpu_timer(QOpenGLExtraFunctions* gl) {
+  if (m_gpu_timer_query != 0 || !gl) {
+    return;
+  }
+  gl->glGenQueries(1, &m_gpu_timer_query);
+}
+
+void OctreeLASLayerRenderer::consume_gpu_timer_sample(QOpenGLExtraFunctions* gl) {
+  if (!gl || m_gpu_timer_query == 0 || m_lod_query_vertices == 0) {
+    return;
+  }
+
+  GLuint available = 0;
+  gl->glGetQueryObjectuiv(m_gpu_timer_query, GL_QUERY_RESULT_AVAILABLE, &available);
+  if (!available) {
+    return;
+  }
+
+  GLuint elapsed_ns = 0;
+  gl->glGetQueryObjectuiv(m_gpu_timer_query, GL_QUERY_RESULT, &elapsed_ns);
+  const double gpu_ms = static_cast<double>(elapsed_ns) / 1'000'000.0;
+  m_last_point_gpu_ms = gpu_ms;
+  record_lod_sample(m_lod_query_vertices, gpu_ms);
+}
+
+void OctreeLASLayerRenderer::begin_gpu_timer(QOpenGLExtraFunctions* gl) {
+  if (!gl || m_gpu_timer_query == 0) {
+    return;
+  }
+  gl->glBeginQuery(GL_TIME_ELAPSED, m_gpu_timer_query);
+}
+
+void OctreeLASLayerRenderer::end_gpu_timer(QOpenGLExtraFunctions* gl, size_t vertices_drawn) {
+  if (!gl || m_gpu_timer_query == 0) {
+    return;
+  }
+  gl->glEndQuery(GL_TIME_ELAPSED);
+  m_lod_query_vertices = vertices_drawn;
 }
 
 size_t OctreeLASLayerRenderer::draw_octree_nodes(
@@ -782,6 +825,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   }
 
   m_last_point_draw_ms = 0.0;
+  m_last_point_gpu_ms = 0.0;
   m_last_point_vertices_drawn = 0;
 
   const bool incremental = ctx.incremental_points;
@@ -850,6 +894,9 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   if (!f) {
     return;
   }
+  QOpenGLExtraFunctions* gl = QOpenGLContext::currentContext()->extraFunctions();
+  ensure_gpu_timer(gl);
+  consume_gpu_timer_sample(gl);
 
   const double target_draw_ms = layer->point_stream_budget_ms();
   const bool stream_mode_changed = incremental != m_prev_incremental_stream;
@@ -884,6 +931,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   f->glDepthMask(GL_TRUE);
   f->glDisable(GL_BLEND);
 
+  begin_gpu_timer(gl);
   size_t vertices_drawn = 0;
   if (use_preview) {
     vertices_drawn = draw_preview_points(f, snap->preview_points, file_origin, scene_offset);
@@ -891,6 +939,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
     vertices_drawn = draw_octree_nodes(f, snap->octree.points(), visible_nodes, file_origin,
                                        scene_offset, draw_quality, incremental);
   }
+  end_gpu_timer(gl, vertices_drawn);
 
   m_shader->release();
 
@@ -909,7 +958,6 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
     return;
   }
 
-  record_draw_sample(vertices_drawn, draw_ms);
   if (incremental) {
     m_inc_lod_quality = draw_quality;
     if (m_stream_backlog && !stream_mode_changed) {
