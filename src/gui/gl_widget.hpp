@@ -207,8 +207,6 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   PointCloudCompositor m_point_compositor;
   bool m_incremental_draw = false;
   bool m_camera_interacting = false;
-  int m_framebuffer_width = 0;
-  int m_framebuffer_height = 0;
   QTimer* m_idle_timer = nullptr;
   QTimer* m_stream_timer = nullptr;
   QTimer* m_orbit_timer = nullptr;
@@ -219,9 +217,6 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   double m_orbit_period_secs = 15.0;
   double m_wobble_period_secs = 4.0;
   double m_wobble_amplitude_deg = 0.5;
-  int m_bench_frame_count = 0;
-  static constexpr int kBenchFrameCount = 300;
-
   QPoint m_last_mouse_pos;
   QPoint m_press_mouse_pos;
   bool m_left_button_pressed = false;

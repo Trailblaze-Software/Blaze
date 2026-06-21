@@ -155,22 +155,17 @@ void GLWidget::paintGL() {
 
   QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
 
-  if (width() > 0 && height() > 0) {
-    m_camera.set_screen_size(width(), height());
-    m_camera.set_device_pixel_ratio(devicePixelRatioF());
+  const int fb_w = width();
+  const int fb_h = height();
+  if (fb_w > 0 && fb_h > 0) {
+    m_camera.set_screen_size(fb_w, fb_h);
     update_scene_bounds();
     apply_pending_zoom();
-    const int fb_w = static_cast<int>(width() * devicePixelRatioF());
-    const int fb_h = static_cast<int>(height() * devicePixelRatioF());
-    if (fb_w > 0 && fb_h > 0) {
-      m_framebuffer_width = fb_w;
-      m_framebuffer_height = fb_h;
-      m_scene_fbo.ensure_size(fb_w, fb_h);
-      m_points_fbo.ensure_size(fb_w, fb_h);
-    }
+    m_scene_fbo.ensure_size(fb_w, fb_h);
+    m_points_fbo.ensure_size(fb_w, fb_h);
   }
 
-  if (m_framebuffer_width <= 0 || m_framebuffer_height <= 0) {
+  if (fb_w <= 0 || fb_h <= 0) {
     m_painting = false;
     return;
   }
@@ -183,7 +178,7 @@ void GLWidget::paintGL() {
   if (!incremental_points) {
     if (m_scene_fbo.valid()) {
       m_scene_fbo.bind();
-      f->glViewport(0, 0, m_framebuffer_width, m_framebuffer_height);
+      f->glViewport(0, 0, fb_w, fb_h);
       f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     } else {
       f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -199,12 +194,12 @@ void GLWidget::paintGL() {
 
     if (m_points_fbo.valid()) {
       m_points_fbo.bind();
-      f->glViewport(0, 0, m_framebuffer_width, m_framebuffer_height);
+      f->glViewport(0, 0, fb_w, fb_h);
       m_points_fbo.clear();
     }
   } else if (m_points_fbo.valid()) {
     m_points_fbo.bind();
-    f->glViewport(0, 0, m_framebuffer_width, m_framebuffer_height);
+    f->glViewport(0, 0, fb_w, fb_h);
     f->glDepthFunc(GL_LEQUAL);
   }
 
@@ -219,10 +214,10 @@ void GLWidget::paintGL() {
 
   const GLuint widget_fbo = defaultFramebufferObject();
   f->glBindFramebuffer(GL_FRAMEBUFFER, widget_fbo);
-  f->glViewport(0, 0, m_framebuffer_width, m_framebuffer_height);
+  f->glViewport(0, 0, fb_w, fb_h);
 
   if (m_scene_fbo.valid()) {
-    m_scene_fbo.blit_to_widget_fbo(widget_fbo, m_framebuffer_width, m_framebuffer_height);
+    m_scene_fbo.blit_to_widget_fbo(widget_fbo, fb_w, fb_h);
   }
 
   float point_layer_alpha = 1.0f;
@@ -239,8 +234,7 @@ void GLWidget::paintGL() {
   if (m_points_fbo.valid() && point_layer_alpha > 0.0f) {
     if (auto* gl = QOpenGLContext::currentContext()->extraFunctions()) {
       m_point_compositor.composite(gl, widget_fbo, m_points_fbo.color_texture(),
-                                   m_points_fbo.depth_texture(), point_layer_alpha,
-                                   m_framebuffer_width, m_framebuffer_height);
+                                   m_points_fbo.depth_texture(), point_layer_alpha, fb_w, fb_h);
     }
   }
   for (size_t i = 0; i < m_renderers.size(); ++i) {
@@ -588,7 +582,6 @@ void GLWidget::start_animation(AnimType type) {
   m_last_orbit_tick = std::chrono::steady_clock::now();
   m_anim_phase = 0.0;
   restart_render();
-  m_bench_frame_count = 0;
   m_orbit_timer->start();
   update();
 }
@@ -606,7 +599,6 @@ void GLWidget::start_bench_orbit(double duration_seconds) {
 
 void GLWidget::on_orbit_tick() {
   if (m_layers.empty() || m_anim_type == AnimType::None) return;
-  ++m_bench_frame_count;
   auto now = std::chrono::steady_clock::now();
   double dt = std::chrono::duration<double>(now - m_last_orbit_tick).count();
   m_last_orbit_tick = now;

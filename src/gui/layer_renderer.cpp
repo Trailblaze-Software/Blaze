@@ -32,7 +32,7 @@ const char* kPointVertexShader = R"(
     in vec3 file_color;
     in float has_file_rgb;
     uniform float point_radius_m;   // world-space sphere radius (metres)
-    uniform float viewport_height;  // framebuffer height in pixels
+    uniform float viewport_height;  // viewport height in pixels
     uniform float fov_rad;          // vertical field of view (radians)
     uniform mat4 u_view;
     uniform mat4 u_proj;
@@ -918,7 +918,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   m_shader->setUniformValue(m_view_matrix_loc, camera.view_matrix());
   m_shader->setUniformValue(m_proj_matrix_loc, camera.projection_matrix());
   m_shader->setUniformValue(m_point_radius_loc, layer->point_radius_m());
-  m_shader->setUniformValue(m_viewport_height_loc, static_cast<float>(camera.framebuffer_height()));
+  m_shader->setUniformValue(m_viewport_height_loc, static_cast<float>(camera.screen_height()));
   m_shader->setUniformValue(m_fov_rad_loc, static_cast<float>(camera.fov_rad()));
   m_shader->setUniformValue(m_color_mode_loc, static_cast<int>(layer->point_color_mode()));
   const std::array<uint8_t, 3>& fixed = layer->fixed_point_color();

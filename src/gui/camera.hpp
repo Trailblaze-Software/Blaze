@@ -18,7 +18,6 @@ class Camera {
 
   int m_width;
   int m_height;
-  double m_device_pixel_ratio = 1.0;
 
   // Scene bounding sphere in camera-local coords (relative to world_offset).
   // Used to keep the far plane large enough that in-view geometry is never
@@ -36,10 +35,6 @@ class Camera {
         m_width(width),
         m_height(height) {}
 
-  Camera(const QVector3D& position, const QVector3D& direction, const QVector3D& up)
-      : m_position(position), m_direction(direction), m_up(up) {}
-
-  void move(const QVector3D& direction) { m_position += direction; }
   void move_towards(const QVector3D& world_pos, double distance, bool shrink_direction = false) {
     QVector3D direction = world_pos - m_position;
     m_position += direction.normalized() * distance;
@@ -59,15 +54,10 @@ class Camera {
     m_height = height;
   }
 
-  void set_device_pixel_ratio(double ratio) { m_device_pixel_ratio = ratio > 0.0 ? ratio : 1.0; }
-
   void set_scene_bounds(const QVector3D& center, float radius) {
     m_scene_center = center;
     m_scene_radius = radius;
   }
-
-  // Framebuffer height in physical pixels (gl_PointSize is in physical pixels).
-  double framebuffer_height() const { return m_height * m_device_pixel_ratio; }
 
   void reset_to_origin() {
     m_position = QVector3D(1, 1, 1);
@@ -193,25 +183,6 @@ class Camera {
   int screen_width() const { return m_width; }
   int screen_height() const { return m_height; }
 
-  struct PickRay {
-    QVector3D origin;
-    QVector3D direction;
-  };
-
-  PickRay pick_ray(const QPointF& screen_pos) const {
-    const QRect viewport(0, 0, m_width, m_height);
-    QMatrix4x4 identity;
-    identity.setToIdentity();
-    const QMatrix4x4 proj = proj_matrix();
-    const float win_y = static_cast<float>(m_height) - static_cast<float>(screen_pos.y());
-    const QVector3D win_near(static_cast<float>(screen_pos.x()), win_y, 0.0f);
-    const QVector3D win_far(static_cast<float>(screen_pos.x()), win_y, 1.0f);
-    const QVector3D origin = win_near.unproject(proj, identity, viewport);
-    const QVector3D far_pt = win_far.unproject(proj, identity, viewport);
-    const QVector3D direction = (far_pt - origin).normalized();
-    return {origin, direction};
-  }
-
   QVector3D unproject(const QPointF& screen_pos) const {
     QVector3D screen(screen_pos.x(), m_height - screen_pos.y(), 0);
     return screen.unproject(proj_matrix(), QMatrix4x4(), QRect(0, 0, m_width, m_height));
@@ -220,5 +191,4 @@ class Camera {
   const QVector3D& position() const { return m_position; }
   const QVector3D& direction() const { return m_direction; }
   const QVector3D& up() const { return m_up; }
-  QVector3D focal_point() const { return m_position + m_direction; }
 };
