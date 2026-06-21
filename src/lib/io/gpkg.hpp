@@ -4,6 +4,7 @@
 #include <ogrsf_frmts.h>
 
 #include <algorithm>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <set>
@@ -18,6 +19,7 @@
 #include "io/gdal_init.hpp"
 #include "polyline/polyline.hpp"
 #include "utilities/filesystem.hpp"
+#include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
 
 class GDALDataset_w {
@@ -51,6 +53,14 @@ class GPKGWriter {
   std::vector<std::string> layer_names;
   std::set<std::string> layers_with_fields;
   std::string default_layer_name;
+  bool m_transaction_active = false;
+
+  void ensure_transaction() {
+    if (!m_transaction_active) {
+      GDALAssert(dataset->StartTransaction());
+      m_transaction_active = true;
+    }
+  }
 
  public:
   GPKGWriter(const std::string& filename, const std::string& projection,
@@ -61,6 +71,16 @@ class GPKGWriter {
       add_layer(default_layer_name);
     }
   }
+
+  ~GPKGWriter() {
+    if (m_transaction_active) {
+      GDALAssert(dataset->CommitTransaction());
+      m_transaction_active = false;
+    }
+  }
+
+  GPKGWriter(const GPKGWriter&) = delete;
+  GPKGWriter& operator=(const GPKGWriter&) = delete;
 
   void add_layer(const std::string& layer_name, OGRwkbGeometryType geom_type = wkbLineString) {
     Assert(!projection.empty(), "Projection must not be empty when creating GPKG layer");
@@ -174,6 +194,7 @@ class GPKGWriter {
       OGRLayer* layer, OGRGeometry* geometry, const std::string& name,
       const std::string& layer_name,
       const std::map<std::string, std::variant<int, double, std::string>>& data_fields) {
+    ensure_transaction();
     if (layers_with_fields.insert(layer_name).second) {
       ensure_data_fields(layer, data_fields);
     }
@@ -312,24 +333,56 @@ inline void copy_gpkg_feature(GDALDataset* dst, OGRLayer* src_layer, OGRFeature*
   OGRFeature::DestroyFeature(copy);
 }
 
-inline void copy_gpkg_layer(GDALDataset* dst, OGRLayer* src_layer) {
+inline void copy_gpkg_layer(GDALDataset* dst, OGRLayer* src_layer,
+                            const std::function<void()>& on_feature_copied = {}) {
   if (!dst || !src_layer) return;
 
   src_layer->ResetReading();
   OGRFeature* feature = nullptr;
-  bool copied_any = false;
   while ((feature = src_layer->GetNextFeature()) != nullptr) {
     copy_gpkg_feature(dst, src_layer, feature);
-    copied_any = true;
+    if (on_feature_copied) {
+      on_feature_copied();
+    }
     OGRFeature::DestroyFeature(feature);
   }
-  (void)copied_any;
+}
+
+inline size_t gpkg_feature_count(const fs::path& path) {
+  ensure_gdal_initialized();
+  GDALDataset* dataset =
+      (GDALDataset*)GDALOpenEx(path.string().c_str(), GDAL_OF_VECTOR, nullptr, nullptr, nullptr);
+  if (!dataset) {
+    return 0;
+  }
+
+  size_t count = 0;
+  for (int i = 0; i < dataset->GetLayerCount(); i++) {
+    OGRLayer* layer = dataset->GetLayer(i);
+    if (!layer) {
+      continue;
+    }
+    const GIntBig layer_count = layer->GetFeatureCount();
+    if (layer_count >= 0) {
+      count += static_cast<size_t>(layer_count);
+      continue;
+    }
+    layer->ResetReading();
+    while (layer->GetNextFeature() != nullptr) {
+      ++count;
+    }
+  }
+
+  GDALClose(dataset);
+  return count;
 }
 
 // Merge several GeoPackage files into one output file. Layers with the same name
 // have their features appended. Skips missing inputs and empty layers.
 inline void combine_gpkgs(const std::vector<fs::path>& sources, const fs::path& output,
-                          const std::string& projection = {}) {
+                          const std::string& projection = {},
+                          ProgressTracker progress_tracker = ProgressTracker()) {
+  TimeFunction timer("combining GPKG " + output.filename().string(), &progress_tracker);
   ensure_gdal_initialized();
 
   std::vector<fs::path> existing;
@@ -337,6 +390,13 @@ inline void combine_gpkgs(const std::vector<fs::path>& sources, const fs::path& 
     if (fs::exists(src)) existing.push_back(src);
   }
   if (existing.empty()) return;
+
+  size_t total_features = 0;
+  for (const fs::path& src : existing) {
+    total_features += gpkg_feature_count(src);
+  }
+  progress_tracker.text_update("Copying " + std::to_string(total_features) + " features into " +
+                               output.filename().string());
 
   if (fs::exists(output)) {
     GDALDriver* driver = GetGDALDriverManager()->GetDriverByName("GPKG");
@@ -376,7 +436,22 @@ inline void combine_gpkgs(const std::vector<fs::path>& sources, const fs::path& 
     CPLPopErrorHandler();
   }
 
+  size_t copied_features = 0;
+  const size_t progress_stride = total_features > 0 ? std::max<size_t>(1, total_features / 20) : 1;
+  const auto report_copy_progress = [&]() {
+    if (total_features == 0) {
+      return;
+    }
+    ++copied_features;
+    if (copied_features % progress_stride == 0 || copied_features == total_features) {
+      progress_tracker.set_proportion(static_cast<double>(copied_features) / total_features);
+    }
+  };
+
+  GDALAssert(dst->StartTransaction());
+
   for (const fs::path& src_path : existing) {
+    progress_tracker.text_update("Merging " + src_path.filename().string());
     GDALDataset* src = (GDALDataset*)GDALOpenEx(src_path.string().c_str(), GDAL_OF_VECTOR, nullptr,
                                                 nullptr, nullptr);
     if (!src) {
@@ -384,10 +459,12 @@ inline void combine_gpkgs(const std::vector<fs::path>& sources, const fs::path& 
       continue;
     }
     for (int i = 0; i < src->GetLayerCount(); i++) {
-      copy_gpkg_layer(dst, src->GetLayer(i));
+      copy_gpkg_layer(dst, src->GetLayer(i), report_copy_progress);
     }
     GDALClose(src);
   }
 
+  GDALAssert(dst->CommitTransaction());
   GDALClose(dst);
+  progress_tracker.set_proportion(1.0);
 }

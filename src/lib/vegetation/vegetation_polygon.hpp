@@ -603,20 +603,11 @@ inline std::vector<VegePolygon> read_vege_polygons(const fs::path& gpkg_path) {
 // =============================================================================
 
 inline void combine_vege_gpkgs(const std::vector<fs::path>& tile_dirs, const fs::path& combined_dir,
-                               const std::string& projection) {
-  std::map<std::string, std::vector<VegePolygon>> polygons_by_layer;
+                               const std::string& projection,
+                               ProgressTracker progress_tracker = ProgressTracker()) {
+  std::vector<fs::path> sources;
   for (const fs::path& dir : tile_dirs) {
-    for (VegePolygon& poly : read_vege_polygons(dir / "vegetation.gpkg")) {
-      polygons_by_layer[poly.layer].push_back(std::move(poly));
-    }
+    sources.push_back(dir / "vegetation.gpkg");
   }
-
-  if (polygons_by_layer.empty()) return;
-
-  GPKGWriter writer((combined_dir / "vegetation.gpkg").string(), projection, "vegetation");
-  for (const auto& [layer_name, polys] : polygons_by_layer) {
-    for (const VegePolygon& poly : polys) {
-      writer.write_polygon(poly.layer, poly.name, poly.exterior_ring, poly.holes);
-    }
-  }
+  combine_gpkgs(sources, combined_dir / "vegetation.gpkg", projection, std::move(progress_tracker));
 }
