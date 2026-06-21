@@ -2,7 +2,10 @@
 
 #include <ogrsf_frmts.h>
 
+#include <algorithm>
+#include <cmath>
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 #include "geometry/polygon.hpp"
@@ -104,6 +107,94 @@ inline void append_ogr_polygons(const OGRGeometry* geometry,
   }
 }
 
+// Uniform grid index for bbox overlap queries (e.g. matching forest to nearby cutouts).
+class ExtentSpatialIndex {
+  double m_cell_size;
+  std::unordered_map<int64_t, std::vector<size_t>> m_cells;
+
+  static int64_t cell_key(int cx, int cy) {
+    return (static_cast<int64_t>(static_cast<uint32_t>(cx)) << 32) | static_cast<uint32_t>(cy);
+  }
+
+  int cell_coord(double v) const { return static_cast<int>(std::floor(v / m_cell_size)); }
+
+ public:
+  explicit ExtentSpatialIndex(double cell_size) : m_cell_size(std::max(cell_size, 1.0)) {}
+
+  void insert(size_t index, const Extent2D& ext) {
+    const int min_cx = cell_coord(ext.minx);
+    const int max_cx = cell_coord(ext.maxx);
+    const int min_cy = cell_coord(ext.miny);
+    const int max_cy = cell_coord(ext.maxy);
+    for (int cy = min_cy; cy <= max_cy; ++cy) {
+      for (int cx = min_cx; cx <= max_cx; ++cx) {
+        m_cells[cell_key(cx, cy)].push_back(index);
+      }
+    }
+  }
+
+  void query(const Extent2D& ext, std::vector<size_t>& out) const {
+    out.clear();
+    const int min_cx = cell_coord(ext.minx);
+    const int max_cx = cell_coord(ext.maxx);
+    const int min_cy = cell_coord(ext.miny);
+    const int max_cy = cell_coord(ext.maxy);
+    for (int cy = min_cy; cy <= max_cy; ++cy) {
+      for (int cx = min_cx; cx <= max_cx; ++cx) {
+        auto it = m_cells.find(cell_key(cx, cy));
+        if (it == m_cells.end()) {
+          continue;
+        }
+        for (size_t index : it->second) {
+          out.push_back(index);
+        }
+      }
+    }
+    std::sort(out.begin(), out.end());
+    out.erase(std::unique(out.begin(), out.end()), out.end());
+  }
+};
+
+inline std::unique_ptr<OGRGeometry> build_cutout_union(
+    const std::vector<PolygonWithHoles>& cutouts) {
+  std::vector<std::unique_ptr<OGRGeometry>> geoms;
+  geoms.reserve(cutouts.size());
+  for (const PolygonWithHoles& cutout : cutouts) {
+    if (cutout.exterior.size() < 3) {
+      continue;
+    }
+    PolygonWithHoles normalized = cutout;
+    normalize_polygon(normalized);
+    auto cut_geom = polygon_to_ogr(normalized);
+    if (cut_geom) {
+      geoms.push_back(std::move(cut_geom));
+    }
+  }
+  if (geoms.empty()) {
+    return nullptr;
+  }
+  while (geoms.size() > 1) {
+    std::vector<std::unique_ptr<OGRGeometry>> next;
+    next.reserve((geoms.size() + 1) / 2);
+    for (size_t i = 0; i < geoms.size(); i += 2) {
+      if (i + 1 < geoms.size()) {
+        std::unique_ptr<OGRGeometry> merged(geoms[i]->Union(geoms[i + 1].get()));
+        if (merged && !merged->IsEmpty()) {
+          next.push_back(std::move(merged));
+        } else if (geoms[i] && !geoms[i]->IsEmpty()) {
+          next.push_back(std::move(geoms[i]));
+        } else if (geoms[i + 1] && !geoms[i + 1]->IsEmpty()) {
+          next.push_back(std::move(geoms[i + 1]));
+        }
+      } else {
+        next.push_back(std::move(geoms[i]));
+      }
+    }
+    geoms = std::move(next);
+  }
+  return std::move(geoms[0]);
+}
+
 }  // namespace detail
 
 // Subtract cutout polygons from `host`. Returns one or more polygons after boolean
@@ -122,45 +213,74 @@ inline std::vector<PolygonWithHoles> subtract_polygon(
   PolygonWithHoles normalized_host = host;
   normalize_polygon(normalized_host);
 
-  std::vector<std::unique_ptr<OGRGeometry>> pieces;
-  if (auto host_geom = detail::polygon_to_ogr(normalized_host)) {
-    pieces.push_back(std::move(host_geom));
-  }
-  if (pieces.empty()) {
-    return {};
-  }
-
-  for (PolygonWithHoles cutout : cutouts) {
+  const Extent2D host_ext = ring_extent(normalized_host.exterior);
+  std::vector<PolygonWithHoles> active_cutouts;
+  active_cutouts.reserve(cutouts.size());
+  for (const PolygonWithHoles& cutout : cutouts) {
     if (cutout.exterior.size() < 3) {
       continue;
     }
-    normalize_polygon(cutout);
-    auto cut_geom = detail::polygon_to_ogr(cutout);
-    if (!cut_geom) {
+    if (!ring_extent(cutout.exterior).overlaps(host_ext)) {
       continue;
     }
+    active_cutouts.push_back(cutout);
+  }
+  if (active_cutouts.empty()) {
+    return {normalized_host};
+  }
 
-    std::vector<std::unique_ptr<OGRGeometry>> next_pieces;
-    for (auto& piece : pieces) {
-      if (!piece || piece->IsEmpty()) {
-        continue;
-      }
-      std::unique_ptr<OGRGeometry> diff(piece->Difference(cut_geom.get()));
-      if (!diff || diff->IsEmpty()) {
-        continue;
-      }
-      detail::append_ogr_polygons(diff.get(), next_pieces);
-    }
-    pieces = std::move(next_pieces);
-    if (pieces.empty()) {
-      return {};
-    }
+  std::unique_ptr<OGRGeometry> cut_union = detail::build_cutout_union(active_cutouts);
+  if (!cut_union || cut_union->IsEmpty()) {
+    return {normalized_host};
+  }
+
+  auto host_geom = detail::polygon_to_ogr(normalized_host);
+  if (!host_geom) {
+    return {};
+  }
+
+  std::unique_ptr<OGRGeometry> diff(host_geom->Difference(cut_union.get()));
+  if (!diff || diff->IsEmpty()) {
+    return {};
   }
 
   std::vector<PolygonWithHoles> result;
-  for (const auto& piece : pieces) {
-    detail::append_polygons_from_ogr(piece.get(), result);
+  detail::append_polygons_from_ogr(diff.get(), result);
+  return result;
+}
+
+// Subtract a pre-built cutout union from `host`. The union should cover all cutouts
+// that might apply; host/cutout overlap is checked via bounding boxes first.
+inline std::vector<PolygonWithHoles> subtract_polygon_with_union(const PolygonWithHoles& host,
+                                                                 const OGRGeometry* cut_union) {
+  ensure_gdal_initialized();
+
+  if (host.exterior.size() < 3 || !cut_union || cut_union->IsEmpty()) {
+    return {};
   }
+
+  PolygonWithHoles normalized_host = host;
+  normalize_polygon(normalized_host);
+
+  const Extent2D host_ext = ring_extent(normalized_host.exterior);
+  OGREnvelope cut_env;
+  cut_union->getEnvelope(&cut_env);
+  if (!host_ext.overlaps({cut_env.MinX, cut_env.MaxX, cut_env.MinY, cut_env.MaxY})) {
+    return {normalized_host};
+  }
+
+  auto host_geom = detail::polygon_to_ogr(normalized_host);
+  if (!host_geom) {
+    return {};
+  }
+
+  std::unique_ptr<OGRGeometry> diff(host_geom->Difference(cut_union));
+  if (!diff || diff->IsEmpty()) {
+    return {};
+  }
+
+  std::vector<PolygonWithHoles> result;
+  detail::append_polygons_from_ogr(diff.get(), result);
   return result;
 }
 
@@ -194,4 +314,18 @@ inline std::vector<PolygonWithHoles> intersect_polygon(const PolygonWithHoles& h
   std::vector<PolygonWithHoles> result;
   detail::append_polygons_from_ogr(intersection.get(), result);
   return result;
+}
+
+// Clip a polygon-with-holes to an axis-aligned extent. Hole-free polygons use fast
+// Sutherland-Hodgman; polygons with holes use GEOS intersection so bisected holes
+// become exterior boundary rather than spurious interior rings.
+inline std::vector<PolygonWithHoles> clip_polygon_to_extent(const PolygonWithHoles& poly,
+                                                            const Extent2D& bounds) {
+  if (poly.exterior.size() < 3) {
+    return {};
+  }
+  if (poly.holes.empty()) {
+    return clip_polygon_hole_free_to_extent(poly, bounds);
+  }
+  return intersect_polygon(poly, polygon_from_extent(bounds));
 }

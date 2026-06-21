@@ -23,6 +23,7 @@
 #include "printing/to_string.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/filesystem.hpp"
+#include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
 
 // =============================================================================
@@ -91,30 +92,50 @@ inline std::vector<VegePolygon> subtract_from_polygon(const VegePolygon& host,
   return result;
 }
 
+inline std::vector<VegePolygon> subtract_from_polygon(const VegePolygon& host,
+                                                      const OGRGeometry* cut_union) {
+  std::vector<VegePolygon> result;
+  for (const PolygonWithHoles& piece :
+       subtract_polygon_with_union({host.exterior_ring, host.holes}, cut_union)) {
+    VegePolygon poly;
+    poly.layer = host.layer;
+    poly.name = host.name;
+    poly.exterior_ring = piece.exterior;
+    poly.holes = piece.holes;
+    result.push_back(std::move(poly));
+  }
+  return result;
+}
+
 // Clip vegetation polygons to the export extent (same bounds used for raster export).
-inline void trim_vege_polygons_to_extent(std::vector<VegePolygon>& polygons,
-                                         const Extent2D& bounds) {
+inline void trim_vege_polygons_to_extent(std::vector<VegePolygon>& polygons, const Extent2D& bounds,
+                                         ProgressTracker&& progress_tracker = ProgressTracker()) {
+  TimeFunction timer("trimming vegetation polygons", &progress_tracker);
   if (polygons.empty()) {
     return;
   }
 
-  const PolygonWithHoles clip = polygon_from_extent(bounds);
-  if (clip.exterior.size() < 3) {
-    return;
-  }
+  std::vector<std::vector<VegePolygon>> trimmed_batches(polygons.size());
 
-  std::vector<VegePolygon> trimmed;
-  trimmed.reserve(polygons.size());
-  for (const VegePolygon& poly : polygons) {
+#pragma omp parallel for schedule(dynamic)
+  for (size_t i = 0; i < polygons.size(); i++) {
+    const VegePolygon& poly = polygons[i];
     if (poly.exterior_ring.size() < 3) {
       continue;
     }
-    if (!ring_extent(poly.exterior_ring).overlaps(bounds)) {
+    const Extent2D poly_ext = ring_extent(poly.exterior_ring);
+    if (!poly_ext.overlaps(bounds)) {
       continue;
     }
 
-    for (const PolygonWithHoles& piece :
-         intersect_polygon({poly.exterior_ring, poly.holes}, clip)) {
+    if (extent_contains(bounds, poly_ext)) {
+      trimmed_batches[i].push_back(poly);
+      continue;
+    }
+
+    std::vector<PolygonWithHoles> clipped_pieces =
+        clip_polygon_to_extent({poly.exterior_ring, poly.holes}, bounds);
+    for (const PolygonWithHoles& piece : clipped_pieces) {
       if (piece.exterior.size() < 3) {
         continue;
       }
@@ -123,10 +144,43 @@ inline void trim_vege_polygons_to_extent(std::vector<VegePolygon>& polygons,
       out.name = poly.name;
       out.exterior_ring = piece.exterior;
       out.holes = piece.holes;
-      trimmed.push_back(std::move(out));
+      trimmed_batches[i].push_back(std::move(out));
+    }
+  }
+
+  std::vector<VegePolygon> trimmed;
+  size_t total = 0;
+  for (const std::vector<VegePolygon>& batch : trimmed_batches) {
+    total += batch.size();
+  }
+  trimmed.reserve(total);
+  for (std::vector<VegePolygon>& batch : trimmed_batches) {
+    for (VegePolygon& poly : batch) {
+      trimmed.push_back(std::move(poly));
     }
   }
   polygons = std::move(trimmed);
+  progress_tracker.set_proportion(1.0);
+}
+
+// Write vegetation polygons to a GeoPackage.
+inline void write_vege_polygons_gpkg(const std::vector<VegePolygon>& polygons,
+                                     const fs::path& gpkg_path, const std::string& projection,
+                                     ProgressTracker&& progress_tracker = ProgressTracker()) {
+  TimeFunction timer("writing vegetation GPKG", &progress_tracker);
+  if (polygons.empty()) {
+    return;
+  }
+
+  GPKGWriter writer(gpkg_path.string(), projection, "vegetation");
+  const size_t report_interval = std::max<size_t>(1, polygons.size() / 20);
+  for (size_t i = 0; i < polygons.size(); i++) {
+    const VegePolygon& poly = polygons[i];
+    writer.write_polygon(poly.layer, poly.name, poly.exterior_ring, poly.holes);
+    if (i % report_interval == 0 || i + 1 == polygons.size()) {
+      progress_tracker.set_proportion(static_cast<double>(i + 1) / polygons.size());
+    }
+  }
 }
 
 // Remove holes that are smaller than the minimum hole area for their layer.
@@ -231,18 +285,20 @@ inline std::vector<VegePolygon> contours_to_polygons(
 
     // Same-threshold CW rings inside this exterior become holes when they are the
     // direct child (not nested inside another CW hole ring within this exterior).
+    std::vector<size_t> hole_candidates;
+    hole_candidates.reserve(all_rings.size() - i);
     for (size_t j = i + 1; j < all_rings.size(); j++) {
       if (all_rings[j].consumed) continue;
       if (all_rings[j].threshold != all_rings[i].threshold) continue;
       if (signed_area(all_rings[j].points) >= 0.0) continue;
       if (!point_in_ring(all_rings[j].points[0], poly.exterior_ring)) continue;
+      hole_candidates.push_back(j);
+    }
 
+    for (size_t j : hole_candidates) {
       bool nested_in_other_hole = false;
-      for (size_t k = i + 1; k < all_rings.size(); k++) {
+      for (size_t k : hole_candidates) {
         if (k == j) continue;
-        if (all_rings[k].threshold != all_rings[i].threshold) continue;
-        if (signed_area(all_rings[k].points) >= 0.0) continue;
-        if (!point_in_ring(all_rings[k].points[0], poly.exterior_ring)) continue;
         if (point_in_ring(all_rings[j].points[0], all_rings[k].points)) {
           nested_in_other_hole = true;
           break;
@@ -281,10 +337,22 @@ inline std::vector<VegePolygon> contours_to_polygons(
 // =============================================================================
 
 inline std::vector<VegePolygon> generate_vege_polygons(
-    const VegeConfig& vege_config, const std::map<std::string, GeoGrid<float>>& vege_maps) {
+    const VegeConfig& vege_config, const std::map<std::string, GeoGrid<float>>& vege_maps,
+    ProgressTracker&& progress_tracker = ProgressTracker()) {
+  TimeFunction timer("generating vegetation polygons", &progress_tracker);
+
+  const size_t height_config_count = vege_config.height_configs.size();
+  size_t height_config_index = 0;
+
   // Collect polygons from all height configs
   std::vector<VegePolygon> all_polygons;
   for (const VegeHeightConfig& vc : vege_config.height_configs) {
+    progress_tracker.text_update("Contouring " + vc.name);
+    if (height_config_count > 0) {
+      progress_tracker.set_proportion(static_cast<double>(height_config_index) /
+                                      static_cast<double>(height_config_count * 2));
+    }
+
     std::map<double, std::string> threshold_layers = extract_threshold_layers(vc);
     if (threshold_layers.empty()) continue;
 
@@ -326,9 +394,16 @@ inline std::vector<VegePolygon> generate_vege_polygons(
     for (VegePolygon& poly : polygons) {
       all_polygons.push_back(std::move(poly));
     }
+
+    ++height_config_index;
+    if (height_config_count > 0) {
+      progress_tracker.set_proportion(static_cast<double>(height_config_index) /
+                                      static_cast<double>(height_config_count * 2));
+    }
   }
 
-  // Build min-area / min-hole maps from config
+  progress_tracker.set_proportion(0.5);
+  progress_tracker.text_update("Filtering vegetation polygons");
   std::map<std::string, double> min_areas, min_hole_areas;
   for (const VegeHeightConfig& vc : vege_config.height_configs) {
     for (const auto& btc : vc.colors) {
@@ -353,35 +428,104 @@ inline std::vector<VegePolygon> generate_vege_polygons(
   filter_small_holes(all_polygons, min_hole_areas);
   filter_by_min_area(all_polygons, min_areas);
 
+  progress_tracker.set_proportion(0.65);
+  progress_tracker.text_update("Cutting understory from forest");
+
   // Subtract green understory from Forest polygons
   {
-    std::vector<VegePolygon> understory;
+    struct UnderstoryCutout {
+      PolygonWithHoles poly;
+      Extent2D extent;
+    };
+    std::vector<UnderstoryCutout> cutouts;
+    cutouts.reserve(all_polygons.size());
+    Extent2D cutout_bounds;
     for (const VegePolygon& p : all_polygons) {
-      if (p.layer == "406_Slow_Running" || p.layer == "408_Walk" || p.layer == "410_Fight") {
-        understory.push_back(p);
+      if (p.layer != "406_Slow_Running" && p.layer != "408_Walk" && p.layer != "410_Fight") {
+        continue;
       }
+      if (p.exterior_ring.size() < 3) {
+        continue;
+      }
+      const Extent2D ext = ring_extent(p.exterior_ring);
+      cutout_bounds.grow(ext);
+      cutouts.push_back({{p.exterior_ring, p.holes}, ext});
     }
-    if (!understory.empty()) {
+
+    if (!cutouts.empty()) {
+      const double cutout_width = cutout_bounds.maxx - cutout_bounds.minx;
+      const double cutout_height = cutout_bounds.maxy - cutout_bounds.miny;
+      const double cell_size = std::max(
+          50.0, std::sqrt(cutout_width * cutout_height / std::max(cutouts.size(), size_t(1))));
+      detail::ExtentSpatialIndex cutout_index(cell_size);
+      for (size_t ci = 0; ci < cutouts.size(); ++ci) {
+        cutout_index.insert(ci, cutouts[ci].extent);
+      }
+
+      std::vector<size_t> forest_indices;
+      forest_indices.reserve(all_polygons.size());
+      for (size_t i = 0; i < all_polygons.size(); i++) {
+        if (all_polygons[i].layer == "405_Forest") {
+          forest_indices.push_back(i);
+        }
+      }
+
+      std::vector<std::vector<VegePolygon>> forest_pieces(forest_indices.size());
+#pragma omp parallel for schedule(dynamic)
+      for (size_t fi = 0; fi < forest_indices.size(); fi++) {
+        const VegePolygon& forest = all_polygons[forest_indices[fi]];
+        const Extent2D forest_ext = ring_extent(forest.exterior_ring);
+        std::vector<size_t> candidate_idxs;
+        cutout_index.query(forest_ext, candidate_idxs);
+
+        std::vector<PolygonWithHoles> active_cutouts;
+        active_cutouts.reserve(candidate_idxs.size());
+        for (size_t ci : candidate_idxs) {
+          if (cutouts[ci].extent.overlaps(forest_ext)) {
+            active_cutouts.push_back(cutouts[ci].poly);
+          }
+        }
+
+        if (active_cutouts.empty()) {
+          forest_pieces[fi].push_back(forest);
+          continue;
+        }
+
+        for (const PolygonWithHoles& piece :
+             subtract_polygon({forest.exterior_ring, forest.holes}, active_cutouts)) {
+          VegePolygon poly;
+          poly.layer = forest.layer;
+          poly.name = forest.name;
+          poly.exterior_ring = piece.exterior;
+          poly.holes = piece.holes;
+          forest_pieces[fi].push_back(std::move(poly));
+        }
+      }
+
       std::vector<VegePolygon> updated;
       updated.reserve(all_polygons.size());
-      for (VegePolygon& p : all_polygons) {
-        if (p.layer == "405_Forest") {
-          for (VegePolygon& piece : subtract_from_polygon(p, understory)) {
+      size_t next_forest = 0;
+      for (size_t i = 0; i < all_polygons.size(); i++) {
+        if (all_polygons[i].layer == "405_Forest") {
+          for (VegePolygon& piece : forest_pieces[next_forest]) {
             updated.push_back(std::move(piece));
           }
+          ++next_forest;
         } else {
-          updated.push_back(std::move(p));
+          updated.push_back(std::move(all_polygons[i]));
         }
       }
       all_polygons = std::move(updated);
     }
   }
 
+  progress_tracker.set_proportion(0.9);
   filter_small_holes(all_polygons, min_hole_areas);
 
   // Drop polygons that fell below min area after subtraction (e.g. forest slivers).
   filter_by_min_area(all_polygons, min_areas);
 
+  progress_tracker.set_proportion(1.0);
   return all_polygons;
 }
 

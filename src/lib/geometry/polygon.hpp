@@ -1,8 +1,10 @@
 #pragma once
 
 #include <cmath>
+#include <optional>
 #include <vector>
 
+#include "assert/assert.hpp"
 #include "utilities/coordinate.hpp"
 
 // Compute the signed area of a polygon ring using the shoelace formula.
@@ -62,6 +64,11 @@ inline Extent2D ring_extent(const std::vector<Coordinate2D<double>>& ring) {
     ext.grow({p.x(), p.x(), p.y(), p.y()});
   }
   return ext;
+}
+
+inline bool extent_contains(const Extent2D& outer, const Extent2D& inner) {
+  return outer.minx <= inner.minx && inner.maxx <= outer.maxx && outer.miny <= inner.miny &&
+         inner.maxy <= outer.maxy;
 }
 
 // Exterior CCW (positive signed area); interior rings CW (negative signed area).
@@ -138,4 +145,20 @@ inline std::vector<Coordinate2D<double>> intersect_polygons(
     }
   }
   return output;
+}
+
+// Clip a simple (no holes) polygon to an axis-aligned extent via Sutherland-Hodgman.
+inline std::vector<PolygonWithHoles> clip_polygon_hole_free_to_extent(const PolygonWithHoles& poly,
+                                                                      const Extent2D& bounds) {
+  Assert(poly.holes.empty());
+  const PolygonWithHoles clip_rect = polygon_from_extent(bounds);
+  std::vector<Coordinate2D<double>> exterior =
+      intersect_polygons(poly.exterior, clip_rect.exterior);
+  if (exterior.size() < 3) {
+    return {};
+  }
+  PolygonWithHoles clipped;
+  clipped.exterior = std::move(exterior);
+  normalize_polygon(clipped);
+  return {clipped};
 }

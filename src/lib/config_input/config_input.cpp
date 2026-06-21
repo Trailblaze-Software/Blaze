@@ -44,6 +44,18 @@ using json = nlohmann::json;
 
 namespace nlohmann {
 
+namespace {
+
+template <typename T>
+T json_number_or(const json& j, const char* key, T default_value) {
+  if (!j.contains(key) || j[key].is_null()) {
+    return default_value;
+  }
+  return j[key].get<T>();
+}
+
+}  // namespace
+
 template <>
 struct adl_serializer<GridConfig> {
   static GridConfig from_json(const json& j) {
@@ -53,8 +65,8 @@ struct adl_serializer<GridConfig> {
     constexpr double kDefaultVegRes = 3.0;
     constexpr double kDefaultContourRes = 9.0;
 
-    const double bin_res = j.value("bin_resolution", kDefaultBinRes);
-    const unsigned int downsample = j.value("downsample_factor", kDefaultDownsample);
+    const double bin_res = json_number_or(j, "bin_resolution", kDefaultBinRes);
+    const unsigned int downsample = json_number_or(j, "downsample_factor", kDefaultDownsample);
 
     // Vegetation / contour resolutions are independent of bin/downsample.
     // For backward compatibility, configs that omit these but provide the
@@ -72,8 +84,8 @@ struct adl_serializer<GridConfig> {
       veg_res = bin_res;
       contour_res = bin_res * static_cast<double>(downsample);
     }
-    veg_res = j.value("vegetation_grid_resolution", veg_res);
-    contour_res = j.value("contour_dem_resolution", contour_res);
+    veg_res = json_number_or(j, "vegetation_grid_resolution", veg_res);
+    contour_res = json_number_or(j, "contour_dem_resolution", contour_res);
 
     return GridConfig{bin_res, downsample, veg_res, contour_res};
   }
@@ -199,7 +211,8 @@ template <>
 struct adl_serializer<VegeHeightConfig> {
   static VegeHeightConfig from_json(const json& j) {
     return VegeHeightConfig{
-        j.value("name", "Vegetation"), j.value("min_height", 2.5), j.value("max_height", 100.0),
+        j.value("name", "Vegetation"), json_number_or(j, "min_height", 2.5),
+        json_number_or(j, "max_height", 100.0),
         j.value("colors", json({})).get<std::vector<BlockingThresholdColorPair>>()};
   }
 

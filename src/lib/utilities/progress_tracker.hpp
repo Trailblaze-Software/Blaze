@@ -53,6 +53,10 @@ class ProgressTracker : public ProgressObserver {
 
   void set_proportion(double proportion);
 
+  // Thread-safe: only advances when `proportion` exceeds the current value (for OpenMP loops
+  // where work completes out of order).
+  void report_parallel_progress(double proportion);
+
   ProgressTracker subtracker(double start, double end);
 
   virtual ~ProgressTracker();

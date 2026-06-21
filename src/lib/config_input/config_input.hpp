@@ -14,21 +14,21 @@ struct GridConfig {
   // Resolution (m) at which raw LiDAR points are binned. This is the
   // underlying working grid: ground / building / water / intensity rasters
   // are produced at this resolution.
-  double bin_resolution;
+  double bin_resolution = 0.5;
   // Integer factor by which the binned grid is downsampled to obtain the
   // smoothed ground DEM. The smoothed DEM is what slope, hill-shade and the
   // smooth_ground.tif raster are computed from. Effective smooth-DEM
   // resolution = bin_resolution * downsample_factor.
-  unsigned int downsample_factor;
+  unsigned int downsample_factor = 3;
   // Resolution (m) of the vegetation/canopy maps. Vegetation point counts
   // are aggregated to this resolution; final vege_color and raw_vege rasters
   // are written at this resolution. Should be >= bin_resolution.
-  double vegetation_grid_resolution;
+  double vegetation_grid_resolution = 3.0;
   // Resolution (m) of the DEM used for contour generation, stream extraction,
   // depression filling and contour orientation. Should be >= the smooth DEM
   // resolution (bin_resolution * downsample_factor). Larger values produce
   // smoother contours but lose fine terrain detail.
-  double contour_dem_resolution;
+  double contour_dem_resolution = 9.0;
 
   // Integer factor used to aggregate the bin grid into the vegetation grid.
   // Always >= 1.
@@ -103,8 +103,8 @@ struct BlockingThresholdColorPair {
 
 struct VegeHeightConfig {
   std::string name;
-  double min_height;
-  double max_height;
+  double min_height = 2.5;
+  double max_height = 100.0;
   std::vector<BlockingThresholdColorPair> colors;
 
   std::optional<ColorVariant> pick_from_blocked_proportion(double bp) const {

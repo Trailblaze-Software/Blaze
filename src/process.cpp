@@ -337,78 +337,90 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   // coarser vegetation grid via mean downsampling.
   const unsigned int veg_factor = config.grid.vegetation_aggregation_factor();
   std::map<std::string, GeoGrid<float>> vege_maps;
-  for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
-    GeoGrid<std::optional<float>> blocked_proportion =
-        get_blocked_proportion(binned_points, smooth_ground, vege_config);
-    fs::create_directories(output_dir / "raw_vege");
+  {
+    ProgressTracker vege_tracker = progress_tracker.subtracker(0.77, 0.78);
+    const size_t vege_config_count = config.vege.height_configs.size();
+    for (size_t vege_config_index = 0; vege_config_index < vege_config_count; ++vege_config_index) {
+      const VegeHeightConfig& vege_config = config.vege.height_configs[vege_config_index];
+      const double map_start =
+          vege_config_count > 0 ? 0.55 * static_cast<double>(vege_config_index) / vege_config_count
+                                : 0.0;
+      const double map_end =
+          vege_config_count > 0
+              ? 0.55 * static_cast<double>(vege_config_index + 1) / vege_config_count
+              : 0.55;
+      ProgressTracker map_tracker = vege_tracker.subtracker(map_start, map_end);
+      map_tracker.text_update("Vegetation map: " + vege_config.name);
+      GeoGrid<std::optional<float>> blocked_proportion =
+          get_blocked_proportion(binned_points, smooth_ground, vege_config, std::move(map_tracker));
+      fs::create_directories(output_dir / "raw_vege");
 
-    auto float01_to_byte_grid = [](const GeoGrid<float>& grid) {
-      GeoGrid<std::byte> out(grid.width(), grid.height(), GeoTransform(grid.transform()),
-                             GeoProjection(grid.projection()));
+      auto float01_to_byte_grid = [](const GeoGrid<float>& grid) {
+        GeoGrid<std::byte> out(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                               GeoProjection(grid.projection()));
 #pragma omp parallel for
-      for (size_t i = 0; i < grid.height(); i++) {
-        for (size_t j = 0; j < grid.width(); j++) {
-          const float v = grid[{j, i}];
-          if (!std::isfinite(v)) {
-            out[{j, i}] = std::byte(0);
-            continue;
+        for (size_t i = 0; i < grid.height(); i++) {
+          for (size_t j = 0; j < grid.width(); j++) {
+            const float v = grid[{j, i}];
+            if (!std::isfinite(v)) {
+              out[{j, i}] = std::byte(0);
+              continue;
+            }
+            const float clamped = std::clamp(v, 0.0f, 1.0f);
+            const int scaled = static_cast<int>(std::lround(clamped * 255.0f));
+            out[{j, i}] = static_cast<std::byte>(std::clamp(scaled, 0, 255));
           }
-          const float clamped = std::clamp(v, 0.0f, 1.0f);
-          const int scaled = static_cast<int>(std::lround(clamped * 255.0f));
-          out[{j, i}] = static_cast<std::byte>(std::clamp(scaled, 0, 255));
+        }
+        return out;
+      };
+
+      // Raw blocked-proportion (0..1) at vegetation resolution, exported as Byte.
+      // We convert optional<float> to float with NaNs for nodata so downsample()
+      // can ignore missing values (it only includes finite values in the mean).
+      GeoGrid<float> raw_bp_float(blocked_proportion.width(), blocked_proportion.height(),
+                                  GeoTransform(blocked_proportion.transform()),
+                                  GeoProjection(blocked_proportion.projection()));
+#pragma omp parallel for
+      for (size_t i = 0; i < blocked_proportion.height(); i++) {
+        for (size_t j = 0; j < blocked_proportion.width(); j++) {
+          raw_bp_float[{j, i}] = blocked_proportion[{j, i}].has_value()
+                                     ? *blocked_proportion[{j, i}]
+                                     : std::numeric_limits<float>::quiet_NaN();
         }
       }
-      return out;
-    };
+      GeoGrid<float> raw_vege_grid =
+          veg_factor > 1
+              ? downsample(raw_bp_float, veg_factor, ProgressTracker(), DownsampleMethod::MEAN)
+              : std::move(raw_bp_float);
+      write_to_tif(float01_to_byte_grid(raw_vege_grid).slice(data_ext),
+                   output_dir / "raw_vege" / (vege_config.name + ".tif"));
 
-    // Raw blocked-proportion (0..1) at vegetation resolution, exported as Byte.
-    // We convert optional<float> to float with NaNs for nodata so downsample()
-    // can ignore missing values (it only includes finite values in the mean).
-    GeoGrid<float> raw_bp_float(blocked_proportion.width(), blocked_proportion.height(),
-                                GeoTransform(blocked_proportion.transform()),
-                                GeoProjection(blocked_proportion.projection()));
-#pragma omp parallel for
-    for (size_t i = 0; i < blocked_proportion.height(); i++) {
-      for (size_t j = 0; j < blocked_proportion.width(); j++) {
-        raw_bp_float[{j, i}] = blocked_proportion[{j, i}].has_value()
-                                   ? *blocked_proportion[{j, i}]
-                                   : std::numeric_limits<float>::quiet_NaN();
-      }
+      // Smoothed blocked-proportion (low-pass + aggregated) at vegetation resolution, exported as
+      // Byte.
+      GeoGrid<float> smooth_blocked_proportion = low_pass(blocked_proportion, 5);
+      GeoGrid<float> vege_grid = veg_factor > 1
+                                     ? downsample(smooth_blocked_proportion, veg_factor,
+                                                  ProgressTracker(), DownsampleMethod::MEAN)
+                                     : std::move(smooth_blocked_proportion);
+      write_to_tif(float01_to_byte_grid(vege_grid).slice(data_ext),
+                   output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif"));
+
+      // Keep float vegetation grid for the coloring stage.
+      vege_maps.emplace(vege_config.name, std::move(vege_grid));
     }
-    GeoGrid<float> raw_vege_grid =
-        veg_factor > 1
-            ? downsample(raw_bp_float, veg_factor, ProgressTracker(), DownsampleMethod::MEAN)
-            : std::move(raw_bp_float);
-    write_to_tif(float01_to_byte_grid(raw_vege_grid).slice(data_ext),
-                 output_dir / "raw_vege" / (vege_config.name + ".tif"));
 
-    // Smoothed blocked-proportion (low-pass + aggregated) at vegetation resolution, exported as
-    // Byte.
-    GeoGrid<float> smooth_blocked_proportion = low_pass(blocked_proportion, 5);
-    GeoGrid<float> vege_grid =
-        veg_factor > 1 ? downsample(smooth_blocked_proportion, veg_factor,
-                                    /*progress_tracker=*/ProgressTracker(), DownsampleMethod::MEAN)
-                       : std::move(smooth_blocked_proportion);
-    write_to_tif(float01_to_byte_grid(vege_grid).slice(data_ext),
-                 output_dir / "raw_vege" / ("smoothed_" + vege_config.name + ".tif"));
-
-    // Keep float vegetation grid for the coloring stage.
-    vege_maps.emplace(vege_config.name, std::move(vege_grid));
-  }
-
-  // --- Vegetation polygon export ---
-  std::vector<VegePolygon> vege_polygons = generate_vege_polygons(config.vege, vege_maps);
-  trim_vege_polygons_to_extent(vege_polygons, data_ext);
-  if (!vege_polygons.empty()) {
-    GPKGWriter vege_writer((output_dir / "vegetation.gpkg").string(),
-                           las_file.projection().to_string(), "vegetation");
-    for (const VegePolygon& poly : vege_polygons) {
-      vege_writer.write_polygon(poly.layer, poly.name, poly.exterior_ring, poly.holes);
+    // --- Vegetation polygon export ---
+    vege_tracker.text_update("Polygonizing vegetation");
+    std::vector<VegePolygon> vege_polygons =
+        generate_vege_polygons(config.vege, vege_maps, vege_tracker.subtracker(0.55, 0.85));
+    trim_vege_polygons_to_extent(vege_polygons, data_ext, vege_tracker.subtracker(0.85, 0.92));
+    if (!vege_polygons.empty()) {
+      write_vege_polygons_gpkg(vege_polygons, output_dir / "vegetation.gpkg",
+                               las_file.projection().to_string(),
+                               vege_tracker.subtracker(0.92, 1.0));
+      write_vegetation_crt(output_dir / "vegetation.crt");
     }
-    write_vegetation_crt(output_dir / "vegetation.crt");
-  }
-
-  progress_tracker.set_proportion(0.78);
+  }  // vege_tracker destructor advances progress to 0.78
 
   write_to_image_tif(hill_shade(smooth_ground).slice(data_ext),
                      output_dir / "hill_shade_multi.tif");

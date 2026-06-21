@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include <map>
+#include <set>
 #include <string>
 #include <variant>
 #include <vector>
@@ -48,6 +49,7 @@ class GPKGWriter {
   const std::string projection;
 
   std::vector<std::string> layer_names;
+  std::set<std::string> layers_with_fields;
   std::string default_layer_name;
 
  public:
@@ -172,7 +174,9 @@ class GPKGWriter {
       OGRLayer* layer, OGRGeometry* geometry, const std::string& name,
       const std::string& layer_name,
       const std::map<std::string, std::variant<int, double, std::string>>& data_fields) {
-    ensure_data_fields(layer, data_fields);
+    if (layers_with_fields.insert(layer_name).second) {
+      ensure_data_fields(layer, data_fields);
+    }
 
     OGRFeature* feature = OGRFeature::CreateFeature(layer->GetLayerDefn());
     Assert(feature, "Failed to create feature.");

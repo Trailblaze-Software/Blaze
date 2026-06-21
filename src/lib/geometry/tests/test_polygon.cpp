@@ -325,3 +325,47 @@ TEST(IntersectPolygon, ClipsPolygonWithHole) {
   EXPECT_GT(net_area(result[0]), 0.0);
   EXPECT_LT(net_area(result[0]), net_area(host));
 }
+
+TEST(ClipPolygonToExtent, MatchesGeosClipForSquare) {
+  auto host = ccw_square(0, 0, 100);
+  Extent2D bounds{50.0, 100.0, 0.0, 100.0};
+
+  std::vector<PolygonWithHoles> fast = clip_polygon_to_extent(host, bounds);
+  ASSERT_EQ(fast.size(), 1u);
+  expect_exterior_area(fast[0], 5000.0);
+
+  auto geos = intersect_polygon(host, polygon_from_extent(bounds));
+  ASSERT_EQ(geos.size(), 1u);
+  EXPECT_NEAR(net_area(fast[0]), net_area(geos[0]), 1e-6);
+}
+
+TEST(ClipPolygonToExtent, ClipsPolygonWithHole) {
+  PolygonWithHoles host = ccw_square(0, 0, 100);
+  host.holes.push_back(ccw_square(20, 20, 60).exterior);
+  normalize_polygon(host);
+  Extent2D bounds{50.0, 100.0, 0.0, 100.0};
+
+  std::vector<PolygonWithHoles> clipped = clip_polygon_to_extent(host, bounds);
+  ASSERT_EQ(clipped.size(), 1u);
+  EXPECT_GT(net_area(clipped[0]), 0.0);
+  EXPECT_LT(net_area(clipped[0]), net_area(host));
+  EXPECT_NEAR(net_area(clipped[0]),
+              net_area(intersect_polygon(host, polygon_from_extent(bounds))[0]), 1e-6);
+}
+
+TEST(ClipPolygonToExtent, BisectedDonutDropsHole) {
+  // Clip through the hole: the cut edge should become exterior boundary, not a hole.
+  PolygonWithHoles host = ccw_square(0, 0, 100);
+  host.holes.push_back(ccw_square(40, 40, 20).exterior);
+  normalize_polygon(host);
+  Extent2D bounds{0.0, 50.0, 0.0, 100.0};
+
+  std::vector<PolygonWithHoles> clipped = clip_polygon_to_extent(host, bounds);
+  ASSERT_EQ(clipped.size(), 1u);
+  EXPECT_EQ(clipped[0].holes.size(), 0u);
+
+  auto geos = intersect_polygon(host, polygon_from_extent(bounds));
+  ASSERT_EQ(geos.size(), 1u);
+  EXPECT_EQ(geos[0].holes.size(), 0u);
+  EXPECT_NEAR(net_area(clipped[0]), net_area(geos[0]), 1e-6);
+}
