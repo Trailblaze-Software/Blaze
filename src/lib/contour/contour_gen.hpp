@@ -7,9 +7,17 @@
 
 #include "config_input/config_input.hpp"
 #include "contour.hpp"
+#include "geometry/polygon.hpp"
 #include "utilities/timer.hpp"
 
 namespace detail {
+
+template <typename T>
+double min_contour_loop_area_m2(const GeoGrid<T>& grid) {
+  const double dx = grid.transform().dx();
+  const double dy = grid.transform().dy();
+  return 0.01 * std::abs(dx * dy);
+}
 
 template <typename T>
 const GeoGrid<T>& work_grid_for_contours(const GeoGrid<T>& grid, std::optional<T> pad_value,
@@ -123,6 +131,12 @@ std::map<double, std::vector<Contour>> generate_contours_at_heights(
       work_grid, contour_heights, [&](const Contour& c) { return c.points().size() >= min_points; },
       [&](double height, Contour&& c) {
         c.orient_consistent(work_grid);
+        if (c.is_loop()) {
+          const double min_loop_area = detail::min_contour_loop_area_m2(work_grid);
+          if (std::abs(signed_area(c.points())) < min_loop_area) {
+            return;
+          }
+        }
         contours_by_height[height].emplace_back(std::move(c));
       });
 

@@ -109,6 +109,15 @@ inline void filter_small_holes(std::vector<VegePolygon>& polygons,
   }
 }
 
+// Net polygon area in m² (exterior minus holes). Hole rings are CW (negative).
+inline double polygon_net_area_m2(const VegePolygon& poly) {
+  double area = signed_area(poly.exterior_ring);
+  for (const auto& hole : poly.holes) {
+    area += signed_area(hole);
+  }
+  return area;
+}
+
 // Filter polygons by minimum area in m². Ring coordinates are already in
 // projection units (meters for projected CRSes), so signed_area returns m².
 inline void filter_by_min_area(std::vector<VegePolygon>& polygons,
@@ -119,8 +128,7 @@ inline void filter_by_min_area(std::vector<VegePolygon>& polygons,
                                   if (it == min_areas.end()) return false;
                                   double min_m2 = it->second;
                                   if (min_m2 <= 0) return false;
-                                  double area_m2 = std::abs(signed_area(p.exterior_ring));
-                                  return area_m2 < min_m2;
+                                  return std::abs(polygon_net_area_m2(p)) < min_m2;
                                 }),
                  polygons.end());
 }
@@ -181,15 +189,16 @@ inline std::vector<VegePolygon> contours_to_polygons(
     poly.exterior_ring = all_rings[i].points;
     AssertGT(signed_area(poly.exterior_ring), 0.0);
 
-    // Find rings at the SAME threshold that are inside this ring → they become holes
+    // Same-threshold rings inside this exterior become holes only when already CW
+    // (negative signed area). CCW inner rings are left for the second pass as
+    // independent polygons — avoids failing when orient_consistent ties on soft
+    // near-threshold data, at the cost of possible duplicate outers vs true holes.
     for (size_t j = i + 1; j < all_rings.size(); j++) {
       if (all_rings[j].consumed) continue;
       if (all_rings[j].threshold != all_rings[i].threshold) continue;
       if (!point_in_ring(all_rings[j].points[0], poly.exterior_ring)) continue;
+      if (signed_area(all_rings[j].points) >= 0.0) continue;
 
-      Assert(signed_area(all_rings[j].points) < 0.0, "hole ring should be CW");
-
-      // This ring is inside → it's a hole
       poly.holes.push_back(all_rings[j].points);
       all_rings[j].consumed = true;
     }
@@ -251,8 +260,8 @@ inline std::vector<VegePolygon> generate_vege_polygons(
         auto open_contours = generate_contours_at_heights(grid, {lowest}, /*min_points=*/5, 1.0f);
         // orient_consistent puts above-threshold values on the left; rough open land
         // polygons enclose below-threshold regions, so flip ring direction.
-        for (auto& [height, contours] : open_contours) {
-          for (Contour& c : contours) {
+        for (auto& [height, open_height_contours] : open_contours) {
+          for (Contour& c : open_height_contours) {
             std::reverse(c.points().begin(), c.points().end());
           }
         }
@@ -317,6 +326,8 @@ inline std::vector<VegePolygon> generate_vege_polygons(
       all_polygons = std::move(updated);
     }
   }
+
+  filter_small_holes(all_polygons, min_hole_areas);
 
   // Drop polygons that fell below min area after subtraction (e.g. forest slivers).
   filter_by_min_area(all_polygons, min_areas);

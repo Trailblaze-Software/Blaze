@@ -190,6 +190,9 @@ struct adl_serializer<BlockingThresholdColorPair> {
     if (btc.min_area_m2 > 0) {
       j["min_area_m2"] = btc.min_area_m2;
     }
+    if (btc.min_hole_area_m2 > 0) {
+      j["min_hole_area_m2"] = btc.min_hole_area_m2;
+    }
   }
 };
 template <>

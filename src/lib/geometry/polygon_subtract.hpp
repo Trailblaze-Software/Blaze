@@ -76,19 +76,14 @@ inline void append_polygons_from_ogr(const OGRGeometry* geometry,
     return;
   }
 
-  switch (wkbFlatten(geometry->getGeometryType())) {
-    case wkbPolygon:
-      out.push_back(polygon_from_ogr(static_cast<const OGRPolygon*>(geometry)));
-      break;
-    case wkbMultiPolygon: {
-      const auto* multi = static_cast<const OGRMultiPolygon*>(geometry);
-      for (int i = 0; i < multi->getNumGeometries(); i++) {
-        out.push_back(polygon_from_ogr(static_cast<const OGRPolygon*>(multi->getGeometryRef(i))));
-      }
-      break;
+  const OGRwkbGeometryType type = wkbFlatten(geometry->getGeometryType());
+  if (type == wkbPolygon) {
+    out.push_back(polygon_from_ogr(static_cast<const OGRPolygon*>(geometry)));
+  } else if (type == wkbMultiPolygon) {
+    const auto* multi = static_cast<const OGRMultiPolygon*>(geometry);
+    for (int i = 0; i < multi->getNumGeometries(); i++) {
+      out.push_back(polygon_from_ogr(static_cast<const OGRPolygon*>(multi->getGeometryRef(i))));
     }
-    default:
-      break;
   }
 }
 
@@ -98,19 +93,14 @@ inline void append_ogr_polygons(const OGRGeometry* geometry,
     return;
   }
 
-  switch (wkbFlatten(geometry->getGeometryType())) {
-    case wkbPolygon:
-      out.push_back(std::unique_ptr<OGRGeometry>(geometry->clone()));
-      break;
-    case wkbMultiPolygon: {
-      const auto* multi = static_cast<const OGRMultiPolygon*>(geometry);
-      for (int i = 0; i < multi->getNumGeometries(); i++) {
-        out.push_back(std::unique_ptr<OGRGeometry>(multi->getGeometryRef(i)->clone()));
-      }
-      break;
+  const OGRwkbGeometryType type = wkbFlatten(geometry->getGeometryType());
+  if (type == wkbPolygon) {
+    out.push_back(std::unique_ptr<OGRGeometry>(geometry->clone()));
+  } else if (type == wkbMultiPolygon) {
+    const auto* multi = static_cast<const OGRMultiPolygon*>(geometry);
+    for (int i = 0; i < multi->getNumGeometries(); i++) {
+      out.push_back(std::unique_ptr<OGRGeometry>(multi->getGeometryRef(i)->clone()));
     }
-    default:
-      break;
   }
 }
 

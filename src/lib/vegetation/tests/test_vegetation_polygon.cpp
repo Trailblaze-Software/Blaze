@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
+#include <cmath>
 #include <map>
 #include <set>
 #include <vector>
@@ -46,14 +47,6 @@ VegeConfig forest_and_green_config() {
   config.height_configs.push_back(std::move(canopy));
   config.height_configs.push_back(std::move(green));
   return config;
-}
-
-double polygon_net_area(const VegePolygon& poly) {
-  double area = signed_area(poly.exterior_ring);
-  for (const auto& hole : poly.holes) {
-    area += signed_area(hole);
-  }
-  return area;
 }
 
 bool point_in_polygon(const Coordinate2D<double>& pt, const VegePolygon& poly) {
@@ -377,6 +370,25 @@ TEST(FilterByMinArea, RespectsDifferentLimits) {
   EXPECT_EQ(polygons[0].layer, "408_Walk");
 }
 
+TEST(FilterByMinArea, UsesNetAreaNotExterior) {
+  // Large exterior but thin forest ring: net area below min should be dropped.
+  std::vector<VegePolygon> polygons;
+  VegePolygon donut;
+  donut.layer = "405_Forest";
+  donut.name = "405";
+  donut.exterior_ring = {{0, 0}, {8, 0}, {8, 8}, {0, 8}};
+  donut.holes.push_back({{0.5, 7.5}, {7.5, 7.5}, {7.5, 0.5}, {0.5, 0.5}});
+  polygons.push_back(donut);
+
+  EXPECT_GT(std::abs(signed_area(donut.exterior_ring)), 30.0);
+  EXPECT_LT(polygon_net_area_m2(donut), 30.0);
+
+  std::map<std::string, double> min_areas = {{"405_Forest", 30.0}};
+  filter_by_min_area(polygons, min_areas);
+
+  EXPECT_TRUE(polygons.empty());
+}
+
 // =============================================================================
 // Filter small holes tests
 // =============================================================================
@@ -484,7 +496,7 @@ TEST(SubtractFromPolygon, GreenDonutLeavesForestRing) {
   walk.exterior_ring = {{20, 20}, {80, 20}, {80, 80}, {20, 80}};
   walk.holes.push_back({{30, 30}, {70, 30}, {70, 70}, {30, 70}});
 
-  const double forest_before = polygon_net_area(forest);
+  const double forest_before = polygon_net_area_m2(forest);
 
   std::vector<VegePolygon> result = subtract_from_polygon(forest, {walk});
 
@@ -493,15 +505,38 @@ TEST(SubtractFromPolygon, GreenDonutLeavesForestRing) {
   ASSERT_NE(outer_donut, nullptr);
   EXPECT_EQ(outer_donut->layer, "405_Forest");
   ASSERT_EQ(outer_donut->holes.size(), 1u);
-  EXPECT_DOUBLE_EQ(polygon_net_area(*outer_donut), 6400.0);
+  EXPECT_DOUBLE_EQ(polygon_net_area_m2(*outer_donut), 6400.0);
   double forest_after = 0.0;
   for (const VegePolygon& piece : result) {
-    forest_after += polygon_net_area(piece);
+    forest_after += polygon_net_area_m2(piece);
   }
   EXPECT_LT(forest_after, forest_before);
   EXPECT_TRUE(point_in_polygon({5, 5}, *outer_donut));
   EXPECT_TRUE(point_in_ring({35, 35}, outer_donut->holes[0]));
   EXPECT_FALSE(point_in_polygon({25, 50}, *outer_donut));
+}
+
+TEST(SubtractFromPolygon, SmallHolesRemovedByPostSubtractFilter) {
+  // Mirrors generate_vege_polygons: after green is cut from forest, holes below
+  // min_hole_area_m2 must be filtered (default forest min hole is 100 m²).
+  VegePolygon forest;
+  forest.layer = "405_Forest";
+  forest.name = "405";
+  forest.exterior_ring = {{0, 0}, {60, 0}, {60, 60}, {0, 60}};
+
+  VegePolygon walk;
+  walk.layer = "408_Walk";
+  walk.exterior_ring = {{25.5, 25.5}, {34.5, 25.5}, {34.5, 34.5}, {25.5, 34.5}};
+
+  std::vector<VegePolygon> result = subtract_from_polygon(forest, {walk});
+  ASSERT_EQ(result.size(), 1u);
+  ASSERT_EQ(result[0].holes.size(), 1u);
+  EXPECT_LT(-signed_area(result[0].holes[0]), 100.0);
+
+  std::map<std::string, double> min_hole = {{"405_Forest", 100.0}};
+  filter_small_holes(result, min_hole);
+
+  EXPECT_TRUE(result[0].holes.empty());
 }
 
 // =============================================================================
@@ -610,8 +645,55 @@ TEST(GenerateVegePolygons, GreenDonutCutLeavesForestRing) {
   EXPECT_EQ(outer_donut->holes.size(), 1u);
   EXPECT_GT(signed_area(outer_donut->exterior_ring), 0.0);
   EXPECT_LT(signed_area(outer_donut->holes[0]), 0.0);
-  EXPECT_LT(polygon_net_area(*outer_donut), signed_area(outer_donut->exterior_ring))
+  EXPECT_LT(polygon_net_area_m2(*outer_donut), signed_area(outer_donut->exterior_ring))
       << "cutting the green ring should reduce forest to a donut, not a solid fill";
   EXPECT_TRUE(point_in_ring(walk->holes[0][0], outer_donut->holes[0]))
       << "forest and green should share the same open center hole";
+}
+
+// =============================================================================
+// Forest winding on soft near-threshold canopy (act_2025 regressions)
+// =============================================================================
+
+std::vector<VegePolygon> forest_contours_polygonize(const GeoGrid<float>& grid) {
+  constexpr double kForestThreshold = 0.1;
+  std::map<double, std::string> layers = {{kForestThreshold, "405_Forest"}};
+  auto contours = generate_contours_at_heights(grid, {kForestThreshold}, /*min_points=*/5, 0.0f);
+  return contours_to_polygons(contours, layers);
+}
+
+TEST(ContoursToPolygons, NestedHoles) {
+  std::vector<std::vector<float>> data = {
+      {0.20f, 0.13f, 0.18f, 0.38f, 0.20f}, {0.19f, 0.03f, 0.05f, 0.07f, 0.23f},
+      {0.23f, 0.06f, 0.16f, 0.09f, 0.43f}, {0.24f, 0.06f, 0.07f, 0.03f, 0.26f},
+      {0.23f, 0.29f, 0.15f, 0.20f, 0.59f},
+  };
+
+  auto polygons = forest_contours_polygonize(grid_at_3m(data));
+  EXPECT_EQ(polygons.size(), 2u);
+}
+
+TEST(ContoursToPolygons, BigGrid) {
+  std::vector<std::vector<float>> data = {
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.749016f, 0.02f, 0.749016f, 0.9f, 0.9f, 0.9f, 0.9f,
+       0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.02f, 0.02f, 0.02f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.749016f, 0.02f, 0.749016f, 0.9f, 0.9f, 0.9f, 0.9f,
+       0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+      {0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f},
+  };
+
+  auto polygons = forest_contours_polygonize(grid_at_3m(data));
+  EXPECT_EQ(polygons.size(), 1u);
 }
