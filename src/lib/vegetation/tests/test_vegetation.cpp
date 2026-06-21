@@ -5,32 +5,6 @@
 #include "grid/grid.hpp"
 #include "vegetation/vegetation.hpp"
 
-// Helper to create a small GeoGrid<float> for testing
-static GeoGrid<float> make_float_grid(const std::vector<std::vector<float>>& data) {
-  size_t h = data.size();
-  size_t w = data[0].size();
-  GeoGrid<float> grid(w, h, GeoTransform(), GeoProjection());
-  for (size_t i = 0; i < h; i++) {
-    for (size_t j = 0; j < w; j++) {
-      grid[{j, i}] = data[i][j];
-    }
-  }
-  return grid;
-}
-
-static GeoGrid<std::optional<float>> make_opt_float_grid(
-    const std::vector<std::vector<std::optional<float>>>& data) {
-  size_t h = data.size();
-  size_t w = data[0].size();
-  GeoGrid<std::optional<float>> grid(w, h, GeoTransform(), GeoProjection());
-  for (size_t i = 0; i < h; i++) {
-    for (size_t j = 0; j < w; j++) {
-      grid[{j, i}] = data[i][j];
-    }
-  }
-  return grid;
-}
-
 // =============================================================================
 // low_pass filter tests (GeoGrid<float> overload)
 // =============================================================================
@@ -38,7 +12,7 @@ static GeoGrid<std::optional<float>> make_opt_float_grid(
 TEST(Vegetation, LowPassUniformGrid) {
   // A uniform grid should stay the same after low-pass filtering
   std::vector<std::vector<float>> data(20, std::vector<float>(20, 5.0f));
-  GeoGrid<float> grid = make_float_grid(data);
+  GeoGrid<float> grid(data);
 
   GeoGrid<float> result = low_pass(grid, 3);
 
@@ -52,7 +26,7 @@ TEST(Vegetation, LowPassSmoothing) {
   constexpr size_t N = 20;
   std::vector<std::vector<float>> data(N, std::vector<float>(N, 0.0f));
   data[10][10] = 100.0f;  // single spike
-  GeoGrid<float> grid = make_float_grid(data);
+  GeoGrid<float> grid(data);
 
   GeoGrid<float> result = low_pass(grid, 3);
 
@@ -71,7 +45,7 @@ TEST(Vegetation, LowPassSmallDelta) {
   constexpr size_t N = 5;
   std::vector<std::vector<float>> data(N, std::vector<float>(N, 0.0f));
   data[2][2] = 10.0f;
-  GeoGrid<float> grid = make_float_grid(data);
+  GeoGrid<float> grid(data);
 
   GeoGrid<float> result = low_pass(grid, 2);
 
@@ -93,7 +67,7 @@ TEST(Vegetation, LowPassOptionalUniform) {
   constexpr size_t N = 20;
   std::vector<std::vector<std::optional<float>>> data(N,
                                                       std::vector<std::optional<float>>(N, 5.0f));
-  GeoGrid<std::optional<float>> grid = make_opt_float_grid(data);
+  GeoGrid<std::optional<float>> grid(data);
 
   GeoGrid<float> result = low_pass(grid, 3);
 
@@ -110,7 +84,7 @@ TEST(Vegetation, LowPassOptionalWithNulls) {
   data[5][5] = std::nullopt;
   data[5][6] = std::nullopt;
   data[6][5] = std::nullopt;
-  GeoGrid<std::optional<float>> grid = make_opt_float_grid(data);
+  GeoGrid<std::optional<float>> grid(data);
 
   GeoGrid<float> result = low_pass(grid, 3);
 
@@ -124,7 +98,7 @@ TEST(Vegetation, LowPassOptionalAllNull) {
   constexpr size_t N = 5;
   std::vector<std::vector<std::optional<float>>> data(
       N, std::vector<std::optional<float>>(N, std::nullopt));
-  GeoGrid<std::optional<float>> grid = make_opt_float_grid(data);
+  GeoGrid<std::optional<float>> grid(data);
 
   GeoGrid<float> result = low_pass(grid, 2);
 
@@ -142,7 +116,7 @@ TEST(Vegetation, LowPassPreservesGridDimensions) {
       {4.0f, 5.0f, 6.0f},
       {7.0f, 8.0f, 9.0f},
   };
-  GeoGrid<float> grid = make_float_grid(data);
+  GeoGrid<float> grid(data);
 
   GeoGrid<float> result = low_pass(grid, 2);
 

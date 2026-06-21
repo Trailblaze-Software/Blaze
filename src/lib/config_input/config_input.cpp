@@ -44,6 +44,18 @@ using json = nlohmann::json;
 
 namespace nlohmann {
 
+namespace {
+
+template <typename T>
+T json_number_or(const json& j, const char* key, T default_value) {
+  if (!j.contains(key) || j[key].is_null()) {
+    return default_value;
+  }
+  return j[key].get<T>();
+}
+
+}  // namespace
+
 template <>
 struct adl_serializer<GridConfig> {
   static GridConfig from_json(const json& j) {
@@ -53,8 +65,8 @@ struct adl_serializer<GridConfig> {
     constexpr double kDefaultVegRes = 3.0;
     constexpr double kDefaultContourRes = 9.0;
 
-    const double bin_res = j.value("bin_resolution", kDefaultBinRes);
-    const unsigned int downsample = j.value("downsample_factor", kDefaultDownsample);
+    const double bin_res = json_number_or(j, "bin_resolution", kDefaultBinRes);
+    const unsigned int downsample = json_number_or(j, "downsample_factor", kDefaultDownsample);
 
     // Vegetation / contour resolutions are independent of bin/downsample.
     // For backward compatibility, configs that omit these but provide the
@@ -72,8 +84,8 @@ struct adl_serializer<GridConfig> {
       veg_res = bin_res;
       contour_res = bin_res * static_cast<double>(downsample);
     }
-    veg_res = j.value("vegetation_grid_resolution", veg_res);
-    contour_res = j.value("contour_dem_resolution", contour_res);
+    veg_res = json_number_or(j, "vegetation_grid_resolution", veg_res);
+    contour_res = json_number_or(j, "contour_dem_resolution", contour_res);
 
     return GridConfig{bin_res, downsample, veg_res, contour_res};
   }
@@ -89,8 +101,8 @@ struct adl_serializer<GridConfig> {
 template <>
 struct adl_serializer<GroundConfig> {
   static GroundConfig from_json(const json& j) {
-    return GroundConfig{j.value("min_ground_intensity", 100),
-                        j.value("max_ground_intensity", 1000)};
+    return GroundConfig{static_cast<int>(json_number_or(j, "min_ground_intensity", 100)),
+                        static_cast<int>(json_number_or(j, "max_ground_intensity", 1000))};
   }
 
   static void to_json(json& j, GroundConfig gc) {
@@ -175,20 +187,32 @@ struct adl_serializer<CanopyConfig> {
 template <>
 struct adl_serializer<BlockingThresholdColorPair> {
   static BlockingThresholdColorPair from_json(const json& j) {
-    return BlockingThresholdColorPair{j.value("blocking_threshold", 0.1),
-                                      j.value("color", json("white")).get<ColorVariant>()};
+    return BlockingThresholdColorPair{
+        json_number_or(j, "blocking_threshold", 0.1),
+        j.value("color", json("white")).get<ColorVariant>(), j.value("layer", std::string{}),
+        json_number_or(j, "min_area_m2", 0.0), json_number_or(j, "min_hole_area_m2", 0.0)};
   }
 
   static void to_json(json& j, BlockingThresholdColorPair btc) {
     j["blocking_threshold"] = btc.blocking_threshold;
     j["color"] = btc.color;
+    if (!btc.layer.empty()) {
+      j["layer"] = btc.layer;
+    }
+    if (btc.min_area_m2 > 0) {
+      j["min_area_m2"] = btc.min_area_m2;
+    }
+    if (btc.min_hole_area_m2 > 0) {
+      j["min_hole_area_m2"] = btc.min_hole_area_m2;
+    }
   }
 };
 template <>
 struct adl_serializer<VegeHeightConfig> {
   static VegeHeightConfig from_json(const json& j) {
     return VegeHeightConfig{
-        j.value("name", "Vegetation"), j.value("min_height", 2.5), j.value("max_height", 100.0),
+        j.value("name", "Vegetation"), json_number_or(j, "min_height", 2.5),
+        json_number_or(j, "max_height", 100.0),
         j.value("colors", json({})).get<std::vector<BlockingThresholdColorPair>>()};
   }
 
@@ -215,7 +239,7 @@ struct adl_serializer<VegeConfig> {
 template <>
 struct adl_serializer<RenderConfig> {
   static RenderConfig from_json(const json& j) {
-    return RenderConfig{j.value("scale", 10000.0), j.value("dpi", 600.0)};
+    return RenderConfig{json_number_or(j, "scale", 10000.0), json_number_or(j, "dpi", 600.0)};
   }
 
   static void to_json(json& j, RenderConfig rc) {

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "config_input/config_input.hpp"
+#include "testing/output_dir.hpp"
 
 // =============================================================================
 // ContourConfigs tests
@@ -49,6 +50,15 @@ TEST(ContourConfigs, LayerNameFromHeight) {
 
   // Height 1.25 matches form_line only
   EXPECT_EQ(configs.layer_name_from_height(1.25), "103_Form_Line");
+}
+
+TEST(ContourConfigs, LayerNameFromHeightFormlineAlias) {
+  // Config JSON uses "formline" (no underscore), matching default_config.json.
+  ContourConfigs configs({{"normal", ContourConfig{5.0, 3, RGBColor(0, 0, 0), 0.14}},
+                          {"formline", ContourConfig{2.5, 2, RGBColor(0, 0, 0), 0.1}}});
+
+  EXPECT_EQ(configs.layer_name_from_height(2.5), "103_Form_Line");
+  EXPECT_EQ(configs.layer_name_from_height(5.0), "101_Contour");
 }
 
 TEST(ContourConfigs, IndexOperator) {
@@ -146,4 +156,28 @@ TEST(VegeHeightConfig, PickFromBlockedProportionEmpty) {
 
   auto c = vhc.pick_from_blocked_proportion(0.5);
   EXPECT_FALSE(c.has_value());
+}
+
+TEST(ConfigJson, VegeMinHoleAreaRoundTrip) {
+  Config config;
+  VegeHeightConfig canopy;
+  canopy.name = "canopy";
+  BlockingThresholdColorPair btc;
+  btc.blocking_threshold = 0.1;
+  btc.layer = "405_Forest";
+  btc.color = CMYKColor(0, 0, 0, 0);
+  btc.min_area_m2 = 30;
+  btc.min_hole_area_m2 = 100;
+  canopy.colors.push_back(btc);
+  config.vege.height_configs.push_back(std::move(canopy));
+
+  const fs::path path = blaze::test::unique_test_output_path("vege_min_hole", ".json");
+  config.write_to_file(path);
+  Config loaded = Config::FromFile(path);
+
+  ASSERT_EQ(loaded.vege.height_configs.size(), 1u);
+  ASSERT_EQ(loaded.vege.height_configs[0].colors.size(), 1u);
+  const BlockingThresholdColorPair& out = loaded.vege.height_configs[0].colors[0];
+  EXPECT_DOUBLE_EQ(out.min_area_m2, 30);
+  EXPECT_DOUBLE_EQ(out.min_hole_area_m2, 100);
 }
