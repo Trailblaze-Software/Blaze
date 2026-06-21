@@ -255,7 +255,7 @@ inline void ensure_dst_layer_fields(OGRLayer* dst_layer, OGRFeatureDefn* src_def
     OGRFieldDefn* field = src_defn->GetFieldDefn(i);
     if (!field || std::string(field->GetNameRef()) == "fid") continue;
     if (dst_layer->GetLayerDefn()->GetFieldIndex(field->GetNameRef()) < 0) {
-      dst_layer->CreateField(field);
+      GDALAssert(dst_layer->CreateField(field));
     }
   }
 }

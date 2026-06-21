@@ -101,8 +101,8 @@ struct adl_serializer<GridConfig> {
 template <>
 struct adl_serializer<GroundConfig> {
   static GroundConfig from_json(const json& j) {
-    return GroundConfig{j.value("min_ground_intensity", 100),
-                        j.value("max_ground_intensity", 1000)};
+    return GroundConfig{static_cast<int>(json_number_or(j, "min_ground_intensity", 100)),
+                        static_cast<int>(json_number_or(j, "max_ground_intensity", 1000))};
   }
 
   static void to_json(json& j, GroundConfig gc) {
@@ -187,10 +187,10 @@ struct adl_serializer<CanopyConfig> {
 template <>
 struct adl_serializer<BlockingThresholdColorPair> {
   static BlockingThresholdColorPair from_json(const json& j) {
-    return BlockingThresholdColorPair{j.value("blocking_threshold", 0.1),
-                                      j.value("color", json("white")).get<ColorVariant>(),
-                                      j.value("layer", std::string{}), j.value("min_area_m2", 0.0),
-                                      j.value("min_hole_area_m2", 0.0)};
+    return BlockingThresholdColorPair{
+        json_number_or(j, "blocking_threshold", 0.1),
+        j.value("color", json("white")).get<ColorVariant>(), j.value("layer", std::string{}),
+        json_number_or(j, "min_area_m2", 0.0), json_number_or(j, "min_hole_area_m2", 0.0)};
   }
 
   static void to_json(json& j, BlockingThresholdColorPair btc) {
@@ -239,7 +239,7 @@ struct adl_serializer<VegeConfig> {
 template <>
 struct adl_serializer<RenderConfig> {
   static RenderConfig from_json(const json& j) {
-    return RenderConfig{j.value("scale", 10000.0), j.value("dpi", 600.0)};
+    return RenderConfig{json_number_or(j, "scale", 10000.0), json_number_or(j, "dpi", 600.0)};
   }
 
   static void to_json(json& j, RenderConfig rc) {

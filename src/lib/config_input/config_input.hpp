@@ -75,8 +75,8 @@ struct GridConfig {
   }
 
 struct GroundConfig {
-  int min_ground_intensity;
-  int max_ground_intensity;
+  int min_ground_intensity = 100;
+  int max_ground_intensity = 1000;
 };
 
 struct ContourConfig {
@@ -124,8 +124,8 @@ struct VegeConfig {
 };
 
 struct RenderConfig {
-  double scale;
-  double dpi;
+  double scale = 10000.0;
+  double dpi = 600.0;
 };
 
 struct WaterConfig {
