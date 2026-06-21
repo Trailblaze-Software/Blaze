@@ -46,6 +46,24 @@ struct PolygonWithHoles {
   std::vector<std::vector<Coordinate2D<double>>> holes;
 };
 
+// CCW axis-aligned rectangle from an extent (for clipping/intersection).
+inline PolygonWithHoles polygon_from_extent(const Extent2D& extent) {
+  return {{{extent.minx, extent.miny},
+           {extent.maxx, extent.miny},
+           {extent.maxx, extent.maxy},
+           {extent.minx, extent.maxy},
+           {extent.minx, extent.miny}},
+          {}};
+}
+
+inline Extent2D ring_extent(const std::vector<Coordinate2D<double>>& ring) {
+  Extent2D ext;
+  for (const Coordinate2D<double>& p : ring) {
+    ext.grow({p.x(), p.x(), p.y(), p.y()});
+  }
+  return ext;
+}
+
 // Exterior CCW (positive signed area); interior rings CW (negative signed area).
 inline void normalize_polygon(PolygonWithHoles& poly) {
   if (signed_area(poly.exterior) < 0) {

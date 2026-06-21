@@ -398,6 +398,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   // --- Vegetation polygon export ---
   std::vector<VegePolygon> vege_polygons = generate_vege_polygons(config.vege, vege_maps);
+  trim_vege_polygons_to_extent(vege_polygons, data_ext);
   if (!vege_polygons.empty()) {
     GPKGWriter vege_writer((output_dir / "vegetation.gpkg").string(),
                            las_file.projection().to_string(), "vegetation");

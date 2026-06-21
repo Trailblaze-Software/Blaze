@@ -163,3 +163,35 @@ inline std::vector<PolygonWithHoles> subtract_polygon(
   }
   return result;
 }
+
+// Intersect `host` with `clip`. Returns one or more polygons after boolean
+// intersection (e.g. clipping may split the host into separate pieces).
+// Ring orientation is normalized on output: CCW exteriors, CW holes.
+inline std::vector<PolygonWithHoles> intersect_polygon(const PolygonWithHoles& host,
+                                                       const PolygonWithHoles& clip) {
+  ensure_gdal_initialized();
+
+  if (host.exterior.size() < 3 || clip.exterior.size() < 3) {
+    return {};
+  }
+
+  PolygonWithHoles normalized_host = host;
+  PolygonWithHoles normalized_clip = clip;
+  normalize_polygon(normalized_host);
+  normalize_polygon(normalized_clip);
+
+  auto host_geom = detail::polygon_to_ogr(normalized_host);
+  auto clip_geom = detail::polygon_to_ogr(normalized_clip);
+  if (!host_geom || !clip_geom) {
+    return {};
+  }
+
+  std::unique_ptr<OGRGeometry> intersection(host_geom->Intersection(clip_geom.get()));
+  if (!intersection || intersection->IsEmpty()) {
+    return {};
+  }
+
+  std::vector<PolygonWithHoles> result;
+  detail::append_polygons_from_ogr(intersection.get(), result);
+  return result;
+}

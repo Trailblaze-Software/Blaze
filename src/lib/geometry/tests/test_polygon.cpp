@@ -291,3 +291,37 @@ TEST(SubtractPolygon, NetAreaConservedAcrossOperations) {
 
   EXPECT_DOUBLE_EQ(total_net_area(result), expected);
 }
+
+TEST(IntersectPolygon, ClipsExteriorToExtent) {
+  auto host = ccw_square(0, 0, 100);
+  auto clip = polygon_from_extent({50.0, 100.0, 0.0, 100.0});
+
+  std::vector<PolygonWithHoles> result = intersect_polygon(host, clip);
+
+  ASSERT_EQ(result.size(), 1u);
+  expect_exterior_area(result[0], 5000.0);
+  for (const Coordinate2D<double>& p : result[0].exterior) {
+    EXPECT_GE(p.x(), 50.0 - 1e-9);
+    EXPECT_LE(p.x(), 100.0 + 1e-9);
+  }
+}
+
+TEST(IntersectPolygon, RemovesPolygonOutsideExtent) {
+  auto host = ccw_square(0, 0, 10);
+  auto clip = polygon_from_extent({20.0, 30.0, 0.0, 10.0});
+
+  EXPECT_TRUE(intersect_polygon(host, clip).empty());
+}
+
+TEST(IntersectPolygon, ClipsPolygonWithHole) {
+  PolygonWithHoles host = ccw_square(0, 0, 100);
+  host.holes.push_back(ccw_square(20, 20, 60).exterior);
+  normalize_polygon(host);
+  auto clip = polygon_from_extent({50.0, 100.0, 0.0, 100.0});
+
+  std::vector<PolygonWithHoles> result = intersect_polygon(host, clip);
+
+  ASSERT_EQ(result.size(), 1u);
+  EXPECT_GT(net_area(result[0]), 0.0);
+  EXPECT_LT(net_area(result[0]), net_area(host));
+}

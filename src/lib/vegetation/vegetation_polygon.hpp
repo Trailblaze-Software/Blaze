@@ -91,6 +91,44 @@ inline std::vector<VegePolygon> subtract_from_polygon(const VegePolygon& host,
   return result;
 }
 
+// Clip vegetation polygons to the export extent (same bounds used for raster export).
+inline void trim_vege_polygons_to_extent(std::vector<VegePolygon>& polygons,
+                                         const Extent2D& bounds) {
+  if (polygons.empty()) {
+    return;
+  }
+
+  const PolygonWithHoles clip = polygon_from_extent(bounds);
+  if (clip.exterior.size() < 3) {
+    return;
+  }
+
+  std::vector<VegePolygon> trimmed;
+  trimmed.reserve(polygons.size());
+  for (const VegePolygon& poly : polygons) {
+    if (poly.exterior_ring.size() < 3) {
+      continue;
+    }
+    if (!ring_extent(poly.exterior_ring).overlaps(bounds)) {
+      continue;
+    }
+
+    for (const PolygonWithHoles& piece :
+         intersect_polygon({poly.exterior_ring, poly.holes}, clip)) {
+      if (piece.exterior.size() < 3) {
+        continue;
+      }
+      VegePolygon out;
+      out.layer = poly.layer;
+      out.name = poly.name;
+      out.exterior_ring = piece.exterior;
+      out.holes = piece.holes;
+      trimmed.push_back(std::move(out));
+    }
+  }
+  polygons = std::move(trimmed);
+}
+
 // Remove holes that are smaller than the minimum hole area for their layer.
 // This should be called before min-area polygon filtering and before cutting
 // understory out of forest.
@@ -173,13 +211,15 @@ inline std::vector<VegePolygon> contours_to_polygons(
 
   // Second pass: determine outer rings vs holes by containment within each threshold.
   std::vector<VegePolygon> polygons;
-  std::vector<std::vector<Coordinate2D<double>>> remaining_holes;
 
   for (size_t i = 0; i < all_rings.size(); i++) {
     if (all_rings[i].consumed) continue;
 
     auto layer_it = height_to_layer.find(all_rings[i].threshold);
     if (layer_it == height_to_layer.end()) continue;
+
+    // Exteriors are CCW (positive signed area). CW rings are holes only.
+    if (signed_area(all_rings[i].points) <= 0.0) continue;
 
     all_rings[i].consumed = true;
 
@@ -189,15 +229,26 @@ inline std::vector<VegePolygon> contours_to_polygons(
     poly.exterior_ring = all_rings[i].points;
     AssertGT(signed_area(poly.exterior_ring), 0.0);
 
-    // Same-threshold rings inside this exterior become holes only when already CW
-    // (negative signed area). CCW inner rings are left for the second pass as
-    // independent polygons — avoids failing when orient_consistent ties on soft
-    // near-threshold data, at the cost of possible duplicate outers vs true holes.
+    // Same-threshold CW rings inside this exterior become holes when they are the
+    // direct child (not nested inside another CW hole ring within this exterior).
     for (size_t j = i + 1; j < all_rings.size(); j++) {
       if (all_rings[j].consumed) continue;
       if (all_rings[j].threshold != all_rings[i].threshold) continue;
-      if (!point_in_ring(all_rings[j].points[0], poly.exterior_ring)) continue;
       if (signed_area(all_rings[j].points) >= 0.0) continue;
+      if (!point_in_ring(all_rings[j].points[0], poly.exterior_ring)) continue;
+
+      bool nested_in_other_hole = false;
+      for (size_t k = i + 1; k < all_rings.size(); k++) {
+        if (k == j) continue;
+        if (all_rings[k].threshold != all_rings[i].threshold) continue;
+        if (signed_area(all_rings[k].points) >= 0.0) continue;
+        if (!point_in_ring(all_rings[k].points[0], poly.exterior_ring)) continue;
+        if (point_in_ring(all_rings[j].points[0], all_rings[k].points)) {
+          nested_in_other_hole = true;
+          break;
+        }
+      }
+      if (nested_in_other_hole) continue;
 
       poly.holes.push_back(all_rings[j].points);
       all_rings[j].consumed = true;
@@ -206,14 +257,13 @@ inline std::vector<VegePolygon> contours_to_polygons(
     polygons.push_back(std::move(poly));
   }
 
-  // Rings that weren't contained by any same-threshold outer ring are
-  // independent polygons (e.g. a separate Fight patch inside a Walk area).
-  // They are NOT cut as holes — each vegetation density renders as its own
-  // overlapping symbol in OCAD/OOM, with higher densities drawn on top.
+  // CCW rings not consumed above are independent polygons (e.g. an island inside
+  // a hole, or a separate patch at another density rendered on top in OCAD/OOM).
   for (size_t i = 0; i < all_rings.size(); i++) {
     if (all_rings[i].consumed) continue;
     auto layer_it = height_to_layer.find(all_rings[i].threshold);
     if (layer_it == height_to_layer.end()) continue;
+    if (signed_area(all_rings[i].points) <= 0.0) continue;
 
     VegePolygon poly;
     poly.layer = layer_it->second;

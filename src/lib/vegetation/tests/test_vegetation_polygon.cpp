@@ -92,6 +92,18 @@ size_t count_layer(const std::vector<VegePolygon>& polygons, const std::string& 
   return count;
 }
 
+std::vector<Coordinate2D<double>> square_ccw(double x0, double y0, double x1, double y1) {
+  return {{x0, y0}, {x1, y0}, {x1, y1}, {x0, y1}, {x0, y0}};
+}
+
+std::vector<Coordinate2D<double>> square_cw(double x0, double y0, double x1, double y1) {
+  return reverse_ring(square_ccw(x0, y0, x1, y1));
+}
+
+Contour loop_contour(double threshold, std::vector<Coordinate2D<double>> ring) {
+  return Contour(threshold, std::move(ring));
+}
+
 }  // namespace
 
 TEST(ExtractThresholdLayers, UsesDefaultLayerName) {
@@ -243,6 +255,99 @@ TEST(ContoursToPolygons, DetectsOuterRingVsHole) {
   EXPECT_GT(signed_area(polygons[0].exterior_ring), 0.0);
   EXPECT_LT(signed_area(polygons[0].holes[0]), 0.0);
   EXPECT_TRUE(point_in_ring(polygons[0].holes[0][0], polygons[0].exterior_ring));
+}
+
+TEST(ContoursToPolygons, CwOnlyRingProducesNoPolygon) {
+  // CW rings are holes only; a mis-oriented outer loop is not promoted to an exterior.
+  std::vector<Coordinate2D<double>> cw_outer = {
+      {0.0, 0.0}, {0.0, 1.0}, {1.0, 1.0}, {1.0, 0.0}, {0.0, 0.0},
+  };
+  Contour outer(0.1, std::move(cw_outer));
+  ASSERT_LT(signed_area(outer.points()), 0.0);
+
+  std::map<double, std::vector<Contour>> contours_by_height;
+  contours_by_height[0.1].push_back(std::move(outer));
+  std::map<double, std::string> height_to_layer = {{0.1, "405_Forest"}};
+
+  std::vector<VegePolygon> polygons = contours_to_polygons(contours_by_height, height_to_layer);
+  EXPECT_TRUE(polygons.empty());
+}
+
+TEST(TrimVegePolygons, ClipsToExportExtent) {
+  VegePolygon poly;
+  poly.layer = "405_Forest";
+  poly.name = "405";
+  poly.exterior_ring = square_ccw(0, 0, 100, 100);
+  poly.holes.push_back(square_cw(10, 10, 90, 90));
+
+  std::vector<VegePolygon> polygons = {poly};
+  trim_vege_polygons_to_extent(polygons, {50.0, 100.0, 0.0, 100.0});
+
+  ASSERT_EQ(polygons.size(), 1u);
+  for (const Coordinate2D<double>& p : polygons[0].exterior_ring) {
+    EXPECT_GE(p.x(), 50.0 - 1e-9);
+    EXPECT_LE(p.x(), 100.0 + 1e-9);
+  }
+  EXPECT_EQ(polygons[0].layer, "405_Forest");
+}
+
+TEST(TrimVegePolygons, RemovesPolygonOutsideExtent) {
+  VegePolygon poly;
+  poly.layer = "405_Forest";
+  poly.name = "405";
+  poly.exterior_ring = square_ccw(0, 0, 10, 10);
+
+  std::vector<VegePolygon> polygons = {poly};
+  trim_vege_polygons_to_extent(polygons, {20.0, 30.0, 0.0, 10.0});
+  EXPECT_TRUE(polygons.empty());
+}
+
+TEST(ContoursToPolygons, DeepNestedPolygonInHoleInPolygon) {
+  // Four nesting levels: outer → hole → island → hole → island → hole → island.
+  // Expect four polygons; the three outermost each have one direct hole; the innermost has none.
+  constexpr double kThreshold = 0.1;
+  std::map<double, std::vector<Contour>> contours_by_height;
+  contours_by_height[kThreshold] = {
+      loop_contour(kThreshold, square_ccw(0, 0, 100, 100)),  // E0
+      loop_contour(kThreshold, square_cw(10, 10, 90, 90)),   // H1
+      loop_contour(kThreshold, square_ccw(20, 20, 80, 80)),  // E1
+      loop_contour(kThreshold, square_cw(30, 30, 70, 70)),   // H2
+      loop_contour(kThreshold, square_ccw(40, 40, 60, 60)),  // E2
+      loop_contour(kThreshold, square_cw(45, 45, 55, 55)),   // H3
+      loop_contour(kThreshold, square_ccw(47, 47, 53, 53)),  // E3
+  };
+  std::map<double, std::string> height_to_layer = {{kThreshold, "405_Forest"}};
+
+  std::vector<VegePolygon> polygons = contours_to_polygons(contours_by_height, height_to_layer);
+  ASSERT_EQ(polygons.size(), 4u);
+
+  auto by_exterior_area = polygons;
+  std::sort(by_exterior_area.begin(), by_exterior_area.end(),
+            [](const VegePolygon& a, const VegePolygon& b) {
+              return signed_area(a.exterior_ring) > signed_area(b.exterior_ring);
+            });
+
+  EXPECT_EQ(by_exterior_area[0].holes.size(), 1u);
+  EXPECT_EQ(by_exterior_area[1].holes.size(), 1u);
+  EXPECT_EQ(by_exterior_area[2].holes.size(), 1u);
+  EXPECT_TRUE(by_exterior_area[3].holes.empty());
+
+  for (const VegePolygon& poly : by_exterior_area) {
+    EXPECT_GT(signed_area(poly.exterior_ring), 0.0);
+    for (const auto& hole : poly.holes) {
+      EXPECT_LT(signed_area(hole), 0.0);
+    }
+  }
+
+  const Coordinate2D<double> e1_pt{25.0, 50.0};  // E1 solid (outside H2)
+  const Coordinate2D<double> e2_pt{42.0, 50.0};  // E2 solid (outside H3)
+  const Coordinate2D<double> e3_pt{50.0, 50.0};  // innermost island
+  EXPECT_TRUE(point_in_polygon(e1_pt, by_exterior_area[1]));
+  EXPECT_TRUE(point_in_polygon(e2_pt, by_exterior_area[2]));
+  EXPECT_TRUE(point_in_polygon(e3_pt, by_exterior_area[3]));
+  EXPECT_TRUE(point_in_ring(e1_pt, by_exterior_area[0].holes[0]));
+  EXPECT_TRUE(point_in_ring(e2_pt, by_exterior_area[1].holes[0]));
+  EXPECT_TRUE(point_in_ring(e3_pt, by_exterior_area[2].holes[0]));
 }
 
 TEST(ContoursToPolygons, TwoSeparatePeaks) {
