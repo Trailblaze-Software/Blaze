@@ -197,6 +197,125 @@ inline std::unique_ptr<OGRGeometry> build_cutout_union(
 
 }  // namespace detail
 
+// Union polygons that overlap or touch. Disjoint polygons are left separate.
+inline std::vector<PolygonWithHoles> union_overlapping_polygons(
+    const std::vector<PolygonWithHoles>& polygons) {
+  const size_t n = polygons.size();
+  if (n <= 1) {
+    return polygons;
+  }
+
+  ensure_gdal_initialized();
+
+  std::vector<Extent2D> extents;
+  std::vector<std::unique_ptr<OGRGeometry>> geoms;
+  extents.reserve(n);
+  geoms.reserve(n);
+  Extent2D bounds;
+  size_t valid_count = 0;
+  for (const PolygonWithHoles& poly : polygons) {
+    if (poly.exterior.size() < 3) {
+      extents.emplace_back();
+      geoms.push_back(nullptr);
+      continue;
+    }
+    PolygonWithHoles normalized = poly;
+    normalize_polygon(normalized);
+    const Extent2D ext = ring_extent(normalized.exterior);
+    extents.push_back(ext);
+    bounds.grow(ext);
+    geoms.push_back(detail::polygon_to_ogr(normalized));
+    ++valid_count;
+  }
+  if (valid_count <= 1) {
+    return polygons;
+  }
+
+  std::vector<size_t> parent(n);
+  for (size_t i = 0; i < n; ++i) {
+    parent[i] = i;
+  }
+  const auto find = [&parent](size_t x) {
+    size_t root = x;
+    while (parent[root] != root) {
+      root = parent[root];
+    }
+    while (parent[x] != x) {
+      const size_t next = parent[x];
+      parent[x] = root;
+      x = next;
+    }
+    return root;
+  };
+  const auto unite = [&find, &parent](size_t a, size_t b) {
+    a = find(a);
+    b = find(b);
+    if (a != b) {
+      parent[b] = a;
+    }
+  };
+
+  const double width = bounds.maxx - bounds.minx;
+  const double height = bounds.maxy - bounds.miny;
+  const double cell_size =
+      std::max(50.0, std::sqrt(width * height / std::max(valid_count, size_t(1))));
+  constexpr double seam_tolerance = 0.01;
+  const auto padded = [seam_tolerance](const Extent2D& ext) {
+    return Extent2D{ext.minx - seam_tolerance, ext.maxx + seam_tolerance, ext.miny - seam_tolerance,
+                    ext.maxy + seam_tolerance};
+  };
+  detail::ExtentSpatialIndex index(cell_size);
+  for (size_t i = 0; i < n; ++i) {
+    if (geoms[i]) {
+      index.insert(i, extents[i]);
+    }
+  }
+
+  std::vector<size_t> candidates;
+  for (size_t i = 0; i < n; ++i) {
+    if (!geoms[i]) {
+      continue;
+    }
+    index.query(padded(extents[i]), candidates);
+    for (size_t j : candidates) {
+      if (j <= i || !geoms[j]) {
+        continue;
+      }
+      if (!padded(extents[i]).overlaps(padded(extents[j]))) {
+        continue;
+      }
+      if (geoms[i]->Intersects(geoms[j].get())) {
+        unite(i, j);
+      }
+    }
+  }
+
+  std::unordered_map<size_t, std::vector<size_t>> groups;
+  for (size_t i = 0; i < n; ++i) {
+    if (!geoms[i]) {
+      continue;
+    }
+    groups[find(i)].push_back(i);
+  }
+
+  std::vector<PolygonWithHoles> result;
+  for (auto& [root, indices] : groups) {
+    (void)root;
+    if (indices.size() == 1) {
+      result.push_back(polygons[indices[0]]);
+      continue;
+    }
+    std::vector<PolygonWithHoles> group_polys;
+    group_polys.reserve(indices.size());
+    for (size_t idx : indices) {
+      group_polys.push_back(polygons[idx]);
+    }
+    std::unique_ptr<OGRGeometry> united = detail::build_cutout_union(group_polys);
+    detail::append_polygons_from_ogr(united.get(), result);
+  }
+  return result;
+}
+
 // Subtract cutout polygons from `host`. Returns one or more polygons after boolean
 // difference (e.g. a cutout may split the host into separate pieces).
 // Ring orientation is normalized on output: CCW exteriors, CW holes.

@@ -310,10 +310,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           {
             const fs::path combined_dir = config.output_path() / "combined";
             std::vector<fs::path> map_sources = {combined_dir / "contours.gpkg",
-                                                 combined_dir / "streams.gpkg"};
-            for (const fs::path& dir : combine_dirs) {
-              map_sources.push_back(dir / "vegetation.gpkg");
-            }
+                                                 combined_dir / "streams.gpkg",
+                                                 combined_dir / "vegetation.gpkg"};
             ProgressTracker map_tracker = gpkg_tracker.subtracker(0.65, 1.0);
             if (projection.has_value()) {
               combine_gpkgs(map_sources, combined_dir / "map.gpkg", projection.value(),

@@ -605,9 +605,59 @@ inline std::vector<VegePolygon> read_vege_polygons(const fs::path& gpkg_path) {
 inline void combine_vege_gpkgs(const std::vector<fs::path>& tile_dirs, const fs::path& combined_dir,
                                const std::string& projection,
                                ProgressTracker progress_tracker = ProgressTracker()) {
-  std::vector<fs::path> sources;
+  TimeFunction timer("combining vegetation GPKGs", &progress_tracker);
+
+  std::vector<VegePolygon> all_polygons;
+  const size_t dir_count = tile_dirs.size();
+  size_t dir_index = 0;
   for (const fs::path& dir : tile_dirs) {
-    sources.push_back(dir / "vegetation.gpkg");
+    progress_tracker.text_update("Reading " + (dir / "vegetation.gpkg").filename().string());
+    for (VegePolygon& poly : read_vege_polygons(dir / "vegetation.gpkg")) {
+      all_polygons.push_back(std::move(poly));
+    }
+    ++dir_index;
+    if (dir_count > 0) {
+      progress_tracker.set_proportion(0.25 * static_cast<double>(dir_index) / dir_count);
+    }
   }
-  combine_gpkgs(sources, combined_dir / "vegetation.gpkg", projection, std::move(progress_tracker));
+
+  if (all_polygons.empty()) {
+    return;
+  }
+
+  std::map<std::string, std::vector<VegePolygon>> by_layer;
+  for (VegePolygon& poly : all_polygons) {
+    by_layer[poly.layer].push_back(std::move(poly));
+  }
+  all_polygons.clear();
+
+  std::vector<VegePolygon> merged;
+  const size_t layer_count = by_layer.size();
+  size_t layer_index = 0;
+  for (auto& [layer, layer_polygons] : by_layer) {
+    progress_tracker.text_update("Unioning " + layer);
+    std::vector<PolygonWithHoles> pieces;
+    pieces.reserve(layer_polygons.size());
+    for (const VegePolygon& poly : layer_polygons) {
+      pieces.push_back({poly.exterior_ring, poly.holes});
+    }
+    for (const PolygonWithHoles& united : union_overlapping_polygons(pieces)) {
+      if (united.exterior.size() < 3) {
+        continue;
+      }
+      VegePolygon out;
+      out.layer = layer;
+      out.name = layer_number(layer);
+      out.exterior_ring = united.exterior;
+      out.holes = united.holes;
+      merged.push_back(std::move(out));
+    }
+    ++layer_index;
+    if (layer_count > 0) {
+      progress_tracker.set_proportion(0.25 + 0.45 * static_cast<double>(layer_index) / layer_count);
+    }
+  }
+
+  write_vege_polygons_gpkg(merged, combined_dir / "vegetation.gpkg", projection,
+                           progress_tracker.subtracker(0.7, 1.0));
 }

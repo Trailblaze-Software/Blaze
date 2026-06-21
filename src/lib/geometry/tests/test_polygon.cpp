@@ -369,3 +369,27 @@ TEST(ClipPolygonToExtent, BisectedDonutDropsHole) {
   EXPECT_EQ(geos[0].holes.size(), 0u);
   EXPECT_NEAR(net_area(clipped[0]), net_area(geos[0]), 1e-6);
 }
+
+TEST(UnionOverlappingPolygons, MergesOverlappingPolygons) {
+  const PolygonWithHoles left = ccw_square(0, 0, 10);
+  const PolygonWithHoles right = ccw_square(5, 0, 10);
+  const std::vector<PolygonWithHoles> result = union_overlapping_polygons({left, right});
+  ASSERT_EQ(result.size(), 1u);
+  expect_exterior_area(result[0], 150.0);
+}
+
+TEST(UnionOverlappingPolygons, MergesTouchingEdges) {
+  const PolygonWithHoles left = ccw_square(0, 0, 10);
+  const PolygonWithHoles right = ccw_square(10, 0, 10);
+  const std::vector<PolygonWithHoles> result = union_overlapping_polygons({left, right});
+  ASSERT_EQ(result.size(), 1u);
+  expect_exterior_area(result[0], 200.0);
+}
+
+TEST(UnionOverlappingPolygons, KeepsDisjointSeparate) {
+  const PolygonWithHoles left = ccw_square(0, 0, 10);
+  const PolygonWithHoles right = ccw_square(20, 0, 10);
+  const std::vector<PolygonWithHoles> result = union_overlapping_polygons({left, right});
+  EXPECT_EQ(result.size(), 2u);
+  EXPECT_DOUBLE_EQ(total_net_area(result), 200.0);
+}
