@@ -93,6 +93,9 @@
   <compound refid="structBlockingThresholdColorPair" kind="struct"><name>BlockingThresholdColorPair</name>
     <member refid="structBlockingThresholdColorPair_1a335eb0f1324d772244d4464c32f844e3" kind="variable"><name>blocking_threshold</name></member>
     <member refid="structBlockingThresholdColorPair_1a51b2683af96ce850462951dc6a7189ec" kind="variable"><name>color</name></member>
+    <member refid="structBlockingThresholdColorPair_1a85aae8df396e1f2cb22df7e7dbce4cb0" kind="variable"><name>layer</name></member>
+    <member refid="structBlockingThresholdColorPair_1ab14142d1ccf26cda11f1c25030b11c86" kind="variable"><name>min_area_m2</name></member>
+    <member refid="structBlockingThresholdColorPair_1aae854e50d6df956fc984fadcc154be13" kind="variable"><name>min_hole_area_m2</name></member>
   </compound>
   <compound refid="structBuildingsConfig" kind="struct"><name>BuildingsConfig</name>
     <member refid="structBuildingsConfig_1aec8cbd58a38c05a1fa250acea158aac8" kind="variable"><name>color</name></member>
@@ -267,9 +270,9 @@
     <member refid="classContour_1a1d61e1c2afc7ef7560aad582c5d70bd0" kind="function"><name>push_back</name></member>
     <member refid="classContour_1ab05735b3ed0c37e4b7ebda6bab04e1aa" kind="function"><name>close_loop</name></member>
     <member refid="classContour_1ac0daca06e6fa1e61482f0282d862b725" kind="function"><name>is_loop</name></member>
-    <member refid="classContour_1afb7f1f96f8a9d5ed62fbc89095f26ffd" kind="function"><name>orient_consistent</name></member>
+    <member refid="classContour_1a365bb9e9afa9e20b871b04c1bbc9c76a" kind="function"><name>orient_consistent</name></member>
     <member refid="classContour_1a60c51b12c0e358082cbb160df5d303a6" kind="function"><name>from_polyline</name></member>
-    <member refid="classContour_1a5908d79e10a67bf26d726ddff3db886c" kind="function"><name>FromGridGraph</name></member>
+    <member refid="classContour_1ad587e5a7c2f09d48afc76d53b5970839" kind="function"><name>FromGridGraph</name></member>
     <member refid="classContour_1a042897eafa7388e9cf5536ca1cb28677" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="structContourConfig" kind="struct"><name>ContourConfig</name>
@@ -381,6 +384,15 @@
     <member refid="structExtent3D_1a4bcbb0d31cca14589b5b407f4c9cc072" kind="function"><name>operator!=</name></member>
     <member refid="structExtent3D_1a6a03c4ee2260f7197f8c60020eeae54b" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
+  <compound refid="classdetail_1_1ExtentSpatialIndex" kind="class"><name>detail::ExtentSpatialIndex</name>
+    <member refid="classdetail_1_1ExtentSpatialIndex_1a38042634b6e24be2d4a9e625d362ef70" kind="variable"><name>m_cell_size</name></member>
+    <member refid="classdetail_1_1ExtentSpatialIndex_1a02254fa5beb3e391abb90690be29354c" kind="variable"><name>m_cells</name></member>
+    <member refid="classdetail_1_1ExtentSpatialIndex_1a79d1c2822498ac0e5ff08ca9ab9b8954" kind="function"><name>cell_key</name></member>
+    <member refid="classdetail_1_1ExtentSpatialIndex_1af3de282f8f4efb4afe7cb5b99a5a4ef2" kind="function"><name>cell_coord</name></member>
+    <member refid="classdetail_1_1ExtentSpatialIndex_1a800777ed8b2dcedf3335e95ca7ddd198" kind="function"><name>ExtentSpatialIndex</name></member>
+    <member refid="classdetail_1_1ExtentSpatialIndex_1a0bfd4fdbcc65073ae09ed9fc195bc975" kind="function"><name>insert</name></member>
+    <member refid="classdetail_1_1ExtentSpatialIndex_1ab79541f1ae608da5adacb5313c9d7e7f" kind="function"><name>query</name></member>
+  </compound>
   <compound refid="classFlexGrid" kind="class"><name>FlexGrid</name>
     <member refid="classFlexGrid_1ad73b167cbb73bc56fb75a14c101e9dfd" kind="variable"><name>m_data_size</name></member>
     <member refid="classFlexGrid_1aa40e832aae354bf1b7d7330dbfa7f254" kind="variable"><name>m_data_type</name></member>
@@ -410,12 +422,14 @@
   <compound refid="classGeo" kind="class"><name>Geo</name>
     <member refid="classGeo_1a7af51f6bbf7e090aeb8931dfc864cae0" kind="function"><name>Geo</name></member>
     <member refid="classGeo_1ad7b2eadfa2e906546466b2d06565cb5d" kind="function"><name>Geo</name></member>
+    <member refid="classGeo_1a32e9264133b4bc750f7c71003c430c6f" kind="function"><name>Geo</name></member>
     <member refid="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" kind="function"><name>width_m</name></member>
     <member refid="classGeo_1a1098c30d81601a5e885405f61f15bfbd" kind="function"><name>height_m</name></member>
     <member refid="classGeo_1ac61ddc1c4de1cc766bd1b7b8cbbdca08" kind="function"><name>slice</name></member>
     <member refid="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" kind="function"><name>extent</name></member>
     <member refid="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" kind="function"><name>fill_from</name></member>
     <member refid="classGeo_1a52eff035fc897e9650b678645521d642" kind="function"><name>fill_from</name></member>
+    <member refid="classGeo_1a5177716a0bc884211d36d314aef6bb2e" kind="function"><name>pad</name></member>
     <member refid="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" kind="function"><name>FromPoints</name></member>
     <member refid="classGeo_1ad657f28d10a41b7e04e0da9180e7d169" kind="function"><name>FromGeoImg</name></member>
   </compound>
@@ -498,9 +512,22 @@
     <member refid="classGPKGWriter_1ac7a4767bf261dfefa4829925e8b6fd05" kind="variable"><name>projection</name></member>
     <member refid="classGPKGWriter_1a384e0f52871861a5e09123fd1ba67a21" kind="variable"><name>layer_names</name></member>
     <member refid="classGPKGWriter_1a9d7318b5fff34f1be4373c2fac716996" kind="variable"><name>default_layer_name</name></member>
+    <member refid="classGPKGWriter_1acf0e615f0c49f39cb43be57a4f45bc0f" kind="variable"><name>m_transaction_active</name></member>
+    <member refid="classGPKGWriter_1acf86ce7a06d6cca73ce3658f5476deef" kind="function"><name>ensure_transaction</name></member>
+    <member refid="classGPKGWriter_1a71b1fb47bde1b0b3aa9a3e0826e63e27" kind="function"><name>get_or_create_layer</name></member>
+    <member refid="classGPKGWriter_1a6e38905e178940ebbc445dda0216008c" kind="function"><name>ensure_field</name></member>
+    <member refid="classGPKGWriter_1a1647741c006b847b8408175f1a451e9e" kind="function"><name>ensure_data_fields</name></member>
+    <member refid="classGPKGWriter_1a7911b9cf7377e5dbcf332030587a701f" kind="function"><name>write_feature</name></member>
     <member refid="classGPKGWriter_1a3916ea8f1068c5ccb2e1572626ffa7e9" kind="function"><name>GPKGWriter</name></member>
-    <member refid="classGPKGWriter_1ae108baa2d42c9829b7939c1d65fca2d6" kind="function"><name>add_layer</name></member>
+    <member refid="classGPKGWriter_1a86d01ff15c4414fd42ab58843be57a13" kind="function"><name>~GPKGWriter</name></member>
+    <member refid="classGPKGWriter_1ad193b7b2810ec90739c480705d3baff1" kind="function"><name>GPKGWriter</name></member>
+    <member refid="classGPKGWriter_1a6422b43ae8fed6691384a9e83b74f4c4" kind="function"><name>operator=</name></member>
+    <member refid="classGPKGWriter_1ab2137458abaf4d40361eca1e7862c506" kind="function"><name>add_layer</name></member>
     <member refid="classGPKGWriter_1a56b666e0e36b6cf968041da263bcd0cc" kind="function"><name>write_polyline</name></member>
+    <member refid="classGPKGWriter_1a1a75bf756d57f628ecd99b4eac7738d7" kind="function"><name>write_polygon</name></member>
+    <member refid="classGPKGWriter_1acef19fa5a8c12f550ac91b86c849936c" kind="function"><name>populate_ring</name></member>
+    <member refid="classGPKGWriter_1ac43240a5a7b5b59e44606731b757f5a3" kind="function"><name>field_type_for</name></member>
+    <member refid="classGPKGWriter_1a54f8e8734717655f51a10078a4c657a9" kind="function"><name>set_data_fields</name></member>
   </compound>
   <compound refid="classGrid" kind="class"><name>Grid</name>
     <member refid="classGrid_1aa7926f3fe7486904e03553443b94ffdb" kind="typedef"><name>T</name></member>
@@ -723,6 +750,10 @@
   <compound refid="classPointLayer" kind="class"><name>PointLayer</name>
     <member refid="classPointLayer_1abce3d80c44d7bf687d60de1bf8f587af" kind="function"><name>~PointLayer</name></member>
   </compound>
+  <compound refid="structPolygonWithHoles" kind="struct"><name>PolygonWithHoles</name>
+    <member refid="structPolygonWithHoles_1a57445d13aebf3963b2624c649600f4de" kind="variable"><name>exterior</name></member>
+    <member refid="structPolygonWithHoles_1a2cc4c00e4fb81dc4048f39dcf145a82f" kind="variable"><name>holes</name></member>
+  </compound>
   <compound refid="classPolyline" kind="class"><name>Polyline</name>
     <member refid="classPolyline_1a3b75b4e8a8e7bc96b4cf3d7e5df324b0" kind="variable"><name>layer</name></member>
     <member refid="classPolyline_1ad8087c97bb9fe5173fcdc8c3691ed216" kind="variable"><name>name</name></member>
@@ -774,6 +805,7 @@
     <member refid="classProgressTracker_1a8f446b1e7b403ec35732b4237dcebc6f" kind="function"><name>ProgressTracker</name></member>
     <member refid="classProgressTracker_1abab85df8e4cdb564d20fb6de5c97d59f" kind="function"><name>operator=</name></member>
     <member refid="classProgressTracker_1a8e845730a79281563557c3f8011d153b" kind="function"><name>set_proportion</name></member>
+    <member refid="classProgressTracker_1adf4f141998e9f032dfb3817ae05fa782" kind="function"><name>report_parallel_progress</name></member>
     <member refid="classProgressTracker_1a805228dfe40fd050bacd6df8dc7b3e41" kind="function"><name>subtracker</name></member>
     <member refid="classProgressTracker_1af3b4b0f715d71fde21203293882f0907" kind="function"><name>~ProgressTracker</name></member>
     <member refid="classProgressTracker_1a0c901629e4ac084a1ed02a64b88ed422" kind="function"><name>proportion</name></member>
@@ -785,6 +817,11 @@
     <member refid="classProgressTrackerBar_1a0652db5878dcb6352c200a7c557bf2b2" kind="function"><name>update_progress</name></member>
     <member refid="classProgressTrackerBar_1a4534823a24ddde8bc15d4cd972caa70f" kind="function"><name>text_update</name></member>
     <member refid="classProgressTrackerBar_1acdf054b69fae2008810544be69a3cd19" kind="function"><name>tracker</name></member>
+  </compound>
+  <compound refid="classRecordingProgressBar" kind="class"><name>RecordingProgressBar</name>
+    <member refid="classRecordingProgressBar_1a670ddc1387204ae61f71dd60b508f814" kind="variable"><name>m_updates</name></member>
+    <member refid="classRecordingProgressBar_1ae633f2792ac73f0df893971c98843370" kind="function"><name>updates</name></member>
+    <member refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac" kind="function"><name>update_progress</name></member>
   </compound>
   <compound refid="structRenderConfig" kind="struct"><name>RenderConfig</name>
     <member refid="structRenderConfig_1a1302e55258a7ef2791549c095ec415d1" kind="variable"><name>scale</name></member>
@@ -826,13 +863,6 @@
     <member refid="structTerrainTestParams_1a94fa8f0315ce2c3fc516d87edc3c5fd0" kind="variable"><name>expect_contours</name></member>
     <member refid="structTerrainTestParams_1ab75bf8bd2e4f0fcd590407e30f4e309e" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
-  <compound refid="classTestGrid" kind="class"><name>TestGrid</name>
-    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
-    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
-    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
-    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
-    <member refid="classTestGrid_1aadcd0fa6ef7d8b164ab7aa7736bdb8d0" kind="function"><name>TestGrid</name></member>
-  </compound>
   <compound refid="structTile" kind="struct"><name>Tile</name>
     <member refid="structTile_1a9e10800de5ccb99c2babfeeb8f652c75" kind="variable"><name>extent</name></member>
     <member refid="structTile_1aa5408d0f0f4a60f25796f651db2f84ac" kind="variable"><name>name</name></member>
@@ -872,6 +902,12 @@
     <member refid="structVegeHeightConfig_1a883d98a0fd24fb61544ea692d5a305c7" kind="variable"><name>colors</name></member>
     <member refid="structVegeHeightConfig_1a92604288f0595771f0b14a0797b35da5" kind="function"><name>pick_from_blocked_proportion</name></member>
   </compound>
+  <compound refid="structVegePolygon" kind="struct"><name>VegePolygon</name>
+    <member refid="structVegePolygon_1a612cf676c1006a470b9ce4de882934f2" kind="variable"><name>layer</name></member>
+    <member refid="structVegePolygon_1aba159b947651cbbf5cfe273a48a34eb4" kind="variable"><name>name</name></member>
+    <member refid="structVegePolygon_1a19c601c1f3c47cb0d6c901dfc8c33ca2" kind="variable"><name>exterior_ring</name></member>
+    <member refid="structVegePolygon_1a30425bc0f891c0e487c6defd89c1ea34" kind="variable"><name>holes</name></member>
+  </compound>
   <compound refid="structWaterConfig" kind="struct"><name>WaterConfig</name>
     <member refid="structWaterConfig_1a7f1c079fac26358c448e63366beef45e" kind="variable"><name>catchment</name></member>
     <member refid="structWaterConfig_1a890821ebf62c79add04f990337418efa" kind="variable"><name>color</name></member>
@@ -884,6 +920,10 @@
   </compound>
   <compound refid="namespace_0d2" kind="namespace"><name>@2</name>
   </compound>
+  <compound refid="namespace_0d32" kind="namespace"><name>@32</name>
+  </compound>
+  <compound refid="namespace_0d71" kind="namespace"><name>@71</name>
+  </compound>
   <compound refid="namespaceblaze" kind="namespace"><name>blaze</name>
   </compound>
   <compound refid="namespaceblaze_1_1test" kind="namespace"><name>blaze::test</name>
@@ -895,8 +935,23 @@
   <compound refid="namespacecv" kind="namespace"><name>cv</name>
     <member refid="colors_8hpp_1ad52afe4d3d634d04c7e8dcb7cccbff7b" kind="typedef"><name>Scalar</name></member>
   </compound>
+  <compound refid="namespacedetail" kind="namespace"><name>detail</name>
+    <member refid="contour__gen_8hpp_1a6d45fb35d7affb94cbcfddd4b37f57a8" kind="function"><name>min_contour_loop_area_m2</name></member>
+    <member refid="contour__gen_8hpp_1a0dd15675dc250baa2282f0cae2643660" kind="function"><name>work_grid_for_contours</name></member>
+    <member refid="contour__gen_8hpp_1a0f199fa882998911d9c19870008e53e2" kind="function"><name>identify_contour_crossings</name></member>
+    <member refid="contour__gen_8hpp_1a2cdafe0299253b82214a3e15ea1f7d45" kind="function"><name>trace_contours</name></member>
+    <member refid="polygon__subtract_8hpp_1aedcb84ffc7adbc4c14076c8d7ab19a76" kind="function"><name>fill_ogr_ring</name></member>
+    <member refid="polygon__subtract_8hpp_1a0e2a65696e3199884d7fd9f62aacacd4" kind="function"><name>polygon_to_ogr</name></member>
+    <member refid="polygon__subtract_8hpp_1a133d1a817d08a0b7f85f72ab307f63e4" kind="function"><name>ring_to_ogr</name></member>
+    <member refid="polygon__subtract_8hpp_1a5210abe1c0eba42c385b8e7b96268264" kind="function"><name>polygon_from_ogr</name></member>
+    <member refid="polygon__subtract_8hpp_1acc0986ddc1e277f42f55c1ec8c31a833" kind="function"><name>append_polygons_from_ogr</name></member>
+    <member refid="polygon__subtract_8hpp_1a7b7092d6ed1f9380b900f5d628affa01" kind="function"><name>append_ogr_polygons</name></member>
+    <member refid="polygon__subtract_8hpp_1ab137f1443fc3ea274b08738b6fad8cd4" kind="function"><name>build_cutout_union</name></member>
+  </compound>
   <compound refid="namespacenlohmann" kind="namespace"><name>nlohmann</name>
     <member refid="config__input_8cpp_1a53f7eac02762e5d89e6158676610c0f3" kind="function"><name>SERIALIZE_ENUM_STRICT</name></member>
+  </compound>
+  <compound refid="namespacenlohmann_1_1_0d19" kind="namespace"><name>nlohmann::@19</name>
   </compound>
   <compound refid="namespacestd" kind="namespace"><name>std</name>
     <member refid="assert_8hpp_1ac74d79874476d138b67e2fac5c4e5fee" kind="typedef"><name>source_location</name></member>
@@ -990,12 +1045,14 @@
     <member refid="test__config__lookup_8cpp_1a1d5d316a7eb6e9dd84db08fabf71b524" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1a96f77cd9f30e45652ebf2ab36a87ad18" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1afec9e7142e7c02a075fbf3eb36399346" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1af0f21c8777cd310a4e0299e0743304f1" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1a5905e04d01b466a2d6440b72292888a7" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1afca2ed0751164d08213d98e2c407b992" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1a2e163f9da9175cc7ed151e2dfca14668" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1af71b255135b6e384a5b3ccdb1c563212" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1a32975dcd4c4c589682b6180fe48d856d" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1ab7fd9bf427a779fc7d612507eebd4b3e" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1ab7f6f5cf1389472970b14d60610af1e7" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__config__paths_8cpp" kind="file"><name>test_config_paths.cpp</name>
     <member refid="test__config__paths_8cpp_1a59831ba97afaa7097854b5c912610723" kind="define"><name>ABS_CONFIG_DIR</name></member>
@@ -1025,6 +1082,10 @@
   </compound>
   <compound refid="contour__gen_8hpp" kind="file"><name>contour_gen.hpp</name>
     <member refid="contour__gen_8hpp_1a3bc8b1db57479601f59105a9efdf88a1" kind="function"><name>identify_contours</name></member>
+    <member refid="contour__gen_8hpp_1a494382cbaf20c048d6b8b183d3e14a05" kind="function"><name>identify_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1a1f835021f5e8eca1a7528ee659dbb24f" kind="function"><name>identify_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1a74a34c0c391ece92b793c4a2b7ca9767" kind="function"><name>generate_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1ad8607c7293008fd6073f327c241dca0a" kind="function"><name>generate_contours_at_heights</name></member>
     <member refid="contour__gen_8hpp_1aff55b99839c9a6be2a2a82ef45ecefef" kind="function"><name>join_contours</name></member>
     <member refid="contour__gen_8hpp_1a75ecdffc244aed4700e7d514ae370199" kind="function"><name>trim_contours</name></member>
     <member refid="contour__gen_8hpp_1a95822cfa391fa1f3fcf85c3c863b8b33" kind="function"><name>generate_contours</name></member>
@@ -1033,6 +1094,18 @@
   <compound refid="test__contour__gen_8cpp" kind="file"><name>test_contour_gen.cpp</name>
     <member refid="test__contour__gen_8cpp_1a94297b526abc7db20aa032be5607395e" kind="function"><name>TEST</name></member>
     <member refid="test__contour__gen_8cpp_1a7cae2c3089ff273b5949d229460965c0" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1ac418a85f02647e23a22a477b80de30a1" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a1608fcc1ec6bcb795ca546fe5418b5c5" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a1162fee88150bdff827cd6b780a8f27f" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1ad3d960e3ca129327c22e8d3d71ade25d" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a768963d25b8b08725523733c9d3ac037" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a8957693faebe3a529d8218bf0070ca66" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a0e58b15ce8191bc627bebfa193d4764c" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a97b3418e5813f1469b03e754b56710e3" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a4a3148e50fbf79b644b426b8fa4df2ad" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a87d4af7e16e018b3390866105106c248" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a5c85057f4419b0d56c1388bde2b409d8" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a474b3255d2c57a0879ccc04c8a3ea9ed" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__contour__ops_8cpp" kind="file"><name>test_contour_ops.cpp</name>
     <member refid="test__contour__ops_8cpp_1a246bf04f33f856e8af92a8d18e1c4bb4" kind="function"><name>TEST</name></member>
@@ -1063,6 +1136,61 @@
   </compound>
   <compound refid="crt_8hpp" kind="file"><name>crt.hpp</name>
     <member refid="crt_8hpp_1a951e58fe40c8f042cfc0f35543f9950c" kind="function"><name>write_to_crt</name></member>
+    <member refid="crt_8hpp_1a8b8d79abfbc352bd217711edbc4f75bb" kind="function"><name>write_vegetation_crt</name></member>
+  </compound>
+  <compound refid="polygon_8hpp" kind="file"><name>polygon.hpp</name>
+    <member refid="polygon_8hpp_1ae67418eebf54c6493b999aea629b25d6" kind="function"><name>signed_area</name></member>
+    <member refid="polygon_8hpp_1a741b1bfb278750e3cd3d82cae6ac0f33" kind="function"><name>point_in_ring</name></member>
+    <member refid="polygon_8hpp_1a69eb84498a8ab57377d6e65153903b81" kind="function"><name>reverse_ring</name></member>
+    <member refid="polygon_8hpp_1ad4c474da365490816fa9fdf30a105f1d" kind="function"><name>polygon_from_extent</name></member>
+    <member refid="polygon_8hpp_1a4fb64175d027474e1da0581c8d768be4" kind="function"><name>ring_extent</name></member>
+    <member refid="polygon_8hpp_1aa11f6aa6a8c0ec048a428102befbcc0f" kind="function"><name>extent_contains</name></member>
+    <member refid="polygon_8hpp_1a8302e3c1d7a25857121ef8da1fc5139b" kind="function"><name>normalize_polygon</name></member>
+    <member refid="polygon_8hpp_1aca273f3313d0016331725e7348b42de9" kind="function"><name>segment_intersection</name></member>
+    <member refid="polygon_8hpp_1ad4f62fca1c00a22e650bd70f9575582a" kind="function"><name>is_left_of</name></member>
+    <member refid="polygon_8hpp_1a3b746ac69c93330873ad4faf78c54274" kind="function"><name>intersect_polygons</name></member>
+    <member refid="polygon_8hpp_1ae75cc2595d389f2db101f85390e07c86" kind="function"><name>clip_polygon_hole_free_to_extent</name></member>
+  </compound>
+  <compound refid="polygon__subtract_8hpp" kind="file"><name>polygon_subtract.hpp</name>
+    <member refid="polygon__subtract_8hpp_1a6c0d2996feee6e1b4ff26e89f3695e17" kind="function"><name>union_overlapping_polygons</name></member>
+    <member refid="polygon__subtract_8hpp_1a42f3a245143ddd90c8faf5275b562821" kind="function"><name>subtract_polygon</name></member>
+    <member refid="polygon__subtract_8hpp_1a678ba6424ba5c6680e0098b5a2ad58de" kind="function"><name>subtract_polygon_with_union</name></member>
+    <member refid="polygon__subtract_8hpp_1a9a1d3f064f69b12fa0e02b240f86358e" kind="function"><name>intersect_polygon</name></member>
+    <member refid="polygon__subtract_8hpp_1a0d224cfa5090d32acd566bfbe60e2015" kind="function"><name>clip_polygon_to_extent</name></member>
+  </compound>
+  <compound refid="test__polygon_8cpp" kind="file"><name>test_polygon.cpp</name>
+    <member refid="test__polygon_8cpp_1a101fe79f077f4d6cbd9a7cb32e27c5b4" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1ad1e3841eb2f7c1627981472ae0eb3f8f" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a87e689b8499e563c2a1130bfe232efd6" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1adf5a0b7cdb7c4734e747288bbd3a38e4" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a57b5f841c4a1288a70c8b25b1b18fe0f" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a57a7d7f765fe84db84ba00895f70510b" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a0ac6dfad49b59839f6c1849cbe058e84" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a02e058db2afdc6eb0ba1b7ce111df4fd" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a9ad3bd1ad86a47bc663df66f7db18ebf" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a9b3b84a3e559445669cc238cca1f7021" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1abcf82f022492692e61eb7a2ec7f252d3" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1af761510691f3544505dcdb563f1caa53" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1ae8bc82ea5e9c7bed9f9010e146ac2203" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1af846a2c58c2aa96ac3f17c2dbdeac0ac" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a54a6dd35af31c4daa3177870216e9409" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a14b63011172e0b9d03462461e35735bf" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1ac8b549646b8bb455711057aceff34874" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1ab6bbdcd70c65602bb46132c431a06f45" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a352b893db76a8fc3faa7ee20a54a542c" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a52ca66102d0c5bf737562b3da6197af3" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a0c03396cf6dce3e6c36064bc8ed1c9bf" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1abd980c27a4519231a6cdb8e6affdc1a7" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a8e60a72b077bf99e28c5cb404671d10f" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a297b0e492b0114dc2b6a78343e30bab9" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a000f6e1a6dfe788cb50aff369999c5fb" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1ade8e19e28db89ffdcf4fadbae83d75b8" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1ab1b3d04b3bdc9f4c92e30d32f205a8b6" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1afccb9940e8d3d801cfea29325e5b3859" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a1b4b34347b2fb9cc3665485c430cf266" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a71aa3b7340d9d8394b0575eabcec2a52" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a0dc8908396596a5a88a603936f35d5aa" kind="function"><name>TEST</name></member>
+    <member refid="test__polygon_8cpp_1a6ca54ea579f1645aa4700a184ed9171c" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="forward__grid_8hpp" kind="file"><name>forward_grid.hpp</name>
     <member refid="forward__grid_8hpp_1a8b4c026d2d7ea26001f8f0cafb50c643" kind="typedef"><name>GeoGrid</name></member>
@@ -1071,6 +1199,7 @@
     <member refid="grid_8cpp_1a6ca0dcd69d427f92bcdf0f4ee92aa6da" kind="function"><name>same_type_different_size</name></member>
     <member refid="grid_8cpp_1ab0324ff273d55dadb7ef56bf2341397f" kind="function"><name>interpolate_value</name></member>
     <member refid="grid_8cpp_1ad93b4ff7370d72e4ee8763f82811557a" kind="function"><name>interpolate_value</name></member>
+    <member refid="grid_8cpp_1af2b7f5a8c4e1aca1e2e84a411306e236" kind="function"><name>interpolate_value</name></member>
   </compound>
   <compound refid="grid_8hpp" kind="file"><name>grid.hpp</name>
     <member refid="grid_8hpp_1a8b4c026d2d7ea26001f8f0cafb50c643" kind="typedef"><name>GeoGrid</name></member>
@@ -1115,6 +1244,9 @@
     <member refid="test__grid_8cpp_1a0720172d4e39aa3ceda8ee1312f091dc" kind="function"><name>TEST</name></member>
     <member refid="test__grid_8cpp_1af9f5d997aba577447bbbb80eb79a0a9d" kind="function"><name>TEST</name></member>
     <member refid="test__grid_8cpp_1a4d6ab89c3325d87c2cfa9ca92360ccd4" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1ad8fd52c47229f733b115b09f24c81761" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1a0b7a75144eb7dc80a03a666e372ead1d" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1af3ef3ef7d685b58c425fff5c19f0c0ce" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__grid__ops_8cpp" kind="file"><name>test_grid_ops.cpp</name>
     <member refid="test__grid__ops_8cpp_1ad50af153ae9bb4d54d463ac482b4f387" kind="function"><name>TEST</name></member>
@@ -1141,6 +1273,12 @@
   </compound>
   <compound refid="gpkg_8hpp" kind="file"><name>gpkg.hpp</name>
     <member refid="gpkg_8hpp_1aeacff6642f5d9f4283500b15c80c7ac5" kind="function"><name>read_gpkg</name></member>
+    <member refid="gpkg_8hpp_1a6f8dd93549b430668286e7aea4b63a40" kind="function"><name>ensure_dst_layer_fields</name></member>
+    <member refid="gpkg_8hpp_1a2049c21b965e7fd015eb6a1a7bd66cac" kind="function"><name>get_or_create_dst_layer</name></member>
+    <member refid="gpkg_8hpp_1a5d11646e590e42508e2b72a94ab51d60" kind="function"><name>copy_gpkg_feature</name></member>
+    <member refid="gpkg_8hpp_1a18a47085b2126ad1f2b95985c795d0a5" kind="function"><name>copy_gpkg_layer</name></member>
+    <member refid="gpkg_8hpp_1a460746da13a9755888a5edb394781c89" kind="function"><name>gpkg_feature_count</name></member>
+    <member refid="gpkg_8hpp_1aa51368d1e4bb22e8d792bdfb1b5564c6" kind="function"><name>combine_gpkgs</name></member>
   </compound>
   <compound refid="test__gpkg_8cpp" kind="file"><name>test_gpkg.cpp</name>
     <member refid="test__gpkg_8cpp_1a5b91b14c28af9dc4c443081c3f1a52f7" kind="function"><name>TEST</name></member>
@@ -1148,6 +1286,8 @@
     <member refid="test__gpkg_8cpp_1a61149e1f20b0feafa79f2df2cb9df827" kind="function"><name>TEST</name></member>
     <member refid="test__gpkg_8cpp_1aa86fa4a0a20d035337f5cc4e4d6f947a" kind="function"><name>TEST</name></member>
     <member refid="test__gpkg_8cpp_1a109c9b79d63e4b49c97d7a818db6c912" kind="function"><name>TEST</name></member>
+    <member refid="test__gpkg_8cpp_1a8928e73af8fa07f8a38ceed7e93306df" kind="function"><name>TEST</name></member>
+    <member refid="test__gpkg_8cpp_1af778c469f8f855e961e91832155495d8" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="colors_8cpp" kind="file"><name>colors.cpp</name>
     <member refid="colors_8cpp_1a890ad4c93a26f94d270c755f3aae8893" kind="variable"><name>COLOR_MAP</name></member>
@@ -1379,13 +1519,13 @@
   <compound refid="test__progress__tracker_8cpp" kind="file"><name>test_progress_tracker.cpp</name>
     <member refid="test__progress__tracker_8cpp_1ab1bba9e97777b2af9822b4e94d85543f" kind="function"><name>TEST</name></member>
     <member refid="test__progress__tracker_8cpp_1a3b34316f612c7555936f68e73666b337" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1a29c0c7e2207c67c6b7f28f43cb383774" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1a0f1d9df302ba7c0df7f6cef8f1191d39" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="timer_8hpp" kind="file"><name>timer.hpp</name>
     <member refid="timer_8hpp_1a10a0133cc00e8f784577f7a8243cf624" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="test__vegetation_8cpp" kind="file"><name>test_vegetation.cpp</name>
-    <member refid="test__vegetation_8cpp_1af216d922161327980a05a7192c85a356" kind="function"><name>make_float_grid</name></member>
-    <member refid="test__vegetation_8cpp_1aac3ecf4b15fa2ffba4b3a1e96c8b667d" kind="function"><name>make_opt_float_grid</name></member>
     <member refid="test__vegetation_8cpp_1a92e659bc568fb0a3b4153932535982e1" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation_8cpp_1a1831d74b8951f6856973d124a2fdd884" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation_8cpp_1a43950f4a8d20c9a48aaab391a271959c" kind="function"><name>TEST</name></member>
@@ -1394,10 +1534,56 @@
     <member refid="test__vegetation_8cpp_1aab1f6885be2d3d7b5cd4a68c85859660" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation_8cpp_1aba45b183fedbf939b42ca447a9ee459d" kind="function"><name>TEST</name></member>
   </compound>
+  <compound refid="test__vegetation__polygon_8cpp" kind="file"><name>test_vegetation_polygon.cpp</name>
+    <member refid="test__vegetation__polygon_8cpp_1a8f6d5adccd4a0b4d593e53373bd379ab" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a94175ff9f3c54728ff0086fd46202b77" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a3bde660611d74357e32bbc0646c460ac" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a375bce28d17741ad49154a1fa1e11709" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a9143be2f844f60e5f39aa4e9086bac48" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a5f13eeb8560ef1616808a75a332fee9a" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a8f2b6b5c9b40b0342a367606d5fe1d7f" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1ab249cde47ea1a6c03ab24b0c996392a6" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a2c61d51c33e4b3203256ad56400c8aac" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a2ebd7698ae0f61727d0f7602ccc32a70" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a3d2bbabda90a7b53dd74cac6dc4b363d" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a0d02ea567d5260e96704a9c5ebca8448" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a42d419436b5823fdf3eaadcb1e4d8d85" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a6acd3d93b89327eacd3747188ceb5c77" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1ac75a6c332abcb955991a8b352cc7f102" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a81daef8d19306fca1d6f3ae20fa9ded1" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a7cb323bacaf5dea472d0f71384edd732" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1aa75a1e6e3e588f55ac3d77ba398b5d4b" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1acafa2137dc282593a37944b03a49b4c5" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a810f5ca6d1a02f490b54200f72e8929b" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a9a44ff63d6b5bb5c1ccb4856e13304a4" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1aa70c83da6d66fdbb9b5094cd6d2e245c" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1aa155adc7100d6845f1f8a9f86614dacb" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a7af217c3f828488b12375fb51e0eb50e" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a0dc46dc4769c18894f3bb649d14fb986" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a88c8e8b7e7bbba8738617eb914926b6d" kind="function"><name>forest_contours_polygonize</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1af7a2f343042d8fd2ab121c6b5be793be" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1ad3be4a3683af3385b27058ffa2f40e23" kind="function"><name>TEST</name></member>
+  </compound>
   <compound refid="vegetation_8hpp" kind="file"><name>vegetation.hpp</name>
-    <member refid="vegetation_8hpp_1aa05586e6600f269c91e00c93663cbef8" kind="function"><name>get_blocked_proportion</name></member>
-    <member refid="vegetation_8hpp_1a5e8338491fba9513756dd4dcdbfa3e0d" kind="function"><name>low_pass</name></member>
-    <member refid="vegetation_8hpp_1ac3350d3073632da851187de625e2a827" kind="function"><name>low_pass</name></member>
+    <member refid="vegetation_8hpp_1a97d1cb3bcf3f4eaa90256b1653549e5a" kind="function"><name>get_blocked_proportion</name></member>
+    <member refid="vegetation_8hpp_1a0b599b24a92a1f8747256712ef7c2ed7" kind="function"><name>low_pass</name></member>
+    <member refid="vegetation_8hpp_1a2668b2257d87ecc10fea4f334d92ff3d" kind="function"><name>low_pass</name></member>
+  </compound>
+  <compound refid="vegetation__polygon_8hpp" kind="file"><name>vegetation_polygon.hpp</name>
+    <member refid="vegetation__polygon_8hpp_1adc73e2d0787ef3baaa7c319a5966268b" kind="function"><name>threshold_layer_name</name></member>
+    <member refid="vegetation__polygon_8hpp_1a94cf1939a923323837aa873a2b6268cd" kind="function"><name>extract_threshold_layers</name></member>
+    <member refid="vegetation__polygon_8hpp_1a51a37fb467dc19e15a3fdc508af1870d" kind="function"><name>layer_number</name></member>
+    <member refid="vegetation__polygon_8hpp_1abad18ca419a3ce142aa9cc07c7e60e36" kind="function"><name>subtract_from_polygon</name></member>
+    <member refid="vegetation__polygon_8hpp_1a787bf27faa7b08ed11a5b2f2a77adff2" kind="function"><name>subtract_from_polygon</name></member>
+    <member refid="vegetation__polygon_8hpp_1a3cbee61ac59b379e8cff8752f2203788" kind="function"><name>trim_vege_polygons_to_extent</name></member>
+    <member refid="vegetation__polygon_8hpp_1ae49e15214d580d59bd2cc44933a2162d" kind="function"><name>write_vege_polygons_gpkg</name></member>
+    <member refid="vegetation__polygon_8hpp_1a06137832cfe5103861bda6fd742267ea" kind="function"><name>filter_small_holes</name></member>
+    <member refid="vegetation__polygon_8hpp_1a94c7260f84abad768bf65ac3649d3233" kind="function"><name>polygon_net_area_m2</name></member>
+    <member refid="vegetation__polygon_8hpp_1a458d9b5688443edb939130eda79d9235" kind="function"><name>filter_by_min_area</name></member>
+    <member refid="vegetation__polygon_8hpp_1a84b6a5c003f29afb124c49a2e18c743a" kind="function"><name>contours_to_polygons</name></member>
+    <member refid="vegetation__polygon_8hpp_1a1506b8bfea6f6ec973f38b565fcc66a6" kind="function"><name>generate_vege_polygons</name></member>
+    <member refid="vegetation__polygon_8hpp_1a23f6d93f96dde6ffe949eaeaadcc8653" kind="function"><name>read_vege_polygons</name></member>
+    <member refid="vegetation__polygon_8hpp_1acd4ab67eab1f24c0a0d5c4ded3bd65ce" kind="function"><name>combine_vege_gpkgs</name></member>
   </compound>
   <compound refid="hill__shade_8hpp" kind="file"><name>hill_shade.hpp</name>
     <member refid="hill__shade_8hpp_1a2b4f9c3a8b58ecc8e9a6cda26417ba00" kind="define"><name>DEG2RAD</name></member>
@@ -1487,6 +1673,8 @@
   </compound>
   <compound refid="dir_c47672f86e16ff8bd68ad864d5061fa3" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/crt</name>
   </compound>
+  <compound refid="dir_da4e387dad6145fce42efe284fbecf2d" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/geometry</name>
+  </compound>
   <compound refid="dir_b440d1ddeab29faa8ab1c63476ee276f" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/grid</name>
   </compound>
   <compound refid="dir_99d0482cf009f9d97a0877749b817f19" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/gui</name>
@@ -1514,6 +1702,8 @@
   <compound refid="dir_7e4ff660e0fa82332112dfaa3eba02fe" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/config_input/tests</name>
   </compound>
   <compound refid="dir_af1ec3f63b3290d3c0b6a16b438b915c" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/contour/tests</name>
+  </compound>
+  <compound refid="dir_36407adca9cc620e53261a1df3e1be68" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/geometry/tests</name>
   </compound>
   <compound refid="dir_7abe1d2e6c271935b6731dcf9a13a0e9" kind="dir"><name>/home/runner/work/Blaze/Blaze/src/lib/grid/tests</name>
   </compound>

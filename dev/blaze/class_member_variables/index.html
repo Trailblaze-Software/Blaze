@@ -1041,9 +1041,11 @@
 </ul>
 <h2 id="e">e</h2>
 <ul>
+<li><strong>exterior</strong> (<a href="../structPolygonWithHoles/"><strong>PolygonWithHoles</strong></a>)</li>
 <li><strong>expect_contours</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
 <li><strong>extent</strong> (<a href="../structTile/"><strong>Tile</strong></a>)</li>
 <li><strong>error</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
+<li><strong>exterior_ring</strong> (<a href="../structVegePolygon/"><strong>VegePolygon</strong></a>)</li>
 </ul>
 <h2 id="g">g</h2>
 <ul>
@@ -1055,6 +1057,7 @@
 <h2 id="h">h</h2>
 <ul>
 <li><strong>horizontal_wkt</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
+<li><strong>holes</strong> (<a href="../structPolygonWithHoles/"><strong>PolygonWithHoles</strong></a>, <a href="../structVegePolygon/"><strong>VegePolygon</strong></a>)</li>
 <li><strong>height_function</strong> (<a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>)</li>
 <li><strong>height_configs</strong> (<a href="../structVegeConfig/"><strong>VegeConfig</strong></a>)</li>
 </ul>
@@ -1064,9 +1067,9 @@
 </ul>
 <h2 id="l">l</h2>
 <ul>
+<li><strong>layer</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>, <a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structVegePolygon/"><strong>VegePolygon</strong></a>)</li>
 <li><strong>las_files</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>layer_names</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
-<li><strong>layer</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>)</li>
 </ul>
 <h2 id="m">m</h2>
 <ul>
@@ -1075,6 +1078,8 @@
 <li><strong>m_thread</strong> (<a href="../classAsyncLASData/"><strong>AsyncLASData</strong></a>)</li>
 <li><strong>m_tracker</strong> (<a href="../classAsyncProgressTracker/"><strong>AsyncProgressTracker</strong></a>)</li>
 <li><strong>m_storage</strong> (<a href="../classBinnedPoints/"><strong>BinnedPoints</strong></a>)</li>
+<li><strong>min_area_m2</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>)</li>
+<li><strong>min_hole_area_m2</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>)</li>
 <li><strong>m_data</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>, <a href="../classFlexGrid/"><strong>FlexGrid</strong></a>, <a href="../classGrid/"><strong>Grid</strong></a>, <a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>m_direction</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>m_fov</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
@@ -1122,6 +1127,7 @@
 <li><strong>m_renderers</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>m_vao</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>, <a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>)</li>
 <li><strong>m_vbo</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>, <a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>)</li>
+<li><strong>m_transaction_active</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>m_transform</strong> (<a href="../classGeoGridData/"><strong>GeoGridData</strong></a>)</li>
 <li><strong>m_compound_wkt</strong> (<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>)</li>
 <li><strong>m_repeats</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
@@ -1154,13 +1160,16 @@
 <li><strong>m_subtracker_range</strong> (<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>)</li>
 <li><strong>m_progress_tracker</strong> (<a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>, <a href="../classTimeFunction/"><strong>TimeFunction</strong></a>)</li>
 <li><strong>m_tracker_obtained</strong> (<a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>)</li>
+<li><strong>m_updates</strong> (<a href="../classRecordingProgressBar/"><strong>RecordingProgressBar</strong></a>)</li>
 <li><strong>m_what</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
 <li><strong>m_start</strong> (<a href="../classTimer/"><strong>Timer</strong></a>)</li>
+<li><strong>m_cell_size</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
+<li><strong>m_cells</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
 </ul>
 <h2 id="n">n</h2>
 <ul>
 <li><strong>native_wkt</strong> (<a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
-<li><strong>name</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>, <a href="../structTile/"><strong>Tile</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
+<li><strong>name</strong> (<a href="../classPolyline/"><strong>Polyline</strong></a>, <a href="../structTerrainTestParams/"><strong>TerrainTestParams</strong></a>, <a href="../structTile/"><strong>Tile</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>, <a href="../structVegePolygon/"><strong>VegePolygon</strong></a>)</li>
 </ul>
 <h2 id="o">o</h2>
 <ul>

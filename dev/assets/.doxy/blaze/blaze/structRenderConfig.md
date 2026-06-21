@@ -35,8 +35,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**dpi**](#variable-dpi)  <br> |
-|  [**double**](classCoordinate2D.md) | [**scale**](#variable-scale)  <br> |
+|  [**double**](classCoordinate2D.md) | [**dpi**](#variable-dpi)   = `600.0`<br> |
+|  [**double**](classCoordinate2D.md) | [**scale**](#variable-scale)   = `10000.0`<br> |
 
 
 

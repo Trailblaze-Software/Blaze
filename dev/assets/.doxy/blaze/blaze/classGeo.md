@@ -18,7 +18,6 @@
 Inherits the following classes: GridT,  [GeoGridData](classGeoGridData.md)
 
 
-Inherited by the following classes: [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md),  [TestGrid](classTestGrid.md)
 
 
 
@@ -75,12 +74,14 @@ Inherited by the following classes: [TestGrid](classTestGrid.md),  [TestGrid](cl
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Geo**](#function-geo-12) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**Geo**](#function-geo-22) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
+|   | [**Geo**](#function-geo-13) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
+|   | [**Geo**](#function-geo-23) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
+|   | [**Geo**](#function-geo-33) ([**const**](classCoordinate2D.md) std::vector&lt; std::vector&lt; [**U**](classCoordinate2D.md) &gt; &gt; & data, [**GeoTransform**](classGeoTransform.md) transform=[**GeoTransform**](classGeoTransform.md)(), [**GeoProjection**](classGeoProjection.md) projection=[**GeoProjection**](classGeoProjection.md)()) <br> |
 |  std::unique\_ptr&lt; [**Extent2D**](structExtent2D.md) &gt; | [**extent**](#function-extent) () const<br> |
 |  [**void**](classCoordinate2D.md) | [**fill\_from**](#function-fill_from-12) ([**const**](classCoordinate2D.md) [**Geo**](classGeo.md)&lt; [**U**](classCoordinate2D.md) &gt; & other) <br> |
 |  [**void**](classCoordinate2D.md) | [**fill\_from**](#function-fill_from-22) ([**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & other) <br> |
 |  [**double**](classCoordinate2D.md) | [**height\_m**](#function-height_m) () const<br> |
+|  [**Geo**](classGeo.md) | [**pad**](#function-pad) ([**U**](classCoordinate2D.md) pad\_value={}) const<br> |
 |  [**Geo**](classGeo.md) | [**slice**](#function-slice) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & extent) <br> |
 |  [**double**](classCoordinate2D.md) | [**width\_m**](#function-width_m) () const<br> |
 
@@ -169,7 +170,7 @@ See [GeoGridData](classGeoGridData.md)
 
 
 
-### function Geo [1/2]
+### function Geo [1/3]
 
 ```C++
 inline Geo::Geo (
@@ -187,7 +188,7 @@ inline Geo::Geo (
 
 
 
-### function Geo [2/2]
+### function Geo [2/3]
 
 ```C++
 template<typename... Args>
@@ -195,6 +196,24 @@ inline Geo::Geo (
     GeoTransform && transform,
     GeoProjection && projection,
     Args... args
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function Geo [3/3]
+
+```C++
+template<typename  U>
+inline Geo::Geo (
+    const std::vector< std::vector< U > > & data,
+    GeoTransform transform=GeoTransform (),
+    GeoProjection projection=GeoProjection ()
 ) 
 ```
 
@@ -254,6 +273,22 @@ inline void Geo::fill_from (
 
 ```C++
 inline double Geo::height_m () const
+```
+
+
+
+
+<hr>
+
+
+
+### function pad 
+
+```C++
+template<typename  U>
+inline Geo Geo::pad (
+    U pad_value={}
+) const
 ```
 
 

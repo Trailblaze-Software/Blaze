@@ -1026,6 +1026,30 @@ void ConfigEditor::load_vege_details(int index) {
     connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
             [this, r]() { update_vege_color_from_ui(r, 1); });
     ui->vege_colors_table->setCellWidget(r, 1, combo);
+
+    QLineEdit* layer_edit = new QLineEdit(QString::fromStdString(pair.layer));
+    layer_edit->setPlaceholderText("e.g. 405_Forest");
+    connect(layer_edit, &QLineEdit::editingFinished,
+            [this, r]() { update_vege_color_from_ui(r, 2); });
+    ui->vege_colors_table->setCellWidget(r, 2, layer_edit);
+
+    QDoubleSpinBox* min_area_spin = new QDoubleSpinBox();
+    min_area_spin->setRange(0, 100000);
+    min_area_spin->setDecimals(0);
+    min_area_spin->setValue(pair.min_area_m2);
+    min_area_spin->setSuffix(" m²");
+    connect(min_area_spin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            [this, r]() { update_vege_color_from_ui(r, 3); });
+    ui->vege_colors_table->setCellWidget(r, 3, min_area_spin);
+
+    QDoubleSpinBox* min_hole_spin = new QDoubleSpinBox();
+    min_hole_spin->setRange(0, 100000);
+    min_hole_spin->setDecimals(0);
+    min_hole_spin->setValue(pair.min_hole_area_m2);
+    min_hole_spin->setSuffix(" m²");
+    connect(min_hole_spin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            [this, r]() { update_vege_color_from_ui(r, 4); });
+    ui->vege_colors_table->setCellWidget(r, 4, min_hole_spin);
   }
   m_updating_ui = was_updating;
 }
@@ -1060,7 +1084,7 @@ void ConfigEditor::add_vege_color() {
   int row = ui->vege_list_widget->currentRow();
   if (row < 0 || row >= (int)m_config->vege.height_configs.size()) return;
 
-  m_config->vege.height_configs[row].colors.push_back({0.0, RGBColor(255, 255, 255)});
+  m_config->vege.height_configs[row].colors.push_back({0.0, RGBColor(255, 255, 255), "", 0.0, 0.0});
   load_vege_details(row);
   config_changed();
 }
@@ -1098,6 +1122,24 @@ void ConfigEditor::update_vege_color_from_ui(int row, int column) {
       if (COLOR_MAP.count(color.toStdString())) {
         pair.color = COLOR_MAP.at(color.toStdString());
       }
+    }
+  } else if (column == 2) {
+    QLineEdit* layer_edit =
+        qobject_cast<QLineEdit*>(ui->vege_colors_table->cellWidget(row, column));
+    if (layer_edit) {
+      pair.layer = layer_edit->text().toStdString();
+    }
+  } else if (column == 3) {
+    QDoubleSpinBox* spin =
+        qobject_cast<QDoubleSpinBox*>(ui->vege_colors_table->cellWidget(row, column));
+    if (spin) {
+      pair.min_area_m2 = spin->value();
+    }
+  } else if (column == 4) {
+    QDoubleSpinBox* spin =
+        qobject_cast<QDoubleSpinBox*>(ui->vege_colors_table->cellWidget(row, column));
+    if (spin) {
+      pair.min_hole_area_m2 = spin->value();
     }
   }
   config_changed();

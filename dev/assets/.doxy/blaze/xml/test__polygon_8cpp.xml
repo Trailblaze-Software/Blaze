@@ -1,0 +1,1204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__polygon_8cpp" kind="file" language="C++">
+    <compoundname>test_polygon.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">cmath</includes>
+    <includes local="no">vector</includes>
+    <includes refid="polygon_8hpp" local="yes">geometry/polygon.hpp</includes>
+    <includes refid="polygon__subtract_8hpp" local="yes">geometry/polygon_subtract.hpp</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>geometry/polygon.hpp</label>
+        <link refid="polygon_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>geometry/polygon_subtract.hpp</label>
+        <link refid="polygon__subtract_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp</label>
+        <link refid="test__polygon_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>io/gdal_init.hpp</label>
+        <link refid="gdal__init_8hpp_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>algorithm</label>
+      </node>
+      <node id="18">
+        <label>array</label>
+      </node>
+      <node id="4">
+        <label>cmath</label>
+      </node>
+      <node id="10">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="27">
+        <label>gdal_priv.h</label>
+      </node>
+      <node id="2">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="14">
+        <label>iomanip</label>
+      </node>
+      <node id="9">
+        <label>iostream</label>
+      </node>
+      <node id="19">
+        <label>limits</label>
+      </node>
+      <node id="15">
+        <label>map</label>
+      </node>
+      <node id="24">
+        <label>memory</label>
+      </node>
+      <node id="23">
+        <label>ogrsf_frmts.h</label>
+      </node>
+      <node id="7">
+        <label>optional</label>
+      </node>
+      <node id="20">
+        <label>ostream</label>
+      </node>
+      <node id="16">
+        <label>set</label>
+      </node>
+      <node id="11">
+        <label>sstream</label>
+      </node>
+      <node id="12">
+        <label>string</label>
+      </node>
+      <node id="21">
+        <label>type_traits</label>
+      </node>
+      <node id="25">
+        <label>unordered_map</label>
+      </node>
+      <node id="5">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__polygon_8cpp_1a101fe79f077f4d6cbd9a7cb32e27c5b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SignedArea, CcwSquareIsPositive)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SignedArea</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CcwSquareIsPositive</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="46" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1ad1e3841eb2f7c1627981472ae0eb3f8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SignedArea, CwSquareIsNegative)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SignedArea</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CwSquareIsNegative</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="51" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="51" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a87e689b8499e563c2a1130bfe232efd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SignedArea, TooFewPointsIsZero)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SignedArea</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">TooFewPointsIsZero</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="56" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1adf5a0b7cdb7c4734e747288bbd3a38e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PointInRing, InsideSquare)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PointInRing</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">InsideSquare</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="61" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="61" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a57b5f841c4a1288a70c8b25b1b18fe0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PointInRing, OutsideSquare)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PointInRing</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">OutsideSquare</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="66" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="66" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a57a7d7f765fe84db84ba00895f70510b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PointInRing, TooFewPointsIsFalse)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PointInRing</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">TooFewPointsIsFalse</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="72" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a0ac6dfad49b59839f6c1849cbe058e84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ReverseRing, NegatesSignedArea)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ReverseRing</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">NegatesSignedArea</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="74" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="74" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a02e058db2afdc6eb0ba1b7ce111df4fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(NormalizePolygon, FixesExteriorAndHoleWinding)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">NormalizePolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">FixesExteriorAndHoleWinding</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="83" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="83" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a9ad3bd1ad86a47bc663df66f7db18ebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PolygonIntersection, FullContainment)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PolygonIntersection</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">FullContainment</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="94" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="94" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a9b3b84a3e559445669cc238cca1f7021" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PolygonIntersection, PartialOverlap)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PolygonIntersection</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PartialOverlap</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="104" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="104" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1abcf82f022492692e61eb7a2ec7f252d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PolygonIntersection, NoOverlap)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PolygonIntersection</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">NoOverlap</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="114" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="114" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1af761510691f3544505dcdb563f1caa53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, NoCutouts)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">NoCutouts</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="127" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="127" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1ae8bc82ea5e9c7bed9f9010e146ac2203" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygonWithUnion, NullUnionReturnsHost)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygonWithUnion</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">NullUnionReturnsHost</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="137" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="137" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1af846a2c58c2aa96ac3f17c2dbdeac0ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, CutoutOutsideHost)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CutoutOutsideHost</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="147" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="147" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a54a6dd35af31c4daa3177870216e9409" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, CutoutFullyCoversHost)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CutoutFullyCoversHost</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="158" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="158" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a14b63011172e0b9d03462461e35735bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, SingleCutoutFullyContained)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SingleCutoutFullyContained</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="167" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="167" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1ac8b549646b8bb455711057aceff34874" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, TwoDisjointCutouts)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">TwoDisjointCutouts</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="182" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="182" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1ab6bbdcd70c65602bb46132c431a06f45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, NestedCutoutsNotDoubleCut)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">NestedCutoutsNotDoubleCut</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="197" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="197" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a352b893db76a8fc3faa7ee20a54a542c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, PartialOverlapClipsHost)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">PartialOverlapClipsHost</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="211" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="211" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a52ca66102d0c5bf737562b3da6197af3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, SplitsHostIntoTwo)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SplitsHostIntoTwo</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="225" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="225" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a0c03396cf6dce3e6c36064bc8ed1c9bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, CutoutInsideExistingHole)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">CutoutInsideExistingHole</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="245" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="245" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1abd980c27a4519231a6cdb8e6affdc1a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, GreenDonutLeavesForestRing)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">GreenDonutLeavesForestRing</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="259" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="259" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a8e60a72b077bf99e28c5cb404671d10f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(SubtractPolygon, NetAreaConservedAcrossOperations)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">NetAreaConservedAcrossOperations</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="294" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="294" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a297b0e492b0114dc2b6a78343e30bab9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(IntersectPolygon, ClipsExteriorToExtent)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">IntersectPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ClipsExteriorToExtent</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="305" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="305" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a000f6e1a6dfe788cb50aff369999c5fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(IntersectPolygon, RemovesPolygonOutsideExtent)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">IntersectPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">RemovesPolygonOutsideExtent</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="319" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="319" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1ade8e19e28db89ffdcf4fadbae83d75b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(IntersectPolygon, ClipsPolygonWithHole)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">IntersectPolygon</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ClipsPolygonWithHole</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="326" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="326" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1ab1b3d04b3bdc9f4c92e30d32f205a8b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ClipPolygonToExtent, MatchesGeosClipForSquare)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ClipPolygonToExtent</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">MatchesGeosClipForSquare</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="339" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="339" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1afccb9940e8d3d801cfea29325e5b3859" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ClipPolygonToExtent, ClipsPolygonWithHole)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ClipPolygonToExtent</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ClipsPolygonWithHole</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="352" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="352" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a1b4b34347b2fb9cc3665485c430cf266" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ClipPolygonToExtent, BisectedDonutDropsHole)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">ClipPolygonToExtent</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">BisectedDonutDropsHole</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="366" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="366" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a71aa3b7340d9d8394b0575eabcec2a52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(UnionOverlappingPolygons, MergesOverlappingPolygons)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">UnionOverlappingPolygons</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">MergesOverlappingPolygons</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="383" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="383" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a0dc8908396596a5a88a603936f35d5aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(UnionOverlappingPolygons, MergesTouchingEdges)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">UnionOverlappingPolygons</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">MergesTouchingEdges</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="391" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="391" bodyend="397"/>
+      </memberdef>
+      <memberdef kind="function" id="test__polygon_8cpp_1a6ca54ea579f1645aa4700a184ed9171c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(UnionOverlappingPolygons, KeepsDisjointSeparate)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">UnionOverlappingPolygons</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">KeepsDisjointSeparate</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" line="399" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp" bodystart="399" bodyend="405"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;geometry/polygon.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;geometry/polygon_subtract.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>size)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{{{x,<sp/>y},<sp/>{x<sp/>+<sp/>size,<sp/>y},<sp/>{x<sp/>+<sp/>size,<sp/>y<sp/>+<sp/>size},<sp/>{x,<sp/>y<sp/>+<sp/>size}},<sp/>{}};</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_GE</ref>(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior.size(),<sp/>3u);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_GT</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior),<sp/>0.0)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;exterior<sp/>ring<sp/>should<sp/>be<sp/>CCW&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior),<sp/><ref refid="classCoordinate2D" kindref="compound">area</ref>);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">expect_hole_area</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">hole</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_GE</ref>(<ref refid="classCoordinate2D" kindref="compound">hole</ref>.size(),<sp/>3u);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_LT</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">hole</ref>),<sp/>0.0)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;hole<sp/>ring<sp/>should<sp/>be<sp/>CW&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">hole</ref>),<sp/>-<ref refid="classCoordinate2D" kindref="compound">area</ref>);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>=<sp/>signed_area(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">hole</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>.holes)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>+=<sp/>signed_area(<ref refid="classCoordinate2D" kindref="compound">hole</ref>);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">total_net_area</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;PolygonWithHoles&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">polys</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">polys</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>+=<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">poly</ref>);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SignedArea</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CcwSquareIsPositive</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{10,<sp/>0},<sp/>{10,<sp/>10},<sp/>{0,<sp/>10}};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">ring</ref>),<sp/>100.0);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SignedArea</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CwSquareIsNegative</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{0,<sp/>10},<sp/>{10,<sp/>10},<sp/>{10,<sp/>0}};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">ring</ref>),<sp/>-100.0);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SignedArea</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">TooFewPointsIsZero</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area({{0,<sp/>0},<sp/>{1,<sp/>0}}),<sp/>0.0);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area({}),<sp/>0.0);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">PointInRing</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">InsideSquare</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{10,<sp/>0},<sp/>{10,<sp/>10},<sp/>{0,<sp/>10}};</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(point_in_ring({5,<sp/>5},<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>));</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">PointInRing</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">OutsideSquare</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{10,<sp/>0},<sp/>{10,<sp/>10},<sp/>{0,<sp/>10}};</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(point_in_ring({15,<sp/>5},<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>));</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(point_in_ring({-1,<sp/>5},<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">PointInRing</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">TooFewPointsIsFalse</ref>)<sp/>{<sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(point_in_ring({0,<sp/>0},<sp/>{{0,<sp/>0},<sp/>{1,<sp/>0}}));<sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ReverseRing</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">NegatesSignedArea</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">ccw</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{10,<sp/>0},<sp/>{10,<sp/>10},<sp/>{0,<sp/>10}};</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">reversed</ref><sp/>=<sp/>reverse_ring(<ref refid="classCoordinate2D" kindref="compound">ccw</ref>);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">ccw</ref>),<sp/>100.0);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">reversed</ref>),<sp/>-100.0);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">reversed</ref>.front(),<sp/><ref refid="classCoordinate2D" kindref="compound">ccw</ref>.back());</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">reversed</ref>.back(),<sp/><ref refid="classCoordinate2D" kindref="compound">ccw</ref>.front());</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">NormalizePolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">FixesExteriorAndHoleWinding</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior<sp/>=<sp/>{{0,<sp/>0},<sp/>{0,<sp/>10},<sp/>{10,<sp/>10},<sp/>{10,<sp/>0}};<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CW</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>.holes.push_back({{2,<sp/>2},<sp/>{2,<sp/>4},<sp/>{4,<sp/>4},<sp/>{4,<sp/>2}});<sp/><sp/></highlight><highlight class="comment">//<sp/>CCW</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>normalize_polygon(<ref refid="classCoordinate2D" kindref="compound">poly</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_GT</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior),<sp/>0.0);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_LT</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.holes[0]),<sp/>0.0);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">PolygonIntersection</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">FullContainment</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">subject</ref><sp/>=<sp/>{{5,<sp/>5},<sp/>{15,<sp/>5},<sp/>{15,<sp/>15},<sp/>{5,<sp/>15}};</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{20,<sp/>0},<sp/>{20,<sp/>20},<sp/>{0,<sp/>20}};</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>intersect_polygons(<ref refid="classCoordinate2D" kindref="compound">subject</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>4u);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">result</ref>),<sp/>100.0);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">PolygonIntersection</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">PartialOverlap</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">subject</ref><sp/>=<sp/>{{10,<sp/>0},<sp/>{20,<sp/>0},<sp/>{20,<sp/>10},<sp/>{10,<sp/>10}};</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{15,<sp/>0},<sp/>{15,<sp/>15},<sp/>{0,<sp/>15}};</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>intersect_polygons(<ref refid="classCoordinate2D" kindref="compound">subject</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>4u);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">result</ref>),<sp/>50.0);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">PolygonIntersection</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">NoOverlap</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">subject</ref><sp/>=<sp/>{{100,<sp/>100},<sp/>{110,<sp/>100},<sp/>{110,<sp/>110},<sp/>{100,<sp/>110}};</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref><sp/>=<sp/>{{0,<sp/>0},<sp/>{10,<sp/>0},<sp/>{10,<sp/>10},<sp/>{0,<sp/>10}};</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>intersect_polygons(<ref refid="classCoordinate2D" kindref="compound">subject</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.empty());</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Polygon<sp/>subtraction<sp/>—<sp/>geometry-level<sp/>contract<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">NoCutouts</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{});</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>10000.0);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.empty());</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygonWithUnion</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">NullUnionReturnsHost</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon_with_union(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>10000.0);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.empty());</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CutoutOutsideHost</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>50);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cutout</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(100,<sp/>100,<sp/>10);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">cutout</ref>});</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>2500.0);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.empty());</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CutoutFullyCoversHost</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(10,<sp/>10,<sp/>20);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cutout</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">cutout</ref>});</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.empty());</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">SingleCutoutFullyContained</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cutout</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(20,<sp/>20,<sp/>30);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">cutout</ref>});</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>10000.0);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_hole_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes[0],<sp/>900.0);<sp/><sp/></highlight><highlight class="comment">//<sp/>30x30</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0]),<sp/>9100.0);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(point_in_ring({5,<sp/>5},<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[0].exterior));</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(point_in_ring({35,<sp/>35},<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes[0]));</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">TwoDisjointCutouts</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cutout_a</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(10,<sp/>10,<sp/>10);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cutout_b</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(70,<sp/>70,<sp/>10);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">cutout_a</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">cutout_b</ref>});</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>10000.0);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_hole_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes[0],<sp/>100.0);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_hole_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes[1],<sp/>100.0);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0]),<sp/>9800.0);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">NestedCutoutsNotDoubleCut</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Host<sp/>contains<sp/>Walk,<sp/>which<sp/>contains<sp/>Fight.<sp/>Only<sp/>the<sp/>outer<sp/>cutout<sp/>should<sp/>become<sp/>a<sp/>hole.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">walk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(20,<sp/>20,<sp/>60);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">fight</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(30,<sp/>30,<sp/>20);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">walk</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">fight</ref>});</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_hole_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes[0],<sp/>3600.0);<sp/><sp/></highlight><highlight class="comment">//<sp/>60x60</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0]),<sp/>6400.0);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">PartialOverlapClipsHost</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>50);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cutout</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(25,<sp/>25,<sp/>50);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">cutout</ref>});</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.empty());</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>50x50<sp/>host<sp/>minus<sp/>25x25<sp/>overlap<sp/>in<sp/>the<sp/>NE<sp/>corner</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>1875.0);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(point_in_ring({10,<sp/>10},<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[0].exterior));</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_FALSE</ref>(point_in_ring({40,<sp/>40},<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[0].exterior));</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">SplitsHostIntoTwo</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">cutout</ref>;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">cutout</ref>.exterior<sp/>=<sp/>{{40,<sp/>0},<sp/>{60,<sp/>0},<sp/>{60,<sp/>100},<sp/>{40,<sp/>100}};</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">cutout</ref>});</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">areas</ref>;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">piece</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(<ref refid="classCoordinate2D" kindref="compound">piece</ref>.holes.empty());</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_GT</ref>(signed_area(<ref refid="classCoordinate2D" kindref="compound">piece</ref>.exterior),<sp/>0.0)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;each<sp/>piece<sp/>exterior<sp/>should<sp/>be<sp/>CCW&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">areas</ref>.push_back(signed_area(<ref refid="classCoordinate2D" kindref="compound">piece</ref>.exterior));</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/>std::sort(<ref refid="classCoordinate2D" kindref="compound">areas</ref>.begin(),<sp/><ref refid="classCoordinate2D" kindref="compound">areas</ref>.end());</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">areas</ref>[0],<sp/>4000.0);<sp/><sp/></highlight><highlight class="comment">//<sp/>40x100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">areas</ref>[1],<sp/>4000.0);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">total_net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>),<sp/>8000.0);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CutoutInsideExistingHole</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref>.holes.push_back(<ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(10,<sp/>10,<sp/>80).exterior);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/>normalize_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cutout</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(30,<sp/>30,<sp/>20);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">cutout</ref>});</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_hole_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0].holes[0],<sp/>6400.0);<sp/><sp/></highlight><highlight class="comment">//<sp/>80x80<sp/>walk<sp/>ring<sp/>unchanged</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0]),<sp/>3600.0);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">GreenDonutLeavesForestRing</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cutting<sp/>a<sp/>ring-shaped<sp/>green<sp/>patch<sp/>from<sp/>solid<sp/>forest<sp/>yields<sp/>an<sp/>outer<sp/>white</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>forest<sp/>donut<sp/>(with<sp/>an<sp/>inner<sp/>hole)<sp/>plus<sp/>a<sp/>separate<sp/>inner<sp/>forest<sp/>island.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">green</ref>;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">green</ref>.exterior<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(20,<sp/>20,<sp/>60).exterior;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">green</ref>.holes.push_back(<ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(30,<sp/>30,<sp/>40).exterior);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/>normalize_polygon(<ref refid="classCoordinate2D" kindref="compound">green</ref>);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">green_area</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">green</ref>);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">green</ref>});</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">outer_donut</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">inner_island</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">piece</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">piece</ref>.holes.empty())<sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">outer_donut</ref><sp/>=<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">piece</ref>;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">inner_island</ref><sp/>=<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">piece</ref>;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_NE</ref>(<ref refid="classCoordinate2D" kindref="compound">outer_donut</ref>,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_NE</ref>(<ref refid="classCoordinate2D" kindref="compound">inner_island</ref>,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(*<ref refid="classCoordinate2D" kindref="compound">outer_donut</ref>,<sp/>10000.0);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">outer_donut</ref>-&gt;holes.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_hole_area</ref>(<ref refid="classCoordinate2D" kindref="compound">outer_donut</ref>-&gt;holes[0],<sp/>3600.0);<sp/><sp/></highlight><highlight class="comment">//<sp/>60x60<sp/>hole<sp/>left<sp/>by<sp/>green<sp/>outer<sp/>ring</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(*<ref refid="classCoordinate2D" kindref="compound">inner_island</ref>,<sp/>1600.0);<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>40x40<sp/>forest<sp/>inside<sp/>green<sp/>hole</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">total_net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>),<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">host</ref>)<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">green_area</ref>);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(point_in_ring({5,<sp/>5},<sp/><ref refid="classCoordinate2D" kindref="compound">outer_donut</ref>-&gt;exterior));</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(point_in_ring({35,<sp/>35},<sp/><ref refid="classCoordinate2D" kindref="compound">outer_donut</ref>-&gt;holes[0]));</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(point_in_ring({35,<sp/>35},<sp/><ref refid="classCoordinate2D" kindref="compound">inner_island</ref>-&gt;exterior));</highlight></codeline>
+<codeline lineno="292"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">SubtractPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">NetAreaConservedAcrossOperations</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">walk</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(20,<sp/>20,<sp/>30);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">fight</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(60,<sp/>60,<sp/>10);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">expected</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">host</ref>)<sp/>-<sp/>900.0<sp/>-<sp/>100.0;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>subtract_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>{<ref refid="classCoordinate2D" kindref="compound">walk</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">fight</ref>});</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">total_net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>),<sp/><ref refid="classCoordinate2D" kindref="compound">expected</ref>);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">IntersectPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ClipsExteriorToExtent</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref><sp/>=<sp/>polygon_from_extent({50.0,<sp/>100.0,<sp/>0.0,<sp/>100.0});</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>intersect_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>5000.0);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">p</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>[0].exterior)<sp/>{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_GE</ref>(<ref refid="classCoordinate2D" kindref="compound">p</ref>.x(),<sp/>50.0<sp/>-<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-9);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_LE</ref>(<ref refid="classCoordinate2D" kindref="compound">p</ref>.x(),<sp/>100.0<sp/>+<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-9);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">IntersectPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">RemovesPolygonOutsideExtent</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>10);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref><sp/>=<sp/>polygon_from_extent({20.0,<sp/>30.0,<sp/>0.0,<sp/>10.0});</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_TRUE</ref>(intersect_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>).<ref refid="classCoordinate2D" kindref="compound">empty</ref>());</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">IntersectPolygon</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ClipsPolygonWithHole</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref>.holes.push_back(<ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(20,<sp/>20,<sp/>60).exterior);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/>normalize_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref><sp/>=<sp/>polygon_from_extent({50.0,<sp/>100.0,<sp/>0.0,<sp/>100.0});</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>intersect_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_GT</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0]),<sp/>0.0);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_LT</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0]),<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">host</ref>));</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ClipPolygonToExtent</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">MatchesGeosClipForSquare</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref><sp/>bounds{50.0,<sp/>100.0,<sp/>0.0,<sp/>100.0};</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">fast</ref><sp/>=<sp/>clip_polygon_to_extent(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>bounds);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">fast</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">fast</ref>[0],<sp/>5000.0);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">geos</ref><sp/>=<sp/>intersect_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>polygon_from_extent(bounds));</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">geos</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">fast</ref>[0]),<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">geos</ref>[0]),<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-6);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ClipPolygonToExtent</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ClipsPolygonWithHole</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref>.holes.push_back(<ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(20,<sp/>20,<sp/>60).exterior);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/>normalize_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref><sp/>bounds{50.0,<sp/>100.0,<sp/>0.0,<sp/>100.0};</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">clipped</ref><sp/>=<sp/>clip_polygon_to_extent(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>bounds);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_GT</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>[0]),<sp/>0.0);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_LT</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>[0]),<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">host</ref>));</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>[0]),</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(intersect_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>polygon_from_extent(bounds))[0]),<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-6);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">ClipPolygonToExtent</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">BisectedDonutDropsHole</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Clip<sp/>through<sp/>the<sp/>hole:<sp/>the<sp/>cut<sp/>edge<sp/>should<sp/>become<sp/>exterior<sp/>boundary,<sp/>not<sp/>a<sp/>hole.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">host</ref>.holes.push_back(<ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(40,<sp/>40,<sp/>20).exterior);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/>normalize_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref><sp/>bounds{0.0,<sp/>50.0,<sp/>0.0,<sp/>100.0};</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">clipped</ref><sp/>=<sp/>clip_polygon_to_extent(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>bounds);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>[0].holes.size(),<sp/>0<ref refid="classCoordinate2D" kindref="compound">u</ref>);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">geos</ref><sp/>=<sp/>intersect_polygon(<ref refid="classCoordinate2D" kindref="compound">host</ref>,<sp/>polygon_from_extent(bounds));</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">geos</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">geos</ref>[0].holes.size(),<sp/>0<ref refid="classCoordinate2D" kindref="compound">u</ref>);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_NEAR</ref>(<ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>[0]),<sp/><ref refid="classCoordinate2D" kindref="compound">net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">geos</ref>[0]),<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-6);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">UnionOverlappingPolygons</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">MergesOverlappingPolygons</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">left</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>10);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">right</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(5,<sp/>0,<sp/>10);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>union_overlapping_polygons({<ref refid="classCoordinate2D" kindref="compound">left</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">right</ref>});</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>150.0);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">UnionOverlappingPolygons</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">MergesTouchingEdges</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">left</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>10);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">right</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(10,<sp/>0,<sp/>10);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>union_overlapping_polygons({<ref refid="classCoordinate2D" kindref="compound">left</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">right</ref>});</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ASSERT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">expect_exterior_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>[0],<sp/>200.0);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal">TEST(<ref refid="classCoordinate2D" kindref="compound">UnionOverlappingPolygons</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">KeepsDisjointSeparate</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">left</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(0,<sp/>0,<sp/>10);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">right</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ccw_square</ref>(20,<sp/>0,<sp/>10);</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>union_overlapping_polygons({<ref refid="classCoordinate2D" kindref="compound">left</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">right</ref>});</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">total_net_area</ref>(<ref refid="classCoordinate2D" kindref="compound">result</ref>),<sp/>200.0);</highlight></codeline>
+<codeline lineno="405"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp"/>
+  </compounddef>
+</doxygen>

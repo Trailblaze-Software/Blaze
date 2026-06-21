@@ -941,6 +941,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#q" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        q
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#r" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1123,6 +1134,8 @@
 <li><strong>child</strong> (<a href="../classProgressObserver/"><strong>ProgressObserver</strong></a>)</li>
 <li><strong>clone</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
 <li><strong>config_from_catchment</strong> (<a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a>)</li>
+<li><strong>cell_coord</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
+<li><strong>cell_key</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
 </ul>
 <h2 id="d">d</h2>
 <ul>
@@ -1145,10 +1158,14 @@
 <ul>
 <li><strong>Extent3D</strong> (<a href="../structExtent3D/"><strong>Extent3D</strong></a>)</li>
 <li><strong>ensure_initialized</strong> (<a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>)</li>
+<li><strong>ensure_data_fields</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
+<li><strong>ensure_field</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
+<li><strong>ensure_transaction</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>extent</strong> (<a href="../classGeo/"><strong>Geo</strong></a>, <a href="../classLASLayer/"><strong>LASLayer</strong></a>, <a href="../classLayer/"><strong>Layer</strong></a>)</li>
 <li><strong>end</strong> (<a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a>)</li>
 <li><strong>extract_borders</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>export_bounds</strong> (<a href="../classLASFile/"><strong>LASFile</strong></a>)</li>
+<li><strong>ExtentSpatialIndex</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
 </ul>
 <h2 id="f">f</h2>
 <ul>
@@ -1160,6 +1177,7 @@
 <li><strong>find_up_down</strong> (<a href="../classContourPoint/"><strong>ContourPoint</strong></a>)</li>
 <li><strong>FlexGrid</strong> (<a href="../classFlexGrid/"><strong>FlexGrid</strong></a>)</li>
 <li><strong>fill_from</strong> (<a href="../classFlexGrid/"><strong>FlexGrid</strong></a>, <a href="../classGeo/"><strong>Geo</strong></a>, <a href="../classGrid/"><strong>Grid</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>)</li>
+<li><strong>field_type_for</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>FromGeoImg</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
 <li><strong>FromPoints</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
 <li><strong>fill</strong> (<a href="../classGrid/"><strong>Grid</strong></a>)</li>
@@ -1183,6 +1201,7 @@
 <li><strong>GDALInitializer</strong> (<a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>)</li>
 <li><strong>GLWidget</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>GPKGWriter</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
+<li><strong>get_or_create_layer</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>Geo</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
 <li><strong>GeoGridData</strong> (<a href="../classGeoGridData/"><strong>GeoGridData</strong></a>)</li>
 <li><strong>GeoImgGrid</strong> (<a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a>)</li>
@@ -1217,7 +1236,7 @@
 <li><strong>initializeGL</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
 <li><strong>in_bounds</strong> (<a href="../classGridData/"><strong>GridData</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>)</li>
 <li><strong>ImgGrid</strong> (<a href="../classImgGrid/"><strong>ImgGrid</strong></a>)</li>
-<li><strong>insert</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
+<li><strong>insert</strong> (<a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
 <li><strong>intensity_range</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>intensity</strong> (<a href="../classLASPoint/"><strong>LASPoint</strong></a>)</li>
 </ul>
@@ -1276,7 +1295,7 @@
 <h2 id="o">o</h2>
 <ul>
 <li><strong>operator bool</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>)</li>
-<li><strong>operator=</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>, <a href="../classColor/"><strong>Color</strong></a>, <a href="../structConfig/"><strong>Config</strong></a>, <a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>)</li>
+<li><strong>operator=</strong> (<a href="../structBlazeBool/"><strong>BlazeBool</strong></a>, <a href="../classColor/"><strong>Color</strong></a>, <a href="../structConfig/"><strong>Config</strong></a>, <a href="../classGDALInitializer/"><strong>GDALInitializer</strong></a>, <a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>)</li>
 <li><strong>operator*</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>)</li>
 <li><strong>operator+</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>)</li>
 <li><strong>operator[]</strong> (<a href="../classCMYKColor/"><strong>CMYKColor</strong></a>, <a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>, <a href="../classFlexGrid/"><strong>FlexGrid</strong></a>, <a href="../classGrid/"><strong>Grid</strong></a>, <a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>, <a href="../classMultiBand/"><strong>MultiBand</strong></a>, <a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
@@ -1314,6 +1333,8 @@
 <li><strong>push_back</strong> (<a href="../classContour/"><strong>Contour</strong></a>, <a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>pick_from_height</strong> (<a href="../structContourConfigs/"><strong>ContourConfigs</strong></a>)</li>
 <li><strong>paintGL</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
+<li><strong>populate_ring</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
+<li><strong>pad</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
 <li><strong>projection</strong> (<a href="../classGeoGridData/"><strong>GeoGridData</strong></a>, <a href="../classLASFile/"><strong>LASFile</strong></a>, <a href="../classLASLayer/"><strong>LASLayer</strong></a>, <a href="../classLayer/"><strong>Layer</strong></a>)</li>
 <li><strong>pixel_to_projection</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
 <li><strong>projection_to_pixel</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
@@ -1323,6 +1344,10 @@
 <li><strong>proportion</strong> (<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>)</li>
 <li><strong>ProgressTrackerBar</strong> (<a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>)</li>
 <li><strong>pick_from_blocked_proportion</strong> (<a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
+</ul>
+<h2 id="q">q</h2>
+<ul>
+<li><strong>query</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
 </ul>
 <h2 id="r">r</h2>
 <ul>
@@ -1338,6 +1363,7 @@
 <li><strong>rot_y</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
 <li><strong>read_points</strong> (<a href="../classLASData/"><strong>LASData</strong></a>)</li>
 <li><strong>render</strong> (<a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>, <a href="../classLayerRenderer/"><strong>LayerRenderer</strong></a>)</li>
+<li><strong>report_parallel_progress</strong> (<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>)</li>
 <li><strong>RGBColor</strong> (<a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>raise</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
 <li><strong>required</strong> (<a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a>)</li>
@@ -1353,6 +1379,7 @@
 <li><strong>slope</strong> (<a href="../classContourPoint/"><strong>ContourPoint</strong></a>)</li>
 <li><strong>SetUpTestSuite</strong> (<a href="../classE2ETerrainTest/"><strong>E2ETerrainTest</strong></a>)</li>
 <li><strong>sizeHint</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
+<li><strong>set_data_fields</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>slice</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
 <li><strong>save_to</strong> (<a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a>, <a href="../classImgGrid/"><strong>ImgGrid</strong></a>)</li>
 <li><strong>set_dx</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
@@ -1376,7 +1403,6 @@
 <li><strong>text_update</strong> (<a href="../classProgressBar/"><strong>ProgressBar</strong></a>, <a href="../classProgressBox/"><strong>ProgressBox</strong></a>, <a href="../classProgressObserver/"><strong>ProgressObserver</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>, <a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>)</li>
 <li><strong>toScalar</strong> (<a href="../classRGBColor/"><strong>RGBColor</strong></a>)</li>
 <li><strong>TaskException</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
-<li><strong>TestGrid</strong> (<a href="../classTestGrid/"><strong>TestGrid</strong></a>)</li>
 <li><strong>TimeFunction</strong> (<a href="../classTimeFunction/"><strong>TimeFunction</strong></a>)</li>
 <li><strong>Timer</strong> (<a href="../classTimer/"><strong>Timer</strong></a>)</li>
 <li><strong>to_json</strong> (<a href="../structnlohmann_1_1adl__serializer_3_01BlockingThresholdColorPair_01_4/"><strong>nlohmann::adl_serializer&lt; BlockingThresholdColorPair &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4/"><strong>nlohmann::adl_serializer&lt; BuildingsConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4/"><strong>nlohmann::adl_serializer&lt; CMYKColor &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4/"><strong>nlohmann::adl_serializer&lt; CanopyConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01ColorVariant_01_4/"><strong>nlohmann::adl_serializer&lt; ColorVariant &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01ContourConfig_01_4/"><strong>nlohmann::adl_serializer&lt; ContourConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01ContourConfigs_01_4/"><strong>nlohmann::adl_serializer&lt; ContourConfigs &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01GridConfig_01_4/"><strong>nlohmann::adl_serializer&lt; GridConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01GroundConfig_01_4/"><strong>nlohmann::adl_serializer&lt; GroundConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01RGBColor_01_4/"><strong>nlohmann::adl_serializer&lt; RGBColor &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01RenderConfig_01_4/"><strong>nlohmann::adl_serializer&lt; RenderConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4/"><strong>nlohmann::adl_serializer&lt; VegeConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4/"><strong>nlohmann::adl_serializer&lt; VegeHeightConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01WaterConfig_01_4/"><strong>nlohmann::adl_serializer&lt; WaterConfig &gt;</strong></a>, <a href="../structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4/"><strong>nlohmann::adl_serializer&lt; WaterConfigs &gt;</strong></a>)</li>
@@ -1386,7 +1412,8 @@
 <li><strong>unproject</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>up</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
 <li><strong>update_las_stats</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
-<li><strong>update_progress</strong> (<a href="../classProgressBar/"><strong>ProgressBar</strong></a>, <a href="../classProgressBox/"><strong>ProgressBox</strong></a>, <a href="../classProgressObserver/"><strong>ProgressObserver</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>, <a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>)</li>
+<li><strong>update_progress</strong> (<a href="../classProgressBar/"><strong>ProgressBar</strong></a>, <a href="../classProgressBox/"><strong>ProgressBox</strong></a>, <a href="../classProgressObserver/"><strong>ProgressObserver</strong></a>, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>, <a href="../classProgressTrackerBar/"><strong>ProgressTrackerBar</strong></a>, <a href="../classRecordingProgressBar/"><strong>RecordingProgressBar</strong></a>)</li>
+<li><strong>updates</strong> (<a href="../classRecordingProgressBar/"><strong>RecordingProgressBar</strong></a>)</li>
 </ul>
 <h2 id="v">v</h2>
 <ul>
@@ -1403,6 +1430,8 @@
 <li><strong>write_to_file</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>wrap_tabs_in_scroll_areas</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>wheelEvent</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
+<li><strong>write_feature</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
+<li><strong>write_polygon</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>write_polyline</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>width_m</strong> (<a href="../classGeo/"><strong>Geo</strong></a>)</li>
 <li><strong>with_new_resolution</strong> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>)</li>
@@ -1431,6 +1460,7 @@
 <li><strong>~ConfigEditor</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>~GDALDataset_w</strong> (<a href="../classGDALDataset__w/"><strong>GDALDataset_w</strong></a>)</li>
 <li><strong>~GLWidget</strong> (<a href="../classGLWidget/"><strong>GLWidget</strong></a>)</li>
+<li><strong>~GPKGWriter</strong> (<a href="../classGPKGWriter/"><strong>GPKGWriter</strong></a>)</li>
 <li><strong>~ImgGrid</strong> (<a href="../classImgGrid/"><strong>ImgGrid</strong></a>)</li>
 <li><strong>~LASLayerRenderer</strong> (<a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a>)</li>
 <li><strong>~Layer</strong> (<a href="../classLayer/"><strong>Layer</strong></a>)</li>

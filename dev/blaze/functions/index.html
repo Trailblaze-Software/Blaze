@@ -1352,10 +1352,17 @@
 <li><strong>color_equals</strong> (<a href="../config__editor_8cpp/"><strong>config_editor.cpp</strong></a>)</li>
 <li><strong>create_color_icon</strong> (<a href="../config__editor_8cpp/"><strong>config_editor.cpp</strong></a>)</li>
 <li><strong>crosses_contour</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
+<li><strong>clip_polygon_hole_free_to_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>clip_polygon_to_extent</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>coord</strong> (<a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>)</li>
+<li><strong>combine_gpkgs</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
+<li><strong>copy_gpkg_feature</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
+<li><strong>copy_gpkg_layer</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>convert_geo_keys_to_wkt</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>copy_from</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>compute_tiles</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
+<li><strong>combine_vege_gpkgs</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
+<li><strong>contours_to_polygons</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>catchment_size</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>)</li>
 <li><strong>create_minimal_test_config</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 <li><strong>create_synthetic_las_data</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
@@ -1371,12 +1378,18 @@
 </ul>
 <h2 id="e">e</h2>
 <ul>
+<li><strong>extent_contains</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>ensure_gdal_initialized</strong> (<a href="../gdal__init_8hpp/"><strong>gdal_init.hpp</strong></a>)</li>
+<li><strong>ensure_dst_layer_fields</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>external_border_ranges</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>extract_borders</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
+<li><strong>extract_threshold_layers</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 </ul>
 <h2 id="f">f</h2>
 <ul>
+<li><strong>forest_contours_polygonize</strong> (<a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>)</li>
+<li><strong>filter_by_min_area</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
+<li><strong>filter_small_holes</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>fill_depressions</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>, <a href="../water_8hpp/"><strong>water.hpp</strong></a>)</li>
 <li><strong>flows_to</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>)</li>
 </ul>
@@ -1385,11 +1398,15 @@
 <li><strong>get_color_name</strong> (<a href="../config__editor_8cpp/"><strong>config_editor.cpp</strong></a>)</li>
 <li><strong>get_contour_heights</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
 <li><strong>generate_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
+<li><strong>generate_contours_at_heights</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
 <li><strong>generate_naive_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
+<li><strong>get_or_create_dst_layer</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
+<li><strong>gpkg_feature_count</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>gdal_type</strong> (<a href="../tif_8cpp/"><strong>tif.cpp</strong></a>)</li>
 <li><strong>get_asset_dir</strong> (<a href="../resources_8cpp/"><strong>resources.cpp</strong></a>)</li>
 <li><strong>get_local_data_dir</strong> (<a href="../resources_8cpp/"><strong>resources.cpp</strong></a>)</li>
 <li><strong>get_blocked_proportion</strong> (<a href="../vegetation_8hpp/"><strong>vegetation.hpp</strong></a>)</li>
+<li><strong>generate_vege_polygons</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>get_wgs84_wkt</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 <li><strong>get_pixel_heights</strong> (<a href="../process_8cpp/"><strong>process.cpp</strong></a>)</li>
 </ul>
@@ -1402,6 +1419,10 @@
 <ul>
 <li><strong>interpolate_coordinates</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
 <li><strong>identify_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
+<li><strong>identify_contours_at_heights</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
+<li><strong>intersect_polygons</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>is_left_of</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>intersect_polygon</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>interpolate_value</strong> (<a href="../grid_8cpp/"><strong>grid.cpp</strong></a>, <a href="../grid_8hpp/"><strong>grid.hpp</strong></a>)</li>
 <li><strong>interpolate_holes</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>identify_sinks</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>, <a href="../water_8hpp/"><strong>water.hpp</strong></a>)</li>
@@ -1416,17 +1437,17 @@
 <ul>
 <li><strong>load_input_extents</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>low_pass</strong> (<a href="../vegetation_8hpp/"><strong>vegetation.hpp</strong></a>)</li>
+<li><strong>layer_number</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 </ul>
 <h2 id="m">m</h2>
 <ul>
 <li><strong>main</strong> (<a href="../main_8cpp/"><strong>main.cpp</strong></a>, <a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>, <a href="../blaze_8cpp/"><strong>blaze.cpp</strong></a>, <a href="../unit__tests_8cpp/"><strong>unit_tests.cpp</strong></a>)</li>
 <li><strong>make_projection_from_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>make_coord_transform</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
-<li><strong>make_float_grid</strong> (<a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>)</li>
-<li><strong>make_opt_float_grid</strong> (<a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>)</li>
 </ul>
 <h2 id="n">n</h2>
 <ul>
+<li><strong>normalize_polygon</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>num_cells_by_distance</strong> (<a href="../grid_8hpp/"><strong>grid.hpp</strong></a>)</li>
 <li><strong>normalize_crs_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 </ul>
@@ -1437,6 +1458,9 @@
 </ul>
 <h2 id="p">p</h2>
 <ul>
+<li><strong>point_in_ring</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>polygon_from_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>polygon_net_area_m2</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>process_las_data</strong> (<a href="../process_8cpp/"><strong>process.cpp</strong></a>, <a href="../process_8hpp/"><strong>process.hpp</strong></a>)</li>
 <li><strong>process_las_file</strong> (<a href="../process_8cpp/"><strong>process.cpp</strong></a>, <a href="../process_8hpp/"><strong>process.hpp</strong></a>)</li>
 </ul>
@@ -1444,6 +1468,8 @@
 <ul>
 <li><strong>rad2deg</strong> (<a href="../camera_8hpp/"><strong>camera.hpp</strong></a>)</li>
 <li><strong>round_down</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
+<li><strong>reverse_ring</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>ring_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>remove_outliers</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>read_gpkg</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>reader_embedded_wkt</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
@@ -1453,14 +1479,20 @@
 <li><strong>reproject_extent</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>read_tif</strong> (<a href="../tif_8cpp/"><strong>tif.cpp</strong></a>, <a href="../tif_8hpp/"><strong>tif.hpp</strong></a>)</li>
 <li><strong>run_loop</strong> (<a href="../progress__tracker__helper_8cpp/"><strong>progress_tracker_helper.cpp</strong></a>, <a href="../progress__tracker_8hpp/"><strong>progress_tracker.hpp</strong></a>)</li>
+<li><strong>read_vege_polygons</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>read_byte_tif_pixels</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 <li><strong>run_with_config</strong> (<a href="../run_8cpp/"><strong>run.cpp</strong></a>, <a href="../run_8hpp/"><strong>run.hpp</strong></a>)</li>
 </ul>
 <h2 id="s">s</h2>
 <ul>
+<li><strong>segment_intersection</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>signed_area</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>subtract_polygon</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
+<li><strong>subtract_polygon_with_union</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>same_type_different_size</strong> (<a href="../grid_8cpp/"><strong>grid.cpp</strong></a>)</li>
 <li><strong>snap_down</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>snap_up</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
+<li><strong>subtract_from_polygon</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>slope</strong> (<a href="../hill__shade_8hpp/"><strong>hill_shade.hpp</strong></a>)</li>
 <li><strong>smoothify</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>)</li>
 <li><strong>stream_path</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>)</li>
@@ -1469,18 +1501,21 @@
 </ul>
 <h2 id="t">t</h2>
 <ul>
-<li><strong>TEST</strong> (<a href="../test__config__lookup_8cpp/"><strong>test_config_lookup.cpp</strong></a>, <a href="../test__config__paths_8cpp/"><strong>test_config_paths.cpp</strong></a>, <a href="../test__contour__gen_8cpp/"><strong>test_contour_gen.cpp</strong></a>, <a href="../test__contour__ops_8cpp/"><strong>test_contour_ops.cpp</strong></a>, <a href="../test__contour__utils_8cpp/"><strong>test_contour_utils.cpp</strong></a>, <a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>, <a href="../test__grid__ops_8cpp/"><strong>test_grid_ops.cpp</strong></a>, <a href="../test__gpkg_8cpp/"><strong>test_gpkg.cpp</strong></a>, <a href="../test__colors_8cpp/"><strong>test_colors.cpp</strong></a>, <a href="../test__las__file_8cpp/"><strong>test_las_file.cpp</strong></a>, <a href="../test__las__point_8cpp/"><strong>test_las_point.cpp</strong></a>, <a href="../test__coordinate_8cpp/"><strong>test_coordinate.cpp</strong></a>, <a href="../test__progress__tracker_8cpp/"><strong>test_progress_tracker.cpp</strong></a>, <a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>, <a href="../test__water_8cpp/"><strong>test_water.cpp</strong></a>, <a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>, <a href="../test__process_8cpp/"><strong>test_process.cpp</strong></a>)</li>
+<li><strong>TEST</strong> (<a href="../test__config__lookup_8cpp/"><strong>test_config_lookup.cpp</strong></a>, <a href="../test__config__paths_8cpp/"><strong>test_config_paths.cpp</strong></a>, <a href="../test__contour__gen_8cpp/"><strong>test_contour_gen.cpp</strong></a>, <a href="../test__contour__ops_8cpp/"><strong>test_contour_ops.cpp</strong></a>, <a href="../test__contour__utils_8cpp/"><strong>test_contour_utils.cpp</strong></a>, <a href="../test__polygon_8cpp/"><strong>test_polygon.cpp</strong></a>, <a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>, <a href="../test__grid__ops_8cpp/"><strong>test_grid_ops.cpp</strong></a>, <a href="../test__gpkg_8cpp/"><strong>test_gpkg.cpp</strong></a>, <a href="../test__colors_8cpp/"><strong>test_colors.cpp</strong></a>, <a href="../test__las__file_8cpp/"><strong>test_las_file.cpp</strong></a>, <a href="../test__las__point_8cpp/"><strong>test_las_point.cpp</strong></a>, <a href="../test__coordinate_8cpp/"><strong>test_coordinate.cpp</strong></a>, <a href="../test__progress__tracker_8cpp/"><strong>test_progress_tracker.cpp</strong></a>, <a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>, <a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>, <a href="../test__water_8cpp/"><strong>test_water.cpp</strong></a>, <a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>, <a href="../test__process_8cpp/"><strong>test_process.cpp</strong></a>)</li>
 <li><strong>trim_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
 <li><strong>try_user_crs_to_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>to_cmyk</strong> (<a href="../colors_8hpp/"><strong>colors.hpp</strong></a>)</li>
 <li><strong>to_rgb</strong> (<a href="../colors_8hpp/"><strong>colors.hpp</strong></a>)</li>
 <li><strong>tiles_per_file</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>to_string</strong> (<a href="../to__string_8hpp/"><strong>to_string.hpp</strong></a>)</li>
+<li><strong>threshold_layer_name</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
+<li><strong>trim_vege_polygons_to_extent</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>TEST_P</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 </ul>
 <h2 id="u">u</h2>
 <ul>
 <li><strong>unreachable</strong> (<a href="../assert_8hpp/"><strong>assert.hpp</strong></a>)</li>
+<li><strong>union_overlapping_polygons</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>user_crs_to_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>unique_coord_name</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>union_extent</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
@@ -1494,10 +1529,12 @@
 <h2 id="w">w</h2>
 <ul>
 <li><strong>write_to_crt</strong> (<a href="../crt_8hpp/"><strong>crt.hpp</strong></a>)</li>
+<li><strong>write_vegetation_crt</strong> (<a href="../crt_8hpp/"><strong>crt.hpp</strong></a>)</li>
 <li><strong>wkt_matches</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>wkt_parses</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>write_to_image_tif</strong> (<a href="../tif_8cpp/"><strong>tif.cpp</strong></a>, <a href="../tif_8hpp/"><strong>tif.hpp</strong></a>)</li>
 <li><strong>write_to_tif</strong> (<a href="../tif_8cpp/"><strong>tif.cpp</strong></a>, <a href="../tif_8hpp/"><strong>tif.hpp</strong></a>)</li>
+<li><strong>write_vege_polygons_gpkg</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 </ul>
 <h2 id="_">_</h2>
 <ul>

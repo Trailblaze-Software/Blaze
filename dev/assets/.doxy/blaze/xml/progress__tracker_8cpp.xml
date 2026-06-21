@@ -159,39 +159,49 @@
 <codeline lineno="52"><highlight class="normal"><sp/><sp/>_set_proportion(proportion);</highlight></codeline>
 <codeline lineno="53"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ProgressTracker::update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">progress</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/>Assert(m_subtracker_range.has_value());</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/>_set_proportion(m_subtracker_range-&gt;first<sp/>+</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">progress</ref><sp/>*<sp/>(m_subtracker_range-&gt;second<sp/>-<sp/>m_subtracker_range-&gt;first));</highlight></codeline>
-<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ProgressTracker::text_update(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">text</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">depth</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_observer<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>m_observer-&gt;text_update(<ref refid="classCoordinate2D" kindref="compound">text</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">depth</ref><sp/>+<sp/>1);</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>ProgressTracker::subtracker(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>start,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>end)<sp/>{</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>set_proportion(start);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>AssertGE(end,<sp/>start);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/>AssertGE(1,<sp/>end);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/>m_subtracker_range<sp/>=<sp/>std::make_pair(start,<sp/>end);</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">to_return</ref>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/>m_child<sp/>=<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">to_return</ref>;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>m_child-&gt;_set_proportion(0);</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">to_return</ref>;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal">ProgressTracker::~ProgressTracker()<sp/>{</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/>_set_proportion(1);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_observer<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>m_observer-&gt;m_child<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">ptr</ref><sp/>=<sp/></highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m_observer);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">ptr</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ptr</ref>-&gt;m_subtracker_range.reset();</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ProgressTracker::report_parallel_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>proportion)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>Assert(!m_subtracker_range.has_value());</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>critical(blaze_progress_tracker)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(proportion<sp/>&gt;<sp/>m_proportion)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_set_proportion(proportion);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ProgressTracker::update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">progress</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>Assert(m_subtracker_range.has_value());</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>_set_proportion(m_subtracker_range-&gt;first<sp/>+</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">progress</ref><sp/>*<sp/>(m_subtracker_range-&gt;second<sp/>-<sp/>m_subtracker_range-&gt;first));</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ProgressTracker::text_update(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">text</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">depth</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_observer<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>m_observer-&gt;text_update(<ref refid="classCoordinate2D" kindref="compound">text</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">depth</ref><sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>ProgressTracker::subtracker(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>start,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>end)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>set_proportion(start);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>AssertGE(end,<sp/>start);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>AssertGE(1,<sp/>end);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>m_subtracker_range<sp/>=<sp/>std::make_pair(start,<sp/>end);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">to_return</ref>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>m_child<sp/>=<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">to_return</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>m_child-&gt;_set_proportion(0);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">to_return</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">ProgressTracker::~ProgressTracker()<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>_set_proportion(1);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_observer<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>m_observer-&gt;m_child<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">ptr</ref><sp/>=<sp/></highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m_observer);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">ptr</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ptr</ref>-&gt;m_subtracker_range.reset();</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp"/>
   </compounddef>

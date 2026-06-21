@@ -78,6 +78,7 @@ Inherits the following classes: [ProgressObserver](classProgressObserver.md)
 |  [**ProgressTracker**](classProgressTracker.md) & | [**operator=**](#function-operator) ([**const**](classCoordinate2D.md) [**ProgressTracker**](classProgressTracker.md) & other) = delete<br> |
 |  [**ProgressTracker**](classProgressTracker.md) & | [**operator=**](#function-operator_1) ([**ProgressTracker**](classProgressTracker.md) && other) = delete<br> |
 |  [**double**](classCoordinate2D.md) | [**proportion**](#function-proportion) () const<br> |
+|  [**void**](classCoordinate2D.md) | [**report\_parallel\_progress**](#function-report_parallel_progress) ([**double**](classCoordinate2D.md) proportion) <br> |
 |  [**void**](classCoordinate2D.md) | [**set\_proportion**](#function-set_proportion) ([**double**](classCoordinate2D.md) proportion) <br> |
 |  [**ProgressTracker**](classProgressTracker.md) | [**subtracker**](#function-subtracker) ([**double**](classCoordinate2D.md) start, [**double**](classCoordinate2D.md) end) <br> |
 | virtual [**void**](classCoordinate2D.md) | [**text\_update**](#function-text_update) ([**const**](classCoordinate2D.md) std::string & text, [**int**](classCoordinate2D.md) depth=0) override<br> |
@@ -244,6 +245,21 @@ ProgressTracker & ProgressTracker::operator= (
 
 ```C++
 inline double ProgressTracker::proportion () const
+```
+
+
+
+
+<hr>
+
+
+
+### function report\_parallel\_progress 
+
+```C++
+void ProgressTracker::report_parallel_progress (
+    double proportion
+) 
 ```
 
 

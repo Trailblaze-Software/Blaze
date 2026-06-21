@@ -102,12 +102,14 @@ See [Geo](classGeo.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Geo**](classGeo.md#function-geo-12) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**Geo**](classGeo.md#function-geo-22) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
+|   | [**Geo**](classGeo.md#function-geo-13) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
+|   | [**Geo**](classGeo.md#function-geo-23) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
+|   | [**Geo**](classGeo.md#function-geo-33) ([**const**](classCoordinate2D.md) std::vector&lt; std::vector&lt; [**U**](classCoordinate2D.md) &gt; &gt; & data, [**GeoTransform**](classGeoTransform.md) transform=[**GeoTransform**](classGeoTransform.md)(), [**GeoProjection**](classGeoProjection.md) projection=[**GeoProjection**](classGeoProjection.md)()) <br> |
 |  std::unique\_ptr&lt; [**Extent2D**](structExtent2D.md) &gt; | [**extent**](classGeo.md#function-extent) () const<br> |
 |  [**void**](classCoordinate2D.md) | [**fill\_from**](classGeo.md#function-fill_from-12) ([**const**](classCoordinate2D.md) [**Geo**](classGeo.md)&lt; [**U**](classCoordinate2D.md) &gt; & other) <br> |
 |  [**void**](classCoordinate2D.md) | [**fill\_from**](classGeo.md#function-fill_from-22) ([**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & other) <br> |
 |  [**double**](classCoordinate2D.md) | [**height\_m**](classGeo.md#function-height_m) () const<br> |
+|  [**Geo**](classGeo.md) | [**pad**](classGeo.md#function-pad) ([**U**](classCoordinate2D.md) pad\_value={}) const<br> |
 |  [**Geo**](classGeo.md) | [**slice**](classGeo.md#function-slice) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & extent) <br> |
 |  [**double**](classCoordinate2D.md) | [**width\_m**](classGeo.md#function-width_m) () const<br> |
 

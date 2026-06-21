@@ -36,8 +36,8 @@
 | Type | Name |
 | ---: | :--- |
 |  std::vector&lt; [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md) &gt; | [**colors**](#variable-colors)  <br> |
-|  [**double**](classCoordinate2D.md) | [**max\_height**](#variable-max_height)  <br> |
-|  [**double**](classCoordinate2D.md) | [**min\_height**](#variable-min_height)  <br> |
+|  [**double**](classCoordinate2D.md) | [**max\_height**](#variable-max_height)   = `100.0`<br> |
+|  [**double**](classCoordinate2D.md) | [**min\_height**](#variable-min_height)   = `2.5`<br> |
 |  std::string | [**name**](#variable-name)  <br> |
 
 

@@ -13,24 +13,12 @@
 #include <cmath>
 #include <limits>
 #include <numbers>
+#include <vector>
 
 #include "las/las_point.hpp"
 #include "lib/grid/grid.hpp"
 #include "methods/hill_shade/hill_shade.hpp"
 #include "process.hpp"
-
-// Helper class to create test grids
-class TestGrid : public GeoGrid<double> {
- public:
-  explicit TestGrid(const std::vector<std::vector<double>>& data)
-      : GeoGrid<double>(data[0].size(), data.size(), GeoTransform(), GeoProjection()) {
-    for (size_t i = 0; i < data.size(); i++) {
-      for (size_t j = 0; j < data[0].size(); j++) {
-        (*this)[{j, i}] = data[i][j];
-      }
-    }
-  }
-};
 
 // Test num_cells_by_distance function
 TEST(Process, NumCellsByDistance) {
@@ -79,11 +67,12 @@ TEST(Process, NumCellsByDistance) {
 
 // A flat surface has zero gradient everywhere, so slope should be 0.
 TEST(Slope, FlatSurface) {
-  TestGrid flat({{10, 10, 10, 10, 10},
-                 {10, 10, 10, 10, 10},
-                 {10, 10, 10, 10, 10},
-                 {10, 10, 10, 10, 10},
-                 {10, 10, 10, 10, 10}});
+  std::vector<std::vector<double>> data = {{10, 10, 10, 10, 10},
+                                           {10, 10, 10, 10, 10},
+                                           {10, 10, 10, 10, 10},
+                                           {10, 10, 10, 10, 10},
+                                           {10, 10, 10, 10, 10}};
+  GeoGrid<double> flat(data);
   auto result = slope(flat);
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {
@@ -95,9 +84,9 @@ TEST(Slope, FlatSurface) {
 
 // A uniform 45-degree slope (rise = run = 1 cell) produces atan(1) = pi/4.
 TEST(Slope, FortyFiveDegreeSlope) {
-  // Height increases by 1 per row (dy = -1, so dz/dy magnitude = 1).
-  TestGrid sloped(
-      {{0, 0, 0, 0, 0}, {1, 1, 1, 1, 1}, {2, 2, 2, 2, 2}, {3, 3, 3, 3, 3}, {4, 4, 4, 4, 4}});
+  std::vector<std::vector<double>> data = {
+      {0, 0, 0, 0, 0}, {1, 1, 1, 1, 1}, {2, 2, 2, 2, 2}, {3, 3, 3, 3, 3}, {4, 4, 4, 4, 4}};
+  GeoGrid<double> sloped(data);
   auto result = slope(sloped);
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {
@@ -109,8 +98,9 @@ TEST(Slope, FortyFiveDegreeSlope) {
 
 // Slope values are always non-negative (range [0, pi/2]).
 TEST(Slope, AlwaysNonNegative) {
-  TestGrid mixed(
-      {{5, 3, 7, 1, 9}, {2, 8, 4, 6, 0}, {9, 1, 5, 3, 7}, {4, 6, 2, 8, 4}, {7, 0, 9, 5, 2}});
+  std::vector<std::vector<double>> data = {
+      {5, 3, 7, 1, 9}, {2, 8, 4, 6, 0}, {9, 1, 5, 3, 7}, {4, 6, 2, 8, 4}, {7, 0, 9, 5, 2}};
+  GeoGrid<double> mixed(data);
   auto result = slope(mixed);
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {
@@ -122,12 +112,12 @@ TEST(Slope, AlwaysNonNegative) {
 
 // Slope values never exceed pi/2 (vertical).
 TEST(Slope, NeverExceedsVertical) {
-  // Extreme height differences to stress-test the upper bound.
-  TestGrid steep({{0, 0, 1e6, 0, 0},
-                  {0, 0, 1e6, 0, 0},
-                  {0, 0, 1e6, 0, 0},
-                  {0, 0, 1e6, 0, 0},
-                  {0, 0, 1e6, 0, 0}});
+  std::vector<std::vector<double>> data = {{0, 0, 1e6, 0, 0},
+                                           {0, 0, 1e6, 0, 0},
+                                           {0, 0, 1e6, 0, 0},
+                                           {0, 0, 1e6, 0, 0},
+                                           {0, 0, 1e6, 0, 0}};
+  GeoGrid<double> steep(data);
   auto result = slope(steep);
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {

@@ -12,6 +12,7 @@
 
 #include <cmath>
 #include <limits>
+#include <vector>
 
 #include "grid/grid.hpp"
 #include "grid/grid_ops.hpp"
@@ -297,6 +298,56 @@ TEST(GridGraph, InBounds) {
   EXPECT_TRUE(graph.in_bounds(LineCoord2D<size_t>(2, 1, Direction2D::DOWN)));
   // Out of bounds vertical edge
   EXPECT_FALSE(graph.in_bounds(LineCoord2D<size_t>(0, 2, Direction2D::DOWN)));
+}
+
+// =============================================================================
+// GeoGrid::pad tests
+// =============================================================================
+
+TEST(GeoGridPad, PadsWithValue) {
+  std::vector<std::vector<float>> data = {{1.0f, 2.0f}, {3.0f, 4.0f}};
+  GeoGrid<float> grid(data);
+
+  for (float pad_value : {0.0f, -1.0f}) {
+    GeoGrid<float> padded = grid.pad(pad_value);
+
+    EXPECT_EQ(padded.width(), 4u);
+    EXPECT_EQ(padded.height(), 4u);
+
+    for (size_t i = 0; i < padded.height(); i++) {
+      for (size_t j = 0; j < padded.width(); j++) {
+        const bool on_border =
+            i == 0 || i == padded.height() - 1 || j == 0 || j == padded.width() - 1;
+        const float actual = padded[coord(j, i)];
+        if (on_border) {
+          EXPECT_FLOAT_EQ(actual, pad_value);
+        } else {
+          EXPECT_FLOAT_EQ(actual, data[i - 1][j - 1]);
+        }
+      }
+    }
+  }
+}
+
+TEST(GeoGridPad, AdjustsGeoTransform) {
+  std::vector<std::vector<float>> data = {{0.5f, 0.6f}, {0.7f, 0.8f}};
+  GeoGrid<float> grid(data, GeoTransform(100.0, 200.0, 10.0, -10.0));
+
+  GeoGrid<float> padded = grid.pad(0.0f);
+
+  EXPECT_DOUBLE_EQ(padded.transform().x(), 100.0 - 10.0);
+  EXPECT_DOUBLE_EQ(padded.transform().y(), 200.0 + 10.0);
+  EXPECT_DOUBLE_EQ(padded.transform().dx(), 10.0);
+  EXPECT_DOUBLE_EQ(padded.transform().dy(), -10.0);
+}
+
+TEST(GeoGridPad, EmptyGrid) {
+  GeoGrid<float> grid(0, 0, GeoTransform(), GeoProjection());
+
+  GeoGrid<float> padded = grid.pad(0.0f);
+
+  EXPECT_EQ(padded.width(), 2u);
+  EXPECT_EQ(padded.height(), 2u);
 }
 ```
 

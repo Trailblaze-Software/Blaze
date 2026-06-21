@@ -30,6 +30,7 @@
 * `#include "utilities/filesystem.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
 * `#include "utilities/timer.hpp"`
+* `#include "vegetation/vegetation_polygon.hpp"`
 
 
 

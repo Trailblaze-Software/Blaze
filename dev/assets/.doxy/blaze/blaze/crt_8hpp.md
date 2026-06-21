@@ -55,6 +55,7 @@
 | Type | Name |
 | ---: | :--- |
 |  [**void**](classCoordinate2D.md) | [**write\_to\_crt**](#function-write_to_crt) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
+|  [**void**](classCoordinate2D.md) | [**write\_vegetation\_crt**](#function-write_vegetation_crt) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
 
 
 
@@ -92,6 +93,21 @@
 
 ```C++
 inline void write_to_crt (
+    const fs::path & filename
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function write\_vegetation\_crt 
+
+```C++
+inline void write_vegetation_crt (
     const fs::path & filename
 ) 
 ```

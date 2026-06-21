@@ -1,0 +1,556 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="polygon_8hpp" kind="file" language="C++">
+    <compoundname>polygon.hpp</compoundname>
+    <includes local="no">cmath</includes>
+    <includes local="no">optional</includes>
+    <includes local="no">vector</includes>
+    <includes refid="assert_8hpp" local="yes">assert/assert.hpp</includes>
+    <includes refid="coordinate_8hpp" local="yes">utilities/coordinate.hpp</includes>
+    <includedby refid="contour__gen_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</includedby>
+    <includedby refid="test__contour__gen_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp</includedby>
+    <includedby refid="polygon__subtract_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp</includedby>
+    <includedby refid="test__polygon_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/geometry/tests/test_polygon.cpp</includedby>
+    <includedby refid="test__vegetation__polygon_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation_polygon.cpp</includedby>
+    <includedby refid="vegetation__polygon_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</includedby>
+    <incdepgraph>
+      <node id="5">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp</label>
+        <link refid="polygon_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>array</label>
+      </node>
+      <node id="2">
+        <label>cmath</label>
+      </node>
+      <node id="7">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="11">
+        <label>iomanip</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="16">
+        <label>limits</label>
+      </node>
+      <node id="12">
+        <label>map</label>
+      </node>
+      <node id="3">
+        <label>optional</label>
+      </node>
+      <node id="17">
+        <label>ostream</label>
+      </node>
+      <node id="13">
+        <label>set</label>
+      </node>
+      <node id="8">
+        <label>sstream</label>
+      </node>
+      <node id="9">
+        <label>string</label>
+      </node>
+      <node id="18">
+        <label>type_traits</label>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
+        <link refid="contour__gen_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp</label>
+        <link refid="polygon_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp</label>
+        <link refid="polygon__subtract_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
+        <link refid="vegetation__polygon_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structPolygonWithHoles" prot="public">PolygonWithHoles</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="polygon_8hpp_1ae67418eebf54c6493b999aea629b25d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double signed_area</definition>
+        <argsstring>(const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;ring)</argsstring>
+        <name>signed_area</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>ring</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="12" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="12" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1a741b1bfb278750e3cd3d82cae6ac0f33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool point_in_ring</definition>
+        <argsstring>(const Coordinate2D&lt; double &gt; &amp;point, const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;ring)</argsstring>
+        <name>point_in_ring</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>point</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>ring</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="24" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="24" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1a69eb84498a8ab57377d6e65153903b81" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt;</type>
+        <definition>std::vector&lt; Coordinate2D&lt; double &gt; &gt; reverse_ring</definition>
+        <argsstring>(const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;ring)</argsstring>
+        <name>reverse_ring</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>ring</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="41" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1ad4c474da365490816fa9fdf30a105f1d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref></type>
+        <definition>PolygonWithHoles polygon_from_extent</definition>
+        <argsstring>(const Extent2D &amp;extent)</argsstring>
+        <name>polygon_from_extent</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="52" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="52" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1a4fb64175d027474e1da0581c8d768be4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent2D" kindref="compound">Extent2D</ref></type>
+        <definition>Extent2D ring_extent</definition>
+        <argsstring>(const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;ring)</argsstring>
+        <name>ring_extent</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>ring</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="61" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="61" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1aa11f6aa6a8c0ec048a428102befbcc0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool extent_contains</definition>
+        <argsstring>(const Extent2D &amp;outer, const Extent2D &amp;inner)</argsstring>
+        <name>extent_contains</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>outer</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>inner</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="69" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="69" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1a8302e3c1d7a25857121ef8da1fc5139b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void normalize_polygon</definition>
+        <argsstring>(PolygonWithHoles &amp;poly)</argsstring>
+        <name>normalize_polygon</name>
+        <param>
+          <type><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="75" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="75" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1aca273f3313d0016331725e7348b42de9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool segment_intersection</definition>
+        <argsstring>(const Coordinate2D&lt; double &gt; &amp;a1, const Coordinate2D&lt; double &gt; &amp;a2, const Coordinate2D&lt; double &gt; &amp;b1, const Coordinate2D&lt; double &gt; &amp;b2, Coordinate2D&lt; double &gt; &amp;out)</argsstring>
+        <name>segment_intersection</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>a1</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>a2</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>b1</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>b2</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="90" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="90" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1ad4f62fca1c00a22e650bd70f9575582a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <definition>bool is_left_of</definition>
+        <argsstring>(const Coordinate2D&lt; double &gt; &amp;from, const Coordinate2D&lt; double &gt; &amp;to, const Coordinate2D&lt; double &gt; &amp;point)</argsstring>
+        <name>is_left_of</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <declname>point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="106" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="106" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1a3b746ac69c93330873ad4faf78c54274" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt;</type>
+        <definition>std::vector&lt; Coordinate2D&lt; double &gt; &gt; intersect_polygons</definition>
+        <argsstring>(const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;subject, const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;clip)</argsstring>
+        <name>intersect_polygons</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>subject</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>clip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="114" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="114" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon_8hpp_1ae75cc2595d389f2db101f85390e07c86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &gt;</type>
+        <definition>std::vector&lt; PolygonWithHoles &gt; clip_polygon_hole_free_to_extent</definition>
+        <argsstring>(const PolygonWithHoles &amp;poly, const Extent2D &amp;bounds)</argsstring>
+        <name>clip_polygon_hole_free_to_extent</name>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>bounds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" line="151" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp" bodystart="151" bodyend="164"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;optional&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/coordinate.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Compute<sp/>the<sp/>signed<sp/>area<sp/>of<sp/>a<sp/>polygon<sp/>ring<sp/>using<sp/>the<sp/>shoelace<sp/>formula.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Returns<sp/>positive<sp/>for<sp/>CCW<sp/>orientation,<sp/>negative<sp/>for<sp/>CW.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>signed_area(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">ring</ref>.size()<sp/>&lt;<sp/>3)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.0;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>.size();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>+<sp/>1)<sp/>%<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>.size();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>+=<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].x()<sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">j</ref>].y();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>-=<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">j</ref>].x()<sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].y();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">area</ref><sp/>*<sp/>0.5;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Determine<sp/>if<sp/>a<sp/>point<sp/>is<sp/>inside<sp/>a<sp/>polygon<sp/>ring<sp/>(ray<sp/>casting<sp/>algorithm).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>point_in_ring(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">ring</ref>.size()<sp/>&lt;<sp/>3)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">inside</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">n</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>.size();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">n</ref><sp/>-<sp/>1;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">n</ref>;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">xi</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].x(),<sp/><ref refid="classCoordinate2D" kindref="compound">yi</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>].y();</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">xj</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">j</ref>].x(),<sp/><ref refid="classCoordinate2D" kindref="compound">yj</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>[<ref refid="classCoordinate2D" kindref="compound">j</ref>].y();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((<ref refid="classCoordinate2D" kindref="compound">yi</ref><sp/>&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.y())<sp/>!=<sp/>(<ref refid="classCoordinate2D" kindref="compound">yj</ref><sp/>&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>.y()))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="classCoordinate2D" kindref="compound">point</ref>.x()<sp/>&lt;<sp/>(<ref refid="classCoordinate2D" kindref="compound">xj</ref><sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">xi</ref>)<sp/>*<sp/>(<ref refid="classCoordinate2D" kindref="compound">point</ref>.y()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">yi</ref>)<sp/>/<sp/>(<ref refid="classCoordinate2D" kindref="compound">yj</ref><sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">yi</ref>)<sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">xi</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">inside</ref><sp/>=<sp/>!<ref refid="classCoordinate2D" kindref="compound">inside</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">inside</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Reverse<sp/>a<sp/>ring&apos;s<sp/>point<sp/>order<sp/>(CW<sp/>↔<sp/>CCW).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/>reverse_ring(</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{<ref refid="classCoordinate2D" kindref="compound">ring</ref>.rbegin(),<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>.rend()};</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="structPolygonWithHoles" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/>exterior;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;Coordinate2D&lt;double&gt;&gt;&gt;<sp/>holes;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CCW<sp/>axis-aligned<sp/>rectangle<sp/>from<sp/>an<sp/>extent<sp/>(for<sp/>clipping/intersection).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/>polygon_from_extent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{{{extent.minx,<sp/>extent.miny},</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{extent.maxx,<sp/>extent.miny},</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{extent.maxx,<sp/>extent.maxy},</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{extent.minx,<sp/>extent.maxy},</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{extent.minx,<sp/>extent.miny}},</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{}};</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref><sp/>ring_extent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref><sp/><ref refid="classCoordinate2D" kindref="compound">ext</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">p</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">ring</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ext</ref>.grow({<ref refid="classCoordinate2D" kindref="compound">p</ref>.x(),<sp/><ref refid="classCoordinate2D" kindref="compound">p</ref>.x(),<sp/><ref refid="classCoordinate2D" kindref="compound">p</ref>.y(),<sp/><ref refid="classCoordinate2D" kindref="compound">p</ref>.y()});</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">ext</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>extent_contains(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">outer</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">inner</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">outer</ref>.minx<sp/>&lt;=<sp/><ref refid="classCoordinate2D" kindref="compound">inner</ref>.minx<sp/>&amp;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">inner</ref>.maxx<sp/>&lt;=<sp/><ref refid="classCoordinate2D" kindref="compound">outer</ref>.maxx<sp/>&amp;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">outer</ref>.miny<sp/>&lt;=<sp/><ref refid="classCoordinate2D" kindref="compound">inner</ref>.miny<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">inner</ref>.maxy<sp/>&lt;=<sp/><ref refid="classCoordinate2D" kindref="compound">outer</ref>.maxy;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Exterior<sp/>CCW<sp/>(positive<sp/>signed<sp/>area);<sp/>interior<sp/>rings<sp/>CW<sp/>(negative<sp/>signed<sp/>area).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>normalize_polygon(<ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(signed_area(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior)<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior<sp/>=<sp/>reverse_ring(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">hole</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>.holes)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(signed_area(<ref refid="classCoordinate2D" kindref="compound">hole</ref>)<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">hole</ref><sp/>=<sp/>reverse_ring(<ref refid="classCoordinate2D" kindref="compound">hole</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Intersection<sp/>of<sp/>segment<sp/>(a1,a2)<sp/>with<sp/>the<sp/>infinite<sp/>line<sp/>through<sp/>(b1,b2).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Returns<sp/>true<sp/>and<sp/>writes<sp/>the<sp/>intersection<sp/>point<sp/>to<sp/>`out`<sp/>when<sp/>the<sp/>segment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">//<sp/>crosses<sp/>the<sp/>line<sp/>(t<sp/>in<sp/>[0,1]).<sp/>The<sp/>clip<sp/>edge<sp/>is<sp/>treated<sp/>as<sp/>a<sp/>line<sp/>—<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">//<sp/>intersection<sp/>may<sp/>lie<sp/>beyond<sp/>the<sp/>b1-b2<sp/>segment<sp/>itself.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>segment_intersection(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a1</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a2</ref>,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b1</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b2</ref>,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">out</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">dx_a</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">a2</ref>.x()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">a1</ref>.x();</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">dy_a</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">a2</ref>.y()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">a1</ref>.y();</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">dx_b</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">b2</ref>.x()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">b1</ref>.x();</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">dy_b</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">b2</ref>.y()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">b1</ref>.y();</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cross</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">dx_a</ref><sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dy_b</ref><sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">dy_a</ref><sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dx_b</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::abs(<ref refid="classCoordinate2D" kindref="compound">cross</ref>)<sp/>&lt;<sp/>1<ref refid="classCoordinate2D" kindref="compound">e</ref>-20)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//<sp/>parallel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">t</ref><sp/>=<sp/>((<ref refid="classCoordinate2D" kindref="compound">b1</ref>.x()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">a1</ref>.x())<sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dy_b</ref><sp/>-<sp/>(<ref refid="classCoordinate2D" kindref="compound">b1</ref>.y()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">a1</ref>.y())<sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dx_b</ref>)<sp/>/<sp/><ref refid="classCoordinate2D" kindref="compound">cross</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">t &lt; 0.0 || t &gt;</ref><sp/>1.0)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">out</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>(<ref refid="classCoordinate2D" kindref="compound">a1</ref>.x()<sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">t</ref><sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dx_a</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">a1</ref>.y()<sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">t</ref><sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dy_a</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Check<sp/>if<sp/>a<sp/>point<sp/>is<sp/>to<sp/>the<sp/>left<sp/>of<sp/>the<sp/>directed<sp/>edge<sp/>from<sp/>`from`<sp/>to<sp/>`to`.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_left_of(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">from</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">to</ref>,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((<ref refid="classCoordinate2D" kindref="compound">to</ref>.x()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">from</ref>.x())<sp/>*<sp/>(<ref refid="classCoordinate2D" kindref="compound">point</ref>.y()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">from</ref>.y())<sp/>-</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="classCoordinate2D" kindref="compound">to</ref>.y()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">from</ref>.y())<sp/>*<sp/>(<ref refid="classCoordinate2D" kindref="compound">point</ref>.x()<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">from</ref>.x()))<sp/>&gt;=<sp/>0;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Sutherland-Hodgman<sp/>polygon<sp/>clipping:<sp/>clip<sp/>`subject`<sp/>against<sp/>`clip`<sp/>polygon.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Both<sp/>must<sp/>be<sp/>CCW<sp/>simple<sp/>polygons.<sp/>Returns<sp/>the<sp/>intersection<sp/>polygon<sp/>(CCW).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/>intersect_polygons(</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">subject</ref>,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">subject</ref>.size()<sp/>&lt;<sp/>3<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>.size()<sp/>&lt;<sp/>3)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">output</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">subject</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">e</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">e</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>.size();<sp/><ref refid="classCoordinate2D" kindref="compound">e</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">edge_from</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>[<ref refid="classCoordinate2D" kindref="compound">e</ref>];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">edge_to</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>[(<ref refid="classCoordinate2D" kindref="compound">e</ref><sp/>+<sp/>1)<sp/>%<sp/><ref refid="classCoordinate2D" kindref="compound">clip</ref>.size()];</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">input</ref><sp/>=<sp/>std::move(<ref refid="classCoordinate2D" kindref="compound">output</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">output</ref>.clear();</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">input</ref>.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">input</ref>.size();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">cur</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">input</ref>[<ref refid="classCoordinate2D" kindref="compound">i</ref>];</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">prev</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">input</ref>[(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">input</ref>.size()<sp/>-<sp/>1)<sp/>%<sp/><ref refid="classCoordinate2D" kindref="compound">input</ref>.size()];</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">cur_inside</ref><sp/>=<sp/>is_left_of(<ref refid="classCoordinate2D" kindref="compound">edge_from</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">edge_to</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">cur</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">prev_inside</ref><sp/>=<sp/>is_left_of(<ref refid="classCoordinate2D" kindref="compound">edge_from</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">edge_to</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">prev</ref>);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">cur_inside</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">prev_inside</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">inter</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(segment_intersection(<ref refid="classCoordinate2D" kindref="compound">prev</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">cur</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">edge_from</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">edge_to</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">inter</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">output</ref>.push_back(<ref refid="classCoordinate2D" kindref="compound">inter</ref>);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">output</ref>.push_back(<ref refid="classCoordinate2D" kindref="compound">cur</ref>);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">prev_inside</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">inter</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(segment_intersection(<ref refid="classCoordinate2D" kindref="compound">prev</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">cur</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">edge_from</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">edge_to</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">inter</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">output</ref>.push_back(<ref refid="classCoordinate2D" kindref="compound">inter</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">output</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Clip<sp/>a<sp/>simple<sp/>(no<sp/>holes)<sp/>polygon<sp/>to<sp/>an<sp/>axis-aligned<sp/>extent<sp/>via<sp/>Sutherland-Hodgman.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::vector&lt;PolygonWithHoles&gt;<sp/>clip_polygon_hole_free_to_extent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">poly</ref>,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>bounds)<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>Assert(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.holes.empty());</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">clip_rect</ref><sp/>=<sp/>polygon_from_extent(bounds);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/>exterior<sp/>=</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>intersect_polygons(<ref refid="classCoordinate2D" kindref="compound">poly</ref>.exterior,<sp/><ref refid="classCoordinate2D" kindref="compound">clip_rect</ref>.exterior);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(exterior.size()<sp/>&lt;<sp/>3)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/><ref refid="classCoordinate2D" kindref="compound">clipped</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">clipped</ref>.exterior<sp/>=<sp/>std::move(exterior);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>normalize_polygon(<ref refid="classCoordinate2D" kindref="compound">clipped</ref>);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{<ref refid="classCoordinate2D" kindref="compound">clipped</ref>};</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp"/>
+  </compounddef>
+</doxygen>

@@ -16,6 +16,7 @@
 Inherits the following classes: [ProgressObserver](classProgressObserver.md)
 
 
+Inherited by the following classes: [RecordingProgressBar](classRecordingProgressBar.md)
 
 
 

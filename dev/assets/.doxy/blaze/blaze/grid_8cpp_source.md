@@ -171,6 +171,8 @@ T interpolate_value(const GeoGrid<T>& grid, const Coordinate2D<double>& projecti
 
 template double interpolate_value(const GeoGrid<double>& grid,
                                   const Coordinate2D<double>& projection_coord);
+template float interpolate_value(const GeoGrid<float>& grid,
+                                 const Coordinate2D<double>& projection_coord);
 FlexGrid::FlexGrid(size_t width, size_t height, int n_bytes, int data_type)
     : GridData(width, height),
       m_data_size(n_bytes),

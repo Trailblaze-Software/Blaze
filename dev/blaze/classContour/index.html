@@ -1029,7 +1029,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-orient_consistent"><strong>orient_consistent</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; elevation_grid) <br></td>
+<td style="text-align: left;"><a href="#function-orient_consistent"><strong>orient_consistent</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; value_grid) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &gt; &amp;</td>
@@ -1060,7 +1060,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>Contour</strong></a></td>
-<td style="text-align: left;"><a href="#function-fromgridgraph"><strong>FromGridGraph</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt; &amp; starting_point, <a href="../classCoordinate2D/"><strong>double</strong></a> height, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; grid, <a href="../classGridGraph/"><strong>GridGraph</strong></a>&lt; std::set&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &gt; &amp; contour_heights) <br></td>
+<td style="text-align: left;"><a href="#function-fromgridgraph"><strong>FromGridGraph</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt; &amp; starting_point, <a href="../classCoordinate2D/"><strong>double</strong></a> height, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, <a href="../classGridGraph/"><strong>GridGraph</strong></a>&lt; std::set&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &gt; &amp; contour_heights) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>Contour</strong></a></td>
@@ -1093,9 +1093,10 @@
 <hr>
 
 <h3 id="function-orient_consistent">function orient_consistent</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Contour</span><span class="o">::</span><span class="n">orient_consistent</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">elevation_grid</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Contour</span><span class="o">::</span><span class="n">orient_consistent</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">value_grid</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
@@ -1124,12 +1125,13 @@
 <hr>
 <h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
 <h3 id="function-fromgridgraph">function FromGridGraph</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Contour</span><span class="w"> </span><span class="n">Contour</span><span class="o">::</span><span class="n">FromGridGraph</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">LineCoord2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">starting_point</span><span class="p">,</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">height</span><span class="p">,</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="n">GridGraph</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">contour_heights</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Contour</span><span class="w"> </span><span class="n">Contour</span><span class="o">::</span><span class="n">FromGridGraph</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">LineCoord2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">starting_point</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">height</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="n">GridGraph</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">contour_heights</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

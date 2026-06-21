@@ -53,20 +53,6 @@ std::string get_wgs84_wkt() {
   return wkt;
 }
 
-// Helper to create a simple synthetic elevation grid
-class TestGrid : public GeoGrid<double> {
- public:
-  explicit TestGrid(const std::vector<std::vector<double>>& data)
-      : GeoGrid<double>(data[0].size(), data.size(), GeoTransform(),
-                        GeoProjection(get_wgs84_wkt())) {
-    for (size_t i = 0; i < data.size(); i++) {
-      for (size_t j = 0; j < data[0].size(); j++) {
-        (*this)[{j, i}] = data[i][j];
-      }
-    }
-  }
-};
-
 // Create a minimal config for testing
 Config create_minimal_test_config(const fs::path& output_dir) {
   Config config = Config::Default();
@@ -167,7 +153,7 @@ LASData create_synthetic_las_data() {
     }
   }
 
-  TestGrid grid(data);
+  GeoGrid<double> grid(data, GeoTransform(), GeoProjection(get_wgs84_wkt()));
 
   // Get projection string before creating LASData (workaround for projection being lost in move)
   const std::string proj_str = get_wgs84_wkt();

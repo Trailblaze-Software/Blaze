@@ -73,6 +73,8 @@
 * [**E2ETerrainTest**](classE2ETerrainTest.md)
 * [**Extent2D**](structExtent2D.md)
 * [**Extent3D**](structExtent3D.md)
+* [**ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md)
+([**detail**](namespacedetail.md))
 
 
 ## f
@@ -133,6 +135,7 @@
 
 * [**ParentFolderExistsValidator**](classParentFolderExistsValidator.md)
 * [**PointLayer**](classPointLayer.md)
+* [**PolygonWithHoles**](structPolygonWithHoles.md)
 * [**Polyline**](classPolyline.md)
 * [**PriorityPoint**](structPriorityPoint.md)
 * [**ProgressBar**](classProgressBar.md)
@@ -144,6 +147,7 @@
 
 ## r
 
+* [**RecordingProgressBar**](classRecordingProgressBar.md)
 * [**RenderConfig**](structRenderConfig.md)
 * [**RGBColor**](classRGBColor.md)
 
@@ -159,7 +163,6 @@
 
 * [**TaskException**](classTaskException.md)
 * [**TerrainTestParams**](structTerrainTestParams.md)
-* [**TestGrid**](classTestGrid.md)
 * [**Tile**](structTile.md)
 * [**TileModeInfo**](structTileModeInfo.md)
 * [**TimeFunction**](classTimeFunction.md)
@@ -175,6 +178,7 @@
 
 * [**VegeConfig**](structVegeConfig.md)
 * [**VegeHeightConfig**](structVegeHeightConfig.md)
+* [**VegePolygon**](structVegePolygon.md)
 
 
 ## w

@@ -55,7 +55,7 @@
 |  [**void**](classCoordinate2D.md) | [**close\_loop**](#function-close_loop) () <br> |
 |  [**double**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
 |  [**bool**](classCoordinate2D.md) | [**is\_loop**](#function-is_loop) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**orient\_consistent**](#function-orient_consistent) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & elevation\_grid) <br> |
+|  [**void**](classCoordinate2D.md) | [**orient\_consistent**](#function-orient_consistent) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & value\_grid) <br> |
 |  [**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & | [**points**](#function-points-12) () const<br> |
 |  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & | [**points**](#function-points-22) () <br> |
 |  [**void**](classCoordinate2D.md) | [**push\_back**](#function-push_back) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & point) <br> |
@@ -66,7 +66,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**Contour**](classContour.md) | [**FromGridGraph**](#function-fromgridgraph) ([**const**](classCoordinate2D.md) [**LineCoord2D**](classLineCoord2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & starting\_point, [**double**](classCoordinate2D.md) height, [**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; [**double**](classCoordinate2D.md) &gt; &gt; & contour\_heights) <br> |
+|  [**Contour**](classContour.md) | [**FromGridGraph**](#function-fromgridgraph) ([**const**](classCoordinate2D.md) [**LineCoord2D**](classLineCoord2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & starting\_point, [**double**](classCoordinate2D.md) height, [**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; [**double**](classCoordinate2D.md) &gt; &gt; & contour\_heights) <br> |
 |  [**Contour**](classContour.md) | [**from\_polyline**](#function-from_polyline) ([**const**](classCoordinate2D.md) [**Polyline**](classPolyline.md) & polyline) <br> |
 
 
@@ -157,8 +157,9 @@ inline bool Contour::is_loop () const
 ### function orient\_consistent 
 
 ```C++
+template<typename T>
 inline void Contour::orient_consistent (
-    const  GeoGrid < double > & elevation_grid
+    const  GeoGrid < T > & value_grid
 ) 
 ```
 
@@ -230,10 +231,11 @@ Polyline Contour::to_polyline (
 ### function FromGridGraph 
 
 ```C++
+template<typename T>
 static inline Contour Contour::FromGridGraph (
     const  LineCoord2D < size_t > & starting_point,
     double height,
-    const  GeoGrid < double > & grid,
+    const  GeoGrid < T > & grid,
     GridGraph < std::set< double > > & contour_heights
 ) 
 ```

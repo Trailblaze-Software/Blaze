@@ -11,8 +11,10 @@
 #pragma once
 
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <limits>
+#include <optional>
 #include <utility>
 
 #include "config_input/config_input.hpp"
@@ -83,8 +85,9 @@ class Contour {
   const std::vector<Coordinate2D<double>>& points() const { return m_points; }
   std::vector<Coordinate2D<double>>& points() { return m_points; }
 
+  template <typename T>
   static Contour FromGridGraph(const LineCoord2D<size_t>& starting_point, double height,
-                               const GeoGrid<double>& grid,
+                               const GeoGrid<T>& grid,
                                GridGraph<std::set<double>>& contour_heights) {
     std::vector<Coordinate2D<double>> contour_points;
     int pass = 0;
@@ -107,7 +110,7 @@ class Contour {
         this_contour_points.emplace_back(interpolate_coordinates(
             grid.transform().pixel_to_projection(current_point.start().offset_to_center()),
             grid.transform().pixel_to_projection(current_point.end().offset_to_center()),
-            grid[current_point.start()], grid[current_point.end()], height));
+            grid[current_point.start()], grid[current_point.end()], static_cast<T>(height)));
         end = true;
         for (LineCoord2DCrossing<size_t> next_point : current_point.next_points()) {
           if (contour_heights.in_bounds(next_point) &&
@@ -154,77 +157,77 @@ class Contour {
 
   bool is_loop() const { return m_is_loop; }
 
-  // Orient contour so that left side (when following the line) is uphill
-  void orient_consistent(const GeoGrid<double>& elevation_grid) {
+  // Orient contour so that higher grid values are on the left when following the
+  // line. For elevation contours this means uphill is on the left; for density
+  // grids the above-threshold side is on the left. CCW outer rings then have
+  // positive signed area; CW hole rings have negative signed area.
+  template <typename T>
+  void orient_consistent(const GeoGrid<T>& value_grid) {
     if (m_points.size() < 2) return;
 
-    // Sample several points along the contour to determine orientation
-    // Use a reasonable number of samples (not all points for performance)
-    size_t num_samples = std::min(static_cast<size_t>(20), m_points.size() - 1);
-    size_t step = (m_points.size() - 1) / num_samples;
-    if (step == 0) step = 1;
-
-    int left_higher_count = 0;
-    int right_higher_count = 0;
-    double offset_distance = elevation_grid.transform().dx() * 0.1;  // 10% of grid resolution
-
-    for (size_t i = 0; i < m_points.size() - 1; i += step) {
-      const auto& p1 = m_points[i];
-      const auto& p2 = m_points[i + 1];
-
-      // Calculate direction vector
-      Coordinate2D<double> dir = p2 - p1;
-      double dir_length = dir.magnitude();
-      if (dir_length < 1e-10) continue;
-
-      // Normalize direction
-      dir = Coordinate2D<double>(dir.x() / dir_length, dir.y() / dir_length);
-
-      // Calculate perpendicular vector pointing left (90 degrees counterclockwise)
-      // For a vector (dx, dy), the left perpendicular is (-dy, dx)
-      Coordinate2D<double> left_perp(-dir.y(), dir.x());
-
-      // Sample point at the middle of the segment
-      Coordinate2D<double> mid_point((p1.x() + p2.x()) / 2.0, (p1.y() + p2.y()) / 2.0);
-
-      // Points to the left and right
-      Coordinate2D<double> left_point =
-          mid_point +
-          Coordinate2D<double>(left_perp.x() * offset_distance, left_perp.y() * offset_distance);
-      Coordinate2D<double> right_point =
-          mid_point -
-          Coordinate2D<double>(left_perp.x() * offset_distance, left_perp.y() * offset_distance);
-
-      // Sample elevations (with bounds checking)
-      // Check if points are within grid bounds before interpolating
-      // interpolate_value requires points to be at least 0.5 pixels from edges for bilinear
-      // interpolation
-      Coordinate2D<double> left_pixel = elevation_grid.transform().projection_to_pixel(left_point);
-      Coordinate2D<double> right_pixel =
-          elevation_grid.transform().projection_to_pixel(right_point);
-
-      if (left_pixel.x() >= 0.5 && left_pixel.y() >= 0.5 &&
-          left_pixel.x() < elevation_grid.width() - 0.5 &&
-          left_pixel.y() < elevation_grid.height() - 0.5 && right_pixel.x() >= 0.5 &&
-          right_pixel.y() >= 0.5 && right_pixel.x() < elevation_grid.width() - 0.5 &&
-          right_pixel.y() < elevation_grid.height() - 0.5) {
-        double left_elev = interpolate_value(elevation_grid, left_point);
-        double right_elev = interpolate_value(elevation_grid, right_point);
-
-        if (std::isfinite(left_elev) && std::isfinite(right_elev) && left_elev < 1e6 &&
-            right_elev < 1e6) {  // Check for valid elevation values
-          if (left_elev > right_elev) {
-            left_higher_count++;
-          } else if (right_elev > left_elev) {
-            right_higher_count++;
-          }
-        }
+    auto try_sample = [&](const Coordinate2D<double>& point) -> std::optional<double> {
+      Coordinate2D<double> pixel = value_grid.transform().projection_to_pixel(point);
+      if (pixel.x() < 0.0 || pixel.y() < 0.0 ||
+          pixel.x() >= static_cast<double>(value_grid.width()) ||
+          pixel.y() >= static_cast<double>(value_grid.height())) {
+        return std::nullopt;
       }
-    }
+      double val = interpolate_value(value_grid, point);
+      if (!std::isfinite(val) || val >= 1e6) {
+        return std::nullopt;
+      }
+      return val;
+    };
 
-    // If more segments have right side higher, reverse the contour
-    if (right_higher_count > left_higher_count) {
-      std::reverse(m_points.begin(), m_points.end());
+    auto orient_from_offset = [&](double offset_distance) -> bool {
+      size_t num_samples = std::min(static_cast<size_t>(20), m_points.size() - 1);
+      size_t step = (m_points.size() - 1) / num_samples;
+      if (step == 0) step = 1;
+
+      int samples = 0;
+      double higher_on_left_score = 0.0;
+
+      for (size_t i = 0; i < m_points.size() - 1; i += step) {
+        const auto& p1 = m_points[i];
+        const auto& p2 = m_points[i + 1];
+
+        Coordinate2D<double> dir = p2 - p1;
+        double dir_length = dir.magnitude();
+        if (dir_length < 1e-10) continue;
+
+        dir = Coordinate2D<double>(dir.x() / dir_length, dir.y() / dir_length);
+        Coordinate2D<double> left_perp(-dir.y(), dir.x());
+        Coordinate2D<double> mid_point((p1.x() + p2.x()) / 2.0, (p1.y() + p2.y()) / 2.0);
+
+        Coordinate2D<double> left_point =
+            mid_point +
+            Coordinate2D<double>(left_perp.x() * offset_distance, left_perp.y() * offset_distance);
+        Coordinate2D<double> right_point =
+            mid_point -
+            Coordinate2D<double>(left_perp.x() * offset_distance, left_perp.y() * offset_distance);
+
+        std::optional<double> left_val = try_sample(left_point);
+        std::optional<double> right_val = try_sample(right_point);
+        if (!left_val || !right_val) {
+          continue;
+        }
+
+        higher_on_left_score += *left_val - *right_val;
+        samples++;
+      }
+
+      if (samples > 0 && higher_on_left_score < 0.0) {
+        std::reverse(m_points.begin(), m_points.end());
+      }
+      return samples > 0;
+    };
+
+    const double dx = value_grid.transform().dx();
+    // Half a cell — 10% of dx lands in the same cell on coarse grids and ties on
+    // smoothed threshold plateaus, leaving orientation arbitrary.
+    if (!orient_from_offset(dx * 0.5)) {
+      // Near padded borders many 0.5-cell offsets fall outside the grid; retry closer in.
+      orient_from_offset(dx * 0.25);
     }
   }
 };

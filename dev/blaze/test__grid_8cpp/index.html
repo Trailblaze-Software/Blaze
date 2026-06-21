@@ -1018,6 +1018,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#function-test_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1078,6 +1111,7 @@
 <li><code>#include &lt;gtest/gtest.h&gt;</code></li>
 <li><code>#include &lt;cmath&gt;</code></li>
 <li><code>#include &lt;limits&gt;</code></li>
+<li><code>#include &lt;vector&gt;</code></li>
 <li><code>#include "grid/grid.hpp"</code></li>
 <li><code>#include "grid/grid_ops.hpp"</code></li>
 </ul>
@@ -1165,6 +1199,18 @@
 <tr>
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classGridGraph/"><strong>GridGraph</strong></a>, <a href="../classCoordinate2D/"><strong>InBounds</strong></a>) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>GeoGridPad</strong></a>, <a href="../classCoordinate2D/"><strong>PadsWithValue</strong></a>) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>GeoGridPad</strong></a>, <a href="../classCoordinate2D/"><strong>AdjustsGeoTransform</strong></a>) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classCoordinate2D/"><strong>GeoGridPad</strong></a>, <a href="../classCoordinate2D/"><strong>EmptyGrid</strong></a>) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1335,12 +1381,36 @@
 <a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
+
+<h3 id="function-test_19">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="n">GeoGridPad</span><span class="p">,</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="n">PadsWithValue</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_20">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="n">GeoGridPad</span><span class="p">,</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="n">AdjustsGeoTransform</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_21">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="n">GeoGridPad</span><span class="p">,</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="n">EmptyGrid</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
 <h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
 <h3 id="function-coord">function coord</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">static</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">coord</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">y</span>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">static</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">coord</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">y</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

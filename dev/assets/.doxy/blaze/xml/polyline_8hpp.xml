@@ -119,12 +119,18 @@
       <node id="2">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/polyline/polyline.hpp</label>
         <link refid="polyline_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
+        <link refid="vegetation__polygon_8hpp_source"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classPolyline" prot="public">Polyline</innerclass>

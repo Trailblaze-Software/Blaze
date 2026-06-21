@@ -64,12 +64,6 @@
 |   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassPreservesGridDimensions**](classCoordinate2D.md)) <br> |
 
 
-## Public Static Functions
-
-| Type | Name |
-| ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; | [**make\_float\_grid**](#function-make_float_grid) ([**const**](classCoordinate2D.md) std::vector&lt; std::vector&lt; [**float**](classCoordinate2D.md) &gt; &gt; & data) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; | [**make\_opt\_float\_grid**](#function-make_opt_float_grid) ([**const**](classCoordinate2D.md) std::vector&lt; std::vector&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; &gt; & data) <br> |
 
 
 
@@ -203,38 +197,6 @@ TEST (
 TEST (
     Vegetation,
     LowPassPreservesGridDimensions
-) 
-```
-
-
-
-
-<hr>
-## Public Static Functions Documentation
-
-
-
-
-### function make\_float\_grid 
-
-```C++
-static GeoGrid < float > make_float_grid (
-    const std::vector< std::vector< float > > & data
-) 
-```
-
-
-
-
-<hr>
-
-
-
-### function make\_opt\_float\_grid 
-
-```C++
-static GeoGrid < std::optional< float > > make_opt_float_grid (
-    const std::vector< std::vector< std::optional< float > > > & data
 ) 
 ```
 

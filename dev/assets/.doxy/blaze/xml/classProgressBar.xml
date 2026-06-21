@@ -3,6 +3,7 @@
   <compounddef id="classProgressBar" kind="class" language="C++" prot="public">
     <compoundname>ProgressBar</compoundname>
     <basecompoundref refid="classProgressObserver" prot="public" virt="non-virtual">ProgressObserver</basecompoundref>
+    <derivedcompoundref refid="classRecordingProgressBar" prot="public" virt="non-virtual">RecordingProgressBar</derivedcompoundref>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classProgressBar_1ac8fcde12cc7debbaac114b3e0239383f" prot="private" static="no" mutable="no">
         <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
@@ -28,6 +29,7 @@
         <name>update_progress</name>
         <qualifiedname>ProgressBar::update_progress</qualifiedname>
         <reimplements refid="classProgressObserver_1a502166abd43c403c82ad269f382a4f4a">update_progress</reimplements>
+        <reimplementedby refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac">update_progress</reimplementedby>
         <param>
           <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
           <declname>progress</declname>
@@ -79,6 +81,12 @@
       <node id="2">
         <label>ProgressObserver</label>
         <link refid="classProgressObserver"/>
+      </node>
+      <node id="3">
+        <label>RecordingProgressBar</label>
+        <link refid="classRecordingProgressBar"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>

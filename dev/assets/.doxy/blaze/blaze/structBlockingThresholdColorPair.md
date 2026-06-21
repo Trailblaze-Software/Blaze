@@ -37,6 +37,9 @@
 | ---: | :--- |
 |  [**double**](classCoordinate2D.md) | [**blocking\_threshold**](#variable-blocking_threshold)  <br> |
 |  ColorVariant | [**color**](#variable-color)  <br> |
+|  std::string | [**layer**](#variable-layer)  <br> |
+|  [**double**](classCoordinate2D.md) | [**min\_area\_m2**](#variable-min_area_m2)   = `0`<br> |
+|  [**double**](classCoordinate2D.md) | [**min\_hole\_area\_m2**](#variable-min_hole_area_m2)   = `0`<br> |
 
 
 
@@ -103,6 +106,45 @@ double BlockingThresholdColorPair::blocking_threshold;
 
 ```C++
 ColorVariant BlockingThresholdColorPair::color;
+```
+
+
+
+
+<hr>
+
+
+
+### variable layer 
+
+```C++
+std::string BlockingThresholdColorPair::layer;
+```
+
+
+
+
+<hr>
+
+
+
+### variable min\_area\_m2 
+
+```C++
+double BlockingThresholdColorPair::min_area_m2;
+```
+
+
+
+
+<hr>
+
+
+
+### variable min\_hole\_area\_m2 
+
+```C++
+double BlockingThresholdColorPair::min_hole_area_m2;
 ```
 
 

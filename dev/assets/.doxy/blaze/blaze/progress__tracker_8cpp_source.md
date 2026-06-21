@@ -62,6 +62,16 @@ void ProgressTracker::set_proportion(double proportion) {
   _set_proportion(proportion);
 }
 
+void ProgressTracker::report_parallel_progress(double proportion) {
+  Assert(!m_subtracker_range.has_value());
+#pragma omp critical(blaze_progress_tracker)
+  {
+    if (proportion > m_proportion) {
+      _set_proportion(proportion);
+    }
+  }
+}
+
 void ProgressTracker::update_progress(double progress) {
   Assert(m_subtracker_range.has_value());
   _set_proportion(m_subtracker_range->first +

@@ -821,6 +821,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#function-interpolate_value_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function interpolate_value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-same_type_different_size" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -886,6 +897,10 @@
 <td style="text-align: left;"><a href="#function-interpolate_value"><strong>interpolate_value</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; projection_coord) <br></td>
 </tr>
 <tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>float</strong></a></td>
+<td style="text-align: left;"><a href="#function-interpolate_value"><strong>interpolate_value</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; projection_coord) <br></td>
+</tr>
+<tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a>&lt; GridT &gt;</td>
 <td style="text-align: left;"><a href="#function-same_type_different_size"><strong>same_type_different_size</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>Geo</strong></a>&lt; GridT &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>size_t</strong></a> new_width, <a href="../classCoordinate2D/"><strong>size_t</strong></a> new_height, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; new_top_left) <br></td>
 </tr>
@@ -909,14 +924,22 @@
 </code></pre></div>
 <hr>
 
+<h3 id="function-interpolate_value_2">function interpolate_value</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">interpolate_value</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection_coord</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-same_type_different_size">function same_type_different_size</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">GridT</span><span class="o">&gt;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">GridT</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">same_type_different_size</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">GridT</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">new_width</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">new_height</span><span class="p">,</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">new_top_left</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">GridT</span><span class="o">&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">GridT</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">same_type_different_size</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">GridT</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">new_width</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">new_height</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">new_top_left</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

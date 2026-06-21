@@ -31,6 +31,7 @@
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
+#include "vegetation/vegetation_polygon.hpp"
 
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
                      ProgressTracker&& tracker) {
@@ -248,37 +249,91 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           }
         }
 
-        // Combine contours
-        std::map<double, std::vector<Contour>> contours_by_height;
-        for (const fs::path& output_dir : combine_dirs) {
-          fs::path gpkg_path = output_dir / "trimmed_contours.gpkg";
-          if (!fs::exists(gpkg_path)) {
-            std::cerr << "GPKG " << gpkg_path << " does not exist" << std::endl;
-            continue;
-          }
-
-          std::vector<Contour> contours = read_gpkg(gpkg_path);
-          for (Contour& contour : contours) {
-            contours_by_height[contour.height()].push_back(contour);
-          }
-        }
-        std::vector<Contour> joined_contours;
-        for (const auto& [height, contours] : contours_by_height) {
-          std::vector<Contour> jc = join_contours(contours, 5 * config.grid.contour_dem_resolution);
-          for (Contour& contour : jc) {
-            joined_contours.emplace_back(contour);
-          }
-        }
+        // Combine vector outputs (contours, vegetation, map GPKG)
         {
-          GPKGWriter writer((config.output_path() / "combined" / "contours.gpkg").string(),
-                            projection.value(), "Contour");
-          for (const Contour& contour : joined_contours) {
-            writer.write_polyline(contour.to_polyline(config.contours),
-                                  {{"elevation", contour.height()}});
+          ProgressTracker gpkg_tracker = step_tracker.subtracker(0.9, 1.0);
+
+          std::map<double, std::vector<Contour>> contours_by_height;
+          std::vector<Contour> joined_contours;
+          {
+            ProgressTracker contour_tracker = gpkg_tracker.subtracker(0.0, 0.35);
+            TimeFunction contour_timer("combining contours", &contour_tracker);
+
+            size_t dir_index = 0;
+            for (const fs::path& output_dir : combine_dirs) {
+              fs::path gpkg_path = output_dir / "trimmed_contours.gpkg";
+              if (!fs::exists(gpkg_path)) {
+                std::cerr << "GPKG " << gpkg_path << " does not exist" << std::endl;
+                continue;
+              }
+
+              contour_tracker.text_update("Reading " + gpkg_path.filename().string());
+              std::vector<Contour> contours = read_gpkg(gpkg_path);
+              for (Contour& contour : contours) {
+                contours_by_height[contour.height()].push_back(contour);
+              }
+              ++dir_index;
+              if (!combine_dirs.empty()) {
+                contour_tracker.set_proportion(0.15 * static_cast<double>(dir_index) /
+                                               combine_dirs.size());
+              }
+            }
+
+            const size_t height_band_count = contours_by_height.size();
+            size_t height_band_index = 0;
+            contour_tracker.text_update("Joining contours");
+            for (const auto& [height, contours] : contours_by_height) {
+              std::vector<Contour> jc =
+                  join_contours(contours, 5 * config.grid.contour_dem_resolution);
+              for (Contour& contour : jc) {
+                joined_contours.emplace_back(contour);
+              }
+              ++height_band_index;
+              if (height_band_count > 0) {
+                contour_tracker.set_proportion(
+                    0.15 + 0.40 * static_cast<double>(height_band_index) / height_band_count);
+              }
+              (void)height;
+            }
+
+            contour_tracker.text_update("Writing combined contours GPKG");
+            GPKGWriter writer((config.output_path() / "combined" / "contours.gpkg").string(),
+                              projection.value(), "Contour");
+            const size_t write_stride = std::max<size_t>(1, joined_contours.size() / 20);
+            for (size_t i = 0; i < joined_contours.size(); i++) {
+              const Contour& contour = joined_contours[i];
+              writer.write_polyline(contour.to_polyline(config.contours),
+                                    {{"elevation", contour.height()}});
+              if (i % write_stride == 0 || i + 1 == joined_contours.size()) {
+                contour_tracker.set_proportion(0.55 + 0.45 * static_cast<double>(i + 1) /
+                                                          joined_contours.size());
+              }
+            }
+          }
+
+          write_to_crt(config.output_path() / "combined" / "contours.crt");
+
+          combine_vege_gpkgs(combine_dirs, config.output_path() / "combined", projection.value(),
+                             gpkg_tracker.subtracker(0.35, 0.65));
+          write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt");
+
+          {
+            const fs::path combined_dir = config.output_path() / "combined";
+            std::vector<fs::path> map_sources = {combined_dir / "contours.gpkg",
+                                                 combined_dir / "streams.gpkg",
+                                                 combined_dir / "vegetation.gpkg"};
+            ProgressTracker map_tracker = gpkg_tracker.subtracker(0.65, 1.0);
+            if (projection.has_value()) {
+              combine_gpkgs(map_sources, combined_dir / "map.gpkg", projection.value(),
+                            std::move(map_tracker));
+            } else {
+              combine_gpkgs(map_sources, combined_dir / "map.gpkg", "", std::move(map_tracker));
+            }
+            if (fs::exists(combined_dir / "map.gpkg")) {
+              write_to_crt(combined_dir / "map.crt");
+            }
           }
         }
-
-        write_to_crt(config.output_path() / "combined" / "contours.crt");
 
         break;
     }

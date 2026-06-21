@@ -11,9 +11,13 @@
 
 
 * `#include <gtest/gtest.h>`
+* `#include <algorithm>`
+* `#include <set>`
+* `#include <vector>`
 * `#include "config_input/config_input.hpp"`
 * `#include "contour/contour.hpp"`
 * `#include "contour/contour_gen.hpp"`
+* `#include "geometry/polygon.hpp"`
 * `#include "isom/colors.hpp"`
 * `#include "lib/grid/grid.hpp"`
 
@@ -31,11 +35,6 @@
 
 
 
-## Classes
-
-| Type | Name |
-| ---: | :--- |
-| class | [**TestGrid**](classTestGrid.md) <br> |
 
 
 
@@ -64,6 +63,18 @@
 | ---: | :--- |
 |   | [**TEST**](#function-test) ([**ContourGen**](classCoordinate2D.md), [**ContourGen**](classCoordinate2D.md)) <br> |
 |   | [**TEST**](#function-test) ([**ContourGen**](classCoordinate2D.md), [**ContourGen2**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**SingleHeightCrossing**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**NoCrossing**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**MultipleHeights**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**ExactThresholdValue**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**MinExactlyAtThreshold**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**SinglePeakClosedLoop**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**EdgeContoursAreClosed**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**MultipleDisjointPatches**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**AllZerosNoContours**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**MultipleHeights**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**FilteredByMinPoints**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**OrientsDonutRings**](classCoordinate2D.md)) <br> |
 
 
 
@@ -119,6 +130,198 @@ TEST (
 TEST (
     ContourGen,
     ContourGen2
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    IdentifyContoursAtHeights,
+    SingleHeightCrossing
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    IdentifyContoursAtHeights,
+    NoCrossing
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    IdentifyContoursAtHeights,
+    MultipleHeights
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    IdentifyContoursAtHeights,
+    ExactThresholdValue
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    IdentifyContoursAtHeights,
+    MinExactlyAtThreshold
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SinglePeakClosedLoop
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    EdgeContoursAreClosed
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    MultipleDisjointPatches
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    AllZerosNoContours
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    MultipleHeights
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    FilteredByMinPoints
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    OrientsDonutRings
 ) 
 ```
 

@@ -11,6 +11,7 @@
 
 
 * `#include <gtest/gtest.h>`
+* `#include <vector>`
 * `#include "utilities/progress_tracker.hpp"`
 
 
@@ -27,6 +28,11 @@
 
 
 
+## Classes
+
+| Type | Name |
+| ---: | :--- |
+| class | [**RecordingProgressBar**](classRecordingProgressBar.md) <br> |
 
 
 
@@ -55,6 +61,8 @@
 | ---: | :--- |
 |   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), [**ProgressTracker**](classProgressTracker.md)) <br> |
 |   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), [**ForLoop**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), [**BackwardsSubtrackerUpdateFails**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), [**ParallelRowProgressIsMonotonic**](classCoordinate2D.md)) <br> |
 
 
 
@@ -110,6 +118,38 @@ TEST (
 TEST (
     ProgressTracker,
     ForLoop
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    BackwardsSubtrackerUpdateFails
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    ParallelRowProgressIsMonotonic
 ) 
 ```
 

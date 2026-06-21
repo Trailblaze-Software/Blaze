@@ -12,6 +12,7 @@
 
 * `#include <gtest/gtest.h>`
 * `#include <fstream>`
+* `#include <set>`
 * `#include <vector>`
 * `#include "contour/contour.hpp"`
 * `#include "io/gpkg.hpp"`
@@ -65,6 +66,8 @@
 |   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**DifferentFieldTypes**](classCoordinate2D.md)) <br> |
 |   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**ReadNonExistentFile**](classCoordinate2D.md)) <br> |
 |   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**ReadEmptyFile**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**CombineGpkgs**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**CombineGpkgsIncludesVegetationPolygons**](classCoordinate2D.md)) <br> |
 
 
 
@@ -168,6 +171,38 @@ TEST (
 TEST (
     GPKG,
     ReadEmptyFile
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GPKG,
+    CombineGpkgs
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GPKG,
+    CombineGpkgsIncludesVegetationPolygons
 ) 
 ```
 

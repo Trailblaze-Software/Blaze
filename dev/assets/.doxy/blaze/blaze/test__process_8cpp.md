@@ -14,6 +14,7 @@
 * `#include <cmath>`
 * `#include <limits>`
 * `#include <numbers>`
+* `#include <vector>`
 * `#include "las/las_point.hpp"`
 * `#include "lib/grid/grid.hpp"`
 * `#include "methods/hill_shade/hill_shade.hpp"`
@@ -33,11 +34,6 @@
 
 
 
-## Classes
-
-| Type | Name |
-| ---: | :--- |
-| class | [**TestGrid**](classTestGrid.md) <br> |
 
 
 

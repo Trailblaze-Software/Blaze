@@ -63,6 +63,8 @@
 * **crs\_mismatch** ([**TileModeInfo**](structTileModeInfo.md))
 * **colors** ([**VegeHeightConfig**](structVegeHeightConfig.md))
 * **config\_from\_catchment** ([**WaterConfigs**](structWaterConfigs.md))
+* **cell\_coord** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
+* **cell\_key** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
 
 
 ## d
@@ -93,12 +95,18 @@
 
 * **Extent3D** ([**Extent3D**](structExtent3D.md))
 * **ensure\_initialized** ([**GDALInitializer**](classGDALInitializer.md))
+* **ensure\_data\_fields** ([**GPKGWriter**](classGPKGWriter.md))
+* **ensure\_field** ([**GPKGWriter**](classGPKGWriter.md))
+* **ensure\_transaction** ([**GPKGWriter**](classGPKGWriter.md))
 * **extent** ([**Geo**](classGeo.md), [**LASLayer**](classLASLayer.md), [**Layer**](classLayer.md), [**Tile**](structTile.md))
 * **end** ([**LASData**](classLASData.md), [**LineCoord2D**](classLineCoord2D.md))
 * **extract\_borders** ([**LASData**](classLASData.md))
 * **export\_bounds** ([**LASFile**](classLASFile.md))
+* **exterior** ([**PolygonWithHoles**](structPolygonWithHoles.md))
 * **expect\_contours** ([**TerrainTestParams**](structTerrainTestParams.md))
 * **error** ([**UserCrsParseResult**](structUserCrsParseResult.md))
+* **exterior\_ring** ([**VegePolygon**](structVegePolygon.md))
+* **ExtentSpatialIndex** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
 
 
 ## f
@@ -111,6 +119,7 @@
 * **find\_up\_down** ([**ContourPoint**](classContourPoint.md))
 * **FlexGrid** ([**FlexGrid**](classFlexGrid.md))
 * **fill\_from** ([**FlexGrid**](classFlexGrid.md), [**Geo**](classGeo.md), [**Grid**](classGrid.md), [**MultiBand**](classMultiBand.md))
+* **field\_type\_for** ([**GPKGWriter**](classGPKGWriter.md))
 * **FromGeoImg** ([**Geo**](classGeo.md))
 * **FromPoints** ([**Geo**](classGeo.md))
 * **fill** ([**Grid**](classGrid.md))
@@ -137,6 +146,7 @@
 * **GDALInitializer** ([**GDALInitializer**](classGDALInitializer.md))
 * **GLWidget** ([**GLWidget**](classGLWidget.md))
 * **GPKGWriter** ([**GPKGWriter**](classGPKGWriter.md))
+* **get\_or\_create\_layer** ([**GPKGWriter**](classGPKGWriter.md))
 * **Geo** ([**Geo**](classGeo.md))
 * **GeoGridData** ([**GeoGridData**](classGeoGridData.md))
 * **GeoImgGrid** ([**GeoImgGrid**](classGeoImgGrid.md))
@@ -165,6 +175,7 @@
 * **horizontal** ([**GridGraph**](classGridGraph.md))
 * **height\_range** ([**LASFile**](classLASFile.md))
 * **horizontal\_wkt** ([**LASFileExtent**](structLASFileExtent.md))
+* **holes** ([**PolygonWithHoles**](structPolygonWithHoles.md), [**VegePolygon**](structVegePolygon.md))
 * **height\_function** ([**TerrainTestParams**](structTerrainTestParams.md))
 * **height\_configs** ([**VegeConfig**](structVegeConfig.md))
 
@@ -179,7 +190,7 @@
 * **initializeGL** ([**GLWidget**](classGLWidget.md))
 * **in\_bounds** ([**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**MultiBand**](classMultiBand.md))
 * **ImgGrid** ([**ImgGrid**](classImgGrid.md))
-* **insert** ([**LASData**](classLASData.md))
+* **insert** ([**LASData**](classLASData.md), [**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
 * **intensity\_range** ([**LASData**](classLASData.md))
 * **intensity** ([**LASPoint**](classLASPoint.md))
 
@@ -191,6 +202,7 @@
 
 ## l
 
+* **layer** ([**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md), [**Polyline**](classPolyline.md), [**VegePolygon**](structVegePolygon.md))
 * **las\_filepaths** ([**Config**](structConfig.md))
 * **las\_files** ([**Config**](structConfig.md))
 * **last\_file\_count** ([**ConfigEditor**](classConfigEditor.md))
@@ -213,7 +225,6 @@
 * **LASPoint** ([**LASPoint**](classLASPoint.md))
 * **LineCoord2D** ([**LineCoord2D**](classLineCoord2D.md))
 * **LineCoord2DCrossing** ([**LineCoord2DCrossing**](classLineCoord2DCrossing.md))
-* **layer** ([**Polyline**](classPolyline.md))
 
 
 ## m
@@ -224,6 +235,8 @@
 * **mutex** ([**AsyncLASData**](classAsyncLASData.md))
 * **m\_tracker** ([**AsyncProgressTracker**](classAsyncProgressTracker.md))
 * **m\_storage** ([**BinnedPoints**](classBinnedPoints.md))
+* **min\_area\_m2** ([**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md))
+* **min\_hole\_area\_m2** ([**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md))
 * **m\_data** ([**CMYKColor**](classCMYKColor.md), [**Coordinate2D**](classCoordinate2D.md), [**FlexGrid**](classFlexGrid.md), [**Grid**](classGrid.md), [**RGBColor**](classRGBColor.md))
 * **m\_direction** ([**Camera**](classCamera.md))
 * **m\_fov** ([**Camera**](classCamera.md))
@@ -279,6 +292,7 @@
 * **m\_vbo** ([**GLWidget**](classGLWidget.md), [**LASLayerRenderer**](classLASLayerRenderer.md))
 * **mouseMoveEvent** ([**GLWidget**](classGLWidget.md))
 * **mousePressEvent** ([**GLWidget**](classGLWidget.md))
+* **m\_transaction\_active** ([**GPKGWriter**](classGPKGWriter.md))
 * **m\_transform** ([**GeoGridData**](classGeoGridData.md))
 * **m\_compound\_wkt** ([**GeoProjection**](classGeoProjection.md))
 * **m\_repeats** ([**Grid**](classGrid.md))
@@ -316,9 +330,12 @@
 * **m\_subtracker\_range** ([**ProgressTracker**](classProgressTracker.md))
 * **m\_progress\_tracker** ([**ProgressTrackerBar**](classProgressTrackerBar.md), [**TimeFunction**](classTimeFunction.md))
 * **m\_tracker\_obtained** ([**ProgressTrackerBar**](classProgressTrackerBar.md))
+* **m\_updates** ([**RecordingProgressBar**](classRecordingProgressBar.md))
 * **m\_what** ([**TaskException**](classTaskException.md))
 * **m\_start** ([**Timer**](classTimer.md))
 * **minimum\_catchment** ([**WaterConfigs**](structWaterConfigs.md))
+* **m\_cell\_size** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
+* **m\_cells** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
 
 
 ## n
@@ -326,14 +343,14 @@
 * **n\_bytes** ([**FlexGrid**](classFlexGrid.md))
 * **n\_points** ([**LASData**](classLASData.md))
 * **native\_wkt** ([**LASFileExtent**](structLASFileExtent.md))
-* **name** ([**Layer**](classLayer.md), [**Polyline**](classPolyline.md), [**TerrainTestParams**](structTerrainTestParams.md), [**Tile**](structTile.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
+* **name** ([**Layer**](classLayer.md), [**Polyline**](classPolyline.md), [**TerrainTestParams**](structTerrainTestParams.md), [**Tile**](structTile.md), [**VegeHeightConfig**](structVegeHeightConfig.md), [**VegePolygon**](structVegePolygon.md))
 * **next\_points** ([**LineCoord2DCrossing**](classLineCoord2DCrossing.md))
 
 
 ## o
 
 * **operator bool** ([**BlazeBool**](structBlazeBool.md))
-* **operator=** ([**BlazeBool**](structBlazeBool.md), [**Color**](classColor.md), [**Config**](structConfig.md), [**GDALInitializer**](classGDALInitializer.md), [**GeoProjection**](classGeoProjection.md), [**ProgressTracker**](classProgressTracker.md))
+* **operator=** ([**BlazeBool**](structBlazeBool.md), [**Color**](classColor.md), [**Config**](structConfig.md), [**GDALInitializer**](classGDALInitializer.md), [**GPKGWriter**](classGPKGWriter.md), [**GeoProjection**](classGeoProjection.md), [**ProgressTracker**](classProgressTracker.md))
 * **operator\*** ([**CMYKColor**](classCMYKColor.md))
 * **operator+** ([**CMYKColor**](classCMYKColor.md), [**Coordinate2D**](classCoordinate2D.md))
 * **operator[]** ([**CMYKColor**](classCMYKColor.md), [**ContourConfigs**](structContourConfigs.md), [**FlexGrid**](classFlexGrid.md), [**Grid**](classGrid.md), [**GridGraph**](classGridGraph.md), [**LASData**](classLASData.md), [**MultiBand**](classMultiBand.md), [**RGBColor**](classRGBColor.md))
@@ -376,7 +393,9 @@
 * **push\_back** ([**Contour**](classContour.md), [**LASData**](classLASData.md))
 * **pick\_from\_height** ([**ContourConfigs**](structContourConfigs.md))
 * **paintGL** ([**GLWidget**](classGLWidget.md))
+* **populate\_ring** ([**GPKGWriter**](classGPKGWriter.md))
 * **projection** ([**GPKGWriter**](classGPKGWriter.md), [**GeoGridData**](classGeoGridData.md), [**LASFile**](classLASFile.md), [**LASLayer**](classLASLayer.md), [**Layer**](classLayer.md))
+* **pad** ([**Geo**](classGeo.md))
 * **pixel\_to\_projection** ([**GeoTransform**](classGeoTransform.md))
 * **projection\_to\_pixel** ([**GeoTransform**](classGeoTransform.md))
 * **path** ([**LASFileExtent**](structLASFileExtent.md))
@@ -387,6 +406,11 @@
 * **proportion** ([**ProgressTracker**](classProgressTracker.md))
 * **ProgressTrackerBar** ([**ProgressTrackerBar**](classProgressTrackerBar.md))
 * **pick\_from\_blocked\_proportion** ([**VegeHeightConfig**](structVegeHeightConfig.md))
+
+
+## q
+
+* **query** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
 
 
 ## r
@@ -404,6 +428,7 @@
 * **rot\_x** ([**GeoTransform**](classGeoTransform.md))
 * **rot\_y** ([**GeoTransform**](classGeoTransform.md))
 * **read\_points** ([**LASData**](classLASData.md))
+* **report\_parallel\_progress** ([**ProgressTracker**](classProgressTracker.md))
 * **RGBColor** ([**RGBColor**](classRGBColor.md))
 * **raise** ([**TaskException**](classTaskException.md))
 * **required** ([**TileModeInfo**](structTileModeInfo.md))
@@ -420,6 +445,7 @@
 * **slope** ([**ContourPoint**](classContourPoint.md))
 * **SetUpTestSuite** ([**E2ETerrainTest**](classE2ETerrainTest.md))
 * **sizeHint** ([**GLWidget**](classGLWidget.md))
+* **set\_data\_fields** ([**GPKGWriter**](classGPKGWriter.md))
 * **slice** ([**Geo**](classGeo.md))
 * **save\_to** ([**GeoImgGrid**](classGeoImgGrid.md), [**ImgGrid**](classImgGrid.md))
 * **set\_dx** ([**GeoTransform**](classGeoTransform.md))
@@ -448,7 +474,6 @@
 * **text\_update** ([**ProgressBar**](classProgressBar.md), [**ProgressBox**](classProgressBox.md), [**ProgressObserver**](classProgressObserver.md), [**ProgressTracker**](classProgressTracker.md), [**ProgressTrackerBar**](classProgressTrackerBar.md))
 * **toScalar** ([**RGBColor**](classRGBColor.md))
 * **TaskException** ([**TaskException**](classTaskException.md))
-* **TestGrid** ([**TestGrid**](classTestGrid.md))
 * **TimeFunction** ([**TimeFunction**](classTimeFunction.md))
 * **Timer** ([**Timer**](classTimer.md))
 * **to\_json** ([**nlohmann::adl\_serializer&lt; BlockingThresholdColorPair &gt;**](structnlohmann_1_1adl__serializer_3_01BlockingThresholdColorPair_01_4.md), [**nlohmann::adl\_serializer&lt; BuildingsConfig &gt;**](structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4.md), [**nlohmann::adl\_serializer&lt; CMYKColor &gt;**](structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4.md), [**nlohmann::adl\_serializer&lt; CanopyConfig &gt;**](structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4.md), [**nlohmann::adl\_serializer&lt; ColorVariant &gt;**](structnlohmann_1_1adl__serializer_3_01ColorVariant_01_4.md), [**nlohmann::adl\_serializer&lt; ContourConfig &gt;**](structnlohmann_1_1adl__serializer_3_01ContourConfig_01_4.md), [**nlohmann::adl\_serializer&lt; ContourConfigs &gt;**](structnlohmann_1_1adl__serializer_3_01ContourConfigs_01_4.md), [**nlohmann::adl\_serializer&lt; GridConfig &gt;**](structnlohmann_1_1adl__serializer_3_01GridConfig_01_4.md), [**nlohmann::adl\_serializer&lt; GroundConfig &gt;**](structnlohmann_1_1adl__serializer_3_01GroundConfig_01_4.md), [**nlohmann::adl\_serializer&lt; RGBColor &gt;**](structnlohmann_1_1adl__serializer_3_01RGBColor_01_4.md), [**nlohmann::adl\_serializer&lt; RenderConfig &gt;**](structnlohmann_1_1adl__serializer_3_01RenderConfig_01_4.md), [**nlohmann::adl\_serializer&lt; VegeConfig &gt;**](structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4.md), [**nlohmann::adl\_serializer&lt; VegeHeightConfig &gt;**](structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4.md), [**nlohmann::adl\_serializer&lt; WaterConfig &gt;**](structnlohmann_1_1adl__serializer_3_01WaterConfig_01_4.md), [**nlohmann::adl\_serializer&lt; WaterConfigs &gt;**](structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4.md))
@@ -460,7 +485,8 @@
 * **up** ([**Camera**](classCamera.md))
 * **ui** ([**ConfigEditor**](classConfigEditor.md), [**Main3DWindow**](classMain3DWindow.md), [**MainWindow**](classMainWindow.md), [**ProgressBox**](classProgressBox.md))
 * **update\_las\_stats** ([**ConfigEditor**](classConfigEditor.md))
-* **update\_progress** ([**ProgressBar**](classProgressBar.md), [**ProgressBox**](classProgressBox.md), [**ProgressObserver**](classProgressObserver.md), [**ProgressTracker**](classProgressTracker.md), [**ProgressTrackerBar**](classProgressTrackerBar.md))
+* **update\_progress** ([**ProgressBar**](classProgressBar.md), [**ProgressBox**](classProgressBox.md), [**ProgressObserver**](classProgressObserver.md), [**ProgressTracker**](classProgressTracker.md), [**ProgressTrackerBar**](classProgressTrackerBar.md), [**RecordingProgressBar**](classRecordingProgressBar.md))
+* **updates** ([**RecordingProgressBar**](classRecordingProgressBar.md))
 
 
 ## v
@@ -486,6 +512,8 @@
 * **wrap\_tabs\_in\_scroll\_areas** ([**ConfigEditor**](classConfigEditor.md))
 * **width** ([**ContourConfig**](structContourConfig.md), [**GridData**](classGridData.md), [**GridGraph**](classGridGraph.md), [**LASFile**](classLASFile.md), [**MultiBand**](classMultiBand.md), [**WaterConfig**](structWaterConfig.md))
 * **wheelEvent** ([**GLWidget**](classGLWidget.md))
+* **write\_feature** ([**GPKGWriter**](classGPKGWriter.md))
+* **write\_polygon** ([**GPKGWriter**](classGPKGWriter.md))
 * **write\_polyline** ([**GPKGWriter**](classGPKGWriter.md))
 * **width\_m** ([**Geo**](classGeo.md))
 * **with\_new\_resolution** ([**GeoTransform**](classGeoTransform.md))
@@ -519,6 +547,7 @@
 * **~ConfigEditor** ([**ConfigEditor**](classConfigEditor.md))
 * **~GDALDataset\_w** ([**GDALDataset\_w**](classGDALDataset__w.md))
 * **~GLWidget** ([**GLWidget**](classGLWidget.md))
+* **~GPKGWriter** ([**GPKGWriter**](classGPKGWriter.md))
 * **~ImgGrid** ([**ImgGrid**](classImgGrid.md))
 * **~LASLayerRenderer** ([**LASLayerRenderer**](classLASLayerRenderer.md))
 * **~Layer** ([**Layer**](classLayer.md))

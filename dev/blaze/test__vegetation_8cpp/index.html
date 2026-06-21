@@ -787,17 +787,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#public-static-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Static Functions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#public-functions-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -891,45 +880,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#public-static-functions-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Static Functions Documentation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Public Static Functions Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#function-make_float_grid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function make_float_grid
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#function-make_opt_float_grid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function make_opt_float_grid
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -998,25 +948,6 @@
 </tr>
 </tbody>
 </table>
-<h2 id="public-static-functions">Public Static Functions</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-make_float_grid"><strong>make_float_grid</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::vector&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &gt; &amp; data) <br></td>
-</tr>
-<tr>
-<td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-make_opt_float_grid"><strong>make_opt_float_grid</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::vector&lt; std::optional&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &gt; &gt; &amp; data) <br></td>
-</tr>
-</tbody>
-</table>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-test">function TEST</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
@@ -1071,20 +1002,6 @@
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">Vegetation</span><span class="p">,</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">LowPassPreservesGridDimensions</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-<h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
-<h3 id="function-make_float_grid">function make_float_grid</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">static</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_float_grid</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
-<h3 id="function-make_opt_float_grid">function make_opt_float_grid</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">static</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_opt_float_grid</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

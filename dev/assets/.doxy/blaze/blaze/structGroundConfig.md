@@ -35,8 +35,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**int**](classCoordinate2D.md) | [**max\_ground\_intensity**](#variable-max_ground_intensity)  <br> |
-|  [**int**](classCoordinate2D.md) | [**min\_ground\_intensity**](#variable-min_ground_intensity)  <br> |
+|  [**int**](classCoordinate2D.md) | [**max\_ground\_intensity**](#variable-max_ground_intensity)   = `1000`<br> |
+|  [**int**](classCoordinate2D.md) | [**min\_ground\_intensity**](#variable-min_ground_intensity)   = `100`<br> |
 
 
 

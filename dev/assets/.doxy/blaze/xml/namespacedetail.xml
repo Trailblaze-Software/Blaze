@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacedetail" kind="namespace" language="C++">
+    <compoundname>detail</compoundname>
+    <innerclass refid="classdetail_1_1ExtentSpatialIndex" prot="public">detail::ExtentSpatialIndex</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="contour__gen_8hpp_1a6d45fb35d7affb94cbcfddd4b37f57a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <definition>double detail::min_contour_loop_area_m2</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid)</argsstring>
+        <name>min_contour_loop_area_m2</name>
+        <qualifiedname>detail::min_contour_loop_area_m2</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="16" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="16" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a0dd15675dc250baa2282f0cae2643660" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+        <definition>const GeoGrid&lt; T &gt; &amp; detail::work_grid_for_contours</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, std::optional&lt; T &gt; pad_value, std::optional&lt; GeoGrid&lt; T &gt; &gt; &amp;padded_out)</argsstring>
+        <name>work_grid_for_contours</name>
+        <qualifiedname>detail::work_grid_for_contours</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>std::optional&lt; T &gt;</type>
+          <declname>pad_value</declname>
+        </param>
+        <param>
+          <type>std::optional&lt; <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &gt; &amp;</type>
+          <declname>padded_out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="23" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="23" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a0f199fa882998911d9c19870008e53e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+          </param>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">EdgeHeightsFn</ref></type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt;</type>
+        <definition>GridGraph&lt; std::set&lt; double &gt; &gt; detail::identify_contour_crossings</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, EdgeHeightsFn edge_heights)</argsstring>
+        <name>identify_contour_crossings</name>
+        <qualifiedname>detail::identify_contour_crossings</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">EdgeHeightsFn</ref></type>
+          <declname>edge_heights</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="33" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="33" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a2cdafe0299253b82214a3e15ea1f7d45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+          </param>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">AcceptFn</ref></type>
+          </param>
+          <param>
+            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">EmitFn</ref></type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void detail::trace_contours</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, GridGraph&lt; std::set&lt; double &gt; &gt; &amp;contour_heights, AcceptFn accept, EmitFn emit)</argsstring>
+        <name>trace_contours</name>
+        <qualifiedname>detail::trace_contours</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>contour_heights</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">AcceptFn</ref></type>
+          <declname>accept</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">EmitFn</ref></type>
+          <declname>emit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="54" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="54" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1aedcb84ffc7adbc4c14076c8d7ab19a76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void detail::fill_ogr_ring</definition>
+        <argsstring>(OGRLinearRing &amp;ring, const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;vertices)</argsstring>
+        <name>fill_ogr_ring</name>
+        <qualifiedname>detail::fill_ogr_ring</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">OGRLinearRing</ref> &amp;</type>
+          <declname>ring</declname>
+        </param>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>vertices</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="16" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="16" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a0e2a65696e3199884d7fd9f62aacacd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="classCoordinate2D" kindref="compound">OGRGeometry</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; OGRGeometry &gt; detail::polygon_to_ogr</definition>
+        <argsstring>(const PolygonWithHoles &amp;poly)</argsstring>
+        <name>polygon_to_ogr</name>
+        <qualifiedname>detail::polygon_to_ogr</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="23" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="23" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a133d1a817d08a0b7f85f72ab307f63e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="classCoordinate2D" kindref="compound">OGRGeometry</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; OGRGeometry &gt; detail::ring_to_ogr</definition>
+        <argsstring>(const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;exterior_ring)</argsstring>
+        <name>ring_to_ogr</name>
+        <qualifiedname>detail::ring_to_ogr</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <declname>exterior_ring</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="40" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="40" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a5210abe1c0eba42c385b8e7b96268264" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref></type>
+        <definition>PolygonWithHoles detail::polygon_from_ogr</definition>
+        <argsstring>(const OGRPolygon *ogr_poly)</argsstring>
+        <name>polygon_from_ogr</name>
+        <qualifiedname>detail::polygon_from_ogr</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">OGRPolygon</ref> *</type>
+          <declname>ogr_poly</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="51" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="51" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1acc0986ddc1e277f42f55c1ec8c31a833" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void detail::append_polygons_from_ogr</definition>
+        <argsstring>(const OGRGeometry *geometry, std::vector&lt; PolygonWithHoles &gt; &amp;out)</argsstring>
+        <name>append_polygons_from_ogr</name>
+        <qualifiedname>detail::append_polygons_from_ogr</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">OGRGeometry</ref> *</type>
+          <declname>geometry</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="76" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="76" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a7b7092d6ed1f9380b900f5d628affa01" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <definition>void detail::append_ogr_polygons</definition>
+        <argsstring>(const OGRGeometry *geometry, std::vector&lt; std::unique_ptr&lt; OGRGeometry &gt; &gt; &amp;out)</argsstring>
+        <name>append_ogr_polygons</name>
+        <qualifiedname>detail::append_ogr_polygons</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">OGRGeometry</ref> *</type>
+          <declname>geometry</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::unique_ptr&lt; <ref refid="classCoordinate2D" kindref="compound">OGRGeometry</ref> &gt; &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="93" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="93" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1ab137f1443fc3ea274b08738b6fad8cd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="classCoordinate2D" kindref="compound">OGRGeometry</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; OGRGeometry &gt; detail::build_cutout_union</definition>
+        <argsstring>(const std::vector&lt; PolygonWithHoles &gt; &amp;cutouts)</argsstring>
+        <name>build_cutout_union</name>
+        <qualifiedname>detail::build_cutout_union</qualifiedname>
+        <param>
+          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &gt; &amp;</type>
+          <declname>cutouts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="158" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="158" bodyend="196"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="13" column="1"/>
+  </compounddef>
+</doxygen>

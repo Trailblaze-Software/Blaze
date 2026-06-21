@@ -24,10 +24,17 @@
 * **color\_equals** ([**config\_editor.cpp**](config__editor_8cpp.md))
 * **create\_color\_icon** ([**config\_editor.cpp**](config__editor_8cpp.md))
 * **crosses\_contour** ([**contour.hpp**](contour_8hpp.md))
+* **clip\_polygon\_hole\_free\_to\_extent** ([**polygon.hpp**](polygon_8hpp.md))
+* **clip\_polygon\_to\_extent** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
 * **coord** ([**test\_grid.cpp**](test__grid_8cpp.md))
+* **combine\_gpkgs** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **copy\_gpkg\_feature** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **copy\_gpkg\_layer** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **convert\_geo\_keys\_to\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
 * **copy\_from** ([**las\_file.hpp**](las__file_8hpp.md))
 * **compute\_tiles** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **combine\_vege\_gpkgs** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **contours\_to\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **catchment\_size** ([**water.cpp**](water_8cpp.md))
 * **create\_minimal\_test\_config** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **create\_synthetic\_las\_data** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
@@ -45,13 +52,19 @@
 
 ## e
 
+* **extent\_contains** ([**polygon.hpp**](polygon_8hpp.md))
 * **ensure\_gdal\_initialized** ([**gdal\_init.hpp**](gdal__init_8hpp.md))
+* **ensure\_dst\_layer\_fields** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **external\_border\_ranges** ([**las\_file.hpp**](las__file_8hpp.md))
 * **extract\_borders** ([**las\_file.hpp**](las__file_8hpp.md))
+* **extract\_threshold\_layers** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 
 
 ## f
 
+* **forest\_contours\_polygonize** ([**test\_vegetation\_polygon.cpp**](test__vegetation__polygon_8cpp.md))
+* **filter\_by\_min\_area** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **filter\_small\_holes** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **fill\_depressions** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
 * **flows\_to** ([**water.cpp**](water_8cpp.md))
 
@@ -61,11 +74,15 @@
 * **get\_color\_name** ([**config\_editor.cpp**](config__editor_8cpp.md))
 * **get\_contour\_heights** ([**contour.hpp**](contour_8hpp.md))
 * **generate\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **generate\_contours\_at\_heights** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
 * **generate\_naive\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **get\_or\_create\_dst\_layer** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **gpkg\_feature\_count** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **gdal\_type** ([**tif.cpp**](tif_8cpp.md))
 * **get\_asset\_dir** ([**resources.cpp**](resources_8cpp.md))
 * **get\_local\_data\_dir** ([**resources.cpp**](resources_8cpp.md))
 * **get\_blocked\_proportion** ([**vegetation.hpp**](vegetation_8hpp.md))
+* **generate\_vege\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **get\_wgs84\_wkt** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **get\_pixel\_heights** ([**process.cpp**](process_8cpp.md))
 
@@ -80,6 +97,10 @@
 
 * **interpolate\_coordinates** ([**contour.hpp**](contour_8hpp.md))
 * **identify\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **identify\_contours\_at\_heights** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **intersect\_polygons** ([**polygon.hpp**](polygon_8hpp.md))
+* **is\_left\_of** ([**polygon.hpp**](polygon_8hpp.md))
+* **intersect\_polygon** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
 * **interpolate\_value** ([**grid.cpp**](grid_8cpp.md), [**grid.hpp**](grid_8hpp.md))
 * **interpolate\_holes** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **identify\_sinks** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
@@ -96,6 +117,7 @@
 
 * **load\_input\_extents** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **low\_pass** ([**vegetation.hpp**](vegetation_8hpp.md))
+* **layer\_number** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 
 
 ## m
@@ -103,12 +125,11 @@
 * **main** ([**main.cpp**](main_8cpp.md), [**main\_3d.cpp**](main__3d_8cpp.md), [**blaze.cpp**](blaze_8cpp.md), [**unit\_tests.cpp**](unit__tests_8cpp.md))
 * **make\_projection\_from\_wkt** ([**crs.hpp**](crs_8hpp.md))
 * **make\_coord\_transform** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
-* **make\_float\_grid** ([**test\_vegetation.cpp**](test__vegetation_8cpp.md))
-* **make\_opt\_float\_grid** ([**test\_vegetation.cpp**](test__vegetation_8cpp.md))
 
 
 ## n
 
+* **normalize\_polygon** ([**polygon.hpp**](polygon_8hpp.md))
 * **num\_cells\_by\_distance** ([**grid.hpp**](grid_8hpp.md))
 * **normalize\_crs\_wkt** ([**crs.hpp**](crs_8hpp.md))
 
@@ -121,6 +142,9 @@
 
 ## p
 
+* **point\_in\_ring** ([**polygon.hpp**](polygon_8hpp.md))
+* **polygon\_from\_extent** ([**polygon.hpp**](polygon_8hpp.md))
+* **polygon\_net\_area\_m2** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **process\_las\_data** ([**process.cpp**](process_8cpp.md), [**process.hpp**](process_8hpp.md))
 * **process\_las\_file** ([**process.cpp**](process_8cpp.md), [**process.hpp**](process_8hpp.md))
 
@@ -129,6 +153,8 @@
 
 * **rad2deg** ([**camera.hpp**](camera_8hpp.md))
 * **round\_down** ([**contour.hpp**](contour_8hpp.md))
+* **reverse\_ring** ([**polygon.hpp**](polygon_8hpp.md))
+* **ring\_extent** ([**polygon.hpp**](polygon_8hpp.md))
 * **remove\_outliers** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **read\_gpkg** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **reader\_embedded\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
@@ -138,15 +164,21 @@
 * **reproject\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **read\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **run\_loop** ([**progress\_tracker\_helper.cpp**](progress__tracker__helper_8cpp.md), [**progress\_tracker.hpp**](progress__tracker_8hpp.md))
+* **read\_vege\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **read\_byte\_tif\_pixels** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **run\_with\_config** ([**run.cpp**](run_8cpp.md), [**run.hpp**](run_8hpp.md))
 
 
 ## s
 
+* **segment\_intersection** ([**polygon.hpp**](polygon_8hpp.md))
+* **signed\_area** ([**polygon.hpp**](polygon_8hpp.md))
+* **subtract\_polygon** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **subtract\_polygon\_with\_union** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
 * **same\_type\_different\_size** ([**grid.cpp**](grid_8cpp.md))
 * **snap\_down** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **snap\_up** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **subtract\_from\_polygon** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **slope** ([**hill\_shade.hpp**](hill__shade_8hpp.md))
 * **smoothify** ([**water.cpp**](water_8cpp.md))
 * **stream\_path** ([**water.cpp**](water_8cpp.md))
@@ -156,19 +188,22 @@
 
 ## t
 
-* **TEST** ([**test\_config\_lookup.cpp**](test__config__lookup_8cpp.md), [**test\_config\_paths.cpp**](test__config__paths_8cpp.md), [**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_ops.cpp**](test__contour__ops_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_grid.cpp**](test__grid_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_colors.cpp**](test__colors_8cpp.md), [**test\_las\_file.cpp**](test__las__file_8cpp.md), [**test\_las\_point.cpp**](test__las__point_8cpp.md), [**test\_coordinate.cpp**](test__coordinate_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_vegetation.cpp**](test__vegetation_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
+* **TEST** ([**test\_config\_lookup.cpp**](test__config__lookup_8cpp.md), [**test\_config\_paths.cpp**](test__config__paths_8cpp.md), [**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_ops.cpp**](test__contour__ops_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_polygon.cpp**](test__polygon_8cpp.md), [**test\_grid.cpp**](test__grid_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_colors.cpp**](test__colors_8cpp.md), [**test\_las\_file.cpp**](test__las__file_8cpp.md), [**test\_las\_point.cpp**](test__las__point_8cpp.md), [**test\_coordinate.cpp**](test__coordinate_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_vegetation.cpp**](test__vegetation_8cpp.md), [**test\_vegetation\_polygon.cpp**](test__vegetation__polygon_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
 * **trim\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
 * **try\_user\_crs\_to\_wkt** ([**crs.hpp**](crs_8hpp.md))
 * **to\_cmyk** ([**colors.hpp**](colors_8hpp.md))
 * **to\_rgb** ([**colors.hpp**](colors_8hpp.md))
 * **tiles\_per\_file** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
+* **threshold\_layer\_name** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **trim\_vege\_polygons\_to\_extent** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **TEST\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 
 
 ## u
 
 * **unreachable** ([**assert.hpp**](assert_8hpp.md))
+* **union\_overlapping\_polygons** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
 * **user\_crs\_to\_wkt** ([**crs.hpp**](crs_8hpp.md))
 * **unique\_coord\_name** ([**las\_file.hpp**](las__file_8hpp.md))
 * **union\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
@@ -184,10 +219,12 @@
 ## w
 
 * **write\_to\_crt** ([**crt.hpp**](crt_8hpp.md))
+* **write\_vegetation\_crt** ([**crt.hpp**](crt_8hpp.md))
 * **wkt\_matches** ([**crs.hpp**](crs_8hpp.md))
 * **wkt\_parses** ([**crs.hpp**](crs_8hpp.md))
 * **write\_to\_image\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
 * **write\_to\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
+* **write\_vege\_polygons\_gpkg** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 
 
 ## _

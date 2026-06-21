@@ -35,10 +35,10 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**bin\_resolution**](#variable-bin_resolution)  <br> |
-|  [**double**](classCoordinate2D.md) | [**contour\_dem\_resolution**](#variable-contour_dem_resolution)  <br> |
-|  [**unsigned**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**downsample\_factor**](#variable-downsample_factor)  <br> |
-|  [**double**](classCoordinate2D.md) | [**vegetation\_grid\_resolution**](#variable-vegetation_grid_resolution)  <br> |
+|  [**double**](classCoordinate2D.md) | [**bin\_resolution**](#variable-bin_resolution)   = `0.5`<br> |
+|  [**double**](classCoordinate2D.md) | [**contour\_dem\_resolution**](#variable-contour_dem_resolution)   = `9.0`<br> |
+|  [**unsigned**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**downsample\_factor**](#variable-downsample_factor)   = `3`<br> |
+|  [**double**](classCoordinate2D.md) | [**vegetation\_grid\_resolution**](#variable-vegetation_grid_resolution)   = `3.0`<br> |
 
 
 

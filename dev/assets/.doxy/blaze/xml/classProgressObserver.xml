@@ -51,6 +51,7 @@
         <reimplementedby refid="classProgressTrackerBar_1a0652db5878dcb6352c200a7c557bf2b2">update_progress</reimplementedby>
         <reimplementedby refid="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08">update_progress</reimplementedby>
         <reimplementedby refid="classProgressTracker_1a8cd68e23a30a0f466043cee0e4f49319">update_progress</reimplementedby>
+        <reimplementedby refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac">update_progress</reimplementedby>
         <reimplementedby refid="classProgressBox_1a08a3e5791918847d41341e919d5fad22">update_progress</reimplementedby>
         <param>
           <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
@@ -147,7 +148,7 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
+      <node id="4">
         <label>ProgressBox</label>
         <link refid="classProgressBox"/>
         <childnode refid="1" relation="public-inheritance">
@@ -157,16 +158,22 @@
         <label>ProgressObserver</label>
         <link refid="classProgressObserver"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>ProgressTracker</label>
         <link refid="classProgressTracker"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="5">
+      <node id="6">
         <label>ProgressTrackerBar</label>
         <link refid="classProgressTrackerBar"/>
         <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>RecordingProgressBar</label>
+        <link refid="classRecordingProgressBar"/>
+        <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>

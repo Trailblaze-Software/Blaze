@@ -17,26 +17,13 @@
 #include "grid/grid_ops.hpp"
 #include "utilities/progress_tracker.hpp"
 
-// Helper class to create test grids
-class TestGrid : public GeoGrid<double> {
- public:
-  explicit TestGrid(const std::vector<std::vector<double>>& data)
-      : GeoGrid<double>(data[0].size(), data.size(), GeoTransform(), GeoProjection()) {
-    for (size_t i = 0; i < data.size(); i++) {
-      for (size_t j = 0; j < data[0].size(); j++) {
-        (*this)[{j, i}] = data[i][j];
-      }
-    }
-  }
-};
-
 // Test downsample function with MEAN method
 TEST(GridOps, DownsampleMean) {
   std::vector<std::vector<double>> data = {{1.0, 2.0, 3.0, 4.0},
                                            {5.0, 6.0, 7.0, 8.0},
                                            {9.0, 10.0, 11.0, 12.0},
                                            {13.0, 14.0, 15.0, 16.0}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   GeoGrid<double> downsampled = downsample(grid, 2, ProgressTracker(), DownsampleMethod::MEAN);
 
@@ -60,7 +47,7 @@ TEST(GridOps, DownsampleMean) {
 // Test downsample function with MEDIAN method
 TEST(GridOps, DownsampleMedian) {
   std::vector<std::vector<double>> data = {{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}, {7.0, 8.0, 9.0}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   GeoGrid<double> downsampled = downsample(grid, 2, ProgressTracker(), DownsampleMethod::MEDIAN);
 
@@ -87,7 +74,7 @@ TEST(GridOps, DownsampleMedian) {
 // Test downsample with odd dimensions
 TEST(GridOps, DownsampleOddDimensions) {
   std::vector<std::vector<double>> data = {{1.0, 2.0, 3.0, 4.0, 5.0}, {6.0, 7.0, 8.0, 9.0, 10.0}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   GeoGrid<double> downsampled = downsample(grid, 2, ProgressTracker(), DownsampleMethod::MEAN);
 
@@ -102,7 +89,7 @@ TEST(GridOps, RemoveOutliers) {
   std::vector<std::vector<double>> data = {{10.0, 10.0, 10.0},
                                            {10.0, 100.0, 10.0},  // Outlier in the middle
                                            {10.0, 10.0, 10.0}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   remove_outliers(grid, ProgressTracker(), 1.0);
 
@@ -118,7 +105,7 @@ TEST(GridOps, RemoveOutliers) {
 TEST(GridOps, RemoveOutliersNoOutliers) {
   std::vector<std::vector<double>> data = {
       {10.0, 10.0, 10.0}, {10.0, 10.0, 10.0}, {10.0, 10.0, 10.0}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   remove_outliers(grid, ProgressTracker(), 1.0);
 
@@ -138,7 +125,7 @@ TEST(GridOps, InterpolateHoles) {
       {10.0, 10.0, 10.0},
       {10.0, std::numeric_limits<double>::max(), 10.0},  // Hole in the middle
       {10.0, 10.0, 10.0}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   interpolate_holes(grid, ProgressTracker());
 
@@ -156,7 +143,7 @@ TEST(GridOps, InterpolateHolesMultiple) {
       {10.0, std::numeric_limits<double>::max(), 20.0},
       {std::numeric_limits<double>::max(), 15.0, std::numeric_limits<double>::max()},
       {30.0, 25.0, 35.0}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   interpolate_holes(grid, ProgressTracker());
 
@@ -210,7 +197,7 @@ TEST(GridOps, InterpolateHolesIsolated) {
        std::numeric_limits<double>::max()},
       {std::numeric_limits<double>::max(), std::numeric_limits<double>::max(),
        std::numeric_limits<double>::max()}};
-  TestGrid grid(data);
+  GeoGrid<double> grid(data);
 
   interpolate_holes(grid, ProgressTracker());
 

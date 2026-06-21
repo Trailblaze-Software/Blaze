@@ -214,14 +214,18 @@
         <link refid="contour_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
         <link refid="contour__gen_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
@@ -229,13 +233,19 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="5">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
         <link refid="img__grid_8hpp_source"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
+        <link refid="vegetation__polygon_8hpp_source"/>
       </node>
     </invincdepgraph>
     <sectiondef kind="define">

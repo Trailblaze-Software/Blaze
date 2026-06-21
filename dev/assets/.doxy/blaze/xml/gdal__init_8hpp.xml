@@ -3,8 +3,10 @@
   <compounddef id="gdal__init_8hpp" kind="file" language="C++">
     <compoundname>gdal_init.hpp</compoundname>
     <includes local="yes">gdal_priv.h</includes>
+    <includedby refid="polygon__subtract_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp</includedby>
     <includedby refid="gpkg_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</includedby>
     <includedby refid="tif_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp</includedby>
+    <includedby refid="vegetation__polygon_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</includedby>
     <includedby refid="test__e2e_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp</includedby>
     <incdepgraph>
       <node id="1">
@@ -18,15 +20,31 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp</label>
+        <link refid="polygon__subtract_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gdal_init.hpp</label>
         <link refid="gdal__init_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
-      <node id="2">
+      <node id="4">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
+        <link refid="vegetation__polygon_8hpp_source"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classGDALInitializer" prot="public">GDALInitializer</innerclass>

@@ -898,6 +898,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#function-report_parallel_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function report_parallel_progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-set_proportion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1032,6 +1043,10 @@
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: left;"><a href="#function-report_parallel_progress"><strong>report_parallel_progress</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> proportion) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
 <td style="text-align: left;"><a href="#function-set_proportion"><strong>set_proportion</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> proportion) <br></td>
 </tr>
 <tr>
@@ -1148,39 +1163,46 @@
 </code></pre></div>
 <hr>
 
-<h3 id="function-set_proportion">function set_proportion</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">set_proportion</span><span class="w"> </span><span class="p">(</span>
+<h3 id="function-report_parallel_progress">function report_parallel_progress</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">report_parallel_progress</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">proportion</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
+<h3 id="function-set_proportion">function set_proportion</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">set_proportion</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">proportion</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-subtracker">function subtracker</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">subtracker</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">start</span><span class="p">,</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">end</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">subtracker</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">start</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">end</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-text_update">function text_update</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">text_update</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">text</span><span class="p">,</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">depth</span><span class="o">=</span><span class="mi">0</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">text_update</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">text</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">depth</span><span class="o">=</span><span class="mi">0</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
 </code></pre></div>
 <p>Implements <a href="../classProgressObserver/#function-text_update"><em>ProgressObserver::text_update</em></a></p>
 <hr>
 
 <h3 id="function-progresstracker">function ~ProgressTracker</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::~</span><span class="n">ProgressTracker</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::~</span><span class="n">ProgressTracker</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 <h2 id="protected-functions-documentation">Protected Functions Documentation</h2>
 <h3 id="function-update_progress">function update_progress</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">update_progress</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">progress</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="o">::</span><span class="n">update_progress</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">progress</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
 </code></pre></div>
 <p>Implements <a href="../classProgressObserver/#function-update_progress"><em>ProgressObserver::update_progress</em></a></p>
 <hr>

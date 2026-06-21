@@ -10,12 +10,14 @@
 
 
 
+* `#include <algorithm>`
 * `#include <cstddef>`
 * `#include <span>`
 * `#include "config_input/config_input.hpp"`
 * `#include "grid/grid.hpp"`
 * `#include "las/las_point.hpp"`
 * `#include "utilities/coordinate.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 * `#include "utilities/timer.hpp"`
 
 
@@ -58,9 +60,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; | [**get\_blocked\_proportion**](#function-get_blocked_proportion) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::span&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & grid, [**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & ground, [**const**](classCoordinate2D.md) [**VegeHeightConfig**](structVegeHeightConfig.md) & vege\_config) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; | [**low\_pass**](#function-low_pass) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; & grid, [**int**](classCoordinate2D.md) delta=8) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; | [**low\_pass**](#function-low_pass) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; & grid, [**int**](classCoordinate2D.md) delta=8) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; | [**get\_blocked\_proportion**](#function-get_blocked_proportion) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::span&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & grid, [**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & ground, [**const**](classCoordinate2D.md) [**VegeHeightConfig**](structVegeHeightConfig.md) & vege\_config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; | [**low\_pass**](#function-low_pass) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; & grid, [**int**](classCoordinate2D.md) delta=8, [**ProgressTracker**](classProgressTracker.md) progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; | [**low\_pass**](#function-low_pass) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**float**](classCoordinate2D.md) &gt; &gt; & grid, [**int**](classCoordinate2D.md) delta=8, [**ProgressTracker**](classProgressTracker.md) progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
 
 
 
@@ -100,7 +102,8 @@
 inline GeoGrid < std::optional< float > > get_blocked_proportion (
     const  GeoGrid < std::span< LASPoint > > & grid,
     const  GeoGrid < double > & ground,
-    const  VegeHeightConfig & vege_config
+    const  VegeHeightConfig & vege_config,
+    ProgressTracker && progress_tracker=ProgressTracker ()
 ) 
 ```
 
@@ -116,7 +119,8 @@ inline GeoGrid < std::optional< float > > get_blocked_proportion (
 ```C++
 inline GeoGrid < float > low_pass (
     const  GeoGrid < float > & grid,
-    int delta=8
+    int delta=8,
+    ProgressTracker progress_tracker=ProgressTracker ()
 ) 
 ```
 
@@ -132,7 +136,8 @@ inline GeoGrid < float > low_pass (
 ```C++
 inline GeoGrid < float > low_pass (
     const  GeoGrid < std::optional< float > > & grid,
-    int delta=8
+    int delta=8,
+    ProgressTracker progress_tracker=ProgressTracker ()
 ) 
 ```
 

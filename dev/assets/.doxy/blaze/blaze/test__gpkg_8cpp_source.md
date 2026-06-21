@@ -11,6 +11,7 @@
 #include <gtest/gtest.h>
 
 #include <fstream>
+#include <set>
 #include <vector>
 
 #include "contour/contour.hpp"
@@ -183,6 +184,103 @@ TEST(GPKG, ReadEmptyFile) {
 
   if (fs::exists(test_file)) {
     fs::remove(test_file);
+  }
+}
+
+TEST(GPKG, CombineGpkgs) {
+  fs::path contours_file = blaze::test::unique_test_output_path("combine_contours", ".gpkg");
+  fs::path streams_file = blaze::test::unique_test_output_path("combine_streams", ".gpkg");
+  fs::path output_file = blaze::test::unique_test_output_path("combined_map", ".gpkg");
+
+  std::string projection =
+      R"(GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]])";
+
+  {
+    GPKGWriter writer(contours_file.string(), projection, "Contour");
+    writer.write_polyline(
+        Polyline{.layer = "101_Contour", .name = "10", .vertices = {{0, 0}, {1, 0}, {1, 1}}},
+        {{"elevation", 10.0}});
+    writer.write_polyline(
+        Polyline{.layer = "103_Form_Line", .name = "2.5", .vertices = {{2, 0}, {3, 0}, {3, 1}}},
+        {{"elevation", 2.5}});
+  }
+  {
+    GPKGWriter writer(streams_file.string(), projection, "streams");
+    writer.write_polyline(
+        Polyline{.layer = "streams", .name = "0.03", .vertices = {{0, 2}, {1, 2}, {2, 2}}},
+        {{"catchment", 0.03}});
+  }
+
+  combine_gpkgs({contours_file, streams_file}, output_file, projection);
+  ASSERT_TRUE(fs::exists(output_file));
+
+  ensure_gdal_initialized();
+  GDALDataset* dataset = (GDALDataset*)GDALOpenEx(output_file.string().c_str(), GDAL_OF_VECTOR,
+                                                  nullptr, nullptr, nullptr);
+  ASSERT_NE(dataset, nullptr);
+
+  std::set<std::string> layer_names;
+  int feature_count = 0;
+  for (int i = 0; i < dataset->GetLayerCount(); i++) {
+    OGRLayer* layer = dataset->GetLayer(i);
+    if (!layer || layer->GetFeatureCount(false) == 0) continue;
+    layer_names.insert(layer->GetName());
+    feature_count += layer->GetFeatureCount(false);
+  }
+  GDALClose(dataset);
+
+  EXPECT_EQ(feature_count, 3);
+  EXPECT_TRUE(layer_names.contains("101_Contour"));
+  EXPECT_TRUE(layer_names.contains("103_Form_Line"));
+  EXPECT_TRUE(layer_names.contains("streams"));
+
+  for (const fs::path& path : {contours_file, streams_file, output_file}) {
+    if (fs::exists(path)) fs::remove(path);
+  }
+}
+
+TEST(GPKG, CombineGpkgsIncludesVegetationPolygons) {
+  fs::path contours_file = blaze::test::unique_test_output_path("combine_contours_vege", ".gpkg");
+  fs::path vegetation_file = blaze::test::unique_test_output_path("combine_vegetation", ".gpkg");
+  fs::path output_file = blaze::test::unique_test_output_path("combined_map_vege", ".gpkg");
+
+  std::string projection =
+      R"(GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]])";
+
+  {
+    GPKGWriter writer(contours_file.string(), projection, "Contour");
+    writer.write_polyline(
+        Polyline{.layer = "101_Contour", .name = "10", .vertices = {{0, 0}, {1, 0}, {1, 1}}},
+        {{"elevation", 10.0}});
+  }
+  {
+    GPKGWriter writer(vegetation_file.string(), projection, "vegetation");
+    writer.write_polygon("406_Slow_Running", "406", {{0, 0}, {10, 0}, {10, 10}, {0, 10}}, {});
+    writer.write_polygon("405_Forest", "405", {{20, 0}, {30, 0}, {30, 10}, {20, 10}}, {});
+  }
+
+  combine_gpkgs({contours_file, vegetation_file}, output_file, projection);
+  ASSERT_TRUE(fs::exists(output_file));
+
+  ensure_gdal_initialized();
+  GDALDataset* dataset = (GDALDataset*)GDALOpenEx(output_file.string().c_str(), GDAL_OF_VECTOR,
+                                                  nullptr, nullptr, nullptr);
+  ASSERT_NE(dataset, nullptr);
+
+  std::set<std::string> layer_names;
+  for (int i = 0; i < dataset->GetLayerCount(); i++) {
+    OGRLayer* layer = dataset->GetLayer(i);
+    if (!layer || layer->GetFeatureCount(false) == 0) continue;
+    layer_names.insert(layer->GetName());
+  }
+  GDALClose(dataset);
+
+  EXPECT_TRUE(layer_names.contains("101_Contour"));
+  EXPECT_TRUE(layer_names.contains("406_Slow_Running"));
+  EXPECT_TRUE(layer_names.contains("405_Forest"));
+
+  for (const fs::path& path : {contours_file, vegetation_file, output_file}) {
+    if (fs::exists(path)) fs::remove(path);
   }
 }
 ```
