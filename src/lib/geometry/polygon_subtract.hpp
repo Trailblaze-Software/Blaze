@@ -260,7 +260,7 @@ inline std::vector<PolygonWithHoles> union_overlapping_polygons(
   const double cell_size =
       std::max(50.0, std::sqrt(width * height / std::max(valid_count, size_t(1))));
   constexpr double seam_tolerance = 0.01;
-  const auto padded = [seam_tolerance](const Extent2D& ext) {
+  const auto padded = [](const Extent2D& ext) {
     return Extent2D{ext.minx - seam_tolerance, ext.maxx + seam_tolerance, ext.miny - seam_tolerance,
                     ext.maxy + seam_tolerance};
   };
@@ -374,12 +374,15 @@ inline std::vector<PolygonWithHoles> subtract_polygon_with_union(const PolygonWi
                                                                  const OGRGeometry* cut_union) {
   ensure_gdal_initialized();
 
-  if (host.exterior.size() < 3 || !cut_union || cut_union->IsEmpty()) {
+  if (host.exterior.size() < 3) {
     return {};
   }
 
   PolygonWithHoles normalized_host = host;
   normalize_polygon(normalized_host);
+  if (!cut_union || cut_union->IsEmpty()) {
+    return {normalized_host};
+  }
 
   const Extent2D host_ext = ring_extent(normalized_host.exterior);
   OGREnvelope cut_env;

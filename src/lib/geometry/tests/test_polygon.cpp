@@ -134,6 +134,16 @@ TEST(SubtractPolygon, NoCutouts) {
   EXPECT_TRUE(result[0].holes.empty());
 }
 
+TEST(SubtractPolygonWithUnion, NullUnionReturnsHost) {
+  const PolygonWithHoles host = ccw_square(0, 0, 100);
+
+  const std::vector<PolygonWithHoles> result = subtract_polygon_with_union(host, nullptr);
+
+  ASSERT_EQ(result.size(), 1u);
+  expect_exterior_area(result[0], 10000.0);
+  EXPECT_TRUE(result[0].holes.empty());
+}
+
 TEST(SubtractPolygon, CutoutOutsideHost) {
   auto host = ccw_square(0, 0, 50);
   auto cutout = ccw_square(100, 100, 10);

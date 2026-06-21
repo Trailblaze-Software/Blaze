@@ -7,7 +7,6 @@
 #include <functional>
 #include <iostream>
 #include <map>
-#include <set>
 #include <string>
 #include <variant>
 #include <vector>
@@ -51,7 +50,6 @@ class GPKGWriter {
   const std::string projection;
 
   std::vector<std::string> layer_names;
-  std::set<std::string> layers_with_fields;
   std::string default_layer_name;
   bool m_transaction_active = false;
 
@@ -135,6 +133,8 @@ class GPKGWriter {
     }
     OGRLayer* layer = dataset->GetLayerByName(layer_name.c_str());
     Assert(layer, "Layer " + layer_name + " not found.");
+    Assert(wkbFlatten(layer->GetLayerDefn()->GetGeomType()) == wkbFlatten(geom_type),
+           "Geometry type mismatch for layer " + layer_name);
     return layer;
   }
 
@@ -195,9 +195,7 @@ class GPKGWriter {
       const std::string& layer_name,
       const std::map<std::string, std::variant<int, double, std::string>>& data_fields) {
     ensure_transaction();
-    if (layers_with_fields.insert(layer_name).second) {
-      ensure_data_fields(layer, data_fields);
-    }
+    ensure_data_fields(layer, data_fields);
 
     OGRFeature* feature = OGRFeature::CreateFeature(layer->GetLayerDefn());
     Assert(feature, "Failed to create feature.");
@@ -368,8 +366,10 @@ inline size_t gpkg_feature_count(const fs::path& path) {
       continue;
     }
     layer->ResetReading();
-    while (layer->GetNextFeature() != nullptr) {
+    OGRFeature* feature = nullptr;
+    while ((feature = layer->GetNextFeature()) != nullptr) {
       ++count;
+      OGRFeature::DestroyFeature(feature);
     }
   }
 

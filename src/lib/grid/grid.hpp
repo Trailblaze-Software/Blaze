@@ -335,8 +335,10 @@ class Geo : public GridT, public GeoGridData {
       GeoProjection projection = GeoProjection())
       : GridT(data.empty() ? 0 : data[0].size(), data.size()),
         GeoGridData(std::move(transform), std::move(projection)) {
+    const size_t width = GridT::width();
     for (size_t i = 0; i < data.size(); i++) {
-      for (size_t j = 0; j < data[i].size(); j++) {
+      AssertEQ(data[i].size(), width);
+      for (size_t j = 0; j < width; j++) {
         (*this)[{j, i}] = data[i][j];
       }
     }
