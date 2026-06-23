@@ -2,6 +2,7 @@
 
 #include <omp.h>
 
+#include <algorithm>
 #include <atomic>
 #include <chrono>
 #include <functional>
@@ -207,6 +208,20 @@ inline void load_points_parallel(laspp::LASReader& reader,
   progress.set_proportion(0.72);
 }
 
+inline bool las_point_format_has_rgb(uint8_t point_format) {
+  switch (point_format & 0x7Fu) {
+    case 2:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+      return true;
+    default:
+      return false;
+  }
+}
+
 inline void load_points_dispatch(laspp::LASReader& reader,
                                  OGRCoordinateTransformation* coord_transform,
                                  const Coordinate3D<double>& origin, size_t preview_stride,
@@ -276,13 +291,15 @@ class AsyncOctreeLASData {
   GeoProjection m_projection;
   GeoProjection m_native_projection;
   size_t m_total_points = 0;
-  std::shared_ptr<const LasRenderSnapshot> m_snapshot;
+  bool m_point_format_has_rgb = false;
+  std::atomic<bool> m_has_rgb_data{false};
+  std::atomic<std::shared_ptr<const LasRenderSnapshot>> m_snapshot;
   std::atomic<bool> m_load_complete{false};
   std::atomic<bool> m_cancel{false};
   std::thread m_thread;
 
   void publish_snapshot(std::shared_ptr<const LasRenderSnapshot> snapshot) {
-    std::atomic_store_explicit(&m_snapshot, std::move(snapshot), std::memory_order_release);
+    m_snapshot.store(std::move(snapshot), std::memory_order_release);
   }
 
  public:
@@ -294,6 +311,8 @@ class AsyncOctreeLASData {
     laspp::LASReader reader(filename);
     m_initial_bounds = as_extent3d(reader.header().bounds());
     m_total_points = reader.num_points();
+    m_point_format_has_rgb =
+        octree_las_detail::las_point_format_has_rgb(reader.header().point_format());
     std::string wkt = reader_embedded_wkt(reader);
     if (!wkt.empty()) {
       m_projection = make_projection_from_wkt(wkt);
@@ -352,6 +371,13 @@ class AsyncOctreeLASData {
         return;
       }
 
+      if (m_point_format_has_rgb) {
+        const bool has_rgb =
+            std::any_of(converted.begin(), converted.end(),
+                        [](const OctreePoint& point) { return point.has_file_rgb != 0; });
+        m_has_rgb_data.store(has_rgb, std::memory_order_release);
+      }
+
       tracker.set_proportion(0.72);
       octree_las_detail::MonotonicProgress octree_progress(tracker);
 
@@ -402,7 +428,7 @@ class AsyncOctreeLASData {
   }
 
   std::shared_ptr<const LasRenderSnapshot> snapshot() const {
-    return std::atomic_load_explicit(&m_snapshot, std::memory_order_acquire);
+    return m_snapshot.load(std::memory_order_acquire);
   }
 
   Extent3D bounds() const {
@@ -425,5 +451,7 @@ class AsyncOctreeLASData {
   }
 
   size_t total_points() const { return m_total_points; }
+  bool point_format_has_rgb() const { return m_point_format_has_rgb; }
+  bool has_rgb_data() const { return m_has_rgb_data.load(std::memory_order_acquire); }
   bool load_complete() const { return m_load_complete.load(std::memory_order_acquire); }
 };

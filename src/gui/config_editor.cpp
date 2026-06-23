@@ -26,6 +26,7 @@
 #include "las_reader.hpp"
 #include "printing/to_string.hpp"
 #include "ui_config_editor.h"
+#include "utilities/env.hpp"
 
 class ParentFolderExistsValidator : public QValidator {
  public:
@@ -404,7 +405,7 @@ Config ConfigEditor::load_initial_config() {
       std::cerr << "Failed to load last-used config from " << path << ": " << e.what() << std::endl;
     }
   }
-  if (const char* env = std::getenv("BLAZE3D_EXPECT_OUTPUT")) {
+  if (const char* env = blaze::get_env("BLAZE3D_EXPECT_OUTPUT")) {
     config.set_output_directory(env);
   }
   return config;

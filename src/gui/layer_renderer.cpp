@@ -94,7 +94,7 @@ const char* kPointVertexShader = R"(
             if (has_file_rgb > 0.5) {
                 rgb = file_color;
             } else {
-                rgb = vec3(intensity);
+                rgb = classification_color(int(classification + 0.5));
             }
         } else if (color_mode == 1) {
             rgb = classification_color(int(classification + 0.5));

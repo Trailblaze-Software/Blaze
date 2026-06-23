@@ -52,7 +52,7 @@ inline std::array<size_t, 2> read_tif_dimensions(const fs::path& path) {
   const size_t width = dataset->GetRasterXSize();
   const size_t height = dataset->GetRasterYSize();
   GDALClose(dataset);
-  return {width, height};
+  return {{width, height}};
 }
 
 // Keep mesh vertex count manageable for large rasters while preserving detail on small ones.
@@ -275,7 +275,7 @@ inline DemMeshData build_dem_mesh(const Geo<MultiBand<FlexGrid>>& grid, int stri
 
   auto sample_texture = [&](size_t x, size_t y) -> std::array<float, 3> {
     if (!texture) {
-      return {0.5f, 0.7f, 0.4f};
+      return {{0.5f, 0.7f, 0.4f}};
     }
     size_t tx = x * texture->width() / width;
     size_t ty = y * texture->height() / height;
@@ -284,7 +284,7 @@ inline DemMeshData build_dem_mesh(const Geo<MultiBand<FlexGrid>>& grid, int stri
     double r = flex_grid_value((*texture)[0], tx, ty) / 255.0;
     double g = texture->size() > 1 ? flex_grid_value((*texture)[1], tx, ty) / 255.0 : r;
     double b = texture->size() > 2 ? flex_grid_value((*texture)[2], tx, ty) / 255.0 : r;
-    return {static_cast<float>(r), static_cast<float>(g), static_cast<float>(b)};
+    return {{static_cast<float>(r), static_cast<float>(g), static_cast<float>(b)}};
   };
 
   const size_t cols = (width + stride - 1) / stride;

@@ -8,6 +8,7 @@
 #include "progress_box.hpp"
 #include "run.hpp"
 #include "ui_main_window.h"
+#include "utilities/env.hpp"
 
 MainWindow::MainWindow(const std::vector<fs::path>& initial_las_files)
     : ui(std::make_unique<Ui::MainWindow>()) {
@@ -101,7 +102,7 @@ void MainWindow::run_blaze() {
   // not pop a blocking modal dialog, otherwise the window would stay open
   // waiting for the user to dismiss it and Blaze3D could never tell whether the
   // run actually succeeded.
-  const bool exit_after_run = std::getenv("BLAZE_EXIT_AFTER_RUN") != nullptr;
+  const bool exit_after_run = blaze::get_env("BLAZE_EXIT_AFTER_RUN") != nullptr;
 
   ProgressBox* message_box = new ProgressBox(this);
   message_box->show();

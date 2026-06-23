@@ -2,6 +2,7 @@
 #include <QMainWindow>
 #include <QMatrix4x4>
 #include <chrono>
+#include <cstdio>
 #include <cstdlib>
 #include <fstream>
 #include <functional>
@@ -14,6 +15,7 @@
 
 #include "gl_widget.hpp"
 #include "main_3d_window.hpp"
+#include "utilities/env.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/resources.hpp"
 
@@ -61,7 +63,7 @@ static void print_usage(const char* program) {
 static LaunchOptions parse_args(int argc, char* argv[]) {
   LaunchOptions opts;
 
-  if (const char* env = std::getenv("BLAZE3D_IMPORT_OUTPUT")) {
+  if (const char* env = blaze::get_env("BLAZE3D_IMPORT_OUTPUT")) {
     if (env[0] != '\0') {
       opts.import_path = env;
     }
@@ -300,8 +302,9 @@ int main(int argc, char* argv[]) {
     owned_console = AllocConsole() != FALSE;
   }
   if (GetConsoleWindow() != nullptr) {
-    freopen("CONOUT$", "w", stdout);
-    freopen("CONOUT$", "w", stderr);
+    FILE* unused = nullptr;
+    freopen_s(&unused, "CONOUT$", "w", stdout);
+    freopen_s(&unused, "CONOUT$", "w", stderr);
   }
 #endif
 

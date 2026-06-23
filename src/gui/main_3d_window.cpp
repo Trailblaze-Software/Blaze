@@ -29,6 +29,7 @@
 #include "blaze_output_loader.hpp"
 #include "gui/point_cloud_visualization.hpp"
 #include "ui_main_3d_window.h"
+#include "utilities/env.hpp"
 #include "utilities/progress_tracker.hpp"
 
 namespace {
@@ -356,9 +357,9 @@ void Main3DWindow::setup_point_cloud_panel() {
     if (!chosen.isValid()) {
       return;
     }
-    layer->set_fixed_point_color({static_cast<uint8_t>(chosen.red()),
-                                  static_cast<uint8_t>(chosen.green()),
-                                  static_cast<uint8_t>(chosen.blue())});
+    layer->set_fixed_point_color(
+        {{static_cast<uint8_t>(chosen.red()), static_cast<uint8_t>(chosen.green()),
+          static_cast<uint8_t>(chosen.blue())}});
     layer->set_point_color_mode(PointColorMode::Fixed);
     m_updating_point_cloud_ui = true;
     m_point_color_mode_combo->setCurrentIndex(
@@ -579,6 +580,10 @@ void Main3DWindow::add_layer(std::unique_ptr<Layer> layer) {
   add_layer_to_tree(shared);
   gl_widget->add_layer(shared);
   connect(shared.get(), &Layer::data_updated, this, &Main3DWindow::maybe_exit_after_load);
+  if (auto* las_layer = dynamic_cast<LASLayer*>(shared.get())) {
+    connect(las_layer, &LASLayer::point_colors_changed, this,
+            &Main3DWindow::update_point_cloud_panel_for_selection);
+  }
   update_render_mode();
   maybe_exit_after_load();
 }
@@ -663,7 +668,7 @@ void Main3DWindow::update_render_mode() {
                                                           [](const std::shared_ptr<Layer>& layer) {
                                                             return layer_is_ready(*layer);
                                                           });
-  const char* platform = std::getenv("QT_QPA_PLATFORM");
+  const char* platform = blaze::get_env("QT_QPA_PLATFORM");
   const bool offscreen = platform != nullptr && std::string(platform) == "offscreen";
   const bool load_only = offscreen || (m_defer_render_until_loaded && !all_ready) ||
                          (m_exit_after_load && !m_exit_after_render);

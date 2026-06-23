@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "main_window.hpp"
+#include "utilities/env.hpp"
 #include "utilities/filesystem.hpp"
 
 namespace {
@@ -34,7 +35,7 @@ static void append_las_path(std::vector<fs::path>& las_files, const std::string&
 static LaunchOptions parse_args(int argc, char* argv[]) {
   LaunchOptions opts;
 
-  if (const char* env = std::getenv("BLAZE_INITIAL_LAS_FILES")) {
+  if (const char* env = blaze::get_env("BLAZE_INITIAL_LAS_FILES")) {
     std::string value = env;
     size_t start = 0;
     while (start <= value.size()) {

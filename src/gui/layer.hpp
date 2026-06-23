@@ -76,7 +76,7 @@ class LASLayer : public PointLayer {
   float m_point_alpha = 1.0f;
   float m_point_stream_budget_ms = 30.0f;
   PointColorMode m_point_color_mode = PointColorMode::File;
-  std::array<uint8_t, 3> m_fixed_point_color = {217, 230, 255};
+  std::array<uint8_t, 3> m_fixed_point_color = {{217, 230, 255}};
 
  signals:
   void point_size_changed() const;
@@ -92,7 +92,11 @@ class LASLayer : public PointLayer {
         m_las_data(file, progress_tracker, {[this] {
                      QMetaObject::invokeMethod(this, "notify_data_updated", Qt::QueuedConnection);
                    }},
-                   target_crs_wkt) {}
+                   target_crs_wkt) {
+    if (!m_las_data.point_format_has_rgb()) {
+      m_point_color_mode = PointColorMode::Classification;
+    }
+  }
 
   const fs::path& file_path() const { return m_file_path; }
 
@@ -152,7 +156,13 @@ class LASLayer : public PointLayer {
   AsyncOctreeLASData& las_data() { return m_las_data; }
 
  private slots:
-  void notify_data_updated() { emit data_updated(); }
+  void notify_data_updated() {
+    if (m_las_data.load_complete() && m_las_data.point_format_has_rgb() &&
+        !m_las_data.has_rgb_data() && m_point_color_mode == PointColorMode::File) {
+      set_point_color_mode(PointColorMode::Classification);
+    }
+    emit data_updated();
+  }
 };
 
 class DemLayer : public Layer {
