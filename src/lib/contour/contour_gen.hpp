@@ -1,12 +1,37 @@
 #pragma once
 
+#include <map>
+#include <optional>
+#include <set>
+#include <vector>
+
 #include "config_input/config_input.hpp"
 #include "contour.hpp"
+#include "geometry/polygon.hpp"
 #include "utilities/timer.hpp"
 
+namespace detail {
+
 template <typename T>
-GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_interval) {
-  TimeFunction timer("identifying contours");
+double min_contour_loop_area_m2(const GeoGrid<T>& grid) {
+  const double dx = grid.transform().dx();
+  const double dy = grid.transform().dy();
+  return 0.01 * std::abs(dx * dy);
+}
+
+template <typename T>
+const GeoGrid<T>& work_grid_for_contours(const GeoGrid<T>& grid, std::optional<T> pad_value,
+                                         std::optional<GeoGrid<T>>& padded_out) {
+  if (pad_value.has_value()) {
+    padded_out.emplace(grid.pad(*pad_value));
+    return *padded_out;
+  }
+  return grid;
+}
+
+template <typename T, typename EdgeHeightsFn>
+GridGraph<std::set<double>> identify_contour_crossings(const GeoGrid<T>& grid,
+                                                       EdgeHeightsFn edge_heights) {
   GridGraph contour_heights = GridGraph<std::set<double>>(grid);
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
@@ -15,13 +40,113 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
       for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
         LineCoord2D<size_t> line_coord = {coord, dir};
         if (contour_heights.in_bounds(line_coord)) {
-          contour_heights[line_coord] = get_contour_heights(
-              {grid[line_coord.start()], grid[line_coord.end()]}, contour_interval);
+          T v1 = grid[line_coord.start()];
+          T v2 = grid[line_coord.end()];
+          contour_heights[line_coord] = edge_heights(v1, v2);
         }
       }
     }
   }
   return contour_heights;
+}
+
+template <typename T, typename AcceptFn, typename EmitFn>
+void trace_contours(const GeoGrid<T>& grid, GridGraph<std::set<double>>& contour_heights,
+                    AcceptFn accept, EmitFn emit) {
+  for (size_t i = 0; i < contour_heights.height(); i++) {
+    for (size_t j = 0; j < contour_heights.width(); j++) {
+      Coordinate2D<size_t> coord = {j, i};
+      for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
+        LineCoord2D<size_t> line_coord = {coord, dir};
+        if (!contour_heights.in_bounds(line_coord)) {
+          continue;
+        }
+        for (double height : std::set<double>(contour_heights[line_coord])) {
+          Contour c = Contour::FromGridGraph(line_coord, height, grid, contour_heights);
+          if (accept(c)) {
+            emit(height, std::move(c));
+          }
+        }
+      }
+    }
+  }
+}
+
+}  // namespace detail
+
+template <typename T>
+GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_interval) {
+  TimeFunction timer("identifying contours");
+  return detail::identify_contour_crossings(
+      grid, [=](T v1, T v2) { return get_contour_heights({v1, v2}, contour_interval); });
+}
+
+// Variant of identify_contours that only records contour crossings at the specified
+// heights. Useful when you want contours at a few specific values rather than at
+// every multiple of an interval (e.g. vegetation density thresholds).
+template <typename T>
+GridGraph<std::set<double>> identify_contours_at_heights(
+    const GeoGrid<T>& grid, const std::set<double>& heights,
+    std::optional<T> pad_value = std::nullopt) {
+  TimeFunction timer("identifying contours at heights");
+  std::optional<GeoGrid<T>> padded;
+  const GeoGrid<T>& work_grid = detail::work_grid_for_contours(grid, pad_value, padded);
+  return detail::identify_contour_crossings(work_grid, [&](T v1, T v2) {
+    std::set<double> crossed;
+    T max_val = std::max(v1, v2);
+    T min_val = std::min(v1, v2);
+    for (double h : heights) {
+      // Record a crossing when the height falls strictly above min and at
+      // or below max. Matches crosses_contour semantics for a single height
+      // (max-inclusive).
+      if (min_val < h && h <= max_val) {
+        crossed.insert(h);
+      }
+    }
+    return crossed;
+  });
+}
+
+template <typename T>
+GridGraph<std::set<double>> identify_contours_at_heights(const GeoGrid<T>& grid,
+                                                         const std::set<double>& heights,
+                                                         T pad_value) {
+  return identify_contours_at_heights(grid, heights, std::optional<T>(pad_value));
+}
+
+template <typename T>
+std::map<double, std::vector<Contour>> generate_contours_at_heights(
+    const GeoGrid<T>& grid, const std::vector<double>& heights, size_t min_points = 3,
+    std::optional<T> pad_value = std::nullopt) {
+  TimeFunction timer("generating contours at heights");
+
+  std::optional<GeoGrid<T>> padded;
+  const GeoGrid<T>& work_grid = detail::work_grid_for_contours(grid, pad_value, padded);
+
+  std::set<double> height_set(heights.begin(), heights.end());
+  GridGraph<std::set<double>> contour_heights = identify_contours_at_heights(work_grid, height_set);
+
+  std::map<double, std::vector<Contour>> contours_by_height;
+  detail::trace_contours(
+      work_grid, contour_heights, [&](const Contour& c) { return c.points().size() >= min_points; },
+      [&](double height, Contour&& c) {
+        c.orient_consistent(work_grid);
+        if (c.is_loop()) {
+          const double min_loop_area = detail::min_contour_loop_area_m2(work_grid);
+          if (std::abs(signed_area(c.points())) < min_loop_area) {
+            return;
+          }
+        }
+        contours_by_height[height].emplace_back(std::move(c));
+      });
+
+  return contours_by_height;
+}
+
+template <typename T>
+std::map<double, std::vector<Contour>> generate_contours_at_heights(
+    const GeoGrid<T>& grid, const std::vector<double>& heights, size_t min_points, T pad_value) {
+  return generate_contours_at_heights(grid, heights, min_points, std::optional<T>(pad_value));
 }
 
 inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist) {
@@ -156,23 +281,12 @@ std::vector<Contour> generate_contours(const GeoGrid<T>& grid, const ContourConf
   TimeFunction timer("generating contours", &progress_tracker);
   GridGraph is_contour = identify_contours(grid, contour_config.min_interval);
   std::vector<Contour> contours;
-  for (size_t i = 0; i < is_contour.height(); i++) {
-    for (size_t j = 0; j < is_contour.width(); j++) {
-      Coordinate2D<size_t> coord = {j, i};
-      for (Direction2D dir : {Direction2D::DOWN, Direction2D::RIGHT}) {
-        LineCoord2D<size_t> line_coord = {coord, dir};
-        if (is_contour.in_bounds(line_coord)) {
-          for (double height : std::set<double>(is_contour[line_coord])) {
-            Contour c = Contour::FromGridGraph(line_coord, height, grid, is_contour);
-            // TODO use length instead of number of points
-            if (c.points().size() > contour_config.pick_from_height(c.height()).min_points) {
-              contours.emplace_back(std::move(c));
-            }
-          }
-        }
-      }
-    }
-  }
+  detail::trace_contours(
+      grid, is_contour,
+      [&](const Contour& c) {
+        return c.points().size() > contour_config.pick_from_height(c.height()).min_points;
+      },
+      [&](double, Contour&& c) { contours.emplace_back(std::move(c)); });
   progress_tracker.text_update("Generated " + std::to_string(contours.size()) + " contours");
   return contours;
 }

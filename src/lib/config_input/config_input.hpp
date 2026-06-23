@@ -14,21 +14,21 @@ struct GridConfig {
   // Resolution (m) at which raw LiDAR points are binned. This is the
   // underlying working grid: ground / building / water / intensity rasters
   // are produced at this resolution.
-  double bin_resolution;
+  double bin_resolution = 0.5;
   // Integer factor by which the binned grid is downsampled to obtain the
   // smoothed ground DEM. The smoothed DEM is what slope, hill-shade and the
   // smooth_ground.tif raster are computed from. Effective smooth-DEM
   // resolution = bin_resolution * downsample_factor.
-  unsigned int downsample_factor;
+  unsigned int downsample_factor = 3;
   // Resolution (m) of the vegetation/canopy maps. Vegetation point counts
   // are aggregated to this resolution; final vege_color and raw_vege rasters
   // are written at this resolution. Should be >= bin_resolution.
-  double vegetation_grid_resolution;
+  double vegetation_grid_resolution = 3.0;
   // Resolution (m) of the DEM used for contour generation, stream extraction,
   // depression filling and contour orientation. Should be >= the smooth DEM
   // resolution (bin_resolution * downsample_factor). Larger values produce
   // smoother contours but lose fine terrain detail.
-  double contour_dem_resolution;
+  double contour_dem_resolution = 9.0;
 
   // Integer factor used to aggregate the bin grid into the vegetation grid.
   // Always >= 1.
@@ -75,8 +75,8 @@ struct GridConfig {
   }
 
 struct GroundConfig {
-  int min_ground_intensity;
-  int max_ground_intensity;
+  int min_ground_intensity = 100;
+  int max_ground_intensity = 1000;
 };
 
 struct ContourConfig {
@@ -95,12 +95,16 @@ struct CanopyConfig {
 struct BlockingThresholdColorPair {
   double blocking_threshold;
   ColorVariant color;
+  std::string
+      layer;  // CRT layer name, e.g. "405_Forest". Empty → default from config name + threshold.
+  double min_area_m2 = 0;       // minimum polygon area in m²; smaller polygons are dropped
+  double min_hole_area_m2 = 0;  // minimum hole area in m²; smaller holes are filled
 };
 
 struct VegeHeightConfig {
   std::string name;
-  double min_height;
-  double max_height;
+  double min_height = 2.5;
+  double max_height = 100.0;
   std::vector<BlockingThresholdColorPair> colors;
 
   std::optional<ColorVariant> pick_from_blocked_proportion(double bp) const {
@@ -120,8 +124,8 @@ struct VegeConfig {
 };
 
 struct RenderConfig {
-  double scale;
-  double dpi;
+  double scale = 10000.0;
+  double dpi = 600.0;
 };
 
 struct WaterConfig {
@@ -190,7 +194,7 @@ struct ContourConfigs {
     for (const auto& [name, config] : configs) {
       if (config.interval > max_valid_interval &&
           std::fmod(std::abs(height), config.interval) < 1e-8) {
-        if (name == "form_line") {
+        if (name == "form_line" || name == "formline") {
           layer_name = "103_Form_Line";
         } else if (name == "index") {
           layer_name = "102_Index_Contour";

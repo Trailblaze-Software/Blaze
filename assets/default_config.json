@@ -70,7 +70,10 @@
         "colors": [
           {
             "blocking_threshold": 0.1,
-            "color": "white"
+            "color": "white",
+            "layer": "405_Forest",
+            "min_area_m2": 30,
+            "min_hole_area_m2": 100
           }
         ]
       },
@@ -80,19 +83,25 @@
         "max_height": 2.5,
         "colors": [
           {
-            // slow
             "blocking_threshold": 0.1,
-            "color": "30% green"
+            "color": "30% green",
+            "layer": "406_Slow_Running",
+            "min_area_m2": 100,
+            "min_hole_area_m2": 100
           },
           {
-            // walk
             "blocking_threshold": 0.4,
-            "color": "60% green"
+            "color": "60% green",
+            "layer": "408_Walk",
+            "min_area_m2": 50,
+            "min_hole_area_m2": 100
           },
           {
-            // fight
             "blocking_threshold": 0.7,
-            "color": "green"
+            "color": "green",
+            "layer": "410_Fight",
+            "min_area_m2": 30,
+            "min_hole_area_m2": 50
           }
         ]
       }

@@ -56,6 +56,10 @@ class ProgressTracker : public ProgressObserver {
   void set_visible(bool v) { m_visible = v; }
   bool is_visible() const { return m_visible; }
 
+  // Thread-safe: only advances when `proportion` exceeds the current value (for OpenMP loops
+  // where work completes out of order).
+  void report_parallel_progress(double proportion);
+
   // visible: nullopt = inherit parent, true = force visible, false = force invisible
   ProgressTracker subtracker(double start, double end, std::optional<bool> visible = std::nullopt);
 
