@@ -272,13 +272,46 @@ inline void load_points_dispatch(laspp::LASReader& reader,
 #endif
 
 // Immutable point cloud state published by the loader thread. Renderers hold a
-// shared_ptr for the duration of a frame; no mutex needed on the hot path.
+// shared_ptr for the duration of a frame.
 struct LasRenderSnapshot {
   PointOctree octree;
   std::vector<OctreePoint> preview_points;
   size_t points_loaded = 0;
   Extent3D bounds;
   bool bounds_valid = false;
+};
+
+// Thread-safe published snapshot pointer. Uses std::atomic<std::shared_ptr>
+// when the standard library provides it (libstdc++ 12+, recent libc++/MSVC);
+// otherwise a mutex — avoids the C++20-deprecated atomic_{load,store} free
+// functions for shared_ptr.
+class AtomicSnapshotPtr {
+#if defined(__cpp_lib_atomic_shared_ptr) && __cpp_lib_atomic_shared_ptr >= 201711L
+  std::atomic<std::shared_ptr<const LasRenderSnapshot>> m_value;
+
+ public:
+  void store(std::shared_ptr<const LasRenderSnapshot> value) {
+    m_value.store(std::move(value), std::memory_order_release);
+  }
+
+  std::shared_ptr<const LasRenderSnapshot> load() const {
+    return m_value.load(std::memory_order_acquire);
+  }
+#else
+  mutable std::mutex m_mutex;
+  std::shared_ptr<const LasRenderSnapshot> m_value;
+
+ public:
+  void store(std::shared_ptr<const LasRenderSnapshot> value) {
+    std::lock_guard lock(m_mutex);
+    m_value = std::move(value);
+  }
+
+  std::shared_ptr<const LasRenderSnapshot> load() const {
+    std::lock_guard lock(m_mutex);
+    return m_value;
+  }
+#endif
 };
 
 class AsyncOctreeLASData {
@@ -293,13 +326,13 @@ class AsyncOctreeLASData {
   size_t m_total_points = 0;
   bool m_point_format_has_rgb = false;
   std::atomic<bool> m_has_rgb_data{false};
-  std::atomic<std::shared_ptr<const LasRenderSnapshot>> m_snapshot;
+  AtomicSnapshotPtr m_snapshot;
   std::atomic<bool> m_load_complete{false};
   std::atomic<bool> m_cancel{false};
   std::thread m_thread;
 
   void publish_snapshot(std::shared_ptr<const LasRenderSnapshot> snapshot) {
-    m_snapshot.store(std::move(snapshot), std::memory_order_release);
+    m_snapshot.store(std::move(snapshot));
   }
 
  public:
@@ -427,9 +460,7 @@ class AsyncOctreeLASData {
     }
   }
 
-  std::shared_ptr<const LasRenderSnapshot> snapshot() const {
-    return m_snapshot.load(std::memory_order_acquire);
-  }
+  std::shared_ptr<const LasRenderSnapshot> snapshot() const { return m_snapshot.load(); }
 
   Extent3D bounds() const {
     if (!load_complete()) {
