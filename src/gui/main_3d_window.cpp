@@ -80,7 +80,7 @@ bool is_surface_style_layer(LayerKind kind) {
 }
 
 QString format_classification_label(uint8_t classification) {
-  for (const ClassificationStyle& style : kClassificationStyles) {
+  for (const ClassificationStyle& style : CLASSIFICATION_STYLES) {
     if (style.code == classification) {
       return QString::fromLatin1(style.label);
     }
@@ -767,9 +767,9 @@ void Main3DWindow::handle_blaze_process_finished(int exit_code, QProcess::ExitSt
   if (status != QProcess::NormalExit || exit_code != 0) {
     QString detail = m_blaze_output.trimmed();
     // Keep the dialog readable: only show the tail of the captured log.
-    constexpr int kMaxDetailChars = 2000;
-    if (detail.size() > kMaxDetailChars) {
-      detail = "...\n" + detail.right(kMaxDetailChars);
+    constexpr int MAX_DETAIL_CHARS = 2000;
+    if (detail.size() > MAX_DETAIL_CHARS) {
+      detail = "...\n" + detail.right(MAX_DETAIL_CHARS);
     }
     QString message =
         status != QProcess::NormalExit

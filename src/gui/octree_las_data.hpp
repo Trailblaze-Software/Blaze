@@ -41,7 +41,7 @@ struct BenchTimer {
   }
 };
 
-static constexpr size_t kMaxPreviewPoints = 500'000;
+static constexpr size_t MAX_PREVIEW_POINTS = 500'000;
 
 // ProgressTracker requires monotonically increasing proportions; parallel loaders
 // must funnel updates through here.
@@ -130,19 +130,19 @@ inline void load_points_parallel(laspp::LASReader& reader,
   double convert_ms = 0;
 
   converted.resize(num_points);
-  preview.reserve(std::min(num_points / preview_stride + 1, kMaxPreviewPoints));
+  preview.reserve(std::min(num_points / preview_stride + 1, MAX_PREVIEW_POINTS));
   bounds = Extent3D();
 
   // Read in batches: parallel decompression within each batch, incremental progress
   // and previews between batches. Progress range: 0.0→0.35 decompress, 0.35→0.70 convert+bounds.
-  constexpr size_t kBatchChunks = 64;
+  constexpr size_t BATCH_CHUNKS = 64;
   size_t converted_offset = 0;
   if (num_points > 0) progress.set_proportion(0.0);
 
-  for (size_t batch_start = 0; batch_start < num_chunks; batch_start += kBatchChunks) {
+  for (size_t batch_start = 0; batch_start < num_chunks; batch_start += BATCH_CHUNKS) {
     if (cancel && cancel->load(std::memory_order_relaxed)) return;
 
-    const size_t batch_end = std::min(batch_start + kBatchChunks, num_chunks);
+    const size_t batch_end = std::min(batch_start + BATCH_CHUNKS, num_chunks);
     size_t batch_points = 0;
     for (size_t ci = batch_start; ci < batch_end; ++ci) {
       batch_points += points_per_chunk[ci];
@@ -184,7 +184,7 @@ inline void load_points_parallel(laspp::LASReader& reader,
     // Grow bounds and extract preview for this batch.
     for (size_t i = 0; i < batch_points; ++i) {
       const size_t global_i = converted_offset + i;
-      if (global_i % preview_stride == 0 && preview.size() < kMaxPreviewPoints) {
+      if (global_i % preview_stride == 0 && preview.size() < MAX_PREVIEW_POINTS) {
         preview.push_back(converted[global_i]);
       }
       const OctreePoint& point = converted[global_i];
@@ -316,7 +316,7 @@ class AtomicSnapshotPtr {
 
 class AsyncOctreeLASData {
  public:
-  static constexpr size_t kMaxPreviewPoints = 500'000;
+  static constexpr size_t MAX_PREVIEW_POINTS = 500'000;
 
  private:
   Extent3D m_initial_bounds;
@@ -374,7 +374,7 @@ class AsyncOctreeLASData {
       ProgressTracker tracker = progress_tracker.tracker()->subtracker(0.0, 1.0);
 
       const size_t preview_stride =
-          std::max(size_t{1}, (m_total_points + kMaxPreviewPoints - 1) / kMaxPreviewPoints);
+          std::max(size_t{1}, (m_total_points + MAX_PREVIEW_POINTS - 1) / MAX_PREVIEW_POINTS);
 
       std::vector<OctreePoint> converted;
       std::vector<OctreePoint> preview;

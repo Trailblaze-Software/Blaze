@@ -1000,9 +1000,9 @@ void GLWidget::on_orbit_tick() {
   auto now = std::chrono::steady_clock::now();
   double dt = std::chrono::duration<double>(now - m_last_orbit_tick).count();
   m_last_orbit_tick = now;
-  constexpr double kFullCircleDeg = 360.0;
+  constexpr double FULL_CIRCLE_DEG = 360.0;
   double period = (m_anim_type == AnimType::Orbit) ? m_orbit_period_secs : m_wobble_period_secs;
-  double degrees = kFullCircleDeg * dt / period;
+  double degrees = FULL_CIRCLE_DEG * dt / period;
   m_anim_phase += 2.0 * 3.1415926535 * dt / period;  // radians
 
   switch (m_anim_type) {

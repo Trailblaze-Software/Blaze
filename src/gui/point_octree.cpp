@@ -13,7 +13,7 @@ struct BuildJob {
   size_t end = 0;
 };
 
-constexpr size_t kParallelBuildMinPoints = 64'000;
+constexpr size_t PARALLEL_BUILD_MIN_POINTS = 64'000;
 
 void partition_range(PointOctreeNode& node, std::vector<OctreePoint>& points, size_t begin,
                      size_t end, std::array<size_t, 9>& child_ends) {
@@ -118,7 +118,7 @@ void PointOctree::insert_batch(std::vector<OctreePoint>&& points,
       return;
     }
     BuildJob& job = jobs[expand_idx];
-    if (job.end <= job.begin || job.end - job.begin <= kParallelBuildMinPoints ||
+    if (job.end <= job.begin || job.end - job.begin <= PARALLEL_BUILD_MIN_POINTS ||
         job.node->depth >= PointOctreeNode::MAX_DEPTH ||
         job.end - job.begin <= PointOctreeNode::MAX_POINTS) {
       ++expand_idx;

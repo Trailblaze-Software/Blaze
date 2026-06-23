@@ -156,14 +156,12 @@ class Camera {
   }
 
   // Reorient the view to look at target without moving the camera position.
-  // The focal distance (|direction|, which sets the orbit pivot distance) is
-  // preserved so "look at" only changes orientation, not zoom.
   void look_at_target(const QVector3D& target) {
     const QVector3D offset = target - m_position;
     if (offset.lengthSquared() < 1e-8f) {
       return;
     }
-    m_direction = offset.normalized() * m_direction.length();
+    m_direction = offset;
   }
 
   // Projection (perspective) matrix only — no view transform.

@@ -19,7 +19,7 @@ template <typename T>
 struct is_std_optional<std::optional<T>> : std::true_type {};
 
 template <typename T>
-inline constexpr bool is_std_optional_v = is_std_optional<T>::value;
+inline constexpr bool IS_STD_OPTIONAL_V = is_std_optional<T>::value;
 
 template <typename T>
 constexpr GDALDataType gdal_type() {
@@ -31,7 +31,7 @@ constexpr GDALDataType gdal_type() {
     return GDT_UInt32;
   } else if constexpr (std::is_same_v<std::byte, T>) {
     return GDT_Byte;
-  } else if constexpr (is_std_optional_v<T>) {
+  } else if constexpr (IS_STD_OPTIONAL_V<T>) {
     return gdal_type<typename T::value_type>();
   } else if constexpr (std::is_base_of_v<Color, T>) {
     return GDT_Byte;
@@ -82,7 +82,7 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
     datatype = (GDALDataType)grid[0].data_type();
   } else {
     using T = typename GridT::value_type;
-    bands = is_std_optional_v<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
+    bands = IS_STD_OPTIONAL_V<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
     datatype = gdal_type<T>();
   }
 
@@ -127,7 +127,7 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
     }
   } else {
     using T = typename GridT::value_type;
-    if constexpr (is_std_optional_v<T>) {
+    if constexpr (IS_STD_OPTIONAL_V<T>) {
       for (size_t i = 0; i < grid.height(); i++) {
         std::vector<typename T::value_type> data(grid.width());
         std::vector<typename T::value_type> transparent(grid.width());

@@ -305,18 +305,18 @@ TEST(TrimVegePolygons, RemovesPolygonOutsideExtent) {
 TEST(ContoursToPolygons, DeepNestedPolygonInHoleInPolygon) {
   // Four nesting levels: outer → hole → island → hole → island → hole → island.
   // Expect four polygons; the three outermost each have one direct hole; the innermost has none.
-  constexpr double kThreshold = 0.1;
+  constexpr double THRESHOLD = 0.1;
   std::map<double, std::vector<Contour>> contours_by_height;
-  contours_by_height[kThreshold] = {
-      loop_contour(kThreshold, square_ccw(0, 0, 100, 100)),  // E0
-      loop_contour(kThreshold, square_cw(10, 10, 90, 90)),   // H1
-      loop_contour(kThreshold, square_ccw(20, 20, 80, 80)),  // E1
-      loop_contour(kThreshold, square_cw(30, 30, 70, 70)),   // H2
-      loop_contour(kThreshold, square_ccw(40, 40, 60, 60)),  // E2
-      loop_contour(kThreshold, square_cw(45, 45, 55, 55)),   // H3
-      loop_contour(kThreshold, square_ccw(47, 47, 53, 53)),  // E3
+  contours_by_height[THRESHOLD] = {
+      loop_contour(THRESHOLD, square_ccw(0, 0, 100, 100)),  // E0
+      loop_contour(THRESHOLD, square_cw(10, 10, 90, 90)),   // H1
+      loop_contour(THRESHOLD, square_ccw(20, 20, 80, 80)),  // E1
+      loop_contour(THRESHOLD, square_cw(30, 30, 70, 70)),   // H2
+      loop_contour(THRESHOLD, square_ccw(40, 40, 60, 60)),  // E2
+      loop_contour(THRESHOLD, square_cw(45, 45, 55, 55)),   // H3
+      loop_contour(THRESHOLD, square_ccw(47, 47, 53, 53)),  // E3
   };
-  std::map<double, std::string> height_to_layer = {{kThreshold, "405_Forest"}};
+  std::map<double, std::string> height_to_layer = {{THRESHOLD, "405_Forest"}};
 
   std::vector<VegePolygon> polygons = contours_to_polygons(contours_by_height, height_to_layer);
   ASSERT_EQ(polygons.size(), 4u);
@@ -761,9 +761,9 @@ TEST(GenerateVegePolygons, GreenDonutCutLeavesForestRing) {
 // =============================================================================
 
 std::vector<VegePolygon> forest_contours_polygonize(const GeoGrid<float>& grid) {
-  constexpr double kForestThreshold = 0.1;
-  std::map<double, std::string> layers = {{kForestThreshold, "405_Forest"}};
-  auto contours = generate_contours_at_heights(grid, {kForestThreshold}, /*min_points=*/5, 0.0f);
+  constexpr double FOREST_THRESHOLD = 0.1;
+  std::map<double, std::string> layers = {{FOREST_THRESHOLD, "405_Forest"}};
+  auto contours = generate_contours_at_heights(grid, {FOREST_THRESHOLD}, /*min_points=*/5, 0.0f);
   return contours_to_polygons(contours, layers);
 }
 

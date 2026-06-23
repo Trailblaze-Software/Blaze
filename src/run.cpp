@@ -46,10 +46,10 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
   // Fraction of the overall progress budget allotted to the initial
   // "load input extents" pass; the rest is split across processing steps.
-  constexpr double kLoadExtentsTime = 0.001;
+  constexpr double LOAD_EXTENTS_TIME = 0.001;
 
   std::vector<double> time_ratios;
-  double total_time = kLoadExtentsTime;
+  double total_time = LOAD_EXTENTS_TIME;
   for (ProcessingStep step : config.processing_steps) {
     switch (step) {
       case ProcessingStep::Tiles:
@@ -66,7 +66,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   std::string tile_output_crs_wkt;
   std::vector<LASFileExtent> tile_input_extents =
       load_input_extents(las_files, config.override_crs, tile_output_crs_wkt,
-                         tracker.subtracker(0.0, kLoadExtentsTime / total_time, false));
+                         tracker.subtracker(0.0, LOAD_EXTENTS_TIME / total_time, false));
   const TileModeInfo tile_info = detect_tile_mode_needed(tile_input_extents);
   if (tile_info.any_overlap) {
     std::cerr << "Info: Input files overlap; tile reads will pull from every overlapping input."
@@ -96,7 +96,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   // a subsequent Combine step can still read from them.
   std::vector<fs::path> processed_tile_dirs;
 
-  double current_time = kLoadExtentsTime / total_time;
+  double current_time = LOAD_EXTENTS_TIME / total_time;
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
     TimeFunction timer(to_string("processing step ", step));

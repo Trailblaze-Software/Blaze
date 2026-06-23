@@ -60,13 +60,13 @@ template <>
 struct adl_serializer<GridConfig> {
   static GridConfig from_json(const json& j) {
     // Defaults for fresh configs.
-    constexpr double kDefaultBinRes = 0.5;
-    constexpr unsigned int kDefaultDownsample = 3u;
-    constexpr double kDefaultVegRes = 3.0;
-    constexpr double kDefaultContourRes = 9.0;
+    constexpr double DEFAULT_BIN_RES = 0.5;
+    constexpr unsigned int DEFAULT_DOWNSAMPLE = 3u;
+    constexpr double DEFAULT_VEG_RES = 3.0;
+    constexpr double DEFAULT_CONTOUR_RES = 9.0;
 
-    const double bin_res = json_number_or(j, "bin_resolution", kDefaultBinRes);
-    const unsigned int downsample = json_number_or(j, "downsample_factor", kDefaultDownsample);
+    const double bin_res = json_number_or(j, "bin_resolution", DEFAULT_BIN_RES);
+    const unsigned int downsample = json_number_or(j, "downsample_factor", DEFAULT_DOWNSAMPLE);
 
     // Vegetation / contour resolutions are independent of bin/downsample.
     // For backward compatibility, configs that omit these but provide the
@@ -78,8 +78,8 @@ struct adl_serializer<GridConfig> {
                                  !j.contains("contour_dem_resolution") &&
                                  (j.contains("bin_resolution") || j.contains("downsample_factor"));
 
-    double veg_res = kDefaultVegRes;
-    double contour_res = kDefaultContourRes;
+    double veg_res = DEFAULT_VEG_RES;
+    double contour_res = DEFAULT_CONTOUR_RES;
     if (has_legacy_only) {
       veg_res = bin_res;
       contour_res = bin_res * static_cast<double>(downsample);

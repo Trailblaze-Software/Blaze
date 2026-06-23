@@ -15,7 +15,7 @@ struct ClassificationStyle {
   const char* label;
 };
 
-inline constexpr std::array<ClassificationStyle, 9> kClassificationStyles = {{
+inline constexpr std::array<ClassificationStyle, 9> CLASSIFICATION_STYLES = {{
     {2, {{160, 120, 80}}, "Ground"},
     {3, {{100, 180, 100}}, "Low vegetation"},
     {4, {{60, 140, 60}}, "Medium vegetation"},
@@ -27,15 +27,15 @@ inline constexpr std::array<ClassificationStyle, 9> kClassificationStyles = {{
     {17, {{180, 180, 180}}, "Bridge deck"},
 }};
 
-inline constexpr std::array<uint8_t, 3> kDefaultClassificationColor{{200, 200, 200}};
+inline constexpr std::array<uint8_t, 3> DEFAULT_CLASSIFICATION_COLOR{{200, 200, 200}};
 
 inline std::array<uint8_t, 3> classification_color(uint8_t classification) {
-  for (const ClassificationStyle& style : kClassificationStyles) {
+  for (const ClassificationStyle& style : CLASSIFICATION_STYLES) {
     if (style.code == classification) {
       return style.color;
     }
   }
-  return kDefaultClassificationColor;
+  return DEFAULT_CLASSIFICATION_COLOR;
 }
 
 // GLSL source for `vec3 classification_color(int class_id)`, generated from the
@@ -46,10 +46,10 @@ inline std::string classification_color_glsl() {
            std::to_string(c[2]) + ".0) / 255.0";
   };
   std::string src = "vec3 classification_color(int class_id) {\n";
-  for (const ClassificationStyle& style : kClassificationStyles) {
+  for (const ClassificationStyle& style : CLASSIFICATION_STYLES) {
     src += "    if (class_id == " + std::to_string(style.code) + ") return " +
            vec3_literal(style.color) + ";\n";
   }
-  src += "    return " + vec3_literal(kDefaultClassificationColor) + ";\n}\n";
+  src += "    return " + vec3_literal(DEFAULT_CLASSIFICATION_COLOR) + ";\n}\n";
   return src;
 }

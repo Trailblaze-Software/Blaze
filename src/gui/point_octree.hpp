@@ -160,11 +160,11 @@ class PointOctree {
     if (point_count <= 1) {
       return point_count;
     }
-    constexpr double kDrawAllDistance = 100.0;
+    constexpr double DRAW_ALL_DISTANCE = 100.0;
     const double dist = std::max(10.0, lod_distance);
     const double clamped_quality = std::clamp(quality, 0.05, 64.0);
     const double desired_fraction =
-        std::min(1.0, clamped_quality * std::pow(kDrawAllDistance / dist, 2.0));
+        std::min(1.0, clamped_quality * std::pow(DRAW_ALL_DISTANCE / dist, 2.0));
     return std::max(size_t{1}, static_cast<size_t>(std::ceil(point_count * desired_fraction)));
   }
 

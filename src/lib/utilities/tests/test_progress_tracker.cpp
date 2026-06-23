@@ -76,11 +76,11 @@ TEST(ProgressTracker, ParallelRowProgressIsMonotonic) {
   ProgressTracker root(&bar);
   ProgressTracker map_tracker = root.subtracker(0.0, 1.0);
 
-  constexpr size_t kRows = 512;
+  constexpr size_t ROWS = 512;
 #pragma omp parallel for
-  for (size_t i = 0; i < kRows; ++i) {
+  for (size_t i = 0; i < ROWS; ++i) {
     (void)i;
-    map_tracker.report_parallel_progress(static_cast<double>(i + 1) / kRows);
+    map_tracker.report_parallel_progress(static_cast<double>(i + 1) / ROWS);
   }
 
   for (size_t i = 1; i < bar.updates().size(); ++i) {

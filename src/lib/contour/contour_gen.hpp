@@ -157,7 +157,7 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
     bool use_front_a;
     bool use_front_b;
   };
-  static constexpr JoinOrientation legal_joins[] = {{false, true}, {true, false}};
+  static constexpr JoinOrientation LEGAL_JOINS[] = {{false, true}, {true, false}};
 
   auto append_contour = [](Contour& target, Contour&& source, JoinOrientation join) {
     auto& target_pts = target.points();
@@ -201,7 +201,7 @@ inline std::vector<Contour> join_contours(std::vector<Contour> contours, double 
           continue;
         }
         const auto& pts_j = contours[j].points();
-        for (JoinOrientation join : legal_joins) {
+        for (JoinOrientation join : LEGAL_JOINS) {
           const auto& endpoint_i = join.use_front_a ? pts_i.front() : pts_i.back();
           const auto& endpoint_j = join.use_front_b ? pts_j.front() : pts_j.back();
           const double dist_sqd = (endpoint_i - endpoint_j).magnitude_sqd();

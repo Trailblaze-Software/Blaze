@@ -31,10 +31,10 @@ struct BlazeOutputDiscovery {
 namespace detail {
 
 inline bool is_blaze_output_filename(const std::string& name) {
-  static const std::vector<std::string> kKnown{
+  static const std::vector<std::string> KNOWN{
       "filled_dem.tif", "smooth_ground.tif",     "ground.tif",  "slope.tif", "final_img.tif",
       "contours.gpkg",  "trimmed_contours.gpkg", "streams.gpkg"};
-  return std::find(kKnown.begin(), kKnown.end(), name) != kKnown.end();
+  return std::find(KNOWN.begin(), KNOWN.end(), name) != KNOWN.end();
 }
 
 inline void collect_search_roots(const fs::path& directory, std::vector<fs::path>& roots) {

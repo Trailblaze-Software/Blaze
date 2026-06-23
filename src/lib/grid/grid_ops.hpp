@@ -109,8 +109,8 @@ void remove_outliers(GeoGrid<T>& grid, ProgressTracker progress_tracker, double 
 // Check if a value is valid (not a hole/missing data)
 // Holes are represented as NaN, infinity, or std::numeric_limits<double>::max() or -max()
 inline static bool has_value(double value) {
-  constexpr double max_val = std::numeric_limits<double>::max();
-  return std::isfinite(value) && value < max_val && value > -max_val;
+  constexpr double MAX_VAL = std::numeric_limits<double>::max();
+  return std::isfinite(value) && value < MAX_VAL && value > -MAX_VAL;
 }
 
 template <typename T>

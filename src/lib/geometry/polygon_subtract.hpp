@@ -259,10 +259,10 @@ inline std::vector<PolygonWithHoles> union_overlapping_polygons(
   const double height = bounds.maxy - bounds.miny;
   const double cell_size =
       std::max(50.0, std::sqrt(width * height / std::max(valid_count, size_t(1))));
-  constexpr double seam_tolerance = 0.01;
-  const auto padded = [](const Extent2D& ext) {
-    return Extent2D{ext.minx - seam_tolerance, ext.maxx + seam_tolerance, ext.miny - seam_tolerance,
-                    ext.maxy + seam_tolerance};
+  constexpr double SEAM_TOLERANCE = 0.01;
+  const auto padded = [SEAM_TOLERANCE](const Extent2D& ext) {
+    return Extent2D{ext.minx - SEAM_TOLERANCE, ext.maxx + SEAM_TOLERANCE, ext.miny - SEAM_TOLERANCE,
+                    ext.maxy + SEAM_TOLERANCE};
   };
   detail::ExtentSpatialIndex index(cell_size);
   for (size_t i = 0; i < n; ++i) {

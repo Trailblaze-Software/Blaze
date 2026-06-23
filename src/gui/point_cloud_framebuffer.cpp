@@ -7,7 +7,7 @@
 
 namespace {
 
-const char* kCompositeVertexShader = R"(
+const char* COMPOSITE_VERTEX_SHADER = R"(
     #version 330 core
     out vec2 texCoord;
     void main() {
@@ -20,7 +20,7 @@ const char* kCompositeVertexShader = R"(
     }
 )";
 
-const char* kCompositeFragmentShader = R"(
+const char* COMPOSITE_FRAGMENT_SHADER = R"(
     #version 330 core
     in vec2 texCoord;
     uniform sampler2D pointColor;
@@ -178,8 +178,8 @@ void PointCloudCompositor::ensure_initialized(QOpenGLFunctions* f) {
     return;
   }
   m_shader = std::make_unique<QOpenGLShaderProgram>();
-  m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kCompositeVertexShader);
-  m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kCompositeFragmentShader);
+  m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, COMPOSITE_VERTEX_SHADER);
+  m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, COMPOSITE_FRAGMENT_SHADER);
   m_shader->link();
   m_color_loc = m_shader->uniformLocation("pointColor");
   m_depth_loc = m_shader->uniformLocation("pointDepth");

@@ -8,7 +8,7 @@
 
 namespace {
 
-constexpr double kTol = 1e-4;
+constexpr double TOL = 1e-4;
 
 QVector3D focal_point(const Camera& camera) { return camera.position() + camera.direction(); }
 
@@ -22,10 +22,10 @@ TEST(Camera, PanToTargetMovesFocalPointToTarget) {
   camera.pan_to_target(target);
 
   const QVector3D focal_after = focal_point(camera);
-  EXPECT_NEAR(focal_after.x(), target.x(), kTol);
-  EXPECT_NEAR(focal_after.y(), target.y(), kTol);
-  EXPECT_NEAR(focal_after.z(), target.z(), kTol);
-  EXPECT_NEAR(camera.direction().length(), focal_distance, kTol);
+  EXPECT_NEAR(focal_after.x(), target.x(), TOL);
+  EXPECT_NEAR(focal_after.y(), target.y(), TOL);
+  EXPECT_NEAR(focal_after.z(), target.z(), TOL);
+  EXPECT_NEAR(camera.direction().length(), focal_distance, TOL);
 }
 
 TEST(Camera, PanToTargetNoOpWhenAlreadyCentered) {
@@ -49,9 +49,9 @@ TEST(Camera, LookAtTargetReorientsWithoutMovingPosition) {
   EXPECT_EQ(camera.position(), before_pos);
   const QVector3D dir = camera.direction().normalized();
   const QVector3D expected = (target - before_pos).normalized();
-  EXPECT_NEAR(dir.x(), expected.x(), kTol);
-  EXPECT_NEAR(dir.y(), expected.y(), kTol);
-  EXPECT_NEAR(dir.z(), expected.z(), kTol);
+  EXPECT_NEAR(dir.x(), expected.x(), TOL);
+  EXPECT_NEAR(dir.y(), expected.y(), TOL);
+  EXPECT_NEAR(dir.z(), expected.z(), TOL);
 }
 
 TEST(Camera, ProjectWorldToScreenRoundTripsWithUnproject) {

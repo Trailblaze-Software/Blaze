@@ -38,9 +38,9 @@ class ScopedGpuTimer {
   GLuint m_query;
 };
 
-constexpr double kDrawCallOverheadMs = 0.012;
-constexpr size_t kMaxPreviewDrawVertices = 500'000;
-constexpr float kStreamViewResetDistance = 25.0f;
+constexpr double DRAW_CALL_OVERHEAD_MS = 0.012;
+constexpr size_t MAX_PREVIEW_DRAW_VERTICES = 500'000;
+constexpr float STREAM_VIEW_RESET_DISTANCE = 25.0f;
 
 // Analytic ray-traced sphere impostors. Each point is a screen-aligned point
 // sprite sized to the sphere's perspective silhouette; the fragment shader casts
@@ -49,7 +49,7 @@ constexpr float kStreamViewResetDistance = 25.0f;
 // geometrically correct spheres of the requested world-space radius.
 // Split so classification_color() can be injected from the shared palette table
 // (point_cloud_visualization.hpp) instead of being duplicated here.
-const char* kPointVertexShaderPrologue = R"(
+const char* POINT_VERTEX_SHADER_PROLOGUE = R"(
     #version 330 core
     in vec3 local_position;
     in float classification;
@@ -70,7 +70,7 @@ const char* kPointVertexShaderPrologue = R"(
     flat out uint vtx_point_id;
 )";
 
-const char* kPointVertexShaderMain = R"(
+const char* POINT_VERTEX_SHADER_MAIN = R"(
     void main() {
         vec3 position = local_position + point_offset;
         vec4 eye = u_view * vec4(position, 1.0);
@@ -100,7 +100,7 @@ const char* kPointVertexShaderMain = R"(
     }
 )";
 
-const char* kPointFragmentShader = R"(
+const char* POINT_FRAGMENT_SHADER = R"(
     #version 330 core
     in vec4 vtx_color;
     in vec3 eye_center;
@@ -140,7 +140,7 @@ const char* kPointFragmentShader = R"(
     }
 )";
 
-const char* kMeshVertexShader = R"(
+const char* MESH_VERTEX_SHADER = R"(
     #version 330 core
     in vec3 position;
     in vec3 color;
@@ -154,7 +154,7 @@ const char* kMeshVertexShader = R"(
     }
 )";
 
-const char* kMeshFragmentShader = R"(
+const char* MESH_FRAGMENT_SHADER = R"(
     #version 330 core
     in vec3 vtx_color;
     in vec3 vtx_world_pos;
@@ -173,7 +173,7 @@ const char* kMeshFragmentShader = R"(
     }
 )";
 
-const char* kTexturedMeshVertexShader = R"(
+const char* TEXTURED_MESH_VERTEX_SHADER = R"(
     #version 330 core
     in vec3 position;
     in vec2 texcoord;
@@ -187,7 +187,7 @@ const char* kTexturedMeshVertexShader = R"(
     }
 )";
 
-const char* kTexturedMeshFragmentShader = R"(
+const char* TEXTURED_MESH_FRAGMENT_SHADER = R"(
     #version 330 core
     in vec2 vtx_texcoord;
     in vec3 vtx_world_pos;
@@ -252,11 +252,11 @@ void OctreeLASLayerRenderer::ensure_shader() {
     return;
   }
   m_shader = std::make_unique<QOpenGLShaderProgram>();
-  const std::string vertex_src = std::string(kPointVertexShaderPrologue) + "\n" +
-                                 classification_color_glsl() + kPointVertexShaderMain;
+  const std::string vertex_src = std::string(POINT_VERTEX_SHADER_PROLOGUE) + "\n" +
+                                 classification_color_glsl() + POINT_VERTEX_SHADER_MAIN;
   if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex,
                                          QString::fromStdString(vertex_src)) ||
-      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kPointFragmentShader)) {
+      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, POINT_FRAGMENT_SHADER)) {
     std::cout << "Point shader error: " << m_shader->log().toStdString() << std::endl;
     m_shader.reset();
     return;
@@ -305,7 +305,7 @@ size_t OctreeLASLayerRenderer::visible_nodes_fingerprint(
 
 bool OctreeLASLayerRenderer::stream_camera_changed(const Camera& camera) const {
   if ((camera.position() - m_stream_camera_pos).lengthSquared() >
-      kStreamViewResetDistance * kStreamViewResetDistance) {
+      STREAM_VIEW_RESET_DISTANCE * STREAM_VIEW_RESET_DISTANCE) {
     return true;
   }
   // |direction| encodes the focal/zoom distance, so compare orientation only.
@@ -398,8 +398,8 @@ double OctreeLASLayerRenderer::select_draw_quality(
   // the previous quality converges to the target draw time without a search.
   const double base = lod_base_from_incremental ? m_inc_lod_quality : m_lod_quality;
   const size_t vertices = estimate_draw_vertices(visible_nodes, base, incremental);
-  const double est_ms =
-      static_cast<double>(vertices) * m_ms_per_vertex + (vertices > 0 ? kDrawCallOverheadMs : 0.0);
+  const double est_ms = static_cast<double>(vertices) * m_ms_per_vertex +
+                        (vertices > 0 ? DRAW_CALL_OVERHEAD_MS : 0.0);
   if (est_ms <= 1e-6) {
     return std::clamp(base, 0.05, 64.0);
   }
@@ -411,10 +411,10 @@ void OctreeLASLayerRenderer::record_lod_sample(size_t vertices, double ms) {
     return;
   }
   // Exponential moving average of GPU cost per vertex.
-  constexpr double kAlpha = 0.2;
+  constexpr double ALPHA = 0.2;
   const double instant = ms / static_cast<double>(vertices);
   m_ms_per_vertex =
-      m_ms_per_vertex > 0.0 ? (1.0 - kAlpha) * m_ms_per_vertex + kAlpha * instant : instant;
+      m_ms_per_vertex > 0.0 ? (1.0 - ALPHA) * m_ms_per_vertex + ALPHA * instant : instant;
 }
 
 void OctreeLASLayerRenderer::ensure_gpu_timer(QOpenGLExtraFunctions* gl) {
@@ -534,7 +534,7 @@ size_t OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions* f,
   m_point_gl.bind(f);
   CHECK_GL_AFTER();
 
-  const size_t count = std::min(preview.size(), kMaxPreviewDrawVertices);
+  const size_t count = std::min(preview.size(), MAX_PREVIEW_DRAW_VERTICES);
   const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
                                static_cast<float>(file_origin.y() - scene_offset.y()),
                                static_cast<float>(file_origin.z() - scene_offset.z()));
@@ -714,7 +714,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   CHECK_GL(f->glDisable(GL_BLEND));
 
   const size_t expected_vertices =
-      use_preview ? std::min(snap->preview_points.size(), kMaxPreviewDrawVertices)
+      use_preview ? std::min(snap->preview_points.size(), MAX_PREVIEW_DRAW_VERTICES)
                   : estimate_draw_vertices(visible_nodes, draw_quality, incremental);
   const bool time_draw = expected_vertices > 0;
   ScopedGpuTimer gpu_timer(time_draw ? gl : nullptr, time_draw ? m_gpu_timer_query : 0);
@@ -854,13 +854,13 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
   if (!m_shader) {
     m_shader = std::make_unique<QOpenGLShaderProgram>();
     if (use_texture) {
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kTexturedMeshVertexShader);
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kTexturedMeshFragmentShader);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, TEXTURED_MESH_VERTEX_SHADER);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, TEXTURED_MESH_FRAGMENT_SHADER);
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("texcoord", 1);
     } else {
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kMeshVertexShader);
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kMeshFragmentShader);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, MESH_VERTEX_SHADER);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, MESH_FRAGMENT_SHADER);
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("color", 1);
     }
@@ -1131,9 +1131,9 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   indices.reserve(contours.size() * 12);
 
   // World-space half-width in meters; appears wider on screen as you zoom in.
-  constexpr double kHalfWidthMeters = 1.5;
+  constexpr double HALF_WIDTH_METERS = 1.5;
   for (const auto& contour : contours) {
-    append_contour_ribbon(contour, kHalfWidthMeters, vertices, indices);
+    append_contour_ribbon(contour, HALF_WIDTH_METERS, vertices, indices);
   }
   if (vertices.empty() || indices.empty()) {
     return;
@@ -1146,8 +1146,8 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   }
 
   m_shader = std::make_unique<QOpenGLShaderProgram>();
-  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kMeshVertexShader) ||
-      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kMeshFragmentShader)) {
+  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, MESH_VERTEX_SHADER) ||
+      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, MESH_FRAGMENT_SHADER)) {
     m_shader.reset();
     return;
   }
