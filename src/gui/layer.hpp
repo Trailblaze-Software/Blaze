@@ -75,6 +75,8 @@ class LASLayer : public PointLayer {
   float m_point_radius_m = 0.15f;
   float m_point_alpha = 1.0f;
   float m_point_stream_budget_ms = 30.0f;
+  float m_lod_quality_multiplier = 1.0f;
+  size_t m_max_points_per_node = 32'000;
   PointColorMode m_point_color_mode = PointColorMode::File;
   std::array<uint8_t, 3> m_fixed_point_color = {{217, 230, 255}};
 
@@ -83,6 +85,7 @@ class LASLayer : public PointLayer {
   void point_colors_changed() const;
   void point_opacity_changed() const;
   void point_stream_budget_changed() const;
+  void lod_settings_changed() const;
 
  public:
   explicit LASLayer(const fs::path& file, AsyncProgressTracker progress_tracker,
@@ -103,6 +106,8 @@ class LASLayer : public PointLayer {
   float point_radius_m() const { return m_point_radius_m; }
   float point_alpha() const { return m_point_alpha; }
   float point_stream_budget_ms() const { return m_point_stream_budget_ms; }
+  float lod_quality_multiplier() const { return m_lod_quality_multiplier; }
+  size_t max_points_per_node() const { return m_max_points_per_node; }
   PointColorMode point_color_mode() const { return m_point_color_mode; }
   const std::array<uint8_t, 3>& fixed_point_color() const { return m_fixed_point_color; }
 
@@ -127,6 +132,22 @@ class LASLayer : public PointLayer {
     if (m_point_stream_budget_ms != clamped) {
       m_point_stream_budget_ms = clamped;
       emit point_stream_budget_changed();
+    }
+  }
+
+  void set_lod_quality_multiplier(float multiplier) {
+    const float clamped = std::clamp(multiplier, 0.1f, 10.0f);
+    if (m_lod_quality_multiplier != clamped) {
+      m_lod_quality_multiplier = clamped;
+      emit lod_settings_changed();
+    }
+  }
+
+  void set_max_points_per_node(size_t max_points) {
+    const size_t clamped = std::clamp(max_points, size_t{1000}, size_t{100'000});
+    if (m_max_points_per_node != clamped) {
+      m_max_points_per_node = clamped;
+      emit lod_settings_changed();
     }
   }
 

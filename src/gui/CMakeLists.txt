@@ -19,6 +19,11 @@ if(BLAZE_BUILD_3D_GUI)
             main_3d_window.cpp
             layer_renderer.hpp
             layer_renderer.cpp
+            octree_las_layer_renderer.cpp
+            mesh_layer_renderer.cpp
+            contour_layer_renderer.cpp
+            shaders.hpp
+            shaders.cpp
             main_3d_window.ui
             point_cloud_framebuffer.hpp
             point_cloud_framebuffer.cpp
@@ -32,7 +37,9 @@ if(BLAZE_BUILD_3D_GUI)
             gl_widget.cpp
             layer.hpp)
 
-  target_sources(${UNIT_TESTS_NAME} PRIVATE tests/test_camera.cpp)
+  target_sources(
+    ${UNIT_TESTS_NAME} PRIVATE tests/test_camera.cpp tests/test_octree.cpp
+                               tests/test_frustum.cpp point_octree.cpp)
   target_link_libraries(${UNIT_TESTS_NAME} PRIVATE Qt6::Gui)
 
   if(APPLE)

@@ -95,6 +95,8 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
       });
       connect(las_layer.get(), &LASLayer::point_stream_budget_changed, this,
               [this] { refresh_point_cloud_style(); });
+      connect(las_layer.get(), &LASLayer::lod_settings_changed, this,
+              [this] { refresh_point_cloud_style(); });
     }
     connect(m_renderers.back().get(), &LayerRenderer::repaint_required, this,
             [this] { QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); });

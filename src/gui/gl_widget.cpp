@@ -659,6 +659,11 @@ int GLWidget::allocate_layer_slot() {
     m_free_layer_slots.pop_back();
     return slot;
   }
+  if (m_next_layer_slot > 255) {
+    std::cerr << "Warning: Maximum of 255 point cloud layers with picking support reached. "
+                 "Additional layers will not support point picking.\n";
+    return 0;
+  }
   return m_next_layer_slot++;
 }
 

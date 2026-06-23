@@ -190,9 +190,10 @@ jobs:
       - name: Debug NSIS Failure
         if: failure()
         run: |
-          if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
-            Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
-          }
+          $log = Get-ChildItem -Path build/_CPack_Packages -Recurse `
+            -Filter NSISOutput.log -ErrorAction SilentlyContinue |
+            Select-Object -First 1
+          if ($log) { Get-Content $log.FullName }
       - name: Install package
         shell: pwsh
         run: |
@@ -200,9 +201,12 @@ jobs:
           if (Test-Path 'C:\BlazeTest') {
             Remove-Item -Recurse -Force 'C:\BlazeTest'
           }
-          & $installer /S "/D=C:\BlazeTest"
-          if ($LASTEXITCODE -ne 0) {
-            throw "Installer exited with code $LASTEXITCODE"
+          # NSIS is a GUI-subsystem exe; Start-Process -PassThru gives a reliable
+          # exit code. Direct invocation leaves $LASTEXITCODE unset, which fails
+          # `$LASTEXITCODE -ne 0` even when the install succeeded.
+          $proc = Start-Process -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+            throw "Installer exited with code $($proc.ExitCode)"
           }
           if (-not (Test-Path 'C:\BlazeTest\bin\blaze-cli.exe')) {
             throw "blaze-cli.exe not found under C:\BlazeTest after install"
