@@ -36,7 +36,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   GLWidget(QWidget* parent = nullptr);
   ~GLWidget();
 
-  void add_layer(std::shared_ptr<Layer> layer) {
+  void add_layer(std::shared_ptr<Layer> layer, bool auto_zoom = true) {
     const std::string layer_projection = layer->projection();
     const std::string layer_native = layer->native_projection();
     if (m_layers.empty()) {
@@ -61,29 +61,31 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     }
     connect(m_layers.back().get(), &Layer::data_updated, m_renderers.back().get(),
             &LayerRenderer::data_update_required);
-    connect(m_layers.back().get(), &Layer::data_updated, this, [this, layer = m_layers.back()] {
-      if (layer->kind() != LayerKind::PointCloud) {
-        update();
-        return;
-      }
-      const auto* las_layer = dynamic_cast<const LASLayer*>(layer.get());
-      if (las_layer == nullptr) {
-        update();
-        return;
-      }
-      const Extent3D local_extent = layer->extent() - m_camera.world_offset();
-      if (local_extent.max_extent() <= 0) {
-        restart_render();
-        update();
-        return;
-      }
-      restart_render();
-      if (m_zoomed_layers.count(layer.get()) == 0 && local_extent.max_extent() > 0) {
-        request_zoom_to_extent(local_extent);
-        m_zoomed_layers.insert(layer.get());
-      }
-      update();
-    });
+    connect(m_layers.back().get(), &Layer::data_updated, this,
+            [this, layer = m_layers.back(), auto_zoom] {
+              if (layer->kind() != LayerKind::PointCloud) {
+                update();
+                return;
+              }
+              const auto* las_layer = dynamic_cast<const LASLayer*>(layer.get());
+              if (las_layer == nullptr) {
+                update();
+                return;
+              }
+              const Extent3D local_extent = layer->extent() - m_camera.world_offset();
+              if (local_extent.max_extent() <= 0) {
+                restart_render();
+                update();
+                return;
+              }
+              restart_render();
+              if (auto_zoom && m_zoomed_layers.count(layer.get()) == 0 &&
+                  local_extent.max_extent() > 0) {
+                request_zoom_to_extent(local_extent);
+                m_zoomed_layers.insert(layer.get());
+              }
+              update();
+            });
     if (auto las_layer = std::dynamic_pointer_cast<LASLayer>(m_layers.back())) {
       connect(las_layer.get(), &LASLayer::point_size_changed, this,
               [this] { refresh_point_cloud_style(); });
@@ -112,7 +114,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
       restart_render();
       update();
     });
-    if (layer->extent().max_extent() > 0) {
+    if (auto_zoom && layer->extent().max_extent() > 0) {
       request_zoom_to_extent(layer->extent() - m_camera.world_offset());
     }
     restart_render();
@@ -159,6 +161,18 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     request_zoom_to_extent(layer->extent() - m_camera.world_offset());
     restart_render();
     update();
+  }
+
+  void zoom_to_all_layers() {
+    Extent3D combined_extent;
+    for (const auto& layer : m_layers) {
+      combined_extent.grow(layer->extent() - m_camera.world_offset());
+    }
+    if (combined_extent.max_extent() > 0) {
+      request_zoom_to_extent(combined_extent);
+      restart_render();
+      update();
+    }
   }
 
   void restart_render();

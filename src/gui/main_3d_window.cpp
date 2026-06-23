@@ -7,19 +7,21 @@
 #include <QColorDialog>
 #include <QComboBox>
 #include <QCoreApplication>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QFileInfo>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMenu>
 #include <QOpenGLWidget>
-#include <QProcessEnvironment>
 #include <QPushButton>
 #include <QShortcut>
 #include <QSignalBlocker>
 #include <QSizePolicy>
 #include <QSlider>
 #include <QVBoxLayout>
+#include <QtConcurrent>
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -27,7 +29,11 @@
 #include <utility>
 
 #include "blaze_output_loader.hpp"
+#include "config_editor.hpp"
+#include "config_input/config_input.hpp"
 #include "gui/point_cloud_visualization.hpp"
+#include "progress_box.hpp"
+#include "run.hpp"
 #include "ui_main_3d_window.h"
 #include "utilities/env.hpp"
 #include "utilities/progress_tracker.hpp"
@@ -58,16 +64,6 @@ std::vector<fs::path> collect_open_las_files(const std::vector<std::shared_ptr<L
     }
   }
   return las_files;
-}
-
-QString blaze_gui_executable_path() {
-  QString path = QCoreApplication::applicationDirPath();
-#ifdef _WIN32
-  path += "/Blaze.exe";
-#else
-  path += "/Blaze";
-#endif
-  return path;
 }
 
 bool is_draped_surface_layer(LayerKind kind) {
@@ -106,18 +102,6 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
     connect(ui->actionImportBlazeOutput, &QAction::triggered, this,
             &Main3DWindow::import_blaze_output);
     connect(ui->actionRunBlaze, &QAction::triggered, this, &Main3DWindow::run_blaze_on_layers);
-    if (!m_blaze_process) {
-      m_blaze_process = std::make_unique<QProcess>(this);
-      m_blaze_process->setProcessChannelMode(QProcess::MergedChannels);
-      connect(m_blaze_process.get(), &QProcess::readyReadStandardOutput, this, [this] {
-        const QByteArray chunk = m_blaze_process->readAllStandardOutput();
-        m_blaze_output.append(QString::fromLocal8Bit(chunk));
-        // Echo Blaze's output to Blaze3D's console so it can be followed live.
-        std::cout << chunk.toStdString() << std::flush;
-      });
-      connect(m_blaze_process.get(), &QProcess::finished, this,
-              &Main3DWindow::handle_blaze_process_finished);
-    }
     ui->horizontalLayout->addWidget(gl_widget.get(), 1);
     gl_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     gl_widget->setMinimumSize(320, 240);
@@ -559,7 +543,7 @@ void Main3DWindow::add_layer_to_tree(std::shared_ptr<Layer> layer) {
   ui->treeWidget->resizeColumnToContents(0);
 }
 
-void Main3DWindow::add_layer(std::unique_ptr<Layer> layer) {
+void Main3DWindow::add_layer(std::unique_ptr<Layer> layer, bool auto_zoom) {
   auto shared = std::shared_ptr<Layer>(std::move(layer));
   m_layers.push_back(shared);
   if (m_pending_progress_bar) {
@@ -567,7 +551,7 @@ void Main3DWindow::add_layer(std::unique_ptr<Layer> layer) {
     m_pending_progress_bar = nullptr;
   }
   add_layer_to_tree(shared);
-  gl_widget->add_layer(shared);
+  gl_widget->add_layer(shared, auto_zoom);
   connect(shared.get(), &Layer::data_updated, this, &Main3DWindow::maybe_exit_after_load);
   if (auto* las_layer = dynamic_cast<LASLayer*>(shared.get())) {
     connect(las_layer, &LASLayer::point_colors_changed, this,
@@ -610,13 +594,18 @@ void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
     }
     return;
   }
+
+  const bool is_first_import = m_layers.empty();
+
   if (outputs.filled_dem) {
     if (outputs.final_img) {
       add_layer(std::make_unique<TexturedDemLayer>(*outputs.filled_dem, *outputs.final_img,
-                                                   add_progress_tracker(), scene_reference_crs()));
+                                                   add_progress_tracker(), scene_reference_crs()),
+                false);
     } else {
       add_layer(std::make_unique<DemLayer>(*outputs.filled_dem, add_progress_tracker(),
-                                           std::nullopt, scene_reference_crs()));
+                                           std::nullopt, scene_reference_crs()),
+                false);
     }
 
     if (outputs.slope) {
@@ -627,15 +616,22 @@ void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
       if (outputs.final_img) {
         slope_layer->set_visible(false);
       }
-      add_layer(std::move(slope_layer));
+      add_layer(std::move(slope_layer), false);
     }
   }
 
   if (outputs.contours) {
     add_layer(std::make_unique<ContourLayer>(*outputs.contours, add_progress_tracker(),
-                                             scene_reference_crs()));
+                                             scene_reference_crs()),
+              false);
   }
+
   update_render_mode();
+
+  if (is_first_import) {
+    m_zoom_after_load = true;
+  }
+
   maybe_exit_after_load();
 }
 
@@ -685,6 +681,19 @@ bool Main3DWindow::layer_is_ready(const Layer& layer) {
 
 void Main3DWindow::maybe_exit_after_load() {
   update_render_mode();
+
+  const bool all_layers_ready =
+      !m_layers.empty() &&
+      std::all_of(m_layers.begin(), m_layers.end(),
+                  [this](const std::shared_ptr<Layer>& layer) { return layer_is_ready(*layer); });
+
+  if (all_layers_ready && m_zoom_after_load) {
+    m_zoom_after_load = false;
+    m_defer_render_until_loaded = false;
+    update_render_mode();
+    gl_widget->zoom_to_all_layers();
+  }
+
   if (!m_exit_after_load || m_layers.empty()) {
     return;
   }
@@ -693,6 +702,7 @@ void Main3DWindow::maybe_exit_after_load() {
       return;
     }
   }
+
   if (!m_exit_after_render) {
     m_exit_after_render = true;
     update_render_mode();
@@ -721,71 +731,78 @@ void Main3DWindow::run_blaze_on_layers() {
     return;
   }
 
-  if (m_blaze_process->state() != QProcess::NotRunning) {
-    QMessageBox::information(this, "Blaze running",
-                             "Blaze is already running. Wait for it to finish before starting "
-                             "another run.");
+  // Create a dialog with the ConfigEditor widget
+  QDialog* config_dialog = new QDialog(this);
+  config_dialog->setWindowTitle("Configure Blaze Processing");
+  config_dialog->resize(800, 600);
+
+  QVBoxLayout* layout = new QVBoxLayout(config_dialog);
+
+  // Embed the ConfigEditor widget
+  ConfigEditor* config_editor = new ConfigEditor(config_dialog);
+  config_editor->set_las_files(las_files);
+  layout->addWidget(config_editor);
+
+  // Add Run/Cancel buttons
+  QDialogButtonBox* button_box =
+      new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, config_dialog);
+  button_box->button(QDialogButtonBox::Ok)->setText("Run Blaze");
+  button_box->button(QDialogButtonBox::Ok)->setEnabled(config_editor->is_valid());
+
+  connect(config_editor, &ConfigEditor::config_changed, [=]() {
+    button_box->button(QDialogButtonBox::Ok)->setEnabled(config_editor->is_valid());
+  });
+
+  layout->addWidget(button_box);
+
+  connect(button_box, &QDialogButtonBox::accepted, config_dialog, &QDialog::accept);
+  connect(button_box, &QDialogButtonBox::rejected, config_dialog, &QDialog::reject);
+
+  // Show dialog and wait for user
+  if (config_dialog->exec() != QDialog::Accepted) {
+    config_dialog->deleteLater();
     return;
   }
 
-  const QString blaze_exe = blaze_gui_executable_path();
-  if (!QFileInfo::exists(blaze_exe)) {
-    QMessageBox::critical(this, "Blaze not found",
-                          "Could not find the Blaze GUI executable next to Blaze3D:\n" + blaze_exe);
-    return;
-  }
-
-  const fs::path output_dir = fs::absolute(las_files.front().parent_path() / "out");
-  m_pending_blaze_output = output_dir;
-  m_blaze_output.clear();
-
-  QStringList args;
-  for (const fs::path& las_file : las_files) {
-    args << "--las-file" << QString::fromStdString(las_file.string());
-  }
-
-  QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-  env.insert("BLAZE3D_EXPECT_OUTPUT", QString::fromStdString(output_dir.string()));
-  env.insert("BLAZE_EXIT_AFTER_RUN", "1");
-  m_blaze_process->setProcessEnvironment(env);
-  m_blaze_process->setProgram(blaze_exe);
-  m_blaze_process->setArguments(args);
-  m_blaze_process->start();
-
-  if (m_blaze_process->state() == QProcess::NotRunning) {
-    m_pending_blaze_output.reset();
-    QMessageBox::critical(this, "Launch failed",
-                          "Failed to start Blaze.\n\nExecutable: " + blaze_exe);
-  }
+  // User clicked "Run" - get the config reference
+  // Keep the dialog alive until the task completes by capturing it in the lambdas
+  const Config& config = config_editor->get_config();
+  run_blaze_with_config(config, config_dialog);
 }
 
-void Main3DWindow::handle_blaze_process_finished(int exit_code, QProcess::ExitStatus status) {
-  const std::optional<fs::path> output_dir = std::exchange(m_pending_blaze_output, std::nullopt);
-  if (!output_dir) {
-    return;
-  }
-  if (status != QProcess::NormalExit || exit_code != 0) {
-    QString detail = m_blaze_output.trimmed();
-    // Keep the dialog readable: only show the tail of the captured log.
-    constexpr int MAX_DETAIL_CHARS = 2000;
-    if (detail.size() > MAX_DETAIL_CHARS) {
-      detail = "...\n" + detail.right(MAX_DETAIL_CHARS);
-    }
-    QString message =
-        status != QProcess::NormalExit
-            ? QString("Blaze crashed before finishing. Output was not imported.")
-            : QString("Blaze exited with code %1. Output was not imported.").arg(exit_code);
-    if (!detail.isEmpty()) {
-      message += "\n\nBlaze output:\n" + detail;
-    }
-    QMessageBox::warning(this, "Blaze failed", message);
-    return;
-  }
+void Main3DWindow::run_blaze_with_config(const Config& config, QDialog* config_dialog) {
+  // Show progress dialog
+  ProgressBox* progress_box = new ProgressBox(this);
+  progress_box->show();
 
-  import_blaze_output_from_path(output_dir->string());
-  QMessageBox::information(this, "Blaze output imported",
-                           QString("Imported blaze outputs from:\n%1")
-                               .arg(QString::fromStdString(output_dir->string())));
+  const fs::path output_dir = config.output_path();
+
+  progress_box->start_task(
+      // Task: run Blaze in background thread
+      // Capture config by reference - it's safe because we keep the dialog alive
+      // via the config_dialog pointer captured in the completion callbacks
+      [&config, progress_box]() {
+        run_with_config(config, std::vector<fs::path>(), ProgressTracker(progress_box));
+      },
+
+      // On success: import the results and clean up dialog
+      [this, output_dir, config_dialog]() {
+        import_blaze_output_from_path(output_dir.string());
+        QMessageBox::information(this, "Success",
+                                 QString("Blaze processing complete!\n\nOutput imported from:\n%1")
+                                     .arg(QString::fromStdString(output_dir.string())));
+        if (config_dialog) {
+          config_dialog->deleteLater();
+        }
+      },
+
+      // On error: show error message and clean up dialog
+      [this, config_dialog](const QString& error_message) {
+        QMessageBox::critical(this, "Blaze Error", "Processing failed:\n\n" + error_message);
+        if (config_dialog) {
+          config_dialog->deleteLater();
+        }
+      });
 }
 
 void Main3DWindow::on_treeWidget_itemChanged(QTreeWidgetItem* item, int column) {

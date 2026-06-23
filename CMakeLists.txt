@@ -248,8 +248,17 @@ if(NOT BLAZE_CLI_ONLY)
     target_precompile_headers(${GUI_3D_EXE_NAME} PRIVATE
                               src/precompiled_headers.hpp)
     target_link_libraries(
-      ${GUI_3D_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent Qt6::OpenGL
-                                 Qt6::OpenGLWidgets)
+      ${GUI_3D_EXE_NAME}
+      PRIVATE Qt6::Widgets
+              Qt6::Concurrent
+              Qt6::OpenGL
+              Qt6::OpenGLWidgets
+              GDAL::GDAL
+              OpenMP::OpenMP_CXX
+              nlohmann_json::nlohmann_json
+              ${OpenCV_LIBS})
+    target_include_directories(
+      ${GUI_3D_EXE_NAME} PRIVATE ${GDAL_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
     set_target_properties(
       ${GUI_3D_EXE_NAME}
       PROPERTIES WIN32_EXECUTABLE ON

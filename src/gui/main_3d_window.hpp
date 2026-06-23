@@ -2,7 +2,6 @@
 
 #include <QMainWindow>
 #include <QMetaObject>
-#include <QProcess>
 #include <QProgressBar>
 #include <QTreeWidgetItem>
 #include <QWidget>
@@ -13,7 +12,10 @@
 #include "gui/layer_renderer.hpp"
 #include "utilities/filesystem.hpp"
 
+struct Config;
+
 class QComboBox;
+class QDialog;
 class QGroupBox;
 class QLabel;
 class QPushButton;
@@ -68,7 +70,7 @@ class Main3DWindow : public QMainWindow {
   Main3DWindow();
   ~Main3DWindow();
 
-  void add_layer(std::unique_ptr<Layer> layer);
+  void add_layer(std::unique_ptr<Layer> layer, bool auto_zoom = true);
 
   void import_blaze_output_from_path(const std::string& directory);
   void set_exit_after_load(bool exit_after_load);
@@ -83,7 +85,6 @@ class Main3DWindow : public QMainWindow {
   void open_layer_file();
   void import_blaze_output();
   void run_blaze_on_layers();
-  void handle_blaze_process_finished(int exit_code, QProcess::ExitStatus status);
   void on_treeWidget_itemChanged(QTreeWidgetItem* item, int column);
   void on_treeWidget_customContextMenuRequested(const QPoint& pos);
   void remove_selected_layer();
@@ -95,16 +96,12 @@ class Main3DWindow : public QMainWindow {
   void remove_layer(const std::shared_ptr<Layer>& layer);
   QTreeWidgetItem* find_tree_item_for_layer(Layer* layer) const;
   void update_render_mode();
+  void run_blaze_with_config(const Config& config, QDialog* config_dialog);
 
   static bool layer_is_ready(const Layer& layer);
 
   std::unique_ptr<Ui::Main3DWindow> ui;
   std::unique_ptr<GLWidget> gl_widget;
-  std::unique_ptr<QProcess> m_blaze_process;
-  std::optional<fs::path> m_pending_blaze_output;
-  // Accumulated stdout/stderr from the most recent Blaze run, used to surface
-  // the real failure reason if Blaze exits with a non-zero code.
-  QString m_blaze_output;
   std::vector<std::shared_ptr<Layer>> m_layers;
   // Progress bar owned per layer. Keyed by Layer* so removal never depends on
   // the bar vector staying index-parallel with m_layers. The pending bar is
@@ -136,6 +133,7 @@ class Main3DWindow : public QMainWindow {
   std::weak_ptr<Layer> m_active_surface_layer;
   bool m_updating_point_cloud_ui = false;
   bool m_updating_surface_ui = false;
+  bool m_zoom_after_load = false;
 
   void setup_animation_panel();
   void setup_point_cloud_panel();

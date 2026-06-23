@@ -36,7 +36,13 @@ if(BLAZE_BUILD_3D_GUI)
             gl_check.cpp
             gl_widget.hpp
             gl_widget.cpp
-            layer.hpp)
+            layer.hpp
+            config_editor.hpp
+            config_editor.cpp
+            config_editor.ui
+            progress_box.hpp
+            progress_box.cpp
+            progress_box.ui)
 
   target_sources(
     ${UNIT_TESTS_NAME} PRIVATE tests/test_camera.cpp tests/test_octree.cpp
