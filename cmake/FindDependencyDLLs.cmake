@@ -10,9 +10,8 @@ function(find_and_copy_dependency_dlls)
 
   # Copy DLLs from all linked CMake targets (e.g. lazperf.dll built via
   # FetchContent). $<TARGET_RUNTIME_DLLS:tgt> lists every SHARED_LIBRARY the
-  # target transitively depends on. Post-build steps are appended in order, so
-  # this runs before the gtest_discover_tests step added later in
-  # CMakeLists.txt.
+  # target transitively depends on. These POST_BUILD steps run when each
+  # executable is built so ctest can launch unit_tests with its deps present.
   foreach(target ${ARGN})
     if(TARGET ${target})
       add_custom_command(
@@ -31,8 +30,8 @@ function(find_and_copy_dependency_dlls)
     # Use the active triplet rather than hardcoding x64-windows; otherwise the
     # arm64-windows build copies nothing here (the x64 path doesn't exist), the
     # executables miss vcpkg's transitive runtime DLLs (proj, geos, …), and
-    # running them — e.g. gtest_discover_tests launching unit_tests.exe at build
-    # time — fails with 0xc0000135 (STATUS_DLL_NOT_FOUND).
+    # ctest / gtest discovery at test time fails with 0xc0000135
+    # (STATUS_DLL_NOT_FOUND).
     if(DEFINED VCPKG_TARGET_TRIPLET AND VCPKG_TARGET_TRIPLET)
       set(_blaze_vcpkg_triplet "${VCPKG_TARGET_TRIPLET}")
     else()

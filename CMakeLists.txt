@@ -391,8 +391,13 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest)
 
 add_subdirectory(src)
 
-gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120
-                     WORKING_DIRECTORY "$<TARGET_FILE_DIR:${UNIT_TESTS_NAME}>")
+# unit_tests links blaze_lib and (when Blaze3D is enabled) Qt6::Gui. On Windows
+# and macOS the transitive runtime deps are not reliably loadable at link time,
+# so gtest_discover_tests must not execute the binary during the build — only
+# when ctest runs, after POST_BUILD DLL deployment / rpath setup.
+gtest_discover_tests(
+  ${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120 DISCOVERY_MODE PRE_TEST
+  WORKING_DIRECTORY "$<TARGET_FILE_DIR:${UNIT_TESTS_NAME}>")
 
 include(GNUInstallDirs)
 

@@ -32,4 +32,13 @@ if(BLAZE_BUILD_3D_GUI)
 
   target_sources(${UNIT_TESTS_NAME} PRIVATE tests/test_camera.cpp)
   target_link_libraries(${UNIT_TESTS_NAME} PRIVATE Qt6::Gui)
+
+  if(APPLE)
+    # Plain executables need an explicit rpath to Qt's frameworks directory so
+    # ctest can launch unit_tests (Library not loaded: @rpath/QtGui.framework).
+    get_filename_component(_blaze_qt_prefix "${Qt6_DIR}/../../.." ABSOLUTE)
+    set_target_properties(
+      ${UNIT_TESTS_NAME} PROPERTIES INSTALL_RPATH "${_blaze_qt_prefix}/lib"
+                                    MACOSX_RPATH ON)
+  endif()
 endif()
