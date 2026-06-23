@@ -94,8 +94,8 @@ const char* POINT_VERTEX_SHADER_MAIN = R"(
         float depth = max(-eye.z, 1e-4);
         float proj_scale = viewport_height / (2.0 * tan(fov_rad * 0.5));
         gl_PointSize = clamp(2.0 * point_radius_m * proj_scale / depth, 1.0, 4096.0);
-        // gl_VertexID == first + local index == global index into octree.points()
-        // because every leaf draws glDrawArrays(GL_POINTS, begin_index, count).
+        // gl_VertexID includes the glDrawArrays(first, ...) offset, so this
+        // tracks the global index into octree.points() for FBO picking.
         vtx_point_id = uint(gl_VertexID) + 1u;
     }
 )";
@@ -134,7 +134,7 @@ const char* POINT_FRAGMENT_SHADER = R"(
         // Eye-space lighting stays consistent as the camera orbits.
         vec3 light_dir = normalize(vec3(0.3, 0.5, 0.8));
         float lighting = 0.4 + 0.6 * max(dot(normal, light_dir), 0.0);
-        fragColor = vec4(vtx_color.rgb * lighting, 1.0);
+        fragColor = vec4(vtx_color.rgb * lighting, vtx_color.a);
         // pickData.x = global point index + 1; pickData.y = layer slot (1-based).
         pickData = u_layer_slot > 0 ? uvec2(vtx_point_id, uint(u_layer_slot)) : uvec2(0u, 0u);
     }
@@ -158,6 +158,7 @@ const char* MESH_FRAGMENT_SHADER = R"(
     #version 330 core
     in vec3 vtx_color;
     in vec3 vtx_world_pos;
+    uniform float layer_alpha;
     out vec4 fragColor;
     void main() {
         vec3 dx = dFdx(vtx_world_pos);
@@ -169,7 +170,7 @@ const char* MESH_FRAGMENT_SHADER = R"(
         vec3 light_dir = normalize(vec3(0.65, 0.35, 0.67));
         float diffuse = clamp(dot(n, light_dir), 0.0, 1.0);
         float lighting = mix(0.45, 1.1, diffuse);
-        fragColor = vec4(vtx_color * lighting, 0.92);
+        fragColor = vec4(vtx_color * lighting, 0.92 * layer_alpha);
     }
 )";
 
@@ -192,6 +193,7 @@ const char* TEXTURED_MESH_FRAGMENT_SHADER = R"(
     in vec2 vtx_texcoord;
     in vec3 vtx_world_pos;
     uniform sampler2D dem_texture;
+    uniform float layer_alpha;
     out vec4 fragColor;
     void main() {
         vec3 color = texture(dem_texture, vtx_texcoord).rgb;
@@ -204,7 +206,7 @@ const char* TEXTURED_MESH_FRAGMENT_SHADER = R"(
         vec3 light_dir = normalize(vec3(0.65, 0.35, 0.67));
         float diffuse = clamp(dot(n, light_dir), 0.0, 1.0);
         float lighting = mix(0.45, 1.1, diffuse);
-        fragColor = vec4(color * lighting, 0.95);
+        fragColor = vec4(color * lighting, 0.95 * layer_alpha);
     }
 )";
 
@@ -226,14 +228,17 @@ std::unique_ptr<LayerRenderer> LayerRenderer::create(std::shared_ptr<Layer> laye
   }
   if (auto dem_layer = std::dynamic_pointer_cast<DemLayer>(layer)) {
     return std::make_unique<MeshLayerRenderer>(
-        [dem_layer]() -> const AsyncRasterData* { return &dem_layer->raster(); }, offset);
+        dem_layer, [dem_layer]() -> const AsyncRasterData* { return &dem_layer->raster(); },
+        offset);
   }
   if (auto slope_layer = std::dynamic_pointer_cast<SlopeLayer>(layer)) {
     return std::make_unique<MeshLayerRenderer>(
-        [slope_layer]() -> const AsyncRasterData* { return &slope_layer->raster(); }, offset);
+        slope_layer, [slope_layer]() -> const AsyncRasterData* { return &slope_layer->raster(); },
+        offset);
   }
   if (auto textured_layer = std::dynamic_pointer_cast<TexturedDemLayer>(layer)) {
     return std::make_unique<MeshLayerRenderer>(
+        textured_layer,
         [textured_layer]() -> const AsyncRasterData* { return &textured_layer->raster(); }, offset,
         true);
   }
@@ -506,7 +511,13 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
     }
     if (to_draw == 0) continue;
 
-    m_firsts.push_back(static_cast<GLint>(node->begin_index + state.streamed_count));
+    const size_t first_index = node->begin_index + state.streamed_count;
+    if (first_index > static_cast<size_t>(std::numeric_limits<GLint>::max())) {
+      // glDrawArrays takes GLint for "first"; skip impossible ranges safely.
+      m_stream_backlog = true;
+      continue;
+    }
+    m_firsts.push_back(static_cast<GLint>(first_index));
     m_counts.push_back(static_cast<GLsizei>(to_draw));
 
     // Always advance streamed_count; non-incremental frames reset it via
@@ -651,6 +662,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
     if (load_complete) {
       reset_stream_cache();
     }
+    m_points_uploaded = false;
     m_data_update_required = false;
   }
 
@@ -704,7 +716,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   const std::array<uint8_t, 3>& fixed = layer->fixed_point_color();
   m_shader->setUniformValue(m_fixed_color_loc,
                             QVector3D(fixed[0] / 255.f, fixed[1] / 255.f, fixed[2] / 255.f));
-  m_shader->setUniformValue(m_point_alpha_loc, 1.0f);
+  m_shader->setUniformValue(m_point_alpha_loc, layer->point_alpha());
   CHECK_GL_AFTER();
 
   CHECK_GL(f->glEnable(GL_DEPTH_TEST));
@@ -764,9 +776,12 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   }
 }
 
-MeshLayerRenderer::MeshLayerRenderer(std::function<const AsyncRasterData*()> data_accessor,
+MeshLayerRenderer::MeshLayerRenderer(std::shared_ptr<Layer> layer,
+                                     std::function<const AsyncRasterData*()> data_accessor,
                                      const Coordinate3D<double>& /*offset*/, bool gpu_texture)
-    : m_data_accessor(std::move(data_accessor)), m_gpu_texture(gpu_texture) {}
+    : m_layer(std::move(layer)),
+      m_data_accessor(std::move(data_accessor)),
+      m_gpu_texture(gpu_texture) {}
 
 namespace {
 
@@ -874,6 +889,7 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
   if (use_texture) {
     m_texture_sampler_loc = m_shader->uniformLocation("dem_texture");
   }
+  m_layer_alpha_loc = m_shader->uniformLocation("layer_alpha");
 
   if (m_vao.isCreated()) {
     m_vao.destroy();
@@ -1023,6 +1039,13 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
     return;
   }
   m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+  float layer_alpha = 1.0f;
+  if (auto layer = m_layer.lock()) {
+    layer_alpha = layer->opacity();
+  }
+  if (m_layer_alpha_loc >= 0) {
+    m_shader->setUniformValue(m_layer_alpha_loc, layer_alpha);
+  }
   if (m_gpu_texture && m_texture) {
     m_texture->bind(0);
     CHECK_GL_AFTER();
@@ -1158,6 +1181,7 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
     return;
   }
   m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
+  m_layer_alpha_loc = m_shader->uniformLocation("layer_alpha");
 
   if (m_vao.isCreated()) {
     m_vao.destroy();
@@ -1238,6 +1262,9 @@ void ContourLayerRenderer::render(const Camera& camera, const RenderContext& ctx
     return;
   }
   m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+  if (m_layer_alpha_loc >= 0) {
+    m_shader->setUniformValue(m_layer_alpha_loc, layer->opacity());
+  }
   QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
   m_vbo.bind();
   m_ibo.bind();

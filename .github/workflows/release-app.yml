@@ -194,9 +194,19 @@ jobs:
             Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
           }
       - name: Install package
+        shell: pwsh
         run: |
           $installer = (Get-Item build/Blaze-*.exe).FullName
-          Start-Process -Wait -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest'
+          if (Test-Path 'C:\BlazeTest') {
+            Remove-Item -Recurse -Force 'C:\BlazeTest'
+          }
+          & $installer /S "/D=C:\BlazeTest"
+          if ($LASTEXITCODE -ne 0) {
+            throw "Installer exited with code $LASTEXITCODE"
+          }
+          if (-not (Test-Path 'C:\BlazeTest\bin\blaze-cli.exe')) {
+            throw "blaze-cli.exe not found under C:\BlazeTest after install"
+          }
       - name: Test installed package
         run: |
           $assets = 'C:\BlazeTest\share\assets'

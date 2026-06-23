@@ -155,6 +155,7 @@ class OctreeLASLayerRenderer : public LayerRenderer {
 };
 
 class MeshLayerRenderer : public LayerRenderer {
+  std::weak_ptr<Layer> m_layer;
   std::function<const AsyncRasterData*()> m_data_accessor;
   bool m_gpu_texture = false;
 
@@ -168,12 +169,14 @@ class MeshLayerRenderer : public LayerRenderer {
   size_t m_index_count = 0;
   int m_proj_matrix_loc = 0;
   int m_texture_sampler_loc = 0;
+  int m_layer_alpha_loc = -1;
 
   void upload_mesh(const DemMeshData& mesh, const Coordinate3D<double>& offset);
   void upload_texture(const Geo<MultiBand<FlexGrid>>& texture);
 
  public:
-  MeshLayerRenderer(std::function<const AsyncRasterData*()> data_accessor,
+  MeshLayerRenderer(std::shared_ptr<Layer> layer,
+                    std::function<const AsyncRasterData*()> data_accessor,
                     const Coordinate3D<double>& offset, bool gpu_texture = false);
 
   virtual void render(const Camera& camera, const RenderContext& ctx) override;
@@ -189,6 +192,7 @@ class ContourLayerRenderer : public LayerRenderer {
   bool m_uploaded = false;
   size_t m_index_count = 0;
   int m_proj_matrix_loc = 0;
+  int m_layer_alpha_loc = -1;
 
   void upload_contours(const std::vector<Contour>& contours, const Coordinate3D<double>& offset);
 

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <memory>
 #include <mutex>
+#include <string>
 #include <thread>
 #include <vector>
 
@@ -261,10 +262,8 @@ inline void load_points_dispatch(laspp::LASReader& reader,
                                                    publish_preview, cancel);
       break;
     default:
-      load_points_parallel<laspp::LASPointFormat0>(reader, coord_transform, origin, preview_stride,
-                                                   converted, preview, bounds, tracker,
-                                                   publish_preview, cancel);
-      break;
+      Fail("Unsupported LAS point format in Blaze3D octree loader: " +
+           std::to_string(reader.header().point_format() & 0x7Fu));
   }
 }
 

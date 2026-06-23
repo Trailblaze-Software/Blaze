@@ -356,7 +356,7 @@ void GLWidget::paintGL() {
   if (m_points_fbo.valid() && point_layer_alpha > 0.0f) {
     if (auto* gl = QOpenGLContext::currentContext()->extraFunctions()) {
       m_point_compositor.composite(gl, widget_fbo, m_points_fbo.color_texture(),
-                                   m_points_fbo.depth_texture(), point_layer_alpha, fb_w, fb_h);
+                                   m_points_fbo.depth_texture(), 1.0f, fb_w, fb_h);
       CHECK_GL_AFTER();
     }
   }
@@ -492,15 +492,16 @@ bool GLWidget::fbo_pick_ready() const {
 }
 
 float GLWidget::point_layer_alpha() const {
+  float alpha = 0.0f;
   for (size_t i = 0; i < m_layers.size(); ++i) {
     if (m_layers[i]->kind() != LayerKind::PointCloud || !m_layers[i]->visible()) {
       continue;
     }
     if (auto las_layer = std::dynamic_pointer_cast<LASLayer>(m_layers[i])) {
-      return las_layer->point_alpha();
+      alpha = std::max(alpha, las_layer->point_alpha());
     }
   }
-  return 1.0f;
+  return alpha;
 }
 
 bool GLWidget::pick_interaction_enabled() const {

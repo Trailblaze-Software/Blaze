@@ -89,7 +89,10 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
               [this] { refresh_point_cloud_style(); });
       connect(las_layer.get(), &LASLayer::point_colors_changed, this,
               [this] { refresh_point_cloud_style(); });
-      connect(las_layer.get(), &LASLayer::point_opacity_changed, this, [this] { update(); });
+      connect(las_layer.get(), &LASLayer::point_opacity_changed, this, [this] {
+        restart_render();
+        update();
+      });
       connect(las_layer.get(), &LASLayer::point_stream_budget_changed, this,
               [this] { refresh_point_cloud_style(); });
     }
@@ -103,7 +106,10 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
               restart_render();
               update();
             });
-    connect(m_layers.back().get(), &Layer::opacity_changed, this, [this] { update(); });
+    connect(m_layers.back().get(), &Layer::opacity_changed, this, [this] {
+      restart_render();
+      update();
+    });
     if (layer->extent().max_extent() > 0) {
       request_zoom_to_extent(layer->extent() - m_camera.world_offset());
     }

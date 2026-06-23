@@ -146,10 +146,10 @@ find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
 
 # System OpenCV packages (apt, Homebrew) and vcpkg (VCPKG_BUILD_TYPE=release)
 # only ship release libraries. OpenCV's debug_build_guard ABI (enabled by _DEBUG
-# on MSVC or _GLIBCXX_DEBUG on GCC) is incompatible with those libs.
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_definitions(CV_IGNORE_DEBUG_BUILD_GUARD)
-endif()
+# on MSVC or _GLIBCXX_DEBUG on GCC) is incompatible with those libs. Use
+# config-time generator expression so multi-config generators (MSVC/Xcode) also
+# apply this in Debug.
+add_compile_definitions($<$<CONFIG:Debug>:CV_IGNORE_DEBUG_BUILD_GUARD>)
 
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
@@ -400,11 +400,14 @@ gtest_discover_tests(
   WORKING_DIRECTORY "$<TARGET_FILE_DIR:${UNIT_TESTS_NAME}>")
 
 include(GNUInstallDirs)
-# GNUInstallDirs leaves CMAKE_INSTALL_DATADIR empty on Windows until explicitly
-# set; install(DIRECTORY assets DESTINATION "") then lands at <prefix>/assets
-# instead of <prefix>/share/assets, breaking get_asset_dir() and CI smoke tests.
+# Ensure assets land at <prefix>/share/assets. GNUInstallDirs may leave
+# CMAKE_INSTALL_DATADIR unset depending on CMake version/platform; copying
+# DATAROOTDIR alone is not enough when both are still empty at configure time.
 if(NOT CMAKE_INSTALL_DATADIR)
   set(CMAKE_INSTALL_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}")
+endif()
+if(NOT CMAKE_INSTALL_DATADIR)
+  set(CMAKE_INSTALL_DATADIR "share")
 endif()
 
 install(

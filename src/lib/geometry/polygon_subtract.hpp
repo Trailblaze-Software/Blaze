@@ -260,7 +260,7 @@ inline std::vector<PolygonWithHoles> union_overlapping_polygons(
   const double cell_size =
       std::max(50.0, std::sqrt(width * height / std::max(valid_count, size_t(1))));
   constexpr double SEAM_TOLERANCE = 0.01;
-  const auto padded = [SEAM_TOLERANCE](const Extent2D& ext) {
+  const auto padded = [](const Extent2D& ext) {
     return Extent2D{ext.minx - SEAM_TOLERANCE, ext.maxx + SEAM_TOLERANCE, ext.miny - SEAM_TOLERANCE,
                     ext.maxy + SEAM_TOLERANCE};
   };

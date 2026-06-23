@@ -1,6 +1,7 @@
 #include "gui/point_cloud_framebuffer.hpp"
 
 #include <array>
+#include <iostream>
 
 #include "gui/gl_check.hpp"
 #include "lib/assert/assert.hpp"
@@ -32,9 +33,10 @@ const char* COMPOSITE_FRAGMENT_SHADER = R"(
         if (depth >= 0.99999) {
             discard;
         }
-        vec3 rgb = texture(pointColor, texCoord).rgb;
+        vec4 point = texture(pointColor, texCoord);
+        float alpha = clamp(point.a * layerAlpha, 0.0, 1.0);
         gl_FragDepth = depth;
-        fragColor = vec4(rgb * layerAlpha, layerAlpha);
+        fragColor = vec4(point.rgb * alpha, alpha);
     }
 )";
 
@@ -69,7 +71,11 @@ void PointCloudFramebuffer::ensure_size(int width, int height) {
   }
   destroy();
 
-  auto* f = QOpenGLContext::currentContext()->functions();
+  auto* context = QOpenGLContext::currentContext();
+  if (!context) {
+    return;
+  }
+  auto* f = context->functions();
   m_width = width;
   m_height = height;
 
@@ -92,7 +98,7 @@ void PointCloudFramebuffer::ensure_size(int width, int height) {
                            GL_DEPTH_COMPONENT, GL_FLOAT, nullptr));
 
   // Pick attachment: RG32UI — .r = global index + 1, .g = layer slot.
-  auto* ef = QOpenGLContext::currentContext()->extraFunctions();
+  auto* ef = context->extraFunctions();
   CHECK_GL(ef->glGenTextures(1, &m_pick_tex));
   CHECK_GL(ef->glBindTexture(GL_TEXTURE_2D, m_pick_tex));
   CHECK_GL(ef->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
@@ -178,9 +184,13 @@ void PointCloudCompositor::ensure_initialized(QOpenGLFunctions* f) {
     return;
   }
   m_shader = std::make_unique<QOpenGLShaderProgram>();
-  m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, COMPOSITE_VERTEX_SHADER);
-  m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, COMPOSITE_FRAGMENT_SHADER);
-  m_shader->link();
+  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, COMPOSITE_VERTEX_SHADER) ||
+      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, COMPOSITE_FRAGMENT_SHADER) ||
+      !m_shader->link()) {
+    std::cerr << "Point compositor shader error: " << m_shader->log().toStdString() << std::endl;
+    m_shader.reset();
+    return;
+  }
   m_color_loc = m_shader->uniformLocation("pointColor");
   m_depth_loc = m_shader->uniformLocation("pointDepth");
   m_alpha_loc = m_shader->uniformLocation("layerAlpha");
@@ -196,6 +206,9 @@ void PointCloudCompositor::composite(QOpenGLExtraFunctions* gl, GLuint dest_fbo,
     return;
   }
   ensure_initialized(gl);
+  if (!m_ready || !m_shader) {
+    return;
+  }
 
   CHECK_GL(gl->glBindFramebuffer(GL_FRAMEBUFFER, dest_fbo));
   CHECK_GL(gl->glViewport(0, 0, width, height));
