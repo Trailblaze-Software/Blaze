@@ -8,12 +8,16 @@
 #include <memory>
 
 // Off-screen RGBA + depth-texture target for incremental point accumulation.
+// Also carries an RG32UI pick attachment (COLOR_ATTACHMENT1):
+//   .r = global point index + 1 (0 = no point, supports >1B points per layer)
+//   .g = layer slot (1-based, 0 = pick suppressed)
 class PointCloudFramebuffer {
  public:
   ~PointCloudFramebuffer() { destroy(); }
 
   void ensure_size(int width, int height);
   void bind() const;
+  void bind_read() const;
   void clear() const;
   bool valid() const { return m_fbo != 0; }
   GLuint fbo() const { return m_fbo; }
@@ -28,6 +32,7 @@ class PointCloudFramebuffer {
   GLuint m_fbo = 0;
   GLuint m_color_tex = 0;
   GLuint m_depth_tex = 0;
+  GLuint m_pick_tex = 0;
 };
 
 // Composites an accumulated point buffer over the scene with uniform layer opacity.

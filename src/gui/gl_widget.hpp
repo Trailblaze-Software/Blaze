@@ -10,12 +10,15 @@
 #include <QShowEvent>
 #include <QTimer>
 #include <QtConcurrent>
+#include <chrono>
 #include <functional>
 #include <iostream>
 #include <optional>
 #include <unordered_set>
+#include <vector>
 
 #include "gui/camera.hpp"
+#include "gui/gl_check.hpp"
 #include "gui/incremental_framebuffer.hpp"
 #include "gui/layer.hpp"
 #include "gui/layer_renderer.hpp"
@@ -28,6 +31,8 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
 
  public:
+  enum class PickAction { None, PanToPoint, LookAtPoint };
+
   GLWidget(QWidget* parent = nullptr);
   ~GLWidget();
 
@@ -51,6 +56,9 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     }
     m_renderers.emplace_back(std::move(renderer));
     m_renderers.back()->set_visible(layer->visible());
+    if (auto* las = dynamic_cast<OctreeLASLayerRenderer*>(m_renderers.back().get())) {
+      las->set_layer_slot(allocate_layer_slot());
+    }
     connect(m_layers.back().get(), &Layer::data_updated, m_renderers.back().get(),
             &LayerRenderer::data_update_required);
     connect(m_layers.back().get(), &Layer::data_updated, this, [this, layer = m_layers.back()] {
@@ -87,6 +95,8 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     }
     connect(m_renderers.back().get(), &LayerRenderer::repaint_required, this,
             [this] { QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); });
+    connect(m_renderers.back().get(), &LayerRenderer::stream_view_reset, this,
+            [this] { restart_render(); });
     connect(m_layers.back().get(), &Layer::visibility_changed, this,
             [this, renderer = m_renderers.back().get()](bool visible) {
               renderer->set_visible(visible);
@@ -151,7 +161,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     m_point_pick_callback = std::move(callback);
   }
 
-  void set_selected_point(const std::optional<PointPickResult>& pick);
+  void set_selected_point(const std::optional<PointPickResult>& pick, bool repaint = true);
 
  protected:
   QSize sizeHint() const override;
@@ -162,6 +172,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   void mousePressEvent(QMouseEvent* event) override;
   void mouseMoveEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;
+  void leaveEvent(QEvent* event) override;
   void wheelEvent(QWheelEvent* event) override;
   void keyPressEvent(QKeyEvent* event) override;
 
@@ -197,8 +208,20 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     restart_render();
   }
 
-  void try_pick_point(const QPoint& pixel, bool focus_on_pick = false);
-  void focus_on_selected_point();
+  void try_pick_point(const QPointF& pixel, PickAction action = PickAction::None);
+  void update_hover_at(const QPointF& pixel, int max_radius, bool repaint = true);
+  void do_pick_at(const QPointF& pixel, PickAction action, bool repaint = true);
+  std::optional<PointPickResult> fb_pick_point(const QPointF& pixel, int max_radius);
+  bool fbo_pick_ready() const;
+  float point_layer_alpha() const;
+  bool pick_interaction_enabled() const;
+  void apply_hover_result(const std::optional<PointPickResult>& result, bool repaint = true);
+  std::optional<QPointF> project_pick_to_screen(const PointPickResult& pick) const;
+  int allocate_layer_slot();
+  void release_layer_slot(int slot);
+  void pan_to_selected_point();
+  void look_at_selected_point();
+  void clear_picks_for_layer(const std::string& layer_name);
   void draw_stats_overlay();
   void update_scene_bounds();
 
@@ -206,6 +229,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   PointCloudFramebuffer m_points_fbo;
   PointCloudCompositor m_point_compositor;
   bool m_incremental_draw = false;
+  bool m_restarted_during_paint = false;
   bool m_camera_interacting = false;
   QTimer* m_idle_timer = nullptr;
   QTimer* m_stream_timer = nullptr;
@@ -217,12 +241,20 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   double m_orbit_period_secs = 15.0;
   double m_wobble_period_secs = 4.0;
   double m_wobble_amplitude_deg = 0.5;
-  QPoint m_last_mouse_pos;
-  QPoint m_press_mouse_pos;
+  QPointF m_last_mouse_pos;
+  QPointF m_press_mouse_pos;
   bool m_left_button_pressed = false;
+  std::optional<QPointF> m_pending_pick_pixel;
+  PickAction m_pending_pick_action = PickAction::None;
 
   PointPickCallback m_point_pick_callback;
   std::optional<PointPickResult> m_selected_point;
+  std::optional<PointPickResult> m_hovered_point;
+  bool m_fbo_was_pick_ready = false;
+  std::optional<QPointF> m_last_hover_probe_pos;
+  bool m_hover_probe_needed = false;
+  int m_next_layer_slot = 1;
+  std::vector<int> m_free_layer_slots;
 
   Camera m_camera;
 

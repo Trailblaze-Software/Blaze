@@ -24,7 +24,12 @@ if(BLAZE_BUILD_3D_GUI)
             point_cloud_framebuffer.cpp
             point_cloud_gl.hpp
             point_cloud_gl.cpp
+            gl_check.hpp
+            gl_check.cpp
             gl_widget.hpp
             gl_widget.cpp
             layer.hpp)
+
+  target_sources(${UNIT_TESTS_NAME} PRIVATE tests/test_camera.cpp)
+  target_link_libraries(${UNIT_TESTS_NAME} PRIVATE Qt6::Gui)
 endif()

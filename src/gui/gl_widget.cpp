@@ -10,14 +10,117 @@
 #include <QOpenGLShaderProgram>
 #include <QPainter>
 #include <QVector3D>
+#include <QVector4D>
 #include <QtWidgets>
 #include <algorithm>
 #include <chrono>
 #include <cmath>
+#include <cstdint>
 #include <iostream>
 #include <limits>
+#include <vector>
+
+#include "gui/gl_check.hpp"
+
+namespace {
+
+double point_separation_m(const PointPickResult& a, const PointPickResult& b) {
+  const double dx = a.world_x - b.world_x;
+  const double dy = a.world_y - b.world_y;
+  const double dz = a.world_z - b.world_z;
+  return std::sqrt(dx * dx + dy * dy + dz * dz);
+}
+
+float point_diameter_px(const Camera& camera, float viewport_height, qreal dpr,
+                        const PointPickResult& pick,
+                        const std::vector<std::shared_ptr<Layer>>& layers) {
+  const QVector3D pt(static_cast<float>(pick.world_x), static_cast<float>(pick.world_y),
+                     static_cast<float>(pick.world_z));
+  const float fb_viewport_h = viewport_height * static_cast<float>(dpr);
+  const float proj_scale =
+      fb_viewport_h / static_cast<float>(2.0 * std::tan(camera.fov_rad() * 0.5));
+  float diameter_px = 1.0f / static_cast<float>(dpr);
+  for (const auto& layer : layers) {
+    if (layer->name() != pick.layer_name) {
+      continue;
+    }
+    if (auto las_layer = std::dynamic_pointer_cast<LASLayer>(layer)) {
+      const QVector4D eye = camera.view_matrix() * QVector4D(pt, 1.0f);
+      const float eye_w = -eye.z();
+      if (eye_w > 0) {
+        const float diameter_device =
+            std::clamp(2.0f * las_layer->point_radius_m() * proj_scale / eye_w, 1.0f, 4096.0f);
+        diameter_px = diameter_device / static_cast<float>(dpr);
+      }
+    }
+    break;
+  }
+  return diameter_px;
+}
+
+QPointF snap_device_center(const QPointF& pt, qreal dpr) {
+  return QPointF((std::floor(pt.x() * dpr) + 0.5) / dpr, (std::floor(pt.y() * dpr) + 0.5) / dpr);
+}
+
+void draw_device_hline(QPainter& painter, qreal x0, qreal x1, qreal y, qreal dpr,
+                       const QColor& color) {
+  const qreal px = 1.0 / dpr;
+  const qreal cy = (std::floor(y * dpr) + 0.5) / dpr;
+  const qreal left = std::floor(std::min(x0, x1) * dpr) / dpr;
+  const qreal right = std::ceil(std::max(x0, x1) * dpr) / dpr;
+  painter.fillRect(QRectF(left, cy - px * 0.5, right - left, px), color);
+}
+
+void draw_device_vline(QPainter& painter, qreal x, qreal y0, qreal y1, qreal dpr,
+                       const QColor& color) {
+  const qreal px = 1.0 / dpr;
+  const qreal cx = (std::floor(x * dpr) + 0.5) / dpr;
+  const qreal top = std::floor(std::min(y0, y1) * dpr) / dpr;
+  const qreal bottom = std::ceil(std::max(y0, y1) * dpr) / dpr;
+  painter.fillRect(QRectF(cx - px * 0.5, top, px, bottom - top), color);
+}
+
+void draw_point_crosshair(QPainter& painter, const std::optional<QPointF>& screen_pt,
+                          const Camera& camera, float viewport_height, const PointPickResult& pick,
+                          const std::vector<std::shared_ptr<Layer>>& layers, qreal dpr,
+                          const QColor& cross_color,
+                          std::optional<double> distance_m = std::nullopt) {
+  if (!screen_pt.has_value()) {
+    return;
+  }
+  const QPointF& pt = *screen_pt;
+
+  const QPointF center = snap_device_center(pt, dpr);
+  const float point_px = point_diameter_px(camera, viewport_height, dpr, pick, layers);
+  const float gap_px = point_px * 0.5f + 1.0f;
+  const float arm_len = (12.0f + point_px) * 0.5f;
+  const float arm_px = gap_px + arm_len;
+
+  painter.save();
+  painter.setRenderHint(QPainter::Antialiasing, false);
+  painter.setPen(Qt::NoPen);
+
+  draw_device_hline(painter, center.x() + gap_px, center.x() + arm_px, center.y(), dpr,
+                    cross_color);
+  draw_device_hline(painter, center.x() - gap_px, center.x() - arm_px, center.y(), dpr,
+                    cross_color);
+  draw_device_vline(painter, center.x(), center.y() + gap_px, center.y() + arm_px, dpr,
+                    cross_color);
+  draw_device_vline(painter, center.x(), center.y() - gap_px, center.y() - arm_px, dpr,
+                    cross_color);
+  painter.restore();
+
+  if (distance_m.has_value()) {
+    painter.setPen(QColor(100, 200, 255));
+    painter.drawText(center + QPointF(arm_px + 4, -4), QString("%1 m").arg(*distance_m, 0, 'f', 2));
+  }
+}
+
+}  // namespace
 
 GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent), m_camera(width(), height()) {
+  setMouseTracking(true);
+
   m_idle_timer = new QTimer(this);
   m_idle_timer->setSingleShot(true);
   m_idle_timer->setInterval(50);
@@ -54,6 +157,14 @@ void GLWidget::remove_layer(Layer* layer) {
   disconnect(layer_ptr, nullptr, this, nullptr);
 
   m_zoomed_layers.erase(layer_ptr);
+  clear_picks_for_layer(layer_ptr->name());
+  if (auto* las = dynamic_cast<OctreeLASLayerRenderer*>(renderer)) {
+    const int slot = las->layer_slot();
+    las->set_layer_slot(0);
+    if (slot > 0) {
+      release_layer_slot(slot);
+    }
+  }
 
   makeCurrent();
   m_renderers.erase(m_renderers.begin() + static_cast<std::ptrdiff_t>(index));
@@ -76,22 +187,23 @@ void GLWidget::initializeGL() {
   Assert(f->glGetError() == GL_NO_ERROR, "OpenGL error");
   Assert(QOpenGLContext::currentContext()->isValid(), "OpenGL context is invalid");
 
-  f->glEnable(GL_PROGRAM_POINT_SIZE);
-  f->glEnable(GL_DEPTH_TEST);
+  CHECK_GL(f->glEnable(GL_PROGRAM_POINT_SIZE));
+  CHECK_GL(f->glEnable(GL_DEPTH_TEST));
   QPair<int, int> version = QOpenGLContext::currentContext()->format().version();
   if (version.first < 3 || (version.first == 3 && version.second < 3)) {
-    f->glEnable(GL_POINT_SPRITE);
+    CHECK_GL(f->glEnable(GL_POINT_SPRITE));
   }
-  f->glEnable(GL_BLEND);
-  f->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  f->glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+  CHECK_GL(f->glEnable(GL_BLEND));
+  CHECK_GL(f->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+  CHECK_GL(f->glClearColor(0.2f, 0.2f, 0.2f, 1.0f));
 
   QSurfaceFormat format = QOpenGLContext::currentContext()->format();
 
   if (format.profile() == QSurfaceFormat::CompatibilityProfile) {
     QOpenGLFunctions* opengl_functions = QOpenGLContext::currentContext()->functions();
-    GLint point_sprite_coord_origin;
-    opengl_functions->glGetIntegerv(GL_POINT_SPRITE_COORD_ORIGIN, &point_sprite_coord_origin);
+    GLint point_sprite_coord_origin = 0;
+    CHECK_GL(
+        opengl_functions->glGetIntegerv(GL_POINT_SPRITE_COORD_ORIGIN, &point_sprite_coord_origin));
     AssertEQ(point_sprite_coord_origin, GL_UPPER_LEFT);
   }
 
@@ -108,14 +220,24 @@ void GLWidget::showEvent(QShowEvent* event) {
 }
 
 void GLWidget::resizeGL(int w, int h) {
-  if (w > 0 && h > 0) {
-    m_camera.set_screen_size(w, h);
+  Q_UNUSED(w);
+  Q_UNUSED(h);
+  // resizeGL receives device pixels; camera and input use logical widget pixels.
+  const int screen_w = width();
+  const int screen_h = height();
+  if (screen_w > 0 && screen_h > 0) {
+    m_camera.set_screen_size(screen_w, screen_h);
     apply_pending_zoom();
     restart_render();
   }
 }
 
-void GLWidget::restart_render() { m_incremental_draw = false; }
+void GLWidget::restart_render() {
+  m_incremental_draw = false;
+  if (m_painting) {
+    m_restarted_during_paint = true;
+  }
+}
 
 void GLWidget::update_scene_bounds() {
   Extent3D bounds;
@@ -155,33 +277,39 @@ void GLWidget::paintGL() {
 
   QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
 
-  const int fb_w = width();
-  const int fb_h = height();
-  if (fb_w > 0 && fb_h > 0) {
-    m_camera.set_screen_size(fb_w, fb_h);
+  const int screen_w = width();
+  const int screen_h = height();
+  const qreal dpr = devicePixelRatioF();
+  const int fb_w = std::max(1, static_cast<int>(std::lround(screen_w * dpr)));
+  const int fb_h = std::max(1, static_cast<int>(std::lround(screen_h * dpr)));
+  if (screen_w > 0 && screen_h > 0) {
+    m_camera.set_screen_size(screen_w, screen_h);
     update_scene_bounds();
     apply_pending_zoom();
     m_scene_fbo.ensure_size(fb_w, fb_h);
     m_points_fbo.ensure_size(fb_w, fb_h);
   }
 
-  if (fb_w <= 0 || fb_h <= 0) {
+  if (screen_w <= 0 || screen_h <= 0) {
     m_painting = false;
     return;
   }
 
   const bool incremental_points = m_incremental_draw;
-  const RenderContext ctx{incremental_points};
+  RenderContext ctx;
+  ctx.incremental_points = incremental_points;
+  ctx.viewport_height = static_cast<float>(fb_h);
 
-  f->glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+  CHECK_GL(f->glClearColor(0.2f, 0.2f, 0.2f, 1.0f));
 
   if (!incremental_points) {
     if (m_scene_fbo.valid()) {
       m_scene_fbo.bind();
-      f->glViewport(0, 0, fb_w, fb_h);
-      f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      CHECK_GL_AFTER();
+      CHECK_GL(f->glViewport(0, 0, fb_w, fb_h));
+      CHECK_GL(f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     } else {
-      f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      CHECK_GL(f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     }
     for (size_t i = 0; i < m_renderers.size(); ++i) {
       if (m_layers[i]->kind() == LayerKind::PointCloud) {
@@ -194,13 +322,15 @@ void GLWidget::paintGL() {
 
     if (m_points_fbo.valid()) {
       m_points_fbo.bind();
-      f->glViewport(0, 0, fb_w, fb_h);
+      CHECK_GL_AFTER();
+      CHECK_GL(f->glViewport(0, 0, fb_w, fb_h));
       m_points_fbo.clear();
     }
   } else if (m_points_fbo.valid()) {
     m_points_fbo.bind();
-    f->glViewport(0, 0, fb_w, fb_h);
-    f->glDepthFunc(GL_LEQUAL);
+    CHECK_GL_AFTER();
+    CHECK_GL(f->glViewport(0, 0, fb_w, fb_h));
+    CHECK_GL(f->glDepthFunc(GL_LEQUAL));
   }
 
   for (size_t i = 0; i < m_renderers.size(); ++i) {
@@ -213,36 +343,46 @@ void GLWidget::paintGL() {
   }
 
   const GLuint widget_fbo = defaultFramebufferObject();
-  f->glBindFramebuffer(GL_FRAMEBUFFER, widget_fbo);
-  f->glViewport(0, 0, fb_w, fb_h);
+  CHECK_GL(f->glBindFramebuffer(GL_FRAMEBUFFER, widget_fbo));
+  CHECK_GL(f->glViewport(0, 0, fb_w, fb_h));
 
   if (m_scene_fbo.valid()) {
     m_scene_fbo.blit_to_widget_fbo(widget_fbo, fb_w, fb_h);
+    CHECK_GL_AFTER();
   }
 
-  float point_layer_alpha = 1.0f;
-  for (size_t i = 0; i < m_layers.size(); ++i) {
-    if (m_layers[i]->kind() != LayerKind::PointCloud || !m_layers[i]->visible()) {
-      continue;
-    }
-    if (auto las_layer = std::dynamic_pointer_cast<LASLayer>(m_layers[i])) {
-      point_layer_alpha = las_layer->point_alpha();
-      break;
-    }
-  }
+  const float point_layer_alpha = this->point_layer_alpha();
 
   if (m_points_fbo.valid() && point_layer_alpha > 0.0f) {
     if (auto* gl = QOpenGLContext::currentContext()->extraFunctions()) {
       m_point_compositor.composite(gl, widget_fbo, m_points_fbo.color_texture(),
                                    m_points_fbo.depth_texture(), point_layer_alpha, fb_w, fb_h);
+      CHECK_GL_AFTER();
     }
   }
-  for (size_t i = 0; i < m_renderers.size(); ++i) {
-    if (m_layers[i]->kind() != LayerKind::PointCloud || !m_layers[i]->visible()) {
-      continue;
-    }
-    if (auto* las_renderer = dynamic_cast<OctreeLASLayerRenderer*>(m_renderers[i].get())) {
-      las_renderer->render_selection_highlight(m_camera, ctx);
+
+  const bool pick_ready = fbo_pick_ready() && point_layer_alpha > 0.0f;
+  if (!pick_ready && m_fbo_was_pick_ready) {
+    apply_hover_result(std::nullopt, /*repaint=*/false);
+    m_last_hover_probe_pos.reset();
+  }
+  if (pick_ready && !m_fbo_was_pick_ready) {
+    m_hover_probe_needed = true;
+  }
+  m_fbo_was_pick_ready = pick_ready;
+  if (m_pending_pick_pixel && pick_ready) {
+    do_pick_at(*m_pending_pick_pixel, m_pending_pick_action, /*repaint=*/false);
+    m_pending_pick_pixel.reset();
+    m_pending_pick_action = PickAction::None;
+  }
+  // Probe hover after compositing so pick reads match the displayed frame.
+  if (pick_ready && !m_left_button_pressed && !m_camera_interacting) {
+    const bool cursor_moved =
+        !m_last_hover_probe_pos.has_value() || *m_last_hover_probe_pos != m_last_mouse_pos;
+    if (cursor_moved || m_hover_probe_needed) {
+      update_hover_at(m_last_mouse_pos, /*max_radius=*/5, /*repaint=*/false);
+      m_last_hover_probe_pos = m_last_mouse_pos;
+      m_hover_probe_needed = false;
     }
   }
 
@@ -272,9 +412,10 @@ void GLWidget::paintGL() {
   }
 
   // Displaz-style: next frame accumulates unless restart_render() is called.
-  if (!m_camera_interacting) {
+  if (!m_camera_interacting && !m_restarted_during_paint) {
     m_incremental_draw = true;
   }
+  m_restarted_during_paint = false;
 
   m_last_point_draw_ms = 0.0;
   m_last_point_gpu_ms = 0.0;
@@ -307,14 +448,63 @@ void GLWidget::paintGL() {
     }
   }
 
-  draw_stats_overlay();
-
+  // Poll errors from our GL rendering before QPainter — QPainter does not
+  // preserve OpenGL state and may itself enqueue GL_INVALID_OPERATION on core
+  // profiles, which would otherwise drown out real issues.
   GLenum err;
   while ((err = glGetError()) != GL_NO_ERROR) {
-    std::cout << "OpenGL Error: " << err << std::endl;
+    std::cerr << "OpenGL error: " << gl_error_name(err) << " (0x" << std::hex << err << std::dec
+              << ")" << std::endl;
   }
 
+  draw_stats_overlay();
+
+  // QPainter does not preserve framebuffer bindings; restore for next frame.
+  CHECK_GL(f->glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebufferObject()));
+
   m_painting = false;
+}
+
+bool GLWidget::fbo_pick_ready() const {
+  // Pick/hover reads the accumulated points FBO. That buffer is cleared only
+  // on restart_render() (camera interaction). Incremental streaming appends
+  // more points each frame without invalidating existing pick IDs, so we must
+  // not gate on m_incremental_draw — paintGL sets that true after every idle
+  // frame, which would block hover until the camera moves again.
+  if (m_camera_interacting) {
+    return false;
+  }
+  bool any_point_layer = false;
+  for (size_t i = 0; i < m_renderers.size(); ++i) {
+    if (m_layers[i]->kind() != LayerKind::PointCloud || !m_layers[i]->visible()) {
+      continue;
+    }
+    const auto* las = dynamic_cast<const OctreeLASLayerRenderer*>(m_renderers[i].get());
+    if (!las) {
+      continue;
+    }
+    any_point_layer = true;
+    if (!las->can_fbo_pick()) {
+      return false;
+    }
+  }
+  return any_point_layer;
+}
+
+float GLWidget::point_layer_alpha() const {
+  for (size_t i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i]->kind() != LayerKind::PointCloud || !m_layers[i]->visible()) {
+      continue;
+    }
+    if (auto las_layer = std::dynamic_pointer_cast<LASLayer>(m_layers[i])) {
+      return las_layer->point_alpha();
+    }
+  }
+  return 1.0f;
+}
+
+bool GLWidget::pick_interaction_enabled() const {
+  return fbo_pick_ready() && point_layer_alpha() > 0.0f;
 }
 
 void GLWidget::draw_stats_overlay() {
@@ -345,6 +535,32 @@ void GLWidget::draw_stats_overlay() {
   painter.setPen(QColor(230, 230, 230));
   painter.drawText(box_rect.adjusted(pad_x, pad_y, -pad_x, -pad_y),
                    Qt::AlignLeft | Qt::AlignVCenter, text);
+
+  const auto layer_exists = [&](const std::string& name) {
+    return std::any_of(m_layers.begin(), m_layers.end(),
+                       [&](const std::shared_ptr<Layer>& layer) { return layer->name() == name; });
+  };
+
+  // Crosshairs anchored to the picked point's screen position (not the cursor).
+  const float logical_viewport_h = static_cast<float>(height());
+  const qreal dpr = devicePixelRatioF();
+  if (m_selected_point.has_value() && layer_exists(m_selected_point->layer_name)) {
+    if (auto screen_pt = project_pick_to_screen(*m_selected_point)) {
+      draw_point_crosshair(painter, screen_pt, m_camera, logical_viewport_h, *m_selected_point,
+                           m_layers, dpr, QColor(255, 235, 40));
+    }
+  }
+  if (m_hovered_point.has_value() && m_hovered_point != m_selected_point &&
+      layer_exists(m_hovered_point->layer_name)) {
+    if (auto screen_pt = project_pick_to_screen(*m_hovered_point)) {
+      std::optional<double> sep;
+      if (m_selected_point.has_value()) {
+        sep = point_separation_m(*m_selected_point, *m_hovered_point);
+      }
+      draw_point_crosshair(painter, screen_pt, m_camera, logical_viewport_h, *m_hovered_point,
+                           m_layers, dpr, QColor(80, 220, 255), sep);
+    }
+  }
 }
 
 void GLWidget::begin_camera_interaction() {
@@ -353,6 +569,9 @@ void GLWidget::begin_camera_interaction() {
     restart_render();
   }
   m_camera_interacting = true;
+  m_hover_probe_needed = false;
+  m_hovered_point.reset();
+  m_last_hover_probe_pos.reset();
 }
 
 void GLWidget::note_camera_motion() {
@@ -364,6 +583,7 @@ void GLWidget::schedule_camera_idle() { m_idle_timer->start(); }
 
 void GLWidget::on_camera_idle() {
   m_camera_interacting = false;
+  m_hover_probe_needed = true;
   if (!m_stream_timer->isActive()) {
     m_stream_timer->start();
   }
@@ -392,7 +612,18 @@ void GLWidget::refresh_point_cloud_style() {
   update();
 }
 
-void GLWidget::focus_on_selected_point() {
+void GLWidget::pan_to_selected_point() {
+  if (!m_selected_point.has_value()) {
+    return;
+  }
+  m_camera.pan_to_target(QVector3D(static_cast<float>(m_selected_point->world_x),
+                                   static_cast<float>(m_selected_point->world_y),
+                                   static_cast<float>(m_selected_point->world_z)));
+  restart_render();
+  update();
+}
+
+void GLWidget::look_at_selected_point() {
   if (!m_selected_point.has_value()) {
     return;
   }
@@ -403,91 +634,233 @@ void GLWidget::focus_on_selected_point() {
   update();
 }
 
-void GLWidget::set_selected_point(const std::optional<PointPickResult>& pick) {
+void GLWidget::clear_picks_for_layer(const std::string& layer_name) {
+  if (m_selected_point.has_value() && m_selected_point->layer_name == layer_name) {
+    set_selected_point(std::nullopt, false);
+    if (m_point_pick_callback) {
+      m_point_pick_callback(std::nullopt);
+    }
+  }
+  if (m_hovered_point.has_value() && m_hovered_point->layer_name == layer_name) {
+    m_hovered_point.reset();
+  }
+}
+
+std::optional<QPointF> GLWidget::project_pick_to_screen(const PointPickResult& pick) const {
+  return m_camera.project_world_to_screen(QVector3D(static_cast<float>(pick.world_x),
+                                                    static_cast<float>(pick.world_y),
+                                                    static_cast<float>(pick.world_z)));
+}
+
+int GLWidget::allocate_layer_slot() {
+  if (!m_free_layer_slots.empty()) {
+    const int slot = m_free_layer_slots.back();
+    m_free_layer_slots.pop_back();
+    return slot;
+  }
+  return m_next_layer_slot++;
+}
+
+void GLWidget::release_layer_slot(int slot) {
+  if (slot > 0) {
+    m_free_layer_slots.push_back(slot);
+  }
+}
+
+void GLWidget::set_selected_point(const std::optional<PointPickResult>& pick, bool repaint) {
   m_selected_point = pick;
-  for (size_t i = 0; i < m_renderers.size(); ++i) {
-    auto* las_renderer = dynamic_cast<OctreeLASLayerRenderer*>(m_renderers[i].get());
-    if (!las_renderer) {
-      continue;
-    }
-    las_renderer->set_highlight(std::nullopt);
+  if (repaint) {
+    update();
   }
-  if (pick) {
-    for (size_t i = 0; i < m_renderers.size(); ++i) {
-      if (m_layers[i]->name() != pick->layer_name) {
-        continue;
-      }
-      if (auto* las_renderer = dynamic_cast<OctreeLASLayerRenderer*>(m_renderers[i].get())) {
-        las_renderer->set_highlight(pick);
-        break;
-      }
-    }
-  }
+}
+
+void GLWidget::try_pick_point(const QPointF& pixel, PickAction action) {
+  m_pending_pick_pixel = pixel;
+  m_pending_pick_action = action;
   update();
 }
 
-void GLWidget::try_pick_point(const QPoint& pixel, bool focus_on_pick) {
-  std::optional<PointPickResult> best;
-  float best_dist_sq = std::numeric_limits<float>::infinity();
-
-  for (size_t i = 0; i < m_renderers.size(); ++i) {
-    if (m_layers[i]->kind() != LayerKind::PointCloud || !m_layers[i]->visible()) {
-      continue;
-    }
-    auto* las_renderer = dynamic_cast<OctreeLASLayerRenderer*>(m_renderers[i].get());
-    if (!las_renderer) {
-      continue;
-    }
-    const std::optional<PointPickResult> hit = las_renderer->pick_point(m_camera, pixel);
-    if (!hit) {
-      continue;
-    }
-    const float dx = static_cast<float>(hit->world_x) - m_camera.position().x();
-    const float dy = static_cast<float>(hit->world_y) - m_camera.position().y();
-    const float dz = static_cast<float>(hit->world_z) - m_camera.position().z();
-    const float dist_sq = dx * dx + dy * dy + dz * dz;
-    if (dist_sq < best_dist_sq) {
-      best_dist_sq = dist_sq;
-      best = hit;
-    }
+void GLWidget::do_pick_at(const QPointF& pixel, PickAction action, bool repaint) {
+  if (!pick_interaction_enabled()) {
+    return;
   }
+  auto best = fb_pick_point(pixel, /*max_radius=*/5);
 
   if (best) {
-    set_selected_point(*best);
+    set_selected_point(*best, repaint);
     if (m_point_pick_callback) {
       m_point_pick_callback(*best);
     }
-    if (focus_on_pick) {
-      focus_on_selected_point();
+    if (action == PickAction::PanToPoint) {
+      pan_to_selected_point();
+    } else if (action == PickAction::LookAtPoint) {
+      look_at_selected_point();
     }
   } else {
-    set_selected_point(std::nullopt);
+    set_selected_point(std::nullopt, repaint);
     if (m_point_pick_callback) {
       m_point_pick_callback(std::nullopt);
     }
   }
 }
 
+void GLWidget::apply_hover_result(const std::optional<PointPickResult>& result, bool repaint) {
+  if (result == m_hovered_point) {
+    return;
+  }
+  m_hovered_point = result;
+  if (repaint) {
+    update();
+  }
+}
+
+void GLWidget::update_hover_at(const QPointF& pixel, int max_radius, bool repaint) {
+  if (!pick_interaction_enabled()) {
+    if (m_hovered_point.has_value()) {
+      apply_hover_result(std::nullopt, repaint);
+    }
+    return;
+  }
+  apply_hover_result(fb_pick_point(pixel, max_radius), repaint);
+}
+
+std::optional<PointPickResult> GLWidget::fb_pick_point(const QPointF& pixel, int max_radius) {
+  if (!m_points_fbo.valid()) {
+    return std::nullopt;
+  }
+
+  makeCurrent();
+  auto* ef = QOpenGLContext::currentContext()->extraFunctions();
+  if (!ef) {
+    return std::nullopt;
+  }
+
+  GLint prev_read_fbo = 0;
+  GLint prev_read_buffer = 0;
+  CHECK_GL(ef->glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &prev_read_fbo));
+  CHECK_GL(ef->glGetIntegerv(GL_READ_BUFFER, &prev_read_buffer));
+
+  const qreal dpr = devicePixelRatioF();
+  const int fb_w = static_cast<int>(std::lround(width() * dpr));
+  const int fb_h = static_cast<int>(std::lround(height() * dpr));
+  const int cx = static_cast<int>(std::floor(pixel.x() * dpr + 0.5));
+  const int cy = fb_h - static_cast<int>(std::floor(pixel.y() * dpr + 0.5)) - 1;
+  const int pick_radius = std::max(1, static_cast<int>(std::lround(max_radius * dpr)));
+  const GLuint widget_fbo = defaultFramebufferObject();
+
+  const int x0 = std::max(0, cx - pick_radius);
+  const int y0 = std::max(0, cy - pick_radius);
+  const int x1 = std::min(fb_w - 1, cx + pick_radius);
+  const int y1 = std::min(fb_h - 1, cy + pick_radius);
+  const int region_w = x1 - x0 + 1;
+  const int region_h = y1 - y0 + 1;
+  const size_t pixel_count = static_cast<size_t>(region_w) * static_cast<size_t>(region_h);
+
+  std::vector<uint32_t> pick_pixels(pixel_count * 2);
+  std::vector<float> point_depths(pixel_count);
+  std::vector<float> widget_depths(pixel_count);
+
+  m_points_fbo.bind_read();
+  CHECK_GL(ef->glReadBuffer(GL_COLOR_ATTACHMENT1));
+  CHECK_GL(ef->glReadPixels(x0, y0, region_w, region_h, GL_RG_INTEGER, GL_UNSIGNED_INT,
+                            pick_pixels.data()));
+
+  CHECK_GL(ef->glBindFramebuffer(GL_READ_FRAMEBUFFER, m_points_fbo.fbo()));
+  CHECK_GL(ef->glReadPixels(x0, y0, region_w, region_h, GL_DEPTH_COMPONENT, GL_FLOAT,
+                            point_depths.data()));
+
+  CHECK_GL(ef->glBindFramebuffer(GL_READ_FRAMEBUFFER, widget_fbo));
+  CHECK_GL(ef->glReadPixels(x0, y0, region_w, region_h, GL_DEPTH_COMPONENT, GL_FLOAT,
+                            widget_depths.data()));
+
+  struct PickCandidate {
+    uint32_t pick_index = 0;
+    uint32_t slot = 0;
+    float widget_depth = 1.0f;
+    int screen_dist_sq = 0;
+  };
+  std::optional<PickCandidate> best;
+
+  for (int row = 0; row < region_h; ++row) {
+    for (int col = 0; col < region_w; ++col) {
+      const int sx = x0 + col;
+      const int sy = y0 + row;
+      const size_t idx =
+          static_cast<size_t>(row) * static_cast<size_t>(region_w) + static_cast<size_t>(col);
+      const uint32_t pick_index = pick_pixels[idx * 2];
+      const uint32_t slot = pick_pixels[idx * 2 + 1];
+      if (pick_index == 0 || slot == 0) {
+        continue;
+      }
+
+      const float widget_depth = widget_depths[idx];
+      if (widget_depth >= 0.99999f) {
+        continue;
+      }
+      if (point_depths[idx] > widget_depth + 2e-4f) {
+        continue;
+      }
+
+      const int pdx = sx - cx;
+      const int pdy = sy - cy;
+      const int screen_dist_sq = pdx * pdx + pdy * pdy;
+      if (!best || screen_dist_sq < best->screen_dist_sq ||
+          (screen_dist_sq == best->screen_dist_sq && widget_depth < best->widget_depth)) {
+        best = PickCandidate{pick_index, slot, widget_depth, screen_dist_sq};
+      }
+    }
+  }
+
+  CHECK_GL(ef->glBindFramebuffer(GL_READ_FRAMEBUFFER, prev_read_fbo));
+  CHECK_GL(ef->glReadBuffer(prev_read_buffer));
+
+  if (!best) {
+    return std::nullopt;
+  }
+
+  for (size_t i = 0; i < m_renderers.size(); ++i) {
+    if (m_layers[i]->kind() != LayerKind::PointCloud || !m_layers[i]->visible()) {
+      continue;
+    }
+    auto* las = dynamic_cast<OctreeLASLayerRenderer*>(m_renderers[i].get());
+    if (!las || las->layer_slot() != static_cast<int>(best->slot)) {
+      continue;
+    }
+    if (!las->can_fbo_pick()) {
+      continue;
+    }
+    return las->point_from_index(best->slot, best->pick_index, m_camera.world_offset());
+  }
+  return std::nullopt;
+}
+
 void GLWidget::mousePressEvent(QMouseEvent* event) {
-  m_last_mouse_pos = event->position().toPoint();
+  m_last_mouse_pos = event->position();
   m_press_mouse_pos = m_last_mouse_pos;
   if (event->button() == Qt::LeftButton) {
     m_left_button_pressed = true;
   }
-  if (event->button() == Qt::LeftButton || event->button() == Qt::MiddleButton ||
-      event->button() == Qt::RightButton) {
+  // Defer begin_camera_interaction() for left button until the first drag pixel.
+  // restart_render() clears the points FBO; starting orbit on press would wipe
+  // pick IDs before a click-release can read them from the accumulated buffer.
+  if (event->button() == Qt::MiddleButton || event->button() == Qt::RightButton) {
     begin_camera_interaction();
   }
 }
 
 void GLWidget::mouseReleaseEvent(QMouseEvent* event) {
   if (event->button() == Qt::LeftButton && m_left_button_pressed) {
-    const QPoint release_pos = event->position().toPoint();
-    const int drag_dx = release_pos.x() - m_press_mouse_pos.x();
-    const int drag_dy = release_pos.y() - m_press_mouse_pos.y();
+    const QPointF release_pos = event->position();
+    const qreal drag_dx = release_pos.x() - m_press_mouse_pos.x();
+    const qreal drag_dy = release_pos.y() - m_press_mouse_pos.y();
     if (drag_dx * drag_dx + drag_dy * drag_dy <= 36) {
-      const bool focus_on_pick = event->modifiers().testFlag(Qt::ShiftModifier);
-      try_pick_point(release_pos, focus_on_pick);
+      PickAction action = PickAction::None;
+      if (event->modifiers().testFlag(Qt::ShiftModifier)) {
+        action = PickAction::PanToPoint;
+      } else if (event->modifiers().testFlag(Qt::ControlModifier)) {
+        action = PickAction::LookAtPoint;
+      }
+      try_pick_point(release_pos, action);
     }
     m_left_button_pressed = false;
   }
@@ -495,10 +868,14 @@ void GLWidget::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent* event) {
-  int dx = event->position().toPoint().x() - m_last_mouse_pos.x();
-  int dy = event->position().toPoint().y() - m_last_mouse_pos.y();
+  const QPointF pos = event->position();
+  const qreal dx = pos.x() - m_last_mouse_pos.x();
+  const qreal dy = pos.y() - m_last_mouse_pos.y();
 
   if (event->buttons() & Qt::LeftButton) {
+    if (!m_camera_interacting && (std::abs(dx) > 0 || std::abs(dy) > 0)) {
+      begin_camera_interaction();
+    }
     m_camera.rotate_around_center(0.28 * dx, 0.28 * dy);
   } else if (event->buttons() & Qt::MiddleButton) {
     m_camera.rotate_view(0.28 * dx, 0.28 * dy);
@@ -506,19 +883,40 @@ void GLWidget::mouseMoveEvent(QMouseEvent* event) {
     m_camera.pan(dx / 320.0f, dy / 320.0f);
   }
 
-  m_last_mouse_pos = event->position().toPoint();
+  m_last_mouse_pos = pos;
   if (event->buttons() != Qt::NoButton) {
-    if (dx != 0 || dy != 0) {
+    if (std::abs(dx) > 0 || std::abs(dy) > 0) {
       note_camera_motion();
     } else {
       schedule_camera_idle();
+    }
+    // Clear hover during drag
+    if (m_hovered_point.has_value()) {
+      m_hovered_point.reset();
+    }
+    update();
+  } else if (!m_camera_interacting) {
+    if (std::abs(dx) > 0 || std::abs(dy) > 0) {
+      m_hover_probe_needed = true;
     }
     update();
   }
 }
 
+void GLWidget::leaveEvent(QEvent* event) {
+  Q_UNUSED(event);
+  if (m_hovered_point.has_value()) {
+    apply_hover_result(std::nullopt, /*repaint=*/false);
+  }
+  m_last_hover_probe_pos.reset();
+  update();
+}
+
 void GLWidget::wheelEvent(QWheelEvent* event) {
+  m_last_mouse_pos = event->position();
   note_camera_motion();
+  m_hovered_point.reset();
+  m_last_hover_probe_pos.reset();
   QVector3D world_pos = m_camera.unproject(event->position());
   m_camera.move_towards(world_pos,
                         m_camera.direction().length() * event->angleDelta().y() / 2000.0f, true);
@@ -549,7 +947,7 @@ void GLWidget::keyPressEvent(QKeyEvent* event) {
       request_zoom_to_extent(bounds);
     }
   } else if (event->key() == Qt::Key_Z && m_selected_point.has_value()) {
-    focus_on_selected_point();
+    pan_to_selected_point();
     return;
   } else if (event->key() == Qt::Key_Space) {
     if (m_orbit_timer->isActive())

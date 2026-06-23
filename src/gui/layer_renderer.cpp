@@ -12,7 +12,31 @@
 #include <mutex>
 #include <unordered_map>
 
+#include "gui/gl_check.hpp"
+
 namespace {
+
+// RAII wrapper that guarantees glBeginQuery / glEndQuery pairing even when
+// the draw path returns early.  Accepts nullptr / 0 as a no-op so callers
+// can conditionally enable timing without a separate branch.
+class ScopedGpuTimer {
+ public:
+  ScopedGpuTimer(QOpenGLExtraFunctions* gl, GLuint query) : m_gl(gl), m_query(query) {
+    if (m_gl && m_query != 0) {
+      CHECK_GL(m_gl->glBeginQuery(GL_TIME_ELAPSED, m_query));
+    }
+  }
+  ~ScopedGpuTimer() {
+    if (m_gl && m_query != 0) {
+      CHECK_GL(m_gl->glEndQuery(GL_TIME_ELAPSED));
+    }
+  }
+  explicit operator bool() const { return m_gl != nullptr && m_query != 0; }
+
+ private:
+  QOpenGLExtraFunctions* m_gl;
+  GLuint m_query;
+};
 
 constexpr double kDrawCallOverheadMs = 0.012;
 constexpr size_t kMaxPreviewDrawVertices = 500'000;
@@ -31,6 +55,7 @@ const char* kPointVertexShader = R"(
     in float classification;
     in vec3 file_color;
     in float has_file_rgb;
+    in uint point_index;            // global index in octree.points() (attrib 5)
     uniform float point_radius_m;   // world-space sphere radius (metres)
     uniform float viewport_height;  // viewport height in pixels
     uniform float fov_rad;          // vertical field of view (radians)
@@ -43,6 +68,7 @@ const char* kPointVertexShader = R"(
     out vec4 vtx_color;
     out vec3 eye_center;            // sphere centre in eye space
     out float eye_radius;
+    flat out uint vtx_point_id;
 
     vec3 classification_color(int class_id) {
         if (class_id == 2) return vec3(160.0, 120.0, 80.0) / 255.0;
@@ -80,6 +106,7 @@ const char* kPointVertexShader = R"(
         float depth = max(-eye.z, 1e-4);
         float proj_scale = viewport_height / (2.0 * tan(fov_rad * 0.5));
         gl_PointSize = clamp(2.0 * point_radius_m * proj_scale / depth, 1.0, 4096.0);
+        vtx_point_id = point_index + 1u;
     }
 )";
 
@@ -88,8 +115,11 @@ const char* kPointFragmentShader = R"(
     in vec4 vtx_color;
     in vec3 eye_center;
     in float eye_radius;
+    flat in uint vtx_point_id;
     uniform mat4 u_proj;
+    uniform int u_layer_slot;      // 1-based, 0 suppresses pick output
     out vec4 fragColor;
+    layout(location = 1) out uvec2 pickData;
     void main() {
         // Reconstruct the eye-space ray through this fragment. The sprite spans
         // the sphere's silhouette: UV in [-1,1] maps to a lateral offset of
@@ -115,6 +145,8 @@ const char* kPointFragmentShader = R"(
         vec3 light_dir = normalize(vec3(0.3, 0.5, 0.8));
         float lighting = 0.4 + 0.6 * max(dot(normal, light_dir), 0.0);
         fragColor = vec4(vtx_color.rgb * lighting, 1.0);
+        // pickData.x = global point index + 1; pickData.y = layer slot (1-based).
+        pickData = u_layer_slot > 0 ? uvec2(vtx_point_id, uint(u_layer_slot)) : uvec2(0u, 0u);
     }
 )";
 
@@ -186,29 +218,12 @@ const char* kTexturedMeshFragmentShader = R"(
     }
 )";
 
-const char* kCrosshairLineVertexShader = R"(
-    #version 330 core
-    in vec3 position;
-    uniform mat4 proj_matrix;
-    void main() {
-        gl_Position = proj_matrix * vec4(position, 1.0);
-    }
-)";
-
-const char* kCrosshairLineFragmentShader = R"(
-    #version 330 core
-    uniform vec3 line_color;
-    out vec4 fragColor;
-    void main() {
-        fragColor = vec4(line_color, 1.0);
-    }
-)";
-
 bool bind_shader(QOpenGLShaderProgram* shader) {
   if (!shader->bind()) {
     std::cout << "Shader bind error: " << shader->log().toStdString() << std::endl;
     return false;
   }
+  CHECK_GL_AFTER();
   return true;
 }
 
@@ -258,6 +273,7 @@ void OctreeLASLayerRenderer::ensure_shader() {
   m_shader->bindAttributeLocation("classification", 2);
   m_shader->bindAttributeLocation("file_color", 3);
   m_shader->bindAttributeLocation("has_file_rgb", 4);
+  m_shader->bindAttributeLocation("point_index", 5);
   if (!m_shader->link()) {
     std::cout << "Point shader link error: " << m_shader->log().toStdString() << std::endl;
     m_shader.reset();
@@ -272,30 +288,7 @@ void OctreeLASLayerRenderer::ensure_shader() {
   m_fixed_color_loc = m_shader->uniformLocation("fixed_color");
   m_point_alpha_loc = m_shader->uniformLocation("point_alpha");
   m_point_offset_loc = m_shader->uniformLocation("point_offset");
-}
-
-void OctreeLASLayerRenderer::ensure_crosshair_shader() {
-  if (m_crosshair_shader) {
-    return;
-  }
-  m_crosshair_shader = std::make_unique<QOpenGLShaderProgram>();
-  if (!m_crosshair_shader->addShaderFromSourceCode(QOpenGLShader::Vertex,
-                                                   kCrosshairLineVertexShader) ||
-      !m_crosshair_shader->addShaderFromSourceCode(QOpenGLShader::Fragment,
-                                                   kCrosshairLineFragmentShader)) {
-    std::cout << "Crosshair shader error: " << m_crosshair_shader->log().toStdString() << std::endl;
-    m_crosshair_shader.reset();
-    return;
-  }
-  m_crosshair_shader->bindAttributeLocation("position", 0);
-  if (!m_crosshair_shader->link()) {
-    std::cout << "Crosshair shader link error: " << m_crosshair_shader->log().toStdString()
-              << std::endl;
-    m_crosshair_shader.reset();
-    return;
-  }
-  m_crosshair_proj_loc = m_crosshair_shader->uniformLocation("proj_matrix");
-  m_crosshair_color_loc = m_crosshair_shader->uniformLocation("line_color");
+  m_shader_layer_slot_loc = m_shader->uniformLocation("u_layer_slot");
 }
 
 void OctreeLASLayerRenderer::reset_stream_cache() {
@@ -454,7 +447,7 @@ void OctreeLASLayerRenderer::ensure_gpu_timer(QOpenGLExtraFunctions* gl) {
   if (m_gpu_timer_query != 0 || !gl) {
     return;
   }
-  gl->glGenQueries(1, &m_gpu_timer_query);
+  CHECK_GL(gl->glGenQueries(1, &m_gpu_timer_query));
 }
 
 void OctreeLASLayerRenderer::consume_gpu_timer_sample(QOpenGLExtraFunctions* gl) {
@@ -463,31 +456,16 @@ void OctreeLASLayerRenderer::consume_gpu_timer_sample(QOpenGLExtraFunctions* gl)
   }
 
   GLuint available = 0;
-  gl->glGetQueryObjectuiv(m_gpu_timer_query, GL_QUERY_RESULT_AVAILABLE, &available);
+  CHECK_GL(gl->glGetQueryObjectuiv(m_gpu_timer_query, GL_QUERY_RESULT_AVAILABLE, &available));
   if (!available) {
     return;
   }
 
   GLuint elapsed_ns = 0;
-  gl->glGetQueryObjectuiv(m_gpu_timer_query, GL_QUERY_RESULT, &elapsed_ns);
+  CHECK_GL(gl->glGetQueryObjectuiv(m_gpu_timer_query, GL_QUERY_RESULT, &elapsed_ns));
   const double gpu_ms = static_cast<double>(elapsed_ns) / 1'000'000.0;
   m_last_point_gpu_ms = gpu_ms;
   record_lod_sample(m_lod_query_vertices, gpu_ms);
-}
-
-void OctreeLASLayerRenderer::begin_gpu_timer(QOpenGLExtraFunctions* gl) {
-  if (!gl || m_gpu_timer_query == 0) {
-    return;
-  }
-  gl->glBeginQuery(GL_TIME_ELAPSED, m_gpu_timer_query);
-}
-
-void OctreeLASLayerRenderer::end_gpu_timer(QOpenGLExtraFunctions* gl, size_t vertices_drawn) {
-  if (!gl || m_gpu_timer_query == 0) {
-    return;
-  }
-  gl->glEndQuery(GL_TIME_ELAPSED);
-  m_lod_query_vertices = vertices_drawn;
 }
 
 size_t OctreeLASLayerRenderer::draw_octree_nodes(
@@ -502,16 +480,19 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
   }
   m_point_gl.ensure_initialized(f);
   m_point_gl.bind(f);
+  CHECK_GL_AFTER();
 
   const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
                                static_cast<float>(file_origin.y() - scene_offset.y()),
                                static_cast<float>(file_origin.z() - scene_offset.z()));
   m_shader->setUniformValue(m_point_offset_loc, point_offset);
+  CHECK_GL_AFTER();
 
   // Upload entire point cloud to GPU once; subsequent frames draw sub-ranges.
   if (!m_points_uploaded && !point_storage.empty()) {
     m_point_gl.upload_points(f, point_storage.data(), point_storage.size());
     m_points_uploaded = true;
+    CHECK_GL_AFTER();
   }
 
   if (!incremental) {
@@ -554,10 +535,16 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
     m_firsts.push_back(static_cast<GLint>(node->begin_index + state.streamed_count));
     m_counts.push_back(static_cast<GLsizei>(to_draw));
 
-    if (incremental) state.streamed_count += to_draw;
-    if (state.streamed_count < point_count) m_stream_backlog = true;
+    // Always advance streamed_count; non-incremental frames reset it via
+    // reset_stream_cache() before draw_octree_nodes() is called.
+    state.streamed_count += to_draw;
+    if (state.streamed_count < point_count) {
+      m_stream_backlog = true;
+    }
   }
 
+  m_shader->setUniformValue(m_shader_layer_slot_loc, m_layer_slot > 0 ? m_layer_slot : 0);
+  CHECK_GL_AFTER();
   return m_point_gl.draw_leaves(f, m_firsts.data(), m_counts.data(), m_firsts.size());
 }
 
@@ -571,248 +558,61 @@ size_t OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions* f,
 
   m_point_gl.ensure_initialized(f);
   m_point_gl.bind(f);
+  CHECK_GL_AFTER();
 
   const size_t count = std::min(preview.size(), kMaxPreviewDrawVertices);
   const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
                                static_cast<float>(file_origin.y() - scene_offset.y()),
                                static_cast<float>(file_origin.z() - scene_offset.z()));
   m_shader->setUniformValue(m_point_offset_loc, point_offset);
+  // Suppress pick output during preview — point indices are not stable.
+  m_shader->setUniformValue(m_shader_layer_slot_loc, 0);
+  CHECK_GL_AFTER();
 
   const size_t total_vertices = m_point_gl.draw_points(f, preview.data(), count);
   m_stream_backlog = preview.size() > count;
   return total_vertices;
 }
 
-std::optional<PointPickResult> OctreeLASLayerRenderer::pick_point(const Camera& camera,
-                                                                  const QPoint& pixel) const {
+bool OctreeLASLayerRenderer::can_fbo_pick() const {
   auto layer = m_layer.lock();
-  if (!layer || !m_visible) {
+  if (!layer || m_layer_slot == 0) {
+    return false;
+  }
+  // Preview draws suppress pick IDs (u_layer_slot = 0); wait for load_complete.
+  if (!layer->las_data().load_complete()) {
+    return false;
+  }
+  auto snap = layer->las_data().snapshot();
+  return snap && snap->octree.total_points() > 0;
+}
+
+std::optional<PointPickResult> OctreeLASLayerRenderer::point_from_index(
+    uint32_t layer_slot, uint32_t pick_index, const Coordinate3D<double>& scene_offset) const {
+  if (pick_index == 0 || layer_slot == 0) {
     return std::nullopt;
   }
-
-  std::vector<PointOctree::VisibleNode> visible_nodes;
-  const Coordinate3D<double>& scene_offset = camera.world_offset();
+  if (layer_slot != static_cast<uint32_t>(m_layer_slot)) {
+    return std::nullopt;
+  }
+  const size_t idx = static_cast<size_t>(pick_index) - 1;
+  auto layer = m_layer.lock();
+  if (!layer) {
+    return std::nullopt;
+  }
+  auto snap = layer->las_data().snapshot();
+  if (!snap || idx >= snap->octree.points().size()) {
+    return std::nullopt;
+  }
+  const OctreePoint& p = snap->octree.points()[idx];
   const Coordinate3D<double>& file_origin = layer->las_data().coordinate_origin();
-  const std::vector<OctreePoint>* point_storage = nullptr;
-
-  const auto snap = layer->las_data().snapshot();
-  if (!snap || snap->octree.total_points() == 0) {
-    return std::nullopt;
-  }
-  point_storage = &snap->octree.points();
-
-  collect_visible_octree_nodes(*snap, camera, std::max(m_lod_quality, 1.0), file_origin,
-                               visible_nodes);
-
-  if (visible_nodes.empty()) {
-    return std::nullopt;
-  }
-
-  const QMatrix4x4 proj = camera.proj_matrix();
-  const float pick_x = static_cast<float>(pixel.x());
-  const float pick_y = static_cast<float>(pixel.y());
-  const float pick_radius = std::max(
-      8.0f, static_cast<float>(layer->point_radius_m() * camera.projection_scale() * 0.35));
-  const float pick_radius_sq = pick_radius * pick_radius;
-
-  struct NodeScreenDistance {
-    const PointOctreeNode* node = nullptr;
-    float screen_dist_sq = 0.0f;
-  };
-
-  std::vector<NodeScreenDistance> node_candidates;
-  node_candidates.reserve(visible_nodes.size());
-  for (const auto& visible : visible_nodes) {
-    if (!visible.node || visible.node->point_count() == 0) {
-      continue;
-    }
-    const Extent3D& bounds = visible.node->bounds;
-    const double cx = 0.5 * (bounds.minx + bounds.maxx) + file_origin.x() - scene_offset.x();
-    const double cy = 0.5 * (bounds.miny + bounds.maxy) + file_origin.y() - scene_offset.y();
-    const double cz = 0.5 * (bounds.minz + bounds.maxz) + file_origin.z() - scene_offset.z();
-    const QVector4D clip = proj * QVector4D(static_cast<float>(cx), static_cast<float>(cy),
-                                            static_cast<float>(cz), 1.0f);
-    if (clip.w() <= 0.0f) {
-      continue;
-    }
-    const float inv_w = 1.0f / clip.w();
-    const float screen_x = (clip.x() * inv_w * 0.5f + 0.5f) * camera.screen_width();
-    const float screen_y = (1.0f - (clip.y() * inv_w * 0.5f + 0.5f)) * camera.screen_height();
-    const float dx = screen_x - pick_x;
-    const float dy = screen_y - pick_y;
-    node_candidates.push_back({visible.node, dx * dx + dy * dy});
-  }
-
-  std::sort(node_candidates.begin(), node_candidates.end(),
-            [](const NodeScreenDistance& a, const NodeScreenDistance& b) {
-              return a.screen_dist_sq < b.screen_dist_sq;
-            });
-
-  const size_t max_nodes = std::min(node_candidates.size(), size_t{256});
-
-  // Two-tier selection that matches what the user sees:
-  //  1. "Cover" hits: the cursor lies within a point's rendered sphere disc.
-  //     Among these, pick the front-most (nearest eye depth) — i.e. the sphere
-  //     drawn on top — which is the occlusion-correct, intuitive choice.
-  //  2. Fallback: if no sphere covers the cursor (tiny/distant points), pick the
-  //     nearest one within the pixel tolerance so points stay clickable.
-  const float point_radius_px =
-      static_cast<float>(layer->point_radius_m() * camera.projection_scale());
-
-  float best_cover_eye_w = std::numeric_limits<float>::infinity();
-  std::optional<PointPickResult> best_cover;
-  float best_fallback_dist_sq = pick_radius_sq;
-  std::optional<PointPickResult> best_fallback;
-
-  auto make_result = [&](const OctreePoint& point, float wx, float wy, float wz) {
-    PointPickResult result;
-    result.point = point;
-    result.world_x = wx;
-    result.world_y = wy;
-    result.world_z = wz;
-    result.layer_name = layer->name();
-    return result;
-  };
-
-  for (size_t n = 0; n < max_nodes; ++n) {
-    const PointOctreeNode* node = node_candidates[n].node;
-    if (!node) {
-      continue;
-    }
-    for (size_t pi = node->begin_index; pi < node->end_index; ++pi) {
-      const OctreePoint& point = (*point_storage)[pi];
-      const float wx =
-          static_cast<float>(static_cast<double>(point.x) + file_origin.x() - scene_offset.x());
-      const float wy =
-          static_cast<float>(static_cast<double>(point.y) + file_origin.y() - scene_offset.y());
-      const float wz =
-          static_cast<float>(static_cast<double>(point.z) + file_origin.z() - scene_offset.z());
-      const QVector4D clip = proj * QVector4D(wx, wy, wz, 1.0f);
-      if (clip.w() <= 0.0f) {
-        continue;
-      }
-      const float inv_w = 1.0f / clip.w();
-      const float ndc_x = clip.x() * inv_w;
-      const float ndc_y = clip.y() * inv_w;
-      if (ndc_x < -1.05f || ndc_x > 1.05f || ndc_y < -1.05f || ndc_y > 1.05f) {
-        continue;
-      }
-      const float screen_x = (ndc_x * 0.5f + 0.5f) * camera.screen_width();
-      const float screen_y = (1.0f - (ndc_y * 0.5f + 0.5f)) * camera.screen_height();
-      const float dx = screen_x - pick_x;
-      const float dy = screen_y - pick_y;
-      const float screen_dist_sq = dx * dx + dy * dy;
-
-      // clip.w() is the eye-space depth (distance along the view axis); smaller
-      // is closer to the camera. The point's on-screen radius matches the
-      // rendered sphere: r_px = R * projection_scale / depth.
-      const float eye_w = clip.w();
-      const float proj_radius_px = point_radius_px * inv_w;
-      const float proj_radius_sq = proj_radius_px * proj_radius_px;
-
-      if (screen_dist_sq <= proj_radius_sq) {
-        if (eye_w < best_cover_eye_w) {
-          best_cover_eye_w = eye_w;
-          best_cover = make_result(point, wx, wy, wz);
-        }
-      }
-      if (!best_cover && screen_dist_sq <= best_fallback_dist_sq) {
-        best_fallback_dist_sq = screen_dist_sq;
-        best_fallback = make_result(point, wx, wy, wz);
-      }
-    }
-  }
-
-  return best_cover ? best_cover : best_fallback;
-}
-
-void OctreeLASLayerRenderer::set_highlight(const std::optional<PointPickResult>& pick) {
-  auto layer = m_layer.lock();
-  if (!pick || !layer || pick->layer_name != layer->name()) {
-    m_highlight.reset();
-    return;
-  }
-  m_highlight = pick;
-}
-
-void OctreeLASLayerRenderer::render_selection_highlight(const Camera& camera,
-                                                        const RenderContext& ctx) {
-  (void)ctx;
-  auto layer = m_layer.lock();
-  if (!m_highlight || !layer || !m_visible) {
-    return;
-  }
-
-  ensure_crosshair_shader();
-  if (!m_crosshair_shader) {
-    return;
-  }
-
-  QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
-  if (!f) {
-    return;
-  }
-
-  const float cx = static_cast<float>(m_highlight->world_x);
-  const float cy = static_cast<float>(m_highlight->world_y);
-  const float cz = static_cast<float>(m_highlight->world_z);
-
-  // Screen-facing crosshair with a gap at the centre so the selected point stays
-  // visible inside the marker. Sized in world units relative to the view distance.
-  const float view_distance = std::max(static_cast<float>(camera.direction().length()), 0.1f);
-  const float arm = std::max(0.25f, view_distance * 0.022f);
-  const float gap = arm * 0.32f;
-  const QVector3D view_dir = camera.direction().normalized();
-  QVector3D right = QVector3D::crossProduct(camera.up(), view_dir);
-  if (right.lengthSquared() < 1e-8f) {
-    right = camera.view_right();
-  } else {
-    right.normalize();
-  }
-  const QVector3D up = QVector3D::crossProduct(view_dir, right).normalized();
-
-  auto seg = [&](const QVector3D& dir, float inner, float outer, std::array<float, 6>& out) {
-    out = {cx + dir.x() * inner, cy + dir.y() * inner, cz + dir.z() * inner,
-           cx + dir.x() * outer, cy + dir.y() * outer, cz + dir.z() * outer};
-  };
-  std::array<float, 6> s0, s1, s2, s3;
-  seg(right, gap, arm, s0);
-  seg(-right, gap, arm, s1);
-  seg(up, gap, arm, s2);
-  seg(-up, gap, arm, s3);
-  const float line_vertices[24] = {
-      s0[0], s0[1], s0[2], s0[3], s0[4], s0[5], s1[0], s1[1], s1[2], s1[3], s1[4], s1[5],
-      s2[0], s2[1], s2[2], s2[3], s2[4], s2[5], s3[0], s3[1], s3[2], s3[3], s3[4], s3[5],
-  };
-
-  if (!m_highlight_vao.isCreated()) {
-    m_highlight_vao.create();
-  }
-  if (!m_highlight_vbo.isCreated()) {
-    m_highlight_vbo.create();
-  }
-
-  QOpenGLVertexArrayObject::Binder vao_binder(&m_highlight_vao);
-  m_highlight_vbo.bind();
-  m_highlight_vbo.allocate(line_vertices, static_cast<int>(sizeof(line_vertices)));
-
-  const GLboolean depth_test_enabled = f->glIsEnabled(GL_DEPTH_TEST);
-  f->glDisable(GL_DEPTH_TEST);
-
-  if (bind_shader(m_crosshair_shader.get())) {
-    m_crosshair_shader->enableAttributeArray(0);
-    m_crosshair_shader->setAttributeBuffer(0, GL_FLOAT, 0, 3, 0);
-    m_crosshair_shader->setUniformValue(m_crosshair_proj_loc, camera.proj_matrix());
-    m_crosshair_shader->setUniformValue(m_crosshair_color_loc, QVector3D(1.0f, 0.92f, 0.15f));
-    f->glDrawArrays(GL_LINES, 0, 8);
-    m_crosshair_shader->release();
-  }
-
-  if (depth_test_enabled) {
-    f->glEnable(GL_DEPTH_TEST);
-  }
-
-  m_highlight_vbo.release();
+  PointPickResult result;
+  result.point = p;
+  result.world_x = static_cast<double>(p.x) + file_origin.x() - scene_offset.x();
+  result.world_y = static_cast<double>(p.y) + file_origin.y() - scene_offset.y();
+  result.world_z = static_cast<double>(p.z) + file_origin.z() - scene_offset.z();
+  result.layer_name = layer->name();
+  return result;
 }
 
 void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
@@ -882,6 +682,12 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
 
   if (reset_stream) {
     reset_stream_cache();
+    // Only notify the widget when the visible octree set changes. Camera motion
+    // already triggers restart_render() via begin_camera_interaction(); emitting
+    // here on every view-direction tweak would redundantly restart during orbit.
+    if (visible_changed) {
+      emit stream_view_reset();
+    }
   }
 
   ensure_shader();
@@ -914,24 +720,30 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   if (!bind_shader(m_shader.get())) {
     return;
   }
-  f->glEnable(GL_PROGRAM_POINT_SIZE);
+  CHECK_GL(f->glEnable(GL_PROGRAM_POINT_SIZE));
   m_shader->setUniformValue(m_view_matrix_loc, camera.view_matrix());
   m_shader->setUniformValue(m_proj_matrix_loc, camera.projection_matrix());
   m_shader->setUniformValue(m_point_radius_loc, layer->point_radius_m());
-  m_shader->setUniformValue(m_viewport_height_loc, static_cast<float>(camera.screen_height()));
+  m_shader->setUniformValue(m_viewport_height_loc, ctx.viewport_height);
   m_shader->setUniformValue(m_fov_rad_loc, static_cast<float>(camera.fov_rad()));
   m_shader->setUniformValue(m_color_mode_loc, static_cast<int>(layer->point_color_mode()));
   const std::array<uint8_t, 3>& fixed = layer->fixed_point_color();
   m_shader->setUniformValue(m_fixed_color_loc,
                             QVector3D(fixed[0] / 255.f, fixed[1] / 255.f, fixed[2] / 255.f));
   m_shader->setUniformValue(m_point_alpha_loc, 1.0f);
+  CHECK_GL_AFTER();
 
-  f->glEnable(GL_DEPTH_TEST);
-  f->glDepthFunc(ctx.incremental_points ? GL_LEQUAL : GL_LESS);
-  f->glDepthMask(GL_TRUE);
-  f->glDisable(GL_BLEND);
+  CHECK_GL(f->glEnable(GL_DEPTH_TEST));
+  CHECK_GL(f->glDepthFunc(ctx.incremental_points ? GL_LEQUAL : GL_LESS));
+  CHECK_GL(f->glDepthMask(GL_TRUE));
+  // Integer pick attachment (COLOR1) is active on the points FBO — blending is invalid.
+  CHECK_GL(f->glDisable(GL_BLEND));
 
-  begin_gpu_timer(gl);
+  const size_t expected_vertices =
+      use_preview ? std::min(snap->preview_points.size(), kMaxPreviewDrawVertices)
+                  : estimate_draw_vertices(visible_nodes, draw_quality, incremental);
+  const bool time_draw = expected_vertices > 0;
+  ScopedGpuTimer gpu_timer(time_draw ? gl : nullptr, time_draw ? m_gpu_timer_query : 0);
   size_t vertices_drawn = 0;
   if (use_preview) {
     vertices_drawn = draw_preview_points(f, snap->preview_points, file_origin, scene_offset);
@@ -939,9 +751,12 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
     vertices_drawn = draw_octree_nodes(f, snap->octree.points(), visible_nodes, file_origin,
                                        scene_offset, draw_quality, incremental);
   }
-  end_gpu_timer(gl, vertices_drawn);
+  if (gpu_timer) {
+    m_lod_query_vertices = vertices_drawn;
+  }
 
   m_shader->release();
+  CHECK_GL_AFTER();
 
   const double draw_ms =
       std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - draw_start)
@@ -1023,14 +838,15 @@ void MeshLayerRenderer::upload_texture(const Geo<MultiBand<FlexGrid>>& texture) 
   const std::vector<uint8_t> rgb = build_texture_rgb(texture);
   QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
   GLint unpack_alignment = 4;
-  f->glGetIntegerv(GL_UNPACK_ALIGNMENT, &unpack_alignment);
-  f->glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+  CHECK_GL(f->glGetIntegerv(GL_UNPACK_ALIGNMENT, &unpack_alignment));
+  CHECK_GL(f->glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
   m_texture = std::make_unique<QOpenGLTexture>(QOpenGLTexture::Target2D);
   m_texture->setSize(static_cast<int>(width), static_cast<int>(height));
   m_texture->setFormat(QOpenGLTexture::RGB8_UNorm);
   m_texture->allocateStorage(QOpenGLTexture::RGB, QOpenGLTexture::UInt8);
   m_texture->setData(QOpenGLTexture::RGB, QOpenGLTexture::UInt8, rgb.data());
-  f->glPixelStorei(GL_UNPACK_ALIGNMENT, unpack_alignment);
+  CHECK_GL_AFTER();
+  CHECK_GL(f->glPixelStorei(GL_UNPACK_ALIGNMENT, unpack_alignment));
   m_texture->setMinificationFilter(QOpenGLTexture::Linear);
   m_texture->setMagnificationFilter(QOpenGLTexture::Linear);
   m_texture->setWrapMode(QOpenGLTexture::ClampToEdge);
@@ -1107,6 +923,7 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
     m_ibo.bind();
     m_ibo.allocate(mesh.indices.data(),
                    static_cast<int>(mesh.indices.size() * sizeof(unsigned int)));
+    CHECK_GL_AFTER();
 
     if (!bind_shader(m_shader.get())) {
       return;
@@ -1163,6 +980,7 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
       m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
     }
     m_shader->release();
+    CHECK_GL_AFTER();
   }
 
   m_index_count = mesh.indices.size();
@@ -1227,13 +1045,14 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
   if (!f) {
     return;
   }
-  f->glEnable(GL_DEPTH_TEST);
+  CHECK_GL(f->glEnable(GL_DEPTH_TEST));
   if (!bind_shader(m_shader.get())) {
     return;
   }
   m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
   if (m_gpu_texture && m_texture) {
     m_texture->bind(0);
+    CHECK_GL_AFTER();
     m_shader->setUniformValue(m_texture_sampler_loc, 0);
   }
 
@@ -1241,12 +1060,15 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
   if (!m_vao.isCreated() || !m_vbo.isCreated() || !m_ibo.isCreated()) {
     if (m_gpu_texture && m_texture) {
       m_texture->release();
+      CHECK_GL_AFTER();
     }
     m_shader->release();
+    CHECK_GL_AFTER();
     return;
   }
   m_vbo.bind();
   m_ibo.bind();
+  CHECK_GL_AFTER();
   if (m_gpu_texture) {
     const int stride = static_cast<int>(sizeof(TexturedMeshVertex));
     m_shader->enableAttributeArray(0);
@@ -1260,11 +1082,15 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
     m_shader->enableAttributeArray(1);
     m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
   }
-  f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT, nullptr);
+  CHECK_GL_AFTER();
+  CHECK_GL(f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT,
+                             nullptr));
   if (m_gpu_texture && m_texture) {
     m_texture->release();
+    CHECK_GL_AFTER();
   }
   m_shader->release();
+  CHECK_GL_AFTER();
 }
 
 ContourLayerRenderer::ContourLayerRenderer(std::shared_ptr<ContourLayer> layer,
@@ -1375,10 +1201,12 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   m_vbo.create();
   m_vbo.bind();
   m_vbo.allocate(vertices.data(), static_cast<int>(vertices.size() * sizeof(MeshVertex)));
+  CHECK_GL_AFTER();
 
   m_ibo.create();
   m_ibo.bind();
   m_ibo.allocate(indices.data(), static_cast<int>(indices.size() * sizeof(unsigned int)));
+  CHECK_GL_AFTER();
 
   if (!bind_shader(m_shader.get())) {
     return;
@@ -1389,10 +1217,12 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   m_shader->enableAttributeArray(1);
   m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
   m_shader->release();
+  CHECK_GL_AFTER();
 
   m_index_count = indices.size();
   m_uploaded = true;
   m_vbo.release();
+  CHECK_GL_AFTER();
 }
 
 void ContourLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
@@ -1430,7 +1260,7 @@ void ContourLayerRenderer::render(const Camera& camera, const RenderContext& ctx
   if (!f) {
     return;
   }
-  f->glEnable(GL_DEPTH_TEST);
+  CHECK_GL(f->glEnable(GL_DEPTH_TEST));
   if (!bind_shader(m_shader.get())) {
     return;
   }
@@ -1438,11 +1268,15 @@ void ContourLayerRenderer::render(const Camera& camera, const RenderContext& ctx
   QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
   m_vbo.bind();
   m_ibo.bind();
+  CHECK_GL_AFTER();
   const int stride = static_cast<int>(sizeof(MeshVertex));
   m_shader->enableAttributeArray(0);
   m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
   m_shader->enableAttributeArray(1);
   m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
-  f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT, nullptr);
+  CHECK_GL_AFTER();
+  CHECK_GL(f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT,
+                             nullptr));
   m_shader->release();
+  CHECK_GL_AFTER();
 }

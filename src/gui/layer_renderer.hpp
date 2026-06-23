@@ -23,12 +23,20 @@ struct PointPickResult {
   double world_y = 0.0;
   double world_z = 0.0;
   std::string layer_name;
+
+  bool operator==(const PointPickResult& other) const {
+    return layer_name == other.layer_name && world_x == other.world_x && world_y == other.world_y &&
+           world_z == other.world_z;
+  }
+  bool operator!=(const PointPickResult& other) const { return !(*this == other); }
 };
 
 struct RenderContext {
   // When false, the FBO is cleared and stream indices reset for a fresh preview frame.
   // When true, newly drawn points accumulate on the existing FBO (Displaz-style).
   bool incremental_points = false;
+  // OpenGL viewport height in framebuffer pixels (must match glViewport for point sizing).
+  float viewport_height = 0.0f;
 };
 
 class LayerRenderer : public QObject {
@@ -40,6 +48,9 @@ class LayerRenderer : public QObject {
 
  signals:
   void repaint_required() const;
+  // Emitted when the visible octree set or view changes enough to invalidate
+  // incremental point/pick FBO accumulation.
+  void stream_view_reset() const;
 
  public:
   virtual void render(const Camera& camera, const RenderContext& ctx) = 0;
@@ -62,8 +73,6 @@ class OctreeLASLayerRenderer : public LayerRenderer {
 
   std::weak_ptr<LASLayer> m_layer;
 
-  QOpenGLVertexArrayObject m_highlight_vao;
-  QOpenGLBuffer m_highlight_vbo;
   PointCloudGL m_point_gl;
   std::vector<OctreePoint> m_draw_batch;
 
@@ -77,10 +86,7 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   int m_fixed_color_loc = 0;
   int m_point_alpha_loc = 0;
   int m_point_offset_loc = 0;
-
-  std::unique_ptr<QOpenGLShaderProgram> m_crosshair_shader;
-  int m_crosshair_proj_loc = 0;
-  int m_crosshair_color_loc = 0;
+  int m_shader_layer_slot_loc = -1;
 
   double m_lod_quality = 1.0;
   double m_inc_lod_quality = 1.0;
@@ -91,7 +97,7 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   double m_last_point_draw_ms = 0.0;
   double m_last_point_gpu_ms = 0.0;
   size_t m_last_point_vertices_drawn = 0;
-  std::optional<PointPickResult> m_highlight;
+  int m_layer_slot = 0;  // assigned once in add_layer(), 1-based, 0 = unset
 
   GLuint m_gpu_timer_query = 0;
   size_t m_lod_query_vertices = 0;
@@ -121,7 +127,6 @@ class OctreeLASLayerRenderer : public LayerRenderer {
                                     std::vector<PointOctree::VisibleNode>& visible_nodes) const;
 
   void ensure_shader();
-  void ensure_crosshair_shader();
   size_t estimate_draw_vertices(const std::vector<PointOctree::VisibleNode>& visible_nodes,
                                 double quality, bool incremental) const;
   double select_draw_quality(const std::vector<PointOctree::VisibleNode>& visible_nodes,
@@ -130,8 +135,6 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   void record_lod_sample(size_t vertices, double ms);
   void ensure_gpu_timer(class QOpenGLExtraFunctions* gl);
   void consume_gpu_timer_sample(class QOpenGLExtraFunctions* gl);
-  void begin_gpu_timer(class QOpenGLExtraFunctions* gl);
-  void end_gpu_timer(class QOpenGLExtraFunctions* gl, size_t vertices_drawn);
   size_t draw_octree_nodes(QOpenGLFunctions* f, const std::vector<OctreePoint>& point_storage,
                            const std::vector<PointOctree::VisibleNode>& visible_nodes,
                            const Coordinate3D<double>& file_origin,
@@ -149,10 +152,13 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   double last_point_gpu_ms() const { return m_last_point_gpu_ms; }
   size_t last_point_vertices_drawn() const { return m_last_point_vertices_drawn; }
   void refresh_after_style_change();
-  void set_highlight(const std::optional<PointPickResult>& pick);
-  void render_selection_highlight(const Camera& camera, const RenderContext& ctx);
-  std::optional<PointPickResult> pick_point(const Camera& camera, const QPoint& pixel) const;
   virtual void render(const Camera& camera, const RenderContext& ctx) override;
+
+  void set_layer_slot(int slot) { m_layer_slot = slot; }
+  int layer_slot() const { return m_layer_slot; }
+  bool can_fbo_pick() const;
+  std::optional<PointPickResult> point_from_index(uint32_t layer_slot, uint32_t pick_index,
+                                                  const Coordinate3D<double>& scene_offset) const;
 };
 
 class MeshLayerRenderer : public LayerRenderer {

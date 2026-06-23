@@ -2,6 +2,7 @@
 
 #include <QMatrix4x4>
 #include <algorithm>
+#include <optional>
 
 #include "utilities/coordinate.hpp"
 
@@ -144,8 +145,17 @@ class Camera {
     m_position = cor - (m_position - cor).length() * m_direction.normalized();
   }
 
+  // Translate the camera so target becomes the orbit pivot, keeping view direction
+  // and focal distance unchanged (screen-centre pans to the point).
+  void pan_to_target(const QVector3D& target) {
+    const QVector3D delta = target - (m_position + m_direction);
+    if (delta.lengthSquared() < 1e-16f) {
+      return;
+    }
+    m_position += delta;
+  }
+
   // Reorient the view to look at target without moving the camera position.
-  // The target becomes the orbit pivot (m_position + m_direction).
   void look_at_target(const QVector3D& target) {
     const QVector3D offset = target - m_position;
     if (offset.lengthSquared() < 1e-8f) {
@@ -186,6 +196,17 @@ class Camera {
   QVector3D unproject(const QPointF& screen_pos) const {
     QVector3D screen(screen_pos.x(), m_height - screen_pos.y(), 0);
     return screen.unproject(proj_matrix(), QMatrix4x4(), QRect(0, 0, m_width, m_height));
+  }
+
+  std::optional<QPointF> project_world_to_screen(const QVector3D& world_pos) const {
+    QVector4D clip = proj_matrix() * QVector4D(world_pos, 1.0f);
+    if (clip.w() <= 0) {
+      return std::nullopt;
+    }
+    float inv_w = 1.0f / clip.w();
+    float sx = (clip.x() * inv_w * 0.5f + 0.5f) * m_width;
+    float sy = (1.0f - (clip.y() * inv_w * 0.5f + 0.5f)) * m_height;
+    return QPointF(sx, sy);
   }
 
   const QVector3D& position() const { return m_position; }

@@ -40,21 +40,28 @@ function(find_and_copy_dependency_dlls)
     endif()
     if(DEFINED VCPKG_INSTALLED_DIR)
       set(VCPKG_BIN_DIR "${VCPKG_INSTALLED_DIR}/${_blaze_vcpkg_triplet}/bin")
+      set(VCPKG_DEBUG_BIN_DIR
+          "${VCPKG_INSTALLED_DIR}/${_blaze_vcpkg_triplet}/debug/bin")
     else()
       set(VCPKG_BIN_DIR
           "${CMAKE_BINARY_DIR}/vcpkg_installed/${_blaze_vcpkg_triplet}/bin")
+      set(VCPKG_DEBUG_BIN_DIR
+          "${CMAKE_BINARY_DIR}/vcpkg_installed/${_blaze_vcpkg_triplet}/debug/bin"
+      )
     endif()
 
     foreach(target ${ARGN})
       if(TARGET ${target})
+        # Debug builds need transitive deps from vcpkg's debug/bin (zlibd1,
+        # proj_9_d, …). Release builds use bin/.
         add_custom_command(
           TARGET ${target}
           POST_BUILD
           COMMAND
-            powershell -Command
-            "if (Test-Path '${VCPKG_BIN_DIR}') { foreach ($f in Get-ChildItem -Path '${VCPKG_BIN_DIR}/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
+            powershell -NonInteractive -Command
+            "$dest = '$<TARGET_FILE_DIR:${target}>'; $bin = if ('$<CONFIG>' -eq 'Debug') { '${VCPKG_DEBUG_BIN_DIR}' } else { '${VCPKG_BIN_DIR}' }; if (Test-Path $bin) { foreach ($f in Get-ChildItem -Path ($bin + '/*.dll') -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination $dest -Force -ErrorAction Stop } catch { } } }"
           COMMAND
-            powershell -Command
+            powershell -NonInteractive -Command
             "if (Test-Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>') { foreach ($f in Get-ChildItem -Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
           COMMENT "Copying vcpkg and gtest DLLs for ${target}"
           VERBATIM)

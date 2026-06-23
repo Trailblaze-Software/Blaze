@@ -391,7 +391,8 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest)
 
 add_subdirectory(src)
 
-gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120)
+gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120
+                     WORKING_DIRECTORY "$<TARGET_FILE_DIR:${UNIT_TESTS_NAME}>")
 
 include(GNUInstallDirs)
 

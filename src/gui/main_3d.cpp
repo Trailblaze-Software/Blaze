@@ -308,9 +308,6 @@ int main(int argc, char* argv[]) {
   QSurfaceFormat format;
   format.setVersion(3, 3);
   format.setProfile(QSurfaceFormat::CoreProfile);
-#ifdef GL_DEBUG
-  format.setOption(QSurfaceFormat::DebugContext);
-#endif
   QSurfaceFormat::setDefaultFormat(format);
 
   const LaunchOptions opts = parse_args(argc, argv);
@@ -326,8 +323,6 @@ int main(int argc, char* argv[]) {
     QObject::connect(&a, &QApplication::aboutToQuit, [] { FreeConsole(); });
   }
 #endif
-
-  QSurfaceFormat::setDefaultFormat(QSurfaceFormat::defaultFormat());
 
   Main3DWindow window;
   window.set_exit_after_load(opts.exit_after_load);

@@ -85,21 +85,37 @@ function(find_openmp_dll)
 
   # Search for the DLL (architecture-specific names first)
   if(ARCH_SUBDIR STREQUAL "arm64")
-    set(DLL_NAMES libomp140.arm64.dll libomp140.dll libomp.dll)
+    set(DLL_NAMES_RELEASE libomp140.arm64.dll libomp140.dll libomp.dll)
+    set(DLL_NAMES_DEBUG libomp140d.arm64.dll libomp140d.dll)
   elseif(ARCH_SUBDIR STREQUAL "x64")
-    set(DLL_NAMES libomp140.x86_64.dll libomp140.dll libomp.dll)
+    set(DLL_NAMES_RELEASE libomp140.x86_64.dll libomp140.dll libomp.dll)
+    set(DLL_NAMES_DEBUG libomp140d.x86_64.dll libomp140d.dll)
   else()
-    set(DLL_NAMES libomp140.dll libomp.dll)
+    set(DLL_NAMES_RELEASE libomp140.dll libomp.dll)
+    set(DLL_NAMES_DEBUG libomp140d.dll)
   endif()
 
   find_file(
-    OpenMP_DLL
-    NAMES ${DLL_NAMES}
+    OpenMP_DLL_RELEASE
+    NAMES ${DLL_NAMES_RELEASE}
     PATHS ${SEARCH_PATHS}
     NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
 
+  find_file(
+    OpenMP_DLL_DEBUG
+    NAMES ${DLL_NAMES_DEBUG}
+    PATHS ${SEARCH_PATHS}
+    NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+
+  # Backward-compatible alias for install rules.
+  if(OpenMP_DLL_RELEASE)
+    set(OpenMP_DLL "${OpenMP_DLL_RELEASE}")
+  elseif(OpenMP_DLL_DEBUG)
+    set(OpenMP_DLL "${OpenMP_DLL_DEBUG}")
+  endif()
+
   # If still not found, try recursive search in VS directories
-  if(NOT OpenMP_DLL)
+  if(NOT OpenMP_DLL_RELEASE AND NOT OpenMP_DLL_DEBUG)
     message(STATUS "Searching Visual Studio directories recursively...")
     foreach(vs_base "C:/Program Files/Microsoft Visual Studio"
                     "C:/Program Files (x86)/Microsoft Visual Studio")
@@ -109,50 +125,98 @@ function(find_openmp_dll)
           # Prefer architecture-specific DLLs
           foreach(candidate ${candidates})
             if(ARCH_SUBDIR STREQUAL "arm64" AND candidate MATCHES "arm64")
-              set(OpenMP_DLL "${candidate}")
-              break()
-            elseif(ARCH_SUBDIR STREQUAL "x64" AND candidate MATCHES "x64")
-              set(OpenMP_DLL "${candidate}")
-              break()
+              if(candidate MATCHES "d\\.dll$")
+                set(OpenMP_DLL_DEBUG "${candidate}")
+              else()
+                set(OpenMP_DLL_RELEASE "${candidate}")
+              endif()
+            elseif(ARCH_SUBDIR STREQUAL "x64" AND candidate MATCHES
+                                                  "x86_64|x64")
+              if(candidate MATCHES "d\\.dll$")
+                set(OpenMP_DLL_DEBUG "${candidate}")
+              else()
+                set(OpenMP_DLL_RELEASE "${candidate}")
+              endif()
             elseif(ARCH_SUBDIR STREQUAL "x86" AND candidate MATCHES "x86")
-              set(OpenMP_DLL "${candidate}")
-              break()
+              if(candidate MATCHES "d\\.dll$")
+                set(OpenMP_DLL_DEBUG "${candidate}")
+              else()
+                set(OpenMP_DLL_RELEASE "${candidate}")
+              endif()
             endif()
           endforeach()
-          # Fallback to first found
-          if(NOT OpenMP_DLL)
-            list(GET candidates 0 OpenMP_DLL)
+          if(NOT OpenMP_DLL_RELEASE AND NOT OpenMP_DLL_DEBUG)
+            list(GET candidates 0 OpenMP_DLL_RELEASE)
           endif()
         endif()
-        if(OpenMP_DLL)
+        if(OpenMP_DLL_RELEASE OR OpenMP_DLL_DEBUG)
           break()
         endif()
       endif()
     endforeach()
+    if(OpenMP_DLL_RELEASE)
+      set(OpenMP_DLL "${OpenMP_DLL_RELEASE}")
+    elseif(OpenMP_DLL_DEBUG)
+      set(OpenMP_DLL "${OpenMP_DLL_DEBUG}")
+    endif()
   endif()
 
   # Install and copy DLL if found
-  if(OpenMP_DLL)
-    get_filename_component(OpenMP_DLL_DIR "${OpenMP_DLL}" DIRECTORY)
-    get_filename_component(OpenMP_DLL_NAME "${OpenMP_DLL}" NAME)
-    message(STATUS "OpenMP DLL found: ${OpenMP_DLL_NAME}")
-    message(STATUS "  Location: ${OpenMP_DLL}")
+  if(OpenMP_DLL_RELEASE OR OpenMP_DLL_DEBUG)
+    if(OpenMP_DLL_RELEASE)
+      get_filename_component(OpenMP_DLL_RELEASE_DIR "${OpenMP_DLL_RELEASE}"
+                             DIRECTORY)
+      get_filename_component(OpenMP_DLL_RELEASE_NAME "${OpenMP_DLL_RELEASE}"
+                             NAME)
+      message(STATUS "OpenMP release DLL found: ${OpenMP_DLL_RELEASE_NAME}")
+      message(STATUS "  Location: ${OpenMP_DLL_RELEASE}")
+    endif()
+    if(OpenMP_DLL_DEBUG)
+      get_filename_component(OpenMP_DLL_DEBUG_DIR "${OpenMP_DLL_DEBUG}"
+                             DIRECTORY)
+      get_filename_component(OpenMP_DLL_DEBUG_NAME "${OpenMP_DLL_DEBUG}" NAME)
+      message(STATUS "OpenMP debug DLL found: ${OpenMP_DLL_DEBUG_NAME}")
+      message(STATUS "  Location: ${OpenMP_DLL_DEBUG}")
+    endif()
 
-    # Install the DLL Note: GNUInstallDirs is safe to include multiple times
+    # Install the release DLL (runtime redistributable)
     include(GNUInstallDirs)
-    install(FILES "${OpenMP_DLL}" DESTINATION ${CMAKE_INSTALL_BINDIR})
+    if(OpenMP_DLL_RELEASE)
+      install(FILES "${OpenMP_DLL_RELEASE}" DESTINATION ${CMAKE_INSTALL_BINDIR})
+    endif()
 
-    # Copy to each target's output directory
+    # Copy the config-appropriate DLL to each target's output directory.
     foreach(target ${ARGN})
       if(TARGET ${target})
-        add_custom_command(
-          TARGET ${target}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL}"
-                  "$<TARGET_FILE_DIR:${target}>"
-          COMMENT
-            "Copying OpenMP DLL from ${OpenMP_DLL_DIR} to ${target} output directory"
-        )
+        if(OpenMP_DLL_RELEASE AND OpenMP_DLL_DEBUG)
+          add_custom_command(
+            TARGET ${target}
+            POST_BUILD
+            COMMAND
+              ${CMAKE_COMMAND} -E copy_if_different
+              "$<IF:$<CONFIG:Debug>,${OpenMP_DLL_DEBUG},${OpenMP_DLL_RELEASE}>"
+              "$<TARGET_FILE_DIR:${target}>"
+            COMMENT
+              "Copying OpenMP DLL to ${target} output directory ($<CONFIG>)")
+        elseif(OpenMP_DLL_RELEASE)
+          add_custom_command(
+            TARGET ${target}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    "${OpenMP_DLL_RELEASE}" "$<TARGET_FILE_DIR:${target}>"
+            COMMENT
+              "Copying OpenMP DLL from ${OpenMP_DLL_RELEASE_DIR} to ${target} output directory"
+          )
+        else()
+          add_custom_command(
+            TARGET ${target}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OpenMP_DLL_DEBUG}"
+                    "$<TARGET_FILE_DIR:${target}>"
+            COMMENT
+              "Copying OpenMP debug DLL from ${OpenMP_DLL_DEBUG_DIR} to ${target} output directory"
+          )
+        endif()
       endif()
     endforeach()
   else()

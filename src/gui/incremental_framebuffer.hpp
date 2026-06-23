@@ -5,6 +5,8 @@
 #include <QOpenGLFramebufferObject>
 #include <memory>
 
+#include "gui/gl_check.hpp"
+
 // Off-screen color+depth target for Displaz-style incremental point rendering.
 // Subsequent frames skip clearing so newly drawn points accumulate on screen.
 class IncrementalFramebuffer {
@@ -27,6 +29,7 @@ class IncrementalFramebuffer {
   void bind() const {
     if (m_fbo) {
       m_fbo->bind();
+      CHECK_GL_AFTER();
     }
   }
 
@@ -39,11 +42,11 @@ class IncrementalFramebuffer {
     if (!gl) {
       return;
     }
-    gl->glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo->handle());
-    gl->glBindFramebuffer(GL_DRAW_FRAMEBUFFER, widget_fbo);
-    gl->glBlitFramebuffer(0, 0, width, height, 0, 0, width, height,
-                          GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-    gl->glBindFramebuffer(GL_DRAW_FRAMEBUFFER, widget_fbo);
+    CHECK_GL(gl->glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo->handle()));
+    CHECK_GL(gl->glBindFramebuffer(GL_DRAW_FRAMEBUFFER, widget_fbo));
+    CHECK_GL(gl->glBlitFramebuffer(0, 0, width, height, 0, 0, width, height,
+                                   GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GL_NEAREST));
+    CHECK_GL(gl->glBindFramebuffer(GL_DRAW_FRAMEBUFFER, widget_fbo));
   }
 
  private:

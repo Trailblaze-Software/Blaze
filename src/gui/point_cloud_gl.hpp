@@ -6,6 +6,8 @@
 
 #include "gui/point_octree.hpp"
 
+class QOpenGLExtraFunctions;
+
 // GPU point cloud rendering with optional persistent buffer.
 // When upload_points() is called, all subsequent draw_leaves() calls
 // draw sub-ranges from the GPU buffer eliminating per-frame uploads.
@@ -27,9 +29,12 @@ class PointCloudGL {
 
  private:
   void configure_attributes(QOpenGLFunctions* f);
+  void upload_pick_indices(QOpenGLExtraFunctions* gl, size_t count);
 
   GLuint m_vao = 0;
   GLuint m_vbo = 0;
+  GLuint m_pick_vbo = 0;  // parallel uint32 global indices for FBO picking
   bool m_ready = false;
   bool m_uploaded = false;
+  bool m_pick_uploaded = false;
 };
