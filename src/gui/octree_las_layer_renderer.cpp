@@ -13,13 +13,10 @@
 #include "gui/frustum.hpp"
 #include "gui/gl_check.hpp"
 #include "gui/layer_renderer.hpp"
-#include "gui/point_cloud_visualization.hpp"
+#include "gui/shaders.hpp"
 
 namespace {
 
-// RAII wrapper that guarantees glBeginQuery / glEndQuery pairing even when
-// the draw path returns early.  Accepts nullptr / 0 as a no-op so callers
-// can conditionally enable timing without a separate branch.
 class ScopedGpuTimer {
  public:
   ScopedGpuTimer(QOpenGLExtraFunctions* gl, GLuint query) : m_gl(gl), m_query(query) {
@@ -43,113 +40,6 @@ constexpr double DRAW_CALL_OVERHEAD_MS = 0.012;
 constexpr size_t MAX_PREVIEW_DRAW_VERTICES = 500'000;
 constexpr float STREAM_VIEW_RESET_DISTANCE = 25.0f;
 
-// Analytic ray-traced sphere impostors. Each point is a screen-aligned point
-// sprite sized to the sphere's perspective silhouette; the fragment shader casts
-// an eye-space ray, intersects the analytic sphere, and writes the exact depth
-// and surface normal. This keeps the one-vertex-per-point fast path while giving
-// geometrically correct spheres of the requested world-space radius.
-// Split so classification_color() can be injected from the shared palette table
-// (point_cloud_visualization.hpp) instead of being duplicated here.
-const char* POINT_VERTEX_SHADER_PROLOGUE = R"(
-    #version 330 core
-    in vec3 local_position;
-    in float classification;
-    in vec3 file_color;
-    in float has_file_rgb;
-    uniform float point_radius_m;   // world-space sphere radius (metres)
-    uniform float viewport_height;  // viewport height in pixels
-    uniform float fov_rad;          // vertical field of view (radians)
-    uniform mat4 u_view;
-    uniform mat4 u_proj;
-    uniform vec3 point_offset;
-    uniform int color_mode;
-    uniform vec3 fixed_color;
-    uniform float point_alpha;
-    out vec4 vtx_color;
-    out vec3 eye_center;            // sphere centre in eye space
-    out float eye_radius;
-    flat out uint vtx_point_id;
-)";
-
-const char* POINT_VERTEX_SHADER_MAIN = R"(
-    void main() {
-        vec3 position = local_position + point_offset;
-        vec4 eye = u_view * vec4(position, 1.0);
-        eye_center = eye.xyz;
-        eye_radius = point_radius_m;
-
-        vec3 rgb = fixed_color;
-        if (color_mode == 0) {
-            if (has_file_rgb > 0.5) {
-                rgb = file_color;
-            } else {
-                rgb = classification_color(int(classification + 0.5));
-            }
-        } else if (color_mode == 1) {
-            rgb = classification_color(int(classification + 0.5));
-        }
-        vtx_color = vec4(rgb, point_alpha);
-
-        gl_Position = u_proj * eye;
-        // Sprite diameter in pixels = 2 * R * focal_length / depth.
-        float depth = max(-eye.z, 1e-4);
-        float proj_scale = viewport_height / (2.0 * tan(fov_rad * 0.5));
-        gl_PointSize = clamp(2.0 * point_radius_m * proj_scale / depth, 1.0, 4096.0);
-        // gl_VertexID includes the glDrawArrays(first, ...) offset, so this
-        // tracks the global index into octree.points() for FBO picking.
-        vtx_point_id = uint(gl_VertexID) + 1u;
-    }
-)";
-
-const char* POINT_FRAGMENT_SHADER = R"(
-    #version 330 core
-    in vec4 vtx_color;
-    in vec3 eye_center;
-    in float eye_radius;
-    flat in uint vtx_point_id;
-    uniform mat4 u_proj;
-    uniform int u_layer_slot;      // 1-based, 0 suppresses pick output
-    out vec4 fragColor;
-    layout(location = 1) out uvec2 pickData;
-    void main() {
-        // Reconstruct the eye-space ray through this fragment. The sprite spans
-        // the sphere's silhouette: UV in [-1,1] maps to a lateral offset of
-        // R metres on the tangent plane at the sphere's depth.
-        vec2 uv = gl_PointCoord * 2.0 - 1.0;
-        uv.y = -uv.y;
-        vec3 ray_dir = normalize(vec3(eye_center.xy + uv * eye_radius, eye_center.z));
-
-        // Ray from the eye (origin) vs analytic sphere: |t*dir - center|^2 = r^2.
-        float b = dot(ray_dir, eye_center);
-        float c = dot(eye_center, eye_center) - eye_radius * eye_radius;
-        float disc = b * b - c;
-        if (disc < 0.0) discard;
-        float t = b - sqrt(disc);
-        vec3 hit = ray_dir * t;              // eye-space surface point
-        vec3 normal = normalize(hit - eye_center);
-
-        // Exact, projection-correct depth so spheres interlock without z-fighting.
-        vec4 clip = u_proj * vec4(hit, 1.0);
-        gl_FragDepth = 0.5 * (clip.z / clip.w) + 0.5;
-
-        // Eye-space lighting stays consistent as the camera orbits.
-        vec3 light_dir = normalize(vec3(0.3, 0.5, 0.8));
-        float lighting = 0.4 + 0.6 * max(dot(normal, light_dir), 0.0);
-        fragColor = vec4(vtx_color.rgb * lighting, vtx_color.a);
-        // pickData.x = global point index + 1; pickData.y = layer slot (1-based).
-        pickData = u_layer_slot > 0 ? uvec2(vtx_point_id, uint(u_layer_slot)) : uvec2(0u, 0u);
-    }
-)";
-
-bool bind_shader(QOpenGLShaderProgram* shader) {
-  if (!shader->bind()) {
-    std::cout << "Shader bind error: " << shader->log().toStdString() << std::endl;
-    return false;
-  }
-  CHECK_GL_AFTER();
-  return true;
-}
-
 }  // namespace
 
 OctreeLASLayerRenderer::OctreeLASLayerRenderer(std::shared_ptr<LASLayer> layer,
@@ -161,11 +51,15 @@ void OctreeLASLayerRenderer::ensure_shader() {
     return;
   }
   m_shader = std::make_unique<QOpenGLShaderProgram>();
-  const std::string vertex_src = std::string(POINT_VERTEX_SHADER_PROLOGUE) + "\n" +
-                                 classification_color_glsl() + POINT_VERTEX_SHADER_MAIN;
-  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex,
-                                         QString::fromStdString(vertex_src)) ||
-      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, POINT_FRAGMENT_SHADER)) {
+  const QString vertex_src = get_point_vertex_shader();
+  const QString fragment_src = get_point_fragment_shader();
+  if (vertex_src.isEmpty() || fragment_src.isEmpty()) {
+    std::cout << "Failed to load point shaders from resources" << std::endl;
+    m_shader.reset();
+    return;
+  }
+  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src) ||
+      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src)) {
     std::cout << "Point shader error: " << m_shader->log().toStdString() << std::endl;
     m_shader.reset();
     return;

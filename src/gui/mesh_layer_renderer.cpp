@@ -104,13 +104,27 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
   if (!m_shader) {
     m_shader = std::make_unique<QOpenGLShaderProgram>();
     if (use_texture) {
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, TEXTURED_MESH_VERTEX_SHADER);
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, TEXTURED_MESH_FRAGMENT_SHADER);
+      const QString vertex_src = get_textured_mesh_vertex_shader();
+      const QString fragment_src = get_textured_mesh_fragment_shader();
+      if (vertex_src.isEmpty() || fragment_src.isEmpty()) {
+        std::cout << "Failed to load textured mesh shaders from resources" << std::endl;
+        m_shader.reset();
+        return;
+      }
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src);
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("texcoord", 1);
     } else {
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, MESH_VERTEX_SHADER);
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, MESH_FRAGMENT_SHADER);
+      const QString vertex_src = get_mesh_vertex_shader();
+      const QString fragment_src = get_mesh_fragment_shader();
+      if (vertex_src.isEmpty() || fragment_src.isEmpty()) {
+        std::cout << "Failed to load mesh shaders from resources" << std::endl;
+        m_shader.reset();
+        return;
+      }
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src);
+      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src);
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("color", 1);
     }

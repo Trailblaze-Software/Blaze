@@ -57,9 +57,9 @@ TEST(PointOctree, NodePointCountMatchesRange) {
 
 TEST(PointOctree, NodeDrawChunkSizeRespectsQuality) {
   const size_t point_count = 1000;
-  const double distance = 50.0;
+  const double distance = 200.0;  // Far enough that quality 1.0 doesn't saturate
 
-  // Quality 1.0 at distance 50 should give < full count
+  // Quality 1.0 at distance 200 should give < full count
   const size_t chunk_low = PointOctree::node_draw_chunk_size(point_count, distance, 1.0);
   EXPECT_LT(chunk_low, point_count);
   EXPECT_GT(chunk_low, 0);

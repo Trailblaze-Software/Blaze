@@ -24,6 +24,7 @@ if(BLAZE_BUILD_3D_GUI)
             contour_layer_renderer.cpp
             shaders.hpp
             shaders.cpp
+            shaders/shaders.qrc
             main_3d_window.ui
             point_cloud_framebuffer.hpp
             point_cloud_framebuffer.cpp

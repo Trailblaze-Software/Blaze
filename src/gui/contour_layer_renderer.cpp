@@ -92,8 +92,15 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   }
 
   m_shader = std::make_unique<QOpenGLShaderProgram>();
-  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, MESH_VERTEX_SHADER) ||
-      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, MESH_FRAGMENT_SHADER)) {
+  const QString vertex_src = get_mesh_vertex_shader();
+  const QString fragment_src = get_mesh_fragment_shader();
+  if (vertex_src.isEmpty() || fragment_src.isEmpty()) {
+    std::cout << "Failed to load mesh shaders from resources" << std::endl;
+    m_shader.reset();
+    return;
+  }
+  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src) ||
+      !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src)) {
     m_shader.reset();
     return;
   }

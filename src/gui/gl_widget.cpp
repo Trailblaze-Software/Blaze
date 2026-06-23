@@ -411,7 +411,7 @@ void GLWidget::paintGL() {
     m_stream_timer->stop();
   }
 
-  // Displaz-style: next frame accumulates unless restart_render() is called.
+  // Inspired by Displaz: next frame accumulates unless restart_render() is called.
   if (!m_camera_interacting && !m_restarted_during_paint) {
     m_incremental_draw = true;
   }

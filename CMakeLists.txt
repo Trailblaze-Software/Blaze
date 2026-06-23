@@ -250,8 +250,11 @@ if(NOT BLAZE_CLI_ONLY)
     target_link_libraries(
       ${GUI_3D_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent Qt6::OpenGL
                                  Qt6::OpenGLWidgets)
-    set_target_properties(${GUI_3D_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
-                                                        MACOSX_BUNDLE ON)
+    set_target_properties(
+      ${GUI_3D_EXE_NAME}
+      PROPERTIES WIN32_EXECUTABLE ON
+                 MACOSX_BUNDLE ON
+                 AUTORCC ON)
 
     qt_import_plugins(${GUI_3D_EXE_NAME} INCLUDE_BY_TYPE imageformats
                       Qt6::QTiffPlugin)

@@ -32,7 +32,7 @@ struct PointPickResult {
 
 struct RenderContext {
   // When false, the FBO is cleared and stream indices reset for a fresh preview frame.
-  // When true, newly drawn points accumulate on the existing FBO (Displaz-style).
+  // When true, newly drawn points accumulate on the existing FBO (Inspired by Displaz).
   bool incremental_points = false;
   // OpenGL viewport height in framebuffer pixels (must match glViewport for point sizing).
   float viewport_height = 0.0f;

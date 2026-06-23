@@ -14,7 +14,7 @@
 #include "utilities/coordinate.hpp"
 
 // AoS layout: one struct per point, contiguous in m_points. Matches GPU interleaved
-// attributes and allows zero-copy glBufferSubData slices per octree leaf (Displaz-style).
+// attributes and allows zero-copy glBufferSubData slices per octree leaf.
 struct OctreePoint {
   float x;
   float y;
@@ -107,7 +107,6 @@ class PointOctree {
   std::vector<OctreePoint> m_points;
   size_t m_total_points = 0;
 
-  // Displaz expands the data AABB to a cube so octree splits are unbiased on each axis.
   static Extent3D cubic_root_bounds(const Extent3D& data_bounds) {
     const double cx = 0.5 * (data_bounds.minx + data_bounds.maxx);
     const double cy = 0.5 * (data_bounds.miny + data_bounds.maxy);
