@@ -417,9 +417,15 @@ class AsyncOctreeLASData {
       {
         octree_las_detail::BenchTimer octree_timer("build octree", converted.size());
         PointOctree octree(local_bounds);
-        octree.insert_batch(std::move(converted), [&octree_progress](size_t done, size_t total) {
-          octree_progress.set_proportion(0.72 + 0.26 * static_cast<double>(done) / total);
-        });
+        octree.insert_batch(
+            std::move(converted),
+            [&octree_progress](size_t done, size_t total) {
+              octree_progress.set_proportion(0.72 + 0.26 * static_cast<double>(done) / total);
+            },
+            &m_cancel);
+        if (m_cancel.load(std::memory_order_relaxed)) {
+          return;
+        }
         octree.shuffle_leaves();
         octree_progress.set_proportion(0.99);
 
@@ -434,6 +440,9 @@ class AsyncOctreeLASData {
       m_load_complete.store(true, std::memory_order_release);
 
       tracker.set_proportion(1.0);
+      if (m_cancel.load(std::memory_order_relaxed)) {
+        return;
+      }
       for (const auto& callback : callbacks) {
         callback();
       }
@@ -448,15 +457,13 @@ class AsyncOctreeLASData {
   }
 
   ~AsyncOctreeLASData() {
+    // Always join: the load loop and octree build both poll m_cancel, so the
+    // join returns promptly. Detaching would let the worker keep writing through
+    // this object (and run callbacks on the owning LASLayer) after it is freed —
+    // a use-after-free when a still-loading layer is removed.
     m_cancel.store(true, std::memory_order_release);
-    if (!m_thread.joinable()) {
-      return;
-    }
-    // Match legacy AsyncLASData: do not block process exit while loading.
-    if (m_load_complete.load(std::memory_order_acquire)) {
+    if (m_thread.joinable()) {
       m_thread.join();
-    } else {
-      m_thread.detach();
     }
   }
 

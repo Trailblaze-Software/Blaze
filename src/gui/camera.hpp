@@ -6,9 +6,9 @@
 
 #include "utilities/coordinate.hpp"
 
-inline double deg2rad(double deg) { return deg * M_PI / 180.0f; }
+inline double deg2rad(double deg) { return deg * M_PI / 180.0; }
 
-inline double rad2deg(double rad) { return rad * 180.0f / M_PI; }
+inline double rad2deg(double rad) { return rad * 180.0 / M_PI; }
 
 class Camera {
   QVector3D m_position;
@@ -156,12 +156,14 @@ class Camera {
   }
 
   // Reorient the view to look at target without moving the camera position.
+  // The focal distance (|direction|, which sets the orbit pivot distance) is
+  // preserved so "look at" only changes orientation, not zoom.
   void look_at_target(const QVector3D& target) {
     const QVector3D offset = target - m_position;
     if (offset.lengthSquared() < 1e-8f) {
       return;
     }
-    m_direction = offset;
+    m_direction = offset.normalized() * m_direction.length();
   }
 
   // Projection (perspective) matrix only — no view transform.

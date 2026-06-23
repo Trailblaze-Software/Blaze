@@ -199,8 +199,16 @@ jobs:
           Start-Process -Wait -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest'
       - name: Test installed package
         run: |
-          Copy-Item -Recurse C:\BlazeTest\share\assets $env:TEMP\blaze-test
-          & C:\BlazeTest\bin\blaze-cli.exe $env:TEMP\blaze-test\default_config.json
+          $assets = 'C:\BlazeTest\share\assets'
+          if (-not (Test-Path $assets)) {
+            Write-Error "Expected assets at $assets. Install tree:"
+            Get-ChildItem -Recurse C:\BlazeTest | ForEach-Object { $_.FullName }
+            exit 1
+          }
+          $dest = Join-Path $env:TEMP 'blaze-test'
+          if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
+          Copy-Item -Recurse $assets $dest
+          & 'C:\BlazeTest\bin\blaze-cli.exe' (Join-Path $dest 'default_config.json')
       # Skip on PRs and push-to-main to stay under the 0.5 GB Actions storage
       # quota — installers are ~200 MB each and 4 platforms × every push fills
       # the quota in a day. Tag builds publish to the GitHub Release (separate,

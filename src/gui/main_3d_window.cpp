@@ -80,28 +80,12 @@ bool is_surface_style_layer(LayerKind kind) {
 }
 
 QString format_classification_label(uint8_t classification) {
-  switch (classification) {
-    case 2:
-      return QStringLiteral("Ground");
-    case 3:
-      return QStringLiteral("Low vegetation");
-    case 4:
-      return QStringLiteral("Medium vegetation");
-    case 5:
-      return QStringLiteral("High vegetation");
-    case 6:
-      return QStringLiteral("Building");
-    case 7:
-      return QStringLiteral("Low point");
-    case 8:
-      return QStringLiteral("Model key point");
-    case 9:
-      return QStringLiteral("Water");
-    case 17:
-      return QStringLiteral("Bridge deck");
-    default:
-      return QStringLiteral("Class %1").arg(classification);
+  for (const ClassificationStyle& style : kClassificationStyles) {
+    if (style.code == classification) {
+      return QString::fromLatin1(style.label);
+    }
   }
+  return QStringLiteral("Class %1").arg(classification);
 }
 
 }  // namespace
@@ -560,7 +544,8 @@ void Main3DWindow::apply_point_cloud_style_from_ui() {
 AsyncProgressTracker Main3DWindow::add_progress_tracker() {
   ProgressTrackerBar* bar = new ProgressTrackerBar(ui->statusBar);
   ui->statusBar->addPermanentWidget(bar);
-  m_layer_progress_bars.push_back(bar);
+  // Claimed by the next add_layer() and keyed to that layer.
+  m_pending_progress_bar = bar;
   return bar->tracker();
 }
 
@@ -577,6 +562,10 @@ void Main3DWindow::add_layer_to_tree(std::shared_ptr<Layer> layer) {
 void Main3DWindow::add_layer(std::unique_ptr<Layer> layer) {
   auto shared = std::shared_ptr<Layer>(std::move(layer));
   m_layers.push_back(shared);
+  if (m_pending_progress_bar) {
+    m_layer_progress_bars[shared.get()] = m_pending_progress_bar;
+    m_pending_progress_bar = nullptr;
+  }
   add_layer_to_tree(shared);
   gl_widget->add_layer(shared);
   connect(shared.get(), &Layer::data_updated, this, &Main3DWindow::maybe_exit_after_load);
@@ -848,7 +837,6 @@ void Main3DWindow::remove_layer(const std::shared_ptr<Layer>& layer) {
   if (it == m_layers.end()) {
     return;
   }
-  const size_t index = static_cast<size_t>(std::distance(m_layers.begin(), it));
 
   disconnect(layer.get(), &Layer::data_updated, this, &Main3DWindow::maybe_exit_after_load);
 
@@ -860,10 +848,11 @@ void Main3DWindow::remove_layer(const std::shared_ptr<Layer>& layer) {
   gl_widget->remove_layer(layer.get());
   m_layers.erase(it);
 
-  if (index < m_layer_progress_bars.size()) {
-    ui->statusBar->removeWidget(m_layer_progress_bars[index]);
-    delete m_layer_progress_bars[index];
-    m_layer_progress_bars.erase(m_layer_progress_bars.begin() + static_cast<std::ptrdiff_t>(index));
+  if (const auto bar_it = m_layer_progress_bars.find(layer.get());
+      bar_it != m_layer_progress_bars.end()) {
+    ui->statusBar->removeWidget(bar_it->second);
+    delete bar_it->second;
+    m_layer_progress_bars.erase(bar_it);
   }
 
   update_render_mode();

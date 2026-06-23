@@ -400,6 +400,12 @@ gtest_discover_tests(
   WORKING_DIRECTORY "$<TARGET_FILE_DIR:${UNIT_TESTS_NAME}>")
 
 include(GNUInstallDirs)
+# GNUInstallDirs leaves CMAKE_INSTALL_DATADIR empty on Windows until explicitly
+# set; install(DIRECTORY assets DESTINATION "") then lands at <prefix>/assets
+# instead of <prefix>/share/assets, breaking get_asset_dir() and CI smoke tests.
+if(NOT CMAKE_INSTALL_DATADIR)
+  set(CMAKE_INSTALL_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}")
+endif()
 
 install(
   TARGETS ${CLI_EXE_NAME}

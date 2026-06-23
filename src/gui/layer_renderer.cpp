@@ -40,7 +40,6 @@ class ScopedGpuTimer {
 
 constexpr double kDrawCallOverheadMs = 0.012;
 constexpr size_t kMaxPreviewDrawVertices = 500'000;
-constexpr size_t kMaxDrawSamples = 20;
 constexpr float kStreamViewResetDistance = 25.0f;
 
 // Analytic ray-traced sphere impostors. Each point is a screen-aligned point
@@ -48,14 +47,14 @@ constexpr float kStreamViewResetDistance = 25.0f;
 // an eye-space ray, intersects the analytic sphere, and writes the exact depth
 // and surface normal. This keeps the one-vertex-per-point fast path while giving
 // geometrically correct spheres of the requested world-space radius.
-const char* kPointVertexShader = R"(
+// Split so classification_color() can be injected from the shared palette table
+// (point_cloud_visualization.hpp) instead of being duplicated here.
+const char* kPointVertexShaderPrologue = R"(
     #version 330 core
     in vec3 local_position;
-    in float intensity;
     in float classification;
     in vec3 file_color;
     in float has_file_rgb;
-    in uint point_index;            // global index in octree.points() (attrib 5)
     uniform float point_radius_m;   // world-space sphere radius (metres)
     uniform float viewport_height;  // viewport height in pixels
     uniform float fov_rad;          // vertical field of view (radians)
@@ -69,20 +68,9 @@ const char* kPointVertexShader = R"(
     out vec3 eye_center;            // sphere centre in eye space
     out float eye_radius;
     flat out uint vtx_point_id;
+)";
 
-    vec3 classification_color(int class_id) {
-        if (class_id == 2) return vec3(160.0, 120.0, 80.0) / 255.0;
-        if (class_id == 3) return vec3(100.0, 180.0, 100.0) / 255.0;
-        if (class_id == 4) return vec3(60.0, 140.0, 60.0) / 255.0;
-        if (class_id == 5) return vec3(30.0, 100.0, 30.0) / 255.0;
-        if (class_id == 6) return vec3(200.0, 80.0, 80.0) / 255.0;
-        if (class_id == 7) return vec3(120.0, 120.0, 120.0) / 255.0;
-        if (class_id == 8) return vec3(255.0, 200.0, 0.0) / 255.0;
-        if (class_id == 9) return vec3(60.0, 120.0, 220.0) / 255.0;
-        if (class_id == 17) return vec3(180.0, 180.0, 180.0) / 255.0;
-        return vec3(200.0, 200.0, 200.0) / 255.0;
-    }
-
+const char* kPointVertexShaderMain = R"(
     void main() {
         vec3 position = local_position + point_offset;
         vec4 eye = u_view * vec4(position, 1.0);
@@ -106,7 +94,9 @@ const char* kPointVertexShader = R"(
         float depth = max(-eye.z, 1e-4);
         float proj_scale = viewport_height / (2.0 * tan(fov_rad * 0.5));
         gl_PointSize = clamp(2.0 * point_radius_m * proj_scale / depth, 1.0, 4096.0);
-        vtx_point_id = point_index + 1u;
+        // gl_VertexID == first + local index == global index into octree.points()
+        // because every leaf draws glDrawArrays(GL_POINTS, begin_index, count).
+        vtx_point_id = uint(gl_VertexID) + 1u;
     }
 )";
 
@@ -262,18 +252,19 @@ void OctreeLASLayerRenderer::ensure_shader() {
     return;
   }
   m_shader = std::make_unique<QOpenGLShaderProgram>();
-  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kPointVertexShader) ||
+  const std::string vertex_src = std::string(kPointVertexShaderPrologue) + "\n" +
+                                 classification_color_glsl() + kPointVertexShaderMain;
+  if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex,
+                                         QString::fromStdString(vertex_src)) ||
       !m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kPointFragmentShader)) {
     std::cout << "Point shader error: " << m_shader->log().toStdString() << std::endl;
     m_shader.reset();
     return;
   }
   m_shader->bindAttributeLocation("local_position", 0);
-  m_shader->bindAttributeLocation("intensity", 1);
-  m_shader->bindAttributeLocation("classification", 2);
-  m_shader->bindAttributeLocation("file_color", 3);
-  m_shader->bindAttributeLocation("has_file_rgb", 4);
-  m_shader->bindAttributeLocation("point_index", 5);
+  m_shader->bindAttributeLocation("classification", 1);
+  m_shader->bindAttributeLocation("file_color", 2);
+  m_shader->bindAttributeLocation("has_file_rgb", 3);
   if (!m_shader->link()) {
     std::cout << "Point shader link error: " << m_shader->log().toStdString() << std::endl;
     m_shader.reset();
@@ -300,7 +291,6 @@ void OctreeLASLayerRenderer::refresh_after_style_change() {
   m_node_stream.clear();
   m_stream_backlog = true;
   m_lod_query_vertices = 0;
-  m_draw_samples.clear();
 }
 
 size_t OctreeLASLayerRenderer::visible_nodes_fingerprint(
@@ -318,7 +308,9 @@ bool OctreeLASLayerRenderer::stream_camera_changed(const Camera& camera) const {
       kStreamViewResetDistance * kStreamViewResetDistance) {
     return true;
   }
-  if ((camera.direction() - m_stream_camera_dir).lengthSquared() > 0.01f) {
+  // |direction| encodes the focal/zoom distance, so compare orientation only.
+  // Pure zoom is handled by the position term above.
+  if ((camera.direction().normalized() - m_stream_camera_dir).lengthSquared() > 0.01f) {
     return true;
   }
   return false;
@@ -355,11 +347,20 @@ void OctreeLASLayerRenderer::collect_visible_octree_nodes(
     const LasRenderSnapshot& snap, const Camera& camera, double vis_quality,
     const Coordinate3D<double>& file_origin,
     std::vector<PointOctree::VisibleNode>& visible_nodes) const {
-  const Frustum frustum = Frustum::from_matrix(camera.proj_matrix());
-  const Coordinate3D<double> camera_local(camera.position().x(), camera.position().y(),
-                                          camera.position().z());
-  snap.octree.collect_visible(frustum, camera.projection_scale(), vis_quality,
-                              camera.world_offset(), file_origin, camera_local, visible_nodes);
+  // Fold the file→scene offset into the clip matrix and camera position so the
+  // octree can test node bounds directly in file-local coords (no per-node
+  // translation). The shader applies the same offset via point_offset.
+  const Coordinate3D<double>& scene_offset = camera.world_offset();
+  const QVector3D point_offset(static_cast<float>(file_origin.x() - scene_offset.x()),
+                               static_cast<float>(file_origin.y() - scene_offset.y()),
+                               static_cast<float>(file_origin.z() - scene_offset.z()));
+  QMatrix4x4 clip = camera.proj_matrix();
+  clip.translate(point_offset);
+  const Frustum frustum = Frustum::from_matrix(clip);
+  const Coordinate3D<double> camera_local(camera.position().x() - point_offset.x(),
+                                          camera.position().y() - point_offset.y(),
+                                          camera.position().z() - point_offset.z());
+  snap.octree.collect_visible(frustum, vis_quality, camera_local, visible_nodes);
   sort_visible_by_lod(visible_nodes);
 }
 
@@ -392,55 +393,28 @@ size_t OctreeLASLayerRenderer::estimate_draw_vertices(
 double OctreeLASLayerRenderer::select_draw_quality(
     const std::vector<PointOctree::VisibleNode>& visible_nodes, bool incremental,
     bool lod_base_from_incremental, double target_draw_ms) const {
+  // Vertices drawn are ~proportional to quality (until per-node clamping), and
+  // GPU cost is ~proportional to vertices, so a single proportional step from
+  // the previous quality converges to the target draw time without a search.
   const double base = lod_base_from_incremental ? m_inc_lod_quality : m_lod_quality;
-  constexpr int num_samples = 4;
-  const double qualities[num_samples] = {base / 20.0, base / 4.0, base, base * 4.0};
-  double frame_time_est[num_samples] = {0};
-  for (int i = 0; i < num_samples; ++i) {
-    const size_t vertices = estimate_draw_vertices(visible_nodes, qualities[i], incremental);
-    frame_time_est[i] = static_cast<double>(vertices) * m_ms_per_vertex +
-                        (vertices > 0 ? kDrawCallOverheadMs : 0.0);
+  const size_t vertices = estimate_draw_vertices(visible_nodes, base, incremental);
+  const double est_ms =
+      static_cast<double>(vertices) * m_ms_per_vertex + (vertices > 0 ? kDrawCallOverheadMs : 0.0);
+  if (est_ms <= 1e-6) {
+    return std::clamp(base, 0.05, 64.0);
   }
-
-  double quality = base;
-  if (target_draw_ms <= frame_time_est[0]) {
-    quality = qualities[0];
-  } else if (target_draw_ms >= frame_time_est[num_samples - 1]) {
-    quality = qualities[num_samples - 1];
-  } else {
-    int i = 0;
-    while (i < num_samples - 2 && frame_time_est[i + 1] < target_draw_ms) {
-      ++i;
-    }
-    const double denom = frame_time_est[i + 1] - frame_time_est[i];
-    const double interp = denom > 0.0 ? (target_draw_ms - frame_time_est[i]) / denom : 0.0;
-    quality = (1.0 - interp) * qualities[i] + interp * qualities[i + 1];
-  }
-  return std::clamp(quality, 0.05, 64.0);
+  return std::clamp(base * target_draw_ms / est_ms, 0.05, 64.0);
 }
 
 void OctreeLASLayerRenderer::record_lod_sample(size_t vertices, double ms) {
   if (vertices == 0 || ms <= 0.0) {
     return;
   }
-  m_draw_samples.push_back({vertices, ms});
-  while (m_draw_samples.size() > kMaxDrawSamples) {
-    m_draw_samples.pop_front();
-  }
-
-  double weighted_vertices = 0.0;
-  double weighted_ms = 0.0;
-  double weight_sum = 0.0;
-  const size_t count = m_draw_samples.size();
-  for (size_t i = 0; i < count; ++i) {
-    const double weight = std::exp(-0.2 * static_cast<double>(count - 1 - i));
-    weighted_vertices += weight * static_cast<double>(m_draw_samples[i].vertices);
-    weighted_ms += weight * m_draw_samples[i].ms;
-    weight_sum += weight;
-  }
-  if (weighted_vertices > 0.0 && weight_sum > 0.0) {
-    m_ms_per_vertex = weighted_ms / weighted_vertices;
-  }
+  // Exponential moving average of GPU cost per vertex.
+  constexpr double kAlpha = 0.2;
+  const double instant = ms / static_cast<double>(vertices);
+  m_ms_per_vertex =
+      m_ms_per_vertex > 0.0 ? (1.0 - kAlpha) * m_ms_per_vertex + kAlpha * instant : instant;
 }
 
 void OctreeLASLayerRenderer::ensure_gpu_timer(QOpenGLExtraFunctions* gl) {
@@ -667,7 +641,7 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
 
   if (camera_moved || visible_changed) {
     m_stream_camera_pos = camera.position();
-    m_stream_camera_dir = camera.direction();
+    m_stream_camera_dir = camera.direction().normalized();
   }
   if (visible_changed) {
     m_visible_fingerprint = visible_nodes_fingerprint(visible_nodes);
@@ -1032,7 +1006,6 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
     if (m_gpu_texture && !m_texture_uploaded && texture_grid != nullptr) {
       upload_texture(*texture_grid);
     }
-    m_data_update_required = false;
   }
   if (!m_shader || !m_mesh_uploaded || m_index_count == 0) {
     return;

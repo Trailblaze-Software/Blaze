@@ -7,6 +7,7 @@
 #include <QTreeWidgetItem>
 #include <QWidget>
 #include <optional>
+#include <unordered_map>
 
 #include "gl_widget.hpp"
 #include "gui/layer_renderer.hpp"
@@ -105,7 +106,12 @@ class Main3DWindow : public QMainWindow {
   // the real failure reason if Blaze exits with a non-zero code.
   QString m_blaze_output;
   std::vector<std::shared_ptr<Layer>> m_layers;
-  std::vector<ProgressTrackerBar*> m_layer_progress_bars;
+  // Progress bar owned per layer. Keyed by Layer* so removal never depends on
+  // the bar vector staying index-parallel with m_layers. The pending bar is
+  // created by add_progress_tracker() before the layer exists, then claimed by
+  // the next add_layer().
+  std::unordered_map<const Layer*, ProgressTrackerBar*> m_layer_progress_bars;
+  ProgressTrackerBar* m_pending_progress_bar = nullptr;
   bool m_exit_after_load = false;
   bool m_exit_after_render = false;
   bool m_exit_after_load_fired = false;

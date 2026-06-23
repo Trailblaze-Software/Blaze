@@ -7,9 +7,11 @@
 
 #include "gui/gl_check.hpp"
 
-// Off-screen color+depth target for Displaz-style incremental point rendering.
-// Subsequent frames skip clearing so newly drawn points accumulate on screen.
-class IncrementalFramebuffer {
+// Off-screen color+depth target for the (non-point) scene layers. It is cleared
+// and fully redrawn every non-incremental frame, then blitted to the widget's
+// default framebuffer. The point cloud uses a separate PointCloudFramebuffer,
+// which is the buffer that accumulates points across incremental frames.
+class SceneFramebuffer {
  public:
   void ensure_size(int width, int height) {
     if (width <= 0 || height <= 0) {

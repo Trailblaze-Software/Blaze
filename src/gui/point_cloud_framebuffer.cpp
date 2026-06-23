@@ -7,15 +7,6 @@
 
 namespace {
 
-const char* kFullscreenTriangleVS = R"(
-    #version 330 core
-    void main() {
-        const vec2 positions[3] = vec2[](
-            vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
-        gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
-    }
-)";
-
 const char* kCompositeVertexShader = R"(
     #version 330 core
     out vec2 texCoord;
@@ -50,17 +41,21 @@ const char* kCompositeFragmentShader = R"(
 }  // namespace
 
 void PointCloudFramebuffer::destroy() {
-  if (m_fbo != 0) {
-    auto* f = QOpenGLContext::currentContext()->functions();
+  // May run at teardown after the widget has called doneCurrent(); without a
+  // current context there is nothing (and no safe way) to delete — the GL
+  // objects are freed when the context itself is destroyed.
+  auto* context = QOpenGLContext::currentContext();
+  if (m_fbo != 0 && context) {
+    auto* f = context->functions();
     CHECK_GL(f->glDeleteFramebuffers(1, &m_fbo));
     CHECK_GL(f->glDeleteTextures(1, &m_color_tex));
     CHECK_GL(f->glDeleteTextures(1, &m_depth_tex));
     CHECK_GL(f->glDeleteTextures(1, &m_pick_tex));
-    m_fbo = 0;
-    m_color_tex = 0;
-    m_depth_tex = 0;
-    m_pick_tex = 0;
   }
+  m_fbo = 0;
+  m_color_tex = 0;
+  m_depth_tex = 0;
+  m_pick_tex = 0;
   m_width = 0;
   m_height = 0;
 }
@@ -226,43 +221,4 @@ void PointCloudCompositor::composite(QOpenGLExtraFunctions* gl, GLuint dest_fbo,
   m_shader->release();
   CHECK_GL_AFTER();
   CHECK_GL(gl->glBindTexture(GL_TEXTURE_2D, 0));
-}
-
-void PointCloudCompositor::fade_points_fbo(QOpenGLExtraFunctions* gl, GLuint points_fbo,
-                                           float decay, int width, int height) {
-  if (points_fbo == 0 || decay >= 1.0f) {
-    return;
-  }
-  // Simple full-screen pass: multiply existing content by decay using a
-  // trivial fragment shader and the compositor's existing VAO.
-  static const char* kFadeFS = R"(
-      #version 330 core
-      uniform float uDecay;
-      out vec4 fragColor;
-      void main() { fragColor = vec4(vec3(uDecay), 1.0); }
-  )";
-  static QOpenGLShaderProgram* s_fade_shader = nullptr;
-  if (!s_fade_shader) {
-    s_fade_shader = new QOpenGLShaderProgram();
-    s_fade_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, kFullscreenTriangleVS);
-    s_fade_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, kFadeFS);
-    s_fade_shader->link();
-  }
-
-  CHECK_GL(gl->glBindFramebuffer(GL_FRAMEBUFFER, points_fbo));
-  // Fade only touches RGBA attachment 0; attachment 1 is integer pick data.
-  const GLenum fade_buf = GL_COLOR_ATTACHMENT0;
-  CHECK_GL(gl->glDrawBuffers(1, &fade_buf));
-  CHECK_GL(gl->glViewport(0, 0, width, height));
-  CHECK_GL(gl->glEnable(GL_BLEND));
-  CHECK_GL(gl->glBlendFunc(GL_DST_COLOR, GL_ZERO));  // multiply dst by src color
-  CHECK_GL(gl->glDisable(GL_DEPTH_TEST));
-
-  s_fade_shader->bind();
-  CHECK_GL_AFTER();
-  s_fade_shader->setUniformValue("uDecay", decay);
-  QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
-  CHECK_GL(gl->glDrawArrays(GL_TRIANGLES, 0, 3));
-  s_fade_shader->release();
-  CHECK_GL_AFTER();
 }

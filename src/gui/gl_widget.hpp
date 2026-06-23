@@ -19,10 +19,10 @@
 
 #include "gui/camera.hpp"
 #include "gui/gl_check.hpp"
-#include "gui/incremental_framebuffer.hpp"
 #include "gui/layer.hpp"
 #include "gui/layer_renderer.hpp"
 #include "gui/point_cloud_framebuffer.hpp"
+#include "gui/scene_framebuffer.hpp"
 #include "io/crs.hpp"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -225,7 +225,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   void draw_stats_overlay();
   void update_scene_bounds();
 
-  IncrementalFramebuffer m_scene_fbo;
+  SceneFramebuffer m_scene_fbo;
   PointCloudFramebuffer m_points_fbo;
   PointCloudCompositor m_point_compositor;
   bool m_incremental_draw = false;

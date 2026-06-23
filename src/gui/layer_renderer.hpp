@@ -7,7 +7,6 @@
 #include <QOpenGLVertexArrayObject>
 #include <QPoint>
 #include <cstdint>
-#include <deque>
 #include <optional>
 #include <unordered_map>
 #include <vector>
@@ -66,11 +65,6 @@ class LayerRenderer : public QObject {
 };
 
 class OctreeLASLayerRenderer : public LayerRenderer {
-  struct DrawSample {
-    size_t vertices = 0;
-    double ms = 0.0;
-  };
-
   std::weak_ptr<LASLayer> m_layer;
 
   PointCloudGL m_point_gl;
@@ -91,7 +85,6 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   double m_lod_quality = 1.0;
   double m_inc_lod_quality = 1.0;
   double m_ms_per_vertex = 30.0 / 800'000.0;
-  std::deque<DrawSample> m_draw_samples;
   bool m_stream_backlog = false;
   bool m_prev_incremental_stream = false;
   double m_last_point_draw_ms = 0.0;

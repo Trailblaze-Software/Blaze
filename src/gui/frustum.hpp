@@ -1,77 +1,57 @@
 #pragma once
 
 #include <QMatrix4x4>
-#include <QVector3D>
 #include <QVector4D>
-#include <cmath>
+#include <array>
 
 #include "utilities/coordinate.hpp"
 
-// Frustum culling for octree traversal.
+// Frustum culling for octree traversal. The six clip-space planes are extracted
+// from the combined projection*view (clip) matrix using the Gribb-Hartmann
+// method. A node is kept when its AABB is not fully outside any single plane.
+// This is exact (no NDC divide, so it is valid for nodes behind the eye) and
+// needs no slack tuning, unlike a screen-space corner heuristic.
 struct Frustum {
-  QMatrix4x4 m_clip;
+  // Each plane is (a, b, c, d): a point is inside when a*x + b*y + c*z + d >= 0.
+  std::array<QVector4D, 6> m_planes;
 
-  static Frustum from_matrix(const QMatrix4x4& matrix) {
+  static Frustum from_matrix(const QMatrix4x4& clip) {
+    // QMatrix4x4::operator()(row, col) addresses the mathematical row/col.
+    const auto row = [&clip](int r) {
+      return QVector4D(clip(r, 0), clip(r, 1), clip(r, 2), clip(r, 3));
+    };
+    const QVector4D r0 = row(0);
+    const QVector4D r1 = row(1);
+    const QVector4D r2 = row(2);
+    const QVector4D r3 = row(3);
     Frustum f;
-    f.m_clip = matrix;
+    f.m_planes[0] = r3 + r0;  // left
+    f.m_planes[1] = r3 - r0;  // right
+    f.m_planes[2] = r3 + r1;  // bottom
+    f.m_planes[3] = r3 - r1;  // top
+    f.m_planes[4] = r3 + r2;  // near
+    f.m_planes[5] = r3 - r2;  // far
     return f;
   }
 
-  // Permissive test: only cull when entire AABB is behind camera.
-  bool intersects_branch(const Extent3D& bounds) const {
-    const float xs[2] = {static_cast<float>(bounds.minx), static_cast<float>(bounds.maxx)};
-    const float ys[2] = {static_cast<float>(bounds.miny), static_cast<float>(bounds.maxy)};
-    const float zs[2] = {static_cast<float>(bounds.minz), static_cast<float>(bounds.maxz)};
-    for (const float x : xs)
-      for (const float y : ys)
-        for (const float z : zs) {
-          const QVector4D c = m_clip * QVector4D(x, y, z, 1.0f);
-          if (c.w() > 1e-4f) return true;
-        }
-    return false;
-  }
-
-  // Leaf test: NDC center + corner checks. Permissive — only culls
-  // leaves clearly outside the view, leaving the rest for the GPU.
-  bool intersects_leaf(const Extent3D& bounds) const {
-    constexpr float kSlack = 0.35f;
-    const float cx = static_cast<float>(0.5 * (bounds.minx + bounds.maxx));
-    const float cy = static_cast<float>(0.5 * (bounds.miny + bounds.maxy));
-    const float cz = static_cast<float>(0.5 * (bounds.minz + bounds.maxz));
-    const double half_diag = 0.5 * bounds.max_extent() * std::sqrt(3.0);
-
-    const QVector3D ndc = m_clip.map(QVector3D(cx, cy, cz));
-    if (std::isfinite(ndc.x()) && std::isfinite(ndc.y()) && std::isfinite(ndc.z())) {
-      if (ndc.x() >= -1.0f - kSlack && ndc.x() <= 1.0f + kSlack && ndc.y() >= -1.0f - kSlack &&
-          ndc.y() <= 1.0f + kSlack && ndc.z() >= -1.0f && ndc.z() <= 1.0f)
-        return true;
+  // Conservative AABB test: returns false only when the box is fully outside
+  // (in the negative half-space of) some plane.
+  bool intersects(const Extent3D& bounds) const {
+    const float minx = static_cast<float>(bounds.minx);
+    const float miny = static_cast<float>(bounds.miny);
+    const float minz = static_cast<float>(bounds.minz);
+    const float maxx = static_cast<float>(bounds.maxx);
+    const float maxy = static_cast<float>(bounds.maxy);
+    const float maxz = static_cast<float>(bounds.maxz);
+    for (const QVector4D& plane : m_planes) {
+      // Pick the corner furthest along the plane normal (the "positive vertex").
+      const float px = plane.x() > 0.0f ? maxx : minx;
+      const float py = plane.y() > 0.0f ? maxy : miny;
+      const float pz = plane.z() > 0.0f ? maxz : minz;
+      if (plane.x() * px + plane.y() * py + plane.z() * pz + plane.w() < 0.0f) {
+        return false;
+      }
     }
-
-    if (half_diag <= 50.0) {
-      const float xs[2] = {static_cast<float>(bounds.minx), static_cast<float>(bounds.maxx)};
-      const float ys[2] = {static_cast<float>(bounds.miny), static_cast<float>(bounds.maxy)};
-      const float zs[2] = {static_cast<float>(bounds.minz), static_cast<float>(bounds.maxz)};
-      for (const float x : xs)
-        for (const float y : ys)
-          for (const float z : zs) {
-            const QVector3D cn = m_clip.map(QVector3D(x, y, z));
-            if (std::isfinite(cn.x()) && std::isfinite(cn.y()) && std::isfinite(cn.z()) &&
-                cn.x() >= -1.0f - kSlack && cn.x() <= 1.0f + kSlack && cn.y() >= -1.0f - kSlack &&
-                cn.y() <= 1.0f + kSlack && cn.z() >= -1.0f && cn.z() <= 1.0f)
-              return true;
-          }
-      return false;
-    }
-
-    // Large leaf: keep if any corner is in front of the camera.
-    const float xs[2] = {static_cast<float>(bounds.minx), static_cast<float>(bounds.maxx)};
-    const float ys[2] = {static_cast<float>(bounds.miny), static_cast<float>(bounds.maxy)};
-    const float zs[2] = {static_cast<float>(bounds.minz), static_cast<float>(bounds.maxz)};
-    for (const float x : xs)
-      for (const float y : ys)
-        for (const float z : zs) {
-          if ((m_clip * QVector4D(x, y, z, 1.0f)).w() > 1e-4f) return true;
-        }
-    return false;
+    return true;
   }
 };

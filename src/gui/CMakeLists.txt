@@ -24,6 +24,8 @@ if(BLAZE_BUILD_3D_GUI)
             point_cloud_framebuffer.cpp
             point_cloud_gl.hpp
             point_cloud_gl.cpp
+            point_octree.hpp
+            point_octree.cpp
             gl_check.hpp
             gl_check.cpp
             gl_widget.hpp

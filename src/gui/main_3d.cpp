@@ -269,11 +269,11 @@ static int probe_las_file(const fs::path& filename) {
              std::to_string(sample_maxy) + "]");
   }
 
+  // Probe diagnostic: bounds and camera are already file-local here, so no
+  // offset needs to be folded into the (identity) clip matrix.
   const Frustum frustum = Frustum::from_matrix(QMatrix4x4());
-  const Coordinate3D<double> scene_offset = origin;
   const Coordinate3D<double> camera_local(0.0, 0.0, 5000.0);
-  snap->octree.collect_visible(frustum, 800.0, 1.0, scene_offset, origin, camera_local,
-                               visible_nodes);
+  snap->octree.collect_visible(frustum, 1.0, camera_local, visible_nodes);
 
   size_t drawable_points = 0;
   for (const auto& visible : visible_nodes) {
