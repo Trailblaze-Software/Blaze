@@ -62,6 +62,17 @@ TEST(Image, ResizeNearestNeighbor) {
   EXPECT_EQ(corner.getBlue(), 0);
 }
 
+TEST(Image, ResizeNearestNeighborMapsEdges) {
+  blaze::Image image(4, 1);
+  image.set(0, 0, RGBColor(255, 0, 0, 255));
+  image.set(0, 3, RGBColor(0, 0, 255, 255));
+
+  blaze::Image resized;
+  image.resize(resized, blaze::Size(2, 1), blaze::InterpolationMode::NEAREST);
+  EXPECT_EQ(resized.at(0, 0).getRed(), 255);
+  EXPECT_EQ(resized.at(0, 1).getBlue(), 255);
+}
+
 TEST(Image, ResizeZeroDestinationClearsOutput) {
   blaze::Image image(2, 2);
   image.set(0, 0, RGBColor(255, 0, 0, 255));

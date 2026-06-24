@@ -123,20 +123,24 @@ void Image::resize(Image& dst, const Size& size, InterpolationMode mode) const {
 
   if (mode == InterpolationMode::NEAREST) {
     // Nearest neighbor interpolation
-    float x_ratio = static_cast<float>(m_width) / size.width;
-    float y_ratio = static_cast<float>(m_height) / size.height;
+    const float x_ratio =
+        (size.width == 1) ? 0.0f : static_cast<float>(m_width - 1) / (size.width - 1);
+    const float y_ratio =
+        (size.height == 1) ? 0.0f : static_cast<float>(m_height - 1) / (size.height - 1);
 
     for (int y = 0; y < size.height; ++y) {
       for (int x = 0; x < size.width; ++x) {
-        int src_x = static_cast<int>(x * x_ratio);
-        int src_y = static_cast<int>(y * y_ratio);
+        int src_x = static_cast<int>(std::round(x * x_ratio));
+        int src_y = static_cast<int>(std::round(y * y_ratio));
         dst.set(y, x, at(src_y, src_x));
       }
     }
   } else {
     // Bilinear interpolation
-    float x_ratio = static_cast<float>(m_width - 1) / size.width;
-    float y_ratio = static_cast<float>(m_height - 1) / size.height;
+    const float x_ratio =
+        (size.width == 1) ? 0.0f : static_cast<float>(m_width - 1) / (size.width - 1);
+    const float y_ratio =
+        (size.height == 1) ? 0.0f : static_cast<float>(m_height - 1) / (size.height - 1);
 
     for (int y = 0; y < size.height; ++y) {
       for (int x = 0; x < size.width; ++x) {

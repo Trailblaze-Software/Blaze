@@ -222,7 +222,8 @@ void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
       if constexpr (std::is_same_v<T, bool>) {
         result[{j, i}] = grid[{j, i}] ? std::byte(255) : std::byte(0);
       } else {
-        double normalized = 255.0 * (grid[{j, i}] - min) / (max - min);
+        const double denom = static_cast<double>(max - min);
+        const double normalized = (denom == 0.0) ? 0.0 : (255.0 * (grid[{j, i}] - min) / denom);
         result[{j, i}] = static_cast<std::byte>(std::clamp(normalized, 0.0, 255.0));
       }
     }

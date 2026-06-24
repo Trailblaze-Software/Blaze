@@ -45,7 +45,8 @@ ProgressBar::~ProgressBar() {
 
 void ProgressBar::text_update(const std::string& text, int depth) {
   if (text.empty()) return;
-  std::cout << std::string(2 * (depth - 1), ' ') << text << std::endl;
+  const size_t indent = depth > 1 ? static_cast<size_t>(2 * (depth - 1)) : 0u;
+  std::cout << std::string(indent, ' ') << text << std::endl;
 };
 
 void ProgressTracker::_set_proportion(double proportion) {

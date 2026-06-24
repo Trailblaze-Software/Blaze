@@ -212,6 +212,7 @@ jobs:
             throw "blaze-cli.exe not found under C:\BlazeTest after install"
           }
       - name: Test installed package
+        shell: pwsh
         run: |
           $assets = 'C:\BlazeTest\share\assets'
           if (-not (Test-Path $assets)) {
@@ -222,7 +223,16 @@ jobs:
           $dest = Join-Path $env:TEMP 'blaze-test'
           if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
           Copy-Item -Recurse $assets $dest
+          $openmp = Get-ChildItem 'C:\BlazeTest\bin\libomp*.dll' -ErrorAction SilentlyContinue
+          if (-not $openmp) {
+            Write-Error "No libomp*.dll in C:\BlazeTest\bin. Installed binaries:"
+            Get-ChildItem 'C:\BlazeTest\bin' | ForEach-Object { $_.Name }
+            exit 1
+          }
           & 'C:\BlazeTest\bin\blaze-cli.exe' (Join-Path $dest 'default_config.json')
+          if ($LASTEXITCODE -ne 0) {
+            throw "blaze-cli exited with code $LASTEXITCODE"
+          }
       # Skip on PRs and push-to-main to stay under the 0.5 GB Actions storage
       # quota — installers are ~200 MB each and 4 platforms × every push fills
       # the quota in a day. Tag builds publish to the GitHub Release (separate,
