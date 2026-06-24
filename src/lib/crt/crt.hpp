@@ -3,10 +3,11 @@
 #include <fstream>
 
 #include "utilities/filesystem.hpp"
+#include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
 
-inline void write_to_crt(const fs::path& filename) {
-  TimeFunction timer("writing to CRT");
+inline void write_to_crt(const fs::path& filename, ProgressTracker* progress_tracker = nullptr) {
+  TimeFunction timer("writing to CRT", progress_tracker);
 
   std::ofstream crtFile(filename);
   if (!crtFile.is_open()) {
@@ -45,8 +46,9 @@ inline void write_to_crt(const fs::path& filename) {
   crtFile.close();
 }
 
-inline void write_vegetation_crt(const fs::path& filename) {
-  TimeFunction timer("writing vegetation CRT");
+inline void write_vegetation_crt(const fs::path& filename,
+                                 ProgressTracker* progress_tracker = nullptr) {
+  TimeFunction timer("writing vegetation CRT", progress_tracker);
 
   std::ofstream crtFile(filename);
   if (!crtFile.is_open()) {

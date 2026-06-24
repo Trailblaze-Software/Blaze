@@ -9,12 +9,38 @@
 
 ProgressObserver::~ProgressObserver() {};
 
-void ProgressBar::update_progress(double progress) {
-  if (progress - m_last_progress < 0.0001) {
+void ProgressBar::print_progress(double progress) {
+  std::cout << "Progress: " << progress * 100 << "%" << std::endl;
+  m_last_printed_progress = progress;
+  m_last_print_time = std::chrono::steady_clock::now();
+}
+
+void ProgressBar::maybe_print_progress(double progress) {
+  const auto now = std::chrono::steady_clock::now();
+  const bool first_print = m_last_printed_progress < 0;
+  const bool finished = progress >= 1.0;
+  const bool due = first_print || (now - m_last_print_time) >= PRINT_INTERVAL;
+  if (!due && !finished) {
     return;
   }
-  std::cout << "Progress: " << progress * 100 << "%" << std::endl;
-  m_last_progress = progress;
+  if (progress - m_last_printed_progress < 0.0001 && !finished) {
+    return;
+  }
+  print_progress(progress);
+}
+
+void ProgressBar::update_progress(double progress) {
+  m_latest_progress = progress;
+  maybe_print_progress(progress);
+}
+
+ProgressBar::~ProgressBar() {
+  if (m_latest_progress < 0) {
+    return;
+  }
+  if (m_latest_progress - m_last_printed_progress >= 0.0001) {
+    print_progress(m_latest_progress);
+  }
 }
 
 void ProgressBar::text_update(const std::string& text, int depth) {
@@ -42,11 +68,16 @@ ProgressTracker::ProgressTracker(ProgressObserver* observer)
   }
 }
 
-ProgressTracker::ProgressTracker(ProgressTracker&& other) {
-  m_proportion = other.m_proportion;
-  m_observer = other.m_observer;
-  m_visible = other.m_visible;
+ProgressTracker::ProgressTracker(ProgressTracker&& other)
+    : ProgressObserver(),
+      m_proportion(other.m_proportion),
+      m_observer(other.m_observer),
+      m_subtracker_range(std::nullopt),
+      m_visible(other.m_visible) {
   Assert(!other.m_subtracker_range.has_value());
+  if (m_observer != nullptr) {
+    m_observer->m_child = this;
+  }
   other.m_observer = nullptr;
 };
 
@@ -91,7 +122,6 @@ ProgressTracker ProgressTracker::subtracker(double start, double end, std::optio
 
 ProgressTracker::~ProgressTracker() {
   _set_proportion(1);
-  // Clear label text before breaking the chain so stale text doesn't linger
   if (m_observer != nullptr) {
     text_update("", 0);
     m_observer->m_child = nullptr;

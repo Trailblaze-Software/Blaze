@@ -2,7 +2,6 @@
 
 #include <QException>
 #include <QFutureWatcher>
-#include <QMessageBox>
 #include <QProgressBar>
 #include <QTimer>
 #include <QtConcurrent>
@@ -10,6 +9,7 @@
 #include <cmath>
 #include <sstream>
 
+#include "error_dialog.hpp"
 #include "ui_progress_box.h"
 #include "utilities/progress_tracker.hpp"
 
@@ -94,8 +94,12 @@ void ProgressBox::receive_progress_bars(std::vector<std::pair<double, bool>> bar
 void ProgressBox::receive_status_text(std::string text, int depth) {
   int idx = depth - 1;
   if (idx >= 0 && static_cast<size_t>(idx) < m_progress.size()) {
-    m_progress[idx].label->setText(QString::fromStdString(text));
-    m_progress[idx].label->show();
+    if (text.empty()) {
+      m_progress[idx].label->hide();
+    } else {
+      m_progress[idx].label->setText(QString::fromStdString(text));
+      m_progress[idx].label->show();
+    }
   }
 }
 
@@ -162,7 +166,7 @@ void ProgressBox::start_task(std::function<void()> task, std::function<void()> o
       if (on_error) {
         on_error(message);
       } else {
-        QMessageBox::critical(this, "Error running task", message);
+        show_error_message(this, "Error running task", message);
       }
     } else {
       this->done(0);

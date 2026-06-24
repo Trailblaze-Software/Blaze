@@ -5,6 +5,7 @@
 #include <cstdlib>
 
 #include "config_input/config_input.hpp"
+#include "error_dialog.hpp"
 #include "progress_box.hpp"
 #include "run.hpp"
 #include "ui_main_window.h"
@@ -37,7 +38,7 @@ MainWindow::MainWindow(const std::vector<fs::path>& initial_las_files)
     ui->runButton->setEnabled(ui->config_editor->is_valid());
 
   } catch (const std::exception& e) {
-    QMessageBox::critical(this, "Error", e.what());
+    show_error_message(this, "Error", e.what());
     exit(1);
   }
 }
@@ -154,6 +155,6 @@ void MainWindow::run_blaze() {
           QApplication::exit(1);
           return;
         }
-        QMessageBox::critical(this, "Error running task", message);
+        show_error_message(this, "Error running task", message);
       });
 }

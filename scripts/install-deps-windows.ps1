@@ -58,7 +58,7 @@ Write-Host "`n=== Checking Package Managers ===" -ForegroundColor Cyan
 $hasWinget = Get-Command winget -ErrorAction SilentlyContinue
 $hasChoco = Get-Command choco -ErrorAction SilentlyContinue
 if (-not $hasChoco) {
-    Write-Host "Chocolatey not found. Installing Chocolatey (used for OpenCV and as fallback)..." -ForegroundColor Yellow
+    Write-Host "Chocolatey not found. Installing Chocolatey (fallback package manager)..." -ForegroundColor Yellow
     Set-ExecutionPolicy Bypass -Scope Process -Force
     $protocol = [System.Net.ServicePointManager]::SecurityProtocol
     [System.Net.ServicePointManager]::SecurityProtocol = $protocol -bor 3072
@@ -162,15 +162,6 @@ if (Get-Command conda -ErrorAction SilentlyContinue) {
 # Refresh environment after installing GDAL
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 
-# Install OpenCV (Chocolatey only; not on winget)
-Write-Host "`n=== Installing OpenCV ===" -ForegroundColor Cyan
-if (-not (Install-Package -Name "OpenCV" -ChocoPackage "opencv")) {
-    exit 1
-}
-
-# Refresh environment after installing OpenCV
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
-
 # Find installed packages and setup CMake paths
 Write-Host "`n=== Finding Installed Packages ===" -ForegroundColor Cyan
 
@@ -200,22 +191,7 @@ if (-not $gdalPath) {
     }
 }
 
-# Find OpenCV installation
-$opencvPaths = @(
-    "C:\tools\opencv",
-    "C:\opencv",
-    "$env:ProgramFiles\opencv"
-)
-$opencvPath = $null
-foreach ($path in $opencvPaths) {
-    if (Test-Path $path) {
-        $opencvPath = $path
-        break
-    }
-}
-
 Write-Host "Found GDAL at: $gdalPath" -ForegroundColor $(if ($gdalPath) { "Green" } else { "Yellow" })
-Write-Host "Found OpenCV at: $opencvPath" -ForegroundColor $(if ($opencvPath) { "Green" } else { "Yellow" })
 
 # Build CMAKE_PREFIX_PATH
 $cmakePrefixPaths = @()
@@ -228,18 +204,7 @@ if ($gdalPath) {
         Write-Host "Set GDAL_DIR=$gdalCmakePath" -ForegroundColor Green
     }
 }
-if ($opencvPath) {
-    $cmakePrefixPaths += $opencvPath
-    # OpenCV_DIR should point to the build directory or root
-    $opencvBuildPath = Join-Path $opencvPath "build"
-    if (Test-Path $opencvBuildPath) {
-        $env:OpenCV_DIR = $opencvBuildPath
-        Write-Host "Set OpenCV_DIR=$opencvBuildPath" -ForegroundColor Green
-    } else {
-        $env:OpenCV_DIR = $opencvPath
-        Write-Host "Set OpenCV_DIR=$opencvPath" -ForegroundColor Green
-    }
-}
+
 
 if ($cmakePrefixPaths.Count -gt 0) {
     $cmakePrefixPath = $cmakePrefixPaths -join ";"

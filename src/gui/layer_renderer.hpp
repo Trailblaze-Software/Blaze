@@ -65,6 +65,8 @@ class LayerRenderer : public QObject {
 };
 
 class OctreeLASLayerRenderer : public LayerRenderer {
+ public:
+  ~OctreeLASLayerRenderer() override;
   std::weak_ptr<LASLayer> m_layer;
 
   PointCloudGL m_point_gl;

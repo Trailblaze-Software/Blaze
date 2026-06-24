@@ -17,9 +17,9 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
-            lcov gcovr
+          packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build lcov
+            gcovr
           version: 1.1
           execute_install_scripts: true
       # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and

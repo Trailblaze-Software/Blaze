@@ -62,7 +62,9 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   # stays TRUE so the *installed*/packaged GUI binaries still get their deps.
   set(VCPKG_APPLOCAL_DEPS OFF)
 
-  set(VCPKG_BUILD_TYPE "release")
+  # Don't restrict to release-only builds - allow vcpkg to build both Debug and
+  # Release This enables proper debugging with Debug builds while keeping
+  # Release optimized
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
@@ -140,16 +142,6 @@ find_package(GDAL REQUIRED)
 
 set(OpenMP_RUNTIME_MSVC "llvm")
 find_package(OpenMP REQUIRED)
-
-set(OpenCV_STATIC ON)
-find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
-
-# System OpenCV packages (apt, Homebrew) and vcpkg (VCPKG_BUILD_TYPE=release)
-# only ship release libraries. OpenCV's debug_build_guard ABI (enabled by _DEBUG
-# on MSVC or _GLIBCXX_DEBUG on GCC) is incompatible with those libs. Use
-# config-time generator expression so multi-config generators (MSVC/Xcode) also
-# apply this in Debug.
-add_compile_definitions($<$<CONFIG:Debug>:CV_IGNORE_DEBUG_BUILD_GUARD>)
 
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
@@ -248,17 +240,10 @@ if(NOT BLAZE_CLI_ONLY)
     target_precompile_headers(${GUI_3D_EXE_NAME} PRIVATE
                               src/precompiled_headers.hpp)
     target_link_libraries(
-      ${GUI_3D_EXE_NAME}
-      PRIVATE Qt6::Widgets
-              Qt6::Concurrent
-              Qt6::OpenGL
-              Qt6::OpenGLWidgets
-              GDAL::GDAL
-              OpenMP::OpenMP_CXX
-              nlohmann_json::nlohmann_json
-              ${OpenCV_LIBS})
-    target_include_directories(
-      ${GUI_3D_EXE_NAME} PRIVATE ${GDAL_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
+      ${GUI_3D_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent Qt6::OpenGL
+                                 Qt6::OpenGLWidgets)
+    target_include_directories(${GUI_3D_EXE_NAME}
+                               PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/lib)
     set_target_properties(
       ${GUI_3D_EXE_NAME}
       PROPERTIES WIN32_EXECUTABLE ON
@@ -352,11 +337,9 @@ foreach(target ${ALL_TARGETS})
       target_compile_definitions(${target} PRIVATE ${PDAL_DEFINITIONS})
     endif()
   endif()
-  target_link_libraries(
-    ${target} PRIVATE GDAL::GDAL OpenMP::OpenMP_CXX
-                      nlohmann_json::nlohmann_json ${OpenCV_LIBS})
-  target_include_directories(${target} PRIVATE ${GDAL_INCLUDE_DIRS}
-                                               ${OpenCV_INCLUDE_DIRS})
+  target_link_libraries(${target} PRIVATE GDAL::GDAL OpenMP::OpenMP_CXX
+                                          nlohmann_json::nlohmann_json)
+  target_include_directories(${target} PRIVATE ${GDAL_INCLUDE_DIRS})
 endforeach()
 
 foreach(target ${ALL_EXECUTABLES})
@@ -463,6 +446,12 @@ if(NOT BLAZE_CLI_ONLY)
   endif()
 
   if(WIN32)
+    # Compute vcpkg triplet install path for qtpaths.  This is needed so the
+    # generated deploy script can find Qt tools at install time.
+    if(DEFINED VCPKG_INSTALLED_DIR AND DEFINED VCPKG_TARGET_TRIPLET)
+      set(WINDOWS_DEPENDENCY_VCPKG_DIR
+          "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}")
+    endif()
     qt_generate_deploy_app_script(
       TARGET
       ${GUI_EXE_NAME}

@@ -213,7 +213,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                progress_tracker.subtracker(0.72, 0.73), /*include_vertical_crs=*/true);
 
   {
-    GeoGrid<double> slope_grid = slope(smooth_ground);
+    GeoGrid<double> slope_grid = slope(smooth_ground, &progress_tracker);
     // Scale absolutely with min=pi/2, max=0: flat terrain (slope≈0) → 255, vertical (slope≈pi/2) →
     // 0.
     write_to_image_tif(slope_grid.slice(data_ext), output_dir / "slope.tif",
@@ -236,8 +236,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   std::vector<Stream> stream_path =
       stream_paths(contour_dem, config.water, progress_tracker.subtracker(0.76, 0.77));
 
-  std::vector<Coordinate2D<size_t>> sinks = identify_sinks(contour_dem);
-  GeoGrid<double> filled = fill_depressions(contour_dem, sinks);
+  std::vector<Coordinate2D<size_t>> sinks =
+      identify_sinks(contour_dem, 10, 5000, &progress_tracker);
+  GeoGrid<double> filled = fill_depressions(contour_dem, sinks, &progress_tracker);
   write_to_tif(filled.slice(data_ext), output_dir / "filled_dem.tif",
                /*progress_tracker=*/std::nullopt, /*include_vertical_crs=*/true);
 
@@ -316,7 +317,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     }
   }
   // crt name must match gpkg name (keeping for compatibility)
-  write_to_crt(output_dir / "contours.crt");
+  write_to_crt(output_dir / "contours.crt", &progress_tracker);
 
   // Write streams to GPKG
   {
@@ -413,16 +414,17 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     vege_tracker.text_update("Polygonizing vegetation");
     std::vector<VegePolygon> vege_polygons =
         generate_vege_polygons(config.vege, vege_maps, vege_tracker.subtracker(0.55, 0.85));
-    trim_vege_polygons_to_extent(vege_polygons, data_ext, vege_tracker.subtracker(0.85, 0.92));
+    trim_vege_polygons_to_extent(vege_polygons, data_ext, {data_ext, las_file.original_bounds()},
+                                 0.01, vege_tracker.subtracker(0.85, 0.92));
     if (!vege_polygons.empty()) {
       write_vege_polygons_gpkg(vege_polygons, output_dir / "vegetation.gpkg",
                                las_file.projection().to_string(),
                                vege_tracker.subtracker(0.92, 1.0));
-      write_vegetation_crt(output_dir / "vegetation.crt");
+      write_vegetation_crt(output_dir / "vegetation.crt", &vege_tracker);
     }
   }  // vege_tracker destructor advances progress to 0.78
 
-  write_to_image_tif(hill_shade(smooth_ground).slice(data_ext),
+  write_to_image_tif(hill_shade(smooth_ground, 315, 45, true, &progress_tracker).slice(data_ext),
                      output_dir / "hill_shade_multi.tif");
 
   // vege_color is at vegetation_grid_resolution (matching the aggregated

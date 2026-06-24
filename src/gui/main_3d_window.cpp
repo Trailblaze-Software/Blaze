@@ -15,6 +15,7 @@
 #include <QLabel>
 #include <QMenu>
 #include <QOpenGLWidget>
+#include <QPointer>
 #include <QPushButton>
 #include <QShortcut>
 #include <QSignalBlocker>
@@ -31,6 +32,7 @@
 #include "blaze_output_loader.hpp"
 #include "config_editor.hpp"
 #include "config_input/config_input.hpp"
+#include "error_dialog.hpp"
 #include "gui/point_cloud_visualization.hpp"
 #include "progress_box.hpp"
 #include "run.hpp"
@@ -131,7 +133,7 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
     connect(remove_shortcut, &QShortcut::activated, this, &Main3DWindow::remove_selected_layer);
 
   } catch (const std::exception& e) {
-    QMessageBox::critical(this, "Error", e.what());
+    show_error_message(this, "Error", e.what());
     exit(1);
   }
 }
@@ -582,6 +584,10 @@ void Main3DWindow::import_blaze_output() {
 
 void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
   m_defer_render_until_loaded = true;
+  m_zoom_completed = false;
+  if (m_exit_after_load) {
+    m_exit_after_load_fired = false;
+  }
   const BlazeOutputDiscovery discovery = discover_blaze_output_with_info(directory);
   const BlazeOutputSet& outputs = discovery.outputs;
   if (!outputs.filled_dem && !outputs.contours) {
@@ -594,8 +600,6 @@ void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
     }
     return;
   }
-
-  const bool is_first_import = m_layers.empty();
 
   if (outputs.filled_dem) {
     if (outputs.final_img) {
@@ -628,9 +632,8 @@ void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
 
   update_render_mode();
 
-  if (is_first_import) {
-    m_zoom_after_load = true;
-  }
+  // Always zoom to newly imported Blaze output layers
+  m_zoom_after_load = true;
 
   maybe_exit_after_load();
 }
@@ -680,18 +683,23 @@ bool Main3DWindow::layer_is_ready(const Layer& layer) {
 }
 
 void Main3DWindow::maybe_exit_after_load() {
-  update_render_mode();
-
   const bool all_layers_ready =
       !m_layers.empty() &&
       std::all_of(m_layers.begin(), m_layers.end(),
-                  [this](const std::shared_ptr<Layer>& layer) { return layer_is_ready(*layer); });
+                  [](const std::shared_ptr<Layer>& layer) { return layer_is_ready(*layer); });
 
   if (all_layers_ready && m_zoom_after_load) {
     m_zoom_after_load = false;
+    m_zoom_completed = true;
     m_defer_render_until_loaded = false;
+    if (m_exit_after_load) {
+      m_exit_after_render = true;
+    }
     update_render_mode();
     gl_widget->zoom_to_all_layers();
+    gl_widget->repaint();
+  } else if (!m_zoom_completed) {
+    update_render_mode();
   }
 
   if (!m_exit_after_load || m_layers.empty()) {
@@ -777,12 +785,20 @@ void Main3DWindow::run_blaze_with_config(const Config& config, QDialog* config_d
 
   const fs::path output_dir = config.output_path();
 
+  // Detach config_dialog from the main-window parent so that closing the
+  // main window during processing does not cascade-delete the dialog (and
+  // the ConfigEditor / Config it owns).  The completion callbacks still
+  // call deleteLater() to reclaim it.  Guard both heap objects with
+  // QPointer so the background thread can bail out if they disappear.
+  config_dialog->setParent(nullptr);
+  QPointer<ProgressBox> progress_guard(progress_box);
+  QPointer<QDialog> dialog_guard(config_dialog);
+
   progress_box->start_task(
       // Task: run Blaze in background thread
-      // Capture config by reference - it's safe because we keep the dialog alive
-      // via the config_dialog pointer captured in the completion callbacks
-      [&config, progress_box]() {
-        run_with_config(config, std::vector<fs::path>(), ProgressTracker(progress_box));
+      [&config, progress_guard, dialog_guard]() {
+        if (!progress_guard || !dialog_guard) return;
+        run_with_config(config, std::vector<fs::path>(), ProgressTracker(progress_guard.data()));
       },
 
       // On success: import the results and clean up dialog
@@ -798,7 +814,8 @@ void Main3DWindow::run_blaze_with_config(const Config& config, QDialog* config_d
 
       // On error: show error message and clean up dialog
       [this, config_dialog](const QString& error_message) {
-        QMessageBox::critical(this, "Blaze Error", "Processing failed:\n\n" + error_message);
+        show_error_message(this, "Blaze Error",
+                           QString("Processing failed:\n\n%1").arg(error_message));
         if (config_dialog) {
           config_dialog->deleteLater();
         }

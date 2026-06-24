@@ -263,8 +263,8 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+          packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
           version: 1.1
           execute_install_scripts: true
       # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and
@@ -345,7 +345,7 @@ jobs:
           # of which break macdeployqt's framework deployment in ways that
           # require ugly manual workarounds. The official Qt distribution
           # is what macdeployqt was designed for and "just works".
-          brew install cmake ninja ccache gdal opencv libomp openblas lapack
+          brew install cmake ninja ccache gdal libomp openblas lapack
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:

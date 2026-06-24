@@ -8,7 +8,7 @@
 # Output: macos-build/Blaze-<version>-macOS-<arch>.dmg
 #
 # Prerequisites (install with ./scripts/install-macos-deps.sh):
-#   brew install cmake ninja ccache gdal opencv qt@6 libomp openblas lapack
+#   brew install cmake ninja ccache gdal qt@6 libomp openblas lapack
 #
 # Note: this uses Homebrew's macdeployqt, which requires manual post-processing
 # to add the Qt platform plugins it misses (see step 5 below). The official CI

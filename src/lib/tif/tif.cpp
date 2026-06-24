@@ -40,8 +40,8 @@ constexpr GDALDataType gdal_type() {
   }
 }
 
-Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename) {
-  TimeFunction timer("reading tif " + filename.string());
+Geo<MultiBand<FlexGrid>> read_tif(const fs::path& filename, ProgressTracker* progress_tracker) {
+  TimeFunction timer("reading tif " + filename.string(), progress_tracker);
   Assert(fs::exists(filename), "File " + filename.string() + " does not seem to exist");
   ensure_gdal_initialized();
   GDALDataset* dataset = (GDALDataset*)GDALOpen(filename.string().c_str(), GA_ReadOnly);
@@ -89,7 +89,16 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
   char** options = nullptr;
   options = CSLSetNameValue(options, "COMPRESS", "LZW");
   options = CSLSetNameValue(options, "NUM_THREADS", "8");
-  options = CSLSetNameValue(options, "ALPHA", "YES");
+
+  // Only set ALPHA=YES for types that actually have a transparency band.
+  // Optional types (2 bands: data + alpha) have alpha; Color types (3 bands:
+  // RGB) and scalar types (1 band) do not.
+  if constexpr (!std::is_same_v<GridT, MultiBand<FlexGrid>>) {
+    using T = typename GridT::value_type;
+    if constexpr (IS_STD_OPTIONAL_V<T>) {
+      options = CSLSetNameValue(options, "ALPHA", "YES");
+    }
+  }
 
   uint64_t estimated_size =
       (uint64_t)grid.width() * grid.height() * bands * GDALGetDataTypeSizeBytes(datatype);
@@ -213,7 +222,8 @@ void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
       if constexpr (std::is_same_v<T, bool>) {
         result[{j, i}] = grid[{j, i}] ? std::byte(255) : std::byte(0);
       } else {
-        result[{j, i}] = static_cast<std::byte>(255 * (grid[{j, i}] - min) / (max - min));
+        double normalized = 255.0 * (grid[{j, i}] - min) / (max - min);
+        result[{j, i}] = static_cast<std::byte>(std::clamp(normalized, 0.0, 255.0));
       }
     }
   }

@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+          packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
           version: 1.1
           execute_install_scripts: true
       # libblas.so.3 are update-alternatives-managed symlinks; cache-apt-pkgs-action
@@ -72,9 +72,8 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
-            libpdal-dev
+          packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build libpdal-dev
           version: 1.1
           execute_install_scripts: true
       - name: Install LAPACK/BLAS
@@ -131,8 +130,8 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev mold ninja-build
+          packages: libgdal-dev cmake libomp-dev qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev mold ninja-build
           version: 1.1
           execute_install_scripts: true
       - name: Install LAPACK/BLAS
@@ -168,8 +167,8 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev mold ninja-build
+          packages: libgdal-dev cmake libomp-dev qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev mold ninja-build
           version: 1.1
           execute_install_scripts: true
       - name: Install LAPACK/BLAS

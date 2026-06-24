@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <memory>
 #include <optional>
 #include <string>
@@ -23,12 +24,24 @@ class ProgressObserver {
   friend class ProgressTracker;
 };
 
+// CLI terminal progress: ProgressTracker updates propagate immediately to all observers;
+// only stdout printing is rate-limited here. GUI observers (ProgressBox, etc.) are unaffected.
 class ProgressBar : public ProgressObserver {
-  double m_last_progress = -1;
+  static constexpr std::chrono::milliseconds PRINT_INTERVAL{500};
+
+  double m_last_printed_progress = -1;
+  double m_latest_progress = -1;
+  std::chrono::steady_clock::time_point m_last_print_time{};
+
+  void print_progress(double progress);
+  void maybe_print_progress(double progress);
 
  protected:
   virtual void update_progress(double progress) override;
   virtual void text_update(const std::string& text, int depth = 0) override;
+
+ public:
+  ~ProgressBar() override;
 };
 
 class ProgressTracker : public ProgressObserver {

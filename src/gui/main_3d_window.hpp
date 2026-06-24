@@ -134,6 +134,7 @@ class Main3DWindow : public QMainWindow {
   bool m_updating_point_cloud_ui = false;
   bool m_updating_surface_ui = false;
   bool m_zoom_after_load = false;
+  bool m_zoom_completed = false;
 
   void setup_animation_panel();
   void setup_point_cloud_panel();

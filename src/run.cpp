@@ -25,7 +25,7 @@
 
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
                      ProgressTracker&& tracker) {
-  std::cout << "Using " << omp_get_max_threads() << " threads for processing." << std::endl;
+  tracker.text_update(to_string("Using ", omp_get_max_threads(), " threads for processing."));
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path& las_file : config.las_filepaths()) {
     if (!fs::exists(las_file)) {
@@ -99,8 +99,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   double current_time = LOAD_EXTENTS_TIME / total_time;
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
-    TimeFunction timer(to_string("processing step ", step));
-    tracker.text_update(to_string("Processing step ", step));
+    TimeFunction timer(to_string("processing step ", step), &tracker);
     ProgressTracker step_tracker =
         tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time, false);
     current_time += time_ratios[idx++] / total_time;
@@ -151,7 +150,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               "raw_vege/smoothed_green.tif", "raw_vege/smoothed_canopy.tif"}) {
           // for (const std::string filename :
           //{"filled_dem.tif"}) {
-          TimeFunction combining_timer("Combining " + filename);
+          TimeFunction combining_timer("Combining " + filename, &step_tracker);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;
 
@@ -163,7 +162,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               std::cerr << "Image " << img_path << " does not exist" << std::endl;
               continue;
             }
-            grids.emplace_back(read_tif(img_path));
+            grids.emplace_back(read_tif(img_path, &step_tracker));
             if (!projection.has_value()) {
               projection = grids.back().projection().to_string();
             } else {
@@ -187,10 +186,10 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           size_t height = (extent.maxy - extent.miny) / (std::abs(*dy));
 
           size_t required_memory = width * height * grids[0].size() * grids[0][0].n_bytes();
-          std::cout << "Creating combined grid with dimensions " << width << "x" << height
-                    << " requiring " << (double)required_memory / 1e9 << " GB" << std::endl;
+          step_tracker.text_update(to_string("Creating combined grid with dimensions ", width, "x",
+                                             height, " requiring ", required_memory / 1e9, " GB"));
           if (required_memory > 16e9) {
-            std::cout << "Skipping " << filename << " due to memory requirements" << std::endl;
+            step_tracker.text_update("Skipping " + filename + " due to memory requirements");
             continue;
           }
           Geo<MultiBand<FlexGrid>> combined_grid(
@@ -263,7 +262,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               }
 
               contour_tracker.text_update("Reading " + gpkg_path.filename().string());
-              std::vector<Contour> contours = read_gpkg(gpkg_path);
+              std::vector<Contour> contours = read_gpkg(gpkg_path, &contour_tracker);
               for (Contour& contour : contours) {
                 contours_by_height[contour.height()].push_back(contour);
               }
@@ -306,11 +305,11 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             }
           }
 
-          write_to_crt(config.output_path() / "combined" / "contours.crt");
+          write_to_crt(config.output_path() / "combined" / "contours.crt", &gpkg_tracker);
 
           combine_vege_gpkgs(combine_dirs, config.output_path() / "combined", projection.value(),
                              gpkg_tracker.subtracker(0.35, 0.65));
-          write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt");
+          write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt", &gpkg_tracker);
 
           {
             const fs::path combined_dir = config.output_path() / "combined";
@@ -325,7 +324,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               combine_gpkgs(map_sources, combined_dir / "map.gpkg", "", std::move(map_tracker));
             }
             if (fs::exists(combined_dir / "map.gpkg")) {
-              write_to_crt(combined_dir / "map.crt");
+              write_to_crt(combined_dir / "map.crt", &gpkg_tracker);
             }
           }
         }
@@ -344,7 +343,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         std::cerr << "Warning: failed to delete tile folder " << dir << ": " << ec.message()
                   << std::endl;
       } else {
-        std::cout << "Deleted tile folder: " << dir << std::endl;
+        tracker.text_update("Deleted tile folder: " + dir.string());
       }
     }
   }

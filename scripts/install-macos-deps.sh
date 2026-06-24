@@ -12,7 +12,6 @@ brew install \
     ninja \
     ccache \
     gdal \
-    opencv \
     qt@6 \
     libomp \
     openblas \

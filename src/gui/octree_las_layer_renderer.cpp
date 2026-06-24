@@ -46,6 +46,21 @@ OctreeLASLayerRenderer::OctreeLASLayerRenderer(std::shared_ptr<LASLayer> layer,
                                                const Coordinate3D<double>& /*offset*/)
     : m_layer(layer) {}
 
+OctreeLASLayerRenderer::~OctreeLASLayerRenderer() {
+  if (m_gpu_timer_query != 0) {
+    // Try to clean up the GPU query if a context is available.
+    // If the context has already been destroyed, the resource will
+    // be reclaimed by the driver on context teardown.
+    if (auto* ctx = QOpenGLContext::currentContext()) {
+      auto* gl = ctx->extraFunctions();
+      if (gl) {
+        gl->glDeleteQueries(1, &m_gpu_timer_query);
+      }
+    }
+    m_gpu_timer_query = 0;
+  }
+}
+
 void OctreeLASLayerRenderer::ensure_shader() {
   if (m_shader) {
     return;

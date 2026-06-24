@@ -1,5 +1,6 @@
 #include "grid.hpp"
 
+#include <iostream>
 #include <span>
 
 #include "gdal_priv.h"
@@ -130,10 +131,10 @@ T interpolate_value(const GeoGrid<T>& grid, const Coordinate2D<double>& projecti
   Coordinate2D<double> pixel_coord = grid.transform().projection_to_pixel(projection_coord);
   if (pixel_coord.x() < 0 || pixel_coord.y() < 0 || pixel_coord.x() >= grid.width() ||
       pixel_coord.y() >= grid.height()) {
-    std::cout << "Interpolation out of bounds" << std::endl;
-    std::cout << "Projection coord: " << projection_coord << std::endl;
-    std::cout << "Pixel coord: " << pixel_coord << std::endl;
-    std::cout << "Grid size: " << grid.width() << ", " << grid.height() << std::endl;
+    std::cerr << "Interpolation out of bounds" << std::endl;
+    std::cerr << "Projection coord: " << projection_coord << std::endl;
+    std::cerr << "Pixel coord: " << pixel_coord << std::endl;
+    std::cerr << "Grid size: " << grid.width() << ", " << grid.height() << std::endl;
     Fail("Interpolation out of bounds");
   }
   if (pixel_coord.x() <= 0.5 || pixel_coord.y() <= 0.5 || pixel_coord.x() >= grid.width() - 0.5 ||

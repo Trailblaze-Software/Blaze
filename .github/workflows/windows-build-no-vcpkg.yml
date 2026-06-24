@@ -20,9 +20,6 @@ jobs:
           if ($env:GDAL_DIR) {
             echo "GDAL_DIR=$env:GDAL_DIR" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           }
-          if ($env:OpenCV_DIR) {
-            echo "OpenCV_DIR=$env:OpenCV_DIR" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          }
           if ($env:CMAKE_PREFIX_PATH) {
             echo "CMAKE_PREFIX_PATH=$env:CMAKE_PREFIX_PATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           }

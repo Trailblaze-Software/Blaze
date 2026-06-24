@@ -3,6 +3,8 @@ target_sources(
   PRIVATE main_window.ui
           main.cpp
           main_window.cpp
+          error_dialog.hpp
+          error_dialog.cpp
           progress_box.hpp
           main_window.hpp
           progress_box.cpp
@@ -40,6 +42,8 @@ if(BLAZE_BUILD_3D_GUI)
             config_editor.hpp
             config_editor.cpp
             config_editor.ui
+            error_dialog.hpp
+            error_dialog.cpp
             progress_box.hpp
             progress_box.cpp
             progress_box.ui)

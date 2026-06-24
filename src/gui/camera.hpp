@@ -2,13 +2,15 @@
 
 #include <QMatrix4x4>
 #include <algorithm>
+#include <cmath>
+#include <numbers>
 #include <optional>
 
 #include "utilities/coordinate.hpp"
 
-inline double deg2rad(double deg) { return deg * M_PI / 180.0; }
+inline double deg2rad(double deg) { return deg * std::numbers::pi / 180.0; }
 
-inline double rad2deg(double rad) { return rad * 180.0 / M_PI; }
+inline double rad2deg(double rad) { return rad * 180.0 / std::numbers::pi; }
 
 class Camera {
   QVector3D m_position;

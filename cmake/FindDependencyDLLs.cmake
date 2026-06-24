@@ -69,7 +69,7 @@ function(find_and_copy_dependency_dlls)
     return()
   endif()
 
-  # For non-vcpkg builds, find and copy GDAL and OpenCV DLLs
+  # For non-vcpkg builds, find and copy GDAL DLLs
 
   include(GNUInstallDirs)
 
@@ -134,63 +134,5 @@ function(find_and_copy_dependency_dlls)
         install(FILES "${dll}" DESTINATION ${CMAKE_INSTALL_BINDIR})
       endforeach()
     endif()
-  endif()
-
-  # Get OpenCV DLLs from OpenCV_DIR
-  if(OpenCV_FOUND AND DEFINED OpenCV_DIR)
-    # OpenCV DLLs can be in various locations depending on installation
-    # Prioritize VS version-specific paths (x64/vc16/bin) as they have the
-    # actual DLLs
-    set(OpenCV_SEARCH_PATHS)
-    # Check for VS version-specific paths first (x64/vc16/bin, etc.)
-    file(GLOB vs_paths "${OpenCV_DIR}/x64/vc*/bin")
-    list(APPEND OpenCV_SEARCH_PATHS ${vs_paths})
-    # Also check build/x64/vc*/bin if OpenCV_DIR is the build directory
-    file(GLOB build_vs_paths "${OpenCV_DIR}/build/x64/vc*/bin")
-    list(APPEND OpenCV_SEARCH_PATHS ${build_vs_paths})
-    # Fallback to generic bin directories
-    list(APPEND OpenCV_SEARCH_PATHS "${OpenCV_DIR}/build/bin"
-         "${OpenCV_DIR}/bin")
-
-    # Find the first directory with OpenCV DLLs and get all DLLs from there
-    set(OpenCV_BIN_DIR)
-    foreach(search_path ${OpenCV_SEARCH_PATHS})
-      get_filename_component(normalized_path "${search_path}" ABSOLUTE)
-      file(GLOB test_dlls "${normalized_path}/opencv_*.dll")
-      if(test_dlls)
-        set(OpenCV_BIN_DIR "${normalized_path}")
-        break()
-      endif()
-    endforeach()
-
-    set(OpenCV_DLLS)
-    if(OpenCV_BIN_DIR)
-      file(GLOB OpenCV_DLLS "${OpenCV_BIN_DIR}/opencv_*.dll")
-      list(REMOVE_DUPLICATES OpenCV_DLLS)
-      if(OpenCV_DLLS)
-        list(LENGTH OpenCV_DLLS DLL_COUNT)
-        message(STATUS "Found OpenCV DLLs in: ${OpenCV_BIN_DIR}")
-        message(STATUS "  Copying ${DLL_COUNT} OpenCV DLL(s)")
-      else()
-        message(WARNING "No OpenCV DLLs found in: ${OpenCV_BIN_DIR}")
-      endif()
-    else()
-      message(
-        WARNING "OpenCV DLLs not found. Searched in: ${OpenCV_SEARCH_PATHS}")
-    endif()
-
-    foreach(dll ${OpenCV_DLLS})
-      foreach(target ${ARGN})
-        if(TARGET ${target})
-          add_custom_command(
-            TARGET ${target}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${dll}"
-                    "$<TARGET_FILE_DIR:${target}>"
-            COMMENT "Copying ${dll} to ${target} output directory")
-        endif()
-      endforeach()
-      install(FILES "${dll}" DESTINATION ${CMAKE_INSTALL_BINDIR})
-    endforeach()
   endif()
 endfunction()

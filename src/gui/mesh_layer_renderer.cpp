@@ -111,8 +111,18 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
         m_shader.reset();
         return;
       }
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src);
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src);
+      if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src)) {
+        std::cout << "Mesh textured vertex shader compile error: " << m_shader->log().toStdString()
+                  << std::endl;
+        m_shader.reset();
+        return;
+      }
+      if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src)) {
+        std::cout << "Mesh textured fragment shader compile error: "
+                  << m_shader->log().toStdString() << std::endl;
+        m_shader.reset();
+        return;
+      }
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("texcoord", 1);
     } else {
@@ -123,8 +133,18 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
         m_shader.reset();
         return;
       }
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src);
-      m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src);
+      if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_src)) {
+        std::cout << "Mesh vertex shader compile error: " << m_shader->log().toStdString()
+                  << std::endl;
+        m_shader.reset();
+        return;
+      }
+      if (!m_shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_src)) {
+        std::cout << "Mesh fragment shader compile error: " << m_shader->log().toStdString()
+                  << std::endl;
+        m_shader.reset();
+        return;
+      }
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("color", 1);
     }
