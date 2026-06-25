@@ -2,6 +2,7 @@
 
 #include <gdal.h>
 
+#include <algorithm>
 #include <optional>
 #include <type_traits>
 

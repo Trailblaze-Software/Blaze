@@ -71,22 +71,14 @@ void GeoImgGrid::draw(const GeoImgGrid& other, std::optional<int> interpolation)
   blaze::Image dest_roi = m_img->slice(roi);
 
   if (resized_roi.channels() == 4 && m_img->channels() == 4) {
-    blaze::Image alpha_other, alpha_m_img;
-    resized_roi.extract_channel(alpha_other, 3);
-    dest_roi.extract_channel(alpha_m_img, 3);
-
     blaze::Image blended_img(dest_roi.width(), dest_roi.height());
 #pragma omp parallel for
     for (int y = 0; y < dest_roi.rows(); ++y) {
       for (int x = 0; x < dest_roi.cols(); ++x) {
-        // Get alpha values (0-255) and normalize to 0-1
-        RGBColor alpha_other_color = alpha_other.at(y, x);
-        RGBColor alpha_m_img_color = alpha_m_img.at(y, x);
-        float alpha = alpha_other_color.getRed() / 255.0f;
-        float beta = alpha_m_img_color.getRed() / 255.0f;
-
         RGBColor color_resized = resized_roi.at(y, x);
         RGBColor color_m_img = dest_roi.at(y, x);
+        float alpha = color_resized.getAlpha() / 255.0f;
+        float beta = color_m_img.getAlpha() / 255.0f;
 
         // Standard alpha blending: result = foreground * alpha + background * (1 - alpha)
         // When both have alpha: result = (fg * a_fg + bg * a_bg * (1 - a_fg)) / (a_fg + a_bg * (1 -
