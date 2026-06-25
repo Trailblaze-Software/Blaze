@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1225</width>
-    <height>915</height>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -53,16 +53,6 @@
       <property name="spacing">
        <number>7</number>
       </property>
-      <item>
-       <widget class="QFrame" name="frame_2">
-        <property name="frameShape">
-         <enum>QFrame::Shape::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Shadow::Raised</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>
@@ -84,6 +74,9 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionImportBlazeOutput"/>
+    <addaction name="actionRunBlaze"/>
+    <addaction name="actionLightingSettings"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -116,6 +109,12 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QTreeWidget" name="treeWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
        <column>
         <property name="text">
          <string>Layers</string>
@@ -123,24 +122,14 @@
        </column>
       </widget>
      </item>
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
     </layout>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
+   <property name="visible">
+    <bool>false</bool>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -151,6 +140,24 @@
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="actionImportBlazeOutput">
+   <property name="text">
+    <string>Import Blaze Output...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionRunBlaze">
+   <property name="text">
+    <string>Run Blaze Calculation...</string>
+   </property>
+  </action>
+  <action name="actionLightingSettings">
+   <property name="text">
+    <string>Lighting Settings...</string>
+   </property>
+  </action>
   <action name="actionOpen">
    <property name="icon">
     <iconset theme="document-open"/>

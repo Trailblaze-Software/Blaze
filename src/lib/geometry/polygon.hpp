@@ -83,6 +83,61 @@ inline void normalize_polygon(PolygonWithHoles& poly) {
   }
 }
 
+inline void dedupe_consecutive_ring_vertices(std::vector<Coordinate2D<double>>& ring,
+                                             double tolerance = 1e-9) {
+  if (ring.size() < 2) {
+    return;
+  }
+  std::vector<Coordinate2D<double>> cleaned;
+  cleaned.reserve(ring.size());
+  for (const Coordinate2D<double>& vertex : ring) {
+    if (!cleaned.empty()) {
+      const double dx = vertex.x() - cleaned.back().x();
+      const double dy = vertex.y() - cleaned.back().y();
+      if (dx * dx + dy * dy < tolerance * tolerance) {
+        continue;
+      }
+    }
+    cleaned.push_back(vertex);
+  }
+  ring = std::move(cleaned);
+}
+
+// Snap vertices near axis-aligned extent edges (e.g. tile seams, clip bounds).
+inline void snap_ring_to_extent(std::vector<Coordinate2D<double>>& ring, const Extent2D& extent,
+                                double tolerance) {
+  for (Coordinate2D<double>& vertex : ring) {
+    double x = vertex.x();
+    double y = vertex.y();
+    const double dx_min = std::abs(x - extent.minx);
+    const double dx_max = std::abs(x - extent.maxx);
+    if (dx_min <= tolerance && dx_min <= dx_max) {
+      x = extent.minx;
+    } else if (dx_max <= tolerance) {
+      x = extent.maxx;
+    }
+    const double dy_min = std::abs(y - extent.miny);
+    const double dy_max = std::abs(y - extent.maxy);
+    if (dy_min <= tolerance && dy_min <= dy_max) {
+      y = extent.miny;
+    } else if (dy_max <= tolerance) {
+      y = extent.maxy;
+    }
+    vertex = Coordinate2D<double>(x, y);
+  }
+  dedupe_consecutive_ring_vertices(ring, tolerance);
+}
+
+inline void snap_polygon_to_extents(PolygonWithHoles& poly, const std::vector<Extent2D>& extents,
+                                    double tolerance) {
+  for (const Extent2D& extent : extents) {
+    snap_ring_to_extent(poly.exterior, extent, tolerance);
+    for (std::vector<Coordinate2D<double>>& hole : poly.holes) {
+      snap_ring_to_extent(hole, extent, tolerance);
+    }
+  }
+}
+
 // Intersection of segment (a1,a2) with the infinite line through (b1,b2).
 // Returns true and writes the intersection point to `out` when the segment
 // crosses the line (t in [0,1]). The clip edge is treated as a line — the

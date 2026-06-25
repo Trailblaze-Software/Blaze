@@ -24,7 +24,9 @@ include(FetchContent)
 if(NOT DEFINED BLAZE_FETCHCONTENT_BASE_DIR)
   set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/deps)
 else()
-  set(FETCHCONTENT_BASE_DIR ${BLAZE_FETCHCONTENT_BASE_DIR})
+  # Resolve to absolute so unexpanded shell vars like $(pwd) don't reach ninja
+  get_filename_component(FETCHCONTENT_BASE_DIR "${BLAZE_FETCHCONTENT_BASE_DIR}"
+                         ABSOLUTE)
 endif()
 
 option(BLAZE_CLI_ONLY "Build Blaze CLI only" OFF)
@@ -60,7 +62,9 @@ if(WIN32 AND BLAZE_USE_VCPKG)
   # stays TRUE so the *installed*/packaged GUI binaries still get their deps.
   set(VCPKG_APPLOCAL_DEPS OFF)
 
-  set(VCPKG_BUILD_TYPE "release")
+  # Don't restrict to release-only builds - allow vcpkg to build both Debug and
+  # Release This enables proper debugging with Debug builds while keeping
+  # Release optimized
   FetchContent_Declare(
     vcpkg
     GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
@@ -139,22 +143,9 @@ find_package(GDAL REQUIRED)
 set(OpenMP_RUNTIME_MSVC "llvm")
 find_package(OpenMP REQUIRED)
 
-set(OpenCV_STATIC ON)
-find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
-
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Force CMake to use compiler for dependency scanning on Windows to detect file
-# changes
-if(WIN32 AND MSVC)
-  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
-    set(CMAKE_DEPENDS_USE_COMPILER
-        TRUE
-        CACHE BOOL "Use compiler for dependency scanning" FORCE)
-  endif()
-endif()
 if(WIN32)
   if(${CMAKE_CXX_COMPILER} MATCHES ".*mingw.*")
     set(CMAKE_CXX_FLAGS
@@ -251,8 +242,13 @@ if(NOT BLAZE_CLI_ONLY)
     target_link_libraries(
       ${GUI_3D_EXE_NAME} PRIVATE Qt6::Widgets Qt6::Concurrent Qt6::OpenGL
                                  Qt6::OpenGLWidgets)
-    set_target_properties(${GUI_3D_EXE_NAME} PROPERTIES WIN32_EXECUTABLE ON
-                                                        MACOSX_BUNDLE ON)
+    target_include_directories(${GUI_3D_EXE_NAME}
+                               PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/lib)
+    set_target_properties(
+      ${GUI_3D_EXE_NAME}
+      PROPERTIES WIN32_EXECUTABLE ON
+                 MACOSX_BUNDLE ON
+                 AUTORCC ON)
 
     qt_import_plugins(${GUI_3D_EXE_NAME} INCLUDE_BY_TYPE imageformats
                       Qt6::QTiffPlugin)
@@ -302,7 +298,7 @@ set(LASPP_DEBUG_ASSERTS
 FetchContent_Declare(
   las++
   GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
-  GIT_TAG a55eff6227db23de27b177c87ce315d7cca83004)
+  GIT_TAG e8834593bb430072a22224bb495746460e99900f)
 FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
@@ -341,11 +337,9 @@ foreach(target ${ALL_TARGETS})
       target_compile_definitions(${target} PRIVATE ${PDAL_DEFINITIONS})
     endif()
   endif()
-  target_link_libraries(
-    ${target} PRIVATE GDAL::GDAL OpenMP::OpenMP_CXX
-                      nlohmann_json::nlohmann_json ${OpenCV_LIBS})
-  target_include_directories(${target} PRIVATE ${GDAL_INCLUDE_DIRS}
-                                               ${OpenCV_INCLUDE_DIRS})
+  target_link_libraries(${target} PRIVATE GDAL::GDAL OpenMP::OpenMP_CXX
+                                          nlohmann_json::nlohmann_json)
+  target_include_directories(${target} PRIVATE ${GDAL_INCLUDE_DIRS})
 endforeach()
 
 foreach(target ${ALL_EXECUTABLES})
@@ -392,9 +386,24 @@ target_link_libraries(${UNIT_TESTS_NAME} PRIVATE gtest)
 
 add_subdirectory(src)
 
-gtest_discover_tests(${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120)
+# unit_tests links blaze_lib and (when Blaze3D is enabled) Qt6::Gui. On Windows
+# and macOS the transitive runtime deps are not reliably loadable at link time,
+# so gtest_discover_tests must not execute the binary during the build — only
+# when ctest runs, after POST_BUILD DLL deployment / rpath setup.
+gtest_discover_tests(
+  ${UNIT_TESTS_NAME} DISCOVERY_TIMEOUT 120 DISCOVERY_MODE PRE_TEST
+  WORKING_DIRECTORY "$<TARGET_FILE_DIR:${UNIT_TESTS_NAME}>")
 
 include(GNUInstallDirs)
+# Ensure assets land at <prefix>/share/assets. GNUInstallDirs may leave
+# CMAKE_INSTALL_DATADIR unset depending on CMake version/platform; copying
+# DATAROOTDIR alone is not enough when both are still empty at configure time.
+if(NOT CMAKE_INSTALL_DATADIR)
+  set(CMAKE_INSTALL_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}")
+endif()
+if(NOT CMAKE_INSTALL_DATADIR)
+  set(CMAKE_INSTALL_DATADIR "share")
+endif()
 
 install(
   TARGETS ${CLI_EXE_NAME}
@@ -437,6 +446,12 @@ if(NOT BLAZE_CLI_ONLY)
   endif()
 
   if(WIN32)
+    # Compute vcpkg triplet install path for qtpaths.  This is needed so the
+    # generated deploy script can find Qt tools at install time.
+    if(DEFINED VCPKG_INSTALLED_DIR AND DEFINED VCPKG_TARGET_TRIPLET)
+      set(WINDOWS_DEPENDENCY_VCPKG_DIR
+          "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}")
+    endif()
     qt_generate_deploy_app_script(
       TARGET
       ${GUI_EXE_NAME}

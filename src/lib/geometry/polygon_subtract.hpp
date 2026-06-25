@@ -14,10 +14,48 @@
 namespace detail {
 
 inline void fill_ogr_ring(OGRLinearRing& ring, const std::vector<Coordinate2D<double>>& vertices) {
+  constexpr double DUPLICATE_VERTEX_TOLERANCE = 1e-9;
   for (const auto& vertex : vertices) {
+    if (ring.getNumPoints() > 0) {
+      const double dx = vertex.x() - ring.getX(ring.getNumPoints() - 1);
+      const double dy = vertex.y() - ring.getY(ring.getNumPoints() - 1);
+      if (dx * dx + dy * dy < DUPLICATE_VERTEX_TOLERANCE * DUPLICATE_VERTEX_TOLERANCE) {
+        continue;
+      }
+    }
     ring.addPoint(vertex.x(), vertex.y());
   }
   ring.closeRings();
+}
+
+// Repair invalid polygon geometry before GEOS boolean ops (self-intersections from
+// contour polygonization or tile-boundary clipping are common).
+inline std::unique_ptr<OGRGeometry> repair_ogr_geometry(std::unique_ptr<OGRGeometry> geom) {
+  if (!geom || geom->IsEmpty()) {
+    return geom;
+  }
+
+  const OGRwkbGeometryType type = wkbFlatten(geom->getGeometryType());
+  if (type != wkbPolygon && type != wkbMultiPolygon) {
+    return geom;
+  }
+
+  CPLErrorHandler previous_handler = CPLSetErrorHandler(CPLQuietErrorHandler);
+  const bool valid = geom->IsValid();
+  std::unique_ptr<OGRGeometry> repaired;
+  if (!valid) {
+    repaired.reset(geom->MakeValid());
+    if (!repaired || repaired->IsEmpty() || !repaired->IsValid()) {
+      repaired.reset(geom->Buffer(0.0));
+    }
+  }
+  CPLSetErrorHandler(previous_handler);
+
+  if (repaired && !repaired->IsEmpty()) {
+    return repaired;
+  }
+
+  return geom;
 }
 
 inline std::unique_ptr<OGRGeometry> polygon_to_ogr(const PolygonWithHoles& poly) {
@@ -34,7 +72,7 @@ inline std::unique_ptr<OGRGeometry> polygon_to_ogr(const PolygonWithHoles& poly)
       return nullptr;
     }
   }
-  return std::unique_ptr<OGRGeometry>(ogr.clone());
+  return repair_ogr_geometry(std::unique_ptr<OGRGeometry>(ogr.clone()));
 }
 
 inline std::unique_ptr<OGRGeometry> ring_to_ogr(
@@ -86,6 +124,11 @@ inline void append_polygons_from_ogr(const OGRGeometry* geometry,
     const auto* multi = static_cast<const OGRMultiPolygon*>(geometry);
     for (int i = 0; i < multi->getNumGeometries(); i++) {
       out.push_back(polygon_from_ogr(static_cast<const OGRPolygon*>(multi->getGeometryRef(i))));
+    }
+  } else if (type == wkbGeometryCollection) {
+    const auto* collection = static_cast<const OGRGeometryCollection*>(geometry);
+    for (int i = 0; i < collection->getNumGeometries(); i++) {
+      append_polygons_from_ogr(collection->getGeometryRef(i), out);
     }
   }
 }
@@ -178,7 +221,8 @@ inline std::unique_ptr<OGRGeometry> build_cutout_union(
     next.reserve((geoms.size() + 1) / 2);
     for (size_t i = 0; i < geoms.size(); i += 2) {
       if (i + 1 < geoms.size()) {
-        std::unique_ptr<OGRGeometry> merged(geoms[i]->Union(geoms[i + 1].get()));
+        std::unique_ptr<OGRGeometry> merged(
+            repair_ogr_geometry(std::unique_ptr<OGRGeometry>(geoms[i]->Union(geoms[i + 1].get()))));
         if (merged && !merged->IsEmpty()) {
           next.push_back(std::move(merged));
         } else if (geoms[i] && !geoms[i]->IsEmpty()) {
@@ -196,6 +240,32 @@ inline std::unique_ptr<OGRGeometry> build_cutout_union(
 }
 
 }  // namespace detail
+
+// Snap seam/clip vertices, then repair via GEOS. May return multiple polygons.
+inline std::vector<PolygonWithHoles> finalize_polygon_with_holes(
+    PolygonWithHoles poly, const std::vector<Extent2D>& snap_extents = {},
+    double snap_tolerance = 0.01) {
+  normalize_polygon(poly);
+  if (poly.exterior.size() < 3) {
+    return {};
+  }
+  if (!snap_extents.empty()) {
+    snap_polygon_to_extents(poly, snap_extents, snap_tolerance);
+    normalize_polygon(poly);
+  }
+  if (poly.exterior.size() < 3) {
+    return {};
+  }
+
+  ensure_gdal_initialized();
+  auto geom = detail::polygon_to_ogr(poly);
+  if (!geom) {
+    return {};
+  }
+  std::vector<PolygonWithHoles> result;
+  detail::append_polygons_from_ogr(geom.get(), result);
+  return result;
+}
 
 // Union polygons that overlap or touch. Disjoint polygons are left separate.
 inline std::vector<PolygonWithHoles> union_overlapping_polygons(
@@ -259,10 +329,10 @@ inline std::vector<PolygonWithHoles> union_overlapping_polygons(
   const double height = bounds.maxy - bounds.miny;
   const double cell_size =
       std::max(50.0, std::sqrt(width * height / std::max(valid_count, size_t(1))));
-  constexpr double seam_tolerance = 0.01;
+  constexpr double SEAM_TOLERANCE = 0.01;
   const auto padded = [](const Extent2D& ext) {
-    return Extent2D{ext.minx - seam_tolerance, ext.maxx + seam_tolerance, ext.miny - seam_tolerance,
-                    ext.maxy + seam_tolerance};
+    return Extent2D{ext.minx - SEAM_TOLERANCE, ext.maxx + SEAM_TOLERANCE, ext.miny - SEAM_TOLERANCE,
+                    ext.maxy + SEAM_TOLERANCE};
   };
   detail::ExtentSpatialIndex index(cell_size);
   for (size_t i = 0; i < n; ++i) {
@@ -358,7 +428,8 @@ inline std::vector<PolygonWithHoles> subtract_polygon(
     return {};
   }
 
-  std::unique_ptr<OGRGeometry> diff(host_geom->Difference(cut_union.get()));
+  std::unique_ptr<OGRGeometry> diff(detail::repair_ogr_geometry(
+      std::unique_ptr<OGRGeometry>(host_geom->Difference(cut_union.get()))));
   if (!diff || diff->IsEmpty()) {
     return {};
   }
@@ -396,7 +467,8 @@ inline std::vector<PolygonWithHoles> subtract_polygon_with_union(const PolygonWi
     return {};
   }
 
-  std::unique_ptr<OGRGeometry> diff(host_geom->Difference(cut_union));
+  std::unique_ptr<OGRGeometry> diff(
+      detail::repair_ogr_geometry(std::unique_ptr<OGRGeometry>(host_geom->Difference(cut_union))));
   if (!diff || diff->IsEmpty()) {
     return {};
   }
@@ -428,7 +500,8 @@ inline std::vector<PolygonWithHoles> intersect_polygon(const PolygonWithHoles& h
     return {};
   }
 
-  std::unique_ptr<OGRGeometry> intersection(host_geom->Intersection(clip_geom.get()));
+  std::unique_ptr<OGRGeometry> intersection(detail::repair_ogr_geometry(
+      std::unique_ptr<OGRGeometry>(host_geom->Intersection(clip_geom.get()))));
   if (!intersection || intersection->IsEmpty()) {
     return {};
   }

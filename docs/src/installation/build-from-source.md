@@ -10,7 +10,6 @@ Install the required dependencies:
 
 - CMake (build system)
 - GDAL (Geospatial Data Abstraction Library)
-- OpenCV (Computer Vision library)
 - Qt6 (GUI framework)
 - OpenMP (parallel processing)
 
@@ -58,7 +57,7 @@ Install the required dependencies using Homebrew:
 ./scripts/install-macos-deps.sh
 ```
 
-This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
+This installs: CMake, Ninja, ccache, GDAL, Qt6, libomp, OpenBLAS, and LAPACK.
 Homebrew will be installed automatically if it is not already present.
 
 ### Building from Source
@@ -124,7 +123,6 @@ This script installs:
 - CMake
 - Git
 - GDAL
-- OpenCV
 
 **Note:** You may need to run PowerShell as Administrator.
 

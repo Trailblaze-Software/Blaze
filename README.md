@@ -59,7 +59,6 @@ Download pre-built binaries from the [GitHub Releases page](https://github.com/T
 Install the required dependencies:
 - CMake (build system)
 - GDAL (Geospatial Data Abstraction Library)
-- OpenCV (Computer Vision library)
 - Qt6 (GUI framework)
 - OpenMP (parallel processing)
 
@@ -117,7 +116,6 @@ This script installs:
 - CMake
 - Git
 - GDAL
-- OpenCV
 
 **Note:** You may need to run PowerShell as Administrator.
 
@@ -172,7 +170,7 @@ Install the required dependencies using [Homebrew](https://brew.sh):
 ./scripts/install-macos-deps.sh
 ```
 
-This installs: CMake, Ninja, ccache, GDAL, OpenCV, Qt6, libomp, OpenBLAS, and LAPACK.
+This installs: CMake, Ninja, ccache, GDAL, Qt6, libomp, OpenBLAS, and LAPACK.
 
 #### Building from Source
 
@@ -240,7 +238,6 @@ Launch the desktop GUI:
 - **CMake**: 3.20 or higher
 - **C++ Compiler**: Supporting C++20 standard
 - **GDAL**: Geospatial Data Abstraction Library
-- **OpenCV**: 4.x or higher
 - **Qt6**: Required for GUI applications (Widgets, Concurrent, Core, Svg, OpenGL)
 - **OpenMP**: For parallel processing
 

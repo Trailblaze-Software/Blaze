@@ -208,8 +208,9 @@ class GPKGWriter {
   }
 };
 
-inline std::vector<Contour> read_gpkg(const fs::path& filename) {
-  TimeFunction timer("reading GPKG " + filename.string());
+inline std::vector<Contour> read_gpkg(const fs::path& filename,
+                                      ProgressTracker* progress_tracker = nullptr) {
+  TimeFunction timer("reading GPKG " + filename.string(), progress_tracker);
   std::vector<Contour> contours;
 
   ensure_gdal_initialized();
@@ -219,49 +220,55 @@ inline std::vector<Contour> read_gpkg(const fs::path& filename) {
     Fail("Failed to open GPKG file for reading: " + filename.string());
   }
 
-  int layer_count = dataset->GetLayerCount();
-  for (int i = 0; i < layer_count; i++) {
-    OGRLayer* layer = dataset->GetLayer(i);
-    if (!layer) continue;
+  // RAII guard: ensure GDALClose is called even if an exception is thrown
+  try {
+    int layer_count = dataset->GetLayerCount();
+    for (int i = 0; i < layer_count; i++) {
+      OGRLayer* layer = dataset->GetLayer(i);
+      if (!layer) continue;
 
-    OGRFeature* feature;
-    layer->ResetReading();
-    while ((feature = layer->GetNextFeature()) != nullptr) {
-      OGRGeometry* geometry = feature->GetGeometryRef();
-      if (!geometry || wkbFlatten(geometry->getGeometryType()) != wkbLineString) {
-        OGRFeature::DestroyFeature(feature);
-        continue;
-      }
+      OGRFeature* feature;
+      layer->ResetReading();
+      while ((feature = layer->GetNextFeature()) != nullptr) {
+        OGRGeometry* geometry = feature->GetGeometryRef();
+        if (!geometry || wkbFlatten(geometry->getGeometryType()) != wkbLineString) {
+          OGRFeature::DestroyFeature(feature);
+          continue;
+        }
 
-      OGRLineString* line = (OGRLineString*)geometry;
-      std::vector<Coordinate2D<double>> vertices;
-      for (int j = 0; j < line->getNumPoints(); j++) {
-        vertices.emplace_back(line->getX(j), line->getY(j));
-      }
+        OGRLineString* line = (OGRLineString*)geometry;
+        std::vector<Coordinate2D<double>> vertices;
+        for (int j = 0; j < line->getNumPoints(); j++) {
+          vertices.emplace_back(line->getX(j), line->getY(j));
+        }
 
-      // Try to get elevation from the "elevation" field, otherwise from "name" field
-      double height = 0.0;
-      int elevation_idx = feature->GetFieldIndex("elevation");
-      if (elevation_idx >= 0) {
-        height = feature->GetFieldAsDouble(elevation_idx);
-      } else {
-        int name_idx = feature->GetFieldIndex("name");
-        if (name_idx >= 0) {
-          const char* name = feature->GetFieldAsString(name_idx);
-          try {
-            height = std::stod(name);
-          } catch (...) {
-            // If name can't be parsed as double, use 0.0
+        // Try to get elevation from the "elevation" field, otherwise from "name" field
+        double height = 0.0;
+        int elevation_idx = feature->GetFieldIndex("elevation");
+        if (elevation_idx >= 0) {
+          height = feature->GetFieldAsDouble(elevation_idx);
+        } else {
+          int name_idx = feature->GetFieldIndex("name");
+          if (name_idx >= 0) {
+            const char* name = feature->GetFieldAsString(name_idx);
+            try {
+              height = std::stod(name);
+            } catch (...) {
+              // If name can't be parsed as double, use 0.0
+            }
           }
         }
-      }
 
-      if (vertices.size() > 1) {
-        contours.emplace_back(Contour(height, std::move(vertices)));
-      }
+        if (vertices.size() > 1) {
+          contours.emplace_back(Contour(height, std::move(vertices), layer->GetName()));
+        }
 
-      OGRFeature::DestroyFeature(feature);
+        OGRFeature::DestroyFeature(feature);
+      }
     }
+  } catch (...) {
+    GDALClose(dataset);
+    throw;
   }
 
   GDALClose(dataset);

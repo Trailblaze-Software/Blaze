@@ -1,5 +1,6 @@
 #include "progress_tracker.hpp"
 
+#include <cmath>
 #include <iostream>
 #include <optional>
 #include <utility>
@@ -8,16 +9,44 @@
 
 ProgressObserver::~ProgressObserver() {};
 
-void ProgressBar::update_progress(double progress) {
-  if (progress - m_last_progress < 0.0001) {
+void ProgressBar::print_progress(double progress) {
+  std::cout << "Progress: " << progress * 100 << "%" << std::endl;
+  m_last_printed_progress = progress;
+  m_last_print_time = std::chrono::steady_clock::now();
+}
+
+void ProgressBar::maybe_print_progress(double progress) {
+  const auto now = std::chrono::steady_clock::now();
+  const bool first_print = m_last_printed_progress < 0;
+  const bool finished = progress >= 1.0;
+  const bool due = first_print || (now - m_last_print_time) >= PRINT_INTERVAL;
+  if (!due && !finished) {
     return;
   }
-  std::cout << "Progress: " << progress * 100 << "%" << std::endl;
-  m_last_progress = progress;
+  if (progress - m_last_printed_progress < 0.0001 && !finished) {
+    return;
+  }
+  print_progress(progress);
+}
+
+void ProgressBar::update_progress(double progress) {
+  m_latest_progress = progress;
+  maybe_print_progress(progress);
+}
+
+ProgressBar::~ProgressBar() {
+  if (m_latest_progress < 0) {
+    return;
+  }
+  if (m_latest_progress - m_last_printed_progress >= 0.0001) {
+    print_progress(m_latest_progress);
+  }
 }
 
 void ProgressBar::text_update(const std::string& text, int depth) {
-  std::cout << std::string(2 * (depth - 1), ' ') << text << std::endl;
+  if (text.empty()) return;
+  const size_t indent = depth > 1 ? static_cast<size_t>(2 * (depth - 1)) : 0u;
+  std::cout << std::string(indent, ' ') << text << std::endl;
 };
 
 void ProgressTracker::_set_proportion(double proportion) {
@@ -40,10 +69,16 @@ ProgressTracker::ProgressTracker(ProgressObserver* observer)
   }
 }
 
-ProgressTracker::ProgressTracker(ProgressTracker&& other) {
-  m_proportion = other.m_proportion;
-  m_observer = other.m_observer;
+ProgressTracker::ProgressTracker(ProgressTracker&& other)
+    : ProgressObserver(),
+      m_proportion(other.m_proportion),
+      m_observer(other.m_observer),
+      m_subtracker_range(std::nullopt),
+      m_visible(other.m_visible) {
   Assert(!other.m_subtracker_range.has_value());
+  if (m_observer != nullptr) {
+    m_observer->m_child = this;
+  }
   other.m_observer = nullptr;
 };
 
@@ -74,12 +109,13 @@ void ProgressTracker::text_update(const std::string& text, int depth) {
   }
 };
 
-ProgressTracker ProgressTracker::subtracker(double start, double end) {
+ProgressTracker ProgressTracker::subtracker(double start, double end, std::optional<bool> visible) {
   set_proportion(start);
   AssertGE(end, start);
   AssertGE(1, end);
   m_subtracker_range = std::make_pair(start, end);
   ProgressTracker to_return(this);
+  to_return.m_visible = visible.value_or(m_visible);
   m_child = &to_return;
   m_child->_set_proportion(0);
   return to_return;
@@ -88,6 +124,7 @@ ProgressTracker ProgressTracker::subtracker(double start, double end) {
 ProgressTracker::~ProgressTracker() {
   _set_proportion(1);
   if (m_observer != nullptr) {
+    text_update("", 0);
     m_observer->m_child = nullptr;
   }
   ProgressTracker* ptr = dynamic_cast<ProgressTracker*>(m_observer);

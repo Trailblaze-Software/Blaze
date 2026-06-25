@@ -24,9 +24,9 @@ inline size_t num_cells_by_distance(double x, double dx) {
   const double abs_x = std::abs(x);
   const double abs_dx = std::abs(dx);
   const double cells = abs_x / abs_dx;
-  constexpr double min_epsilon = 1e-6;
+  constexpr double MIN_EPSILON = 1e-6;
   const double relative_epsilon = std::numeric_limits<double>::epsilon() * cells;
-  const double epsilon = std::max(min_epsilon, relative_epsilon);
+  const double epsilon = std::max(MIN_EPSILON, relative_epsilon);
   return static_cast<size_t>(std::ceil(cells + epsilon));
 }
 
@@ -315,7 +315,7 @@ template <template <typename...> class Ref, typename... Args>
 struct is_specialization<Ref<Args...>, Ref> : std::true_type {};
 
 template <class Type, template <typename...> class Template>
-inline constexpr bool is_specialization_v = is_specialization<Type, Template>::value;
+inline constexpr bool IS_SPECIALIZATION_V = is_specialization<Type, Template>::value;
 
 class GeoImgGrid;
 

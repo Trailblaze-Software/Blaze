@@ -984,3 +984,21 @@ TEST(WriteToImageTif, PerTileBoundsDefault) {
 
   fs::remove_all(tmp);
 }
+
+TEST(WriteToImageTif, ConstantGrid) {
+  fs::path tmp = blaze::test::unique_test_output_dir("constant_grid");
+  fs::create_directories(tmp);
+  fs::path out = tmp / "test_constant.tif";
+
+  GeoGrid<double> grid(2, 2, GeoTransform(), GeoProjection());
+  for (size_t i = 0; i < 2; i++)
+    for (size_t j = 0; j < 2; j++) grid[{j, i}] = 42.0;
+
+  write_to_image_tif(grid, out);
+  auto pixels = read_byte_tif_pixels(out);
+  for (auto p : pixels) {
+    EXPECT_EQ(p, 0) << "constant grid should map to zero, not NaN";
+  }
+
+  fs::remove_all(tmp);
+}

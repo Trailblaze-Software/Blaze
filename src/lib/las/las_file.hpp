@@ -417,6 +417,8 @@ class LASData : public LASFile {
 
         // Read only the chunks that contain points from overlapping cells
         m_points.resize(total_points);
+        reader.set_progress_callback(
+            [&progress_tracker](double fraction) { progress_tracker.set_proportion(fraction); });
         reader.read_chunks_list(std::span<LASPoint>(m_points), chunk_indices);
 
         // Filter points that are actually within the bounds
@@ -443,6 +445,8 @@ class LASData : public LASFile {
     } else {
       // No bounds or no spatial index - read all points
       m_points.resize(reader.num_points());
+      reader.set_progress_callback(
+          [&progress_tracker](double fraction) { progress_tracker.set_proportion(fraction); });
       reader.read_chunks(std::span<LASPoint>(m_points), {0, reader.num_chunks()});
 
       // Transform coordinates

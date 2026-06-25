@@ -1,5 +1,6 @@
 #include "grid.hpp"
 
+#include <iostream>
 #include <span>
 
 #include "gdal_priv.h"
@@ -40,17 +41,17 @@ template class Grid<float>;
 template <typename GridT>
 Geo<GridT> same_type_different_size(const Geo<GridT>& grid, size_t new_width, size_t new_height,
                                     const Coordinate2D<double>& new_top_left) {
-  if constexpr (is_specialization_v<GridT, Grid>) {
+  if constexpr (IS_SPECIALIZATION_V<GridT, Grid>) {
     return Geo<GridT>(GeoTransform(new_top_left.x(), new_top_left.y(), grid.transform().dx(),
                                    grid.transform().dy()),
                       GeoProjection(grid.projection()), new_width, new_height);
-  } else if constexpr (is_specialization_v<GridT, MultiBand>) {
+  } else if constexpr (IS_SPECIALIZATION_V<GridT, MultiBand>) {
     return Geo<GridT>(GeoTransform(new_top_left.x(), new_top_left.y(), grid.transform().dx(),
                                    grid.transform().dy()),
                       GeoProjection(grid.projection()), grid.size(), new_width, new_height,
                       grid[0].n_bytes(), grid[0].data_type());
   } else {
-    static_assert(is_specialization_v<GridT, Grid>);
+    static_assert(IS_SPECIALIZATION_V<GridT, Grid>);
   }
 }
 
@@ -67,7 +68,7 @@ Geo<GridT> Geo<GridT>::slice(const Extent2D& extent) {
 
   Coordinate2D<double> new_top_left = transform().pixel_to_projection(top_left);
   Geo result = same_type_different_size(*this, new_width, new_height, new_top_left);
-  if constexpr (is_specialization_v<GridT, Grid>) {
+  if constexpr (IS_SPECIALIZATION_V<GridT, Grid>) {
 #pragma omp parallel for
     for (size_t i = 0; i < new_height; i++) {
       for (size_t j = 0; j < new_width; j++) {
@@ -95,7 +96,7 @@ Geo<GridT> Geo<GridT>::slice(const Extent2D& extent) {
       }
     }
   } else {
-    static_assert(is_specialization_v<GridT, Grid>);
+    static_assert(IS_SPECIALIZATION_V<GridT, Grid>);
   }
   return result;
 }
@@ -130,10 +131,10 @@ T interpolate_value(const GeoGrid<T>& grid, const Coordinate2D<double>& projecti
   Coordinate2D<double> pixel_coord = grid.transform().projection_to_pixel(projection_coord);
   if (pixel_coord.x() < 0 || pixel_coord.y() < 0 || pixel_coord.x() >= grid.width() ||
       pixel_coord.y() >= grid.height()) {
-    std::cout << "Interpolation out of bounds" << std::endl;
-    std::cout << "Projection coord: " << projection_coord << std::endl;
-    std::cout << "Pixel coord: " << pixel_coord << std::endl;
-    std::cout << "Grid size: " << grid.width() << ", " << grid.height() << std::endl;
+    std::cerr << "Interpolation out of bounds" << std::endl;
+    std::cerr << "Projection coord: " << projection_coord << std::endl;
+    std::cerr << "Pixel coord: " << pixel_coord << std::endl;
+    std::cerr << "Grid size: " << grid.width() << ", " << grid.height() << std::endl;
     Fail("Interpolation out of bounds");
   }
   if (pixel_coord.x() <= 0.5 || pixel_coord.y() <= 0.5 || pixel_coord.x() >= grid.width() - 0.5 ||

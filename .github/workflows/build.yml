@@ -26,15 +26,16 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+          packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
           version: 1.1
           execute_install_scripts: true
-      # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and
       # libblas.so.3 are update-alternatives-managed symlinks; cache-apt-pkgs-action
       # restores package files but does not run update-alternatives triggers, so the
       # .so.3 symlinks are missing when restored from cache (breaks linking on arm64).
       - name: Install LAPACK/BLAS
+        # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and
+
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
@@ -56,6 +57,8 @@ jobs:
         run: |
           cd linux-build && cpack -C Release -G DEB
       - name: Unit tests
+        env:
+          CTEST_OUTPUT_ON_FAILURE: 1
         run: |
           cmake --build linux-build --target test
       - name: Run default config
@@ -69,13 +72,13 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
-            libpdal-dev
+          packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build libpdal-dev
           version: 1.1
           execute_install_scripts: true
-      # Install LAPACK/BLAS directly (see comment in ubuntu-latest-build).
       - name: Install LAPACK/BLAS
+        # Install LAPACK/BLAS directly (see comment in ubuntu-latest-build).
+
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
@@ -97,6 +100,8 @@ jobs:
         run: |
           cd linux-build && cpack -C Release -G DEB
       - name: Unit tests
+        env:
+          CTEST_OUTPUT_ON_FAILURE: 1
         run: |
           cmake --build linux-build --target test
       - name: Run default config
@@ -112,31 +117,98 @@ jobs:
       - name: Build
         run: ./scripts/macos-build.sh -DBLAZE_CLI_ONLY=True
       - name: Unit tests
+        env:
+          CTEST_OUTPUT_ON_FAILURE: 1
         run: cmake --build macos-build --target test
       - name: Run default config
         run: ./blaze-cli assets/default_config.json
+  sanitizers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: libgdal-dev cmake libomp-dev qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev mold ninja-build
+          version: 1.1
+          execute_install_scripts: true
+      - name: Install LAPACK/BLAS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            liblapack-dev libblas-dev liblapack3 libblas3
+          sudo ldconfig
+      - name: Configure with sanitizers
+        run: |
+          mkdir -p sanitizer-build
+          cmake -B sanitizer-build -G Ninja \
+            -DBLAZE_FETCHCONTENT_BASE_DIR="${{ github.workspace }}/linux-deps" \
+            -DBLAZE_CLI_ONLY=True \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer -g" \
+            -DCMAKE_C_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer -g" \
+            -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined"
+      - name: Build
+        run: cmake --build sanitizer-build -j $(nproc)
+      - name: Unit tests
+        env:
+          CTEST_OUTPUT_ON_FAILURE: 1
+          ASAN_OPTIONS: detect_leaks=1:detect_stack_use_after_return=1
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+          OMP_NUM_THREADS: 2
+        run: cmake --build sanitizer-build --target test
+  debug-stl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: libgdal-dev cmake libomp-dev qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev mold ninja-build
+          version: 1.1
+          execute_install_scripts: true
+      - name: Install LAPACK/BLAS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            liblapack-dev libblas-dev liblapack3 libblas3
+          sudo ldconfig
+      - name: Configure with debug STL
+        run: |
+          mkdir -p debug-stl-build
+          cmake -B debug-stl-build -G Ninja \
+            -DBLAZE_FETCHCONTENT_BASE_DIR="${{ github.workspace }}/linux-deps" \
+            -DBLAZE_CLI_ONLY=True \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC"
+      - name: Build
+        run: cmake --build debug-stl-build -j $(nproc)
+      - name: Unit tests
+        env:
+          CTEST_OUTPUT_ON_FAILURE: 1
+        run: cmake --build debug-stl-build --target test
 
 # windows-latest-build:
 #     runs-on: windows-latest
 #     timeout-minutes: 400
 #     steps:
 #         - uses: actions/checkout@v4
-
 #         - name: Export GitHub Actions cache environment variables
 #           uses: actions/github-script@v7
 #           with:
 #             script: |
 #               core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
 #               core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
-
 #         - name: Setup CMake
 #           uses: threeal/cmake-action@v2.0.0
 #           with:
 #             options: VCPKG_BUILD_TYPE=release
-
 #         - name: Build code
 #           run: cmake --build build
-
 #         - name: CPack
 #           run: |
 #             cd build && cpack -C Release

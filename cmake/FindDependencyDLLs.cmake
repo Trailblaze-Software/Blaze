@@ -10,9 +10,8 @@ function(find_and_copy_dependency_dlls)
 
   # Copy DLLs from all linked CMake targets (e.g. lazperf.dll built via
   # FetchContent). $<TARGET_RUNTIME_DLLS:tgt> lists every SHARED_LIBRARY the
-  # target transitively depends on. Post-build steps are appended in order, so
-  # this runs before the gtest_discover_tests step added later in
-  # CMakeLists.txt.
+  # target transitively depends on. These POST_BUILD steps run when each
+  # executable is built so ctest can launch unit_tests with its deps present.
   foreach(target ${ARGN})
     if(TARGET ${target})
       add_custom_command(
@@ -31,8 +30,8 @@ function(find_and_copy_dependency_dlls)
     # Use the active triplet rather than hardcoding x64-windows; otherwise the
     # arm64-windows build copies nothing here (the x64 path doesn't exist), the
     # executables miss vcpkg's transitive runtime DLLs (proj, geos, …), and
-    # running them — e.g. gtest_discover_tests launching unit_tests.exe at build
-    # time — fails with 0xc0000135 (STATUS_DLL_NOT_FOUND).
+    # ctest / gtest discovery at test time fails with 0xc0000135
+    # (STATUS_DLL_NOT_FOUND).
     if(DEFINED VCPKG_TARGET_TRIPLET AND VCPKG_TARGET_TRIPLET)
       set(_blaze_vcpkg_triplet "${VCPKG_TARGET_TRIPLET}")
     else()
@@ -40,21 +39,28 @@ function(find_and_copy_dependency_dlls)
     endif()
     if(DEFINED VCPKG_INSTALLED_DIR)
       set(VCPKG_BIN_DIR "${VCPKG_INSTALLED_DIR}/${_blaze_vcpkg_triplet}/bin")
+      set(VCPKG_DEBUG_BIN_DIR
+          "${VCPKG_INSTALLED_DIR}/${_blaze_vcpkg_triplet}/debug/bin")
     else()
       set(VCPKG_BIN_DIR
           "${CMAKE_BINARY_DIR}/vcpkg_installed/${_blaze_vcpkg_triplet}/bin")
+      set(VCPKG_DEBUG_BIN_DIR
+          "${CMAKE_BINARY_DIR}/vcpkg_installed/${_blaze_vcpkg_triplet}/debug/bin"
+      )
     endif()
 
     foreach(target ${ARGN})
       if(TARGET ${target})
+        # Debug builds need transitive deps from vcpkg's debug/bin (zlibd1,
+        # proj_9_d, …). Release builds use bin/.
         add_custom_command(
           TARGET ${target}
           POST_BUILD
           COMMAND
-            powershell -Command
-            "if (Test-Path '${VCPKG_BIN_DIR}') { foreach ($f in Get-ChildItem -Path '${VCPKG_BIN_DIR}/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
+            powershell -NonInteractive -Command
+            "$dest = '$<TARGET_FILE_DIR:${target}>'; $bin = if ('$<CONFIG>' -eq 'Debug') { '${VCPKG_DEBUG_BIN_DIR}' } else { '${VCPKG_BIN_DIR}' }; if (Test-Path $bin) { foreach ($f in Get-ChildItem -Path ($bin + '/*.dll') -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination $dest -Force -ErrorAction Stop } catch { } } }"
           COMMAND
-            powershell -Command
+            powershell -NonInteractive -Command
             "if (Test-Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>') { foreach ($f in Get-ChildItem -Path '${CMAKE_BINARY_DIR}/bin/$<CONFIG>/*.dll' -ErrorAction SilentlyContinue) { try { Copy-Item -Path $f.FullName -Destination '$<TARGET_FILE_DIR:${target}>' -Force -ErrorAction Stop } catch { } } }"
           COMMENT "Copying vcpkg and gtest DLLs for ${target}"
           VERBATIM)
@@ -63,7 +69,7 @@ function(find_and_copy_dependency_dlls)
     return()
   endif()
 
-  # For non-vcpkg builds, find and copy GDAL and OpenCV DLLs
+  # For non-vcpkg builds, find and copy GDAL DLLs
 
   include(GNUInstallDirs)
 
@@ -128,63 +134,5 @@ function(find_and_copy_dependency_dlls)
         install(FILES "${dll}" DESTINATION ${CMAKE_INSTALL_BINDIR})
       endforeach()
     endif()
-  endif()
-
-  # Get OpenCV DLLs from OpenCV_DIR
-  if(OpenCV_FOUND AND DEFINED OpenCV_DIR)
-    # OpenCV DLLs can be in various locations depending on installation
-    # Prioritize VS version-specific paths (x64/vc16/bin) as they have the
-    # actual DLLs
-    set(OpenCV_SEARCH_PATHS)
-    # Check for VS version-specific paths first (x64/vc16/bin, etc.)
-    file(GLOB vs_paths "${OpenCV_DIR}/x64/vc*/bin")
-    list(APPEND OpenCV_SEARCH_PATHS ${vs_paths})
-    # Also check build/x64/vc*/bin if OpenCV_DIR is the build directory
-    file(GLOB build_vs_paths "${OpenCV_DIR}/build/x64/vc*/bin")
-    list(APPEND OpenCV_SEARCH_PATHS ${build_vs_paths})
-    # Fallback to generic bin directories
-    list(APPEND OpenCV_SEARCH_PATHS "${OpenCV_DIR}/build/bin"
-         "${OpenCV_DIR}/bin")
-
-    # Find the first directory with OpenCV DLLs and get all DLLs from there
-    set(OpenCV_BIN_DIR)
-    foreach(search_path ${OpenCV_SEARCH_PATHS})
-      get_filename_component(normalized_path "${search_path}" ABSOLUTE)
-      file(GLOB test_dlls "${normalized_path}/opencv_*.dll")
-      if(test_dlls)
-        set(OpenCV_BIN_DIR "${normalized_path}")
-        break()
-      endif()
-    endforeach()
-
-    set(OpenCV_DLLS)
-    if(OpenCV_BIN_DIR)
-      file(GLOB OpenCV_DLLS "${OpenCV_BIN_DIR}/opencv_*.dll")
-      list(REMOVE_DUPLICATES OpenCV_DLLS)
-      if(OpenCV_DLLS)
-        list(LENGTH OpenCV_DLLS DLL_COUNT)
-        message(STATUS "Found OpenCV DLLs in: ${OpenCV_BIN_DIR}")
-        message(STATUS "  Copying ${DLL_COUNT} OpenCV DLL(s)")
-      else()
-        message(WARNING "No OpenCV DLLs found in: ${OpenCV_BIN_DIR}")
-      endif()
-    else()
-      message(
-        WARNING "OpenCV DLLs not found. Searched in: ${OpenCV_SEARCH_PATHS}")
-    endif()
-
-    foreach(dll ${OpenCV_DLLS})
-      foreach(target ${ARGN})
-        if(TARGET ${target})
-          add_custom_command(
-            TARGET ${target}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${dll}"
-                    "$<TARGET_FILE_DIR:${target}>"
-            COMMENT "Copying ${dll} to ${target} output directory")
-        endif()
-      endforeach()
-      install(FILES "${dll}" DESTINATION ${CMAKE_INSTALL_BINDIR})
-    endforeach()
   endif()
 endfunction()

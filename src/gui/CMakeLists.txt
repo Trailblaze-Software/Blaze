@@ -3,6 +3,8 @@ target_sources(
   PRIVATE main_window.ui
           main.cpp
           main_window.cpp
+          error_dialog.hpp
+          error_dialog.cpp
           progress_box.hpp
           main_window.hpp
           progress_box.cpp
@@ -18,8 +20,47 @@ if(BLAZE_BUILD_3D_GUI)
             main_3d_window.hpp
             main_3d_window.cpp
             layer_renderer.hpp
+            layer_renderer.cpp
+            octree_las_layer_renderer.cpp
+            mesh_layer_renderer.cpp
+            contour_layer_renderer.cpp
+            shaders.hpp
+            shaders.cpp
+            shaders/shaders.qrc
             main_3d_window.ui
+            point_cloud_framebuffer.hpp
+            point_cloud_framebuffer.cpp
+            scene_framebuffer.hpp
+            scene_framebuffer.cpp
+            point_cloud_gl.hpp
+            point_cloud_gl.cpp
+            point_octree.hpp
+            point_octree.cpp
+            gl_check.hpp
+            gl_check.cpp
             gl_widget.hpp
             gl_widget.cpp
-            layer.hpp)
+            layer.hpp
+            config_editor.hpp
+            config_editor.cpp
+            config_editor.ui
+            error_dialog.hpp
+            error_dialog.cpp
+            progress_box.hpp
+            progress_box.cpp
+            progress_box.ui)
+
+  target_sources(
+    ${UNIT_TESTS_NAME} PRIVATE tests/test_camera.cpp tests/test_octree.cpp
+                               tests/test_frustum.cpp point_octree.cpp)
+  target_link_libraries(${UNIT_TESTS_NAME} PRIVATE Qt6::Gui)
+
+  if(APPLE)
+    # Plain executables need an explicit rpath to Qt's frameworks directory so
+    # ctest can launch unit_tests (Library not loaded: @rpath/QtGui.framework).
+    get_filename_component(_blaze_qt_prefix "${Qt6_DIR}/../../.." ABSOLUTE)
+    set_target_properties(
+      ${UNIT_TESTS_NAME} PROPERTIES INSTALL_RPATH "${_blaze_qt_prefix}/lib"
+                                    MACOSX_RPATH ON)
+  endif()
 endif()

@@ -44,7 +44,7 @@ class TimeFunction : public Timer {
  public:
   TimeFunction(const std::string& name, ProgressTracker* progress_tracker = nullptr)
       : m_name(name), m_progress_tracker(progress_tracker) {
-    if (m_progress_tracker) {
+    if (m_progress_tracker != nullptr) {
       m_progress_tracker->text_update(to_string("Starting ", m_name, " ..."));
     } else {
       std::cout << "Starting " << m_name << " ..." << std::endl;
@@ -55,10 +55,10 @@ class TimeFunction : public Timer {
       : TimeFunction(name, progress_tracker ? &*progress_tracker : nullptr) {}
 
   ~TimeFunction() {
-    if (m_progress_tracker) {
-      m_progress_tracker->text_update(to_string("Finished ", m_name, " in ", duration().count()));
+    if (m_progress_tracker != nullptr) {
+      m_progress_tracker->text_update(to_string("Finished ", m_name, " in ", duration()));
     } else {
-      std::cout << "Finished " << m_name << " in " << duration().count() << std::endl;
+      std::cout << "Finished " << m_name << " in " << duration() << std::endl;
     }
   }
 };

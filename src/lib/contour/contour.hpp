@@ -5,6 +5,7 @@
 #include <cmath>
 #include <limits>
 #include <optional>
+#include <string>
 #include <utility>
 
 #include "config_input/config_input.hpp"
@@ -56,11 +57,12 @@ class Polyline;
 class Contour {
   double m_height;
   std::vector<Coordinate2D<double>> m_points;
+  std::string m_layer_name;
   bool m_is_loop = false;
 
  public:
-  Contour(double height, std::vector<Coordinate2D<double>>&& points)
-      : m_height(height), m_points(std::move(points)) {
+  Contour(double height, std::vector<Coordinate2D<double>>&& points, std::string layer_name = "")
+      : m_height(height), m_points(std::move(points)), m_layer_name(std::move(layer_name)) {
     if (m_points.size() > 1) {
       const auto& front = m_points.front();
       const auto& back = m_points.back();
@@ -72,6 +74,7 @@ class Contour {
   Polyline to_polyline(const ContourConfigs& configs) const;
 
   double height() const { return m_height; }
+  const std::string& layer_name() const { return m_layer_name; }
   const std::vector<Coordinate2D<double>>& points() const { return m_points; }
   std::vector<Coordinate2D<double>>& points() { return m_points; }
 

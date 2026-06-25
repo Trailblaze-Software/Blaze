@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <memory>
 #include <optional>
 #include <string>
@@ -23,18 +24,31 @@ class ProgressObserver {
   friend class ProgressTracker;
 };
 
+// CLI terminal progress: ProgressTracker updates propagate immediately to all observers;
+// only stdout printing is rate-limited here. GUI observers (ProgressBox, etc.) are unaffected.
 class ProgressBar : public ProgressObserver {
-  double m_last_progress = -1;
+  static constexpr std::chrono::milliseconds PRINT_INTERVAL{500};
+
+  double m_last_printed_progress = -1;
+  double m_latest_progress = -1;
+  std::chrono::steady_clock::time_point m_last_print_time{};
+
+  void print_progress(double progress);
+  void maybe_print_progress(double progress);
 
  protected:
   virtual void update_progress(double progress) override;
   virtual void text_update(const std::string& text, int depth = 0) override;
+
+ public:
+  ~ProgressBar() override;
 };
 
 class ProgressTracker : public ProgressObserver {
   double m_proportion;
   ProgressObserver* m_observer;
   std::optional<std::pair<double, double>> m_subtracker_range;
+  bool m_visible = true;
 
   void _set_proportion(double proportion);
 
@@ -52,12 +66,15 @@ class ProgressTracker : public ProgressObserver {
   ProgressTracker& operator=(ProgressTracker&& other) = delete;
 
   void set_proportion(double proportion);
+  void set_visible(bool v) { m_visible = v; }
+  bool is_visible() const { return m_visible; }
 
   // Thread-safe: only advances when `proportion` exceeds the current value (for OpenMP loops
   // where work completes out of order).
   void report_parallel_progress(double proportion);
 
-  ProgressTracker subtracker(double start, double end);
+  // visible: nullopt = inherit parent, true = force visible, false = force invisible
+  ProgressTracker subtracker(double start, double end, std::optional<bool> visible = std::nullopt);
 
   virtual ~ProgressTracker();
 
@@ -68,7 +85,8 @@ class AsyncProgressTracker {
   std::shared_ptr<ProgressTracker> m_tracker;
 
  public:
-  AsyncProgressTracker() : m_tracker(std::make_shared<ProgressTracker>()) {}
+  explicit AsyncProgressTracker(ProgressObserver* observer = nullptr)
+      : m_tracker(std::make_shared<ProgressTracker>(observer)) {}
 
   std::shared_ptr<ProgressTracker> tracker() { return m_tracker; }
 };

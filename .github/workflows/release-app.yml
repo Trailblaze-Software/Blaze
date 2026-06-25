@@ -190,17 +190,49 @@ jobs:
       - name: Debug NSIS Failure
         if: failure()
         run: |
-          if (Test-Path "build/_CPack_Packages/win64/NSIS/NSISOutput.log") {
-            Get-Content "build/_CPack_Packages/win64/NSIS/NSISOutput.log"
-          }
+          $log = Get-ChildItem -Path build/_CPack_Packages -Recurse `
+            -Filter NSISOutput.log -ErrorAction SilentlyContinue |
+            Select-Object -First 1
+          if ($log) { Get-Content $log.FullName }
       - name: Install package
+        shell: pwsh
         run: |
           $installer = (Get-Item build/Blaze-*.exe).FullName
-          Start-Process -Wait -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest'
+          if (Test-Path 'C:\BlazeTest') {
+            Remove-Item -Recurse -Force 'C:\BlazeTest'
+          }
+          # NSIS is a GUI-subsystem exe; Start-Process -PassThru gives a reliable
+          # exit code. Direct invocation leaves $LASTEXITCODE unset, which fails
+          # `$LASTEXITCODE -ne 0` even when the install succeeded.
+          $proc = Start-Process -FilePath $installer -ArgumentList '/S', '/D=C:\BlazeTest' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+            throw "Installer exited with code $($proc.ExitCode)"
+          }
+          if (-not (Test-Path 'C:\BlazeTest\bin\blaze-cli.exe')) {
+            throw "blaze-cli.exe not found under C:\BlazeTest after install"
+          }
       - name: Test installed package
+        shell: pwsh
         run: |
-          Copy-Item -Recurse C:\BlazeTest\share\assets $env:TEMP\blaze-test
-          & C:\BlazeTest\bin\blaze-cli.exe $env:TEMP\blaze-test\default_config.json
+          $assets = 'C:\BlazeTest\share\assets'
+          if (-not (Test-Path $assets)) {
+            Write-Error "Expected assets at $assets. Install tree:"
+            Get-ChildItem -Recurse C:\BlazeTest | ForEach-Object { $_.FullName }
+            exit 1
+          }
+          $dest = Join-Path $env:TEMP 'blaze-test'
+          if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
+          Copy-Item -Recurse $assets $dest
+          $openmp = Get-ChildItem 'C:\BlazeTest\bin\libomp*.dll' -ErrorAction SilentlyContinue
+          if (-not $openmp) {
+            Write-Error "No libomp*.dll in C:\BlazeTest\bin. Installed binaries:"
+            Get-ChildItem 'C:\BlazeTest\bin' | ForEach-Object { $_.Name }
+            exit 1
+          }
+          & 'C:\BlazeTest\bin\blaze-cli.exe' (Join-Path $dest 'default_config.json')
+          if ($LASTEXITCODE -ne 0) {
+            throw "blaze-cli exited with code $LASTEXITCODE"
+          }
       # Skip on PRs and push-to-main to stay under the 0.5 GB Actions storage
       # quota — installers are ~200 MB each and 4 platforms × every push fills
       # the quota in a day. Tag builds publish to the GitHub Release (separate,
@@ -241,8 +273,8 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: libgdal-dev libopencv-dev cmake libomp-dev rpm qt6-base-dev libglx-dev
-            libgl1-mesa-dev qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+          packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
           version: 1.1
           execute_install_scripts: true
       # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and
@@ -323,7 +355,7 @@ jobs:
           # of which break macdeployqt's framework deployment in ways that
           # require ugly manual workarounds. The official Qt distribution
           # is what macdeployqt was designed for and "just works".
-          brew install cmake ninja ccache gdal opencv libomp openblas lapack
+          brew install cmake ninja ccache gdal libomp openblas lapack
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:

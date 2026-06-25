@@ -25,7 +25,7 @@
 
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
                      ProgressTracker&& tracker) {
-  std::cout << "Using " << omp_get_max_threads() << " threads for processing." << std::endl;
+  tracker.text_update(to_string("Using ", omp_get_max_threads(), " threads for processing."));
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path& las_file : config.las_filepaths()) {
     if (!fs::exists(las_file)) {
@@ -44,8 +44,12 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
     }
   }
 
+  // Fraction of the overall progress budget allotted to the initial
+  // "load input extents" pass; the rest is split across processing steps.
+  constexpr double LOAD_EXTENTS_TIME = 0.001;
+
   std::vector<double> time_ratios;
-  double total_time = 0.01;
+  double total_time = LOAD_EXTENTS_TIME;
   for (ProcessingStep step : config.processing_steps) {
     switch (step) {
       case ProcessingStep::Tiles:
@@ -62,7 +66,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   std::string tile_output_crs_wkt;
   std::vector<LASFileExtent> tile_input_extents =
       load_input_extents(las_files, config.override_crs, tile_output_crs_wkt,
-                         tracker.subtracker(0.0, 0.01 / total_time));
+                         tracker.subtracker(0.0, LOAD_EXTENTS_TIME / total_time, false));
   const TileModeInfo tile_info = detect_tile_mode_needed(tile_input_extents);
   if (tile_info.any_overlap) {
     std::cerr << "Info: Input files overlap; tile reads will pull from every overlapping input."
@@ -92,13 +96,12 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   // a subsequent Combine step can still read from them.
   std::vector<fs::path> processed_tile_dirs;
 
-  double current_time = 0.01 / total_time;
+  double current_time = LOAD_EXTENTS_TIME / total_time;
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
-    TimeFunction timer(to_string("processing step ", step));
-    tracker.text_update(to_string("Processing step ", step));
+    TimeFunction timer(to_string("processing step ", step), &tracker);
     ProgressTracker step_tracker =
-        tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time);
+        tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time, false);
     current_time += time_ratios[idx++] / total_time;
     switch (step) {
       case ProcessingStep::Tiles: {
@@ -107,12 +110,12 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
                                    std::to_string(tiles.size()) + ": " + tile.output_name());
 
-          ProgressTracker progress_tracker =
-              step_tracker.subtracker((double)i / tiles.size(), (double)(i + 1) / tiles.size());
+          ProgressTracker progress_tracker = step_tracker.subtracker(
+              (double)i / tiles.size(), (double)(i + 1) / tiles.size(), true);
 
-          LASData tile_data =
-              read_tile_from_inputs(tile.extent, config.border_width, tile_input_extents,
-                                    tile_output_crs_wkt, progress_tracker.subtracker(0.0, 0.4));
+          LASData tile_data = read_tile_from_inputs(tile.extent, config.border_width,
+                                                    tile_input_extents, tile_output_crs_wkt,
+                                                    progress_tracker.subtracker(0.0, 0.5, false));
           if (tile_data.n_points() == 0) {
             step_tracker.text_update("Tile " + tile.output_name() + " has no points; skipping.");
             continue;
@@ -122,7 +125,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           // and emit spurious "Image ... does not exist" warnings.
           fs::path output_dir = config.output_path() / tile.output_name();
           fs::create_directories(output_dir);
-          process_las_data(tile_data, output_dir, config, progress_tracker.subtracker(0.4, 1.0));
+          process_las_data(tile_data, output_dir, config,
+                           progress_tracker.subtracker(0.5, 1.0, false));
           processed_tile_dirs.push_back(output_dir);
         }
         break;
@@ -141,12 +145,13 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         fs::create_directories(config.output_path() / "combined" / "raw_vege");
         for (const std::string filename :
              {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
-              "buildings.tif", "slope.tif", "vege_color.tif", "hill_shade_multi.tif",
-              "filled_dem.tif", "raw_vege/canopy.tif", "raw_vege/green.tif",
-              "raw_vege/smoothed_green.tif", "raw_vege/smoothed_canopy.tif"}) {
+              "buildings.tif", "slope.tif", "fine_slope.tif", "vege_color.tif",
+              "hill_shade_multi.tif", "ground.tif", "smooth_ground.tif", "filled_dem.tif",
+              "raw_vege/canopy.tif", "raw_vege/green.tif", "raw_vege/smoothed_green.tif",
+              "raw_vege/smoothed_canopy.tif"}) {
           // for (const std::string filename :
           //{"filled_dem.tif"}) {
-          TimeFunction combining_timer("Combining " + filename);
+          TimeFunction combining_timer("Combining " + filename, &step_tracker);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;
 
@@ -158,7 +163,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               std::cerr << "Image " << img_path << " does not exist" << std::endl;
               continue;
             }
-            grids.emplace_back(read_tif(img_path));
+            grids.emplace_back(read_tif(img_path, &step_tracker));
             if (!projection.has_value()) {
               projection = grids.back().projection().to_string();
             } else {
@@ -182,10 +187,10 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           size_t height = (extent.maxy - extent.miny) / (std::abs(*dy));
 
           size_t required_memory = width * height * grids[0].size() * grids[0][0].n_bytes();
-          std::cout << "Creating combined grid with dimensions " << width << "x" << height
-                    << " requiring " << (double)required_memory / 1e9 << " GB" << std::endl;
+          step_tracker.text_update(to_string("Creating combined grid with dimensions ", width, "x",
+                                             height, " requiring ", required_memory / 1e9, " GB"));
           if (required_memory > 16e9) {
-            std::cout << "Skipping " << filename << " due to memory requirements" << std::endl;
+            step_tracker.text_update("Skipping " + filename + " due to memory requirements");
             continue;
           }
           Geo<MultiBand<FlexGrid>> combined_grid(
@@ -258,7 +263,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               }
 
               contour_tracker.text_update("Reading " + gpkg_path.filename().string());
-              std::vector<Contour> contours = read_gpkg(gpkg_path);
+              std::vector<Contour> contours = read_gpkg(gpkg_path, &contour_tracker);
               for (Contour& contour : contours) {
                 contours_by_height[contour.height()].push_back(contour);
               }
@@ -301,11 +306,11 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             }
           }
 
-          write_to_crt(config.output_path() / "combined" / "contours.crt");
+          write_to_crt(config.output_path() / "combined" / "contours.crt", &gpkg_tracker);
 
           combine_vege_gpkgs(combine_dirs, config.output_path() / "combined", projection.value(),
                              gpkg_tracker.subtracker(0.35, 0.65));
-          write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt");
+          write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt", &gpkg_tracker);
 
           {
             const fs::path combined_dir = config.output_path() / "combined";
@@ -320,7 +325,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
               combine_gpkgs(map_sources, combined_dir / "map.gpkg", "", std::move(map_tracker));
             }
             if (fs::exists(combined_dir / "map.gpkg")) {
-              write_to_crt(combined_dir / "map.crt");
+              write_to_crt(combined_dir / "map.crt", &gpkg_tracker);
             }
           }
         }
@@ -339,7 +344,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         std::cerr << "Warning: failed to delete tile folder " << dir << ": " << ec.message()
                   << std::endl;
       } else {
-        std::cout << "Deleted tile folder: " << dir << std::endl;
+        tracker.text_update("Deleted tile folder: " + dir.string());
       }
     }
   }

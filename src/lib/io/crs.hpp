@@ -2,10 +2,14 @@
 
 #include <ogr_spatialref.h>
 
+#include <array>
+#include <cmath>
+#include <memory>
 #include <string>
 
 #include "assert/assert.hpp"
 #include "grid/grid.hpp"
+#include "utilities/coordinate.hpp"
 
 // Normalize a WKT CRS string for downstream use by blaze:
 //   - Strip any vertical (3D / COMPD_CS) component, since blaze only works in 2D.
@@ -144,4 +148,84 @@ inline bool wkt_matches(const std::string& a, const std::string& b) {
   if (srs_a.importFromWkt(a.c_str()) != OGRERR_NONE) return false;
   if (srs_b.importFromWkt(b.c_str()) != OGRERR_NONE) return false;
   return srs_a.IsSame(&srs_b) == TRUE;
+}
+
+// True when two CRSes are identical, or when both are projected CRSes with the
+// same parameters (e.g. GDA94 MGA zone 55 vs GDA2020 MGA zone 55). The latter
+// may be offset by a datum shift but is close enough for 3D visualisation.
+inline bool crs_compatible_for_viewing(const std::string& a, const std::string& b) {
+  if (a.empty() || b.empty()) return true;
+  const std::string norm_a = normalize_crs_wkt(a);
+  const std::string norm_b = normalize_crs_wkt(b);
+  if (wkt_matches(norm_a, norm_b)) return true;
+
+  OGRSpatialReference srs_a;
+  OGRSpatialReference srs_b;
+  if (srs_a.importFromWkt(norm_a.c_str()) != OGRERR_NONE) return false;
+  if (srs_b.importFromWkt(norm_b.c_str()) != OGRERR_NONE) return false;
+  if (!srs_a.IsProjected() || !srs_b.IsProjected()) return false;
+
+  auto param_matches = [&](const char* key) {
+    return std::abs(srs_a.GetProjParm(key, 0.0) - srs_b.GetProjParm(key, 0.0)) < 1e-6;
+  };
+
+  return param_matches(SRS_PP_LATITUDE_OF_ORIGIN) && param_matches(SRS_PP_CENTRAL_MERIDIAN) &&
+         param_matches(SRS_PP_FALSE_EASTING) && param_matches(SRS_PP_FALSE_NORTHING) &&
+         param_matches(SRS_PP_SCALE_FACTOR);
+}
+
+// Build a coordinate transformation between two WKT CRSes. Returns nullptr
+// when the two CRSes match or either WKT is empty (caller must treat this as
+// an identity transform).
+inline std::unique_ptr<OGRCoordinateTransformation> make_coord_transform(
+    const std::string& src_wkt, const std::string& dst_wkt) {
+  if (src_wkt.empty() || dst_wkt.empty()) return {};
+  if (src_wkt == dst_wkt || wkt_matches(src_wkt, dst_wkt)) return {};
+  OGRSpatialReference src_srs;
+  OGRSpatialReference dst_srs;
+  if (src_srs.importFromWkt(src_wkt.c_str()) != OGRERR_NONE) {
+    Fail("Failed to parse source CRS WKT for reprojection.");
+  }
+  if (dst_srs.importFromWkt(dst_wkt.c_str()) != OGRERR_NONE) {
+    Fail("Failed to parse destination CRS WKT for reprojection.");
+  }
+  src_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+  dst_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+  std::unique_ptr<OGRCoordinateTransformation> ct(
+      OGRCreateCoordinateTransformation(&src_srs, &dst_srs));
+  if (!ct) {
+    Fail("Could not construct coordinate transformation between CRSes.");
+  }
+  return ct;
+}
+
+// Horizontal-only reprojection of a single x/y pair. Returns false on failure.
+inline bool transform_xy_h(OGRCoordinateTransformation* ct, double& x, double& y) {
+  if (!ct) return true;
+  int success = 0;
+  if (!ct->Transform(1, &x, &y, nullptr, &success) || !success) {
+    return false;
+  }
+  return true;
+}
+
+// Reproject the horizontal footprint of an Extent3D, preserving z limits.
+inline Extent3D reproject_extent3d_horizontal(const Extent3D& extent,
+                                              OGRCoordinateTransformation* ct) {
+  if (!ct) return extent;
+  const std::array<double, 4> xs = {extent.minx, extent.maxx, extent.minx, extent.maxx};
+  const std::array<double, 4> ys = {extent.miny, extent.miny, extent.maxy, extent.maxy};
+  Extent3D out;
+  out.minz = extent.minz;
+  out.maxz = extent.maxz;
+  for (size_t i = 0; i < xs.size(); ++i) {
+    double x = xs[i];
+    double y = ys[i];
+    if (!transform_xy_h(ct, x, y)) {
+      Fail("Failed to reproject extent corner between CRSes.");
+    }
+    out.grow(x, y, extent.minz);
+    out.grow(x, y, extent.maxz);
+  }
+  return out;
 }
