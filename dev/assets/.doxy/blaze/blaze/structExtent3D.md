@@ -40,8 +40,8 @@ Inherits the following classes: [Extent2D](structExtent2D.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**maxz**](#variable-maxz)   = `-std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
-|  [**double**](classCoordinate2D.md) | [**minz**](#variable-minz)   = `std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
+|  double | [**maxz**](#variable-maxz)   = `-std::numeric\_limits&lt;double&gt;::infinity()`<br> |
+|  double | [**minz**](#variable-minz)   = `std::numeric\_limits&lt;double&gt;::infinity()`<br> |
 
 
 ## Public Attributes inherited from Extent2D
@@ -50,10 +50,10 @@ See [Extent2D](structExtent2D.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**maxx**](structExtent2D.md#variable-maxx)   = `-std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
-|  [**double**](classCoordinate2D.md) | [**maxy**](structExtent2D.md#variable-maxy)   = `-std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
-|  [**double**](classCoordinate2D.md) | [**minx**](structExtent2D.md#variable-minx)   = `std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
-|  [**double**](classCoordinate2D.md) | [**miny**](structExtent2D.md#variable-miny)   = `std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
+|  double | [**maxx**](structExtent2D.md#variable-maxx)   = `-std::numeric\_limits&lt;double&gt;::infinity()`<br> |
+|  double | [**maxy**](structExtent2D.md#variable-maxy)   = `-std::numeric\_limits&lt;double&gt;::infinity()`<br> |
+|  double | [**minx**](structExtent2D.md#variable-minx)   = `std::numeric\_limits&lt;double&gt;::infinity()`<br> |
+|  double | [**miny**](structExtent2D.md#variable-miny)   = `std::numeric\_limits&lt;double&gt;::infinity()`<br> |
 
 
 
@@ -89,17 +89,17 @@ See [Extent2D](structExtent2D.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**Extent3D**](#function-extent3d-13) () = default<br> |
-|   | [**Extent3D**](#function-extent3d-23) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & extent, [**double**](classCoordinate2D.md) minz, [**double**](classCoordinate2D.md) maxz) <br> |
-|   | [**Extent3D**](#function-extent3d-33) ([**double**](classCoordinate2D.md) minx, [**double**](classCoordinate2D.md) maxx, [**double**](classCoordinate2D.md) miny, [**double**](classCoordinate2D.md) maxy, [**double**](classCoordinate2D.md) minz, [**double**](classCoordinate2D.md) maxz) <br> |
-|  [**Coordinate3D**](classCoordinate3D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**center**](#function-center) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**grow**](#function-grow-13) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) y, [**double**](classCoordinate2D.md) z) <br> |
-|  [**void**](classCoordinate2D.md) | [**grow**](#function-grow-23) ([**double**](classCoordinate2D.md) border) <br> |
-|  [**void**](classCoordinate2D.md) | [**grow**](#function-grow-33) ([**const**](classCoordinate2D.md) [**Extent3D**](structExtent3D.md) & other) <br> |
-|  [**Extent3D**](structExtent3D.md) | [**intersection**](#function-intersection) ([**const**](classCoordinate2D.md) [**Extent3D**](structExtent3D.md) & other) const<br> |
-|  [**bool**](classCoordinate2D.md) | [**intersects**](#function-intersects) ([**const**](classCoordinate2D.md) [**Extent3D**](structExtent3D.md) & other) const<br> |
-|  [**double**](classCoordinate2D.md) | [**max\_extent**](#function-max_extent) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**operator!=**](#function-operator) ([**const**](classCoordinate2D.md) [**Extent3D**](structExtent3D.md) & other) const<br> |
-|  [**Extent3D**](structExtent3D.md) | [**operator-**](#function-operator-) ([**const**](classCoordinate2D.md) [**Coordinate3D**](classCoordinate3D.md)&lt; [**double**](classCoordinate2D.md) &gt; & offset) const<br> |
+|   | [**Extent3D**](#function-extent3d-23) (const [**Extent2D**](structExtent2D.md) & extent, double minz, double maxz) <br> |
+|   | [**Extent3D**](#function-extent3d-33) (double minx, double maxx, double miny, double maxy, double minz, double maxz) <br> |
+|  [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; | [**center**](#function-center) () const<br> |
+|  void | [**grow**](#function-grow-13) (double x, double y, double z) <br> |
+|  void | [**grow**](#function-grow-23) (double border) <br> |
+|  void | [**grow**](#function-grow-33) (const [**Extent3D**](structExtent3D.md) & other) <br> |
+|  [**Extent3D**](structExtent3D.md) | [**intersection**](#function-intersection) (const [**Extent3D**](structExtent3D.md) & other) const<br> |
+|  bool | [**intersects**](#function-intersects) (const [**Extent3D**](structExtent3D.md) & other) const<br> |
+|  double | [**max\_extent**](#function-max_extent) () const<br> |
+|  bool | [**operator!=**](#function-operator) (const [**Extent3D**](structExtent3D.md) & other) const<br> |
+|  [**Extent3D**](structExtent3D.md) | [**operator-**](#function-operator-) (const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & offset) const<br> |
 
 
 ## Public Functions inherited from Extent2D
@@ -108,10 +108,10 @@ See [Extent2D](structExtent2D.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**contains**](structExtent2D.md#function-contains) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) y) const<br> |
-|  [**void**](classCoordinate2D.md) | [**grow**](structExtent2D.md#function-grow) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) <br> |
-|  [**Extent2D**](structExtent2D.md) | [**intersection**](structExtent2D.md#function-intersection) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) const<br> |
-|  [**bool**](classCoordinate2D.md) | [**overlaps**](structExtent2D.md#function-overlaps) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) const<br> |
+|  bool | [**contains**](structExtent2D.md#function-contains) (double x, double y) const<br> |
+|  void | [**grow**](structExtent2D.md#function-grow) (const [**Extent2D**](structExtent2D.md) & other) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**intersection**](structExtent2D.md#function-intersection) (const [**Extent2D**](structExtent2D.md) & other) const<br> |
+|  bool | [**overlaps**](structExtent2D.md#function-overlaps) (const [**Extent2D**](structExtent2D.md) & other) const<br> |
 
 
 
@@ -216,7 +216,7 @@ Extent3D::Extent3D () = default
 
 ```C++
 inline Extent3D::Extent3D (
-    const  Extent2D & extent,
+    const Extent2D & extent,
     double minz,
     double maxz
 ) 
@@ -298,7 +298,7 @@ inline void Extent3D::grow (
 
 ```C++
 inline void Extent3D::grow (
-    const  Extent3D & other
+    const Extent3D & other
 ) 
 ```
 
@@ -313,7 +313,7 @@ inline void Extent3D::grow (
 
 ```C++
 inline Extent3D Extent3D::intersection (
-    const  Extent3D & other
+    const Extent3D & other
 ) const
 ```
 
@@ -328,7 +328,7 @@ inline Extent3D Extent3D::intersection (
 
 ```C++
 inline bool Extent3D::intersects (
-    const  Extent3D & other
+    const Extent3D & other
 ) const
 ```
 
@@ -356,7 +356,7 @@ inline double Extent3D::max_extent () const
 
 ```C++
 inline bool Extent3D::operator!= (
-    const  Extent3D & other
+    const Extent3D & other
 ) const
 ```
 
@@ -371,7 +371,7 @@ inline bool Extent3D::operator!= (
 
 ```C++
 inline Extent3D Extent3D::operator- (
-    const  Coordinate3D < double > & offset
+    const Coordinate3D < double > & offset
 ) const
 ```
 
@@ -389,7 +389,7 @@ inline Extent3D Extent3D::operator- (
 ```C++
 inline std::ostream & Extent3D::operator<< (
     std::ostream & os,
-    const  Extent3D & extent
+    const Extent3D & extent
 ) 
 ```
 

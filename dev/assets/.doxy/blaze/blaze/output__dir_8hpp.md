@@ -94,7 +94,7 @@
 
 | Type | Name |
 | ---: | :--- |
-| define  | [**BLAZE\_TEST\_GETPID**](output__dir_8hpp.md#define-blaze_test_getpid)  `[**getpid**](classCoordinate2D.md)`<br> |
+| define  | [**BLAZE\_TEST\_GETPID**](output__dir_8hpp.md#define-blaze_test_getpid)  `getpid`<br> |
 
 ## Macro Definition Documentation
 

@@ -53,7 +53,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  fs::path | [**get\_local\_data**](#function-get_local_data) ([**const**](classCoordinate2D.md) fs::path & asset) <br> |
+|  fs::path | [**get\_local\_data**](#function-get_local_data) (const fs::path & asset) <br> |
 
 
 

@@ -54,17 +54,17 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**MinInterval**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**PickFromHeight**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**LayerNameFromHeight**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**LayerNameFromHeightFormlineAlias**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**IndexOperator**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**DefaultConstruction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**WaterConfigs**](structWaterConfigs.md), [**ConfigFromCatchment**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**WaterConfigs**](structWaterConfigs.md), [**MinimumCatchment**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**VegeHeightConfig**](structVegeHeightConfig.md), [**PickFromBlockedProportion**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**VegeHeightConfig**](structVegeHeightConfig.md), [**PickFromBlockedProportionEmpty**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ConfigJson**](classCoordinate2D.md), [**VegeMinHoleAreaRoundTrip**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), MinInterval) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), PickFromHeight) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), LayerNameFromHeight) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), LayerNameFromHeightFormlineAlias) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), IndexOperator) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), DefaultConstruction) <br> |
+|   | [**TEST**](#function-test) ([**WaterConfigs**](structWaterConfigs.md), ConfigFromCatchment) <br> |
+|   | [**TEST**](#function-test) ([**WaterConfigs**](structWaterConfigs.md), MinimumCatchment) <br> |
+|   | [**TEST**](#function-test) ([**VegeHeightConfig**](structVegeHeightConfig.md), PickFromBlockedProportion) <br> |
+|   | [**TEST**](#function-test) ([**VegeHeightConfig**](structVegeHeightConfig.md), PickFromBlockedProportionEmpty) <br> |
+|   | [**TEST**](#function-test) (ConfigJson, VegeMinHoleAreaRoundTrip) <br> |
 
 
 

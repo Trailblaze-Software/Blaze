@@ -62,7 +62,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, [**const**](classCoordinate2D.md) std::chrono::duration&lt; [**double**](classCoordinate2D.md) &gt; & duration) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, const std::chrono::duration&lt; double &gt; & duration) <br> |
 
 
 

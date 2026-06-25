@@ -35,9 +35,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**blocking\_threshold**](#variable-blocking_threshold)  <br> |
-|  [**double**](classCoordinate2D.md) | [**max\_height**](#variable-max_height)  <br> |
-|  [**double**](classCoordinate2D.md) | [**min\_height**](#variable-min_height)  <br> |
+|  double | [**blocking\_threshold**](#variable-blocking_threshold)  <br> |
+|  double | [**max\_height**](#variable-max_height)  <br> |
+|  double | [**min\_height**](#variable-min_height)  <br> |
 
 
 

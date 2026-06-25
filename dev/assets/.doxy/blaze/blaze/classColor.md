@@ -52,9 +52,9 @@ Inherited by the following classes: [CMYKColor](classCMYKColor.md),  [RGBColor](
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Color**](#function-color-12) ([**const**](classCoordinate2D.md) [**Color**](classColor.md) &) = default<br> |
+|   | [**Color**](#function-color-12) (const [**Color**](classColor.md) &) = default<br> |
 |   | [**Color**](#function-color-22) () = default<br> |
-|  [**Color**](classColor.md) & | [**operator=**](#function-operator) ([**const**](classCoordinate2D.md) [**Color**](classColor.md) &) = default<br> |
+|  [**Color**](classColor.md) & | [**operator=**](#function-operator) (const [**Color**](classColor.md) &) = default<br> |
 | virtual [**CMYKColor**](classCMYKColor.md) | [**toCMYK**](#function-tocmyk) () const = 0<br> |
 | virtual [**RGBColor**](classRGBColor.md) | [**toRGB**](#function-torgb) () const = 0<br> |
 | virtual  | [**~Color**](#function-color) () = default<br> |
@@ -95,7 +95,7 @@ Inherited by the following classes: [CMYKColor](classCMYKColor.md),  [RGBColor](
 
 ```C++
 Color::Color (
-    const  Color &
+    const Color &
 ) = default
 ```
 
@@ -123,7 +123,7 @@ Color::Color () = default
 
 ```C++
 Color & Color::operator= (
-    const  Color &
+    const Color &
 ) = default
 ```
 

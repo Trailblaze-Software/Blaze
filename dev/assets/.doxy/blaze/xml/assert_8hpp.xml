@@ -9,10 +9,12 @@
     <includes local="no">string</includes>
     <includes refid="to__string_8hpp" local="yes">printing/to_string.hpp</includes>
     <includedby refid="config__editor_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp</includedby>
+    <includedby refid="point__cloud__framebuffer_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp</includedby>
     <includedby refid="gdal__assert_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/assert/gdal_assert.hpp</includedby>
     <includedby refid="config__input_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp</includedby>
     <includedby refid="polygon_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp</includedby>
     <includedby refid="grid_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</includedby>
+    <includedby refid="image_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/image.cpp</includedby>
     <includedby refid="crs_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp</includedby>
     <includedby refid="gpkg_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</includedby>
     <includedby refid="colors_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/isom/colors.cpp</includedby>
@@ -84,58 +86,100 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="27">
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp</label>
+        <link refid="blaze__output__loader_8hpp_source"/>
+      </node>
+      <node id="30">
         <label>/home/runner/work/Blaze/Blaze/src/gui/camera.hpp</label>
         <link refid="camera_8hpp_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="31">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp</label>
+        <link refid="frustum_8hpp_source"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
         <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
         <link refid="gl__widget_8hpp_source"/>
-        <childnode refid="17" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="4">
         <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
         <link refid="layer_8hpp_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
         <link refid="layer__renderer_8hpp_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="7">
         <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
         <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="20">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp</label>
+        <link refid="octree__las__data_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp</label>
+        <link refid="point__cloud__gl_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp</label>
+        <link refid="point__octree_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp</label>
+        <link refid="raster__data_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp</label>
         <link refid="assert_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -144,84 +188,96 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="15">
         <label>/home/runner/work/Blaze/Blaze/src/lib/cliff/cliff.hpp</label>
         <link refid="cliff_8hpp_source"/>
       </node>
-      <node id="10">
+      <node id="16">
         <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp</label>
         <link refid="contour_8hpp_source"/>
-        <childnode refid="6" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
-        <link refid="contour__gen_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp</label>
-        <link refid="polygon_8hpp_source"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp</label>
-        <link refid="polygon__subtract_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</label>
-        <link refid="grid_8hpp_source"/>
         <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-      </node>
-      <node id="12">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
-        <link refid="grid__ops_8hpp_source"/>
-        <childnode refid="10" relation="include">
         </childnode>
       </node>
       <node id="11">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
+        <link refid="contour__gen_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon.hpp</label>
+        <link refid="polygon_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp</label>
+        <link refid="polygon__subtract_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
         <link refid="img__grid_8hpp_source"/>
       </node>
-      <node id="13">
+      <node id="19">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp</label>
         <link refid="crs_8hpp_source"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -229,96 +285,108 @@
         <link refid="gpkg_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
-      <node id="19">
+      <node id="22">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</label>
         <link refid="binned__points_8hpp_source"/>
       </node>
-      <node id="14">
+      <node id="21">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
         <link refid="las__file_8hpp_source"/>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-      </node>
-      <node id="25">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
-        <link refid="las__point_8hpp_source"/>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
       </node>
-      <node id="20">
+      <node id="28">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp</label>
+        <link refid="las__point_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</label>
         <link refid="tile__mode_8hpp_source"/>
       </node>
-      <node id="28">
+      <node id="34">
         <label>/home/runner/work/Blaze/Blaze/src/lib/polyline/polyline.hpp</label>
         <link refid="polyline_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="25">
         <label>/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</label>
         <link refid="tif_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="29">
         <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
-        <childnode refid="27" relation="include">
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="26">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
         <link refid="vegetation_8hpp_source"/>
       </node>
-      <node id="4">
+      <node id="9">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
         <link refid="vegetation__polygon_8hpp_source"/>
       </node>
-      <node id="24">
+      <node id="27">
         <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
         <link refid="hill__shade_8hpp_source"/>
       </node>
-      <node id="29">
+      <node id="35">
         <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
         <link refid="water_8hpp_source"/>
       </node>
-      <node id="21">
+      <node id="24">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>
@@ -328,7 +396,7 @@
       <memberdef kind="define" id="assert_8hpp_1a474a719388efd0578c7c98a0961e23dd" prot="public" static="no">
         <name>HAS_BUILTIN</name>
         <param><defname>x</defname></param>
-        <initializer><ref refid="classCoordinate2D" kindref="compound">__has_builtin</ref>(x)</initializer>
+        <initializer>__has_builtin(x)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -341,11 +409,11 @@
         <name>Assert</name>
         <param><defname>condition</defname></param>
         <param><defname>...</defname></param>
-        <initializer>  <ref refid="classCoordinate2D" kindref="compound">do</ref> {                                                                         \
-    <ref refid="classCoordinate2D" kindref="compound">if</ref> (!(<ref refid="classCoordinate2D" kindref="compound">condition</ref>)) [[<ref refid="classCoordinate2D" kindref="compound">unlikely</ref>]] {                                           \
-      _Assert(<ref refid="classCoordinate2D" kindref="compound">condition</ref>, #<ref refid="classCoordinate2D" kindref="compound">condition</ref>, std::optional&lt;std::string&gt;(<ref refid="classCoordinate2D" kindref="compound">__VA_ARGS__</ref>)); \
+        <initializer>  do {                                                                         \
+    if (!(condition)) [[unlikely]] {                                           \
+      _Assert(condition, #condition, std::optional&lt;std::string&gt;(__VA_ARGS__)); \
     }                                                                          \
-  } <ref refid="classCoordinate2D" kindref="compound">while</ref> (0)</initializer>
+  } while (0)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -357,10 +425,10 @@
       <memberdef kind="define" id="assert_8hpp_1a04f299228732952d4ca03cb1dfa1f3e5" prot="public" static="no">
         <name>Fail</name>
         <param><defname>...</defname></param>
-        <initializer>  <ref refid="classCoordinate2D" kindref="compound">do</ref> {                          \
-    Assert(<ref refid="classCoordinate2D" kindref="compound">false</ref>, <ref refid="classCoordinate2D" kindref="compound">__VA_ARGS__</ref>); \
+        <initializer>  do {                          \
+    Assert(false, __VA_ARGS__); \
     unreachable();              \
-  } <ref refid="classCoordinate2D" kindref="compound">while</ref> (0)</initializer>
+  } while (0)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -372,7 +440,7 @@
       <memberdef kind="define" id="assert_8hpp_1a818682dc0f0ee3abc047fcd1c243a7fe" prot="public" static="no">
         <name>Unimplemented</name>
         <param><defname>...</defname></param>
-        <initializer>Assert(<ref refid="classCoordinate2D" kindref="compound">false</ref>, &quot;Unimplemented&quot;)</initializer>
+        <initializer>Assert(false, &quot;Unimplemented&quot;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -387,11 +455,11 @@
         <param><defname>b</defname></param>
         <param><defname>op</defname></param>
         <param><defname>nop</defname></param>
-        <initializer>  <ref refid="classCoordinate2D" kindref="compound">do</ref> {                                               \
-    <ref refid="classCoordinate2D" kindref="compound">if</ref> (!((<ref refid="classCoordinate2D" kindref="compound">a</ref>)<ref refid="classCoordinate2D" kindref="compound">op</ref>(<ref refid="classCoordinate2D" kindref="compound">b</ref>))) [[<ref refid="classCoordinate2D" kindref="compound">unlikely</ref>]] {                  \
-      _AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">a</ref>, <ref refid="classCoordinate2D" kindref="compound">b</ref>, #<ref refid="classCoordinate2D" kindref="compound">a</ref>, #<ref refid="classCoordinate2D" kindref="compound">b</ref>, <ref refid="classCoordinate2D" kindref="compound">a</ref> <ref refid="classCoordinate2D" kindref="compound">op</ref> <ref refid="classCoordinate2D" kindref="compound">b</ref>, #<ref refid="classCoordinate2D" kindref="compound">op</ref>, #<ref refid="classCoordinate2D" kindref="compound">nop</ref>); \
+        <initializer>  do {                                               \
+    if (!((a)op(b))) [[unlikely]] {                  \
+      _AssertBinOp(a, b, #a, #b, a op b, #op, #nop); \
     }                                                \
-  } <ref refid="classCoordinate2D" kindref="compound">while</ref> (0)</initializer>
+  } while (0)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -404,7 +472,7 @@
         <name>AssertGE</name>
         <param><defname>expr</defname></param>
         <param><defname>val</defname></param>
-        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, &gt;=, &lt;)</initializer>
+        <initializer>AssertBinOp(expr, val, &gt;=, &lt;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -417,7 +485,7 @@
         <name>AssertLE</name>
         <param><defname>expr</defname></param>
         <param><defname>val</defname></param>
-        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, &lt;=, &gt;)</initializer>
+        <initializer>AssertBinOp(expr, val, &lt;=, &gt;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -430,7 +498,7 @@
         <name>AssertGT</name>
         <param><defname>expr</defname></param>
         <param><defname>val</defname></param>
-        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, &gt;, &lt;=)</initializer>
+        <initializer>AssertBinOp(expr, val, &gt;, &lt;=)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -443,7 +511,7 @@
         <name>AssertEQ</name>
         <param><defname>expr</defname></param>
         <param><defname>val</defname></param>
-        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, ==, !=)</initializer>
+        <initializer>AssertBinOp(expr, val, ==, !=)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -456,7 +524,7 @@
         <name>AssertNE</name>
         <param><defname>expr</defname></param>
         <param><defname>val</defname></param>
-        <initializer>AssertBinOp(<ref refid="classCoordinate2D" kindref="compound">expr</ref>, <ref refid="classCoordinate2D" kindref="compound">val</ref>, !=, ==)</initializer>
+        <initializer>AssertBinOp(expr, val, !=, ==)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -468,7 +536,7 @@
     </sectiondef>
     <sectiondef kind="func">
       <memberdef kind="function" id="assert_8hpp_1a98a996adc7ad22a8dc75b936e74b73ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void unreachable</definition>
         <argsstring>()</argsstring>
         <name>unreachable</name>
@@ -481,24 +549,24 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" line="25" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/assert/assert.hpp" bodystart="25" bodyend="34"/>
       </memberdef>
       <memberdef kind="function" id="assert_8hpp_1a1b608016f3fd259c8a9d4c61fd02b93c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void _Assert</definition>
         <argsstring>(bool condition, const std::string &amp;condition_str, const std::optional&lt; std::string &gt; &amp;message, const std::source_location &amp;loc=std::source_location::current())</argsstring>
         <name>_Assert</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+          <type>bool</type>
           <declname>condition</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>condition_str</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::optional&lt; std::string &gt; &amp;</type>
+          <type>const std::optional&lt; std::string &gt; &amp;</type>
           <declname>message</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::source_location &amp;</type>
+          <type>const std::source_location &amp;</type>
           <declname>loc</declname>
           <defval>std::source_location::current()</defval>
         </param>
@@ -513,46 +581,46 @@
       <memberdef kind="function" id="assert_8hpp_1acaf21242759f05a3b645c4c25f8054dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">A</ref></type>
+            <type>typename A</type>
           </param>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">B</ref></type>
+            <type>typename B</type>
           </param>
         </templateparamlist>
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void _AssertBinOp</definition>
         <argsstring>(const A &amp;a, const B &amp;b, const std::string &amp;a_str, const std::string &amp;b_str, bool result, const std::string &amp;op, const std::string &amp;nop, const std::source_location &amp;loc=std::source_location::current())</argsstring>
         <name>_AssertBinOp</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">A</ref> &amp;</type>
+          <type>const A &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">B</ref> &amp;</type>
+          <type>const B &amp;</type>
           <declname>b</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>a_str</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>b_str</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+          <type>bool</type>
           <declname>result</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>op</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>nop</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::source_location &amp;</type>
+          <type>const std::source_location &amp;</type>
           <declname>loc</declname>
           <defval>std::source_location::current()</defval>
         </param>
@@ -594,14 +662,14 @@
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;printing/to_string.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal">[[<ref refid="classCoordinate2D" kindref="compound">noreturn</ref>]]<sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>unreachable()<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">[[noreturn]]<sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>unreachable()<sp/>{</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Uses<sp/>compiler<sp/>specific<sp/>extensions<sp/>if<sp/>possible.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Even<sp/>if<sp/>no<sp/>extension<sp/>is<sp/>used,<sp/>undefined<sp/>behavior<sp/>is<sp/>still<sp/>raised<sp/>by</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>an<sp/>empty<sp/>function<sp/>body<sp/>and<sp/>the<sp/>noreturn<sp/>attribute.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(_MSC_VER)<sp/>&amp;&amp;<sp/>!defined(__clang__)<sp/><sp/></highlight><highlight class="comment">//<sp/>MSVC</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">__assume</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>__assume(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/><sp/></highlight><highlight class="comment">//<sp/>GCC,<sp/>Clang</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">__builtin_unreachable</ref>();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>__builtin_unreachable();</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
@@ -616,16 +684,16 @@
 <codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
 <codeline lineno="45"><highlight class="preprocessor"><sp/><sp/>}<sp/>while<sp/>(0)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Assert(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">condition</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">condition_str</ref>,</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::optional&lt;std::string&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">message</ref>,</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::source_location&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref><sp/>=<sp/>std::source_location::current())<sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">condition</ref>)<sp/>[[<ref refid="classCoordinate2D" kindref="compound">unlikely</ref>]]<sp/>{</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Blaze<sp/>assertion<sp/>failed:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">condition_str</ref><sp/>&lt;&lt;<sp/>(<ref refid="classCoordinate2D" kindref="compound">message</ref><sp/>?<sp/></highlight><highlight class="stringliteral">&quot;:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>*<ref refid="classCoordinate2D" kindref="compound">message</ref><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n<sp/>in<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>.function_name()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>at<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>.file_name()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>.line()</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Assert(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>condition,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>condition_str,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::optional&lt;std::string&gt;&amp;<sp/>message,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::source_location&amp;<sp/>loc<sp/>=<sp/>std::source_location::current())<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!condition)<sp/>[[unlikely]]<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/>ss;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>ss<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Blaze<sp/>assertion<sp/>failed:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>condition_str<sp/>&lt;&lt;<sp/>(message<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>*message<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n<sp/>in<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>loc.function_name()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>at<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>loc.file_name()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>loc.line()</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>.str();</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(<ref refid="classCoordinate2D" kindref="compound">ss</ref>.str());</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/>ss.str();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(ss.str());</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="58"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
@@ -638,13 +706,13 @@
 <codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Unimplemented(...)<sp/>Assert(false,<sp/>&quot;Unimplemented&quot;)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>A,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>B&gt;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_AssertBinOp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">A</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">B</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a_str</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b_str</ref>,</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">op</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">nop</ref>,</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::source_location&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref><sp/>=<sp/>std::source_location::current())<sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">result</ref>)<sp/>[[<ref refid="classCoordinate2D" kindref="compound">unlikely</ref>]]<sp/>{</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">nop</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>_Assert(<ref refid="classCoordinate2D" kindref="compound">result</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">a_str</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">op</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">b_str</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ss</ref>.str(),<sp/><ref refid="classCoordinate2D" kindref="compound">loc</ref>);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_AssertBinOp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>A&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>B&amp;<sp/>b,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>a_str,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>b_str,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>result,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>op,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>nop,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::source_location&amp;<sp/>loc<sp/>=<sp/>std::source_location::current())<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!result)<sp/>[[unlikely]]<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/>ss;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>ss<sp/>&lt;&lt;<sp/>a<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>nop<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>b;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>_Assert(result,<sp/>a_str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>op<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>b_str,<sp/>ss.str(),<sp/>loc);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>

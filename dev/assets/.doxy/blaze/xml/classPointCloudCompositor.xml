@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPointCloudCompositor" kind="class" language="C++" prot="public">
+    <compoundname>PointCloudCompositor</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPointCloudCompositor_1a88b52286b68518795c1313aa332ff239" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; QOpenGLShaderProgram &gt;</type>
+        <definition>std::unique_ptr&lt;QOpenGLShaderProgram&gt; PointCloudCompositor::m_shader</definition>
+        <argsstring></argsstring>
+        <name>m_shader</name>
+        <qualifiedname>PointCloudCompositor::m_shader</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="46" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudCompositor_1a2d6c045d7737b2b24e6824a8d1b643e4" prot="private" static="no" mutable="no">
+        <type>QOpenGLVertexArrayObject</type>
+        <definition>QOpenGLVertexArrayObject PointCloudCompositor::m_vao</definition>
+        <argsstring></argsstring>
+        <name>m_vao</name>
+        <qualifiedname>PointCloudCompositor::m_vao</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="47" column="28" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudCompositor_1a19561a387c241075ab42a0a9dfcd8326" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PointCloudCompositor::m_color_loc</definition>
+        <argsstring></argsstring>
+        <name>m_color_loc</name>
+        <qualifiedname>PointCloudCompositor::m_color_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="48" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudCompositor_1a20936ac30159c38c33333b83a0eaab53" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PointCloudCompositor::m_depth_loc</definition>
+        <argsstring></argsstring>
+        <name>m_depth_loc</name>
+        <qualifiedname>PointCloudCompositor::m_depth_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="49" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudCompositor_1a50cc4bedeb33dc8c467adbc6ebfe46d3" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PointCloudCompositor::m_alpha_loc</definition>
+        <argsstring></argsstring>
+        <name>m_alpha_loc</name>
+        <qualifiedname>PointCloudCompositor::m_alpha_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="50" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudCompositor_1ac99857bde6fc5f332f7ba6fcf898a8f1" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PointCloudCompositor::m_ready</definition>
+        <argsstring></argsstring>
+        <name>m_ready</name>
+        <qualifiedname>PointCloudCompositor::m_ready</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="51" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPointCloudCompositor_1aecab960e6c19f63271ed9fb54d77ca5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudCompositor::ensure_initialized</definition>
+        <argsstring>(QOpenGLFunctions *f)</argsstring>
+        <name>ensure_initialized</name>
+        <qualifiedname>PointCloudCompositor::ensure_initialized</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="41" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp" bodystart="182" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudCompositor_1ab430eae0e3f9cf1cbd3d1cbbaefeff2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudCompositor::composite</definition>
+        <argsstring>(QOpenGLExtraFunctions *gl, GLuint dest_fbo, GLuint point_color_tex, GLuint point_depth_tex, float layer_alpha, int width, int height)</argsstring>
+        <name>composite</name>
+        <qualifiedname>PointCloudCompositor::composite</qualifiedname>
+        <param>
+          <type>QOpenGLExtraFunctions *</type>
+          <declname>gl</declname>
+        </param>
+        <param>
+          <type>GLuint</type>
+          <declname>dest_fbo</declname>
+        </param>
+        <param>
+          <type>GLuint</type>
+          <declname>point_color_tex</declname>
+        </param>
+        <param>
+          <type>GLuint</type>
+          <declname>point_depth_tex</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>layer_alpha</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="42" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp" bodystart="202" bodyend="237"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="39" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="39" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classPointCloudCompositor_1ab430eae0e3f9cf1cbd3d1cbbaefeff2b" prot="public" virt="non-virtual"><scope>PointCloudCompositor</scope><name>composite</name></member>
+      <member refid="classPointCloudCompositor_1aecab960e6c19f63271ed9fb54d77ca5f" prot="public" virt="non-virtual"><scope>PointCloudCompositor</scope><name>ensure_initialized</name></member>
+      <member refid="classPointCloudCompositor_1a50cc4bedeb33dc8c467adbc6ebfe46d3" prot="private" virt="non-virtual"><scope>PointCloudCompositor</scope><name>m_alpha_loc</name></member>
+      <member refid="classPointCloudCompositor_1a19561a387c241075ab42a0a9dfcd8326" prot="private" virt="non-virtual"><scope>PointCloudCompositor</scope><name>m_color_loc</name></member>
+      <member refid="classPointCloudCompositor_1a20936ac30159c38c33333b83a0eaab53" prot="private" virt="non-virtual"><scope>PointCloudCompositor</scope><name>m_depth_loc</name></member>
+      <member refid="classPointCloudCompositor_1ac99857bde6fc5f332f7ba6fcf898a8f1" prot="private" virt="non-virtual"><scope>PointCloudCompositor</scope><name>m_ready</name></member>
+      <member refid="classPointCloudCompositor_1a88b52286b68518795c1313aa332ff239" prot="private" virt="non-virtual"><scope>PointCloudCompositor</scope><name>m_shader</name></member>
+      <member refid="classPointCloudCompositor_1a2d6c045d7737b2b24e6824a8d1b643e4" prot="private" virt="non-virtual"><scope>PointCloudCompositor</scope><name>m_vao</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

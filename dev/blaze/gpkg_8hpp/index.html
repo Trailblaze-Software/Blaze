@@ -963,32 +963,32 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-combine_gpkgs"><strong>combine_gpkgs</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; fs::path &gt; &amp; sources, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; output, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; projection={}, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-combine_gpkgs"><strong>combine_gpkgs</strong></a> (const std::vector&lt; fs::path &gt; &amp; sources, const fs::path &amp; output, const std::string &amp; projection={}, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-copy_gpkg_feature"><strong>copy_gpkg_feature</strong></a> (<a href="../classCoordinate2D/"><strong>GDALDataset</strong></a> * dst, <a href="../classCoordinate2D/"><strong>OGRLayer</strong></a> * src_layer, <a href="../classCoordinate2D/"><strong>OGRFeature</strong></a> * feature) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-copy_gpkg_feature"><strong>copy_gpkg_feature</strong></a> (GDALDataset * dst, OGRLayer * src_layer, OGRFeature * feature) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-copy_gpkg_layer"><strong>copy_gpkg_layer</strong></a> (<a href="../classCoordinate2D/"><strong>GDALDataset</strong></a> * dst, <a href="../classCoordinate2D/"><strong>OGRLayer</strong></a> * src_layer, <a href="../classCoordinate2D/"><strong>const</strong></a> std::function&lt; <a href="../classCoordinate2D/"><strong>void</strong></a>()&gt; &amp; on_feature_copied={}) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-copy_gpkg_layer"><strong>copy_gpkg_layer</strong></a> (GDALDataset * dst, OGRLayer * src_layer, const std::function&lt; void()&gt; &amp; on_feature_copied={}) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-ensure_dst_layer_fields"><strong>ensure_dst_layer_fields</strong></a> (<a href="../classCoordinate2D/"><strong>OGRLayer</strong></a> * dst_layer, <a href="../classCoordinate2D/"><strong>OGRFeatureDefn</strong></a> * src_defn) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-ensure_dst_layer_fields"><strong>ensure_dst_layer_fields</strong></a> (OGRLayer * dst_layer, OGRFeatureDefn * src_defn) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>OGRLayer</strong></a> *</td>
-<td style="text-align: left;"><a href="#function-get_or_create_dst_layer"><strong>get_or_create_dst_layer</strong></a> (<a href="../classCoordinate2D/"><strong>GDALDataset</strong></a> * dst, <a href="../classCoordinate2D/"><strong>OGRLayer</strong></a> * src_layer, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; layer_name, <a href="../classCoordinate2D/"><strong>OGRwkbGeometryType</strong></a> geom_type) <br></td>
+<td style="text-align: right;">OGRLayer *</td>
+<td style="text-align: left;"><a href="#function-get_or_create_dst_layer"><strong>get_or_create_dst_layer</strong></a> (GDALDataset * dst, OGRLayer * src_layer, const std::string &amp; layer_name, OGRwkbGeometryType geom_type) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
-<td style="text-align: left;"><a href="#function-gpkg_feature_count"><strong>gpkg_feature_count</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; path) <br></td>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#function-gpkg_feature_count"><strong>gpkg_feature_count</strong></a> (const fs::path &amp; path) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-read_gpkg"><strong>read_gpkg</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename) <br></td>
+<td style="text-align: left;"><a href="#function-read_gpkg"><strong>read_gpkg</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> * progress_tracker=nullptr) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1016,7 +1016,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">copy_gpkg_layer</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">GDALDataset</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="p">,</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">OGRLayer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">src_layer</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">on_feature_copied</span><span class="o">=</span><span class="p">{}</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">void</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">on_feature_copied</span><span class="o">=</span><span class="p">{}</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1048,8 +1048,9 @@
 
 <h3 id="function-read_gpkg">function read_gpkg</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Contour</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_gpkg</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="nb">nullptr</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

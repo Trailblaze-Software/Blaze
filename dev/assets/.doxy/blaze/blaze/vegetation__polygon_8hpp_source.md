@@ -118,12 +118,19 @@ inline std::vector<VegePolygon> subtract_from_polygon(const VegePolygon& host,
 }
 
 // Clip vegetation polygons to the export extent (same bounds used for raster export).
+// When `snap_extents` is non-empty, vertices near those edges are snapped and each
+// polygon is repaired before output (stabilizes cross-tile union at seams).
 inline void trim_vege_polygons_to_extent(std::vector<VegePolygon>& polygons, const Extent2D& bounds,
+                                         const std::vector<Extent2D>& snap_extents = {},
+                                         double snap_tolerance = 0.01,
                                          ProgressTracker&& progress_tracker = ProgressTracker()) {
   TimeFunction timer("trimming vegetation polygons", &progress_tracker);
   if (polygons.empty()) {
     return;
   }
+
+  std::vector<Extent2D> snap_targets =
+      snap_extents.empty() ? std::vector<Extent2D>{bounds} : snap_extents;
 
   std::vector<std::vector<VegePolygon>> trimmed_batches(polygons.size());
 
@@ -138,23 +145,26 @@ inline void trim_vege_polygons_to_extent(std::vector<VegePolygon>& polygons, con
       continue;
     }
 
+    std::vector<PolygonWithHoles> pieces;
     if (extent_contains(bounds, poly_ext)) {
-      trimmed_batches[i].push_back(poly);
-      continue;
+      pieces.push_back({poly.exterior_ring, poly.holes});
+    } else {
+      pieces = clip_polygon_to_extent({poly.exterior_ring, poly.holes}, bounds);
     }
 
-    std::vector<PolygonWithHoles> clipped_pieces =
-        clip_polygon_to_extent({poly.exterior_ring, poly.holes}, bounds);
-    for (const PolygonWithHoles& piece : clipped_pieces) {
-      if (piece.exterior.size() < 3) {
-        continue;
+    for (const PolygonWithHoles& clipped : pieces) {
+      for (PolygonWithHoles& finalized :
+           finalize_polygon_with_holes(clipped, snap_targets, snap_tolerance)) {
+        if (finalized.exterior.size() < 3) {
+          continue;
+        }
+        VegePolygon out;
+        out.layer = poly.layer;
+        out.name = poly.name;
+        out.exterior_ring = std::move(finalized.exterior);
+        out.holes = std::move(finalized.holes);
+        trimmed_batches[i].push_back(std::move(out));
       }
-      VegePolygon out;
-      out.layer = poly.layer;
-      out.name = poly.name;
-      out.exterior_ring = piece.exterior;
-      out.holes = piece.holes;
-      trimmed_batches[i].push_back(std::move(out));
     }
   }
 
@@ -376,7 +386,8 @@ inline std::vector<VegePolygon> generate_vege_polygons(
       thresholds.push_back(t);
     }
 
-    auto contours = generate_contours_at_heights(grid, thresholds, /*min_points=*/5, 0.0f);
+    auto contours =
+        generate_contours_at_heights(grid, thresholds, /*min_points=*/5, 0.0f, &progress_tracker);
     auto polygons = contours_to_polygons(contours, threshold_layers);
 
     // Rough open land: same forest threshold but pad 1.0 so the tile edge reads as
@@ -385,7 +396,8 @@ inline std::vector<VegePolygon> generate_vege_polygons(
       double lowest = thresholds.front();
       std::string lowest_layer = threshold_layers.at(lowest);
       if (lowest_layer.rfind("405_", 0) == 0) {
-        auto open_contours = generate_contours_at_heights(grid, {lowest}, /*min_points=*/5, 1.0f);
+        auto open_contours =
+            generate_contours_at_heights(grid, {lowest}, /*min_points=*/5, 1.0f, &progress_tracker);
         // orient_consistent puts above-threshold values on the left; rough open land
         // polygons enclose below-threshold regions, so flip ring direction.
         for (auto& [height, open_height_contours] : open_contours) {

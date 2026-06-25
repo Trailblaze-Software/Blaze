@@ -82,21 +82,21 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**Extent2D**](structExtent2D.md) | [**as\_extent2d**](#function-as_extent2d) ([**const**](classCoordinate2D.md) laspp::Bound3D & b) <br> |
-|  [**Extent3D**](structExtent3D.md) | [**as\_extent3d**](#function-as_extent3d) ([**const**](classCoordinate2D.md) laspp::Bound3D & b) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**as\_extent2d**](#function-as_extent2d) (const laspp::Bound3D & b) <br> |
+|  [**Extent3D**](structExtent3D.md) | [**as\_extent3d**](#function-as_extent3d) (const laspp::Bound3D & b) <br> |
 |  T | [**average**](#function-average) (T a, T b) <br> |
-|  [**Extent2D**](structExtent2D.md) | [**border\_ranges**](#function-border_ranges) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, [**double**](classCoordinate2D.md) border\_width) <br> |
-|  std::string | [**convert\_geo\_keys\_to\_wkt**](#function-convert_geo_keys_to_wkt) ([**const**](classCoordinate2D.md) laspp::LASGeoKeys & geo\_keys) <br> |
-|  [**void**](classCoordinate2D.md) | [**copy\_from**](#function-copy_from) ([**LASPoint**](classLASPoint.md) & point, [**const**](classCoordinate2D.md) laspp::LASPointFormat0 & data) <br> |
-|  [**void**](classCoordinate2D.md) | [**copy\_from**](#function-copy_from) ([**LASPoint**](classLASPoint.md) & point, [**const**](classCoordinate2D.md) laspp::LASPointFormat6 & data) <br> |
-|  [**void**](classCoordinate2D.md) | [**copy\_from**](#function-copy_from) (laspp::LASPointFormat0 & data, [**const**](classCoordinate2D.md) [**LASPoint**](classLASPoint.md) & point) <br> |
-|  [**Extent2D**](structExtent2D.md) | [**external\_border\_ranges**](#function-external_border_ranges) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, [**double**](classCoordinate2D.md) border\_width) <br> |
-|  [**void**](classCoordinate2D.md) | [**extract\_borders**](#function-extract_borders) ([**const**](classCoordinate2D.md) fs::path & las\_filename, [**double**](classCoordinate2D.md) border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**border\_ranges**](#function-border_ranges) (const [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, double border\_width) <br> |
+|  std::string | [**convert\_geo\_keys\_to\_wkt**](#function-convert_geo_keys_to_wkt) (const laspp::LASGeoKeys & geo\_keys) <br> |
+|  void | [**copy\_from**](#function-copy_from) ([**LASPoint**](classLASPoint.md) & point, const laspp::LASPointFormat0 & data) <br> |
+|  void | [**copy\_from**](#function-copy_from) ([**LASPoint**](classLASPoint.md) & point, const laspp::LASPointFormat6 & data) <br> |
+|  void | [**copy\_from**](#function-copy_from) (laspp::LASPointFormat0 & data, const [**LASPoint**](classLASPoint.md) & point) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**external\_border\_ranges**](#function-external_border_ranges) (const [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, double border\_width) <br> |
+|  void | [**extract\_borders**](#function-extract_borders) (const fs::path & las\_filename, double border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
 |  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, BorderType border\_type) <br> |
-|  std::string | [**reader\_embedded\_wkt**](#function-reader_embedded_wkt) ([**const**](classCoordinate2D.md) laspp::LASReader & reader) <br> |
-|  std::string | [**reader\_horizontal\_wkt**](#function-reader_horizontal_wkt) ([**const**](classCoordinate2D.md) laspp::LASReader & reader, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
-|  [**long**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**round**](#function-round) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) resolution=1.0) <br> |
-|  std::string | [**unique\_coord\_name**](#function-unique_coord_name) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & box) <br> |
+|  std::string | [**reader\_embedded\_wkt**](#function-reader_embedded_wkt) (const laspp::LASReader & reader) <br> |
+|  std::string | [**reader\_horizontal\_wkt**](#function-reader_horizontal_wkt) (const laspp::LASReader & reader, const std::string & override\_crs="") <br> |
+|  long int | [**round**](#function-round) (double x, double resolution=1.0) <br> |
+|  std::string | [**unique\_coord\_name**](#function-unique_coord_name) (const [**Extent2D**](structExtent2D.md) & box) <br> |
 
 
 
@@ -205,7 +205,7 @@ inline T average (
 
 ```C++
 inline Extent2D border_ranges (
-    const  Extent2D & box,
+    const Extent2D & box,
     BorderType border_type,
     double border_width
 ) 
@@ -270,7 +270,7 @@ inline void copy_from (
 ```C++
 inline void copy_from (
     laspp::LASPointFormat0 & data,
-    const  LASPoint & point
+    const LASPoint & point
 ) 
 ```
 
@@ -285,7 +285,7 @@ inline void copy_from (
 
 ```C++
 inline Extent2D external_border_ranges (
-    const  Extent2D & box,
+    const Extent2D & box,
     BorderType border_type,
     double border_width
 ) 
@@ -365,7 +365,7 @@ inline std::string reader_horizontal_wkt (
 ### function round 
 
 ```C++
-inline long  int round (
+inline long int round (
     double x,
     double resolution=1.0
 ) 
@@ -382,7 +382,7 @@ inline long  int round (
 
 ```C++
 inline std::string unique_coord_name (
-    const  Extent2D & box
+    const Extent2D & box
 ) 
 ```
 

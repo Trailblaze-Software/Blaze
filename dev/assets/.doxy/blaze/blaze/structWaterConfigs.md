@@ -56,8 +56,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**const**](classCoordinate2D.md) [**WaterConfig**](structWaterConfig.md) & | [**config\_from\_catchment**](#function-config_from_catchment) ([**double**](classCoordinate2D.md) catchment) const<br> |
-|  [**double**](classCoordinate2D.md) | [**minimum\_catchment**](#function-minimum_catchment) () const<br> |
+|  const [**WaterConfig**](structWaterConfig.md) & | [**config\_from\_catchment**](#function-config_from_catchment) (double catchment) const<br> |
+|  double | [**minimum\_catchment**](#function-minimum_catchment) () const<br> |
 
 
 
@@ -109,7 +109,7 @@ std::map<std::string, WaterConfig> WaterConfigs::configs;
 ### function config\_from\_catchment 
 
 ```C++
-inline const  WaterConfig & WaterConfigs::config_from_catchment (
+inline const WaterConfig & WaterConfigs::config_from_catchment (
     double catchment
 ) const
 ```

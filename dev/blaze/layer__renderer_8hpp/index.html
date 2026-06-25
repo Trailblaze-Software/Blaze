@@ -786,95 +786,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#public-static-attributes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Static Attributes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macros" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Macros
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-static-attributes-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Static Attributes Documentation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Public Static Attributes Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#variable-fragmentshadersource" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        variable fragmentShaderSource
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#variable-vertexshadersource" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        variable vertexShaderSource
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macro-definition-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Macro Definition Documentation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Macro Definition Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#define-check_shader_bind" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        define CHECK_SHADER_BIND
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -902,10 +813,18 @@
 <li><code>#include &lt;QOpenGLBuffer&gt;</code></li>
 <li><code>#include &lt;QOpenGLFunctions&gt;</code></li>
 <li><code>#include &lt;QOpenGLShaderProgram&gt;</code></li>
+<li><code>#include &lt;QOpenGLTexture&gt;</code></li>
 <li><code>#include &lt;QOpenGLVertexArrayObject&gt;</code></li>
-<li><code>#include &lt;future&gt;</code></li>
+<li><code>#include &lt;QPoint&gt;</code></li>
+<li><code>#include &lt;QVector3D&gt;</code></li>
+<li><code>#include &lt;cstdint&gt;</code></li>
+<li><code>#include &lt;optional&gt;</code></li>
+<li><code>#include &lt;unordered_map&gt;</code></li>
+<li><code>#include &lt;vector&gt;</code></li>
 <li><code>#include "gui/camera.hpp"</code></li>
 <li><code>#include "gui/layer.hpp"</code></li>
+<li><code>#include "gui/point_cloud_gl.hpp"</code></li>
+<li><code>#include "gui/point_octree.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -918,66 +837,34 @@
 <tbody>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classLASLayerRenderer/"><strong>LASLayerRenderer</strong></a> <br></td>
+<td style="text-align: left;"><a href="../classContourLayerRenderer/"><strong>ContourLayerRenderer</strong></a> <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
 <td style="text-align: left;"><a href="../classLayerRenderer/"><strong>LayerRenderer</strong></a> <br></td>
 </tr>
-</tbody>
-</table>
-<h2 id="public-static-attributes">Public Static Attributes</h2>
-<table>
-<thead>
 <tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>char</strong></a> *</td>
-<td style="text-align: left;"><a href="#variable-fragmentshadersource"><strong>fragmentShaderSource</strong></a>   = <code>/* multi line expression */</code><br></td>
+<td style="text-align: right;">class</td>
+<td style="text-align: left;"><a href="../classMeshLayerRenderer/"><strong>MeshLayerRenderer</strong></a> <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>char</strong></a> *</td>
-<td style="text-align: left;"><a href="#variable-vertexshadersource"><strong>vertexShaderSource</strong></a>   = <code>/* multi line expression */</code><br></td>
+<td style="text-align: right;">class</td>
+<td style="text-align: left;"><a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a> <br></td>
 </tr>
-</tbody>
-</table>
-<h2 id="macros">Macros</h2>
-<table>
-<thead>
 <tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
+<td style="text-align: right;">struct</td>
+<td style="text-align: left;"><a href="../structOctreeLASLayerRenderer_1_1NodeStreamState/"><strong>NodeStreamState</strong></a> <br></td>
 </tr>
-</thead>
-<tbody>
 <tr>
-<td style="text-align: right;">define</td>
-<td style="text-align: left;"><a href="./#define-check_shader_bind"><strong>CHECK_SHADER_BIND</strong></a> (shader) <code>/* multi line expression */</code><br></td>
+<td style="text-align: right;">struct</td>
+<td style="text-align: left;"><a href="../structPointPickResult/"><strong>PointPickResult</strong></a> <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">struct</td>
+<td style="text-align: left;"><a href="../structRenderContext/"><strong>RenderContext</strong></a> <br></td>
 </tr>
 </tbody>
 </table>
-<h2 id="public-static-attributes-documentation">Public Static Attributes Documentation</h2>
-<h3 id="variable-fragmentshadersource">variable fragmentShaderSource</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">fragmentShaderSource</span><span class="p">;</span>
-</code></pre></div>
-<hr>
-
-<h3 id="variable-vertexshadersource">variable vertexShaderSource</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">vertexShaderSource</span><span class="p">;</span>
-</code></pre></div>
-<hr>
-<h2 id="macro-definition-documentation">Macro Definition Documentation</h2>
-<h3 id="define-check_shader_bind">define CHECK_SHADER_BIND</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#define CHECK_SHADER_BIND (</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">shader</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="cm">/* multi line expression */</span><span class="err">`</span>
-</code></pre></div>
-<hr>
-
 <hr />
 <p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</code></p>
 

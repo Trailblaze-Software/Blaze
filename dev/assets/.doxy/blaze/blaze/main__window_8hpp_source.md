@@ -11,6 +11,9 @@
 #pragma once
 
 #include <QMainWindow>
+#include <vector>
+
+#include "utilities/filesystem.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,7 +25,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  MainWindow();
+  explicit MainWindow(const std::vector<fs::path>& initial_las_files = {});
   ~MainWindow();
 
  private slots:

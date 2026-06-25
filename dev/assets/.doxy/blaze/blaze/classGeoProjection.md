@@ -51,16 +51,16 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GeoProjection**](#function-geoprojection-15) ([**const**](classCoordinate2D.md) std::string & projection) <br> |
-|   | [**GeoProjection**](#function-geoprojection-25) ([**const**](classCoordinate2D.md) std::string & horizontal\_projection, [**const**](classCoordinate2D.md) std::string & compound\_wkt) <br> |
+|   | [**GeoProjection**](#function-geoprojection-15) (const std::string & projection) <br> |
+|   | [**GeoProjection**](#function-geoprojection-25) (const std::string & horizontal\_projection, const std::string & compound\_wkt) <br> |
 |   | [**GeoProjection**](#function-geoprojection-35) () = default<br> |
-|   | [**GeoProjection**](#function-geoprojection-45) ([**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & other) = default<br> |
+|   | [**GeoProjection**](#function-geoprojection-45) (const [**GeoProjection**](classGeoProjection.md) & other) = default<br> |
 |   | [**GeoProjection**](#function-geoprojection-55) ([**GeoProjection**](classGeoProjection.md) && other) noexcept<br> |
-|  [**const**](classCoordinate2D.md) std::string & | [**compound\_wkt**](#function-compound_wkt) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**has\_vertical**](#function-has_vertical) () const<br> |
-|  [**GeoProjection**](classGeoProjection.md) & | [**operator=**](#function-operator) ([**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & other) = default<br> |
+|  const std::string & | [**compound\_wkt**](#function-compound_wkt) () const<br> |
+|  bool | [**has\_vertical**](#function-has_vertical) () const<br> |
+|  [**GeoProjection**](classGeoProjection.md) & | [**operator=**](#function-operator) (const [**GeoProjection**](classGeoProjection.md) & other) = default<br> |
 |  [**GeoProjection**](classGeoProjection.md) & | [**operator=**](#function-operator_1) ([**GeoProjection**](classGeoProjection.md) && other) noexcept<br> |
-|  [**const**](classCoordinate2D.md) std::string & | [**to\_string**](#function-to_string) () const<br> |
+|  const std::string & | [**to\_string**](#function-to_string) () const<br> |
 
 
 
@@ -142,7 +142,7 @@ GeoProjection::GeoProjection () = default
 
 ```C++
 GeoProjection::GeoProjection (
-    const  GeoProjection & other
+    const GeoProjection & other
 ) = default
 ```
 
@@ -198,7 +198,7 @@ inline bool GeoProjection::has_vertical () const
 
 ```C++
 GeoProjection & GeoProjection::operator= (
-    const  GeoProjection & other
+    const GeoProjection & other
 ) = default
 ```
 

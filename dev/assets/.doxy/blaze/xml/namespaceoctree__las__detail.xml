@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceoctree__las__detail" kind="namespace" language="C++">
+    <compoundname>octree_las_detail</compoundname>
+    <innerclass refid="structoctree__las__detail_1_1BenchTimer" prot="public">octree_las_detail::BenchTimer</innerclass>
+    <innerclass refid="classoctree__las__detail_1_1MonotonicProgress" prot="public">octree_las_detail::MonotonicProgress</innerclass>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="octree__las__data_8hpp_1aa8850d578a87ace9ae4f4d772740fb6a" prot="public" static="no">
+        <type>std::function&lt; void(const std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;preview, size_t points_loaded, const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;bounds)&gt;</type>
+        <definition>using octree_las_detail::PreviewCallback = typedef std::function&lt;void(const std::vector&lt;OctreePoint&gt;&amp; preview, size_t points_loaded, const Extent3D&amp; bounds)&gt;</definition>
+        <argsstring></argsstring>
+        <name>PreviewCallback</name>
+        <qualifiedname>octree_las_detail::PreviewCallback</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="113" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="octree__las__data_8hpp_1a29a81df17da253aae9dc1b6029336daf" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr size_t</type>
+        <definition>constexpr size_t octree_las_detail::MAX_PREVIEW_POINTS</definition>
+        <argsstring></argsstring>
+        <name>MAX_PREVIEW_POINTS</name>
+        <qualifiedname>octree_las_detail::MAX_PREVIEW_POINTS</qualifiedname>
+        <initializer>= 500&apos;000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="45" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="octree__las__data_8hpp_1adfb61c03c39deb7e7559b3bbb6fc6033" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename LasPt</type>
+          </param>
+        </templateparamlist>
+        <type>uint8_t</type>
+        <definition>uint8_t octree_las_detail::las_point_classification</definition>
+        <argsstring>(const LasPt &amp;pt)</argsstring>
+        <name>las_point_classification</name>
+        <qualifiedname>octree_las_detail::las_point_classification</qualifiedname>
+        <param>
+          <type>const LasPt &amp;</type>
+          <declname>pt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="68" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="68" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="octree__las__data_8hpp_1a8f02332bcbc988658eac7a4b8382faf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename LasPt</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void octree_las_detail::las_point_file_color</definition>
+        <argsstring>(const LasPt &amp;pt, OctreePoint &amp;out)</argsstring>
+        <name>las_point_file_color</name>
+        <qualifiedname>octree_las_detail::las_point_file_color</qualifiedname>
+        <param>
+          <type>const LasPt &amp;</type>
+          <declname>pt</declname>
+        </param>
+        <param>
+          <type><ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="77" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="77" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="octree__las__data_8hpp_1a1625167e15aac17d0cdb814f9de692fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename LasPt</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="structOctreePoint" kindref="compound">OctreePoint</ref></type>
+        <definition>OctreePoint octree_las_detail::convert_las_point</definition>
+        <argsstring>(const LasPt &amp;pt, const laspp::LASHeader &amp;header, OGRCoordinateTransformation *coord_transform, const Coordinate3D&lt; double &gt; &amp;origin)</argsstring>
+        <name>convert_las_point</name>
+        <qualifiedname>octree_las_detail::convert_las_point</qualifiedname>
+        <param>
+          <type>const LasPt &amp;</type>
+          <declname>pt</declname>
+        </param>
+        <param>
+          <type>const laspp::LASHeader &amp;</type>
+          <declname>header</declname>
+        </param>
+        <param>
+          <type>OGRCoordinateTransformation *</type>
+          <declname>coord_transform</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>origin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="93" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="93" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="octree__las__data_8hpp_1a2783b15dc0c2273c3becdcbd05e178b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename LasPt</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void octree_las_detail::load_points_parallel</definition>
+        <argsstring>(laspp::LASReader &amp;reader, OGRCoordinateTransformation *coord_transform, const Coordinate3D&lt; double &gt; &amp;origin, size_t preview_stride, std::vector&lt; OctreePoint &gt; &amp;converted, std::vector&lt; OctreePoint &gt; &amp;preview, Extent3D &amp;bounds, ProgressTracker &amp;tracker, const PreviewCallback &amp;publish_preview, const std::atomic&lt; bool &gt; *cancel=nullptr)</argsstring>
+        <name>load_points_parallel</name>
+        <qualifiedname>octree_las_detail::load_points_parallel</qualifiedname>
+        <param>
+          <type>laspp::LASReader &amp;</type>
+          <declname>reader</declname>
+        </param>
+        <param>
+          <type>OGRCoordinateTransformation *</type>
+          <declname>coord_transform</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>origin</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>preview_stride</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <declname>converted</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <declname>preview</declname>
+        </param>
+        <param>
+          <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>bounds</declname>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;</type>
+          <declname>tracker</declname>
+        </param>
+        <param>
+          <type>const PreviewCallback &amp;</type>
+          <declname>publish_preview</declname>
+        </param>
+        <param>
+          <type>const std::atomic&lt; bool &gt; *</type>
+          <declname>cancel</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="117" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="117" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="octree__las__data_8hpp_1aa7bdf49ddc558921328d2e6e2122f220" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool octree_las_detail::las_point_format_has_rgb</definition>
+        <argsstring>(uint8_t point_format)</argsstring>
+        <name>las_point_format_has_rgb</name>
+        <qualifiedname>octree_las_detail::las_point_format_has_rgb</qualifiedname>
+        <param>
+          <type>uint8_t</type>
+          <declname>point_format</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="212" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="212" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="octree__las__data_8hpp_1a7cd51cdda9a4d75727de24101b5e75ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void octree_las_detail::load_points_dispatch</definition>
+        <argsstring>(laspp::LASReader &amp;reader, OGRCoordinateTransformation *coord_transform, const Coordinate3D&lt; double &gt; &amp;origin, size_t preview_stride, std::vector&lt; OctreePoint &gt; &amp;converted, std::vector&lt; OctreePoint &gt; &amp;preview, Extent3D &amp;bounds, ProgressTracker &amp;tracker, const PreviewCallback &amp;publish_preview, const std::atomic&lt; bool &gt; *cancel=nullptr)</argsstring>
+        <name>load_points_dispatch</name>
+        <qualifiedname>octree_las_detail::load_points_dispatch</qualifiedname>
+        <param>
+          <type>laspp::LASReader &amp;</type>
+          <declname>reader</declname>
+        </param>
+        <param>
+          <type>OGRCoordinateTransformation *</type>
+          <declname>coord_transform</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>origin</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>preview_stride</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <declname>converted</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <declname>preview</declname>
+        </param>
+        <param>
+          <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>bounds</declname>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;</type>
+          <declname>tracker</declname>
+        </param>
+        <param>
+          <type>const PreviewCallback &amp;</type>
+          <declname>publish_preview</declname>
+        </param>
+        <param>
+          <type>const std::atomic&lt; bool &gt; *</type>
+          <declname>cancel</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="226" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="226" bodyend="268"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="24" column="1"/>
+  </compounddef>
+</doxygen>

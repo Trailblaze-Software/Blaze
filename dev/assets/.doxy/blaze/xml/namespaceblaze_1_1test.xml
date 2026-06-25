@@ -3,14 +3,14 @@
   <compounddef id="namespaceblaze_1_1test" kind="namespace" language="C++">
     <compoundname>blaze::test</compoundname>
     <sectiondef kind="func">
-      <memberdef kind="function" id="env_8hpp_1a1822bde26e2c72ce8dcf2f18d37738ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref> *</type>
+      <memberdef kind="function" id="testing_2env_8hpp_1a1822bde26e2c72ce8dcf2f18d37738ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
         <definition>const char * blaze::test::get_env</definition>
         <argsstring>(const char *name)</argsstring>
         <name>get_env</name>
         <qualifiedname>blaze::test::get_env</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">char</ref> *</type>
+          <type>const char *</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/testing/env.hpp" line="11" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/testing/env.hpp" bodystart="11" bodyend="21"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/testing/env.hpp" line="7" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/testing/env.hpp" bodystart="7" bodyend="7"/>
       </memberdef>
       <memberdef kind="function" id="output__dir_8hpp_1aadefed9391b172b3dfb0c97dc16a705c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::string</type>

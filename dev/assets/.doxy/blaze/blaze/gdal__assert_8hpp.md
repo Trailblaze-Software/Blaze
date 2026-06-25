@@ -55,8 +55,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**\_GDALAssert**](#function-_gdalassert) ([**CPLErr**](classCoordinate2D.md) expr, [**const**](classCoordinate2D.md) std::string & expr\_string, [**const**](classCoordinate2D.md) std::source\_location & loc=std::source\_location::current()) <br> |
-|  [**void**](classCoordinate2D.md) | [**\_GDALAssert**](#function-_gdalassert) ([**OGRErr**](classCoordinate2D.md) expr, [**const**](classCoordinate2D.md) std::string & expr\_string, [**const**](classCoordinate2D.md) std::source\_location & loc=std::source\_location::current()) <br> |
+|  void | [**\_GDALAssert**](#function-_gdalassert) (CPLErr expr, const std::string & expr\_string, const std::source\_location & loc=std::source\_location::current()) <br> |
+|  void | [**\_GDALAssert**](#function-_gdalassert) (OGRErr expr, const std::string & expr\_string, const std::source\_location & loc=std::source\_location::current()) <br> |
 
 
 
@@ -88,7 +88,7 @@
 
 | Type | Name |
 | ---: | :--- |
-| define  | [**GDALAssert**](gdal__assert_8hpp.md#define-gdalassert) (expr) `\_GDALAssert([**expr**](classCoordinate2D.md), #[**expr**](classCoordinate2D.md))`<br> |
+| define  | [**GDALAssert**](gdal__assert_8hpp.md#define-gdalassert) (expr) `\_GDALAssert(expr, #expr)`<br> |
 
 ## Public Functions Documentation
 
@@ -137,7 +137,7 @@ inline void _GDALAssert (
 ```C++
 #define GDALAssert (
     expr
-) `_GDALAssert( expr , # expr )`
+) `_GDALAssert(expr, #expr)`
 ```
 
 

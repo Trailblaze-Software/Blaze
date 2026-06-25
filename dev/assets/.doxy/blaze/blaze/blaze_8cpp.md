@@ -56,14 +56,14 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**int**](classCoordinate2D.md) | [**main**](#function-main) ([**int**](classCoordinate2D.md) argc, [**char**](classCoordinate2D.md) \* argv) <br> |
+|  int | [**main**](#function-main) (int argc, char \* argv) <br> |
 
 
 ## Public Static Functions
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**is\_las\_file**](#function-is_las_file) ([**const**](classCoordinate2D.md) fs::path & p) <br> |
+|  bool | [**is\_las\_file**](#function-is_las_file) (const fs::path & p) <br> |
 
 
 

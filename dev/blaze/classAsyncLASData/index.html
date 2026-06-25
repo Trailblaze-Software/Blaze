@@ -958,10 +958,10 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-asynclasdata"><strong>AsyncLASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classAsyncProgressTracker/"><strong>AsyncProgressTracker</strong></a> progress_tracker, std::vector&lt; std::function&lt; <a href="../classCoordinate2D/"><strong>void</strong></a>()&gt; &gt; callbacks={}) <br></td>
+<td style="text-align: left;"><a href="#function-asynclasdata"><strong>AsyncLASData</strong></a> (const fs::path &amp; filename, <a href="../classAsyncProgressTracker/"><strong>AsyncProgressTracker</strong></a> progress_tracker, std::vector&lt; std::function&lt; void()&gt; &gt; callbacks={}) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
+<td style="text-align: right;">bool</td>
 <td style="text-align: left;"><a href="#function-data_ready"><strong>data_ready</strong></a> () <br></td>
 </tr>
 <tr>
@@ -969,7 +969,7 @@
 <td style="text-align: left;"><a href="#function-mutex"><strong>mutex</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: right;">void</td>
 <td style="text-align: left;"><a href="#function-wait_for_data"><strong>wait_for_data</strong></a> () <br></td>
 </tr>
 <tr>
@@ -990,38 +990,38 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASData/#function-lasdata-13"><strong>LASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp; projection) <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-lasdata-13"><strong>LASData</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, const <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp; projection) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASData/#function-lasdata-23"><strong>LASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid) <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-lasdata-23"><strong>LASData</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASData/#function-lasdata-33"><strong>LASData</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> skip_reading_points=<a href="../classCoordinate2D/"><strong>false</strong></a>, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-lasdata-33"><strong>LASData</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, bool skip_reading_points=false, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt, const std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>auto</strong></a></td>
+<td style="text-align: right;">auto</td>
 <td style="text-align: left;"><a href="../classLASData/#function-begin"><strong>begin</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>auto</strong></a></td>
+<td style="text-align: right;">auto</td>
 <td style="text-align: left;"><a href="../classLASData/#function-end"><strong>end</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-extract_borders"><strong>extract_borders</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; tmp_dir, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) const<br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASData/#function-extract_borders"><strong>extract_borders</strong></a> (const fs::path &amp; tmp_dir, double border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-insert-12"><strong>insert</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASData/#function-insert-12"><strong>insert</strong></a> (const <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-insert-22"><strong>insert</strong></a> (std::span&lt; <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; pts) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASData/#function-insert-22"><strong>insert</strong></a> (std::span&lt; const <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; pts) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;">std::pair&lt; <a href="../classCoordinate2D/"><strong>uint16_t</strong></a>, <a href="../classCoordinate2D/"><strong>uint16_t</strong></a> &gt;</td>
+<td style="text-align: right;">std::pair&lt; uint16_t, uint16_t &gt;</td>
 <td style="text-align: left;"><a href="../classLASData/#function-intensity_range"><strong>intensity_range</strong></a> () const<br></td>
 </tr>
 <tr>
@@ -1029,7 +1029,7 @@
 <td style="text-align: left;"><a href="../classLASData/#function-n_points"><strong>n_points</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp;</td>
+<td style="text-align: right;">const <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classLASData/#function-operator"><strong>operator[]</strong></a> (std::size_t i) const<br></td>
 </tr>
 <tr>
@@ -1037,16 +1037,16 @@
 <td style="text-align: left;"><a href="../classLASData/#function-operator_1"><strong>operator[]</strong></a> (std::size_t i) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;">std::span&lt; <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt;</td>
+<td style="text-align: right;">std::span&lt; const <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt;</td>
 <td style="text-align: left;"><a href="../classLASData/#function-points"><strong>points</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-push_back"><strong>push_back</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASData/#function-push_back"><strong>push_back</strong></a> (const <a href="../classLASPoint/"><strong>LASPoint</strong></a> &amp; point) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-write"><strong>write</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker={}) const<br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASData/#function-write"><strong>write</strong></a> (const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker={}) const<br></td>
 </tr>
 </tbody>
 </table>
@@ -1062,14 +1062,14 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-12"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-12"><strong>LASFile</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, const std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp;</td>
+<td style="text-align: right;">const <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-bounds"><strong>bounds</strong></a> () const<br></td>
 </tr>
 <tr>
@@ -1077,11 +1077,11 @@
 <td style="text-align: left;"><a href="../classLASFile/#function-export_bounds"><strong>export_bounds</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-height"><strong>height</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;">std::pair&lt; <a href="../classCoordinate2D/"><strong>double</strong></a>, <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>
+<td style="text-align: right;">std::pair&lt; double, double &gt;</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-height_range"><strong>height_range</strong></a> () const<br></td>
 </tr>
 <tr>
@@ -1089,19 +1089,19 @@
 <td style="text-align: left;"><a href="../classLASFile/#function-original_bounds"><strong>original_bounds</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
+<td style="text-align: right;">const <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-projection"><strong>projection</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-set_bounds"><strong>set_bounds</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; tile_core=std::nullopt) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASFile/#function-set_bounds"><strong>set_bounds</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; tile_core=std::nullopt) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; double &gt;</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-top_left"><strong>top_left</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classLASFile/#function-width"><strong>width</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -1118,11 +1118,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-with_border-12"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-with_border-12"><strong>with_border</strong></a> (const fs::path &amp; filename, double border_width, const std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, const std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-with_border-22"><strong>with_border</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-with_border-22"><strong>with_border</strong></a> (const fs::path &amp; filename, double border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, const std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>
@@ -1169,7 +1169,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: right;">void</td>
 <td style="text-align: left;"><a href="../classLASData/#function-read_points"><strong>read_points</strong></a> (laspp::LASReader &amp; reader, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt) <br></td>
 </tr>
 </tbody>
@@ -1185,8 +1185,8 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-from_las_reader"><strong>from_las_reader</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> laspp::LASReader &amp; reader, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs="") <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASFile/#function-from_las_reader"><strong>from_las_reader</strong></a> (const laspp::LASReader &amp; reader, const std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>
@@ -1195,7 +1195,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">AsyncLASData</span><span class="o">::</span><span class="n">AsyncLASData</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">AsyncProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">callbacks</span><span class="o">=</span><span class="p">{}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">void</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">callbacks</span><span class="o">=</span><span class="p">{}</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

@@ -35,8 +35,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**any\_overlap**](#variable-any_overlap)   = `[**false**](classCoordinate2D.md)`<br> |
-|  [**bool**](classCoordinate2D.md) | [**crs\_mismatch**](#variable-crs_mismatch)   = `[**false**](classCoordinate2D.md)`<br> |
+|  bool | [**any\_overlap**](#variable-any_overlap)   = `false`<br> |
+|  bool | [**crs\_mismatch**](#variable-crs_mismatch)   = `false`<br> |
 
 
 
@@ -57,7 +57,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**required**](#function-required) () const<br> |
+|  bool | [**required**](#function-required) () const<br> |
 
 
 

@@ -854,17 +854,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#function-make_coord_transform" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function make_coord_transform
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#function-read_tile_from_inputs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1009,47 +998,43 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a></td>
-<td style="text-align: left;"><a href="#function-analyze_extents"><strong>analyze_extents</strong></a> (std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_wkt="") <br></td>
+<td style="text-align: left;"><a href="#function-analyze_extents"><strong>analyze_extents</strong></a> (std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents, const std::string &amp; override_wkt="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structTile/"><strong>Tile</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-compute_tiles"><strong>compute_tiles</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; overall, <a href="../classCoordinate2D/"><strong>double</strong></a> tile_size, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents={}) <br></td>
+<td style="text-align: left;"><a href="#function-compute_tiles"><strong>compute_tiles</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; overall, double tile_size, const std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents={}) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a></td>
-<td style="text-align: left;"><a href="#function-detect_tile_mode_needed"><strong>detect_tile_mode_needed</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents) <br></td>
+<td style="text-align: left;"><a href="#function-detect_tile_mode_needed"><strong>detect_tile_mode_needed</strong></a> (const std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-load_input_extents"><strong>load_input_extents</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; fs::path &gt; &amp; files, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; override_crs, std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
-</tr>
-<tr>
-<td style="text-align: right;">std::unique_ptr&lt; <a href="../classCoordinate2D/"><strong>OGRCoordinateTransformation</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-make_coord_transform"><strong>make_coord_transform</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; src_wkt, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; dst_wkt) <br></td>
+<td style="text-align: left;"><a href="#function-load_input_extents"><strong>load_input_extents</strong></a> (const std::vector&lt; fs::path &gt; &amp; files, const std::string &amp; override_crs, std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="#function-read_tile_from_inputs"><strong>read_tile_from_inputs</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; tile_extent, <a href="../classCoordinate2D/"><strong>double</strong></a> border_width, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; all_extents, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
+<td style="text-align: left;"><a href="#function-read_tile_from_inputs"><strong>read_tile_from_inputs</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; tile_extent, double border_width, const std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; all_extents, const std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structExtent2D/"><strong>Extent2D</strong></a></td>
-<td style="text-align: left;"><a href="#function-reproject_extent"><strong>reproject_extent</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; extent, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; src_wkt, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; dst_wkt) <br></td>
+<td style="text-align: left;"><a href="#function-reproject_extent"><strong>reproject_extent</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; extent, const std::string &amp; src_wkt, const std::string &amp; dst_wkt) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
-<td style="text-align: left;"><a href="#function-snap_down"><strong>snap_down</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> value, <a href="../classCoordinate2D/"><strong>double</strong></a> step) <br></td>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-snap_down"><strong>snap_down</strong></a> (double value, double step) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
-<td style="text-align: left;"><a href="#function-snap_up"><strong>snap_up</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> value, <a href="../classCoordinate2D/"><strong>double</strong></a> step) <br></td>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-snap_up"><strong>snap_up</strong></a> (double value, double step) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structTile/"><strong>Tile</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-tiles_per_file"><strong>tiles_per_file</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents) <br></td>
+<td style="text-align: left;"><a href="#function-tiles_per_file"><strong>tiles_per_file</strong></a> (const std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structExtent2D/"><strong>Extent2D</strong></a></td>
-<td style="text-align: left;"><a href="#function-union_extent"><strong>union_extent</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents) <br></td>
+<td style="text-align: left;"><a href="#function-union_extent"><strong>union_extent</strong></a> (const std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; extents) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1064,7 +1049,7 @@
 
 <h3 id="function-compute_tiles">function compute_tiles</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Tile</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">compute_tiles</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">overall</span><span class="p">,</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">overall</span><span class="p">,</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">tile_size</span><span class="p">,</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extents</span><span class="o">=</span><span class="p">{}</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span><span class="w"> </span>
@@ -1088,61 +1073,53 @@
 </code></pre></div>
 <hr>
 
-<h3 id="function-make_coord_transform">function make_coord_transform</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">OGRCoordinateTransformation</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_coord_transform</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">src_wkt</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">dst_wkt</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
 <h3 id="function-read_tile_from_inputs">function read_tile_from_inputs</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">LASData</span><span class="w"> </span><span class="n">read_tile_from_inputs</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">tile_extent</span><span class="p">,</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">all_extents</span><span class="p">,</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">output_crs_wkt</span><span class="p">,</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">LASData</span><span class="w"> </span><span class="n">read_tile_from_inputs</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">tile_extent</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">all_extents</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">output_crs_wkt</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-reproject_extent">function reproject_extent</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="n">reproject_extent</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extent</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">src_wkt</span><span class="p">,</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">dst_wkt</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="n">reproject_extent</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extent</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">src_wkt</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">dst_wkt</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-snap_down">function snap_down</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">snap_down</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">snap_down</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">step</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-snap_up">function snap_up</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">snap_up</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">step</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
-<h3 id="function-snap_up">function snap_up</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">snap_up</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">step</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
 <h3 id="function-tiles_per_file">function tiles_per_file</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Tile</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">tiles_per_file</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extents</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Tile</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">tiles_per_file</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extents</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-union_extent">function union_extent</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="n">union_extent</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extents</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="n">union_extent</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extents</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

@@ -832,6 +832,72 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#function-import_blaze_output_from_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function import_blaze_output_from_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-scene_reference_crs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function scene_reference_crs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-set_bench_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function set_bench_mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-set_defer_render_until_loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function set_defer_render_until_loaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-set_exit_after_load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function set_exit_after_load
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-set_exit_after_render" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function set_exit_after_render
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-main3dwindow_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -884,16 +950,40 @@
 <td style="text-align: left;"><a href="#function-main3dwindow"><strong>Main3DWindow</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-add_layer"><strong>add_layer</strong></a> (std::unique_ptr&lt; <a href="../classLayer/"><strong>Layer</strong></a> &gt; layer) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-add_layer"><strong>add_layer</strong></a> (std::unique_ptr&lt; <a href="../classLayer/"><strong>Layer</strong></a> &gt; layer, bool auto_zoom=true) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classAsyncProgressTracker/"><strong>AsyncProgressTracker</strong></a></td>
 <td style="text-align: left;"><a href="#function-add_progress_tracker"><strong>add_progress_tracker</strong></a> () <br></td>
 </tr>
 <tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-import_blaze_output_from_path"><strong>import_blaze_output_from_path</strong></a> (const std::string &amp; directory) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">const std::string &amp;</td>
+<td style="text-align: left;"><a href="#function-scene_reference_crs"><strong>scene_reference_crs</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-set_bench_mode"><strong>set_bench_mode</strong></a> (bool bench) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-set_defer_render_until_loaded"><strong>set_defer_render_until_loaded</strong></a> (bool defer) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-set_exit_after_load"><strong>set_exit_after_load</strong></a> (bool exit_after_load) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-set_exit_after_render"><strong>set_exit_after_render</strong></a> (bool exit_after_render) <br></td>
+</tr>
+<tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-main3dwindow"><strong>~Main3DWindow</strong></a> () <br></td>
+<td style="text-align: left;"><a href="#function-main3dwindow"><strong>~Main3DWindow</strong></a> () override<br></td>
 </tr>
 </tbody>
 </table>
@@ -905,8 +995,9 @@
 
 <h3 id="function-add_layer">function add_layer</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">Main3DWindow</span><span class="o">::</span><span class="n">add_layer</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Layer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">layer</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Layer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">layer</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">auto_zoom</span><span class="o">=</span><span class="nb">true</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
@@ -915,8 +1006,48 @@
 </code></pre></div>
 <hr>
 
+<h3 id="function-import_blaze_output_from_path">function import_blaze_output_from_path</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">Main3DWindow</span><span class="o">::</span><span class="n">import_blaze_output_from_path</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">directory</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-scene_reference_crs">function scene_reference_crs</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Main3DWindow</span><span class="o">::</span><span class="n">scene_reference_crs</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-set_bench_mode">function set_bench_mode</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Main3DWindow</span><span class="o">::</span><span class="n">set_bench_mode</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bench</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-set_defer_render_until_loaded">function set_defer_render_until_loaded</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">Main3DWindow</span><span class="o">::</span><span class="n">set_defer_render_until_loaded</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">defer</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-set_exit_after_load">function set_exit_after_load</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">Main3DWindow</span><span class="o">::</span><span class="n">set_exit_after_load</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">exit_after_load</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-set_exit_after_render">function set_exit_after_render</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Main3DWindow</span><span class="o">::</span><span class="n">set_exit_after_render</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">exit_after_render</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-main3dwindow_1">function ~Main3DWindow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Main3DWindow</span><span class="o">::~</span><span class="n">Main3DWindow</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">Main3DWindow</span><span class="o">::~</span><span class="n">Main3DWindow</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
 </code></pre></div>
 <hr>
 

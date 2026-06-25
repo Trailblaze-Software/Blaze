@@ -51,8 +51,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GDALDataset\_w**](#function-gdaldataset_w) ([**const**](classCoordinate2D.md) std::string & filename, [**const**](classCoordinate2D.md) std::string & projection) <br> |
-|  [**GDALDataset**](classCoordinate2D.md) \* | [**operator-&gt;**](#function-operator-) () <br> |
+|   | [**GDALDataset\_w**](#function-gdaldataset_w) (const std::string & filename, const std::string & projection) <br> |
+|  GDALDataset \* | [**operator-&gt;**](#function-operator-) () <br> |
 |   | [**~GDALDataset\_w**](#function-gdaldataset_w) () <br> |
 
 

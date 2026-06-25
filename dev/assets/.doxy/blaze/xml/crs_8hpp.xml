@@ -3,76 +3,30 @@
   <compounddef id="crs_8hpp" kind="file" language="C++">
     <compoundname>crs.hpp</compoundname>
     <includes local="no">ogr_spatialref.h</includes>
+    <includes local="no">array</includes>
+    <includes local="no">cmath</includes>
+    <includes local="no">memory</includes>
     <includes local="no">string</includes>
     <includes refid="assert_8hpp" local="yes">assert/assert.hpp</includes>
     <includes refid="grid_8hpp" local="yes">grid/grid.hpp</includes>
+    <includes refid="coordinate_8hpp" local="yes">utilities/coordinate.hpp</includes>
     <includedby refid="config__editor_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp</includedby>
+    <includedby refid="gl__widget_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</includedby>
+    <includedby refid="layer_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</includedby>
+    <includedby refid="octree__las__data_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp</includedby>
+    <includedby refid="raster__data_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp</includedby>
     <includedby refid="las__file_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</includedby>
     <includedby refid="tile__mode_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</includedby>
     <includedby refid="tif_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp</includedby>
     <incdepgraph>
-      <node id="4">
+      <node id="7">
         <label>assert/assert.hpp</label>
         <link refid="assert_8hpp_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
         <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-      </node>
-      <node id="14">
-        <label>grid/grid.hpp</label>
-        <link refid="grid_8hpp_source"/>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp</label>
-        <link refid="crs_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>printing/to_string.hpp</label>
-        <link refid="to__string_8hpp_source"/>
         <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
@@ -80,101 +34,169 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
       </node>
-      <node id="23">
-        <label>utilities/coordinate.hpp</label>
-        <link refid="coordinate_8hpp_source"/>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
+      <node id="17">
+        <label>grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
       </node>
-      <node id="15">
-        <label>algorithm</label>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp</label>
+        <link refid="crs_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
       </node>
       <node id="24">
-        <label>array</label>
-      </node>
-      <node id="16">
-        <label>cmath</label>
-      </node>
-      <node id="17">
-        <label>cstddef</label>
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
       </node>
       <node id="18">
-        <label>cstring</label>
+        <label>algorithm</label>
       </node>
-      <node id="7">
-        <label>experimental/source_location</label>
+      <node id="3">
+        <label>array</label>
       </node>
-      <node id="10">
-        <label>iomanip</label>
-      </node>
-      <node id="5">
-        <label>iostream</label>
+      <node id="4">
+        <label>cmath</label>
       </node>
       <node id="19">
-        <label>limits</label>
-      </node>
-      <node id="11">
-        <label>map</label>
+        <label>cstddef</label>
       </node>
       <node id="20">
+        <label>cstring</label>
+      </node>
+      <node id="10">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="13">
+        <label>iomanip</label>
+      </node>
+      <node id="8">
+        <label>iostream</label>
+      </node>
+      <node id="21">
+        <label>limits</label>
+      </node>
+      <node id="14">
+        <label>map</label>
+      </node>
+      <node id="5">
         <label>memory</label>
       </node>
       <node id="2">
         <label>ogr_spatialref.h</label>
       </node>
-      <node id="6">
+      <node id="9">
         <label>optional</label>
       </node>
       <node id="25">
         <label>ostream</label>
       </node>
-      <node id="12">
+      <node id="15">
         <label>set</label>
       </node>
-      <node id="8">
+      <node id="11">
         <label>sstream</label>
       </node>
-      <node id="21">
+      <node id="22">
         <label>stdexcept</label>
       </node>
-      <node id="3">
+      <node id="6">
         <label>string</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>type_traits</label>
       </node>
-      <node id="13">
+      <node id="16">
         <label>vector</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4">
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp</label>
+        <link refid="blaze__output__loader_8hpp_source"/>
+      </node>
+      <node id="2">
         <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
         <link refid="gl__widget_8hpp_source"/>
-        <childnode refid="5" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="3">
+      <node id="4">
         <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
         <link refid="layer_8hpp_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
@@ -182,29 +204,33 @@
       <node id="6">
         <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
         <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
+        <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp</label>
+        <link refid="octree__las__data_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
-        <link refid="main__3d__window_8hpp_source"/>
+      <node id="8">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp</label>
+        <link refid="raster__data_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp</label>
         <link refid="crs_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</label>
-        <link refid="binned__points_8hpp_source"/>
-      </node>
-      <node id="2">
-        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
-        <link refid="las__file_8hpp_source"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
@@ -212,12 +238,32 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
       </node>
-      <node id="8">
+      <node id="10">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</label>
+        <link refid="binned__points_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
+        <link refid="las__file_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</label>
         <link refid="tile__mode_8hpp_source"/>
       </node>
-      <node id="9">
+      <node id="12">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>
@@ -230,7 +276,7 @@
         <argsstring>(const std::string &amp;wkt)</argsstring>
         <name>normalize_crs_wkt</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>wkt</declname>
         </param>
         <briefdescription>
@@ -239,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="15" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="15" bodyend="26"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="19" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="19" bodyend="30"/>
       </memberdef>
       <memberdef kind="function" id="crs_8hpp_1a62dca438c25ce018d6a2416d69b12dce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::string</type>
@@ -247,11 +293,11 @@
         <argsstring>(const std::string &amp;wkt, const std::string &amp;normalized_horizontal)</argsstring>
         <name>build_compound_crs_wkt</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>wkt</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>normalized_horizontal</declname>
         </param>
         <briefdescription>
@@ -260,7 +306,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="35" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="35" bodyend="79"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="39" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="39" bodyend="83"/>
       </memberdef>
       <memberdef kind="function" id="crs_8hpp_1adadd0d09e8b93c1036055f0241fd8e27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref></type>
@@ -268,7 +314,7 @@
         <argsstring>(const std::string &amp;raw_wkt)</argsstring>
         <name>make_projection_from_wkt</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>raw_wkt</declname>
         </param>
         <briefdescription>
@@ -277,7 +323,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="84" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="84" bodyend="89"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="88" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="88" bodyend="93"/>
       </memberdef>
       <memberdef kind="function" id="crs_8hpp_1a38c41a161f3098e6397851e46539f824" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref></type>
@@ -285,7 +331,7 @@
         <argsstring>(const std::string &amp;user_crs)</argsstring>
         <name>try_user_crs_to_wkt</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>user_crs</declname>
         </param>
         <briefdescription>
@@ -294,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="103" column="27" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="103" bodyend="119"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="107" column="27" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="107" bodyend="123"/>
       </memberdef>
       <memberdef kind="function" id="crs_8hpp_1a371736115959050757d34d672705141b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::string</type>
@@ -302,7 +348,7 @@
         <argsstring>(const std::string &amp;user_crs)</argsstring>
         <name>user_crs_to_wkt</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>user_crs</declname>
         </param>
         <briefdescription>
@@ -311,15 +357,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="125" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="125" bodyend="129"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="129" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="129" bodyend="133"/>
       </memberdef>
       <memberdef kind="function" id="crs_8hpp_1a288446aff7e07bf473ce8f422f957c9e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool wkt_parses</definition>
         <argsstring>(const std::string &amp;wkt)</argsstring>
         <name>wkt_parses</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>wkt</declname>
         </param>
         <briefdescription>
@@ -328,19 +374,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="133" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="133" bodyend="137"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="137" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="137" bodyend="141"/>
       </memberdef>
       <memberdef kind="function" id="crs_8hpp_1ac573647e920378caf9e80976b0485dd1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool wkt_matches</definition>
         <argsstring>(const std::string &amp;a, const std::string &amp;b)</argsstring>
         <name>wkt_matches</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -349,7 +395,95 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="139" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="139" bodyend="147"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="143" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="143" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="crs_8hpp_1ad7d0dd474592e42637866bdffa62938f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool crs_compatible_for_viewing</definition>
+        <argsstring>(const std::string &amp;a, const std::string &amp;b)</argsstring>
+        <name>crs_compatible_for_viewing</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="156" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="156" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="crs_8hpp_1ab0b25eb2be269dcb6e29495db6b8eac3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; OGRCoordinateTransformation &gt;</type>
+        <definition>std::unique_ptr&lt; OGRCoordinateTransformation &gt; make_coord_transform</definition>
+        <argsstring>(const std::string &amp;src_wkt, const std::string &amp;dst_wkt)</argsstring>
+        <name>make_coord_transform</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>src_wkt</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>dst_wkt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="180" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="180" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="crs_8hpp_1a1c07f86b41a792072354da365b02fc28" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool transform_xy_h</definition>
+        <argsstring>(OGRCoordinateTransformation *ct, double &amp;x, double &amp;y)</argsstring>
+        <name>transform_xy_h</name>
+        <param>
+          <type>OGRCoordinateTransformation *</type>
+          <declname>ct</declname>
+        </param>
+        <param>
+          <type>double &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double &amp;</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="203" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="203" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="crs_8hpp_1ace767c01d2d8f4c6dca1dbb1c103f9a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D reproject_extent3d_horizontal</definition>
+        <argsstring>(const Extent3D &amp;extent, OGRCoordinateTransformation *ct)</argsstring>
+        <name>reproject_extent3d_horizontal</name>
+        <param>
+          <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <param>
+          <type>OGRCoordinateTransformation *</type>
+          <declname>ct</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" line="213" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp" bodystart="213" bodyend="231"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -361,149 +495,233 @@
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ogr_spatialref.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;array&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Normalize<sp/>a<sp/>WKT<sp/>CRS<sp/>string<sp/>for<sp/>downstream<sp/>use<sp/>by<sp/>blaze:</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>Strip<sp/>any<sp/>vertical<sp/>(3D<sp/>/<sp/>COMPD_CS)<sp/>component,<sp/>since<sp/>blaze<sp/>only<sp/>works<sp/>in<sp/>2D.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>Best-effort<sp/>auto-identify<sp/>an<sp/>EPSG<sp/>code<sp/>on<sp/>the<sp/>horizontal<sp/>CRS,<sp/>so<sp/>QGIS<sp/>can</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>recognize<sp/>it<sp/>on<sp/>sight<sp/>instead<sp/>of<sp/>showing<sp/>&quot;unknown<sp/>CRS&quot;.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Falls<sp/>back<sp/>to<sp/>returning<sp/>the<sp/>input<sp/>unchanged<sp/>if<sp/>the<sp/>WKT<sp/>can&apos;t<sp/>be<sp/>parsed.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>normalize_crs_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>wkt)<sp/>{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>;</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs</ref>.importFromWkt(wkt.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>wkt;</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.StripVertical();</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.AutoIdentifyEPSG();</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="classCoordinate2D" kindref="compound">out_wkt</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.exportToWkt(&amp;<ref refid="classCoordinate2D" kindref="compound">out_wkt</ref>);</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">out_wkt</ref><sp/>?<sp/><ref refid="classCoordinate2D" kindref="compound">out_wkt</ref><sp/>:<sp/>wkt;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">CPLFree</ref>(<ref refid="classCoordinate2D" kindref="compound">out_wkt</ref>);</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>;</highlight></codeline>
-<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>If<sp/>`wkt`<sp/>is<sp/>a<sp/>compound<sp/>(horizontal<sp/>+<sp/>vertical)<sp/>CRS,<sp/>return<sp/>a<sp/>WKT<sp/>describing</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>a<sp/>compound<sp/>CRS<sp/>with:</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>the<sp/>horizontal<sp/>component<sp/>replaced<sp/>with<sp/>`normalized_horizontal`<sp/>(which</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>should<sp/>be<sp/>the<sp/>EPSG-identified<sp/>2D<sp/>CRS<sp/>produced<sp/>by<sp/>normalize_crs_wkt),</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>the<sp/>original<sp/>vertical<sp/>component<sp/>preserved<sp/>verbatim.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/>If<sp/>`wkt`<sp/>has<sp/>no<sp/>vertical<sp/>component,<sp/>returns<sp/>`normalized_horizontal`<sp/>unchanged.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Falls<sp/>back<sp/>to<sp/>`normalized_horizontal`<sp/>if<sp/>anything<sp/>goes<sp/>wrong.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>build_compound_crs_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>wkt,</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs</ref>.importFromWkt(wkt.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">srs</ref>.IsCompound())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGR_SRSNode</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">root</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.GetRoot();</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">root</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGR_SRSNode</ref>*<sp/><ref refid="classCoordinate2D" kindref="compound">vert_node</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>-&gt;GetChildCount();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">OGR_SRSNode</ref>*<sp/>child<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>-&gt;GetChild(<ref refid="classCoordinate2D" kindref="compound">i</ref>);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name<sp/>=<sp/>child-&gt;GetValue();</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(name<sp/>&amp;&amp;<sp/>std::string(name)<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;VERT_CS&quot;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">vert_node</ref><sp/>=<sp/>child;</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">vert_node</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">horizontal_srs</ref>;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">horizontal_srs</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">vertical_srs</ref>;</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="classCoordinate2D" kindref="compound">vert_wkt</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">OGR_SRSNode</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="classCoordinate2D" kindref="compound">vert_node</ref>)-&gt;<ref refid="classCoordinate2D" kindref="compound">exportToWkt</ref>(&amp;<ref refid="classCoordinate2D" kindref="compound">vert_wkt</ref>);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">vert_wkt</ref><sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">vertical_srs</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">vert_wkt</ref>)<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">CPLFree</ref>(<ref refid="classCoordinate2D" kindref="compound">vert_wkt</ref>);</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">CPLFree</ref>(<ref refid="classCoordinate2D" kindref="compound">vert_wkt</ref>);</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">compound_srs</ref>;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="classCoordinate2D" kindref="compound">compound_name</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>-&gt;GetChildCount()<sp/>&gt;<sp/>0<sp/>?<sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>-&gt;GetChild(0)-&gt;GetValue()<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">compound_srs</ref>.SetCompoundCS(<ref refid="classCoordinate2D" kindref="compound">compound_name</ref><sp/>?<sp/><ref refid="classCoordinate2D" kindref="compound">compound_name</ref><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">horizontal_srs</ref>,</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classCoordinate2D" kindref="compound">vertical_srs</ref>)<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="classCoordinate2D" kindref="compound">out_wkt</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">compound_srs</ref>.exportToWkt(&amp;<ref refid="classCoordinate2D" kindref="compound">out_wkt</ref>);</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">out_wkt</ref><sp/>?<sp/><ref refid="classCoordinate2D" kindref="compound">out_wkt</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">normalized_horizontal</ref>;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">CPLFree</ref>(<ref refid="classCoordinate2D" kindref="compound">out_wkt</ref>);</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref>;</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Build<sp/>a<sp/>GeoProjection<sp/>from<sp/>a<sp/>raw<sp/>WKT<sp/>(possibly<sp/>compound),<sp/>producing<sp/>a</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">//<sp/>2D-normalized<sp/>horizontal<sp/>WKT<sp/>for<sp/>general-purpose<sp/>use<sp/>and<sp/>a<sp/>compound<sp/>WKT</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>that<sp/>preserves<sp/>any<sp/>original<sp/>vertical<sp/>datum<sp/>for<sp/>elevation<sp/>outputs.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref><sp/>make_projection_from_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">raw_wkt</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">raw_wkt</ref>.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>{};</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>horizontal<sp/>=<sp/>normalize_crs_wkt(<ref refid="classCoordinate2D" kindref="compound">raw_wkt</ref>);</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classCoordinate2D" kindref="compound">compound</ref><sp/>=<sp/>build_compound_crs_wkt(<ref refid="classCoordinate2D" kindref="compound">raw_wkt</ref>,<sp/>horizontal);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(horizontal,<sp/><ref refid="classCoordinate2D" kindref="compound">compound</ref>);</highlight></codeline>
-<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Result<sp/>of<sp/>attempting<sp/>to<sp/>parse<sp/>a<sp/>user-supplied<sp/>CRS<sp/>string.<sp/>`ok`<sp/>is<sp/>true<sp/>iff</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//<sp/>parsing<sp/>succeeded;<sp/>for<sp/>empty<sp/>input<sp/>parsing<sp/>trivially<sp/>succeeds<sp/>and<sp/>`wkt`<sp/>is</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">//<sp/>empty.<sp/>On<sp/>failure,<sp/>`wkt`<sp/>is<sp/>empty<sp/>and<sp/>`error`<sp/>carries<sp/>a<sp/>human-readable</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/>reason<sp/>suitable<sp/>for<sp/>surfacing<sp/>in<sp/>the<sp/>UI.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="95" refid="structUserCrsParseResult" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/>{</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/>std::string<sp/>wkt;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/>std::string<sp/>error;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Non-throwing<sp/>variant<sp/>of<sp/>user_crs_to_wkt().<sp/>Use<sp/>this<sp/>in<sp/>interactive<sp/>contexts</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(e.g.<sp/>the<sp/>GUI)<sp/>where<sp/>a<sp/>parse<sp/>failure<sp/>should<sp/>be<sp/>reported<sp/>rather<sp/>than<sp/>abort.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/>try_user_crs_to_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">user_crs</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">user_crs</ref>.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>{},<sp/>{}};</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs</ref>.SetFromUserInput(<ref refid="classCoordinate2D" kindref="compound">user_crs</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{},</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>interpret<sp/>CRS<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">user_crs</ref><sp/>+</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&apos;.<sp/>Expected<sp/>an<sp/>EPSG<sp/>code<sp/>(e.g.<sp/>&apos;EPSG:28355&apos;),<sp/>proj.4<sp/>string,<sp/>or<sp/>WKT.&quot;</highlight><highlight class="normal">};</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.StripVertical();</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.AutoIdentifyEPSG();</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>wkt<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.exportToWkt(&amp;wkt);</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classCoordinate2D" kindref="compound">wkt_string</ref><sp/>=<sp/>wkt<sp/>?<sp/>wkt<sp/>:<sp/>std::string{};</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">CPLFree</ref>(wkt);</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>std::move(<ref refid="classCoordinate2D" kindref="compound">wkt_string</ref>),<sp/>{}};</highlight></codeline>
-<codeline lineno="119"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Convert<sp/>a<sp/>user-supplied<sp/>CRS<sp/>string<sp/>(&quot;EPSG:28355&quot;,<sp/>proj.4<sp/>string,<sp/>WKT,<sp/>...)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">//<sp/>into<sp/>a<sp/>canonical<sp/>2D-normalized<sp/>WKT<sp/>string.<sp/>Returns<sp/>empty<sp/>string<sp/>if<sp/>the</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">//<sp/>input<sp/>was<sp/>empty.<sp/>Aborts<sp/>with<sp/>a<sp/>helpful<sp/>error<sp/>if<sp/>the<sp/>input<sp/>is<sp/>non-empty<sp/>but</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cannot<sp/>be<sp/>parsed.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>user_crs_to_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">user_crs</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/><ref refid="classCoordinate2D" kindref="compound">result</ref><sp/>=<sp/>try_user_crs_to_wkt(<ref refid="classCoordinate2D" kindref="compound">user_crs</ref>);</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classCoordinate2D" kindref="compound">result</ref>.ok)<sp/>Fail(<ref refid="classCoordinate2D" kindref="compound">result</ref>.error);</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::move(<ref refid="classCoordinate2D" kindref="compound">result</ref>.wkt);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Returns<sp/>true<sp/>if<sp/>two<sp/>WKT<sp/>strings<sp/>describe<sp/>the<sp/>same<sp/>CRS<sp/>(tolerating<sp/>cosmetic</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">//<sp/>differences<sp/>in<sp/>the<sp/>WKT<sp/>representation).<sp/>Empty<sp/>strings<sp/>are<sp/>never<sp/>&quot;same&quot;.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wkt_parses(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>wkt)<sp/>{</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>;</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">srs</ref>.importFromWkt(wkt.c_str())<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>;</highlight></codeline>
-<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wkt_matches(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">a</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">a</ref>.empty()<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">a</ref><sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">b</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs_a</ref>;</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">OGRSpatialReference</ref><sp/><ref refid="classCoordinate2D" kindref="compound">srs_b</ref>;</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs_a</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">a</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">srs_b</ref>.importFromWkt(<ref refid="classCoordinate2D" kindref="compound">b</ref>.c_str())<sp/>!=<sp/><ref refid="classCoordinate2D" kindref="compound">OGRERR_NONE</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">srs_a</ref>.IsSame(&amp;<ref refid="classCoordinate2D" kindref="compound">srs_b</ref>)<sp/>==<sp/><ref refid="classCoordinate2D" kindref="compound">TRUE</ref>;</highlight></codeline>
-<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;assert/assert.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/coordinate.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Normalize<sp/>a<sp/>WKT<sp/>CRS<sp/>string<sp/>for<sp/>downstream<sp/>use<sp/>by<sp/>blaze:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>Strip<sp/>any<sp/>vertical<sp/>(3D<sp/>/<sp/>COMPD_CS)<sp/>component,<sp/>since<sp/>blaze<sp/>only<sp/>works<sp/>in<sp/>2D.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>Best-effort<sp/>auto-identify<sp/>an<sp/>EPSG<sp/>code<sp/>on<sp/>the<sp/>horizontal<sp/>CRS,<sp/>so<sp/>QGIS<sp/>can</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>recognize<sp/>it<sp/>on<sp/>sight<sp/>instead<sp/>of<sp/>showing<sp/>&quot;unknown<sp/>CRS&quot;.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Falls<sp/>back<sp/>to<sp/>returning<sp/>the<sp/>input<sp/>unchanged<sp/>if<sp/>the<sp/>WKT<sp/>can&apos;t<sp/>be<sp/>parsed.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>normalize_crs_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>wkt)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs.importFromWkt(wkt.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>wkt;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>srs.StripVertical();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>srs.AutoIdentifyEPSG();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>out_wkt<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>srs.exportToWkt(&amp;out_wkt);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>std::string<sp/>result<sp/>=<sp/>out_wkt<sp/>?<sp/>out_wkt<sp/>:<sp/>wkt;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>CPLFree(out_wkt);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>If<sp/>`wkt`<sp/>is<sp/>a<sp/>compound<sp/>(horizontal<sp/>+<sp/>vertical)<sp/>CRS,<sp/>return<sp/>a<sp/>WKT<sp/>describing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/>a<sp/>compound<sp/>CRS<sp/>with:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>the<sp/>horizontal<sp/>component<sp/>replaced<sp/>with<sp/>`normalized_horizontal`<sp/>(which</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>should<sp/>be<sp/>the<sp/>EPSG-identified<sp/>2D<sp/>CRS<sp/>produced<sp/>by<sp/>normalize_crs_wkt),</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>-<sp/>the<sp/>original<sp/>vertical<sp/>component<sp/>preserved<sp/>verbatim.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>If<sp/>`wkt`<sp/>has<sp/>no<sp/>vertical<sp/>component,<sp/>returns<sp/>`normalized_horizontal`<sp/>unchanged.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Falls<sp/>back<sp/>to<sp/>`normalized_horizontal`<sp/>if<sp/>anything<sp/>goes<sp/>wrong.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>build_compound_crs_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>wkt,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>normalized_horizontal)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs.importFromWkt(wkt.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!srs.IsCompound())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OGR_SRSNode*<sp/>root<sp/>=<sp/>srs.GetRoot();</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!root)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OGR_SRSNode*<sp/>vert_node<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>root-&gt;GetChildCount();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OGR_SRSNode*<sp/>child<sp/>=<sp/>root-&gt;GetChild(i);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name<sp/>=<sp/>child-&gt;GetValue();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(name<sp/>&amp;&amp;<sp/>std::string(name)<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;VERT_CS&quot;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vert_node<sp/>=<sp/>child;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!vert_node)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>horizontal_srs;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(horizontal_srs.importFromWkt(normalized_horizontal.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>vertical_srs;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>vert_wkt<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal">OGR_SRSNode*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(vert_node)-&gt;exportToWkt(&amp;vert_wkt);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!vert_wkt<sp/>||<sp/>vertical_srs.importFromWkt(vert_wkt)<sp/>!=<sp/>OGRERR_NONE)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>CPLFree(vert_wkt);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>CPLFree(vert_wkt);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>compound_srs;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>compound_name<sp/>=<sp/>root-&gt;GetChildCount()<sp/>&gt;<sp/>0<sp/>?<sp/>root-&gt;GetChild(0)-&gt;GetValue()<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(compound_srs.SetCompoundCS(compound_name<sp/>?<sp/>compound_name<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,<sp/>&amp;horizontal_srs,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;vertical_srs)<sp/>!=<sp/>OGRERR_NONE)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>out_wkt<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>compound_srs.exportToWkt(&amp;out_wkt);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>std::string<sp/>result<sp/>=<sp/>out_wkt<sp/>?<sp/>out_wkt<sp/>:<sp/>normalized_horizontal;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>CPLFree(out_wkt);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Build<sp/>a<sp/>GeoProjection<sp/>from<sp/>a<sp/>raw<sp/>WKT<sp/>(possibly<sp/>compound),<sp/>producing<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//<sp/>2D-normalized<sp/>horizontal<sp/>WKT<sp/>for<sp/>general-purpose<sp/>use<sp/>and<sp/>a<sp/>compound<sp/>WKT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">//<sp/>that<sp/>preserves<sp/>any<sp/>original<sp/>vertical<sp/>datum<sp/>for<sp/>elevation<sp/>outputs.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref><sp/>make_projection_from_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>raw_wkt)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(raw_wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>{};</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>horizontal<sp/>=<sp/>normalize_crs_wkt(raw_wkt);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>compound<sp/>=<sp/>build_compound_crs_wkt(raw_wkt,<sp/>horizontal);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(horizontal,<sp/>compound);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Result<sp/>of<sp/>attempting<sp/>to<sp/>parse<sp/>a<sp/>user-supplied<sp/>CRS<sp/>string.<sp/>`ok`<sp/>is<sp/>true<sp/>iff</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">//<sp/>parsing<sp/>succeeded;<sp/>for<sp/>empty<sp/>input<sp/>parsing<sp/>trivially<sp/>succeeds<sp/>and<sp/>`wkt`<sp/>is</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">//<sp/>empty.<sp/>On<sp/>failure,<sp/>`wkt`<sp/>is<sp/>empty<sp/>and<sp/>`error`<sp/>carries<sp/>a<sp/>human-readable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">//<sp/>reason<sp/>suitable<sp/>for<sp/>surfacing<sp/>in<sp/>the<sp/>UI.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="structUserCrsParseResult" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>std::string<sp/>wkt;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>std::string<sp/>error;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Non-throwing<sp/>variant<sp/>of<sp/>user_crs_to_wkt().<sp/>Use<sp/>this<sp/>in<sp/>interactive<sp/>contexts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(e.g.<sp/>the<sp/>GUI)<sp/>where<sp/>a<sp/>parse<sp/>failure<sp/>should<sp/>be<sp/>reported<sp/>rather<sp/>than<sp/>abort.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/>try_user_crs_to_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>user_crs)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(user_crs.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>{},<sp/>{}};</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs.SetFromUserInput(user_crs.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{},</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>interpret<sp/>CRS<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>user_crs<sp/>+</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&apos;.<sp/>Expected<sp/>an<sp/>EPSG<sp/>code<sp/>(e.g.<sp/>&apos;EPSG:28355&apos;),<sp/>proj.4<sp/>string,<sp/>or<sp/>WKT.&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>srs.StripVertical();</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>srs.AutoIdentifyEPSG();</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>wkt<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>srs.exportToWkt(&amp;wkt);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>std::string<sp/>wkt_string<sp/>=<sp/>wkt<sp/>?<sp/>wkt<sp/>:<sp/>std::string{};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>CPLFree(wkt);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>std::move(wkt_string),<sp/>{}};</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Convert<sp/>a<sp/>user-supplied<sp/>CRS<sp/>string<sp/>(&quot;EPSG:28355&quot;,<sp/>proj.4<sp/>string,<sp/>WKT,<sp/>...)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">//<sp/>into<sp/>a<sp/>canonical<sp/>2D-normalized<sp/>WKT<sp/>string.<sp/>Returns<sp/>empty<sp/>string<sp/>if<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">//<sp/>input<sp/>was<sp/>empty.<sp/>Aborts<sp/>with<sp/>a<sp/>helpful<sp/>error<sp/>if<sp/>the<sp/>input<sp/>is<sp/>non-empty<sp/>but</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cannot<sp/>be<sp/>parsed.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>user_crs_to_wkt(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>user_crs)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/>result<sp/>=<sp/>try_user_crs_to_wkt(user_crs);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!result.ok)<sp/>Fail(result.error);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::move(result.wkt);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Returns<sp/>true<sp/>if<sp/>two<sp/>WKT<sp/>strings<sp/>describe<sp/>the<sp/>same<sp/>CRS<sp/>(tolerating<sp/>cosmetic</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">//<sp/>differences<sp/>in<sp/>the<sp/>WKT<sp/>representation).<sp/>Empty<sp/>strings<sp/>are<sp/>never<sp/>&quot;same&quot;.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wkt_parses(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>wkt)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>srs.importFromWkt(wkt.c_str())<sp/>==<sp/>OGRERR_NONE;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wkt_matches(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(a.empty()<sp/>||<sp/>b.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(a<sp/>==<sp/>b)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs_a;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs_b;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs_a.importFromWkt(a.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs_b.importFromWkt(b.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>srs_a.IsSame(&amp;srs_b)<sp/>==<sp/>TRUE;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">//<sp/>True<sp/>when<sp/>two<sp/>CRSes<sp/>are<sp/>identical,<sp/>or<sp/>when<sp/>both<sp/>are<sp/>projected<sp/>CRSes<sp/>with<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">//<sp/>same<sp/>parameters<sp/>(e.g.<sp/>GDA94<sp/>MGA<sp/>zone<sp/>55<sp/>vs<sp/>GDA2020<sp/>MGA<sp/>zone<sp/>55).<sp/>The<sp/>latter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">//<sp/>may<sp/>be<sp/>offset<sp/>by<sp/>a<sp/>datum<sp/>shift<sp/>but<sp/>is<sp/>close<sp/>enough<sp/>for<sp/>3D<sp/>visualisation.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>crs_compatible_for_viewing(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(a.empty()<sp/>||<sp/>b.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>norm_a<sp/>=<sp/>normalize_crs_wkt(a);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>norm_b<sp/>=<sp/>normalize_crs_wkt(b);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wkt_matches(norm_a,<sp/>norm_b))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs_a;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs_b;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs_a.importFromWkt(norm_a.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs_b.importFromWkt(norm_b.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!srs_a.IsProjected()<sp/>||<sp/>!srs_b.IsProjected())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>param_matches<sp/>=<sp/>[&amp;](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>key)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::abs(srs_a.GetProjParm(key,<sp/>0.0)<sp/>-<sp/>srs_b.GetProjParm(key,<sp/>0.0))<sp/>&lt;<sp/>1e-6;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>param_matches(SRS_PP_LATITUDE_OF_ORIGIN)<sp/>&amp;&amp;<sp/>param_matches(SRS_PP_CENTRAL_MERIDIAN)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>param_matches(SRS_PP_FALSE_EASTING)<sp/>&amp;&amp;<sp/>param_matches(SRS_PP_FALSE_NORTHING)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>param_matches(SRS_PP_SCALE_FACTOR);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Build<sp/>a<sp/>coordinate<sp/>transformation<sp/>between<sp/>two<sp/>WKT<sp/>CRSes.<sp/>Returns<sp/>nullptr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">//<sp/>when<sp/>the<sp/>two<sp/>CRSes<sp/>match<sp/>or<sp/>either<sp/>WKT<sp/>is<sp/>empty<sp/>(caller<sp/>must<sp/>treat<sp/>this<sp/>as</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">//<sp/>an<sp/>identity<sp/>transform).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;OGRCoordinateTransformation&gt;<sp/>make_coord_transform(</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>src_wkt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>dst_wkt)<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(src_wkt.empty()<sp/>||<sp/>dst_wkt.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(src_wkt<sp/>==<sp/>dst_wkt<sp/>||<sp/>wkt_matches(src_wkt,<sp/>dst_wkt))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>src_srs;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>dst_srs;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(src_srs.importFromWkt(src_wkt.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>Fail(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>parse<sp/>source<sp/>CRS<sp/>WKT<sp/>for<sp/>reprojection.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dst_srs.importFromWkt(dst_wkt.c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>Fail(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>parse<sp/>destination<sp/>CRS<sp/>WKT<sp/>for<sp/>reprojection.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/>src_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>dst_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>std::unique_ptr&lt;OGRCoordinateTransformation&gt;<sp/>ct(</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>OGRCreateCoordinateTransformation(&amp;src_srs,<sp/>&amp;dst_srs));</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ct)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/>Fail(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>construct<sp/>coordinate<sp/>transformation<sp/>between<sp/>CRSes.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ct;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Horizontal-only<sp/>reprojection<sp/>of<sp/>a<sp/>single<sp/>x/y<sp/>pair.<sp/>Returns<sp/>false<sp/>on<sp/>failure.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>transform_xy_h(OGRCoordinateTransformation*<sp/>ct,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ct)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>success<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ct-&gt;Transform(1,<sp/>&amp;x,<sp/>&amp;y,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;success)<sp/>||<sp/>!success)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Reproject<sp/>the<sp/>horizontal<sp/>footprint<sp/>of<sp/>an<sp/>Extent3D,<sp/>preserving<sp/>z<sp/>limits.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref><sp/>reproject_extent3d_horizontal(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref>&amp;<sp/>extent,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OGRCoordinateTransformation*<sp/>ct)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ct)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>extent;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::array&lt;double,<sp/>4&gt;<sp/>xs<sp/>=<sp/>{extent.minx,<sp/>extent.maxx,<sp/>extent.minx,<sp/>extent.maxx};</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::array&lt;double,<sp/>4&gt;<sp/>ys<sp/>=<sp/>{extent.miny,<sp/>extent.miny,<sp/>extent.maxy,<sp/>extent.maxy};</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><ref refid="structExtent3D" kindref="compound">Extent3D</ref><sp/>out;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/>out.minz<sp/>=<sp/>extent.minz;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/>out.maxz<sp/>=<sp/>extent.maxz;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>xs.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>xs[i];</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>ys[i];</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!transform_xy_h(ct,<sp/>x,<sp/>y))<sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Fail(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>reproject<sp/>extent<sp/>corner<sp/>between<sp/>CRSes.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>out.grow(x,<sp/>y,<sp/>extent.minz);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>out.grow(x,<sp/>y,<sp/>extent.maxz);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp"/>
   </compounddef>

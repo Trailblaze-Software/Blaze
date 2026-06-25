@@ -57,38 +57,42 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**SignedArea**](classCoordinate2D.md), [**CcwSquareIsPositive**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SignedArea**](classCoordinate2D.md), [**CwSquareIsNegative**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SignedArea**](classCoordinate2D.md), [**TooFewPointsIsZero**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**PointInRing**](classCoordinate2D.md), [**InsideSquare**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**PointInRing**](classCoordinate2D.md), [**OutsideSquare**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**PointInRing**](classCoordinate2D.md), [**TooFewPointsIsFalse**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ReverseRing**](classCoordinate2D.md), [**NegatesSignedArea**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**NormalizePolygon**](classCoordinate2D.md), [**FixesExteriorAndHoleWinding**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**PolygonIntersection**](classCoordinate2D.md), [**FullContainment**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**PolygonIntersection**](classCoordinate2D.md), [**PartialOverlap**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**PolygonIntersection**](classCoordinate2D.md), [**NoOverlap**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**NoCutouts**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygonWithUnion**](classCoordinate2D.md), [**NullUnionReturnsHost**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**CutoutOutsideHost**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**CutoutFullyCoversHost**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**SingleCutoutFullyContained**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**TwoDisjointCutouts**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**NestedCutoutsNotDoubleCut**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**PartialOverlapClipsHost**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**SplitsHostIntoTwo**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**CutoutInsideExistingHole**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**GreenDonutLeavesForestRing**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractPolygon**](classCoordinate2D.md), [**NetAreaConservedAcrossOperations**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IntersectPolygon**](classCoordinate2D.md), [**ClipsExteriorToExtent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IntersectPolygon**](classCoordinate2D.md), [**RemovesPolygonOutsideExtent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IntersectPolygon**](classCoordinate2D.md), [**ClipsPolygonWithHole**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ClipPolygonToExtent**](classCoordinate2D.md), [**MatchesGeosClipForSquare**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ClipPolygonToExtent**](classCoordinate2D.md), [**ClipsPolygonWithHole**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ClipPolygonToExtent**](classCoordinate2D.md), [**BisectedDonutDropsHole**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**UnionOverlappingPolygons**](classCoordinate2D.md), [**MergesOverlappingPolygons**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**UnionOverlappingPolygons**](classCoordinate2D.md), [**MergesTouchingEdges**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**UnionOverlappingPolygons**](classCoordinate2D.md), [**KeepsDisjointSeparate**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (SignedArea, CcwSquareIsPositive) <br> |
+|   | [**TEST**](#function-test) (SignedArea, CwSquareIsNegative) <br> |
+|   | [**TEST**](#function-test) (SignedArea, TooFewPointsIsZero) <br> |
+|   | [**TEST**](#function-test) (PointInRing, InsideSquare) <br> |
+|   | [**TEST**](#function-test) (PointInRing, OutsideSquare) <br> |
+|   | [**TEST**](#function-test) (PointInRing, TooFewPointsIsFalse) <br> |
+|   | [**TEST**](#function-test) (ReverseRing, NegatesSignedArea) <br> |
+|   | [**TEST**](#function-test) (NormalizePolygon, FixesExteriorAndHoleWinding) <br> |
+|   | [**TEST**](#function-test) (PolygonIntersection, FullContainment) <br> |
+|   | [**TEST**](#function-test) (PolygonIntersection, PartialOverlap) <br> |
+|   | [**TEST**](#function-test) (PolygonIntersection, NoOverlap) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, NoCutouts) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygonWithUnion, NullUnionReturnsHost) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, CutoutOutsideHost) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, CutoutFullyCoversHost) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, SingleCutoutFullyContained) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, TwoDisjointCutouts) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, NestedCutoutsNotDoubleCut) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, PartialOverlapClipsHost) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, SplitsHostIntoTwo) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, CutoutInsideExistingHole) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, GreenDonutLeavesForestRing) <br> |
+|   | [**TEST**](#function-test) (SubtractPolygon, NetAreaConservedAcrossOperations) <br> |
+|   | [**TEST**](#function-test) (IntersectPolygon, ClipsExteriorToExtent) <br> |
+|   | [**TEST**](#function-test) (IntersectPolygon, RemovesPolygonOutsideExtent) <br> |
+|   | [**TEST**](#function-test) (IntersectPolygon, ClipsPolygonWithHole) <br> |
+|   | [**TEST**](#function-test) (ClipPolygonToExtent, MatchesGeosClipForSquare) <br> |
+|   | [**TEST**](#function-test) (ClipPolygonToExtent, ClipsPolygonWithHole) <br> |
+|   | [**TEST**](#function-test) (ClipPolygonToExtent, BisectedDonutDropsHole) <br> |
+|   | [**TEST**](#function-test) (UnionOverlappingPolygons, MergesOverlappingPolygons) <br> |
+|   | [**TEST**](#function-test) (UnionOverlappingPolygons, MergesTouchingEdges) <br> |
+|   | [**TEST**](#function-test) (UnionOverlappingPolygons, KeepsDisjointSeparate) <br> |
+|   | [**TEST**](#function-test) (UnionOverlappingPolygons, RepairsSelfIntersectingInputs) <br> |
+|   | [**TEST**](#function-test) (SnapRingToExtent, SnapsNearBoundaryVertices) <br> |
+|   | [**TEST**](#function-test) (FinalizePolygonWithHoles, RepairsSelfIntersectingBowtie) <br> |
+|   | [**TEST**](#function-test) (FinalizePolygonWithHoles, SnapsToTileSeamBeforeRepair) <br> |
 
 
 
@@ -624,6 +628,70 @@ TEST (
 TEST (
     UnionOverlappingPolygons,
     KeepsDisjointSeparate
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    UnionOverlappingPolygons,
+    RepairsSelfIntersectingInputs
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    SnapRingToExtent,
+    SnapsNearBoundaryVertices
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    FinalizePolygonWithHoles,
+    RepairsSelfIntersectingBowtie
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    FinalizePolygonWithHoles,
+    SnapsToTileSeamBeforeRepair
 ) 
 ```
 

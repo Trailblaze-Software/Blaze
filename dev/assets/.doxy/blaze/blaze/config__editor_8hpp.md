@@ -14,6 +14,7 @@
 * `#include <QToolBox>`
 * `#include <cstddef>`
 * `#include <cstdint>`
+* `#include "utilities/filesystem.hpp"`
 
 
 

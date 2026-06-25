@@ -69,6 +69,11 @@ Inherited by the following classes: [RecordingProgressBar](classRecordingProgres
 
 
 
+## Public Functions
+
+| Type | Name |
+| ---: | :--- |
+|   | [**~ProgressBar**](#function-progressbar) () override<br> |
 
 
 ## Public Functions inherited from ProgressObserver
@@ -129,8 +134,8 @@ See [ProgressObserver](classProgressObserver.md)
 
 | Type | Name |
 | ---: | :--- |
-| virtual [**void**](classCoordinate2D.md) | [**text\_update**](#function-text_update) ([**const**](classCoordinate2D.md) std::string & text, [**int**](classCoordinate2D.md) depth=0) override<br> |
-| virtual [**void**](classCoordinate2D.md) | [**update\_progress**](#function-update_progress) ([**double**](classCoordinate2D.md) progress) override<br> |
+| virtual void | [**text\_update**](#function-text_update) (const std::string & text, int depth=0) override<br> |
+| virtual void | [**update\_progress**](#function-update_progress) (double progress) override<br> |
 
 
 ## Protected Functions inherited from ProgressObserver
@@ -140,14 +145,29 @@ See [ProgressObserver](classProgressObserver.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**ProgressObserver**](classProgressObserver.md#function-progressobserver) () <br> |
-| virtual [**void**](classCoordinate2D.md) | [**text\_update**](classProgressObserver.md#function-text_update) ([**const**](classCoordinate2D.md) std::string & text, [**int**](classCoordinate2D.md) depth=0) = 0<br> |
-| virtual [**void**](classCoordinate2D.md) | [**update\_progress**](classProgressObserver.md#function-update_progress) ([**double**](classCoordinate2D.md) progress) = 0<br> |
+| virtual void | [**text\_update**](classProgressObserver.md#function-text_update) (const std::string & text, int depth=0) = 0<br> |
+| virtual void | [**update\_progress**](classProgressObserver.md#function-update_progress) (double progress) = 0<br> |
 
 
 
 
 
 
+## Public Functions Documentation
+
+
+
+
+### function ~ProgressBar 
+
+```C++
+ProgressBar::~ProgressBar () override
+```
+
+
+
+
+<hr>
 ## Protected Functions Documentation
 
 

@@ -72,16 +72,18 @@ Inherits the following classes: [ProgressObserver](classProgressObserver.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**ProgressTracker**](#function-progresstracker-13) ([**ProgressObserver**](classProgressObserver.md) \* observer=[**nullptr**](classCoordinate2D.md)) <br> |
-|   | [**ProgressTracker**](#function-progresstracker-23) ([**const**](classCoordinate2D.md) [**ProgressTracker**](classProgressTracker.md) & other) = delete<br> |
+|   | [**ProgressTracker**](#function-progresstracker-13) ([**ProgressObserver**](classProgressObserver.md) \* observer=nullptr) <br> |
+|   | [**ProgressTracker**](#function-progresstracker-23) (const [**ProgressTracker**](classProgressTracker.md) & other) = delete<br> |
 |   | [**ProgressTracker**](#function-progresstracker-33) ([**ProgressTracker**](classProgressTracker.md) && other) <br> |
-|  [**ProgressTracker**](classProgressTracker.md) & | [**operator=**](#function-operator) ([**const**](classCoordinate2D.md) [**ProgressTracker**](classProgressTracker.md) & other) = delete<br> |
+|  bool | [**is\_visible**](#function-is_visible) () const<br> |
+|  [**ProgressTracker**](classProgressTracker.md) & | [**operator=**](#function-operator) (const [**ProgressTracker**](classProgressTracker.md) & other) = delete<br> |
 |  [**ProgressTracker**](classProgressTracker.md) & | [**operator=**](#function-operator_1) ([**ProgressTracker**](classProgressTracker.md) && other) = delete<br> |
-|  [**double**](classCoordinate2D.md) | [**proportion**](#function-proportion) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**report\_parallel\_progress**](#function-report_parallel_progress) ([**double**](classCoordinate2D.md) proportion) <br> |
-|  [**void**](classCoordinate2D.md) | [**set\_proportion**](#function-set_proportion) ([**double**](classCoordinate2D.md) proportion) <br> |
-|  [**ProgressTracker**](classProgressTracker.md) | [**subtracker**](#function-subtracker) ([**double**](classCoordinate2D.md) start, [**double**](classCoordinate2D.md) end) <br> |
-| virtual [**void**](classCoordinate2D.md) | [**text\_update**](#function-text_update) ([**const**](classCoordinate2D.md) std::string & text, [**int**](classCoordinate2D.md) depth=0) override<br> |
+|  double | [**proportion**](#function-proportion) () const<br> |
+|  void | [**report\_parallel\_progress**](#function-report_parallel_progress) (double proportion) <br> |
+|  void | [**set\_proportion**](#function-set_proportion) (double proportion) <br> |
+|  void | [**set\_visible**](#function-set_visible) (bool v) <br> |
+|  [**ProgressTracker**](classProgressTracker.md) | [**subtracker**](#function-subtracker) (double start, double end, std::optional&lt; bool &gt; visible=std::nullopt) <br> |
+| virtual void | [**text\_update**](#function-text_update) (const std::string & text, int depth=0) override<br> |
 | virtual  | [**~ProgressTracker**](#function-progresstracker) () <br> |
 
 
@@ -143,7 +145,7 @@ See [ProgressObserver](classProgressObserver.md)
 
 | Type | Name |
 | ---: | :--- |
-| virtual [**void**](classCoordinate2D.md) | [**update\_progress**](#function-update_progress) ([**double**](classCoordinate2D.md) progress) override<br> |
+| virtual void | [**update\_progress**](#function-update_progress) (double progress) override<br> |
 
 
 ## Protected Functions inherited from ProgressObserver
@@ -153,8 +155,8 @@ See [ProgressObserver](classProgressObserver.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**ProgressObserver**](classProgressObserver.md#function-progressobserver) () <br> |
-| virtual [**void**](classCoordinate2D.md) | [**text\_update**](classProgressObserver.md#function-text_update) ([**const**](classCoordinate2D.md) std::string & text, [**int**](classCoordinate2D.md) depth=0) = 0<br> |
-| virtual [**void**](classCoordinate2D.md) | [**update\_progress**](classProgressObserver.md#function-update_progress) ([**double**](classCoordinate2D.md) progress) = 0<br> |
+| virtual void | [**text\_update**](classProgressObserver.md#function-text_update) (const std::string & text, int depth=0) = 0<br> |
+| virtual void | [**update\_progress**](classProgressObserver.md#function-update_progress) (double progress) = 0<br> |
 
 
 
@@ -185,7 +187,7 @@ explicit ProgressTracker::ProgressTracker (
 
 ```C++
 ProgressTracker::ProgressTracker (
-    const  ProgressTracker & other
+    const ProgressTracker & other
 ) = delete
 ```
 
@@ -211,11 +213,24 @@ ProgressTracker::ProgressTracker (
 
 
 
+### function is\_visible 
+
+```C++
+inline bool ProgressTracker::is_visible () const
+```
+
+
+
+
+<hr>
+
+
+
 ### function operator= 
 
 ```C++
 ProgressTracker & ProgressTracker::operator= (
-    const  ProgressTracker & other
+    const ProgressTracker & other
 ) = delete
 ```
 
@@ -284,12 +299,28 @@ void ProgressTracker::set_proportion (
 
 
 
+### function set\_visible 
+
+```C++
+inline void ProgressTracker::set_visible (
+    bool v
+) 
+```
+
+
+
+
+<hr>
+
+
+
 ### function subtracker 
 
 ```C++
 ProgressTracker ProgressTracker::subtracker (
     double start,
-    double end
+    double end,
+    std::optional< bool > visible=std::nullopt
 ) 
 ```
 

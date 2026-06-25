@@ -37,7 +37,7 @@
 | ---: | :--- |
 |  std::string | [**layer**](#variable-layer)  <br> |
 |  std::string | [**name**](#variable-name)  <br> |
-|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; | [**vertices**](#variable-vertices)  <br> |
+|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**vertices**](#variable-vertices)  <br> |
 
 
 

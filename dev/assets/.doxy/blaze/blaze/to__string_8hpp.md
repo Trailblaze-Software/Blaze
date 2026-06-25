@@ -57,13 +57,13 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::string | [**double\_to\_string**](#function-double_to_string) ([**double**](classCoordinate2D.md) d, [**int**](classCoordinate2D.md) precision=2) <br> |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, [**const**](classCoordinate2D.md) std::vector&lt; T &gt; & vec) <br> |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator_1) (std::ostream & os, [**const**](classCoordinate2D.md) std::set&lt; T &gt; & set) <br> |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator_2) (std::ostream & os, [**const**](classCoordinate2D.md) std::pair&lt; T, [**U**](classCoordinate2D.md) &gt; & pair) <br> |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator_3) (std::ostream & os, [**const**](classCoordinate2D.md) std::optional&lt; T &gt; & op) <br> |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator_4) (std::ostream & os, [**const**](classCoordinate2D.md) std::map&lt; T, [**U**](classCoordinate2D.md) &gt; m) <br> |
-|  std::string | [**to\_string**](#function-to_string) ([**const**](classCoordinate2D.md) T &... args) <br> |
+|  std::string | [**double\_to\_string**](#function-double_to_string) (double d, int precision=2) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, const std::vector&lt; T &gt; & vec) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator_1) (std::ostream & os, const std::set&lt; T &gt; & set) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator_2) (std::ostream & os, const std::pair&lt; T, U &gt; & pair) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator_3) (std::ostream & os, const std::optional&lt; T &gt; & op) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator_4) (std::ostream & os, const std::map&lt; T, U &gt; m) <br> |
+|  std::string | [**to\_string**](#function-to_string) (const T &... args) <br> |
 
 
 
@@ -150,7 +150,7 @@ inline std::ostream & operator<< (
 ### function operator&lt;&lt; 
 
 ```C++
-template<typename T, typename  U>
+template<typename T, typename U>
 inline std::ostream & operator<< (
     std::ostream & os,
     const std::pair< T, U > & pair
@@ -184,7 +184,7 @@ inline std::ostream & operator<< (
 ### function operator&lt;&lt; 
 
 ```C++
-template<typename T, typename  U>
+template<typename T, typename U>
 inline std::ostream & operator<< (
     std::ostream & os,
     const std::map< T, U > m

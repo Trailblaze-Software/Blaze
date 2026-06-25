@@ -11,7 +11,13 @@
 
 
 * `#include <QApplication>`
+* `#include <cstdlib>`
+* `#include <iostream>`
+* `#include <string>`
+* `#include <vector>`
 * `#include "main_window.hpp"`
+* `#include "utilities/env.hpp"`
+* `#include "utilities/filesystem.hpp"`
 
 
 
@@ -53,7 +59,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**int**](classCoordinate2D.md) | [**main**](#function-main) ([**int**](classCoordinate2D.md) argc, [**char**](classCoordinate2D.md) \* argv) <br> |
+|  int | [**main**](#function-main) (int argc, char \* argv) <br> |
 
 
 

@@ -36,7 +36,7 @@
 | Type | Name |
 | ---: | :--- |
 |  std::map&lt; std::string, [**ContourConfig**](structContourConfig.md) &gt; | [**configs**](#variable-configs)  <br> |
-|  [**double**](classCoordinate2D.md) | [**min\_interval**](#variable-min_interval)  <br> |
+|  double | [**min\_interval**](#variable-min_interval)  <br> |
 
 
 
@@ -59,16 +59,16 @@
 | ---: | :--- |
 |   | [**ContourConfigs**](#function-contourconfigs-12) () <br> |
 |   | [**ContourConfigs**](#function-contourconfigs-22) (std::map&lt; std::string, [**ContourConfig**](structContourConfig.md) &gt; in\_configs) <br> |
-|  std::string | [**layer\_name\_from\_height**](#function-layer_name_from_height) ([**double**](classCoordinate2D.md) height) const<br> |
-|  [**const**](classCoordinate2D.md) [**ContourConfig**](structContourConfig.md) & | [**operator[]**](#function-operator) ([**const**](classCoordinate2D.md) std::string & key) const<br> |
-|  [**const**](classCoordinate2D.md) [**ContourConfig**](structContourConfig.md) & | [**pick\_from\_height**](#function-pick_from_height) ([**double**](classCoordinate2D.md) height) const<br> |
+|  std::string | [**layer\_name\_from\_height**](#function-layer_name_from_height) (double height) const<br> |
+|  const [**ContourConfig**](structContourConfig.md) & | [**operator[]**](#function-operator) (const std::string & key) const<br> |
+|  const [**ContourConfig**](structContourConfig.md) & | [**pick\_from\_height**](#function-pick_from_height) (double height) const<br> |
 
 
 ## Public Static Functions
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**minimum\_interval**](#function-minimum_interval) ([**const**](classCoordinate2D.md) std::map&lt; std::string, [**ContourConfig**](structContourConfig.md) &gt; & configs) <br> |
+|  double | [**minimum\_interval**](#function-minimum_interval) (const std::map&lt; std::string, [**ContourConfig**](structContourConfig.md) &gt; & configs) <br> |
 
 
 
@@ -174,7 +174,7 @@ inline std::string ContourConfigs::layer_name_from_height (
 ### function operator[] 
 
 ```C++
-inline const  ContourConfig & ContourConfigs::operator[] (
+inline const ContourConfig & ContourConfigs::operator[] (
     const std::string & key
 ) const
 ```
@@ -189,7 +189,7 @@ inline const  ContourConfig & ContourConfigs::operator[] (
 ### function pick\_from\_height 
 
 ```C++
-inline const  ContourConfig & ContourConfigs::pick_from_height (
+inline const ContourConfig & ContourConfigs::pick_from_height (
     double height
 ) const
 ```

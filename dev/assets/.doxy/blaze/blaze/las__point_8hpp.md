@@ -39,7 +39,7 @@
 
 | Type | Name |
 | ---: | :--- |
-| enum [**uint8\_t**](classCoordinate2D.md) | [**LASClassification**](#enum-lasclassification)  <br> |
+| enum uint8\_t | [**LASClassification**](#enum-lasclassification)  <br> |
 
 
 
@@ -64,7 +64,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, [**const**](classCoordinate2D.md) LASClassification & classification) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, const LASClassification & classification) <br> |
 
 
 

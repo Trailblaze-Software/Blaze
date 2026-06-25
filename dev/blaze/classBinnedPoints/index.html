@@ -903,7 +903,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-binnedpoints"><strong>BinnedPoints</strong></a> (<a href="../classLASData/"><strong>LASData</strong></a> &amp; las_file, <a href="../classCoordinate2D/"><strong>double</strong></a> bin_resolution, <a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a> downsample_factor, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
+<td style="text-align: left;"><a href="#function-binnedpoints"><strong>BinnedPoints</strong></a> (<a href="../classLASData/"><strong>LASData</strong></a> &amp; las_file, double bin_resolution, unsigned int downsample_factor, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structExtent2D/"><strong>Extent2D</strong></a></td>
@@ -923,7 +923,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classGeo/#function-geo-13"><strong>Geo</strong></a> (<a href="../classCoordinate2D/"><strong>size_t</strong></a> width, <a href="../classCoordinate2D/"><strong>size_t</strong></a> height, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;&amp; transform, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
+<td style="text-align: left;"><a href="../classGeo/#function-geo-13"><strong>Geo</strong></a> (size_t width, size_t height, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;&amp; transform, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
@@ -931,34 +931,34 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classGeo/#function-geo-33"><strong>Geo</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::vector&lt; <a href="../classCoordinate2D/"><strong>U</strong></a> &gt; &gt; &amp; data, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> transform=<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>(), <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> projection=<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>()) <br></td>
+<td style="text-align: left;"><a href="../classGeo/#function-geo-33"><strong>Geo</strong></a> (const std::vector&lt; std::vector&lt; U &gt; &gt; &amp; data, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> transform=<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>(), <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> projection=<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>()) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::unique_ptr&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt;</td>
 <td style="text-align: left;"><a href="../classGeo/#function-extent"><strong>extent</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classGeo/#function-fill_from-12"><strong>fill_from</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classCoordinate2D/"><strong>U</strong></a> &gt; &amp; other) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-fill_from-12"><strong>fill_from</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; U &gt; &amp; other) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="../classGeo/#function-fill_from-22"><strong>fill_from</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>U</strong></a> &amp; other) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-fill_from-22"><strong>fill_from</strong></a> (const U &amp; other) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classGeo/#function-height_m"><strong>height_m</strong></a> () const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a></td>
-<td style="text-align: left;"><a href="../classGeo/#function-pad"><strong>pad</strong></a> (<a href="../classCoordinate2D/"><strong>U</strong></a> pad_value={}) const<br></td>
+<td style="text-align: left;"><a href="../classGeo/#function-pad"><strong>pad</strong></a> (U pad_value={}) const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a></td>
-<td style="text-align: left;"><a href="../classGeo/#function-slice"><strong>slice</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; extent) <br></td>
+<td style="text-align: left;"><a href="../classGeo/#function-slice"><strong>slice</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; extent) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classGeo/#function-width_m"><strong>width_m</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -978,19 +978,19 @@
 <td style="text-align: left;"><a href="../classGeoGridData/#function-geogriddata"><strong>GeoGridData</strong></a> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;&amp; transform, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-dx"><strong>dx</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-dy"><strong>dy</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
+<td style="text-align: right;">const <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-projection"><strong>projection</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;</td>
+<td style="text-align: right;">const <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-transform"><strong>transform</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -1007,11 +1007,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="../classGeo/#function-fromgeoimg"><strong>FromGeoImg</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a> &amp; grid) <br></td>
+<td style="text-align: left;"><a href="../classGeo/#function-fromgeoimg"><strong>FromGeoImg</strong></a> (const <a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a> &amp; grid) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a></td>
-<td style="text-align: left;"><a href="../classGeo/#function-frompoints"><strong>FromPoints</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>Geo</strong></a> &amp; grid) <br></td>
+<td style="text-align: left;"><a href="../classGeo/#function-frompoints"><strong>FromPoints</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a> &amp; grid) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1040,7 +1040,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">BinnedPoints</span><span class="o">::</span><span class="n">BinnedPoints</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">LASData</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">las_file</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">bin_resolution</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">downsample_factor</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">downsample_factor</span><span class="p">,</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>

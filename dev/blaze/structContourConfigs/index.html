@@ -983,7 +983,7 @@
 <td style="text-align: left;"><a href="#variable-configs"><strong>configs</strong></a>  <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#variable-min_interval"><strong>min_interval</strong></a>  <br></td>
 </tr>
 </tbody>
@@ -1007,15 +1007,15 @@
 </tr>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-layer_name_from_height"><strong>layer_name_from_height</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> height) const<br></td>
+<td style="text-align: left;"><a href="#function-layer_name_from_height"><strong>layer_name_from_height</strong></a> (double height) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structContourConfig/"><strong>ContourConfig</strong></a> &amp;</td>
-<td style="text-align: left;"><a href="#function-operator"><strong>operator[]</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; key) const<br></td>
+<td style="text-align: right;">const <a href="../structContourConfig/"><strong>ContourConfig</strong></a> &amp;</td>
+<td style="text-align: left;"><a href="#function-operator"><strong>operator[]</strong></a> (const std::string &amp; key) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structContourConfig/"><strong>ContourConfig</strong></a> &amp;</td>
-<td style="text-align: left;"><a href="#function-pick_from_height"><strong>pick_from_height</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> height) const<br></td>
+<td style="text-align: right;">const <a href="../structContourConfig/"><strong>ContourConfig</strong></a> &amp;</td>
+<td style="text-align: left;"><a href="#function-pick_from_height"><strong>pick_from_height</strong></a> (double height) const<br></td>
 </tr>
 </tbody>
 </table>
@@ -1029,8 +1029,8 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
-<td style="text-align: left;"><a href="#function-minimum_interval"><strong>minimum_interval</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::map&lt; std::string, <a href="../structContourConfig/"><strong>ContourConfig</strong></a> &gt; &amp; configs) <br></td>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-minimum_interval"><strong>minimum_interval</strong></a> (const std::map&lt; std::string, <a href="../structContourConfig/"><strong>ContourConfig</strong></a> &gt; &amp; configs) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1065,14 +1065,14 @@
 <hr>
 
 <h3 id="function-operator">function operator[]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">ContourConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ContourConfigs</span><span class="o">::</span><span class="k">operator</span><span class="p">[]</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ContourConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ContourConfigs</span><span class="o">::</span><span class="k">operator</span><span class="p">[]</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">key</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-pick_from_height">function pick_from_height</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">ContourConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ContourConfigs</span><span class="o">::</span><span class="n">pick_from_height</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ContourConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ContourConfigs</span><span class="o">::</span><span class="n">pick_from_height</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">height</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>

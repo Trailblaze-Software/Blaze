@@ -73,9 +73,9 @@ Inherited by the following classes: [GeoImgGrid](classGeoImgGrid.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**ImgGrid**](#function-imggrid) ([**size\_t**](classCoordinate2D.md) height, [**size\_t**](classCoordinate2D.md) width, std::optional&lt; [**int**](classCoordinate2D.md) &gt; type={}) <br> |
-|  [**RGBColor**](classRGBColor.md) | [**get\_rgb\_color**](#function-get_rgb_color) ([**size\_t**](classCoordinate2D.md) row, [**size\_t**](classCoordinate2D.md) col) const<br> |
-|  [**void**](classCoordinate2D.md) | [**save\_to**](#function-save_to) ([**const**](classCoordinate2D.md) fs::path & path) <br> |
+|   | [**ImgGrid**](#function-imggrid) (size\_t width, size\_t height) <br> |
+|  [**RGBColor**](classRGBColor.md) | [**get\_rgb\_color**](#function-get_rgb_color) (size\_t row, size\_t col) const<br> |
+|  void | [**save\_to**](#function-save_to) (const fs::path & path) <br> |
 |   | [**~ImgGrid**](#function-imggrid) () <br> |
 
 
@@ -85,10 +85,10 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GridData**](classGridData.md#function-griddata) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**height**](classGridData.md#function-height) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**in\_bounds**](classGridData.md#function-in_bounds) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  [**size\_t**](classCoordinate2D.md) | [**width**](classGridData.md#function-width) () const<br> |
+|   | [**GridData**](classGridData.md#function-griddata) (size\_t width, size\_t height) <br> |
+|  size\_t | [**height**](classGridData.md#function-height) () const<br> |
+|  bool | [**in\_bounds**](classGridData.md#function-in_bounds) (const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & coord) const<br> |
+|  size\_t | [**width**](classGridData.md#function-width) () const<br> |
 
 
 
@@ -107,7 +107,7 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  std::unique\_ptr&lt; cv::Mat &gt; | [**m\_img**](#variable-m_img)  <br> |
+|  std::unique\_ptr&lt; [**blaze::Image**](classblaze_1_1Image.md) &gt; | [**m\_img**](#variable-m_img)  <br> |
 
 
 ## Protected Attributes inherited from GridData
@@ -116,8 +116,8 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_height**](classGridData.md#variable-m_height)  <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_width**](classGridData.md#variable-m_width)  <br> |
+|  size\_t | [**m\_height**](classGridData.md#variable-m_height)  <br> |
+|  size\_t | [**m\_width**](classGridData.md#variable-m_width)  <br> |
 
 
 
@@ -165,9 +165,8 @@ See [GridData](classGridData.md)
 
 ```C++
 ImgGrid::ImgGrid (
-    size_t height,
     size_t width,
-    std::optional< int > type={}
+    size_t height
 ) 
 ```
 
@@ -227,7 +226,7 @@ ImgGrid::~ImgGrid ()
 ### variable m\_img 
 
 ```C++
-std::unique_ptr<cv::Mat> ImgGrid::m_img;
+std::unique_ptr<blaze::Image> ImgGrid::m_img;
 ```
 
 

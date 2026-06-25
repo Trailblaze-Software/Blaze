@@ -12,9 +12,28 @@
 
 * `#include <QApplication>`
 * `#include <QMainWindow>`
+* `#include <QMatrix4x4>`
+* `#include <chrono>`
+* `#include <cstdio>`
+* `#include <cstdlib>`
+* `#include <fstream>`
+* `#include <functional>`
+* `#include <iostream>`
+* `#include <limits>`
+* `#include <optional>`
+* `#include <sstream>`
+* `#include <string>`
+* `#include <thread>`
 * `#include "gl_widget.hpp"`
 * `#include "main_3d_window.hpp"`
+* `#include "utilities/env.hpp"`
+* `#include "utilities/filesystem.hpp"`
 * `#include "utilities/resources.hpp"`
+* `#include "gui/frustum.hpp"`
+* `#include "gui/octree_las_data.hpp"`
+* `#include "gui/point_octree.hpp"`
+* `#include "las/las_file.hpp"`
+* `#include "las_reader.hpp"`
 
 
 
@@ -30,6 +49,11 @@
 
 
 
+## Classes
+
+| Type | Name |
+| ---: | :--- |
+| struct | [**LaunchOptions**](structLaunchOptions.md) <br> |
 
 
 
@@ -56,9 +80,16 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**int**](classCoordinate2D.md) | [**main**](#function-main) ([**int**](classCoordinate2D.md) argc, [**char**](classCoordinate2D.md) \* argv) <br> |
+|  int | [**main**](#function-main) (int argc, char \* argv) <br> |
 
 
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
+|  [**LaunchOptions**](structLaunchOptions.md) | [**parse\_args**](#function-parse_args) (int argc, char \* argv) <br> |
+|  void | [**print\_usage**](#function-print_usage) (const char \* program) <br> |
+|  int | [**probe\_las\_file**](#function-probe_las_file) (const fs::path & filename) <br> |
 
 
 
@@ -96,6 +127,54 @@
 int main (
     int argc,
     char * argv
+) 
+```
+
+
+
+
+<hr>
+## Public Static Functions Documentation
+
+
+
+
+### function parse\_args 
+
+```C++
+static LaunchOptions parse_args (
+    int argc,
+    char * argv
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function print\_usage 
+
+```C++
+static void print_usage (
+    const char * program
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function probe\_las\_file 
+
+```C++
+static int probe_las_file (
+    const fs::path & filename
 ) 
 ```
 

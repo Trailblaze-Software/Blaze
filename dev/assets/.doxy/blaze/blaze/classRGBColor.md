@@ -72,17 +72,16 @@ Inherits the following classes: [Color](classColor.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**RGBColor**](#function-rgbcolor-12) ([**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) r, [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) g, [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) b, [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) a=255) <br> |
+|   | [**RGBColor**](#function-rgbcolor-12) (unsigned char r, unsigned char g, unsigned char b, unsigned char a=255) <br> |
 |   | [**RGBColor**](#function-rgbcolor-22) () <br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getAlpha**](#function-getalpha) () const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getBlue**](#function-getblue) () const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getGreen**](#function-getgreen) () const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getRed**](#function-getred) () const<br> |
-|  [**const**](classCoordinate2D.md) [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) & | [**operator[]**](#function-operator) ([**size\_t**](classCoordinate2D.md) index) const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) & | [**operator[]**](#function-operator_1) ([**size\_t**](classCoordinate2D.md) index) <br> |
+|  unsigned char | [**getAlpha**](#function-getalpha) () const<br> |
+|  unsigned char | [**getBlue**](#function-getblue) () const<br> |
+|  unsigned char | [**getGreen**](#function-getgreen) () const<br> |
+|  unsigned char | [**getRed**](#function-getred) () const<br> |
+|  const unsigned char & | [**operator[]**](#function-operator) (size\_t index) const<br> |
+|  unsigned char & | [**operator[]**](#function-operator_1) (size\_t index) <br> |
 | virtual [**CMYKColor**](classCMYKColor.md) | [**toCMYK**](#function-tocmyk) () override const<br> |
 | virtual [**RGBColor**](classRGBColor.md) | [**toRGB**](#function-torgb) () override const<br> |
-|  [**cv::Scalar**](classCoordinate2D.md) | [**toScalar**](#function-toscalar) () const<br> |
 
 
 ## Public Functions inherited from Color
@@ -91,9 +90,9 @@ See [Color](classColor.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Color**](classColor.md#function-color-12) ([**const**](classCoordinate2D.md) [**Color**](classColor.md) &) = default<br> |
+|   | [**Color**](classColor.md#function-color-12) (const [**Color**](classColor.md) &) = default<br> |
 |   | [**Color**](classColor.md#function-color-22) () = default<br> |
-|  [**Color**](classColor.md) & | [**operator=**](classColor.md#function-operator) ([**const**](classCoordinate2D.md) [**Color**](classColor.md) &) = default<br> |
+|  [**Color**](classColor.md) & | [**operator=**](classColor.md#function-operator) (const [**Color**](classColor.md) &) = default<br> |
 | virtual [**CMYKColor**](classCMYKColor.md) | [**toCMYK**](classColor.md#function-tocmyk) () const = 0<br> |
 | virtual [**RGBColor**](classRGBColor.md) | [**toRGB**](classColor.md#function-torgb) () const = 0<br> |
 | virtual  | [**~Color**](classColor.md#function-color) () = default<br> |
@@ -103,7 +102,7 @@ See [Color](classColor.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**RGBColor**](classRGBColor.md) | [**FromCMYK**](#function-fromcmyk) ([**const**](classCoordinate2D.md) [**CMYKColor**](classCMYKColor.md) & cmyk) <br> |
+|  [**RGBColor**](classRGBColor.md) | [**FromCMYK**](#function-fromcmyk) (const [**CMYKColor**](classCMYKColor.md) & cmyk) <br> |
 
 
 
@@ -165,10 +164,10 @@ See [Color](classColor.md)
 
 ```C++
 RGBColor::RGBColor (
-    unsigned  char r,
-    unsigned  char g,
-    unsigned  char b,
-    unsigned  char a=255
+    unsigned char r,
+    unsigned char g,
+    unsigned char b,
+    unsigned char a=255
 ) 
 ```
 
@@ -195,7 +194,7 @@ inline RGBColor::RGBColor ()
 ### function getAlpha 
 
 ```C++
-inline unsigned  char RGBColor::getAlpha () const
+inline unsigned char RGBColor::getAlpha () const
 ```
 
 
@@ -208,7 +207,7 @@ inline unsigned  char RGBColor::getAlpha () const
 ### function getBlue 
 
 ```C++
-inline unsigned  char RGBColor::getBlue () const
+inline unsigned char RGBColor::getBlue () const
 ```
 
 
@@ -221,7 +220,7 @@ inline unsigned  char RGBColor::getBlue () const
 ### function getGreen 
 
 ```C++
-inline unsigned  char RGBColor::getGreen () const
+inline unsigned char RGBColor::getGreen () const
 ```
 
 
@@ -234,7 +233,7 @@ inline unsigned  char RGBColor::getGreen () const
 ### function getRed 
 
 ```C++
-inline unsigned  char RGBColor::getRed () const
+inline unsigned char RGBColor::getRed () const
 ```
 
 
@@ -247,7 +246,7 @@ inline unsigned  char RGBColor::getRed () const
 ### function operator[] 
 
 ```C++
-inline const  unsigned  char & RGBColor::operator[] (
+inline const unsigned char & RGBColor::operator[] (
     size_t index
 ) const
 ```
@@ -262,7 +261,7 @@ inline const  unsigned  char & RGBColor::operator[] (
 ### function operator[] 
 
 ```C++
-inline unsigned  char & RGBColor::operator[] (
+inline unsigned char & RGBColor::operator[] (
     size_t index
 ) 
 ```
@@ -301,19 +300,6 @@ Implements [*Color::toRGB*](classColor.md#function-torgb)
 
 
 <hr>
-
-
-
-### function toScalar 
-
-```C++
-cv::Scalar RGBColor::toScalar () const
-```
-
-
-
-
-<hr>
 ## Public Static Functions Documentation
 
 
@@ -323,7 +309,7 @@ cv::Scalar RGBColor::toScalar () const
 
 ```C++
 static RGBColor RGBColor::FromCMYK (
-    const  CMYKColor & cmyk
+    const CMYKColor & cmyk
 ) 
 ```
 
@@ -341,7 +327,7 @@ static RGBColor RGBColor::FromCMYK (
 ```C++
 inline std::ostream & RGBColor::operator<< (
     std::ostream & os,
-    const  RGBColor & c
+    const RGBColor & c
 ) 
 ```
 

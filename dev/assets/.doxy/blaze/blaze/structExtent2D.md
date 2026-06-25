@@ -36,10 +36,10 @@ Inherited by the following classes: [Extent3D](structExtent3D.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**maxx**](#variable-maxx)   = `-std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
-|  [**double**](classCoordinate2D.md) | [**maxy**](#variable-maxy)   = `-std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
-|  [**double**](classCoordinate2D.md) | [**minx**](#variable-minx)   = `std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
-|  [**double**](classCoordinate2D.md) | [**miny**](#variable-miny)   = `std::numeric\_limits&lt;[**double**](classCoordinate2D.md)&gt;[**::infinity**](classCoordinate2D.md)()`<br> |
+|  double | [**maxx**](#variable-maxx)   = `-std::numeric\_limits&lt;double&gt;::infinity()`<br> |
+|  double | [**maxy**](#variable-maxy)   = `-std::numeric\_limits&lt;double&gt;::infinity()`<br> |
+|  double | [**minx**](#variable-minx)   = `std::numeric\_limits&lt;double&gt;::infinity()`<br> |
+|  double | [**miny**](#variable-miny)   = `std::numeric\_limits&lt;double&gt;::infinity()`<br> |
 
 
 
@@ -60,10 +60,10 @@ Inherited by the following classes: [Extent3D](structExtent3D.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**contains**](#function-contains) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) y) const<br> |
-|  [**void**](classCoordinate2D.md) | [**grow**](#function-grow) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) <br> |
-|  [**Extent2D**](structExtent2D.md) | [**intersection**](#function-intersection) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) const<br> |
-|  [**bool**](classCoordinate2D.md) | [**overlaps**](#function-overlaps) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & other) const<br> |
+|  bool | [**contains**](#function-contains) (double x, double y) const<br> |
+|  void | [**grow**](#function-grow) (const [**Extent2D**](structExtent2D.md) & other) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**intersection**](#function-intersection) (const [**Extent2D**](structExtent2D.md) & other) const<br> |
+|  bool | [**overlaps**](#function-overlaps) (const [**Extent2D**](structExtent2D.md) & other) const<br> |
 
 
 
@@ -171,7 +171,7 @@ inline bool Extent2D::contains (
 
 ```C++
 inline void Extent2D::grow (
-    const  Extent2D & other
+    const Extent2D & other
 ) 
 ```
 
@@ -186,7 +186,7 @@ inline void Extent2D::grow (
 
 ```C++
 inline Extent2D Extent2D::intersection (
-    const  Extent2D & other
+    const Extent2D & other
 ) const
 ```
 
@@ -201,7 +201,7 @@ inline Extent2D Extent2D::intersection (
 
 ```C++
 inline bool Extent2D::overlaps (
-    const  Extent2D & other
+    const Extent2D & other
 ) const
 ```
 
@@ -219,7 +219,7 @@ inline bool Extent2D::overlaps (
 ```C++
 inline std::ostream & Extent2D::operator<< (
     std::ostream & os,
-    const  Extent2D & extent
+    const Extent2D & extent
 ) 
 ```
 

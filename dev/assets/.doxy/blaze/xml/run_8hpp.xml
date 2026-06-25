@@ -5,6 +5,7 @@
     <includes local="no">vector</includes>
     <includes refid="filesystem_8hpp" local="yes">utilities/filesystem.hpp</includes>
     <includedby refid="blaze_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/blaze.cpp</includedby>
+    <includedby refid="main__3d__window_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp</includedby>
     <includedby refid="main__window_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp</includedby>
     <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
     <incdepgraph>
@@ -26,16 +27,16 @@
     </incdepgraph>
     <sectiondef kind="func">
       <memberdef kind="function" id="run_8hpp_1a134d17bfd7d9c82d7f0da255a105d35d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void run_with_config</definition>
         <argsstring>(const Config &amp;config, const std::vector&lt; fs::path &gt; &amp;additional_las_files, ProgressTracker &amp;&amp;tracker)</argsstring>
         <name>run_with_config</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structConfig" kindref="compound">Config</ref> &amp;</type>
+          <type>const <ref refid="structConfig" kindref="compound">Config</ref> &amp;</type>
           <declname>config</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; fs::path &gt; &amp;</type>
+          <type>const std::vector&lt; fs::path &gt; &amp;</type>
           <declname>additional_las_files</declname>
         </param>
         <param>
@@ -48,7 +49,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/run.hpp" line="10" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/run.cpp" bodystart="26" bodyend="346" declfile="/home/runner/work/Blaze/Blaze/src/run.hpp" declline="10" declcolumn="6"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/run.hpp" line="10" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/run.cpp" bodystart="26" bodyend="351" declfile="/home/runner/work/Blaze/Blaze/src/run.hpp" declline="10" declcolumn="6"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -65,7 +66,7 @@
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structConfig" kindref="compound">Config</ref>;</highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>;</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>run_with_config(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;fs::path&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">additional_las_files</ref>,</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>run_with_config(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;fs::path&gt;&amp;<sp/>additional_las_files,</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>tracker);</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/run.hpp"/>

@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classAsyncRasterData" kind="class" language="C++" prot="public">
+    <compoundname>AsyncRasterData</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAsyncRasterData_1a571d298484cf4906cee40de364c52a28" prot="private" static="no" mutable="yes">
+        <type>std::mutex</type>
+        <definition>std::mutex AsyncRasterData::m_mutex</definition>
+        <argsstring></argsstring>
+        <name>m_mutex</name>
+        <qualifiedname>AsyncRasterData::m_mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="605" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="605" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1ad3567501315598d00ed679954203c666" prot="private" static="no" mutable="no">
+        <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref></type>
+        <definition>GeoProjection AsyncRasterData::m_header_projection</definition>
+        <argsstring></argsstring>
+        <name>m_header_projection</name>
+        <qualifiedname>AsyncRasterData::m_header_projection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="606" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="606" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1a7764b757846a04910725b620a4a58c91" prot="private" static="no" mutable="no">
+        <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref></type>
+        <definition>GeoProjection AsyncRasterData::m_native_projection</definition>
+        <argsstring></argsstring>
+        <name>m_native_projection</name>
+        <qualifiedname>AsyncRasterData::m_native_projection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="607" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1aa7446c981c6434746fc800900aec0d47" prot="private" static="no" mutable="no">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D AsyncRasterData::m_header_extent</definition>
+        <argsstring></argsstring>
+        <name>m_header_extent</name>
+        <qualifiedname>AsyncRasterData::m_header_extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="608" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1ab67dea88af22e6d2504a91a9b04697ad" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; <ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classMultiBand" kindref="compound">MultiBand</ref>&lt; <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &gt; &gt; &gt;</type>
+        <definition>std::optional&lt;Geo&lt;MultiBand&lt;FlexGrid&gt; &gt; &gt; AsyncRasterData::m_grid</definition>
+        <argsstring></argsstring>
+        <name>m_grid</name>
+        <qualifiedname>AsyncRasterData::m_grid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="609" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="609" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1a8f30b45ed06d3b5818b1ddb287cb0567" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; <ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classMultiBand" kindref="compound">MultiBand</ref>&lt; <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &gt; &gt; &gt;</type>
+        <definition>std::optional&lt;Geo&lt;MultiBand&lt;FlexGrid&gt; &gt; &gt; AsyncRasterData::m_texture</definition>
+        <argsstring></argsstring>
+        <name>m_texture</name>
+        <qualifiedname>AsyncRasterData::m_texture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="610" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1a7ebb738c777ccf40d78c297ed10b970f" prot="private" static="no" mutable="no">
+        <type><ref refid="structDemMeshData" kindref="compound">DemMeshData</ref></type>
+        <definition>DemMeshData AsyncRasterData::m_mesh</definition>
+        <argsstring></argsstring>
+        <name>m_mesh</name>
+        <qualifiedname>AsyncRasterData::m_mesh</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="611" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="611" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1ad2ad3bfd45d9235a8988e55eca77f4f4" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; AsyncRasterData::m_ready</definition>
+        <argsstring></argsstring>
+        <name>m_ready</name>
+        <qualifiedname>AsyncRasterData::m_ready</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="612" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="612" bodyend="612"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncRasterData_1a07bfd9bbe307c82d6153160e3a2a190f" prot="private" static="no" mutable="no">
+        <type>std::future&lt; void &gt;</type>
+        <definition>std::future&lt;void&gt; AsyncRasterData::m_future</definition>
+        <argsstring></argsstring>
+        <name>m_future</name>
+        <qualifiedname>AsyncRasterData::m_future</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="613" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="613" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAsyncRasterData_1aac0cdbaf1a1a6d9023f08742946dce51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AsyncRasterData::AsyncRasterData</definition>
+        <argsstring>(const fs::path &amp;dem_path, AsyncProgressTracker progress_tracker, const std::optional&lt; fs::path &gt; &amp;texture_path=std::nullopt, int stride=1, bool slope_colored=false, const std::optional&lt; fs::path &gt; &amp;slope_path=std::nullopt, std::function&lt; void()&gt; on_ready={}, const std::string &amp;target_crs_wkt={}, bool flat_cells=false)</argsstring>
+        <name>AsyncRasterData</name>
+        <qualifiedname>AsyncRasterData::AsyncRasterData</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>dem_path</declname>
+        </param>
+        <param>
+          <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
+          <declname>progress_tracker</declname>
+        </param>
+        <param>
+          <type>const std::optional&lt; fs::path &gt; &amp;</type>
+          <declname>texture_path</declname>
+          <defval>std::nullopt</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>slope_colored</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const std::optional&lt; fs::path &gt; &amp;</type>
+          <declname>slope_path</declname>
+          <defval>std::nullopt</defval>
+        </param>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>on_ready</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>target_crs_wkt</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>flat_cells</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="616" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="616" bodyend="673"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1a5071db6956d64d4cc566b6c96b2cfa04" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::mutex &amp;</type>
+        <definition>std::mutex &amp; AsyncRasterData::mutex</definition>
+        <argsstring>() const</argsstring>
+        <name>mutex</name>
+        <qualifiedname>AsyncRasterData::mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="675" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="675" bodyend="675"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1a1ff074908ffbe52816fe46028639dac5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AsyncRasterData::ready</definition>
+        <argsstring>() const</argsstring>
+        <name>ready</name>
+        <qualifiedname>AsyncRasterData::ready</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="676" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="676" bodyend="676"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1aa568df23f81585bf09c29f6f711153f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AsyncRasterData::has_texture</definition>
+        <argsstring>() const</argsstring>
+        <name>has_texture</name>
+        <qualifiedname>AsyncRasterData::has_texture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="677" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="677" bodyend="680"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1a75d916eb53e188167402127778f0956f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structDemMeshData" kindref="compound">DemMeshData</ref> &amp;</type>
+        <definition>const DemMeshData &amp; AsyncRasterData::mesh</definition>
+        <argsstring>() const</argsstring>
+        <name>mesh</name>
+        <qualifiedname>AsyncRasterData::mesh</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="682" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="682" bodyend="682"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1a578851dfc82f44854bc585d6faffdcfc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classMultiBand" kindref="compound">MultiBand</ref>&lt; <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &gt; &gt; &amp;</type>
+        <definition>const Geo&lt; MultiBand&lt; FlexGrid &gt; &gt; &amp; AsyncRasterData::texture_grid</definition>
+        <argsstring>() const</argsstring>
+        <name>texture_grid</name>
+        <qualifiedname>AsyncRasterData::texture_grid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="684" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="684" bodyend="687"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1a3a538ea3bf95bf8a5704ba5518606077" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
+        <definition>const GeoProjection &amp; AsyncRasterData::projection</definition>
+        <argsstring>() const</argsstring>
+        <name>projection</name>
+        <qualifiedname>AsyncRasterData::projection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="688" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="688" bodyend="688"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1ad7373038675d50018b1c2cb6d542c497" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
+        <definition>const GeoProjection &amp; AsyncRasterData::native_projection</definition>
+        <argsstring>() const</argsstring>
+        <name>native_projection</name>
+        <qualifiedname>AsyncRasterData::native_projection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="689" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="689" bodyend="689"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncRasterData_1a666745429d1d9c289e22745ed683107e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D AsyncRasterData::extent</definition>
+        <argsstring>() const</argsstring>
+        <name>extent</name>
+        <qualifiedname>AsyncRasterData::extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="690" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="690" bodyend="695"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="604" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="604" bodyend="696"/>
+    <listofallmembers>
+      <member refid="classAsyncRasterData_1aac0cdbaf1a1a6d9023f08742946dce51" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>AsyncRasterData</name></member>
+      <member refid="classAsyncRasterData_1a666745429d1d9c289e22745ed683107e" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>extent</name></member>
+      <member refid="classAsyncRasterData_1aa568df23f81585bf09c29f6f711153f6" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>has_texture</name></member>
+      <member refid="classAsyncRasterData_1a07bfd9bbe307c82d6153160e3a2a190f" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_future</name></member>
+      <member refid="classAsyncRasterData_1ab67dea88af22e6d2504a91a9b04697ad" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_grid</name></member>
+      <member refid="classAsyncRasterData_1aa7446c981c6434746fc800900aec0d47" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_header_extent</name></member>
+      <member refid="classAsyncRasterData_1ad3567501315598d00ed679954203c666" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_header_projection</name></member>
+      <member refid="classAsyncRasterData_1a7ebb738c777ccf40d78c297ed10b970f" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_mesh</name></member>
+      <member refid="classAsyncRasterData_1a571d298484cf4906cee40de364c52a28" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_mutex</name></member>
+      <member refid="classAsyncRasterData_1a7764b757846a04910725b620a4a58c91" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_native_projection</name></member>
+      <member refid="classAsyncRasterData_1ad2ad3bfd45d9235a8988e55eca77f4f4" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_ready</name></member>
+      <member refid="classAsyncRasterData_1a8f30b45ed06d3b5818b1ddb287cb0567" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_texture</name></member>
+      <member refid="classAsyncRasterData_1a75d916eb53e188167402127778f0956f" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>mesh</name></member>
+      <member refid="classAsyncRasterData_1a5071db6956d64d4cc566b6c96b2cfa04" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>mutex</name></member>
+      <member refid="classAsyncRasterData_1ad7373038675d50018b1c2cb6d542c497" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>native_projection</name></member>
+      <member refid="classAsyncRasterData_1a3a538ea3bf95bf8a5704ba5518606077" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>projection</name></member>
+      <member refid="classAsyncRasterData_1a1ff074908ffbe52816fe46028639dac5" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>ready</name></member>
+      <member refid="classAsyncRasterData_1a578851dfc82f44854bc585d6faffdcfc" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>texture_grid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

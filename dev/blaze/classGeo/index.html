@@ -1006,7 +1006,7 @@
 
 
 <h1 id="class-geo">Class Geo</h1>
-<p><strong>template &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> GridT&gt;</strong></p>
+<p><strong>template &lt;typename GridT&gt;</strong></p>
 <p><a href="../annotated/"><strong>ClassList</strong></a> <strong>&gt;</strong> <a href="./"><strong>Geo</strong></a></p>
 <p>Inherits the following classes: GridT,  <a href="../classGeoGridData/">GeoGridData</a></p>
 <h2 id="public-functions">Public Functions</h2>
@@ -1020,7 +1020,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-geo-13"><strong>Geo</strong></a> (<a href="../classCoordinate2D/"><strong>size_t</strong></a> width, <a href="../classCoordinate2D/"><strong>size_t</strong></a> height, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;&amp; transform, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
+<td style="text-align: left;"><a href="#function-geo-13"><strong>Geo</strong></a> (size_t width, size_t height, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;&amp; transform, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
@@ -1028,34 +1028,34 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-geo-33"><strong>Geo</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; std::vector&lt; <a href="../classCoordinate2D/"><strong>U</strong></a> &gt; &gt; &amp; data, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> transform=<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>(), <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> projection=<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>()) <br></td>
+<td style="text-align: left;"><a href="#function-geo-33"><strong>Geo</strong></a> (const std::vector&lt; std::vector&lt; U &gt; &gt; &amp; data, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> transform=<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>(), <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> projection=<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>()) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::unique_ptr&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt;</td>
 <td style="text-align: left;"><a href="#function-extent"><strong>extent</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-fill_from-12"><strong>fill_from</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="./"><strong>Geo</strong></a>&lt; <a href="../classCoordinate2D/"><strong>U</strong></a> &gt; &amp; other) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-fill_from-12"><strong>fill_from</strong></a> (const <a href="./"><strong>Geo</strong></a>&lt; U &gt; &amp; other) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-fill_from-22"><strong>fill_from</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>U</strong></a> &amp; other) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-fill_from-22"><strong>fill_from</strong></a> (const U &amp; other) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#function-height_m"><strong>height_m</strong></a> () const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>Geo</strong></a></td>
-<td style="text-align: left;"><a href="#function-pad"><strong>pad</strong></a> (<a href="../classCoordinate2D/"><strong>U</strong></a> pad_value={}) const<br></td>
+<td style="text-align: left;"><a href="#function-pad"><strong>pad</strong></a> (U pad_value={}) const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>Geo</strong></a></td>
-<td style="text-align: left;"><a href="#function-slice"><strong>slice</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; extent) <br></td>
+<td style="text-align: left;"><a href="#function-slice"><strong>slice</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; extent) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#function-width_m"><strong>width_m</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -1075,19 +1075,19 @@
 <td style="text-align: left;"><a href="../classGeoGridData/#function-geogriddata"><strong>GeoGridData</strong></a> (<a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;&amp; transform, <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;&amp; projection) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-dx"><strong>dx</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-dy"><strong>dy</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
+<td style="text-align: right;">const <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-projection"><strong>projection</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;</td>
+<td style="text-align: right;">const <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> &amp;</td>
 <td style="text-align: left;"><a href="../classGeoGridData/#function-transform"><strong>transform</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -1103,11 +1103,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-fromgeoimg"><strong>FromGeoImg</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a> &amp; grid) <br></td>
+<td style="text-align: left;"><a href="#function-fromgeoimg"><strong>FromGeoImg</strong></a> (const <a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a> &amp; grid) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>Geo</strong></a></td>
-<td style="text-align: left;"><a href="#function-frompoints"><strong>FromPoints</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="./"><strong>Geo</strong></a> &amp; grid) <br></td>
+<td style="text-align: left;"><a href="#function-frompoints"><strong>FromPoints</strong></a> (const <a href="./"><strong>Geo</strong></a> &amp; grid) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1153,7 +1153,7 @@
 <hr>
 
 <h3 id="function-geo-33">function Geo [3/3]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w">  </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">Geo</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">,</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">GeoTransform</span><span class="w"> </span><span class="n">transform</span><span class="o">=</span><span class="n">GeoTransform</span><span class="w"> </span><span class="p">(),</span>
@@ -1168,17 +1168,17 @@
 <hr>
 
 <h3 id="function-fill_from-12">function fill_from [1/2]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w">  </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">fill_from</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-fill_from-22">function fill_from [2/2]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w">  </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">fill_from</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">U</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1189,7 +1189,7 @@
 <hr>
 
 <h3 id="function-pad">function pad</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w">  </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">pad</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">U</span><span class="w"> </span><span class="n">pad_value</span><span class="o">=</span><span class="p">{}</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
@@ -1198,7 +1198,7 @@
 
 <h3 id="function-slice">function slice</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">Geo</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">slice</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extent</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extent</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1210,15 +1210,15 @@
 <h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
 <h3 id="function-fromgeoimg">function FromGeoImg</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">static</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Grid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">RGBColor</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">FromGeoImg</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoImgGrid</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoImgGrid</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-frompoints">function FromPoints</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w">  </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">FromPoints</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Geo</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

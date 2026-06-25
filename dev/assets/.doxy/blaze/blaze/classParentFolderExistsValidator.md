@@ -52,7 +52,7 @@ Inherits the following classes: QValidator
 
 | Type | Name |
 | ---: | :--- |
-|  QValidator::State | [**validate**](#function-validate) ([**QString**](classCoordinate2D.md) & input, [**int**](classCoordinate2D.md) & pos) override const<br> |
+|  QValidator::State | [**validate**](#function-validate) (QString & input, int & pos) override const<br> |
 
 
 

@@ -112,13 +112,13 @@ Inherits the following classes: [ImgGrid](classImgGrid.md),  [GeoGridData](class
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GeoImgGrid**](#function-geoimggrid-12) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**GeoImgGrid**](#function-geoimggrid-22) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**ColorT**](classCoordinate2D.md) &gt; & grid) <br> |
-|  [**void**](classCoordinate2D.md) | [**draw**](#function-draw-13) ([**const**](classCoordinate2D.md) [**GeoImgGrid**](classGeoImgGrid.md) & other, std::optional&lt; [**int**](classCoordinate2D.md) &gt; interpolation={}) <br> |
-|  [**void**](classCoordinate2D.md) | [**draw**](#function-draw-23) ([**const**](classCoordinate2D.md) [**Contour**](classContour.md) & contour, [**const**](classCoordinate2D.md) ColorVariant & color, [**double**](classCoordinate2D.md) width) <br> |
-|  [**void**](classCoordinate2D.md) | [**draw**](#function-draw-33) ([**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & in\_points, [**const**](classCoordinate2D.md) ColorVariant & color, [**double**](classCoordinate2D.md) width) <br> |
-|  [**void**](classCoordinate2D.md) | [**draw\_point**](#function-draw_point) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & point, [**const**](classCoordinate2D.md) ColorVariant & color, [**double**](classCoordinate2D.md) size) <br> |
-|  [**void**](classCoordinate2D.md) | [**save\_to**](#function-save_to) ([**const**](classCoordinate2D.md) fs::path & path, [**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & extent) <br> |
+|   | [**GeoImgGrid**](#function-geoimggrid-12) (size\_t width, size\_t height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
+|   | [**GeoImgGrid**](#function-geoimggrid-22) (const [**GeoGrid**](classGeo.md)&lt; ColorT &gt; & grid) <br> |
+|  void | [**draw**](#function-draw-13) (const [**GeoImgGrid**](classGeoImgGrid.md) & other, std::optional&lt; int &gt; interpolation={}) <br> |
+|  void | [**draw**](#function-draw-23) (const [**Contour**](classContour.md) & contour, const ColorVariant & color, double width) <br> |
+|  void | [**draw**](#function-draw-33) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & in\_points, const ColorVariant & color, double width) <br> |
+|  void | [**draw\_point**](#function-draw_point) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point, const ColorVariant & color, double size) <br> |
+|  void | [**save\_to**](#function-save_to) (const fs::path & path, const [**Extent2D**](structExtent2D.md) & extent) <br> |
 
 
 ## Public Functions inherited from ImgGrid
@@ -127,9 +127,9 @@ See [ImgGrid](classImgGrid.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**ImgGrid**](classImgGrid.md#function-imggrid) ([**size\_t**](classCoordinate2D.md) height, [**size\_t**](classCoordinate2D.md) width, std::optional&lt; [**int**](classCoordinate2D.md) &gt; type={}) <br> |
-|  [**RGBColor**](classRGBColor.md) | [**get\_rgb\_color**](classImgGrid.md#function-get_rgb_color) ([**size\_t**](classCoordinate2D.md) row, [**size\_t**](classCoordinate2D.md) col) const<br> |
-|  [**void**](classCoordinate2D.md) | [**save\_to**](classImgGrid.md#function-save_to) ([**const**](classCoordinate2D.md) fs::path & path) <br> |
+|   | [**ImgGrid**](classImgGrid.md#function-imggrid) (size\_t width, size\_t height) <br> |
+|  [**RGBColor**](classRGBColor.md) | [**get\_rgb\_color**](classImgGrid.md#function-get_rgb_color) (size\_t row, size\_t col) const<br> |
+|  void | [**save\_to**](classImgGrid.md#function-save_to) (const fs::path & path) <br> |
 |   | [**~ImgGrid**](classImgGrid.md#function-imggrid) () <br> |
 
 
@@ -139,10 +139,10 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GridData**](classGridData.md#function-griddata) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**height**](classGridData.md#function-height) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**in\_bounds**](classGridData.md#function-in_bounds) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  [**size\_t**](classCoordinate2D.md) | [**width**](classGridData.md#function-width) () const<br> |
+|   | [**GridData**](classGridData.md#function-griddata) (size\_t width, size\_t height) <br> |
+|  size\_t | [**height**](classGridData.md#function-height) () const<br> |
+|  bool | [**in\_bounds**](classGridData.md#function-in_bounds) (const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & coord) const<br> |
+|  size\_t | [**width**](classGridData.md#function-width) () const<br> |
 
 
 ## Public Functions inherited from GeoGridData
@@ -152,10 +152,10 @@ See [GeoGridData](classGeoGridData.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**GeoGridData**](classGeoGridData.md#function-geogriddata) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|  [**double**](classCoordinate2D.md) | [**dx**](classGeoGridData.md#function-dx) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**dy**](classGeoGridData.md#function-dy) () const<br> |
-|  [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & | [**projection**](classGeoGridData.md#function-projection) () const<br> |
-|  [**const**](classCoordinate2D.md) [**GeoTransform**](classGeoTransform.md) & | [**transform**](classGeoGridData.md#function-transform) () const<br> |
+|  double | [**dx**](classGeoGridData.md#function-dx) () const<br> |
+|  double | [**dy**](classGeoGridData.md#function-dy) () const<br> |
+|  const [**GeoProjection**](classGeoProjection.md) & | [**projection**](classGeoGridData.md#function-projection) () const<br> |
+|  const [**GeoTransform**](classGeoTransform.md) & | [**transform**](classGeoGridData.md#function-transform) () const<br> |
 
 
 
@@ -190,7 +190,7 @@ See [ImgGrid](classImgGrid.md)
 
 | Type | Name |
 | ---: | :--- |
-|  std::unique\_ptr&lt; cv::Mat &gt; | [**m\_img**](classImgGrid.md#variable-m_img)  <br> |
+|  std::unique\_ptr&lt; [**blaze::Image**](classblaze_1_1Image.md) &gt; | [**m\_img**](classImgGrid.md#variable-m_img)  <br> |
 
 
 ## Protected Attributes inherited from GridData
@@ -199,8 +199,8 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_height**](classGridData.md#variable-m_height)  <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_width**](classGridData.md#variable-m_width)  <br> |
+|  size\_t | [**m\_height**](classGridData.md#variable-m_height)  <br> |
+|  size\_t | [**m\_width**](classGridData.md#variable-m_width)  <br> |
 
 
 ## Protected Attributes inherited from GeoGridData
@@ -311,9 +311,9 @@ inline GeoImgGrid::GeoImgGrid (
 ### function GeoImgGrid [2/2]
 
 ```C++
-template<typename  ColorT, typename>
+template<typename ColorT, typename>
 explicit GeoImgGrid::GeoImgGrid (
-    const  GeoGrid < ColorT > & grid
+    const GeoGrid < ColorT > & grid
 ) 
 ```
 
@@ -328,7 +328,7 @@ explicit GeoImgGrid::GeoImgGrid (
 
 ```C++
 void GeoImgGrid::draw (
-    const  GeoImgGrid & other,
+    const GeoImgGrid & other,
     std::optional< int > interpolation={}
 ) 
 ```
@@ -344,7 +344,7 @@ void GeoImgGrid::draw (
 
 ```C++
 void GeoImgGrid::draw (
-    const  Contour & contour,
+    const Contour & contour,
     const ColorVariant & color,
     double width
 ) 
@@ -378,7 +378,7 @@ void GeoImgGrid::draw (
 
 ```C++
 void GeoImgGrid::draw_point (
-    const  Coordinate2D < double > & point,
+    const Coordinate2D < double > & point,
     const ColorVariant & color,
     double size
 ) 
@@ -396,7 +396,7 @@ void GeoImgGrid::draw_point (
 ```C++
 void GeoImgGrid::save_to (
     const fs::path & path,
-    const  Extent2D & extent
+    const Extent2D & extent
 ) 
 ```
 

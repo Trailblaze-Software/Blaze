@@ -54,7 +54,7 @@ Inherits the following classes: testing::TestWithParam< TerrainTestParams >
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**SetUpTestSuite**](#function-setuptestsuite) () <br> |
+|  void | [**SetUpTestSuite**](#function-setuptestsuite) () <br> |
 
 
 

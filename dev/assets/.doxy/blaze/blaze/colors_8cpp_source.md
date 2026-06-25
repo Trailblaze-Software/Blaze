@@ -10,7 +10,8 @@
 ```C++
 #include "colors.hpp"
 
-#include <opencv2/opencv.hpp>
+#include <algorithm>
+#include <cmath>
 
 #include "lib/assert/assert.hpp"
 
@@ -56,10 +57,6 @@ CMYKColor CMYKColor::FromRGB(const RGBColor& rgb) {
 CMYKColor RGBColor::toCMYK() const { return CMYKColor::FromRGB(*this); }
 
 std::map<std::string, ColorVariant> COLOR_MAP;
-
-cv::Scalar RGBColor::toScalar() const {
-  return cv::Scalar(getBlue(), getGreen(), getRed(), getAlpha());
-}
 ```
 
 

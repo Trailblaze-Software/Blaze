@@ -11,6 +11,10 @@
 
 
 * `#include <QMatrix4x4>`
+* `#include <algorithm>`
+* `#include <cmath>`
+* `#include <numbers>`
+* `#include <optional>`
 * `#include "utilities/coordinate.hpp"`
 
 
@@ -58,8 +62,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**deg2rad**](#function-deg2rad) ([**double**](classCoordinate2D.md) deg) <br> |
-|  [**double**](classCoordinate2D.md) | [**rad2deg**](#function-rad2deg) ([**double**](classCoordinate2D.md) rad) <br> |
+|  double | [**deg2rad**](#function-deg2rad) (double deg) <br> |
+|  double | [**rad2deg**](#function-rad2deg) (double rad) <br> |
 
 
 

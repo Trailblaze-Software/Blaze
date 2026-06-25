@@ -4,7 +4,7 @@
     <compoundname>GridGraph</compoundname>
     <templateparamlist>
       <param>
-        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+        <type>typename T</type>
       </param>
     </templateparamlist>
     <sectiondef kind="private-attrib">
@@ -41,7 +41,7 @@
       <memberdef kind="function" id="classGridGraph_1aba55c09714f4349737cd6fc52052dcd2" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+            <type>typename U</type>
           </param>
         </templateparamlist>
         <type></type>
@@ -50,7 +50,7 @@
         <name>GridGraph</name>
         <qualifiedname>GridGraph::GridGraph</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGrid" kindref="compound">Grid</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">U</ref> &gt; &amp;</type>
+          <type>const <ref refid="classGrid" kindref="compound">Grid</ref>&lt; U &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <briefdescription>
@@ -90,7 +90,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="421" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="421" bodyend="421"/>
       </memberdef>
       <memberdef kind="function" id="classGridGraph_1a9ae4c24244303dad5e9633cbfde683f3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
+        <type>const <ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
         <definition>const Grid&lt; T &gt; &amp; GridGraph&lt; T &gt;::horizontal</definition>
         <argsstring>() const</argsstring>
         <name>horizontal</name>
@@ -104,7 +104,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="422" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="422" bodyend="422"/>
       </memberdef>
       <memberdef kind="function" id="classGridGraph_1a01728dcd92127c844aa0c153904c477f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
+        <type>const <ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
         <definition>const Grid&lt; T &gt; &amp; GridGraph&lt; T &gt;::vertical</definition>
         <argsstring>() const</argsstring>
         <name>vertical</name>
@@ -118,7 +118,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="423" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="423" bodyend="423"/>
       </memberdef>
       <memberdef kind="function" id="classGridGraph_1a2c25c6389b5bbe8d8be1d92c6a100f62" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <type>size_t</type>
         <definition>size_t GridGraph&lt; T &gt;::width</definition>
         <argsstring>() const</argsstring>
         <name>width</name>
@@ -132,7 +132,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="425" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="425" bodyend="425"/>
       </memberdef>
       <memberdef kind="function" id="classGridGraph_1a7730626084851af4405c5e21f50cf299" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+        <type>size_t</type>
         <definition>size_t GridGraph&lt; T &gt;::height</definition>
         <argsstring>() const</argsstring>
         <name>height</name>
@@ -146,13 +146,13 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="426" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="426" bodyend="426"/>
       </memberdef>
       <memberdef kind="function" id="classGridGraph_1a448fae59979eef08793159b188c947a9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> T &amp;</type>
+        <type>const T &amp;</type>
         <definition>const T &amp; GridGraph&lt; T &gt;::operator[]</definition>
         <argsstring>(const LineCoord2D&lt; size_t &gt; &amp;coord) const</argsstring>
         <name>operator[]</name>
         <qualifiedname>GridGraph::operator[]</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; size_t &gt; &amp;</type>
           <declname>coord</declname>
         </param>
         <briefdescription>
@@ -170,7 +170,7 @@
         <name>operator[]</name>
         <qualifiedname>GridGraph::operator[]</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; size_t &gt; &amp;</type>
           <declname>coord</declname>
         </param>
         <briefdescription>
@@ -184,16 +184,16 @@
       <memberdef kind="function" id="classGridGraph_1a222c9b63c4baa551d699d6020b2c9643" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+            <type>typename U</type>
           </param>
         </templateparamlist>
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool GridGraph&lt; T &gt;::in_bounds</definition>
         <argsstring>(const LineCoord2D&lt; U &gt; &amp;coord) const</argsstring>
         <name>in_bounds</name>
         <qualifiedname>GridGraph::in_bounds</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">U</ref> &gt; &amp;</type>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; U &gt; &amp;</type>
           <declname>coord</declname>
         </param>
         <briefdescription>
@@ -217,7 +217,7 @@
           <declname>os</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGridGraph" kindref="compound">GridGraph</ref> &amp;</type>
+          <type>const <ref refid="classGridGraph" kindref="compound">GridGraph</ref> &amp;</type>
           <declname>graph</declname>
         </param>
         <briefdescription>

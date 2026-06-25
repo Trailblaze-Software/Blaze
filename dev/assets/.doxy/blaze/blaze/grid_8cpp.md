@@ -11,6 +11,7 @@
 
 
 * `#include "grid.hpp"`
+* `#include <iostream>`
 * `#include <span>`
 * `#include "gdal_priv.h"`
 * `#include "img_grid.hpp"`
@@ -58,10 +59,10 @@
 
 | Type | Name |
 | ---: | :--- |
-|  T | [**interpolate\_value**](#function-interpolate_value) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & projection\_coord) <br> |
-|  [**template**](classCoordinate2D.md) [**double**](classCoordinate2D.md) | [**interpolate\_value**](#function-interpolate_value) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; & grid, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & projection\_coord) <br> |
-|  [**template**](classCoordinate2D.md) [**float**](classCoordinate2D.md) | [**interpolate\_value**](#function-interpolate_value) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; & grid, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & projection\_coord) <br> |
-|  [**Geo**](classGeo.md)&lt; GridT &gt; | [**same\_type\_different\_size**](#function-same_type_different_size) ([**const**](classCoordinate2D.md) [**Geo**](classGeo.md)&lt; GridT &gt; & grid, [**size\_t**](classCoordinate2D.md) new\_width, [**size\_t**](classCoordinate2D.md) new\_height, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & new\_top\_left) <br> |
+|  T | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  template double | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  template float | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; float &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  [**Geo**](classGeo.md)&lt; GridT &gt; | [**same\_type\_different\_size**](#function-same_type_different_size) (const [**Geo**](classGeo.md)&lt; GridT &gt; & grid, size\_t new\_width, size\_t new\_height, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & new\_top\_left) <br> |
 
 
 
@@ -100,8 +101,8 @@
 ```C++
 template<typename T>
 T interpolate_value (
-    const  GeoGrid < T > & grid,
-    const  Coordinate2D < double > & projection_coord
+    const GeoGrid < T > & grid,
+    const Coordinate2D < double > & projection_coord
 ) 
 ```
 
@@ -115,9 +116,9 @@ T interpolate_value (
 ### function interpolate\_value 
 
 ```C++
-template  double interpolate_value (
-    const  GeoGrid < double > & grid,
-    const  Coordinate2D < double > & projection_coord
+template double interpolate_value (
+    const GeoGrid < double > & grid,
+    const Coordinate2D < double > & projection_coord
 ) 
 ```
 
@@ -131,9 +132,9 @@ template  double interpolate_value (
 ### function interpolate\_value 
 
 ```C++
-template  float interpolate_value (
-    const  GeoGrid < float > & grid,
-    const  Coordinate2D < double > & projection_coord
+template float interpolate_value (
+    const GeoGrid < float > & grid,
+    const Coordinate2D < double > & projection_coord
 ) 
 ```
 
@@ -149,10 +150,10 @@ template  float interpolate_value (
 ```C++
 template<typename GridT>
 Geo < GridT > same_type_different_size (
-    const  Geo < GridT > & grid,
+    const Geo < GridT > & grid,
     size_t new_width,
     size_t new_height,
-    const  Coordinate2D < double > & new_top_left
+    const Coordinate2D < double > & new_top_left
 ) 
 ```
 

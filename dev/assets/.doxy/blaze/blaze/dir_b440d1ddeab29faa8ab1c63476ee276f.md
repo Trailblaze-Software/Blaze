@@ -25,6 +25,8 @@
 | file | [**grid.cpp**](grid_8cpp.md) <br> |
 | file | [**grid.hpp**](grid_8hpp.md) <br> |
 | file | [**grid\_ops.hpp**](grid__ops_8hpp.md) <br> |
+| file | [**image.cpp**](image_8cpp.md) <br> |
+| file | [**image.hpp**](image_8hpp.md) <br> |
 | file | [**img\_grid.cpp**](img__grid_8cpp.md) <br> |
 | file | [**img\_grid.hpp**](img__grid_8hpp.md) <br> |
 

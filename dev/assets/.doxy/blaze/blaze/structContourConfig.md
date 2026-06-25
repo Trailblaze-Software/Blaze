@@ -36,9 +36,9 @@
 | Type | Name |
 | ---: | :--- |
 |  ColorVariant | [**color**](#variable-color)  <br> |
-|  [**double**](classCoordinate2D.md) | [**interval**](#variable-interval)  <br> |
-|  [**unsigned**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**min\_points**](#variable-min_points)  <br> |
-|  [**double**](classCoordinate2D.md) | [**width**](#variable-width)  <br> |
+|  double | [**interval**](#variable-interval)  <br> |
+|  unsigned int | [**min\_points**](#variable-min_points)  <br> |
+|  double | [**width**](#variable-width)  <br> |
 
 
 

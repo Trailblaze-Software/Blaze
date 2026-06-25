@@ -2,7 +2,7 @@
 
 # Class Geo
 
-**template &lt;[**typename**](classCoordinate2D.md) GridT&gt;**
+**template &lt;typename GridT&gt;**
 
 
 
@@ -74,16 +74,16 @@ Inherits the following classes: GridT,  [GeoGridData](classGeoGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Geo**](#function-geo-13) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
+|   | [**Geo**](#function-geo-13) (size\_t width, size\_t height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
 |   | [**Geo**](#function-geo-23) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
-|   | [**Geo**](#function-geo-33) ([**const**](classCoordinate2D.md) std::vector&lt; std::vector&lt; [**U**](classCoordinate2D.md) &gt; &gt; & data, [**GeoTransform**](classGeoTransform.md) transform=[**GeoTransform**](classGeoTransform.md)(), [**GeoProjection**](classGeoProjection.md) projection=[**GeoProjection**](classGeoProjection.md)()) <br> |
+|   | [**Geo**](#function-geo-33) (const std::vector&lt; std::vector&lt; U &gt; &gt; & data, [**GeoTransform**](classGeoTransform.md) transform=[**GeoTransform**](classGeoTransform.md)(), [**GeoProjection**](classGeoProjection.md) projection=[**GeoProjection**](classGeoProjection.md)()) <br> |
 |  std::unique\_ptr&lt; [**Extent2D**](structExtent2D.md) &gt; | [**extent**](#function-extent) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**fill\_from**](#function-fill_from-12) ([**const**](classCoordinate2D.md) [**Geo**](classGeo.md)&lt; [**U**](classCoordinate2D.md) &gt; & other) <br> |
-|  [**void**](classCoordinate2D.md) | [**fill\_from**](#function-fill_from-22) ([**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & other) <br> |
-|  [**double**](classCoordinate2D.md) | [**height\_m**](#function-height_m) () const<br> |
-|  [**Geo**](classGeo.md) | [**pad**](#function-pad) ([**U**](classCoordinate2D.md) pad\_value={}) const<br> |
-|  [**Geo**](classGeo.md) | [**slice**](#function-slice) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & extent) <br> |
-|  [**double**](classCoordinate2D.md) | [**width\_m**](#function-width_m) () const<br> |
+|  void | [**fill\_from**](#function-fill_from-12) (const [**Geo**](classGeo.md)&lt; U &gt; & other) <br> |
+|  void | [**fill\_from**](#function-fill_from-22) (const U & other) <br> |
+|  double | [**height\_m**](#function-height_m) () const<br> |
+|  [**Geo**](classGeo.md) | [**pad**](#function-pad) (U pad\_value={}) const<br> |
+|  [**Geo**](classGeo.md) | [**slice**](#function-slice) (const [**Extent2D**](structExtent2D.md) & extent) <br> |
+|  double | [**width\_m**](#function-width_m) () const<br> |
 
 
 ## Public Functions inherited from GeoGridData
@@ -93,18 +93,18 @@ See [GeoGridData](classGeoGridData.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**GeoGridData**](classGeoGridData.md#function-geogriddata) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|  [**double**](classCoordinate2D.md) | [**dx**](classGeoGridData.md#function-dx) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**dy**](classGeoGridData.md#function-dy) () const<br> |
-|  [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & | [**projection**](classGeoGridData.md#function-projection) () const<br> |
-|  [**const**](classCoordinate2D.md) [**GeoTransform**](classGeoTransform.md) & | [**transform**](classGeoGridData.md#function-transform) () const<br> |
+|  double | [**dx**](classGeoGridData.md#function-dx) () const<br> |
+|  double | [**dy**](classGeoGridData.md#function-dy) () const<br> |
+|  const [**GeoProjection**](classGeoProjection.md) & | [**projection**](classGeoGridData.md#function-projection) () const<br> |
+|  const [**GeoTransform**](classGeoTransform.md) & | [**transform**](classGeoGridData.md#function-transform) () const<br> |
 
 
 ## Public Static Functions
 
 | Type | Name |
 | ---: | :--- |
-|  [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**RGBColor**](classRGBColor.md) &gt; &gt; | [**FromGeoImg**](#function-fromgeoimg) ([**const**](classCoordinate2D.md) [**GeoImgGrid**](classGeoImgGrid.md) & grid) <br> |
-|  [**Geo**](classGeo.md) | [**FromPoints**](#function-frompoints) ([**const**](classCoordinate2D.md) [**Geo**](classGeo.md) & grid) <br> |
+|  [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**RGBColor**](classRGBColor.md) &gt; &gt; | [**FromGeoImg**](#function-fromgeoimg) (const [**GeoImgGrid**](classGeoImgGrid.md) & grid) <br> |
+|  [**Geo**](classGeo.md) | [**FromPoints**](#function-frompoints) (const [**Geo**](classGeo.md) & grid) <br> |
 
 
 
@@ -209,7 +209,7 @@ inline Geo::Geo (
 ### function Geo [3/3]
 
 ```C++
-template<typename  U>
+template<typename U>
 inline Geo::Geo (
     const std::vector< std::vector< U > > & data,
     GeoTransform transform=GeoTransform (),
@@ -240,9 +240,9 @@ std::unique_ptr< Extent2D > Geo::extent () const
 ### function fill\_from [1/2]
 
 ```C++
-template<typename  U>
+template<typename U>
 inline void Geo::fill_from (
-    const  Geo < U > & other
+    const Geo < U > & other
 ) 
 ```
 
@@ -256,9 +256,9 @@ inline void Geo::fill_from (
 ### function fill\_from [2/2]
 
 ```C++
-template<typename  U>
+template<typename U>
 inline void Geo::fill_from (
-    const  U & other
+    const U & other
 ) 
 ```
 
@@ -285,7 +285,7 @@ inline double Geo::height_m () const
 ### function pad 
 
 ```C++
-template<typename  U>
+template<typename U>
 inline Geo Geo::pad (
     U pad_value={}
 ) const
@@ -302,7 +302,7 @@ inline Geo Geo::pad (
 
 ```C++
 Geo Geo::slice (
-    const  Extent2D & extent
+    const Extent2D & extent
 ) 
 ```
 
@@ -332,7 +332,7 @@ inline double Geo::width_m () const
 
 ```C++
 static Geo < Grid < RGBColor > > Geo::FromGeoImg (
-    const  GeoImgGrid & grid
+    const GeoImgGrid & grid
 ) 
 ```
 
@@ -346,9 +346,9 @@ static Geo < Grid < RGBColor > > Geo::FromGeoImg (
 ### function FromPoints 
 
 ```C++
-template<typename  U>
+template<typename U>
 static inline Geo Geo::FromPoints (
-    const  Geo & grid
+    const Geo & grid
 ) 
 ```
 

@@ -922,31 +922,31 @@
 <tbody>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-double_to_string"><strong>double_to_string</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> d, <a href="../classCoordinate2D/"><strong>int</strong></a> precision=2) <br></td>
+<td style="text-align: left;"><a href="#function-double_to_string"><strong>double_to_string</strong></a> (double d, int precision=2) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::ostream &amp;</td>
-<td style="text-align: left;"><a href="#function-operator"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; T &gt; &amp; vec) <br></td>
+<td style="text-align: left;"><a href="#function-operator"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, const std::vector&lt; T &gt; &amp; vec) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::ostream &amp;</td>
-<td style="text-align: left;"><a href="#function-operator_1"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, <a href="../classCoordinate2D/"><strong>const</strong></a> std::set&lt; T &gt; &amp; set) <br></td>
+<td style="text-align: left;"><a href="#function-operator_1"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, const std::set&lt; T &gt; &amp; set) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::ostream &amp;</td>
-<td style="text-align: left;"><a href="#function-operator_2"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, <a href="../classCoordinate2D/"><strong>const</strong></a> std::pair&lt; T, <a href="../classCoordinate2D/"><strong>U</strong></a> &gt; &amp; pair) <br></td>
+<td style="text-align: left;"><a href="#function-operator_2"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, const std::pair&lt; T, U &gt; &amp; pair) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::ostream &amp;</td>
-<td style="text-align: left;"><a href="#function-operator_3"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, <a href="../classCoordinate2D/"><strong>const</strong></a> std::optional&lt; T &gt; &amp; op) <br></td>
+<td style="text-align: left;"><a href="#function-operator_3"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, const std::optional&lt; T &gt; &amp; op) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::ostream &amp;</td>
-<td style="text-align: left;"><a href="#function-operator_4"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, <a href="../classCoordinate2D/"><strong>const</strong></a> std::map&lt; T, <a href="../classCoordinate2D/"><strong>U</strong></a> &gt; m) <br></td>
+<td style="text-align: left;"><a href="#function-operator_4"><strong>operator&lt;&lt;</strong></a> (std::ostream &amp; os, const std::map&lt; T, U &gt; m) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-to_string"><strong>to_string</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> T &amp;... args) <br></td>
+<td style="text-align: left;"><a href="#function-to_string"><strong>to_string</strong></a> (const T &amp;... args) <br></td>
 </tr>
 </tbody>
 </table>
@@ -978,7 +978,7 @@
 <hr>
 
 <h3 id="function-operator_2">function operator&lt;&lt;</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w">  </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">os</span><span class="p">,</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">pair</span>
@@ -996,7 +996,7 @@
 <hr>
 
 <h3 id="function-operator_4">function operator&lt;&lt;</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w">  </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">os</span><span class="p">,</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span>

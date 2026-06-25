@@ -63,34 +63,34 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**ExtractThresholdLayers**](classCoordinate2D.md), [**UsesDefaultLayerName**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ExtractThresholdLayers**](classCoordinate2D.md), [**SortedByThreshold**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ExtractThresholdLayers**](classCoordinate2D.md), [**EmptyConfig**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**SingleThresholdNoHoles**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**NestedContoursAreIndependent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**DetectsOuterRingVsHole**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**CwOnlyRingProducesNoPolygon**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**TrimVegePolygons**](classCoordinate2D.md), [**ClipsToExportExtent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**TrimVegePolygons**](classCoordinate2D.md), [**RemovesPolygonOutsideExtent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**DeepNestedPolygonInHoleInPolygon**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**TwoSeparatePeaks**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**LayerAssignmentFromThreshold**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**FilterByMinArea**](classCoordinate2D.md), [**RemovesSmallPolygons**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**FilterByMinArea**](classCoordinate2D.md), [**KeepsAllWhenNoThreshold**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**FilterByMinArea**](classCoordinate2D.md), [**RespectsDifferentLimits**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**FilterByMinArea**](classCoordinate2D.md), [**UsesNetAreaNotExterior**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**FilterSmallHoles**](classCoordinate2D.md), [**RemovesTinyHoles**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**FilterSmallHoles**](classCoordinate2D.md), [**NoFilterWhenZero**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**FilterSmallHoles**](classCoordinate2D.md), [**DifferentPerLayer**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractFromPolygon**](classCoordinate2D.md), [**PreservesLayerMetadata**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractFromPolygon**](classCoordinate2D.md), [**GreenDonutLeavesForestRing**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**SubtractFromPolygon**](classCoordinate2D.md), [**SmallHolesRemovedByPostSubtractFilter**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateVegePolygons**](classCoordinate2D.md), [**RoughOpenLandHolesMatchRemainingForest**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateVegePolygons**](classCoordinate2D.md), [**RoughOpenLandHasNoTinySpeckleHoles**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateVegePolygons**](classCoordinate2D.md), [**GreenDonutCutLeavesForestRing**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**NestedHoles**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContoursToPolygons**](classCoordinate2D.md), [**BigGrid**](classCoordinate2D.md)) <br> |
-|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**forest\_contours\_polygonize**](#function-forest_contours_polygonize) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; [**float**](classCoordinate2D.md) &gt; & grid) <br> |
+|   | [**TEST**](#function-test) (ExtractThresholdLayers, UsesDefaultLayerName) <br> |
+|   | [**TEST**](#function-test) (ExtractThresholdLayers, SortedByThreshold) <br> |
+|   | [**TEST**](#function-test) (ExtractThresholdLayers, EmptyConfig) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, SingleThresholdNoHoles) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, NestedContoursAreIndependent) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, DetectsOuterRingVsHole) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, CwOnlyRingProducesNoPolygon) <br> |
+|   | [**TEST**](#function-test) (TrimVegePolygons, ClipsToExportExtent) <br> |
+|   | [**TEST**](#function-test) (TrimVegePolygons, RemovesPolygonOutsideExtent) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, DeepNestedPolygonInHoleInPolygon) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, TwoSeparatePeaks) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, LayerAssignmentFromThreshold) <br> |
+|   | [**TEST**](#function-test) (FilterByMinArea, RemovesSmallPolygons) <br> |
+|   | [**TEST**](#function-test) (FilterByMinArea, KeepsAllWhenNoThreshold) <br> |
+|   | [**TEST**](#function-test) (FilterByMinArea, RespectsDifferentLimits) <br> |
+|   | [**TEST**](#function-test) (FilterByMinArea, UsesNetAreaNotExterior) <br> |
+|   | [**TEST**](#function-test) (FilterSmallHoles, RemovesTinyHoles) <br> |
+|   | [**TEST**](#function-test) (FilterSmallHoles, NoFilterWhenZero) <br> |
+|   | [**TEST**](#function-test) (FilterSmallHoles, DifferentPerLayer) <br> |
+|   | [**TEST**](#function-test) (SubtractFromPolygon, PreservesLayerMetadata) <br> |
+|   | [**TEST**](#function-test) (SubtractFromPolygon, GreenDonutLeavesForestRing) <br> |
+|   | [**TEST**](#function-test) (SubtractFromPolygon, SmallHolesRemovedByPostSubtractFilter) <br> |
+|   | [**TEST**](#function-test) (GenerateVegePolygons, RoughOpenLandHolesMatchRemainingForest) <br> |
+|   | [**TEST**](#function-test) (GenerateVegePolygons, RoughOpenLandHasNoTinySpeckleHoles) <br> |
+|   | [**TEST**](#function-test) (GenerateVegePolygons, GreenDonutCutLeavesForestRing) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, NestedHoles) <br> |
+|   | [**TEST**](#function-test) (ContoursToPolygons, BigGrid) <br> |
+|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**forest\_contours\_polygonize**](#function-forest_contours_polygonize) (const [**GeoGrid**](classGeo.md)&lt; float &gt; & grid) <br> |
 
 
 
@@ -560,7 +560,7 @@ TEST (
 
 ```C++
 std::vector< VegePolygon > forest_contours_polygonize (
-    const  GeoGrid < float > & grid
+    const GeoGrid < float > & grid
 ) 
 ```
 

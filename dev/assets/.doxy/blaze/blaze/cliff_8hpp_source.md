@@ -16,24 +16,26 @@
 
 class ContourPoint : public Coordinate2D<double> {
   double m_height;
-  std::shared_ptr<ContourPoint> m_next;
-  std::shared_ptr<ContourPoint> m_prev;
-  std::shared_ptr<ContourPoint> m_down;
-  std::shared_ptr<ContourPoint> m_up;
+  ContourPoint* m_next = nullptr;
+  ContourPoint* m_prev = nullptr;
+  ContourPoint* m_down = nullptr;
+  ContourPoint* m_up = nullptr;
   double m_slope;
 
  public:
   ContourPoint(double x, double y, double height)
       : Coordinate2D<double>(x, y), m_height(height), m_slope(0) {}
 
-  void set_next(std::shared_ptr<ContourPoint> next) { m_next = next; }
-  void set_previous(std::shared_ptr<ContourPoint> prev) { m_prev = prev; }
+  void set_next(ContourPoint* next) { m_next = next; }
+  void set_previous(ContourPoint* prev) { m_prev = prev; }
 
   void find_up_down(const GeoGrid<std::vector<std::shared_ptr<ContourPoint>>>& point_grid) {
     Coordinate2D<size_t> pixel = point_grid.transform().projection_to_pixel(*this);
 
     double closest_down = std::numeric_limits<double>::max();
     double closest_up = std::numeric_limits<double>::max();
+    m_down = nullptr;
+    m_up = nullptr;
 
     for (int dx : {-1, 0, 1}) {
       for (int dy : {-1, 0, 1}) {
@@ -44,13 +46,13 @@ class ContourPoint : public Coordinate2D<double> {
               double dist = (*this - *neighbor_point).magnitude_sqd();
               if (dist < closest_down) {
                 closest_down = dist;
-                m_down = neighbor_point;
+                m_down = neighbor_point.get();
               }
             } else if (neighbor_point->height() > m_height) {
               double dist = (*this - *neighbor_point).magnitude_sqd();
               if (dist < closest_up) {
                 closest_up = dist;
-                m_up = neighbor_point;
+                m_up = neighbor_point.get();
               }
             }
           }

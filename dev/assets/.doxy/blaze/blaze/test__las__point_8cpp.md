@@ -54,14 +54,14 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) (LASClassification, [**Values**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) (LASClassification, [**StreamOutput**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), [**Construction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), [**DefaultConstruction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), [**MutableAccessors**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), [**InheritsCoordinate3D**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), [**StreamOutput**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), [**AllClassifications**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (LASClassification, Values) <br> |
+|   | [**TEST**](#function-test) (LASClassification, StreamOutput) <br> |
+|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), Construction) <br> |
+|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), DefaultConstruction) <br> |
+|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), MutableAccessors) <br> |
+|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), InheritsCoordinate3D) <br> |
+|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), StreamOutput) <br> |
+|   | [**TEST**](#function-test) ([**LASPoint**](classLASPoint.md), AllClassifications) <br> |
 
 
 

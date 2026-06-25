@@ -15,6 +15,8 @@
 #include <cstddef>
 #include <cstdint>
 
+#include "utilities/filesystem.hpp"
+
 struct Config;
 class QComboBox;
 
@@ -46,6 +48,7 @@ class ConfigEditor : public QWidget {
   void add_las_file();
   void remove_las_file();
   void add_las_folder();
+  void set_las_files(const std::vector<fs::path>& files);
 
   // Contours
   void add_contour();

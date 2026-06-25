@@ -52,10 +52,10 @@ Inherits the following classes: QException
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TaskException**](#function-taskexception) ([**const**](classCoordinate2D.md) [**char**](classCoordinate2D.md) \* what) <br> |
+|   | [**TaskException**](#function-taskexception) (const char \* what) <br> |
 |  QException \* | [**clone**](#function-clone) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**raise**](#function-raise) () const<br> |
-| virtual [**const**](classCoordinate2D.md) [**char**](classCoordinate2D.md) \* | [**what**](#function-what) () noexcept const<br> |
+|  void | [**raise**](#function-raise) () const<br> |
+| virtual const char \* | [**what**](#function-what) () noexcept const<br> |
 
 
 
@@ -93,7 +93,7 @@ Inherits the following classes: QException
 
 ```C++
 inline TaskException::TaskException (
-    const  char * what
+    const char * what
 ) 
 ```
 
@@ -133,7 +133,7 @@ inline void TaskException::raise () const
 ### function what 
 
 ```C++
-inline virtual const  char * TaskException::what () noexcept const
+inline virtual const char * TaskException::what () noexcept const
 ```
 
 

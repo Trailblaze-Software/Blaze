@@ -72,15 +72,15 @@ Inherits the following classes: [Color](classColor.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**CMYKColor**](#function-cmykcolor-12) ([**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) c, [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) m, [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) y, [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) k) <br> |
+|   | [**CMYKColor**](#function-cmykcolor-12) (unsigned char c, unsigned char m, unsigned char y, unsigned char k) <br> |
 |   | [**CMYKColor**](#function-cmykcolor-22) () <br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getBlack**](#function-getblack) () const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getCyan**](#function-getcyan) () const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getMagenta**](#function-getmagenta) () const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**getYellow**](#function-getyellow) () const<br> |
-|  [**CMYKColor**](classCMYKColor.md) | [**operator\***](#function-operator) ([**double**](classCoordinate2D.md) factor) const<br> |
-|  [**CMYKColor**](classCMYKColor.md) | [**operator+**](#function-operator_1) ([**const**](classCoordinate2D.md) [**CMYKColor**](classCMYKColor.md) & other) const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**char**](classCoordinate2D.md) | [**operator[]**](#function-operator_2) ([**int**](classCoordinate2D.md) index) const<br> |
+|  unsigned char | [**getBlack**](#function-getblack) () const<br> |
+|  unsigned char | [**getCyan**](#function-getcyan) () const<br> |
+|  unsigned char | [**getMagenta**](#function-getmagenta) () const<br> |
+|  unsigned char | [**getYellow**](#function-getyellow) () const<br> |
+|  [**CMYKColor**](classCMYKColor.md) | [**operator\***](#function-operator) (double factor) const<br> |
+|  [**CMYKColor**](classCMYKColor.md) | [**operator+**](#function-operator_1) (const [**CMYKColor**](classCMYKColor.md) & other) const<br> |
+|  unsigned char | [**operator[]**](#function-operator_2) (int index) const<br> |
 | virtual [**CMYKColor**](classCMYKColor.md) | [**toCMYK**](#function-tocmyk) () override const<br> |
 | virtual [**RGBColor**](classRGBColor.md) | [**toRGB**](#function-torgb) () override const<br> |
 
@@ -91,9 +91,9 @@ See [Color](classColor.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Color**](classColor.md#function-color-12) ([**const**](classCoordinate2D.md) [**Color**](classColor.md) &) = default<br> |
+|   | [**Color**](classColor.md#function-color-12) (const [**Color**](classColor.md) &) = default<br> |
 |   | [**Color**](classColor.md#function-color-22) () = default<br> |
-|  [**Color**](classColor.md) & | [**operator=**](classColor.md#function-operator) ([**const**](classCoordinate2D.md) [**Color**](classColor.md) &) = default<br> |
+|  [**Color**](classColor.md) & | [**operator=**](classColor.md#function-operator) (const [**Color**](classColor.md) &) = default<br> |
 | virtual [**CMYKColor**](classCMYKColor.md) | [**toCMYK**](classColor.md#function-tocmyk) () const = 0<br> |
 | virtual [**RGBColor**](classRGBColor.md) | [**toRGB**](classColor.md#function-torgb) () const = 0<br> |
 | virtual  | [**~Color**](classColor.md#function-color) () = default<br> |
@@ -103,7 +103,7 @@ See [Color](classColor.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**CMYKColor**](classCMYKColor.md) | [**FromRGB**](#function-fromrgb) ([**const**](classCoordinate2D.md) [**RGBColor**](classRGBColor.md) & rgb) <br> |
+|  [**CMYKColor**](classCMYKColor.md) | [**FromRGB**](#function-fromrgb) (const [**RGBColor**](classRGBColor.md) & rgb) <br> |
 
 
 
@@ -165,10 +165,10 @@ See [Color](classColor.md)
 
 ```C++
 CMYKColor::CMYKColor (
-    unsigned  char c,
-    unsigned  char m,
-    unsigned  char y,
-    unsigned  char k
+    unsigned char c,
+    unsigned char m,
+    unsigned char y,
+    unsigned char k
 ) 
 ```
 
@@ -195,7 +195,7 @@ inline CMYKColor::CMYKColor ()
 ### function getBlack 
 
 ```C++
-inline unsigned  char CMYKColor::getBlack () const
+inline unsigned char CMYKColor::getBlack () const
 ```
 
 
@@ -208,7 +208,7 @@ inline unsigned  char CMYKColor::getBlack () const
 ### function getCyan 
 
 ```C++
-inline unsigned  char CMYKColor::getCyan () const
+inline unsigned char CMYKColor::getCyan () const
 ```
 
 
@@ -221,7 +221,7 @@ inline unsigned  char CMYKColor::getCyan () const
 ### function getMagenta 
 
 ```C++
-inline unsigned  char CMYKColor::getMagenta () const
+inline unsigned char CMYKColor::getMagenta () const
 ```
 
 
@@ -234,7 +234,7 @@ inline unsigned  char CMYKColor::getMagenta () const
 ### function getYellow 
 
 ```C++
-inline unsigned  char CMYKColor::getYellow () const
+inline unsigned char CMYKColor::getYellow () const
 ```
 
 
@@ -263,7 +263,7 @@ inline CMYKColor CMYKColor::operator* (
 
 ```C++
 inline CMYKColor CMYKColor::operator+ (
-    const  CMYKColor & other
+    const CMYKColor & other
 ) const
 ```
 
@@ -277,7 +277,7 @@ inline CMYKColor CMYKColor::operator+ (
 ### function operator[] 
 
 ```C++
-inline unsigned  char CMYKColor::operator[] (
+inline unsigned char CMYKColor::operator[] (
     int index
 ) const
 ```
@@ -325,7 +325,7 @@ Implements [*Color::toRGB*](classColor.md#function-torgb)
 
 ```C++
 static CMYKColor CMYKColor::FromRGB (
-    const  RGBColor & rgb
+    const RGBColor & rgb
 ) 
 ```
 
@@ -343,7 +343,7 @@ static CMYKColor CMYKColor::FromRGB (
 ```C++
 inline std::ostream & CMYKColor::operator<< (
     std::ostream & os,
-    const  CMYKColor & c
+    const CMYKColor & c
 ) 
 ```
 

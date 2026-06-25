@@ -35,8 +35,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; | [**exterior**](#variable-exterior)  <br> |
-|  std::vector&lt; std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; &gt; | [**holes**](#variable-holes)  <br> |
+|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**exterior**](#variable-exterior)  <br> |
+|  std::vector&lt; std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; &gt; | [**holes**](#variable-holes)  <br> |
 
 
 

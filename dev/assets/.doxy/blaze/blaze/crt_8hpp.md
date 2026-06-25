@@ -12,6 +12,7 @@
 
 * `#include <fstream>`
 * `#include "utilities/filesystem.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 * `#include "utilities/timer.hpp"`
 
 
@@ -54,8 +55,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**write\_to\_crt**](#function-write_to_crt) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
-|  [**void**](classCoordinate2D.md) | [**write\_vegetation\_crt**](#function-write_vegetation_crt) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
+|  void | [**write\_to\_crt**](#function-write_to_crt) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=nullptr) <br> |
+|  void | [**write\_vegetation\_crt**](#function-write_vegetation_crt) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=nullptr) <br> |
 
 
 
@@ -93,7 +94,8 @@
 
 ```C++
 inline void write_to_crt (
-    const fs::path & filename
+    const fs::path & filename,
+    ProgressTracker * progress_tracker=nullptr
 ) 
 ```
 
@@ -108,7 +110,8 @@ inline void write_to_crt (
 
 ```C++
 inline void write_vegetation_crt (
-    const fs::path & filename
+    const fs::path & filename,
+    ProgressTracker * progress_tracker=nullptr
 ) 
 ```
 

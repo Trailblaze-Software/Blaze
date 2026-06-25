@@ -4,7 +4,7 @@
     <compoundname>PriorityPoint</compoundname>
     <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structPriorityPoint_1aaa4b85d6737dc39d61b542abdd1f10c5" prot="public" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double PriorityPoint::priority</definition>
         <argsstring></argsstring>
         <name>priority</name>
@@ -18,7 +18,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="11" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structPriorityPoint_1a7210cb8717f7a02b884d59645c8db78a" prot="public" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double PriorityPoint::secondary_priority</definition>
         <argsstring></argsstring>
         <name>secondary_priority</name>
@@ -32,7 +32,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="12" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="12" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structPriorityPoint_1ae3c3ed91bd14915e0b36699bbbdfc7a7" prot="public" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt;</type>
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; size_t &gt;</type>
         <definition>Coordinate2D&lt;size_t&gt; PriorityPoint::coord</definition>
         <argsstring></argsstring>
         <name>coord</name>
@@ -48,13 +48,13 @@
     </sectiondef>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="structPriorityPoint_1a9818f9d1619c4128777a01c0bdd2dc35" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool PriorityPoint::operator&lt;</definition>
         <argsstring>(const PriorityPoint &amp;other) const</argsstring>
         <name>operator&lt;</name>
         <qualifiedname>PriorityPoint::operator&lt;</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structPriorityPoint" kindref="compound">PriorityPoint</ref> &amp;</type>
+          <type>const <ref refid="structPriorityPoint" kindref="compound">PriorityPoint</ref> &amp;</type>
           <declname>other</declname>
         </param>
         <briefdescription>

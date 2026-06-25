@@ -64,17 +64,17 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**bool\_grid**](#function-bool_grid) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, T threshold) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; T &gt; | [**downsample**](#function-downsample) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**size\_t**](classCoordinate2D.md) factor, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, DownsampleMethod method=DownsampleMethod::MEDIAN) <br> |
-|  [**void**](classCoordinate2D.md) | [**interpolate\_holes**](#function-interpolate_holes) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
-|  [**void**](classCoordinate2D.md) | [**remove\_outliers**](#function-remove_outliers) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**double**](classCoordinate2D.md) z\_threshold=1, [**bool**](classCoordinate2D.md) z\_only=[**false**](classCoordinate2D.md)) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**bool\_grid**](#function-bool_grid) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, T threshold) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; T &gt; | [**downsample**](#function-downsample) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, size\_t factor, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, DownsampleMethod method=DownsampleMethod::MEDIAN) <br> |
+|  void | [**interpolate\_holes**](#function-interpolate_holes) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|  void | [**remove\_outliers**](#function-remove_outliers) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, double z\_threshold=1, bool z\_only=false) <br> |
 
 
 ## Public Static Functions
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**has\_value**](#function-has_value) ([**double**](classCoordinate2D.md) value) <br> |
+|  bool | [**has\_value**](#function-has_value) (double value) <br> |
 
 
 
@@ -134,7 +134,7 @@ enum DownsampleMethod {
 ```C++
 template<typename T>
 GeoGrid < std::optional< std::byte > > bool_grid (
-    const  GeoGrid < T > & grid,
+    const GeoGrid < T > & grid,
     T threshold
 ) 
 ```
@@ -151,7 +151,7 @@ GeoGrid < std::optional< std::byte > > bool_grid (
 ```C++
 template<typename T>
 GeoGrid < T > downsample (
-    const  GeoGrid < T > & grid,
+    const GeoGrid < T > & grid,
     size_t factor,
     ProgressTracker && progress_tracker,
     DownsampleMethod method=DownsampleMethod::MEDIAN

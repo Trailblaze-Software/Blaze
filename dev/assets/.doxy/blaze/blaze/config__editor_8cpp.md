@@ -11,7 +11,6 @@
 
 
 * `#include "config_editor.hpp"`
-* `#include <qdebug.h>`
 * `#include <QColorDialog>`
 * `#include <QDir>`
 * `#include <QDoubleValidator>`
@@ -27,6 +26,7 @@
 * `#include <QStandardPaths>`
 * `#include <QTabWidget>`
 * `#include <QTableWidget>`
+* `#include <cstdlib>`
 * `#include <filesystem>`
 * `#include <set>`
 * `#include "assert/assert.hpp"`
@@ -36,6 +36,7 @@
 * `#include "las_reader.hpp"`
 * `#include "printing/to_string.hpp"`
 * `#include "ui_config_editor.h"`
+* `#include "utilities/env.hpp"`
 
 
 
@@ -82,10 +83,10 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**color\_equals**](#function-color_equals) ([**const**](classCoordinate2D.md) ColorVariant & v1, [**const**](classCoordinate2D.md) ColorVariant & v2) <br> |
-|  [**QIcon**](classCoordinate2D.md) | [**create\_color\_icon**](#function-create_color_icon) ([**const**](classCoordinate2D.md) ColorVariant & color) <br> |
-|  [**QString**](classCoordinate2D.md) | [**get\_color\_name**](#function-get_color_name) ([**const**](classCoordinate2D.md) ColorVariant & color) <br> |
-|  [**bool**](classCoordinate2D.md) | [**validated**](#function-validated) (T \* box) <br> |
+|  bool | [**color\_equals**](#function-color_equals) (const ColorVariant & v1, const ColorVariant & v2) <br> |
+|  QIcon | [**create\_color\_icon**](#function-create_color_icon) (const ColorVariant & color) <br> |
+|  QString | [**get\_color\_name**](#function-get_color_name) (const ColorVariant & color) <br> |
+|  bool | [**validated**](#function-validated) (T \* box) <br> |
 
 
 

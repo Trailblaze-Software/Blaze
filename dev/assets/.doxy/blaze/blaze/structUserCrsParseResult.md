@@ -36,7 +36,7 @@
 | Type | Name |
 | ---: | :--- |
 |  std::string | [**error**](#variable-error)  <br> |
-|  [**bool**](classCoordinate2D.md) | [**ok**](#variable-ok)  <br> |
+|  bool | [**ok**](#variable-ok)  <br> |
 |  std::string | [**wkt**](#variable-wkt)  <br> |
 
 

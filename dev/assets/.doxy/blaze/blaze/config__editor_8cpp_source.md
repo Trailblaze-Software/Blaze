@@ -10,8 +10,6 @@
 ```C++
 #include "config_editor.hpp"
 
-#include <qdebug.h>
-
 #include <QColorDialog>
 #include <QDir>
 #include <QDoubleValidator>
@@ -27,6 +25,7 @@
 #include <QStandardPaths>
 #include <QTabWidget>
 #include <QTableWidget>
+#include <cstdlib>
 #include <filesystem>
 #include <set>
 
@@ -37,6 +36,7 @@
 #include "las_reader.hpp"
 #include "printing/to_string.hpp"
 #include "ui_config_editor.h"
+#include "utilities/env.hpp"
 
 class ParentFolderExistsValidator : public QValidator {
  public:
@@ -299,6 +299,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   connect_general(ui->grid_downsample_factor);
   connect_general(ui->grid_vegetation_resolution);
   connect_general(ui->grid_contour_dem_resolution);
+  connect_general(ui->grid_export_fine_slope);
   connect_general(ui->ground_min_intensity);
   connect_general(ui->ground_max_intensity);
   connect(ui->buildings_color, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
@@ -406,16 +407,19 @@ ConfigEditor::~ConfigEditor() {
 }
 
 Config ConfigEditor::load_initial_config() {
+  Config config = Config::Default();
   const fs::path path = last_used_config_path();
-  if (path.empty() || !fs::exists(path)) {
-    return Config::Default();
+  if (!path.empty() && fs::exists(path)) {
+    try {
+      config = Config::FromFile(path);
+    } catch (const std::exception& e) {
+      std::cerr << "Failed to load last-used config from " << path << ": " << e.what() << std::endl;
+    }
   }
-  try {
-    return Config::FromFile(path);
-  } catch (const std::exception& e) {
-    std::cerr << "Failed to load last-used config from " << path << ": " << e.what() << std::endl;
-    return Config::Default();
+  if (const char* env = blaze::get_env("BLAZE3D_EXPECT_OUTPUT")) {
+    config.set_output_directory(env);
   }
+  return config;
 }
 
 void ConfigEditor::save_last_used_config() {
@@ -460,6 +464,11 @@ void ConfigEditor::open_config_file() {
     return;
   }
   m_config = std::make_unique<Config>(Config::FromFile(config_file_name.toStdString()));
+  set_ui_to_config(*m_config);
+}
+
+void ConfigEditor::set_las_files(const std::vector<fs::path>& files) {
+  m_config->las_files = files;
   set_ui_to_config(*m_config);
 }
 
@@ -718,6 +727,7 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   ui->grid_downsample_factor->setValue(config.grid.downsample_factor);
   ui->grid_vegetation_resolution->setText(QString::number(config.grid.vegetation_grid_resolution));
   ui->grid_contour_dem_resolution->setText(QString::number(config.grid.contour_dem_resolution));
+  ui->grid_export_fine_slope->setChecked(config.grid.export_fine_slope);
   ui->ground_min_intensity->setValue(config.ground.min_ground_intensity);
   ui->ground_max_intensity->setValue(config.ground.max_ground_intensity);
   ui->buildings_color->setCurrentText(get_color_name(config.buildings.color));
@@ -754,6 +764,7 @@ void ConfigEditor::update_general_from_ui() {
   m_config->grid.downsample_factor = ui->grid_downsample_factor->value();
   m_config->grid.vegetation_grid_resolution = ui->grid_vegetation_resolution->text().toDouble();
   m_config->grid.contour_dem_resolution = ui->grid_contour_dem_resolution->text().toDouble();
+  m_config->grid.export_fine_slope = ui->grid_export_fine_slope->isChecked();
   m_config->ground.min_ground_intensity = ui->ground_min_intensity->value();
   m_config->ground.max_ground_intensity = ui->ground_max_intensity->value();
   m_config->border_width = ui->border_width->text().toDouble();

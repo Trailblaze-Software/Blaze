@@ -75,13 +75,13 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**combine\_gpkgs**](#function-combine_gpkgs) ([**const**](classCoordinate2D.md) std::vector&lt; fs::path &gt; & sources, [**const**](classCoordinate2D.md) fs::path & output, [**const**](classCoordinate2D.md) std::string & projection={}, [**ProgressTracker**](classProgressTracker.md) progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
-|  [**void**](classCoordinate2D.md) | [**copy\_gpkg\_feature**](#function-copy_gpkg_feature) ([**GDALDataset**](classCoordinate2D.md) \* dst, [**OGRLayer**](classCoordinate2D.md) \* src\_layer, [**OGRFeature**](classCoordinate2D.md) \* feature) <br> |
-|  [**void**](classCoordinate2D.md) | [**copy\_gpkg\_layer**](#function-copy_gpkg_layer) ([**GDALDataset**](classCoordinate2D.md) \* dst, [**OGRLayer**](classCoordinate2D.md) \* src\_layer, [**const**](classCoordinate2D.md) std::function&lt; [**void**](classCoordinate2D.md)()&gt; & on\_feature\_copied={}) <br> |
-|  [**void**](classCoordinate2D.md) | [**ensure\_dst\_layer\_fields**](#function-ensure_dst_layer_fields) ([**OGRLayer**](classCoordinate2D.md) \* dst\_layer, [**OGRFeatureDefn**](classCoordinate2D.md) \* src\_defn) <br> |
-|  [**OGRLayer**](classCoordinate2D.md) \* | [**get\_or\_create\_dst\_layer**](#function-get_or_create_dst_layer) ([**GDALDataset**](classCoordinate2D.md) \* dst, [**OGRLayer**](classCoordinate2D.md) \* src\_layer, [**const**](classCoordinate2D.md) std::string & layer\_name, [**OGRwkbGeometryType**](classCoordinate2D.md) geom\_type) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**gpkg\_feature\_count**](#function-gpkg_feature_count) ([**const**](classCoordinate2D.md) fs::path & path) <br> |
-|  std::vector&lt; [**Contour**](classContour.md) &gt; | [**read\_gpkg**](#function-read_gpkg) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
+|  void | [**combine\_gpkgs**](#function-combine_gpkgs) (const std::vector&lt; fs::path &gt; & sources, const fs::path & output, const std::string & projection={}, [**ProgressTracker**](classProgressTracker.md) progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
+|  void | [**copy\_gpkg\_feature**](#function-copy_gpkg_feature) (GDALDataset \* dst, OGRLayer \* src\_layer, OGRFeature \* feature) <br> |
+|  void | [**copy\_gpkg\_layer**](#function-copy_gpkg_layer) (GDALDataset \* dst, OGRLayer \* src\_layer, const std::function&lt; void()&gt; & on\_feature\_copied={}) <br> |
+|  void | [**ensure\_dst\_layer\_fields**](#function-ensure_dst_layer_fields) (OGRLayer \* dst\_layer, OGRFeatureDefn \* src\_defn) <br> |
+|  OGRLayer \* | [**get\_or\_create\_dst\_layer**](#function-get_or_create_dst_layer) (GDALDataset \* dst, OGRLayer \* src\_layer, const std::string & layer\_name, OGRwkbGeometryType geom\_type) <br> |
+|  size\_t | [**gpkg\_feature\_count**](#function-gpkg_feature_count) (const fs::path & path) <br> |
+|  std::vector&lt; [**Contour**](classContour.md) &gt; | [**read\_gpkg**](#function-read_gpkg) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=nullptr) <br> |
 
 
 
@@ -156,7 +156,7 @@ inline void copy_gpkg_feature (
 inline void copy_gpkg_layer (
     GDALDataset * dst,
     OGRLayer * src_layer,
-    const std::function< void ()> & on_feature_copied={}
+    const std::function< void()> & on_feature_copied={}
 ) 
 ```
 
@@ -220,7 +220,8 @@ inline size_t gpkg_feature_count (
 
 ```C++
 inline std::vector< Contour > read_gpkg (
-    const fs::path & filename
+    const fs::path & filename,
+    ProgressTracker * progress_tracker=nullptr
 ) 
 ```
 

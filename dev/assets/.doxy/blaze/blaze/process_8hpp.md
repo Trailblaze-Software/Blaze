@@ -53,8 +53,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, [**const**](classCoordinate2D.md) fs::path & output\_dir, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
-|  [**void**](classCoordinate2D.md) | [**process\_las\_file**](#function-process_las_file) ([**const**](classCoordinate2D.md) fs::path & las\_file, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
+|  void | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, const fs::path & output\_dir, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
+|  void | [**process\_las\_file**](#function-process_las_file) (const fs::path & las\_file, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
 
 
 
@@ -94,7 +94,7 @@
 void process_las_data (
     LASData & las_file,
     const fs::path & output_dir,
-    const  Config & config,
+    const Config & config,
     ProgressTracker tracker
 ) 
 ```
@@ -111,7 +111,7 @@ void process_las_data (
 ```C++
 void process_las_file (
     const fs::path & las_file,
-    const  Config & config,
+    const Config & config,
     ProgressTracker tracker
 ) 
 ```

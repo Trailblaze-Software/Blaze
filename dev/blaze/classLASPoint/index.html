@@ -953,7 +953,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-laspoint-12"><strong>LASPoint</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> x, <a href="../classCoordinate2D/"><strong>double</strong></a> y, <a href="../classCoordinate2D/"><strong>double</strong></a> z, <a href="../classCoordinate2D/"><strong>uint16_t</strong></a> intensity, LASClassification classification) <br></td>
+<td style="text-align: left;"><a href="#function-laspoint-12"><strong>LASPoint</strong></a> (double x, double y, double z, uint16_t intensity, LASClassification classification) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
@@ -968,11 +968,11 @@
 <td style="text-align: left;"><a href="#function-classification-22"><strong>classification</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>uint16_t</strong></a></td>
+<td style="text-align: right;">uint16_t</td>
 <td style="text-align: left;"><a href="#function-intensity-12"><strong>intensity</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>uint16_t</strong></a> &amp;</td>
+<td style="text-align: right;">uint16_t &amp;</td>
 <td style="text-align: left;"><a href="#function-intensity-22"><strong>intensity</strong></a> () <br></td>
 </tr>
 </tbody>
@@ -1032,7 +1032,7 @@
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-magnitude_sqd"><strong>magnitude_sqd</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; double &gt;</td>
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-offset_to_center"><strong>offset_to_center</strong></a> () const<br></td>
 </tr>
 <tr>
@@ -1052,23 +1052,23 @@
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-operator-"><strong>operator-</strong></a> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a> o) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="../classCoordinate2D/#function-operator_2"><strong>operator==</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a> &amp; o) const<br></td>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="../classCoordinate2D/#function-operator_2"><strong>operator==</strong></a> (const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a> &amp; o) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt;</td>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt;</td>
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-round"><strong>round</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="../classCoordinate2D/#function-round_nw"><strong>round_NW</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> grid_size) const<br></td>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; double &gt;</td>
+<td style="text-align: left;"><a href="../classCoordinate2D/#function-round_nw"><strong>round_NW</strong></a> (double grid_size) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt;</td>
+<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt;</td>
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-round_down"><strong>round_down</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> T &amp;</td>
+<td style="text-align: right;">const T &amp;</td>
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-x-12"><strong>x</strong></a> () const<br></td>
 </tr>
 <tr>
@@ -1076,7 +1076,7 @@
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-x-22"><strong>x</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> T &amp;</td>
+<td style="text-align: right;">const T &amp;</td>
 <td style="text-align: left;"><a href="../classCoordinate2D/#function-y-12"><strong>y</strong></a> () const<br></td>
 </tr>
 <tr>
@@ -1125,7 +1125,7 @@
 <h3 id="friend-operator">friend operator&lt;&lt;</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LASPoint</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">os</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

@@ -57,35 +57,35 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**DefaultConstruction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**ConstructionWithValues**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**ConstructionFromCoordinate**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**PixelToProjection**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**PixelToProjectionWithOffset**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**ProjectionToPixel**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**PixelProjectionRoundTrip**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), [**WithNewResolution**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), [**ConstructionAndAccess**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), [**Fill**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), [**MinMax**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), [**CopyFrom**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), [**InBounds**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), [**FillFrom**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoGrid**](classGeo.md), [**Extent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**InterpolateValue**](classCoordinate2D.md), [**CenterOfCell**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**InterpolateValue**](classCoordinate2D.md), [**MidpointBetweenCells**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridGraph**](classGridGraph.md), [**ConstructionAndAccess**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridGraph**](classGridGraph.md), [**InBounds**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoGridPad**](classCoordinate2D.md), [**PadsWithValue**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoGridPad**](classCoordinate2D.md), [**AdjustsGeoTransform**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GeoGridPad**](classCoordinate2D.md), [**EmptyGrid**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), DefaultConstruction) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), ConstructionWithValues) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), ConstructionFromCoordinate) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), PixelToProjection) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), PixelToProjectionWithOffset) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), ProjectionToPixel) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), PixelProjectionRoundTrip) <br> |
+|   | [**TEST**](#function-test) ([**GeoTransform**](classGeoTransform.md), WithNewResolution) <br> |
+|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), ConstructionAndAccess) <br> |
+|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), Fill) <br> |
+|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), MinMax) <br> |
+|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), CopyFrom) <br> |
+|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), InBounds) <br> |
+|   | [**TEST**](#function-test) ([**Grid**](classGrid.md), FillFrom) <br> |
+|   | [**TEST**](#function-test) ([**GeoGrid**](classGeo.md), Extent) <br> |
+|   | [**TEST**](#function-test) (InterpolateValue, CenterOfCell) <br> |
+|   | [**TEST**](#function-test) (InterpolateValue, MidpointBetweenCells) <br> |
+|   | [**TEST**](#function-test) ([**GridGraph**](classGridGraph.md), ConstructionAndAccess) <br> |
+|   | [**TEST**](#function-test) ([**GridGraph**](classGridGraph.md), InBounds) <br> |
+|   | [**TEST**](#function-test) (GeoGridPad, PadsWithValue) <br> |
+|   | [**TEST**](#function-test) (GeoGridPad, AdjustsGeoTransform) <br> |
+|   | [**TEST**](#function-test) (GeoGridPad, EmptyGrid) <br> |
 
 
 ## Public Static Functions
 
 | Type | Name |
 | ---: | :--- |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**coord**](#function-coord) ([**size\_t**](classCoordinate2D.md) x, [**size\_t**](classCoordinate2D.md) y) <br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; | [**coord**](#function-coord) (size\_t x, size\_t y) <br> |
 
 
 

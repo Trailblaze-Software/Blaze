@@ -919,11 +919,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> T&gt;<br></td>
+<td style="text-align: left;"><a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a> &lt;typename T&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> T&gt;<br></td>
+<td style="text-align: left;"><a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a> &lt;typename T&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
@@ -939,11 +939,11 @@
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> T, <a href="../classCoordinate2D/"><strong>typename</strong></a>&gt;<br></td>
+<td style="text-align: left;"><a href="../classLineCoord2D/"><strong>LineCoord2D</strong></a> &lt;typename T, typename&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classLineCoord2DCrossing/"><strong>LineCoord2DCrossing</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> T&gt;<br></td>
+<td style="text-align: left;"><a href="../classLineCoord2DCrossing/"><strong>LineCoord2DCrossing</strong></a> &lt;typename T&gt;<br></td>
 </tr>
 </tbody>
 </table>
@@ -957,11 +957,11 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> std::array&lt; <a href="../classDirection2D/"><strong>Direction2D</strong></a>, 8 &gt;</td>
+<td style="text-align: right;">const std::array&lt; <a href="../classDirection2D/"><strong>Direction2D</strong></a>, 8 &gt;</td>
 <td style="text-align: left;"><a href="#variable-all_directions"><strong>ALL_DIRECTIONS</strong></a>   = <code>/* multi line expression */</code><br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> std::array&lt; <a href="../classDirection2D/"><strong>Direction2D</strong></a>, 4 &gt;</td>
+<td style="text-align: right;">const std::array&lt; <a href="../classDirection2D/"><strong>Direction2D</strong></a>, 4 &gt;</td>
 <td style="text-align: left;"><a href="#variable-orthogonal_directions"><strong>ORTHOGONAL_DIRECTIONS</strong></a>   = <code>/* multi line expression */</code><br></td>
 </tr>
 </tbody>
@@ -977,7 +977,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;">std::array&lt; <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; T &gt;, 4 &gt;</td>
-<td style="text-align: left;"><a href="#function-orthogonal_neighbors"><strong>orthogonal_neighbors</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; T &gt; &amp; coord) <br></td>
+<td style="text-align: left;"><a href="#function-orthogonal_neighbors"><strong>orthogonal_neighbors</strong></a> (const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; T &gt; &amp; coord) <br></td>
 </tr>
 </tbody>
 </table>
@@ -995,7 +995,7 @@
 <h3 id="function-orthogonal_neighbors">function orthogonal_neighbors</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="o">&gt;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">orthogonal_neighbors</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">coord</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">coord</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

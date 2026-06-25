@@ -11,6 +11,7 @@
 
 
 * `#include "contour/contour.hpp"`
+* `#include "grid/image.hpp"`
 * `#include "isom/colors.hpp"`
 * `#include "utilities/coordinate.hpp"`
 
@@ -26,11 +27,6 @@
 
 
 
-## Namespaces
-
-| Type | Name |
-| ---: | :--- |
-| namespace | [**cv**](namespacecv.md) <br> |
 
 
 ## Classes

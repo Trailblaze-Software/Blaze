@@ -72,8 +72,8 @@ Inherits the following classes: [Timer](classTimer.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TimeFunction**](#function-timefunction-12) ([**const**](classCoordinate2D.md) std::string & name, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=[**nullptr**](classCoordinate2D.md)) <br> |
-|   | [**TimeFunction**](#function-timefunction-22) ([**const**](classCoordinate2D.md) std::string & name, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; & progress\_tracker) <br> |
+|   | [**TimeFunction**](#function-timefunction-12) (const std::string & name, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=nullptr) <br> |
+|   | [**TimeFunction**](#function-timefunction-22) (const std::string & name, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; & progress\_tracker) <br> |
 |   | [**~TimeFunction**](#function-timefunction) () <br> |
 
 
@@ -84,7 +84,7 @@ See [Timer](classTimer.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**Timer**](classTimer.md#function-timer) () <br> |
-|  std::chrono::duration&lt; [**double**](classCoordinate2D.md) &gt; | [**duration**](classTimer.md#function-duration) () const<br> |
+|  std::chrono::duration&lt; double &gt; | [**duration**](classTimer.md#function-duration) () const<br> |
 
 
 

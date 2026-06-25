@@ -6,7 +6,7 @@
     <basecompoundref refid="classGeoGridData" prot="public" virt="non-virtual">GeoGridData</basecompoundref>
     <templateparamlist>
       <param>
-        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> GridT</type>
+        <type>typename GridT</type>
       </param>
     </templateparamlist>
     <sectiondef kind="public-func">
@@ -17,11 +17,11 @@
         <name>Geo</name>
         <qualifiedname>Geo::Geo</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <type>size_t</type>
           <declname>width</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <type>size_t</type>
           <declname>height</declname>
         </param>
         <param>
@@ -76,7 +76,7 @@
       <memberdef kind="function" id="classGeo_1a32e9264133b4bc750f7c71003c430c6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+            <type>typename U</type>
           </param>
         </templateparamlist>
         <type></type>
@@ -85,7 +85,7 @@
         <name>Geo</name>
         <qualifiedname>Geo::Geo</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">U</ref> &gt; &gt; &amp;</type>
+          <type>const std::vector&lt; std::vector&lt; U &gt; &gt; &amp;</type>
           <declname>data</declname>
         </param>
         <param>
@@ -98,7 +98,7 @@
           <declname>projection</declname>
           <defval><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>()</defval>
         </param>
-    <requiresclause>std::same_as&lt;GridT, <ref refid="classGrid" kindref="compound">Grid</ref>&lt;<ref refid="classCoordinate2D" kindref="compound">U</ref>&gt;&gt;    </requiresclause>
+    <requiresclause>std::same_as&lt;GridT, <ref refid="classGrid" kindref="compound">Grid</ref>&lt;U&gt;&gt;    </requiresclause>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -108,7 +108,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="334" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="334" bodyend="345"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double Geo&lt; GridT &gt;::width_m</definition>
         <argsstring>() const</argsstring>
         <name>width_m</name>
@@ -122,7 +122,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="347" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="347" bodyend="347"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a1098c30d81601a5e885405f61f15bfbd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double Geo&lt; GridT &gt;::height_m</definition>
         <argsstring>() const</argsstring>
         <name>height_m</name>
@@ -142,7 +142,7 @@
         <name>slice</name>
         <qualifiedname>Geo::slice</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <type>const <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
           <declname>extent</declname>
         </param>
         <briefdescription>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="361" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="58" bodyend="101"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="361" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="59" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &gt;</type>
@@ -165,21 +165,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="362" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="104" bodyend="113"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="362" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="105" bodyend="114"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+            <type>typename U</type>
           </param>
         </templateparamlist>
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void Geo&lt; GridT &gt;::fill_from</definition>
         <argsstring>(const Geo&lt; U &gt; &amp;other)</argsstring>
         <name>fill_from</name>
         <qualifiedname>Geo::fill_from</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">U</ref> &gt; &amp;</type>
+          <type>const <ref refid="classGeo" kindref="compound">Geo</ref>&lt; U &gt; &amp;</type>
           <declname>other</declname>
         </param>
         <briefdescription>
@@ -193,16 +193,16 @@
       <memberdef kind="function" id="classGeo_1a52eff035fc897e9650b678645521d642" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+            <type>typename U</type>
           </param>
         </templateparamlist>
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void Geo&lt; GridT &gt;::fill_from</definition>
         <argsstring>(const U &amp;other)</argsstring>
         <name>fill_from</name>
         <qualifiedname>Geo::fill_from</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref> &amp;</type>
+          <type>const U &amp;</type>
           <declname>other</declname>
         </param>
         <briefdescription>
@@ -216,7 +216,7 @@
       <memberdef kind="function" id="classGeo_1a5177716a0bc884211d36d314aef6bb2e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+            <type>typename U</type>
           </param>
         </templateparamlist>
         <type><ref refid="classGeo" kindref="compound">Geo</ref></type>
@@ -225,11 +225,11 @@
         <name>pad</name>
         <qualifiedname>Geo::pad</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+          <type>U</type>
           <declname>pad_value</declname>
           <defval>{}</defval>
         </param>
-    <requiresclause>std::same_as&lt;GridT, <ref refid="classGrid" kindref="compound">Grid</ref>&lt;<ref refid="classCoordinate2D" kindref="compound">U</ref>&gt;&gt;    </requiresclause>
+    <requiresclause>std::same_as&lt;GridT, <ref refid="classGrid" kindref="compound">Grid</ref>&lt;U&gt;&gt;    </requiresclause>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -243,7 +243,7 @@
       <memberdef kind="function" id="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> <ref refid="classCoordinate2D" kindref="compound">U</ref></type>
+            <type>typename U</type>
           </param>
         </templateparamlist>
         <type><ref refid="classGeo" kindref="compound">Geo</ref></type>
@@ -252,7 +252,7 @@
         <name>FromPoints</name>
         <qualifiedname>Geo::FromPoints</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">Geo</ref> &amp;</type>
+          <type>const <ref refid="classGeo" kindref="compound">Geo</ref> &amp;</type>
           <declname>grid</declname>
         </param>
         <briefdescription>
@@ -270,7 +270,7 @@
         <name>FromGeoImg</name>
         <qualifiedname>Geo::FromGeoImg</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoImgGrid" kindref="compound">GeoImgGrid</ref> &amp;</type>
+          <type>const <ref refid="classGeoImgGrid" kindref="compound">GeoImgGrid</ref> &amp;</type>
           <declname>grid</declname>
         </param>
         <briefdescription>
@@ -279,7 +279,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="359" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="14" bodyend="25"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="359" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="15" bodyend="26"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="error__dialog_8hpp" kind="file" language="C++">
+    <compoundname>error_dialog.hpp</compoundname>
+    <includes local="no">QString</includes>
+    <includedby refid="error__dialog_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/error_dialog.cpp</includedby>
+    <includedby refid="main__3d__window_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp</includedby>
+    <includedby refid="main__window_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp</includedby>
+    <includedby refid="progress__box_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/error_dialog.hpp</label>
+        <link refid="error__dialog_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QString</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="error__dialog_8hpp_1a44771fea9f9b5a4136becbf2f2939ab2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void show_error_message</definition>
+        <argsstring>(QWidget *parent, const QString &amp;title, const QString &amp;message)</argsstring>
+        <name>show_error_message</name>
+        <param>
+          <type>QWidget *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const QString &amp;</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>const QString &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/error_dialog.hpp" line="7" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/error_dialog.cpp" bodystart="8" bodyend="27" declfile="/home/runner/work/Blaze/Blaze/src/gui/error_dialog.hpp" declline="7" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;QString&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">QWidget;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>show_error_message(QWidget*<sp/>parent,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString&amp;<sp/>title,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString&amp;<sp/>message);</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/error_dialog.hpp"/>
+  </compounddef>
+</doxygen>

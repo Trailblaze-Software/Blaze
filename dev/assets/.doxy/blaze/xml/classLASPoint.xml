@@ -5,7 +5,7 @@
     <basecompoundref refid="classCoordinate3D" prot="public" virt="non-virtual">Coordinate3D&lt; double &gt;</basecompoundref>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classLASPoint_1a6c8d92137557643dd7425bc68eae0c19" prot="private" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref></type>
+        <type>uint16_t</type>
         <definition>uint16_t LASPoint::m_intensity</definition>
         <argsstring></argsstring>
         <name>m_intensity</name>
@@ -41,19 +41,19 @@
         <name>LASPoint</name>
         <qualifiedname>LASPoint::LASPoint</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>x</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>y</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>z</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref></type>
+          <type>uint16_t</type>
           <declname>intensity</declname>
         </param>
         <param>
@@ -83,7 +83,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="58" column="3"/>
       </memberdef>
       <memberdef kind="function" id="classLASPoint_1a6a6c40d388d3aface0b546cafb261c26" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref></type>
+        <type>uint16_t</type>
         <definition>uint16_t LASPoint::intensity</definition>
         <argsstring>() const</argsstring>
         <name>intensity</name>
@@ -111,7 +111,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" line="71" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_point.hpp" bodystart="71" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="classLASPoint_1a33191dd97643a34c966f7767088027e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">uint16_t</ref> &amp;</type>
+        <type>uint16_t &amp;</type>
         <definition>uint16_t &amp; LASPoint::intensity</definition>
         <argsstring>()</argsstring>
         <name>intensity</name>
@@ -151,7 +151,7 @@
           <declname>os</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLASPoint" kindref="compound">LASPoint</ref> &amp;</type>
+          <type>const <ref refid="classLASPoint" kindref="compound">LASPoint</ref> &amp;</type>
           <declname>point</declname>
         </param>
         <briefdescription>

@@ -15,6 +15,7 @@
 * `#include <cmath>`
 * `#include <limits>`
 * `#include <optional>`
+* `#include <string>`
 * `#include <utility>`
 * `#include "config_input/config_input.hpp"`
 * `#include "grid/grid.hpp"`
@@ -66,9 +67,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**crosses\_contour**](#function-crosses_contour) (std::pair&lt; T, T &gt; hs, T contour\_interval) <br> |
+|  bool | [**crosses\_contour**](#function-crosses_contour) (std::pair&lt; T, T &gt; hs, T contour\_interval) <br> |
 |  std::set&lt; T &gt; | [**get\_contour\_heights**](#function-get_contour_heights) (std::pair&lt; T, T &gt; hs, T contour\_interval) <br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; | [**interpolate\_coordinates**](#function-interpolate_coordinates) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & a, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & b, [**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & a\_val, [**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & b\_val, [**const**](classCoordinate2D.md) [**U**](classCoordinate2D.md) & target) <br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; | [**interpolate\_coordinates**](#function-interpolate_coordinates) (const [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & a, const [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & b, const U & a\_val, const U & b\_val, const U & target) <br> |
 |  T | [**round\_down**](#function-round_down) (T val, T interval) <br> |
 
 
@@ -140,13 +141,13 @@ inline std::set< T > get_contour_heights (
 ### function interpolate\_coordinates 
 
 ```C++
-template<typename T, typename  U>
+template<typename T, typename U>
 Coordinate2D < T > interpolate_coordinates (
-    const  Coordinate2D < T > & a,
-    const  Coordinate2D < T > & b,
-    const  U & a_val,
-    const  U & b_val,
-    const  U & target
+    const Coordinate2D < T > & a,
+    const Coordinate2D < T > & b,
+    const U & a_val,
+    const U & b_val,
+    const U & target
 ) 
 ```
 

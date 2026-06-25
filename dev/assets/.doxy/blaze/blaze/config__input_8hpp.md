@@ -81,7 +81,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, [**const**](classCoordinate2D.md) ProcessingStep & step) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, const ProcessingStep & step) <br> |
 
 
 

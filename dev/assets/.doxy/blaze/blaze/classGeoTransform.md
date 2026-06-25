@@ -51,22 +51,22 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GeoTransform**](#function-geotransform-14) ([**double**](classCoordinate2D.md) upper\_left\_x, [**double**](classCoordinate2D.md) upper\_left\_y, [**double**](classCoordinate2D.md) dx=1.0, [**double**](classCoordinate2D.md) dy=-1.0) <br> |
-|   | [**GeoTransform**](#function-geotransform-24) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & upper\_left, [**double**](classCoordinate2D.md) resolution) <br> |
+|   | [**GeoTransform**](#function-geotransform-14) (double upper\_left\_x, double upper\_left\_y, double dx=1.0, double dy=-1.0) <br> |
+|   | [**GeoTransform**](#function-geotransform-24) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & upper\_left, double resolution) <br> |
 |   | [**GeoTransform**](#function-geotransform-34) () <br> |
-|   | [**GeoTransform**](#function-geotransform-44) ([**GDALDataset**](classCoordinate2D.md) & dataset) <br> |
-|  [**double**](classCoordinate2D.md) | [**dx**](#function-dx) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**dy**](#function-dy) () const<br> |
-|  [**const**](classCoordinate2D.md) [**double**](classCoordinate2D.md) \* | [**get\_raw**](#function-get_raw) () const<br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**pixel\_to\_projection**](#function-pixel_to_projection) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**projection\_to\_pixel**](#function-projection_to_pixel) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  [**double**](classCoordinate2D.md) | [**rot\_x**](#function-rot_x) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**rot\_y**](#function-rot_y) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**set\_dx**](#function-set_dx) ([**double**](classCoordinate2D.md) dx) <br> |
-|  [**void**](classCoordinate2D.md) | [**set\_dy**](#function-set_dy) ([**double**](classCoordinate2D.md) dy) <br> |
-|  [**GeoTransform**](classGeoTransform.md) | [**with\_new\_resolution**](#function-with_new_resolution) ([**double**](classCoordinate2D.md) new\_resolution) const<br> |
-|  [**double**](classCoordinate2D.md) | [**x**](#function-x) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**y**](#function-y) () const<br> |
+|   | [**GeoTransform**](#function-geotransform-44) (GDALDataset & dataset) <br> |
+|  double | [**dx**](#function-dx) () const<br> |
+|  double | [**dy**](#function-dy) () const<br> |
+|  const double \* | [**get\_raw**](#function-get_raw) () const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; | [**pixel\_to\_projection**](#function-pixel_to_projection) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & coord) const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; | [**projection\_to\_pixel**](#function-projection_to_pixel) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & coord) const<br> |
+|  double | [**rot\_x**](#function-rot_x) () const<br> |
+|  double | [**rot\_y**](#function-rot_y) () const<br> |
+|  void | [**set\_dx**](#function-set_dx) (double dx) <br> |
+|  void | [**set\_dy**](#function-set_dy) (double dy) <br> |
+|  [**GeoTransform**](classGeoTransform.md) | [**with\_new\_resolution**](#function-with_new_resolution) (double new\_resolution) const<br> |
+|  double | [**x**](#function-x) () const<br> |
+|  double | [**y**](#function-y) () const<br> |
 
 
 
@@ -122,7 +122,7 @@ inline GeoTransform::GeoTransform (
 
 ```C++
 inline explicit GeoTransform::GeoTransform (
-    const  Coordinate2D < double > & upper_left,
+    const Coordinate2D < double > & upper_left,
     double resolution
 ) 
 ```
@@ -191,7 +191,7 @@ inline double GeoTransform::dy () const
 ### function get\_raw 
 
 ```C++
-inline const  double * GeoTransform::get_raw () const
+inline const double * GeoTransform::get_raw () const
 ```
 
 
@@ -205,7 +205,7 @@ inline const  double * GeoTransform::get_raw () const
 
 ```C++
 inline Coordinate2D < double > GeoTransform::pixel_to_projection (
-    const  Coordinate2D < double > & coord
+    const Coordinate2D < double > & coord
 ) const
 ```
 
@@ -220,7 +220,7 @@ inline Coordinate2D < double > GeoTransform::pixel_to_projection (
 
 ```C++
 inline Coordinate2D < double > GeoTransform::projection_to_pixel (
-    const  Coordinate2D < double > & coord
+    const Coordinate2D < double > & coord
 ) const
 ```
 
@@ -335,7 +335,7 @@ inline double GeoTransform::y () const
 ```C++
 inline std::ostream & GeoTransform::operator<< (
     std::ostream & os,
-    const  GeoTransform & transform
+    const GeoTransform & transform
 ) 
 ```
 

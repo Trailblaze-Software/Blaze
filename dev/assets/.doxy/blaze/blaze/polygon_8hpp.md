@@ -61,17 +61,20 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**clip\_polygon\_hole\_free\_to\_extent**](#function-clip_polygon_hole_free_to_extent) ([**const**](classCoordinate2D.md) [**PolygonWithHoles**](structPolygonWithHoles.md) & poly, [**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds) <br> |
-|  [**bool**](classCoordinate2D.md) | [**extent\_contains**](#function-extent_contains) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & outer, [**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & inner) <br> |
-|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; | [**intersect\_polygons**](#function-intersect_polygons) ([**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & subject, [**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & clip) <br> |
-|  [**bool**](classCoordinate2D.md) | [**is\_left\_of**](#function-is_left_of) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & from, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & to, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & point) <br> |
-|  [**void**](classCoordinate2D.md) | [**normalize\_polygon**](#function-normalize_polygon) ([**PolygonWithHoles**](structPolygonWithHoles.md) & poly) <br> |
-|  [**bool**](classCoordinate2D.md) | [**point\_in\_ring**](#function-point_in_ring) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & point, [**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & ring) <br> |
-|  [**PolygonWithHoles**](structPolygonWithHoles.md) | [**polygon\_from\_extent**](#function-polygon_from_extent) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & extent) <br> |
-|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; | [**reverse\_ring**](#function-reverse_ring) ([**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & ring) <br> |
-|  [**Extent2D**](structExtent2D.md) | [**ring\_extent**](#function-ring_extent) ([**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & ring) <br> |
-|  [**bool**](classCoordinate2D.md) | [**segment\_intersection**](#function-segment_intersection) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & a1, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & a2, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & b1, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & b2, [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & out) <br> |
-|  [**double**](classCoordinate2D.md) | [**signed\_area**](#function-signed_area) ([**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & ring) <br> |
+|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**clip\_polygon\_hole\_free\_to\_extent**](#function-clip_polygon_hole_free_to_extent) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & poly, const [**Extent2D**](structExtent2D.md) & bounds) <br> |
+|  void | [**dedupe\_consecutive\_ring\_vertices**](#function-dedupe_consecutive_ring_vertices) (std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring, double tolerance=1e-9) <br> |
+|  bool | [**extent\_contains**](#function-extent_contains) (const [**Extent2D**](structExtent2D.md) & outer, const [**Extent2D**](structExtent2D.md) & inner) <br> |
+|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**intersect\_polygons**](#function-intersect_polygons) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & subject, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & clip) <br> |
+|  bool | [**is\_left\_of**](#function-is_left_of) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & from, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & to, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point) <br> |
+|  void | [**normalize\_polygon**](#function-normalize_polygon) ([**PolygonWithHoles**](structPolygonWithHoles.md) & poly) <br> |
+|  bool | [**point\_in\_ring**](#function-point_in_ring) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring) <br> |
+|  [**PolygonWithHoles**](structPolygonWithHoles.md) | [**polygon\_from\_extent**](#function-polygon_from_extent) (const [**Extent2D**](structExtent2D.md) & extent) <br> |
+|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**reverse\_ring**](#function-reverse_ring) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**ring\_extent**](#function-ring_extent) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring) <br> |
+|  bool | [**segment\_intersection**](#function-segment_intersection) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & a1, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & a2, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & b1, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & b2, [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & out) <br> |
+|  double | [**signed\_area**](#function-signed_area) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring) <br> |
+|  void | [**snap\_polygon\_to\_extents**](#function-snap_polygon_to_extents) ([**PolygonWithHoles**](structPolygonWithHoles.md) & poly, const std::vector&lt; [**Extent2D**](structExtent2D.md) &gt; & extents, double tolerance) <br> |
+|  void | [**snap\_ring\_to\_extent**](#function-snap_ring_to_extent) (std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring, const [**Extent2D**](structExtent2D.md) & extent, double tolerance) <br> |
 
 
 
@@ -109,8 +112,24 @@
 
 ```C++
 inline std::vector< PolygonWithHoles > clip_polygon_hole_free_to_extent (
-    const  PolygonWithHoles & poly,
-    const  Extent2D & bounds
+    const PolygonWithHoles & poly,
+    const Extent2D & bounds
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function dedupe\_consecutive\_ring\_vertices 
+
+```C++
+inline void dedupe_consecutive_ring_vertices (
+    std::vector< Coordinate2D < double > > & ring,
+    double tolerance=1e-9
 ) 
 ```
 
@@ -125,8 +144,8 @@ inline std::vector< PolygonWithHoles > clip_polygon_hole_free_to_extent (
 
 ```C++
 inline bool extent_contains (
-    const  Extent2D & outer,
-    const  Extent2D & inner
+    const Extent2D & outer,
+    const Extent2D & inner
 ) 
 ```
 
@@ -157,9 +176,9 @@ inline std::vector< Coordinate2D < double > > intersect_polygons (
 
 ```C++
 inline bool is_left_of (
-    const  Coordinate2D < double > & from,
-    const  Coordinate2D < double > & to,
-    const  Coordinate2D < double > & point
+    const Coordinate2D < double > & from,
+    const Coordinate2D < double > & to,
+    const Coordinate2D < double > & point
 ) 
 ```
 
@@ -189,7 +208,7 @@ inline void normalize_polygon (
 
 ```C++
 inline bool point_in_ring (
-    const  Coordinate2D < double > & point,
+    const Coordinate2D < double > & point,
     const std::vector< Coordinate2D < double > > & ring
 ) 
 ```
@@ -205,7 +224,7 @@ inline bool point_in_ring (
 
 ```C++
 inline PolygonWithHoles polygon_from_extent (
-    const  Extent2D & extent
+    const Extent2D & extent
 ) 
 ```
 
@@ -250,10 +269,10 @@ inline Extent2D ring_extent (
 
 ```C++
 inline bool segment_intersection (
-    const  Coordinate2D < double > & a1,
-    const  Coordinate2D < double > & a2,
-    const  Coordinate2D < double > & b1,
-    const  Coordinate2D < double > & b2,
+    const Coordinate2D < double > & a1,
+    const Coordinate2D < double > & a2,
+    const Coordinate2D < double > & b1,
+    const Coordinate2D < double > & b2,
     Coordinate2D < double > & out
 ) 
 ```
@@ -270,6 +289,40 @@ inline bool segment_intersection (
 ```C++
 inline double signed_area (
     const std::vector< Coordinate2D < double > > & ring
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function snap\_polygon\_to\_extents 
+
+```C++
+inline void snap_polygon_to_extents (
+    PolygonWithHoles & poly,
+    const std::vector< Extent2D > & extents,
+    double tolerance
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function snap\_ring\_to\_extent 
+
+```C++
+inline void snap_ring_to_extent (
+    std::vector< Coordinate2D < double > > & ring,
+    const Extent2D & extent,
+    double tolerance
 ) 
 ```
 

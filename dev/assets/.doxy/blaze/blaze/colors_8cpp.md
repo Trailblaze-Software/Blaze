@@ -11,7 +11,8 @@
 
 
 * `#include "colors.hpp"`
-* `#include <opencv2/opencv.hpp>`
+* `#include <algorithm>`
+* `#include <cmath>`
 * `#include "lib/assert/assert.hpp"`
 
 

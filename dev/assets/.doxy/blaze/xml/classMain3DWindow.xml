@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="53" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="53" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="105" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMain3DWindow_1a01c9ce8312efdcfed25b221a8fd863a8" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="classGLWidget" kindref="compound">GLWidget</ref> &gt;</type>
@@ -30,7 +30,438 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="54" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="54" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="106" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a932a754f0836e261a3e3ddab01ca2404" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;Layer&gt; &gt; Main3DWindow::m_layers</definition>
+        <argsstring></argsstring>
+        <name>m_layers</name>
+        <qualifiedname>Main3DWindow::m_layers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="107" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a1d65a4d4b9c441b094b4c72fdf566054" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; const <ref refid="classLayer" kindref="compound">Layer</ref> *, <ref refid="classProgressTrackerBar" kindref="compound">ProgressTrackerBar</ref> * &gt;</type>
+        <definition>std::unordered_map&lt;const Layer*, ProgressTrackerBar*&gt; Main3DWindow::m_layer_progress_bars</definition>
+        <argsstring></argsstring>
+        <name>m_layer_progress_bars</name>
+        <qualifiedname>Main3DWindow::m_layer_progress_bars</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="112" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1ad99825afc4427e25530d938ca32c658d" prot="private" static="no" mutable="no">
+        <type><ref refid="classProgressTrackerBar" kindref="compound">ProgressTrackerBar</ref> *</type>
+        <definition>ProgressTrackerBar* Main3DWindow::m_pending_progress_bar</definition>
+        <argsstring></argsstring>
+        <name>m_pending_progress_bar</name>
+        <qualifiedname>Main3DWindow::m_pending_progress_bar</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="113" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a0223f42d380f66f91833238db0fb71f0" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_exit_after_load</definition>
+        <argsstring></argsstring>
+        <name>m_exit_after_load</name>
+        <qualifiedname>Main3DWindow::m_exit_after_load</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="114" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a50abebf7e5ea0503f8caa5263753ed7b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_exit_after_render</definition>
+        <argsstring></argsstring>
+        <name>m_exit_after_render</name>
+        <qualifiedname>Main3DWindow::m_exit_after_render</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="115" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a7bcd19d39af9a68da2567d630ffb250c" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_exit_after_load_fired</definition>
+        <argsstring></argsstring>
+        <name>m_exit_after_load_fired</name>
+        <qualifiedname>Main3DWindow::m_exit_after_load_fired</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="116" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a8939870ae9da7e307bf3f79a621501cd" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_bench_mode</definition>
+        <argsstring></argsstring>
+        <name>m_bench_mode</name>
+        <qualifiedname>Main3DWindow::m_bench_mode</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="117" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1ad3a57ec3b202f9721a0fd70fa962a274" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_defer_render_until_loaded</definition>
+        <argsstring></argsstring>
+        <name>m_defer_render_until_loaded</name>
+        <qualifiedname>Main3DWindow::m_defer_render_until_loaded</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="118" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a12a7db8579a1f02799f189ced2c2cf5e" prot="private" static="no" mutable="no">
+        <type>QWidget *</type>
+        <definition>QWidget* Main3DWindow::m_point_cloud_panel</definition>
+        <argsstring></argsstring>
+        <name>m_point_cloud_panel</name>
+        <qualifiedname>Main3DWindow::m_point_cloud_panel</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="120" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a806b575b7e390512edfee94043964556" prot="private" static="no" mutable="no">
+        <type>QGroupBox *</type>
+        <definition>QGroupBox* Main3DWindow::m_surface_layer_panel</definition>
+        <argsstring></argsstring>
+        <name>m_surface_layer_panel</name>
+        <qualifiedname>Main3DWindow::m_surface_layer_panel</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="121" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a06cf57fbf7e974d1090aa78c739af02d" prot="private" static="no" mutable="no">
+        <type>QSlider *</type>
+        <definition>QSlider* Main3DWindow::m_surface_opacity_slider</definition>
+        <argsstring></argsstring>
+        <name>m_surface_opacity_slider</name>
+        <qualifiedname>Main3DWindow::m_surface_opacity_slider</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="122" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a2df6317331ee451aa9b8b43bf937089e" prot="private" static="no" mutable="no">
+        <type>QLabel *</type>
+        <definition>QLabel* Main3DWindow::m_surface_opacity_value_label</definition>
+        <argsstring></argsstring>
+        <name>m_surface_opacity_value_label</name>
+        <qualifiedname>Main3DWindow::m_surface_opacity_value_label</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="123" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1afaed8ba4bf8f6fe86bfa1f75503a0c5f" prot="private" static="no" mutable="no">
+        <type>QDoubleSpinBox *</type>
+        <definition>QDoubleSpinBox* Main3DWindow::m_surface_vertical_offset_spin</definition>
+        <argsstring></argsstring>
+        <name>m_surface_vertical_offset_spin</name>
+        <qualifiedname>Main3DWindow::m_surface_vertical_offset_spin</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="124" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a923a21b0349e83ab8cec83fe5a1beac5" prot="private" static="no" mutable="no">
+        <type>QSlider *</type>
+        <definition>QSlider* Main3DWindow::m_point_size_slider</definition>
+        <argsstring></argsstring>
+        <name>m_point_size_slider</name>
+        <qualifiedname>Main3DWindow::m_point_size_slider</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="125" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a75cb104794280b7a0ebbca0693f9bc92" prot="private" static="no" mutable="no">
+        <type>QSlider *</type>
+        <definition>QSlider* Main3DWindow::m_point_alpha_slider</definition>
+        <argsstring></argsstring>
+        <name>m_point_alpha_slider</name>
+        <qualifiedname>Main3DWindow::m_point_alpha_slider</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="126" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a19d5b20831054067d422b5283296f931" prot="private" static="no" mutable="no">
+        <type>QSlider *</type>
+        <definition>QSlider* Main3DWindow::m_point_stream_budget_slider</definition>
+        <argsstring></argsstring>
+        <name>m_point_stream_budget_slider</name>
+        <qualifiedname>Main3DWindow::m_point_stream_budget_slider</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="127" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1acaf433d9d6afdd25ae372071b829f8f9" prot="private" static="no" mutable="no">
+        <type>QLabel *</type>
+        <definition>QLabel* Main3DWindow::m_point_size_value_label</definition>
+        <argsstring></argsstring>
+        <name>m_point_size_value_label</name>
+        <qualifiedname>Main3DWindow::m_point_size_value_label</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="128" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a5a0df5e593b32238f25676d2137e9e6d" prot="private" static="no" mutable="no">
+        <type>QLabel *</type>
+        <definition>QLabel* Main3DWindow::m_point_alpha_value_label</definition>
+        <argsstring></argsstring>
+        <name>m_point_alpha_value_label</name>
+        <qualifiedname>Main3DWindow::m_point_alpha_value_label</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="129" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1ab84225dc48eeb3ed0494b029e24b5094" prot="private" static="no" mutable="no">
+        <type>QLabel *</type>
+        <definition>QLabel* Main3DWindow::m_point_stream_budget_value_label</definition>
+        <argsstring></argsstring>
+        <name>m_point_stream_budget_value_label</name>
+        <qualifiedname>Main3DWindow::m_point_stream_budget_value_label</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="130" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a5de56547219b9309e60763020555e762" prot="private" static="no" mutable="no">
+        <type>QComboBox *</type>
+        <definition>QComboBox* Main3DWindow::m_point_color_mode_combo</definition>
+        <argsstring></argsstring>
+        <name>m_point_color_mode_combo</name>
+        <qualifiedname>Main3DWindow::m_point_color_mode_combo</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="131" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1aec8ec74932820db094fbae5f5c679c71" prot="private" static="no" mutable="no">
+        <type>QPushButton *</type>
+        <definition>QPushButton* Main3DWindow::m_point_fixed_color_button</definition>
+        <argsstring></argsstring>
+        <name>m_point_fixed_color_button</name>
+        <qualifiedname>Main3DWindow::m_point_fixed_color_button</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="132" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a523ab875239e29751bbda0deb29fe532" prot="private" static="no" mutable="no">
+        <type>QGroupBox *</type>
+        <definition>QGroupBox* Main3DWindow::m_point_details_panel</definition>
+        <argsstring></argsstring>
+        <name>m_point_details_panel</name>
+        <qualifiedname>Main3DWindow::m_point_details_panel</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="133" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a896772d54cfb69360226fb5da084460f" prot="private" static="no" mutable="no">
+        <type>QLabel *</type>
+        <definition>QLabel* Main3DWindow::m_point_details_label</definition>
+        <argsstring></argsstring>
+        <name>m_point_details_label</name>
+        <qualifiedname>Main3DWindow::m_point_details_label</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="134" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1aaf0d058cea04d70b65c803c852112e81" prot="private" static="no" mutable="no">
+        <type>std::weak_ptr&lt; <ref refid="classLASLayer" kindref="compound">LASLayer</ref> &gt;</type>
+        <definition>std::weak_ptr&lt;LASLayer&gt; Main3DWindow::m_active_las_layer</definition>
+        <argsstring></argsstring>
+        <name>m_active_las_layer</name>
+        <qualifiedname>Main3DWindow::m_active_las_layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="135" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1ab5ab0f04b192c30c5a2a7656a656b37c" prot="private" static="no" mutable="no">
+        <type>std::weak_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt;</type>
+        <definition>std::weak_ptr&lt;Layer&gt; Main3DWindow::m_active_surface_layer</definition>
+        <argsstring></argsstring>
+        <name>m_active_surface_layer</name>
+        <qualifiedname>Main3DWindow::m_active_surface_layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="136" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a3778f6bd586ad0bf218941886a19be5f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_updating_point_cloud_ui</definition>
+        <argsstring></argsstring>
+        <name>m_updating_point_cloud_ui</name>
+        <qualifiedname>Main3DWindow::m_updating_point_cloud_ui</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="137" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1a2b905eafff727b7bf87a093e9e01ee58" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_updating_surface_ui</definition>
+        <argsstring></argsstring>
+        <name>m_updating_surface_ui</name>
+        <qualifiedname>Main3DWindow::m_updating_surface_ui</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="138" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1ac7cbdd13452ef0e36daa0b8e72b030d2" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_zoom_after_load</definition>
+        <argsstring></argsstring>
+        <name>m_zoom_after_load</name>
+        <qualifiedname>Main3DWindow::m_zoom_after_load</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="139" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMain3DWindow_1aa12c1df0821fc0a2efd116ee8f799479" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Main3DWindow::m_zoom_completed</definition>
+        <argsstring></argsstring>
+        <name>m_zoom_completed</name>
+        <qualifiedname>Main3DWindow::m_zoom_completed</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="140" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="140" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -46,12 +477,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="42" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="9" bodyend="28"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="71" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="97" bodyend="146"/>
       </memberdef>
-      <memberdef kind="function" id="classMain3DWindow_1ade62cfe13a779912805b513694a836af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classMain3DWindow_1a3fa1ea243877f723f94c066a217e0bde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>Main3DWindow::~Main3DWindow</definition>
-        <argsstring>()</argsstring>
+        <argsstring>() override</argsstring>
         <name>~Main3DWindow</name>
         <qualifiedname>Main3DWindow::~Main3DWindow</qualifiedname>
         <briefdescription>
@@ -60,17 +491,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="43" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="30" bodyend="30"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="72" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="148" bodyend="148"/>
       </memberdef>
-      <memberdef kind="function" id="classMain3DWindow_1a36718111f758652e475bb871b1860987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+      <memberdef kind="function" id="classMain3DWindow_1aa92cc80a83b81ccba3047b8b77c5d7ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
         <definition>void Main3DWindow::add_layer</definition>
-        <argsstring>(std::unique_ptr&lt; Layer &gt; layer)</argsstring>
+        <argsstring>(std::unique_ptr&lt; Layer &gt; layer, bool auto_zoom=true)</argsstring>
         <name>add_layer</name>
         <qualifiedname>Main3DWindow::add_layer</qualifiedname>
         <param>
           <type>std::unique_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt;</type>
           <declname>layer</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>auto_zoom</declname>
+          <defval>true</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -78,7 +514,97 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="45" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="38" bodyend="44"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="74" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="568" bodyend="584"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a1aafdbfbfd12c3401d726c6f6ee9fbbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::import_blaze_output_from_path</definition>
+        <argsstring>(const std::string &amp;directory)</argsstring>
+        <name>import_blaze_output_from_path</name>
+        <qualifiedname>Main3DWindow::import_blaze_output_from_path</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>directory</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="76" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="697" bodyend="729"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1aa60d72c1a080ab29deca8a95a82d577e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::set_exit_after_load</definition>
+        <argsstring>(bool exit_after_load)</argsstring>
+        <name>set_exit_after_load</name>
+        <qualifiedname>Main3DWindow::set_exit_after_load</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>exit_after_load</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="77" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="731" bodyend="734"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a666a18fc2ba42e379b6135ae480d1775" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::set_exit_after_render</definition>
+        <argsstring>(bool exit_after_render)</argsstring>
+        <name>set_exit_after_render</name>
+        <qualifiedname>Main3DWindow::set_exit_after_render</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>exit_after_render</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="78" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="78" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a06ca648144a80a5b07ee2361c745a0bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::set_bench_mode</definition>
+        <argsstring>(bool bench)</argsstring>
+        <name>set_bench_mode</name>
+        <qualifiedname>Main3DWindow::set_bench_mode</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bench</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="79" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a78e20374ba3c2a5b9091e8a2df02cef0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::set_defer_render_until_loaded</definition>
+        <argsstring>(bool defer)</argsstring>
+        <name>set_defer_render_until_loaded</name>
+        <qualifiedname>Main3DWindow::set_defer_render_until_loaded</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>defer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="80" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="736" bodyend="739"/>
       </memberdef>
       <memberdef kind="function" id="classMain3DWindow_1ab88a3fa1d7f75a8f3186ec67e318b563" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
@@ -92,12 +618,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="47" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="32" bodyend="36"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="82" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="550" bodyend="556"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1af9180ee83b035e5dd4a034f5b67cf36a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string &amp; Main3DWindow::scene_reference_crs</definition>
+        <argsstring>() const</argsstring>
+        <name>scene_reference_crs</name>
+        <qualifiedname>Main3DWindow::scene_reference_crs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="83" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="83" bodyend="83"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-slot">
       <memberdef kind="slot" id="classMain3DWindow_1a0f0a2bf626dbf60827edfc295b297fed" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void Main3DWindow::open_layer_file</definition>
         <argsstring>()</argsstring>
         <name>open_layer_file</name>
@@ -108,7 +648,429 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="50" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="46" bodyend="51"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="86" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="586" bodyend="595"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1a1e978f8123ef094d1bfe36b69068c462" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::import_blaze_output</definition>
+        <argsstring>()</argsstring>
+        <name>import_blaze_output</name>
+        <qualifiedname>Main3DWindow::import_blaze_output</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="87" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="597" bodyend="603"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1a15ef51a2ab36b9cb2e6f56f578d12aeb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::open_lighting_settings</definition>
+        <argsstring>()</argsstring>
+        <name>open_lighting_settings</name>
+        <qualifiedname>Main3DWindow::open_lighting_settings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="88" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="605" bodyend="695"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1a1c32f8276a43130332b9196eb33e2198" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::run_blaze_on_layers</definition>
+        <argsstring>()</argsstring>
+        <name>run_blaze_on_layers</name>
+        <qualifiedname>Main3DWindow::run_blaze_on_layers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="89" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="824" bodyend="869"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1ac4eabfc8701d3e7dae86e79273e4164d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::on_treeWidget_itemChanged</definition>
+        <argsstring>(QTreeWidgetItem *item, int column)</argsstring>
+        <name>on_treeWidget_itemChanged</name>
+        <qualifiedname>Main3DWindow::on_treeWidget_itemChanged</qualifiedname>
+        <param>
+          <type>QTreeWidgetItem *</type>
+          <declname>item</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="90" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="915" bodyend="941"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1ab6c59095093265e8cf5707f8b814c649" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::on_treeWidget_customContextMenuRequested</definition>
+        <argsstring>(const QPoint &amp;pos)</argsstring>
+        <name>on_treeWidget_customContextMenuRequested</name>
+        <qualifiedname>Main3DWindow::on_treeWidget_customContextMenuRequested</qualifiedname>
+        <param>
+          <type>const QPoint &amp;</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="91" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="994" bodyend="1014"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1a16fab808ac868c8b937f4cd3e1c9c02e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::remove_selected_layer</definition>
+        <argsstring>()</argsstring>
+        <name>remove_selected_layer</name>
+        <qualifiedname>Main3DWindow::remove_selected_layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="92" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="985" bodyend="992"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1a670e048fa0cddce7280a185b89200601" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::maybe_exit_after_load</definition>
+        <argsstring>()</argsstring>
+        <name>maybe_exit_after_load</name>
+        <qualifiedname>Main3DWindow::maybe_exit_after_load</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="93" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="775" bodyend="811"/>
+      </memberdef>
+      <memberdef kind="slot" id="classMain3DWindow_1a54ee2ffe03d56d68b334ad86899703a9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::finish_exit_after_load</definition>
+        <argsstring>()</argsstring>
+        <name>finish_exit_after_load</name>
+        <qualifiedname>Main3DWindow::finish_exit_after_load</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="94" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="813" bodyend="822"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMain3DWindow_1ad3c416cee9fb5ed62bba3cb7b3ab443a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::add_layer_to_tree</definition>
+        <argsstring>(std::shared_ptr&lt; Layer &gt; layer)</argsstring>
+        <name>add_layer_to_tree</name>
+        <qualifiedname>Main3DWindow::add_layer_to_tree</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="97" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="558" bodyend="566"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1afe21e0c94bb3185a7dc8de7184a72bf2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::remove_layer</definition>
+        <argsstring>(const std::shared_ptr&lt; Layer &gt; &amp;layer)</argsstring>
+        <name>remove_layer</name>
+        <qualifiedname>Main3DWindow::remove_layer</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt; &amp;</type>
+          <declname>layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="98" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="954" bodyend="983"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a00ab24d4d860b3c5524e9ba54c11acd5" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>QTreeWidgetItem *</type>
+        <definition>QTreeWidgetItem * Main3DWindow::find_tree_item_for_layer</definition>
+        <argsstring>(Layer *layer) const</argsstring>
+        <name>find_tree_item_for_layer</name>
+        <qualifiedname>Main3DWindow::find_tree_item_for_layer</qualifiedname>
+        <param>
+          <type><ref refid="classLayer" kindref="compound">Layer</ref> *</type>
+          <declname>layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="99" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="943" bodyend="952"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1adeb02b29169a0faf68e5610d6fa5e493" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::update_render_mode</definition>
+        <argsstring>()</argsstring>
+        <name>update_render_mode</name>
+        <qualifiedname>Main3DWindow::update_render_mode</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="100" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="741" bodyend="757"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1aef376bab7914771c7635233cd7fc368e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::run_blaze_with_config</definition>
+        <argsstring>(const Config &amp;config, QDialog *config_dialog)</argsstring>
+        <name>run_blaze_with_config</name>
+        <qualifiedname>Main3DWindow::run_blaze_with_config</qualifiedname>
+        <param>
+          <type>const <ref refid="structConfig" kindref="compound">Config</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <param>
+          <type>QDialog *</type>
+          <declname>config_dialog</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="101" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="871" bodyend="913"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a7ffd16c7ef544c9bb42f96ee53340402" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::setup_animation_panel</definition>
+        <argsstring>()</argsstring>
+        <name>setup_animation_panel</name>
+        <qualifiedname>Main3DWindow::setup_animation_panel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="142" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="150" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1af49c8dff313d74d06e072c74400e7ee4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::setup_point_cloud_panel</definition>
+        <argsstring>()</argsstring>
+        <name>setup_point_cloud_panel</name>
+        <qualifiedname>Main3DWindow::setup_point_cloud_panel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="143" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="250" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a9fb50034837024ee722bb60d39ceb08e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::setup_surface_layer_panel</definition>
+        <argsstring>()</argsstring>
+        <name>setup_surface_layer_panel</name>
+        <qualifiedname>Main3DWindow::setup_surface_layer_panel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="144" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="350" bodyend="386"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a366f95bbf6d587607aef1f4da0c34a3a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::setup_point_details_panel</definition>
+        <argsstring>()</argsstring>
+        <name>setup_point_details_panel</name>
+        <qualifiedname>Main3DWindow::setup_point_details_panel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="145" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="388" bodyend="397"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a78632078c6583cb43e63f156352b9125" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::show_point_pick_details</definition>
+        <argsstring>(const PointPickResult &amp;pick)</argsstring>
+        <name>show_point_pick_details</name>
+        <qualifiedname>Main3DWindow::show_point_pick_details</qualifiedname>
+        <param>
+          <type>const <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &amp;</type>
+          <declname>pick</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="146" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="399" bodyend="427"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a85a57e92d5710f56e42056233e03abd7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::clear_point_pick_details</definition>
+        <argsstring>()</argsstring>
+        <name>clear_point_pick_details</name>
+        <qualifiedname>Main3DWindow::clear_point_pick_details</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="147" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="429" bodyend="433"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1acb64e3ea10db1376410ad2c64ff12e38" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::update_layer_panels_for_selection</definition>
+        <argsstring>()</argsstring>
+        <name>update_layer_panels_for_selection</name>
+        <qualifiedname>Main3DWindow::update_layer_panels_for_selection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="148" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="435" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a0de2318cf8b2f957e9410cfefc07f4e2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::update_point_cloud_panel_for_selection</definition>
+        <argsstring>()</argsstring>
+        <name>update_point_cloud_panel_for_selection</name>
+        <qualifiedname>Main3DWindow::update_point_cloud_panel_for_selection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="149" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="440" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a490acc787d6e9e8eb7f32f17807e2ecf" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::update_surface_layer_panel_for_selection</definition>
+        <argsstring>()</argsstring>
+        <name>update_surface_layer_panel_for_selection</name>
+        <qualifiedname>Main3DWindow::update_surface_layer_panel_for_selection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="150" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="473" bodyend="495"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a3ae97b3ceb188cd7c8519387e17cc652" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::update_point_cloud_value_labels</definition>
+        <argsstring>()</argsstring>
+        <name>update_point_cloud_value_labels</name>
+        <qualifiedname>Main3DWindow::update_point_cloud_value_labels</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="151" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="517" bodyend="529"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a8f253513afce7d5eefc099fc29fe54e0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::update_surface_layer_value_labels</definition>
+        <argsstring>()</argsstring>
+        <name>update_surface_layer_value_labels</name>
+        <qualifiedname>Main3DWindow::update_surface_layer_value_labels</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="152" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="497" bodyend="502"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1abdab8c7accb84cb8e054cb2a0d4393a5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::apply_point_cloud_style_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>apply_point_cloud_style_from_ui</name>
+        <qualifiedname>Main3DWindow::apply_point_cloud_style_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="153" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="531" bodyend="548"/>
+      </memberdef>
+      <memberdef kind="function" id="classMain3DWindow_1a5e46f083fb16fbfbce65c6ce208e14e0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Main3DWindow::apply_surface_layer_style_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>apply_surface_layer_style_from_ui</name>
+        <qualifiedname>Main3DWindow::apply_surface_layer_style_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="154" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="504" bodyend="515"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classMain3DWindow_1a73cdc3ac30d7bbc6b2fbc18b96a6bb2e" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Main3DWindow::layer_is_ready</definition>
+        <argsstring>(const Layer &amp;layer)</argsstring>
+        <name>layer_is_ready</name>
+        <qualifiedname>Main3DWindow::layer_is_ready</qualifiedname>
+        <param>
+          <type>const <ref refid="classLayer" kindref="compound">Layer</ref> &amp;</type>
+          <declname>layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="103" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp" bodystart="759" bodyend="773"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -137,15 +1099,77 @@
         <label>QMainWindow</label>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="38" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="38" bodyend="55"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" line="67" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp" bodystart="67" bodyend="155"/>
     <listofallmembers>
-      <member refid="classMain3DWindow_1a36718111f758652e475bb871b1860987" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>add_layer</name></member>
+      <member refid="classMain3DWindow_1aa92cc80a83b81ccba3047b8b77c5d7ff" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>add_layer</name></member>
+      <member refid="classMain3DWindow_1ad3c416cee9fb5ed62bba3cb7b3ab443a" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>add_layer_to_tree</name></member>
       <member refid="classMain3DWindow_1ab88a3fa1d7f75a8f3186ec67e318b563" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>add_progress_tracker</name></member>
+      <member refid="classMain3DWindow_1abdab8c7accb84cb8e054cb2a0d4393a5" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>apply_point_cloud_style_from_ui</name></member>
+      <member refid="classMain3DWindow_1a5e46f083fb16fbfbce65c6ce208e14e0" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>apply_surface_layer_style_from_ui</name></member>
+      <member refid="classMain3DWindow_1a85a57e92d5710f56e42056233e03abd7" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>clear_point_pick_details</name></member>
+      <member refid="classMain3DWindow_1a00ab24d4d860b3c5524e9ba54c11acd5" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>find_tree_item_for_layer</name></member>
+      <member refid="classMain3DWindow_1a54ee2ffe03d56d68b334ad86899703a9" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>finish_exit_after_load</name></member>
       <member refid="classMain3DWindow_1a01c9ce8312efdcfed25b221a8fd863a8" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>gl_widget</name></member>
+      <member refid="classMain3DWindow_1a1e978f8123ef094d1bfe36b69068c462" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>import_blaze_output</name></member>
+      <member refid="classMain3DWindow_1a1aafdbfbfd12c3401d726c6f6ee9fbbc" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>import_blaze_output_from_path</name></member>
+      <member refid="classMain3DWindow_1a73cdc3ac30d7bbc6b2fbc18b96a6bb2e" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>layer_is_ready</name></member>
+      <member refid="classMain3DWindow_1aaf0d058cea04d70b65c803c852112e81" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_active_las_layer</name></member>
+      <member refid="classMain3DWindow_1ab5ab0f04b192c30c5a2a7656a656b37c" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_active_surface_layer</name></member>
+      <member refid="classMain3DWindow_1a8939870ae9da7e307bf3f79a621501cd" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_bench_mode</name></member>
+      <member refid="classMain3DWindow_1ad3a57ec3b202f9721a0fd70fa962a274" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_defer_render_until_loaded</name></member>
+      <member refid="classMain3DWindow_1a0223f42d380f66f91833238db0fb71f0" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_exit_after_load</name></member>
+      <member refid="classMain3DWindow_1a7bcd19d39af9a68da2567d630ffb250c" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_exit_after_load_fired</name></member>
+      <member refid="classMain3DWindow_1a50abebf7e5ea0503f8caa5263753ed7b" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_exit_after_render</name></member>
+      <member refid="classMain3DWindow_1a1d65a4d4b9c441b094b4c72fdf566054" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_layer_progress_bars</name></member>
+      <member refid="classMain3DWindow_1a932a754f0836e261a3e3ddab01ca2404" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_layers</name></member>
+      <member refid="classMain3DWindow_1ad99825afc4427e25530d938ca32c658d" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_pending_progress_bar</name></member>
+      <member refid="classMain3DWindow_1a75cb104794280b7a0ebbca0693f9bc92" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_alpha_slider</name></member>
+      <member refid="classMain3DWindow_1a5a0df5e593b32238f25676d2137e9e6d" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_alpha_value_label</name></member>
+      <member refid="classMain3DWindow_1a12a7db8579a1f02799f189ced2c2cf5e" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_cloud_panel</name></member>
+      <member refid="classMain3DWindow_1a5de56547219b9309e60763020555e762" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_color_mode_combo</name></member>
+      <member refid="classMain3DWindow_1a896772d54cfb69360226fb5da084460f" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_details_label</name></member>
+      <member refid="classMain3DWindow_1a523ab875239e29751bbda0deb29fe532" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_details_panel</name></member>
+      <member refid="classMain3DWindow_1aec8ec74932820db094fbae5f5c679c71" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_fixed_color_button</name></member>
+      <member refid="classMain3DWindow_1a923a21b0349e83ab8cec83fe5a1beac5" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_size_slider</name></member>
+      <member refid="classMain3DWindow_1acaf433d9d6afdd25ae372071b829f8f9" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_size_value_label</name></member>
+      <member refid="classMain3DWindow_1a19d5b20831054067d422b5283296f931" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_stream_budget_slider</name></member>
+      <member refid="classMain3DWindow_1ab84225dc48eeb3ed0494b029e24b5094" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_point_stream_budget_value_label</name></member>
+      <member refid="classMain3DWindow_1a806b575b7e390512edfee94043964556" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_surface_layer_panel</name></member>
+      <member refid="classMain3DWindow_1a06cf57fbf7e974d1090aa78c739af02d" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_surface_opacity_slider</name></member>
+      <member refid="classMain3DWindow_1a2df6317331ee451aa9b8b43bf937089e" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_surface_opacity_value_label</name></member>
+      <member refid="classMain3DWindow_1afaed8ba4bf8f6fe86bfa1f75503a0c5f" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_surface_vertical_offset_spin</name></member>
+      <member refid="classMain3DWindow_1a3778f6bd586ad0bf218941886a19be5f" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_updating_point_cloud_ui</name></member>
+      <member refid="classMain3DWindow_1a2b905eafff727b7bf87a093e9e01ee58" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_updating_surface_ui</name></member>
+      <member refid="classMain3DWindow_1ac7cbdd13452ef0e36daa0b8e72b030d2" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_zoom_after_load</name></member>
+      <member refid="classMain3DWindow_1aa12c1df0821fc0a2efd116ee8f799479" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>m_zoom_completed</name></member>
       <member refid="classMain3DWindow_1ad47c23df59826617998190e990be59b3" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>Main3DWindow</name></member>
+      <member refid="classMain3DWindow_1a670e048fa0cddce7280a185b89200601" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>maybe_exit_after_load</name></member>
+      <member refid="classMain3DWindow_1ab6c59095093265e8cf5707f8b814c649" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>on_treeWidget_customContextMenuRequested</name></member>
+      <member refid="classMain3DWindow_1ac4eabfc8701d3e7dae86e79273e4164d" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>on_treeWidget_itemChanged</name></member>
       <member refid="classMain3DWindow_1a0f0a2bf626dbf60827edfc295b297fed" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>open_layer_file</name></member>
+      <member refid="classMain3DWindow_1a15ef51a2ab36b9cb2e6f56f578d12aeb" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>open_lighting_settings</name></member>
+      <member refid="classMain3DWindow_1afe21e0c94bb3185a7dc8de7184a72bf2" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>remove_layer</name></member>
+      <member refid="classMain3DWindow_1a16fab808ac868c8b937f4cd3e1c9c02e" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>remove_selected_layer</name></member>
+      <member refid="classMain3DWindow_1a1c32f8276a43130332b9196eb33e2198" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>run_blaze_on_layers</name></member>
+      <member refid="classMain3DWindow_1aef376bab7914771c7635233cd7fc368e" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>run_blaze_with_config</name></member>
+      <member refid="classMain3DWindow_1af9180ee83b035e5dd4a034f5b67cf36a" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>scene_reference_crs</name></member>
+      <member refid="classMain3DWindow_1a06ca648144a80a5b07ee2361c745a0bb" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>set_bench_mode</name></member>
+      <member refid="classMain3DWindow_1a78e20374ba3c2a5b9091e8a2df02cef0" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>set_defer_render_until_loaded</name></member>
+      <member refid="classMain3DWindow_1aa60d72c1a080ab29deca8a95a82d577e" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>set_exit_after_load</name></member>
+      <member refid="classMain3DWindow_1a666a18fc2ba42e379b6135ae480d1775" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>set_exit_after_render</name></member>
+      <member refid="classMain3DWindow_1a7ffd16c7ef544c9bb42f96ee53340402" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>setup_animation_panel</name></member>
+      <member refid="classMain3DWindow_1af49c8dff313d74d06e072c74400e7ee4" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>setup_point_cloud_panel</name></member>
+      <member refid="classMain3DWindow_1a366f95bbf6d587607aef1f4da0c34a3a" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>setup_point_details_panel</name></member>
+      <member refid="classMain3DWindow_1a9fb50034837024ee722bb60d39ceb08e" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>setup_surface_layer_panel</name></member>
+      <member refid="classMain3DWindow_1a78632078c6583cb43e63f156352b9125" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>show_point_pick_details</name></member>
       <member refid="classMain3DWindow_1a38582cf0396577428420c7ddd87c697b" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>ui</name></member>
-      <member refid="classMain3DWindow_1ade62cfe13a779912805b513694a836af" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>~Main3DWindow</name></member>
+      <member refid="classMain3DWindow_1acb64e3ea10db1376410ad2c64ff12e38" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>update_layer_panels_for_selection</name></member>
+      <member refid="classMain3DWindow_1a0de2318cf8b2f957e9410cfefc07f4e2" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>update_point_cloud_panel_for_selection</name></member>
+      <member refid="classMain3DWindow_1a3ae97b3ceb188cd7c8519387e17cc652" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>update_point_cloud_value_labels</name></member>
+      <member refid="classMain3DWindow_1adeb02b29169a0faf68e5610d6fa5e493" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>update_render_mode</name></member>
+      <member refid="classMain3DWindow_1a490acc787d6e9e8eb7f32f17807e2ecf" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>update_surface_layer_panel_for_selection</name></member>
+      <member refid="classMain3DWindow_1a8f253513afce7d5eefc099fc29fe54e0" prot="private" virt="non-virtual"><scope>Main3DWindow</scope><name>update_surface_layer_value_labels</name></member>
+      <member refid="classMain3DWindow_1a3fa1ea243877f723f94c066a217e0bde" prot="public" virt="non-virtual"><scope>Main3DWindow</scope><name>~Main3DWindow</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

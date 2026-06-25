@@ -73,17 +73,16 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**TileModeInfo**](structTileModeInfo.md) | [**analyze\_extents**](#function-analyze_extents) (std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents, [**const**](classCoordinate2D.md) std::string & override\_wkt="") <br> |
-|  std::vector&lt; [**Tile**](structTile.md) &gt; | [**compute\_tiles**](#function-compute_tiles) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & overall, [**double**](classCoordinate2D.md) tile\_size, [**const**](classCoordinate2D.md) std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents={}) <br> |
-|  [**TileModeInfo**](structTileModeInfo.md) | [**detect\_tile\_mode\_needed**](#function-detect_tile_mode_needed) ([**const**](classCoordinate2D.md) std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents) <br> |
-|  std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; | [**load\_input\_extents**](#function-load_input_extents) ([**const**](classCoordinate2D.md) std::vector&lt; fs::path &gt; & files, [**const**](classCoordinate2D.md) std::string & override\_crs, std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) progress) <br> |
-|  std::unique\_ptr&lt; [**OGRCoordinateTransformation**](classCoordinate2D.md) &gt; | [**make\_coord\_transform**](#function-make_coord_transform) ([**const**](classCoordinate2D.md) std::string & src\_wkt, [**const**](classCoordinate2D.md) std::string & dst\_wkt) <br> |
-|  [**LASData**](classLASData.md) | [**read\_tile\_from\_inputs**](#function-read_tile_from_inputs) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & tile\_extent, [**double**](classCoordinate2D.md) border\_width, [**const**](classCoordinate2D.md) std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & all\_extents, [**const**](classCoordinate2D.md) std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) progress) <br> |
-|  [**Extent2D**](structExtent2D.md) | [**reproject\_extent**](#function-reproject_extent) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & extent, [**const**](classCoordinate2D.md) std::string & src\_wkt, [**const**](classCoordinate2D.md) std::string & dst\_wkt) <br> |
-|  [**double**](classCoordinate2D.md) | [**snap\_down**](#function-snap_down) ([**double**](classCoordinate2D.md) value, [**double**](classCoordinate2D.md) step) <br> |
-|  [**double**](classCoordinate2D.md) | [**snap\_up**](#function-snap_up) ([**double**](classCoordinate2D.md) value, [**double**](classCoordinate2D.md) step) <br> |
-|  std::vector&lt; [**Tile**](structTile.md) &gt; | [**tiles\_per\_file**](#function-tiles_per_file) ([**const**](classCoordinate2D.md) std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents) <br> |
-|  [**Extent2D**](structExtent2D.md) | [**union\_extent**](#function-union_extent) ([**const**](classCoordinate2D.md) std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents) <br> |
+|  [**TileModeInfo**](structTileModeInfo.md) | [**analyze\_extents**](#function-analyze_extents) (std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents, const std::string & override\_wkt="") <br> |
+|  std::vector&lt; [**Tile**](structTile.md) &gt; | [**compute\_tiles**](#function-compute_tiles) (const [**Extent2D**](structExtent2D.md) & overall, double tile\_size, const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents={}) <br> |
+|  [**TileModeInfo**](structTileModeInfo.md) | [**detect\_tile\_mode\_needed**](#function-detect_tile_mode_needed) (const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents) <br> |
+|  std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; | [**load\_input\_extents**](#function-load_input_extents) (const std::vector&lt; fs::path &gt; & files, const std::string & override\_crs, std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) progress) <br> |
+|  [**LASData**](classLASData.md) | [**read\_tile\_from\_inputs**](#function-read_tile_from_inputs) (const [**Extent2D**](structExtent2D.md) & tile\_extent, double border\_width, const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & all\_extents, const std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) progress) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**reproject\_extent**](#function-reproject_extent) (const [**Extent2D**](structExtent2D.md) & extent, const std::string & src\_wkt, const std::string & dst\_wkt) <br> |
+|  double | [**snap\_down**](#function-snap_down) (double value, double step) <br> |
+|  double | [**snap\_up**](#function-snap_up) (double value, double step) <br> |
+|  std::vector&lt; [**Tile**](structTile.md) &gt; | [**tiles\_per\_file**](#function-tiles_per_file) (const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents) <br> |
+|  [**Extent2D**](structExtent2D.md) | [**union\_extent**](#function-union_extent) (const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents) <br> |
 
 
 
@@ -137,7 +136,7 @@ inline TileModeInfo analyze_extents (
 
 ```C++
 inline std::vector< Tile > compute_tiles (
-    const  Extent2D & overall,
+    const Extent2D & overall,
     double tile_size,
     const std::vector< LASFileExtent > & extents={}
 ) 
@@ -183,27 +182,11 @@ inline std::vector< LASFileExtent > load_input_extents (
 
 
 
-### function make\_coord\_transform 
-
-```C++
-inline std::unique_ptr< OGRCoordinateTransformation > make_coord_transform (
-    const std::string & src_wkt,
-    const std::string & dst_wkt
-) 
-```
-
-
-
-
-<hr>
-
-
-
 ### function read\_tile\_from\_inputs 
 
 ```C++
 inline LASData read_tile_from_inputs (
-    const  Extent2D & tile_extent,
+    const Extent2D & tile_extent,
     double border_width,
     const std::vector< LASFileExtent > & all_extents,
     const std::string & output_crs_wkt,
@@ -222,7 +205,7 @@ inline LASData read_tile_from_inputs (
 
 ```C++
 inline Extent2D reproject_extent (
-    const  Extent2D & extent,
+    const Extent2D & extent,
     const std::string & src_wkt,
     const std::string & dst_wkt
 ) 

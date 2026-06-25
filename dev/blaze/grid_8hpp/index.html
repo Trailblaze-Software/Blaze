@@ -874,7 +874,7 @@
   <a href="#variable-is_specialization_v" class="md-nav__link">
     <span class="md-ellipsis">
       
-        variable is_specialization_v
+        variable IS_SPECIALIZATION_V
       
     </span>
   </a>
@@ -981,7 +981,7 @@
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classGeo/"><strong>Geo</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> GridT&gt;<br></td>
+<td style="text-align: left;"><a href="../classGeo/"><strong>Geo</strong></a> &lt;typename GridT&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
@@ -997,7 +997,7 @@
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classGrid/"><strong>Grid</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> <a href="../classCoordinate2D/"><strong>U</strong></a>&gt;<br></td>
+<td style="text-align: left;"><a href="../classGrid/"><strong>Grid</strong></a> &lt;typename U&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
@@ -1005,15 +1005,15 @@
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classGridGraph/"><strong>GridGraph</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> T&gt;<br></td>
+<td style="text-align: left;"><a href="../classGridGraph/"><strong>GridGraph</strong></a> &lt;typename T&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classMultiBand/"><strong>MultiBand</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> GridT&gt;<br></td>
+<td style="text-align: left;"><a href="../classMultiBand/"><strong>MultiBand</strong></a> &lt;typename GridT&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">struct</td>
-<td style="text-align: left;"><a href="../structis__specialization/"><strong>is_specialization</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> <a href="../classCoordinate2D/"><strong>Test</strong></a>, Ref&gt;<br></td>
+<td style="text-align: left;"><a href="../structis__specialization/"><strong>is_specialization</strong></a> &lt;typename Test, Ref&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">struct</td>
@@ -1050,8 +1050,8 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>constexpr</strong></a> <a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="#variable-is_specialization_v"><strong>is_specialization_v</strong></a>   = <code>[**is\_specialization**](structis__specialization.md)&amp;lt;[**Type**](classCoordinate2D.md), [**Template**](classCoordinate2D.md)&amp;gt;::value</code><br></td>
+<td style="text-align: right;">constexpr bool</td>
+<td style="text-align: left;"><a href="#variable-is_specialization_v"><strong>IS_SPECIALIZATION_V</strong></a>   = <code>[**is\_specialization**](structis__specialization.md)&amp;lt;Type, Template&amp;gt;::value</code><br></td>
 </tr>
 </tbody>
 </table>
@@ -1066,11 +1066,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;">T</td>
-<td style="text-align: left;"><a href="#function-interpolate_value"><strong>interpolate_value</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; projection_coord) <br></td>
+<td style="text-align: left;"><a href="#function-interpolate_value"><strong>interpolate_value</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; double &gt; &amp; projection_coord) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
-<td style="text-align: left;"><a href="#function-num_cells_by_distance"><strong>num_cells_by_distance</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> x, <a href="../classCoordinate2D/"><strong>double</strong></a> dx) <br></td>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#function-num_cells_by_distance"><strong>num_cells_by_distance</strong></a> (double x, double dx) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1085,16 +1085,16 @@
 </code></pre></div>
 <hr>
 <h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
-<h3 id="variable-is_specialization_v">variable is_specialization_v</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_specialization_v</span><span class="p">;</span>
+<h3 id="variable-is_specialization_v">variable IS_SPECIALIZATION_V</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IS_SPECIALIZATION_V</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-interpolate_value">function interpolate_value</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">T</span><span class="w"> </span><span class="n">interpolate_value</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection_coord</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection_coord</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

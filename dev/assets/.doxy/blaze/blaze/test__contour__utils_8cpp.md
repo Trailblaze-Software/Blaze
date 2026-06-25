@@ -56,11 +56,11 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**ContourUtils**](classCoordinate2D.md), [**RoundDown**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourUtils**](classCoordinate2D.md), [**CrossesContour**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourUtils**](classCoordinate2D.md), [**GetContourHeights**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourUtils**](classCoordinate2D.md), [**InterpolateCoordinates**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourUtils**](classCoordinate2D.md), [**ContourBasic**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (ContourUtils, RoundDown) <br> |
+|   | [**TEST**](#function-test) (ContourUtils, CrossesContour) <br> |
+|   | [**TEST**](#function-test) (ContourUtils, GetContourHeights) <br> |
+|   | [**TEST**](#function-test) (ContourUtils, InterpolateCoordinates) <br> |
+|   | [**TEST**](#function-test) (ContourUtils, ContourBasic) <br> |
 
 
 

@@ -57,12 +57,12 @@
 | Type | Name |
 | ---: | :--- |
 |   | [**Direction2D**](#function-direction2d) (Dir dir) <br> |
-|  [**int**](classCoordinate2D.md) | [**dx**](#function-dx) () const<br> |
-|  [**int**](classCoordinate2D.md) | [**dy**](#function-dy) () const<br> |
+|  int | [**dx**](#function-dx) () const<br> |
+|  int | [**dy**](#function-dy) () const<br> |
 |   | [**operator Dir**](#function-operator-dir) () const<br> |
 |  [**Direction2D**](classDirection2D.md) | [**opposite**](#function-opposite) () const<br> |
 |  std::array&lt; [**Direction2D**](classDirection2D.md), 2 &gt; | [**orthogonal\_dirs**](#function-orthogonal_dirs) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**orthogonal\_to**](#function-orthogonal_to) ([**Direction2D**](classDirection2D.md) other) const<br> |
+|  bool | [**orthogonal\_to**](#function-orthogonal_to) ([**Direction2D**](classDirection2D.md) other) const<br> |
 
 
 
@@ -222,7 +222,7 @@ inline bool Direction2D::orthogonal_to (
 ```C++
 inline std::ostream & Direction2D::operator<< (
     std::ostream & os,
-    const  Direction2D & dir
+    const Direction2D & dir
 ) 
 ```
 

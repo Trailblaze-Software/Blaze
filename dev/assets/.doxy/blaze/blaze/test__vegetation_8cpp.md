@@ -55,13 +55,13 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassUniformGrid**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassSmoothing**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassSmallDelta**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassOptionalUniform**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassOptionalWithNulls**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassOptionalAllNull**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Vegetation**](classCoordinate2D.md), [**LowPassPreservesGridDimensions**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (Vegetation, LowPassUniformGrid) <br> |
+|   | [**TEST**](#function-test) (Vegetation, LowPassSmoothing) <br> |
+|   | [**TEST**](#function-test) (Vegetation, LowPassSmallDelta) <br> |
+|   | [**TEST**](#function-test) (Vegetation, LowPassOptionalUniform) <br> |
+|   | [**TEST**](#function-test) (Vegetation, LowPassOptionalWithNulls) <br> |
+|   | [**TEST**](#function-test) (Vegetation, LowPassOptionalAllNull) <br> |
+|   | [**TEST**](#function-test) (Vegetation, LowPassPreservesGridDimensions) <br> |
 
 
 

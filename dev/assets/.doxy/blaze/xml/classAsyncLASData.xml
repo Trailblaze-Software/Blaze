@@ -16,10 +16,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="742" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="742" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="746" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="746" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classAsyncLASData_1a3d0a4ce2c38a5bdb97d1ed3809d2c4e1" prot="private" static="no" mutable="no">
-        <type>std::promise&lt; <ref refid="classCoordinate2D" kindref="compound">void</ref> &gt;</type>
+        <type>std::promise&lt; void &gt;</type>
         <definition>std::promise&lt;void&gt; AsyncLASData::m_data_promise</definition>
         <argsstring></argsstring>
         <name>m_data_promise</name>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="743" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="743" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="747" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="747" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classAsyncLASData_1aea4b79e2f89c94f79337fc67f7c877e4" prot="private" static="no" mutable="no">
         <type>std::thread</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="744" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="744" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="748" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="748" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -55,7 +55,7 @@
         <name>AsyncLASData</name>
         <qualifiedname>AsyncLASData::AsyncLASData</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> fs::path &amp;</type>
+          <type>const fs::path &amp;</type>
           <declname>filename</declname>
         </param>
         <param>
@@ -63,7 +63,7 @@
           <declname>progress_tracker</declname>
         </param>
         <param>
-          <type>std::vector&lt; std::function&lt; <ref refid="classCoordinate2D" kindref="compound">void</ref>()&gt; &gt;</type>
+          <type>std::vector&lt; std::function&lt; void()&gt; &gt;</type>
           <declname>callbacks</declname>
           <defval>{}</defval>
         </param>
@@ -73,10 +73,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="747" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="747" bodyend="767"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="751" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="751" bodyend="771"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncLASData_1a5b20eea6b9f78c75a2d4e8558206c10b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool AsyncLASData::data_ready</definition>
         <argsstring>()</argsstring>
         <name>data_ready</name>
@@ -87,10 +87,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="769" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="769" bodyend="772"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="773" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="773" bodyend="776"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncLASData_1afb323d2123ae8662dc779c28e661400e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void AsyncLASData::wait_for_data</definition>
         <argsstring>()</argsstring>
         <name>wait_for_data</name>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="773" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="773" bodyend="773"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="777" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="777" bodyend="777"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncLASData_1ab8e16cc8d1c8c0d7ca4e087f6f75ddd1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::mutex &amp;</type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="775" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="775" bodyend="775"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="779" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="779" bodyend="779"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncLASData_1a7acff9a8efbc08a0068821957fef99dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -129,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="777" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="777" bodyend="781"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="781" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="781" bodyend="785"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -193,7 +193,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="741" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="741" bodyend="782"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="745" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="745" bodyend="786"/>
     <listofallmembers>
       <member refid="classAsyncLASData_1a91179e7a84cef2aa8e6fb821ea832321" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>AsyncLASData</name></member>
       <member refid="classLASData_1ae738985aa77d7642126cc2cc6f6b994e" prot="public" virt="non-virtual"><scope>AsyncLASData</scope><name>begin</name></member>

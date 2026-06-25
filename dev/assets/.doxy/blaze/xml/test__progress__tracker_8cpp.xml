@@ -17,6 +17,8 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp</label>
@@ -28,19 +30,22 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
       <node id="2">
         <label>gtest/gtest.h</label>
       </node>
-      <node id="5">
+      <node id="6">
         <label>memory</label>
       </node>
-      <node id="6">
+      <node id="7">
         <label>optional</label>
       </node>
-      <node id="7">
+      <node id="8">
         <label>string</label>
       </node>
-      <node id="8">
+      <node id="9">
         <label>utility</label>
       </node>
       <node id="3">
@@ -77,7 +82,7 @@
           <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">ForLoop</ref></type>
+          <type>ForLoop</type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -96,7 +101,7 @@
           <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">BackwardsSubtrackerUpdateFails</ref></type>
+          <type>BackwardsSubtrackerUpdateFails</type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -115,7 +120,7 @@
           <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">ParallelRowProgressIsMonotonic</ref></type>
+          <type>ParallelRowProgressIsMonotonic</type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -144,82 +149,82 @@
 <codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;double&gt;&amp;<sp/>updates()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_updates;<sp/>}</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">progress</ref>)</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>m_updates.push_back(<ref refid="classCoordinate2D" kindref="compound">progress</ref>);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>ProgressBar::update_progress(<ref refid="classCoordinate2D" kindref="compound">progress</ref>);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress)</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>m_updates.push_back(progress);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>ProgressBar::update_progress(progress);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="18"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.0);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker1;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.0);</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.set_proportion(0.1);</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.1);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>tracker1.set_proportion(0.1);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.1);</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerA</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(0.2,<sp/>0.6));</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.2);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerA(tracker1.subtracker(0.2,<sp/>0.6));</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.2);</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trackerA</ref>.set_proportion(0.25);</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.3);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerA.set_proportion(0.25);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.3);</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.6);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.6);</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerB</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(0.7,<sp/>0.9);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerB<sp/>=<sp/>tracker1.subtracker(0.7,<sp/>0.9);</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trackerB</ref>.set_proportion(0.5);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.8);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerB.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.8);</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerC</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(0.9,<sp/>0.9);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerC<sp/>=<sp/>tracker1.subtracker(0.9,<sp/>0.9);</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">trackerC</ref>.set_proportion(0.5);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.9);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerC.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.9);</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.9);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.9);</highlight></codeline>
 <codeline lineno="52"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ForLoop</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.proportion(),<sp/>0.0);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ForLoop)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker1;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.0);</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>10;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">trackerA</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">tracker1</ref>.subtracker(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>/<sp/>10.0,<sp/>(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>+<sp/>1)<sp/>/<sp/>10.0);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerA<sp/>=<sp/>tracker1.subtracker(i<sp/>/<sp/>10.0,<sp/>(i<sp/>+<sp/>1)<sp/>/<sp/>10.0);</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/><ref refid="classCoordinate2D" kindref="compound">bar</ref>;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/>run_loop(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(&amp;<ref refid="classCoordinate2D" kindref="compound">bar</ref>));</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/>bar;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>run_loop(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(&amp;bar));</highlight></codeline>
 <codeline lineno="64"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">BackwardsSubtrackerUpdateFails</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>;</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>.subtracker(0.77,<sp/>0.78);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>BackwardsSubtrackerUpdateFails)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>root.subtracker(0.77,<sp/>0.78);</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/>child.set_proportion(0.99);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_THROW</ref>(child.set_proportion(0.55),<sp/>std::runtime_error);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>EXPECT_THROW(child.set_proportion(0.55),<sp/>std::runtime_error);</highlight></codeline>
 <codeline lineno="72"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">ParallelRowProgressIsMonotonic</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><ref refid="classRecordingProgressBar" kindref="compound">RecordingProgressBar</ref><sp/><ref refid="classCoordinate2D" kindref="compound">bar</ref>;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>(&amp;<ref refid="classCoordinate2D" kindref="compound">bar</ref>);</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">map_tracker</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">root</ref>.subtracker(0.0,<sp/>1.0);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ParallelRowProgressIsMonotonic)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><ref refid="classRecordingProgressBar" kindref="compound">RecordingProgressBar</ref><sp/>bar;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root(&amp;bar);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>map_tracker<sp/>=<sp/>root.subtracker(0.0,<sp/>1.0);</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">kRows</ref><sp/>=<sp/>512;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ROWS<sp/>=<sp/>512;</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">kRows</ref>;<sp/>++<ref refid="classCoordinate2D" kindref="compound">i</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>(<ref refid="classCoordinate2D" kindref="compound">void</ref>)<ref refid="classCoordinate2D" kindref="compound">i</ref>;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">map_tracker</ref>.report_parallel_progress(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>+<sp/>1)<sp/>/<sp/><ref refid="classCoordinate2D" kindref="compound">kRows</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>ROWS;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)i;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>map_tracker.report_parallel_progress(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(i<sp/>+<sp/>1)<sp/>/<sp/>ROWS);</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>1;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">bar</ref>.updates().size();<sp/>++<ref refid="classCoordinate2D" kindref="compound">i</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_GE</ref>(<ref refid="classCoordinate2D" kindref="compound">bar</ref>.updates()[<ref refid="classCoordinate2D" kindref="compound">i</ref>],<sp/><ref refid="classCoordinate2D" kindref="compound">bar</ref>.updates()[<ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>-<sp/>1])<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;progress<sp/>went<sp/>backwards<sp/>at<sp/>index<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>bar.updates().size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(bar.updates()[i],<sp/>bar.updates()[i<sp/>-<sp/>1])<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;progress<sp/>went<sp/>backwards<sp/>at<sp/>index<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>i;</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">EXPECT_DOUBLE_EQ</ref>(<ref refid="classCoordinate2D" kindref="compound">root</ref>.proportion(),<sp/>1.0);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(root.proportion(),<sp/>1.0);</highlight></codeline>
 <codeline lineno="90"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp"/>

@@ -35,10 +35,10 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**expect\_contours**](#variable-expect_contours)  <br> |
-|  std::function&lt; [**double**](classCoordinate2D.md)([**double**](classCoordinate2D.md), [**double**](classCoordinate2D.md))&gt; | [**height\_function**](#variable-height_function)  <br> |
+|  bool | [**expect\_contours**](#variable-expect_contours)  <br> |
+|  std::function&lt; double(double, double)&gt; | [**height\_function**](#variable-height_function)  <br> |
 |  std::string | [**name**](#variable-name)  <br> |
-|  [**bool**](classCoordinate2D.md) | [**with\_vegetation**](#variable-with_vegetation)  <br> |
+|  bool | [**with\_vegetation**](#variable-with_vegetation)  <br> |
 
 
 
@@ -147,7 +147,7 @@ bool TerrainTestParams::with_vegetation;
 ```C++
 inline std::ostream & TerrainTestParams::operator<< (
     std::ostream & os,
-    const  TerrainTestParams & params
+    const TerrainTestParams & params
 ) 
 ```
 

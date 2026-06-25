@@ -4,7 +4,7 @@
     <compoundname>Contour</compoundname>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classContour_1a3957faae3d25b013b23f9c5ad799f9b1" prot="private" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double Contour::m_height</definition>
         <argsstring></argsstring>
         <name>m_height</name>
@@ -15,10 +15,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="57" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="57" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="58" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classContour_1a57cf2df44006d1fa07437b86ac91ee37" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt;</type>
+        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt;</type>
         <definition>std::vector&lt;Coordinate2D&lt;double&gt; &gt; Contour::m_points</definition>
         <argsstring></argsstring>
         <name>m_points</name>
@@ -29,38 +29,57 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="58" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="58" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="59" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContour_1a3a9943eaccfd7cc68b1da42a9b6f4e3f" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Contour::m_layer_name</definition>
+        <argsstring></argsstring>
+        <name>m_layer_name</name>
+        <qualifiedname>Contour::m_layer_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="60" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classContour_1a9bf4ae09b030b919f4f66ad626bb5df2" prot="private" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool Contour::m_is_loop</definition>
         <argsstring></argsstring>
         <name>m_is_loop</name>
         <qualifiedname>Contour::m_is_loop</qualifiedname>
-        <initializer>= <ref refid="classCoordinate2D" kindref="compound">false</ref></initializer>
+        <initializer>= false</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="59" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="59" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="61" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="61" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classContour_1a5f3e7f2cf8c7c5ea5fe6004187acda4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classContour_1aa5258466b77415166c0e36da8435805e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>Contour::Contour</definition>
-        <argsstring>(double height, std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;&amp;points)</argsstring>
+        <argsstring>(double height, std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;&amp;points, std::string layer_name=&quot;&quot;)</argsstring>
         <name>Contour</name>
         <qualifiedname>Contour::Contour</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>height</declname>
         </param>
         <param>
-          <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;&amp;</type>
+          <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &amp;&amp;</type>
           <declname>points</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>layer_name</declname>
+          <defval>&quot;&quot;</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -68,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="62" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="62" bodyend="69"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="64" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="64" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1a0303cc8c98f87d7399a895c14d088d46" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classPolyline" kindref="compound">Polyline</ref></type>
@@ -77,7 +96,7 @@
         <name>to_polyline</name>
         <qualifiedname>Contour::to_polyline</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref> &amp;</type>
+          <type>const <ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref> &amp;</type>
           <declname>configs</declname>
         </param>
         <briefdescription>
@@ -86,10 +105,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="72" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.cpp" bodystart="8" bodyend="14"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="74" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.cpp" bodystart="8" bodyend="14"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1a50b1ade401e64dfb020109e49f45ce29" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double Contour::height</definition>
         <argsstring>() const</argsstring>
         <name>height</name>
@@ -100,10 +119,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="74" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="74" bodyend="74"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="76" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classContour_1ace163819d0c6efbf777850c604213fac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string &amp; Contour::layer_name</definition>
+        <argsstring>() const</argsstring>
+        <name>layer_name</name>
+        <qualifiedname>Contour::layer_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="77" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="77" bodyend="77"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1ad0aecc6e51e60849832e0d8ed743bbb9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+        <type>const std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &amp;</type>
         <definition>const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp; Contour::points</definition>
         <argsstring>() const</argsstring>
         <name>points</name>
@@ -114,10 +147,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="75" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="75" bodyend="75"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="78" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="78" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1aa214a82225a16b84c60231949539f4bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &amp;</type>
         <definition>std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp; Contour::points</definition>
         <argsstring>()</argsstring>
         <name>points</name>
@@ -128,16 +161,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="76" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="76" bodyend="76"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="79" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="79" bodyend="79"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1a1d61e1c2afc7ef7560aad582c5d70bd0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void Contour::push_back</definition>
         <argsstring>(const Coordinate2D&lt; double &gt; &amp;point)</argsstring>
         <name>push_back</name>
         <qualifiedname>Contour::push_back</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <type>const <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &amp;</type>
           <declname>point</declname>
         </param>
         <briefdescription>
@@ -146,10 +179,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="127" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="127" bodyend="132"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="130" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="130" bodyend="135"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1ab05735b3ed0c37e4b7ebda6bab04e1aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void Contour::close_loop</definition>
         <argsstring>()</argsstring>
         <name>close_loop</name>
@@ -160,10 +193,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="136" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="136" bodyend="140"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="139" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="139" bodyend="143"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1ac0daca06e6fa1e61482f0282d862b725" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool Contour::is_loop</definition>
         <argsstring>() const</argsstring>
         <name>is_loop</name>
@@ -174,21 +207,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="148" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="148" bodyend="148"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="151" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="151" bodyend="151"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1a365bb9e9afa9e20b871b04c1bbc9c76a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+            <type>typename T</type>
           </param>
         </templateparamlist>
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void Contour::orient_consistent</definition>
         <argsstring>(const GeoGrid&lt; T &gt; &amp;value_grid)</argsstring>
         <name>orient_consistent</name>
         <qualifiedname>Contour::orient_consistent</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
           <declname>value_grid</declname>
         </param>
         <briefdescription>
@@ -197,7 +230,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="155" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="155" bodyend="222"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="158" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="158" bodyend="225"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -208,7 +241,7 @@
         <name>from_polyline</name>
         <qualifiedname>Contour::from_polyline</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classPolyline" kindref="compound">Polyline</ref> &amp;</type>
+          <type>const <ref refid="classPolyline" kindref="compound">Polyline</ref> &amp;</type>
           <declname>polyline</declname>
         </param>
         <briefdescription>
@@ -217,12 +250,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="71" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.cpp" bodystart="16" bodyend="24"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="73" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.cpp" bodystart="16" bodyend="25"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1ad587e5a7c2f09d48afc76d53b5970839" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+            <type>typename T</type>
           </param>
         </templateparamlist>
         <type><ref refid="classContour" kindref="compound">Contour</ref></type>
@@ -231,19 +264,19 @@
         <name>FromGridGraph</name>
         <qualifiedname>Contour::FromGridGraph</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &amp;</type>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; size_t &gt; &amp;</type>
           <declname>starting_point</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>height</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &gt; &amp;</type>
+          <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; double &gt; &gt; &amp;</type>
           <declname>contour_heights</declname>
         </param>
         <briefdescription>
@@ -252,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="79" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="79" bodyend="125"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="82" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="82" bodyend="128"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="friend">
@@ -267,7 +300,7 @@
           <declname>os</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classContour" kindref="compound">Contour</ref> &amp;</type>
+          <type>const <ref refid="classContour" kindref="compound">Contour</ref> &amp;</type>
           <declname>contour</declname>
         </param>
         <briefdescription>
@@ -276,23 +309,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="142" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="142" bodyend="146"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="145" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="145" bodyend="149"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="56" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="56" bodyend="223"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="57" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="57" bodyend="226"/>
     <listofallmembers>
       <member refid="classContour_1ab05735b3ed0c37e4b7ebda6bab04e1aa" prot="public" virt="non-virtual"><scope>Contour</scope><name>close_loop</name></member>
-      <member refid="classContour_1a5f3e7f2cf8c7c5ea5fe6004187acda4d" prot="public" virt="non-virtual"><scope>Contour</scope><name>Contour</name></member>
+      <member refid="classContour_1aa5258466b77415166c0e36da8435805e" prot="public" virt="non-virtual"><scope>Contour</scope><name>Contour</name></member>
       <member refid="classContour_1a60c51b12c0e358082cbb160df5d303a6" prot="public" virt="non-virtual"><scope>Contour</scope><name>from_polyline</name></member>
       <member refid="classContour_1ad587e5a7c2f09d48afc76d53b5970839" prot="public" virt="non-virtual"><scope>Contour</scope><name>FromGridGraph</name></member>
       <member refid="classContour_1a50b1ade401e64dfb020109e49f45ce29" prot="public" virt="non-virtual"><scope>Contour</scope><name>height</name></member>
       <member refid="classContour_1ac0daca06e6fa1e61482f0282d862b725" prot="public" virt="non-virtual"><scope>Contour</scope><name>is_loop</name></member>
+      <member refid="classContour_1ace163819d0c6efbf777850c604213fac" prot="public" virt="non-virtual"><scope>Contour</scope><name>layer_name</name></member>
       <member refid="classContour_1a3957faae3d25b013b23f9c5ad799f9b1" prot="private" virt="non-virtual"><scope>Contour</scope><name>m_height</name></member>
       <member refid="classContour_1a9bf4ae09b030b919f4f66ad626bb5df2" prot="private" virt="non-virtual"><scope>Contour</scope><name>m_is_loop</name></member>
+      <member refid="classContour_1a3a9943eaccfd7cc68b1da42a9b6f4e3f" prot="private" virt="non-virtual"><scope>Contour</scope><name>m_layer_name</name></member>
       <member refid="classContour_1a57cf2df44006d1fa07437b86ac91ee37" prot="private" virt="non-virtual"><scope>Contour</scope><name>m_points</name></member>
       <member refid="classContour_1a042897eafa7388e9cf5536ca1cb28677" prot="public" virt="non-virtual"><scope>Contour</scope><name>operator&lt;&lt;</name></member>
       <member refid="classContour_1a365bb9e9afa9e20b871b04c1bbc9c76a" prot="public" virt="non-virtual"><scope>Contour</scope><name>orient_consistent</name></member>

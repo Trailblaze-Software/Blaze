@@ -35,10 +35,11 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**bin\_resolution**](#variable-bin_resolution)   = `0.5`<br> |
-|  [**double**](classCoordinate2D.md) | [**contour\_dem\_resolution**](#variable-contour_dem_resolution)   = `9.0`<br> |
-|  [**unsigned**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**downsample\_factor**](#variable-downsample_factor)   = `3`<br> |
-|  [**double**](classCoordinate2D.md) | [**vegetation\_grid\_resolution**](#variable-vegetation_grid_resolution)   = `3.0`<br> |
+|  double | [**bin\_resolution**](#variable-bin_resolution)   = `0.5`<br> |
+|  double | [**contour\_dem\_resolution**](#variable-contour_dem_resolution)   = `9.0`<br> |
+|  unsigned int | [**downsample\_factor**](#variable-downsample_factor)   = `3`<br> |
+|  bool | [**export\_fine\_slope**](#variable-export_fine_slope)   = `true`<br> |
+|  double | [**vegetation\_grid\_resolution**](#variable-vegetation_grid_resolution)   = `3.0`<br> |
 
 
 
@@ -59,8 +60,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**unsigned**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**contour\_downsample\_factor**](#function-contour_downsample_factor) () const<br> |
-|  [**unsigned**](classCoordinate2D.md) [**int**](classCoordinate2D.md) | [**vegetation\_aggregation\_factor**](#function-vegetation_aggregation_factor) () const<br> |
+|  unsigned int | [**contour\_downsample\_factor**](#function-contour_downsample_factor) () const<br> |
+|  unsigned int | [**vegetation\_aggregation\_factor**](#function-vegetation_aggregation_factor) () const<br> |
 
 
 
@@ -133,6 +134,19 @@ unsigned int GridConfig::downsample_factor;
 
 
 
+### variable export\_fine\_slope 
+
+```C++
+bool GridConfig::export_fine_slope;
+```
+
+
+
+
+<hr>
+
+
+
 ### variable vegetation\_grid\_resolution 
 
 ```C++
@@ -151,7 +165,7 @@ double GridConfig::vegetation_grid_resolution;
 ### function contour\_downsample\_factor 
 
 ```C++
-inline unsigned  int GridConfig::contour_downsample_factor () const
+inline unsigned int GridConfig::contour_downsample_factor () const
 ```
 
 
@@ -164,7 +178,7 @@ inline unsigned  int GridConfig::contour_downsample_factor () const
 ### function vegetation\_aggregation\_factor 
 
 ```C++
-inline unsigned  int GridConfig::vegetation_aggregation_factor () const
+inline unsigned int GridConfig::vegetation_aggregation_factor () const
 ```
 
 

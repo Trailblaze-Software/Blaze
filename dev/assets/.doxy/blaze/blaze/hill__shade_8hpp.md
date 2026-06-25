@@ -13,6 +13,7 @@
 * `#include <cmath>`
 * `#include <numbers>`
 * `#include "grid/grid.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 * `#include "utilities/timer.hpp"`
 
 
@@ -55,8 +56,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**hill\_shade**](#function-hill_shade) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**double**](classCoordinate2D.md) azimuth=315, [**double**](classCoordinate2D.md) altitude=45, [**bool**](classCoordinate2D.md) multidirectional=[**true**](classCoordinate2D.md)) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**slope**](#function-slope) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**hill\_shade**](#function-hill_shade) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, double azimuth=315, double altitude=45, bool multidirectional=true, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=nullptr) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**slope**](#function-slope) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=nullptr) <br> |
 
 
 
@@ -101,10 +102,11 @@
 ```C++
 template<typename T>
 GeoGrid < double > hill_shade (
-    const  GeoGrid < T > & grid,
+    const GeoGrid < T > & grid,
     double azimuth=315,
     double altitude=45,
-    bool multidirectional=true
+    bool multidirectional=true,
+    ProgressTracker * progress_tracker=nullptr
 ) 
 ```
 
@@ -120,7 +122,8 @@ GeoGrid < double > hill_shade (
 ```C++
 template<typename T>
 GeoGrid < double > slope (
-    const  GeoGrid < T > & grid
+    const GeoGrid < T > & grid,
+    ProgressTracker * progress_tracker=nullptr
 ) 
 ```
 

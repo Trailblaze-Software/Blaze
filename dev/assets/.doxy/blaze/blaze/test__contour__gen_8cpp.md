@@ -61,20 +61,20 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**ContourGen**](classCoordinate2D.md), [**ContourGen**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourGen**](classCoordinate2D.md), [**ContourGen2**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**SingleHeightCrossing**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**NoCrossing**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**MultipleHeights**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**ExactThresholdValue**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**IdentifyContoursAtHeights**](classCoordinate2D.md), [**MinExactlyAtThreshold**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**SinglePeakClosedLoop**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**EdgeContoursAreClosed**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**MultipleDisjointPatches**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**AllZerosNoContours**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**MultipleHeights**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**FilteredByMinPoints**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GenerateContoursAtHeights**](classCoordinate2D.md), [**OrientsDonutRings**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (ContourGen, ContourGen) <br> |
+|   | [**TEST**](#function-test) (ContourGen, ContourGen2) <br> |
+|   | [**TEST**](#function-test) (IdentifyContoursAtHeights, SingleHeightCrossing) <br> |
+|   | [**TEST**](#function-test) (IdentifyContoursAtHeights, NoCrossing) <br> |
+|   | [**TEST**](#function-test) (IdentifyContoursAtHeights, MultipleHeights) <br> |
+|   | [**TEST**](#function-test) (IdentifyContoursAtHeights, ExactThresholdValue) <br> |
+|   | [**TEST**](#function-test) (IdentifyContoursAtHeights, MinExactlyAtThreshold) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SinglePeakClosedLoop) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, EdgeContoursAreClosed) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, MultipleDisjointPatches) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, AllZerosNoContours) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, MultipleHeights) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, FilteredByMinPoints) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, OrientsDonutRings) <br> |
 
 
 

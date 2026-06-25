@@ -37,13 +37,13 @@
 
 | Type | Name |
 | ---: | :--- |
-| class | [**Coordinate2D**](classCoordinate2D.md) &lt;[**typename**](classCoordinate2D.md) T&gt;<br> |
-| class | [**Coordinate3D**](classCoordinate3D.md) &lt;[**typename**](classCoordinate2D.md) T&gt;<br> |
+| class | [**Coordinate2D**](classCoordinate2D.md) &lt;typename T&gt;<br> |
+| class | [**Coordinate3D**](classCoordinate3D.md) &lt;typename T&gt;<br> |
 | class | [**Direction2D**](classDirection2D.md) <br> |
 | struct | [**Extent2D**](structExtent2D.md) <br> |
 | struct | [**Extent3D**](structExtent3D.md) <br> |
-| class | [**LineCoord2D**](classLineCoord2D.md) &lt;[**typename**](classCoordinate2D.md) T, [**typename**](classCoordinate2D.md)&gt;<br> |
-| class | [**LineCoord2DCrossing**](classLineCoord2DCrossing.md) &lt;[**typename**](classCoordinate2D.md) T&gt;<br> |
+| class | [**LineCoord2D**](classLineCoord2D.md) &lt;typename T, typename&gt;<br> |
+| class | [**LineCoord2DCrossing**](classLineCoord2DCrossing.md) &lt;typename T&gt;<br> |
 
 
 
@@ -54,8 +54,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**const**](classCoordinate2D.md) std::array&lt; [**Direction2D**](classDirection2D.md), 8 &gt; | [**ALL\_DIRECTIONS**](#variable-all_directions)   = `/* multi line expression */`<br> |
-|  [**const**](classCoordinate2D.md) std::array&lt; [**Direction2D**](classDirection2D.md), 4 &gt; | [**ORTHOGONAL\_DIRECTIONS**](#variable-orthogonal_directions)   = `/* multi line expression */`<br> |
+|  const std::array&lt; [**Direction2D**](classDirection2D.md), 8 &gt; | [**ALL\_DIRECTIONS**](#variable-all_directions)   = `/* multi line expression */`<br> |
+|  const std::array&lt; [**Direction2D**](classDirection2D.md), 4 &gt; | [**ORTHOGONAL\_DIRECTIONS**](#variable-orthogonal_directions)   = `/* multi line expression */`<br> |
 
 
 
@@ -76,7 +76,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::array&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt;, 4 &gt; | [**orthogonal\_neighbors**](#function-orthogonal_neighbors) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & coord) <br> |
+|  std::array&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt;, 4 &gt; | [**orthogonal\_neighbors**](#function-orthogonal_neighbors) (const [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & coord) <br> |
 
 
 
@@ -143,7 +143,7 @@ const std::array<Direction2D, 4> ORTHOGONAL_DIRECTIONS;
 ```C++
 template<typename T, typename>
 std::array< Coordinate2D < T >, 4 > orthogonal_neighbors (
-    const  Coordinate2D < T > & coord
+    const Coordinate2D < T > & coord
 ) 
 ```
 

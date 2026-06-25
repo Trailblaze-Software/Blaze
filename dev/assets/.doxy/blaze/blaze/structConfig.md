@@ -35,10 +35,10 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**border\_width**](#variable-border_width)  <br> |
+|  double | [**border\_width**](#variable-border_width)  <br> |
 |  [**BuildingsConfig**](structBuildingsConfig.md) | [**buildings**](#variable-buildings)  <br> |
 |  [**ContourConfigs**](structContourConfigs.md) | [**contours**](#variable-contours)  <br> |
-|  [**bool**](classCoordinate2D.md) | [**delete\_tile\_folders**](#variable-delete_tile_folders)   = `[**false**](classCoordinate2D.md)`<br> |
+|  bool | [**delete\_tile\_folders**](#variable-delete_tile_folders)   = `false`<br> |
 |  [**GridConfig**](structGridConfig.md) | [**grid**](#variable-grid)  <br> |
 |  [**GroundConfig**](structGroundConfig.md) | [**ground**](#variable-ground)  <br> |
 |  std::vector&lt; fs::path &gt; | [**las\_files**](#variable-las_files)  <br> |
@@ -47,7 +47,7 @@
 |  std::set&lt; ProcessingStep &gt; | [**processing\_steps**](#variable-processing_steps)  <br> |
 |  fs::path | [**relative\_path\_to\_config**](#variable-relative_path_to_config)  <br> |
 |  [**RenderConfig**](structRenderConfig.md) | [**render**](#variable-render)  <br> |
-|  [**double**](classCoordinate2D.md) | [**tile\_size**](#variable-tile_size)   = `0.0`<br> |
+|  double | [**tile\_size**](#variable-tile_size)   = `0.0`<br> |
 |  [**VegeConfig**](structVegeConfig.md) | [**vege**](#variable-vege)  <br> |
 |  [**WaterConfigs**](structWaterConfigs.md) | [**water**](#variable-water)  <br> |
 
@@ -70,15 +70,15 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Config**](#function-config-13) ([**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config) = delete<br> |
+|   | [**Config**](#function-config-13) (const [**Config**](structConfig.md) & config) = delete<br> |
 |   | [**Config**](#function-config-23) ([**Config**](structConfig.md) && config) = default<br> |
 |   | [**Config**](#function-config-33) () = default<br> |
-|  std::vector&lt; fs::path &gt; | [**get\_las\_files**](#function-get_las_files) ([**const**](classCoordinate2D.md) fs::path & las\_path) const<br> |
+|  std::vector&lt; fs::path &gt; | [**get\_las\_files**](#function-get_las_files) (const fs::path & las\_path) const<br> |
 |  std::vector&lt; fs::path &gt; | [**las\_filepaths**](#function-las_filepaths) () const<br> |
-|  [**Config**](structConfig.md) & | [**operator=**](#function-operator) ([**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config) = default<br> |
+|  [**Config**](structConfig.md) & | [**operator=**](#function-operator) (const [**Config**](structConfig.md) & config) = default<br> |
 |  fs::path | [**output\_path**](#function-output_path) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**set\_output\_directory**](#function-set_output_directory) ([**const**](classCoordinate2D.md) fs::path & output\_dir) <br> |
-|  [**void**](classCoordinate2D.md) | [**write\_to\_file**](#function-write_to_file) ([**const**](classCoordinate2D.md) fs::path & filename) const<br> |
+|  void | [**set\_output\_directory**](#function-set_output_directory) (const fs::path & output\_dir) <br> |
+|  void | [**write\_to\_file**](#function-write_to_file) (const fs::path & filename) const<br> |
 
 
 ## Public Static Functions
@@ -86,7 +86,7 @@
 | Type | Name |
 | ---: | :--- |
 |  [**Config**](structConfig.md) | [**Default**](#function-default) () <br> |
-|  [**Config**](structConfig.md) | [**FromFile**](#function-fromfile) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
+|  [**Config**](structConfig.md) | [**FromFile**](#function-fromfile) (const fs::path & filename) <br> |
 
 
 
@@ -319,7 +319,7 @@ WaterConfigs Config::water;
 
 ```C++
 Config::Config (
-    const  Config & config
+    const Config & config
 ) = delete
 ```
 
@@ -390,7 +390,7 @@ inline std::vector< fs::path > Config::las_filepaths () const
 
 ```C++
 Config & Config::operator= (
-    const  Config & config
+    const Config & config
 ) = default
 ```
 
@@ -481,7 +481,7 @@ static Config Config::FromFile (
 ```C++
 std::ostream & Config::operator<< (
     std::ostream & os,
-    const  Config & config
+    const Config & config
 ) 
 ```
 

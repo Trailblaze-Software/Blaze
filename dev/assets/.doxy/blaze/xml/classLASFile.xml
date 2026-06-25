@@ -83,7 +83,7 @@
         <name>LASFile</name>
         <qualifiedname>LASFile::LASFile</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <type>const <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
           <declname>bounds</declname>
         </param>
         <param>
@@ -99,13 +99,13 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="238" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="238" bodyend="241"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1aaa43a5786f0ef8be1189bc256e89e5f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void LASFile::set_bounds</definition>
         <argsstring>(const Extent2D &amp;bounds, std::optional&lt; Extent2D &gt; tile_core=std::nullopt)</argsstring>
         <name>set_bounds</name>
         <qualifiedname>LASFile::set_bounds</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <type>const <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
           <declname>bounds</declname>
         </param>
         <param>
@@ -128,7 +128,7 @@
         <name>LASFile</name>
         <qualifiedname>LASFile::LASFile</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> fs::path &amp;</type>
+          <type>const fs::path &amp;</type>
           <declname>filename</declname>
         </param>
         <param>
@@ -136,7 +136,7 @@
           <declname>progress_tracker</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>override_crs</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -149,7 +149,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="303" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="303" bodyend="315"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1abab47a7a38d34a55f212d45c24048f1f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt;</type>
         <definition>Coordinate2D&lt; double &gt; LASFile::top_left</definition>
         <argsstring>() const</argsstring>
         <name>top_left</name>
@@ -163,7 +163,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="317" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="317" bodyend="317"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1a5b755082279eaa000deb7f9980f10512" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double LASFile::width</definition>
         <argsstring>() const</argsstring>
         <name>width</name>
@@ -177,7 +177,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="318" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="318" bodyend="318"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1ab3ec9489b3a8d302417c45d0a16b3556" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double LASFile::height</definition>
         <argsstring>() const</argsstring>
         <name>height</name>
@@ -191,7 +191,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="319" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="319" bodyend="319"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1a74988d01c9604f26f0662db81e67fe4d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
+        <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
         <definition>const GeoProjection &amp; LASFile::projection</definition>
         <argsstring>() const</argsstring>
         <name>projection</name>
@@ -219,7 +219,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="322" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="322" bodyend="331"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1aae95e7f507c4193c4f1bed0d5ae4118b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+        <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
         <definition>const Extent3D &amp; LASFile::bounds</definition>
         <argsstring>() const</argsstring>
         <name>bounds</name>
@@ -247,7 +247,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" line="334" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp" bodystart="334" bodyend="334"/>
       </memberdef>
       <memberdef kind="function" id="classLASFile_1ad925bc2c7827d62ce704763b69f490c2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>std::pair&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref>, <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <type>std::pair&lt; double, double &gt;</type>
         <definition>std::pair&lt; double, double &gt; LASFile::height_range</definition>
         <argsstring>() const</argsstring>
         <name>height_range</name>
@@ -263,17 +263,17 @@
     </sectiondef>
     <sectiondef kind="protected-func">
       <memberdef kind="function" id="classLASFile_1a777ebd68ac6c251201ee22c68a2d2ffe" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void LASFile::from_las_reader</definition>
         <argsstring>(const laspp::LASReader &amp;reader, const std::string &amp;override_crs=&quot;&quot;)</argsstring>
         <name>from_las_reader</name>
         <qualifiedname>LASFile::from_las_reader</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> laspp::LASReader &amp;</type>
+          <type>const laspp::LASReader &amp;</type>
           <declname>reader</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>override_crs</declname>
           <defval>&quot;&quot;</defval>
         </param>

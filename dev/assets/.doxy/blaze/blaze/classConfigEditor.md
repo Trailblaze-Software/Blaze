@@ -40,34 +40,35 @@ Inherits the following classes: QWidget
 
 | Type | Name |
 | ---: | :--- |
-| slot [**void**](classCoordinate2D.md) | [**add\_color**](classConfigEditor.md#slot-add_color)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**add\_contour**](classConfigEditor.md#slot-add_contour)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**add\_las\_file**](classConfigEditor.md#slot-add_las_file)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**add\_las\_folder**](classConfigEditor.md#slot-add_las_folder)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**add\_vege**](classConfigEditor.md#slot-add_vege)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**add\_vege\_color**](classConfigEditor.md#slot-add_vege_color)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**add\_water**](classConfigEditor.md#slot-add_water)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**on\_color\_selected**](classConfigEditor.md#slot-on_color_selected)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**on\_color\_type\_changed**](classConfigEditor.md#slot-on_color_type_changed) ([**int**](classCoordinate2D.md) index) <br> |
-| slot [**void**](classCoordinate2D.md) | [**on\_contour\_selected**](classConfigEditor.md#slot-on_contour_selected)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**on\_vege\_selected**](classConfigEditor.md#slot-on_vege_selected)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**on\_water\_selected**](classConfigEditor.md#slot-on_water_selected)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**open\_config\_file**](classConfigEditor.md#slot-open_config_file)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**pick\_color**](classConfigEditor.md#slot-pick_color)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**remove\_color**](classConfigEditor.md#slot-remove_color)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**remove\_contour**](classConfigEditor.md#slot-remove_contour)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**remove\_las\_file**](classConfigEditor.md#slot-remove_las_file)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**remove\_vege**](classConfigEditor.md#slot-remove_vege)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**remove\_vege\_color**](classConfigEditor.md#slot-remove_vege_color)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**remove\_water**](classConfigEditor.md#slot-remove_water)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**reset\_to\_defaults**](classConfigEditor.md#slot-reset_to_defaults)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**save\_config\_file**](classConfigEditor.md#slot-save_config_file)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**update\_color\_from\_ui**](classConfigEditor.md#slot-update_color_from_ui)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**update\_contour\_from\_ui**](classConfigEditor.md#slot-update_contour_from_ui)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**update\_general\_from\_ui**](classConfigEditor.md#slot-update_general_from_ui)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**update\_vege\_color\_from\_ui**](classConfigEditor.md#slot-update_vege_color_from_ui) ([**int**](classCoordinate2D.md) row, [**int**](classCoordinate2D.md) column) <br> |
-| slot [**void**](classCoordinate2D.md) | [**update\_vege\_from\_ui**](classConfigEditor.md#slot-update_vege_from_ui)  <br> |
-| slot [**void**](classCoordinate2D.md) | [**update\_water\_from\_ui**](classConfigEditor.md#slot-update_water_from_ui)  <br> |
+| slot void | [**add\_color**](classConfigEditor.md#slot-add_color)  <br> |
+| slot void | [**add\_contour**](classConfigEditor.md#slot-add_contour)  <br> |
+| slot void | [**add\_las\_file**](classConfigEditor.md#slot-add_las_file)  <br> |
+| slot void | [**add\_las\_folder**](classConfigEditor.md#slot-add_las_folder)  <br> |
+| slot void | [**add\_vege**](classConfigEditor.md#slot-add_vege)  <br> |
+| slot void | [**add\_vege\_color**](classConfigEditor.md#slot-add_vege_color)  <br> |
+| slot void | [**add\_water**](classConfigEditor.md#slot-add_water)  <br> |
+| slot void | [**on\_color\_selected**](classConfigEditor.md#slot-on_color_selected)  <br> |
+| slot void | [**on\_color\_type\_changed**](classConfigEditor.md#slot-on_color_type_changed) (int index) <br> |
+| slot void | [**on\_contour\_selected**](classConfigEditor.md#slot-on_contour_selected)  <br> |
+| slot void | [**on\_vege\_selected**](classConfigEditor.md#slot-on_vege_selected)  <br> |
+| slot void | [**on\_water\_selected**](classConfigEditor.md#slot-on_water_selected)  <br> |
+| slot void | [**open\_config\_file**](classConfigEditor.md#slot-open_config_file)  <br> |
+| slot void | [**pick\_color**](classConfigEditor.md#slot-pick_color)  <br> |
+| slot void | [**remove\_color**](classConfigEditor.md#slot-remove_color)  <br> |
+| slot void | [**remove\_contour**](classConfigEditor.md#slot-remove_contour)  <br> |
+| slot void | [**remove\_las\_file**](classConfigEditor.md#slot-remove_las_file)  <br> |
+| slot void | [**remove\_vege**](classConfigEditor.md#slot-remove_vege)  <br> |
+| slot void | [**remove\_vege\_color**](classConfigEditor.md#slot-remove_vege_color)  <br> |
+| slot void | [**remove\_water**](classConfigEditor.md#slot-remove_water)  <br> |
+| slot void | [**reset\_to\_defaults**](classConfigEditor.md#slot-reset_to_defaults)  <br> |
+| slot void | [**save\_config\_file**](classConfigEditor.md#slot-save_config_file)  <br> |
+| slot void | [**set\_las\_files**](classConfigEditor.md#slot-set_las_files) (const std::vector&lt; fs::path &gt; & files) <br> |
+| slot void | [**update\_color\_from\_ui**](classConfigEditor.md#slot-update_color_from_ui)  <br> |
+| slot void | [**update\_contour\_from\_ui**](classConfigEditor.md#slot-update_contour_from_ui)  <br> |
+| slot void | [**update\_general\_from\_ui**](classConfigEditor.md#slot-update_general_from_ui)  <br> |
+| slot void | [**update\_vege\_color\_from\_ui**](classConfigEditor.md#slot-update_vege_color_from_ui) (int row, int column) <br> |
+| slot void | [**update\_vege\_from\_ui**](classConfigEditor.md#slot-update_vege_from_ui)  <br> |
+| slot void | [**update\_water\_from\_ui**](classConfigEditor.md#slot-update_water_from_ui)  <br> |
 
 
 
@@ -80,7 +81,7 @@ Inherits the following classes: QWidget
 
 | Type | Name |
 | ---: | :--- |
-| signal [**void**](classCoordinate2D.md) | [**config\_changed**](classConfigEditor.md#signal-config_changed)  <br> |
+| signal void | [**config\_changed**](classConfigEditor.md#signal-config_changed)  <br> |
 
 
 
@@ -89,11 +90,11 @@ Inherits the following classes: QWidget
 
 | Type | Name |
 | ---: | :--- |
-|   | [**ConfigEditor**](#function-configeditor) (QWidget \* parent=[**nullptr**](classCoordinate2D.md)) <br> |
-|  [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & | [**get\_config**](#function-get_config) () <br> |
-|  [**bool**](classCoordinate2D.md) | [**is\_valid**](#function-is_valid) () const<br> |
+|   | [**ConfigEditor**](#function-configeditor) (QWidget \* parent=nullptr) <br> |
+|  const [**Config**](structConfig.md) & | [**get\_config**](#function-get_config) () <br> |
+|  bool | [**is\_valid**](#function-is_valid) () const<br> |
 |  std::size\_t | [**last\_file\_count**](#function-last_file_count) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**last\_total\_area\_m2**](#function-last_total_area_m2) () const<br> |
+|  double | [**last\_total\_area\_m2**](#function-last_total_area_m2) () const<br> |
 |  std::uint64\_t | [**last\_total\_points**](#function-last_total_points) () const<br> |
 |   | [**~ConfigEditor**](#function-configeditor) () <br> |
 
@@ -415,6 +416,19 @@ void ConfigEditor::save_config_file;
 
 
 
+### slot set\_las\_files 
+
+```C++
+void ConfigEditor::set_las_files;
+```
+
+
+
+
+<hr>
+
+
+
 ### slot update\_color\_from\_ui 
 
 ```C++
@@ -528,7 +542,7 @@ explicit ConfigEditor::ConfigEditor (
 ### function get\_config 
 
 ```C++
-inline const  Config & ConfigEditor::get_config () 
+inline const Config & ConfigEditor::get_config () 
 ```
 
 

@@ -57,40 +57,40 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) (BorderType, [**StreamOutput**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**North**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**South**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**East**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**West**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**NorthEast**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**SouthWest**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**SouthEast**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**BorderRanges**](classCoordinate2D.md), [**NorthWest**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ExternalBorderRanges**](classCoordinate2D.md), [**North**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ExternalBorderRanges**](classCoordinate2D.md), [**South**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ExternalBorderRanges**](classCoordinate2D.md), [**East**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ExternalBorderRanges**](classCoordinate2D.md), [**West**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ExternalBorderRanges**](classCoordinate2D.md), [**Corners**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASRound**](classCoordinate2D.md), [**BasicRounding**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASRound**](classCoordinate2D.md), [**WithResolution**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASRound**](classCoordinate2D.md), [**WithSmallResolution**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Average**](classCoordinate2D.md), [**Integers**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Average**](classCoordinate2D.md), [**Doubles**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**UniqueCoordName**](classCoordinate2D.md), [**BasicOutput**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**UniqueCoordName**](classCoordinate2D.md), [**DifferentBoxesProduceDifferentNames**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**UniqueCoordName**](classCoordinate2D.md), [**SameBoxProducesSameName**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), [**ConstructFromExtent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), [**InsertAndAccess**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), [**InsertUpdatesBounds**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), [**IntensityRange**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), [**Iterator**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), [**PushBack**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), [**MutableAccess**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), [**TopLeft**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), [**WidthHeight**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), [**HeightRange**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), [**ExportBounds**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), [**Projection**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (BorderType, StreamOutput) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, North) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, South) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, East) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, West) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, NorthEast) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, SouthWest) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, SouthEast) <br> |
+|   | [**TEST**](#function-test) (BorderRanges, NorthWest) <br> |
+|   | [**TEST**](#function-test) (ExternalBorderRanges, North) <br> |
+|   | [**TEST**](#function-test) (ExternalBorderRanges, South) <br> |
+|   | [**TEST**](#function-test) (ExternalBorderRanges, East) <br> |
+|   | [**TEST**](#function-test) (ExternalBorderRanges, West) <br> |
+|   | [**TEST**](#function-test) (ExternalBorderRanges, Corners) <br> |
+|   | [**TEST**](#function-test) (LASRound, BasicRounding) <br> |
+|   | [**TEST**](#function-test) (LASRound, WithResolution) <br> |
+|   | [**TEST**](#function-test) (LASRound, WithSmallResolution) <br> |
+|   | [**TEST**](#function-test) (Average, Integers) <br> |
+|   | [**TEST**](#function-test) (Average, Doubles) <br> |
+|   | [**TEST**](#function-test) (UniqueCoordName, BasicOutput) <br> |
+|   | [**TEST**](#function-test) (UniqueCoordName, DifferentBoxesProduceDifferentNames) <br> |
+|   | [**TEST**](#function-test) (UniqueCoordName, SameBoxProducesSameName) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), ConstructFromExtent) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), InsertAndAccess) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), InsertUpdatesBounds) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), IntensityRange) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), Iterator) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), PushBack) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), MutableAccess) <br> |
+|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), TopLeft) <br> |
+|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), WidthHeight) <br> |
+|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), HeightRange) <br> |
+|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), ExportBounds) <br> |
+|   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), Projection) <br> |
 
 
 

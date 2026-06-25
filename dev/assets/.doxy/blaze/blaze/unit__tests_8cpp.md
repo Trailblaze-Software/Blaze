@@ -52,7 +52,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**int**](classCoordinate2D.md) | [**main**](#function-main) ([**int**](classCoordinate2D.md) argc, [**char**](classCoordinate2D.md) \* argv) <br> |
+|  int | [**main**](#function-main) (int argc, char \* argv) <br> |
 
 
 

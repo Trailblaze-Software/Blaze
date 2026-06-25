@@ -51,12 +51,12 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GPKGWriter**](#function-gpkgwriter-12) ([**const**](classCoordinate2D.md) std::string & filename, [**const**](classCoordinate2D.md) std::string & projection, [**const**](classCoordinate2D.md) std::string & default\_layer="default") <br> |
-|   | [**GPKGWriter**](#function-gpkgwriter-22) ([**const**](classCoordinate2D.md) [**GPKGWriter**](classGPKGWriter.md) &) = delete<br> |
-|  [**void**](classCoordinate2D.md) | [**add\_layer**](#function-add_layer) ([**const**](classCoordinate2D.md) std::string & layer\_name, [**OGRwkbGeometryType**](classCoordinate2D.md) geom\_type=[**wkbLineString**](classCoordinate2D.md)) <br> |
-|  [**GPKGWriter**](classGPKGWriter.md) & | [**operator=**](#function-operator) ([**const**](classCoordinate2D.md) [**GPKGWriter**](classGPKGWriter.md) &) = delete<br> |
-|  [**void**](classCoordinate2D.md) | [**write\_polygon**](#function-write_polygon) ([**const**](classCoordinate2D.md) std::string & layer\_name, [**const**](classCoordinate2D.md) std::string & name, [**const**](classCoordinate2D.md) std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; & exterior\_ring, [**const**](classCoordinate2D.md) std::vector&lt; std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; &gt; & holes, [**const**](classCoordinate2D.md) std::map&lt; std::string, std::variant&lt; [**int**](classCoordinate2D.md), [**double**](classCoordinate2D.md), std::string &gt; &gt; & data\_fields={}) <br> |
-|  [**void**](classCoordinate2D.md) | [**write\_polyline**](#function-write_polyline) ([**const**](classCoordinate2D.md) [**Polyline**](classPolyline.md) & polyline, [**const**](classCoordinate2D.md) std::map&lt; std::string, std::variant&lt; [**int**](classCoordinate2D.md), [**double**](classCoordinate2D.md), std::string &gt; &gt; & data\_fields={}) <br> |
+|   | [**GPKGWriter**](#function-gpkgwriter-12) (const std::string & filename, const std::string & projection, const std::string & default\_layer="default") <br> |
+|   | [**GPKGWriter**](#function-gpkgwriter-22) (const [**GPKGWriter**](classGPKGWriter.md) &) = delete<br> |
+|  void | [**add\_layer**](#function-add_layer) (const std::string & layer\_name, OGRwkbGeometryType geom\_type=wkbLineString) <br> |
+|  [**GPKGWriter**](classGPKGWriter.md) & | [**operator=**](#function-operator) (const [**GPKGWriter**](classGPKGWriter.md) &) = delete<br> |
+|  void | [**write\_polygon**](#function-write_polygon) (const std::string & layer\_name, const std::string & name, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & exterior\_ring, const std::vector&lt; std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; &gt; & holes, const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; & data\_fields={}) <br> |
+|  void | [**write\_polyline**](#function-write_polyline) (const [**Polyline**](classPolyline.md) & polyline, const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; & data\_fields={}) <br> |
 |   | [**~GPKGWriter**](#function-gpkgwriter) () <br> |
 
 
@@ -112,7 +112,7 @@ inline GPKGWriter::GPKGWriter (
 
 ```C++
 GPKGWriter::GPKGWriter (
-    const  GPKGWriter &
+    const GPKGWriter &
 ) = delete
 ```
 
@@ -143,7 +143,7 @@ inline void GPKGWriter::add_layer (
 
 ```C++
 GPKGWriter & GPKGWriter::operator= (
-    const  GPKGWriter &
+    const GPKGWriter &
 ) = delete
 ```
 
@@ -162,7 +162,7 @@ inline void GPKGWriter::write_polygon (
     const std::string & name,
     const std::vector< Coordinate2D < double > > & exterior_ring,
     const std::vector< std::vector< Coordinate2D < double > > > & holes,
-    const std::map< std::string, std::variant< int , double , std::string > > & data_fields={}
+    const std::map< std::string, std::variant< int, double, std::string > > & data_fields={}
 ) 
 ```
 
@@ -177,8 +177,8 @@ inline void GPKGWriter::write_polygon (
 
 ```C++
 inline void GPKGWriter::write_polyline (
-    const  Polyline & polyline,
-    const std::map< std::string, std::variant< int , double , std::string > > & data_fields={}
+    const Polyline & polyline,
+    const std::map< std::string, std::variant< int, double, std::string > > & data_fields={}
 ) 
 ```
 

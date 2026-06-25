@@ -62,9 +62,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**\_Assert**](#function-_assert) ([**bool**](classCoordinate2D.md) condition, [**const**](classCoordinate2D.md) std::string & condition\_str, [**const**](classCoordinate2D.md) std::optional&lt; std::string &gt; & message, [**const**](classCoordinate2D.md) std::source\_location & loc=std::source\_location::current()) <br> |
-|  [**void**](classCoordinate2D.md) | [**\_AssertBinOp**](#function-_assertbinop) ([**const**](classCoordinate2D.md) [**A**](classCoordinate2D.md) & a, [**const**](classCoordinate2D.md) [**B**](classCoordinate2D.md) & b, [**const**](classCoordinate2D.md) std::string & a\_str, [**const**](classCoordinate2D.md) std::string & b\_str, [**bool**](classCoordinate2D.md) result, [**const**](classCoordinate2D.md) std::string & op, [**const**](classCoordinate2D.md) std::string & nop, [**const**](classCoordinate2D.md) std::source\_location & loc=std::source\_location::current()) <br> |
-|  [**void**](classCoordinate2D.md) | [**unreachable**](#function-unreachable) () <br> |
+|  void | [**\_Assert**](#function-_assert) (bool condition, const std::string & condition\_str, const std::optional&lt; std::string &gt; & message, const std::source\_location & loc=std::source\_location::current()) <br> |
+|  void | [**\_AssertBinOp**](#function-_assertbinop) (const A & a, const B & b, const std::string & a\_str, const std::string & b\_str, bool result, const std::string & op, const std::string & nop, const std::source\_location & loc=std::source\_location::current()) <br> |
+|  void | [**unreachable**](#function-unreachable) () <br> |
 
 
 
@@ -98,14 +98,14 @@
 | ---: | :--- |
 | define  | [**Assert**](assert_8hpp.md#define-assert) (condition, ...) `/* multi line expression */`<br> |
 | define  | [**AssertBinOp**](assert_8hpp.md#define-assertbinop) (a, b, op, nop) `/* multi line expression */`<br> |
-| define  | [**AssertEQ**](assert_8hpp.md#define-asserteq) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), ==, !=)`<br> |
-| define  | [**AssertGE**](assert_8hpp.md#define-assertge) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), &gt;=, &lt;)`<br> |
-| define  | [**AssertGT**](assert_8hpp.md#define-assertgt) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), &gt;, &lt;=)`<br> |
-| define  | [**AssertLE**](assert_8hpp.md#define-assertle) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), &lt;=, &gt;)`<br> |
-| define  | [**AssertNE**](assert_8hpp.md#define-assertne) (expr, val) `AssertBinOp([**expr**](classCoordinate2D.md), [**val**](classCoordinate2D.md), !=, ==)`<br> |
+| define  | [**AssertEQ**](assert_8hpp.md#define-asserteq) (expr, val) `AssertBinOp(expr, val, ==, !=)`<br> |
+| define  | [**AssertGE**](assert_8hpp.md#define-assertge) (expr, val) `AssertBinOp(expr, val, &gt;=, &lt;)`<br> |
+| define  | [**AssertGT**](assert_8hpp.md#define-assertgt) (expr, val) `AssertBinOp(expr, val, &gt;, &lt;=)`<br> |
+| define  | [**AssertLE**](assert_8hpp.md#define-assertle) (expr, val) `AssertBinOp(expr, val, &lt;=, &gt;)`<br> |
+| define  | [**AssertNE**](assert_8hpp.md#define-assertne) (expr, val) `AssertBinOp(expr, val, !=, ==)`<br> |
 | define  | [**Fail**](assert_8hpp.md#define-fail) (...) `/* multi line expression */`<br> |
-| define  | [**HAS\_BUILTIN**](assert_8hpp.md#define-has_builtin) (x) `[**\_\_has\_builtin**](classCoordinate2D.md)(x)`<br> |
-| define  | [**Unimplemented**](assert_8hpp.md#define-unimplemented) (...) `Assert([**false**](classCoordinate2D.md), "Unimplemented")`<br> |
+| define  | [**HAS\_BUILTIN**](assert_8hpp.md#define-has_builtin) (x) `\_\_has\_builtin(x)`<br> |
+| define  | [**Unimplemented**](assert_8hpp.md#define-unimplemented) (...) `Assert(false, "Unimplemented")`<br> |
 
 ## Public Functions Documentation
 
@@ -133,10 +133,10 @@ inline void _Assert (
 ### function \_AssertBinOp 
 
 ```C++
-template<typename  A, typename  B>
+template<typename A, typename B>
 inline void _AssertBinOp (
-    const  A & a,
-    const  B & b,
+    const A & a,
+    const B & b,
     const std::string & a_str,
     const std::string & b_str,
     bool result,
@@ -209,7 +209,7 @@ inline void unreachable ()
 #define AssertEQ (
     expr,
     val
-) `AssertBinOp( expr , val , ==, !=)`
+) `AssertBinOp(expr, val, ==, !=)`
 ```
 
 
@@ -225,7 +225,7 @@ inline void unreachable ()
 #define AssertGE (
     expr,
     val
-) `AssertBinOp( expr , val , >=, <)`
+) `AssertBinOp(expr, val, >=, <)`
 ```
 
 
@@ -241,7 +241,7 @@ inline void unreachable ()
 #define AssertGT (
     expr,
     val
-) `AssertBinOp( expr , val , >, <=)`
+) `AssertBinOp(expr, val, >, <=)`
 ```
 
 
@@ -257,7 +257,7 @@ inline void unreachable ()
 #define AssertLE (
     expr,
     val
-) `AssertBinOp( expr , val , <=, >)`
+) `AssertBinOp(expr, val, <=, >)`
 ```
 
 
@@ -273,7 +273,7 @@ inline void unreachable ()
 #define AssertNE (
     expr,
     val
-) `AssertBinOp( expr , val , !=, ==)`
+) `AssertBinOp(expr, val, !=, ==)`
 ```
 
 
@@ -303,7 +303,7 @@ inline void unreachable ()
 ```C++
 #define HAS_BUILTIN (
     x
-) `__has_builtin (x)`
+) `__has_builtin(x)`
 ```
 
 
@@ -318,7 +318,7 @@ inline void unreachable ()
 ```C++
 #define Unimplemented (
     ...
-) `Assert( false , "Unimplemented")`
+) `Assert(false, "Unimplemented")`
 ```
 
 

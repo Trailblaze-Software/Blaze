@@ -53,7 +53,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**ensure\_initialized**](#function-ensure_initialized) () <br> |
+|  void | [**ensure\_initialized**](#function-ensure_initialized) () <br> |
 
 
 

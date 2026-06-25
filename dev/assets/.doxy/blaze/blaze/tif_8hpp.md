@@ -54,9 +54,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**Geo**](classGeo.md)&lt; [**MultiBand**](classMultiBand.md)&lt; [**FlexGrid**](classFlexGrid.md) &gt; &gt; | [**read\_tif**](#function-read_tif) ([**const**](classCoordinate2D.md) fs::path & filename) <br> |
-|  [**void**](classCoordinate2D.md) | [**write\_to\_image\_tif**](#function-write_to_image_tif) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**const**](classCoordinate2D.md) fs::path & filename, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; progress\_tracker={}, std::optional&lt; T &gt; min\_val={}, std::optional&lt; T &gt; max\_val={}) <br> |
-|  [**void**](classCoordinate2D.md) | [**write\_to\_tif**](#function-write_to_tif) ([**const**](classCoordinate2D.md) [**Geo**](classGeo.md)&lt; GridT &gt; & grid, [**const**](classCoordinate2D.md) fs::path & filename, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; progress\_tracker={}, [**bool**](classCoordinate2D.md) include\_vertical\_crs=[**false**](classCoordinate2D.md)) <br> |
+|  [**Geo**](classGeo.md)&lt; [**MultiBand**](classMultiBand.md)&lt; [**FlexGrid**](classFlexGrid.md) &gt; &gt; | [**read\_tif**](#function-read_tif) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker=nullptr) <br> |
+|  void | [**write\_to\_image\_tif**](#function-write_to_image_tif) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const fs::path & filename, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; progress\_tracker={}, std::optional&lt; T &gt; min\_val={}, std::optional&lt; T &gt; max\_val={}) <br> |
+|  void | [**write\_to\_tif**](#function-write_to_tif) (const [**Geo**](classGeo.md)&lt; GridT &gt; & grid, const fs::path & filename, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; progress\_tracker={}, bool include\_vertical\_crs=false) <br> |
 
 
 
@@ -94,7 +94,8 @@
 
 ```C++
 Geo < MultiBand < FlexGrid > > read_tif (
-    const fs::path & filename
+    const fs::path & filename,
+    ProgressTracker * progress_tracker=nullptr
 ) 
 ```
 
@@ -110,7 +111,7 @@ Geo < MultiBand < FlexGrid > > read_tif (
 ```C++
 template<typename T>
 void write_to_image_tif (
-    const  GeoGrid < T > & grid,
+    const GeoGrid < T > & grid,
     const fs::path & filename,
     std::optional< ProgressTracker > progress_tracker={},
     std::optional< T > min_val={},
@@ -130,7 +131,7 @@ void write_to_image_tif (
 ```C++
 template<typename GridT>
 void write_to_tif (
-    const  Geo < GridT > & grid,
+    const Geo < GridT > & grid,
     const fs::path & filename,
     std::optional< ProgressTracker > progress_tracker={},
     bool include_vertical_crs=false

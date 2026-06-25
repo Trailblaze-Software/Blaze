@@ -4,13 +4,30 @@
     <compoundname>ProgressBar</compoundname>
     <basecompoundref refid="classProgressObserver" prot="public" virt="non-virtual">ProgressObserver</basecompoundref>
     <derivedcompoundref refid="classRecordingProgressBar" prot="public" virt="non-virtual">RecordingProgressBar</derivedcompoundref>
-    <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classProgressBar_1ac8fcde12cc7debbaac114b3e0239383f" prot="private" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
-        <definition>double ProgressBar::m_last_progress</definition>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classProgressBar_1afaa9c70c1e71524c039d6078dc496fad" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::chrono::milliseconds</type>
+        <definition>constexpr std::chrono::milliseconds ProgressBar::PRINT_INTERVAL</definition>
         <argsstring></argsstring>
-        <name>m_last_progress</name>
-        <qualifiedname>ProgressBar::m_last_progress</qualifiedname>
+        <name>PRINT_INTERVAL</name>
+        <qualifiedname>ProgressBar::PRINT_INTERVAL</qualifiedname>
+        <initializer>{500}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="30" column="46" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classProgressBar_1aad27e862fd42a3f538da9c49a2eba0cd" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double ProgressBar::m_last_printed_progress</definition>
+        <argsstring></argsstring>
+        <name>m_last_printed_progress</name>
+        <qualifiedname>ProgressBar::m_last_printed_progress</qualifiedname>
         <initializer>= -1</initializer>
         <briefdescription>
         </briefdescription>
@@ -18,20 +35,48 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="27" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="27" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="32" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProgressBar_1ab92070e658c34e410a67e4a27c2d283c" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double ProgressBar::m_latest_progress</definition>
+        <argsstring></argsstring>
+        <name>m_latest_progress</name>
+        <qualifiedname>ProgressBar::m_latest_progress</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="33" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProgressBar_1a19ddb5b0cd4c6769830c904ce357d3c6" prot="private" static="no" mutable="no">
+        <type>std::chrono::steady_clock::time_point</type>
+        <definition>std::chrono::steady_clock::time_point ProgressBar::m_last_print_time</definition>
+        <argsstring></argsstring>
+        <name>m_last_print_time</name>
+        <qualifiedname>ProgressBar::m_last_print_time</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="34" column="41" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="34" bodyend="34"/>
       </memberdef>
     </sectiondef>
-    <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
-        <definition>void ProgressBar::update_progress</definition>
-        <argsstring>(double progress) override</argsstring>
-        <name>update_progress</name>
-        <qualifiedname>ProgressBar::update_progress</qualifiedname>
-        <reimplements refid="classProgressObserver_1a502166abd43c403c82ad269f382a4f4a">update_progress</reimplements>
-        <reimplementedby refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac">update_progress</reimplementedby>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classProgressBar_1ac95ed259a075988a3574e65b30cc53c0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ProgressBar::print_progress</definition>
+        <argsstring>(double progress)</argsstring>
+        <name>print_progress</name>
+        <qualifiedname>ProgressBar::print_progress</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>progress</declname>
         </param>
         <briefdescription>
@@ -40,21 +85,61 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="30" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="11" bodyend="17"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="36" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="12" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgressBar_1a18cb3a1fed6693ce9deed01c39d388c7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ProgressBar::maybe_print_progress</definition>
+        <argsstring>(double progress)</argsstring>
+        <name>maybe_print_progress</name>
+        <qualifiedname>ProgressBar::maybe_print_progress</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="37" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="18" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ProgressBar::update_progress</definition>
+        <argsstring>(double progress) override</argsstring>
+        <name>update_progress</name>
+        <qualifiedname>ProgressBar::update_progress</qualifiedname>
+        <reimplements refid="classProgressObserver_1a502166abd43c403c82ad269f382a4f4a">update_progress</reimplements>
+        <reimplementedby refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac">update_progress</reimplementedby>
+        <param>
+          <type>double</type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="40" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="32" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="classProgressBar_1aa5fa842bcef66aed32ea6c7c79c44e5e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void ProgressBar::text_update</definition>
         <argsstring>(const std::string &amp;text, int depth=0) override</argsstring>
         <name>text_update</name>
         <qualifiedname>ProgressBar::text_update</qualifiedname>
         <reimplements refid="classProgressObserver_1a1529b72f3ca12c12bcb0be81eea8aabe">text_update</reimplements>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>text</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <type>int</type>
           <declname>depth</declname>
           <defval>0</defval>
         </param>
@@ -64,7 +149,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="31" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="19" bodyend="21"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="41" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="46" bodyend="50"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classProgressBar_1ab55c884aae0f1f7f59c561535fc988be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ProgressBar::~ProgressBar</definition>
+        <argsstring>() override</argsstring>
+        <name>~ProgressBar</name>
+        <qualifiedname>ProgressBar::~ProgressBar</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="44" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="37" bodyend="44"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -101,13 +202,19 @@
         <link refid="classProgressObserver"/>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="26" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="26" bodyend="32"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="29" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="29" bodyend="45"/>
     <listofallmembers>
       <member refid="classProgressObserver_1a5ffae3404e579191612b2946e81373e3" prot="public" virt="non-virtual"><scope>ProgressBar</scope><name>child</name></member>
-      <member refid="classProgressBar_1ac8fcde12cc7debbaac114b3e0239383f" prot="private" virt="non-virtual"><scope>ProgressBar</scope><name>m_last_progress</name></member>
+      <member refid="classProgressBar_1a19ddb5b0cd4c6769830c904ce357d3c6" prot="private" virt="non-virtual"><scope>ProgressBar</scope><name>m_last_print_time</name></member>
+      <member refid="classProgressBar_1aad27e862fd42a3f538da9c49a2eba0cd" prot="private" virt="non-virtual"><scope>ProgressBar</scope><name>m_last_printed_progress</name></member>
+      <member refid="classProgressBar_1ab92070e658c34e410a67e4a27c2d283c" prot="private" virt="non-virtual"><scope>ProgressBar</scope><name>m_latest_progress</name></member>
+      <member refid="classProgressBar_1a18cb3a1fed6693ce9deed01c39d388c7" prot="private" virt="non-virtual"><scope>ProgressBar</scope><name>maybe_print_progress</name></member>
+      <member refid="classProgressBar_1afaa9c70c1e71524c039d6078dc496fad" prot="private" virt="non-virtual"><scope>ProgressBar</scope><name>PRINT_INTERVAL</name></member>
+      <member refid="classProgressBar_1ac95ed259a075988a3574e65b30cc53c0" prot="private" virt="non-virtual"><scope>ProgressBar</scope><name>print_progress</name></member>
       <member refid="classProgressObserver_1a91848627d3c0148811430f0480c0d906" prot="protected" virt="non-virtual"><scope>ProgressBar</scope><name>ProgressObserver</name></member>
       <member refid="classProgressBar_1aa5fa842bcef66aed32ea6c7c79c44e5e" prot="protected" virt="virtual"><scope>ProgressBar</scope><name>text_update</name></member>
       <member refid="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08" prot="protected" virt="virtual"><scope>ProgressBar</scope><name>update_progress</name></member>
+      <member refid="classProgressBar_1ab55c884aae0f1f7f59c561535fc988be" prot="public" virt="non-virtual"><scope>ProgressBar</scope><name>~ProgressBar</name></member>
       <member refid="classProgressObserver_1a88351d1c134e9edf4e716e930b6d3c53" prot="public" virt="virtual"><scope>ProgressBar</scope><name>~ProgressObserver</name></member>
     </listofallmembers>
   </compounddef>

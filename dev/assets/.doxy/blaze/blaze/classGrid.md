@@ -2,7 +2,7 @@
 
 # Class Grid
 
-**template &lt;[**typename**](classCoordinate2D.md) [**U**](classCoordinate2D.md)&gt;**
+**template &lt;typename U&gt;**
 
 
 
@@ -79,16 +79,16 @@ Inherits the following classes: [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**Grid**](#function-grid) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height, [**int**](classCoordinate2D.md) repeats=1) <br> |
-|  [**void**](classCoordinate2D.md) | [**copy\_from**](#function-copy_from) ([**const**](classCoordinate2D.md) [**Grid**](classGrid.md) & other) <br> |
-|  [**void**](classCoordinate2D.md) | [**fill**](#function-fill) ([**const**](classCoordinate2D.md) T & value) <br> |
-|  [**void**](classCoordinate2D.md) | [**fill\_from**](#function-fill_from-12) ([**const**](classCoordinate2D.md) [**Grid**](classGrid.md) & other, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & top\_left={0, 0}) <br> |
-|  [**void**](classCoordinate2D.md) | [**fill\_from**](#function-fill_from-22) ([**const**](classCoordinate2D.md) [**FlexGrid**](classFlexGrid.md) & other, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**long**](classCoordinate2D.md) [**long**](classCoordinate2D.md) &gt; & top\_left={0, 0}) <br> |
-|  std::pair&lt; T, T &gt; | [**get\_values**](#function-get_values) ([**const**](classCoordinate2D.md) [**LineCoord2D**](classLineCoord2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) const<br> |
+|   | [**Grid**](#function-grid) (size\_t width, size\_t height, int repeats=1) <br> |
+|  void | [**copy\_from**](#function-copy_from) (const [**Grid**](classGrid.md) & other) <br> |
+|  void | [**fill**](#function-fill) (const T & value) <br> |
+|  void | [**fill\_from**](#function-fill_from-12) (const [**Grid**](classGrid.md) & other, const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & top\_left={0, 0}) <br> |
+|  void | [**fill\_from**](#function-fill_from-22) (const [**FlexGrid**](classFlexGrid.md) & other, const [**Coordinate2D**](classCoordinate2D.md)&lt; long long &gt; & top\_left={0, 0}) <br> |
+|  std::pair&lt; T, T &gt; | [**get\_values**](#function-get_values) (const [**LineCoord2D**](classLineCoord2D.md)&lt; size\_t &gt; & coord) const<br> |
 |  T | [**max\_value**](#function-max_value) () const<br> |
 |  T | [**min\_value**](#function-min_value) () const<br> |
-|  T & | [**operator[]**](#function-operator) ([**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; coord) <br> |
-|  [**const**](classCoordinate2D.md) T & | [**operator[]**](#function-operator_1) ([**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; coord) const<br> |
+|  T & | [**operator[]**](#function-operator) ([**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; coord) <br> |
+|  const T & | [**operator[]**](#function-operator_1) ([**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; coord) const<br> |
 
 
 ## Public Functions inherited from GridData
@@ -97,10 +97,10 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GridData**](classGridData.md#function-griddata) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**height**](classGridData.md#function-height) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**in\_bounds**](classGridData.md#function-in_bounds) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  [**size\_t**](classCoordinate2D.md) | [**width**](classGridData.md#function-width) () const<br> |
+|   | [**GridData**](classGridData.md#function-griddata) (size\_t width, size\_t height) <br> |
+|  size\_t | [**height**](classGridData.md#function-height) () const<br> |
+|  bool | [**in\_bounds**](classGridData.md#function-in_bounds) (const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & coord) const<br> |
+|  size\_t | [**width**](classGridData.md#function-width) () const<br> |
 
 
 
@@ -111,7 +111,7 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-| typedef std::conditional\_t&lt; std::is\_same\_v&lt; [**U**](classCoordinate2D.md), [**bool**](classCoordinate2D.md) &gt;, [**BlazeBool**](structBlazeBool.md), [**U**](classCoordinate2D.md) &gt; | [**T**](#typedef-t)  <br> |
+| typedef std::conditional\_t&lt; std::is\_same\_v&lt; U, bool &gt;, [**BlazeBool**](structBlazeBool.md), U &gt; | [**T**](#typedef-t)  <br> |
 
 
 
@@ -125,7 +125,7 @@ See [GridData](classGridData.md)
 | Type | Name |
 | ---: | :--- |
 |  std::vector&lt; T &gt; | [**m\_data**](#variable-m_data)  <br> |
-|  [**int**](classCoordinate2D.md) | [**m\_repeats**](#variable-m_repeats)  <br> |
+|  int | [**m\_repeats**](#variable-m_repeats)  <br> |
 
 
 ## Protected Attributes inherited from GridData
@@ -134,8 +134,8 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_height**](classGridData.md#variable-m_height)  <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_width**](classGridData.md#variable-m_width)  <br> |
+|  size\_t | [**m\_height**](classGridData.md#variable-m_height)  <br> |
+|  size\_t | [**m\_width**](classGridData.md#variable-m_width)  <br> |
 
 
 
@@ -215,7 +215,7 @@ inline Grid::Grid (
 
 ```C++
 inline void Grid::copy_from (
-    const  Grid & other
+    const Grid & other
 ) 
 ```
 
@@ -245,8 +245,8 @@ inline void Grid::fill (
 
 ```C++
 inline void Grid::fill_from (
-    const  Grid & other,
-    const  Coordinate2D < size_t > & top_left={0, 0}
+    const Grid & other,
+    const Coordinate2D < size_t > & top_left={0, 0}
 ) 
 ```
 
@@ -261,8 +261,8 @@ inline void Grid::fill_from (
 
 ```C++
 void Grid::fill_from (
-    const  FlexGrid & other,
-    const  Coordinate2D < long  long > & top_left={0, 0}
+    const FlexGrid & other,
+    const Coordinate2D < long long > & top_left={0, 0}
 ) 
 ```
 
@@ -277,7 +277,7 @@ void Grid::fill_from (
 
 ```C++
 inline std::pair< T, T > Grid::get_values (
-    const  LineCoord2D < size_t > & coord
+    const LineCoord2D < size_t > & coord
 ) const
 ```
 
@@ -394,7 +394,7 @@ int Grid< U >::m_repeats;
 ```C++
 inline std::ostream & Grid::operator<< (
     std::ostream & os,
-    const  Grid & grid
+    const Grid & grid
 ) 
 ```
 

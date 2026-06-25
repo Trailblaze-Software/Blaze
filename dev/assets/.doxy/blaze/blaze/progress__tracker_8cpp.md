@@ -11,6 +11,7 @@
 
 
 * `#include "progress_tracker.hpp"`
+* `#include <cmath>`
 * `#include <iostream>`
 * `#include <optional>`
 * `#include <utility>`

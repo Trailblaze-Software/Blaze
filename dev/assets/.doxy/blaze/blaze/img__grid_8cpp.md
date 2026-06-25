@@ -11,8 +11,8 @@
 
 
 * `#include "img_grid.hpp"`
-* `#include <opencv2/imgcodecs.hpp>`
-* `#include <opencv2/imgproc.hpp>`
+* `#include <stdexcept>`
+* `#include "image.hpp"`
 * `#include "tif/tif.hpp"`
 
 

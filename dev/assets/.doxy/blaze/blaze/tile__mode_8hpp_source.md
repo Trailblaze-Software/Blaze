@@ -45,33 +45,6 @@ struct LASFileExtent {
   Extent2D bounds_reprojected;
 };
 
-// Build a coordinate transformation between two WKT CRSes. Returns nullptr
-// when the two CRSes match or either WKT is empty (caller must treat this as
-// an identity transform).
-inline std::unique_ptr<OGRCoordinateTransformation> make_coord_transform(
-    const std::string& src_wkt, const std::string& dst_wkt) {
-  if (src_wkt.empty() || dst_wkt.empty()) return {};
-  if (src_wkt == dst_wkt || wkt_matches(src_wkt, dst_wkt)) return {};
-  OGRSpatialReference src_srs;
-  OGRSpatialReference dst_srs;
-  if (src_srs.importFromWkt(src_wkt.c_str()) != OGRERR_NONE) {
-    Fail("Failed to parse source CRS WKT for reprojection.");
-  }
-  if (dst_srs.importFromWkt(dst_wkt.c_str()) != OGRERR_NONE) {
-    Fail("Failed to parse destination CRS WKT for reprojection.");
-  }
-  // Force traditional (lon, lat) / (x, y) axis ordering everywhere so the
-  // existing LAS x/y semantics continue to hold on either side.
-  src_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
-  dst_srs.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
-  std::unique_ptr<OGRCoordinateTransformation> ct(
-      OGRCreateCoordinateTransformation(&src_srs, &dst_srs));
-  if (!ct) {
-    Fail("Could not construct coordinate transformation between CRSes.");
-  }
-  return ct;
-}
-
 // Reproject an axis-aligned Extent2D from src_wkt to dst_wkt
 inline Extent2D reproject_extent(const Extent2D& extent, const std::string& src_wkt,
                                  const std::string& dst_wkt) {

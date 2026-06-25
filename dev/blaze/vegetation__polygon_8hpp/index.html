@@ -1041,60 +1041,60 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-combine_vege_gpkgs"><strong>combine_vege_gpkgs</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; fs::path &gt; &amp; tile_dirs, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; combined_dir, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; projection, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-combine_vege_gpkgs"><strong>combine_vege_gpkgs</strong></a> (const std::vector&lt; fs::path &gt; &amp; tile_dirs, const fs::path &amp; combined_dir, const std::string &amp; projection, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-contours_to_polygons"><strong>contours_to_polygons</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::map&lt; <a href="../classCoordinate2D/"><strong>double</strong></a>, std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt; &gt; &amp; contours_by_height, <a href="../classCoordinate2D/"><strong>const</strong></a> std::map&lt; <a href="../classCoordinate2D/"><strong>double</strong></a>, std::string &gt; &amp; height_to_layer) <br></td>
+<td style="text-align: left;"><a href="#function-contours_to_polygons"><strong>contours_to_polygons</strong></a> (const std::map&lt; double, std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt; &gt; &amp; contours_by_height, const std::map&lt; double, std::string &gt; &amp; height_to_layer) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;">std::map&lt; <a href="../classCoordinate2D/"><strong>double</strong></a>, std::string &gt;</td>
-<td style="text-align: left;"><a href="#function-extract_threshold_layers"><strong>extract_threshold_layers</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a> &amp; config) <br></td>
+<td style="text-align: right;">std::map&lt; double, std::string &gt;</td>
+<td style="text-align: left;"><a href="#function-extract_threshold_layers"><strong>extract_threshold_layers</strong></a> (const <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a> &amp; config) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-filter_by_min_area"><strong>filter_by_min_area</strong></a> (std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, <a href="../classCoordinate2D/"><strong>const</strong></a> std::map&lt; std::string, <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; min_areas) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-filter_by_min_area"><strong>filter_by_min_area</strong></a> (std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, const std::map&lt; std::string, double &gt; &amp; min_areas) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-filter_small_holes"><strong>filter_small_holes</strong></a> (std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, <a href="../classCoordinate2D/"><strong>const</strong></a> std::map&lt; std::string, <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; min_hole_areas) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-filter_small_holes"><strong>filter_small_holes</strong></a> (std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, const std::map&lt; std::string, double &gt; &amp; min_hole_areas) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-generate_vege_polygons"><strong>generate_vege_polygons</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegeConfig/"><strong>VegeConfig</strong></a> &amp; vege_config, <a href="../classCoordinate2D/"><strong>const</strong></a> std::map&lt; std::string, <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &gt; &amp; vege_maps, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
+<td style="text-align: left;"><a href="#function-generate_vege_polygons"><strong>generate_vege_polygons</strong></a> (const <a href="../structVegeConfig/"><strong>VegeConfig</strong></a> &amp; vege_config, const std::map&lt; std::string, <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; float &gt; &gt; &amp; vege_maps, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-layer_number"><strong>layer_number</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; layer) <br></td>
+<td style="text-align: left;"><a href="#function-layer_number"><strong>layer_number</strong></a> (const std::string &amp; layer) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
-<td style="text-align: left;"><a href="#function-polygon_net_area_m2"><strong>polygon_net_area_m2</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &amp; poly) <br></td>
-</tr>
-<tr>
-<td style="text-align: right;">std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-read_vege_polygons"><strong>read_vege_polygons</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; gpkg_path) <br></td>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-polygon_net_area_m2"><strong>polygon_net_area_m2</strong></a> (const <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &amp; poly) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-subtract_from_polygon"><strong>subtract_from_polygon</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &amp; host, <a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; cutouts) <br></td>
+<td style="text-align: left;"><a href="#function-read_vege_polygons"><strong>read_vege_polygons</strong></a> (const fs::path &amp; gpkg_path) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-subtract_from_polygon"><strong>subtract_from_polygon</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &amp; host, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>OGRGeometry</strong></a> * cut_union) <br></td>
+<td style="text-align: left;"><a href="#function-subtract_from_polygon"><strong>subtract_from_polygon</strong></a> (const <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &amp; host, const std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; cutouts) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#function-subtract_from_polygon"><strong>subtract_from_polygon</strong></a> (const <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &amp; host, const OGRGeometry * cut_union) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-threshold_layer_name"><strong>threshold_layer_name</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a> &amp; config, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a> &amp; btc) <br></td>
+<td style="text-align: left;"><a href="#function-threshold_layer_name"><strong>threshold_layer_name</strong></a> (const <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a> &amp; config, const <a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a> &amp; btc) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-trim_vege_polygons_to_extent"><strong>trim_vege_polygons_to_extent</strong></a> (std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-trim_vege_polygons_to_extent"><strong>trim_vege_polygons_to_extent</strong></a> (std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; bounds, const std::vector&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; &amp; snap_extents={}, double snap_tolerance=0.01, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_vege_polygons_gpkg"><strong>write_vege_polygons_gpkg</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; gpkg_path, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; projection, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-write_vege_polygons_gpkg"><strong>write_vege_polygons_gpkg</strong></a> (const std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; polygons, const fs::path &amp; gpkg_path, const std::string &amp; projection, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1111,15 +1111,15 @@
 
 <h3 id="function-contours_to_polygons">function contours_to_polygons</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">contours_to_polygons</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Contour</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">contours_by_height</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">height_to_layer</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Contour</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">contours_by_height</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">height_to_layer</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-extract_threshold_layers">function extract_threshold_layers</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">extract_threshold_layers</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">VegeHeightConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">extract_threshold_layers</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VegeHeightConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1142,7 +1142,7 @@
 
 <h3 id="function-generate_vege_polygons">function generate_vege_polygons</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">generate_vege_polygons</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">VegeConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">vege_config</span><span class="p">,</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VegeConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">vege_config</span><span class="p">,</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">vege_maps</span><span class="p">,</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="n">ProgressTracker</span><span class="w"> </span><span class="p">()</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span><span class="w"> </span>
@@ -1158,7 +1158,7 @@
 
 <h3 id="function-polygon_net_area_m2">function polygon_net_area_m2</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">polygon_net_area_m2</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">poly</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">poly</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1172,7 +1172,7 @@
 
 <h3 id="function-subtract_from_polygon">function subtract_from_polygon</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">subtract_from_polygon</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">host</span><span class="p">,</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">host</span><span class="p">,</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">cutouts</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
@@ -1180,16 +1180,16 @@
 
 <h3 id="function-subtract_from_polygon_1">function subtract_from_polygon</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">subtract_from_polygon</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">host</span><span class="p">,</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">OGRGeometry</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cut_union</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">host</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OGRGeometry</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cut_union</span>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-threshold_layer_name">function threshold_layer_name</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">threshold_layer_name</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">VegeHeightConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">BlockingThresholdColorPair</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">btc</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VegeHeightConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">BlockingThresholdColorPair</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">btc</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1197,9 +1197,11 @@
 <h3 id="function-trim_vege_polygons_to_extent">function trim_vege_polygons_to_extent</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">trim_vege_polygons_to_extent</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">polygons</span><span class="p">,</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">bounds</span><span class="p">,</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="n">ProgressTracker</span><span class="w"> </span><span class="p">()</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">bounds</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Extent2D</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">snap_extents</span><span class="o">=</span><span class="p">{},</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">snap_tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="n">ProgressTracker</span><span class="w"> </span><span class="p">()</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

@@ -883,7 +883,6 @@
 <p><a href="../config__editor_8cpp_source/">Go to the source code of this file</a></p>
 <ul>
 <li><code>#include "config_editor.hpp"</code></li>
-<li><code>#include &lt;qdebug.h&gt;</code></li>
 <li><code>#include &lt;QColorDialog&gt;</code></li>
 <li><code>#include &lt;QDir&gt;</code></li>
 <li><code>#include &lt;QDoubleValidator&gt;</code></li>
@@ -899,6 +898,7 @@
 <li><code>#include &lt;QStandardPaths&gt;</code></li>
 <li><code>#include &lt;QTabWidget&gt;</code></li>
 <li><code>#include &lt;QTableWidget&gt;</code></li>
+<li><code>#include &lt;cstdlib&gt;</code></li>
 <li><code>#include &lt;filesystem&gt;</code></li>
 <li><code>#include &lt;set&gt;</code></li>
 <li><code>#include "assert/assert.hpp"</code></li>
@@ -908,6 +908,7 @@
 <li><code>#include "las_reader.hpp"</code></li>
 <li><code>#include "printing/to_string.hpp"</code></li>
 <li><code>#include "ui_config_editor.h"</code></li>
+<li><code>#include "utilities/env.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -934,19 +935,19 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="#function-color_equals"><strong>color_equals</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; v1, <a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; v2) <br></td>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-color_equals"><strong>color_equals</strong></a> (const ColorVariant &amp; v1, const ColorVariant &amp; v2) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QIcon</strong></a></td>
-<td style="text-align: left;"><a href="#function-create_color_icon"><strong>create_color_icon</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; color) <br></td>
+<td style="text-align: right;">QIcon</td>
+<td style="text-align: left;"><a href="#function-create_color_icon"><strong>create_color_icon</strong></a> (const ColorVariant &amp; color) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QString</strong></a></td>
-<td style="text-align: left;"><a href="#function-get_color_name"><strong>get_color_name</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> ColorVariant &amp; color) <br></td>
+<td style="text-align: right;">QString</td>
+<td style="text-align: left;"><a href="#function-get_color_name"><strong>get_color_name</strong></a> (const ColorVariant &amp; color) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
+<td style="text-align: right;">bool</td>
 <td style="text-align: left;"><a href="#function-validated"><strong>validated</strong></a> (T * box) <br></td>
 </tr>
 </tbody>

@@ -60,11 +60,11 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**Process**](classCoordinate2D.md), [**NumCellsByDistance**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**FlatSurface**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**FortyFiveDegreeSlope**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**AlwaysNonNegative**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Slope**](classCoordinate2D.md), [**NeverExceedsVertical**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (Process, NumCellsByDistance) <br> |
+|   | [**TEST**](#function-test) (Slope, FlatSurface) <br> |
+|   | [**TEST**](#function-test) (Slope, FortyFiveDegreeSlope) <br> |
+|   | [**TEST**](#function-test) (Slope, AlwaysNonNegative) <br> |
+|   | [**TEST**](#function-test) (Slope, NeverExceedsVertical) <br> |
 
 
 

@@ -53,10 +53,10 @@ Inherited by the following classes: [Geo](classGeo.md),  [Geo](classGeo.md),  [G
 | Type | Name |
 | ---: | :--- |
 |   | [**GeoGridData**](#function-geogriddata) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|  [**double**](classCoordinate2D.md) | [**dx**](#function-dx) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**dy**](#function-dy) () const<br> |
-|  [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & | [**projection**](#function-projection) () const<br> |
-|  [**const**](classCoordinate2D.md) [**GeoTransform**](classGeoTransform.md) & | [**transform**](#function-transform) () const<br> |
+|  double | [**dx**](#function-dx) () const<br> |
+|  double | [**dy**](#function-dy) () const<br> |
+|  const [**GeoProjection**](classGeoProjection.md) & | [**projection**](#function-projection) () const<br> |
+|  const [**GeoTransform**](classGeoTransform.md) & | [**transform**](#function-transform) () const<br> |
 
 
 
@@ -141,7 +141,7 @@ inline double GeoGridData::dy () const
 ### function projection 
 
 ```C++
-inline const  GeoProjection & GeoGridData::projection () const
+inline const GeoProjection & GeoGridData::projection () const
 ```
 
 
@@ -154,7 +154,7 @@ inline const  GeoProjection & GeoGridData::projection () const
 ### function transform 
 
 ```C++
-inline const  GeoTransform & GeoGridData::transform () const
+inline const GeoTransform & GeoGridData::transform () const
 ```
 
 

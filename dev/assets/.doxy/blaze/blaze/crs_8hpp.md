@@ -11,9 +11,13 @@
 
 
 * `#include <ogr_spatialref.h>`
+* `#include <array>`
+* `#include <cmath>`
+* `#include <memory>`
 * `#include <string>`
 * `#include "assert/assert.hpp"`
 * `#include "grid/grid.hpp"`
+* `#include "utilities/coordinate.hpp"`
 
 
 
@@ -60,13 +64,17 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::string | [**build\_compound\_crs\_wkt**](#function-build_compound_crs_wkt) ([**const**](classCoordinate2D.md) std::string & wkt, [**const**](classCoordinate2D.md) std::string & normalized\_horizontal) <br> |
-|  [**GeoProjection**](classGeoProjection.md) | [**make\_projection\_from\_wkt**](#function-make_projection_from_wkt) ([**const**](classCoordinate2D.md) std::string & raw\_wkt) <br> |
-|  std::string | [**normalize\_crs\_wkt**](#function-normalize_crs_wkt) ([**const**](classCoordinate2D.md) std::string & wkt) <br> |
-|  [**UserCrsParseResult**](structUserCrsParseResult.md) | [**try\_user\_crs\_to\_wkt**](#function-try_user_crs_to_wkt) ([**const**](classCoordinate2D.md) std::string & user\_crs) <br> |
-|  std::string | [**user\_crs\_to\_wkt**](#function-user_crs_to_wkt) ([**const**](classCoordinate2D.md) std::string & user\_crs) <br> |
-|  [**bool**](classCoordinate2D.md) | [**wkt\_matches**](#function-wkt_matches) ([**const**](classCoordinate2D.md) std::string & a, [**const**](classCoordinate2D.md) std::string & b) <br> |
-|  [**bool**](classCoordinate2D.md) | [**wkt\_parses**](#function-wkt_parses) ([**const**](classCoordinate2D.md) std::string & wkt) <br> |
+|  std::string | [**build\_compound\_crs\_wkt**](#function-build_compound_crs_wkt) (const std::string & wkt, const std::string & normalized\_horizontal) <br> |
+|  bool | [**crs\_compatible\_for\_viewing**](#function-crs_compatible_for_viewing) (const std::string & a, const std::string & b) <br> |
+|  std::unique\_ptr&lt; OGRCoordinateTransformation &gt; | [**make\_coord\_transform**](#function-make_coord_transform) (const std::string & src\_wkt, const std::string & dst\_wkt) <br> |
+|  [**GeoProjection**](classGeoProjection.md) | [**make\_projection\_from\_wkt**](#function-make_projection_from_wkt) (const std::string & raw\_wkt) <br> |
+|  std::string | [**normalize\_crs\_wkt**](#function-normalize_crs_wkt) (const std::string & wkt) <br> |
+|  [**Extent3D**](structExtent3D.md) | [**reproject\_extent3d\_horizontal**](#function-reproject_extent3d_horizontal) (const [**Extent3D**](structExtent3D.md) & extent, OGRCoordinateTransformation \* ct) <br> |
+|  bool | [**transform\_xy\_h**](#function-transform_xy_h) (OGRCoordinateTransformation \* ct, double & x, double & y) <br> |
+|  [**UserCrsParseResult**](structUserCrsParseResult.md) | [**try\_user\_crs\_to\_wkt**](#function-try_user_crs_to_wkt) (const std::string & user\_crs) <br> |
+|  std::string | [**user\_crs\_to\_wkt**](#function-user_crs_to_wkt) (const std::string & user\_crs) <br> |
+|  bool | [**wkt\_matches**](#function-wkt_matches) (const std::string & a, const std::string & b) <br> |
+|  bool | [**wkt\_parses**](#function-wkt_parses) (const std::string & wkt) <br> |
 
 
 
@@ -116,6 +124,38 @@ inline std::string build_compound_crs_wkt (
 
 
 
+### function crs\_compatible\_for\_viewing 
+
+```C++
+inline bool crs_compatible_for_viewing (
+    const std::string & a,
+    const std::string & b
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function make\_coord\_transform 
+
+```C++
+inline std::unique_ptr< OGRCoordinateTransformation > make_coord_transform (
+    const std::string & src_wkt,
+    const std::string & dst_wkt
+) 
+```
+
+
+
+
+<hr>
+
+
+
 ### function make\_projection\_from\_wkt 
 
 ```C++
@@ -136,6 +176,39 @@ inline GeoProjection make_projection_from_wkt (
 ```C++
 inline std::string normalize_crs_wkt (
     const std::string & wkt
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function reproject\_extent3d\_horizontal 
+
+```C++
+inline Extent3D reproject_extent3d_horizontal (
+    const Extent3D & extent,
+    OGRCoordinateTransformation * ct
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function transform\_xy\_h 
+
+```C++
+inline bool transform_xy_h (
+    OGRCoordinateTransformation * ct,
+    double & x,
+    double & y
 ) 
 ```
 

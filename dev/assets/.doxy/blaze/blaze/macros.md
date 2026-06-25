@@ -26,7 +26,8 @@
 
 ## c
 
-* **CHECK\_SHADER\_BIND** ([**layer\_renderer.hpp**](layer__renderer_8hpp.md))
+* **CHECK\_GL** ([**gl\_check.hpp**](gl__check_8hpp.md))
+* **CHECK\_GL\_AFTER** ([**gl\_check.hpp**](gl__check_8hpp.md))
 
 
 ## d

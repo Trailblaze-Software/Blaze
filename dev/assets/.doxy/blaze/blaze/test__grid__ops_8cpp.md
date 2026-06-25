@@ -57,15 +57,15 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**DownsampleMean**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**DownsampleMedian**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**DownsampleOddDimensions**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**RemoveOutliers**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**RemoveOutliersNoOutliers**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**InterpolateHoles**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**InterpolateHolesMultiple**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**InterpolateHolesIsolated**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GridOps**](classCoordinate2D.md), [**HasValue**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (GridOps, DownsampleMean) <br> |
+|   | [**TEST**](#function-test) (GridOps, DownsampleMedian) <br> |
+|   | [**TEST**](#function-test) (GridOps, DownsampleOddDimensions) <br> |
+|   | [**TEST**](#function-test) (GridOps, RemoveOutliers) <br> |
+|   | [**TEST**](#function-test) (GridOps, RemoveOutliersNoOutliers) <br> |
+|   | [**TEST**](#function-test) (GridOps, InterpolateHoles) <br> |
+|   | [**TEST**](#function-test) (GridOps, InterpolateHolesMultiple) <br> |
+|   | [**TEST**](#function-test) (GridOps, InterpolateHolesIsolated) <br> |
+|   | [**TEST**](#function-test) (GridOps, HasValue) <br> |
 
 
 

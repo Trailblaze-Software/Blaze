@@ -13,10 +13,18 @@
 * `#include <QOpenGLBuffer>`
 * `#include <QOpenGLFunctions>`
 * `#include <QOpenGLShaderProgram>`
+* `#include <QOpenGLTexture>`
 * `#include <QOpenGLVertexArrayObject>`
-* `#include <future>`
+* `#include <QPoint>`
+* `#include <QVector3D>`
+* `#include <cstdint>`
+* `#include <optional>`
+* `#include <unordered_map>`
+* `#include <vector>`
 * `#include "gui/camera.hpp"`
 * `#include "gui/layer.hpp"`
+* `#include "gui/point_cloud_gl.hpp"`
+* `#include "gui/point_octree.hpp"`
 
 
 
@@ -36,8 +44,13 @@
 
 | Type | Name |
 | ---: | :--- |
-| class | [**LASLayerRenderer**](classLASLayerRenderer.md) <br> |
+| class | [**ContourLayerRenderer**](classContourLayerRenderer.md) <br> |
 | class | [**LayerRenderer**](classLayerRenderer.md) <br> |
+| class | [**MeshLayerRenderer**](classMeshLayerRenderer.md) <br> |
+| class | [**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md) <br> |
+| struct | [**NodeStreamState**](structOctreeLASLayerRenderer_1_1NodeStreamState.md) <br> |
+| struct | [**PointPickResult**](structPointPickResult.md) <br> |
+| struct | [**RenderContext**](structRenderContext.md) <br> |
 
 
 
@@ -46,12 +59,7 @@
 
 
 
-## Public Static Attributes
 
-| Type | Name |
-| ---: | :--- |
-|  [**const**](classCoordinate2D.md) [**char**](classCoordinate2D.md) \* | [**fragmentShaderSource**](#variable-fragmentshadersource)   = `/* multi line expression */`<br> |
-|  [**const**](classCoordinate2D.md) [**char**](classCoordinate2D.md) \* | [**vertexShaderSource**](#variable-vertexshadersource)   = `/* multi line expression */`<br> |
 
 
 
@@ -93,58 +101,6 @@
 
 
 
-## Macros
-
-| Type | Name |
-| ---: | :--- |
-| define  | [**CHECK\_SHADER\_BIND**](layer__renderer_8hpp.md#define-check_shader_bind) (shader) `/* multi line expression */`<br> |
-
-## Public Static Attributes Documentation
-
-
-
-
-### variable fragmentShaderSource 
-
-```C++
-const char* fragmentShaderSource;
-```
-
-
-
-
-<hr>
-
-
-
-### variable vertexShaderSource 
-
-```C++
-const char* vertexShaderSource;
-```
-
-
-
-
-<hr>
-## Macro Definition Documentation
-
-
-
-
-
-### define CHECK\_SHADER\_BIND 
-
-```C++
-#define CHECK_SHADER_BIND (
-    shader
-) `/* multi line expression */`
-```
-
-
-
-
-<hr>
 
 ------------------------------
 The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp`

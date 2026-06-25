@@ -12,19 +12,27 @@
 
 #include <QtConcurrent>
 #include <QtWidgets>
+#include <cstdlib>
 
 #include "config_input/config_input.hpp"
+#include "error_dialog.hpp"
 #include "progress_box.hpp"
 #include "run.hpp"
 #include "ui_main_window.h"
+#include "utilities/env.hpp"
 
-MainWindow::MainWindow() : ui(std::make_unique<Ui::MainWindow>()) {
+MainWindow::MainWindow(const std::vector<fs::path>& initial_las_files)
+    : ui(std::make_unique<Ui::MainWindow>()) {
   try {
     if (!QIcon::hasThemeIcon("list-add")) {
       QIcon::setThemeName("Humanity");
       QIcon::setFallbackThemeName("default");
     }
     ui->setupUi(this);
+
+    if (!initial_las_files.empty()) {
+      ui->config_editor->set_las_files(initial_las_files);
+    }
 
     connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run_blaze);
     connect(ui->actionOpen, &QAction::triggered, this,
@@ -40,7 +48,7 @@ MainWindow::MainWindow() : ui(std::make_unique<Ui::MainWindow>()) {
     ui->runButton->setEnabled(ui->config_editor->is_valid());
 
   } catch (const std::exception& e) {
-    QMessageBox::critical(this, "Error", e.what());
+    show_error_message(this, "Error", e.what());
     exit(1);
   }
 }
@@ -67,14 +75,14 @@ void MainWindow::run_blaze() {
   // per bin on average. At that density ground/vegetation classifications and
   // contours tend to become noisy; it usually indicates the user either picked
   // too fine a bin resolution or loaded too little data for the area.
-  constexpr double kMinPointsPerBin = 5.0;
+  constexpr double MIN_POINTS_PER_BIN = 5.0;
   const double total_area = ui->config_editor->last_total_area_m2();
   const std::uint64_t total_points = ui->config_editor->last_total_points();
   const double bin_res = config.grid.bin_resolution;
   if (total_area > 0.0 && total_points > 0 && bin_res > 0.0) {
     const double density = static_cast<double>(total_points) / total_area;  // pts/m^2
     const double points_per_bin = density * bin_res * bin_res;
-    if (points_per_bin < kMinPointsPerBin) {
+    if (points_per_bin < MIN_POINTS_PER_BIN) {
       QMessageBox box(this);
       box.setIcon(QMessageBox::Warning);
       box.setWindowTitle("Low point density");
@@ -82,7 +90,7 @@ void MainWindow::run_blaze() {
                           "(below the recommended minimum of %3).")
                       .arg(points_per_bin, 0, 'f', 2)
                       .arg(bin_res, 0, 'f', 2)
-                      .arg(kMinPointsPerBin, 0, 'f', 0));
+                      .arg(MIN_POINTS_PER_BIN, 0, 'f', 0));
       box.setInformativeText(QString("Overall: %1 points over %2 km\u00B2 (%3 pts/m\u00B2).\n\n"
                                      "Consider increasing \"Bin Resolution\" on the General tab, "
                                      "or adding more LAS/LAZ data, before processing. Continue "
@@ -99,13 +107,25 @@ void MainWindow::run_blaze() {
     }
   }
 
+  // When Blaze is launched by Blaze3D it sets BLAZE_EXIT_AFTER_RUN so that the
+  // window closes itself once processing is done. In that headless mode we must
+  // exit on *both* success and failure (with a distinct exit code), and we must
+  // not pop a blocking modal dialog, otherwise the window would stay open
+  // waiting for the user to dismiss it and Blaze3D could never tell whether the
+  // run actually succeeded.
+  const bool exit_after_run = blaze::get_env("BLAZE_EXIT_AFTER_RUN") != nullptr;
+
   ProgressBox* message_box = new ProgressBox(this);
   message_box->show();
   message_box->start_task(
       [&config, message_box] {
         run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
       },
-      [&config] {
+      [&config, exit_after_run] {
+        if (exit_after_run) {
+          QApplication::exit(0);
+          return;
+        }
         QDialog* dialog = new QDialog();
         dialog->setWindowTitle("Blaze processing done!");
         QVBoxLayout* layout = new QVBoxLayout();
@@ -135,6 +155,17 @@ void MainWindow::run_blaze() {
         layout->addWidget(button);
         connect(button, &QPushButton::clicked, dialog, &QDialog::accept);
         dialog->exec();
+      },
+      [this, exit_after_run](const QString& message) {
+        if (exit_after_run) {
+          // Headless run: report on stderr (captured by Blaze3D) and exit with a
+          // non-zero code so the launching process knows the run failed instead
+          // of silently finding no output.
+          std::cerr << "Blaze processing failed: " << message.toStdString() << std::endl;
+          QApplication::exit(1);
+          return;
+        }
+        show_error_message(this, "Error running task", message);
       });
 }
 ```

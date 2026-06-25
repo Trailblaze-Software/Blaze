@@ -2,7 +2,7 @@
 
 # Struct is\_specialization&lt; Ref&lt; Args... &gt;, Ref &gt;
 
-**template &lt;[**template**](classCoordinate2D.md)&lt; typename... &gt; [**class**](classCoordinate2D.md) Ref, typename... Args&gt;**
+**template &lt;template&lt; typename... &gt; class Ref, typename... Args&gt;**
 
 
 

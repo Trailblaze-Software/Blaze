@@ -824,7 +824,7 @@
   <a href="#variable-is_std_optional_v" class="md-nav__link">
     <span class="md-ellipsis">
       
-        variable is_std_optional_v
+        variable IS_STD_OPTIONAL_V
       
     </span>
   </a>
@@ -1033,6 +1033,7 @@
 <ul>
 <li><code>#include "tif.hpp"</code></li>
 <li><code>#include &lt;gdal.h&gt;</code></li>
+<li><code>#include &lt;algorithm&gt;</code></li>
 <li><code>#include &lt;optional&gt;</code></li>
 <li><code>#include &lt;type_traits&gt;</code></li>
 <li><code>#include "assert/gdal_assert.hpp"</code></li>
@@ -1053,11 +1054,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;">struct</td>
-<td style="text-align: left;"><a href="../structis__std__optional/"><strong>is_std_optional</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> T&gt;<br></td>
+<td style="text-align: left;"><a href="../structis__std__optional/"><strong>is_std_optional</strong></a> &lt;typename T&gt;<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">struct</td>
-<td style="text-align: left;"><a href="../structis__std__optional_3_01std_1_1optional_3_01T_01_4_01_4/"><strong>is_std_optional&lt; std::optional&lt; T &gt; &gt;</strong></a> &lt;<a href="../classCoordinate2D/"><strong>typename</strong></a> T&gt;<br></td>
+<td style="text-align: left;"><a href="../structis__std__optional_3_01std_1_1optional_3_01T_01_4_01_4/"><strong>is_std_optional&lt; std::optional&lt; T &gt; &gt;</strong></a> &lt;typename T&gt;<br></td>
 </tr>
 </tbody>
 </table>
@@ -1071,8 +1072,8 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>constexpr</strong></a> <a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="#variable-is_std_optional_v"><strong>is_std_optional_v</strong></a>   = <code>[**is\_std\_optional**](structis__std__optional.md)&amp;lt;T&amp;gt;::value</code><br></td>
+<td style="text-align: right;">constexpr bool</td>
+<td style="text-align: left;"><a href="#variable-is_std_optional_v"><strong>IS_STD_OPTIONAL_V</strong></a>   = <code>[**is\_std\_optional**](structis__std__optional.md)&amp;lt;T&amp;gt;::value</code><br></td>
 </tr>
 </tbody>
 </table>
@@ -1086,86 +1087,87 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>constexpr</strong></a> <a href="../classCoordinate2D/"><strong>GDALDataType</strong></a></td>
+<td style="text-align: right;">constexpr GDALDataType</td>
 <td style="text-align: left;"><a href="#function-gdal_type"><strong>gdal_type</strong></a> () <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classMultiBand/"><strong>MultiBand</strong></a>&lt; <a href="../classFlexGrid/"><strong>FlexGrid</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-read_tif"><strong>read_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename) <br></td>
+<td style="text-align: left;"><a href="#function-read_tif"><strong>read_tif</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> * progress_tracker) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_image_tif"><strong>write_to_image_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, std::optional&lt; T &gt; min_val, std::optional&lt; T &gt; max_val) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-write_to_image_tif"><strong>write_to_image_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, std::optional&lt; T &gt; min_val, std::optional&lt; T &gt; max_val) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_image_tif"><strong>write_to_image_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, std::optional&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; min_val, std::optional&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; max_val) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_image_tif"><strong>write_to_image_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, std::optional&lt; double &gt; min_val, std::optional&lt; double &gt; max_val) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>Geo</strong></a>&lt; GridT &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; GridT &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; float &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::byte &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::byte &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCMYKColor/"><strong>CMYKColor</strong></a> &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCMYKColor/"><strong>CMYKColor</strong></a> &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; std::byte &gt; &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; std::byte &gt; &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; double &gt; &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; <a href="../classCoordinate2D/"><strong>float</strong></a> &gt; &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; float &gt; &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>template</strong></a> <a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classMultiBand/"><strong>MultiBand</strong></a>&lt; <a href="../classFlexGrid/"><strong>FlexGrid</strong></a> &gt; &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, <a href="../classCoordinate2D/"><strong>bool</strong></a> include_vertical_crs) <br></td>
+<td style="text-align: right;">template void</td>
+<td style="text-align: left;"><a href="#function-write_to_tif"><strong>write_to_tif</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classMultiBand/"><strong>MultiBand</strong></a>&lt; <a href="../classFlexGrid/"><strong>FlexGrid</strong></a> &gt; &gt; &amp; grid, const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker, bool include_vertical_crs) <br></td>
 </tr>
 </tbody>
 </table>
 <h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
-<h3 id="variable-is_std_optional_v">variable is_std_optional_v</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_std_optional_v</span><span class="p">;</span>
+<h3 id="variable-is_std_optional_v">variable IS_STD_OPTIONAL_V</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IS_STD_OPTIONAL_V</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-gdal_type">function gdal_type</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">constexpr</span><span class="w">  </span><span class="n">GDALDataType</span><span class="w"> </span><span class="n">gdal_type</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">constexpr</span><span class="w"> </span><span class="n">GDALDataType</span><span class="w"> </span><span class="n">gdal_type</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-read_tif">function read_tif</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MultiBand</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">FlexGrid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">progress_tracker</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-write_to_image_tif">function write_to_image_tif</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">write_to_image_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">min_val</span><span class="p">,</span>
@@ -1175,8 +1177,8 @@
 <hr>
 
 <h3 id="function-write_to_image_tif_1">function write_to_image_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_image_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_image_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">min_val</span><span class="p">,</span>
@@ -1188,7 +1190,7 @@
 <h3 id="function-write_to_tif">function write_to_tif</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">GridT</span><span class="o">&gt;</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">GridT</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">GridT</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1197,8 +1199,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_1">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1207,8 +1209,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_2">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1217,8 +1219,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_3">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1227,8 +1229,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_4">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">RGBColor</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">RGBColor</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1237,8 +1239,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_5">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">CMYKColor</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">CMYKColor</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1247,8 +1249,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_6">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1257,8 +1259,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_7">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1267,8 +1269,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_8">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>
@@ -1277,8 +1279,8 @@
 <hr>
 
 <h3 id="function-write_to_tif_9">function write_to_tif</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">template</span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MultiBand</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">FlexGrid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to_tif</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MultiBand</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">FlexGrid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
 <a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">include_vertical_crs</span>

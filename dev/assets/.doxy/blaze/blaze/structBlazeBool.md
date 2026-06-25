@@ -35,7 +35,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**value**](#variable-value)  <br> |
+|  bool | [**value**](#variable-value)  <br> |
 
 
 
@@ -56,10 +56,10 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**BlazeBool**](#function-blazebool-12) ([**bool**](classCoordinate2D.md) value) <br> |
+|   | [**BlazeBool**](#function-blazebool-12) (bool value) <br> |
 |   | [**BlazeBool**](#function-blazebool-22) () <br> |
 |   | [**operator bool**](#function-operator-bool) () const<br> |
-|  [**BlazeBool**](structBlazeBool.md) & | [**operator=**](#function-operator) ([**bool**](classCoordinate2D.md) new\_value) <br> |
+|  [**BlazeBool**](structBlazeBool.md) & | [**operator=**](#function-operator) (bool new\_value) <br> |
 
 
 

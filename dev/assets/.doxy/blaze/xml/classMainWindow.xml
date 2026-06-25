@@ -16,23 +16,28 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="23" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" bodystart="23" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="26" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" bodystart="26" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classMainWindow_1a34c4b4207b46d11a4100c9b19f0e81bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classMainWindow_1a39efaacfcbbe38ecb8db1928e0ff60fb" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
         <definition>MainWindow::MainWindow</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(const std::vector&lt; fs::path &gt; &amp;initial_las_files={})</argsstring>
         <name>MainWindow</name>
         <qualifiedname>MainWindow::MainWindow</qualifiedname>
+        <param>
+          <type>const std::vector&lt; fs::path &gt; &amp;</type>
+          <declname>initial_las_files</declname>
+          <defval>{}</defval>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="15" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="11" bodyend="36"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="18" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="14" bodyend="44"/>
       </memberdef>
       <memberdef kind="function" id="classMainWindow_1ae98d00a93bc118200eeef9f9bba1dba7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -46,12 +51,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="16" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="38" bodyend="38"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="19" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="46" bodyend="46"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-slot">
       <memberdef kind="slot" id="classMainWindow_1a7be6a5d98970ac1a6296c6f9aee1e9bb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void MainWindow::about</definition>
         <argsstring>()</argsstring>
         <name>about</name>
@@ -62,10 +67,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="19" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="40" bodyend="51"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="22" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="48" bodyend="59"/>
       </memberdef>
       <memberdef kind="slot" id="classMainWindow_1ad64846d28a73b066df5877130d982476" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void MainWindow::run_blaze</definition>
         <argsstring>()</argsstring>
         <name>run_blaze</name>
@@ -76,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="20" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="53" bodyend="129"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="23" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.cpp" bodystart="61" bodyend="160"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -105,10 +110,10 @@
         <label>QMainWindow</label>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="11" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" bodystart="11" bodyend="24"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" line="14" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_window.hpp" bodystart="14" bodyend="27"/>
     <listofallmembers>
       <member refid="classMainWindow_1a7be6a5d98970ac1a6296c6f9aee1e9bb" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>about</name></member>
-      <member refid="classMainWindow_1a34c4b4207b46d11a4100c9b19f0e81bb" prot="public" virt="non-virtual"><scope>MainWindow</scope><name>MainWindow</name></member>
+      <member refid="classMainWindow_1a39efaacfcbbe38ecb8db1928e0ff60fb" prot="public" virt="non-virtual"><scope>MainWindow</scope><name>MainWindow</name></member>
       <member refid="classMainWindow_1ad64846d28a73b066df5877130d982476" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>run_blaze</name></member>
       <member refid="classMainWindow_1ab6d2c843b799160e95ffc9075f6cb3b4" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>ui</name></member>
       <member refid="classMainWindow_1ae98d00a93bc118200eeef9f9bba1dba7" prot="public" virt="non-virtual"><scope>MainWindow</scope><name>~MainWindow</name></member>

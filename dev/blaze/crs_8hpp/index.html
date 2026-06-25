@@ -821,6 +821,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#function-crs_compatible_for_viewing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function crs_compatible_for_viewing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-make_coord_transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function make_coord_transform
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-make_projection_from_wkt" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -836,6 +858,28 @@
     <span class="md-ellipsis">
       
         function normalize_crs_wkt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-reproject_extent3d_horizontal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function reproject_extent3d_horizontal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-transform_xy_h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function transform_xy_h
       
     </span>
   </a>
@@ -916,9 +960,13 @@
 <p><a href="../crs_8hpp_source/">Go to the source code of this file</a></p>
 <ul>
 <li><code>#include &lt;ogr_spatialref.h&gt;</code></li>
+<li><code>#include &lt;array&gt;</code></li>
+<li><code>#include &lt;cmath&gt;</code></li>
+<li><code>#include &lt;memory&gt;</code></li>
 <li><code>#include &lt;string&gt;</code></li>
 <li><code>#include "assert/assert.hpp"</code></li>
 <li><code>#include "grid/grid.hpp"</code></li>
+<li><code>#include "utilities/coordinate.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -946,31 +994,47 @@
 <tbody>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-build_compound_crs_wkt"><strong>build_compound_crs_wkt</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; wkt, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; normalized_horizontal) <br></td>
+<td style="text-align: left;"><a href="#function-build_compound_crs_wkt"><strong>build_compound_crs_wkt</strong></a> (const std::string &amp; wkt, const std::string &amp; normalized_horizontal) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-crs_compatible_for_viewing"><strong>crs_compatible_for_viewing</strong></a> (const std::string &amp; a, const std::string &amp; b) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::unique_ptr&lt; OGRCoordinateTransformation &gt;</td>
+<td style="text-align: left;"><a href="#function-make_coord_transform"><strong>make_coord_transform</strong></a> (const std::string &amp; src_wkt, const std::string &amp; dst_wkt) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeoProjection/"><strong>GeoProjection</strong></a></td>
-<td style="text-align: left;"><a href="#function-make_projection_from_wkt"><strong>make_projection_from_wkt</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; raw_wkt) <br></td>
+<td style="text-align: left;"><a href="#function-make_projection_from_wkt"><strong>make_projection_from_wkt</strong></a> (const std::string &amp; raw_wkt) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-normalize_crs_wkt"><strong>normalize_crs_wkt</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; wkt) <br></td>
+<td style="text-align: left;"><a href="#function-normalize_crs_wkt"><strong>normalize_crs_wkt</strong></a> (const std::string &amp; wkt) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../structExtent3D/"><strong>Extent3D</strong></a></td>
+<td style="text-align: left;"><a href="#function-reproject_extent3d_horizontal"><strong>reproject_extent3d_horizontal</strong></a> (const <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp; extent, OGRCoordinateTransformation * ct) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-transform_xy_h"><strong>transform_xy_h</strong></a> (OGRCoordinateTransformation * ct, double &amp; x, double &amp; y) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a></td>
-<td style="text-align: left;"><a href="#function-try_user_crs_to_wkt"><strong>try_user_crs_to_wkt</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; user_crs) <br></td>
+<td style="text-align: left;"><a href="#function-try_user_crs_to_wkt"><strong>try_user_crs_to_wkt</strong></a> (const std::string &amp; user_crs) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::string</td>
-<td style="text-align: left;"><a href="#function-user_crs_to_wkt"><strong>user_crs_to_wkt</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; user_crs) <br></td>
+<td style="text-align: left;"><a href="#function-user_crs_to_wkt"><strong>user_crs_to_wkt</strong></a> (const std::string &amp; user_crs) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="#function-wkt_matches"><strong>wkt_matches</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; a, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; b) <br></td>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-wkt_matches"><strong>wkt_matches</strong></a> (const std::string &amp; a, const std::string &amp; b) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="#function-wkt_parses"><strong>wkt_parses</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; wkt) <br></td>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-wkt_parses"><strong>wkt_parses</strong></a> (const std::string &amp; wkt) <br></td>
 </tr>
 </tbody>
 </table>
@@ -983,46 +1047,79 @@
 </code></pre></div>
 <hr>
 
+<h3 id="function-crs_compatible_for_viewing">function crs_compatible_for_viewing</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">crs_compatible_for_viewing</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-make_coord_transform">function make_coord_transform</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">OGRCoordinateTransformation</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_coord_transform</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">src_wkt</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">dst_wkt</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-make_projection_from_wkt">function make_projection_from_wkt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">GeoProjection</span><span class="w"> </span><span class="n">make_projection_from_wkt</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">raw_wkt</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
-<h3 id="function-normalize_crs_wkt">function normalize_crs_wkt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">normalize_crs_wkt</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">wkt</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
-<h3 id="function-try_user_crs_to_wkt">function try_user_crs_to_wkt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">UserCrsParseResult</span><span class="w"> </span><span class="n">try_user_crs_to_wkt</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">user_crs</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">GeoProjection</span><span class="w"> </span><span class="n">make_projection_from_wkt</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">raw_wkt</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
-<h3 id="function-user_crs_to_wkt">function user_crs_to_wkt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">user_crs_to_wkt</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">user_crs</span>
+<h3 id="function-normalize_crs_wkt">function normalize_crs_wkt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">normalize_crs_wkt</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">wkt</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
-<h3 id="function-wkt_matches">function wkt_matches</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">wkt_matches</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span>
+<h3 id="function-reproject_extent3d_horizontal">function reproject_extent3d_horizontal</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Extent3D</span><span class="w"> </span><span class="n">reproject_extent3d_horizontal</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Extent3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extent</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">OGRCoordinateTransformation</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ct</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
+<h3 id="function-transform_xy_h">function transform_xy_h</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">transform_xy_h</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">OGRCoordinateTransformation</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">y</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-try_user_crs_to_wkt">function try_user_crs_to_wkt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">UserCrsParseResult</span><span class="w"> </span><span class="n">try_user_crs_to_wkt</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">user_crs</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-user_crs_to_wkt">function user_crs_to_wkt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">user_crs_to_wkt</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">user_crs</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-wkt_matches">function wkt_matches</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">wkt_matches</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-wkt_parses">function wkt_parses</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">wkt_parses</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">wkt</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">wkt_parses</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">wkt</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

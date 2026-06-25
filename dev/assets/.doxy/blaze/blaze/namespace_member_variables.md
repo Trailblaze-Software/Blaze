@@ -2,6 +2,11 @@
 # Namespace Member Variables
 
 
-Nothing related to **Namespace Member Variables** found.
+
+## m
+
+* **MAX\_PREVIEW\_POINTS** ([**octree\_las\_detail**](namespaceoctree__las__detail.md))
+
+
 
 

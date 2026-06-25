@@ -17,9 +17,18 @@
 * `#include <QMouseEvent>`
 * `#include <QOpenGLFunctions>`
 * `#include <QOpenGLShaderProgram>`
+* `#include <QPainter>`
 * `#include <QVector3D>`
+* `#include <QVector4D>`
 * `#include <QtWidgets>`
+* `#include <algorithm>`
+* `#include <chrono>`
+* `#include <cmath>`
+* `#include <cstdint>`
 * `#include <iostream>`
+* `#include <limits>`
+* `#include <vector>`
+* `#include "gui/gl_check.hpp"`
 
 
 

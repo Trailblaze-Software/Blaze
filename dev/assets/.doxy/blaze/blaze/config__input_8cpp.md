@@ -84,8 +84,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, [**const**](classCoordinate2D.md) [**Config**](structConfig.md) & config) <br> |
-|  std::ostream & | [**operator&lt;&lt;**](#function-operator_1) (std::ostream & os, [**const**](classCoordinate2D.md) ProcessingStep & step) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, const [**Config**](structConfig.md) & config) <br> |
+|  std::ostream & | [**operator&lt;&lt;**](#function-operator_1) (std::ostream & os, const ProcessingStep & step) <br> |
 
 
 
@@ -145,7 +145,7 @@ using json =  nlohmann::json;
 ```C++
 std::ostream & operator<< (
     std::ostream & os,
-    const  Config & config
+    const Config & config
 ) 
 ```
 

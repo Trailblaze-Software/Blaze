@@ -799,21 +799,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#function-camera-12" class="md-nav__link">
+  <a href="#function-camera" class="md-nav__link">
     <span class="md-ellipsis">
       
-        function Camera [1/2]
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#function-camera-22" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        function Camera [2/2]
+        function Camera
       
     </span>
   </a>
@@ -854,10 +843,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#function-move" class="md-nav__link">
+  <a href="#function-fov_rad" class="md-nav__link">
     <span class="md-ellipsis">
       
-        function move
+        function fov_rad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-look_at_target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function look_at_target
       
     </span>
   </a>
@@ -880,6 +880,17 @@
     <span class="md-ellipsis">
       
         function pan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-pan_to_target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function pan_to_target
       
     </span>
   </a>
@@ -913,6 +924,28 @@
     <span class="md-ellipsis">
       
         function proj_matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-project_world_to_screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function project_world_to_screen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-projection_matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function projection_matrix
       
     </span>
   </a>
@@ -964,6 +997,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#function-screen_height" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function screen_height
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-screen_width" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function screen_width
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-set_scene_bounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function set_scene_bounds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#function-set_screen_size" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -990,6 +1056,17 @@
     <span class="md-ellipsis">
       
         function up
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-view_matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function view_matrix
       
     </span>
   </a>
@@ -1089,100 +1166,128 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-camera-12"><strong>Camera</strong></a> (<a href="../classCoordinate2D/"><strong>int</strong></a> width, <a href="../classCoordinate2D/"><strong>int</strong></a> height) <br></td>
+<td style="text-align: left;"><a href="#function-camera"><strong>Camera</strong></a> (int width, int height) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-camera-22"><strong>Camera</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp; position, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp; direction, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp; up) <br></td>
-</tr>
-<tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#function-current_altitude_angle"><strong>current_altitude_angle</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp;</td>
+<td style="text-align: right;">const QVector3D &amp;</td>
 <td style="text-align: left;"><a href="#function-direction"><strong>direction</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-fly"><strong>fly</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> dx, <a href="../classCoordinate2D/"><strong>double</strong></a> dy, <a href="../classCoordinate2D/"><strong>double</strong></a> dz) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-fly"><strong>fly</strong></a> (double dx, double dy, double dz) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-move"><strong>move</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp; direction) <br></td>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-fov_rad"><strong>fov_rad</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-move_towards"><strong>move_towards</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp; world_pos, <a href="../classCoordinate2D/"><strong>double</strong></a> distance, <a href="../classCoordinate2D/"><strong>bool</strong></a> shrink_direction=<a href="../classCoordinate2D/"><strong>false</strong></a>) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-look_at_target"><strong>look_at_target</strong></a> (const QVector3D &amp; target) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-pan"><strong>pan</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> dx, <a href="../classCoordinate2D/"><strong>double</strong></a> dy) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-move_towards"><strong>move_towards</strong></a> (const QVector3D &amp; world_pos, double distance, bool shrink_direction=false) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QVector3D</strong></a></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-pan"><strong>pan</strong></a> (double dx, double dy) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-pan_to_target"><strong>pan_to_target</strong></a> (const QVector3D &amp; target) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">QVector3D</td>
 <td style="text-align: left;"><a href="#function-planar_direction"><strong>planar_direction</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp;</td>
+<td style="text-align: right;">const QVector3D &amp;</td>
 <td style="text-align: left;"><a href="#function-position"><strong>position</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QMatrix4x4</strong></a></td>
+<td style="text-align: right;">QMatrix4x4</td>
 <td style="text-align: left;"><a href="#function-proj_matrix"><strong>proj_matrix</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">std::optional&lt; QPointF &gt;</td>
+<td style="text-align: left;"><a href="#function-project_world_to_screen"><strong>project_world_to_screen</strong></a> (const QVector3D &amp; world_pos) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">QMatrix4x4</td>
+<td style="text-align: left;"><a href="#function-projection_matrix"><strong>projection_matrix</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#function-projection_scale"><strong>projection_scale</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
+<td style="text-align: right;">void</td>
 <td style="text-align: left;"><a href="#function-reset_to_origin"><strong>reset_to_origin</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-rotate_around_center"><strong>rotate_around_center</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> dx, <a href="../classCoordinate2D/"><strong>double</strong></a> dy, <a href="../classCoordinate2D/"><strong>const</strong></a> std::optional&lt; <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &gt; &amp; center=std::nullopt) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-rotate_around_center"><strong>rotate_around_center</strong></a> (double dx, double dy, const std::optional&lt; QVector3D &gt; &amp; center=std::nullopt) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-rotate_view"><strong>rotate_view</strong></a> (<a href="../classCoordinate2D/"><strong>double</strong></a> dx, <a href="../classCoordinate2D/"><strong>double</strong></a> dy) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-rotate_view"><strong>rotate_view</strong></a> (double dx, double dy) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-set_screen_size"><strong>set_screen_size</strong></a> (<a href="../classCoordinate2D/"><strong>int</strong></a> width, <a href="../classCoordinate2D/"><strong>int</strong></a> height) <br></td>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#function-screen_height"><strong>screen_height</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QVector3D</strong></a></td>
-<td style="text-align: left;"><a href="#function-unproject"><strong>unproject</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QPointF</strong></a> &amp; screen_pos) const<br></td>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#function-screen_width"><strong>screen_width</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>QVector3D</strong></a> &amp;</td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-set_scene_bounds"><strong>set_scene_bounds</strong></a> (const QVector3D &amp; center, float radius) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-set_screen_size"><strong>set_screen_size</strong></a> (int width, int height) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">QVector3D</td>
+<td style="text-align: left;"><a href="#function-unproject"><strong>unproject</strong></a> (const QPointF &amp; screen_pos) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">const QVector3D &amp;</td>
 <td style="text-align: left;"><a href="#function-up"><strong>up</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QVector3D</strong></a></td>
+<td style="text-align: right;">QMatrix4x4</td>
+<td style="text-align: left;"><a href="#function-view_matrix"><strong>view_matrix</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">QVector3D</td>
 <td style="text-align: left;"><a href="#function-view_right"><strong>view_right</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>QVector3D</strong></a></td>
+<td style="text-align: right;">QVector3D</td>
 <td style="text-align: left;"><a href="#function-view_up"><strong>view_up</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp;</td>
+<td style="text-align: right;">const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp;</td>
 <td style="text-align: left;"><a href="#function-world_offset-12"><strong>world_offset</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp;</td>
+<td style="text-align: right;"><a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp;</td>
 <td style="text-align: left;"><a href="#function-world_offset-22"><strong>world_offset</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-zoom_to_fit"><strong>zoom_to_fit</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp; extent) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-zoom_to_fit"><strong>zoom_to_fit</strong></a> (const <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp; extent) <br></td>
 </tr>
 </tbody>
 </table>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
-<h3 id="function-camera-12">function Camera [1/2]</h3>
+<h3 id="function-camera">function Camera</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">Camera</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">height</span>
@@ -1190,44 +1295,40 @@
 </code></pre></div>
 <hr>
 
-<h3 id="function-camera-22">function Camera [2/2]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">Camera</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">position</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">direction</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">up</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span><span class="w"> </span>
-</code></pre></div>
-<hr>
-
 <h3 id="function-current_altitude_angle">function current_altitude_angle</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">current_altitude_angle</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">current_altitude_angle</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-direction">function direction</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">direction</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">direction</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-fly">function fly</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">fly</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dy</span><span class="p">,</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dz</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">fly</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dy</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dz</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
-<h3 id="function-move">function move</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">move</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">direction</span>
+<h3 id="function-fov_rad">function fov_rad</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">fov_rad</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-look_at_target">function look_at_target</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">look_at_target</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">target</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-move_towards">function move_towards</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">move_towards</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">world_pos</span><span class="p">,</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">world_pos</span><span class="p">,</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">distance</span><span class="p">,</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">shrink_direction</span><span class="o">=</span><span class="nb">false</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">)</span><span class="w"> </span>
@@ -1242,92 +1343,134 @@
 </code></pre></div>
 <hr>
 
+<h3 id="function-pan_to_target">function pan_to_target</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">pan_to_target</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">target</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-planar_direction">function planar_direction</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">planar_direction</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">planar_direction</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-position">function position</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">position</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">position</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-proj_matrix">function proj_matrix</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QMatrix4x4</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">proj_matrix</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QMatrix4x4</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">proj_matrix</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-project_world_to_screen">function project_world_to_screen</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">QPointF</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">project_world_to_screen</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">world_pos</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-projection_matrix">function projection_matrix</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QMatrix4x4</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">projection_matrix</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-projection_scale">function projection_scale</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">projection_scale</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">projection_scale</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-reset_to_origin">function reset_to_origin</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">reset_to_origin</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">reset_to_origin</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-rotate_around_center">function rotate_around_center</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">rotate_around_center</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dy</span><span class="p">,</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">center</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">rotate_around_center</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dy</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">center</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-rotate_view">function rotate_view</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">rotate_view</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dy</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">rotate_view</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dy</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-screen_height">function screen_height</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">screen_height</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-screen_width">function screen_width</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">screen_width</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-set_scene_bounds">function set_scene_bounds</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">set_scene_bounds</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">center</span><span class="p">,</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">radius</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-set_screen_size">function set_screen_size</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">set_screen_size</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">,</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">height</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">set_screen_size</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">,</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">height</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-unproject">function unproject</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">unproject</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">QPointF</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">screen_pos</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">unproject</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">QPointF</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">screen_pos</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-up">function up</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">up</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">up</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-view_matrix">function view_matrix</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QMatrix4x4</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">view_matrix</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-view_right">function view_right</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">view_right</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">view_right</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-view_up">function view_up</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">view_up</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">QVector3D</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">view_up</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-world_offset-12">function world_offset [1/2]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">world_offset</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">world_offset</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-world_offset-22">function world_offset [2/2]</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">world_offset</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">world_offset</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-zoom_to_fit">function zoom_to_fit</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">zoom_to_fit</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Extent3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extent</span>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Camera</span><span class="o">::</span><span class="n">zoom_to_fit</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Extent3D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">extent</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

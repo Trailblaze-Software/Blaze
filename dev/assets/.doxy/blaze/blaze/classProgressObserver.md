@@ -83,8 +83,8 @@ Inherited by the following classes: [ProgressBar](classProgressBar.md),  [Progre
 | Type | Name |
 | ---: | :--- |
 |   | [**ProgressObserver**](#function-progressobserver) () <br> |
-| virtual [**void**](classCoordinate2D.md) | [**text\_update**](#function-text_update) ([**const**](classCoordinate2D.md) std::string & text, [**int**](classCoordinate2D.md) depth=0) = 0<br> |
-| virtual [**void**](classCoordinate2D.md) | [**update\_progress**](#function-update_progress) ([**double**](classCoordinate2D.md) progress) = 0<br> |
+| virtual void | [**text\_update**](#function-text_update) (const std::string & text, int depth=0) = 0<br> |
+| virtual void | [**update\_progress**](#function-update_progress) (double progress) = 0<br> |
 
 
 

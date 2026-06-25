@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classoctree__las__detail_1_1MonotonicProgress" kind="class" language="C++" prot="public">
+    <compoundname>octree_las_detail::MonotonicProgress</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classoctree__las__detail_1_1MonotonicProgress_1a22e524a90997406999e7d3fba996e00a" prot="private" static="no" mutable="no">
+        <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;</type>
+        <definition>ProgressTracker&amp; octree_las_detail::MonotonicProgress::m_tracker</definition>
+        <argsstring></argsstring>
+        <name>m_tracker</name>
+        <qualifiedname>octree_las_detail::MonotonicProgress::m_tracker</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="50" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classoctree__las__detail_1_1MonotonicProgress_1a2ecd554ef60dd69abb82e3532ddfa3ae" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex octree_las_detail::MonotonicProgress::m_mutex</definition>
+        <argsstring></argsstring>
+        <name>m_mutex</name>
+        <qualifiedname>octree_las_detail::MonotonicProgress::m_mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="51" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classoctree__las__detail_1_1MonotonicProgress_1a9a0d72766aefa683c8ed32f5d3a2cbd2" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double octree_las_detail::MonotonicProgress::m_last</definition>
+        <argsstring></argsstring>
+        <name>m_last</name>
+        <qualifiedname>octree_las_detail::MonotonicProgress::m_last</qualifiedname>
+        <initializer>= -1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="52" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classoctree__las__detail_1_1MonotonicProgress_1a2d05fd4528cffab19176161ba6f543cc" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>octree_las_detail::MonotonicProgress::MonotonicProgress</definition>
+        <argsstring>(ProgressTracker &amp;tracker)</argsstring>
+        <name>MonotonicProgress</name>
+        <qualifiedname>octree_las_detail::MonotonicProgress::MonotonicProgress</qualifiedname>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;</type>
+          <declname>tracker</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="55" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classoctree__las__detail_1_1MonotonicProgress_1a0eee6974760ec25a72cc819a6485a392" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void octree_las_detail::MonotonicProgress::set_proportion</definition>
+        <argsstring>(double proportion)</argsstring>
+        <name>set_proportion</name>
+        <qualifiedname>octree_las_detail::MonotonicProgress::set_proportion</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>proportion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="57" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="57" bodyend="64"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="49" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="49" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classoctree__las__detail_1_1MonotonicProgress_1a9a0d72766aefa683c8ed32f5d3a2cbd2" prot="private" virt="non-virtual"><scope>octree_las_detail::MonotonicProgress</scope><name>m_last</name></member>
+      <member refid="classoctree__las__detail_1_1MonotonicProgress_1a2ecd554ef60dd69abb82e3532ddfa3ae" prot="private" virt="non-virtual"><scope>octree_las_detail::MonotonicProgress</scope><name>m_mutex</name></member>
+      <member refid="classoctree__las__detail_1_1MonotonicProgress_1a22e524a90997406999e7d3fba996e00a" prot="private" virt="non-virtual"><scope>octree_las_detail::MonotonicProgress</scope><name>m_tracker</name></member>
+      <member refid="classoctree__las__detail_1_1MonotonicProgress_1a2d05fd4528cffab19176161ba6f543cc" prot="public" virt="non-virtual"><scope>octree_las_detail::MonotonicProgress</scope><name>MonotonicProgress</name></member>
+      <member refid="classoctree__las__detail_1_1MonotonicProgress_1a0eee6974760ec25a72cc819a6485a392" prot="public" virt="non-virtual"><scope>octree_las_detail::MonotonicProgress</scope><name>set_proportion</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

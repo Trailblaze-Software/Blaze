@@ -943,15 +943,15 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-imggrid"><strong>ImgGrid</strong></a> (<a href="../classCoordinate2D/"><strong>size_t</strong></a> height, <a href="../classCoordinate2D/"><strong>size_t</strong></a> width, std::optional&lt; <a href="../classCoordinate2D/"><strong>int</strong></a> &gt; type={}) <br></td>
+<td style="text-align: left;"><a href="#function-imggrid"><strong>ImgGrid</strong></a> (size_t width, size_t height) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classRGBColor/"><strong>RGBColor</strong></a></td>
-<td style="text-align: left;"><a href="#function-get_rgb_color"><strong>get_rgb_color</strong></a> (<a href="../classCoordinate2D/"><strong>size_t</strong></a> row, <a href="../classCoordinate2D/"><strong>size_t</strong></a> col) const<br></td>
+<td style="text-align: left;"><a href="#function-get_rgb_color"><strong>get_rgb_color</strong></a> (size_t row, size_t col) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-save_to"><strong>save_to</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; path) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-save_to"><strong>save_to</strong></a> (const fs::path &amp; path) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"></td>
@@ -971,18 +971,18 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classGridData/#function-griddata"><strong>GridData</strong></a> (<a href="../classCoordinate2D/"><strong>size_t</strong></a> width, <a href="../classCoordinate2D/"><strong>size_t</strong></a> height) <br></td>
+<td style="text-align: left;"><a href="../classGridData/#function-griddata"><strong>GridData</strong></a> (size_t width, size_t height) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#function-height"><strong>height</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="../classGridData/#function-in_bounds"><strong>in_bounds</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt; &amp; coord) const<br></td>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="../classGridData/#function-in_bounds"><strong>in_bounds</strong></a> (const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; &amp; coord) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#function-width"><strong>width</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -997,7 +997,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;">std::unique_ptr&lt; cv::Mat &gt;</td>
+<td style="text-align: right;">std::unique_ptr&lt; <a href="../classblaze_1_1Image/"><strong>blaze::Image</strong></a> &gt;</td>
 <td style="text-align: left;"><a href="#variable-m_img"><strong>m_img</strong></a>  <br></td>
 </tr>
 </tbody>
@@ -1013,11 +1013,11 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#variable-m_height"><strong>m_height</strong></a>  <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#variable-m_width"><strong>m_width</strong></a>  <br></td>
 </tr>
 </tbody>
@@ -1025,10 +1025,9 @@
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-imggrid">function ImgGrid</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">ImgGrid</span><span class="o">::</span><span class="n">ImgGrid</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">height</span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">width</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="p">{}</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">width</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">height</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
@@ -1053,7 +1052,7 @@
 <hr>
 <h2 id="protected-attributes-documentation">Protected Attributes Documentation</h2>
 <h3 id="variable-m_img">variable m_img</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ImgGrid</span><span class="o">::</span><span class="n">m_img</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">blaze</span><span class="o">::</span><span class="n">Image</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ImgGrid</span><span class="o">::</span><span class="n">m_img</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 

@@ -40,7 +40,7 @@
         <name>GeoProjection</name>
         <qualifiedname>GeoProjection::GeoProjection</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>projection</declname>
         </param>
         <briefdescription>
@@ -58,11 +58,11 @@
         <name>GeoProjection</name>
         <qualifiedname>GeoProjection::GeoProjection</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>horizontal_projection</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>compound_wkt</declname>
         </param>
         <briefdescription>
@@ -94,7 +94,7 @@
         <name>GeoProjection</name>
         <qualifiedname>GeoProjection::GeoProjection</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
+          <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
           <declname>other</declname>
         </param>
         <briefdescription>
@@ -130,7 +130,7 @@
         <name>operator=</name>
         <qualifiedname>GeoProjection::operator=</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
+          <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
           <declname>other</declname>
         </param>
         <briefdescription>
@@ -160,7 +160,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="116" column="17"/>
       </memberdef>
       <memberdef kind="function" id="classGeoProjection_1ae29c1baae6504e84b136ab8abda40bab" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+        <type>const std::string &amp;</type>
         <definition>const std::string &amp; GeoProjection::to_string</definition>
         <argsstring>() const</argsstring>
         <name>to_string</name>
@@ -174,7 +174,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="118" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="118" bodyend="118"/>
       </memberdef>
       <memberdef kind="function" id="classGeoProjection_1a2f8c8ce68c609a0d1818f0e2a3a4ebf7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+        <type>const std::string &amp;</type>
         <definition>const std::string &amp; GeoProjection::compound_wkt</definition>
         <argsstring>() const</argsstring>
         <name>compound_wkt</name>
@@ -188,7 +188,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="119" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="119" bodyend="121"/>
       </memberdef>
       <memberdef kind="function" id="classGeoProjection_1a3964f2abeae8a97785f9a3bf22e5cb2a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+        <type>bool</type>
         <definition>bool GeoProjection::has_vertical</definition>
         <argsstring>() const</argsstring>
         <name>has_vertical</name>

@@ -69,11 +69,12 @@
 
 | Type | Name |
 | ---: | :--- |
-|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**clip\_polygon\_to\_extent**](#function-clip_polygon_to_extent) ([**const**](classCoordinate2D.md) [**PolygonWithHoles**](structPolygonWithHoles.md) & poly, [**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds) <br> |
-|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**intersect\_polygon**](#function-intersect_polygon) ([**const**](classCoordinate2D.md) [**PolygonWithHoles**](structPolygonWithHoles.md) & host, [**const**](classCoordinate2D.md) [**PolygonWithHoles**](structPolygonWithHoles.md) & clip) <br> |
-|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**subtract\_polygon**](#function-subtract_polygon) ([**const**](classCoordinate2D.md) [**PolygonWithHoles**](structPolygonWithHoles.md) & host, [**const**](classCoordinate2D.md) std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; & cutouts) <br> |
-|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**subtract\_polygon\_with\_union**](#function-subtract_polygon_with_union) ([**const**](classCoordinate2D.md) [**PolygonWithHoles**](structPolygonWithHoles.md) & host, [**const**](classCoordinate2D.md) [**OGRGeometry**](classCoordinate2D.md) \* cut\_union) <br> |
-|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**union\_overlapping\_polygons**](#function-union_overlapping_polygons) ([**const**](classCoordinate2D.md) std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; & polygons) <br> |
+|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**clip\_polygon\_to\_extent**](#function-clip_polygon_to_extent) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & poly, const [**Extent2D**](structExtent2D.md) & bounds) <br> |
+|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**finalize\_polygon\_with\_holes**](#function-finalize_polygon_with_holes) ([**PolygonWithHoles**](structPolygonWithHoles.md) poly, const std::vector&lt; [**Extent2D**](structExtent2D.md) &gt; & snap\_extents={}, double snap\_tolerance=0.01) <br> |
+|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**intersect\_polygon**](#function-intersect_polygon) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & host, const [**PolygonWithHoles**](structPolygonWithHoles.md) & clip) <br> |
+|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**subtract\_polygon**](#function-subtract_polygon) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & host, const std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; & cutouts) <br> |
+|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**subtract\_polygon\_with\_union**](#function-subtract_polygon_with_union) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & host, const OGRGeometry \* cut\_union) <br> |
+|  std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; | [**union\_overlapping\_polygons**](#function-union_overlapping_polygons) (const std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; & polygons) <br> |
 
 
 
@@ -111,8 +112,25 @@
 
 ```C++
 inline std::vector< PolygonWithHoles > clip_polygon_to_extent (
-    const  PolygonWithHoles & poly,
-    const  Extent2D & bounds
+    const PolygonWithHoles & poly,
+    const Extent2D & bounds
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function finalize\_polygon\_with\_holes 
+
+```C++
+inline std::vector< PolygonWithHoles > finalize_polygon_with_holes (
+    PolygonWithHoles poly,
+    const std::vector< Extent2D > & snap_extents={},
+    double snap_tolerance=0.01
 ) 
 ```
 
@@ -127,8 +145,8 @@ inline std::vector< PolygonWithHoles > clip_polygon_to_extent (
 
 ```C++
 inline std::vector< PolygonWithHoles > intersect_polygon (
-    const  PolygonWithHoles & host,
-    const  PolygonWithHoles & clip
+    const PolygonWithHoles & host,
+    const PolygonWithHoles & clip
 ) 
 ```
 
@@ -143,7 +161,7 @@ inline std::vector< PolygonWithHoles > intersect_polygon (
 
 ```C++
 inline std::vector< PolygonWithHoles > subtract_polygon (
-    const  PolygonWithHoles & host,
+    const PolygonWithHoles & host,
     const std::vector< PolygonWithHoles > & cutouts
 ) 
 ```
@@ -159,8 +177,8 @@ inline std::vector< PolygonWithHoles > subtract_polygon (
 
 ```C++
 inline std::vector< PolygonWithHoles > subtract_polygon_with_union (
-    const  PolygonWithHoles & host,
-    const  OGRGeometry * cut_union
+    const PolygonWithHoles & host,
+    const OGRGeometry * cut_union
 ) 
 ```
 

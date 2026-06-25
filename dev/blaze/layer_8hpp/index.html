@@ -786,6 +786,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#public-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-types-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Types Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Types Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enum-layerkind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        enum LayerKind
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -810,6 +849,20 @@
 <p><a href="../files/"><strong>FileList</strong></a> <strong>&gt;</strong> <a href="../dir_99d0482cf009f9d97a0877749b817f19/"><strong>gui</strong></a> <strong>&gt;</strong> <a href="./"><strong>layer.hpp</strong></a></p>
 <p><a href="../layer_8hpp_source/">Go to the source code of this file</a></p>
 <ul>
+<li><code>#include &lt;QMetaObject&gt;</code></li>
+<li><code>#include &lt;QObject&gt;</code></li>
+<li><code>#include &lt;algorithm&gt;</code></li>
+<li><code>#include &lt;array&gt;</code></li>
+<li><code>#include &lt;atomic&gt;</code></li>
+<li><code>#include &lt;future&gt;</code></li>
+<li><code>#include &lt;mutex&gt;</code></li>
+<li><code>#include &lt;vector&gt;</code></li>
+<li><code>#include "contour/contour.hpp"</code></li>
+<li><code>#include "gui/octree_las_data.hpp"</code></li>
+<li><code>#include "gui/point_cloud_visualization.hpp"</code></li>
+<li><code>#include "gui/raster_data.hpp"</code></li>
+<li><code>#include "io/crs.hpp"</code></li>
+<li><code>#include "io/gpkg.hpp"</code></li>
 <li><code>#include "las/las_file.hpp"</code></li>
 <li><code>#include "utilities/coordinate.hpp"</code></li>
 <li><code>#include "utilities/filesystem.hpp"</code></li>
@@ -826,6 +879,14 @@
 <tbody>
 <tr>
 <td style="text-align: right;">class</td>
+<td style="text-align: left;"><a href="../classContourLayer/"><strong>ContourLayer</strong></a> <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">class</td>
+<td style="text-align: left;"><a href="../classDemLayer/"><strong>DemLayer</strong></a> <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">class</td>
 <td style="text-align: left;"><a href="../classLASLayer/"><strong>LASLayer</strong></a> <br></td>
 </tr>
 <tr>
@@ -836,8 +897,43 @@
 <td style="text-align: right;">class</td>
 <td style="text-align: left;"><a href="../classPointLayer/"><strong>PointLayer</strong></a> <br></td>
 </tr>
+<tr>
+<td style="text-align: right;">class</td>
+<td style="text-align: left;"><a href="../classSlopeLayer/"><strong>SlopeLayer</strong></a> <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">class</td>
+<td style="text-align: left;"><a href="../classTexturedDemLayer/"><strong>TexturedDemLayer</strong></a> <br></td>
+</tr>
 </tbody>
 </table>
+<h2 id="public-types">Public Types</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">enum</td>
+<td style="text-align: left;"><a href="#enum-layerkind"><strong>LayerKind</strong></a>  <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-types-documentation">Public Types Documentation</h2>
+<h3 id="enum-layerkind">enum LayerKind</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">enum</span><span class="w"> </span><span class="nc">LayerKind</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">PointCloud</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">DemSurface</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">Contours</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">SlopeSurface</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">TexturedDem</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">};</span>
+</code></pre></div>
+<hr>
+
 <hr />
 <p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</code></p>
 

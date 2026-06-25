@@ -57,7 +57,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**ensure\_gdal\_initialized**](#function-ensure_gdal_initialized) () <br> |
+|  void | [**ensure\_gdal\_initialized**](#function-ensure_gdal_initialized) () <br> |
 
 
 

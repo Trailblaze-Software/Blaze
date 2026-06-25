@@ -53,7 +53,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  fs::path | [**get\_asset**](#function-get_asset) ([**const**](classCoordinate2D.md) fs::path & asset) <br> |
+|  fs::path | [**get\_asset**](#function-get_asset) (const fs::path & asset) <br> |
 
 
 

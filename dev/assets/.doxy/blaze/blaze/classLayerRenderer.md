@@ -16,7 +16,7 @@
 Inherits the following classes: QObject
 
 
-Inherited by the following classes: [LASLayerRenderer](classLASLayerRenderer.md)
+Inherited by the following classes: [ContourLayerRenderer](classContourLayerRenderer.md),  [MeshLayerRenderer](classMeshLayerRenderer.md),  [OctreeLASLayerRenderer](classOctreeLASLayerRenderer.md)
 
 
 
@@ -49,7 +49,8 @@ Inherited by the following classes: [LASLayerRenderer](classLASLayerRenderer.md)
 
 | Type | Name |
 | ---: | :--- |
-| signal [**void**](classCoordinate2D.md) | [**repaint\_required**](classLayerRenderer.md#signal-repaint_required)  <br> |
+| signal void | [**repaint\_required**](classLayerRenderer.md#signal-repaint_required)  <br> |
+| signal void | [**stream\_view\_reset**](classLayerRenderer.md#signal-stream_view_reset)  <br> |
 
 
 
@@ -58,8 +59,9 @@ Inherited by the following classes: [LASLayerRenderer](classLASLayerRenderer.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**data\_update\_required**](#function-data_update_required) () <br> |
-| virtual [**void**](classCoordinate2D.md) | [**render**](#function-render) ([**const**](classCoordinate2D.md) [**Camera**](classCamera.md) & camera) = 0<br> |
+|  void | [**data\_update\_required**](#function-data_update_required) () <br> |
+| virtual void | [**render**](#function-render) (const [**Camera**](classCamera.md) & camera, const [**RenderContext**](structRenderContext.md) & ctx) = 0<br> |
+|  void | [**set\_visible**](#function-set_visible) (bool visible) <br> |
 | virtual  | [**~LayerRenderer**](#function-layerrenderer) () = default<br> |
 
 
@@ -67,7 +69,7 @@ Inherited by the following classes: [LASLayerRenderer](classLASLayerRenderer.md)
 
 | Type | Name |
 | ---: | :--- |
-|  std::unique\_ptr&lt; [**LayerRenderer**](classLayerRenderer.md) &gt; | [**create**](#function-create) (std::shared\_ptr&lt; [**Layer**](classLayer.md) &gt; layer, [**const**](classCoordinate2D.md) [**Coordinate3D**](classCoordinate3D.md)&lt; [**double**](classCoordinate2D.md) &gt; & offset) <br> |
+|  std::unique\_ptr&lt; [**LayerRenderer**](classLayerRenderer.md) &gt; | [**create**](#function-create) (std::shared\_ptr&lt; [**Layer**](classLayer.md) &gt; layer, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & offset) <br> |
 
 
 
@@ -78,7 +80,8 @@ Inherited by the following classes: [LASLayerRenderer](classLASLayerRenderer.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**m\_data\_update\_required**](#variable-m_data_update_required)   = `[**true**](classCoordinate2D.md)`<br> |
+|  bool | [**m\_data\_update\_required**](#variable-m_data_update_required)   = `true`<br> |
+|  bool | [**m\_visible**](#variable-m_visible)   = `true`<br> |
 
 
 
@@ -114,6 +117,19 @@ void LayerRenderer::repaint_required;
 
 
 <hr>
+
+
+
+### signal stream\_view\_reset 
+
+```C++
+void LayerRenderer::stream_view_reset;
+```
+
+
+
+
+<hr>
 ## Public Functions Documentation
 
 
@@ -136,8 +152,24 @@ inline void LayerRenderer::data_update_required ()
 
 ```C++
 virtual void LayerRenderer::render (
-    const  Camera & camera
+    const Camera & camera,
+    const RenderContext & ctx
 ) = 0
+```
+
+
+
+
+<hr>
+
+
+
+### function set\_visible 
+
+```C++
+inline void LayerRenderer::set_visible (
+    bool visible
+) 
 ```
 
 
@@ -165,9 +197,9 @@ virtual LayerRenderer::~LayerRenderer () = default
 ### function create 
 
 ```C++
-static inline std::unique_ptr< LayerRenderer > LayerRenderer::create (
+static std::unique_ptr< LayerRenderer > LayerRenderer::create (
     std::shared_ptr< Layer > layer,
-    const  Coordinate3D < double > & offset
+    const Coordinate3D < double > & offset
 ) 
 ```
 
@@ -184,6 +216,19 @@ static inline std::unique_ptr< LayerRenderer > LayerRenderer::create (
 
 ```C++
 bool LayerRenderer::m_data_update_required;
+```
+
+
+
+
+<hr>
+
+
+
+### variable m\_visible 
+
+```C++
+bool LayerRenderer::m_visible;
 ```
 
 

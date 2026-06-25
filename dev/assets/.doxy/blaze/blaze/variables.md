@@ -15,18 +15,15 @@
 
 ## c
 
+* **CLASSIFICATION\_STYLES** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
 * **COLOR\_MAP** ([**colors.cpp**](colors_8cpp.md), [**colors.hpp**](colors_8hpp.md))
 * **ColorVariant** ([**colors.hpp**](colors_8hpp.md))
 
 
 ## d
 
+* **DEFAULT\_CLASSIFICATION\_COLOR** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
 * **DownsampleMethod** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
-
-
-## f
-
-* **fragmentShaderSource** ([**layer\_renderer.hpp**](layer__renderer_8hpp.md))
 
 
 ## g
@@ -38,8 +35,8 @@
 
 ## i
 
-* **is\_specialization\_v** ([**grid.hpp**](grid_8hpp.md))
-* **is\_std\_optional\_v** ([**tif.cpp**](tif_8cpp.md))
+* **IS\_SPECIALIZATION\_V** ([**grid.hpp**](grid_8hpp.md))
+* **IS\_STD\_OPTIONAL\_V** ([**tif.cpp**](tif_8cpp.md))
 
 
 ## j
@@ -49,6 +46,7 @@
 
 ## l
 
+* **LayerKind** ([**layer.hpp**](layer_8hpp.md))
 * **LASClassification** ([**las\_point.hpp**](las__point_8hpp.md))
 
 
@@ -59,12 +57,8 @@
 
 ## p
 
+* **PointColorMode** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
 * **ProcessingStep** ([**config\_input.hpp**](config__input_8hpp.md))
-
-
-## v
-
-* **vertexShaderSource** ([**layer\_renderer.hpp**](layer__renderer_8hpp.md))
 
 
 

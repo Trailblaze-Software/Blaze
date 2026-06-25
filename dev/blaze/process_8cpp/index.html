@@ -993,20 +993,20 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-adjust_ground_to_slope"><strong>adjust_ground_to_slope</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt; &amp; grid) <br></td>
+<td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt;</td>
+<td style="text-align: left;"><a href="#function-adjust_ground_to_slope"><strong>adjust_ground_to_slope</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; <a href="../classCoordinate2D/"><strong>double</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-get_pixel_heights"><strong>get_pixel_heights</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; &gt; &amp; ground_points, GroundMethod method=GroundMethod::LOWEST_POINT) <br></td>
+<td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt;</td>
+<td style="text-align: left;"><a href="#function-get_pixel_heights"><strong>get_pixel_heights</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; &gt; &amp; ground_points, GroundMethod method=GroundMethod::LOWEST_POINT) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-process_las_data"><strong>process_las_data</strong></a> (<a href="../classLASData/"><strong>LASData</strong></a> &amp; las_file, <a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; output_dir, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structConfig/"><strong>Config</strong></a> &amp; config, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-process_las_data"><strong>process_las_data</strong></a> (<a href="../classLASData/"><strong>LASData</strong></a> &amp; las_file, const fs::path &amp; output_dir, const <a href="../structConfig/"><strong>Config</strong></a> &amp; config, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-process_las_file"><strong>process_las_file</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> fs::path &amp; las_filename, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../structConfig/"><strong>Config</strong></a> &amp; config, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-process_las_file"><strong>process_las_file</strong></a> (const fs::path &amp; las_filename, const <a href="../structConfig/"><strong>Config</strong></a> &amp; config, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1021,7 +1021,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; std::byte &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-downsample_mask_any"><strong>downsample_mask_any</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; std::byte &gt; &gt; &amp; grid, <a href="../classCoordinate2D/"><strong>size_t</strong></a> factor) <br></td>
+<td style="text-align: left;"><a href="#function-downsample_mask_any"><strong>downsample_mask_any</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; std::byte &gt; &gt; &amp; grid, size_t factor) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1037,14 +1037,14 @@
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-adjust_ground_to_slope">function adjust_ground_to_slope</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">adjust_ground_to_slope</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-get_pixel_heights">function get_pixel_heights</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_pixel_heights</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ground_points</span><span class="p">,</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASPoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ground_points</span><span class="p">,</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">GroundMethod</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="n">GroundMethod</span><span class="o">::</span><span class="n">LOWEST_POINT</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
@@ -1054,7 +1054,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">process_las_data</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">LASData</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">las_file</span><span class="p">,</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">output_dir</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
@@ -1063,7 +1063,7 @@
 <h3 id="function-process_las_file">function process_las_file</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">process_las_file</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">las_filename</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
@@ -1071,7 +1071,7 @@
 <h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
 <h3 id="function-downsample_mask_any">function downsample_mask_any</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">static</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">downsample_mask_any</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">factor</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>

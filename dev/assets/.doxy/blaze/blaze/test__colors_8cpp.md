@@ -53,28 +53,28 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), [**Construction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), [**ConstructionWithAlpha**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), [**DefaultConstruction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), [**IndexOperator**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), [**Construction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), [**DefaultConstruction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), [**Addition**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), [**AdditionClamping**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), [**Multiply**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**CMYKToRGB\_Black**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**CMYKToRGB\_White**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**CMYKToRGB\_Red**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**CMYKToRGB\_Green**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**CMYKToRGB\_Blue**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**RGBToCMYK\_Black**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**RGBToCMYK\_White**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**RGBToCMYK\_Red**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**RGBToCMYK\_Green**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**RGBToCMYK\_Blue**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ColorConversion**](classCoordinate2D.md), [**RoundTripRGBToCMYKToRGB**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) (ColorVariant, [**ToRGB**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) (ColorVariant, [**ToCMYK**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), Construction) <br> |
+|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), ConstructionWithAlpha) <br> |
+|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), DefaultConstruction) <br> |
+|   | [**TEST**](#function-test) ([**RGBColor**](classRGBColor.md), IndexOperator) <br> |
+|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), Construction) <br> |
+|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), DefaultConstruction) <br> |
+|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), Addition) <br> |
+|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), AdditionClamping) <br> |
+|   | [**TEST**](#function-test) ([**CMYKColor**](classCMYKColor.md), Multiply) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, CMYKToRGB\_Black) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, CMYKToRGB\_White) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, CMYKToRGB\_Red) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, CMYKToRGB\_Green) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, CMYKToRGB\_Blue) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, RGBToCMYK\_Black) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, RGBToCMYK\_White) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, RGBToCMYK\_Red) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, RGBToCMYK\_Green) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, RGBToCMYK\_Blue) <br> |
+|   | [**TEST**](#function-test) (ColorConversion, RoundTripRGBToCMYKToRGB) <br> |
+|   | [**TEST**](#function-test) (ColorVariant, ToRGB) <br> |
+|   | [**TEST**](#function-test) (ColorVariant, ToCMYK) <br> |
 
 
 

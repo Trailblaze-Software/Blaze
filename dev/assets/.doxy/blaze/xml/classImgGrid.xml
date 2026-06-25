@@ -5,9 +5,9 @@
     <basecompoundref refid="classGridData" prot="public" virt="non-virtual">GridData</basecompoundref>
     <derivedcompoundref refid="classGeoImgGrid" prot="public" virt="non-virtual">GeoImgGrid</derivedcompoundref>
     <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classImgGrid_1a57403cf4d03dc3639103ef1ee1491240" prot="protected" static="no" mutable="no">
-        <type>std::unique_ptr&lt; cv::Mat &gt;</type>
-        <definition>std::unique_ptr&lt;cv::Mat&gt; ImgGrid::m_img</definition>
+      <memberdef kind="variable" id="classImgGrid_1acb6fda1f711c352728c8e2d980d26fe1" prot="protected" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;blaze::Image&gt; ImgGrid::m_img</definition>
         <argsstring></argsstring>
         <name>m_img</name>
         <qualifiedname>ImgGrid::m_img</qualifiedname>
@@ -17,28 +17,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="13" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="13" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="10" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="10" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classImgGrid_1afb6300c463102a24c705fa821b7a7b10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classImgGrid_1a95aa7dac40ce0a41d791fc99aaf9ebc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>ImgGrid::ImgGrid</definition>
-        <argsstring>(size_t height, size_t width, std::optional&lt; int &gt; type={})</argsstring>
+        <argsstring>(size_t width, size_t height)</argsstring>
         <name>ImgGrid</name>
         <qualifiedname>ImgGrid::ImgGrid</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
-          <declname>height</declname>
-        </param>
-        <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <type>size_t</type>
           <declname>width</declname>
         </param>
         <param>
-          <type>std::optional&lt; <ref refid="classCoordinate2D" kindref="compound">int</ref> &gt;</type>
-          <declname>type</declname>
-          <defval>{}</defval>
+          <type>size_t</type>
+          <declname>height</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -46,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="16" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="18" bodyend="20"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="13" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="19" bodyend="20"/>
       </memberdef>
       <memberdef kind="function" id="classImgGrid_1aca2b39a10ef047229498916935e91881" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -60,16 +55,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="17" column="3"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="14" column="3"/>
       </memberdef>
       <memberdef kind="function" id="classImgGrid_1a529121d6b01eb56db74a2f5cc5a89eb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void ImgGrid::save_to</definition>
         <argsstring>(const fs::path &amp;path)</argsstring>
         <name>save_to</name>
         <qualifiedname>ImgGrid::save_to</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> fs::path &amp;</type>
+          <type>const fs::path &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -78,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="19" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="21" bodyend="21"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="16" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="22" bodyend="28"/>
       </memberdef>
       <memberdef kind="function" id="classImgGrid_1a28517c9d3655e28a0ac8e6ee1aa63c72" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classRGBColor" kindref="compound">RGBColor</ref></type>
@@ -87,11 +82,11 @@
         <name>get_rgb_color</name>
         <qualifiedname>ImgGrid::get_rgb_color</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <type>size_t</type>
           <declname>row</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <type>size_t</type>
           <declname>col</declname>
         </param>
         <briefdescription>
@@ -100,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="21" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="22" bodyend="25"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="18" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp" bodystart="30" bodyend="30"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -137,15 +132,15 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="11" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="11" bodyend="22"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" line="8" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="8" bodyend="19"/>
     <listofallmembers>
       <member refid="classImgGrid_1a28517c9d3655e28a0ac8e6ee1aa63c72" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>get_rgb_color</name></member>
       <member refid="classGridData_1ad3de1079142a49044d2cc5dce8c77be2" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>GridData</name></member>
       <member refid="classGridData_1af50b2f20899510c2b9373bacbb217b7f" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>height</name></member>
-      <member refid="classImgGrid_1afb6300c463102a24c705fa821b7a7b10" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>ImgGrid</name></member>
+      <member refid="classImgGrid_1a95aa7dac40ce0a41d791fc99aaf9ebc5" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>ImgGrid</name></member>
       <member refid="classGridData_1ae4531fee4184ca64a5c9b16488d253ba" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>in_bounds</name></member>
       <member refid="classGridData_1a4c3d85fe603a4d61b8dff291ff527141" prot="protected" virt="non-virtual"><scope>ImgGrid</scope><name>m_height</name></member>
-      <member refid="classImgGrid_1a57403cf4d03dc3639103ef1ee1491240" prot="protected" virt="non-virtual"><scope>ImgGrid</scope><name>m_img</name></member>
+      <member refid="classImgGrid_1acb6fda1f711c352728c8e2d980d26fe1" prot="protected" virt="non-virtual"><scope>ImgGrid</scope><name>m_img</name></member>
       <member refid="classGridData_1a13126024023e1abb5934579b8bd8f84f" prot="protected" virt="non-virtual"><scope>ImgGrid</scope><name>m_width</name></member>
       <member refid="classImgGrid_1a529121d6b01eb56db74a2f5cc5a89eb2" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>save_to</name></member>
       <member refid="classGridData_1ab0725a01420119c3a572e56671389870" prot="public" virt="non-virtual"><scope>ImgGrid</scope><name>width</name></member>

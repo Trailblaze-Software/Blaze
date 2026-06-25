@@ -2,7 +2,7 @@
 
 # Struct is\_std\_optional
 
-**template &lt;[**typename**](classCoordinate2D.md) T&gt;**
+**template &lt;typename T&gt;**
 
 
 

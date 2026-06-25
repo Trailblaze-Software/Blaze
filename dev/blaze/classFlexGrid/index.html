@@ -1019,39 +1019,39 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-flexgrid"><strong>FlexGrid</strong></a> (<a href="../classCoordinate2D/"><strong>size_t</strong></a> width, <a href="../classCoordinate2D/"><strong>size_t</strong></a> height, <a href="../classCoordinate2D/"><strong>int</strong></a> n_bytes, <a href="../classCoordinate2D/"><strong>int</strong></a> data_type={}) <br></td>
+<td style="text-align: left;"><a href="#function-flexgrid"><strong>FlexGrid</strong></a> (size_t width, size_t height, int n_bytes, int data_type={}) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::byte *</td>
 <td style="text-align: left;"><a href="#function-data-12"><strong>data</strong></a> () <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> std::byte *</td>
+<td style="text-align: right;">const std::byte *</td>
 <td style="text-align: left;"><a href="#function-data-22"><strong>data</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: right;">int</td>
 <td style="text-align: left;"><a href="#function-data_type"><strong>data_type</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-fill_from"><strong>fill_from</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="./"><strong>FlexGrid</strong></a> &amp; other, <a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>long</strong></a> <a href="../classCoordinate2D/"><strong>long</strong></a> &gt; &amp; top_left={0, 0}) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-fill_from"><strong>fill_from</strong></a> (const <a href="./"><strong>FlexGrid</strong></a> &amp; other, const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; long long &gt; &amp; top_left={0, 0}) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">T</td>
-<td style="text-align: left;"><a href="#function-get"><strong>get</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>long</strong></a> <a href="../classCoordinate2D/"><strong>long</strong></a> &gt; &amp; coord) const<br></td>
+<td style="text-align: left;"><a href="#function-get"><strong>get</strong></a> (const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; long long &gt; &amp; coord) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: right;">unsigned int</td>
 <td style="text-align: left;"><a href="#function-n_bytes"><strong>n_bytes</strong></a> () const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::byte *</td>
-<td style="text-align: left;"><a href="#function-operator"><strong>operator[]</strong></a> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt; coord) <br></td>
+<td style="text-align: left;"><a href="#function-operator"><strong>operator[]</strong></a> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; coord) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>const</strong></a> std::byte *</td>
-<td style="text-align: left;"><a href="#function-operator_1"><strong>operator[]</strong></a> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt; coord) const<br></td>
+<td style="text-align: right;">const std::byte *</td>
+<td style="text-align: left;"><a href="#function-operator_1"><strong>operator[]</strong></a> (<a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; coord) const<br></td>
 </tr>
 </tbody>
 </table>
@@ -1067,18 +1067,18 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classGridData/#function-griddata"><strong>GridData</strong></a> (<a href="../classCoordinate2D/"><strong>size_t</strong></a> width, <a href="../classCoordinate2D/"><strong>size_t</strong></a> height) <br></td>
+<td style="text-align: left;"><a href="../classGridData/#function-griddata"><strong>GridData</strong></a> (size_t width, size_t height) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#function-height"><strong>height</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>bool</strong></a></td>
-<td style="text-align: left;"><a href="../classGridData/#function-in_bounds"><strong>in_bounds</strong></a> (<a href="../classCoordinate2D/"><strong>const</strong></a> <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; <a href="../classCoordinate2D/"><strong>size_t</strong></a> &gt; &amp; coord) const<br></td>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="../classGridData/#function-in_bounds"><strong>in_bounds</strong></a> (const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; &amp; coord) const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#function-width"><strong>width</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -1097,11 +1097,11 @@
 <td style="text-align: left;"><a href="#variable-m_data"><strong>m_data</strong></a>  <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: right;">unsigned int</td>
 <td style="text-align: left;"><a href="#variable-m_data_size"><strong>m_data_size</strong></a>  <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: right;">int</td>
 <td style="text-align: left;"><a href="#variable-m_data_type"><strong>m_data_type</strong></a>  <br></td>
 </tr>
 </tbody>
@@ -1117,11 +1117,11 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#variable-m_height"><strong>m_height</strong></a>  <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>size_t</strong></a></td>
+<td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="../classGridData/#variable-m_width"><strong>m_width</strong></a>  <br></td>
 </tr>
 </tbody>
@@ -1154,8 +1154,8 @@
 
 <h3 id="function-fill_from">function fill_from</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">FlexGrid</span><span class="o">::</span><span class="n">fill_from</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">FlexGrid</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">long</span><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">top_left</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FlexGrid</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">top_left</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1163,13 +1163,13 @@
 <h3 id="function-get">function get</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kr">inline</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">FlexGrid</span><span class="o">::</span><span class="n">get</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w">  </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">long</span><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">coord</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">coord</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-n_bytes">function n_bytes</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">FlexGrid</span><span class="o">::</span><span class="n">n_bytes</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">FlexGrid</span><span class="o">::</span><span class="n">n_bytes</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 

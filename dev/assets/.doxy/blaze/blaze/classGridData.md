@@ -52,10 +52,10 @@ Inherited by the following classes: [Grid](classGrid.md),  [Grid](classGrid.md),
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GridData**](#function-griddata) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**in\_bounds**](#function-in_bounds) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  [**size\_t**](classCoordinate2D.md) | [**width**](#function-width) () const<br> |
+|   | [**GridData**](#function-griddata) (size\_t width, size\_t height) <br> |
+|  size\_t | [**height**](#function-height) () const<br> |
+|  bool | [**in\_bounds**](#function-in_bounds) (const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & coord) const<br> |
+|  size\_t | [**width**](#function-width) () const<br> |
 
 
 
@@ -68,8 +68,8 @@ Inherited by the following classes: [Grid](classGrid.md),  [Grid](classGrid.md),
 
 | Type | Name |
 | ---: | :--- |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_height**](#variable-m_height)  <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**m\_width**](#variable-m_width)  <br> |
+|  size\_t | [**m\_height**](#variable-m_height)  <br> |
+|  size\_t | [**m\_width**](#variable-m_width)  <br> |
 
 
 
@@ -128,7 +128,7 @@ inline size_t GridData::height () const
 
 ```C++
 inline bool GridData::in_bounds (
-    const  Coordinate2D < size_t > & coord
+    const Coordinate2D < size_t > & coord
 ) const
 ```
 

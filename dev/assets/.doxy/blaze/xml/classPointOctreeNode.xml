@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPointOctreeNode" kind="class" language="C++" prot="public">
+    <compoundname>PointOctreeNode</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classPointOctreeNode_1a7865aa14e83133bee514592d8efbaa64" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr size_t</type>
+        <definition>constexpr size_t PointOctreeNode::MAX_POINTS</definition>
+        <argsstring></argsstring>
+        <name>MAX_POINTS</name>
+        <qualifiedname>PointOctreeNode::MAX_POINTS</qualifiedname>
+        <initializer>= 32&apos;000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="46" column="27" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointOctreeNode_1a7b02df6ce8a576bbd0e0d00f57770db2" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int PointOctreeNode::MAX_DEPTH</definition>
+        <argsstring></argsstring>
+        <name>MAX_DEPTH</name>
+        <qualifiedname>PointOctreeNode::MAX_DEPTH</qualifiedname>
+        <initializer>= 20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="47" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classPointOctreeNode_1ae361173443c28b5fe5a9e2fbeeebab46" prot="public" static="no" mutable="no">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D PointOctreeNode::bounds</definition>
+        <argsstring></argsstring>
+        <name>bounds</name>
+        <qualifiedname>PointOctreeNode::bounds</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="49" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointOctreeNode_1aa9c67064cf2f1b52a0827129e6e3ff31" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t PointOctreeNode::begin_index</definition>
+        <argsstring></argsstring>
+        <name>begin_index</name>
+        <qualifiedname>PointOctreeNode::begin_index</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="50" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointOctreeNode_1a539c511a5be49f256b10195b7db71a64" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t PointOctreeNode::end_index</definition>
+        <argsstring></argsstring>
+        <name>end_index</name>
+        <qualifiedname>PointOctreeNode::end_index</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="51" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointOctreeNode_1ae8f052777d725b42bce7e8270167b600" prot="public" static="no" mutable="no">
+        <type>std::array&lt; std::unique_ptr&lt; <ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref> &gt;, 8 &gt;</type>
+        <definition>std::array&lt;std::unique_ptr&lt;PointOctreeNode&gt;, 8&gt; PointOctreeNode::children</definition>
+        <argsstring></argsstring>
+        <name>children</name>
+        <qualifiedname>PointOctreeNode::children</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="52" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointOctreeNode_1aa13cbc3d0c93474bc032e8a265afd0a7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PointOctreeNode::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>PointOctreeNode::depth</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="53" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPointOctreeNode_1a568fbc20969f0359dfdece9c466b3602" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t PointOctreeNode::point_count</definition>
+        <argsstring>() const</argsstring>
+        <name>point_count</name>
+        <qualifiedname>PointOctreeNode::point_count</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="55" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctreeNode_1aeecbbd48b8470eb2167772d95c78d6b5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PointOctreeNode::has_children</definition>
+        <argsstring>() const</argsstring>
+        <name>has_children</name>
+        <qualifiedname>PointOctreeNode::has_children</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="57" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="57" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctreeNode_1a55870415a9a6afe0bc7cee00993b7526" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int PointOctreeNode::child_index</definition>
+        <argsstring>(const OctreePoint &amp;point) const</argsstring>
+        <name>child_index</name>
+        <qualifiedname>PointOctreeNode::child_index</qualifiedname>
+        <param>
+          <type>const <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &amp;</type>
+          <declname>point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="62" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="62" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctreeNode_1a105e7719c12fb876512d3110777b6a0b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointOctreeNode::ensure_child</definition>
+        <argsstring>(int idx)</argsstring>
+        <name>ensure_child</name>
+        <qualifiedname>PointOctreeNode::ensure_child</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="73" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="73" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctreeNode_1a8ee6bd832139a637ac61df89b82ffc06" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointOctreeNode::shuffle_range</definition>
+        <argsstring>(std::vector&lt; OctreePoint &gt; &amp;points) const</argsstring>
+        <name>shuffle_range</name>
+        <qualifiedname>PointOctreeNode::shuffle_range</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <declname>points</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="91" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="91" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctreeNode_1a241e9e12e3bb5108aeed11b07b3effa7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointOctreeNode::shuffle_recursive</definition>
+        <argsstring>(std::vector&lt; OctreePoint &gt; &amp;points)</argsstring>
+        <name>shuffle_recursive</name>
+        <qualifiedname>PointOctreeNode::shuffle_recursive</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <declname>points</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="95" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="95" bodyend="102"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>Extent2D</label>
+        <link refid="structExtent2D"/>
+      </node>
+      <node id="2">
+        <label>Extent3D</label>
+        <link refid="structExtent3D"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>PointOctreeNode</label>
+        <link refid="classPointOctreeNode"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>bounds</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="44" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="44" bodyend="103"/>
+    <listofallmembers>
+      <member refid="classPointOctreeNode_1aa9c67064cf2f1b52a0827129e6e3ff31" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>begin_index</name></member>
+      <member refid="classPointOctreeNode_1ae361173443c28b5fe5a9e2fbeeebab46" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>bounds</name></member>
+      <member refid="classPointOctreeNode_1a55870415a9a6afe0bc7cee00993b7526" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>child_index</name></member>
+      <member refid="classPointOctreeNode_1ae8f052777d725b42bce7e8270167b600" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>children</name></member>
+      <member refid="classPointOctreeNode_1aa13cbc3d0c93474bc032e8a265afd0a7" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>depth</name></member>
+      <member refid="classPointOctreeNode_1a539c511a5be49f256b10195b7db71a64" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>end_index</name></member>
+      <member refid="classPointOctreeNode_1a105e7719c12fb876512d3110777b6a0b" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>ensure_child</name></member>
+      <member refid="classPointOctreeNode_1aeecbbd48b8470eb2167772d95c78d6b5" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>has_children</name></member>
+      <member refid="classPointOctreeNode_1a7b02df6ce8a576bbd0e0d00f57770db2" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>MAX_DEPTH</name></member>
+      <member refid="classPointOctreeNode_1a7865aa14e83133bee514592d8efbaa64" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>MAX_POINTS</name></member>
+      <member refid="classPointOctreeNode_1a568fbc20969f0359dfdece9c466b3602" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>point_count</name></member>
+      <member refid="classPointOctreeNode_1a8ee6bd832139a637ac61df89b82ffc06" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>shuffle_range</name></member>
+      <member refid="classPointOctreeNode_1a241e9e12e3bb5108aeed11b07b3effa7" prot="public" virt="non-virtual"><scope>PointOctreeNode</scope><name>shuffle_recursive</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

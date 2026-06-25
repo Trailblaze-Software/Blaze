@@ -2,7 +2,7 @@
 
 # Class GridGraph
 
-**template &lt;[**typename**](classCoordinate2D.md) T&gt;**
+**template &lt;typename T&gt;**
 
 
 
@@ -53,16 +53,16 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**GridGraph**](#function-gridgraph) ([**const**](classCoordinate2D.md) [**Grid**](classGrid.md)&lt; [**U**](classCoordinate2D.md) &gt; & grid) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
+|   | [**GridGraph**](#function-gridgraph) (const [**Grid**](classGrid.md)&lt; U &gt; & grid) <br> |
+|  size\_t | [**height**](#function-height) () const<br> |
 |  [**Grid**](classGrid.md)&lt; T &gt; & | [**horizontal**](#function-horizontal-12) () <br> |
-|  [**const**](classCoordinate2D.md) [**Grid**](classGrid.md)&lt; T &gt; & | [**horizontal**](#function-horizontal-22) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**in\_bounds**](#function-in_bounds) ([**const**](classCoordinate2D.md) [**LineCoord2D**](classLineCoord2D.md)&lt; [**U**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  [**const**](classCoordinate2D.md) T & | [**operator[]**](#function-operator) ([**const**](classCoordinate2D.md) [**LineCoord2D**](classLineCoord2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  T & | [**operator[]**](#function-operator_1) ([**const**](classCoordinate2D.md) [**LineCoord2D**](classLineCoord2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) <br> |
+|  const [**Grid**](classGrid.md)&lt; T &gt; & | [**horizontal**](#function-horizontal-22) () const<br> |
+|  bool | [**in\_bounds**](#function-in_bounds) (const [**LineCoord2D**](classLineCoord2D.md)&lt; U &gt; & coord) const<br> |
+|  const T & | [**operator[]**](#function-operator) (const [**LineCoord2D**](classLineCoord2D.md)&lt; size\_t &gt; & coord) const<br> |
+|  T & | [**operator[]**](#function-operator_1) (const [**LineCoord2D**](classLineCoord2D.md)&lt; size\_t &gt; & coord) <br> |
 |  [**Grid**](classGrid.md)&lt; T &gt; & | [**vertical**](#function-vertical-12) () <br> |
-|  [**const**](classCoordinate2D.md) [**Grid**](classGrid.md)&lt; T &gt; & | [**vertical**](#function-vertical-22) () const<br> |
-|  [**size\_t**](classCoordinate2D.md) | [**width**](#function-width) () const<br> |
+|  const [**Grid**](classGrid.md)&lt; T &gt; & | [**vertical**](#function-vertical-22) () const<br> |
+|  size\_t | [**width**](#function-width) () const<br> |
 
 
 
@@ -99,9 +99,9 @@
 ### function GridGraph 
 
 ```C++
-template<typename  U>
+template<typename U>
 inline explicit GridGraph::GridGraph (
-    const  Grid < U > & grid
+    const Grid < U > & grid
 ) 
 ```
 
@@ -141,7 +141,7 @@ inline Grid < T > & GridGraph::horizontal ()
 ### function horizontal [2/2]
 
 ```C++
-inline const  Grid < T > & GridGraph::horizontal () const
+inline const Grid < T > & GridGraph::horizontal () const
 ```
 
 
@@ -154,9 +154,9 @@ inline const  Grid < T > & GridGraph::horizontal () const
 ### function in\_bounds 
 
 ```C++
-template<typename  U>
+template<typename U>
 inline bool GridGraph::in_bounds (
-    const  LineCoord2D < U > & coord
+    const LineCoord2D < U > & coord
 ) const
 ```
 
@@ -171,7 +171,7 @@ inline bool GridGraph::in_bounds (
 
 ```C++
 inline const T & GridGraph::operator[] (
-    const  LineCoord2D < size_t > & coord
+    const LineCoord2D < size_t > & coord
 ) const
 ```
 
@@ -186,7 +186,7 @@ inline const T & GridGraph::operator[] (
 
 ```C++
 inline T & GridGraph::operator[] (
-    const  LineCoord2D < size_t > & coord
+    const LineCoord2D < size_t > & coord
 ) 
 ```
 
@@ -213,7 +213,7 @@ inline Grid < T > & GridGraph::vertical ()
 ### function vertical [2/2]
 
 ```C++
-inline const  Grid < T > & GridGraph::vertical () const
+inline const Grid < T > & GridGraph::vertical () const
 ```
 
 
@@ -243,7 +243,7 @@ inline size_t GridGraph::width () const
 ```C++
 inline std::ostream & GridGraph::operator<< (
     std::ostream & os,
-    const  GridGraph & graph
+    const GridGraph & graph
 ) 
 ```
 

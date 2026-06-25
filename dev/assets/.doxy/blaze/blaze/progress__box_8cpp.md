@@ -13,8 +13,13 @@
 * `#include "progress_box.hpp"`
 * `#include <QException>`
 * `#include <QFutureWatcher>`
-* `#include <QMessageBox>`
+* `#include <QProgressBar>`
+* `#include <QTimer>`
 * `#include <QtConcurrent>`
+* `#include <chrono>`
+* `#include <cmath>`
+* `#include <sstream>`
+* `#include "error_dialog.hpp"`
 * `#include "ui_progress_box.h"`
 * `#include "utilities/progress_tracker.hpp"`
 
@@ -61,6 +66,11 @@
 
 
 
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
+|  std::string | [**format\_duration**](#function-format_duration) (double seconds) <br> |
 
 
 
@@ -87,6 +97,23 @@
 
 
 
+## Public Static Functions Documentation
+
+
+
+
+### function format\_duration 
+
+```C++
+static std::string format_duration (
+    double seconds
+) 
+```
+
+
+
+
+<hr>
 
 ------------------------------
 The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp`

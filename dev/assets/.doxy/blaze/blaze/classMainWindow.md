@@ -52,7 +52,7 @@ Inherits the following classes: QMainWindow
 
 | Type | Name |
 | ---: | :--- |
-|   | [**MainWindow**](#function-mainwindow) () <br> |
+|   | [**MainWindow**](#function-mainwindow) (const std::vector&lt; fs::path &gt; & initial\_las\_files={}) <br> |
 |   | [**~MainWindow**](#function-mainwindow) () <br> |
 
 
@@ -90,7 +90,9 @@ Inherits the following classes: QMainWindow
 ### function MainWindow 
 
 ```C++
-MainWindow::MainWindow () 
+explicit MainWindow::MainWindow (
+    const std::vector< fs::path > & initial_las_files={}
+) 
 ```
 
 

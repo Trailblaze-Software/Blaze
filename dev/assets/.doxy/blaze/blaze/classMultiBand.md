@@ -2,7 +2,7 @@
 
 # Class MultiBand
 
-**template &lt;[**typename**](classCoordinate2D.md) GridT&gt;**
+**template &lt;typename GridT&gt;**
 
 
 
@@ -53,15 +53,15 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**MultiBand**](#function-multiband-12) ([**int**](classCoordinate2D.md) n\_bands, Args... args) <br> |
-|   | [**MultiBand**](#function-multiband-22) ([**size\_t**](classCoordinate2D.md) width, [**size\_t**](classCoordinate2D.md) height) <br> |
-|  [**void**](classCoordinate2D.md) | [**fill\_from**](#function-fill_from) ([**const**](classCoordinate2D.md) [**MultiBand**](classMultiBand.md) & other, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & top\_left={0, 0}) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
-|  [**bool**](classCoordinate2D.md) | [**in\_bounds**](#function-in_bounds) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; & coord) const<br> |
-|  GridT & | [**operator[]**](#function-operator) ([**size\_t**](classCoordinate2D.md) i) <br> |
-|  [**const**](classCoordinate2D.md) GridT & | [**operator[]**](#function-operator_1) ([**size\_t**](classCoordinate2D.md) i) const<br> |
-|  [**size\_t**](classCoordinate2D.md) | [**size**](#function-size) () const<br> |
-|  [**size\_t**](classCoordinate2D.md) | [**width**](#function-width) () const<br> |
+|   | [**MultiBand**](#function-multiband-12) (int n\_bands, Args... args) <br> |
+|   | [**MultiBand**](#function-multiband-22) (size\_t width, size\_t height) <br> |
+|  void | [**fill\_from**](#function-fill_from) (const [**MultiBand**](classMultiBand.md) & other, const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & top\_left={0, 0}) <br> |
+|  size\_t | [**height**](#function-height) () const<br> |
+|  bool | [**in\_bounds**](#function-in_bounds) (const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & coord) const<br> |
+|  GridT & | [**operator[]**](#function-operator) (size\_t i) <br> |
+|  const GridT & | [**operator[]**](#function-operator_1) (size\_t i) const<br> |
+|  size\_t | [**size**](#function-size) () const<br> |
+|  size\_t | [**width**](#function-width) () const<br> |
 
 
 
@@ -132,8 +132,8 @@ inline MultiBand::MultiBand (
 
 ```C++
 inline void MultiBand::fill_from (
-    const  MultiBand & other,
-    const  Coordinate2D < size_t > & top_left={0, 0}
+    const MultiBand & other,
+    const Coordinate2D < size_t > & top_left={0, 0}
 ) 
 ```
 
@@ -161,7 +161,7 @@ inline size_t MultiBand::height () const
 
 ```C++
 inline bool MultiBand::in_bounds (
-    const  Coordinate2D < size_t > & coord
+    const Coordinate2D < size_t > & coord
 ) const
 ```
 

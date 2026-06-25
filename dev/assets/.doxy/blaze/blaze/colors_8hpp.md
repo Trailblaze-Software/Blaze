@@ -27,11 +27,6 @@
 
 
 
-## Namespaces
-
-| Type | Name |
-| ---: | :--- |
-| namespace | [**cv**](namespacecv.md) <br> |
 
 
 ## Classes
@@ -77,8 +72,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**CMYKColor**](classCMYKColor.md) | [**to\_cmyk**](#function-to_cmyk) ([**const**](classCoordinate2D.md) ColorVariant & cv) <br> |
-|  [**RGBColor**](classRGBColor.md) | [**to\_rgb**](#function-to_rgb) ([**const**](classCoordinate2D.md) ColorVariant & cv) <br> |
+|  [**CMYKColor**](classCMYKColor.md) | [**to\_cmyk**](#function-to_cmyk) (const ColorVariant & cv) <br> |
+|  [**RGBColor**](classRGBColor.md) | [**to\_rgb**](#function-to_rgb) (const ColorVariant & cv) <br> |
 
 
 

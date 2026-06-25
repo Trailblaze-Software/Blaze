@@ -127,19 +127,24 @@
     </incdepgraph>
     <innerclass refid="structStream" prot="public">Stream</innerclass>
     <sectiondef kind="func">
-      <memberdef kind="function" id="water_8hpp_1a42c7c576c6f232a008f1c42c733e18a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+      <memberdef kind="function" id="water_8hpp_1ab050214d1324495997c5bc2472558d4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt;</type>
         <definition>GeoGrid&lt; double &gt; fill_depressions</definition>
-        <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, const std::vector&lt; Coordinate2D&lt; size_t &gt; &gt; &amp;sinks={})</argsstring>
+        <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, const std::vector&lt; Coordinate2D&lt; size_t &gt; &gt; &amp;sinks={}, ProgressTracker *progress_tracker=nullptr)</argsstring>
         <name>fill_depressions</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &gt; &amp;</type>
+          <type>const std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; size_t &gt; &gt; &amp;</type>
           <declname>sinks</declname>
           <defval>{}</defval>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> *</type>
+          <declname>progress_tracker</declname>
+          <defval>nullptr</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -147,26 +152,31 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" line="17" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="44" bodyend="98" declfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" declline="17" declcolumn="9"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" line="17" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="44" bodyend="110" declfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" declline="17" declcolumn="9"/>
       </memberdef>
-      <memberdef kind="function" id="water_8hpp_1a32267880fec1d06687172eccce0fa313" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt; &gt;</type>
+      <memberdef kind="function" id="water_8hpp_1adfe04454607b7475bfc6a4e87866ff92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; size_t &gt; &gt;</type>
         <definition>std::vector&lt; Coordinate2D&lt; size_t &gt; &gt; identify_sinks</definition>
-        <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, double depth=10, double min_area=5000)</argsstring>
+        <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, double depth=10, double min_area=5000, ProgressTracker *progress_tracker=nullptr)</argsstring>
         <name>identify_sinks</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>depth</declname>
           <defval>10</defval>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>min_area</declname>
           <defval>5000</defval>
+        </param>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> *</type>
+          <declname>progress_tracker</declname>
+          <defval>nullptr</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -174,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" line="20" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="99" bodyend="145" declfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" declline="20" declcolumn="13"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" line="21" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="111" bodyend="158" declfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" declline="21" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="water_8hpp_1aaddd926674a49403f5ee7b2656458932" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; <ref refid="structStream" kindref="compound">Stream</ref> &gt;</type>
@@ -182,11 +192,11 @@
         <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, const WaterConfigs &amp;config, ProgressTracker progress_tracker, bool already_filled=false)</argsstring>
         <name>stream_paths</name>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref> &amp;</type>
+          <type>const <ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref> &amp;</type>
           <declname>config</declname>
         </param>
         <param>
@@ -194,9 +204,9 @@
           <declname>progress_tracker</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">bool</ref></type>
+          <type>bool</type>
           <declname>already_filled</declname>
-          <defval><ref refid="classCoordinate2D" kindref="compound">false</ref></defval>
+          <defval>false</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -204,7 +214,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" line="23" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="254" bodyend="314" declfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" declline="23" declcolumn="13"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" line="25" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="267" bodyend="327" declfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp" declline="25" declcolumn="13"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -228,14 +238,16 @@
 <codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>catchment;</highlight></codeline>
 <codeline lineno="15"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>fill_depressions(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">sinks</ref><sp/>=<sp/>{});</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal">std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>identify_sinks(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">depth</ref><sp/>=<sp/>10,</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">min_area</ref><sp/>=<sp/>5000);</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal">std::vector&lt;Stream&gt;<sp/>stream_paths(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">config</ref>,</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/><ref refid="classCoordinate2D" kindref="compound">progress_tracker</ref>,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">already_filled</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>fill_depressions(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&gt;&amp;<sp/>sinks<sp/>=<sp/>{},</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*<sp/>progress_tracker<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>identify_sinks(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>depth<sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>min_area<sp/>=<sp/>5000,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*<sp/>progress_tracker<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">std::vector&lt;Stream&gt;<sp/>stream_paths(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>&amp;<sp/>config,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>progress_tracker,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>already_filled<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp"/>
   </compounddef>

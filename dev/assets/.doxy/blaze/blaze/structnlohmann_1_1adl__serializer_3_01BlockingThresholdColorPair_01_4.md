@@ -55,8 +55,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md) | [**from\_json**](#function-from_json) ([**const**](classCoordinate2D.md) json & j) <br> |
-|  [**void**](classCoordinate2D.md) | [**to\_json**](#function-to_json) (json & j, [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md) btc) <br> |
+|  [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md) | [**from\_json**](#function-from_json) (const json & j) <br> |
+|  void | [**to\_json**](#function-to_json) (json & j, [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md) btc) <br> |
 
 
 

@@ -13,10 +13,13 @@
 * `#include "main_window.hpp"`
 * `#include <QtConcurrent>`
 * `#include <QtWidgets>`
+* `#include <cstdlib>`
 * `#include "config_input/config_input.hpp"`
+* `#include "error_dialog.hpp"`
 * `#include "progress_box.hpp"`
 * `#include "run.hpp"`
 * `#include "ui_main_window.h"`
+* `#include "utilities/env.hpp"`
 
 
 

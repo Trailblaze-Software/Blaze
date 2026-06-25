@@ -61,13 +61,13 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**WriteAndReadContours**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**MultipleLayers**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**DifferentFieldTypes**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**ReadNonExistentFile**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**ReadEmptyFile**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**CombineGpkgs**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**GPKG**](classCoordinate2D.md), [**CombineGpkgsIncludesVegetationPolygons**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (GPKG, WriteAndReadContours) <br> |
+|   | [**TEST**](#function-test) (GPKG, MultipleLayers) <br> |
+|   | [**TEST**](#function-test) (GPKG, DifferentFieldTypes) <br> |
+|   | [**TEST**](#function-test) (GPKG, ReadNonExistentFile) <br> |
+|   | [**TEST**](#function-test) (GPKG, ReadEmptyFile) <br> |
+|   | [**TEST**](#function-test) (GPKG, CombineGpkgs) <br> |
+|   | [**TEST**](#function-test) (GPKG, CombineGpkgsIncludesVegetationPolygons) <br> |
 
 
 

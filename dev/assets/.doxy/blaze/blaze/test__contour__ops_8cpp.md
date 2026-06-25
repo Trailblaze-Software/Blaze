@@ -57,24 +57,24 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursAppend**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursPrepend**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursNoJoin**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursEmpty**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursSingle**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursClosesNearLoop**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursLeavesFarEndpointsOpen**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursPrefersCrossJoinOverSelfClose**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**JoinContoursChain**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**TrimContoursAllInside**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**TrimContoursAllOutside**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**TrimContoursSplit**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**TrimContoursEmpty**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**ContourToPolyline**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**ContourFromPolyline**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**ContourFromPolylineInvalidName**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**PushBackCreatesLoop**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourOps**](classCoordinate2D.md), [**PushBackNotLoop**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursAppend) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursPrepend) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursNoJoin) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursEmpty) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursSingle) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursClosesNearLoop) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursLeavesFarEndpointsOpen) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursPrefersCrossJoinOverSelfClose) <br> |
+|   | [**TEST**](#function-test) (ContourOps, JoinContoursChain) <br> |
+|   | [**TEST**](#function-test) (ContourOps, TrimContoursAllInside) <br> |
+|   | [**TEST**](#function-test) (ContourOps, TrimContoursAllOutside) <br> |
+|   | [**TEST**](#function-test) (ContourOps, TrimContoursSplit) <br> |
+|   | [**TEST**](#function-test) (ContourOps, TrimContoursEmpty) <br> |
+|   | [**TEST**](#function-test) (ContourOps, ContourToPolyline) <br> |
+|   | [**TEST**](#function-test) (ContourOps, ContourFromPolyline) <br> |
+|   | [**TEST**](#function-test) (ContourOps, ContourFromPolylineInvalidName) <br> |
+|   | [**TEST**](#function-test) (ContourOps, PushBackCreatesLoop) <br> |
+|   | [**TEST**](#function-test) (ContourOps, PushBackNotLoop) <br> |
 
 
 

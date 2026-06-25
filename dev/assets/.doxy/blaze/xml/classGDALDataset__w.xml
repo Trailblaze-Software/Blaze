@@ -4,7 +4,7 @@
     <compoundname>GDALDataset_w</compoundname>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classGDALDataset__w_1a6fa9416f2222877694924d3377a3b8f7" prot="private" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">GDALDataset</ref> *</type>
+        <type>GDALDataset *</type>
         <definition>GDALDataset* GDALDataset_w::dataset</definition>
         <argsstring></argsstring>
         <name>dataset</name>
@@ -26,11 +26,11 @@
         <name>GDALDataset_w</name>
         <qualifiedname>GDALDataset_w::GDALDataset_w</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>filename</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>projection</declname>
         </param>
         <briefdescription>
@@ -42,7 +42,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="28" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="28" bodyend="41"/>
       </memberdef>
       <memberdef kind="function" id="classGDALDataset__w_1aeda67cdeb110764571fe3343419071b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">GDALDataset</ref> *</type>
+        <type>GDALDataset *</type>
         <definition>GDALDataset * GDALDataset_w::operator-&gt;</definition>
         <argsstring>()</argsstring>
         <name>operator-&gt;</name>

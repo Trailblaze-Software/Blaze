@@ -55,38 +55,38 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**Construction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**DefaultConstruction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**Addition**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**Subtraction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**Equality**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**MagnitudeSquared**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**Magnitude**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**MagnitudeUnit**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**OffsetToCenter**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**AddDirection**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**TypeConversion**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), [**OrthogonalNeighbors**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), [**DxDy**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), [**Opposite**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), [**OrthogonalDirs**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), [**OrthogonalTo**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), [**DefaultConstruction**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), [**Contains**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), [**Grow**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), [**GrowNonOverlapping**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**GrowByPoint**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**GrowByBorder**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**GrowByExtent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**Intersects**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**IntersectsEdge**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**Center**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**MaxExtent**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**Intersection**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**NotEqual**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), [**SubtractOffset**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**LineCoord2D**](classLineCoord2D.md), [**StartEnd**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**Coordinate3D**](classCoordinate3D.md), [**Construction**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), Construction) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), DefaultConstruction) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), Addition) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), Subtraction) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), Equality) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), MagnitudeSquared) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), Magnitude) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), MagnitudeUnit) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), OffsetToCenter) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), AddDirection) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), TypeConversion) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate2D**](classCoordinate2D.md), OrthogonalNeighbors) <br> |
+|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), DxDy) <br> |
+|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), Opposite) <br> |
+|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), OrthogonalDirs) <br> |
+|   | [**TEST**](#function-test) ([**Direction2D**](classDirection2D.md), OrthogonalTo) <br> |
+|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), DefaultConstruction) <br> |
+|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), Contains) <br> |
+|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), Grow) <br> |
+|   | [**TEST**](#function-test) ([**Extent2D**](structExtent2D.md), GrowNonOverlapping) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), GrowByPoint) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), GrowByBorder) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), GrowByExtent) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), Intersects) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), IntersectsEdge) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), Center) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), MaxExtent) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), Intersection) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), NotEqual) <br> |
+|   | [**TEST**](#function-test) ([**Extent3D**](structExtent3D.md), SubtractOffset) <br> |
+|   | [**TEST**](#function-test) ([**LineCoord2D**](classLineCoord2D.md), StartEnd) <br> |
+|   | [**TEST**](#function-test) ([**Coordinate3D**](classCoordinate3D.md), Construction) <br> |
 
 
 

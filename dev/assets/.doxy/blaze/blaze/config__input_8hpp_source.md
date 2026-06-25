@@ -39,6 +39,9 @@ struct GridConfig {
   // resolution (bin_resolution * downsample_factor). Larger values produce
   // smoother contours but lose fine terrain detail.
   double contour_dem_resolution = 9.0;
+  // When true, write fine_slope.tif from ground.tif (bin resolution) in addition to
+  // slope.tif from smooth_ground.tif.
+  bool export_fine_slope = true;
 
   // Integer factor used to aggregate the bin grid into the vegetation grid.
   // Always >= 1.

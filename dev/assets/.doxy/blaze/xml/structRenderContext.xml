@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structRenderContext" kind="struct" language="C++" prot="public">
+    <compoundname>RenderContext</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structRenderContext_1a0fbdcbd34db4b397fb2e0e21408ab1dc" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool RenderContext::incremental_points</definition>
+        <argsstring></argsstring>
+        <name>incremental_points</name>
+        <qualifiedname>RenderContext::incremental_points</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="37" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRenderContext_1af9ce5e98c65600e6778353115df283e4" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderContext::viewport_height</definition>
+        <argsstring></argsstring>
+        <name>viewport_height</name>
+        <qualifiedname>RenderContext::viewport_height</qualifiedname>
+        <initializer>= 0.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="39" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRenderContext_1ab88c9bbec3d49840a942337f7ae432ee" prot="public" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D RenderContext::light_direction_world</definition>
+        <argsstring></argsstring>
+        <name>light_direction_world</name>
+        <qualifiedname>RenderContext::light_direction_world</qualifiedname>
+        <initializer>{0.0f, 0.0f, 1.0f}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="41" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRenderContext_1a55a2adabd5cfbda92f762846260f6266" prot="public" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D RenderContext::light_direction_eye</definition>
+        <argsstring></argsstring>
+        <name>light_direction_eye</name>
+        <qualifiedname>RenderContext::light_direction_eye</qualifiedname>
+        <initializer>{0.0f, 0.0f, 1.0f}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="43" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRenderContext_1ae533c96775f6f31efd67e4d7acee74b0" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderContext::ambient_light</definition>
+        <argsstring></argsstring>
+        <name>ambient_light</name>
+        <qualifiedname>RenderContext::ambient_light</qualifiedname>
+        <initializer>= 0.30f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="45" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRenderContext_1a9da34708b031305de4539dca6a0ee110" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderContext::diffuse_light</definition>
+        <argsstring></argsstring>
+        <name>diffuse_light</name>
+        <qualifiedname>RenderContext::diffuse_light</qualifiedname>
+        <initializer>= 1.00f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="46" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRenderContext_1af9ff48512d725c3b6af15c893e243624" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderContext::point_ambient_light</definition>
+        <argsstring></argsstring>
+        <name>point_ambient_light</name>
+        <qualifiedname>RenderContext::point_ambient_light</qualifiedname>
+        <initializer>= 0.55f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="48" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="34" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="34" bodyend="49"/>
+    <listofallmembers>
+      <member refid="structRenderContext_1ae533c96775f6f31efd67e4d7acee74b0" prot="public" virt="non-virtual"><scope>RenderContext</scope><name>ambient_light</name></member>
+      <member refid="structRenderContext_1a9da34708b031305de4539dca6a0ee110" prot="public" virt="non-virtual"><scope>RenderContext</scope><name>diffuse_light</name></member>
+      <member refid="structRenderContext_1a0fbdcbd34db4b397fb2e0e21408ab1dc" prot="public" virt="non-virtual"><scope>RenderContext</scope><name>incremental_points</name></member>
+      <member refid="structRenderContext_1a55a2adabd5cfbda92f762846260f6266" prot="public" virt="non-virtual"><scope>RenderContext</scope><name>light_direction_eye</name></member>
+      <member refid="structRenderContext_1ab88c9bbec3d49840a942337f7ae432ee" prot="public" virt="non-virtual"><scope>RenderContext</scope><name>light_direction_world</name></member>
+      <member refid="structRenderContext_1af9ff48512d725c3b6af15c893e243624" prot="public" virt="non-virtual"><scope>RenderContext</scope><name>point_ambient_light</name></member>
+      <member refid="structRenderContext_1af9ce5e98c65600e6778353115df283e4" prot="public" virt="non-virtual"><scope>RenderContext</scope><name>viewport_height</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

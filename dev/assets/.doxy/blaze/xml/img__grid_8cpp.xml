@@ -3,14 +3,14 @@
   <compounddef id="img__grid_8cpp" kind="file" language="C++">
     <compoundname>img_grid.cpp</compoundname>
     <includes refid="img__grid_8hpp" local="yes">img_grid.hpp</includes>
-    <includes local="no">opencv2/imgcodecs.hpp</includes>
-    <includes local="no">opencv2/imgproc.hpp</includes>
+    <includes local="no">stdexcept</includes>
+    <includes refid="image_8hpp" local="yes">image.hpp</includes>
     <includes refid="tif_8hpp" local="yes">tif/tif.hpp</includes>
     <incdepgraph>
       <node id="28">
         <label>assert/assert.hpp</label>
         <link refid="assert_8hpp_source"/>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
@@ -18,29 +18,29 @@
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>config_input/config_input.hpp</label>
         <link refid="config__input_8hpp_source"/>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -60,35 +60,37 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>grid/grid.hpp</label>
         <link refid="grid_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
@@ -102,17 +104,31 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>grid/image.hpp</label>
+        <link refid="image_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -120,9 +136,9 @@
         <link refid="img__grid_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="40" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="41" relation="include">
         </childnode>
@@ -132,21 +148,23 @@
         <link refid="img__grid_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>isom/colors.hpp</label>
         <link refid="colors_8hpp_source"/>
-        <childnode refid="15" relation="include">
-        </childnode>
         <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="31">
@@ -154,23 +172,23 @@
         <link refid="to__string_8hpp_source"/>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
       <node id="41">
         <label>tif/tif.hpp</label>
         <link refid="tif_8hpp_source"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
@@ -178,43 +196,45 @@
       <node id="33">
         <label>utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
-        <childnode refid="15" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="20">
         <label>utilities/filesystem.hpp</label>
         <link refid="filesystem_8hpp_source"/>
       </node>
       <node id="38">
         <label>progress_tracker.hpp</label>
         <link refid="progress__tracker_8hpp_source"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>utilities/resources.hpp</label>
         <link refid="resources_8hpp_source"/>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
       <node id="36">
@@ -222,9 +242,9 @@
         <link refid="timer_8hpp_source"/>
         <childnode refid="37" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
@@ -234,7 +254,7 @@
       <node id="4">
         <label>algorithm</label>
       </node>
-      <node id="15">
+      <node id="16">
         <label>array</label>
       </node>
       <node id="5">
@@ -246,10 +266,13 @@
       <node id="6">
         <label>cmath</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>cstddef</label>
       </node>
-      <node id="23">
+      <node id="40">
+        <label>cstdint</label>
+      </node>
+      <node id="24">
         <label>cstring</label>
       </node>
       <node id="29">
@@ -258,55 +281,49 @@
       <node id="32">
         <label>iomanip</label>
       </node>
-      <node id="11">
+      <node id="12">
         <label>iostream</label>
       </node>
       <node id="7">
         <label>limits</label>
       </node>
-      <node id="16">
+      <node id="17">
         <label>map</label>
       </node>
-      <node id="24">
+      <node id="25">
         <label>memory</label>
       </node>
       <node id="35">
         <label>numeric</label>
       </node>
-      <node id="39">
-        <label>opencv2/imgcodecs.hpp</label>
-      </node>
-      <node id="40">
-        <label>opencv2/imgproc.hpp</label>
-      </node>
       <node id="8">
         <label>optional</label>
       </node>
-      <node id="17">
+      <node id="18">
         <label>ostream</label>
       </node>
-      <node id="12">
+      <node id="13">
         <label>set</label>
       </node>
       <node id="30">
         <label>sstream</label>
       </node>
-      <node id="25">
+      <node id="26">
         <label>stdexcept</label>
       </node>
-      <node id="26">
+      <node id="9">
         <label>string</label>
       </node>
       <node id="27">
         <label>type_traits</label>
       </node>
-      <node id="9">
+      <node id="10">
         <label>utility</label>
       </node>
-      <node id="18">
+      <node id="19">
         <label>variant</label>
       </node>
-      <node id="13">
+      <node id="14">
         <label>vector</label>
       </node>
     </incdepgraph>
@@ -317,129 +334,157 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;img_grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;opencv2/imgcodecs.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;opencv2/imgproc.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;image.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;tif/tif.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal">ImgGrid::~ImgGrid()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::save_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent)<sp/>{</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(path.extension()<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.tif&quot;</highlight><highlight class="normal"><sp/>||<sp/>path.extension()<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.tiff&quot;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;RGBColor&gt;</ref><sp/>grid(<ref refid="classGeo" kindref="compound">GeoGrid&lt;RGBColor&gt;::FromGeoImg</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;RGBColor&gt;</ref><sp/>grid(<ref refid="classGeo" kindref="compound">GeoGrid&lt;RGBColor&gt;::FromGeoImg</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">));</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>write_to_tif(grid.slice(extent),<sp/>path);</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>ImgGrid::save_to(path);</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="17"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="18"><highlight class="normal">ImgGrid::ImgGrid(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>height,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>width,<sp/>std::optional&lt;int&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">type</ref>)</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="classGridData" kindref="compound">GridData</ref>(height,<sp/>width),</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_img(std::<ref refid="classCoordinate2D" kindref="compound">make_unique</ref>&lt;cv::<ref refid="classCoordinate2D" kindref="compound">Mat</ref>&gt;(width,<sp/>height,<sp/><ref refid="classCoordinate2D" kindref="compound">type</ref>.<ref refid="classCoordinate2D" kindref="compound">value_or</ref>(<ref refid="classCoordinate2D" kindref="compound">CV_8UC4</ref>)))<sp/>{}</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ImgGrid::save_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>path)<sp/>{<sp/>cv::imwrite(path.string(),<sp/>*m_img);<sp/>}</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>ImgGrid::get_rgb_color(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">row</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">col</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/>cv::Vec4b<sp/><ref refid="classCoordinate2D" kindref="compound">v</ref><sp/>=<sp/>m_img-&gt;at&lt;cv::Vec4b&gt;(<ref refid="classCoordinate2D" kindref="compound">row</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">col</ref>);</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(<ref refid="classCoordinate2D" kindref="compound">v</ref>[2],<sp/><ref refid="classCoordinate2D" kindref="compound">v</ref>[1],<sp/><ref refid="classCoordinate2D" kindref="compound">v</ref>[0],<sp/><ref refid="classCoordinate2D" kindref="compound">v</ref>[3]);</highlight></codeline>
-<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>ColorT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="28"><highlight class="normal">GeoImgGrid::GeoImgGrid(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;ColorT&gt;</ref>&amp;<sp/>grid)</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="classImgGrid" kindref="compound">ImgGrid</ref>(grid.width(),<sp/>grid.height()),<sp/><ref refid="classGeoGridData" kindref="compound">GeoGridData</ref>(grid)<sp/>{</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref><sp/>&lt;<sp/>grid.height();<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>++)<sp/>{</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref><sp/>&lt;<sp/>grid.width();<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>++)<sp/>{</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>color<sp/>=<sp/>grid[{<ref refid="classCoordinate2D" kindref="compound">j</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">i</ref>}].toRGB();</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_img-&gt;at&lt;cv::Vec4b&gt;(<ref refid="classCoordinate2D" kindref="compound">i</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">j</ref>)<sp/>=</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cv::Vec4b(color.getBlue(),<sp/>color.getGreen(),<sp/>color.getRed(),<sp/>color.getAlpha());</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>GeoImgGrid::GeoImgGrid(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;RGBColor&gt;</ref>&amp;<sp/>grid);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>GeoImgGrid::GeoImgGrid(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">GeoGrid&lt;CMYKColor&gt;</ref>&amp;<sp/>grid);</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeoImgGrid" kindref="compound">GeoImgGrid</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>,<sp/>std::optional&lt;int&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">interpolation</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>top_left<sp/>=</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>transform().projection_to_pixel(<ref refid="classCoordinate2D" kindref="compound">other</ref>.transform().pixel_to_projection({0,<sp/>0}));</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">dx_ratio</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.transform().dx()<sp/>/<sp/>transform().dx();</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">dy_ratio</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">other</ref>.transform().dy()<sp/>/<sp/>transform().dy();</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">full_w</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="classCoordinate2D" kindref="compound">other</ref>.width()<sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dx_ratio</ref>);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">full_h</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="classCoordinate2D" kindref="compound">other</ref>.height()<sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">dy_ratio</ref>);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cv::Rect<sp/><ref refid="classCoordinate2D" kindref="compound">roi_full</ref>(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(top_left.x()),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(top_left.y()),<sp/><ref refid="classCoordinate2D" kindref="compound">full_w</ref>,</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">full_h</ref>);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/>cv::Mat<sp/><ref refid="classCoordinate2D" kindref="compound">resized_img</ref>;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/>cv::resize(*<ref refid="classCoordinate2D" kindref="compound">other</ref>.m_img,<sp/><ref refid="classCoordinate2D" kindref="compound">resized_img</ref>,<sp/>cv::Size(<ref refid="classCoordinate2D" kindref="compound">full_w</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">full_h</ref>),<sp/>0,<sp/>0,</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">interpolation</ref>.value_or(cv::INTER_NEAREST));</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cv::Rect<sp/><ref refid="classCoordinate2D" kindref="compound">img_bounds</ref>(0,<sp/>0,<sp/>m_img-&gt;cols,<sp/>m_img-&gt;rows);</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cv::Rect<sp/><ref refid="classCoordinate2D" kindref="compound">roi</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">roi_full</ref><sp/>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">img_bounds</ref>;</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">roi</ref>.width<sp/>&lt;=<sp/>0<sp/>||<sp/><ref refid="classCoordinate2D" kindref="compound">roi</ref>.height<sp/>&lt;=<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cv::Rect<sp/><ref refid="classCoordinate2D" kindref="compound">src_rect</ref>(<ref refid="classCoordinate2D" kindref="compound">roi</ref>.x<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">roi_full</ref>.x,<sp/><ref refid="classCoordinate2D" kindref="compound">roi</ref>.y<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">roi_full</ref>.y,<sp/><ref refid="classCoordinate2D" kindref="compound">roi</ref>.width,<sp/><ref refid="classCoordinate2D" kindref="compound">roi</ref>.height);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/>cv::Mat<sp/><ref refid="classCoordinate2D" kindref="compound">resized_roi</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">resized_img</ref>(<ref refid="classCoordinate2D" kindref="compound">src_rect</ref>);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/>cv::Mat<sp/><ref refid="classCoordinate2D" kindref="compound">dest_roi</ref><sp/>=<sp/>(*m_img)(<ref refid="classCoordinate2D" kindref="compound">roi</ref>);</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCoordinate2D" kindref="compound">resized_roi</ref>.channels()<sp/>==<sp/>4<sp/>&amp;&amp;<sp/>m_img-&gt;channels()<sp/>==<sp/>4)<sp/>{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>cv::Mat<sp/><ref refid="classCoordinate2D" kindref="compound">alpha_other</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">alpha_m_img</ref>;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;cv::Mat&gt;<sp/><ref refid="classCoordinate2D" kindref="compound">channels_other</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">channels_m_img</ref>;</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>cv::split(<ref refid="classCoordinate2D" kindref="compound">resized_roi</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">channels_other</ref>);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>cv::split(<ref refid="classCoordinate2D" kindref="compound">dest_roi</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">channels_m_img</ref>);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">alpha_other</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">channels_other</ref>[3];</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">alpha_m_img</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">channels_m_img</ref>[3];</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">alpha_other</ref>.convertTo(<ref refid="classCoordinate2D" kindref="compound">alpha_other</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CV_32F</ref>,<sp/>1.0<sp/>/<sp/>255.0);</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">alpha_m_img</ref>.convertTo(<ref refid="classCoordinate2D" kindref="compound">alpha_m_img</ref>,<sp/><ref refid="classCoordinate2D" kindref="compound">CV_32F</ref>,<sp/>1.0<sp/>/<sp/>255.0);</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>cv::Mat<sp/><ref refid="classCoordinate2D" kindref="compound">blended_img</ref><sp/>=<sp/>cv::Mat::zeros(<ref refid="classCoordinate2D" kindref="compound">dest_roi</ref>.size(),<sp/><ref refid="classCoordinate2D" kindref="compound">CV_8UC4</ref>);</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">dest_roi</ref>.rows;<sp/>++y)<sp/>{</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/><ref refid="classCoordinate2D" kindref="compound">dest_roi</ref>.cols;<sp/>++x)<sp/>{</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">alpha</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">alpha_other</ref>.at&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;(y,<sp/>x);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">beta</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">alpha_m_img</ref>.at&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;(y,<sp/>x);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cv::Vec4b<sp/><ref refid="classCoordinate2D" kindref="compound">color_resized</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">resized_roi</ref>.at&lt;cv::Vec4b&gt;(y,<sp/>x);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cv::Vec4b<sp/><ref refid="classCoordinate2D" kindref="compound">color_m_img</ref><sp/>=<sp/><ref refid="classCoordinate2D" kindref="compound">dest_roi</ref>.at&lt;cv::Vec4b&gt;(y,<sp/>x);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>=<sp/>0;<sp/><ref refid="classCoordinate2D" kindref="compound">c</ref><sp/>&lt;<sp/>3;<sp/>++<ref refid="classCoordinate2D" kindref="compound">c</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">blended_img</ref>.at&lt;cv::Vec4b&gt;(y,<sp/>x)[<ref refid="classCoordinate2D" kindref="compound">c</ref>]<sp/>=</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="classCoordinate2D" kindref="compound">alpha</ref><sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">color_resized</ref>[<ref refid="classCoordinate2D" kindref="compound">c</ref>]<sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">beta</ref><sp/>*<sp/><ref refid="classCoordinate2D" kindref="compound">color_m_img</ref>[<ref refid="classCoordinate2D" kindref="compound">c</ref>]<sp/>*<sp/>(1<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">alpha</ref>))<sp/>/</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="classCoordinate2D" kindref="compound">alpha</ref><sp/>+<sp/><ref refid="classCoordinate2D" kindref="compound">beta</ref><sp/>*<sp/>(1<sp/>-<sp/><ref refid="classCoordinate2D" kindref="compound">alpha</ref>));</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">blended_img</ref>.at&lt;cv::Vec4b&gt;(y,<sp/>x)[3]<sp/>=<sp/>255;<sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>alpha<sp/>channel<sp/>to<sp/>255</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">blended_img</ref>.copyTo(<ref refid="classCoordinate2D" kindref="compound">dest_roi</ref>);</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">resized_roi</ref>.copyTo(<ref refid="classCoordinate2D" kindref="compound">dest_roi</ref>);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw_point(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ColorVariant&amp;<sp/>color,</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>size)<sp/>{</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref><sp/>=<sp/>transform().projection_to_pixel(<ref refid="classCoordinate2D" kindref="compound">point</ref>);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/>cv::circle(*m_img,<sp/>cv::Point(<ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref>.x(),<sp/><ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref>.y()),<sp/>size<sp/>/<sp/>transform().dx(),</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to_rgb(color).toScalar(),<sp/>-1);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classContour" kindref="compound">Contour</ref>&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">contour</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ColorVariant&amp;<sp/>color,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>width)<sp/>{</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;cv::Point&gt;&gt;<sp/>points;</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/>points.push_back({});</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">contour</ref>.points())<sp/>{</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref><sp/>=<sp/>transform().projection_to_pixel(<ref refid="classCoordinate2D" kindref="compound">point</ref>);</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>points[0].push_back({cv::Point(<ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref>.x(),<sp/><ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref>.y())});</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">line_width_pixels</ref><sp/>=<sp/>width<sp/>/<sp/>transform().dx();</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/>cv::polylines(*m_img,<sp/>points,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>to_rgb(color).toScalar(),<sp/><ref refid="classCoordinate2D" kindref="compound">line_width_pixels</ref>,<sp/>cv::LINE_8);</highlight></codeline>
-<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">in_points</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ColorVariant&amp;<sp/>color,</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>width)<sp/>{</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;cv::Point&gt;&gt;<sp/>points;</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/>points.push_back({});</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/><ref refid="classCoordinate2D" kindref="compound">point</ref><sp/>:<sp/><ref refid="classCoordinate2D" kindref="compound">in_points</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/><ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref><sp/>=<sp/>transform().projection_to_pixel(<ref refid="classCoordinate2D" kindref="compound">point</ref>);</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>points[0].push_back({cv::Point(<ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref>.x(),<sp/><ref refid="classCoordinate2D" kindref="compound">pixel_coord</ref>.y())});</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">line_width_pixels</ref><sp/>=<sp/>width<sp/>/<sp/>transform().dx();</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/>cv::polylines(*m_img,<sp/>points,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>to_rgb(color).toScalar(),<sp/><ref refid="classCoordinate2D" kindref="compound">line_width_pixels</ref>,<sp/>cv::LINE_8);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">ImgGrid::ImgGrid(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>width,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>height)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="classGridData" kindref="compound">GridData</ref>(width,<sp/>height),<sp/>m_img(std::make_unique&lt;blaze::Image&gt;(width,<sp/>height))<sp/>{}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ImgGrid::save_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>path)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>All<sp/>image<sp/>output<sp/>goes<sp/>through<sp/>GDAL<sp/>write_to_tif,<sp/>not<sp/>direct<sp/>image<sp/>writing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>(void)path;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ImgGrid::save_to()<sp/>called<sp/>but<sp/>is<sp/>not<sp/>supported.<sp/>All<sp/>image<sp/>output<sp/>should<sp/>use<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;write_to_tif().&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>ImgGrid::get_rgb_color(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_img-&gt;at(row,<sp/>col);<sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>ColorT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">GeoImgGrid::GeoImgGrid(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;ColorT&gt;</ref>&amp;<sp/>grid)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="classImgGrid" kindref="compound">ImgGrid</ref>(grid.width(),<sp/>grid.height()),<sp/><ref refid="classGeoGridData" kindref="compound">GeoGridData</ref>(grid)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>grid.height();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>grid.width();<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>color<sp/>=<sp/>grid[{j,<sp/>i}].toRGB();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_img-&gt;set(i,<sp/>j,<sp/>color);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>GeoImgGrid::GeoImgGrid(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;RGBColor&gt;</ref>&amp;<sp/>grid);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>GeoImgGrid::GeoImgGrid(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;CMYKColor&gt;</ref>&amp;<sp/>grid);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeoImgGrid" kindref="compound">GeoImgGrid</ref>&amp;<sp/>other,<sp/>std::optional&lt;int&gt;<sp/>interpolation)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>top_left<sp/>=</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>transform().projection_to_pixel(other.transform().pixel_to_projection({0,<sp/>0}));</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dx_ratio<sp/>=<sp/>other.transform().dx()<sp/>/<sp/>transform().dx();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dy_ratio<sp/>=<sp/>other.transform().dy()<sp/>/<sp/>transform().dy();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>full_w<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(other.width()<sp/>*<sp/>dx_ratio);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>full_h<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(other.height()<sp/>*<sp/>dy_ratio);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>roi_full(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(top_left.x()),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(top_left.y()),<sp/>full_w,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>full_h);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>resized_img;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>blaze::InterpolationMode<sp/>mode<sp/>=<sp/>(interpolation.value_or(0)<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>blaze::InterpolationMode::LINEAR</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>blaze::InterpolationMode::NEAREST;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>other.m_img-&gt;resize(resized_img,<sp/><ref refid="structblaze_1_1Size" kindref="compound">blaze::Size</ref>(full_w,<sp/>full_h),<sp/>mode);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>img_bounds(0,<sp/>0,<sp/>m_img-&gt;cols(),<sp/>m_img-&gt;rows());</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>roi<sp/>=<sp/>roi_full<sp/>&amp;<sp/>img_bounds;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(roi.width<sp/>&lt;=<sp/>0<sp/>||<sp/>roi.height<sp/>&lt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>src_rect(roi.x<sp/>-<sp/>roi_full.x,<sp/>roi.y<sp/>-<sp/>roi_full.y,<sp/>roi.width,<sp/>roi.height);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>resized_roi<sp/>=<sp/>resized_img.slice(src_rect);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>dest_roi<sp/>=<sp/>m_img-&gt;slice(roi);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(resized_roi.channels()<sp/>==<sp/>4<sp/>&amp;&amp;<sp/>m_img-&gt;channels()<sp/>==<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>blended_img(dest_roi.width(),<sp/>dest_roi.height());</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/>dest_roi.rows();<sp/>++y)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/>dest_roi.cols();<sp/>++x)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>color_resized<sp/>=<sp/>resized_roi.at(y,<sp/>x);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>color_m_img<sp/>=<sp/>dest_roi.at(y,<sp/>x);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>alpha<sp/>=<sp/>color_resized.getAlpha()<sp/>/<sp/>255.0f;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>beta<sp/>=<sp/>color_m_img.getAlpha()<sp/>/<sp/>255.0f;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Standard<sp/>alpha<sp/>blending:<sp/>result<sp/>=<sp/>foreground<sp/>*<sp/>alpha<sp/>+<sp/>background<sp/>*<sp/>(1<sp/>-<sp/>alpha)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>When<sp/>both<sp/>have<sp/>alpha:<sp/>result<sp/>=<sp/>(fg<sp/>*<sp/>a_fg<sp/>+<sp/>bg<sp/>*<sp/>a_bg<sp/>*<sp/>(1<sp/>-<sp/>a_fg))<sp/>/<sp/>(a_fg<sp/>+<sp/>a_bg<sp/>*<sp/>(1<sp/>-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>a_fg))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>denom<sp/>=<sp/>alpha<sp/>+<sp/>beta<sp/>*<sp/>(1.0f<sp/>-<sp/>alpha);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>b,<sp/>g,<sp/>r;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(denom<sp/>&gt;<sp/>0.001f)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(alpha<sp/>*<sp/>color_resized.getBlue()<sp/>+<sp/>beta<sp/>*<sp/>color_m_img.getBlue()<sp/>*<sp/>(1.0f<sp/>-<sp/>alpha))<sp/>/</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>denom);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(alpha<sp/>*<sp/>color_resized.getGreen()<sp/>+<sp/>beta<sp/>*<sp/>color_m_img.getGreen()<sp/>*<sp/>(1.0f<sp/>-<sp/>alpha))<sp/>/</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>denom);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>r<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(alpha<sp/>*<sp/>color_resized.getRed()<sp/>+<sp/>beta<sp/>*<sp/>color_m_img.getRed()<sp/>*<sp/>(1.0f<sp/>-<sp/>alpha))<sp/>/</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>denom);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Both<sp/>fully<sp/>transparent,<sp/>keep<sp/>background</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/>color_m_img.getBlue();</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g<sp/>=<sp/>color_m_img.getGreen();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>r<sp/>=<sp/>color_m_img.getRed();</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>blended_img.set(y,<sp/>x,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(r,<sp/>g,<sp/>b,<sp/>255));</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>blended<sp/>result<sp/>back<sp/>to<sp/>destination<sp/>ROI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/>roi.height;<sp/>++y)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/>roi.width;<sp/>++x)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_img-&gt;set(roi.y<sp/>+<sp/>y,<sp/>roi.x<sp/>+<sp/>x,<sp/>blended_img.at(y,<sp/>x));</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Simple<sp/>copy<sp/>without<sp/>alpha<sp/>blending</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/>roi.height;<sp/>++y)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/>roi.width;<sp/>++x)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_img-&gt;set(roi.y<sp/>+<sp/>y,<sp/>roi.x<sp/>+<sp/>x,<sp/>resized_roi.at(y,<sp/>x));</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw_point(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/>point,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ColorVariant&amp;<sp/>color,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>size)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>pixel_coord<sp/>=<sp/>transform().projection_to_pixel(point);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>m_img-&gt;draw_circle(<ref refid="structblaze_1_1Point" kindref="compound">blaze::Point</ref>(pixel_coord.x(),<sp/>pixel_coord.y()),<sp/>size<sp/>/<sp/>transform().dx(),</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to_rgb(color),<sp/>-1);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classContour" kindref="compound">Contour</ref>&amp;<sp/>contour,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ColorVariant&amp;<sp/>color,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>width)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/>std::vector&lt;blaze::Point&gt;<sp/>points;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>points.reserve(contour.points().size());</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>point<sp/>:<sp/>contour.points())<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>pixel_coord<sp/>=<sp/>transform().projection_to_pixel(point);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>points.emplace_back(pixel_coord.x(),<sp/>pixel_coord.y());</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>m_img-&gt;draw_polyline(points.data(),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(points.size()),<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>to_rgb(color),</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>width<sp/>/<sp/>transform().dx());</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GeoImgGrid::draw(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/>in_points,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ColorVariant&amp;<sp/>color,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>width)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>std::vector&lt;blaze::Point&gt;<sp/>points;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>points.reserve(in_points.size());</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>point<sp/>:<sp/>in_points)<sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>pixel_coord<sp/>=<sp/>transform().projection_to_pixel(point);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>points.emplace_back(pixel_coord.x(),<sp/>pixel_coord.y());</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>m_img-&gt;draw_polyline(points.data(),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(points.size()),<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>to_rgb(color),</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>width<sp/>/<sp/>transform().dx());</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.cpp"/>
   </compounddef>

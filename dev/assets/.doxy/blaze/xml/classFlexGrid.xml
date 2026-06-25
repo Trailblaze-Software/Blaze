@@ -5,7 +5,7 @@
     <basecompoundref refid="classGridData" prot="public" virt="non-virtual">GridData</basecompoundref>
     <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classFlexGrid_1ad73b167cbb73bc56fb75a14c101e9dfd" prot="protected" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <type>unsigned int</type>
         <definition>unsigned int FlexGrid::m_data_size</definition>
         <argsstring></argsstring>
         <name>m_data_size</name>
@@ -19,7 +19,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="222" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="222" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classFlexGrid_1aa40e832aae354bf1b7d7330dbfa7f254" prot="protected" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <type>int</type>
         <definition>int FlexGrid::m_data_type</definition>
         <argsstring></argsstring>
         <name>m_data_type</name>
@@ -55,19 +55,19 @@
         <name>FlexGrid</name>
         <qualifiedname>FlexGrid::FlexGrid</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <type>size_t</type>
           <declname>width</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">size_t</ref></type>
+          <type>size_t</type>
           <declname>height</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <type>int</type>
           <declname>n_bytes</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <type>int</type>
           <declname>data_type</declname>
           <defval>{}</defval>
         </param>
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="227" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="166" bodyend="172"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="227" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="167" bodyend="173"/>
       </memberdef>
       <memberdef kind="function" id="classFlexGrid_1adec45da7f5966cfe870dc2eb36858bf2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::byte *</type>
@@ -86,7 +86,7 @@
         <name>operator[]</name>
         <qualifiedname>FlexGrid::operator[]</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt;</type>
+          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; size_t &gt;</type>
           <declname>coord</declname>
         </param>
         <briefdescription>
@@ -98,13 +98,13 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="229" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="229" bodyend="231"/>
       </memberdef>
       <memberdef kind="function" id="classFlexGrid_1ae5679cda1f0c0c29265073a410b6f40f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::byte *</type>
+        <type>const std::byte *</type>
         <definition>const std::byte * FlexGrid::operator[]</definition>
         <argsstring>(Coordinate2D&lt; size_t &gt; coord) const</argsstring>
         <name>operator[]</name>
         <qualifiedname>FlexGrid::operator[]</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">size_t</ref> &gt;</type>
+          <type><ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; size_t &gt;</type>
           <declname>coord</declname>
         </param>
         <briefdescription>
@@ -118,7 +118,7 @@
       <memberdef kind="function" id="classFlexGrid_1a1d031c1b11878c537521d82910b6816a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+            <type>typename T</type>
           </param>
         </templateparamlist>
         <type>T</type>
@@ -127,7 +127,7 @@
         <name>get</name>
         <qualifiedname>FlexGrid::get</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">long</ref> <ref refid="classCoordinate2D" kindref="compound">long</ref> &gt; &amp;</type>
+          <type>const <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; long long &gt; &amp;</type>
           <declname>coord</declname>
         </param>
         <briefdescription>
@@ -139,17 +139,17 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="237" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="237" bodyend="240"/>
       </memberdef>
       <memberdef kind="function" id="classFlexGrid_1ab61fe58e57b18d3d3cf554c3fe3a96c1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void FlexGrid::fill_from</definition>
         <argsstring>(const FlexGrid &amp;other, const Coordinate2D&lt; long long &gt; &amp;top_left={0, 0})</argsstring>
         <name>fill_from</name>
         <qualifiedname>FlexGrid::fill_from</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &amp;</type>
+          <type>const <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &amp;</type>
           <declname>other</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; <ref refid="classCoordinate2D" kindref="compound">long</ref> <ref refid="classCoordinate2D" kindref="compound">long</ref> &gt; &amp;</type>
+          <type>const <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; long long &gt; &amp;</type>
           <declname>top_left</declname>
           <defval>{0, 0}</defval>
         </param>
@@ -176,7 +176,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="254" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="254" bodyend="254"/>
       </memberdef>
       <memberdef kind="function" id="classFlexGrid_1a66a6340c16110227309651a775eff9a1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::byte *</type>
+        <type>const std::byte *</type>
         <definition>const std::byte * FlexGrid::data</definition>
         <argsstring>() const</argsstring>
         <name>data</name>
@@ -190,7 +190,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="255" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="255" bodyend="255"/>
       </memberdef>
       <memberdef kind="function" id="classFlexGrid_1af0f3a2a409bae968c23943364cb8e028" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <type>unsigned int</type>
         <definition>unsigned int FlexGrid::n_bytes</definition>
         <argsstring>() const</argsstring>
         <name>n_bytes</name>
@@ -204,7 +204,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="256" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="256" bodyend="256"/>
       </memberdef>
       <memberdef kind="function" id="classFlexGrid_1a0cc7bf9fef160c6c44d3cf2c2247b0b8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <type>int</type>
         <definition>int FlexGrid::data_type</definition>
         <argsstring>() const</argsstring>
         <name>data_type</name>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="257" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="173" bodyend="173"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="257" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="174" bodyend="174"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

@@ -903,12 +903,12 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-_gdalassert"><strong>_GDALAssert</strong></a> (<a href="../classCoordinate2D/"><strong>CPLErr</strong></a> expr, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; expr_string, <a href="../classCoordinate2D/"><strong>const</strong></a> std::source_location &amp; loc=std::source_location::current()) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-_gdalassert"><strong>_GDALAssert</strong></a> (CPLErr expr, const std::string &amp; expr_string, const std::source_location &amp; loc=std::source_location::current()) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>void</strong></a></td>
-<td style="text-align: left;"><a href="#function-_gdalassert"><strong>_GDALAssert</strong></a> (<a href="../classCoordinate2D/"><strong>OGRErr</strong></a> expr, <a href="../classCoordinate2D/"><strong>const</strong></a> std::string &amp; expr_string, <a href="../classCoordinate2D/"><strong>const</strong></a> std::source_location &amp; loc=std::source_location::current()) <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-_gdalassert"><strong>_GDALAssert</strong></a> (OGRErr expr, const std::string &amp; expr_string, const std::source_location &amp; loc=std::source_location::current()) <br></td>
 </tr>
 </tbody>
 </table>
@@ -923,7 +923,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;">define</td>
-<td style="text-align: left;"><a href="./#define-gdalassert"><strong>GDALAssert</strong></a> (expr) <code>\_GDALAssert([**expr**](classCoordinate2D.md), #[**expr**](classCoordinate2D.md))</code><br></td>
+<td style="text-align: left;"><a href="./#define-gdalassert"><strong>GDALAssert</strong></a> (expr) <code>\_GDALAssert(expr, #expr)</code><br></td>
 </tr>
 </tbody>
 </table>
@@ -949,7 +949,7 @@
 <h3 id="define-gdalassert">define GDALAssert</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#define GDALAssert (</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">expr</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="n">_GDALAssert</span><span class="p">(</span><span class="w"> </span><span class="n">expr</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">expr</span><span class="w"> </span><span class="p">)</span><span class="err">`</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="n">_GDALAssert</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="n">expr</span><span class="p">)</span><span class="err">`</span>
 </code></pre></div>
 <hr>
 

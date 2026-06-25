@@ -6,10 +6,10 @@
     <derivedcompoundref refid="classLineCoord2DCrossing" prot="public" virt="non-virtual">LineCoord2DCrossing&lt; T &gt;</derivedcompoundref>
     <templateparamlist>
       <param>
-        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+        <type>typename T</type>
       </param>
       <param>
-        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref></type>
+        <type>typename</type>
         <defval>std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;</defval>
       </param>
     </templateparamlist>
@@ -63,7 +63,7 @@
         <name>LineCoord2D</name>
         <qualifiedname>LineCoord2D::LineCoord2D</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; T &gt; &amp;</type>
+          <type>const <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; T &gt; &amp;</type>
           <declname>coord</declname>
         </param>
         <param>
@@ -133,7 +133,7 @@
           <declname>os</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref> &amp;</type>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref> &amp;</type>
           <declname>line_coord</declname>
         </param>
         <briefdescription>

@@ -413,6 +413,43 @@ TEST(UnionOverlappingPolygons, KeepsDisjointSeparate) {
   EXPECT_EQ(result.size(), 2u);
   EXPECT_DOUBLE_EQ(total_net_area(result), 200.0);
 }
+
+TEST(UnionOverlappingPolygons, RepairsSelfIntersectingInputs) {
+  const PolygonWithHoles bowtie{{{0, 0}, {10, 10}, {10, 0}, {0, 10}}, {}};
+  const PolygonWithHoles square = ccw_square(5, 0, 10);
+  const std::vector<PolygonWithHoles> result = union_overlapping_polygons({bowtie, square});
+  ASSERT_GE(result.size(), 1u);
+  EXPECT_GT(total_net_area(result), 0.0);
+}
+
+TEST(SnapRingToExtent, SnapsNearBoundaryVertices) {
+  std::vector<Coordinate2D<double>> ring = {{49.995, 0}, {100, 50}, {50, 99.992}};
+  snap_ring_to_extent(ring, {50.0, 100.0, 0.0, 100.0}, 0.01);
+  EXPECT_DOUBLE_EQ(ring[0].x(), 50.0);
+  EXPECT_DOUBLE_EQ(ring[2].y(), 100.0);
+}
+
+TEST(FinalizePolygonWithHoles, RepairsSelfIntersectingBowtie) {
+  const PolygonWithHoles bowtie{{{0, 0}, {10, 10}, {10, 0}, {0, 10}}, {}};
+  const std::vector<PolygonWithHoles> result = finalize_polygon_with_holes(bowtie);
+  ASSERT_GE(result.size(), 1u);
+  EXPECT_GT(total_net_area(result), 0.0);
+}
+
+TEST(FinalizePolygonWithHoles, SnapsToTileSeamBeforeRepair) {
+  PolygonWithHoles poly = ccw_square(999.995, 0, 10);
+  const std::vector<PolygonWithHoles> result =
+      finalize_polygon_with_holes(poly, {{1000.0, 2000.0, 0.0, 1000.0}}, 0.01);
+  ASSERT_EQ(result.size(), 1u);
+  bool has_seam = false;
+  for (const Coordinate2D<double>& p : result[0].exterior) {
+    if (std::abs(p.x() - 1000.0) < 1e-12) {
+      has_seam = true;
+      break;
+    }
+  }
+  EXPECT_TRUE(has_seam);
+}
 ```
 
 

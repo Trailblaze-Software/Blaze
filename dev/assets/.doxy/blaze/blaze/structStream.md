@@ -35,8 +35,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**catchment**](#variable-catchment)  <br> |
-|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; &gt; | [**coords**](#variable-coords)  <br> |
+|  double | [**catchment**](#variable-catchment)  <br> |
+|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**coords**](#variable-coords)  <br> |
 
 
 

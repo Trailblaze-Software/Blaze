@@ -11,6 +11,8 @@
 
 
 * `#include <QMainWindow>`
+* `#include <vector>`
+* `#include "utilities/filesystem.hpp"`
 
 
 

@@ -52,17 +52,17 @@ Inherited by the following classes: [LASData](classLASData.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**LASFile**](#function-lasfile-12) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**LASFile**](#function-lasfile-22) ([**const**](classCoordinate2D.md) fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
-|  [**const**](classCoordinate2D.md) [**Extent3D**](structExtent3D.md) & | [**bounds**](#function-bounds) () const<br> |
+|   | [**LASFile**](#function-lasfile-12) (const [**Extent2D**](structExtent2D.md) & bounds, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
+|   | [**LASFile**](#function-lasfile-22) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, const std::string & override\_crs="") <br> |
+|  const [**Extent3D**](structExtent3D.md) & | [**bounds**](#function-bounds) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**export\_bounds**](#function-export_bounds) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**height**](#function-height) () const<br> |
-|  std::pair&lt; [**double**](classCoordinate2D.md), [**double**](classCoordinate2D.md) &gt; | [**height\_range**](#function-height_range) () const<br> |
+|  double | [**height**](#function-height) () const<br> |
+|  std::pair&lt; double, double &gt; | [**height\_range**](#function-height_range) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**original\_bounds**](#function-original_bounds) () const<br> |
-|  [**const**](classCoordinate2D.md) [**GeoProjection**](classGeoProjection.md) & | [**projection**](#function-projection) () const<br> |
-|  [**void**](classCoordinate2D.md) | [**set\_bounds**](#function-set_bounds) ([**const**](classCoordinate2D.md) [**Extent2D**](structExtent2D.md) & bounds, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; tile\_core=std::nullopt) <br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**top\_left**](#function-top_left) () const<br> |
-|  [**double**](classCoordinate2D.md) | [**width**](#function-width) () const<br> |
+|  const [**GeoProjection**](classGeoProjection.md) & | [**projection**](#function-projection) () const<br> |
+|  void | [**set\_bounds**](#function-set_bounds) (const [**Extent2D**](structExtent2D.md) & bounds, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; tile\_core=std::nullopt) <br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; | [**top\_left**](#function-top_left) () const<br> |
+|  double | [**width**](#function-width) () const<br> |
 
 
 
@@ -100,7 +100,7 @@ Inherited by the following classes: [LASData](classLASData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**void**](classCoordinate2D.md) | [**from\_las\_reader**](#function-from_las_reader) ([**const**](classCoordinate2D.md) laspp::LASReader & reader, [**const**](classCoordinate2D.md) std::string & override\_crs="") <br> |
+|  void | [**from\_las\_reader**](#function-from_las_reader) (const laspp::LASReader & reader, const std::string & override\_crs="") <br> |
 
 
 
@@ -114,7 +114,7 @@ Inherited by the following classes: [LASData](classLASData.md)
 
 ```C++
 inline explicit LASFile::LASFile (
-    const  Extent2D & bounds,
+    const Extent2D & bounds,
     GeoProjection && projection
 ) 
 ```
@@ -146,7 +146,7 @@ inline explicit LASFile::LASFile (
 ### function bounds 
 
 ```C++
-inline const  Extent3D & LASFile::bounds () const
+inline const Extent3D & LASFile::bounds () const
 ```
 
 
@@ -185,7 +185,7 @@ inline double LASFile::height () const
 ### function height\_range 
 
 ```C++
-inline std::pair< double , double > LASFile::height_range () const
+inline std::pair< double, double > LASFile::height_range () const
 ```
 
 
@@ -211,7 +211,7 @@ inline Extent2D LASFile::original_bounds () const
 ### function projection 
 
 ```C++
-inline const  GeoProjection & LASFile::projection () const
+inline const GeoProjection & LASFile::projection () const
 ```
 
 
@@ -225,7 +225,7 @@ inline const  GeoProjection & LASFile::projection () const
 
 ```C++
 inline void LASFile::set_bounds (
-    const  Extent2D & bounds,
+    const Extent2D & bounds,
     std::optional< Extent2D > tile_core=std::nullopt
 ) 
 ```

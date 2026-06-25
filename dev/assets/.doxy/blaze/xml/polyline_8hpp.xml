@@ -116,10 +116,44 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp</label>
+        <link refid="blaze__output__loader_8hpp_source"/>
+      </node>
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
+        <link refid="gl__widget_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
+        <link refid="main__3d__window_8hpp_source"/>
+      </node>
       <node id="2">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
         <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -128,7 +162,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="3">
+      <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
         <link refid="vegetation__polygon_8hpp_source"/>
       </node>

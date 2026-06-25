@@ -52,8 +52,9 @@ std::optional<Coordinate2D<size_t>> flows_to(const GeoGrid<double>& grid,
 }
 
 GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
-                                 const std::vector<Coordinate2D<size_t>>& sinks) {
-  TimeFunction timer("fill depressions");
+                                 const std::vector<Coordinate2D<size_t>>& sinks,
+                                 ProgressTracker* progress_tracker) {
+  TimeFunction timer("fill depressions", progress_tracker);
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
   result.copy_from(grid);
@@ -77,6 +78,17 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
       queue.push({-grid[coord], 0, coord});
       filled[coord] = true;
     }
+  }
+
+  // Seed the two corner cells that the edge loops miss:
+  // {width-1, 0} (top-right) and {0, height-1} (bottom-left)
+  {
+    Coordinate2D<size_t> tr{grid.width() - 1, 0};
+    Coordinate2D<size_t> bl{0, grid.height() - 1};
+    queue.push({-grid[tr], 0, tr});
+    filled[tr] = true;
+    queue.push({-grid[bl], 0, bl});
+    filled[bl] = true;
   }
 
   for (const Coordinate2D<size_t>& sink : sinks) {
@@ -107,9 +119,10 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
   return result;
 }
 std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, double depth,
-                                                 double min_area) {
-  TimeFunction timer("identify sinks");
-  GeoGrid<double> filled = fill_depressions(grid);
+                                                 double min_area,
+                                                 ProgressTracker* progress_tracker) {
+  TimeFunction timer("identify sinks", progress_tracker);
+  GeoGrid<double> filled = fill_depressions(grid, {}, progress_tracker);
 
   std::vector<Coordinate2D<size_t>> sinks;
   GeoGrid<bool> visited(grid.width(), grid.height(), GeoTransform(grid.transform()),
@@ -153,8 +166,8 @@ std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, do
 
   return sinks;
 }
-GeoGrid<double> catchment_size(const GeoGrid<double>& filled) {
-  TimeFunction timer("catchment size");
+GeoGrid<double> catchment_size(const GeoGrid<double>& filled, ProgressTracker* progress_tracker) {
+  TimeFunction timer("catchment size", progress_tracker);
 
   GeoGrid<double> result(filled.width(), filled.height(), GeoTransform(filled.transform()),
                          GeoProjection(filled.projection()));
@@ -202,8 +215,8 @@ GeoGrid<double> catchment_size(const GeoGrid<double>& filled) {
   return result;
 }
 GeoGrid<bool> streams(const GeoGrid<double>& filled_ground, const GeoGrid<double>& catchment,
-                      double minimum_catchment) {
-  TimeFunction timer("streams");
+                      double minimum_catchment, ProgressTracker* progress_tracker) {
+  TimeFunction timer("streams", progress_tracker);
 
   GeoGrid<bool> result(filled_ground.width(), filled_ground.height(),
                        GeoTransform(filled_ground.transform()),
@@ -267,13 +280,13 @@ std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs
 
   std::optional<GeoGrid<double>> local_filled;
   if (!already_filled) {
-    std::vector<Coordinate2D<size_t>> sinks = identify_sinks(grid);
-    local_filled.emplace(fill_depressions(grid, sinks));
+    std::vector<Coordinate2D<size_t>> sinks = identify_sinks(grid, 10, 5000, &progress_tracker);
+    local_filled.emplace(fill_depressions(grid, sinks, &progress_tracker));
   }
   const GeoGrid<double>& filled = local_filled ? *local_filled : grid;
 
-  GeoGrid<double> catchment = catchment_size(filled);
-  GeoGrid<bool> stream = streams(filled, catchment, config.minimum_catchment());
+  GeoGrid<double> catchment = catchment_size(filled, &progress_tracker);
+  GeoGrid<bool> stream = streams(filled, catchment, config.minimum_catchment(), &progress_tracker);
 
   std::vector<std::vector<Coordinate2D<size_t>>> result;
   GeoGrid<bool> visited(grid.width(), grid.height(), GeoTransform(grid.transform()),

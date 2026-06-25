@@ -55,9 +55,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) (Water, [**FillHoles3x3**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) (Water, [**FillHoles5x5**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) (Water, [**FillHoles5x5\_2**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (Water, FillHoles3x3) <br> |
+|   | [**TEST**](#function-test) (Water, FillHoles5x5) <br> |
+|   | [**TEST**](#function-test) (Water, FillHoles5x5\_2) <br> |
 
 
 

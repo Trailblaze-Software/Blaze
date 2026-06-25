@@ -11,8 +11,15 @@
 
 
 * `#include <QMainWindow>`
+* `#include <QMetaObject>`
 * `#include <QProgressBar>`
+* `#include <QTreeWidgetItem>`
+* `#include <QWidget>`
+* `#include <optional>`
+* `#include <unordered_map>`
 * `#include "gl_widget.hpp"`
+* `#include "gui/layer_renderer.hpp"`
+* `#include "utilities/filesystem.hpp"`
 
 
 

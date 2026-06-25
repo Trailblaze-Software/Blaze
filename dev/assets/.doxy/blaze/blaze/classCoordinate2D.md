@@ -2,7 +2,7 @@
 
 # Class Coordinate2D
 
-**template &lt;[**typename**](classCoordinate2D.md) T&gt;**
+**template &lt;typename T&gt;**
 
 
 
@@ -58,18 +58,18 @@ Inherited by the following classes: [Coordinate3D](classCoordinate3D.md),  [Coor
 |   | [**Coordinate2D**](#function-coordinate2d-22) () = default<br> |
 |  T | [**magnitude**](#function-magnitude) () const<br> |
 |  T | [**magnitude\_sqd**](#function-magnitude_sqd) () const<br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**offset\_to\_center**](#function-offset_to_center) () const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; | [**offset\_to\_center**](#function-offset_to_center) () const<br> |
 |   | [**operator Coordinate2D&lt; U &gt;**](#function-operator-coordinate2d-u) () const<br> |
 |  [**Coordinate2D**](classCoordinate2D.md) | [**operator+**](#function-operator) ([**Direction2D**](classDirection2D.md) dir) const<br> |
 |  [**Coordinate2D**](classCoordinate2D.md) | [**operator+**](#function-operator_1) ([**Coordinate2D**](classCoordinate2D.md) o) const<br> |
 |  [**Coordinate2D**](classCoordinate2D.md) | [**operator-**](#function-operator-) ([**Coordinate2D**](classCoordinate2D.md) o) const<br> |
-|  [**bool**](classCoordinate2D.md) | [**operator==**](#function-operator_2) ([**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md) & o) const<br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**round**](#function-round) () const<br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; | [**round\_NW**](#function-round_nw) ([**double**](classCoordinate2D.md) grid\_size) const<br> |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**round\_down**](#function-round_down) () const<br> |
-|  [**const**](classCoordinate2D.md) T & | [**x**](#function-x-12) () const<br> |
+|  bool | [**operator==**](#function-operator_2) (const [**Coordinate2D**](classCoordinate2D.md) & o) const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; | [**round**](#function-round) () const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; | [**round\_NW**](#function-round_nw) (double grid\_size) const<br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; | [**round\_down**](#function-round_down) () const<br> |
+|  const T & | [**x**](#function-x-12) () const<br> |
 |  T & | [**x**](#function-x-22) () <br> |
-|  [**const**](classCoordinate2D.md) T & | [**y**](#function-y-12) () const<br> |
+|  const T & | [**y**](#function-y-12) () const<br> |
 |  T & | [**y**](#function-y-22) () <br> |
 
 
@@ -175,7 +175,7 @@ inline Coordinate2D < double > Coordinate2D::offset_to_center () const
 ### function operator Coordinate2D&lt; U &gt; 
 
 ```C++
-template<typename  U>
+template<typename U>
 inline Coordinate2D::operator Coordinate2D< U > () const
 ```
 
@@ -235,7 +235,7 @@ inline Coordinate2D Coordinate2D::operator- (
 
 ```C++
 inline bool Coordinate2D::operator== (
-    const  Coordinate2D & o
+    const Coordinate2D & o
 ) const
 ```
 
@@ -346,7 +346,7 @@ inline T & Coordinate2D::y ()
 ```C++
 inline std::ostream & Coordinate2D::operator<< (
     std::ostream & os,
-    const  Coordinate2D & coord
+    const Coordinate2D & coord
 ) 
 ```
 

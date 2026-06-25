@@ -1335,6 +1335,7 @@
 <h1 id="functions">Functions</h1>
 <h2 id="a">a</h2>
 <ul>
+<li><strong>append_flat_grid_dem_layers</strong> (<a href="../blaze__output__loader_8hpp/"><strong>blaze_output_loader.hpp</strong></a>)</li>
 <li><strong>as_extent2d</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>as_extent3d</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>average</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
@@ -1343,6 +1344,11 @@
 </ul>
 <h2 id="b">b</h2>
 <ul>
+<li><strong>build_dem_mesh</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>build_flat_cell_dem_mesh</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>build_slope_colored_mesh</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>build_textured_dem_mesh</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>bind_shader</strong> (<a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
 <li><strong>bool_grid</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>build_compound_crs_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>border_ranges</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
@@ -1351,10 +1357,15 @@
 <ul>
 <li><strong>color_equals</strong> (<a href="../config__editor_8cpp/"><strong>config_editor.cpp</strong></a>)</li>
 <li><strong>create_color_icon</strong> (<a href="../config__editor_8cpp/"><strong>config_editor.cpp</strong></a>)</li>
+<li><strong>classification_color</strong> (<a href="../point__cloud__visualization_8hpp/"><strong>point_cloud_visualization.hpp</strong></a>)</li>
+<li><strong>classification_color_glsl</strong> (<a href="../point__cloud__visualization_8hpp/"><strong>point_cloud_visualization.hpp</strong></a>)</li>
+<li><strong>compute_mesh_normals</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>compute_terrain_normals_from_dem</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>crosses_contour</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
 <li><strong>clip_polygon_hole_free_to_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>clip_polygon_to_extent</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>coord</strong> (<a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>)</li>
+<li><strong>crs_compatible_for_viewing</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>combine_gpkgs</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>copy_gpkg_feature</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>copy_gpkg_layer</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
@@ -1370,7 +1381,11 @@
 </ul>
 <h2 id="d">d</h2>
 <ul>
+<li><strong>discover_blaze_output</strong> (<a href="../blaze__output__loader_8hpp/"><strong>blaze_output_loader.hpp</strong></a>)</li>
+<li><strong>discover_blaze_output_with_info</strong> (<a href="../blaze__output__loader_8hpp/"><strong>blaze_output_loader.hpp</strong></a>)</li>
 <li><strong>deg2rad</strong> (<a href="../camera_8hpp/"><strong>camera.hpp</strong></a>)</li>
+<li><strong>drain_gl_errors</strong> (<a href="../gl__check_8hpp/"><strong>gl_check.hpp</strong></a>)</li>
+<li><strong>dedupe_consecutive_ring_vertices</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>downsample</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>detect_tile_mode_needed</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>double_to_string</strong> (<a href="../to__string_8hpp/"><strong>to_string.hpp</strong></a>)</li>
@@ -1387,6 +1402,10 @@
 </ul>
 <h2 id="f">f</h2>
 <ul>
+<li><strong>format_blaze_output_discovery_error</strong> (<a href="../blaze__output__loader_8hpp/"><strong>blaze_output_loader.hpp</strong></a>)</li>
+<li><strong>format_duration</strong> (<a href="../progress__box_8cpp/"><strong>progress_box.cpp</strong></a>)</li>
+<li><strong>flex_grid_value</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>finalize_polygon_with_holes</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>forest_contours_polygonize</strong> (<a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>)</li>
 <li><strong>filter_by_min_area</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>filter_small_holes</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
@@ -1396,6 +1415,13 @@
 <h2 id="g">g</h2>
 <ul>
 <li><strong>get_color_name</strong> (<a href="../config__editor_8cpp/"><strong>config_editor.cpp</strong></a>)</li>
+<li><strong>gl_error_name</strong> (<a href="../gl__check_8hpp/"><strong>gl_check.hpp</strong></a>)</li>
+<li><strong>get_mesh_fragment_shader</strong> (<a href="../shaders_8cpp/"><strong>shaders.cpp</strong></a>, <a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
+<li><strong>get_mesh_vertex_shader</strong> (<a href="../shaders_8cpp/"><strong>shaders.cpp</strong></a>, <a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
+<li><strong>get_point_fragment_shader</strong> (<a href="../shaders_8cpp/"><strong>shaders.cpp</strong></a>, <a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
+<li><strong>get_point_vertex_shader</strong> (<a href="../shaders_8cpp/"><strong>shaders.cpp</strong></a>, <a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
+<li><strong>get_textured_mesh_fragment_shader</strong> (<a href="../shaders_8cpp/"><strong>shaders.cpp</strong></a>, <a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
+<li><strong>get_textured_mesh_vertex_shader</strong> (<a href="../shaders_8cpp/"><strong>shaders.cpp</strong></a>, <a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
 <li><strong>get_contour_heights</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
 <li><strong>generate_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
 <li><strong>generate_contours_at_heights</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
@@ -1417,6 +1443,7 @@
 </ul>
 <h2 id="i">i</h2>
 <ul>
+<li><strong>is_valid_elevation</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>interpolate_coordinates</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
 <li><strong>identify_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
 <li><strong>identify_contours_at_heights</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
@@ -1435,6 +1462,9 @@
 </ul>
 <h2 id="l">l</h2>
 <ul>
+<li><strong>load_blaze_outputs</strong> (<a href="../blaze__output__loader_8hpp/"><strong>blaze_output_loader.hpp</strong></a>)</li>
+<li><strong>log_gl_error</strong> (<a href="../gl__check_8cpp/"><strong>gl_check.cpp</strong></a>, <a href="../gl__check_8hpp/"><strong>gl_check.hpp</strong></a>)</li>
+<li><strong>load_shader_source</strong> (<a href="../shaders_8cpp/"><strong>shaders.cpp</strong></a>, <a href="../shaders_8hpp/"><strong>shaders.hpp</strong></a>)</li>
 <li><strong>load_input_extents</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>low_pass</strong> (<a href="../vegetation_8hpp/"><strong>vegetation.hpp</strong></a>)</li>
 <li><strong>layer_number</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
@@ -1442,8 +1472,8 @@
 <h2 id="m">m</h2>
 <ul>
 <li><strong>main</strong> (<a href="../main_8cpp/"><strong>main.cpp</strong></a>, <a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>, <a href="../blaze_8cpp/"><strong>blaze.cpp</strong></a>, <a href="../unit__tests_8cpp/"><strong>unit_tests.cpp</strong></a>)</li>
+<li><strong>make_coord_transform</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>make_projection_from_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
-<li><strong>make_coord_transform</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 </ul>
 <h2 id="n">n</h2>
 <ul>
@@ -1453,11 +1483,15 @@
 </ul>
 <h2 id="o">o</h2>
 <ul>
+<li><strong>octree_shuffle_range</strong> (<a href="../point__octree_8hpp/"><strong>point_octree.hpp</strong></a>)</li>
 <li><strong>operator&lt;&lt;</strong> (<a href="../config__input_8cpp/"><strong>config_input.cpp</strong></a>, <a href="../config__input_8hpp/"><strong>config_input.hpp</strong></a>, <a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>, <a href="../las__point_8hpp/"><strong>las_point.hpp</strong></a>, <a href="../to__string_8hpp/"><strong>to_string.hpp</strong></a>, <a href="../timer_8hpp/"><strong>timer.hpp</strong></a>)</li>
 <li><strong>orthogonal_neighbors</strong> (<a href="../coordinate_8hpp/"><strong>coordinate.hpp</strong></a>)</li>
 </ul>
 <h2 id="p">p</h2>
 <ul>
+<li><strong>parse_args</strong> (<a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>)</li>
+<li><strong>print_usage</strong> (<a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>)</li>
+<li><strong>probe_las_file</strong> (<a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>)</li>
 <li><strong>point_in_ring</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>polygon_from_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>polygon_net_area_m2</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
@@ -1467,10 +1501,14 @@
 <h2 id="r">r</h2>
 <ul>
 <li><strong>rad2deg</strong> (<a href="../camera_8hpp/"><strong>camera.hpp</strong></a>)</li>
+<li><strong>read_tif_dimensions</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>read_tif_metadata</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>reproject_dem_mesh_horizontal</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>round_down</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
 <li><strong>reverse_ring</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>ring_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>remove_outliers</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
+<li><strong>reproject_extent3d_horizontal</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>read_gpkg</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>reader_embedded_wkt</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>reader_horizontal_wkt</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
@@ -1485,8 +1523,12 @@
 </ul>
 <h2 id="s">s</h2>
 <ul>
+<li><strong>show_error_message</strong> (<a href="../error__dialog_8cpp/"><strong>error_dialog.cpp</strong></a>, <a href="../error__dialog_8hpp/"><strong>error_dialog.hpp</strong></a>)</li>
+<li><strong>sample_grid_bilinear</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>segment_intersection</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>signed_area</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>snap_polygon_to_extents</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>snap_ring_to_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>subtract_polygon</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>subtract_polygon_with_union</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>same_type_different_size</strong> (<a href="../grid_8cpp/"><strong>grid.cpp</strong></a>)</li>
@@ -1501,8 +1543,10 @@
 </ul>
 <h2 id="t">t</h2>
 <ul>
-<li><strong>TEST</strong> (<a href="../test__config__lookup_8cpp/"><strong>test_config_lookup.cpp</strong></a>, <a href="../test__config__paths_8cpp/"><strong>test_config_paths.cpp</strong></a>, <a href="../test__contour__gen_8cpp/"><strong>test_contour_gen.cpp</strong></a>, <a href="../test__contour__ops_8cpp/"><strong>test_contour_ops.cpp</strong></a>, <a href="../test__contour__utils_8cpp/"><strong>test_contour_utils.cpp</strong></a>, <a href="../test__polygon_8cpp/"><strong>test_polygon.cpp</strong></a>, <a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>, <a href="../test__grid__ops_8cpp/"><strong>test_grid_ops.cpp</strong></a>, <a href="../test__gpkg_8cpp/"><strong>test_gpkg.cpp</strong></a>, <a href="../test__colors_8cpp/"><strong>test_colors.cpp</strong></a>, <a href="../test__las__file_8cpp/"><strong>test_las_file.cpp</strong></a>, <a href="../test__las__point_8cpp/"><strong>test_las_point.cpp</strong></a>, <a href="../test__coordinate_8cpp/"><strong>test_coordinate.cpp</strong></a>, <a href="../test__progress__tracker_8cpp/"><strong>test_progress_tracker.cpp</strong></a>, <a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>, <a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>, <a href="../test__water_8cpp/"><strong>test_water.cpp</strong></a>, <a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>, <a href="../test__process_8cpp/"><strong>test_process.cpp</strong></a>)</li>
+<li><strong>TEST</strong> (<a href="../test__camera_8cpp/"><strong>test_camera.cpp</strong></a>, <a href="../test__frustum_8cpp/"><strong>test_frustum.cpp</strong></a>, <a href="../test__octree_8cpp/"><strong>test_octree.cpp</strong></a>, <a href="../test__config__lookup_8cpp/"><strong>test_config_lookup.cpp</strong></a>, <a href="../test__config__paths_8cpp/"><strong>test_config_paths.cpp</strong></a>, <a href="../test__contour__gen_8cpp/"><strong>test_contour_gen.cpp</strong></a>, <a href="../test__contour__ops_8cpp/"><strong>test_contour_ops.cpp</strong></a>, <a href="../test__contour__utils_8cpp/"><strong>test_contour_utils.cpp</strong></a>, <a href="../test__polygon_8cpp/"><strong>test_polygon.cpp</strong></a>, <a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>, <a href="../test__grid__ops_8cpp/"><strong>test_grid_ops.cpp</strong></a>, <a href="../test__image_8cpp/"><strong>test_image.cpp</strong></a>, <a href="../test__img__grid_8cpp/"><strong>test_img_grid.cpp</strong></a>, <a href="../test__gpkg_8cpp/"><strong>test_gpkg.cpp</strong></a>, <a href="../test__colors_8cpp/"><strong>test_colors.cpp</strong></a>, <a href="../test__las__file_8cpp/"><strong>test_las_file.cpp</strong></a>, <a href="../test__las__point_8cpp/"><strong>test_las_point.cpp</strong></a>, <a href="../test__coordinate_8cpp/"><strong>test_coordinate.cpp</strong></a>, <a href="../test__progress__tracker_8cpp/"><strong>test_progress_tracker.cpp</strong></a>, <a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>, <a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>, <a href="../test__water_8cpp/"><strong>test_water.cpp</strong></a>, <a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>, <a href="../test__process_8cpp/"><strong>test_process.cpp</strong></a>)</li>
+<li><strong>texture_uv_from_projection</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>trim_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
+<li><strong>transform_xy_h</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>try_user_crs_to_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>to_cmyk</strong> (<a href="../colors_8hpp/"><strong>colors.hpp</strong></a>)</li>
 <li><strong>to_rgb</strong> (<a href="../colors_8hpp/"><strong>colors.hpp</strong></a>)</li>

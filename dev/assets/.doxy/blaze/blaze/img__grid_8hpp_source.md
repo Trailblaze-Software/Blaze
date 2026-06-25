@@ -11,19 +11,16 @@
 #pragma once
 
 #include "contour/contour.hpp"
+#include "grid/image.hpp"
 #include "isom/colors.hpp"
 #include "utilities/coordinate.hpp"
 
-namespace cv {
-class Mat;
-}
-
 class ImgGrid : public GridData {
  protected:
-  std::unique_ptr<cv::Mat> m_img;
+  std::unique_ptr<blaze::Image> m_img;
 
  public:
-  ImgGrid(size_t height, size_t width, std::optional<int> type = {});
+  ImgGrid(size_t width, size_t height);
   ~ImgGrid();
 
   void save_to(const fs::path& path);

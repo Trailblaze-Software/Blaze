@@ -53,17 +53,17 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**ConfigPaths**](classCoordinate2D.md), [**OutputPathAbsolute**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ConfigPaths**](classCoordinate2D.md), [**OutputPathRelative**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ConfigPaths**](classCoordinate2D.md), [**SetOutputDirectory**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ConfigPaths**](classCoordinate2D.md), [**LasFilepathsAbsolute**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ConfigPaths**](classCoordinate2D.md), [**LasFilepathsRelative**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ConfigPaths**](classCoordinate2D.md), [**LasFilepathsEmpty**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ConfigPaths**](classCoordinate2D.md), [**LasFilepathsMixed**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**PickFromHeightNegative**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**MinimumIntervalStatic**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), [**LayerNameDefaultForUnknown**](classCoordinate2D.md)) <br> |
-|   | [**TEST**](#function-test) ([**WaterConfigs**](structWaterConfigs.md), [**ConfigFromCatchmentExact**](classCoordinate2D.md)) <br> |
+|   | [**TEST**](#function-test) (ConfigPaths, OutputPathAbsolute) <br> |
+|   | [**TEST**](#function-test) (ConfigPaths, OutputPathRelative) <br> |
+|   | [**TEST**](#function-test) (ConfigPaths, SetOutputDirectory) <br> |
+|   | [**TEST**](#function-test) (ConfigPaths, LasFilepathsAbsolute) <br> |
+|   | [**TEST**](#function-test) (ConfigPaths, LasFilepathsRelative) <br> |
+|   | [**TEST**](#function-test) (ConfigPaths, LasFilepathsEmpty) <br> |
+|   | [**TEST**](#function-test) (ConfigPaths, LasFilepathsMixed) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), PickFromHeightNegative) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), MinimumIntervalStatic) <br> |
+|   | [**TEST**](#function-test) ([**ContourConfigs**](structContourConfigs.md), LayerNameDefaultForUnknown) <br> |
+|   | [**TEST**](#function-test) ([**WaterConfigs**](structWaterConfigs.md), ConfigFromCatchmentExact) <br> |
 
 
 
@@ -95,11 +95,11 @@
 
 | Type | Name |
 | ---: | :--- |
-| define  | [**ABS\_CONFIG\_DIR**](test__config__paths_8cpp.md#define-abs_config_dir)  `"/some/[**config**](classCoordinate2D.md)/[**dir"**](classCoordinate2D.md)`<br> |
-| define  | [**ABS\_CONFIG\_DIR2**](test__config__paths_8cpp.md#define-abs_config_dir2)  `"/config/[**dir"**](classCoordinate2D.md)`<br> |
+| define  | [**ABS\_CONFIG\_DIR**](test__config__paths_8cpp.md#define-abs_config_dir)  `"/some/config/dir"`<br> |
+| define  | [**ABS\_CONFIG\_DIR2**](test__config__paths_8cpp.md#define-abs_config_dir2)  `"/config/dir"`<br> |
 | define  | [**ABS\_FILE1**](test__config__paths_8cpp.md#define-abs_file1)  `"/absolute/file1.las"`<br> |
 | define  | [**ABS\_FILE2**](test__config__paths_8cpp.md#define-abs_file2)  `"/absolute/file2.laz"`<br> |
-| define  | [**ABS\_OUTPUT**](test__config__paths_8cpp.md#define-abs_output)  `"/absolute/[**output"**](classCoordinate2D.md)`<br> |
+| define  | [**ABS\_OUTPUT**](test__config__paths_8cpp.md#define-abs_output)  `"/absolute/output"`<br> |
 
 ## Public Functions Documentation
 
@@ -288,7 +288,7 @@ TEST (
 ### define ABS\_CONFIG\_DIR 
 
 ```C++
-#define ABS_CONFIG_DIR `"/some/ config / dir"`
+#define ABS_CONFIG_DIR `"/some/config/dir"`
 ```
 
 
@@ -301,7 +301,7 @@ TEST (
 ### define ABS\_CONFIG\_DIR2 
 
 ```C++
-#define ABS_CONFIG_DIR2 `"/config/ dir"`
+#define ABS_CONFIG_DIR2 `"/config/dir"`
 ```
 
 
@@ -340,7 +340,7 @@ TEST (
 ### define ABS\_OUTPUT 
 
 ```C++
-#define ABS_OUTPUT `"/absolute/ output"`
+#define ABS_OUTPUT `"/absolute/output"`
 ```
 
 

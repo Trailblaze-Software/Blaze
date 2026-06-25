@@ -19,12 +19,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="11" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="11" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="12" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="12" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="friend">
       <memberdef kind="friend" id="classProgressObserver_1a91a71b3c41895c781ad347eaa6835c66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">class</ref></type>
+        <type>class</type>
         <definition>friend class ProgressTracker</definition>
         <argsstring></argsstring>
         <name>ProgressTracker</name>
@@ -38,12 +38,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="23" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="23" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="24" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="24" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
       <memberdef kind="function" id="classProgressObserver_1a502166abd43c403c82ad269f382a4f4a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>virtual void ProgressObserver::update_progress</definition>
         <argsstring>(double progress)=0</argsstring>
         <name>update_progress</name>
@@ -54,7 +54,7 @@
         <reimplementedby refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac">update_progress</reimplementedby>
         <reimplementedby refid="classProgressBox_1a08a3e5791918847d41341e919d5fad22">update_progress</reimplementedby>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>progress</declname>
         </param>
         <briefdescription>
@@ -63,10 +63,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="14" column="16"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="15" column="16"/>
       </memberdef>
       <memberdef kind="function" id="classProgressObserver_1a1529b72f3ca12c12bcb0be81eea8aabe" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>virtual void ProgressObserver::text_update</definition>
         <argsstring>(const std::string &amp;text, int depth=0)=0</argsstring>
         <name>text_update</name>
@@ -76,11 +76,11 @@
         <reimplementedby refid="classProgressBar_1aa5fa842bcef66aed32ea6c7c79c44e5e">text_update</reimplementedby>
         <reimplementedby refid="classProgressTracker_1aee39c73c1440e2649c02b986e7afbefc">text_update</reimplementedby>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>text</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+          <type>int</type>
           <declname>depth</declname>
           <defval>0</defval>
         </param>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="15" column="16"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="16" column="16"/>
       </memberdef>
       <memberdef kind="function" id="classProgressObserver_1a91848627d3c0148811430f0480c0d906" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="17" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="17" bodyend="17"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="18" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="18" bodyend="18"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="20" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="20" bodyend="20"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="21" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="21" bodyend="21"/>
       </memberdef>
       <memberdef kind="function" id="classProgressObserver_1a88351d1c134e9edf4e716e930b6d3c53" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="22" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="9" bodyend="9"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="23" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp" bodystart="10" bodyend="10"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -177,7 +177,7 @@
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="10" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="10" bodyend="24"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="11" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="11" bodyend="25"/>
     <listofallmembers>
       <member refid="classProgressObserver_1a5ffae3404e579191612b2946e81373e3" prot="public" virt="non-virtual"><scope>ProgressObserver</scope><name>child</name></member>
       <member refid="classProgressObserver_1ade04299b5e51053786c0ccfe896ad5d2" prot="private" virt="non-virtual"><scope>ProgressObserver</scope><name>m_child</name></member>

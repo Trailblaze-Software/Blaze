@@ -25,7 +25,8 @@ Polyline Contour::to_polyline(const ContourConfigs& configs) const {
 
 Contour Contour::from_polyline(const Polyline& polyline) {
   try {
-    return Contour(std::stod(polyline.name), std::vector<Coordinate2D<double>>(polyline.vertices));
+    return Contour(std::stod(polyline.name), std::vector<Coordinate2D<double>>(polyline.vertices),
+                   polyline.layer);
   } catch (std::invalid_argument&) {
     std::cerr << "Invalid contour name: \"" << polyline.name << "\", should be height."
               << std::endl;

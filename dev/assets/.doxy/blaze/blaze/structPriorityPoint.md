@@ -35,9 +35,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**Coordinate2D**](classCoordinate2D.md)&lt; [**size\_t**](classCoordinate2D.md) &gt; | [**coord**](#variable-coord)  <br> |
-|  [**double**](classCoordinate2D.md) | [**priority**](#variable-priority)  <br> |
-|  [**double**](classCoordinate2D.md) | [**secondary\_priority**](#variable-secondary_priority)  <br> |
+|  [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; | [**coord**](#variable-coord)  <br> |
+|  double | [**priority**](#variable-priority)  <br> |
+|  double | [**secondary\_priority**](#variable-secondary_priority)  <br> |
 
 
 
@@ -58,7 +58,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**bool**](classCoordinate2D.md) | [**operator&lt;**](#function-operator) ([**const**](classCoordinate2D.md) [**PriorityPoint**](structPriorityPoint.md) & other) const<br> |
+|  bool | [**operator&lt;**](#function-operator) (const [**PriorityPoint**](structPriorityPoint.md) & other) const<br> |
 
 
 
@@ -137,7 +137,7 @@ double PriorityPoint::secondary_priority;
 
 ```C++
 inline bool PriorityPoint::operator< (
-    const  PriorityPoint & other
+    const PriorityPoint & other
 ) const
 ```
 

@@ -4,7 +4,7 @@
     <compoundname>GridConfig</compoundname>
     <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structGridConfig_1a65a5c120c46690607e2d9300dfcd1c0e" prot="public" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double GridConfig::bin_resolution</definition>
         <argsstring></argsstring>
         <name>bin_resolution</name>
@@ -19,7 +19,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="17" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="17" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structGridConfig_1a6720fdab105e14159452fa29811e3c1a" prot="public" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <type>unsigned int</type>
         <definition>unsigned int GridConfig::downsample_factor</definition>
         <argsstring></argsstring>
         <name>downsample_factor</name>
@@ -34,7 +34,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="22" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="22" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structGridConfig_1a1a253d3ad7a4cef73147057497e31f91" prot="public" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double GridConfig::vegetation_grid_resolution</definition>
         <argsstring></argsstring>
         <name>vegetation_grid_resolution</name>
@@ -49,7 +49,7 @@
         <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="26" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structGridConfig_1aeabb98d04f7d1a4d1f8e2aaf8884145e" prot="public" static="no" mutable="no">
-        <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+        <type>double</type>
         <definition>double GridConfig::contour_dem_resolution</definition>
         <argsstring></argsstring>
         <name>contour_dem_resolution</name>
@@ -63,10 +63,25 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="31" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="31" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="structGridConfig_1a59fc09c095c67a167abe19fe823dd6a5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GridConfig::export_fine_slope</definition>
+        <argsstring></argsstring>
+        <name>export_fine_slope</name>
+        <qualifiedname>GridConfig::export_fine_slope</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="34" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="structGridConfig_1a1795d93a269938689ac0fd2a42917b85" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <type>unsigned int</type>
         <definition>unsigned int GridConfig::vegetation_aggregation_factor</definition>
         <argsstring>() const</argsstring>
         <name>vegetation_aggregation_factor</name>
@@ -77,10 +92,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="35" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="35" bodyend="40"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="38" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="38" bodyend="43"/>
       </memberdef>
       <memberdef kind="function" id="structGridConfig_1aa377917fd2213890575a98ea20725f7b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">unsigned</ref> <ref refid="classCoordinate2D" kindref="compound">int</ref></type>
+        <type>unsigned int</type>
         <definition>unsigned int GridConfig::contour_downsample_factor</definition>
         <argsstring>() const</argsstring>
         <name>contour_downsample_factor</name>
@@ -91,19 +106,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="44" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="44" bodyend="50"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="47" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="47" bodyend="53"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="13" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="13" bodyend="51"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="13" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="13" bodyend="54"/>
     <listofallmembers>
       <member refid="structGridConfig_1a65a5c120c46690607e2d9300dfcd1c0e" prot="public" virt="non-virtual"><scope>GridConfig</scope><name>bin_resolution</name></member>
       <member refid="structGridConfig_1aeabb98d04f7d1a4d1f8e2aaf8884145e" prot="public" virt="non-virtual"><scope>GridConfig</scope><name>contour_dem_resolution</name></member>
       <member refid="structGridConfig_1aa377917fd2213890575a98ea20725f7b" prot="public" virt="non-virtual"><scope>GridConfig</scope><name>contour_downsample_factor</name></member>
       <member refid="structGridConfig_1a6720fdab105e14159452fa29811e3c1a" prot="public" virt="non-virtual"><scope>GridConfig</scope><name>downsample_factor</name></member>
+      <member refid="structGridConfig_1a59fc09c095c67a167abe19fe823dd6a5" prot="public" virt="non-virtual"><scope>GridConfig</scope><name>export_fine_slope</name></member>
       <member refid="structGridConfig_1a1795d93a269938689ac0fd2a42917b85" prot="public" virt="non-virtual"><scope>GridConfig</scope><name>vegetation_aggregation_factor</name></member>
       <member refid="structGridConfig_1a1a253d3ad7a4cef73147057497e31f91" prot="public" virt="non-virtual"><scope>GridConfig</scope><name>vegetation_grid_resolution</name></member>
     </listofallmembers>

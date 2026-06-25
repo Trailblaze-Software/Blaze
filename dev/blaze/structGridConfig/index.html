@@ -843,6 +843,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#variable-export_fine_slope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable export_fine_slope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#variable-vegetation_grid_resolution" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -929,19 +940,23 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#variable-bin_resolution"><strong>bin_resolution</strong></a>   = <code>0.5</code><br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#variable-contour_dem_resolution"><strong>contour_dem_resolution</strong></a>   = <code>9.0</code><br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: right;">unsigned int</td>
 <td style="text-align: left;"><a href="#variable-downsample_factor"><strong>downsample_factor</strong></a>   = <code>3</code><br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>double</strong></a></td>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-export_fine_slope"><strong>export_fine_slope</strong></a>   = <code>true</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
 <td style="text-align: left;"><a href="#variable-vegetation_grid_resolution"><strong>vegetation_grid_resolution</strong></a>   = <code>3.0</code><br></td>
 </tr>
 </tbody>
@@ -956,11 +971,11 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: right;">unsigned int</td>
 <td style="text-align: left;"><a href="#function-contour_downsample_factor"><strong>contour_downsample_factor</strong></a> () const<br></td>
 </tr>
 <tr>
-<td style="text-align: right;"><a href="../classCoordinate2D/"><strong>unsigned</strong></a> <a href="../classCoordinate2D/"><strong>int</strong></a></td>
+<td style="text-align: right;">unsigned int</td>
 <td style="text-align: left;"><a href="#function-vegetation_aggregation_factor"><strong>vegetation_aggregation_factor</strong></a> () const<br></td>
 </tr>
 </tbody>
@@ -981,18 +996,23 @@
 </code></pre></div>
 <hr>
 
+<h3 id="variable-export_fine_slope">variable export_fine_slope</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">export_fine_slope</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
 <h3 id="variable-vegetation_grid_resolution">variable vegetation_grid_resolution</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">vegetation_grid_resolution</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">vegetation_grid_resolution</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-contour_downsample_factor">function contour_downsample_factor</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">contour_downsample_factor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">contour_downsample_factor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-vegetation_aggregation_factor">function vegetation_aggregation_factor</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">vegetation_aggregation_factor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">GridConfig</span><span class="o">::</span><span class="n">vegetation_aggregation_factor</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 

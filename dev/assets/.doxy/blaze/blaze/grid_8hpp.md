@@ -43,15 +43,15 @@
 | ---: | :--- |
 | struct | [**BlazeBool**](structBlazeBool.md) <br> |
 | class | [**FlexGrid**](classFlexGrid.md) <br> |
-| class | [**Geo**](classGeo.md) &lt;[**typename**](classCoordinate2D.md) GridT&gt;<br> |
+| class | [**Geo**](classGeo.md) &lt;typename GridT&gt;<br> |
 | class | [**GeoGridData**](classGeoGridData.md) <br> |
 | class | [**GeoProjection**](classGeoProjection.md) <br> |
 | class | [**GeoTransform**](classGeoTransform.md) <br> |
-| class | [**Grid**](classGrid.md) &lt;[**typename**](classCoordinate2D.md) [**U**](classCoordinate2D.md)&gt;<br> |
+| class | [**Grid**](classGrid.md) &lt;typename U&gt;<br> |
 | class | [**GridData**](classGridData.md) <br> |
-| class | [**GridGraph**](classGridGraph.md) &lt;[**typename**](classCoordinate2D.md) T&gt;<br> |
-| class | [**MultiBand**](classMultiBand.md) &lt;[**typename**](classCoordinate2D.md) GridT&gt;<br> |
-| struct | [**is\_specialization**](structis__specialization.md) &lt;[**typename**](classCoordinate2D.md) [**Test**](classCoordinate2D.md), Ref&gt;<br> |
+| class | [**GridGraph**](classGridGraph.md) &lt;typename T&gt;<br> |
+| class | [**MultiBand**](classMultiBand.md) &lt;typename GridT&gt;<br> |
+| struct | [**is\_specialization**](structis__specialization.md) &lt;typename Test, Ref&gt;<br> |
 | struct | [**is\_specialization&lt; Ref&lt; Args... &gt;, Ref &gt;**](structis__specialization_3_01Ref_3_01Args_8_8_8_01_4_00_01Ref_01_4.md) &lt;Ref, Args&gt;<br> |
 
 
@@ -69,7 +69,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**constexpr**](classCoordinate2D.md) [**bool**](classCoordinate2D.md) | [**is\_specialization\_v**](#variable-is_specialization_v)   = `[**is\_specialization**](structis__specialization.md)&lt;[**Type**](classCoordinate2D.md), [**Template**](classCoordinate2D.md)&gt;::value`<br> |
+|  constexpr bool | [**IS\_SPECIALIZATION\_V**](#variable-is_specialization_v)   = `[**is\_specialization**](structis__specialization.md)&lt;Type, Template&gt;::value`<br> |
 
 
 
@@ -90,8 +90,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  T | [**interpolate\_value**](#function-interpolate_value) ([**const**](classCoordinate2D.md) [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**const**](classCoordinate2D.md) [**Coordinate2D**](classCoordinate2D.md)&lt; [**double**](classCoordinate2D.md) &gt; & projection\_coord) <br> |
-|  [**size\_t**](classCoordinate2D.md) | [**num\_cells\_by\_distance**](#function-num_cells_by_distance) ([**double**](classCoordinate2D.md) x, [**double**](classCoordinate2D.md) dx) <br> |
+|  T | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  size\_t | [**num\_cells\_by\_distance**](#function-num_cells_by_distance) (double x, double dx) <br> |
 
 
 
@@ -153,10 +153,10 @@ using GeoGrid =  Geo<Grid<T> >;
 
 
 
-### variable is\_specialization\_v 
+### variable IS\_SPECIALIZATION\_V 
 
 ```C++
-constexpr bool is_specialization_v;
+constexpr bool IS_SPECIALIZATION_V;
 ```
 
 
@@ -173,8 +173,8 @@ constexpr bool is_specialization_v;
 ```C++
 template<typename T>
 T interpolate_value (
-    const  GeoGrid < T > & grid,
-    const  Coordinate2D < double > & projection_coord
+    const GeoGrid < T > & grid,
+    const Coordinate2D < double > & projection_coord
 ) 
 ```
 

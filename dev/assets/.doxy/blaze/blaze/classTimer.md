@@ -53,7 +53,7 @@ Inherited by the following classes: [TimeFunction](classTimeFunction.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**Timer**](#function-timer) () <br> |
-|  std::chrono::duration&lt; [**double**](classCoordinate2D.md) &gt; | [**duration**](#function-duration) () const<br> |
+|  std::chrono::duration&lt; double &gt; | [**duration**](#function-duration) () const<br> |
 
 
 
@@ -120,7 +120,7 @@ inline std::chrono::duration< double > Timer::duration () const
 ```C++
 inline std::ostream & Timer::operator<< (
     std::ostream & os,
-    const  Timer & timer
+    const Timer & timer
 ) 
 ```
 

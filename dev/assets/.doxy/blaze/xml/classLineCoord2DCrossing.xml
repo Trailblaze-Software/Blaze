@@ -5,7 +5,7 @@
     <basecompoundref refid="classLineCoord2D" prot="public" virt="non-virtual">LineCoord2D&lt; T &gt;</basecompoundref>
     <templateparamlist>
       <param>
-        <type><ref refid="classCoordinate2D" kindref="compound">typename</ref> T</type>
+        <type>typename T</type>
       </param>
     </templateparamlist>
     <sectiondef kind="private-attrib">
@@ -62,7 +62,7 @@
         <name>LineCoord2DCrossing</name>
         <qualifiedname>LineCoord2DCrossing::LineCoord2DCrossing</qualifiedname>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; T &gt; &amp;</type>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; T &gt; &amp;</type>
           <declname>line_coord</declname>
         </param>
         <param>
@@ -132,7 +132,7 @@
           <declname>os</declname>
         </param>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">const</ref> <ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref> &amp;</type>
+          <type>const <ref refid="classLineCoord2DCrossing" kindref="compound">LineCoord2DCrossing</ref> &amp;</type>
           <declname>line_coord</declname>
         </param>
         <briefdescription>

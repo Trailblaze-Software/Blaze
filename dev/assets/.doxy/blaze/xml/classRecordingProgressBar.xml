@@ -5,7 +5,7 @@
     <basecompoundref refid="classProgressBar" prot="public" virt="non-virtual">ProgressBar</basecompoundref>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classRecordingProgressBar_1a670ddc1387204ae61f71dd60b508f814" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt;</type>
+        <type>std::vector&lt; double &gt;</type>
         <definition>std::vector&lt;double&gt; RecordingProgressBar::m_updates</definition>
         <argsstring></argsstring>
         <name>m_updates</name>
@@ -21,7 +21,7 @@
     </sectiondef>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="classRecordingProgressBar_1ae633f2792ac73f0df893971c98843370" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">const</ref> std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">double</ref> &gt; &amp;</type>
+        <type>const std::vector&lt; double &gt; &amp;</type>
         <definition>const std::vector&lt; double &gt; &amp; RecordingProgressBar::updates</definition>
         <argsstring>() const</argsstring>
         <name>updates</name>
@@ -37,14 +37,14 @@
     </sectiondef>
     <sectiondef kind="protected-func">
       <memberdef kind="function" id="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
-        <type><ref refid="classCoordinate2D" kindref="compound">void</ref></type>
+        <type>void</type>
         <definition>void RecordingProgressBar::update_progress</definition>
         <argsstring>(double progress) override</argsstring>
         <name>update_progress</name>
         <qualifiedname>RecordingProgressBar::update_progress</qualifiedname>
         <reimplements refid="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08">update_progress</reimplements>
         <param>
-          <type><ref refid="classCoordinate2D" kindref="compound">double</ref></type>
+          <type>double</type>
           <declname>progress</declname>
         </param>
         <briefdescription>
@@ -104,6 +104,7 @@
       <member refid="classProgressBar_1aa5fa842bcef66aed32ea6c7c79c44e5e" prot="protected" virt="virtual"><scope>RecordingProgressBar</scope><name>text_update</name></member>
       <member refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac" prot="protected" virt="virtual"><scope>RecordingProgressBar</scope><name>update_progress</name></member>
       <member refid="classRecordingProgressBar_1ae633f2792ac73f0df893971c98843370" prot="public" virt="non-virtual"><scope>RecordingProgressBar</scope><name>updates</name></member>
+      <member refid="classProgressBar_1ab55c884aae0f1f7f59c561535fc988be" prot="public" virt="non-virtual"><scope>RecordingProgressBar</scope><name>~ProgressBar</name></member>
       <member refid="classProgressObserver_1a88351d1c134e9edf4e716e930b6d3c53" prot="public" virt="virtual"><scope>RecordingProgressBar</scope><name>~ProgressObserver</name></member>
     </listofallmembers>
   </compounddef>

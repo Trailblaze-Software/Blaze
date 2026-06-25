@@ -35,9 +35,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**double**](classCoordinate2D.md) | [**catchment**](#variable-catchment)  <br> |
+|  double | [**catchment**](#variable-catchment)  <br> |
 |  ColorVariant | [**color**](#variable-color)  <br> |
-|  [**double**](classCoordinate2D.md) | [**width**](#variable-width)  <br> |
+|  double | [**width**](#variable-width)  <br> |
 
 
 
