@@ -9,6 +9,7 @@
 #include <QCoreApplication>
 #include <QDialog>
 #include <QDialogButtonBox>
+#include <QDoubleSpinBox>
 #include <QFileInfo>
 #include <QGroupBox>
 #include <QHBoxLayout>
@@ -21,13 +22,16 @@
 #include <QSignalBlocker>
 #include <QSizePolicy>
 #include <QSlider>
+#include <QTabWidget>
 #include <QVBoxLayout>
 #include <QtConcurrent>
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
+#include <tuple>
 #include <utility>
+#include <vector>
 
 #include "blaze_output_loader.hpp"
 #include "config_editor.hpp"
@@ -103,6 +107,8 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
     connect(ui->actionOpen, &QAction::triggered, this, &Main3DWindow::open_layer_file);
     connect(ui->actionImportBlazeOutput, &QAction::triggered, this,
             &Main3DWindow::import_blaze_output);
+    connect(ui->actionLightingSettings, &QAction::triggered, this,
+            &Main3DWindow::open_lighting_settings);
     connect(ui->actionRunBlaze, &QAction::triggered, this, &Main3DWindow::run_blaze_on_layers);
     ui->horizontalLayout->addWidget(gl_widget.get(), 1);
     gl_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -129,6 +135,7 @@ Main3DWindow::Main3DWindow() : ui(std::make_unique<Ui::Main3DWindow>()) {
     setup_point_cloud_panel();
     setup_surface_layer_panel();
     setup_point_details_panel();
+    ui->verticalLayout->setStretch(0, 1);
     auto* remove_shortcut = new QShortcut(QKeySequence::Delete, ui->treeWidget);
     connect(remove_shortcut, &QShortcut::activated, this, &Main3DWindow::remove_selected_layer);
 
@@ -237,7 +244,7 @@ void Main3DWindow::setup_animation_panel() {
     gl_widget->set_wobble_amplitude(deg);
   });
 
-  ui->verticalLayout->insertWidget(0, panel);
+  ui->verticalLayout->addWidget(panel);
 }
 
 void Main3DWindow::setup_point_cloud_panel() {
@@ -297,7 +304,7 @@ void Main3DWindow::setup_point_cloud_panel() {
   m_point_fixed_color_button = new QPushButton(tr("Choose color..."), m_point_cloud_panel);
   layout->addWidget(m_point_fixed_color_button);
 
-  ui->verticalLayout->insertWidget(1, m_point_cloud_panel);
+  ui->verticalLayout->addWidget(m_point_cloud_panel);
   m_point_cloud_panel->hide();
 
   connect(m_point_size_slider, &QSlider::valueChanged, this, [this](int) {
@@ -357,13 +364,24 @@ void Main3DWindow::setup_surface_layer_panel() {
   layout->addWidget(opacity_label);
   layout->addLayout(opacity_row);
 
-  ui->verticalLayout->insertWidget(2, m_surface_layer_panel);
+  auto* vertical_offset_label = new QLabel(tr("Vertical offset"), m_surface_layer_panel);
+  m_surface_vertical_offset_spin = new QDoubleSpinBox(m_surface_layer_panel);
+  m_surface_vertical_offset_spin->setRange(-10.0, 10.0);
+  m_surface_vertical_offset_spin->setDecimals(2);
+  m_surface_vertical_offset_spin->setSingleStep(0.05);
+  m_surface_vertical_offset_spin->setSuffix(tr(" m"));
+  layout->addWidget(vertical_offset_label);
+  layout->addWidget(m_surface_vertical_offset_spin);
+
+  ui->verticalLayout->addWidget(m_surface_layer_panel);
   m_surface_layer_panel->hide();
 
   connect(m_surface_opacity_slider, &QSlider::valueChanged, this, [this](int) {
     update_surface_layer_value_labels();
     apply_surface_layer_style_from_ui();
   });
+  connect(m_surface_vertical_offset_spin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+          this, [this](double) { apply_surface_layer_style_from_ui(); });
   update_surface_layer_value_labels();
 }
 
@@ -375,7 +393,7 @@ void Main3DWindow::setup_point_details_panel() {
   m_point_details_label->setWordWrap(true);
   m_point_details_label->setTextInteractionFlags(Qt::TextSelectableByMouse);
   layout->addWidget(m_point_details_label);
-  ui->verticalLayout->insertWidget(3, m_point_details_panel);
+  ui->verticalLayout->addWidget(m_point_details_panel);
 }
 
 void Main3DWindow::show_point_pick_details(const PointPickResult& pick) {
@@ -470,6 +488,7 @@ void Main3DWindow::update_surface_layer_panel_for_selection() {
   m_updating_surface_ui = true;
   m_surface_opacity_slider->setValue(
       static_cast<int>(std::lround(surface_layer->opacity() * 100.0f)));
+  m_surface_vertical_offset_spin->setValue(surface_layer->vertical_offset());
   m_surface_layer_panel->show();
   update_surface_layer_value_labels();
   m_updating_surface_ui = false;
@@ -487,10 +506,11 @@ void Main3DWindow::apply_surface_layer_style_from_ui() {
     return;
   }
   auto layer = m_active_surface_layer.lock();
-  if (!layer || !m_surface_opacity_slider) {
+  if (!layer || !m_surface_opacity_slider || !m_surface_vertical_offset_spin) {
     return;
   }
   layer->set_opacity(static_cast<float>(m_surface_opacity_slider->value()) / 100.0f);
+  layer->set_vertical_offset(static_cast<float>(m_surface_vertical_offset_spin->value()));
   gl_widget->update();
 }
 
@@ -582,6 +602,98 @@ void Main3DWindow::import_blaze_output() {
   import_blaze_output_from_path(dir.toStdString());
 }
 
+void Main3DWindow::open_lighting_settings() {
+  QDialog dialog(this);
+  dialog.setWindowTitle(tr("View Settings"));
+  dialog.resize(480, 280);
+
+  auto* root = new QVBoxLayout(&dialog);
+  auto* tabs = new QTabWidget(&dialog);
+  auto* lighting_tab = new QWidget(tabs);
+  auto* lighting_layout = new QVBoxLayout(lighting_tab);
+
+  auto make_slider_row = [&](const QString& label, int min_v, int max_v, int value,
+                             const QString& suffix) {
+    auto* row = new QWidget(lighting_tab);
+    auto* row_layout = new QHBoxLayout(row);
+    row_layout->setContentsMargins(0, 0, 0, 0);
+
+    auto* text = new QLabel(label, row);
+    auto* slider = new QSlider(Qt::Horizontal, row);
+    auto* value_label = new QLabel(row);
+    value_label->setMinimumWidth(58);
+    value_label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    slider->setRange(min_v, max_v);
+    slider->setValue(value);
+    value_label->setText(QString("%1%2").arg(value).arg(suffix));
+
+    row_layout->addWidget(text);
+    row_layout->addWidget(slider, 1);
+    row_layout->addWidget(value_label);
+    lighting_layout->addWidget(row);
+    return std::tuple<QSlider*, QLabel*>(slider, value_label);
+  };
+
+  auto [azimuth_slider, azimuth_value] =
+      make_slider_row(tr("Azimuth"), -180, 180,
+                      static_cast<int>(std::lround(gl_widget->camera_light_azimuth_deg())),
+                      QString::fromLatin1(" deg"));
+  auto [elevation_slider, elevation_value] =
+      make_slider_row(tr("Elevation"), -89, 89,
+                      static_cast<int>(std::lround(gl_widget->camera_light_elevation_deg())),
+                      QString::fromLatin1(" deg"));
+  auto [ambient_slider, ambient_value] = make_slider_row(
+      tr("Ambient"), 0, 100, static_cast<int>(std::lround(gl_widget->ambient_light() * 100.0f)),
+      QString::fromLatin1("%"));
+  auto [point_ambient_slider, point_ambient_value] =
+      make_slider_row(tr("Point ambient"), 0, 100,
+                      static_cast<int>(std::lround(gl_widget->point_ambient_light() * 100.0f)),
+                      QString::fromLatin1("%"));
+  auto [diffuse_slider, diffuse_value] = make_slider_row(
+      tr("Direct light"), 0, 200,
+      static_cast<int>(std::lround(gl_widget->diffuse_light() * 100.0f)), QString::fromLatin1("%"));
+
+  auto apply_lighting = [this, azimuth_slider, elevation_slider, ambient_slider,
+                         point_ambient_slider, diffuse_slider] {
+    gl_widget->set_camera_light_angles(static_cast<float>(azimuth_slider->value()),
+                                       static_cast<float>(elevation_slider->value()));
+    gl_widget->set_lighting_strength(static_cast<float>(ambient_slider->value()) / 100.0f,
+                                     static_cast<float>(diffuse_slider->value()) / 100.0f);
+    gl_widget->set_point_ambient_light(static_cast<float>(point_ambient_slider->value()) / 100.0f);
+  };
+  auto connect_slider = [this, apply_lighting](QSlider* slider, QLabel* value_label,
+                                               const QString& suffix) {
+    connect(slider, &QSlider::valueChanged, this, [apply_lighting, value_label, suffix](int v) {
+      value_label->setText(QString("%1%2").arg(v).arg(suffix));
+      apply_lighting();
+    });
+  };
+  connect_slider(azimuth_slider, azimuth_value, QString::fromLatin1(" deg"));
+  connect_slider(elevation_slider, elevation_value, QString::fromLatin1(" deg"));
+  connect_slider(ambient_slider, ambient_value, QString::fromLatin1("%"));
+  connect_slider(point_ambient_slider, point_ambient_value, QString::fromLatin1("%"));
+  connect_slider(diffuse_slider, diffuse_value, QString::fromLatin1("%"));
+
+  auto* reset_button = new QPushButton(tr("Reset to default"), lighting_tab);
+  connect(reset_button, &QPushButton::clicked, this,
+          [azimuth_slider, elevation_slider, ambient_slider, point_ambient_slider, diffuse_slider] {
+            azimuth_slider->setValue(-50);
+            elevation_slider->setValue(35);
+            ambient_slider->setValue(30);
+            point_ambient_slider->setValue(55);
+            diffuse_slider->setValue(100);
+          });
+  lighting_layout->addWidget(reset_button);
+  lighting_layout->addStretch(1);
+  tabs->addTab(lighting_tab, tr("Lighting"));
+  root->addWidget(tabs);
+
+  auto* buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
+  connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+  root->addWidget(buttons);
+  dialog.exec();
+}
+
 void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
   m_defer_render_until_loaded = true;
   m_zoom_completed = false;
@@ -601,33 +713,11 @@ void Main3DWindow::import_blaze_output_from_path(const std::string& directory) {
     return;
   }
 
-  if (outputs.filled_dem) {
-    if (outputs.final_img) {
-      add_layer(std::make_unique<TexturedDemLayer>(*outputs.filled_dem, *outputs.final_img,
-                                                   add_progress_tracker(), scene_reference_crs()),
-                false);
-    } else {
-      add_layer(std::make_unique<DemLayer>(*outputs.filled_dem, add_progress_tracker(),
-                                           std::nullopt, scene_reference_crs()),
-                false);
-    }
-
-    if (outputs.slope) {
-      const fs::path& slope_dem =
-          outputs.smooth_ground ? *outputs.smooth_ground : *outputs.filled_dem;
-      auto slope_layer = std::make_unique<SlopeLayer>(
-          slope_dem, *outputs.slope, add_progress_tracker(), scene_reference_crs());
-      if (outputs.final_img) {
-        slope_layer->set_visible(false);
-      }
-      add_layer(std::move(slope_layer), false);
-    }
-  }
-
-  if (outputs.contours) {
-    add_layer(std::make_unique<ContourLayer>(*outputs.contours, add_progress_tracker(),
-                                             scene_reference_crs()),
-              false);
+  auto layers = load_blaze_outputs(
+      outputs, [this]() { return add_progress_tracker(); },
+      [this]() { return scene_reference_crs(); });
+  for (auto& layer : layers) {
+    add_layer(std::move(layer), false);
   }
 
   update_render_mode();

@@ -30,11 +30,13 @@ class Layer : public QObject {
   LayerKind m_kind;
   bool m_visible = true;
   float m_opacity = 1.0f;
+  float m_vertical_offset = 0.0f;
 
  signals:
   void data_updated() const;
   void visibility_changed(bool visible) const;
   void opacity_changed() const;
+  void vertical_offset_changed() const;
 
  public:
   Layer(std::string name, LayerKind kind) : m_name(std::move(name)), m_kind(kind) {}
@@ -45,6 +47,7 @@ class Layer : public QObject {
   LayerKind kind() const { return m_kind; }
   bool visible() const { return m_visible; }
   float opacity() const { return m_opacity; }
+  float vertical_offset() const { return m_vertical_offset; }
   void set_visible(bool visible) {
     if (m_visible != visible) {
       m_visible = visible;
@@ -56,6 +59,12 @@ class Layer : public QObject {
     if (m_opacity != clamped) {
       m_opacity = clamped;
       emit opacity_changed();
+    }
+  }
+  void set_vertical_offset(float vertical_offset) {
+    if (m_vertical_offset != vertical_offset) {
+      m_vertical_offset = vertical_offset;
+      emit vertical_offset_changed();
     }
   }
   virtual ~Layer() = default;
@@ -194,19 +203,15 @@ class DemLayer : public Layer {
  public:
   DemLayer(const fs::path& dem_path, AsyncProgressTracker progress_tracker,
            const std::optional<fs::path>& texture_path = std::nullopt,
-           const std::string& target_crs_wkt = {})
-      : Layer(dem_path.filename().string(), LayerKind::DemSurface),
+           const std::string& target_crs_wkt = {}, bool flat_cells = false)
+      : Layer(flat_cells ? dem_path.stem().string() + " (grid)" : dem_path.filename().string(),
+              LayerKind::DemSurface),
         m_raster(
-            dem_path, progress_tracker, texture_path,
-            [&] {
-              const auto dims = read_tif_dimensions(dem_path);
-              return adaptive_dem_stride(dims[0], dims[1]);
-            }(),
-            false, std::nullopt,
+            dem_path, progress_tracker, texture_path, 1, false, std::nullopt,
             [this] {
               QMetaObject::invokeMethod(this, "notify_data_updated", Qt::QueuedConnection);
             },
-            target_crs_wkt) {}
+            target_crs_wkt, flat_cells) {}
 
   virtual Extent3D extent() const override { return m_raster.extent(); }
   virtual std::string projection() const override { return m_raster.projection().to_string(); }
@@ -231,12 +236,7 @@ class SlopeLayer : public Layer {
              AsyncProgressTracker progress_tracker, const std::string& target_crs_wkt = {})
       : Layer(slope_path.filename().string(), LayerKind::SlopeSurface),
         m_raster(
-            dem_path, progress_tracker, std::nullopt,
-            [&] {
-              const auto dims = read_tif_dimensions(slope_path);
-              return adaptive_dem_stride(dims[0], dims[1]);
-            }(),
-            true, slope_path,
+            dem_path, progress_tracker, std::nullopt, 1, true, slope_path,
             [this] {
               QMetaObject::invokeMethod(this, "notify_data_updated", Qt::QueuedConnection);
             },
@@ -265,14 +265,7 @@ class TexturedDemLayer : public Layer {
                    AsyncProgressTracker progress_tracker, const std::string& target_crs_wkt = {})
       : Layer(texture_path.filename().string(), LayerKind::TexturedDem),
         m_raster(
-            dem_path, progress_tracker, texture_path,
-            [&] {
-              const auto dem_dims = read_tif_dimensions(dem_path);
-              const auto tex_dims = read_tif_dimensions(texture_path);
-              return adaptive_dem_stride(std::max(dem_dims[0], tex_dims[0]),
-                                         std::max(dem_dims[1], tex_dims[1]));
-            }(),
-            false, std::nullopt,
+            dem_path, progress_tracker, texture_path, 1, false, std::nullopt,
             [this] {
               QMetaObject::invokeMethod(this, "notify_data_updated", Qt::QueuedConnection);
             },

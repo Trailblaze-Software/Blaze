@@ -62,6 +62,27 @@ QPointF snap_device_center(const QPointF& pt, qreal dpr) {
   return QPointF((std::floor(pt.x() * dpr) + 0.5) / dpr, (std::floor(pt.y() * dpr) + 0.5) / dpr);
 }
 
+QVector3D normalize_or_default(const QVector3D& value, const QVector3D& fallback) {
+  if (value.lengthSquared() < 1e-8f) {
+    return fallback;
+  }
+  return value.normalized();
+}
+
+float clamp_float(float value, float min_v, float max_v) {
+  return std::max(min_v, std::min(max_v, value));
+}
+
+QVector3D light_lub_from_polar(float azimuth_deg, float elevation_deg) {
+  const float azimuth_rad = static_cast<float>(azimuth_deg * M_PI / 180.0);
+  const float elevation_rad = static_cast<float>(elevation_deg * M_PI / 180.0);
+  const float horizontal = std::cos(elevation_rad);
+  const float left = -std::sin(azimuth_rad) * horizontal;
+  const float up = std::sin(elevation_rad);
+  const float behind = std::cos(azimuth_rad) * horizontal;
+  return normalize_or_default(QVector3D(left, up, behind), QVector3D(0.35f, 0.45f, 0.82f));
+}
+
 void draw_device_hline(QPainter& painter, qreal x0, qreal x1, qreal y, qreal dpr,
                        const QColor& color) {
   const qreal px = 1.0 / dpr;
@@ -173,7 +194,9 @@ void GLWidget::remove_layer(Layer* layer) {
   update();
 }
 
-QSize GLWidget::sizeHint() const { return QSize(1000, 1000); }
+QSize GLWidget::sizeHint() const { return minimumSizeHint(); }
+
+QSize GLWidget::minimumSizeHint() const { return QSize(320, 240); }
 
 void GLWidget::initializeGL() {
   initializeOpenGLFunctions();
@@ -299,6 +322,21 @@ void GLWidget::paintGL() {
   RenderContext ctx;
   ctx.incremental_points = incremental_points;
   ctx.viewport_height = static_cast<float>(fb_h);
+  const QVector3D camera_forward = normalize_or_default(m_camera.direction(), QVector3D(0, 0, -1));
+  const QVector3D camera_up = normalize_or_default(m_camera.up(), QVector3D(0, 0, 1));
+  QVector3D camera_right = QVector3D::crossProduct(camera_forward, camera_up);
+  camera_right = normalize_or_default(camera_right, QVector3D(1, 0, 0));
+  const QVector3D ortho_up = normalize_or_default(
+      QVector3D::crossProduct(camera_right, camera_forward), QVector3D(0, 0, 1));
+  const QVector3D light_lub = light_lub_from_polar(m_light_azimuth_deg, m_light_elevation_deg);
+  const QVector3D light_world =
+      -light_lub.x() * camera_right + light_lub.y() * ortho_up - light_lub.z() * camera_forward;
+  const QVector3D light_eye(-light_lub.x(), light_lub.y(), light_lub.z());
+  ctx.light_direction_world = normalize_or_default(light_world, QVector3D(0, 0, 1));
+  ctx.light_direction_eye = normalize_or_default(light_eye, QVector3D(0, 0, 1));
+  ctx.ambient_light = m_ambient_light;
+  ctx.diffuse_light = m_diffuse_light;
+  ctx.point_ambient_light = m_point_ambient_light;
 
   CHECK_GL(f->glClearColor(0.2f, 0.2f, 0.2f, 1.0f));
 
@@ -307,6 +345,7 @@ void GLWidget::paintGL() {
       m_scene_fbo.bind();
       CHECK_GL_AFTER();
       CHECK_GL(f->glViewport(0, 0, fb_w, fb_h));
+      CHECK_GL(f->glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
       CHECK_GL(f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     } else {
       CHECK_GL(f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -345,10 +384,15 @@ void GLWidget::paintGL() {
   const GLuint widget_fbo = defaultFramebufferObject();
   CHECK_GL(f->glBindFramebuffer(GL_FRAMEBUFFER, widget_fbo));
   CHECK_GL(f->glViewport(0, 0, fb_w, fb_h));
+  CHECK_GL(f->glClearColor(0.2f, 0.2f, 0.2f, 1.0f));
+  CHECK_GL(f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
   if (m_scene_fbo.valid()) {
-    m_scene_fbo.blit_to_widget_fbo(widget_fbo, fb_w, fb_h);
-    CHECK_GL_AFTER();
+    if (auto* gl = QOpenGLContext::currentContext()->extraFunctions()) {
+      m_scene_fbo.composite_to_widget_fbo(gl, widget_fbo, fb_w, fb_h);
+      m_scene_fbo.blit_depth_to_widget_fbo(widget_fbo, fb_w, fb_h);
+      CHECK_GL_AFTER();
+    }
   }
 
   const float point_layer_alpha = this->point_layer_alpha();
@@ -610,6 +654,42 @@ void GLWidget::refresh_point_cloud_style() {
   if (!m_stream_timer->isActive()) {
     m_stream_timer->start();
   }
+  update();
+}
+
+void GLWidget::set_camera_light_angles(float azimuth_deg, float elevation_deg) {
+  const float clamped_azimuth = clamp_float(azimuth_deg, -180.0f, 180.0f);
+  const float clamped_elevation = clamp_float(elevation_deg, -89.0f, 89.0f);
+  if (std::abs(clamped_azimuth - m_light_azimuth_deg) < 1e-6f &&
+      std::abs(clamped_elevation - m_light_elevation_deg) < 1e-6f) {
+    return;
+  }
+  m_light_azimuth_deg = clamped_azimuth;
+  m_light_elevation_deg = clamped_elevation;
+  restart_render();
+  update();
+}
+
+void GLWidget::set_lighting_strength(float ambient_light, float diffuse_light) {
+  const float clamped_ambient = clamp_float(ambient_light, 0.0f, 1.0f);
+  const float clamped_diffuse = clamp_float(diffuse_light, 0.0f, 2.0f);
+  if (std::abs(clamped_ambient - m_ambient_light) < 1e-6f &&
+      std::abs(clamped_diffuse - m_diffuse_light) < 1e-6f) {
+    return;
+  }
+  m_ambient_light = clamped_ambient;
+  m_diffuse_light = clamped_diffuse;
+  restart_render();
+  update();
+}
+
+void GLWidget::set_point_ambient_light(float point_ambient_light) {
+  const float clamped_point_ambient = clamp_float(point_ambient_light, 0.0f, 1.0f);
+  if (std::abs(clamped_point_ambient - m_point_ambient_light) < 1e-6f) {
+    return;
+  }
+  m_point_ambient_light = clamped_point_ambient;
+  restart_render();
   update();
 }
 

@@ -85,8 +85,7 @@ Controls the resolutions used by various stages of the processing pipeline.
 - `downsample_factor`: Integer factor used to downsample the bin grid into the smooth ground DEM that is the basis for slope, hill-shade and `smooth_ground.tif`. Effective smooth-DEM resolution = `bin_resolution * downsample_factor`. Default: `3`.
 - `vegetation_grid_resolution`: Resolution (in meters) of the vegetation / canopy maps. Vegetation point counts are aggregated from the bin grid to this resolution. Should be `>= bin_resolution`. Default: `3.0`.
 - `contour_dem_resolution`: Resolution (in meters) of the DEM used for contour generation, stream extraction and depression filling. Computed by further downsampling the smooth ground DEM. Should be `>= bin_resolution * downsample_factor`. Larger values produce smoother contours but lose fine terrain detail. Default: `9.0`.
-
-Older configs that only set `bin_resolution` and `downsample_factor` are still accepted; in that case `vegetation_grid_resolution` defaults to `bin_resolution` and `contour_dem_resolution` defaults to `bin_resolution * downsample_factor`, preserving the previous behaviour.
+- `export_fine_slope`: When `true` (default), writes `fine_slope.tif` from `ground.tif` at bin resolution, in addition to `slope.tif` from `smooth_ground.tif`. Set to `false` to skip the finer slope raster.
 
 ### Ground
 

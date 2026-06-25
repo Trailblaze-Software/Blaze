@@ -16,6 +16,7 @@ struct Config;
 
 class QComboBox;
 class QDialog;
+class QDoubleSpinBox;
 class QGroupBox;
 class QLabel;
 class QPushButton;
@@ -68,7 +69,7 @@ class Main3DWindow : public QMainWindow {
 
  public:
   Main3DWindow();
-  ~Main3DWindow();
+  ~Main3DWindow() override;
 
   void add_layer(std::unique_ptr<Layer> layer, bool auto_zoom = true);
 
@@ -84,6 +85,7 @@ class Main3DWindow : public QMainWindow {
  private slots:
   void open_layer_file();
   void import_blaze_output();
+  void open_lighting_settings();
   void run_blaze_on_layers();
   void on_treeWidget_itemChanged(QTreeWidgetItem* item, int column);
   void on_treeWidget_customContextMenuRequested(const QPoint& pos);
@@ -119,6 +121,7 @@ class Main3DWindow : public QMainWindow {
   QGroupBox* m_surface_layer_panel = nullptr;
   QSlider* m_surface_opacity_slider = nullptr;
   QLabel* m_surface_opacity_value_label = nullptr;
+  QDoubleSpinBox* m_surface_vertical_offset_spin = nullptr;
   QSlider* m_point_size_slider = nullptr;
   QSlider* m_point_alpha_slider = nullptr;
   QSlider* m_point_stream_budget_slider = nullptr;

@@ -30,6 +30,8 @@ if(BLAZE_BUILD_3D_GUI)
             main_3d_window.ui
             point_cloud_framebuffer.hpp
             point_cloud_framebuffer.cpp
+            scene_framebuffer.hpp
+            scene_framebuffer.cpp
             point_cloud_gl.hpp
             point_cloud_gl.cpp
             point_octree.hpp

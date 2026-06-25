@@ -6,6 +6,7 @@
 #include <QOpenGLTexture>
 #include <QOpenGLVertexArrayObject>
 #include <QPoint>
+#include <QVector3D>
 #include <cstdint>
 #include <optional>
 #include <unordered_map>
@@ -36,6 +37,15 @@ struct RenderContext {
   bool incremental_points = false;
   // OpenGL viewport height in framebuffer pixels (must match glViewport for point sizing).
   float viewport_height = 0.0f;
+  // Global light direction in world space for mesh/contour shading.
+  QVector3D light_direction_world{0.0f, 0.0f, 1.0f};
+  // Global light direction in eye space for point-sphere shading.
+  QVector3D light_direction_eye{0.0f, 0.0f, 1.0f};
+  // Ambient floor and direct-light contribution for mesh/contour layers.
+  float ambient_light = 0.30f;
+  float diffuse_light = 1.00f;
+  // Separate ambient floor for point rendering.
+  float point_ambient_light = 0.55f;
 };
 
 class LayerRenderer : public QObject {
@@ -83,6 +93,9 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   int m_point_alpha_loc = 0;
   int m_point_offset_loc = 0;
   int m_shader_layer_slot_loc = -1;
+  int m_light_direction_eye_loc = -1;
+  int m_ambient_light_loc = -1;
+  int m_diffuse_light_loc = -1;
 
   double m_lod_quality = 1.0;
   double m_inc_lod_quality = 1.0;
@@ -170,8 +183,13 @@ class MeshLayerRenderer : public LayerRenderer {
   bool m_texture_uploaded = false;
   size_t m_index_count = 0;
   int m_proj_matrix_loc = 0;
+  int m_light_direction_loc = -1;
+  int m_camera_position_loc = -1;
+  int m_ambient_light_loc = -1;
+  int m_diffuse_light_loc = -1;
   int m_texture_sampler_loc = 0;
   int m_layer_alpha_loc = -1;
+  int m_vertical_offset_loc = -1;
 
   void upload_mesh(const DemMeshData& mesh, const Coordinate3D<double>& offset);
   void upload_texture(const Geo<MultiBand<FlexGrid>>& texture);
@@ -194,7 +212,12 @@ class ContourLayerRenderer : public LayerRenderer {
   bool m_uploaded = false;
   size_t m_index_count = 0;
   int m_proj_matrix_loc = 0;
+  int m_light_direction_loc = -1;
+  int m_camera_position_loc = -1;
+  int m_ambient_light_loc = -1;
+  int m_diffuse_light_loc = -1;
   int m_layer_alpha_loc = -1;
+  int m_vertical_offset_loc = -1;
 
   void upload_contours(const std::vector<Contour>& contours, const Coordinate3D<double>& offset);
 

@@ -87,7 +87,9 @@ struct adl_serializer<GridConfig> {
     veg_res = json_number_or(j, "vegetation_grid_resolution", veg_res);
     contour_res = json_number_or(j, "contour_dem_resolution", contour_res);
 
-    return GridConfig{bin_res, downsample, veg_res, contour_res};
+    bool export_fine_slope = j.value("export_fine_slope", true);
+
+    return GridConfig{bin_res, downsample, veg_res, contour_res, export_fine_slope};
   }
 
   static void to_json(json& j, GridConfig gc) {
@@ -95,6 +97,7 @@ struct adl_serializer<GridConfig> {
     j["downsample_factor"] = gc.downsample_factor;
     j["vegetation_grid_resolution"] = gc.vegetation_grid_resolution;
     j["contour_dem_resolution"] = gc.contour_dem_resolution;
+    j["export_fine_slope"] = gc.export_fine_slope;
   }
 };
 

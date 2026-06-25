@@ -5,6 +5,9 @@ in float eye_radius;
 flat in uint vtx_point_id;
 uniform mat4 u_proj;
 uniform int u_layer_slot;
+uniform vec3 u_light_direction_eye;
+uniform float u_ambient_light;
+uniform float u_diffuse_light;
 out vec4 fragColor;
 layout(location = 1) out uvec2 pickData;
 
@@ -24,8 +27,7 @@ void main() {
     vec4 clip = u_proj * vec4(hit, 1.0);
     gl_FragDepth = 0.5 * (clip.z / clip.w) + 0.5;
 
-    vec3 light_dir = normalize(vec3(0.3, 0.5, 0.8));
-    float lighting = 0.4 + 0.6 * max(dot(normal, light_dir), 0.0);
+    float lighting = u_ambient_light + u_diffuse_light * max(dot(normal, u_light_direction_eye), 0.0);
     fragColor = vec4(vtx_color.rgb * lighting, vtx_color.a);
     pickData = u_layer_slot > 0 ? uvec2(vtx_point_id, uint(u_layer_slot)) : uvec2(0u, 0u);
 }

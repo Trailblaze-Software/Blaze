@@ -9,6 +9,7 @@
 #include <QOpenGLWidget>
 #include <QShowEvent>
 #include <QTimer>
+#include <QVector3D>
 #include <QtConcurrent>
 #include <chrono>
 #include <functional>
@@ -114,6 +115,10 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
       restart_render();
       update();
     });
+    connect(m_layers.back().get(), &Layer::vertical_offset_changed, this, [this] {
+      restart_render();
+      update();
+    });
     if (auto_zoom && layer->extent().max_extent() > 0) {
       request_zoom_to_extent(layer->extent() - m_camera.world_offset());
     }
@@ -177,6 +182,14 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
 
   void restart_render();
   void refresh_point_cloud_style();
+  void set_camera_light_angles(float azimuth_deg, float elevation_deg);
+  float camera_light_azimuth_deg() const { return m_light_azimuth_deg; }
+  float camera_light_elevation_deg() const { return m_light_elevation_deg; }
+  void set_lighting_strength(float ambient_light, float diffuse_light);
+  float ambient_light() const { return m_ambient_light; }
+  float diffuse_light() const { return m_diffuse_light; }
+  void set_point_ambient_light(float point_ambient_light);
+  float point_ambient_light() const { return m_point_ambient_light; }
 
   using PointPickCallback = std::function<void(const std::optional<PointPickResult>&)>;
   void set_point_pick_callback(PointPickCallback callback) {
@@ -187,6 +200,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
 
  protected:
   QSize sizeHint() const override;
+  QSize minimumSizeHint() const override;
   void initializeGL() override;
   void resizeGL(int w, int h) override;
   void showEvent(QShowEvent* event) override;
@@ -297,4 +311,9 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   double m_last_point_draw_ms = 0.0;
   double m_last_point_gpu_ms = 0.0;
   size_t m_last_point_vertices = 0;
+  float m_light_azimuth_deg = -50.0f;
+  float m_light_elevation_deg = 35.0f;
+  float m_ambient_light = 0.30f;
+  float m_diffuse_light = 1.00f;
+  float m_point_ambient_light = 0.55f;
 };

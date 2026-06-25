@@ -9,6 +9,7 @@
 #include "gui/gl_check.hpp"
 #include "gui/layer.hpp"
 #include "gui/layer_renderer.hpp"
+#include "gui/raster_data.hpp"
 #include "gui/shaders.hpp"
 
 namespace {
@@ -16,11 +17,13 @@ namespace {
 struct MeshVertex {
   float position[3];
   float color[3];
+  float normal[3];
 };
 
 struct TexturedMeshVertex {
   float position[3];
   float texcoord[2];
+  float normal[3];
 };
 
 std::vector<uint8_t> build_texture_rgb(const Geo<MultiBand<FlexGrid>>& texture) {
@@ -125,6 +128,7 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
       }
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("texcoord", 1);
+      m_shader->bindAttributeLocation("normal", 2);
     } else {
       const QString vertex_src = get_mesh_vertex_shader();
       const QString fragment_src = get_mesh_fragment_shader();
@@ -147,6 +151,7 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
       }
       m_shader->bindAttributeLocation("position", 0);
       m_shader->bindAttributeLocation("color", 1);
+      m_shader->bindAttributeLocation("normal", 2);
     }
     if (!m_shader->link()) {
       std::cout << "Mesh shader link error: " << m_shader->log().toStdString() << std::endl;
@@ -155,10 +160,15 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
     }
   }
   m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
+  m_light_direction_loc = m_shader->uniformLocation("light_direction");
+  m_camera_position_loc = m_shader->uniformLocation("camera_position");
+  m_ambient_light_loc = m_shader->uniformLocation("ambient_light");
+  m_diffuse_light_loc = m_shader->uniformLocation("diffuse_light");
   if (use_texture) {
     m_texture_sampler_loc = m_shader->uniformLocation("dem_texture");
   }
   m_layer_alpha_loc = m_shader->uniformLocation("layer_alpha");
+  m_vertical_offset_loc = m_shader->uniformLocation("vertical_offset");
 
   if (m_vao.isCreated()) {
     m_vao.destroy();
@@ -184,6 +194,11 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
                    static_cast<int>(mesh.indices.size() * sizeof(unsigned int)));
     CHECK_GL_AFTER();
 
+    DemMeshData mesh_with_normals = mesh;
+    if (mesh_with_normals.normals.size() != mesh_with_normals.vertices.size()) {
+      compute_mesh_normals(mesh_with_normals);
+    }
+
     if (!bind_shader(m_shader.get())) {
       return;
     }
@@ -199,6 +214,9 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
         const size_t tex_index = (i / 3) * 2;
         vertex.texcoord[0] = mesh.texcoords[tex_index];
         vertex.texcoord[1] = mesh.texcoords[tex_index + 1];
+        vertex.normal[0] = mesh_with_normals.normals[i];
+        vertex.normal[1] = mesh_with_normals.normals[i + 1];
+        vertex.normal[2] = mesh_with_normals.normals[i + 2];
         for (float component : vertex.position) {
           if (!std::isfinite(component)) {
             return;
@@ -213,6 +231,8 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
       m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(TexturedMeshVertex, position), 3, stride);
       m_shader->enableAttributeArray(1);
       m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(TexturedMeshVertex, texcoord), 2, stride);
+      m_shader->enableAttributeArray(2);
+      m_shader->setAttributeBuffer(2, GL_FLOAT, offsetof(TexturedMeshVertex, normal), 3, stride);
     } else {
       std::vector<MeshVertex> interleaved;
       interleaved.reserve(vertex_count);
@@ -224,6 +244,9 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
         vertex.color[0] = mesh.colors[i];
         vertex.color[1] = mesh.colors[i + 1];
         vertex.color[2] = mesh.colors[i + 2];
+        vertex.normal[0] = mesh_with_normals.normals[i];
+        vertex.normal[1] = mesh_with_normals.normals[i + 1];
+        vertex.normal[2] = mesh_with_normals.normals[i + 2];
         for (float component : vertex.position) {
           if (!std::isfinite(component)) {
             return;
@@ -237,6 +260,8 @@ void MeshLayerRenderer::upload_mesh(const DemMeshData& mesh, const Coordinate3D<
       m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
       m_shader->enableAttributeArray(1);
       m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+      m_shader->enableAttributeArray(2);
+      m_shader->setAttributeBuffer(2, GL_FLOAT, offsetof(MeshVertex, normal), 3, stride);
     }
     m_shader->release();
     CHECK_GL_AFTER();
@@ -304,17 +329,39 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
     return;
   }
   CHECK_GL(f->glEnable(GL_DEPTH_TEST));
+  CHECK_GL(f->glEnable(GL_BLEND));
+  CHECK_GL(f->glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA));
   if (!bind_shader(m_shader.get())) {
     return;
   }
   m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+  if (m_light_direction_loc >= 0) {
+    m_shader->setUniformValue(m_light_direction_loc, ctx.light_direction_world);
+  }
+  if (m_camera_position_loc >= 0) {
+    m_shader->setUniformValue(m_camera_position_loc, camera.position());
+  }
+  if (m_ambient_light_loc >= 0) {
+    m_shader->setUniformValue(m_ambient_light_loc, ctx.ambient_light);
+  }
+  if (m_diffuse_light_loc >= 0) {
+    m_shader->setUniformValue(m_diffuse_light_loc, ctx.diffuse_light);
+  }
   float layer_alpha = 1.0f;
+  float vertical_offset = 0.0f;
   if (auto layer = m_layer.lock()) {
     layer_alpha = layer->opacity();
+    vertical_offset = layer->vertical_offset();
   }
   if (m_layer_alpha_loc >= 0) {
     m_shader->setUniformValue(m_layer_alpha_loc, layer_alpha);
   }
+  if (m_vertical_offset_loc >= 0) {
+    m_shader->setUniformValue(m_vertical_offset_loc, vertical_offset);
+  }
+  // Keep depth writes enabled for partial opacity so later layers depth-test against
+  // this surface instead of painting over it in list order.
+  CHECK_GL(f->glDepthMask(GL_TRUE));
   if (m_gpu_texture && m_texture) {
     m_texture->bind(0);
     CHECK_GL_AFTER();
@@ -340,12 +387,16 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
     m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(TexturedMeshVertex, position), 3, stride);
     m_shader->enableAttributeArray(1);
     m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(TexturedMeshVertex, texcoord), 2, stride);
+    m_shader->enableAttributeArray(2);
+    m_shader->setAttributeBuffer(2, GL_FLOAT, offsetof(TexturedMeshVertex, normal), 3, stride);
   } else {
     const int stride = static_cast<int>(sizeof(MeshVertex));
     m_shader->enableAttributeArray(0);
     m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
     m_shader->enableAttributeArray(1);
     m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+    m_shader->enableAttributeArray(2);
+    m_shader->setAttributeBuffer(2, GL_FLOAT, offsetof(MeshVertex, normal), 3, stride);
   }
   CHECK_GL_AFTER();
   CHECK_GL(f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT,
@@ -354,6 +405,8 @@ void MeshLayerRenderer::render(const Camera& camera, const RenderContext& ctx) {
     m_texture->release();
     CHECK_GL_AFTER();
   }
+  CHECK_GL(f->glDepthMask(GL_TRUE));
+  CHECK_GL(f->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
   m_shader->release();
   CHECK_GL_AFTER();
 }

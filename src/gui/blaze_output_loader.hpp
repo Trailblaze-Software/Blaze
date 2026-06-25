@@ -4,6 +4,7 @@
 #include <functional>
 #include <memory>
 #include <optional>
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -16,7 +17,9 @@ struct BlazeOutputSet {
   fs::path root;
   std::optional<fs::path> filled_dem;
   std::optional<fs::path> smooth_ground;
+  std::optional<fs::path> ground;
   std::optional<fs::path> slope;
+  std::optional<fs::path> fine_slope;
   std::optional<fs::path> final_img;
   std::optional<fs::path> contours;
   std::optional<fs::path> streams;
@@ -32,7 +35,8 @@ namespace detail {
 
 inline bool is_blaze_output_filename(const std::string& name) {
   static const std::vector<std::string> KNOWN{
-      "filled_dem.tif", "smooth_ground.tif",     "ground.tif",  "slope.tif", "final_img.tif",
+      "filled_dem.tif", "smooth_ground.tif",     "ground.tif",
+      "slope.tif",      "fine_slope.tif",        "final_img.tif",
       "contours.gpkg",  "trimmed_contours.gpkg", "streams.gpkg"};
   return std::find(KNOWN.begin(), KNOWN.end(), name) != KNOWN.end();
 }
@@ -97,9 +101,17 @@ inline BlazeOutputSet discover_in_root(const fs::path& root) {
   BlazeOutputSet outputs;
   outputs.root = root;
 
-  outputs.filled_dem = find_in_root(root, {"filled_dem.tif", "smooth_ground.tif", "ground.tif"});
+  outputs.filled_dem = find_in_root(root, {"filled_dem.tif"});
   outputs.smooth_ground = find_in_root(root, {"smooth_ground.tif"});
+  outputs.ground = find_in_root(root, {"ground.tif"});
+  if (!outputs.filled_dem) {
+    outputs.filled_dem = outputs.smooth_ground;
+  }
+  if (!outputs.filled_dem) {
+    outputs.filled_dem = outputs.ground;
+  }
   outputs.slope = find_in_root(root, {"slope.tif"});
+  outputs.fine_slope = find_in_root(root, {"fine_slope.tif"});
   outputs.final_img = find_in_root(root, {"final_img.tif"});
   outputs.contours = find_in_root(root, {"contours.gpkg", "trimmed_contours.gpkg"});
   outputs.streams = find_in_root(root, {"streams.gpkg"});
@@ -285,13 +297,37 @@ inline std::string format_blaze_output_discovery_error(const fs::path& directory
   return message.str();
 }
 
+inline void append_flat_grid_dem_layers(
+    std::vector<std::unique_ptr<Layer>>& layers, const BlazeOutputSet& outputs,
+    const std::function<AsyncProgressTracker()>& progress_factory, const std::string& target_crs) {
+  std::set<std::string> seen_paths;
+  auto append = [&](const std::optional<fs::path>& dem_path) {
+    if (!dem_path) {
+      return;
+    }
+    const std::string key = dem_path->lexically_normal().string();
+    if (!seen_paths.insert(key).second) {
+      return;
+    }
+    auto layer =
+        std::make_unique<DemLayer>(*dem_path, progress_factory(), std::nullopt, target_crs, true);
+    layer->set_visible(false);
+    layers.push_back(std::move(layer));
+  };
+  append(outputs.ground);
+  append(outputs.smooth_ground);
+  append(outputs.filled_dem);
+}
+
+// Single source of truth for viewer layers built from discovered blaze outputs.
+// GUI import and any other callers should use this instead of duplicating layer setup.
 inline std::vector<std::unique_ptr<Layer>> load_blaze_outputs(
     const BlazeOutputSet& outputs, const std::function<AsyncProgressTracker()>& progress_factory,
     const std::function<std::string()>& reference_crs_factory = [] { return std::string{}; }) {
   std::vector<std::unique_ptr<Layer>> layers;
+  const std::string target_crs = reference_crs_factory();
 
   if (outputs.filled_dem) {
-    const std::string target_crs = reference_crs_factory();
     if (outputs.final_img) {
       layers.push_back(std::make_unique<TexturedDemLayer>(*outputs.filled_dem, *outputs.final_img,
                                                           progress_factory(), target_crs));
@@ -301,15 +337,35 @@ inline std::vector<std::unique_ptr<Layer>> load_blaze_outputs(
     }
 
     if (outputs.slope) {
-      layers.push_back(std::make_unique<SlopeLayer>(
-          outputs.smooth_ground ? *outputs.smooth_ground : *outputs.filled_dem, *outputs.slope,
-          progress_factory(), target_crs));
+      const fs::path& slope_dem =
+          outputs.smooth_ground ? *outputs.smooth_ground : *outputs.filled_dem;
+      auto slope_layer =
+          std::make_unique<SlopeLayer>(slope_dem, *outputs.slope, progress_factory(), target_crs);
+      if (outputs.final_img) {
+        slope_layer->set_visible(false);
+      }
+      layers.push_back(std::move(slope_layer));
     }
   }
 
+  if (outputs.fine_slope) {
+    const fs::path ground_dem =
+        outputs.ground ? *outputs.ground : outputs.fine_slope->parent_path() / "ground.tif";
+    if (fs::exists(ground_dem)) {
+      auto fine_slope_layer = std::make_unique<SlopeLayer>(ground_dem, *outputs.fine_slope,
+                                                           progress_factory(), target_crs);
+      if (outputs.final_img) {
+        fine_slope_layer->set_visible(false);
+      }
+      layers.push_back(std::move(fine_slope_layer));
+    }
+  }
+
+  append_flat_grid_dem_layers(layers, outputs, progress_factory, target_crs);
+
   if (outputs.contours) {
-    layers.push_back(std::make_unique<ContourLayer>(*outputs.contours, progress_factory(),
-                                                    reference_crs_factory()));
+    layers.push_back(
+        std::make_unique<ContourLayer>(*outputs.contours, progress_factory(), target_crs));
   }
 
   return layers;

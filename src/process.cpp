@@ -186,6 +186,15 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   write_to_tif(ground.slice(data_ext), output_dir / "ground.tif",
                progress_tracker.subtracker(0.65, 0.66), /*include_vertical_crs=*/true);
+
+  if (config.grid.export_fine_slope) {
+    ProgressTracker fine_slope = progress_tracker.subtracker(0.66, 0.67);
+    GeoGrid<double> fine_slope_grid = slope(ground, &fine_slope);
+    write_to_image_tif(fine_slope_grid.slice(data_ext), output_dir / "fine_slope.tif",
+                       fine_slope.subtracker(0.5, 1.0), std::optional<double>(std::numbers::pi / 2),
+                       std::optional<double>(0.0));
+  }
+
   // Export buildings.tif at the smooth-ground resolution (bin_resolution *
   // downsample_factor) to match slope.tif / hill_shade / smooth_ground.tif.
   // The internal `buildings` grid is kept at bin_resolution so that the
@@ -194,13 +203,13 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     GeoGrid<std::optional<std::byte>> buildings_export =
         downsample_mask_any(buildings, downsample_factor);
     write_to_tif(buildings_export.slice(data_ext), output_dir / "buildings.tif",
-                 progress_tracker.subtracker(0.66, 0.67));
+                 progress_tracker.subtracker(0.67, 0.68));
   } else {
     write_to_tif(buildings.slice(data_ext), output_dir / "buildings.tif",
-                 progress_tracker.subtracker(0.66, 0.67));
+                 progress_tracker.subtracker(0.67, 0.68));
   }
   write_to_tif(water.slice(data_ext), output_dir / "water.tif",
-               progress_tracker.subtracker(0.67, 0.68));
+               progress_tracker.subtracker(0.68, 0.69));
 
   std::unique_ptr<GeoGrid<double>> downsampled_ground = std::make_unique<GeoGrid<double>>(
       downsample(ground, downsample_factor, progress_tracker.subtracker(0.69, 0.7)));

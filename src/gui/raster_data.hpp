@@ -32,11 +32,11 @@ inline TifMetadata read_tif_metadata(const fs::path& path) {
   const size_t height = dataset->GetRasterYSize();
 
   Extent3D extent;
-  const std::array<size_t, 2> corners{0, width > 0 ? width - 1 : 0};
-  for (size_t corner_y : {size_t{0}, height > 0 ? height - 1 : size_t{0}}) {
-    for (size_t corner_x : corners) {
-      Coordinate2D<double> coord = transform.pixel_to_projection(
-          {static_cast<double>(corner_x), static_cast<double>(corner_y)});
+  const std::array<double, 2> x_corners{0.0, static_cast<double>(width)};
+  const std::array<double, 2> y_corners{0.0, static_cast<double>(height)};
+  for (double corner_y : y_corners) {
+    for (double corner_x : x_corners) {
+      Coordinate2D<double> coord = transform.pixel_to_projection({corner_x, corner_y});
       extent.grow(coord.x(), coord.y(), 0);
     }
   }
@@ -53,18 +53,6 @@ inline std::array<size_t, 2> read_tif_dimensions(const fs::path& path) {
   const size_t height = dataset->GetRasterYSize();
   GDALClose(dataset);
   return {{width, height}};
-}
-
-// Keep mesh vertex count manageable for large rasters while preserving detail on small ones.
-inline int adaptive_dem_stride(size_t width, size_t height, size_t max_vertices_per_axis = 512) {
-  const size_t max_dim = std::max(width, height);
-  int stride = 1;
-  while (static_cast<size_t>(stride) < max_dim &&
-         (max_dim + static_cast<size_t>(stride) - 1) / static_cast<size_t>(stride) >
-             max_vertices_per_axis) {
-    stride *= 2;
-  }
-  return stride;
 }
 
 inline double flex_grid_value(const FlexGrid& band, size_t x, size_t y) {
@@ -347,6 +335,95 @@ inline DemMeshData build_dem_mesh(const Geo<MultiBand<FlexGrid>>& grid, int stri
   return mesh;
 }
 
+inline DemMeshData build_flat_cell_dem_mesh(const Geo<MultiBand<FlexGrid>>& grid, int stride = 1) {
+  DemMeshData mesh;
+  const size_t width = grid.width();
+  const size_t height = grid.height();
+  if (width == 0 || height == 0) {
+    return mesh;
+  }
+  stride = std::max(1, stride);
+
+  double min_z = std::numeric_limits<double>::infinity();
+  double max_z = -std::numeric_limits<double>::infinity();
+  for (size_t y = 0; y < height; y += stride) {
+    for (size_t x = 0; x < width; x += stride) {
+      const double z = flex_grid_value(grid[0], x, y);
+      if (is_valid_elevation(z)) {
+        min_z = std::min(min_z, z);
+        max_z = std::max(max_z, z);
+      }
+    }
+  }
+  if (!std::isfinite(min_z)) {
+    min_z = 0.0;
+    max_z = 1.0;
+  }
+  const double z_range = std::max(max_z - min_z, 1.0);
+
+  const auto& transform = grid.transform();
+  const size_t cols = (width + stride - 1) / stride;
+  const size_t rows = (height + stride - 1) / stride;
+
+  mesh.vertices.reserve(cols * rows * 12);
+  mesh.colors.reserve(cols * rows * 12);
+  mesh.normals.reserve(cols * rows * 12);
+  mesh.indices.reserve(cols * rows * 6);
+
+  for (size_t row = 0; row < rows; ++row) {
+    for (size_t col = 0; col < cols; ++col) {
+      const size_t x = col * static_cast<size_t>(stride);
+      const size_t y = row * static_cast<size_t>(stride);
+      if (x >= width || y >= height) {
+        continue;
+      }
+
+      double z = flex_grid_value(grid[0], x, y);
+      if (!is_valid_elevation(z)) {
+        z = min_z;
+      }
+
+      // GDAL pixel-is-area: cell (x, y) spans pixel coords [x, x + stride) x [y, y + stride).
+      const double px0 = static_cast<double>(x);
+      const double py0 = static_cast<double>(y);
+      const double px1 = px0 + static_cast<double>(stride);
+      const double py1 = py0 + static_cast<double>(stride);
+
+      const Coordinate2D<double> corner00 = transform.pixel_to_projection({px0, py0});
+      const Coordinate2D<double> corner10 = transform.pixel_to_projection({px1, py0});
+      const Coordinate2D<double> corner11 = transform.pixel_to_projection({px1, py1});
+      const Coordinate2D<double> corner01 = transform.pixel_to_projection({px0, py1});
+
+      const float t = static_cast<float>((z - min_z) / z_range);
+      const std::array<float, 3> color{0.2f + 0.6f * t, 0.5f + 0.3f * (1.0f - t), 0.2f};
+
+      const unsigned int base_index = static_cast<unsigned int>(mesh.vertices.size() / 3);
+      const std::array<Coordinate2D<double>, 4> corners{corner00, corner10, corner11, corner01};
+      for (const Coordinate2D<double>& corner : corners) {
+        mesh.vertices.push_back(corner.x());
+        mesh.vertices.push_back(corner.y());
+        mesh.vertices.push_back(z);
+        mesh.colors.push_back(color[0]);
+        mesh.colors.push_back(color[1]);
+        mesh.colors.push_back(color[2]);
+        mesh.normals.push_back(0.f);
+        mesh.normals.push_back(0.f);
+        mesh.normals.push_back(1.f);
+        mesh.extent.grow(corner.x(), corner.y(), z);
+      }
+
+      mesh.indices.push_back(base_index);
+      mesh.indices.push_back(base_index + 1);
+      mesh.indices.push_back(base_index + 2);
+      mesh.indices.push_back(base_index);
+      mesh.indices.push_back(base_index + 2);
+      mesh.indices.push_back(base_index + 3);
+    }
+  }
+
+  return mesh;
+}
+
 inline DemMeshData build_textured_dem_mesh(const Geo<MultiBand<FlexGrid>>& dem_grid,
                                            const Geo<MultiBand<FlexGrid>>& texture_grid,
                                            int stride = 1,
@@ -540,7 +617,8 @@ class AsyncRasterData {
                   const std::optional<fs::path>& texture_path = std::nullopt, int stride = 1,
                   bool slope_colored = false,
                   const std::optional<fs::path>& slope_path = std::nullopt,
-                  std::function<void()> on_ready = {}, const std::string& target_crs_wkt = {}) {
+                  std::function<void()> on_ready = {}, const std::string& target_crs_wkt = {},
+                  bool flat_cells = false) {
     TifMetadata metadata = read_tif_metadata(dem_path);
     m_header_projection = std::move(metadata.projection);
     m_native_projection = m_header_projection;
@@ -554,8 +632,8 @@ class AsyncRasterData {
 
     m_future =
         std::async(std::launch::async, [this, dem_path, texture_path, slope_path, slope_colored,
-                                        stride, progress_tracker, on_ready = std::move(on_ready),
-                                        target_crs_wkt]() mutable {
+                                        flat_cells, stride, progress_tracker,
+                                        on_ready = std::move(on_ready), target_crs_wkt]() mutable {
           ProgressTracker tracker = progress_tracker.tracker()->subtracker(0, 1.0);
           tracker.text_update("Loading raster " + dem_path.string());
           auto dem = read_tif(dem_path);
@@ -566,7 +644,10 @@ class AsyncRasterData {
           std::unique_ptr<OGRCoordinateTransformation> coord_transform =
               make_coord_transform(m_native_projection.to_string(), target_crs_wkt);
           DemMeshData mesh;
-          if (slope_colored && slope_path) {
+          if (flat_cells) {
+            mesh = build_flat_cell_dem_mesh(dem, stride);
+            reproject_dem_mesh_horizontal(mesh, coord_transform.get());
+          } else if (slope_colored && slope_path) {
             auto slope = read_tif(*slope_path);
             mesh = build_slope_colored_mesh(slope, dem, stride);
             reproject_dem_mesh_horizontal(mesh, coord_transform.get());

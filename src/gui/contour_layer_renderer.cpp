@@ -3,6 +3,8 @@
 #include <QOpenGLVertexArrayObject>
 #include <array>
 #include <cmath>
+#include <string>
+#include <vector>
 
 #include "gui/gl_check.hpp"
 #include "gui/layer_renderer.hpp"
@@ -15,6 +17,20 @@ struct MeshVertex {
   float color[3];
 };
 
+constexpr double INDEX_CONTOUR_WIDTH_METERS = 3.75;
+constexpr double REGULAR_CONTOUR_WIDTH_METERS = 2.1;
+constexpr double FORM_LINE_WIDTH_METERS = 1.5;
+
+double contour_half_width_meters(const std::string& layer_name) {
+  if (layer_name == "102_Index_Contour") {
+    return INDEX_CONTOUR_WIDTH_METERS / 2.0;
+  }
+  if (layer_name == "103_Form_Line") {
+    return FORM_LINE_WIDTH_METERS / 2.0;
+  }
+  return REGULAR_CONTOUR_WIDTH_METERS / 2.0;
+}
+
 void append_contour_ribbon(const Contour& contour, double half_width,
                            std::vector<MeshVertex>& vertices, std::vector<unsigned int>& indices) {
   const auto& points = contour.points();
@@ -22,11 +38,11 @@ void append_contour_ribbon(const Contour& contour, double half_width,
     return;
   }
 
-  const float z = static_cast<float>(contour.height() + 0.5);
+  const float z = static_cast<float>(contour.height());
   const std::array<float, 3> color{0.6f, 0.35f, 0.1f};
 
   auto add_vertex = [&](double x, double y) {
-    MeshVertex vertex;
+    MeshVertex vertex{};
     vertex.position[0] = static_cast<float>(x);
     vertex.position[1] = static_cast<float>(y);
     vertex.position[2] = z;
@@ -77,9 +93,9 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   vertices.reserve(contours.size() * 8);
   indices.reserve(contours.size() * 12);
 
-  constexpr double HALF_WIDTH_METERS = 1.5;
   for (const auto& contour : contours) {
-    append_contour_ribbon(contour, HALF_WIDTH_METERS, vertices, indices);
+    append_contour_ribbon(contour, contour_half_width_meters(contour.layer_name()), vertices,
+                          indices);
   }
   if (vertices.empty() || indices.empty()) {
     return;
@@ -106,12 +122,18 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   }
   m_shader->bindAttributeLocation("position", 0);
   m_shader->bindAttributeLocation("color", 1);
+  m_shader->bindAttributeLocation("normal", 2);
   if (!m_shader->link()) {
     m_shader.reset();
     return;
   }
   m_proj_matrix_loc = m_shader->uniformLocation("proj_matrix");
+  m_light_direction_loc = m_shader->uniformLocation("light_direction");
+  m_camera_position_loc = m_shader->uniformLocation("camera_position");
+  m_ambient_light_loc = m_shader->uniformLocation("ambient_light");
+  m_diffuse_light_loc = m_shader->uniformLocation("diffuse_light");
   m_layer_alpha_loc = m_shader->uniformLocation("layer_alpha");
+  m_vertical_offset_loc = m_shader->uniformLocation("vertical_offset");
 
   if (m_vao.isCreated()) {
     m_vao.destroy();
@@ -143,6 +165,8 @@ void ContourLayerRenderer::upload_contours(const std::vector<Contour>& contours,
   m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
   m_shader->enableAttributeArray(1);
   m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+  m_shader->disableAttributeArray(2);
+  m_shader->setAttributeValue(2, QVector3D(0.0f, 0.0f, 1.0f));
   m_shader->release();
   CHECK_GL_AFTER();
 
@@ -188,13 +212,31 @@ void ContourLayerRenderer::render(const Camera& camera, const RenderContext& ctx
     return;
   }
   CHECK_GL(f->glEnable(GL_DEPTH_TEST));
+  CHECK_GL(f->glEnable(GL_BLEND));
+  CHECK_GL(f->glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA));
   if (!bind_shader(m_shader.get())) {
     return;
   }
   m_shader->setUniformValue(m_proj_matrix_loc, camera.proj_matrix());
+  if (m_light_direction_loc >= 0) {
+    m_shader->setUniformValue(m_light_direction_loc, ctx.light_direction_world);
+  }
+  if (m_camera_position_loc >= 0) {
+    m_shader->setUniformValue(m_camera_position_loc, camera.position());
+  }
+  if (m_ambient_light_loc >= 0) {
+    m_shader->setUniformValue(m_ambient_light_loc, ctx.ambient_light);
+  }
+  if (m_diffuse_light_loc >= 0) {
+    m_shader->setUniformValue(m_diffuse_light_loc, ctx.diffuse_light);
+  }
   if (m_layer_alpha_loc >= 0) {
     m_shader->setUniformValue(m_layer_alpha_loc, layer->opacity());
   }
+  if (m_vertical_offset_loc >= 0) {
+    m_shader->setUniformValue(m_vertical_offset_loc, layer->vertical_offset());
+  }
+  CHECK_GL(f->glDepthMask(GL_TRUE));
   QOpenGLVertexArrayObject::Binder vao_binder(&m_vao);
   m_vbo.bind();
   m_ibo.bind();
@@ -204,9 +246,13 @@ void ContourLayerRenderer::render(const Camera& camera, const RenderContext& ctx
   m_shader->setAttributeBuffer(0, GL_FLOAT, offsetof(MeshVertex, position), 3, stride);
   m_shader->enableAttributeArray(1);
   m_shader->setAttributeBuffer(1, GL_FLOAT, offsetof(MeshVertex, color), 3, stride);
+  m_shader->disableAttributeArray(2);
+  m_shader->setAttributeValue(2, QVector3D(0.0f, 0.0f, 1.0f));
   CHECK_GL_AFTER();
   CHECK_GL(f->glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_index_count), GL_UNSIGNED_INT,
                              nullptr));
+  CHECK_GL(f->glDepthMask(GL_TRUE));
+  CHECK_GL(f->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
   m_shader->release();
   CHECK_GL_AFTER();
 }

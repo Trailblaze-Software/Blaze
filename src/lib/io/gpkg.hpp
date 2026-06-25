@@ -260,7 +260,7 @@ inline std::vector<Contour> read_gpkg(const fs::path& filename,
         }
 
         if (vertices.size() > 1) {
-          contours.emplace_back(Contour(height, std::move(vertices)));
+          contours.emplace_back(Contour(height, std::move(vertices), layer->GetName()));
         }
 
         OGRFeature::DestroyFeature(feature);

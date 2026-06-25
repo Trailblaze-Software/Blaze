@@ -98,6 +98,9 @@ void OctreeLASLayerRenderer::ensure_shader() {
   m_point_alpha_loc = m_shader->uniformLocation("point_alpha");
   m_point_offset_loc = m_shader->uniformLocation("point_offset");
   m_shader_layer_slot_loc = m_shader->uniformLocation("u_layer_slot");
+  m_light_direction_eye_loc = m_shader->uniformLocation("u_light_direction_eye");
+  m_ambient_light_loc = m_shader->uniformLocation("u_ambient_light");
+  m_diffuse_light_loc = m_shader->uniformLocation("u_diffuse_light");
 }
 
 void OctreeLASLayerRenderer::reset_stream_cache() {
@@ -512,6 +515,15 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
   m_shader->setUniformValue(m_fixed_color_loc,
                             QVector3D(fixed[0] / 255.f, fixed[1] / 255.f, fixed[2] / 255.f));
   m_shader->setUniformValue(m_point_alpha_loc, layer->point_alpha());
+  if (m_light_direction_eye_loc >= 0) {
+    m_shader->setUniformValue(m_light_direction_eye_loc, ctx.light_direction_eye);
+  }
+  if (m_ambient_light_loc >= 0) {
+    m_shader->setUniformValue(m_ambient_light_loc, ctx.point_ambient_light);
+  }
+  if (m_diffuse_light_loc >= 0) {
+    m_shader->setUniformValue(m_diffuse_light_loc, ctx.diffuse_light);
+  }
   CHECK_GL_AFTER();
 
   CHECK_GL(f->glEnable(GL_DEPTH_TEST));
