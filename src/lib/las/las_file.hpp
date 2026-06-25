@@ -31,6 +31,7 @@
 #include "utilities/progress_tracker.hpp"
 #include "utilities/resources.hpp"
 #include "utilities/timer.hpp"
+#include "utilities/tracked_allocator.hpp"
 
 enum class BorderType { N, NE, E, SE, S, SW, W, NW };
 
@@ -338,7 +339,7 @@ class LASFile {
 
 class LASData : public LASFile {
   std::pair<uint16_t, uint16_t> m_intensity_range;
-  std::vector<LASPoint> m_points;
+  blaze::memory_tracker::LasVector<LASPoint> m_points;
 
  public:
   LASData(const Extent2D& bounds, const GeoProjection& projection)
@@ -423,7 +424,7 @@ class LASData : public LASFile {
 
         // Filter points that are actually within the bounds
         const auto& transform = reader.header().transform();
-        std::vector<LASPoint> filtered_points;
+        blaze::memory_tracker::LasVector<LASPoint> filtered_points;
         filtered_points.reserve(m_points.size());
 
         for (const auto& point : m_points) {
@@ -460,7 +461,7 @@ class LASData : public LASFile {
 
       // Software filter when bounds was specified but no spatial index available
       if (bounds.has_value()) {
-        std::vector<LASPoint> filtered;
+        blaze::memory_tracker::LasVector<LASPoint> filtered;
         filtered.reserve(m_points.size());
         for (const LASPoint& pt : m_points) {
           if (bounds->contains(pt.x(), pt.y())) filtered.push_back(pt);
@@ -701,7 +702,7 @@ class LASData : public LASFile {
     std::fstream file(filename, std::ios::binary | std::ios::in | std::ios::out | std::ios::trunc);
     laspp::LASWriter las_writer(file, 128);
     las_writer.write_wkt(m_projection.to_string());
-    std::vector<LASPoint> points_copy = m_points;
+    blaze::memory_tracker::LasVector<LASPoint> points_copy = m_points;
     las_writer.header().transform().scale_factors().x() = 0.001;
     las_writer.header().transform().scale_factors().y() = 0.001;
     las_writer.header().transform().scale_factors().z() = 0.001;

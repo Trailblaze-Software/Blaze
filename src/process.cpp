@@ -488,13 +488,13 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   {
     TimeFunction timer("drawing vege", &progress_tracker);
-    final_img.draw(GeoImgGrid(vege_color));
+    final_img.draw(vege_color);
   }
 
   progress_tracker.set_proportion(0.8);
   {
     TimeFunction timer("drawing stuff", &progress_tracker);
-    final_img.draw(GeoImgGrid(water_color));
+    final_img.draw(water_color);
   }
 
   {
@@ -502,8 +502,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     for (const Contour& contour : contours) {
       if (config.contours.layer_name_from_height(contour.height()) == "Contour") continue;
       const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
-      RGBColor color = to_rgb(contour_config.color);
-      final_img.draw(contour, color, contour_config.width / 1000 * config.render.scale);
+      final_img.draw(contour, contour_config.color,
+                     contour_config.width / 1000 * config.render.scale);
     }
   }
 
@@ -518,7 +518,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   {
     TimeFunction timer("drawing stuff", &progress_tracker);
-    final_img.draw(GeoImgGrid(building_color));
+    final_img.draw(building_color);
   }
 
   final_img.save_to(output_dir / "final_img.tif", data_ext);
@@ -528,8 +528,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   for (const Contour& contour : contours) {
     if (config.contours.layer_name_from_height(contour.height()) != "Contour") continue;
     const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
-    RGBColor color = to_rgb(contour_config.color);
-    final_img.draw(contour, color, contour_config.width / 1000 * config.render.scale);
+    final_img.draw(contour, contour_config.color,
+                   contour_config.width / 1000 * config.render.scale);
   }
 
   {
@@ -541,11 +541,11 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     }
   }
 
-  final_img.draw(GeoImgGrid(building_color));
+  final_img.draw(building_color);
 
   for (const std::shared_ptr<ContourPoint>& point : all_contour_points) {
     if (point->slope() > 0.8) {
-      final_img.draw_point(*point, RGBColor(0, 0, 0), 1.5);
+      final_img.draw_point(*point, ColorVariant(RGBColor(0, 0, 0)), 1.5);
     }
   }
 

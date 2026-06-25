@@ -8,9 +8,10 @@
 #include "las/las_file.hpp"
 #include "las/las_point.hpp"
 #include "utilities/progress_tracker.hpp"
+#include "utilities/tracked_allocator.hpp"
 
 class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
-  std::vector<LASPoint> m_storage;
+  blaze::memory_tracker::LasVector<LASPoint> m_storage;
 
  public:
   BinnedPoints(LASData& las_file, double bin_resolution, unsigned int downsample_factor,

@@ -1,8 +1,10 @@
 #pragma once
 
 #include <chrono>
+#include <cstdint>
 #include <memory>
 #include <optional>
+#include <source_location>
 #include <string>
 #include <utility>
 
@@ -49,6 +51,7 @@ class ProgressTracker : public ProgressObserver {
   ProgressObserver* m_observer;
   std::optional<std::pair<double, double>> m_subtracker_range;
   bool m_visible = true;
+  uint64_t m_trace_scope_id = 0;
 
   void _set_proportion(double proportion);
 
@@ -56,7 +59,8 @@ class ProgressTracker : public ProgressObserver {
   virtual void update_progress(double progress) override;
 
  public:
-  explicit ProgressTracker(ProgressObserver* observer = nullptr);
+  explicit ProgressTracker(ProgressObserver* observer = nullptr,
+                           std::source_location location = std::source_location::current());
 
   virtual void text_update(const std::string& text, int depth = 0) override;
 
@@ -74,7 +78,8 @@ class ProgressTracker : public ProgressObserver {
   void report_parallel_progress(double proportion);
 
   // visible: nullopt = inherit parent, true = force visible, false = force invisible
-  ProgressTracker subtracker(double start, double end, std::optional<bool> visible = std::nullopt);
+  ProgressTracker subtracker(double start, double end, std::optional<bool> visible = std::nullopt,
+                             std::source_location location = std::source_location::current());
 
   virtual ~ProgressTracker();
 

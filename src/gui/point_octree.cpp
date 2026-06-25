@@ -15,8 +15,8 @@ struct BuildJob {
 
 constexpr size_t PARALLEL_BUILD_MIN_POINTS = 64'000;
 
-void partition_range(PointOctreeNode& node, std::vector<OctreePoint>& points, size_t begin,
-                     size_t end, std::array<size_t, 9>& child_ends) {
+void partition_range(PointOctreeNode& node, OctreePointVector& points, size_t begin, size_t end,
+                     std::array<size_t, 9>& child_ends) {
   // Count buckets.
   std::array<size_t, 8> bucket_counts{};
   for (size_t i = begin; i < end; ++i) {
@@ -45,8 +45,8 @@ void partition_range(PointOctreeNode& node, std::vector<OctreePoint>& points, si
   }
 }
 
-void split_subtree_job(PointOctreeNode& node, size_t begin, size_t end,
-                       std::vector<OctreePoint>& points, std::vector<BuildJob>& out_jobs) {
+void split_subtree_job(PointOctreeNode& node, size_t begin, size_t end, OctreePointVector& points,
+                       std::vector<BuildJob>& out_jobs) {
   // Shuffle is deferred to shuffle_leaves() after build — per-level shuffles
   // are redundant since children will be shuffled again at lower levels.
   node.begin_index = 0;
@@ -67,7 +67,7 @@ void split_subtree_job(PointOctreeNode& node, size_t begin, size_t end,
 }
 
 void build_subtree_sequential(PointOctreeNode& node, size_t begin, size_t end,
-                              std::vector<OctreePoint>& points, std::atomic<size_t>& processed,
+                              OctreePointVector& points, std::atomic<size_t>& processed,
                               const std::atomic<bool>* cancel) {
   if (end <= begin || (cancel && cancel->load(std::memory_order_relaxed))) {
     return;
@@ -92,7 +92,7 @@ void build_subtree_sequential(PointOctreeNode& node, size_t begin, size_t end,
 
 }  // namespace
 
-void PointOctree::insert_batch(std::vector<OctreePoint>&& points,
+void PointOctree::insert_batch(OctreePointVector&& points,
                                const std::function<void(size_t, size_t)>& progress,
                                const std::atomic<bool>* cancel) {
   m_points = std::move(points);

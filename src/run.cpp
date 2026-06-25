@@ -21,10 +21,12 @@
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
 #include "utilities/timer.hpp"
+#include "utilities/trace_recorder.hpp"
 #include "vegetation/vegetation_polygon.hpp"
 
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
                      ProgressTracker&& tracker) {
+  blaze::trace::RecordTrace timing_trace(config.output_path() / "timing_trace.json");
   tracker.text_update(to_string("Using ", omp_get_max_threads(), " threads for processing."));
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path& las_file : config.las_filepaths()) {
