@@ -1,0 +1,2169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGLWidget" kind="class" language="C++" prot="public">
+    <compoundname>GLWidget</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QOpenGLWidget</basecompoundref>
+    <basecompoundref prot="protected" virt="non-virtual">QOpenGLFunctions</basecompoundref>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classGLWidget_1acb56112e9cff3fe19a5c30f2c188464a" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>PickAction</name>
+        <qualifiedname>GLWidget::PickAction</qualifiedname>
+        <enumvalue id="classGLWidget_1acb56112e9cff3fe19a5c30f2c188464aa6adf97f83acf6453d4a6a4b1070f3754" prot="public">
+          <name>None</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classGLWidget_1acb56112e9cff3fe19a5c30f2c188464aa1cbf31fe8845b81ae4ab9addaf2f9375" prot="public">
+          <name>PanToPoint</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classGLWidget_1acb56112e9cff3fe19a5c30f2c188464aad4c257ddebc4444cff4807b7a14222cd" prot="public">
+          <name>LookAtPoint</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="35" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="enum" id="classGLWidget_1a8d3fe8d1c96f9f706df8ac5f0f544783" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>AnimType</name>
+        <qualifiedname>GLWidget::AnimType</qualifiedname>
+        <enumvalue id="classGLWidget_1a8d3fe8d1c96f9f706df8ac5f0f544783a6adf97f83acf6453d4a6a4b1070f3754" prot="public">
+          <name>None</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classGLWidget_1a8d3fe8d1c96f9f706df8ac5f0f544783a76e1ab7a1df8e64fe867b420645c8a68" prot="public">
+          <name>Orbit</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classGLWidget_1a8d3fe8d1c96f9f706df8ac5f0f544783a5930aa47d87712061d008e75237c7bcb" prot="public">
+          <name>Wobble</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="129" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="129" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classGLWidget_1accc402e21da496717e67f6bd0a18d254" prot="public" static="no">
+        <type>std::function&lt; void(const std::optional&lt; <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &gt; &amp;)&gt;</type>
+        <definition>using GLWidget::PointPickCallback =  std::function&lt;void(const std::optional&lt;PointPickResult&gt;&amp;)&gt;</definition>
+        <argsstring></argsstring>
+        <name>PointPickCallback</name>
+        <qualifiedname>GLWidget::PointPickCallback</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="194" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGLWidget_1a0b5ff561f5fb467106e07fc6b6dd301b" prot="private" static="no" mutable="no">
+        <type><ref refid="classSceneFramebuffer" kindref="compound">SceneFramebuffer</ref></type>
+        <definition>SceneFramebuffer GLWidget::m_scene_fbo</definition>
+        <argsstring></argsstring>
+        <name>m_scene_fbo</name>
+        <qualifiedname>GLWidget::m_scene_fbo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="264" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a713aa7bb2039d2e78fdfa5539ed0e99f" prot="private" static="no" mutable="no">
+        <type><ref refid="classPointCloudFramebuffer" kindref="compound">PointCloudFramebuffer</ref></type>
+        <definition>PointCloudFramebuffer GLWidget::m_points_fbo</definition>
+        <argsstring></argsstring>
+        <name>m_points_fbo</name>
+        <qualifiedname>GLWidget::m_points_fbo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="265" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a198e073a4742021ef257c9942a53572e" prot="private" static="no" mutable="no">
+        <type><ref refid="classPointCloudCompositor" kindref="compound">PointCloudCompositor</ref></type>
+        <definition>PointCloudCompositor GLWidget::m_point_compositor</definition>
+        <argsstring></argsstring>
+        <name>m_point_compositor</name>
+        <qualifiedname>GLWidget::m_point_compositor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="266" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a0daf4f072eafda542055c6afa6e407ad" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_incremental_draw</definition>
+        <argsstring></argsstring>
+        <name>m_incremental_draw</name>
+        <qualifiedname>GLWidget::m_incremental_draw</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="267" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a30e0d1c1a0f8a5ee9e7305c2b0cecc94" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_restarted_during_paint</definition>
+        <argsstring></argsstring>
+        <name>m_restarted_during_paint</name>
+        <qualifiedname>GLWidget::m_restarted_during_paint</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="268" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a5b567f68b370f4c298e93e4b108b492f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_camera_interacting</definition>
+        <argsstring></argsstring>
+        <name>m_camera_interacting</name>
+        <qualifiedname>GLWidget::m_camera_interacting</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="269" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1afdc4e49e471b615fa2dcb9a67095e970" prot="private" static="no" mutable="no">
+        <type>QTimer *</type>
+        <definition>QTimer* GLWidget::m_idle_timer</definition>
+        <argsstring></argsstring>
+        <name>m_idle_timer</name>
+        <qualifiedname>GLWidget::m_idle_timer</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="270" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a08405ab577f249a6b4f8de673a56b12f" prot="private" static="no" mutable="no">
+        <type>QTimer *</type>
+        <definition>QTimer* GLWidget::m_stream_timer</definition>
+        <argsstring></argsstring>
+        <name>m_stream_timer</name>
+        <qualifiedname>GLWidget::m_stream_timer</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="271" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1aa3fde66dbd8e325bdaace9e37d9b3c45" prot="private" static="no" mutable="no">
+        <type>QTimer *</type>
+        <definition>QTimer* GLWidget::m_orbit_timer</definition>
+        <argsstring></argsstring>
+        <name>m_orbit_timer</name>
+        <qualifiedname>GLWidget::m_orbit_timer</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="272" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a0d9b67ebb9c6994416900de9c663eaa3" prot="private" static="no" mutable="no">
+        <type>std::chrono::steady_clock::time_point</type>
+        <definition>std::chrono::steady_clock::time_point GLWidget::m_last_orbit_tick</definition>
+        <argsstring></argsstring>
+        <name>m_last_orbit_tick</name>
+        <qualifiedname>GLWidget::m_last_orbit_tick</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="273" column="41" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ac0fe71edca92713211ee5814116e4f3d" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_anim_phase</definition>
+        <argsstring></argsstring>
+        <name>m_anim_phase</name>
+        <qualifiedname>GLWidget::m_anim_phase</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="274" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a38dc94afcd44be9aab18b314450850b6" prot="private" static="no" mutable="no">
+        <type>AnimType</type>
+        <definition>AnimType GLWidget::m_anim_type</definition>
+        <argsstring></argsstring>
+        <name>m_anim_type</name>
+        <qualifiedname>GLWidget::m_anim_type</qualifiedname>
+        <initializer>= AnimType::None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="275" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a3d04b21138af909b96c3450c5577260f" prot="private" static="no" mutable="no">
+        <type>AnimType</type>
+        <definition>AnimType GLWidget::m_last_anim_type</definition>
+        <argsstring></argsstring>
+        <name>m_last_anim_type</name>
+        <qualifiedname>GLWidget::m_last_anim_type</qualifiedname>
+        <initializer>= AnimType::Orbit</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="276" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ae64a3e34afa1374009f2659aca83f078" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_orbit_period_secs</definition>
+        <argsstring></argsstring>
+        <name>m_orbit_period_secs</name>
+        <qualifiedname>GLWidget::m_orbit_period_secs</qualifiedname>
+        <initializer>= 15.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="277" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ae585b250c97fc991f65f5ac9ac22108b" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_wobble_period_secs</definition>
+        <argsstring></argsstring>
+        <name>m_wobble_period_secs</name>
+        <qualifiedname>GLWidget::m_wobble_period_secs</qualifiedname>
+        <initializer>= 4.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="278" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a0b35b03645a73af9ab1a5c790efea5df" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_wobble_amplitude_deg</definition>
+        <argsstring></argsstring>
+        <name>m_wobble_amplitude_deg</name>
+        <qualifiedname>GLWidget::m_wobble_amplitude_deg</qualifiedname>
+        <initializer>= 0.5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="279" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a7cd52da5b9e8ae54c2d2cc9abda6e7ae" prot="private" static="no" mutable="no">
+        <type>QPointF</type>
+        <definition>QPointF GLWidget::m_last_mouse_pos</definition>
+        <argsstring></argsstring>
+        <name>m_last_mouse_pos</name>
+        <qualifiedname>GLWidget::m_last_mouse_pos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="280" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a029c0cbec9ccfd03244294dab7dce69a" prot="private" static="no" mutable="no">
+        <type>QPointF</type>
+        <definition>QPointF GLWidget::m_press_mouse_pos</definition>
+        <argsstring></argsstring>
+        <name>m_press_mouse_pos</name>
+        <qualifiedname>GLWidget::m_press_mouse_pos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="281" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a9fefe48ed7c40b0af0406a259a1ed8a5" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_left_button_pressed</definition>
+        <argsstring></argsstring>
+        <name>m_left_button_pressed</name>
+        <qualifiedname>GLWidget::m_left_button_pressed</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="282" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a199b0409462c2d5c7a479fbf62332be6" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; QPointF &gt;</type>
+        <definition>std::optional&lt;QPointF&gt; GLWidget::m_pending_pick_pixel</definition>
+        <argsstring></argsstring>
+        <name>m_pending_pick_pixel</name>
+        <qualifiedname>GLWidget::m_pending_pick_pixel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="283" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ab04c70a7bd1b758d63e3d19abb21db58" prot="private" static="no" mutable="no">
+        <type>PickAction</type>
+        <definition>PickAction GLWidget::m_pending_pick_action</definition>
+        <argsstring></argsstring>
+        <name>m_pending_pick_action</name>
+        <qualifiedname>GLWidget::m_pending_pick_action</qualifiedname>
+        <initializer>= PickAction::None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="284" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a52a870248a6b2c03f0870d6c248a1e18" prot="private" static="no" mutable="no">
+        <type>PointPickCallback</type>
+        <definition>PointPickCallback GLWidget::m_point_pick_callback</definition>
+        <argsstring></argsstring>
+        <name>m_point_pick_callback</name>
+        <qualifiedname>GLWidget::m_point_pick_callback</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="286" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ad50756ce54504ff07cd24aebd8b3f019" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &gt;</type>
+        <definition>std::optional&lt;PointPickResult&gt; GLWidget::m_selected_point</definition>
+        <argsstring></argsstring>
+        <name>m_selected_point</name>
+        <qualifiedname>GLWidget::m_selected_point</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="287" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ad94e3900a502882b39af6148fb28a55b" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &gt;</type>
+        <definition>std::optional&lt;PointPickResult&gt; GLWidget::m_hovered_point</definition>
+        <argsstring></argsstring>
+        <name>m_hovered_point</name>
+        <qualifiedname>GLWidget::m_hovered_point</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="288" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a0ecea49b2cb0be410a50b33682a136fe" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_fbo_was_pick_ready</definition>
+        <argsstring></argsstring>
+        <name>m_fbo_was_pick_ready</name>
+        <qualifiedname>GLWidget::m_fbo_was_pick_ready</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="289" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1aa47acd6c36b11b96f8c492848f647d59" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; QPointF &gt;</type>
+        <definition>std::optional&lt;QPointF&gt; GLWidget::m_last_hover_probe_pos</definition>
+        <argsstring></argsstring>
+        <name>m_last_hover_probe_pos</name>
+        <qualifiedname>GLWidget::m_last_hover_probe_pos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="290" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a91a90d0f125233fe3a408b57a87d3d7b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_hover_probe_needed</definition>
+        <argsstring></argsstring>
+        <name>m_hover_probe_needed</name>
+        <qualifiedname>GLWidget::m_hover_probe_needed</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="291" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a68857e28ce4f58a5201d3ed9dd5556ae" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GLWidget::m_next_layer_slot</definition>
+        <argsstring></argsstring>
+        <name>m_next_layer_slot</name>
+        <qualifiedname>GLWidget::m_next_layer_slot</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="292" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a72cbbdcbb0b4703973a864cedb74b337" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; GLWidget::m_free_layer_slots</definition>
+        <argsstring></argsstring>
+        <name>m_free_layer_slots</name>
+        <qualifiedname>GLWidget::m_free_layer_slots</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="293" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a24700d902beb4d808850cf1dde6a10ce" prot="private" static="no" mutable="no">
+        <type><ref refid="classCamera" kindref="compound">Camera</ref></type>
+        <definition>Camera GLWidget::m_camera</definition>
+        <argsstring></argsstring>
+        <name>m_camera</name>
+        <qualifiedname>GLWidget::m_camera</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="295" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a61483da6748fc5e6c2b227a9bc8e9368" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;Layer&gt; &gt; GLWidget::m_layers</definition>
+        <argsstring></argsstring>
+        <name>m_layers</name>
+        <qualifiedname>GLWidget::m_layers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="297" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a0a95f881346b673636c66d10e16e08fb" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::unique_ptr&lt; <ref refid="classLayerRenderer" kindref="compound">LayerRenderer</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::unique_ptr&lt;LayerRenderer&gt; &gt; GLWidget::m_renderers</definition>
+        <argsstring></argsstring>
+        <name>m_renderers</name>
+        <qualifiedname>GLWidget::m_renderers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="298" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1aa4825558d8385094dd9ebbeedabde999" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string GLWidget::m_projection</definition>
+        <argsstring></argsstring>
+        <name>m_projection</name>
+        <qualifiedname>GLWidget::m_projection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="300" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a3d319a5fc01d4f28a7d8d23d31cfba8e" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_painting</definition>
+        <argsstring></argsstring>
+        <name>m_painting</name>
+        <qualifiedname>GLWidget::m_painting</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="301" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a9e2304a56ba8a11e28a631665004d443" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_load_only</definition>
+        <argsstring></argsstring>
+        <name>m_load_only</name>
+        <qualifiedname>GLWidget::m_load_only</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="302" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a2101c63e7bce28a26d9ad4d26b551782" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GLWidget::m_needs_zoom</definition>
+        <argsstring></argsstring>
+        <name>m_needs_zoom</name>
+        <qualifiedname>GLWidget::m_needs_zoom</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="303" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a76bb615772c406f5b444059c2621cc2d" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &gt;</type>
+        <definition>std::optional&lt;Extent3D&gt; GLWidget::m_pending_zoom_extent</definition>
+        <argsstring></argsstring>
+        <name>m_pending_zoom_extent</name>
+        <qualifiedname>GLWidget::m_pending_zoom_extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="304" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a880168935f58ee69a58bc261e4659913" prot="private" static="no" mutable="no">
+        <type>std::unordered_set&lt; <ref refid="classLayer" kindref="compound">Layer</ref> * &gt;</type>
+        <definition>std::unordered_set&lt;Layer*&gt; GLWidget::m_zoomed_layers</definition>
+        <argsstring></argsstring>
+        <name>m_zoomed_layers</name>
+        <qualifiedname>GLWidget::m_zoomed_layers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="305" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a9b955836a795befb54a813c74041086a" prot="private" static="no" mutable="no">
+        <type>std::optional&lt; std::chrono::steady_clock::time_point &gt;</type>
+        <definition>std::optional&lt;std::chrono::steady_clock::time_point&gt; GLWidget::m_prev_paint_time</definition>
+        <argsstring></argsstring>
+        <name>m_prev_paint_time</name>
+        <qualifiedname>GLWidget::m_prev_paint_time</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="307" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1adc9fd327c0efb1c6d0eaa8f2395fba39" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_present_frame_ms_ema</definition>
+        <argsstring></argsstring>
+        <name>m_present_frame_ms_ema</name>
+        <qualifiedname>GLWidget::m_present_frame_ms_ema</qualifiedname>
+        <initializer>= 16.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="308" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a7e2c724127b6cb47579d3ed753f0bf59" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_last_present_frame_ms</definition>
+        <argsstring></argsstring>
+        <name>m_last_present_frame_ms</name>
+        <qualifiedname>GLWidget::m_last_present_frame_ms</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="309" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a8ef7f545158d293ce3158c9203cb9a8c" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_last_paint_ms</definition>
+        <argsstring></argsstring>
+        <name>m_last_paint_ms</name>
+        <qualifiedname>GLWidget::m_last_paint_ms</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="310" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1adfdc12fc1a1b79e07c129fb276929c9e" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_last_point_draw_ms</definition>
+        <argsstring></argsstring>
+        <name>m_last_point_draw_ms</name>
+        <qualifiedname>GLWidget::m_last_point_draw_ms</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="311" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ad9527dec628b0fa26c089fda476c1729" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GLWidget::m_last_point_gpu_ms</definition>
+        <argsstring></argsstring>
+        <name>m_last_point_gpu_ms</name>
+        <qualifiedname>GLWidget::m_last_point_gpu_ms</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="312" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ad46864ca0ad313f8f9181702d20c8fe1" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t GLWidget::m_last_point_vertices</definition>
+        <argsstring></argsstring>
+        <name>m_last_point_vertices</name>
+        <qualifiedname>GLWidget::m_last_point_vertices</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="313" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a066378f1e8bdc1ecbe51426c1bbcd486" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GLWidget::m_light_azimuth_deg</definition>
+        <argsstring></argsstring>
+        <name>m_light_azimuth_deg</name>
+        <qualifiedname>GLWidget::m_light_azimuth_deg</qualifiedname>
+        <initializer>= -50.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="314" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a996c01677d7158eb592d355eb4127548" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GLWidget::m_light_elevation_deg</definition>
+        <argsstring></argsstring>
+        <name>m_light_elevation_deg</name>
+        <qualifiedname>GLWidget::m_light_elevation_deg</qualifiedname>
+        <initializer>= 35.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="315" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1a87b4247e41746b6a4d29927606db035c" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GLWidget::m_ambient_light</definition>
+        <argsstring></argsstring>
+        <name>m_ambient_light</name>
+        <qualifiedname>GLWidget::m_ambient_light</qualifiedname>
+        <initializer>= 0.30f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="316" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1ac808f27ff4a5b01c4a03331d35e31214" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GLWidget::m_diffuse_light</definition>
+        <argsstring></argsstring>
+        <name>m_diffuse_light</name>
+        <qualifiedname>GLWidget::m_diffuse_light</qualifiedname>
+        <initializer>= 1.00f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="317" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGLWidget_1af121346a0a68bcdd0deeabbb79de67d1" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GLWidget::m_point_ambient_light</definition>
+        <argsstring></argsstring>
+        <name>m_point_ambient_light</name>
+        <qualifiedname>GLWidget::m_point_ambient_light</qualifiedname>
+        <initializer>= 0.55f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="318" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="318" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGLWidget_1a6d18f16f104a0a7a5e560c440e56694b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GLWidget::GLWidget</definition>
+        <argsstring>(QWidget *parent=nullptr)</argsstring>
+        <name>GLWidget</name>
+        <qualifiedname>GLWidget::GLWidget</qualifiedname>
+        <param>
+          <type>QWidget *</type>
+          <declname>parent</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="37" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="142" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a535192a4262b4501e5493303834f45d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GLWidget::~GLWidget</definition>
+        <argsstring>()</argsstring>
+        <name>~GLWidget</name>
+        <qualifiedname>GLWidget::~GLWidget</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="38" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="159" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a1387d9aab0c70a427bdb6f3cfc9582ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::add_layer</definition>
+        <argsstring>(std::shared_ptr&lt; Layer &gt; layer, bool auto_zoom=true)</argsstring>
+        <name>add_layer</name>
+        <qualifiedname>GLWidget::add_layer</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>auto_zoom</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="40" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="40" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a5649efea5d95fd1e22029efffd1681bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::start_bench_orbit</definition>
+        <argsstring>(double duration_seconds=10.0)</argsstring>
+        <name>start_bench_orbit</name>
+        <qualifiedname>GLWidget::start_bench_orbit</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>duration_seconds</declname>
+          <defval>10.0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="130" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="1079" bodyend="1082"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ab3f47c8784ca6ee9a7af77c4c2ae8b64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::start_animation</definition>
+        <argsstring>(AnimType type)</argsstring>
+        <name>start_animation</name>
+        <qualifiedname>GLWidget::start_animation</qualifiedname>
+        <param>
+          <type>AnimType</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="131" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="1063" bodyend="1071"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ad7561e3c601b5f8813d221609b378d30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::stop_animation</definition>
+        <argsstring>()</argsstring>
+        <name>stop_animation</name>
+        <qualifiedname>GLWidget::stop_animation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="132" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="1073" bodyend="1077"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a7024920723c9ebe54210f66c66eb2a6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_anim_type</definition>
+        <argsstring>(int t)</argsstring>
+        <name>set_anim_type</name>
+        <qualifiedname>GLWidget::set_anim_type</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="133" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="1052" bodyend="1061"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a2127857b7260de1c2bab52e040feb9a6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int GLWidget::anim_type</definition>
+        <argsstring>() const</argsstring>
+        <name>anim_type</name>
+        <qualifiedname>GLWidget::anim_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="134" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="134" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a48e60c78dece83ca2c1cc46b3c16c6d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_orbit_period</definition>
+        <argsstring>(double secs)</argsstring>
+        <name>set_orbit_period</name>
+        <qualifiedname>GLWidget::set_orbit_period</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>secs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="135" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a9204a06228e76d2f9275dc09e7a7a6f7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double GLWidget::orbit_period</definition>
+        <argsstring>() const</argsstring>
+        <name>orbit_period</name>
+        <qualifiedname>GLWidget::orbit_period</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="136" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="136" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a1835fe6cca12646b02efdc75e3819f88" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_wobble_period</definition>
+        <argsstring>(double secs)</argsstring>
+        <name>set_wobble_period</name>
+        <qualifiedname>GLWidget::set_wobble_period</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>secs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="137" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a4b769c2f66272969152dab9fcbe70f1e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double GLWidget::wobble_period</definition>
+        <argsstring>() const</argsstring>
+        <name>wobble_period</name>
+        <qualifiedname>GLWidget::wobble_period</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="138" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="138" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a6d5f1e8e9790dfc43de5a41884325a6b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_wobble_amplitude</definition>
+        <argsstring>(double deg)</argsstring>
+        <name>set_wobble_amplitude</name>
+        <qualifiedname>GLWidget::set_wobble_amplitude</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>deg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="139" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="139" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ae9755c7dd94d06ecfea194e4eaac33fa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double GLWidget::wobble_amplitude</definition>
+        <argsstring>() const</argsstring>
+        <name>wobble_amplitude</name>
+        <qualifiedname>GLWidget::wobble_amplitude</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="140" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="140" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1aae4fd02083043961853b088ee23a7efc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GLWidget::is_anim_active</definition>
+        <argsstring>() const</argsstring>
+        <name>is_anim_active</name>
+        <qualifiedname>GLWidget::is_anim_active</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="141" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="141" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a1be81e95c2d4c34c04512edf2f7b115b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_layer_visible</definition>
+        <argsstring>(Layer *layer, bool visible)</argsstring>
+        <name>set_layer_visible</name>
+        <qualifiedname>GLWidget::set_layer_visible</qualifiedname>
+        <param>
+          <type><ref refid="classLayer" kindref="compound">Layer</ref> *</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="143" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="143" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a57631cf1bac117a93f87f33eec05a7d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::remove_layer</definition>
+        <argsstring>(Layer *layer)</argsstring>
+        <name>remove_layer</name>
+        <qualifiedname>GLWidget::remove_layer</qualifiedname>
+        <param>
+          <type><ref refid="classLayer" kindref="compound">Layer</ref> *</type>
+          <declname>layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="154" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="165" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a054aaf54c82b2d071d0f8bfa0497ef0c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="classLayer" kindref="compound">Layer</ref> &gt; &gt;</type>
+        <definition>std::vector&lt; std::shared_ptr&lt; Layer &gt; &gt; GLWidget::layers</definition>
+        <argsstring>() const</argsstring>
+        <name>layers</name>
+        <qualifiedname>GLWidget::layers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="156" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="156" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1af4ed2a47e9eee1eb7101c7ab4927481c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string &amp; GLWidget::reference_crs_wkt</definition>
+        <argsstring>() const</argsstring>
+        <name>reference_crs_wkt</name>
+        <qualifiedname>GLWidget::reference_crs_wkt</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="158" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="158" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a49d4b1705c94d0d4e14ece6f0ad3f97e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_load_only_mode</definition>
+        <argsstring>(bool load_only)</argsstring>
+        <name>set_load_only_mode</name>
+        <qualifiedname>GLWidget::set_load_only_mode</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>load_only</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="160" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="160" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1aa848733fd3cd58684ace5973df3d91f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::zoom_to_layer</definition>
+        <argsstring>(const Layer *layer)</argsstring>
+        <name>zoom_to_layer</name>
+        <qualifiedname>GLWidget::zoom_to_layer</qualifiedname>
+        <param>
+          <type>const <ref refid="classLayer" kindref="compound">Layer</ref> *</type>
+          <declname>layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="162" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="162" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a69c051ec728095d4289534fa313977d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::zoom_to_all_layers</definition>
+        <argsstring>()</argsstring>
+        <name>zoom_to_all_layers</name>
+        <qualifiedname>GLWidget::zoom_to_all_layers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="171" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="171" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a6b7b5a46ef4afeda8baf103861fbfe42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::restart_render</definition>
+        <argsstring>()</argsstring>
+        <name>restart_render</name>
+        <qualifiedname>GLWidget::restart_render</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="183" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="258" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a8a8c91a2de52d1fb11477fed0d1ac497" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::refresh_point_cloud_style</definition>
+        <argsstring>()</argsstring>
+        <name>refresh_point_cloud_style</name>
+        <qualifiedname>GLWidget::refresh_point_cloud_style</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="184" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="644" bodyend="658"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a4daea31701e6beb037e1dfdacce4107b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_camera_light_angles</definition>
+        <argsstring>(float azimuth_deg, float elevation_deg)</argsstring>
+        <name>set_camera_light_angles</name>
+        <qualifiedname>GLWidget::set_camera_light_angles</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>azimuth_deg</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>elevation_deg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="185" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="660" bodyend="671"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a0b5cfad825c19866bf2851f87961fc01" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float GLWidget::camera_light_azimuth_deg</definition>
+        <argsstring>() const</argsstring>
+        <name>camera_light_azimuth_deg</name>
+        <qualifiedname>GLWidget::camera_light_azimuth_deg</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="186" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="186" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a0e4e8e30d4b26903454e4952137eec33" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float GLWidget::camera_light_elevation_deg</definition>
+        <argsstring>() const</argsstring>
+        <name>camera_light_elevation_deg</name>
+        <qualifiedname>GLWidget::camera_light_elevation_deg</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="187" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="187" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a5629d095364e54f338046d270bb61759" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_lighting_strength</definition>
+        <argsstring>(float ambient_light, float diffuse_light)</argsstring>
+        <name>set_lighting_strength</name>
+        <qualifiedname>GLWidget::set_lighting_strength</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>ambient_light</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>diffuse_light</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="188" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="673" bodyend="684"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a6a048f8fd2da48a53047a31db150ba32" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float GLWidget::ambient_light</definition>
+        <argsstring>() const</argsstring>
+        <name>ambient_light</name>
+        <qualifiedname>GLWidget::ambient_light</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="189" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="189" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a5b70ba01ecd3f0bf767713fafc5bd30c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float GLWidget::diffuse_light</definition>
+        <argsstring>() const</argsstring>
+        <name>diffuse_light</name>
+        <qualifiedname>GLWidget::diffuse_light</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="190" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="190" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ad85aeadda206c0acdbb6cfcd89c3d3ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_point_ambient_light</definition>
+        <argsstring>(float point_ambient_light)</argsstring>
+        <name>set_point_ambient_light</name>
+        <qualifiedname>GLWidget::set_point_ambient_light</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>point_ambient_light</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="191" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="686" bodyend="694"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a93be35377fdc9536e7bb85f282ee06b0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float GLWidget::point_ambient_light</definition>
+        <argsstring>() const</argsstring>
+        <name>point_ambient_light</name>
+        <qualifiedname>GLWidget::point_ambient_light</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="192" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="192" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a47d1e6bc4fcda0431cfeb691ed720713" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_point_pick_callback</definition>
+        <argsstring>(PointPickCallback callback)</argsstring>
+        <name>set_point_pick_callback</name>
+        <qualifiedname>GLWidget::set_point_pick_callback</qualifiedname>
+        <param>
+          <type>PointPickCallback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="195" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="195" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a10e54fb7c8c24d0c3e7ae6fbd8c799c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::set_selected_point</definition>
+        <argsstring>(const std::optional&lt; PointPickResult &gt; &amp;pick, bool repaint=true)</argsstring>
+        <name>set_selected_point</name>
+        <qualifiedname>GLWidget::set_selected_point</qualifiedname>
+        <param>
+          <type>const std::optional&lt; <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &gt; &amp;</type>
+          <declname>pick</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repaint</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="199" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="756" bodyend="761"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classGLWidget_1af04a97931fb78d610e1c73d7c4887319" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>QSize</type>
+        <definition>QSize GLWidget::sizeHint</definition>
+        <argsstring>() const override</argsstring>
+        <name>sizeHint</name>
+        <qualifiedname>GLWidget::sizeHint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="202" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="197" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a1e50c746ef5d95c14de5907be6239dd1" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>QSize</type>
+        <definition>QSize GLWidget::minimumSizeHint</definition>
+        <argsstring>() const override</argsstring>
+        <name>minimumSizeHint</name>
+        <qualifiedname>GLWidget::minimumSizeHint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="203" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="199" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a2349a3ff7c9cc814de1b4a93a0b28acd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::initializeGL</definition>
+        <argsstring>() override</argsstring>
+        <name>initializeGL</name>
+        <qualifiedname>GLWidget::initializeGL</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="204" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="201" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a51579d6a8b0cd3eed752dd87fe2b8dd9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::resizeGL</definition>
+        <argsstring>(int w, int h) override</argsstring>
+        <name>resizeGL</name>
+        <qualifiedname>GLWidget::resizeGL</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="205" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="245" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a24b4d1a4f3a2abba10a81d161cf73c43" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::showEvent</definition>
+        <argsstring>(QShowEvent *event) override</argsstring>
+        <name>showEvent</name>
+        <qualifiedname>GLWidget::showEvent</qualifiedname>
+        <param>
+          <type>QShowEvent *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="206" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="239" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a843150d06edc5e2e50d98e395c2b8759" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::paintGL</definition>
+        <argsstring>() override</argsstring>
+        <name>paintGL</name>
+        <qualifiedname>GLWidget::paintGL</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="207" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="287" bodyend="510"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1afeba4699aa12cde94ecd469e58a60aab" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::mousePressEvent</definition>
+        <argsstring>(QMouseEvent *event) override</argsstring>
+        <name>mousePressEvent</name>
+        <qualifiedname>GLWidget::mousePressEvent</qualifiedname>
+        <param>
+          <type>QMouseEvent *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="208" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="923" bodyend="935"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a7cb45e554d24c2020512aa18949a6230" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::mouseMoveEvent</definition>
+        <argsstring>(QMouseEvent *event) override</argsstring>
+        <name>mouseMoveEvent</name>
+        <qualifiedname>GLWidget::mouseMoveEvent</qualifiedname>
+        <param>
+          <type>QMouseEvent *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="209" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="956" bodyend="990"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ad19bbde2dae355a5f89c7407357a2eec" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::mouseReleaseEvent</definition>
+        <argsstring>(QMouseEvent *event) override</argsstring>
+        <name>mouseReleaseEvent</name>
+        <qualifiedname>GLWidget::mouseReleaseEvent</qualifiedname>
+        <param>
+          <type>QMouseEvent *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="210" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="937" bodyend="954"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a8cd50eca4c55d6c8806667f3e6152b25" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::leaveEvent</definition>
+        <argsstring>(QEvent *event) override</argsstring>
+        <name>leaveEvent</name>
+        <qualifiedname>GLWidget::leaveEvent</qualifiedname>
+        <param>
+          <type>QEvent *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="211" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="992" bodyend="999"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a30ba6d7dadccb0d20b6e669999fb69ed" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::wheelEvent</definition>
+        <argsstring>(QWheelEvent *event) override</argsstring>
+        <name>wheelEvent</name>
+        <qualifiedname>GLWidget::wheelEvent</qualifiedname>
+        <param>
+          <type>QWheelEvent *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="212" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="1001" bodyend="1010"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a0e769542148f017c2f68eab4a55e0459" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::keyPressEvent</definition>
+        <argsstring>(QKeyEvent *event) override</argsstring>
+        <name>keyPressEvent</name>
+        <qualifiedname>GLWidget::keyPressEvent</qualifiedname>
+        <param>
+          <type>QKeyEvent *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="213" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="1012" bodyend="1050"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ab2613c91fdcfe0b7a8055087c7f1704b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::begin_camera_interaction</definition>
+        <argsstring>()</argsstring>
+        <name>begin_camera_interaction</name>
+        <qualifiedname>GLWidget::begin_camera_interaction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="215" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="611" bodyend="620"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a248dc5a72c05c48e4cf106a3364cd9e7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::note_camera_motion</definition>
+        <argsstring>()</argsstring>
+        <name>note_camera_motion</name>
+        <qualifiedname>GLWidget::note_camera_motion</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="216" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="622" bodyend="625"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a129de8126a73a9b91421fd7d2b1d7a72" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::schedule_camera_idle</definition>
+        <argsstring>()</argsstring>
+        <name>schedule_camera_idle</name>
+        <qualifiedname>GLWidget::schedule_camera_idle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="217" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="627" bodyend="627"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-slot">
+      <memberdef kind="slot" id="classGLWidget_1abd527645e3f472728b036ae174728781" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::on_camera_idle</definition>
+        <argsstring>()</argsstring>
+        <name>on_camera_idle</name>
+        <qualifiedname>GLWidget::on_camera_idle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="220" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="629" bodyend="636"/>
+      </memberdef>
+      <memberdef kind="slot" id="classGLWidget_1a9f138cc502cf22aefc718c9414467113" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::on_stream_tick</definition>
+        <argsstring>()</argsstring>
+        <name>on_stream_tick</name>
+        <qualifiedname>GLWidget::on_stream_tick</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="221" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="638" bodyend="642"/>
+      </memberdef>
+      <memberdef kind="slot" id="classGLWidget_1ac4f76874e5f7773504d74966038d8079" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::on_orbit_tick</definition>
+        <argsstring>()</argsstring>
+        <name>on_orbit_tick</name>
+        <qualifiedname>GLWidget::on_orbit_tick</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="222" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="1084" bodyend="1112"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGLWidget_1a18d24c078c782ce9bedd1642c6fd7bb8" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::request_zoom_to_extent</definition>
+        <argsstring>(const Extent3D &amp;extent)</argsstring>
+        <name>request_zoom_to_extent</name>
+        <qualifiedname>GLWidget::request_zoom_to_extent</qualifiedname>
+        <param>
+          <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="225" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="225" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a4c0d768d2893ad021bfe5b2dae393867" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::apply_pending_zoom</definition>
+        <argsstring>()</argsstring>
+        <name>apply_pending_zoom</name>
+        <qualifiedname>GLWidget::apply_pending_zoom</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="231" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="231" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a66e4ecdd00a9ba98abeab75fc0516bd9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::try_pick_point</definition>
+        <argsstring>(const QPointF &amp;pixel, PickAction action=PickAction::None)</argsstring>
+        <name>try_pick_point</name>
+        <qualifiedname>GLWidget::try_pick_point</qualifiedname>
+        <param>
+          <type>const QPointF &amp;</type>
+          <declname>pixel</declname>
+        </param>
+        <param>
+          <type>PickAction</type>
+          <declname>action</declname>
+          <defval>PickAction::None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="247" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="763" bodyend="767"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1aadd805057b925314fd04d66c2c394e30" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::update_hover_at</definition>
+        <argsstring>(const QPointF &amp;pixel, int max_radius, bool repaint=true)</argsstring>
+        <name>update_hover_at</name>
+        <qualifiedname>GLWidget::update_hover_at</qualifiedname>
+        <param>
+          <type>const QPointF &amp;</type>
+          <declname>pixel</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_radius</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repaint</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="248" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="803" bodyend="811"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a2118af9d0434b0f08809e800cabdc3b7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::do_pick_at</definition>
+        <argsstring>(const QPointF &amp;pixel, PickAction action, bool repaint=true)</argsstring>
+        <name>do_pick_at</name>
+        <qualifiedname>GLWidget::do_pick_at</qualifiedname>
+        <param>
+          <type>const QPointF &amp;</type>
+          <declname>pixel</declname>
+        </param>
+        <param>
+          <type>PickAction</type>
+          <declname>action</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repaint</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="249" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="769" bodyend="791"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a46dd37cc6cebec246802e60e05e95ce2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::optional&lt; <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &gt;</type>
+        <definition>std::optional&lt; PointPickResult &gt; GLWidget::fb_pick_point</definition>
+        <argsstring>(const QPointF &amp;pixel, int max_radius)</argsstring>
+        <name>fb_pick_point</name>
+        <qualifiedname>GLWidget::fb_pick_point</qualifiedname>
+        <param>
+          <type>const QPointF &amp;</type>
+          <declname>pixel</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_radius</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="250" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="813" bodyend="921"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1aa538a18a15a44ceeff00600bffdb51e0" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GLWidget::fbo_pick_ready</definition>
+        <argsstring>() const</argsstring>
+        <name>fbo_pick_ready</name>
+        <qualifiedname>GLWidget::fbo_pick_ready</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="251" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="512" bodyend="536"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1af12eb1edc667121b54e1dd77b1d2fd24" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float GLWidget::point_layer_alpha</definition>
+        <argsstring>() const</argsstring>
+        <name>point_layer_alpha</name>
+        <qualifiedname>GLWidget::point_layer_alpha</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="252" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="538" bodyend="549"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1aafe79d08cb2594ff9548c75b0070efb1" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GLWidget::pick_interaction_enabled</definition>
+        <argsstring>() const</argsstring>
+        <name>pick_interaction_enabled</name>
+        <qualifiedname>GLWidget::pick_interaction_enabled</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="253" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="551" bodyend="553"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a5f077fdac97bcb36f75faf191af89463" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::apply_hover_result</definition>
+        <argsstring>(const std::optional&lt; PointPickResult &gt; &amp;result, bool repaint=true)</argsstring>
+        <name>apply_hover_result</name>
+        <qualifiedname>GLWidget::apply_hover_result</qualifiedname>
+        <param>
+          <type>const std::optional&lt; <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &gt; &amp;</type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repaint</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="254" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="793" bodyend="801"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a83837f2717bcd2eb1fcc3d0ac874480e" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::optional&lt; QPointF &gt;</type>
+        <definition>std::optional&lt; QPointF &gt; GLWidget::project_pick_to_screen</definition>
+        <argsstring>(const PointPickResult &amp;pick) const</argsstring>
+        <name>project_pick_to_screen</name>
+        <qualifiedname>GLWidget::project_pick_to_screen</qualifiedname>
+        <param>
+          <type>const <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &amp;</type>
+          <declname>pick</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="255" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="730" bodyend="734"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a168fe29c6fed4add01f2e1669bb7097f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int GLWidget::allocate_layer_slot</definition>
+        <argsstring>()</argsstring>
+        <name>allocate_layer_slot</name>
+        <qualifiedname>GLWidget::allocate_layer_slot</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="256" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="736" bodyend="748"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1aae635188433dd9895614ccf109da3269" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::release_layer_slot</definition>
+        <argsstring>(int slot)</argsstring>
+        <name>release_layer_slot</name>
+        <qualifiedname>GLWidget::release_layer_slot</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>slot</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="257" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="750" bodyend="754"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ad574059ad2981405812fe968c07d4ec4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::pan_to_selected_point</definition>
+        <argsstring>()</argsstring>
+        <name>pan_to_selected_point</name>
+        <qualifiedname>GLWidget::pan_to_selected_point</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="258" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="696" bodyend="705"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1ac87d90081386cdbf56e1a73f04662b90" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::look_at_selected_point</definition>
+        <argsstring>()</argsstring>
+        <name>look_at_selected_point</name>
+        <qualifiedname>GLWidget::look_at_selected_point</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="259" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="707" bodyend="716"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a03a3aca0af0da068dddca7675ffa5eb1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::clear_picks_for_layer</definition>
+        <argsstring>(const std::string &amp;layer_name)</argsstring>
+        <name>clear_picks_for_layer</name>
+        <qualifiedname>GLWidget::clear_picks_for_layer</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>layer_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="260" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="718" bodyend="728"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a4c57ea2a19acced4d280f84ae56e3ace" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::draw_stats_overlay</definition>
+        <argsstring>()</argsstring>
+        <name>draw_stats_overlay</name>
+        <qualifiedname>GLWidget::draw_stats_overlay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="261" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="555" bodyend="609"/>
+      </memberdef>
+      <memberdef kind="function" id="classGLWidget_1a15a1b8e82c32a51e255dc2ed5120f4a3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GLWidget::update_scene_bounds</definition>
+        <argsstring>()</argsstring>
+        <name>update_scene_bounds</name>
+        <qualifiedname>GLWidget::update_scene_bounds</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="262" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.cpp" bodystart="265" bodyend="285"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>GLWidget</label>
+        <link refid="classGLWidget"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QOpenGLFunctions</label>
+      </node>
+      <node id="2">
+        <label>QOpenGLWidget</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>GLWidget</label>
+        <link refid="classGLWidget"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QOpenGLFunctions</label>
+      </node>
+      <node id="2">
+        <label>QOpenGLWidget</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" line="31" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp" bodystart="31" bodyend="319"/>
+    <listofallmembers>
+      <member refid="classGLWidget_1a1387d9aab0c70a427bdb6f3cfc9582ef" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>add_layer</name></member>
+      <member refid="classGLWidget_1a168fe29c6fed4add01f2e1669bb7097f" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>allocate_layer_slot</name></member>
+      <member refid="classGLWidget_1a6a048f8fd2da48a53047a31db150ba32" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>ambient_light</name></member>
+      <member refid="classGLWidget_1a2127857b7260de1c2bab52e040feb9a6" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>anim_type</name></member>
+      <member refid="classGLWidget_1a8d3fe8d1c96f9f706df8ac5f0f544783" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>AnimType</name></member>
+      <member refid="classGLWidget_1a5f077fdac97bcb36f75faf191af89463" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>apply_hover_result</name></member>
+      <member refid="classGLWidget_1a4c0d768d2893ad021bfe5b2dae393867" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>apply_pending_zoom</name></member>
+      <member refid="classGLWidget_1ab2613c91fdcfe0b7a8055087c7f1704b" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>begin_camera_interaction</name></member>
+      <member refid="classGLWidget_1a0b5cfad825c19866bf2851f87961fc01" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>camera_light_azimuth_deg</name></member>
+      <member refid="classGLWidget_1a0e4e8e30d4b26903454e4952137eec33" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>camera_light_elevation_deg</name></member>
+      <member refid="classGLWidget_1a03a3aca0af0da068dddca7675ffa5eb1" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>clear_picks_for_layer</name></member>
+      <member refid="classGLWidget_1a5b70ba01ecd3f0bf767713fafc5bd30c" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>diffuse_light</name></member>
+      <member refid="classGLWidget_1a2118af9d0434b0f08809e800cabdc3b7" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>do_pick_at</name></member>
+      <member refid="classGLWidget_1a4c57ea2a19acced4d280f84ae56e3ace" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>draw_stats_overlay</name></member>
+      <member refid="classGLWidget_1a46dd37cc6cebec246802e60e05e95ce2" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>fb_pick_point</name></member>
+      <member refid="classGLWidget_1aa538a18a15a44ceeff00600bffdb51e0" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>fbo_pick_ready</name></member>
+      <member refid="classGLWidget_1a6d18f16f104a0a7a5e560c440e56694b" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>GLWidget</name></member>
+      <member refid="classGLWidget_1a2349a3ff7c9cc814de1b4a93a0b28acd" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>initializeGL</name></member>
+      <member refid="classGLWidget_1aae4fd02083043961853b088ee23a7efc" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>is_anim_active</name></member>
+      <member refid="classGLWidget_1a0e769542148f017c2f68eab4a55e0459" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>keyPressEvent</name></member>
+      <member refid="classGLWidget_1a054aaf54c82b2d071d0f8bfa0497ef0c" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>layers</name></member>
+      <member refid="classGLWidget_1a8cd50eca4c55d6c8806667f3e6152b25" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>leaveEvent</name></member>
+      <member refid="classGLWidget_1ac87d90081386cdbf56e1a73f04662b90" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>look_at_selected_point</name></member>
+      <member refid="classGLWidget_1a87b4247e41746b6a4d29927606db035c" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_ambient_light</name></member>
+      <member refid="classGLWidget_1ac0fe71edca92713211ee5814116e4f3d" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_anim_phase</name></member>
+      <member refid="classGLWidget_1a38dc94afcd44be9aab18b314450850b6" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_anim_type</name></member>
+      <member refid="classGLWidget_1a24700d902beb4d808850cf1dde6a10ce" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_camera</name></member>
+      <member refid="classGLWidget_1a5b567f68b370f4c298e93e4b108b492f" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_camera_interacting</name></member>
+      <member refid="classGLWidget_1ac808f27ff4a5b01c4a03331d35e31214" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_diffuse_light</name></member>
+      <member refid="classGLWidget_1a0ecea49b2cb0be410a50b33682a136fe" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_fbo_was_pick_ready</name></member>
+      <member refid="classGLWidget_1a72cbbdcbb0b4703973a864cedb74b337" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_free_layer_slots</name></member>
+      <member refid="classGLWidget_1a91a90d0f125233fe3a408b57a87d3d7b" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_hover_probe_needed</name></member>
+      <member refid="classGLWidget_1ad94e3900a502882b39af6148fb28a55b" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_hovered_point</name></member>
+      <member refid="classGLWidget_1afdc4e49e471b615fa2dcb9a67095e970" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_idle_timer</name></member>
+      <member refid="classGLWidget_1a0daf4f072eafda542055c6afa6e407ad" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_incremental_draw</name></member>
+      <member refid="classGLWidget_1a3d04b21138af909b96c3450c5577260f" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_anim_type</name></member>
+      <member refid="classGLWidget_1aa47acd6c36b11b96f8c492848f647d59" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_hover_probe_pos</name></member>
+      <member refid="classGLWidget_1a7cd52da5b9e8ae54c2d2cc9abda6e7ae" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_mouse_pos</name></member>
+      <member refid="classGLWidget_1a0d9b67ebb9c6994416900de9c663eaa3" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_orbit_tick</name></member>
+      <member refid="classGLWidget_1a8ef7f545158d293ce3158c9203cb9a8c" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_paint_ms</name></member>
+      <member refid="classGLWidget_1adfdc12fc1a1b79e07c129fb276929c9e" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_point_draw_ms</name></member>
+      <member refid="classGLWidget_1ad9527dec628b0fa26c089fda476c1729" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_point_gpu_ms</name></member>
+      <member refid="classGLWidget_1ad46864ca0ad313f8f9181702d20c8fe1" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_point_vertices</name></member>
+      <member refid="classGLWidget_1a7e2c724127b6cb47579d3ed753f0bf59" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_last_present_frame_ms</name></member>
+      <member refid="classGLWidget_1a61483da6748fc5e6c2b227a9bc8e9368" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_layers</name></member>
+      <member refid="classGLWidget_1a9fefe48ed7c40b0af0406a259a1ed8a5" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_left_button_pressed</name></member>
+      <member refid="classGLWidget_1a066378f1e8bdc1ecbe51426c1bbcd486" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_light_azimuth_deg</name></member>
+      <member refid="classGLWidget_1a996c01677d7158eb592d355eb4127548" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_light_elevation_deg</name></member>
+      <member refid="classGLWidget_1a9e2304a56ba8a11e28a631665004d443" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_load_only</name></member>
+      <member refid="classGLWidget_1a2101c63e7bce28a26d9ad4d26b551782" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_needs_zoom</name></member>
+      <member refid="classGLWidget_1a68857e28ce4f58a5201d3ed9dd5556ae" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_next_layer_slot</name></member>
+      <member refid="classGLWidget_1ae64a3e34afa1374009f2659aca83f078" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_orbit_period_secs</name></member>
+      <member refid="classGLWidget_1aa3fde66dbd8e325bdaace9e37d9b3c45" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_orbit_timer</name></member>
+      <member refid="classGLWidget_1a3d319a5fc01d4f28a7d8d23d31cfba8e" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_painting</name></member>
+      <member refid="classGLWidget_1ab04c70a7bd1b758d63e3d19abb21db58" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_pending_pick_action</name></member>
+      <member refid="classGLWidget_1a199b0409462c2d5c7a479fbf62332be6" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_pending_pick_pixel</name></member>
+      <member refid="classGLWidget_1a76bb615772c406f5b444059c2621cc2d" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_pending_zoom_extent</name></member>
+      <member refid="classGLWidget_1af121346a0a68bcdd0deeabbb79de67d1" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_point_ambient_light</name></member>
+      <member refid="classGLWidget_1a198e073a4742021ef257c9942a53572e" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_point_compositor</name></member>
+      <member refid="classGLWidget_1a52a870248a6b2c03f0870d6c248a1e18" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_point_pick_callback</name></member>
+      <member refid="classGLWidget_1a713aa7bb2039d2e78fdfa5539ed0e99f" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_points_fbo</name></member>
+      <member refid="classGLWidget_1adc9fd327c0efb1c6d0eaa8f2395fba39" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_present_frame_ms_ema</name></member>
+      <member refid="classGLWidget_1a029c0cbec9ccfd03244294dab7dce69a" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_press_mouse_pos</name></member>
+      <member refid="classGLWidget_1a9b955836a795befb54a813c74041086a" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_prev_paint_time</name></member>
+      <member refid="classGLWidget_1aa4825558d8385094dd9ebbeedabde999" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_projection</name></member>
+      <member refid="classGLWidget_1a0a95f881346b673636c66d10e16e08fb" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_renderers</name></member>
+      <member refid="classGLWidget_1a30e0d1c1a0f8a5ee9e7305c2b0cecc94" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_restarted_during_paint</name></member>
+      <member refid="classGLWidget_1a0b5ff561f5fb467106e07fc6b6dd301b" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_scene_fbo</name></member>
+      <member refid="classGLWidget_1ad50756ce54504ff07cd24aebd8b3f019" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_selected_point</name></member>
+      <member refid="classGLWidget_1a08405ab577f249a6b4f8de673a56b12f" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_stream_timer</name></member>
+      <member refid="classGLWidget_1a0b35b03645a73af9ab1a5c790efea5df" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_wobble_amplitude_deg</name></member>
+      <member refid="classGLWidget_1ae585b250c97fc991f65f5ac9ac22108b" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_wobble_period_secs</name></member>
+      <member refid="classGLWidget_1a880168935f58ee69a58bc261e4659913" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>m_zoomed_layers</name></member>
+      <member refid="classGLWidget_1a1e50c746ef5d95c14de5907be6239dd1" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>minimumSizeHint</name></member>
+      <member refid="classGLWidget_1a7cb45e554d24c2020512aa18949a6230" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>mouseMoveEvent</name></member>
+      <member refid="classGLWidget_1afeba4699aa12cde94ecd469e58a60aab" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>mousePressEvent</name></member>
+      <member refid="classGLWidget_1ad19bbde2dae355a5f89c7407357a2eec" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>mouseReleaseEvent</name></member>
+      <member refid="classGLWidget_1a248dc5a72c05c48e4cf106a3364cd9e7" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>note_camera_motion</name></member>
+      <member refid="classGLWidget_1abd527645e3f472728b036ae174728781" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>on_camera_idle</name></member>
+      <member refid="classGLWidget_1ac4f76874e5f7773504d74966038d8079" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>on_orbit_tick</name></member>
+      <member refid="classGLWidget_1a9f138cc502cf22aefc718c9414467113" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>on_stream_tick</name></member>
+      <member refid="classGLWidget_1a9204a06228e76d2f9275dc09e7a7a6f7" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>orbit_period</name></member>
+      <member refid="classGLWidget_1a843150d06edc5e2e50d98e395c2b8759" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>paintGL</name></member>
+      <member refid="classGLWidget_1ad574059ad2981405812fe968c07d4ec4" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>pan_to_selected_point</name></member>
+      <member refid="classGLWidget_1aafe79d08cb2594ff9548c75b0070efb1" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>pick_interaction_enabled</name></member>
+      <member refid="classGLWidget_1acb56112e9cff3fe19a5c30f2c188464a" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>PickAction</name></member>
+      <member refid="classGLWidget_1a93be35377fdc9536e7bb85f282ee06b0" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>point_ambient_light</name></member>
+      <member refid="classGLWidget_1af12eb1edc667121b54e1dd77b1d2fd24" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>point_layer_alpha</name></member>
+      <member refid="classGLWidget_1accc402e21da496717e67f6bd0a18d254" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>PointPickCallback</name></member>
+      <member refid="classGLWidget_1a83837f2717bcd2eb1fcc3d0ac874480e" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>project_pick_to_screen</name></member>
+      <member refid="classGLWidget_1af4ed2a47e9eee1eb7101c7ab4927481c" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>reference_crs_wkt</name></member>
+      <member refid="classGLWidget_1a8a8c91a2de52d1fb11477fed0d1ac497" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>refresh_point_cloud_style</name></member>
+      <member refid="classGLWidget_1aae635188433dd9895614ccf109da3269" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>release_layer_slot</name></member>
+      <member refid="classGLWidget_1a57631cf1bac117a93f87f33eec05a7d4" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>remove_layer</name></member>
+      <member refid="classGLWidget_1a18d24c078c782ce9bedd1642c6fd7bb8" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>request_zoom_to_extent</name></member>
+      <member refid="classGLWidget_1a51579d6a8b0cd3eed752dd87fe2b8dd9" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>resizeGL</name></member>
+      <member refid="classGLWidget_1a6b7b5a46ef4afeda8baf103861fbfe42" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>restart_render</name></member>
+      <member refid="classGLWidget_1a129de8126a73a9b91421fd7d2b1d7a72" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>schedule_camera_idle</name></member>
+      <member refid="classGLWidget_1a7024920723c9ebe54210f66c66eb2a6b" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_anim_type</name></member>
+      <member refid="classGLWidget_1a4daea31701e6beb037e1dfdacce4107b" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_camera_light_angles</name></member>
+      <member refid="classGLWidget_1a1be81e95c2d4c34c04512edf2f7b115b" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_layer_visible</name></member>
+      <member refid="classGLWidget_1a5629d095364e54f338046d270bb61759" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_lighting_strength</name></member>
+      <member refid="classGLWidget_1a49d4b1705c94d0d4e14ece6f0ad3f97e" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_load_only_mode</name></member>
+      <member refid="classGLWidget_1a48e60c78dece83ca2c1cc46b3c16c6d6" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_orbit_period</name></member>
+      <member refid="classGLWidget_1ad85aeadda206c0acdbb6cfcd89c3d3ff" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_point_ambient_light</name></member>
+      <member refid="classGLWidget_1a47d1e6bc4fcda0431cfeb691ed720713" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_point_pick_callback</name></member>
+      <member refid="classGLWidget_1a10e54fb7c8c24d0c3e7ae6fbd8c799c5" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_selected_point</name></member>
+      <member refid="classGLWidget_1a6d5f1e8e9790dfc43de5a41884325a6b" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_wobble_amplitude</name></member>
+      <member refid="classGLWidget_1a1835fe6cca12646b02efdc75e3819f88" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>set_wobble_period</name></member>
+      <member refid="classGLWidget_1a24b4d1a4f3a2abba10a81d161cf73c43" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>showEvent</name></member>
+      <member refid="classGLWidget_1af04a97931fb78d610e1c73d7c4887319" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>sizeHint</name></member>
+      <member refid="classGLWidget_1ab3f47c8784ca6ee9a7af77c4c2ae8b64" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>start_animation</name></member>
+      <member refid="classGLWidget_1a5649efea5d95fd1e22029efffd1681bf" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>start_bench_orbit</name></member>
+      <member refid="classGLWidget_1ad7561e3c601b5f8813d221609b378d30" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>stop_animation</name></member>
+      <member refid="classGLWidget_1a66e4ecdd00a9ba98abeab75fc0516bd9" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>try_pick_point</name></member>
+      <member refid="classGLWidget_1aadd805057b925314fd04d66c2c394e30" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>update_hover_at</name></member>
+      <member refid="classGLWidget_1a15a1b8e82c32a51e255dc2ed5120f4a3" prot="private" virt="non-virtual"><scope>GLWidget</scope><name>update_scene_bounds</name></member>
+      <member refid="classGLWidget_1a30ba6d7dadccb0d20b6e669999fb69ed" prot="protected" virt="non-virtual"><scope>GLWidget</scope><name>wheelEvent</name></member>
+      <member refid="classGLWidget_1ae9755c7dd94d06ecfea194e4eaac33fa" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>wobble_amplitude</name></member>
+      <member refid="classGLWidget_1a4b769c2f66272969152dab9fcbe70f1e" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>wobble_period</name></member>
+      <member refid="classGLWidget_1a69c051ec728095d4289534fa313977d5" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>zoom_to_all_layers</name></member>
+      <member refid="classGLWidget_1aa848733fd3cd58684ace5973df3d91f8" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>zoom_to_layer</name></member>
+      <member refid="classGLWidget_1a535192a4262b4501e5493303834f45d3" prot="public" virt="non-virtual"><scope>GLWidget</scope><name>~GLWidget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

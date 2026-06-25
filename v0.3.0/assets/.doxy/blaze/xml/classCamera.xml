@@ -1,0 +1,735 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classCamera" kind="class" language="C++" prot="public">
+    <compoundname>Camera</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCamera_1ace54a514f54dee3cabd946a793bad9bf" prot="private" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::m_position</definition>
+        <argsstring></argsstring>
+        <name>m_position</name>
+        <qualifiedname>Camera::m_position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="16" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1aef0f1a8e7e4b1350eda624c16a2d95c1" prot="private" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::m_direction</definition>
+        <argsstring></argsstring>
+        <name>m_direction</name>
+        <qualifiedname>Camera::m_direction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="17" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1a9ceaeddb12dfb90d6f188386bf418538" prot="private" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::m_up</definition>
+        <argsstring></argsstring>
+        <name>m_up</name>
+        <qualifiedname>Camera::m_up</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="18" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1a5fb716de821e6b73b324114f529bc538" prot="private" static="no" mutable="no">
+        <type><ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt;</type>
+        <definition>Coordinate3D&lt;double&gt; Camera::m_world_offset</definition>
+        <argsstring></argsstring>
+        <name>m_world_offset</name>
+        <qualifiedname>Camera::m_world_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="20" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1a4fc9e7139f9d34511631c1e6cded7e23" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Camera::m_width</definition>
+        <argsstring></argsstring>
+        <name>m_width</name>
+        <qualifiedname>Camera::m_width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="22" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1ad61eece38eb9ffd6f903455f32a522a5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Camera::m_height</definition>
+        <argsstring></argsstring>
+        <name>m_height</name>
+        <qualifiedname>Camera::m_height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="23" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1a7ade7c0fb3ba902444e409e6583a4edc" prot="private" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::m_scene_center</definition>
+        <argsstring></argsstring>
+        <name>m_scene_center</name>
+        <qualifiedname>Camera::m_scene_center</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="28" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1a0119b429e4a927275e4fed34a6da9aab" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Camera::m_scene_radius</definition>
+        <argsstring></argsstring>
+        <name>m_scene_radius</name>
+        <qualifiedname>Camera::m_scene_radius</qualifiedname>
+        <initializer>= 0.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="29" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCamera_1a6649ec7887841656e6cd796560c3dcb7" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Camera::m_fov</definition>
+        <argsstring></argsstring>
+        <name>m_fov</name>
+        <qualifiedname>Camera::m_fov</qualifiedname>
+        <initializer>= 45.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="31" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCamera_1ab8bd59938caefc7935fda5f5cfcb7a75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Camera::Camera</definition>
+        <argsstring>(int width, int height)</argsstring>
+        <name>Camera</name>
+        <qualifiedname>Camera::Camera</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="34" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="34" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1ad4e6ff13cf9bf35c6211b5e60dbe0dcb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::move_towards</definition>
+        <argsstring>(const QVector3D &amp;world_pos, double distance, bool shrink_direction=false)</argsstring>
+        <name>move_towards</name>
+        <qualifiedname>Camera::move_towards</qualifiedname>
+        <param>
+          <type>const QVector3D &amp;</type>
+          <declname>world_pos</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>distance</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>shrink_direction</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="41" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="41" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a6821b744e49bb35944a4db35825d61d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+        <definition>const Coordinate3D&lt; double &gt; &amp; Camera::world_offset</definition>
+        <argsstring>() const</argsstring>
+        <name>world_offset</name>
+        <qualifiedname>Camera::world_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="52" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1aaa29aa1f7dae8e8be887f459f8ed84c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+        <definition>Coordinate3D&lt; double &gt; &amp; Camera::world_offset</definition>
+        <argsstring>()</argsstring>
+        <name>world_offset</name>
+        <qualifiedname>Camera::world_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="53" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a964242711eb5e4a0973c2da0d1ac19ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::set_screen_size</definition>
+        <argsstring>(int width, int height)</argsstring>
+        <name>set_screen_size</name>
+        <qualifiedname>Camera::set_screen_size</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="55" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="55" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a90bf64cb3fe57dfb3de9113e30db2d6a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::set_scene_bounds</definition>
+        <argsstring>(const QVector3D &amp;center, float radius)</argsstring>
+        <name>set_scene_bounds</name>
+        <qualifiedname>Camera::set_scene_bounds</qualifiedname>
+        <param>
+          <type>const QVector3D &amp;</type>
+          <declname>center</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radius</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="60" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="60" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a6bb1f6487ada4f0774966602d62e25b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::reset_to_origin</definition>
+        <argsstring>()</argsstring>
+        <name>reset_to_origin</name>
+        <qualifiedname>Camera::reset_to_origin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="65" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="65" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a34cf525392e4a8c51131e6e94564addc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::view_right</definition>
+        <argsstring>() const</argsstring>
+        <name>view_right</name>
+        <qualifiedname>Camera::view_right</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="71" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a373edc513685a6e7322e8344462f7ff8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::view_up</definition>
+        <argsstring>() const</argsstring>
+        <name>view_up</name>
+        <qualifiedname>Camera::view_up</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="72" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="72" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1ac97aa80e65f477f189f88f6e80773d08" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::planar_direction</definition>
+        <argsstring>() const</argsstring>
+        <name>planar_direction</name>
+        <qualifiedname>Camera::planar_direction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="75" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="75" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1ace515d56b7244677267ccc1742e5bba3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::pan</definition>
+        <argsstring>(double dx, double dy)</argsstring>
+        <name>pan</name>
+        <qualifiedname>Camera::pan</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>dx</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="79" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="79" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a101c77b03499f581369aa7f55e0bcbca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::fly</definition>
+        <argsstring>(double dx, double dy, double dz)</argsstring>
+        <name>fly</name>
+        <qualifiedname>Camera::fly</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>dx</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dy</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="83" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="83" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a6f05c4e3a38a43421afeafb519e8687c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::zoom_to_fit</definition>
+        <argsstring>(const Extent3D &amp;extent)</argsstring>
+        <name>zoom_to_fit</name>
+        <qualifiedname>Camera::zoom_to_fit</qualifiedname>
+        <param>
+          <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>extent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="87" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="87" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a6e80e4612e38eb138b5f8edc48121dfa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::rotate_view</definition>
+        <argsstring>(double dx, double dy)</argsstring>
+        <name>rotate_view</name>
+        <qualifiedname>Camera::rotate_view</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>dx</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="116" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="116" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a2f65f1a5260eca501f62bac73db59a99" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Camera::current_altitude_angle</definition>
+        <argsstring>() const</argsstring>
+        <name>current_altitude_angle</name>
+        <qualifiedname>Camera::current_altitude_angle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="118" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="118" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1ad13d4d348430007c0c39e4b04c3992ca" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Camera::projection_scale</definition>
+        <argsstring>() const</argsstring>
+        <name>projection_scale</name>
+        <qualifiedname>Camera::projection_scale</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="122" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="122" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1acdf85e1bed9d732013ff2bb7205a548c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Camera::fov_rad</definition>
+        <argsstring>() const</argsstring>
+        <name>fov_rad</name>
+        <qualifiedname>Camera::fov_rad</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="124" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="124" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a1bbec3a4366fb81c4c74a27aa59913b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::rotate_around_center</definition>
+        <argsstring>(double dx, double dy, const std::optional&lt; QVector3D &gt; &amp;center=std::nullopt)</argsstring>
+        <name>rotate_around_center</name>
+        <qualifiedname>Camera::rotate_around_center</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>dx</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dy</declname>
+        </param>
+        <param>
+          <type>const std::optional&lt; QVector3D &gt; &amp;</type>
+          <declname>center</declname>
+          <defval>std::nullopt</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="137" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="137" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a70b1b1573092df8c6152bf2ef4a3e2ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::pan_to_target</definition>
+        <argsstring>(const QVector3D &amp;target)</argsstring>
+        <name>pan_to_target</name>
+        <qualifiedname>Camera::pan_to_target</qualifiedname>
+        <param>
+          <type>const QVector3D &amp;</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="152" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="152" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1ad40b51f7bb6868d555c1d72c8bd03515" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::look_at_target</definition>
+        <argsstring>(const QVector3D &amp;target)</argsstring>
+        <name>look_at_target</name>
+        <qualifiedname>Camera::look_at_target</qualifiedname>
+        <param>
+          <type>const QVector3D &amp;</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="161" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="161" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a6a55f7cd0a33c0b175d8a62349f07a09" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QMatrix4x4</type>
+        <definition>QMatrix4x4 Camera::projection_matrix</definition>
+        <argsstring>() const</argsstring>
+        <name>projection_matrix</name>
+        <qualifiedname>Camera::projection_matrix</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="170" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="170" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a6caf6e7a6238a76e56fa652eefc6a614" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QMatrix4x4</type>
+        <definition>QMatrix4x4 Camera::view_matrix</definition>
+        <argsstring>() const</argsstring>
+        <name>view_matrix</name>
+        <qualifiedname>Camera::view_matrix</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="187" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="187" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a93eab65d5d382a7ece36ed820958a21a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QMatrix4x4</type>
+        <definition>QMatrix4x4 Camera::proj_matrix</definition>
+        <argsstring>() const</argsstring>
+        <name>proj_matrix</name>
+        <qualifiedname>Camera::proj_matrix</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="193" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="193" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1aabdd98b718636649eff1764416e651b7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int Camera::screen_width</definition>
+        <argsstring>() const</argsstring>
+        <name>screen_width</name>
+        <qualifiedname>Camera::screen_width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="195" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="195" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a495ec09d3307cba80e04d63e4967f1cb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int Camera::screen_height</definition>
+        <argsstring>() const</argsstring>
+        <name>screen_height</name>
+        <qualifiedname>Camera::screen_height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="196" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="196" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1af70907c67e84f4090b990b32ba33693d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>QVector3D</type>
+        <definition>QVector3D Camera::unproject</definition>
+        <argsstring>(const QPointF &amp;screen_pos) const</argsstring>
+        <name>unproject</name>
+        <qualifiedname>Camera::unproject</qualifiedname>
+        <param>
+          <type>const QPointF &amp;</type>
+          <declname>screen_pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="198" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="198" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a85b583d7b2e0165ae9de5ab330c8005c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::optional&lt; QPointF &gt;</type>
+        <definition>std::optional&lt; QPointF &gt; Camera::project_world_to_screen</definition>
+        <argsstring>(const QVector3D &amp;world_pos) const</argsstring>
+        <name>project_world_to_screen</name>
+        <qualifiedname>Camera::project_world_to_screen</qualifiedname>
+        <param>
+          <type>const QVector3D &amp;</type>
+          <declname>world_pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="203" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="203" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a89783ca25f162011f1102f2c8c92a2f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const QVector3D &amp;</type>
+        <definition>const QVector3D &amp; Camera::position</definition>
+        <argsstring>() const</argsstring>
+        <name>position</name>
+        <qualifiedname>Camera::position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="214" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="214" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1ab3de40e747c3a4357da1988ca2d8bdc8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const QVector3D &amp;</type>
+        <definition>const QVector3D &amp; Camera::direction</definition>
+        <argsstring>() const</argsstring>
+        <name>direction</name>
+        <qualifiedname>Camera::direction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="215" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="215" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="classCamera_1a6c020f53cc6d126e5656c8dd5aed10e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const QVector3D &amp;</type>
+        <definition>const QVector3D &amp; Camera::up</definition>
+        <argsstring>() const</argsstring>
+        <name>up</name>
+        <qualifiedname>Camera::up</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="216" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="216" bodyend="216"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classCamera_1a55033bcebc99834d02aac391d93ab1c6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Camera::bound_rotation</definition>
+        <argsstring>(double current_angle, double angle, double min_angle, double max_angle)</argsstring>
+        <name>bound_rotation</name>
+        <qualifiedname>Camera::bound_rotation</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>current_angle</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>angle</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>min_angle</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>max_angle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="127" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="127" bodyend="134"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" line="15" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/camera.hpp" bodystart="15" bodyend="217"/>
+    <listofallmembers>
+      <member refid="classCamera_1a55033bcebc99834d02aac391d93ab1c6" prot="private" virt="non-virtual"><scope>Camera</scope><name>bound_rotation</name></member>
+      <member refid="classCamera_1ab8bd59938caefc7935fda5f5cfcb7a75" prot="public" virt="non-virtual"><scope>Camera</scope><name>Camera</name></member>
+      <member refid="classCamera_1a2f65f1a5260eca501f62bac73db59a99" prot="public" virt="non-virtual"><scope>Camera</scope><name>current_altitude_angle</name></member>
+      <member refid="classCamera_1ab3de40e747c3a4357da1988ca2d8bdc8" prot="public" virt="non-virtual"><scope>Camera</scope><name>direction</name></member>
+      <member refid="classCamera_1a101c77b03499f581369aa7f55e0bcbca" prot="public" virt="non-virtual"><scope>Camera</scope><name>fly</name></member>
+      <member refid="classCamera_1acdf85e1bed9d732013ff2bb7205a548c" prot="public" virt="non-virtual"><scope>Camera</scope><name>fov_rad</name></member>
+      <member refid="classCamera_1ad40b51f7bb6868d555c1d72c8bd03515" prot="public" virt="non-virtual"><scope>Camera</scope><name>look_at_target</name></member>
+      <member refid="classCamera_1aef0f1a8e7e4b1350eda624c16a2d95c1" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_direction</name></member>
+      <member refid="classCamera_1a6649ec7887841656e6cd796560c3dcb7" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_fov</name></member>
+      <member refid="classCamera_1ad61eece38eb9ffd6f903455f32a522a5" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_height</name></member>
+      <member refid="classCamera_1ace54a514f54dee3cabd946a793bad9bf" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_position</name></member>
+      <member refid="classCamera_1a7ade7c0fb3ba902444e409e6583a4edc" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_scene_center</name></member>
+      <member refid="classCamera_1a0119b429e4a927275e4fed34a6da9aab" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_scene_radius</name></member>
+      <member refid="classCamera_1a9ceaeddb12dfb90d6f188386bf418538" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_up</name></member>
+      <member refid="classCamera_1a4fc9e7139f9d34511631c1e6cded7e23" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_width</name></member>
+      <member refid="classCamera_1a5fb716de821e6b73b324114f529bc538" prot="private" virt="non-virtual"><scope>Camera</scope><name>m_world_offset</name></member>
+      <member refid="classCamera_1ad4e6ff13cf9bf35c6211b5e60dbe0dcb" prot="public" virt="non-virtual"><scope>Camera</scope><name>move_towards</name></member>
+      <member refid="classCamera_1ace515d56b7244677267ccc1742e5bba3" prot="public" virt="non-virtual"><scope>Camera</scope><name>pan</name></member>
+      <member refid="classCamera_1a70b1b1573092df8c6152bf2ef4a3e2ac" prot="public" virt="non-virtual"><scope>Camera</scope><name>pan_to_target</name></member>
+      <member refid="classCamera_1ac97aa80e65f477f189f88f6e80773d08" prot="public" virt="non-virtual"><scope>Camera</scope><name>planar_direction</name></member>
+      <member refid="classCamera_1a89783ca25f162011f1102f2c8c92a2f2" prot="public" virt="non-virtual"><scope>Camera</scope><name>position</name></member>
+      <member refid="classCamera_1a93eab65d5d382a7ece36ed820958a21a" prot="public" virt="non-virtual"><scope>Camera</scope><name>proj_matrix</name></member>
+      <member refid="classCamera_1a85b583d7b2e0165ae9de5ab330c8005c" prot="public" virt="non-virtual"><scope>Camera</scope><name>project_world_to_screen</name></member>
+      <member refid="classCamera_1a6a55f7cd0a33c0b175d8a62349f07a09" prot="public" virt="non-virtual"><scope>Camera</scope><name>projection_matrix</name></member>
+      <member refid="classCamera_1ad13d4d348430007c0c39e4b04c3992ca" prot="public" virt="non-virtual"><scope>Camera</scope><name>projection_scale</name></member>
+      <member refid="classCamera_1a6bb1f6487ada4f0774966602d62e25b0" prot="public" virt="non-virtual"><scope>Camera</scope><name>reset_to_origin</name></member>
+      <member refid="classCamera_1a1bbec3a4366fb81c4c74a27aa59913b3" prot="public" virt="non-virtual"><scope>Camera</scope><name>rotate_around_center</name></member>
+      <member refid="classCamera_1a6e80e4612e38eb138b5f8edc48121dfa" prot="public" virt="non-virtual"><scope>Camera</scope><name>rotate_view</name></member>
+      <member refid="classCamera_1a495ec09d3307cba80e04d63e4967f1cb" prot="public" virt="non-virtual"><scope>Camera</scope><name>screen_height</name></member>
+      <member refid="classCamera_1aabdd98b718636649eff1764416e651b7" prot="public" virt="non-virtual"><scope>Camera</scope><name>screen_width</name></member>
+      <member refid="classCamera_1a90bf64cb3fe57dfb3de9113e30db2d6a" prot="public" virt="non-virtual"><scope>Camera</scope><name>set_scene_bounds</name></member>
+      <member refid="classCamera_1a964242711eb5e4a0973c2da0d1ac19ef" prot="public" virt="non-virtual"><scope>Camera</scope><name>set_screen_size</name></member>
+      <member refid="classCamera_1af70907c67e84f4090b990b32ba33693d" prot="public" virt="non-virtual"><scope>Camera</scope><name>unproject</name></member>
+      <member refid="classCamera_1a6c020f53cc6d126e5656c8dd5aed10e0" prot="public" virt="non-virtual"><scope>Camera</scope><name>up</name></member>
+      <member refid="classCamera_1a6caf6e7a6238a76e56fa652eefc6a614" prot="public" virt="non-virtual"><scope>Camera</scope><name>view_matrix</name></member>
+      <member refid="classCamera_1a34cf525392e4a8c51131e6e94564addc" prot="public" virt="non-virtual"><scope>Camera</scope><name>view_right</name></member>
+      <member refid="classCamera_1a373edc513685a6e7322e8344462f7ff8" prot="public" virt="non-virtual"><scope>Camera</scope><name>view_up</name></member>
+      <member refid="classCamera_1a6821b744e49bb35944a4db35825d61d9" prot="public" virt="non-virtual"><scope>Camera</scope><name>world_offset</name></member>
+      <member refid="classCamera_1aaa29aa1f7dae8e8be887f459f8ed84c5" prot="public" virt="non-virtual"><scope>Camera</scope><name>world_offset</name></member>
+      <member refid="classCamera_1a6f05c4e3a38a43421afeafb519e8687c" prot="public" virt="non-virtual"><scope>Camera</scope><name>zoom_to_fit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

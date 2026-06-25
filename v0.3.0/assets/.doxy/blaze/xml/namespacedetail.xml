@@ -1,0 +1,451 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacedetail" kind="namespace" language="C++">
+    <compoundname>detail</compoundname>
+    <innerclass refid="classdetail_1_1ExtentSpatialIndex" prot="public">detail::ExtentSpatialIndex</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1a02332066d61cd2d48ec5250caac63b54" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool detail::is_blaze_output_filename</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>is_blaze_output_filename</name>
+        <qualifiedname>detail::is_blaze_output_filename</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="36" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="36" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1a7a5776541919380097674d2babcbf266" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void detail::collect_search_roots</definition>
+        <argsstring>(const fs::path &amp;directory, std::vector&lt; fs::path &gt; &amp;roots)</argsstring>
+        <name>collect_search_roots</name>
+        <qualifiedname>detail::collect_search_roots</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>directory</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; fs::path &gt; &amp;</type>
+          <declname>roots</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="44" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="44" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1a7ecb0b1852e533a8524eca182b0b8c72" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::optional&lt; fs::path &gt;</type>
+        <definition>std::optional&lt; fs::path &gt; detail::find_in_root</definition>
+        <argsstring>(const fs::path &amp;root, const std::vector&lt; std::string &gt; &amp;names)</argsstring>
+        <name>find_in_root</name>
+        <qualifiedname>detail::find_in_root</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>root</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>names</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="72" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="72" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1a6d424f487aa4f656a7660bc63241c414" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int detail::blaze_output_score</definition>
+        <argsstring>(const BlazeOutputSet &amp;outputs)</argsstring>
+        <name>blaze_output_score</name>
+        <qualifiedname>detail::blaze_output_score</qualifiedname>
+        <param>
+          <type>const <ref refid="structBlazeOutputSet" kindref="compound">BlazeOutputSet</ref> &amp;</type>
+          <declname>outputs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="83" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="83" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1a325ec36266a1bc8774475c82e09bf5a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structBlazeOutputSet" kindref="compound">BlazeOutputSet</ref></type>
+        <definition>BlazeOutputSet detail::discover_in_root</definition>
+        <argsstring>(const fs::path &amp;root)</argsstring>
+        <name>discover_in_root</name>
+        <qualifiedname>detail::discover_in_root</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="100" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="100" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1aec0bdad96d720f36f95fbb389c5bef21" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool detail::has_importable_outputs</definition>
+        <argsstring>(const BlazeOutputSet &amp;outputs)</argsstring>
+        <name>has_importable_outputs</name>
+        <qualifiedname>detail::has_importable_outputs</qualifiedname>
+        <param>
+          <type>const <ref refid="structBlazeOutputSet" kindref="compound">BlazeOutputSet</ref> &amp;</type>
+          <declname>outputs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="122" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="122" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1a7d0f04a3136db1db04cb5a2d89028ab5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool detail::is_combined_root</definition>
+        <argsstring>(const fs::path &amp;root)</argsstring>
+        <name>is_combined_root</name>
+        <qualifiedname>detail::is_combined_root</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="126" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="blaze__output__loader_8hpp_1a6d84315aebc12dc5967c586bf44ab6c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void detail::collect_locations_with_outputs</definition>
+        <argsstring>(const fs::path &amp;directory, std::vector&lt; fs::path &gt; &amp;locations)</argsstring>
+        <name>collect_locations_with_outputs</name>
+        <qualifiedname>detail::collect_locations_with_outputs</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>directory</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; fs::path &gt; &amp;</type>
+          <declname>locations</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="128" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" bodystart="128" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a6d45fb35d7affb94cbcfddd4b37f57a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>double</type>
+        <definition>double detail::min_contour_loop_area_m2</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid)</argsstring>
+        <name>min_contour_loop_area_m2</name>
+        <qualifiedname>detail::min_contour_loop_area_m2</qualifiedname>
+        <param>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="17" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="17" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a0dd15675dc250baa2282f0cae2643660" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+        <definition>const GeoGrid&lt; T &gt; &amp; detail::work_grid_for_contours</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, std::optional&lt; T &gt; pad_value, std::optional&lt; GeoGrid&lt; T &gt; &gt; &amp;padded_out)</argsstring>
+        <name>work_grid_for_contours</name>
+        <qualifiedname>detail::work_grid_for_contours</qualifiedname>
+        <param>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>std::optional&lt; T &gt;</type>
+          <declname>pad_value</declname>
+        </param>
+        <param>
+          <type>std::optional&lt; <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &gt; &amp;</type>
+          <declname>padded_out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="24" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="24" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a0f199fa882998911d9c19870008e53e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename EdgeHeightsFn</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; double &gt; &gt;</type>
+        <definition>GridGraph&lt; std::set&lt; double &gt; &gt; detail::identify_contour_crossings</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, EdgeHeightsFn edge_heights)</argsstring>
+        <name>identify_contour_crossings</name>
+        <qualifiedname>detail::identify_contour_crossings</qualifiedname>
+        <param>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>EdgeHeightsFn</type>
+          <declname>edge_heights</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="34" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="34" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="contour__gen_8hpp_1a2cdafe0299253b82214a3e15ea1f7d45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename AcceptFn</type>
+          </param>
+          <param>
+            <type>typename EmitFn</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void detail::trace_contours</definition>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, GridGraph&lt; std::set&lt; double &gt; &gt; &amp;contour_heights, AcceptFn accept, EmitFn emit)</argsstring>
+        <name>trace_contours</name>
+        <qualifiedname>detail::trace_contours</qualifiedname>
+        <param>
+          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; double &gt; &gt; &amp;</type>
+          <declname>contour_heights</declname>
+        </param>
+        <param>
+          <type>AcceptFn</type>
+          <declname>accept</declname>
+        </param>
+        <param>
+          <type>EmitFn</type>
+          <declname>emit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="55" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="55" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1aedcb84ffc7adbc4c14076c8d7ab19a76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void detail::fill_ogr_ring</definition>
+        <argsstring>(OGRLinearRing &amp;ring, const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;vertices)</argsstring>
+        <name>fill_ogr_ring</name>
+        <qualifiedname>detail::fill_ogr_ring</qualifiedname>
+        <param>
+          <type>OGRLinearRing &amp;</type>
+          <declname>ring</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &amp;</type>
+          <declname>vertices</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="16" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="16" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1af7494f45d5da1f8dab02bea0603737b1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; OGRGeometry &gt;</type>
+        <definition>std::unique_ptr&lt; OGRGeometry &gt; detail::repair_ogr_geometry</definition>
+        <argsstring>(std::unique_ptr&lt; OGRGeometry &gt; geom)</argsstring>
+        <name>repair_ogr_geometry</name>
+        <qualifiedname>detail::repair_ogr_geometry</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; OGRGeometry &gt;</type>
+          <declname>geom</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="33" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="33" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a0e2a65696e3199884d7fd9f62aacacd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; OGRGeometry &gt;</type>
+        <definition>std::unique_ptr&lt; OGRGeometry &gt; detail::polygon_to_ogr</definition>
+        <argsstring>(const PolygonWithHoles &amp;poly)</argsstring>
+        <name>polygon_to_ogr</name>
+        <qualifiedname>detail::polygon_to_ogr</qualifiedname>
+        <param>
+          <type>const <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="61" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="61" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a133d1a817d08a0b7f85f72ab307f63e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; OGRGeometry &gt;</type>
+        <definition>std::unique_ptr&lt; OGRGeometry &gt; detail::ring_to_ogr</definition>
+        <argsstring>(const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;exterior_ring)</argsstring>
+        <name>ring_to_ogr</name>
+        <qualifiedname>detail::ring_to_ogr</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &amp;</type>
+          <declname>exterior_ring</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="78" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="78" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a5210abe1c0eba42c385b8e7b96268264" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref></type>
+        <definition>PolygonWithHoles detail::polygon_from_ogr</definition>
+        <argsstring>(const OGRPolygon *ogr_poly)</argsstring>
+        <name>polygon_from_ogr</name>
+        <qualifiedname>detail::polygon_from_ogr</qualifiedname>
+        <param>
+          <type>const OGRPolygon *</type>
+          <declname>ogr_poly</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="89" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="89" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1acc0986ddc1e277f42f55c1ec8c31a833" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void detail::append_polygons_from_ogr</definition>
+        <argsstring>(const OGRGeometry *geometry, std::vector&lt; PolygonWithHoles &gt; &amp;out)</argsstring>
+        <name>append_polygons_from_ogr</name>
+        <qualifiedname>detail::append_polygons_from_ogr</qualifiedname>
+        <param>
+          <type>const OGRGeometry *</type>
+          <declname>geometry</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="114" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="114" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1a7b7092d6ed1f9380b900f5d628affa01" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void detail::append_ogr_polygons</definition>
+        <argsstring>(const OGRGeometry *geometry, std::vector&lt; std::unique_ptr&lt; OGRGeometry &gt; &gt; &amp;out)</argsstring>
+        <name>append_ogr_polygons</name>
+        <qualifiedname>detail::append_ogr_polygons</qualifiedname>
+        <param>
+          <type>const OGRGeometry *</type>
+          <declname>geometry</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::unique_ptr&lt; OGRGeometry &gt; &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="136" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="136" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="polygon__subtract_8hpp_1ab137f1443fc3ea274b08738b6fad8cd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; OGRGeometry &gt;</type>
+        <definition>std::unique_ptr&lt; OGRGeometry &gt; detail::build_cutout_union</definition>
+        <argsstring>(const std::vector&lt; PolygonWithHoles &gt; &amp;cutouts)</argsstring>
+        <name>build_cutout_union</name>
+        <qualifiedname>detail::build_cutout_union</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &gt; &amp;</type>
+          <declname>cutouts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="201" column="24" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="201" bodyend="240"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp" line="34" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPointCloudGL" kind="class" language="C++" prot="public">
+    <compoundname>PointCloudGL</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPointCloudGL_1a23d39545027308640cbdf3336ba71c6c" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudGL::m_vao</definition>
+        <argsstring></argsstring>
+        <name>m_vao</name>
+        <qualifiedname>PointCloudGL::m_vao</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="33" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudGL_1aef85fc24d4a9612103fa06aaa33431f9" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudGL::m_vbo</definition>
+        <argsstring></argsstring>
+        <name>m_vbo</name>
+        <qualifiedname>PointCloudGL::m_vbo</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="34" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudGL_1aafd4e021177dc67e84024c1974d73bc2" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PointCloudGL::m_ready</definition>
+        <argsstring></argsstring>
+        <name>m_ready</name>
+        <qualifiedname>PointCloudGL::m_ready</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="35" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudGL_1a8f3dd4ab442d9f84a4941fd916dd7f08" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PointCloudGL::m_uploaded</definition>
+        <argsstring></argsstring>
+        <name>m_uploaded</name>
+        <qualifiedname>PointCloudGL::m_uploaded</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="36" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPointCloudGL_1a10afd518acc9d7aa34842990be5e6348" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PointCloudGL::~PointCloudGL</definition>
+        <argsstring>()</argsstring>
+        <name>~PointCloudGL</name>
+        <qualifiedname>PointCloudGL::~PointCloudGL</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="17" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudGL_1aef7e9d2890561f8032340d2f80677e88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudGL::ensure_initialized</definition>
+        <argsstring>(QOpenGLFunctions *f)</argsstring>
+        <name>ensure_initialized</name>
+        <qualifiedname>PointCloudGL::ensure_initialized</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="19" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.cpp" bodystart="48" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudGL_1ad17876da4feeb7ca0b5621e2b2a7a047" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudGL::upload_points</definition>
+        <argsstring>(QOpenGLFunctions *f, const OctreePoint *data, size_t count)</argsstring>
+        <name>upload_points</name>
+        <qualifiedname>PointCloudGL::upload_points</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="21" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.cpp" bodystart="65" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudGL_1a1a2929ede423adb0d2404eb7c7c6ea13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t PointCloudGL::draw_leaves</definition>
+        <argsstring>(QOpenGLFunctions *f, const GLint *firsts, const GLsizei *counts, size_t leaf_count)</argsstring>
+        <name>draw_leaves</name>
+        <qualifiedname>PointCloudGL::draw_leaves</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const GLint *</type>
+          <declname>firsts</declname>
+        </param>
+        <param>
+          <type>const GLsizei *</type>
+          <declname>counts</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>leaf_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="23" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.cpp" bodystart="76" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudGL_1af5e5eb706e25bcf59226155f61b879a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t PointCloudGL::draw_points</definition>
+        <argsstring>(QOpenGLFunctions *f, const OctreePoint *data, size_t count)</argsstring>
+        <name>draw_points</name>
+        <qualifiedname>PointCloudGL::draw_points</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="26" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.cpp" bodystart="92" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudGL_1a1ab270b96567922e22449c85f3264e76" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudGL::bind</definition>
+        <argsstring>(QOpenGLFunctions *f) const</argsstring>
+        <name>bind</name>
+        <qualifiedname>PointCloudGL::bind</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="27" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.cpp" bodystart="104" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudGL_1af333897143c938662212def8c13518e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudGL::destroy</definition>
+        <argsstring>()</argsstring>
+        <name>destroy</name>
+        <qualifiedname>PointCloudGL::destroy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="28" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.cpp" bodystart="11" bodyend="24"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPointCloudGL_1a3e1e8ce83df846292e75b619150d756d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudGL::configure_attributes</definition>
+        <argsstring>(QOpenGLFunctions *f)</argsstring>
+        <name>configure_attributes</name>
+        <qualifiedname>PointCloudGL::configure_attributes</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="31" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.cpp" bodystart="26" bodyend="46"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" line="15" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_gl.hpp" bodystart="15" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classPointCloudGL_1a1ab270b96567922e22449c85f3264e76" prot="public" virt="non-virtual"><scope>PointCloudGL</scope><name>bind</name></member>
+      <member refid="classPointCloudGL_1a3e1e8ce83df846292e75b619150d756d" prot="private" virt="non-virtual"><scope>PointCloudGL</scope><name>configure_attributes</name></member>
+      <member refid="classPointCloudGL_1af333897143c938662212def8c13518e1" prot="public" virt="non-virtual"><scope>PointCloudGL</scope><name>destroy</name></member>
+      <member refid="classPointCloudGL_1a1a2929ede423adb0d2404eb7c7c6ea13" prot="public" virt="non-virtual"><scope>PointCloudGL</scope><name>draw_leaves</name></member>
+      <member refid="classPointCloudGL_1af5e5eb706e25bcf59226155f61b879a8" prot="public" virt="non-virtual"><scope>PointCloudGL</scope><name>draw_points</name></member>
+      <member refid="classPointCloudGL_1aef7e9d2890561f8032340d2f80677e88" prot="public" virt="non-virtual"><scope>PointCloudGL</scope><name>ensure_initialized</name></member>
+      <member refid="classPointCloudGL_1aafd4e021177dc67e84024c1974d73bc2" prot="private" virt="non-virtual"><scope>PointCloudGL</scope><name>m_ready</name></member>
+      <member refid="classPointCloudGL_1a8f3dd4ab442d9f84a4941fd916dd7f08" prot="private" virt="non-virtual"><scope>PointCloudGL</scope><name>m_uploaded</name></member>
+      <member refid="classPointCloudGL_1a23d39545027308640cbdf3336ba71c6c" prot="private" virt="non-virtual"><scope>PointCloudGL</scope><name>m_vao</name></member>
+      <member refid="classPointCloudGL_1aef85fc24d4a9612103fa06aaa33431f9" prot="private" virt="non-virtual"><scope>PointCloudGL</scope><name>m_vbo</name></member>
+      <member refid="classPointCloudGL_1ad17876da4feeb7ca0b5621e2b2a7a047" prot="public" virt="non-virtual"><scope>PointCloudGL</scope><name>upload_points</name></member>
+      <member refid="classPointCloudGL_1a10afd518acc9d7aa34842990be5e6348" prot="public" virt="non-virtual"><scope>PointCloudGL</scope><name>~PointCloudGL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

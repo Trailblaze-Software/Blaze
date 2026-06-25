@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="shaders_8hpp" kind="file" language="C++">
+    <compoundname>shaders.hpp</compoundname>
+    <includes local="no">QOpenGLShaderProgram</includes>
+    <includes local="no">QString</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">string</includes>
+    <includes refid="gl__check_8hpp" local="yes">gui/gl_check.hpp</includes>
+    <includedby refid="contour__layer__renderer_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/contour_layer_renderer.cpp</includedby>
+    <includedby refid="mesh__layer__renderer_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/mesh_layer_renderer.cpp</includedby>
+    <includedby refid="octree__las__layer__renderer_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp</includedby>
+    <includedby refid="shaders_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>gui/gl_check.hpp</label>
+        <link refid="gl__check_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp</label>
+        <link refid="shaders_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>QOpenGLContext</label>
+      </node>
+      <node id="8">
+        <label>QOpenGLFunctions</label>
+      </node>
+      <node id="2">
+        <label>QOpenGLShaderProgram</label>
+      </node>
+      <node id="3">
+        <label>QString</label>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="shaders_8hpp_1a93a9c009be2047979a826876618874cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>QString</type>
+        <definition>QString load_shader_source</definition>
+        <argsstring>(const QString &amp;resource_path)</argsstring>
+        <name>load_shader_source</name>
+        <param>
+          <type>const QString &amp;</type>
+          <declname>resource_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="11" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp" bodystart="8" bodyend="16" declfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" declline="11" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="shaders_8hpp_1a2db050d7154cbaf29107edbd890a6879" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>QString</type>
+        <definition>QString get_point_vertex_shader</definition>
+        <argsstring>()</argsstring>
+        <name>get_point_vertex_shader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="14" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp" bodystart="18" bodyend="29" declfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" declline="14" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="shaders_8hpp_1a1501fe83a889f1c44df2dc44538eb036" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>QString</type>
+        <definition>QString get_point_fragment_shader</definition>
+        <argsstring>()</argsstring>
+        <name>get_point_fragment_shader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="15" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp" bodystart="31" bodyend="31" declfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" declline="15" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="shaders_8hpp_1a2081ac7aae393f63dd192c5c55cdf9f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>QString</type>
+        <definition>QString get_mesh_vertex_shader</definition>
+        <argsstring>()</argsstring>
+        <name>get_mesh_vertex_shader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="16" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp" bodystart="33" bodyend="33" declfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" declline="16" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="shaders_8hpp_1ad1882b430fdc8c418dc6ae59a87bc61d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>QString</type>
+        <definition>QString get_mesh_fragment_shader</definition>
+        <argsstring>()</argsstring>
+        <name>get_mesh_fragment_shader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="17" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp" bodystart="35" bodyend="35" declfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" declline="17" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="shaders_8hpp_1afa857c8cc5cc506297b2d2f5d217e3d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>QString</type>
+        <definition>QString get_textured_mesh_vertex_shader</definition>
+        <argsstring>()</argsstring>
+        <name>get_textured_mesh_vertex_shader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="18" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp" bodystart="37" bodyend="39" declfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" declline="18" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="shaders_8hpp_1a0d99661c32a1bbf34e5ed9eb49072d15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>QString</type>
+        <definition>QString get_textured_mesh_fragment_shader</definition>
+        <argsstring>()</argsstring>
+        <name>get_textured_mesh_fragment_shader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="19" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp" bodystart="41" bodyend="43" declfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" declline="19" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="shaders_8hpp_1a6aace97af8b03c7a25d933c0684a91f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bind_shader</definition>
+        <argsstring>(QOpenGLShaderProgram *shader)</argsstring>
+        <name>bind_shader</name>
+        <param>
+          <type>QOpenGLShaderProgram *</type>
+          <declname>shader</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" line="22" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp" bodystart="22" bodyend="29"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;QOpenGLShaderProgram&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;QString&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;gui/gl_check.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Load<sp/>shader<sp/>source<sp/>from<sp/>Qt<sp/>resource<sp/>system</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">QString<sp/>load_shader_source(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString&amp;<sp/>resource_path);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Get<sp/>shader<sp/>sources<sp/>(with<sp/>classification<sp/>color<sp/>function<sp/>injected<sp/>for<sp/>point<sp/>vertex<sp/>shader)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">QString<sp/>get_point_vertex_shader();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">QString<sp/>get_point_fragment_shader();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">QString<sp/>get_mesh_vertex_shader();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">QString<sp/>get_mesh_fragment_shader();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">QString<sp/>get_textured_mesh_vertex_shader();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">QString<sp/>get_textured_mesh_fragment_shader();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Shader<sp/>compilation<sp/>helper</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bind_shader(QOpenGLShaderProgram*<sp/>shader)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!shader-&gt;bind())<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Shader<sp/>bind<sp/>error:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>shader-&gt;log().toStdString()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/shaders.hpp"/>
+  </compounddef>
+</doxygen>

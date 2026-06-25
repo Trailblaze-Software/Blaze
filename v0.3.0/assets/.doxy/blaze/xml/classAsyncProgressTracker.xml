@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classAsyncProgressTracker" kind="class" language="C++" prot="public">
+    <compoundname>AsyncProgressTracker</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAsyncProgressTracker_1a6ec7e641600d04ccaad4641fe14e1e4d" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;ProgressTracker&gt; AsyncProgressTracker::m_tracker</definition>
+        <argsstring></argsstring>
+        <name>m_tracker</name>
+        <qualifiedname>AsyncProgressTracker::m_tracker</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="85" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAsyncProgressTracker_1a0752c3c3db495eef67f46a154969d7f7" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AsyncProgressTracker::AsyncProgressTracker</definition>
+        <argsstring>(ProgressObserver *observer=nullptr)</argsstring>
+        <name>AsyncProgressTracker</name>
+        <qualifiedname>AsyncProgressTracker::AsyncProgressTracker</qualifiedname>
+        <param>
+          <type><ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref> *</type>
+          <declname>observer</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="88" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="88" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncProgressTracker_1a67f79b457881a97b498f2879d63ab015" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; ProgressTracker &gt; AsyncProgressTracker::tracker</definition>
+        <argsstring>()</argsstring>
+        <name>tracker</name>
+        <qualifiedname>AsyncProgressTracker::tracker</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="91" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="91" bodyend="91"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="84" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="84" bodyend="92"/>
+    <listofallmembers>
+      <member refid="classAsyncProgressTracker_1a0752c3c3db495eef67f46a154969d7f7" prot="public" virt="non-virtual"><scope>AsyncProgressTracker</scope><name>AsyncProgressTracker</name></member>
+      <member refid="classAsyncProgressTracker_1a6ec7e641600d04ccaad4641fe14e1e4d" prot="private" virt="non-virtual"><scope>AsyncProgressTracker</scope><name>m_tracker</name></member>
+      <member refid="classAsyncProgressTracker_1a67f79b457881a97b498f2879d63ab015" prot="public" virt="non-virtual"><scope>AsyncProgressTracker</scope><name>tracker</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

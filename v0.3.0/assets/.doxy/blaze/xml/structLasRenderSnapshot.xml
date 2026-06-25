@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structLasRenderSnapshot" kind="struct" language="C++" prot="public">
+    <compoundname>LasRenderSnapshot</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structLasRenderSnapshot_1a55f90b8042cb62f2850bf0637f106cb1" prot="public" static="no" mutable="no">
+        <type><ref refid="classPointOctree" kindref="compound">PointOctree</ref></type>
+        <definition>PointOctree LasRenderSnapshot::octree</definition>
+        <argsstring></argsstring>
+        <name>octree</name>
+        <qualifiedname>LasRenderSnapshot::octree</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="276" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structLasRenderSnapshot_1a1dd1de695b13c55533b26759ae5f9d01" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt;</type>
+        <definition>std::vector&lt;OctreePoint&gt; LasRenderSnapshot::preview_points</definition>
+        <argsstring></argsstring>
+        <name>preview_points</name>
+        <qualifiedname>LasRenderSnapshot::preview_points</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="277" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structLasRenderSnapshot_1a819576eb0e85bad4385e429b45c6b78e" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t LasRenderSnapshot::points_loaded</definition>
+        <argsstring></argsstring>
+        <name>points_loaded</name>
+        <qualifiedname>LasRenderSnapshot::points_loaded</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="278" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structLasRenderSnapshot_1ac24adc5a869c797aa47254c9d0bf2378" prot="public" static="no" mutable="no">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D LasRenderSnapshot::bounds</definition>
+        <argsstring></argsstring>
+        <name>bounds</name>
+        <qualifiedname>LasRenderSnapshot::bounds</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="279" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structLasRenderSnapshot_1a59d76e2a2c23bbcea3d58389c1f9abdf" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool LasRenderSnapshot::bounds_valid</definition>
+        <argsstring></argsstring>
+        <name>bounds_valid</name>
+        <qualifiedname>LasRenderSnapshot::bounds_valid</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="280" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="280" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>Extent2D</label>
+        <link refid="structExtent2D"/>
+      </node>
+      <node id="3">
+        <label>Extent3D</label>
+        <link refid="structExtent3D"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>LasRenderSnapshot</label>
+        <link refid="structLasRenderSnapshot"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>octree</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>bounds</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>PointOctree</label>
+        <link refid="classPointOctree"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="275" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="275" bodyend="281"/>
+    <listofallmembers>
+      <member refid="structLasRenderSnapshot_1ac24adc5a869c797aa47254c9d0bf2378" prot="public" virt="non-virtual"><scope>LasRenderSnapshot</scope><name>bounds</name></member>
+      <member refid="structLasRenderSnapshot_1a59d76e2a2c23bbcea3d58389c1f9abdf" prot="public" virt="non-virtual"><scope>LasRenderSnapshot</scope><name>bounds_valid</name></member>
+      <member refid="structLasRenderSnapshot_1a55f90b8042cb62f2850bf0637f106cb1" prot="public" virt="non-virtual"><scope>LasRenderSnapshot</scope><name>octree</name></member>
+      <member refid="structLasRenderSnapshot_1a819576eb0e85bad4385e429b45c6b78e" prot="public" virt="non-virtual"><scope>LasRenderSnapshot</scope><name>points_loaded</name></member>
+      <member refid="structLasRenderSnapshot_1a1dd1de695b13c55533b26759ae5f9d01" prot="public" virt="non-virtual"><scope>LasRenderSnapshot</scope><name>preview_points</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPointCloudFramebuffer" kind="class" language="C++" prot="public">
+    <compoundname>PointCloudFramebuffer</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPointCloudFramebuffer_1a189ece5ca0110d31a7493ffb9ba5dfb6" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PointCloudFramebuffer::m_width</definition>
+        <argsstring></argsstring>
+        <name>m_width</name>
+        <qualifiedname>PointCloudFramebuffer::m_width</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="30" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudFramebuffer_1a763be2f3699da6b0e19d9c82b5c55a13" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PointCloudFramebuffer::m_height</definition>
+        <argsstring></argsstring>
+        <name>m_height</name>
+        <qualifiedname>PointCloudFramebuffer::m_height</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="31" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudFramebuffer_1acf712431da813155afffb19955ad6cba" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudFramebuffer::m_fbo</definition>
+        <argsstring></argsstring>
+        <name>m_fbo</name>
+        <qualifiedname>PointCloudFramebuffer::m_fbo</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="32" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudFramebuffer_1a952e8f97bbb99bdf3336a5d965f8bf12" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudFramebuffer::m_color_tex</definition>
+        <argsstring></argsstring>
+        <name>m_color_tex</name>
+        <qualifiedname>PointCloudFramebuffer::m_color_tex</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="33" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudFramebuffer_1adb94a1488ced8e84e4f43e38ff343bf1" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudFramebuffer::m_depth_tex</definition>
+        <argsstring></argsstring>
+        <name>m_depth_tex</name>
+        <qualifiedname>PointCloudFramebuffer::m_depth_tex</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="34" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointCloudFramebuffer_1a145e00343f064eca87ad2a65e4df5438" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudFramebuffer::m_pick_tex</definition>
+        <argsstring></argsstring>
+        <name>m_pick_tex</name>
+        <qualifiedname>PointCloudFramebuffer::m_pick_tex</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="35" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPointCloudFramebuffer_1a129ebfc92db7acee9c5daae674b8ff52" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PointCloudFramebuffer::~PointCloudFramebuffer</definition>
+        <argsstring>()</argsstring>
+        <name>~PointCloudFramebuffer</name>
+        <qualifiedname>PointCloudFramebuffer::~PointCloudFramebuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="16" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1a07a9233008801fbb15c3212587d83eb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudFramebuffer::ensure_size</definition>
+        <argsstring>(int width, int height)</argsstring>
+        <name>ensure_size</name>
+        <qualifiedname>PointCloudFramebuffer::ensure_size</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="18" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp" bodystart="65" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1a5f9988e2ea40186a775957e994aca631" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudFramebuffer::bind</definition>
+        <argsstring>() const</argsstring>
+        <name>bind</name>
+        <qualifiedname>PointCloudFramebuffer::bind</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="19" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp" bodystart="131" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1ab62012a3ffde468294be16387e66bcce" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudFramebuffer::bind_read</definition>
+        <argsstring>() const</argsstring>
+        <name>bind_read</name>
+        <qualifiedname>PointCloudFramebuffer::bind_read</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="20" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp" bodystart="148" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1a15b38e65253b75dff8b550ed12c4e1be" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudFramebuffer::clear</definition>
+        <argsstring>() const</argsstring>
+        <name>clear</name>
+        <qualifiedname>PointCloudFramebuffer::clear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="21" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp" bodystart="155" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1a65eb9df03df6673dd34952162fbb76ef" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PointCloudFramebuffer::valid</definition>
+        <argsstring>() const</argsstring>
+        <name>valid</name>
+        <qualifiedname>PointCloudFramebuffer::valid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="22" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1a044969977cdc45fd4e9f5839041ced5e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudFramebuffer::fbo</definition>
+        <argsstring>() const</argsstring>
+        <name>fbo</name>
+        <qualifiedname>PointCloudFramebuffer::fbo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="23" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1af43b937800375bd0e4b38051ac556d40" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudFramebuffer::color_texture</definition>
+        <argsstring>() const</argsstring>
+        <name>color_texture</name>
+        <qualifiedname>PointCloudFramebuffer::color_texture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="24" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointCloudFramebuffer_1a4a84a59b339d489a2fc0a56c27aa53c3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>GLuint</type>
+        <definition>GLuint PointCloudFramebuffer::depth_texture</definition>
+        <argsstring>() const</argsstring>
+        <name>depth_texture</name>
+        <qualifiedname>PointCloudFramebuffer::depth_texture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="25" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="25" bodyend="25"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPointCloudFramebuffer_1ada65424c707226787d140a27dc52c08f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointCloudFramebuffer::destroy</definition>
+        <argsstring>()</argsstring>
+        <name>destroy</name>
+        <qualifiedname>PointCloudFramebuffer::destroy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="28" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.cpp" bodystart="45" bodyend="63"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" line="14" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_framebuffer.hpp" bodystart="14" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classPointCloudFramebuffer_1a5f9988e2ea40186a775957e994aca631" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>bind</name></member>
+      <member refid="classPointCloudFramebuffer_1ab62012a3ffde468294be16387e66bcce" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>bind_read</name></member>
+      <member refid="classPointCloudFramebuffer_1a15b38e65253b75dff8b550ed12c4e1be" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>clear</name></member>
+      <member refid="classPointCloudFramebuffer_1af43b937800375bd0e4b38051ac556d40" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>color_texture</name></member>
+      <member refid="classPointCloudFramebuffer_1a4a84a59b339d489a2fc0a56c27aa53c3" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>depth_texture</name></member>
+      <member refid="classPointCloudFramebuffer_1ada65424c707226787d140a27dc52c08f" prot="private" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>destroy</name></member>
+      <member refid="classPointCloudFramebuffer_1a07a9233008801fbb15c3212587d83eb8" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>ensure_size</name></member>
+      <member refid="classPointCloudFramebuffer_1a044969977cdc45fd4e9f5839041ced5e" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>fbo</name></member>
+      <member refid="classPointCloudFramebuffer_1a952e8f97bbb99bdf3336a5d965f8bf12" prot="private" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>m_color_tex</name></member>
+      <member refid="classPointCloudFramebuffer_1adb94a1488ced8e84e4f43e38ff343bf1" prot="private" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>m_depth_tex</name></member>
+      <member refid="classPointCloudFramebuffer_1acf712431da813155afffb19955ad6cba" prot="private" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>m_fbo</name></member>
+      <member refid="classPointCloudFramebuffer_1a763be2f3699da6b0e19d9c82b5c55a13" prot="private" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>m_height</name></member>
+      <member refid="classPointCloudFramebuffer_1a145e00343f064eca87ad2a65e4df5438" prot="private" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>m_pick_tex</name></member>
+      <member refid="classPointCloudFramebuffer_1a189ece5ca0110d31a7493ffb9ba5dfb6" prot="private" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>m_width</name></member>
+      <member refid="classPointCloudFramebuffer_1a65eb9df03df6673dd34952162fbb76ef" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>valid</name></member>
+      <member refid="classPointCloudFramebuffer_1a129ebfc92db7acee9c5daae674b8ff52" prot="public" virt="non-virtual"><scope>PointCloudFramebuffer</scope><name>~PointCloudFramebuffer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

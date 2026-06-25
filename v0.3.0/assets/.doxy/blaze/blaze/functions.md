@@ -1,0 +1,282 @@
+
+# Functions
+
+
+
+## a
+
+* **append\_flat\_grid\_dem\_layers** ([**blaze\_output\_loader.hpp**](blaze__output__loader_8hpp.md))
+* **as\_extent2d** ([**las\_file.hpp**](las__file_8hpp.md))
+* **as\_extent3d** ([**las\_file.hpp**](las__file_8hpp.md))
+* **average** ([**las\_file.hpp**](las__file_8hpp.md))
+* **analyze\_extents** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **adjust\_ground\_to\_slope** ([**process.cpp**](process_8cpp.md))
+
+
+## b
+
+* **build\_dem\_mesh** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **build\_flat\_cell\_dem\_mesh** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **build\_slope\_colored\_mesh** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **build\_textured\_dem\_mesh** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **bind\_shader** ([**shaders.hpp**](shaders_8hpp.md))
+* **bool\_grid** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **build\_compound\_crs\_wkt** ([**crs.hpp**](crs_8hpp.md))
+* **border\_ranges** ([**las\_file.hpp**](las__file_8hpp.md))
+
+
+## c
+
+* **color\_equals** ([**config\_editor.cpp**](config__editor_8cpp.md))
+* **create\_color\_icon** ([**config\_editor.cpp**](config__editor_8cpp.md))
+* **classification\_color** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
+* **classification\_color\_glsl** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
+* **compute\_mesh\_normals** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **compute\_terrain\_normals\_from\_dem** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **crosses\_contour** ([**contour.hpp**](contour_8hpp.md))
+* **clip\_polygon\_hole\_free\_to\_extent** ([**polygon.hpp**](polygon_8hpp.md))
+* **clip\_polygon\_to\_extent** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **coord** ([**test\_grid.cpp**](test__grid_8cpp.md))
+* **crs\_compatible\_for\_viewing** ([**crs.hpp**](crs_8hpp.md))
+* **combine\_gpkgs** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **copy\_gpkg\_feature** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **copy\_gpkg\_layer** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **convert\_geo\_keys\_to\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
+* **copy\_from** ([**las\_file.hpp**](las__file_8hpp.md))
+* **compute\_tiles** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **combine\_vege\_gpkgs** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **contours\_to\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **catchment\_size** ([**water.cpp**](water_8cpp.md))
+* **create\_minimal\_test\_config** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **create\_synthetic\_las\_data** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **create\_synthetic\_las\_data\_ext** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+
+
+## d
+
+* **discover\_blaze\_output** ([**blaze\_output\_loader.hpp**](blaze__output__loader_8hpp.md))
+* **discover\_blaze\_output\_with\_info** ([**blaze\_output\_loader.hpp**](blaze__output__loader_8hpp.md))
+* **deg2rad** ([**camera.hpp**](camera_8hpp.md))
+* **drain\_gl\_errors** ([**gl\_check.hpp**](gl__check_8hpp.md))
+* **dedupe\_consecutive\_ring\_vertices** ([**polygon.hpp**](polygon_8hpp.md))
+* **downsample** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **detect\_tile\_mode\_needed** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **double\_to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
+* **downsample\_mask\_any** ([**process.cpp**](process_8cpp.md))
+
+
+## e
+
+* **extent\_contains** ([**polygon.hpp**](polygon_8hpp.md))
+* **ensure\_gdal\_initialized** ([**gdal\_init.hpp**](gdal__init_8hpp.md))
+* **ensure\_dst\_layer\_fields** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **external\_border\_ranges** ([**las\_file.hpp**](las__file_8hpp.md))
+* **extract\_borders** ([**las\_file.hpp**](las__file_8hpp.md))
+* **extract\_threshold\_layers** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+
+
+## f
+
+* **format\_blaze\_output\_discovery\_error** ([**blaze\_output\_loader.hpp**](blaze__output__loader_8hpp.md))
+* **format\_duration** ([**progress\_box.cpp**](progress__box_8cpp.md))
+* **flex\_grid\_value** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **finalize\_polygon\_with\_holes** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **forest\_contours\_polygonize** ([**test\_vegetation\_polygon.cpp**](test__vegetation__polygon_8cpp.md))
+* **filter\_by\_min\_area** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **filter\_small\_holes** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **fill\_depressions** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
+* **flows\_to** ([**water.cpp**](water_8cpp.md))
+
+
+## g
+
+* **get\_color\_name** ([**config\_editor.cpp**](config__editor_8cpp.md))
+* **gl\_error\_name** ([**gl\_check.hpp**](gl__check_8hpp.md))
+* **get\_mesh\_fragment\_shader** ([**shaders.cpp**](shaders_8cpp.md), [**shaders.hpp**](shaders_8hpp.md))
+* **get\_mesh\_vertex\_shader** ([**shaders.cpp**](shaders_8cpp.md), [**shaders.hpp**](shaders_8hpp.md))
+* **get\_point\_fragment\_shader** ([**shaders.cpp**](shaders_8cpp.md), [**shaders.hpp**](shaders_8hpp.md))
+* **get\_point\_vertex\_shader** ([**shaders.cpp**](shaders_8cpp.md), [**shaders.hpp**](shaders_8hpp.md))
+* **get\_textured\_mesh\_fragment\_shader** ([**shaders.cpp**](shaders_8cpp.md), [**shaders.hpp**](shaders_8hpp.md))
+* **get\_textured\_mesh\_vertex\_shader** ([**shaders.cpp**](shaders_8cpp.md), [**shaders.hpp**](shaders_8hpp.md))
+* **get\_contour\_heights** ([**contour.hpp**](contour_8hpp.md))
+* **generate\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **generate\_contours\_at\_heights** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **generate\_naive\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **get\_or\_create\_dst\_layer** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **gpkg\_feature\_count** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **gdal\_type** ([**tif.cpp**](tif_8cpp.md))
+* **get\_asset\_dir** ([**resources.cpp**](resources_8cpp.md))
+* **get\_local\_data\_dir** ([**resources.cpp**](resources_8cpp.md))
+* **get\_blocked\_proportion** ([**vegetation.hpp**](vegetation_8hpp.md))
+* **generate\_vege\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **get\_wgs84\_wkt** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **get\_pixel\_heights** ([**process.cpp**](process_8cpp.md))
+
+
+## h
+
+* **has\_value** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **hill\_shade** ([**hill\_shade.hpp**](hill__shade_8hpp.md))
+
+
+## i
+
+* **is\_valid\_elevation** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **interpolate\_coordinates** ([**contour.hpp**](contour_8hpp.md))
+* **identify\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **identify\_contours\_at\_heights** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **intersect\_polygons** ([**polygon.hpp**](polygon_8hpp.md))
+* **is\_left\_of** ([**polygon.hpp**](polygon_8hpp.md))
+* **intersect\_polygon** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **interpolate\_value** ([**grid.cpp**](grid_8cpp.md), [**grid.hpp**](grid_8hpp.md))
+* **interpolate\_holes** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **identify\_sinks** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
+* **INSTANTIATE\_TEST\_SUITE\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **is\_las\_file** ([**blaze.cpp**](blaze_8cpp.md))
+
+
+## j
+
+* **join\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+
+
+## l
+
+* **load\_blaze\_outputs** ([**blaze\_output\_loader.hpp**](blaze__output__loader_8hpp.md))
+* **log\_gl\_error** ([**gl\_check.cpp**](gl__check_8cpp.md), [**gl\_check.hpp**](gl__check_8hpp.md))
+* **load\_shader\_source** ([**shaders.cpp**](shaders_8cpp.md), [**shaders.hpp**](shaders_8hpp.md))
+* **load\_input\_extents** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **low\_pass** ([**vegetation.hpp**](vegetation_8hpp.md))
+* **layer\_number** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+
+
+## m
+
+* **main** ([**main.cpp**](main_8cpp.md), [**main\_3d.cpp**](main__3d_8cpp.md), [**blaze.cpp**](blaze_8cpp.md), [**unit\_tests.cpp**](unit__tests_8cpp.md))
+* **make\_coord\_transform** ([**crs.hpp**](crs_8hpp.md))
+* **make\_projection\_from\_wkt** ([**crs.hpp**](crs_8hpp.md))
+
+
+## n
+
+* **normalize\_polygon** ([**polygon.hpp**](polygon_8hpp.md))
+* **num\_cells\_by\_distance** ([**grid.hpp**](grid_8hpp.md))
+* **normalize\_crs\_wkt** ([**crs.hpp**](crs_8hpp.md))
+
+
+## o
+
+* **octree\_shuffle\_range** ([**point\_octree.hpp**](point__octree_8hpp.md))
+* **operator&lt;&lt;** ([**config\_input.cpp**](config__input_8cpp.md), [**config\_input.hpp**](config__input_8hpp.md), [**las\_file.hpp**](las__file_8hpp.md), [**las\_point.hpp**](las__point_8hpp.md), [**to\_string.hpp**](to__string_8hpp.md), [**timer.hpp**](timer_8hpp.md))
+* **orthogonal\_neighbors** ([**coordinate.hpp**](coordinate_8hpp.md))
+
+
+## p
+
+* **parse\_args** ([**main\_3d.cpp**](main__3d_8cpp.md))
+* **print\_usage** ([**main\_3d.cpp**](main__3d_8cpp.md))
+* **probe\_las\_file** ([**main\_3d.cpp**](main__3d_8cpp.md))
+* **point\_in\_ring** ([**polygon.hpp**](polygon_8hpp.md))
+* **polygon\_from\_extent** ([**polygon.hpp**](polygon_8hpp.md))
+* **polygon\_net\_area\_m2** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **process\_las\_data** ([**process.cpp**](process_8cpp.md), [**process.hpp**](process_8hpp.md))
+* **process\_las\_file** ([**process.cpp**](process_8cpp.md), [**process.hpp**](process_8hpp.md))
+
+
+## r
+
+* **rad2deg** ([**camera.hpp**](camera_8hpp.md))
+* **read\_tif\_dimensions** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **read\_tif\_metadata** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **reproject\_dem\_mesh\_horizontal** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **round\_down** ([**contour.hpp**](contour_8hpp.md))
+* **reverse\_ring** ([**polygon.hpp**](polygon_8hpp.md))
+* **ring\_extent** ([**polygon.hpp**](polygon_8hpp.md))
+* **remove\_outliers** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **reproject\_extent3d\_horizontal** ([**crs.hpp**](crs_8hpp.md))
+* **read\_gpkg** ([**gpkg.hpp**](gpkg_8hpp.md))
+* **reader\_embedded\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
+* **reader\_horizontal\_wkt** ([**las\_file.hpp**](las__file_8hpp.md))
+* **round** ([**las\_file.hpp**](las__file_8hpp.md))
+* **read\_tile\_from\_inputs** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **reproject\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **read\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
+* **run\_loop** ([**progress\_tracker\_helper.cpp**](progress__tracker__helper_8cpp.md), [**progress\_tracker.hpp**](progress__tracker_8hpp.md))
+* **read\_vege\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **read\_byte\_tif\_pixels** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **run\_with\_config** ([**run.cpp**](run_8cpp.md), [**run.hpp**](run_8hpp.md))
+
+
+## s
+
+* **show\_error\_message** ([**error\_dialog.cpp**](error__dialog_8cpp.md), [**error\_dialog.hpp**](error__dialog_8hpp.md))
+* **sample\_grid\_bilinear** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **segment\_intersection** ([**polygon.hpp**](polygon_8hpp.md))
+* **signed\_area** ([**polygon.hpp**](polygon_8hpp.md))
+* **snap\_polygon\_to\_extents** ([**polygon.hpp**](polygon_8hpp.md))
+* **snap\_ring\_to\_extent** ([**polygon.hpp**](polygon_8hpp.md))
+* **subtract\_polygon** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **subtract\_polygon\_with\_union** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **same\_type\_different\_size** ([**grid.cpp**](grid_8cpp.md))
+* **snap\_down** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **snap\_up** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **subtract\_from\_polygon** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **slope** ([**hill\_shade.hpp**](hill__shade_8hpp.md))
+* **smoothify** ([**water.cpp**](water_8cpp.md))
+* **stream\_path** ([**water.cpp**](water_8cpp.md))
+* **stream\_paths** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
+* **streams** ([**water.cpp**](water_8cpp.md))
+
+
+## t
+
+* **TEST** ([**test\_camera.cpp**](test__camera_8cpp.md), [**test\_frustum.cpp**](test__frustum_8cpp.md), [**test\_octree.cpp**](test__octree_8cpp.md), [**test\_config\_lookup.cpp**](test__config__lookup_8cpp.md), [**test\_config\_paths.cpp**](test__config__paths_8cpp.md), [**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_ops.cpp**](test__contour__ops_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_polygon.cpp**](test__polygon_8cpp.md), [**test\_grid.cpp**](test__grid_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_image.cpp**](test__image_8cpp.md), [**test\_img\_grid.cpp**](test__img__grid_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_colors.cpp**](test__colors_8cpp.md), [**test\_las\_file.cpp**](test__las__file_8cpp.md), [**test\_las\_point.cpp**](test__las__point_8cpp.md), [**test\_coordinate.cpp**](test__coordinate_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_vegetation.cpp**](test__vegetation_8cpp.md), [**test\_vegetation\_polygon.cpp**](test__vegetation__polygon_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
+* **texture\_uv\_from\_projection** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **trim\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
+* **transform\_xy\_h** ([**crs.hpp**](crs_8hpp.md))
+* **try\_user\_crs\_to\_wkt** ([**crs.hpp**](crs_8hpp.md))
+* **to\_cmyk** ([**colors.hpp**](colors_8hpp.md))
+* **to\_rgb** ([**colors.hpp**](colors_8hpp.md))
+* **tiles\_per\_file** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+* **to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
+* **threshold\_layer\_name** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **trim\_vege\_polygons\_to\_extent** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **TEST\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+
+
+## u
+
+* **unreachable** ([**assert.hpp**](assert_8hpp.md))
+* **union\_overlapping\_polygons** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **user\_crs\_to\_wkt** ([**crs.hpp**](crs_8hpp.md))
+* **unique\_coord\_name** ([**las\_file.hpp**](las__file_8hpp.md))
+* **union\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
+
+
+## v
+
+* **validated** ([**config\_editor.cpp**](config__editor_8cpp.md))
+* **verify\_raw\_vegetation\_tif** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+* **verify\_vegetation\_tif** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
+
+
+## w
+
+* **write\_to\_crt** ([**crt.hpp**](crt_8hpp.md))
+* **write\_vegetation\_crt** ([**crt.hpp**](crt_8hpp.md))
+* **wkt\_matches** ([**crs.hpp**](crs_8hpp.md))
+* **wkt\_parses** ([**crs.hpp**](crs_8hpp.md))
+* **write\_to\_image\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
+* **write\_to\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
+* **write\_vege\_polygons\_gpkg** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+
+
+## _
+
+* **\_Assert** ([**assert.hpp**](assert_8hpp.md))
+* **\_AssertBinOp** ([**assert.hpp**](assert_8hpp.md))
+* **\_GDALAssert** ([**gdal\_assert.hpp**](gdal__assert_8hpp.md))
+
+
+
+

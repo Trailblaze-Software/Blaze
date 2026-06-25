@@ -1,0 +1,362 @@
+
+
+# Class Geo
+
+**template &lt;typename GridT&gt;**
+
+
+
+[**ClassList**](annotated.md) **>** [**Geo**](classGeo.md)
+
+
+
+
+
+
+
+
+Inherits the following classes: GridT,  [GeoGridData](classGeoGridData.md)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Public Functions
+
+| Type | Name |
+| ---: | :--- |
+|   | [**Geo**](#function-geo-13) (size\_t width, size\_t height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
+|   | [**Geo**](#function-geo-23) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
+|   | [**Geo**](#function-geo-33) (const std::vector&lt; std::vector&lt; U &gt; &gt; & data, [**GeoTransform**](classGeoTransform.md) transform=[**GeoTransform**](classGeoTransform.md)(), [**GeoProjection**](classGeoProjection.md) projection=[**GeoProjection**](classGeoProjection.md)()) <br> |
+|  std::unique\_ptr&lt; [**Extent2D**](structExtent2D.md) &gt; | [**extent**](#function-extent) () const<br> |
+|  void | [**fill\_from**](#function-fill_from-12) (const [**Geo**](classGeo.md)&lt; U &gt; & other) <br> |
+|  void | [**fill\_from**](#function-fill_from-22) (const U & other) <br> |
+|  double | [**height\_m**](#function-height_m) () const<br> |
+|  [**Geo**](classGeo.md) | [**pad**](#function-pad) (U pad\_value={}) const<br> |
+|  [**Geo**](classGeo.md) | [**slice**](#function-slice) (const [**Extent2D**](structExtent2D.md) & extent) <br> |
+|  double | [**width\_m**](#function-width_m) () const<br> |
+
+
+## Public Functions inherited from GeoGridData
+
+See [GeoGridData](classGeoGridData.md)
+
+| Type | Name |
+| ---: | :--- |
+|   | [**GeoGridData**](classGeoGridData.md#function-geogriddata) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
+|  double | [**dx**](classGeoGridData.md#function-dx) () const<br> |
+|  double | [**dy**](classGeoGridData.md#function-dy) () const<br> |
+|  const [**GeoProjection**](classGeoProjection.md) & | [**projection**](classGeoGridData.md#function-projection) () const<br> |
+|  const [**GeoTransform**](classGeoTransform.md) & | [**transform**](classGeoGridData.md#function-transform) () const<br> |
+
+
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
+|  [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**RGBColor**](classRGBColor.md) &gt; &gt; | [**FromGeoImg**](#function-fromgeoimg) (const [**GeoImgGrid**](classGeoImgGrid.md) & grid) <br> |
+|  [**Geo**](classGeo.md) | [**FromPoints**](#function-frompoints) (const [**Geo**](classGeo.md) & grid) <br> |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Protected Attributes inherited from GeoGridData
+
+See [GeoGridData](classGeoGridData.md)
+
+| Type | Name |
+| ---: | :--- |
+|  [**GeoProjection**](classGeoProjection.md) | [**m\_projection**](classGeoGridData.md#variable-m_projection)  <br> |
+|  [**GeoTransform**](classGeoTransform.md) | [**m\_transform**](classGeoGridData.md#variable-m_transform)  <br> |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Public Functions Documentation
+
+
+
+
+### function Geo [1/3]
+
+```C++
+inline Geo::Geo (
+    size_t width,
+    size_t height,
+    GeoTransform && transform,
+    GeoProjection && projection
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function Geo [2/3]
+
+```C++
+template<typename... Args>
+inline Geo::Geo (
+    GeoTransform && transform,
+    GeoProjection && projection,
+    Args... args
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function Geo [3/3]
+
+```C++
+template<typename U>
+inline Geo::Geo (
+    const std::vector< std::vector< U > > & data,
+    GeoTransform transform=GeoTransform (),
+    GeoProjection projection=GeoProjection ()
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function extent 
+
+```C++
+std::unique_ptr< Extent2D > Geo::extent () const
+```
+
+
+
+
+<hr>
+
+
+
+### function fill\_from [1/2]
+
+```C++
+template<typename U>
+inline void Geo::fill_from (
+    const Geo < U > & other
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function fill\_from [2/2]
+
+```C++
+template<typename U>
+inline void Geo::fill_from (
+    const U & other
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function height\_m 
+
+```C++
+inline double Geo::height_m () const
+```
+
+
+
+
+<hr>
+
+
+
+### function pad 
+
+```C++
+template<typename U>
+inline Geo Geo::pad (
+    U pad_value={}
+) const
+```
+
+
+
+
+<hr>
+
+
+
+### function slice 
+
+```C++
+Geo Geo::slice (
+    const Extent2D & extent
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function width\_m 
+
+```C++
+inline double Geo::width_m () const
+```
+
+
+
+
+<hr>
+## Public Static Functions Documentation
+
+
+
+
+### function FromGeoImg 
+
+```C++
+static Geo < Grid < RGBColor > > Geo::FromGeoImg (
+    const GeoImgGrid & grid
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function FromPoints 
+
+```C++
+template<typename U>
+static inline Geo Geo::FromPoints (
+    const Geo & grid
+) 
+```
+
+
+
+
+<hr>
+
+------------------------------
+The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp`
+

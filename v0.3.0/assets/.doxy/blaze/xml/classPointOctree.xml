@@ -1,0 +1,328 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPointOctree" kind="class" language="C++" prot="public">
+    <compoundname>PointOctree</compoundname>
+    <innerclass refid="structPointOctree_1_1VisibleNode" prot="public">PointOctree::VisibleNode</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPointOctree_1ac1a7106be7edd0e2df7c0d23bf1b8cee" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;PointOctreeNode&gt; PointOctree::m_root</definition>
+        <argsstring></argsstring>
+        <name>m_root</name>
+        <qualifiedname>PointOctree::m_root</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="106" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointOctree_1af92be9ccc547cf7038e048101214f628" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt;</type>
+        <definition>std::vector&lt;OctreePoint&gt; PointOctree::m_points</definition>
+        <argsstring></argsstring>
+        <name>m_points</name>
+        <qualifiedname>PointOctree::m_points</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="107" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointOctree_1a76cb93546129384a885e57d5e4102a56" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t PointOctree::m_total_points</definition>
+        <argsstring></argsstring>
+        <name>m_total_points</name>
+        <qualifiedname>PointOctree::m_total_points</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="108" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classPointOctree_1ab0198e426e088e2006d0ac806916b15c" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>static Extent3D PointOctree::cubic_root_bounds</definition>
+        <argsstring>(const Extent3D &amp;data_bounds)</argsstring>
+        <name>cubic_root_bounds</name>
+        <qualifiedname>PointOctree::cubic_root_bounds</qualifiedname>
+        <param>
+          <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>data_bounds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="110" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="110" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1a92ea645b0b866a6aca246477f690175e" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>static double PointOctree::lod_distance_to_node</definition>
+        <argsstring>(const Extent3D &amp;bounds, const Coordinate3D&lt; double &gt; &amp;camera_local)</argsstring>
+        <name>lod_distance_to_node</name>
+        <qualifiedname>PointOctree::lod_distance_to_node</qualifiedname>
+        <param>
+          <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>bounds</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>camera_local</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="184" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="184" bodyend="195"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPointOctree_1af89075aefeb910f60cca456ae54ef357" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PointOctree::PointOctree</definition>
+        <argsstring>()</argsstring>
+        <name>PointOctree</name>
+        <qualifiedname>PointOctree::PointOctree</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="125" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="125" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1a7c09e4b600cd19fc324c9d33148a28a8" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PointOctree::PointOctree</definition>
+        <argsstring>(const Extent3D &amp;bounds)</argsstring>
+        <name>PointOctree</name>
+        <qualifiedname>PointOctree::PointOctree</qualifiedname>
+        <param>
+          <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>bounds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="130" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="130" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1a30d29653853dc43efe4f1dd26c701bb4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t PointOctree::total_points</definition>
+        <argsstring>() const</argsstring>
+        <name>total_points</name>
+        <qualifiedname>PointOctree::total_points</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="135" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1a34b081f441658c67da80a0c7baac27e5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref> *</type>
+        <definition>const PointOctreeNode * PointOctree::root</definition>
+        <argsstring>() const</argsstring>
+        <name>root</name>
+        <qualifiedname>PointOctree::root</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="136" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="136" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1ac72076d1b68429988247094d68e9b73e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+        <definition>const std::vector&lt; OctreePoint &gt; &amp; PointOctree::points</definition>
+        <argsstring>() const</argsstring>
+        <name>points</name>
+        <qualifiedname>PointOctree::points</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="137" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1af0ebddc69f033dec6609d2db2845a7f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointOctree::insert_batch</definition>
+        <argsstring>(std::vector&lt; OctreePoint &gt; &amp;&amp;points, const std::function&lt; void(size_t, size_t)&gt; &amp;progress={}, const std::atomic&lt; bool &gt; *cancel=nullptr)</argsstring>
+        <name>insert_batch</name>
+        <qualifiedname>PointOctree::insert_batch</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;&amp;</type>
+          <declname>points</declname>
+        </param>
+        <param>
+          <type>const std::function&lt; void(size_t, size_t)&gt; &amp;</type>
+          <declname>progress</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const std::atomic&lt; bool &gt; *</type>
+          <declname>cancel</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="142" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.cpp" bodystart="95" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1af07b4761a2ac0538440ffb17d4524345" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointOctree::shuffle_leaves</definition>
+        <argsstring>()</argsstring>
+        <name>shuffle_leaves</name>
+        <qualifiedname>PointOctree::shuffle_leaves</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="146" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="146" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classPointOctree_1a394cc767181ccb2a09c73480f1e13903" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointOctree::collect_visible</definition>
+        <argsstring>(const Frustum &amp;frustum, double quality, const Coordinate3D&lt; double &gt; &amp;camera_local, std::vector&lt; VisibleNode &gt; &amp;out) const</argsstring>
+        <name>collect_visible</name>
+        <qualifiedname>PointOctree::collect_visible</qualifiedname>
+        <param>
+          <type>const <ref refid="structFrustum" kindref="compound">Frustum</ref> &amp;</type>
+          <declname>frustum</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>quality</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>camera_local</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">VisibleNode</ref> &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="173" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="173" bodyend="181"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classPointOctree_1a9b90a71b7f0b8847ef15364c638b3183" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t PointOctree::node_draw_chunk_size</definition>
+        <argsstring>(size_t point_count, double lod_distance, double quality)</argsstring>
+        <name>node_draw_chunk_size</name>
+        <qualifiedname>PointOctree::node_draw_chunk_size</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>point_count</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>lod_distance</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>quality</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="158" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="158" bodyend="168"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPointOctree_1afe2650cb231d55ac6c89b5d66bc021aa" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointOctree::collect_visible_recursive</definition>
+        <argsstring>(const PointOctreeNode &amp;node, const Frustum &amp;frustum, double quality, const Coordinate3D&lt; double &gt; &amp;camera_local, std::vector&lt; VisibleNode &gt; &amp;out) const</argsstring>
+        <name>collect_visible_recursive</name>
+        <qualifiedname>PointOctree::collect_visible_recursive</qualifiedname>
+        <param>
+          <type>const <ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref> &amp;</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structFrustum" kindref="compound">Frustum</ref> &amp;</type>
+          <declname>frustum</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>quality</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>camera_local</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">VisibleNode</ref> &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="197" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="197" bodyend="216"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="105" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="105" bodyend="217"/>
+    <listofallmembers>
+      <member refid="classPointOctree_1a394cc767181ccb2a09c73480f1e13903" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>collect_visible</name></member>
+      <member refid="classPointOctree_1afe2650cb231d55ac6c89b5d66bc021aa" prot="private" virt="non-virtual"><scope>PointOctree</scope><name>collect_visible_recursive</name></member>
+      <member refid="classPointOctree_1ab0198e426e088e2006d0ac806916b15c" prot="private" virt="non-virtual"><scope>PointOctree</scope><name>cubic_root_bounds</name></member>
+      <member refid="classPointOctree_1af0ebddc69f033dec6609d2db2845a7f6" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>insert_batch</name></member>
+      <member refid="classPointOctree_1a92ea645b0b866a6aca246477f690175e" prot="private" virt="non-virtual"><scope>PointOctree</scope><name>lod_distance_to_node</name></member>
+      <member refid="classPointOctree_1af92be9ccc547cf7038e048101214f628" prot="private" virt="non-virtual"><scope>PointOctree</scope><name>m_points</name></member>
+      <member refid="classPointOctree_1ac1a7106be7edd0e2df7c0d23bf1b8cee" prot="private" virt="non-virtual"><scope>PointOctree</scope><name>m_root</name></member>
+      <member refid="classPointOctree_1a76cb93546129384a885e57d5e4102a56" prot="private" virt="non-virtual"><scope>PointOctree</scope><name>m_total_points</name></member>
+      <member refid="classPointOctree_1a9b90a71b7f0b8847ef15364c638b3183" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>node_draw_chunk_size</name></member>
+      <member refid="classPointOctree_1af89075aefeb910f60cca456ae54ef357" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>PointOctree</name></member>
+      <member refid="classPointOctree_1a7c09e4b600cd19fc324c9d33148a28a8" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>PointOctree</name></member>
+      <member refid="classPointOctree_1ac72076d1b68429988247094d68e9b73e" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>points</name></member>
+      <member refid="classPointOctree_1a34b081f441658c67da80a0c7baac27e5" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>root</name></member>
+      <member refid="classPointOctree_1af07b4761a2ac0538440ffb17d4524345" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>shuffle_leaves</name></member>
+      <member refid="classPointOctree_1a30d29653853dc43efe4f1dd26c701bb4" prot="public" virt="non-virtual"><scope>PointOctree</scope><name>total_points</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
