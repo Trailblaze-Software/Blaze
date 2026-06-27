@@ -296,6 +296,8 @@ static int probe_las_file(const fs::path& filename) {
 #endif
 
 int main(int argc, char* argv[]) {
+  blaze::enable_discrete_gpu_offload();
+
 #ifdef _WIN32
   bool owned_console = false;
   if (!AttachConsole(ATTACH_PARENT_PROCESS)) {

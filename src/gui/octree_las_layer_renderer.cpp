@@ -224,9 +224,11 @@ void OctreeLASLayerRenderer::record_lod_sample(size_t vertices, double ms) {
     return;
   }
   constexpr double ALPHA = 0.2;
+  constexpr double MIN_MS_PER_VERTEX = 30.0 / 2'000'000.0;
   const double instant = ms / static_cast<double>(vertices);
   m_ms_per_vertex =
       m_ms_per_vertex > 0.0 ? (1.0 - ALPHA) * m_ms_per_vertex + ALPHA * instant : instant;
+  m_ms_per_vertex = std::max(m_ms_per_vertex, MIN_MS_PER_VERTEX);
 }
 
 void OctreeLASLayerRenderer::ensure_gpu_timer(QOpenGLExtraFunctions* gl) {
@@ -251,7 +253,12 @@ void OctreeLASLayerRenderer::consume_gpu_timer_sample(QOpenGLExtraFunctions* gl)
   CHECK_GL(gl->glGetQueryObjectuiv(m_gpu_timer_query, GL_QUERY_RESULT, &elapsed_ns));
   const double gpu_ms = static_cast<double>(elapsed_ns) / 1'000'000.0;
   m_last_point_gpu_ms = gpu_ms;
-  record_lod_sample(m_lod_query_vertices, gpu_ms);
+  double effective_ms = gpu_ms;
+  if (m_lod_query_cpu_ms > 0.0) {
+    // GL_TIME_ELAPSED under-reports with PRIME offload and async drivers.
+    effective_ms = std::max(effective_ms, m_lod_query_cpu_ms);
+  }
+  record_lod_sample(m_lod_query_vertices, effective_ms);
 }
 
 size_t OctreeLASLayerRenderer::draw_octree_nodes(
@@ -306,7 +313,7 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
 
     const size_t chunk_size =
         PointOctree::node_draw_chunk_size(point_count, visible.lod_distance, quality);
-    if (state.locked_chunk_size == 0) state.locked_chunk_size = chunk_size;
+    state.locked_chunk_size = chunk_size;
 
     size_t to_draw = 0;
     if (incremental) {
@@ -555,6 +562,9 @@ void OctreeLASLayerRenderer::render(const Camera& camera, const RenderContext& c
           .count();
   m_last_point_draw_ms = draw_ms;
   m_last_point_vertices_drawn = vertices_drawn;
+  if (gpu_timer) {
+    m_lod_query_cpu_ms = draw_ms;
+  }
 
   if (vertices_drawn == 0) {
     if (!load_complete) {

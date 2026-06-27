@@ -14,8 +14,24 @@ Download the latest release for your platform from:
 | Windows (arm64) | `Blaze-x.x.x-win64-arm64.exe` |
 | macOS (Apple Silicon) | `Blaze-x.x.x-macOS-arm64.dmg` |
 | macOS (Intel) | `Blaze-x.x.x-macOS-x86_64.dmg` |
-| Linux (x64) | `Blaze-x.x.x-Linux.deb` |
-| Linux (arm64) | `Blaze-x.x.x-Linux-aarch64.deb` |
+| Linux (x64, Ubuntu 22.04) | `Blaze-x.x.x-ubuntu22.04-x86_64.deb` |
+| Linux (arm64, Ubuntu 22.04) | `Blaze-x.x.x-ubuntu22.04-aarch64.deb` |
+| Linux (x64, Ubuntu 24.04) | `Blaze-x.x.x-ubuntu24.04-x86_64.deb` |
+| Linux (arm64, Ubuntu 24.04) | `Blaze-x.x.x-ubuntu24.04-aarch64.deb` |
+| Linux (x64, Ubuntu 26.04) | `Blaze-x.x.x-ubuntu26.04-x86_64.deb` |
+| Linux (arm64, Ubuntu 26.04) | `Blaze-x.x.x-ubuntu26.04-aarch64.deb` |
+
+<<<<<<< Updated upstream
+Install with:
+
+```bash
+sudo apt install ./Blaze-x.x.x-ubuntu24.04-x86_64.deb
+```
+
+Pick the file that matches your Ubuntu version and CPU architecture. The package manager will install Blaze and pull in system dependencies (GDAL, Qt, etc.).
+=======
+Pick the file that matches your operating system and CPU architecture. The package manager will install Blaze and pull in system dependencies (GDAL, Qt, etc.).
+>>>>>>> Stashed changes
 
 ## Building from Source
 

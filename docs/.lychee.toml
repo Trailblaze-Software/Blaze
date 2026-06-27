@@ -1,0 +1,7 @@
+# Link-check exclusions for docs markdown.
+exclude = [
+  "^https://fsf\\.org/",
+  "^https://www\\.gnu\\.org/",
+  "^https://isocpp\\.org/", # blocks link checkers (403); badge href only
+  ".*/blaze/.*",            # Doxygen output generated at mkdocs build time
+]

@@ -256,10 +256,30 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - arch: x64
+          - ubuntu: "22.04"
+            arch: x64
             runner: ubuntu-22.04
-          - arch: arm64
+            distro: ubuntu22.04
+          - ubuntu: "22.04"
+            arch: arm64
+            runner: ubuntu-22.04-arm
+            distro: ubuntu22.04
+          - ubuntu: "24.04"
+            arch: x64
+            runner: ubuntu-24.04
+            distro: ubuntu24.04
+          - ubuntu: "24.04"
+            arch: arm64
             runner: ubuntu-24.04-arm
+            distro: ubuntu24.04
+          - ubuntu: "26.04"
+            arch: x64
+            runner: ubuntu-26.04
+            distro: ubuntu26.04
+          - ubuntu: "26.04"
+            arch: arm64
+            runner: ubuntu-26.04-arm
+            distro: ubuntu26.04
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
@@ -274,7 +294,7 @@ jobs:
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
           packages: libgdal-dev cmake libomp-dev rpm qt6-base-dev libglx-dev libgl1-mesa-dev
-            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build
+            qt6-image-formats-plugins libqt6svg6-dev ccache mold ninja-build file
           version: 1.1
           execute_install_scripts: true
       # Install LAPACK/BLAS directly (not via cache) because liblapack.so.3 and
@@ -295,9 +315,9 @@ jobs:
             || echo "Warning: LAPACK/BLAS libraries not found"
       - name: Configure
         run: |
-          CMAKE_ARGS=""
+          CMAKE_ARGS="-DBLAZE_LINUX_DISTRO=${{ matrix.distro }}"
           if [ -n "${{ steps.version.outputs.version }}" ]; then
-            CMAKE_ARGS="-DBLAZE_VERSION=${{ steps.version.outputs.version }}"
+            CMAKE_ARGS="$CMAKE_ARGS -DBLAZE_VERSION=${{ steps.version.outputs.version }}"
           fi
           cmake -B build $CMAKE_ARGS
       - name: Build
@@ -307,9 +327,7 @@ jobs:
           cd build
           cpack -C Release -G DEB
       - name: Install DEB package
-        run: |
-          sudo dpkg -i build/Blaze-*.deb || true
-          sudo apt-get install -f -y
+        run: sudo apt-get install -y ./build/Blaze-*.deb
       - name: Test installed package
         run: |
           cp -r /usr/share/assets /tmp/blaze-test
@@ -319,7 +337,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: blaze-linux-${{ matrix.arch }}-deb
+          name: blaze-linux-${{ matrix.distro }}-${{ matrix.arch }}-deb
           path: build/Blaze-*.deb
           retention-days: 2
       - name: Upload to Release
