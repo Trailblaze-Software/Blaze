@@ -311,6 +311,33 @@ class LASFile {
 
     m_header_point_count = reader.num_points();
   }
+#else
+  void from_pdal_header(const pdal::LasHeader& las_header, const std::string& override_crs) {
+    const auto& header_bounds = las_header.getBounds();
+    m_bounds = Extent3D(
+        Extent2D(header_bounds.minx, header_bounds.maxx, header_bounds.miny, header_bounds.maxy),
+        header_bounds.minz, header_bounds.maxz);
+    m_original_bounds = m_bounds;
+    m_header_point_count = las_header.pointCount();
+    const std::string pdal_raw_wkt = las_header.srs().getWKT();
+    const std::string pdal_wkt = normalize_crs_wkt(pdal_raw_wkt);
+    const std::string pdal_override_wkt = user_crs_to_wkt(override_crs);
+    if (!pdal_override_wkt.empty()) {
+      m_projection = make_projection_from_wkt(pdal_override_wkt);
+      if (!pdal_wkt.empty() && !wkt_matches(pdal_wkt, pdal_override_wkt)) {
+        std::cerr << "WARNING: LAS file "
+                  << (m_filename.has_value() ? m_filename->string() : std::string("<unknown>"))
+                  << " has an embedded CRS that differs from the config 'override_crs'."
+                  << " Using the override." << std::endl;
+      }
+    } else if (!pdal_wkt.empty()) {
+      m_projection = make_projection_from_wkt(pdal_raw_wkt);
+    } else {
+      Fail("No projection found in LAS file " +
+           (m_filename.has_value() ? m_filename->string() : std::string("<unknown>")) +
+           ". Either embed a CRS in the file or set the 'override_crs' field in the config.");
+    }
+  }
 #endif
 
  public:
@@ -319,7 +346,14 @@ class LASFile {
       : m_filename(filename) {
     START_TRACKER(to_string("Reading ", filename, " metadata ..."));
 #ifdef USE_PDAL
-    (void)override_crs;
+    pdal::Option las_opt("filename", filename.string());
+    pdal::Options las_opts;
+    las_opts.add(las_opt);
+    pdal::PointTable table;
+    pdal::LasReader las_reader;
+    las_reader.setOptions(las_opts);
+    las_reader.prepare(table);
+    from_pdal_header(las_reader.header(), override_crs);
 #else
     laspp::LASReader reader(filename);
     from_las_reader(reader, override_crs);
@@ -517,31 +551,8 @@ class LASData : public LASFile {
     las_reader.prepare(table);
     pdal::PointViewSet point_view_set = las_reader.execute(table);
     pdal::PointViewPtr point_view = *point_view_set.begin();
-    pdal::Dimension::IdList dims = point_view->dims();
-    pdal::LasHeader las_header = las_reader.header();
-    const auto& header_bounds = las_header.getBounds();
-    m_bounds = Extent3D(
-        Extent2D(header_bounds.minx, header_bounds.maxx, header_bounds.miny, header_bounds.maxy),
-        header_bounds.minz, header_bounds.maxz);
-    m_original_bounds = m_bounds;
-    const std::string pdal_raw_wkt = las_header.srs().getWKT();
-    const std::string pdal_wkt = normalize_crs_wkt(pdal_raw_wkt);
-    const std::string pdal_override_wkt = user_crs_to_wkt(override_crs);
-    if (!pdal_override_wkt.empty()) {
-      // See matching comment in from_las_reader(): feed the canonicalized
-      // WKT, not the raw user string, so shorthands like "EPSG:28355" work.
-      m_projection = make_projection_from_wkt(pdal_override_wkt);
-      if (!pdal_wkt.empty() && !wkt_matches(pdal_wkt, pdal_override_wkt)) {
-        std::cerr << "WARNING: LAS file " << filename.string()
-                  << " has an embedded CRS that differs from the config 'override_crs'."
-                  << " Using the override." << std::endl;
-      }
-    } else if (!pdal_wkt.empty()) {
-      m_projection = make_projection_from_wkt(pdal_raw_wkt);
-    } else {
-      Fail("No projection found in LAS file " + filename.string() +
-           ". Either embed a CRS in the file or set the 'override_crs' field in the config.");
-    }
+    from_pdal_header(las_reader.header(), override_crs);
+    m_header_point_count = point_view->size();
 
     progress_tracker.text_update(to_string("Read ", point_view->size(), " points"));
     // std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT())

@@ -116,7 +116,6 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   const unsigned int downsample_factor = config.grid.downsample_factor;
   const BinnedPoints binned_points =
       BinnedPoints(las_file, bin_resolution, downsample_factor, SUBTRACKER(0.0, 0.5));
-  las_file.release_points();
 
   // progress_tracker is now at 0.5 — mapped from BinnedPoints' internal set_proportion(1.0)
 

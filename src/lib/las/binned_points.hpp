@@ -46,20 +46,19 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
 
     START_TRACKER("binning LAS points");
 
-    const auto report_point_progress = [](ProgressTracker& tracker, long long i, long long total) {
-      if (total <= 0) {
-        return;
+    std::atomic<long long> points_done{0};
+    const long long progress_step = std::max(1LL, n / 1000);
+    const auto report_points_done = [&](ProgressTracker& tracker) {
+      const long long done = points_done.fetch_add(1, std::memory_order_relaxed) + 1;
+      if (done % progress_step == 0 || done == n) {
+        tracker.report_parallel_progress(static_cast<double>(done) / static_cast<double>(n));
       }
-      const long long step = std::max(1LL, total / 200);
-      if (i % step != 0 && i != total - 1) {
-        return;
-      }
-      tracker.report_parallel_progress(static_cast<double>(i + 1) / static_cast<double>(total));
     };
 
     {
       ProgressTracker count_tracker = progress_tracker.subtracker(0.0, 0.20, "count rows");
       START_TRACKER(count_tracker, "counting points per row");
+      points_done.store(0, std::memory_order_relaxed);
 
 #pragma omp parallel
       {
@@ -72,27 +71,31 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
         const int thread_idx = omp_get_thread_num();
         std::vector<size_t>& hist = thread_hists[static_cast<size_t>(thread_idx)];
 
-        // Pass 1a: count points per row.
-#pragma omp for nowait
+        // Pass 1a: count points per row. Static schedule: each thread owns a slice of
+        // indices and its histogram bucket (must match pass 1b).
+#pragma omp for schedule(static) nowait
         for (long long i = 0; i < n; i++) {
-          report_point_progress(count_tracker, i, n);
           const LASPoint& point = las_file[static_cast<size_t>(i)];
           if (!extent.contains(point.x(), point.y())) {
             num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
+            report_points_done(count_tracker);
             continue;
           }
           auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
           if (pixel.x() < 0 || pixel.x() >= static_cast<double>(cols) || pixel.y() < 0 ||
               pixel.y() >= static_cast<double>(rows)) {
             num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
+            report_points_done(count_tracker);
             continue;
           }
           auto cell = pixel.round_down();
           if (!this->in_bounds(cell)) {
             num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
+            report_points_done(count_tracker);
             continue;
           }
           hist[cell.y()]++;
+          report_points_done(count_tracker);
         }
       }
     }
@@ -119,25 +122,34 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
     {
       ProgressTracker sort_tracker = progress_tracker.subtracker(0.20, 0.50, "sort rows");
       START_TRACKER(sort_tracker, "sorting points by row");
+      points_done.store(0, std::memory_order_relaxed);
 
 #pragma omp parallel
       {
         const int thread_idx = omp_get_thread_num();
         auto write_heads = thread_write_starts[static_cast<size_t>(thread_idx)];
 
-        // Pass 1b: place points into row-sorted array.
-#pragma omp for nowait
+        // Pass 1b: place points into row-sorted array (static schedule; see pass 1a).
+#pragma omp for schedule(static) nowait
         for (long long i = 0; i < n; i++) {
-          report_point_progress(sort_tracker, i, n);
           const LASPoint& point = las_file[static_cast<size_t>(i)];
-          if (!extent.contains(point.x(), point.y())) continue;
+          if (!extent.contains(point.x(), point.y())) {
+            report_points_done(sort_tracker);
+            continue;
+          }
           auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
           if (pixel.x() < 0 || pixel.x() >= static_cast<double>(cols) || pixel.y() < 0 ||
-              pixel.y() >= static_cast<double>(rows))
+              pixel.y() >= static_cast<double>(rows)) {
+            report_points_done(sort_tracker);
             continue;
+          }
           auto cell = pixel.round_down();
-          if (!this->in_bounds(cell)) continue;
+          if (!this->in_bounds(cell)) {
+            report_points_done(sort_tracker);
+            continue;
+          }
           row_sorted[write_heads[cell.y()]++] = point;
+          report_points_done(sort_tracker);
         }
       }
     }
@@ -153,17 +165,23 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
       m_storage.resize(total_points);
 
       const long long row_count = static_cast<long long>(rows);
+      std::atomic<long long> rows_done{0};
+      const long long row_progress_step = std::max(1LL, row_count / 500);
+
 #pragma omp parallel
       {
         std::vector<size_t> row_cell_counts(cols);
         std::vector<size_t> col_offsets(cols);
 
-#pragma omp for nowait
+#pragma omp for schedule(dynamic, 1) nowait
         for (long long r = 0; r < row_count; r++) {
           size_t row = static_cast<size_t>(r);
           if (row_offsets[row + 1] == row_offsets[row]) {
-            place_tracker.report_parallel_progress(static_cast<double>(row + 1) /
-                                                   static_cast<double>(rows));
+            const long long done = rows_done.fetch_add(1, std::memory_order_relaxed) + 1;
+            if (done % row_progress_step == 0 || done == row_count) {
+              place_tracker.report_parallel_progress(static_cast<double>(done) /
+                                                     static_cast<double>(rows));
+            }
             continue;
           }
 
@@ -193,8 +211,11 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
                 std::span<LASPoint>(base + col_offsets[col], row_cell_counts[col]);
           }
 
-          place_tracker.report_parallel_progress(static_cast<double>(row + 1) /
-                                                 static_cast<double>(rows));
+          const long long done = rows_done.fetch_add(1, std::memory_order_relaxed) + 1;
+          if (done % row_progress_step == 0 || done == row_count) {
+            place_tracker.report_parallel_progress(static_cast<double>(done) /
+                                                   static_cast<double>(rows));
+          }
         }
       }
     }
