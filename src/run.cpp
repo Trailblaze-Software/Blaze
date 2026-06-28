@@ -27,9 +27,8 @@
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
                      ProgressTracker&& progress_tracker_param) {
   blaze::trace::RecordTrace timing_trace(config.output_path() / "timing_trace.json");
-  // Move into a local so the root scope is closed before RecordTrace writes the trace file
-  // (function parameters are destroyed after block-scope locals).
-  ProgressTracker progress_tracker(std::move(progress_tracker_param));
+  ProgressTracker root_tracker(std::move(progress_tracker_param));
+  ProgressTracker progress_tracker = root_tracker.subtracker(0.0, 1.0);
   START_TRACKER(to_string("Using ", omp_get_max_threads(), " threads for processing."));
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path& las_file : config.las_filepaths()) {
@@ -115,10 +114,10 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           const Tile& tile = tiles[i];
           const std::string tile_name =
               to_string("tile ", i + 1, "/", tiles.size(), ": ", tile.output_name());
-          step_tracker.text_update(tile_name);
           ProgressTracker tile_tracker =
               SUBTRACKER_VISIBLE(static_cast<double>(i) / tiles.size(),
                                  static_cast<double>(i + 1) / tiles.size(), step_tracker);
+          START_TRACKER(tile_tracker, tile_name);
 
           LASData tile_data =
               read_tile_from_inputs(tile.extent, config.border_width, tile_input_extents,

@@ -33,8 +33,6 @@ uint64_t register_progress_scope(const std::source_location& location, double ra
 void progress_scope_set_display(uint64_t scope_id, const std::string& name,
                                 const std::source_location& callee_location);
 
-uint64_t thread_id();
-
 void write_chrome_trace(const fs::path& path);
 void write_chrome_trace_if_configured();
 void memory_counters(uint64_t total_bytes, uint64_t las_bytes, uint64_t grid_bytes);
@@ -43,7 +41,5 @@ void memory_counters(uint64_t total_bytes, uint64_t las_bytes, uint64_t grid_byt
 std::string format_active_scopes();
 
 void progress_end(uint64_t scope_id, double proportion);
-void progress_update(uint64_t scope_id, double proportion);
-void progress_status(uint64_t scope_id, const std::string& text);
 
 }  // namespace blaze::trace

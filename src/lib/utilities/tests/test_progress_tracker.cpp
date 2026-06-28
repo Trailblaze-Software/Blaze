@@ -128,7 +128,7 @@ TEST(ProgressTracker, StartTrackerBeginsDeferredSubtracker) {
   EXPECT_DOUBLE_EQ(root.proportion(), 0.5);
 }
 
-TEST(ProgressTracker, StartTrackerNamesDeferredRoot) {
+TEST(ProgressTracker, StartTrackerNamesRoot) {
   const fs::path path = fs::temp_directory_path() / "blaze_scope_stack_test.json";
   blaze::trace::RecordTrace trace(path);
   ProgressTracker root;
@@ -159,7 +159,28 @@ TEST(ProgressTracker, RootScopeCompletesBeforeTraceWrite) {
   }
   EXPECT_EQ(begin_count, end_count);
   EXPECT_GE(begin_count, 1u);
-  EXPECT_NE(json.find("Using 8 threads for processing"), std::string::npos);
+  EXPECT_NE(json.find("\"name\":\"Using 8 threads for processing\""), std::string::npos);
+
+  std::error_code ec;
+  fs::remove(path, ec);
+}
+
+TEST(ProgressTracker, StartTrackerPatchesCallSiteInTrace) {
+  const fs::path path = fs::temp_directory_path() / "blaze_callsite_trace_test.json";
+  {
+    blaze::trace::RecordTrace trace(path);
+    ProgressTracker root;
+    ProgressTracker child = SUBTRACKER(0.0, 1.0, root);
+    START_TRACKER(child, "reading test.gpkg");
+    child.set_proportion(1.0);
+  }
+
+  std::ifstream in(path);
+  ASSERT_TRUE(in.is_open());
+  const std::string json((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+  EXPECT_NE(json.find("\"name\":\"Reading test.gpkg\""), std::string::npos);
+  EXPECT_NE(json.find("\"call_function\""), std::string::npos);
+  EXPECT_NE(json.find("StartTrackerPatchesCallSiteInTrace"), std::string::npos);
 
   std::error_code ec;
   fs::remove(path, ec);

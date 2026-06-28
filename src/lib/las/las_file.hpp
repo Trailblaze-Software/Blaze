@@ -129,6 +129,16 @@ inline void print_metadata(const pdal::MetadataNode& node, const std::string& pr
 #undef max
 
 #ifndef USE_PDAL
+inline size_t interval_point_count(const std::vector<laspp::PointInterval>& intervals) {
+  size_t count = 0;
+  for (const laspp::PointInterval& interval : intervals) {
+    count += static_cast<size_t>(interval.end) - interval.start + 1;
+  }
+  return count;
+}
+#endif
+
+#ifndef USE_PDAL
 inline void copy_from(LASPoint& point, const laspp::LASPointFormat0& data) {
   point.x() = data.x;
   point.y() = data.y;
@@ -234,6 +244,7 @@ class LASFile {
   Extent3D m_bounds;
   Extent3D m_original_bounds;
   GeoProjection m_projection;
+  std::size_t m_header_point_count = 0;
 
  public:
   explicit LASFile(const Extent2D& bounds, GeoProjection&& projection)
@@ -297,6 +308,8 @@ class LASFile {
     if (reader.has_lastools_spatial_index()) {
       m_spatial_index = reader.lastools_spatial_index();
     }
+
+    m_header_point_count = reader.num_points();
   }
 #endif
 
@@ -317,6 +330,7 @@ class LASFile {
   double width() const { return m_bounds.maxx - m_bounds.minx; }
   double height() const { return m_bounds.maxy - m_bounds.miny; }
   const GeoProjection& projection() const { return m_projection; }
+  std::size_t header_point_count() const { return m_header_point_count; }
 
   Extent2D export_bounds() const {
     // Midpoint between current bounds (data+border) and original (tile core),
@@ -404,40 +418,37 @@ class LASData : public LASFile {
           to_string("Reading ", chunk_indices.size(), "/", reader.num_chunks(), " chunks"));
 
       if (!chunk_indices.empty()) {
-        // Calculate total points needed
-        size_t total_points = 0;
-        if (reader.header().is_laz_compressed()) {
-          const auto& points_per_chunk = reader.points_per_chunk();
-          for (size_t chunk_idx : chunk_indices) {
-            total_points += points_per_chunk[chunk_idx];
-          }
-        } else {
-          total_points = reader.num_points();
-        }
+        const size_t interval_points = interval_point_count(intervals);
+        m_points.clear();
+        m_points.reserve(interval_points);
 
-        // Read only the chunks that contain points from overlapping cells
-        m_points.resize(total_points);
-        reader.set_progress_callback(
-            [&progress_tracker](double fraction) { progress_tracker.set_proportion(fraction); });
-        reader.read_chunks_list(std::span<LASPoint>(m_points), chunk_indices);
-
-        // Filter points that are actually within the bounds
+        blaze::memory_tracker::LasVector<LASPoint> chunk_points;
         const auto& transform = reader.header().transform();
-        blaze::memory_tracker::LasVector<LASPoint> filtered_points;
-        filtered_points.reserve(m_points.size());
+        const size_t total_chunks = chunk_indices.size();
+        size_t chunks_done = 0;
 
-        for (const auto& point : m_points) {
-          auto coords = transform.transform_point(point.x(), point.y(), point.z());
-          if (query_bounds.contains(coords.x(), coords.y())) {
-            filtered_points.push_back(point);
-            // Transform coordinates
-            filtered_points.back().x() = coords.x();
-            filtered_points.back().y() = coords.y();
-            filtered_points.back().z() = coords.z();
+        for (size_t chunk_idx : chunk_indices) {
+          const size_t chunk_n = reader.header().is_laz_compressed()
+                                     ? reader.points_per_chunk()[chunk_idx]
+                                     : reader.num_points();
+          chunk_points.resize(chunk_n);
+          reader.read_chunks_list(std::span<LASPoint>(chunk_points), {chunk_idx});
+
+          for (const LASPoint& point : chunk_points) {
+            auto coords = transform.transform_point(point.x(), point.y(), point.z());
+            if (query_bounds.contains(coords.x(), coords.y())) {
+              LASPoint filtered = point;
+              filtered.x() = coords.x();
+              filtered.y() = coords.y();
+              filtered.z() = coords.z();
+              m_points.push_back(filtered);
+            }
           }
-        }
 
-        m_points = std::move(filtered_points);
+          ++chunks_done;
+          progress_tracker.set_proportion(static_cast<double>(chunks_done) /
+                                          static_cast<double>(total_chunks));
+        }
       } else {
         // No overlapping cells found, set empty
         m_points.clear();
@@ -460,12 +471,16 @@ class LASData : public LASFile {
 
       // Software filter when bounds was specified but no spatial index available
       if (bounds.has_value()) {
-        blaze::memory_tracker::LasVector<LASPoint> filtered;
-        filtered.reserve(m_points.size());
-        for (const LASPoint& pt : m_points) {
-          if (bounds->contains(pt.x(), pt.y())) filtered.push_back(pt);
+        size_t write = 0;
+        for (size_t read = 0; read < m_points.size(); ++read) {
+          if (bounds->contains(m_points[read].x(), m_points[read].y())) {
+            if (write != read) {
+              m_points[write] = std::move(m_points[read]);
+            }
+            ++write;
+          }
         }
-        m_points = std::move(filtered);
+        m_points.resize(write);
       }
     }
 
@@ -637,6 +652,23 @@ class LASData : public LASFile {
   }
 
   std::size_t n_points() const { return m_points.size(); }
+
+  // Move point storage out; metadata (projection, bounds, intensity range) is retained.
+  blaze::memory_tracker::LasVector<LASPoint> take_points() { return std::move(m_points); }
+
+  // Replace point storage and recompute intensity/xyz bounds from the new points.
+  void adopt_points(blaze::memory_tracker::LasVector<LASPoint>&& points) {
+    m_points = std::move(points);
+    m_intensity_range = {std::numeric_limits<uint16_t>::max(),
+                         std::numeric_limits<uint16_t>::min()};
+    m_bounds.minz = std::numeric_limits<double>::max();
+    m_bounds.maxz = std::numeric_limits<double>::min();
+    for (const LASPoint& pt : m_points) {
+      m_intensity_range.first = std::min(m_intensity_range.first, pt.intensity());
+      m_intensity_range.second = std::max(m_intensity_range.second, pt.intensity());
+      m_bounds.grow(pt.x(), pt.y(), pt.z());
+    }
+  }
 
   // Drop copied point storage after BinnedPoints (or similar) no longer needs the source.
   // Metadata (projection, bounds, intensity range) is retained.

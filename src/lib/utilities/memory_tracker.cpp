@@ -16,6 +16,8 @@ using Counter = std::atomic<uint64_t>;
 
 static std::array<Counter, k_num_tags> g_bytes{};
 
+void record_memory_counters();
+
 static std::string format_bytes(uint64_t bytes) {
   constexpr double KB = 1024.0;
   constexpr double MB = 1024.0 * 1024.0;
@@ -39,13 +41,6 @@ static std::string format_bytes(uint64_t bytes) {
     ss << bytes << " B";
   }
   return ss.str();
-}
-
-void record_memory_counters() {
-  if (!blaze::trace::enabled()) {
-    return;
-  }
-  blaze::trace::memory_counters(total_bytes(), tag_bytes(Tag::LAS), tag_bytes(Tag::GRID));
 }
 
 }  // namespace
@@ -83,6 +78,17 @@ uint64_t total_bytes() {
 uint64_t tag_bytes(Tag tag) {
   return g_bytes[static_cast<size_t>(tag)].load(std::memory_order_relaxed);
 }
+
+namespace {
+
+void record_memory_counters() {
+  if (!blaze::trace::enabled()) {
+    return;
+  }
+  blaze::trace::memory_counters(total_bytes(), tag_bytes(Tag::LAS), tag_bytes(Tag::GRID));
+}
+
+}  // namespace
 
 std::string format_summary() {
   const uint64_t total = total_bytes();

@@ -1,7 +1,6 @@
 #include "utilities/trace_recorder.hpp"
 
 #include <algorithm>
-#include <atomic>
 #include <chrono>
 #include <cstdio>
 #include <fstream>
@@ -17,16 +16,12 @@
 #include "utilities/env.hpp"
 
 namespace blaze::trace {
-namespace {
 
 using json = nlohmann::json;
 
-constexpr int k_pid = 1;
+namespace {
 
-struct TraceEvent {
-  uint64_t timestamp_us = 0;
-  json event;
-};
+constexpr int k_pid = 1;
 
 struct DiagnosticScopeFrame {
   uint64_t scope_id = 0;
@@ -39,24 +34,13 @@ struct DiagnosticScopeFrame {
   std::optional<std::string> call_function;
 };
 
-std::mutex g_mutex;
-std::vector<TraceEvent> g_events;
-std::atomic<uint64_t> g_next_scope_id{1};
+std::vector<json> g_events;
+std::mutex g_events_mutex;
+uint64_t g_next_scope_id = 1;
 std::chrono::steady_clock::time_point g_origin{std::chrono::steady_clock::now()};
-bool g_metadata_written = false;
 int g_recording_depth = 0;
 
 thread_local std::vector<DiagnosticScopeFrame> g_scope_stack;
-
-void reset_recording() {
-  std::lock_guard lock(g_mutex);
-  g_events.clear();
-  g_metadata_written = false;
-  g_next_scope_id.store(1, std::memory_order_relaxed);
-  g_origin = std::chrono::steady_clock::now();
-}
-
-int current_scope_depth() { return static_cast<int>(g_scope_stack.size()); }
 
 const char* trace_output_path() {
   static const char* path = []() -> const char* {
@@ -72,57 +56,16 @@ uint64_t timestamp_us() {
       std::chrono::duration_cast<std::chrono::microseconds>(now - g_origin).count());
 }
 
-std::string format_scope_id(uint64_t scope_id) {
+uint64_t thread_id() {
+  static thread_local const uint64_t id =
+      static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id()));
+  return id;
+}
+
+std::string format_scope_id(const uint64_t scope_id) {
   std::ostringstream ss;
   ss << "0x" << std::hex << scope_id;
   return ss.str();
-}
-
-void append_event(uint64_t ts, json event) {
-  if (!enabled()) {
-    return;
-  }
-  std::lock_guard lock(g_mutex);
-  if (!g_metadata_written) {
-    g_metadata_written = true;
-    g_events.push_back({0, json{{"name", "process_name"},
-                                {"ph", "M"},
-                                {"pid", k_pid},
-                                {"args", {{"name", "Blaze"}}}}});
-  }
-  g_events.push_back({ts, std::move(event)});
-}
-
-void append_scope_event(char phase, const char* category, const std::string& name,
-                        uint64_t scope_id, const json& args) {
-  const uint64_t ts = timestamp_us();
-  json event = {{"name", name}, {"cat", category},    {"ph", std::string(1, phase)},    {"ts", ts},
-                {"pid", k_pid}, {"tid", thread_id()}, {"id", format_scope_id(scope_id)}};
-  if (!args.empty()) {
-    event["args"] = args;
-  }
-  append_event(ts, std::move(event));
-}
-
-void append_instant_event(const char* category, const std::string& name, const json& args) {
-  const uint64_t ts = timestamp_us();
-  json event = {{"name", name}, {"cat", category},    {"ph", "i"}, {"ts", ts},
-                {"pid", k_pid}, {"tid", thread_id()}, {"s", "t"}};
-  if (!args.empty()) {
-    event["args"] = args;
-  }
-  append_event(ts, std::move(event));
-}
-
-void append_counter_event(const std::string& name, double value_gb) {
-  const uint64_t ts = timestamp_us();
-  append_event(ts, json{{"name", name},
-                        {"cat", "memory"},
-                        {"ph", "C"},
-                        {"ts", ts},
-                        {"pid", k_pid},
-                        {"tid", thread_id()},
-                        {"args", {{"value", value_gb}}}});
 }
 
 std::string basename_path(const char* path) {
@@ -137,15 +80,33 @@ std::string basename_path(const char* path) {
   return std::string(view);
 }
 
-void emit_progress_begin(uint64_t scope_id, const std::string& name, double range_start,
-                         double range_end, const std::source_location& location,
-                         const std::source_location* call_site) {
+void append_trace_event(json event) {
   if (!enabled()) {
     return;
   }
-  const int depth = current_scope_depth();
-  json args{{"depth", depth},
-            {"scope_id", format_scope_id(scope_id)},
+  event["ts"] = timestamp_us();
+  std::lock_guard lock(g_events_mutex);
+  if (g_events.empty()) {
+    g_events.push_back(
+        json{{"name", "process_name"}, {"ph", "M"}, {"pid", k_pid}, {"args", {{"name", "Blaze"}}}});
+  }
+  g_events.push_back(std::move(event));
+}
+
+void append_scope_event(const char phase, const std::string& name, const uint64_t scope_id,
+                        json args) {
+  json event = {{"name", name}, {"cat", "progress"},  {"ph", std::string(1, phase)},
+                {"pid", k_pid}, {"tid", thread_id()}, {"id", format_scope_id(scope_id)}};
+  if (!args.empty()) {
+    event["args"] = std::move(args);
+  }
+  append_trace_event(std::move(event));
+}
+
+json scope_begin_args(const double range_start, const double range_end,
+                      const std::source_location& location, const std::source_location* call_site) {
+  json args{{"depth", static_cast<int>(g_scope_stack.size())},
+            {"scope_id", ""},
             {"range_start", range_start},
             {"range_end", range_end},
             {"function", location.function_name()},
@@ -156,39 +117,11 @@ void emit_progress_begin(uint64_t scope_id, const std::string& name, double rang
     args["call_file"] = basename_path(call_site->file_name());
     args["call_line"] = call_site->line();
   }
-  append_scope_event('B', "progress", name, scope_id, std::move(args));
+  return args;
 }
 
-void emit_progress_update(uint64_t scope_id, double proportion) {
-  if (!enabled()) {
-    return;
-  }
-  append_instant_event("progress", "progress_update",
-                       json{{"scope_id", format_scope_id(scope_id)},
-                            {"depth", std::max(0, current_scope_depth() - 1)},
-                            {"proportion", proportion}});
-}
-
-void emit_progress_end(uint64_t scope_id, double proportion) {
-  if (!enabled()) {
-    return;
-  }
-  const int depth = std::max(0, current_scope_depth() - 1);
-  append_scope_event(
-      'E', "progress", "", scope_id,
-      json{{"scope_id", format_scope_id(scope_id)}, {"depth", depth}, {"proportion", proportion}});
-}
-
-std::string scope_name_or_location(const std::source_location& location, const std::string& name) {
-  if (!name.empty()) {
-    return name;
-  }
-  return basename_path(location.file_name()) + ':' + std::to_string(location.line());
-}
-
-void push_scope_frame(uint64_t scope_id, const std::string& name,
-                      const std::source_location& location, const std::source_location* call_site,
-                      const bool registration_is_call_site) {
+void push_scope_frame(const uint64_t scope_id, const std::string& name,
+                      const std::source_location& location, const std::source_location* call_site) {
   DiagnosticScopeFrame frame{};
   frame.scope_id = scope_id;
   frame.name = name;
@@ -199,29 +132,20 @@ void push_scope_frame(uint64_t scope_id, const std::string& name,
     frame.call_file = basename_path(call_site->file_name());
     frame.call_line = static_cast<int>(call_site->line());
     frame.call_function = call_site->function_name();
-  } else if (registration_is_call_site) {
-    frame.call_file = frame.file;
-    frame.call_line = frame.line;
-    frame.call_function = frame.function;
   }
   g_scope_stack.push_back(std::move(frame));
 }
 
-void update_scope_display(uint64_t scope_id, const std::string& name,
-                          const std::source_location& callee_location) {
+DiagnosticScopeFrame* find_scope_frame(const uint64_t scope_id) {
   for (DiagnosticScopeFrame& frame : g_scope_stack) {
-    if (frame.scope_id != scope_id) {
-      continue;
+    if (frame.scope_id == scope_id) {
+      return &frame;
     }
-    frame.name = name;
-    frame.file = basename_path(callee_location.file_name());
-    frame.line = static_cast<int>(callee_location.line());
-    frame.function = callee_location.function_name();
-    return;
   }
+  return nullptr;
 }
 
-void pop_scope_frame(uint64_t scope_id) {
+void pop_scope_frame(const uint64_t scope_id) {
   if (g_scope_stack.empty()) {
     return;
   }
@@ -237,7 +161,47 @@ void pop_scope_frame(uint64_t scope_id) {
   }
 }
 
-std::string format_active_scopes_impl() {
+std::string scope_name_or_location(const std::source_location& location, const std::string& name) {
+  if (!name.empty()) {
+    return name;
+  }
+  return basename_path(location.file_name()) + ':' + std::to_string(location.line());
+}
+
+void patch_scope_begin(const uint64_t scope_id, const std::string& name,
+                       const std::source_location& location, const DiagnosticScopeFrame* frame) {
+  const std::string id_str = format_scope_id(scope_id);
+  std::lock_guard lock(g_events_mutex);
+  for (json& event : g_events) {
+    if (event.value("ph", "") != "B" || event.value("id", "") != id_str) {
+      continue;
+    }
+    event["name"] = name;
+    json args = scope_begin_args(event["args"].value("range_start", 0.0),
+                                 event["args"].value("range_end", 1.0), location, nullptr);
+    args["scope_id"] = id_str;
+    if (event["args"].contains("depth")) {
+      args["depth"] = event["args"]["depth"];
+    }
+    if (frame != nullptr && frame->call_function.has_value()) {
+      args["call_function"] = *frame->call_function;
+      args["call_file"] = *frame->call_file;
+      args["call_line"] = *frame->call_line;
+    } else if (event["args"].contains("call_function")) {
+      args["call_function"] = event["args"]["call_function"];
+      args["call_file"] = event["args"]["call_file"];
+      args["call_line"] = event["args"]["call_line"];
+    }
+    event["args"] = std::move(args);
+    return;
+  }
+}
+
+}  // namespace
+
+bool enabled() { return g_recording_depth > 0 || trace_output_path() != nullptr; }
+
+std::string format_active_scopes() {
   if (g_scope_stack.empty()) {
     return {};
   }
@@ -255,15 +219,12 @@ std::string format_active_scopes_impl() {
   return ss.str();
 }
 
-}  // namespace
-
-std::string format_active_scopes() { return format_active_scopes_impl(); }
-
-bool enabled() { return g_recording_depth > 0 || trace_output_path() != nullptr; }
-
 RecordTrace::RecordTrace(fs::path path) : m_path(std::move(path)) {
   if (g_recording_depth++ == 0) {
-    reset_recording();
+    std::lock_guard lock(g_events_mutex);
+    g_events.clear();
+    g_next_scope_id = 1;
+    g_origin = std::chrono::steady_clock::now();
   }
 }
 
@@ -284,12 +245,17 @@ RecordTrace::~RecordTrace() {
 uint64_t register_progress_scope(const std::source_location& location, const double range_start,
                                  const double range_end, const std::string& name,
                                  const std::source_location* call_site) {
-  const uint64_t scope_id = g_next_scope_id.fetch_add(1, std::memory_order_relaxed);
+  const uint64_t scope_id = g_next_scope_id++;
   const std::string scope_name = scope_name_or_location(location, name);
-  emit_progress_begin(scope_id, scope_name, range_start, range_end, location, call_site);
+  const std::source_location* effective_call_site = call_site;
+  if (call_site == nullptr && name.empty()) {
+    effective_call_site = &location;
+  }
   if (enabled()) {
-    push_scope_frame(scope_id, scope_name, location, call_site,
-                     name.empty() && call_site == nullptr);
+    json args = scope_begin_args(range_start, range_end, location, effective_call_site);
+    args["scope_id"] = format_scope_id(scope_id);
+    append_scope_event('B', scope_name, scope_id, std::move(args));
+    push_scope_frame(scope_id, scope_name, location, effective_call_site);
   }
   return scope_id;
 }
@@ -299,58 +265,55 @@ void progress_scope_set_display(const uint64_t scope_id, const std::string& name
   if (!enabled()) {
     return;
   }
-  update_scope_display(scope_id, name, callee_location);
-  append_instant_event("progress", "progress_scope_name",
+  DiagnosticScopeFrame* frame = find_scope_frame(scope_id);
+  if (frame != nullptr) {
+    frame->name = name;
+    frame->file = basename_path(callee_location.file_name());
+    frame->line = static_cast<int>(callee_location.line());
+    frame->function = callee_location.function_name();
+  }
+  patch_scope_begin(scope_id, name, callee_location, frame);
+}
+
+void progress_end(const uint64_t scope_id, const double proportion) {
+  if (enabled()) {
+    const int depth = static_cast<int>(g_scope_stack.size()) - 1;
+    append_scope_event('E', "", scope_id,
                        json{{"scope_id", format_scope_id(scope_id)},
-                            {"name", name},
-                            {"function", callee_location.function_name()},
-                            {"file", basename_path(callee_location.file_name())},
-                            {"line", callee_location.line()}});
-}
-
-uint64_t thread_id() {
-  static thread_local const uint64_t id =
-      static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id()));
-  return id;
-}
-
-void memory_counters(uint64_t total_bytes, uint64_t las_bytes, uint64_t grid_bytes) {
-  constexpr double BYTES_PER_GB = 1e9;
-  append_counter_event("memory_total", static_cast<double>(total_bytes) / BYTES_PER_GB);
-  append_counter_event("memory_las", static_cast<double>(las_bytes) / BYTES_PER_GB);
-  append_counter_event("memory_grid", static_cast<double>(grid_bytes) / BYTES_PER_GB);
-}
-
-void progress_end(uint64_t scope_id, double proportion) {
-  emit_progress_end(scope_id, proportion);
+                            {"depth", depth < 0 ? 0 : depth},
+                            {"proportion", proportion}});
+  }
   pop_scope_frame(scope_id);
 }
 
-void progress_update(uint64_t scope_id, double proportion) {
-  emit_progress_update(scope_id, proportion);
-}
-
-void progress_status(const uint64_t scope_id, const std::string& text) {
-  if (scope_id == 0) {
-    return;
-  }
-  append_instant_event("progress", "progress_status",
-                       json{{"scope_id", format_scope_id(scope_id)}, {"text", text}});
+void memory_counters(const uint64_t total_bytes, const uint64_t las_bytes,
+                     const uint64_t grid_bytes) {
+  constexpr double BYTES_PER_GB = 1e9;
+  const auto emit_counter = [](const char* counter_name, const uint64_t bytes) {
+    append_trace_event(json{{"name", counter_name},
+                            {"cat", "memory"},
+                            {"ph", "C"},
+                            {"pid", k_pid},
+                            {"tid", thread_id()},
+                            {"args", {{"value", static_cast<double>(bytes) / BYTES_PER_GB}}}});
+  };
+  emit_counter("memory_total", total_bytes);
+  emit_counter("memory_las", las_bytes);
+  emit_counter("memory_grid", grid_bytes);
 }
 
 void write_chrome_trace(const fs::path& path) {
-  std::vector<TraceEvent> events;
+  std::vector<json> events;
   {
-    std::lock_guard lock(g_mutex);
+    std::lock_guard lock(g_events_mutex);
     events = g_events;
   }
-  std::sort(events.begin(), events.end(), [](const TraceEvent& a, const TraceEvent& b) {
-    return a.timestamp_us < b.timestamp_us;
-  });
+  std::sort(events.begin(), events.end(),
+            [](const json& a, const json& b) { return a.value("ts", 0ULL) < b.value("ts", 0ULL); });
 
   json trace_events = json::array();
-  for (const TraceEvent& event : events) {
-    trace_events.push_back(event.event);
+  for (json& event : events) {
+    trace_events.push_back(std::move(event));
   }
 
   const json output = {{"traceEvents", std::move(trace_events)}, {"displayTimeUnit", "ms"}};

@@ -67,9 +67,6 @@ void ProgressTracker::_set_proportion(double proportion) {
   AssertGE(proportion, m_proportion);
   AssertGE(1, proportion);
   m_proportion = proportion;
-  if (m_trace_scope_id != 0) {
-    blaze::trace::progress_update(m_trace_scope_id, m_proportion);
-  }
   if (m_observer != nullptr) {
     m_observer->update_progress(m_proportion);
   }
@@ -86,8 +83,10 @@ ProgressTracker::ProgressTracker(ProgressObserver* observer, std::string name,
   if (parent_tracker != nullptr) {
     Assert(parent_tracker->m_subtracker_range.has_value());
   }
-  m_trace_scope_id = blaze::trace::register_progress_scope(location, range_start, range_end,
-                                                           capitalize_status_text(name));
+  if (blaze::trace::enabled()) {
+    m_trace_scope_id = blaze::trace::register_progress_scope(location, range_start, range_end,
+                                                             capitalize_status_text(name));
+  }
 }
 
 ProgressTracker::ProgressTracker(ProgressTracker&& other)
@@ -136,9 +135,6 @@ void ProgressTracker::text_update(const std::string& text, int depth) {
     return;
   }
   const std::string display_text = capitalize_status_text(text);
-  if (m_trace_scope_id != 0) {
-    blaze::trace::progress_status(m_trace_scope_id, display_text);
-  }
   if (m_observer != nullptr) {
     m_observer->text_update(display_text, depth + 1);
   }
