@@ -31,6 +31,7 @@
 #include "utilities/progress_tracker.hpp"
 #include "utilities/resources.hpp"
 #include "utilities/timer.hpp"
+#include "utilities/tracked_allocator.hpp"
 
 enum class BorderType { N, NE, E, SE, S, SW, W, NW };
 
@@ -126,6 +127,16 @@ inline void print_metadata(const pdal::MetadataNode& node, const std::string& pr
 
 #undef min
 #undef max
+
+#ifndef USE_PDAL
+inline size_t interval_point_count(const std::vector<laspp::PointInterval>& intervals) {
+  size_t count = 0;
+  for (const laspp::PointInterval& interval : intervals) {
+    count += static_cast<size_t>(interval.end) - interval.start + 1;
+  }
+  return count;
+}
+#endif
 
 #ifndef USE_PDAL
 inline void copy_from(LASPoint& point, const laspp::LASPointFormat0& data) {
@@ -233,6 +244,7 @@ class LASFile {
   Extent3D m_bounds;
   Extent3D m_original_bounds;
   GeoProjection m_projection;
+  std::size_t m_header_point_count = 0;
 
  public:
   explicit LASFile(const Extent2D& bounds, GeoProjection&& projection)
@@ -296,21 +308,55 @@ class LASFile {
     if (reader.has_lastools_spatial_index()) {
       m_spatial_index = reader.lastools_spatial_index();
     }
+
+    m_header_point_count = reader.num_points();
+  }
+#else
+  void from_pdal_header(const pdal::LasHeader& las_header, const std::string& override_crs) {
+    const auto& header_bounds = las_header.getBounds();
+    m_bounds = Extent3D(
+        Extent2D(header_bounds.minx, header_bounds.maxx, header_bounds.miny, header_bounds.maxy),
+        header_bounds.minz, header_bounds.maxz);
+    m_original_bounds = m_bounds;
+    m_header_point_count = las_header.pointCount();
+    const std::string pdal_raw_wkt = las_header.srs().getWKT();
+    const std::string pdal_wkt = normalize_crs_wkt(pdal_raw_wkt);
+    const std::string pdal_override_wkt = user_crs_to_wkt(override_crs);
+    if (!pdal_override_wkt.empty()) {
+      m_projection = make_projection_from_wkt(pdal_override_wkt);
+      if (!pdal_wkt.empty() && !wkt_matches(pdal_wkt, pdal_override_wkt)) {
+        std::cerr << "WARNING: LAS file "
+                  << (m_filename.has_value() ? m_filename->string() : std::string("<unknown>"))
+                  << " has an embedded CRS that differs from the config 'override_crs'."
+                  << " Using the override." << std::endl;
+      }
+    } else if (!pdal_wkt.empty()) {
+      m_projection = make_projection_from_wkt(pdal_raw_wkt);
+    } else {
+      Fail("No projection found in LAS file " +
+           (m_filename.has_value() ? m_filename->string() : std::string("<unknown>")) +
+           ". Either embed a CRS in the file or set the 'override_crs' field in the config.");
+    }
   }
 #endif
 
  public:
-  explicit LASFile(const fs::path& filename, ProgressTracker progress_tracker,
+  explicit LASFile(const fs::path& filename, ProgressTracker&& progress_tracker,
                    [[maybe_unused]] const std::string& override_crs = "")
       : m_filename(filename) {
-    Timer timer;
-    progress_tracker.text_update(to_string("Reading ", filename, " metadata ..."));
+    START_TRACKER(to_string("Reading ", filename, " metadata ..."));
 #ifdef USE_PDAL
-    (void)override_crs;
+    pdal::Option las_opt("filename", filename.string());
+    pdal::Options las_opts;
+    las_opts.add(las_opt);
+    pdal::PointTable table;
+    pdal::LasReader las_reader;
+    las_reader.setOptions(las_opts);
+    las_reader.prepare(table);
+    from_pdal_header(las_reader.header(), override_crs);
 #else
     laspp::LASReader reader(filename);
     from_las_reader(reader, override_crs);
-    progress_tracker.text_update("Reading metadata took " + to_string(timer));
 #endif
   }
 
@@ -318,6 +364,7 @@ class LASFile {
   double width() const { return m_bounds.maxx - m_bounds.minx; }
   double height() const { return m_bounds.maxy - m_bounds.miny; }
   const GeoProjection& projection() const { return m_projection; }
+  std::size_t header_point_count() const { return m_header_point_count; }
 
   Extent2D export_bounds() const {
     // Midpoint between current bounds (data+border) and original (tile core),
@@ -338,7 +385,7 @@ class LASFile {
 
 class LASData : public LASFile {
   std::pair<uint16_t, uint16_t> m_intensity_range;
-  std::vector<LASPoint> m_points;
+  blaze::memory_tracker::LasVector<LASPoint> m_points;
 
  public:
   LASData(const Extent2D& bounds, const GeoProjection& projection)
@@ -367,8 +414,9 @@ class LASData : public LASFile {
 
 #ifndef USE_PDAL
  protected:
-  void read_points(laspp::LASReader& reader, ProgressTracker progress_tracker,
+  void read_points(laspp::LASReader& reader, ProgressTracker&& progress_tracker,
                    std::optional<Extent2D> bounds = std::nullopt) {
+    START_TRACKER("reading LAS points");
     Timer point_timer;
 
     if (bounds.has_value() && reader.has_lastools_spatial_index()) {
@@ -404,40 +452,37 @@ class LASData : public LASFile {
           to_string("Reading ", chunk_indices.size(), "/", reader.num_chunks(), " chunks"));
 
       if (!chunk_indices.empty()) {
-        // Calculate total points needed
-        size_t total_points = 0;
-        if (reader.header().is_laz_compressed()) {
-          const auto& points_per_chunk = reader.points_per_chunk();
-          for (size_t chunk_idx : chunk_indices) {
-            total_points += points_per_chunk[chunk_idx];
-          }
-        } else {
-          total_points = reader.num_points();
-        }
+        const size_t interval_points = interval_point_count(intervals);
+        m_points.clear();
+        m_points.reserve(interval_points);
 
-        // Read only the chunks that contain points from overlapping cells
-        m_points.resize(total_points);
-        reader.set_progress_callback(
-            [&progress_tracker](double fraction) { progress_tracker.set_proportion(fraction); });
-        reader.read_chunks_list(std::span<LASPoint>(m_points), chunk_indices);
-
-        // Filter points that are actually within the bounds
+        blaze::memory_tracker::LasVector<LASPoint> chunk_points;
         const auto& transform = reader.header().transform();
-        std::vector<LASPoint> filtered_points;
-        filtered_points.reserve(m_points.size());
+        const size_t total_chunks = chunk_indices.size();
+        size_t chunks_done = 0;
 
-        for (const auto& point : m_points) {
-          auto coords = transform.transform_point(point.x(), point.y(), point.z());
-          if (query_bounds.contains(coords.x(), coords.y())) {
-            filtered_points.push_back(point);
-            // Transform coordinates
-            filtered_points.back().x() = coords.x();
-            filtered_points.back().y() = coords.y();
-            filtered_points.back().z() = coords.z();
+        for (size_t chunk_idx : chunk_indices) {
+          const size_t chunk_n = reader.header().is_laz_compressed()
+                                     ? reader.points_per_chunk()[chunk_idx]
+                                     : reader.num_points();
+          chunk_points.resize(chunk_n);
+          reader.read_chunks_list(std::span<LASPoint>(chunk_points), {chunk_idx});
+
+          for (const LASPoint& point : chunk_points) {
+            auto coords = transform.transform_point(point.x(), point.y(), point.z());
+            if (query_bounds.contains(coords.x(), coords.y())) {
+              LASPoint filtered = point;
+              filtered.x() = coords.x();
+              filtered.y() = coords.y();
+              filtered.z() = coords.z();
+              m_points.push_back(filtered);
+            }
           }
-        }
 
-        m_points = std::move(filtered_points);
+          ++chunks_done;
+          progress_tracker.set_proportion(static_cast<double>(chunks_done) /
+                                          static_cast<double>(total_chunks));
+        }
       } else {
         // No overlapping cells found, set empty
         m_points.clear();
@@ -460,12 +505,16 @@ class LASData : public LASFile {
 
       // Software filter when bounds was specified but no spatial index available
       if (bounds.has_value()) {
-        std::vector<LASPoint> filtered;
-        filtered.reserve(m_points.size());
-        for (const LASPoint& pt : m_points) {
-          if (bounds->contains(pt.x(), pt.y())) filtered.push_back(pt);
+        size_t write = 0;
+        for (size_t read = 0; read < m_points.size(); ++read) {
+          if (bounds->contains(m_points[read].x(), m_points[read].y())) {
+            if (write != read) {
+              m_points[write] = std::move(m_points[read]);
+            }
+            ++write;
+          }
         }
-        m_points = std::move(filtered);
+        m_points.resize(write);
       }
     }
 
@@ -484,13 +533,12 @@ class LASData : public LASFile {
  public:
 #endif
 
-  explicit LASData(const fs::path& filename, ProgressTracker progress_tracker,
+  explicit LASData(const fs::path& filename, ProgressTracker&& progress_tracker,
                    [[maybe_unused]] bool skip_reading_points = false,
                    [[maybe_unused]] std::optional<Extent2D> bounds = std::nullopt,
                    [[maybe_unused]] const std::string& override_crs = "")
-      : LASFile(filename, progress_tracker.subtracker(0, 0.1), override_crs) {
-    Timer timer;
-    progress_tracker.text_update(to_string("Reading ", filename, " ..."));
+      : LASFile(filename, SUBTRACKER(0.0, 0.05, progress_tracker), override_crs) {
+    START_TRACKER(to_string("Reading ", filename, " ..."));
     Assert(fs::exists(filename), "File does not exist: " + filename.string());
 
 #ifdef USE_PDAL
@@ -503,31 +551,8 @@ class LASData : public LASFile {
     las_reader.prepare(table);
     pdal::PointViewSet point_view_set = las_reader.execute(table);
     pdal::PointViewPtr point_view = *point_view_set.begin();
-    pdal::Dimension::IdList dims = point_view->dims();
-    pdal::LasHeader las_header = las_reader.header();
-    const auto& header_bounds = las_header.getBounds();
-    m_bounds = Extent3D(
-        Extent2D(header_bounds.minx, header_bounds.maxx, header_bounds.miny, header_bounds.maxy),
-        header_bounds.minz, header_bounds.maxz);
-    m_original_bounds = m_bounds;
-    const std::string pdal_raw_wkt = las_header.srs().getWKT();
-    const std::string pdal_wkt = normalize_crs_wkt(pdal_raw_wkt);
-    const std::string pdal_override_wkt = user_crs_to_wkt(override_crs);
-    if (!pdal_override_wkt.empty()) {
-      // See matching comment in from_las_reader(): feed the canonicalized
-      // WKT, not the raw user string, so shorthands like "EPSG:28355" work.
-      m_projection = make_projection_from_wkt(pdal_override_wkt);
-      if (!pdal_wkt.empty() && !wkt_matches(pdal_wkt, pdal_override_wkt)) {
-        std::cerr << "WARNING: LAS file " << filename.string()
-                  << " has an embedded CRS that differs from the config 'override_crs'."
-                  << " Using the override." << std::endl;
-      }
-    } else if (!pdal_wkt.empty()) {
-      m_projection = make_projection_from_wkt(pdal_raw_wkt);
-    } else {
-      Fail("No projection found in LAS file " + filename.string() +
-           ". Either embed a CRS in the file or set the 'override_crs' field in the config.");
-    }
+    from_pdal_header(las_reader.header(), override_crs);
+    m_header_point_count = point_view->size();
 
     progress_tracker.text_update(to_string("Read ", point_view->size(), " points"));
     // std::cout << "Spatial reference: " << pdal::SpatialReference(las_header.srs().getWKT())
@@ -539,8 +564,6 @@ class LASData : public LASFile {
     //<< " (" << point_view->dimType(dim) << ")" << std::endl;
     //}
 
-    progress_tracker.text_update("Reading metadata took " + to_string(timer));
-
     Timer point_timer;
     for (pdal::PointId idx = 0; idx < point_view->size(); idx++) {
       insert(LASPoint(point_view->point(idx)));
@@ -551,11 +574,10 @@ class LASData : public LASFile {
 #else
     laspp::LASReader reader(filename);
     from_las_reader(reader, override_crs);
-    progress_tracker.text_update("Reading metadata took " + to_string(timer));
     if (skip_reading_points) {
       return;
     }
-    read_points(reader, progress_tracker.subtracker(0.1, 1.0), bounds);
+    read_points(reader, SUBTRACKER(0.1, 1.0), bounds);
 #endif
   }
 
@@ -566,10 +588,10 @@ class LASData : public LASFile {
 
   static LASData with_border(const fs::path& filename, double border_width,
                              const std::vector<std::pair<Extent3D, fs::path>>& all_las_file_extents,
-                             ProgressTracker progress_tracker,
+                             ProgressTracker&& progress_tracker,
                              const std::string& override_crs = "") {
-    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6), false, std::nullopt,
-                     override_crs);
+    START_TRACKER("loading " + filename.filename().string() + " with border");
+    LASData las_file(filename, SUBTRACKER(0.0, 0.6), false, std::nullopt, override_crs);
     Extent3D original_bounds = las_file.bounds();
     Extent3D extended_bounds = original_bounds;
     extended_bounds.grow(border_width);
@@ -580,13 +602,19 @@ class LASData : public LASFile {
         overlapping_filenames.push_back(border_filename);
       }
     }
+    ProgressTracker combine_tracker = progress_tracker.subtracker(0.6, 1.0, "combine borders");
+    START_TRACKER(combine_tracker, "combining borders");
     for (size_t i = 0; i < overlapping_filenames.size(); i++) {
       const fs::path& border_filename = overlapping_filenames[i];
-      LASData border_file(
-          border_filename.string(),
-          progress_tracker.subtracker(0.6 + (double)i / overlapping_filenames.size() * 0.4,
-                                      0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4),
-          false, extended_bounds, override_crs);
+      ProgressTracker file_tracker =
+          combine_tracker.subtracker(static_cast<double>(i) / overlapping_filenames.size(),
+                                     static_cast<double>(i + 1) / overlapping_filenames.size(),
+                                     border_filename.filename().string());
+      START_TRACKER(file_tracker,
+                    to_string("Combining border ", i + 1, "/", overlapping_filenames.size(), ": ",
+                              border_filename.filename().string()));
+      LASData border_file(border_filename.string(), SUBTRACKER(0.0, 0.9, file_tracker), false,
+                          extended_bounds, override_crs);
       for (const LASPoint& point : border_file) {
         if (!extended_bounds.contains(point.x(), point.y())) {
           continue;
@@ -602,10 +630,10 @@ class LASData : public LASFile {
   }
 
   static LASData with_border(const fs::path& filename, double border_width,
-                             ProgressTracker progress_tracker,
+                             ProgressTracker&& progress_tracker,
                              const std::string& override_crs = "") {
-    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6), false, std::nullopt,
-                     override_crs);
+    START_TRACKER("loading " + filename.filename().string() + " with border");
+    LASData las_file(filename, SUBTRACKER(0.0, 0.6), false, std::nullopt, override_crs);
     Extent3D original_bounds = las_file.bounds();
     std::vector<fs::path> border_filenames;
     for (const BorderType border_type :
@@ -621,16 +649,23 @@ class LASData : public LASFile {
                   << std::endl;
       }
     }
-    ProgressTracker subtracker = progress_tracker.subtracker(0.6, 1.0);
+    ProgressTracker combine_tracker = progress_tracker.subtracker(0.6, 1.0, "combine borders");
+    START_TRACKER(combine_tracker, "combining borders");
     for (size_t i = 0; i < border_filenames.size(); i++) {
       const fs::path& border_filename = border_filenames[i];
-      LASData border_file(border_filename.string(),
-                          subtracker.subtracker((double)i / border_filenames.size(),
-                                                (double)(i + 1) / border_filenames.size()));
+      ProgressTracker file_tracker =
+          combine_tracker.subtracker(static_cast<double>(i) / border_filenames.size(),
+                                     static_cast<double>(i + 1) / border_filenames.size(),
+                                     border_filename.filename().string());
+      START_TRACKER(file_tracker,
+                    to_string("Combining border ", i + 1, "/", border_filenames.size(), ": ",
+                              border_filename.filename().string()));
+      LASData border_file(border_filename.string(), SUBTRACKER(0.0, 0.9, file_tracker));
       for (const LASPoint& point : border_file) {
         las_file.insert(point);
       }
       las_file.m_bounds.grow(border_file.bounds());
+      file_tracker.set_proportion(1.0);
     }
     progress_tracker.text_update(
         to_string("Combined ", filename.string(), " with borders ", las_file.m_bounds));
@@ -638,6 +673,31 @@ class LASData : public LASFile {
   }
 
   std::size_t n_points() const { return m_points.size(); }
+
+  // Move point storage out; metadata (projection, bounds, intensity range) is retained.
+  blaze::memory_tracker::LasVector<LASPoint> take_points() { return std::move(m_points); }
+
+  // Replace point storage and recompute intensity/xyz bounds from the new points.
+  void adopt_points(blaze::memory_tracker::LasVector<LASPoint>&& points) {
+    m_points = std::move(points);
+    m_intensity_range = {std::numeric_limits<uint16_t>::max(),
+                         std::numeric_limits<uint16_t>::min()};
+    m_bounds.minz = std::numeric_limits<double>::max();
+    m_bounds.maxz = std::numeric_limits<double>::min();
+    for (const LASPoint& pt : m_points) {
+      m_intensity_range.first = std::min(m_intensity_range.first, pt.intensity());
+      m_intensity_range.second = std::max(m_intensity_range.second, pt.intensity());
+      m_bounds.grow(pt.x(), pt.y(), pt.z());
+    }
+  }
+
+  // Drop copied point storage after BinnedPoints (or similar) no longer needs the source.
+  // Metadata (projection, bounds, intensity range) is retained.
+  void release_points() {
+    m_points.clear();
+    m_points.shrink_to_fit();
+  }
+
   const LASPoint& operator[](std::size_t i) const { return m_points[i]; }
 
   LASPoint& operator[](std::size_t i) { return m_points[i]; }
@@ -646,6 +706,7 @@ class LASData : public LASFile {
   std::span<const LASPoint> points() const { return {m_points.data(), m_points.size()}; }
 
   void insert(std::span<const LASPoint> pts) {
+    m_points.reserve(m_points.size() + pts.size());
     m_points.insert(m_points.end(), pts.begin(), pts.end());
     const long long n = static_cast<long long>(pts.size());
 #pragma omp parallel
@@ -668,8 +729,8 @@ class LASData : public LASFile {
     }
   }
 
-  void write(const fs::path& filename, std::optional<ProgressTracker> progress_tracker = {}) const {
-    (void)progress_tracker;
+  void write(const fs::path& filename, ProgressTracker&& progress_tracker) const {
+    START_TRACKER("writing " + filename.filename().string());
 #ifdef USE_PDAL
     pdal::Options options;
     options.add("filename", filename.string());
@@ -701,7 +762,7 @@ class LASData : public LASFile {
     std::fstream file(filename, std::ios::binary | std::ios::in | std::ios::out | std::ios::trunc);
     laspp::LASWriter las_writer(file, 128);
     las_writer.write_wkt(m_projection.to_string());
-    std::vector<LASPoint> points_copy = m_points;
+    blaze::memory_tracker::LasVector<LASPoint> points_copy = m_points;
     las_writer.header().transform().scale_factors().x() = 0.001;
     las_writer.header().transform().scale_factors().y() = 0.001;
     las_writer.header().transform().scale_factors().z() = 0.001;
@@ -718,7 +779,7 @@ class LASData : public LASFile {
   }
 
   void extract_borders(const fs::path& tmp_dir, double border_width,
-                       ProgressTracker progress_tracker) const {
+                       ProgressTracker&& progress_tracker) const {
     size_t idx = 0;
     for (const BorderType border_type :
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
@@ -735,7 +796,7 @@ class LASData : public LASFile {
         border_file.write(
             tmp_dir /
                 (unique_coord_name(static_cast<const Extent2D&>(border_file.bounds())) + ".laz"),
-            progress_tracker.subtracker(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
+            SUBTRACKER(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
       }
       idx++;
     }
@@ -759,7 +820,7 @@ class AsyncLASData : public LASData {
           this->from_las_reader(reader);
           metadata_promise.set_value();
           std::lock_guard<std::mutex> lock(m_mutex);
-          this->read_points(reader, progress_tracker.tracker()->subtracker(0.01, 1.0));
+          this->read_points(reader, SUBTRACKER(0.01, 1.0, *progress_tracker.tracker()));
           m_data_promise.set_value();
           for (const auto& callback : callbacks) {
             callback();
@@ -786,21 +847,20 @@ class AsyncLASData : public LASData {
 };
 
 inline void extract_borders(const fs::path& las_filename, double border_width,
-                            ProgressTracker progress_tracker) {
+                            ProgressTracker&& progress_tracker) {
   fs::path tmp_dir = LocalDataRetriever::get_local_data("extracted_borders");
   fs::create_directories(tmp_dir);
 
   fs::path done_file = tmp_dir / (las_filename.stem().string() + ".done");
 
   if (fs::exists(done_file)) {
-    progress_tracker.text_update(
-        to_string("Skipping ", las_filename, " because it has already been processed"));
+    START_TRACKER(to_string("Skipping ", las_filename, " because it has already been processed"));
     return;
   }
 
-  progress_tracker.text_update(to_string("Extracting borders from ", las_filename, " ..."));
-  LASData las_file(las_filename.string(), progress_tracker.subtracker(0.0, 0.6));
-  las_file.extract_borders(tmp_dir, border_width, progress_tracker.subtracker(0.6, 1.0));
+  START_TRACKER(to_string("Extracting borders from ", las_filename, " ..."));
+  LASData las_file(las_filename.string(), SUBTRACKER(0.0, 0.6));
+  las_file.extract_borders(tmp_dir, border_width, SUBTRACKER(0.6, 1.0));
 
   // create done file
   std::ofstream bla(done_file);

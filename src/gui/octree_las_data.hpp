@@ -110,16 +110,16 @@ OctreePoint convert_las_point(const LasPt& pt, const laspp::LASHeader& header,
   return octree_point;
 }
 
-using PreviewCallback = std::function<void(const std::vector<OctreePoint>& preview,
-                                           size_t points_loaded, const Extent3D& bounds)>;
+using PreviewCallback = std::function<void(const OctreePointVector& preview, size_t points_loaded,
+                                           const Extent3D& bounds)>;
 
 template <typename LasPt>
 inline void load_points_parallel(laspp::LASReader& reader,
                                  OGRCoordinateTransformation* coord_transform,
                                  const Coordinate3D<double>& origin, size_t preview_stride,
-                                 std::vector<OctreePoint>& converted,
-                                 std::vector<OctreePoint>& preview, Extent3D& bounds,
-                                 ProgressTracker& tracker, const PreviewCallback& publish_preview,
+                                 OctreePointVector& converted, OctreePointVector& preview,
+                                 Extent3D& bounds, ProgressTracker& tracker,
+                                 const PreviewCallback& publish_preview,
                                  const std::atomic<bool>* cancel = nullptr) {
   MonotonicProgress progress(tracker);
   const size_t num_points = reader.num_points();
@@ -155,7 +155,7 @@ inline void load_points_parallel(laspp::LASReader& reader,
     }
 
     auto t0 = std::chrono::high_resolution_clock::now();
-    std::vector<LasPt> raw_batch(batch_points);
+    blaze::memory_tracker::LasVector<LasPt> raw_batch(batch_points);
     reader.read_chunks(std::span<LasPt>(raw_batch), {batch_start, batch_end});
     auto t1 = std::chrono::high_resolution_clock::now();
     decompress_ms += std::chrono::duration<double, std::milli>(t1 - t0).count();
@@ -226,9 +226,9 @@ inline bool las_point_format_has_rgb(uint8_t point_format) {
 inline void load_points_dispatch(laspp::LASReader& reader,
                                  OGRCoordinateTransformation* coord_transform,
                                  const Coordinate3D<double>& origin, size_t preview_stride,
-                                 std::vector<OctreePoint>& converted,
-                                 std::vector<OctreePoint>& preview, Extent3D& bounds,
-                                 ProgressTracker& tracker, const PreviewCallback& publish_preview,
+                                 OctreePointVector& converted, OctreePointVector& preview,
+                                 Extent3D& bounds, ProgressTracker& tracker,
+                                 const PreviewCallback& publish_preview,
                                  const std::atomic<bool>* cancel = nullptr) {
   switch (reader.header().point_format() & 0x7Fu) {
     case 0:
@@ -274,7 +274,7 @@ inline void load_points_dispatch(laspp::LASReader& reader,
 // shared_ptr for the duration of a frame.
 struct LasRenderSnapshot {
   PointOctree octree;
-  std::vector<OctreePoint> preview_points;
+  OctreePointVector preview_points;
   size_t points_loaded = 0;
   Extent3D bounds;
   bool bounds_valid = false;
@@ -370,18 +370,20 @@ class AsyncOctreeLASData {
                 << std::endl;
 
       laspp::LASReader reader(filename);
-      ProgressTracker tracker = progress_tracker.tracker()->subtracker(0.0, 1.0);
+      ProgressTracker& root_tracker = *progress_tracker.tracker();
+      ProgressTracker tracker = SUBTRACKER(0.0, 1.0, root_tracker);
+      START_TRACKER(tracker, "load " + filename.filename().string());
 
       const size_t preview_stride =
           std::max(size_t{1}, (m_total_points + MAX_PREVIEW_POINTS - 1) / MAX_PREVIEW_POINTS);
 
-      std::vector<OctreePoint> converted;
-      std::vector<OctreePoint> preview;
+      OctreePointVector converted;
+      OctreePointVector preview;
       Extent3D bounds;
       bool preview_callbacks_fired = false;
       const auto publish_preview = [this, &preview_callbacks_fired, &callbacks](
-                                       const std::vector<OctreePoint>& preview_pts,
-                                       size_t points_loaded, const Extent3D& loaded_bounds) {
+                                       const OctreePointVector& preview_pts, size_t points_loaded,
+                                       const Extent3D& loaded_bounds) {
         auto preview_snapshot = std::make_shared<LasRenderSnapshot>();
         preview_snapshot->preview_points = preview_pts;
         preview_snapshot->points_loaded = points_loaded;

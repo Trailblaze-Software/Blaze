@@ -10,6 +10,7 @@
 #include "testing/output_dir.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/filesystem.hpp"
+#include "utilities/progress_tracker.hpp"
 
 // Test GPKGWriter basic functionality
 TEST(GPKG, WriteAndReadContours) {
@@ -53,7 +54,7 @@ TEST(GPKG, WriteAndReadContours) {
   }
 
   // Read contours back
-  std::vector<Contour> contours = read_gpkg(test_file);
+  std::vector<Contour> contours = read_gpkg(test_file, ProgressTracker());
 
   // Verify we got the contours back
   EXPECT_EQ(contours.size(), 2);
@@ -101,7 +102,7 @@ TEST(GPKG, MultipleLayers) {
   }
 
   // Read back - should get both layers
-  std::vector<Contour> contours = read_gpkg(test_file);
+  std::vector<Contour> contours = read_gpkg(test_file, ProgressTracker());
   EXPECT_GE(contours.size(), 2);
 
   if (fs::exists(test_file)) {
@@ -136,7 +137,7 @@ TEST(GPKG, DifferentFieldTypes) {
   // File should exist and be readable
   EXPECT_TRUE(fs::exists(test_file));
 
-  std::vector<Contour> contours = read_gpkg(test_file);
+  std::vector<Contour> contours = read_gpkg(test_file, ProgressTracker());
   EXPECT_GE(contours.size(), 1);
 
   if (fs::exists(test_file)) {
@@ -154,7 +155,7 @@ TEST(GPKG, ReadNonExistentFile) {
   }
 
   // Should throw an error for non-existent files
-  EXPECT_THROW(read_gpkg(test_file), std::runtime_error);
+  EXPECT_THROW(read_gpkg(test_file, ProgressTracker()), std::runtime_error);
 }
 
 // Test read_gpkg with empty file (not a valid GPKG)
@@ -170,7 +171,7 @@ TEST(GPKG, ReadEmptyFile) {
   ofs.close();
 
   // Should throw an error for invalid GPKG files
-  EXPECT_THROW(read_gpkg(test_file), std::runtime_error);
+  EXPECT_THROW(read_gpkg(test_file, ProgressTracker()), std::runtime_error);
 
   if (fs::exists(test_file)) {
     fs::remove(test_file);
@@ -201,7 +202,7 @@ TEST(GPKG, CombineGpkgs) {
         {{"catchment", 0.03}});
   }
 
-  combine_gpkgs({contours_file, streams_file}, output_file, projection);
+  combine_gpkgs({contours_file, streams_file}, output_file, projection, ProgressTracker());
   ASSERT_TRUE(fs::exists(output_file));
 
   ensure_gdal_initialized();
@@ -249,7 +250,7 @@ TEST(GPKG, CombineGpkgsIncludesVegetationPolygons) {
     writer.write_polygon("405_Forest", "405", {{20, 0}, {30, 0}, {30, 10}, {20, 10}}, {});
   }
 
-  combine_gpkgs({contours_file, vegetation_file}, output_file, projection);
+  combine_gpkgs({contours_file, vegetation_file}, output_file, projection, ProgressTracker());
   ASSERT_TRUE(fs::exists(output_file));
 
   ensure_gdal_initialized();

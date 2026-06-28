@@ -255,7 +255,7 @@ void OctreeLASLayerRenderer::consume_gpu_timer_sample(QOpenGLExtraFunctions* gl)
 }
 
 size_t OctreeLASLayerRenderer::draw_octree_nodes(
-    QOpenGLFunctions* f, const std::vector<OctreePoint>& point_storage,
+    QOpenGLFunctions* f, const OctreePointVector& point_storage,
     const std::vector<PointOctree::VisibleNode>& visible_nodes,
     const Coordinate3D<double>& file_origin, const Coordinate3D<double>& scene_offset,
     double quality, bool incremental) {
@@ -337,7 +337,7 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes(
 }
 
 size_t OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions* f,
-                                                   const std::vector<OctreePoint>& preview,
+                                                   const OctreePointVector& preview,
                                                    const Coordinate3D<double>& file_origin,
                                                    const Coordinate3D<double>& scene_offset) {
   if (preview.empty() || !m_shader) {

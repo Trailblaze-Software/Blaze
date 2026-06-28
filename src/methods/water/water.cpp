@@ -5,7 +5,7 @@
 #include "config_input/config_input.hpp"
 #include "grid/grid.hpp"
 #include "utilities/coordinate.hpp"
-#include "utilities/timer.hpp"
+#include "utilities/progress_tracker.hpp"
 
 struct PriorityPoint {
   double priority;
@@ -41,10 +41,9 @@ std::optional<Coordinate2D<size_t>> flows_to(const GeoGrid<double>& grid,
   return slope == 0 ? std::nullopt : std::make_optional(min_neighbour);
 }
 
-GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
-                                 const std::vector<Coordinate2D<size_t>>& sinks,
-                                 ProgressTracker* progress_tracker) {
-  TimeFunction timer("fill depressions", progress_tracker);
+GeoGrid<double> fill_depressions(const GeoGrid<double>& grid, ProgressTracker&& progress_tracker,
+                                 const std::vector<Coordinate2D<size_t>>& sinks) {
+  START_TRACKER("filling depressions");
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
   result.copy_from(grid);
@@ -108,11 +107,11 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid,
 
   return result;
 }
-std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, double depth,
-                                                 double min_area,
-                                                 ProgressTracker* progress_tracker) {
-  TimeFunction timer("identify sinks", progress_tracker);
-  GeoGrid<double> filled = fill_depressions(grid, {}, progress_tracker);
+std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, const double depth,
+                                                 const double min_area,
+                                                 ProgressTracker&& progress_tracker) {
+  START_TRACKER("identifying sinks");
+  GeoGrid<double> filled = fill_depressions(grid, SUBTRACKER(0.0, 0.5, progress_tracker));
 
   std::vector<Coordinate2D<size_t>> sinks;
   GeoGrid<bool> visited(grid.width(), grid.height(), GeoTransform(grid.transform()),
@@ -156,9 +155,8 @@ std::vector<Coordinate2D<size_t>> identify_sinks(const GeoGrid<double>& grid, do
 
   return sinks;
 }
-GeoGrid<double> catchment_size(const GeoGrid<double>& filled, ProgressTracker* progress_tracker) {
-  TimeFunction timer("catchment size", progress_tracker);
-
+GeoGrid<double> catchment_size(const GeoGrid<double>& filled, ProgressTracker&& progress_tracker) {
+  START_TRACKER("computing catchment size");
   GeoGrid<double> result(filled.width(), filled.height(), GeoTransform(filled.transform()),
                          GeoProjection(filled.projection()));
   result.fill(0);
@@ -205,9 +203,8 @@ GeoGrid<double> catchment_size(const GeoGrid<double>& filled, ProgressTracker* p
   return result;
 }
 GeoGrid<bool> streams(const GeoGrid<double>& filled_ground, const GeoGrid<double>& catchment,
-                      double minimum_catchment, ProgressTracker* progress_tracker) {
-  TimeFunction timer("streams", progress_tracker);
-
+                      const double minimum_catchment, ProgressTracker&& progress_tracker) {
+  START_TRACKER("tracing streams");
   GeoGrid<bool> result(filled_ground.width(), filled_ground.height(),
                        GeoTransform(filled_ground.transform()),
                        GeoProjection(filled_ground.projection()));
@@ -265,18 +262,19 @@ std::vector<Coordinate2D<double>> smoothify(const std::vector<Coordinate2D<doubl
   return result;
 }
 std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs& config,
-                                 ProgressTracker progress_tracker, bool already_filled) {
-  TimeFunction timer("stream paths", &progress_tracker);
-
+                                 ProgressTracker&& progress_tracker, const bool already_filled) {
+  START_TRACKER("computing stream paths");
   std::optional<GeoGrid<double>> local_filled;
   if (!already_filled) {
-    std::vector<Coordinate2D<size_t>> sinks = identify_sinks(grid, 10, 5000, &progress_tracker);
-    local_filled.emplace(fill_depressions(grid, sinks, &progress_tracker));
+    std::vector<Coordinate2D<size_t>> sinks =
+        identify_sinks(grid, 10, 5000, SUBTRACKER(0.0, 0.25, progress_tracker));
+    local_filled.emplace(fill_depressions(grid, SUBTRACKER(0.25, 0.5, progress_tracker), sinks));
   }
   const GeoGrid<double>& filled = local_filled ? *local_filled : grid;
 
-  GeoGrid<double> catchment = catchment_size(filled, &progress_tracker);
-  GeoGrid<bool> stream = streams(filled, catchment, config.minimum_catchment(), &progress_tracker);
+  GeoGrid<double> catchment = catchment_size(filled, SUBTRACKER(0.5, 0.75, progress_tracker));
+  GeoGrid<bool> stream = streams(filled, catchment, config.minimum_catchment(),
+                                 SUBTRACKER(0.75, 1.0, progress_tracker));
 
   std::vector<std::vector<Coordinate2D<size_t>>> result;
   GeoGrid<bool> visited(grid.width(), grid.height(), GeoTransform(grid.transform()),

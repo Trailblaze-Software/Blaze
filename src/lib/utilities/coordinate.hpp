@@ -331,11 +331,26 @@ struct Extent2D {
     maxy = std::max(maxy, other.maxy);
   }
 
+  double area() const { return std::max(0.0, maxx - minx) * std::max(0.0, maxy - miny); }
+
   friend std::ostream& operator<<(std::ostream& os, const Extent2D& extent) {
     return os << "[(" << extent.minx << ", " << extent.maxx << "), (" << extent.miny << ", "
               << extent.maxy << ")]";
   }
 };
+
+// Upper bound on points inside query_extent, assuming roughly uniform density over
+// file_extent. Used to pre-reserve vectors when reading a spatial subset.
+inline std::size_t estimate_points_in_extent(std::size_t total_points, const Extent2D& file_extent,
+                                             const Extent2D& query_extent) {
+  if (total_points == 0) return 0;
+  const double file_area = file_extent.area();
+  if (file_area <= 0.0) return total_points;
+  const double overlap_area = file_extent.intersection(query_extent).area();
+  if (overlap_area <= 0.0) return 0;
+  const double estimated = std::ceil(overlap_area / file_area * static_cast<double>(total_points));
+  return std::min(total_points, static_cast<std::size_t>(estimated));
+}
 
 struct Extent3D : Extent2D {
   double minz = std::numeric_limits<double>::infinity();

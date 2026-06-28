@@ -10,6 +10,7 @@
 #include "geometry/polygon.hpp"
 #include "isom/colors.hpp"
 #include "lib/grid/grid.hpp"
+#include "utilities/progress_tracker.hpp"
 
 TEST(ContourGen, ContourGen) {
   std::vector<std::vector<double>> data = {{0.5, 0.5, 0.5}, {0.5, 1.5, 0.5}, {0.5, 0.5, 0.5}};
@@ -50,7 +51,8 @@ TEST(IdentifyContoursAtHeights, SingleHeightCrossing) {
   GeoGrid<float> grid(data);
 
   std::set<double> heights = {0.5};
-  GridGraph<std::set<double>> result = identify_contours_at_heights(grid, heights);
+  GridGraph<std::set<double>> result =
+      identify_contours_at_heights(grid, heights, ProgressTracker());
 
   LineCoord2D<size_t> crossing_edge({0, 0}, Direction2D::RIGHT);
   EXPECT_TRUE(result.in_bounds(crossing_edge));
@@ -66,7 +68,8 @@ TEST(IdentifyContoursAtHeights, NoCrossing) {
   GeoGrid<float> grid(data);
 
   std::set<double> heights = {0.5};
-  GridGraph<std::set<double>> result = identify_contours_at_heights(grid, heights);
+  GridGraph<std::set<double>> result =
+      identify_contours_at_heights(grid, heights, ProgressTracker());
 
   for (size_t i = 0; i < result.height(); i++) {
     for (size_t j = 0; j < result.width(); j++) {
@@ -85,7 +88,8 @@ TEST(IdentifyContoursAtHeights, MultipleHeights) {
   GeoGrid<float> grid(data);
 
   std::set<double> heights = {0.25, 0.5};
-  GridGraph<std::set<double>> result = identify_contours_at_heights(grid, heights);
+  GridGraph<std::set<double>> result =
+      identify_contours_at_heights(grid, heights, ProgressTracker());
 
   LineCoord2D<size_t> edge1({0, 0}, Direction2D::RIGHT);
   EXPECT_TRUE(result[edge1].contains(0.25));
@@ -101,7 +105,8 @@ TEST(IdentifyContoursAtHeights, ExactThresholdValue) {
   GeoGrid<float> grid(data);
 
   std::set<double> heights = {0.5};
-  GridGraph<std::set<double>> result = identify_contours_at_heights(grid, heights);
+  GridGraph<std::set<double>> result =
+      identify_contours_at_heights(grid, heights, ProgressTracker());
 
   LineCoord2D<size_t> edge({0, 0}, Direction2D::RIGHT);
   EXPECT_TRUE(result[edge].contains(0.5));
@@ -112,7 +117,8 @@ TEST(IdentifyContoursAtHeights, MinExactlyAtThreshold) {
   GeoGrid<float> grid(data);
 
   std::set<double> heights = {0.5};
-  GridGraph<std::set<double>> result = identify_contours_at_heights(grid, heights);
+  GridGraph<std::set<double>> result =
+      identify_contours_at_heights(grid, heights, ProgressTracker());
 
   LineCoord2D<size_t> edge({0, 0}, Direction2D::RIGHT);
   EXPECT_FALSE(result[edge].contains(0.5));
@@ -126,7 +132,7 @@ TEST(GenerateContoursAtHeights, SinglePeakClosedLoop) {
   GeoGrid<float> grid(data);
 
   std::vector<double> heights = {0.5};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 1, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, heights, ProgressTracker(), 1, 0.0f);
 
   EXPECT_EQ(contours_by_height.size(), 1u);
   EXPECT_TRUE(contours_by_height.contains(0.5));
@@ -149,7 +155,7 @@ TEST(GenerateContoursAtHeights, EdgeContoursAreClosed) {
   GeoGrid<float> grid(data);
 
   std::vector<double> heights = {0.5};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 1, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, heights, ProgressTracker(), 1, 0.0f);
 
   EXPECT_EQ(contours_by_height.size(), 1u);
   const auto& contours = contours_by_height.at(0.5);
@@ -166,7 +172,7 @@ TEST(GenerateContoursAtHeights, MultipleDisjointPatches) {
   GeoGrid<float> grid(data);
 
   std::vector<double> heights = {0.5};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 3, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, heights, ProgressTracker(), 3, 0.0f);
 
   const auto& contours = contours_by_height.at(0.5);
   EXPECT_EQ(contours.size(), 2u);
@@ -186,11 +192,13 @@ TEST(GenerateContoursAtHeights, AllZerosNoContours) {
   GeoGrid<float> grid(data);
 
   std::vector<double> heights = {0.5};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 1, 0.0f);
+  ProgressTracker progress_tracker;
+  auto contours_by_height =
+      generate_contours_at_heights(grid, heights, SUBTRACKER(0.0, 0.5), 1, 0.0f);
 
   EXPECT_EQ(contours_by_height.count(0.5), 0u);
 
-  contours_by_height = generate_contours_at_heights(grid, heights, 1, 1.0f);
+  contours_by_height = generate_contours_at_heights(grid, heights, SUBTRACKER(0.5, 1.0), 1, 1.0f);
   EXPECT_EQ(contours_by_height.count(0.5), 1u);
   EXPECT_EQ(contours_by_height.at(0.5).size(), 1u);
   EXPECT_EQ(contours_by_height.at(0.5)[0].points().size(), 13u);
@@ -205,7 +213,7 @@ TEST(GenerateContoursAtHeights, MultipleHeights) {
   GeoGrid<float> grid(data);
 
   std::vector<double> heights = {0.2, 0.4, 0.7};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 3, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, heights, ProgressTracker(), 3, 0.0f);
 
   EXPECT_EQ(contours_by_height.size(), 3u);
   EXPECT_TRUE(contours_by_height.contains(0.2));
@@ -218,11 +226,12 @@ TEST(GenerateContoursAtHeights, FilteredByMinPoints) {
   GeoGrid<float> grid(data);
 
   std::vector<double> heights = {0.5};
+  ProgressTracker progress_tracker;
 
-  auto contours_low = generate_contours_at_heights(grid, heights, 1, 0.0f);
+  auto contours_low = generate_contours_at_heights(grid, heights, SUBTRACKER(0.0, 0.5), 1, 0.0f);
   EXPECT_EQ(contours_low[0.5].size(), 1u);
 
-  auto contours_high = generate_contours_at_heights(grid, heights, 100, 0.0f);
+  auto contours_high = generate_contours_at_heights(grid, heights, SUBTRACKER(0.5, 1.0), 100, 0.0f);
   EXPECT_EQ(contours_high[0.5].size(), 0u);
 }
 
@@ -235,7 +244,7 @@ TEST(GenerateContoursAtHeights, OrientsDonutRings) {
   };
   GeoGrid<float> grid(data);
 
-  auto contours_by_height = generate_contours_at_heights(grid, {0.5}, 3, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, {0.5}, ProgressTracker(), 3, 0.0f);
 
   ASSERT_EQ(contours_by_height[0.5].size(), 2u);
   const Contour* outer = nullptr;

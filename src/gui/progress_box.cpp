@@ -11,7 +11,9 @@
 
 #include "error_dialog.hpp"
 #include "ui_progress_box.h"
+#include "utilities/memory_tracker.hpp"
 #include "utilities/progress_tracker.hpp"
+#include "utilities/trace_recorder.hpp"
 
 namespace {
 
@@ -106,21 +108,24 @@ void ProgressBox::receive_status_text(std::string text, int depth) {
 void ProgressBox::update_elapsed() {
   auto now = std::chrono::steady_clock::now();
   double elapsed = std::chrono::duration<double>(now - m_start_time).count();
+  const std::string mem = blaze::memory_tracker::format_summary();
 
   if (m_last_overall > 0.999) {
     std::ostringstream ss;
-    ss << "Total time: " << format_duration(elapsed);
+    ss << "Total time: " << format_duration(elapsed) << "  |  " << mem;
     m_eta_label->setText(QString::fromStdString(ss.str()));
     m_eta_label->setStyleSheet("QLabel { color: #4a4; font-size: 12px; font-weight: bold; }");
   } else if (m_last_overall > 0.001) {
     double eta = elapsed * (1.0 - m_last_overall) / m_last_overall;
     std::ostringstream ss;
     ss << "Elapsed: " << format_duration(elapsed) << "  |  ETA: " << format_duration(eta)
-       << " remaining";
+       << " remaining"
+       << "  |  " << mem;
     m_eta_label->setText(QString::fromStdString(ss.str()));
   } else if (elapsed > 1.0) {
     std::ostringstream ss;
-    ss << "Elapsed: " << format_duration(elapsed) << "  |  Estimating…";
+    ss << "Elapsed: " << format_duration(elapsed) << "  |  Estimating…"
+       << "  |  " << mem;
     m_eta_label->setText(QString::fromStdString(ss.str()));
   }
 }

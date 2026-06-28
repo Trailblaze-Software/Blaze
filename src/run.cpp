@@ -2,6 +2,7 @@
 
 #include <omp.h>
 
+#include <array>
 #include <filesystem>
 #include <iostream>
 
@@ -20,12 +21,14 @@
 #include "utilities/coordinate.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
-#include "utilities/timer.hpp"
+#include "utilities/trace_recorder.hpp"
 #include "vegetation/vegetation_polygon.hpp"
 
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
-                     ProgressTracker&& tracker) {
-  tracker.text_update(to_string("Using ", omp_get_max_threads(), " threads for processing."));
+                     ProgressTracker&& progress_tracker_param) {
+  blaze::trace::RecordTrace timing_trace(config.output_path() / "timing_trace.json");
+  ProgressTracker progress_tracker = SUBTRACKER_HIDDEN(0.0, 1.0, progress_tracker_param);
+  START_TRACKER(to_string("Using ", omp_get_max_threads(), " threads for processing."));
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path& las_file : config.las_filepaths()) {
     if (!fs::exists(las_file)) {
@@ -66,7 +69,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   std::string tile_output_crs_wkt;
   std::vector<LASFileExtent> tile_input_extents =
       load_input_extents(las_files, config.override_crs, tile_output_crs_wkt,
-                         tracker.subtracker(0.0, LOAD_EXTENTS_TIME / total_time, false));
+                         SUBTRACKER_HIDDEN(0.0, LOAD_EXTENTS_TIME / total_time));
   const TileModeInfo tile_info = detect_tile_mode_needed(tile_input_extents);
   if (tile_info.any_overlap) {
     std::cerr << "Info: Input files overlap; tile reads will pull from every overlapping input."
@@ -86,7 +89,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   if (tiled_mode) {
     Extent2D overall = union_extent(tile_input_extents);
     tiles = compute_tiles(overall, config.tile_size, tile_input_extents);
-    tracker.text_update(
+    progress_tracker.text_update(
         to_string("Planned ", tiles.size(), " tiles over extent ", overall, " in output CRS."));
   } else {
     tiles = tiles_per_file(tile_input_extents);
@@ -99,23 +102,25 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
   double current_time = LOAD_EXTENTS_TIME / total_time;
   int idx = 0;
   for (ProcessingStep step : config.processing_steps) {
-    TimeFunction timer(to_string("processing step ", step), &tracker);
-    ProgressTracker step_tracker =
-        tracker.subtracker(current_time, current_time + time_ratios[idx] / total_time, false);
+    ProgressTracker step_tracker = SUBTRACKER_HIDDEN(
+        current_time, current_time + time_ratios[idx] / total_time, progress_tracker);
+    START_TRACKER(step_tracker,
+                  step == ProcessingStep::Tiles ? "processing tiles" : "combining tiles");
     current_time += time_ratios[idx++] / total_time;
     switch (step) {
       case ProcessingStep::Tiles: {
         for (size_t i = 0; i < tiles.size(); i++) {
           const Tile& tile = tiles[i];
-          step_tracker.text_update("Processing tile " + std::to_string(i + 1) + " of " +
-                                   std::to_string(tiles.size()) + ": " + tile.output_name());
+          const std::string tile_name =
+              to_string("tile ", i + 1, "/", tiles.size(), ": ", tile.output_name());
+          ProgressTracker tile_tracker =
+              SUBTRACKER_VISIBLE(static_cast<double>(i) / tiles.size(),
+                                 static_cast<double>(i + 1) / tiles.size(), step_tracker);
+          START_TRACKER(tile_tracker, tile_name);
 
-          ProgressTracker progress_tracker = step_tracker.subtracker(
-              (double)i / tiles.size(), (double)(i + 1) / tiles.size(), true);
-
-          LASData tile_data = read_tile_from_inputs(tile.extent, config.border_width,
-                                                    tile_input_extents, tile_output_crs_wkt,
-                                                    progress_tracker.subtracker(0.0, 0.5, false));
+          LASData tile_data =
+              read_tile_from_inputs(tile.extent, config.border_width, tile_input_extents,
+                                    tile_output_crs_wkt, SUBTRACKER_HIDDEN(0.0, 0.5, tile_tracker));
           if (tile_data.n_points() == 0) {
             step_tracker.text_update("Tile " + tile.output_name() + " has no points; skipping.");
             continue;
@@ -126,12 +131,12 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           fs::path output_dir = config.output_path() / tile.output_name();
           fs::create_directories(output_dir);
           process_las_data(tile_data, output_dir, config,
-                           progress_tracker.subtracker(0.5, 1.0, false));
+                           SUBTRACKER_HIDDEN(0.5, 1.0, tile_tracker));
           processed_tile_dirs.push_back(output_dir);
         }
         break;
       }
-      case ProcessingStep::Combine:
+      case ProcessingStep::Combine: {
         std::optional<std::string> projection;
 
         std::vector<fs::path> combine_dirs;
@@ -143,27 +148,33 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
         // Combine TIFs
         fs::create_directories(config.output_path() / "combined" / "raw_vege");
-        for (const std::string filename :
-             {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
-              "buildings.tif", "slope.tif", "fine_slope.tif", "vege_color.tif",
-              "hill_shade_multi.tif", "ground.tif", "smooth_ground.tif", "filled_dem.tif",
-              "raw_vege/canopy.tif", "raw_vege/green.tif", "raw_vege/smoothed_green.tif",
-              "raw_vege/smoothed_canopy.tif"}) {
-          // for (const std::string filename :
-          //{"filled_dem.tif"}) {
-          TimeFunction combining_timer("Combining " + filename, &step_tracker);
+        static constexpr std::array<const char*, 15> COMBINE_TIFS = {
+            {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
+             "buildings.tif", "slope.tif", "fine_slope.tif", "vege_color.tif",
+             "hill_shade_multi.tif", "ground.tif", "smooth_ground.tif", "filled_dem.tif",
+             "raw_vege/canopy.tif", "raw_vege/green.tif", "raw_vege/smoothed_green.tif",
+             "raw_vege/smoothed_canopy.tif"}};
+        for (size_t fi = 0; fi < COMBINE_TIFS.size(); ++fi) {
+          const std::string filename = COMBINE_TIFS[fi];
+          ProgressTracker file_tracker = step_tracker.subtracker(
+              0.9 * static_cast<double>(fi) / COMBINE_TIFS.size(),
+              0.9 * static_cast<double>(fi + 1) / COMBINE_TIFS.size(), filename);
 
           std::vector<Geo<MultiBand<FlexGrid>>> grids;
 
           Extent2D extent;
           std::optional<double> dx, dy;
-          for (const fs::path& output_dir : combine_dirs) {
-            fs::path img_path = output_dir / filename;
+          const size_t dir_count = combine_dirs.size();
+          for (size_t dir_idx = 0; dir_idx < dir_count; ++dir_idx) {
+            const fs::path img_path = combine_dirs[dir_idx] / filename;
             if (!fs::exists(img_path)) {
               std::cerr << "Image " << img_path << " does not exist" << std::endl;
               continue;
             }
-            grids.emplace_back(read_tif(img_path, &step_tracker));
+            grids.emplace_back(read_tif(
+                img_path,
+                SUBTRACKER(0.5 * static_cast<double>(dir_idx) / dir_count,
+                           0.5 * static_cast<double>(dir_idx + 1) / dir_count, file_tracker)));
             if (!projection.has_value()) {
               projection = grids.back().projection().to_string();
             } else {
@@ -207,7 +218,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
           const bool is_dem = filename == "filled_dem.tif" || filename == "ground.tif" ||
                               filename == "smooth_ground.tif";
           write_to_tif(combined_grid, config.output_path() / "combined" / filename,
-                       /*progress_tracker=*/std::nullopt,
+                       SUBTRACKER(0.5, 0.85, file_tracker),
                        /*include_vertical_crs=*/is_dem);
 
           if (filename == "filled_dem.tif") {
@@ -226,10 +237,11 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             }
 
             write_to_tif(filled_dem, config.output_path() / "combined" / "filled_filled_dem.tif",
-                         /*progress_tracker=*/std::nullopt, /*include_vertical_crs=*/true);
+                         SUBTRACKER(0.85, 0.92, file_tracker),
+                         /*include_vertical_crs=*/true);
 
             std::vector<Stream> stream_path =
-                stream_paths(filled_dem, config.water, step_tracker.subtracker(0.8, 0.9), false);
+                stream_paths(filled_dem, config.water, SUBTRACKER_HIDDEN(0.92, 1.0, file_tracker));
 
             {
               GPKGWriter writer((config.output_path() / "combined" / "streams.gpkg").string(),
@@ -246,31 +258,29 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
         // Combine vector outputs (contours, vegetation, map GPKG)
         {
-          ProgressTracker gpkg_tracker = step_tracker.subtracker(0.9, 1.0);
+          ProgressTracker gpkg_tracker = step_tracker.subtracker(0.9, 1.0, "combine vectors");
 
           std::map<double, std::vector<Contour>> contours_by_height;
           std::vector<Contour> joined_contours;
           {
-            ProgressTracker contour_tracker = gpkg_tracker.subtracker(0.0, 0.35);
-            TimeFunction contour_timer("combining contours", &contour_tracker);
+            ProgressTracker contour_tracker =
+                gpkg_tracker.subtracker(0.0, 0.35, "combine contours");
 
-            size_t dir_index = 0;
-            for (const fs::path& output_dir : combine_dirs) {
-              fs::path gpkg_path = output_dir / "trimmed_contours.gpkg";
+            const size_t dir_count = combine_dirs.size();
+            for (size_t dir_idx = 0; dir_idx < dir_count; ++dir_idx) {
+              const fs::path gpkg_path = combine_dirs[dir_idx] / "trimmed_contours.gpkg";
               if (!fs::exists(gpkg_path)) {
                 std::cerr << "GPKG " << gpkg_path << " does not exist" << std::endl;
                 continue;
               }
 
               contour_tracker.text_update("Reading " + gpkg_path.filename().string());
-              std::vector<Contour> contours = read_gpkg(gpkg_path, &contour_tracker);
+              std::vector<Contour> contours = read_gpkg(
+                  gpkg_path,
+                  SUBTRACKER(0.15 * static_cast<double>(dir_idx) / dir_count,
+                             0.15 * static_cast<double>(dir_idx + 1) / dir_count, contour_tracker));
               for (Contour& contour : contours) {
                 contours_by_height[contour.height()].push_back(contour);
-              }
-              ++dir_index;
-              if (!combine_dirs.empty()) {
-                contour_tracker.set_proportion(0.15 * static_cast<double>(dir_index) /
-                                               combine_dirs.size());
               }
             }
 
@@ -306,37 +316,41 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             }
           }
 
-          write_to_crt(config.output_path() / "combined" / "contours.crt", &gpkg_tracker);
+          write_to_crt(config.output_path() / "combined" / "contours.crt",
+                       SUBTRACKER(0.35, 0.36, gpkg_tracker));
 
           combine_vege_gpkgs(combine_dirs, config.output_path() / "combined", projection.value(),
-                             gpkg_tracker.subtracker(0.35, 0.65));
-          write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt", &gpkg_tracker);
+                             SUBTRACKER(0.36, 0.64, gpkg_tracker));
+          write_vegetation_crt(config.output_path() / "combined" / "vegetation.crt",
+                               SUBTRACKER(0.64, 0.65, gpkg_tracker));
 
           {
             const fs::path combined_dir = config.output_path() / "combined";
             std::vector<fs::path> map_sources = {combined_dir / "contours.gpkg",
                                                  combined_dir / "streams.gpkg",
                                                  combined_dir / "vegetation.gpkg"};
-            ProgressTracker map_tracker = gpkg_tracker.subtracker(0.65, 1.0);
+            ProgressTracker map_tracker = SUBTRACKER(0.65, 1.0, gpkg_tracker);
             if (projection.has_value()) {
               combine_gpkgs(map_sources, combined_dir / "map.gpkg", projection.value(),
-                            std::move(map_tracker));
+                            SUBTRACKER(0.0, 0.99, map_tracker));
             } else {
-              combine_gpkgs(map_sources, combined_dir / "map.gpkg", "", std::move(map_tracker));
+              combine_gpkgs(map_sources, combined_dir / "map.gpkg", "",
+                            SUBTRACKER(0.0, 0.99, map_tracker));
             }
             if (fs::exists(combined_dir / "map.gpkg")) {
-              write_to_crt(combined_dir / "map.crt", &gpkg_tracker);
+              write_to_crt(combined_dir / "map.crt", SUBTRACKER(0.99, 1.0, map_tracker));
             }
           }
         }
 
         break;
+      }
     }
   }
 
   if (config.delete_tile_folders && config.processing_steps.count(ProcessingStep::Combine) > 0 &&
       !processed_tile_dirs.empty()) {
-    tracker.text_update("Deleting tile folders...");
+    progress_tracker.text_update("Deleting tile folders...");
     for (const fs::path& dir : processed_tile_dirs) {
       std::error_code ec;
       fs::remove_all(dir, ec);
@@ -344,7 +358,7 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
         std::cerr << "Warning: failed to delete tile folder " << dir << ": " << ec.message()
                   << std::endl;
       } else {
-        tracker.text_update("Deleted tile folder: " + dir.string());
+        progress_tracker.text_update("Deleted tile folder: " + dir.string());
       }
     }
   }
