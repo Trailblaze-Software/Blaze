@@ -13,6 +13,8 @@
 #include <vector>
 
 #include "assert/assert.hpp"
+
+class ProgressTracker;
 #include "grid/forward_grid.hpp"
 #include "grid/raster.hpp"
 #include "isom/colors.hpp"
@@ -384,25 +386,26 @@ class Geo : public GridT, public GeoGridData {
                grid.projection());
   }
 
-  void draw(const Geo<Grid<RGBColor>>& other,
+  void draw(const Geo<Grid<RGBColor>>& other, ProgressTracker&& progress_tracker,
             std::optional<blaze::InterpolationMode> interpolation = {})
     requires std::same_as<GridT, Grid<RGBColor>>;
 
-  void draw(const Geo<Grid<CMYKColor>>& other,
+  void draw(const Geo<Grid<CMYKColor>>& other, ProgressTracker&& progress_tracker,
             std::optional<blaze::InterpolationMode> interpolation = {})
     requires std::same_as<GridT, Grid<RGBColor>>;
 
   void draw_point(const Coordinate2D<double>& point, const ColorVariant& color, double size)
     requires std::same_as<GridT, Grid<RGBColor>>;
 
-  void draw(const Contour& contour, const ColorVariant& color, double width)
+  void draw_contours(const std::vector<Contour>& contours, const ContourConfigs& configs,
+                     double render_scale, bool base_layer_only, ProgressTracker&& progress_tracker)
     requires std::same_as<GridT, Grid<RGBColor>>;
 
-  void draw(const std::vector<Coordinate2D<double>>& in_points, const ColorVariant& color,
-            double width)
+  void draw_streams(const std::vector<Stream>& streams, const WaterConfigs& water,
+                    double render_scale, ProgressTracker&& progress_tracker)
     requires std::same_as<GridT, Grid<RGBColor>>;
 
-  void save_to(const fs::path& path, const Extent2D& extent)
+  void save_to(const fs::path& path, const Extent2D& extent, ProgressTracker&& progress_tracker)
     requires std::same_as<GridT, Grid<RGBColor>>;
 
   Geo slice(const Extent2D& extent);

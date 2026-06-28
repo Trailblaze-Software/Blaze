@@ -19,6 +19,10 @@ class Coordinate2D;
 
 struct Extent2D;
 
+struct ContourConfigs;
+struct WaterConfigs;
+struct Stream;
+
 class GridData;
 class GeoTransform;
 class GeoProjection;

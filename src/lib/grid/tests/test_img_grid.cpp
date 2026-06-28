@@ -3,6 +3,7 @@
 #include "grid/grid.hpp"
 #include "grid/img_grid.hpp"
 #include "isom/colors.hpp"
+#include "utilities/progress_tracker.hpp"
 
 namespace {
 
@@ -41,7 +42,7 @@ TEST(GeoGridRGB, DrawAlphaBlendsOverlappingPixels) {
   GeoGrid<RGBColor> background(make_solid_color_grid(2, 2, background_color));
   const GeoGrid<RGBColor> foreground(make_solid_color_grid(2, 2, foreground_color));
 
-  background.draw(foreground);
+  background.draw(foreground, ProgressTracker());
 
   const RGBColor expected = expected_alpha_blend(foreground_color, background_color);
   const RGBColor blended = background[{0, 0}];
@@ -56,7 +57,7 @@ TEST(GeoGridRGB, DrawNonSquareGrid) {
   GeoGrid<RGBColor> background(make_solid_color_grid(5, 3, RGBColor(0, 0, 255, 255)));
   const GeoGrid<RGBColor> foreground(make_solid_color_grid(5, 3, foreground_color));
 
-  background.draw(foreground);
+  background.draw(foreground, ProgressTracker());
 
   const RGBColor blended = background[{1, 1}];
   EXPECT_EQ(blended.getRed(), foreground_color.getRed());
@@ -71,7 +72,7 @@ TEST(GeoGridRGB, DrawOpaqueForegroundReplacesBackground) {
   GeoGrid<RGBColor> background(make_solid_color_grid(1, 1, background_color));
   const GeoGrid<RGBColor> foreground(make_solid_color_grid(1, 1, foreground_color));
 
-  background.draw(foreground);
+  background.draw(foreground, ProgressTracker());
 
   const RGBColor blended = background[{0, 0}];
   EXPECT_EQ(blended.getRed(), 255);

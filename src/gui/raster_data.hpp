@@ -613,7 +613,7 @@ class AsyncRasterData {
   std::future<void> m_future;
 
  public:
-  AsyncRasterData(const fs::path& dem_path, AsyncProgressTracker progress_tracker,
+  AsyncRasterData(const fs::path& dem_path, AsyncProgressTracker async_progress_tracker,
                   const std::optional<fs::path>& texture_path = std::nullopt, int stride = 1,
                   bool slope_colored = false,
                   const std::optional<fs::path>& slope_path = std::nullopt,
@@ -632,14 +632,21 @@ class AsyncRasterData {
 
     m_future =
         std::async(std::launch::async, [this, dem_path, texture_path, slope_path, slope_colored,
-                                        flat_cells, stride, progress_tracker,
+                                        flat_cells, stride, async_progress_tracker,
                                         on_ready = std::move(on_ready), target_crs_wkt]() mutable {
-          ProgressTracker tracker = progress_tracker.tracker()->subtracker(0, 1.0);
-          tracker.text_update("Loading raster " + dem_path.string());
-          auto dem = read_tif(dem_path);
+          ProgressTracker progress_tracker = async_progress_tracker.tracker()->subtracker(
+              0, 1.0, "load raster " + dem_path.filename().string());
+          const bool load_texture = texture_path.has_value();
+          const bool load_slope = slope_colored && slope_path.has_value();
+          const int read_count = 1 + (load_texture ? 1 : 0) + (load_slope ? 1 : 0);
+          const double slice = 1.0 / read_count;
+          double lo = 0.0;
+          auto dem = read_tif(dem_path, SUBTRACKER(lo, lo + slice));
+          lo += slice;
           std::optional<Geo<MultiBand<FlexGrid>>> loaded_texture;
-          if (texture_path) {
-            loaded_texture = read_tif(*texture_path);
+          if (load_texture) {
+            loaded_texture = read_tif(*texture_path, SUBTRACKER(lo, lo + slice));
+            lo += slice;
           }
           std::unique_ptr<OGRCoordinateTransformation> coord_transform =
               make_coord_transform(m_native_projection.to_string(), target_crs_wkt);
@@ -648,7 +655,7 @@ class AsyncRasterData {
             mesh = build_flat_cell_dem_mesh(dem, stride);
             reproject_dem_mesh_horizontal(mesh, coord_transform.get());
           } else if (slope_colored && slope_path) {
-            auto slope = read_tif(*slope_path);
+            auto slope = read_tif(*slope_path, SUBTRACKER(lo, 1.0));
             mesh = build_slope_colored_mesh(slope, dem, stride);
             reproject_dem_mesh_horizontal(mesh, coord_transform.get());
           } else if (loaded_texture) {

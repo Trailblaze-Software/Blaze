@@ -370,7 +370,9 @@ class AsyncOctreeLASData {
                 << std::endl;
 
       laspp::LASReader reader(filename);
-      ProgressTracker tracker = progress_tracker.tracker()->subtracker(0.0, 1.0);
+      ProgressTracker& root_tracker = *progress_tracker.tracker();
+      ProgressTracker tracker = SUBTRACKER(0.0, 1.0, root_tracker);
+      START_TRACKER(tracker, "load " + filename.filename().string());
 
       const size_t preview_stride =
           std::max(size_t{1}, (m_total_points + MAX_PREVIEW_POINTS - 1) / MAX_PREVIEW_POINTS);

@@ -15,7 +15,7 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
 
  public:
   BinnedPoints(LASData& las_file, double bin_resolution, unsigned int downsample_factor,
-               ProgressTracker progress)
+               ProgressTracker&& progress_tracker)
       : Geo<Grid<std::span<LASPoint>>>(
             num_cells_by_distance(las_file.width() + downsample_factor * bin_resolution,
                                   bin_resolution),
@@ -42,7 +42,9 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
     size_t total_points = 0;
     std::vector<LASPoint> row_sorted;
 
-    progress.text_update("Counting points per row...");
+    START_TRACKER("binning LAS points");
+
+    progress_tracker.text_update("Counting points per row...");
 
 #pragma omp parallel
     {
@@ -88,8 +90,8 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
           row_offsets[row + 1] = row_offsets[row] + row_counts[row];
         total_points = row_offsets[rows];
 
-        progress.set_proportion(0.25);
-        progress.text_update("Sorting points by row...");
+        progress_tracker.set_proportion(0.25);
+        progress_tracker.text_update("Sorting points by row...");
 
         row_sorted.resize(total_points);
 
@@ -122,11 +124,11 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
       }
     }
 
-    progress.set_proportion(0.50);
+    progress_tracker.set_proportion(0.50);
 
     // ---- Phase 2: within each row, bin by fine cell ----
 
-    progress.text_update("Placing points into cells...");
+    progress_tracker.text_update("Placing points into cells...");
 
     m_storage.resize(total_points);
 
@@ -167,7 +169,7 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
       }
     }
 
-    progress.set_proportion(1.0);
+    progress_tracker.set_proportion(1.0);
 
     if (num_out_of_bounds.load(std::memory_order_relaxed) > 0) {
       std::cerr << "Warning: " << num_out_of_bounds.load(std::memory_order_relaxed)

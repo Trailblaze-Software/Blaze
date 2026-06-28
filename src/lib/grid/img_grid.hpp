@@ -1,12 +1,16 @@
 #pragma once
 
 #include <cmath>
+#include <span>
 #include <stdexcept>
 #include <string>
 
+#include "config_input/config_input.hpp"
 #include "contour/contour.hpp"
 #include "grid/grid.hpp"
+#include "methods/water/water.hpp"
 #include "tif/tif.hpp"
+#include "utilities/progress_tracker.hpp"
 
 namespace {
 
@@ -317,18 +321,20 @@ inline void Grid<U>::draw_polyline(const blaze::Point* points, int num_points, b
 }
 
 template <typename GridT>
-inline void Geo<GridT>::draw(const Geo<Grid<RGBColor>>& other,
+inline void Geo<GridT>::draw(const Geo<Grid<RGBColor>>& other, ProgressTracker&& progress_tracker,
                              std::optional<blaze::InterpolationMode> interpolation)
   requires std::same_as<GridT, Grid<RGBColor>>
 {
+  START_TRACKER("drawing raster layer");
   draw_geo_grid(*this, other, interpolation);
 }
 
 template <typename GridT>
-inline void Geo<GridT>::draw(const Geo<Grid<CMYKColor>>& other,
+inline void Geo<GridT>::draw(const Geo<Grid<CMYKColor>>& other, ProgressTracker&& progress_tracker,
                              std::optional<blaze::InterpolationMode> interpolation)
   requires std::same_as<GridT, Grid<RGBColor>>
 {
+  START_TRACKER("drawing raster layer");
   draw_geo_grid(*this, other, interpolation);
 }
 
@@ -342,41 +348,60 @@ inline void Geo<GridT>::draw_point(const Coordinate2D<double>& point, const Colo
                     static_cast<int>(size / transform().dx()), to_rgb(color), -1);
 }
 
-template <typename GridT>
-inline void Geo<GridT>::draw(const Contour& contour, const ColorVariant& color, double width)
-  requires std::same_as<GridT, Grid<RGBColor>>
-{
-  std::vector<blaze::Point> points;
-  points.reserve(contour.points().size());
-  for (const auto& contour_point : contour.points()) {
-    const Coordinate2D<double> pixel_coord = transform().projection_to_pixel(contour_point);
-    points.emplace_back(pixel_coord.x(), pixel_coord.y());
+inline void draw_geo_polyline(GeoImgGrid& grid, std::span<const Coordinate2D<double>> geo_points,
+                              const ColorVariant& color, double width) {
+  if (geo_points.size() < 2) {
+    return;
   }
-  this->draw_polyline(points.data(), static_cast<int>(points.size()), false, to_rgb(color),
-                      static_cast<int>(width / transform().dx()));
+  std::vector<blaze::Point> points;
+  points.reserve(geo_points.size());
+  for (const Coordinate2D<double>& geo_point : geo_points) {
+    const Coordinate2D<double> pixel = grid.transform().projection_to_pixel(geo_point);
+    points.emplace_back(pixel.x(), pixel.y());
+  }
+  grid.draw_polyline(points.data(), static_cast<int>(points.size()), false, to_rgb(color),
+                     static_cast<int>(width / grid.transform().dx()));
 }
 
 template <typename GridT>
-inline void Geo<GridT>::draw(const std::vector<Coordinate2D<double>>& in_points,
-                             const ColorVariant& color, double width)
+inline void Geo<GridT>::draw_contours(const std::vector<Contour>& contours,
+                                      const ContourConfigs& configs, const double render_scale,
+                                      const bool base_layer_only,
+                                      ProgressTracker&& progress_tracker)
   requires std::same_as<GridT, Grid<RGBColor>>
 {
-  std::vector<blaze::Point> points;
-  points.reserve(in_points.size());
-  for (const auto& point : in_points) {
-    const Coordinate2D<double> pixel_coord = transform().projection_to_pixel(point);
-    points.emplace_back(pixel_coord.x(), pixel_coord.y());
+  START_TRACKER(base_layer_only ? "drawing base contours" : "drawing contours");
+  for (const Contour& contour : contours) {
+    const bool is_base_layer = configs.layer_name_from_height(contour.height()) == "Contour";
+    if (base_layer_only != is_base_layer) {
+      continue;
+    }
+    const ContourConfig& contour_config = configs.pick_from_height(contour.height());
+    draw_geo_polyline(*this, contour.points(), contour_config.color,
+                      contour_config.width / 1000 * render_scale);
   }
-  this->draw_polyline(points.data(), static_cast<int>(points.size()), false, to_rgb(color),
-                      static_cast<int>(width / transform().dx()));
 }
 
 template <typename GridT>
-inline void Geo<GridT>::save_to(const fs::path& path, const Extent2D& extent)
+inline void Geo<GridT>::draw_streams(const std::vector<Stream>& streams, const WaterConfigs& water,
+                                     const double render_scale, ProgressTracker&& progress_tracker)
+  requires std::same_as<GridT, Grid<RGBColor>>
+{
+  START_TRACKER("drawing streams");
+  for (const Stream& stream : streams) {
+    const WaterConfig& water_config = water.config_from_catchment(stream.catchment);
+    draw_geo_polyline(*this, stream.coords, water_config.color,
+                      water_config.width / 1000 * render_scale);
+  }
+}
+
+template <typename GridT>
+inline void Geo<GridT>::save_to(const fs::path& path, const Extent2D& extent,
+                                ProgressTracker&& progress_tracker)
   requires std::same_as<GridT, Grid<RGBColor>>
 {
   if (path.extension() == ".tif" || path.extension() == ".tiff") {
-    write_to_tif(slice(extent), path);
+    write_to_tif(slice(extent), path, std::move(progress_tracker));
     return;
   }
   throw std::runtime_error(

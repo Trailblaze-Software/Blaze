@@ -301,17 +301,15 @@ class LASFile {
 #endif
 
  public:
-  explicit LASFile(const fs::path& filename, ProgressTracker progress_tracker,
+  explicit LASFile(const fs::path& filename, ProgressTracker&& progress_tracker,
                    [[maybe_unused]] const std::string& override_crs = "")
       : m_filename(filename) {
-    Timer timer;
-    progress_tracker.text_update(to_string("Reading ", filename, " metadata ..."));
+    START_TRACKER(to_string("Reading ", filename, " metadata ..."));
 #ifdef USE_PDAL
     (void)override_crs;
 #else
     laspp::LASReader reader(filename);
     from_las_reader(reader, override_crs);
-    progress_tracker.text_update("Reading metadata took " + to_string(timer));
 #endif
   }
 
@@ -368,8 +366,9 @@ class LASData : public LASFile {
 
 #ifndef USE_PDAL
  protected:
-  void read_points(laspp::LASReader& reader, ProgressTracker progress_tracker,
+  void read_points(laspp::LASReader& reader, ProgressTracker&& progress_tracker,
                    std::optional<Extent2D> bounds = std::nullopt) {
+    START_TRACKER("reading LAS points");
     Timer point_timer;
 
     if (bounds.has_value() && reader.has_lastools_spatial_index()) {
@@ -485,13 +484,13 @@ class LASData : public LASFile {
  public:
 #endif
 
-  explicit LASData(const fs::path& filename, ProgressTracker progress_tracker,
+  explicit LASData(const fs::path& filename, ProgressTracker&& progress_tracker,
                    [[maybe_unused]] bool skip_reading_points = false,
                    [[maybe_unused]] std::optional<Extent2D> bounds = std::nullopt,
                    [[maybe_unused]] const std::string& override_crs = "")
-      : LASFile(filename, progress_tracker.subtracker(0, 0.1), override_crs) {
+      : LASFile(filename, SUBTRACKER(0.0, 0.05, progress_tracker), override_crs) {
     Timer timer;
-    progress_tracker.text_update(to_string("Reading ", filename, " ..."));
+    START_TRACKER(to_string("Reading ", filename, " ..."));
     Assert(fs::exists(filename), "File does not exist: " + filename.string());
 
 #ifdef USE_PDAL
@@ -556,7 +555,7 @@ class LASData : public LASFile {
     if (skip_reading_points) {
       return;
     }
-    read_points(reader, progress_tracker.subtracker(0.1, 1.0), bounds);
+    read_points(reader, SUBTRACKER(0.1, 1.0), bounds);
 #endif
   }
 
@@ -567,10 +566,10 @@ class LASData : public LASFile {
 
   static LASData with_border(const fs::path& filename, double border_width,
                              const std::vector<std::pair<Extent3D, fs::path>>& all_las_file_extents,
-                             ProgressTracker progress_tracker,
+                             ProgressTracker&& progress_tracker,
                              const std::string& override_crs = "") {
-    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6), false, std::nullopt,
-                     override_crs);
+    START_TRACKER("loading " + filename.filename().string() + " with border");
+    LASData las_file(filename, SUBTRACKER(0.0, 0.6), false, std::nullopt, override_crs);
     Extent3D original_bounds = las_file.bounds();
     Extent3D extended_bounds = original_bounds;
     extended_bounds.grow(border_width);
@@ -583,11 +582,10 @@ class LASData : public LASFile {
     }
     for (size_t i = 0; i < overlapping_filenames.size(); i++) {
       const fs::path& border_filename = overlapping_filenames[i];
-      LASData border_file(
-          border_filename.string(),
-          progress_tracker.subtracker(0.6 + (double)i / overlapping_filenames.size() * 0.4,
-                                      0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4),
-          false, extended_bounds, override_crs);
+      LASData border_file(border_filename.string(),
+                          SUBTRACKER(0.6 + (double)i / overlapping_filenames.size() * 0.4,
+                                     0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4),
+                          false, extended_bounds, override_crs);
       for (const LASPoint& point : border_file) {
         if (!extended_bounds.contains(point.x(), point.y())) {
           continue;
@@ -603,10 +601,10 @@ class LASData : public LASFile {
   }
 
   static LASData with_border(const fs::path& filename, double border_width,
-                             ProgressTracker progress_tracker,
+                             ProgressTracker&& progress_tracker,
                              const std::string& override_crs = "") {
-    LASData las_file(filename, progress_tracker.subtracker(0.0, 0.6), false, std::nullopt,
-                     override_crs);
+    START_TRACKER("loading " + filename.filename().string() + " with border");
+    LASData las_file(filename, SUBTRACKER(0.0, 0.6), false, std::nullopt, override_crs);
     Extent3D original_bounds = las_file.bounds();
     std::vector<fs::path> border_filenames;
     for (const BorderType border_type :
@@ -622,12 +620,12 @@ class LASData : public LASFile {
                   << std::endl;
       }
     }
-    ProgressTracker subtracker = progress_tracker.subtracker(0.6, 1.0);
+    ProgressTracker border_tracker = SUBTRACKER(0.6, 1.0);
     for (size_t i = 0; i < border_filenames.size(); i++) {
       const fs::path& border_filename = border_filenames[i];
       LASData border_file(border_filename.string(),
-                          subtracker.subtracker((double)i / border_filenames.size(),
-                                                (double)(i + 1) / border_filenames.size()));
+                          SUBTRACKER((double)i / border_filenames.size(),
+                                     (double)(i + 1) / border_filenames.size(), border_tracker));
       for (const LASPoint& point : border_file) {
         las_file.insert(point);
       }
@@ -639,6 +637,14 @@ class LASData : public LASFile {
   }
 
   std::size_t n_points() const { return m_points.size(); }
+
+  // Drop copied point storage after BinnedPoints (or similar) no longer needs the source.
+  // Metadata (projection, bounds, intensity range) is retained.
+  void release_points() {
+    m_points.clear();
+    m_points.shrink_to_fit();
+  }
+
   const LASPoint& operator[](std::size_t i) const { return m_points[i]; }
 
   LASPoint& operator[](std::size_t i) { return m_points[i]; }
@@ -647,6 +653,7 @@ class LASData : public LASFile {
   std::span<const LASPoint> points() const { return {m_points.data(), m_points.size()}; }
 
   void insert(std::span<const LASPoint> pts) {
+    m_points.reserve(m_points.size() + pts.size());
     m_points.insert(m_points.end(), pts.begin(), pts.end());
     const long long n = static_cast<long long>(pts.size());
 #pragma omp parallel
@@ -669,8 +676,8 @@ class LASData : public LASFile {
     }
   }
 
-  void write(const fs::path& filename, std::optional<ProgressTracker> progress_tracker = {}) const {
-    (void)progress_tracker;
+  void write(const fs::path& filename, ProgressTracker&& progress_tracker) const {
+    START_TRACKER("writing " + filename.filename().string());
 #ifdef USE_PDAL
     pdal::Options options;
     options.add("filename", filename.string());
@@ -719,7 +726,7 @@ class LASData : public LASFile {
   }
 
   void extract_borders(const fs::path& tmp_dir, double border_width,
-                       ProgressTracker progress_tracker) const {
+                       ProgressTracker&& progress_tracker) const {
     size_t idx = 0;
     for (const BorderType border_type :
          {BorderType::N, BorderType::NE, BorderType::E, BorderType::SE, BorderType::S,
@@ -736,7 +743,7 @@ class LASData : public LASFile {
         border_file.write(
             tmp_dir /
                 (unique_coord_name(static_cast<const Extent2D&>(border_file.bounds())) + ".laz"),
-            progress_tracker.subtracker(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
+            SUBTRACKER(((double)idx + 0.5) / 8, (double)(idx + 1) / 8));
       }
       idx++;
     }
@@ -760,7 +767,7 @@ class AsyncLASData : public LASData {
           this->from_las_reader(reader);
           metadata_promise.set_value();
           std::lock_guard<std::mutex> lock(m_mutex);
-          this->read_points(reader, progress_tracker.tracker()->subtracker(0.01, 1.0));
+          this->read_points(reader, SUBTRACKER(0.01, 1.0, *progress_tracker.tracker()));
           m_data_promise.set_value();
           for (const auto& callback : callbacks) {
             callback();
@@ -787,21 +794,20 @@ class AsyncLASData : public LASData {
 };
 
 inline void extract_borders(const fs::path& las_filename, double border_width,
-                            ProgressTracker progress_tracker) {
+                            ProgressTracker&& progress_tracker) {
   fs::path tmp_dir = LocalDataRetriever::get_local_data("extracted_borders");
   fs::create_directories(tmp_dir);
 
   fs::path done_file = tmp_dir / (las_filename.stem().string() + ".done");
 
   if (fs::exists(done_file)) {
-    progress_tracker.text_update(
-        to_string("Skipping ", las_filename, " because it has already been processed"));
+    START_TRACKER(to_string("Skipping ", las_filename, " because it has already been processed"));
     return;
   }
 
-  progress_tracker.text_update(to_string("Extracting borders from ", las_filename, " ..."));
-  LASData las_file(las_filename.string(), progress_tracker.subtracker(0.0, 0.6));
-  las_file.extract_borders(tmp_dir, border_width, progress_tracker.subtracker(0.6, 1.0));
+  START_TRACKER(to_string("Extracting borders from ", las_filename, " ..."));
+  LASData las_file(las_filename.string(), SUBTRACKER(0.0, 0.6));
+  las_file.extract_borders(tmp_dir, border_width, SUBTRACKER(0.6, 1.0));
 
   // create done file
   std::ofstream bla(done_file);

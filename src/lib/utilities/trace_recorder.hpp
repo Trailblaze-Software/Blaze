@@ -26,18 +26,24 @@ class RecordTrace {
 bool enabled();
 
 uint64_t register_progress_scope(const std::source_location& location, double range_start,
-                                 double range_end, bool start_immediately,
-                                 const std::string& initial_name);
+                                 double range_end, const std::string& name,
+                                 const std::source_location* call_site = nullptr);
+
+// Update scope display name when START_TRACKER runs (callee location + status text).
+void progress_scope_set_display(uint64_t scope_id, const std::string& name,
+                                const std::source_location& callee_location);
+
 uint64_t thread_id();
 
 void write_chrome_trace(const fs::path& path);
 void write_chrome_trace_if_configured();
 void memory_counters(uint64_t total_bytes, uint64_t las_bytes, uint64_t grid_bytes);
 
-// Progress tracker scopes and updates. Scope depth is tracked per-thread inside the recorder.
-void progress_scope_text(uint64_t scope_id, const std::string& text);
+// Progress scope stack for assertion diagnostics (only populated while tracing is enabled).
+std::string format_active_scopes();
+
 void progress_end(uint64_t scope_id, double proportion);
 void progress_update(uint64_t scope_id, double proportion);
-void progress_status(const std::string& text, int depth);
+void progress_status(uint64_t scope_id, const std::string& text);
 
 }  // namespace blaze::trace

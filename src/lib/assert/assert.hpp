@@ -21,6 +21,7 @@ using source_location = std::experimental::source_location;
 #include <string>
 
 #include "printing/to_string.hpp"
+#include "utilities/trace_recorder.hpp"
 
 [[noreturn]] inline void unreachable() {
   // Uses compiler specific extensions if possible.
@@ -50,8 +51,12 @@ inline void _Assert(bool condition, const std::string& condition_str,
   if (!condition) [[unlikely]] {
     std::stringstream ss;
     ss << "Blaze assertion failed: " << condition_str << (message ? ": " + *message : "")
-       << "\n in " << loc.function_name() << " at " << loc.file_name() << ":" << loc.line()
-       << std::endl;
+       << "\n in " << loc.function_name() << " at " << loc.file_name() << ":" << loc.line();
+    const std::string scope_stack = blaze::trace::format_active_scopes();
+    if (!scope_stack.empty()) {
+      ss << "\n" << scope_stack;
+    }
+    ss << std::endl;
     std::cerr << ss.str();
     throw std::runtime_error(ss.str());
   }

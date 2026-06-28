@@ -19,7 +19,6 @@
 #include "polyline/polyline.hpp"
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
-#include "utilities/timer.hpp"
 
 class GDALDataset_w {
   GDALDataset* dataset;
@@ -209,8 +208,8 @@ class GPKGWriter {
 };
 
 inline std::vector<Contour> read_gpkg(const fs::path& filename,
-                                      ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("reading GPKG " + filename.string(), progress_tracker);
+                                      ProgressTracker&& progress_tracker) {
+  START_TRACKER("reading GPKG " + filename.filename().string());
   std::vector<Contour> contours;
 
   ensure_gdal_initialized();
@@ -387,9 +386,9 @@ inline size_t gpkg_feature_count(const fs::path& path) {
 // Merge several GeoPackage files into one output file. Layers with the same name
 // have their features appended. Skips missing inputs and empty layers.
 inline void combine_gpkgs(const std::vector<fs::path>& sources, const fs::path& output,
-                          const std::string& projection = {},
-                          ProgressTracker progress_tracker = ProgressTracker()) {
-  TimeFunction timer("combining GPKG " + output.filename().string(), &progress_tracker);
+                          const std::string& projection, ProgressTracker&& progress_tracker) {
+  START_TRACKER("combining GPKGs into " + output.filename().string());
+
   ensure_gdal_initialized();
 
   std::vector<fs::path> existing;

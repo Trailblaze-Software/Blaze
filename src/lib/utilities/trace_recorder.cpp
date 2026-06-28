@@ -7,11 +7,11 @@
 #include <fstream>
 #include <mutex>
 #include <nlohmann/json.hpp>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <thread>
-#include <unordered_map>
 #include <vector>
 
 #include "utilities/env.hpp"
@@ -28,6 +28,17 @@ struct TraceEvent {
   json event;
 };
 
+struct DiagnosticScopeFrame {
+  uint64_t scope_id = 0;
+  std::string name;
+  std::string file;
+  int line = 0;
+  std::string function;
+  std::optional<std::string> call_file;
+  std::optional<int> call_line;
+  std::optional<std::string> call_function;
+};
+
 std::mutex g_mutex;
 std::vector<TraceEvent> g_events;
 std::atomic<uint64_t> g_next_scope_id{1};
@@ -35,18 +46,7 @@ std::chrono::steady_clock::time_point g_origin{std::chrono::steady_clock::now()}
 bool g_metadata_written = false;
 int g_recording_depth = 0;
 
-thread_local std::vector<uint64_t> g_scope_stack;
-
-struct ScopeState {
-  bool started = false;
-  std::source_location location;
-  double range_start = 0.0;
-  double range_end = 1.0;
-  double last_proportion = 0.0;
-};
-
-std::mutex g_scope_mutex;
-std::unordered_map<uint64_t, ScopeState> g_scopes;
+thread_local std::vector<DiagnosticScopeFrame> g_scope_stack;
 
 void reset_recording() {
   std::lock_guard lock(g_mutex);
@@ -54,24 +54,9 @@ void reset_recording() {
   g_metadata_written = false;
   g_next_scope_id.store(1, std::memory_order_relaxed);
   g_origin = std::chrono::steady_clock::now();
-  {
-    std::lock_guard scope_lock(g_scope_mutex);
-    g_scopes.clear();
-  }
 }
 
 int current_scope_depth() { return static_cast<int>(g_scope_stack.size()); }
-
-void pop_scope(uint64_t scope_id) {
-  if (!g_scope_stack.empty() && g_scope_stack.back() == scope_id) {
-    g_scope_stack.pop_back();
-    return;
-  }
-  auto it = std::find(g_scope_stack.rbegin(), g_scope_stack.rend(), scope_id);
-  if (it != g_scope_stack.rend()) {
-    g_scope_stack.erase(it.base() - 1, g_scope_stack.end());
-  }
-}
 
 const char* trace_output_path() {
   static const char* path = []() -> const char* {
@@ -153,82 +138,126 @@ std::string basename_path(const char* path) {
 }
 
 void emit_progress_begin(uint64_t scope_id, const std::string& name, double range_start,
-                         double range_end) {
+                         double range_end, const std::source_location& location,
+                         const std::source_location* call_site) {
   if (!enabled()) {
     return;
   }
   const int depth = current_scope_depth();
-  append_scope_event(
-      'B', "progress", name, scope_id,
-      json{{"depth", depth}, {"range_start", range_start}, {"range_end", range_end}});
-  g_scope_stack.push_back(scope_id);
+  json args{{"depth", depth},
+            {"scope_id", format_scope_id(scope_id)},
+            {"range_start", range_start},
+            {"range_end", range_end},
+            {"function", location.function_name()},
+            {"file", basename_path(location.file_name())},
+            {"line", location.line()}};
+  if (call_site != nullptr) {
+    args["call_function"] = call_site->function_name();
+    args["call_file"] = basename_path(call_site->file_name());
+    args["call_line"] = call_site->line();
+  }
+  append_scope_event('B', "progress", name, scope_id, std::move(args));
 }
 
 void emit_progress_update(uint64_t scope_id, double proportion) {
   if (!enabled()) {
     return;
   }
-  const int depth = std::max(0, current_scope_depth() - 1);
-  append_instant_event(
-      "progress", "progress_update",
-      json{{"scope_id", format_scope_id(scope_id)}, {"depth", depth}, {"proportion", proportion}});
+  append_instant_event("progress", "progress_update",
+                       json{{"scope_id", format_scope_id(scope_id)},
+                            {"depth", std::max(0, current_scope_depth() - 1)},
+                            {"proportion", proportion}});
 }
 
 void emit_progress_end(uint64_t scope_id, double proportion) {
   if (!enabled()) {
     return;
   }
-  const int depth = current_scope_depth() - 1;
-  append_scope_event('E', "progress", "", scope_id,
-                     json{{"depth", depth}, {"proportion", proportion}});
-  pop_scope(scope_id);
+  const int depth = std::max(0, current_scope_depth() - 1);
+  append_scope_event(
+      'E', "progress", "", scope_id,
+      json{{"scope_id", format_scope_id(scope_id)}, {"depth", depth}, {"proportion", proportion}});
 }
 
-void ensure_scope_started(uint64_t scope_id, const std::string& name) {
-  double range_start = 0.0;
-  double range_end = 1.0;
-  double proportion = 0.0;
-  {
-    std::lock_guard lock(g_scope_mutex);
-    const auto it = g_scopes.find(scope_id);
-    if (it == g_scopes.end() || it->second.started) {
-      return;
-    }
-    it->second.started = true;
-    range_start = it->second.range_start;
-    range_end = it->second.range_end;
-    proportion = it->second.last_proportion;
+std::string scope_name_or_location(const std::source_location& location, const std::string& name) {
+  if (!name.empty()) {
+    return name;
   }
-  emit_progress_begin(scope_id, name, range_start, range_end);
-  if (proportion > 0.0) {
-    emit_progress_update(scope_id, proportion);
-  }
-}
-
-std::string short_location(const std::source_location& location) {
   return basename_path(location.file_name()) + ':' + std::to_string(location.line());
 }
 
-std::string scope_label_from_status(const std::string& text) {
-  constexpr std::string_view starting = "Starting ";
-  constexpr std::string_view finished = "Finished ";
-  if (text.starts_with(starting)) {
-    std::string label = text.substr(starting.size());
-    if (label.ends_with(" ...")) {
-      label.resize(label.size() - 4);
-    }
-    return label;
+void push_scope_frame(uint64_t scope_id, const std::string& name,
+                      const std::source_location& location, const std::source_location* call_site,
+                      const bool registration_is_call_site) {
+  DiagnosticScopeFrame frame{};
+  frame.scope_id = scope_id;
+  frame.name = name;
+  frame.file = basename_path(location.file_name());
+  frame.line = static_cast<int>(location.line());
+  frame.function = location.function_name();
+  if (call_site != nullptr) {
+    frame.call_file = basename_path(call_site->file_name());
+    frame.call_line = static_cast<int>(call_site->line());
+    frame.call_function = call_site->function_name();
+  } else if (registration_is_call_site) {
+    frame.call_file = frame.file;
+    frame.call_line = frame.line;
+    frame.call_function = frame.function;
   }
-  if (text.starts_with(finished)) {
-    const size_t in_pos = text.find(" in ");
-    if (in_pos != std::string::npos) {
-      return text.substr(finished.size(), in_pos - finished.size());
+  g_scope_stack.push_back(std::move(frame));
+}
+
+void update_scope_display(uint64_t scope_id, const std::string& name,
+                          const std::source_location& callee_location) {
+  for (DiagnosticScopeFrame& frame : g_scope_stack) {
+    if (frame.scope_id != scope_id) {
+      continue;
+    }
+    frame.name = name;
+    frame.file = basename_path(callee_location.file_name());
+    frame.line = static_cast<int>(callee_location.line());
+    frame.function = callee_location.function_name();
+    return;
+  }
+}
+
+void pop_scope_frame(uint64_t scope_id) {
+  if (g_scope_stack.empty()) {
+    return;
+  }
+  if (g_scope_stack.back().scope_id == scope_id) {
+    g_scope_stack.pop_back();
+    return;
+  }
+  const auto it = std::find_if(
+      g_scope_stack.rbegin(), g_scope_stack.rend(),
+      [scope_id](const DiagnosticScopeFrame& frame) { return frame.scope_id == scope_id; });
+  if (it != g_scope_stack.rend()) {
+    g_scope_stack.erase(it.base() - 1, g_scope_stack.end());
+  }
+}
+
+std::string format_active_scopes_impl() {
+  if (g_scope_stack.empty()) {
+    return {};
+  }
+  std::ostringstream ss;
+  ss << "Active progress scopes:";
+  for (size_t i = 0; i < g_scope_stack.size(); ++i) {
+    const DiagnosticScopeFrame& frame = g_scope_stack[i];
+    ss << "\n  [" << i << "] " << frame.name << " (" << frame.function << " @ " << frame.file << ':'
+       << frame.line << ')';
+    if (frame.call_function.has_value()) {
+      ss << " [called from " << *frame.call_function << " @ " << *frame.call_file << ':'
+         << *frame.call_line << ']';
     }
   }
-  return text;
+  return ss.str();
 }
 
 }  // namespace
+
+std::string format_active_scopes() { return format_active_scopes_impl(); }
 
 bool enabled() { return g_recording_depth > 0 || trace_output_path() != nullptr; }
 
@@ -252,19 +281,31 @@ RecordTrace::~RecordTrace() {
   write_chrome_trace(m_path);
 }
 
-uint64_t register_progress_scope(const std::source_location& location, double range_start,
-                                 double range_end, bool start_immediately,
-                                 const std::string& initial_name) {
+uint64_t register_progress_scope(const std::source_location& location, const double range_start,
+                                 const double range_end, const std::string& name,
+                                 const std::source_location* call_site) {
   const uint64_t scope_id = g_next_scope_id.fetch_add(1, std::memory_order_relaxed);
-  {
-    std::lock_guard lock(g_scope_mutex);
-    g_scopes[scope_id] =
-        ScopeState{.location = location, .range_start = range_start, .range_end = range_end};
-  }
-  if (start_immediately) {
-    ensure_scope_started(scope_id, initial_name);
+  const std::string scope_name = scope_name_or_location(location, name);
+  emit_progress_begin(scope_id, scope_name, range_start, range_end, location, call_site);
+  if (enabled()) {
+    push_scope_frame(scope_id, scope_name, location, call_site,
+                     name.empty() && call_site == nullptr);
   }
   return scope_id;
+}
+
+void progress_scope_set_display(const uint64_t scope_id, const std::string& name,
+                                const std::source_location& callee_location) {
+  if (!enabled()) {
+    return;
+  }
+  update_scope_display(scope_id, name, callee_location);
+  append_instant_event("progress", "progress_scope_name",
+                       json{{"scope_id", format_scope_id(scope_id)},
+                            {"name", name},
+                            {"function", callee_location.function_name()},
+                            {"file", basename_path(callee_location.file_name())},
+                            {"line", callee_location.line()}});
 }
 
 uint64_t thread_id() {
@@ -280,57 +321,21 @@ void memory_counters(uint64_t total_bytes, uint64_t las_bytes, uint64_t grid_byt
   append_counter_event("memory_grid", static_cast<double>(grid_bytes) / BYTES_PER_GB);
 }
 
-void progress_scope_text(uint64_t scope_id, const std::string& text) {
-  if (text.empty()) {
-    return;
-  }
-  ensure_scope_started(scope_id, scope_label_from_status(text));
-}
-
 void progress_end(uint64_t scope_id, double proportion) {
-  std::string fallback_name;
-  bool need_begin = false;
-  {
-    std::lock_guard lock(g_scope_mutex);
-    const auto it = g_scopes.find(scope_id);
-    if (it == g_scopes.end()) {
-      return;
-    }
-    it->second.last_proportion = proportion;
-    if (!it->second.started) {
-      need_begin = true;
-      fallback_name = short_location(it->second.location);
-    } else {
-      g_scopes.erase(it);
-    }
-  }
-  if (need_begin) {
-    ensure_scope_started(scope_id, fallback_name);
-    std::lock_guard lock(g_scope_mutex);
-    g_scopes.erase(scope_id);
-  }
   emit_progress_end(scope_id, proportion);
+  pop_scope_frame(scope_id);
 }
 
 void progress_update(uint64_t scope_id, double proportion) {
-  bool started = false;
-  {
-    std::lock_guard lock(g_scope_mutex);
-    const auto it = g_scopes.find(scope_id);
-    if (it == g_scopes.end()) {
-      return;
-    }
-    it->second.last_proportion = proportion;
-    started = it->second.started;
-  }
-  if (!started) {
-    return;
-  }
   emit_progress_update(scope_id, proportion);
 }
 
-void progress_status(const std::string& text, int depth) {
-  append_instant_event("progress", "progress_status", json{{"depth", depth}, {"text", text}});
+void progress_status(const uint64_t scope_id, const std::string& text) {
+  if (scope_id == 0) {
+    return;
+  }
+  append_instant_event("progress", "progress_status",
+                       json{{"scope_id", format_scope_id(scope_id)}, {"text", text}});
 }
 
 void write_chrome_trace(const fs::path& path) {

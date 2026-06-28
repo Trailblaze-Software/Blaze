@@ -296,7 +296,7 @@ class ContourLayer : public Layer {
   std::future<void> m_future;
 
  public:
-  ContourLayer(const fs::path& gpkg_path, AsyncProgressTracker progress_tracker,
+  ContourLayer(const fs::path& gpkg_path, AsyncProgressTracker async_progress_tracker,
                const std::string& target_crs_wkt = {})
       : Layer(gpkg_path.filename().string(), LayerKind::Contours) {
     ensure_gdal_initialized();
@@ -310,10 +310,10 @@ class ContourLayer : public Layer {
     m_projection = target_crs_wkt.empty() ? m_native_projection : target_crs_wkt;
 
     m_future = std::async(
-        std::launch::async, [this, gpkg_path, progress_tracker, target_crs_wkt]() mutable {
-          ProgressTracker tracker = progress_tracker.tracker()->subtracker(0, 1.0);
-          tracker.text_update("Loading contours " + gpkg_path.string());
-          auto contours = read_gpkg(gpkg_path);
+        std::launch::async, [this, gpkg_path, async_progress_tracker, target_crs_wkt]() mutable {
+          ProgressTracker progress_tracker = async_progress_tracker.tracker()->subtracker(
+              0, 1.0, "load contours " + gpkg_path.filename().string());
+          auto contours = read_gpkg(gpkg_path, std::move(progress_tracker));
           const std::string native_projection = m_native_projection;
           std::unique_ptr<OGRCoordinateTransformation> coord_transform =
               make_coord_transform(native_projection, target_crs_wkt);
