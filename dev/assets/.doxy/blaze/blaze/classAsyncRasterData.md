@@ -51,7 +51,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**AsyncRasterData**](#function-asyncrasterdata) (const fs::path & dem\_path, [**AsyncProgressTracker**](classAsyncProgressTracker.md) progress\_tracker, const std::optional&lt; fs::path &gt; & texture\_path=std::nullopt, int stride=1, bool slope\_colored=false, const std::optional&lt; fs::path &gt; & slope\_path=std::nullopt, std::function&lt; void()&gt; on\_ready={}, const std::string & target\_crs\_wkt={}, bool flat\_cells=false) <br> |
+|   | [**AsyncRasterData**](#function-asyncrasterdata) (const fs::path & dem\_path, [**AsyncProgressTracker**](classAsyncProgressTracker.md) async\_progress\_tracker, const std::optional&lt; fs::path &gt; & texture\_path=std::nullopt, int stride=1, bool slope\_colored=false, const std::optional&lt; fs::path &gt; & slope\_path=std::nullopt, std::function&lt; void()&gt; on\_ready={}, const std::string & target\_crs\_wkt={}, bool flat\_cells=false) <br> |
 |  [**Extent3D**](structExtent3D.md) | [**extent**](#function-extent) () const<br> |
 |  bool | [**has\_texture**](#function-has_texture) () const<br> |
 |  const [**DemMeshData**](structDemMeshData.md) & | [**mesh**](#function-mesh) () const<br> |
@@ -98,7 +98,7 @@
 ```C++
 inline AsyncRasterData::AsyncRasterData (
     const fs::path & dem_path,
-    AsyncProgressTracker progress_tracker,
+    AsyncProgressTracker async_progress_tracker,
     const std::optional< fs::path > & texture_path=std::nullopt,
     int stride=1,
     bool slope_colored=false,

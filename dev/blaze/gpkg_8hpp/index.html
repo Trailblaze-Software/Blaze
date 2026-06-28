@@ -932,7 +932,6 @@
 <li><code>#include "polyline/polyline.hpp"</code></li>
 <li><code>#include "utilities/filesystem.hpp"</code></li>
 <li><code>#include "utilities/progress_tracker.hpp"</code></li>
-<li><code>#include "utilities/timer.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -964,7 +963,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="#function-combine_gpkgs"><strong>combine_gpkgs</strong></a> (const std::vector&lt; fs::path &gt; &amp; sources, const fs::path &amp; output, const std::string &amp; projection={}, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker=<a href="../classProgressTracker/"><strong>ProgressTracker</strong></a>()) <br></td>
+<td style="text-align: left;"><a href="#function-combine_gpkgs"><strong>combine_gpkgs</strong></a> (const std::vector&lt; fs::path &gt; &amp; sources, const fs::path &amp; output, const std::string &amp; projection, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
@@ -988,7 +987,7 @@
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-read_gpkg"><strong>read_gpkg</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> * progress_tracker=nullptr) <br></td>
+<td style="text-align: left;"><a href="#function-read_gpkg"><strong>read_gpkg</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 </tbody>
 </table>
@@ -997,8 +996,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">combine_gpkgs</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">sources</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">output</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection</span><span class="o">=</span><span class="p">{},</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="n">ProgressTracker</span><span class="w"> </span><span class="p">()</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1049,7 +1048,7 @@
 <h3 id="function-read_gpkg">function read_gpkg</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Contour</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_gpkg</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">progress_tracker</span><span class="o">=</span><span class="nb">nullptr</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

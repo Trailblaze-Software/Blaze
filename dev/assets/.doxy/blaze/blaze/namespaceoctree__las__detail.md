@@ -37,7 +37,7 @@
 
 | Type | Name |
 | ---: | :--- |
-| typedef std::function&lt; void(const std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; &preview, size\_t points\_loaded, const [**Extent3D**](structExtent3D.md) &bounds)&gt; | [**PreviewCallback**](#typedef-previewcallback)  <br> |
+| typedef std::function&lt; void(const OctreePointVector &preview, size\_t points\_loaded, const [**Extent3D**](structExtent3D.md) &bounds)&gt; | [**PreviewCallback**](#typedef-previewcallback)  <br> |
 
 
 
@@ -71,8 +71,8 @@
 |  uint8\_t | [**las\_point\_classification**](#function-las_point_classification) (const LasPt & pt) <br> |
 |  void | [**las\_point\_file\_color**](#function-las_point_file_color) (const LasPt & pt, [**OctreePoint**](structOctreePoint.md) & out) <br> |
 |  bool | [**las\_point\_format\_has\_rgb**](#function-las_point_format_has_rgb) (uint8\_t point\_format) <br> |
-|  void | [**load\_points\_dispatch**](#function-load_points_dispatch) (laspp::LASReader & reader, OGRCoordinateTransformation \* coord\_transform, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & origin, size\_t preview\_stride, std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & converted, std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & preview, [**Extent3D**](structExtent3D.md) & bounds, [**ProgressTracker**](classProgressTracker.md) & tracker, const PreviewCallback & publish\_preview, const std::atomic&lt; bool &gt; \* cancel=nullptr) <br> |
-|  void | [**load\_points\_parallel**](#function-load_points_parallel) (laspp::LASReader & reader, OGRCoordinateTransformation \* coord\_transform, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & origin, size\_t preview\_stride, std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & converted, std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & preview, [**Extent3D**](structExtent3D.md) & bounds, [**ProgressTracker**](classProgressTracker.md) & tracker, const PreviewCallback & publish\_preview, const std::atomic&lt; bool &gt; \* cancel=nullptr) <br> |
+|  void | [**load\_points\_dispatch**](#function-load_points_dispatch) (laspp::LASReader & reader, OGRCoordinateTransformation \* coord\_transform, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & origin, size\_t preview\_stride, OctreePointVector & converted, OctreePointVector & preview, [**Extent3D**](structExtent3D.md) & bounds, [**ProgressTracker**](classProgressTracker.md) & tracker, const PreviewCallback & publish\_preview, const std::atomic&lt; bool &gt; \* cancel=nullptr) <br> |
+|  void | [**load\_points\_parallel**](#function-load_points_parallel) (laspp::LASReader & reader, OGRCoordinateTransformation \* coord\_transform, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & origin, size\_t preview\_stride, OctreePointVector & converted, OctreePointVector & preview, [**Extent3D**](structExtent3D.md) & bounds, [**ProgressTracker**](classProgressTracker.md) & tracker, const PreviewCallback & publish\_preview, const std::atomic&lt; bool &gt; \* cancel=nullptr) <br> |
 
 
 
@@ -109,7 +109,7 @@
 ### typedef PreviewCallback 
 
 ```C++
-using octree_las_detail::PreviewCallback = typedef std::function<void(const std::vector<OctreePoint>& preview, size_t points_loaded, const Extent3D& bounds)>;
+using octree_las_detail::PreviewCallback = typedef std::function<void(const OctreePointVector& preview, size_t points_loaded, const Extent3D& bounds)>;
 ```
 
 
@@ -211,8 +211,8 @@ inline void octree_las_detail::load_points_dispatch (
     OGRCoordinateTransformation * coord_transform,
     const Coordinate3D < double > & origin,
     size_t preview_stride,
-    std::vector< OctreePoint > & converted,
-    std::vector< OctreePoint > & preview,
+    OctreePointVector & converted,
+    OctreePointVector & preview,
     Extent3D & bounds,
     ProgressTracker & tracker,
     const PreviewCallback & publish_preview,
@@ -236,8 +236,8 @@ inline void octree_las_detail::load_points_parallel (
     OGRCoordinateTransformation * coord_transform,
     const Coordinate3D < double > & origin,
     size_t preview_stride,
-    std::vector< OctreePoint > & converted,
-    std::vector< OctreePoint > & preview,
+    OctreePointVector & converted,
+    OctreePointVector & preview,
     Extent3D & bounds,
     ProgressTracker & tracker,
     const PreviewCallback & publish_preview,

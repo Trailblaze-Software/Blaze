@@ -19,12 +19,11 @@
 #include "las/las_point.hpp"
 #include "utilities/coordinate.hpp"
 #include "utilities/progress_tracker.hpp"
-#include "utilities/timer.hpp"
 
 inline GeoGrid<std::optional<float>> get_blocked_proportion(
     const GeoGrid<std::span<LASPoint>>& grid, const GeoGrid<double>& ground,
-    const VegeHeightConfig& vege_config, ProgressTracker&& progress_tracker = ProgressTracker()) {
-  TimeFunction timer("counting " + vege_config.name + " blocked proportion", &progress_tracker);
+    const VegeHeightConfig& vege_config, ProgressTracker&& progress_tracker) {
+  START_TRACKER("counting " + vege_config.name + " blocked proportion");
   GeoGrid<std::optional<float>> blocked_proportion(grid.width(), grid.height(),
                                                    GeoTransform(grid.transform()),
                                                    GeoProjection(grid.projection()));
@@ -59,9 +58,9 @@ inline GeoGrid<std::optional<float>> get_blocked_proportion(
   return blocked_proportion;
 }
 
-inline GeoGrid<float> low_pass(const GeoGrid<float>& grid, int delta = 8,
-                               ProgressTracker progress_tracker = ProgressTracker()) {
-  TimeFunction timer("Low pass filter", &progress_tracker);
+inline GeoGrid<float> low_pass(const GeoGrid<float>& grid, int delta,
+                               ProgressTracker&& progress_tracker) {
+  START_TRACKER("low pass filter");
   GeoGrid<float> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
                           GeoProjection(grid.projection()));
 #pragma omp parallel for
@@ -87,9 +86,9 @@ inline GeoGrid<float> low_pass(const GeoGrid<float>& grid, int delta = 8,
   return low_pass;
 }
 
-inline GeoGrid<float> low_pass(const GeoGrid<std::optional<float>>& grid, int delta = 8,
-                               ProgressTracker progress_tracker = ProgressTracker()) {
-  TimeFunction timer("Low pass filter", &progress_tracker);
+inline GeoGrid<float> low_pass(const GeoGrid<std::optional<float>>& grid, int delta,
+                               ProgressTracker&& progress_tracker) {
+  START_TRACKER("low pass filter");
   GeoGrid<float> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
                           GeoProjection(grid.projection()));
 #pragma omp parallel for

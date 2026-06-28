@@ -108,6 +108,7 @@ See [Extent2D](structExtent2D.md)
 
 | Type | Name |
 | ---: | :--- |
+|  double | [**area**](structExtent2D.md#function-area) () const<br> |
 |  bool | [**contains**](structExtent2D.md#function-contains) (double x, double y) const<br> |
 |  void | [**grow**](structExtent2D.md#function-grow) (const [**Extent2D**](structExtent2D.md) & other) <br> |
 |  [**Extent2D**](structExtent2D.md) | [**intersection**](structExtent2D.md#function-intersection) (const [**Extent2D**](structExtent2D.md) & other) const<br> |

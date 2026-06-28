@@ -9,20 +9,22 @@
     <includedby refid="test__e2e_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp</includedby>
     <includedby refid="test__process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_process.cpp</includedby>
     <incdepgraph>
-      <node id="33">
+      <node id="34">
         <label>assert/assert.hpp</label>
         <link refid="assert_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
         <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -45,6 +47,12 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
+      <node id="41">
+        <label>grid/forward_grid.hpp</label>
+        <link refid="forward__grid_8hpp_source"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
       <node id="26">
         <label>grid/grid.hpp</label>
         <link refid="grid_8hpp_source"/>
@@ -56,24 +64,46 @@
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="42">
+        <label>grid/raster.hpp</label>
+        <link refid="raster_8hpp_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
         <label>io/crs.hpp</label>
         <link refid="crs_8hpp_source"/>
         <childnode refid="21" relation="include">
@@ -82,15 +112,15 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="43" relation="include">
         </childnode>
       </node>
       <node id="8">
@@ -134,33 +164,35 @@
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
+        <childnode refid="47" relation="include">
         </childnode>
-        <childnode refid="40" relation="include">
+        <childnode refid="48" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="41" relation="include">
+        <childnode refid="49" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="48">
         <label>las_point.hpp</label>
         <link refid="las__point_8hpp_source"/>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="43" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="37">
         <label>printing/to_string.hpp</label>
         <link refid="to__string_8hpp_source"/>
-        <childnode refid="37" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
@@ -173,7 +205,7 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="43">
         <label>utilities/coordinate.hpp</label>
         <link refid="coordinate_8hpp_source"/>
         <childnode refid="9" relation="include">
@@ -186,29 +218,43 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
       <node id="13">
         <label>utilities/filesystem.hpp</label>
         <link refid="filesystem_8hpp_source"/>
       </node>
-      <node id="41">
-        <label>utilities/progress_tracker.hpp</label>
-        <link refid="progress__tracker_8hpp_source"/>
-        <childnode refid="42" relation="include">
+      <node id="46">
+        <label>utilities/memory_tracker.hpp</label>
+        <link refid="memory__tracker_8hpp_source"/>
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
+      </node>
+      <node id="49">
+        <label>utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
         </childnode>
       </node>
       <node id="14">
@@ -217,18 +263,46 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="52">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
-        <childnode refid="42" relation="include">
+        <childnode refid="50" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+      </node>
+      <node id="39">
+        <label>utilities/trace_recorder.hpp</label>
+        <link refid="trace__recorder_8hpp_source"/>
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="41" relation="include">
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>utilities/tracked_allocator.hpp</label>
+        <link refid="tracked__allocator_8hpp_source"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -245,22 +319,25 @@
       <node id="9">
         <label>array</label>
       </node>
-      <node id="42">
+      <node id="50">
         <label>chrono</label>
       </node>
       <node id="3">
         <label>cmath</label>
       </node>
       <node id="28">
+        <label>concepts</label>
+      </node>
+      <node id="29">
         <label>cstddef</label>
       </node>
       <node id="16">
         <label>cstdint</label>
       </node>
-      <node id="29">
+      <node id="30">
         <label>cstring</label>
       </node>
-      <node id="34">
+      <node id="35">
         <label>experimental/source_location</label>
       </node>
       <node id="17">
@@ -269,7 +346,7 @@
       <node id="18">
         <label>future</label>
       </node>
-      <node id="37">
+      <node id="38">
         <label>iomanip</label>
       </node>
       <node id="4">
@@ -287,11 +364,14 @@
       <node id="10">
         <label>map</label>
       </node>
-      <node id="30">
+      <node id="31">
         <label>memory</label>
       </node>
       <node id="20">
         <label>mutex</label>
+      </node>
+      <node id="45">
+        <label>new</label>
       </node>
       <node id="21">
         <label>ogr_spatialref.h</label>
@@ -305,22 +385,25 @@
       <node id="6">
         <label>set</label>
       </node>
+      <node id="40">
+        <label>source_location</label>
+      </node>
       <node id="22">
         <label>spatial_index.hpp</label>
       </node>
-      <node id="35">
+      <node id="36">
         <label>sstream</label>
       </node>
-      <node id="31">
+      <node id="32">
         <label>stdexcept</label>
       </node>
       <node id="25">
         <label>string</label>
       </node>
-      <node id="32">
+      <node id="33">
         <label>type_traits</label>
       </node>
-      <node id="43">
+      <node id="51">
         <label>utility</label>
       </node>
       <node id="12">
@@ -331,10 +414,10 @@
       </node>
     </incdepgraph>
     <sectiondef kind="func">
-      <memberdef kind="function" id="process_8hpp_1a04d3c7f7a5b77c8326a08c94fc5358b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="process_8hpp_1a62c06c7ad024157f32f83cba42c20da7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void process_las_file</definition>
-        <argsstring>(const fs::path &amp;las_file, const Config &amp;config, ProgressTracker tracker)</argsstring>
+        <argsstring>(const fs::path &amp;las_file, const Config &amp;config, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
         <name>process_las_file</name>
         <param>
           <type>const fs::path &amp;</type>
@@ -345,8 +428,8 @@
           <declname>config</declname>
         </param>
         <param>
-          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
-          <declname>tracker</declname>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;&amp;</type>
+          <declname>progress_tracker</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -354,12 +437,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/process.hpp" line="6" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/process.cpp" bodystart="101" bodyend="111" declfile="/home/runner/work/Blaze/Blaze/src/process.hpp" declline="6" declcolumn="6"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/process.hpp" line="6" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/process.cpp" bodystart="101" bodyend="110" declfile="/home/runner/work/Blaze/Blaze/src/process.hpp" declline="6" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="process_8hpp_1aeb0662915698e0171856cdc695cd6ab0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="process_8hpp_1ac3b0432cae522b8736f9b5546567b88b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void process_las_data</definition>
-        <argsstring>(LASData &amp;las_file, const fs::path &amp;output_dir, const Config &amp;config, ProgressTracker tracker)</argsstring>
+        <argsstring>(LASData &amp;las_file, const fs::path &amp;output_dir, const Config &amp;config, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
         <name>process_las_data</name>
         <param>
           <type><ref refid="classLASData" kindref="compound">LASData</ref> &amp;</type>
@@ -374,8 +457,8 @@
           <declname>config</declname>
         </param>
         <param>
-          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
-          <declname>tracker</declname>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;&amp;</type>
+          <declname>progress_tracker</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -383,7 +466,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/process.hpp" line="7" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/process.cpp" bodystart="113" bodyend="553" declfile="/home/runner/work/Blaze/Blaze/src/process.hpp" declline="7" declcolumn="6"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/process.hpp" line="8" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/process.cpp" bodystart="112" bodyend="523" declfile="/home/runner/work/Blaze/Blaze/src/process.hpp" declline="8" declcolumn="6"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -396,9 +479,10 @@
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>;</highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>process_las_file(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>las_file,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker);</highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>process_las_data(<ref refid="classLASData" kindref="compound">LASData</ref>&amp;<sp/>las_file,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>output_dir,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config,</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker);</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>process_las_file(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>las_file,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config,</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>process_las_data(<ref refid="classLASData" kindref="compound">LASData</ref>&amp;<sp/>las_file,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>output_dir,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config,</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker);</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/process.hpp"/>
   </compounddef>

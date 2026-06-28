@@ -72,9 +72,10 @@ Inherits the following classes: [ProgressObserver](classProgressObserver.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**ProgressTracker**](#function-progresstracker-13) ([**ProgressObserver**](classProgressObserver.md) \* observer=nullptr) <br> |
+|   | [**ProgressTracker**](#function-progresstracker-13) ([**ProgressObserver**](classProgressObserver.md) \* observer=nullptr, std::string name="", std::source\_location location=std::source\_location::current(), double range\_start=0.0, double range\_end=1.0) <br> |
 |   | [**ProgressTracker**](#function-progresstracker-23) (const [**ProgressTracker**](classProgressTracker.md) & other) = delete<br> |
 |   | [**ProgressTracker**](#function-progresstracker-33) ([**ProgressTracker**](classProgressTracker.md) && other) <br> |
+|  void | [**begin\_tracking**](#function-begin_tracking) (std::string text, std::source\_location location) <br> |
 |  bool | [**is\_visible**](#function-is_visible) () const<br> |
 |  [**ProgressTracker**](classProgressTracker.md) & | [**operator=**](#function-operator) (const [**ProgressTracker**](classProgressTracker.md) & other) = delete<br> |
 |  [**ProgressTracker**](classProgressTracker.md) & | [**operator=**](#function-operator_1) ([**ProgressTracker**](classProgressTracker.md) && other) = delete<br> |
@@ -82,7 +83,7 @@ Inherits the following classes: [ProgressObserver](classProgressObserver.md)
 |  void | [**report\_parallel\_progress**](#function-report_parallel_progress) (double proportion) <br> |
 |  void | [**set\_proportion**](#function-set_proportion) (double proportion) <br> |
 |  void | [**set\_visible**](#function-set_visible) (bool v) <br> |
-|  [**ProgressTracker**](classProgressTracker.md) | [**subtracker**](#function-subtracker) (double start, double end, std::optional&lt; bool &gt; visible=std::nullopt) <br> |
+|  [**ProgressTracker**](classProgressTracker.md) | [**subtracker**](#function-subtracker) (double start, double end, std::string name="", std::source\_location location=std::source\_location::current(), std::optional&lt; bool &gt; visible=std::nullopt) <br> |
 | virtual void | [**text\_update**](#function-text_update) (const std::string & text, int depth=0) override<br> |
 | virtual  | [**~ProgressTracker**](#function-progresstracker) () <br> |
 
@@ -172,7 +173,11 @@ See [ProgressObserver](classProgressObserver.md)
 
 ```C++
 explicit ProgressTracker::ProgressTracker (
-    ProgressObserver * observer=nullptr
+    ProgressObserver * observer=nullptr,
+    std::string name="",
+    std::source_location location=std::source_location::current(),
+    double range_start=0.0,
+    double range_end=1.0
 ) 
 ```
 
@@ -203,6 +208,22 @@ ProgressTracker::ProgressTracker (
 ```C++
 ProgressTracker::ProgressTracker (
     ProgressTracker && other
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function begin\_tracking 
+
+```C++
+void ProgressTracker::begin_tracking (
+    std::string text,
+    std::source_location location
 ) 
 ```
 
@@ -320,6 +341,8 @@ inline void ProgressTracker::set_visible (
 ProgressTracker ProgressTracker::subtracker (
     double start,
     double end,
+    std::string name="",
+    std::source_location location=std::source_location::current(),
     std::optional< bool > visible=std::nullopt
 ) 
 ```

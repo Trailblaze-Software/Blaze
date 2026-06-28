@@ -14,7 +14,7 @@
 * `#include <iostream>`
 * `#include <span>`
 * `#include "gdal_priv.h"`
-* `#include "img_grid.hpp"`
+* `#include "grid/img_grid.hpp"`
 * `#include "isom/colors.hpp"`
 * `#include "las/las_point.hpp"`
 * `#include "utilities/timer.hpp"`

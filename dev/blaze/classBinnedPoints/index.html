@@ -903,7 +903,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#function-binnedpoints"><strong>BinnedPoints</strong></a> (<a href="../classLASData/"><strong>LASData</strong></a> &amp; las_file, double bin_resolution, unsigned int downsample_factor, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
+<td style="text-align: left;"><a href="#function-binnedpoints"><strong>BinnedPoints</strong></a> (<a href="../classLASData/"><strong>LASData</strong></a> &amp; las_file, double bin_resolution, unsigned int downsample_factor, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structExtent2D/"><strong>Extent2D</strong></a></td>
@@ -934,6 +934,26 @@
 <td style="text-align: left;"><a href="../classGeo/#function-geo-33"><strong>Geo</strong></a> (const std::vector&lt; std::vector&lt; U &gt; &gt; &amp; data, <a href="../classGeoTransform/"><strong>GeoTransform</strong></a> transform=<a href="../classGeoTransform/"><strong>GeoTransform</strong></a>(), <a href="../classGeoProjection/"><strong>GeoProjection</strong></a> projection=<a href="../classGeoProjection/"><strong>GeoProjection</strong></a>()) <br></td>
 </tr>
 <tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-draw-12"><strong>draw</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &gt; &amp; other, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-draw-22"><strong>draw</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classCMYKColor/"><strong>CMYKColor</strong></a> &gt; &gt; &amp; other, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-draw_contours"><strong>draw_contours</strong></a> (const std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt; &amp; contours, const <a href="../structContourConfigs/"><strong>ContourConfigs</strong></a> &amp; configs, double render_scale, bool base_layer_only, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-draw_point"><strong>draw_point</strong></a> (const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; double &gt; &amp; point, const ColorVariant &amp; color, double size) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-draw_streams"><strong>draw_streams</strong></a> (const std::vector&lt; <a href="../structStream/"><strong>Stream</strong></a> &gt; &amp; streams, const <a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a> &amp; water, double render_scale, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
+</tr>
+<tr>
 <td style="text-align: right;">std::unique_ptr&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt;</td>
 <td style="text-align: left;"><a href="../classGeo/#function-extent"><strong>extent</strong></a> () const<br></td>
 </tr>
@@ -952,6 +972,10 @@
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a></td>
 <td style="text-align: left;"><a href="../classGeo/#function-pad"><strong>pad</strong></a> (U pad_value={}) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-save_to"><strong>save_to</strong></a> (const fs::path &amp; path, const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; extent, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a></td>
@@ -1006,10 +1030,6 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="../classGeo/#function-fromgeoimg"><strong>FromGeoImg</strong></a> (const <a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a> &amp; grid) <br></td>
-</tr>
-<tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a></td>
 <td style="text-align: left;"><a href="../classGeo/#function-frompoints"><strong>FromPoints</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a> &amp; grid) <br></td>
 </tr>
@@ -1041,7 +1061,7 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">LASData</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">las_file</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">bin_resolution</span><span class="p">,</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">downsample_factor</span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

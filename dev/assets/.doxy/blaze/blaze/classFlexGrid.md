@@ -72,15 +72,20 @@ Inherits the following classes: [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**FlexGrid**](#function-flexgrid) (size\_t width, size\_t height, int n\_bytes, int data\_type={}) <br> |
+|   | [**FlexGrid**](#function-flexgrid-13) (size\_t width, size\_t height, int n\_bytes, int data\_type={}) <br> |
+|   | [**FlexGrid**](#function-flexgrid-23) (const [**FlexGrid**](classFlexGrid.md) & other) = default<br> |
+|   | [**FlexGrid**](#function-flexgrid-33) ([**FlexGrid**](classFlexGrid.md) && other) noexcept<br> |
 |  std::byte \* | [**data**](#function-data-12) () <br> |
 |  const std::byte \* | [**data**](#function-data-22) () const<br> |
 |  int | [**data\_type**](#function-data_type) () const<br> |
 |  void | [**fill\_from**](#function-fill_from) (const [**FlexGrid**](classFlexGrid.md) & other, const [**Coordinate2D**](classCoordinate2D.md)&lt; long long &gt; & top\_left={0, 0}) <br> |
 |  T | [**get**](#function-get) (const [**Coordinate2D**](classCoordinate2D.md)&lt; long long &gt; & coord) const<br> |
 |  unsigned int | [**n\_bytes**](#function-n_bytes) () const<br> |
-|  std::byte \* | [**operator[]**](#function-operator) ([**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; coord) <br> |
-|  const std::byte \* | [**operator[]**](#function-operator_1) ([**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; coord) const<br> |
+|  [**FlexGrid**](classFlexGrid.md) & | [**operator=**](#function-operator) (const [**FlexGrid**](classFlexGrid.md) & other) = default<br> |
+|  [**FlexGrid**](classFlexGrid.md) & | [**operator=**](#function-operator_1) ([**FlexGrid**](classFlexGrid.md) && other) noexcept<br> |
+|  std::byte \* | [**operator[]**](#function-operator_2) ([**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; coord) <br> |
+|  const std::byte \* | [**operator[]**](#function-operator_3) ([**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; coord) const<br> |
+|   | [**~FlexGrid**](#function-flexgrid) () = default<br> |
 
 
 ## Public Functions inherited from GridData
@@ -111,7 +116,7 @@ See [GridData](classGridData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  std::vector&lt; std::byte &gt; | [**m\_data**](#variable-m_data)  <br> |
+|  blaze::memory\_tracker::GridVector&lt; std::byte &gt; | [**m\_data**](#variable-m_data)  <br> |
 |  unsigned int | [**m\_data\_size**](#variable-m_data_size)  <br> |
 |  int | [**m\_data\_type**](#variable-m_data_type)  <br> |
 
@@ -167,7 +172,7 @@ See [GridData](classGridData.md)
 
 
 
-### function FlexGrid 
+### function FlexGrid [1/3]
 
 ```C++
 FlexGrid::FlexGrid (
@@ -176,6 +181,36 @@ FlexGrid::FlexGrid (
     int n_bytes,
     int data_type={}
 ) 
+```
+
+
+
+
+<hr>
+
+
+
+### function FlexGrid [2/3]
+
+```C++
+FlexGrid::FlexGrid (
+    const FlexGrid & other
+) = default
+```
+
+
+
+
+<hr>
+
+
+
+### function FlexGrid [3/3]
+
+```C++
+FlexGrid::FlexGrid (
+    FlexGrid && other
+) noexcept
 ```
 
 
@@ -269,6 +304,36 @@ inline unsigned int FlexGrid::n_bytes () const
 
 
 
+### function operator= 
+
+```C++
+FlexGrid & FlexGrid::operator= (
+    const FlexGrid & other
+) = default
+```
+
+
+
+
+<hr>
+
+
+
+### function operator= 
+
+```C++
+FlexGrid & FlexGrid::operator= (
+    FlexGrid && other
+) noexcept
+```
+
+
+
+
+<hr>
+
+
+
 ### function operator[] 
 
 ```C++
@@ -296,6 +361,19 @@ inline const std::byte * FlexGrid::operator[] (
 
 
 <hr>
+
+
+
+### function ~FlexGrid 
+
+```C++
+FlexGrid::~FlexGrid () = default
+```
+
+
+
+
+<hr>
 ## Protected Attributes Documentation
 
 
@@ -304,7 +382,7 @@ inline const std::byte * FlexGrid::operator[] (
 ### variable m\_data 
 
 ```C++
-std::vector<std::byte> FlexGrid::m_data;
+blaze::memory_tracker::GridVector<std::byte> FlexGrid::m_data;
 ```
 
 

@@ -107,10 +107,11 @@ See [LASData](classLASData.md)
 | ---: | :--- |
 |   | [**LASData**](classLASData.md#function-lasdata-13) (const [**Extent2D**](structExtent2D.md) & bounds, const [**GeoProjection**](classGeoProjection.md) & projection) <br> |
 |   | [**LASData**](classLASData.md#function-lasdata-23) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid) <br> |
-|   | [**LASData**](classLASData.md#function-lasdata-33) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, bool skip\_reading\_points=false, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt, const std::string & override\_crs="") <br> |
+|   | [**LASData**](classLASData.md#function-lasdata-33) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool skip\_reading\_points=false, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt, const std::string & override\_crs="") <br> |
+|  void | [**adopt\_points**](classLASData.md#function-adopt_points) (blaze::memory\_tracker::LasVector&lt; [**LASPoint**](classLASPoint.md) &gt; && points) <br> |
 |  auto | [**begin**](classLASData.md#function-begin) () <br> |
 |  auto | [**end**](classLASData.md#function-end) () <br> |
-|  void | [**extract\_borders**](classLASData.md#function-extract_borders) (const fs::path & tmp\_dir, double border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) const<br> |
+|  void | [**extract\_borders**](classLASData.md#function-extract_borders) (const fs::path & tmp\_dir, double border\_width, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) const<br> |
 |  void | [**insert**](classLASData.md#function-insert-12) (const [**LASPoint**](classLASPoint.md) & point) <br> |
 |  void | [**insert**](classLASData.md#function-insert-22) (std::span&lt; const [**LASPoint**](classLASPoint.md) &gt; pts) <br> |
 |  std::pair&lt; uint16\_t, uint16\_t &gt; | [**intensity\_range**](classLASData.md#function-intensity_range) () const<br> |
@@ -119,7 +120,9 @@ See [LASData](classLASData.md)
 |  [**LASPoint**](classLASPoint.md) & | [**operator[]**](classLASData.md#function-operator_1) (std::size\_t i) <br> |
 |  std::span&lt; const [**LASPoint**](classLASPoint.md) &gt; | [**points**](classLASData.md#function-points) () const<br> |
 |  void | [**push\_back**](classLASData.md#function-push_back) (const [**LASPoint**](classLASPoint.md) & point) <br> |
-|  void | [**write**](classLASData.md#function-write) (const fs::path & filename, std::optional&lt; [**ProgressTracker**](classProgressTracker.md) &gt; progress\_tracker={}) const<br> |
+|  void | [**release\_points**](classLASData.md#function-release_points) () <br> |
+|  blaze::memory\_tracker::LasVector&lt; [**LASPoint**](classLASPoint.md) &gt; | [**take\_points**](classLASData.md#function-take_points) () <br> |
+|  void | [**write**](classLASData.md#function-write) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) const<br> |
 
 
 ## Public Functions inherited from LASFile
@@ -129,9 +132,10 @@ See [LASFile](classLASFile.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**LASFile**](classLASFile.md#function-lasfile-12) (const [**Extent2D**](structExtent2D.md) & bounds, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**LASFile**](classLASFile.md#function-lasfile-22) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, const std::string & override\_crs="") <br> |
+|   | [**LASFile**](classLASFile.md#function-lasfile-22) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, const std::string & override\_crs="") <br> |
 |  const [**Extent3D**](structExtent3D.md) & | [**bounds**](classLASFile.md#function-bounds) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**export\_bounds**](classLASFile.md#function-export_bounds) () const<br> |
+|  std::size\_t | [**header\_point\_count**](classLASFile.md#function-header_point_count) () const<br> |
 |  double | [**height**](classLASFile.md#function-height) () const<br> |
 |  std::pair&lt; double, double &gt; | [**height\_range**](classLASFile.md#function-height_range) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**original\_bounds**](classLASFile.md#function-original_bounds) () const<br> |
@@ -149,8 +153,8 @@ See [LASData](classLASData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-12) (const fs::path & filename, double border\_width, const std::vector&lt; std::pair&lt; [**Extent3D**](structExtent3D.md), fs::path &gt; &gt; & all\_las\_file\_extents, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, const std::string & override\_crs="") <br> |
-|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-22) (const fs::path & filename, double border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, const std::string & override\_crs="") <br> |
+|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-12) (const fs::path & filename, double border\_width, const std::vector&lt; std::pair&lt; [**Extent3D**](structExtent3D.md), fs::path &gt; &gt; & all\_las\_file\_extents, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, const std::string & override\_crs="") <br> |
+|  [**LASData**](classLASData.md) | [**with\_border**](classLASData.md#function-with_border-22) (const fs::path & filename, double border\_width, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, const std::string & override\_crs="") <br> |
 
 
 
@@ -179,6 +183,7 @@ See [LASFile](classLASFile.md)
 | ---: | :--- |
 |  [**Extent3D**](structExtent3D.md) | [**m\_bounds**](classLASFile.md#variable-m_bounds)  <br> |
 |  std::optional&lt; fs::path &gt; | [**m\_filename**](classLASFile.md#variable-m_filename)  <br> |
+|  std::size\_t | [**m\_header\_point\_count**](classLASFile.md#variable-m_header_point_count)   = `0`<br> |
 |  [**Extent3D**](structExtent3D.md) | [**m\_original\_bounds**](classLASFile.md#variable-m_original_bounds)  <br> |
 |  [**GeoProjection**](classGeoProjection.md) | [**m\_projection**](classLASFile.md#variable-m_projection)  <br> |
 |  laspp::QuadtreeSpatialIndex | [**m\_spatial\_index**](classLASFile.md#variable-m_spatial_index)  <br> |
@@ -234,7 +239,7 @@ See [LASData](classLASData.md)
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**read\_points**](classLASData.md#function-read_points) (laspp::LASReader & reader, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt) <br> |
+|  void | [**read\_points**](classLASData.md#function-read_points) (laspp::LASReader & reader, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt) <br> |
 
 
 ## Protected Functions inherited from LASFile

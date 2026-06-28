@@ -21,6 +21,7 @@
 #include "contour/contour_gen.hpp"
 #include "geometry/polygon.hpp"
 #include "grid/grid.hpp"
+#include "utilities/progress_tracker.hpp"
 #include "vegetation/vegetation_polygon.hpp"
 
 namespace {
@@ -247,7 +248,7 @@ TEST(ContoursToPolygons, DetectsOuterRingVsHole) {
   };
   GeoGrid<float> grid(data);
   std::vector<double> heights = {0.5};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 3, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, heights, ProgressTracker(), 3, 0.0f);
 
   ASSERT_EQ(contours_by_height[0.5].size(), 2u);
   for (const auto& c : contours_by_height[0.5]) {
@@ -291,7 +292,7 @@ TEST(TrimVegePolygons, ClipsToExportExtent) {
   poly.holes.push_back(square_cw(10, 10, 90, 90));
 
   std::vector<VegePolygon> polygons = {poly};
-  trim_vege_polygons_to_extent(polygons, {50.0, 100.0, 0.0, 100.0});
+  trim_vege_polygons_to_extent(polygons, {50.0, 100.0, 0.0, 100.0}, ProgressTracker());
 
   ASSERT_EQ(polygons.size(), 1u);
   for (const Coordinate2D<double>& p : polygons[0].exterior_ring) {
@@ -308,7 +309,7 @@ TEST(TrimVegePolygons, RemovesPolygonOutsideExtent) {
   poly.exterior_ring = square_ccw(0, 0, 10, 10);
 
   std::vector<VegePolygon> polygons = {poly};
-  trim_vege_polygons_to_extent(polygons, {20.0, 30.0, 0.0, 10.0});
+  trim_vege_polygons_to_extent(polygons, {20.0, 30.0, 0.0, 10.0}, ProgressTracker());
   EXPECT_TRUE(polygons.empty());
 }
 
@@ -368,7 +369,7 @@ TEST(ContoursToPolygons, TwoSeparatePeaks) {
   };
   GeoGrid<float> grid(data);
   std::vector<double> heights = {0.5};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 3, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, heights, ProgressTracker(), 3, 0.0f);
 
   std::map<double, std::string> height_to_layer = {{0.5, "405_Forest"}};
   std::vector<VegePolygon> polygons = contours_to_polygons(contours_by_height, height_to_layer);
@@ -392,7 +393,7 @@ TEST(ContoursToPolygons, LayerAssignmentFromThreshold) {
   };
   GeoGrid<float> grid(data);
   std::vector<double> heights = {0.3, 0.7};
-  auto contours_by_height = generate_contours_at_heights(grid, heights, 3, 0.0f);
+  auto contours_by_height = generate_contours_at_heights(grid, heights, ProgressTracker(), 3, 0.0f);
 
   std::map<double, std::string> height_to_layer = {
       {0.3, "406_Slow_Running"},
@@ -438,7 +439,7 @@ TEST(FilterByMinArea, RemovesSmallPolygons) {
   polygons.push_back(small);
 
   std::map<std::string, double> min_areas = {{"405_Forest", 30.0}};
-  filter_by_min_area(polygons, min_areas);
+  filter_by_min_area(polygons, min_areas, ProgressTracker());
 
   ASSERT_EQ(polygons.size(), 1u);
   EXPECT_EQ(polygons[0].layer, "405_Forest");
@@ -455,7 +456,7 @@ TEST(FilterByMinArea, KeepsAllWhenNoThreshold) {
   polygons.push_back(p);
 
   std::map<std::string, double> min_areas;  // empty → keep all
-  filter_by_min_area(polygons, min_areas);
+  filter_by_min_area(polygons, min_areas, ProgressTracker());
 
   EXPECT_EQ(polygons.size(), 1u);
 }
@@ -479,7 +480,7 @@ TEST(FilterByMinArea, RespectsDifferentLimits) {
       {"410_Fight", 45},   // Fight < 45 → removed
       {"408_Walk", 15.0},  // Walk >= 15 → kept
   };
-  filter_by_min_area(polygons, min_areas);
+  filter_by_min_area(polygons, min_areas, ProgressTracker());
 
   ASSERT_EQ(polygons.size(), 1u);
   EXPECT_EQ(polygons[0].layer, "408_Walk");
@@ -499,7 +500,7 @@ TEST(FilterByMinArea, UsesNetAreaNotExterior) {
   EXPECT_LT(polygon_net_area_m2(donut), 30.0);
 
   std::map<std::string, double> min_areas = {{"405_Forest", 30.0}};
-  filter_by_min_area(polygons, min_areas);
+  filter_by_min_area(polygons, min_areas, ProgressTracker());
 
   EXPECT_TRUE(polygons.empty());
 }
@@ -520,7 +521,7 @@ TEST(FilterSmallHoles, RemovesTinyHoles) {
   polygons.push_back(forest);
 
   std::map<std::string, double> min_hole = {{"405_Forest", 30.0}};
-  filter_small_holes(polygons, min_hole);
+  filter_small_holes(polygons, min_hole, ProgressTracker());
 
   ASSERT_EQ(polygons.size(), 1u);
   // Only the 100 m² hole should remain
@@ -537,7 +538,7 @@ TEST(FilterSmallHoles, NoFilterWhenZero) {
   polygons.push_back(p);
 
   std::map<std::string, double> empty;
-  filter_small_holes(polygons, empty);
+  filter_small_holes(polygons, empty, ProgressTracker());
 
   EXPECT_EQ(polygons[0].holes.size(), 1u);  // kept
 }
@@ -559,7 +560,7 @@ TEST(FilterSmallHoles, DifferentPerLayer) {
 
   // Forest min hole 100 m², Walk min hole 0
   std::map<std::string, double> min_hole = {{"405_Forest", 100.0}};
-  filter_small_holes(polygons, min_hole);
+  filter_small_holes(polygons, min_hole, ProgressTracker());
 
   // Forest: hole removed (25 < 100), Walk: hole kept (no filter)
   bool found_forest = false, found_walk = false;
@@ -649,7 +650,7 @@ TEST(SubtractFromPolygon, SmallHolesRemovedByPostSubtractFilter) {
   EXPECT_LT(-signed_area(result[0].holes[0]), 100.0);
 
   std::map<std::string, double> min_hole = {{"405_Forest", 100.0}};
-  filter_small_holes(result, min_hole);
+  filter_small_holes(result, min_hole, ProgressTracker());
 
   EXPECT_TRUE(result[0].holes.empty());
 }
@@ -676,7 +677,7 @@ TEST(GenerateVegePolygons, RoughOpenLandHolesMatchRemainingForest) {
 
   GeoGrid<float> grid = grid_at_3m(data);
   std::map<std::string, GeoGrid<float>> vege_maps = {{"canopy", grid}};
-  std::vector<VegePolygon> polygons = generate_vege_polygons(config, vege_maps);
+  std::vector<VegePolygon> polygons = generate_vege_polygons(config, vege_maps, ProgressTracker());
 
   EXPECT_EQ(count_layer(polygons, "405_Forest"), 1u)
       << "small canopy speckles below min_area_m2 should be dropped";
@@ -710,7 +711,7 @@ TEST(GenerateVegePolygons, RoughOpenLandHasNoTinySpeckleHoles) {
 
   GeoGrid<float> grid = grid_at_3m(data);
   std::map<std::string, GeoGrid<float>> vege_maps = {{"canopy", grid}};
-  std::vector<VegePolygon> polygons = generate_vege_polygons(config, vege_maps);
+  std::vector<VegePolygon> polygons = generate_vege_polygons(config, vege_maps, ProgressTracker());
 
   const VegePolygon* rough_open = find_polygon(polygons, "403_Rough_Open_Land");
   ASSERT_NE(rough_open, nullptr);
@@ -748,7 +749,7 @@ TEST(GenerateVegePolygons, GreenDonutCutLeavesForestRing) {
       {"canopy", grid_at_3m(canopy)},
       {"green", grid_at_3m(green)},
   };
-  std::vector<VegePolygon> polygons = generate_vege_polygons(config, vege_maps);
+  std::vector<VegePolygon> polygons = generate_vege_polygons(config, vege_maps, ProgressTracker());
 
   const VegePolygon* walk = find_polygon(polygons, "408_Walk");
   ASSERT_NE(walk, nullptr);
@@ -773,7 +774,8 @@ TEST(GenerateVegePolygons, GreenDonutCutLeavesForestRing) {
 std::vector<VegePolygon> forest_contours_polygonize(const GeoGrid<float>& grid) {
   constexpr double FOREST_THRESHOLD = 0.1;
   std::map<double, std::string> layers = {{FOREST_THRESHOLD, "405_Forest"}};
-  auto contours = generate_contours_at_heights(grid, {FOREST_THRESHOLD}, /*min_points=*/5, 0.0f);
+  auto contours = generate_contours_at_heights(grid, {FOREST_THRESHOLD}, ProgressTracker(),
+                                               /*min_points=*/5, 0.0f);
   return contours_to_polygons(contours, layers);
 }
 

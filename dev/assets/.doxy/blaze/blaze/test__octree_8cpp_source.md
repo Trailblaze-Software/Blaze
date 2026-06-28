@@ -21,7 +21,7 @@ TEST(PointOctree, InsertBatchStoresPoints) {
   const Extent3D bounds(-10, 10, -10, 10, -10, 10);
   PointOctree octree(bounds);
 
-  std::vector<OctreePoint> points(100);
+  OctreePointVector points(100);
   for (size_t i = 0; i < points.size(); ++i) {
     points[i].x = static_cast<float>(i % 10 - 5);
     points[i].y = static_cast<float>(i / 10 - 5);
@@ -36,7 +36,7 @@ TEST(PointOctree, NodePointCountMatchesRange) {
   const Extent3D bounds(-10, 10, -10, 10, -10, 10);
   PointOctree octree(bounds);
 
-  std::vector<OctreePoint> points(50);
+  OctreePointVector points(50);
   for (size_t i = 0; i < points.size(); ++i) {
     points[i].x = static_cast<float>(i) * 0.1f;
     points[i].y = 0.0f;
@@ -98,7 +98,7 @@ TEST(PointOctree, ShuffleDoesNotLosePoints) {
   const Extent3D bounds(-10, 10, -10, 10, -10, 10);
   PointOctree octree(bounds);
 
-  std::vector<OctreePoint> points(100);
+  OctreePointVector points(100);
   for (size_t i = 0; i < points.size(); ++i) {
     points[i].x = static_cast<float>(i % 10 - 5);
     points[i].y = static_cast<float>(i / 10 - 5);
@@ -126,7 +126,7 @@ TEST(PointOctree, CancellationPreventsBuild) {
   const Extent3D bounds(-100, 100, -100, 100, -100, 100);
   PointOctree octree(bounds);
 
-  std::vector<OctreePoint> points(100'000);
+  OctreePointVector points(100'000);
   for (size_t i = 0; i < points.size(); ++i) {
     points[i].x = static_cast<float>((i % 1000) - 500);
     points[i].y = static_cast<float>((i / 1000) - 50);

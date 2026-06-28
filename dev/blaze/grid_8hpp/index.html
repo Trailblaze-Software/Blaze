@@ -787,17 +787,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#public-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Types
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#public-attributes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -816,45 +805,6 @@
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#public-types-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Public Types Documentation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Public Types Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#typedef-geoflexgrid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        typedef GeoFlexGrid
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#typedef-geogrid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        typedef GeoGrid
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -951,16 +901,23 @@
 <ul>
 <li><code>#include &lt;algorithm&gt;</code></li>
 <li><code>#include &lt;cmath&gt;</code></li>
+<li><code>#include &lt;concepts&gt;</code></li>
 <li><code>#include &lt;cstddef&gt;</code></li>
 <li><code>#include &lt;cstring&gt;</code></li>
 <li><code>#include &lt;limits&gt;</code></li>
 <li><code>#include &lt;memory&gt;</code></li>
+<li><code>#include &lt;optional&gt;</code></li>
 <li><code>#include &lt;stdexcept&gt;</code></li>
 <li><code>#include &lt;string&gt;</code></li>
 <li><code>#include &lt;type_traits&gt;</code></li>
 <li><code>#include &lt;vector&gt;</code></li>
 <li><code>#include "assert/assert.hpp"</code></li>
+<li><code>#include "grid/forward_grid.hpp"</code></li>
+<li><code>#include "grid/raster.hpp"</code></li>
+<li><code>#include "isom/colors.hpp"</code></li>
 <li><code>#include "utilities/coordinate.hpp"</code></li>
+<li><code>#include "utilities/filesystem.hpp"</code></li>
+<li><code>#include "utilities/tracked_allocator.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -1021,25 +978,6 @@
 </tr>
 </tbody>
 </table>
-<h2 id="public-types">Public Types</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Type</th>
-<th style="text-align: left;">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;">typedef <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classFlexGrid/"><strong>FlexGrid</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#typedef-geoflexgrid"><strong>GeoFlexGrid</strong></a>  <br></td>
-</tr>
-<tr>
-<td style="text-align: right;">typedef <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; T &gt; &gt;</td>
-<td style="text-align: left;"><a href="#typedef-geogrid"><strong>GeoGrid</strong></a>  <br></td>
-</tr>
-</tbody>
-</table>
 <h2 id="public-attributes">Public Attributes</h2>
 <table>
 <thead>
@@ -1074,36 +1012,26 @@
 </tr>
 </tbody>
 </table>
-<h2 id="public-types-documentation">Public Types Documentation</h2>
-<h3 id="typedef-geoflexgrid">typedef GeoFlexGrid</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">typedef</span><span class="w"> </span><span class="n">Geo</span><span class="o">&lt;</span><span class="n">FlexGrid</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GeoFlexGrid</span><span class="p">;</span>
-</code></pre></div>
-<hr>
-
-<h3 id="typedef-geogrid">typedef GeoGrid</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">using</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">Geo</span><span class="o">&lt;</span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">;</span>
-</code></pre></div>
-<hr>
 <h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
 <h3 id="variable-is_specialization_v">variable IS_SPECIALIZATION_V</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IS_SPECIALIZATION_V</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IS_SPECIALIZATION_V</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-interpolate_value">function interpolate_value</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">T</span><span class="w"> </span><span class="n">interpolate_value</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection_coord</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">T</span><span class="w"> </span><span class="n">interpolate_value</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">projection_coord</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-num_cells_by_distance">function num_cells_by_distance</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_cells_by_distance</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_cells_by_distance</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

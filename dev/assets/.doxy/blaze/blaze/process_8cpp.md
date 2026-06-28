@@ -76,8 +76,8 @@
 | ---: | :--- |
 |  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**adjust\_ground\_to\_slope**](#function-adjust_ground_to_slope) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**get\_pixel\_heights**](#function-get_pixel_heights) (const [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & ground\_points, GroundMethod method=GroundMethod::LOWEST\_POINT) <br> |
-|  void | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, const fs::path & output\_dir, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
-|  void | [**process\_las\_file**](#function-process_las_file) (const fs::path & las\_filename, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|  void | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, const fs::path & output\_dir, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  void | [**process\_las\_file**](#function-process_las_file) (const fs::path & las\_filename, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 ## Public Static Functions
@@ -173,7 +173,7 @@ void process_las_data (
     LASData & las_file,
     const fs::path & output_dir,
     const Config & config,
-    ProgressTracker progress_tracker
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -190,7 +190,7 @@ void process_las_data (
 void process_las_file (
     const fs::path & las_filename,
     const Config & config,
-    ProgressTracker progress_tracker
+    ProgressTracker && progress_tracker
 ) 
 ```
 

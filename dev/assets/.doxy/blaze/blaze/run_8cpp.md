@@ -12,6 +12,7 @@
 
 * `#include "run.hpp"`
 * `#include <omp.h>`
+* `#include <array>`
 * `#include <filesystem>`
 * `#include <iostream>`
 * `#include "config_input/config_input.hpp"`
@@ -29,7 +30,7 @@
 * `#include "utilities/coordinate.hpp"`
 * `#include "utilities/filesystem.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
-* `#include "utilities/timer.hpp"`
+* `#include "utilities/trace_recorder.hpp"`
 * `#include "vegetation/vegetation_polygon.hpp"`
 
 
@@ -72,7 +73,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**run\_with\_config**](#function-run_with_config) (const [**Config**](structConfig.md) & config, const std::vector&lt; fs::path &gt; & additional\_las\_files, [**ProgressTracker**](classProgressTracker.md) && tracker) <br> |
+|  void | [**run\_with\_config**](#function-run_with_config) (const [**Config**](structConfig.md) & config, const std::vector&lt; fs::path &gt; & additional\_las\_files, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker\_param) <br> |
 
 
 
@@ -112,7 +113,7 @@
 void run_with_config (
     const Config & config,
     const std::vector< fs::path > & additional_las_files,
-    ProgressTracker && tracker
+    ProgressTracker && progress_tracker_param
 ) 
 ```
 

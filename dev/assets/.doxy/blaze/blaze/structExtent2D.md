@@ -60,6 +60,7 @@ Inherited by the following classes: [Extent3D](structExtent3D.md)
 
 | Type | Name |
 | ---: | :--- |
+|  double | [**area**](#function-area) () const<br> |
 |  bool | [**contains**](#function-contains) (double x, double y) const<br> |
 |  void | [**grow**](#function-grow) (const [**Extent2D**](structExtent2D.md) & other) <br> |
 |  [**Extent2D**](structExtent2D.md) | [**intersection**](#function-intersection) (const [**Extent2D**](structExtent2D.md) & other) const<br> |
@@ -148,6 +149,19 @@ double Extent2D::miny;
 <hr>
 ## Public Functions Documentation
 
+
+
+
+### function area 
+
+```C++
+inline double Extent2D::area () const
+```
+
+
+
+
+<hr>
 
 
 

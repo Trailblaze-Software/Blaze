@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classblaze_1_1trace_1_1RecordTrace" kind="class" language="C++" prot="public">
+    <compoundname>blaze::trace::RecordTrace</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classblaze_1_1trace_1_1RecordTrace_1a629df7cf265d21682a08c03eb173118b" prot="private" static="no" mutable="no">
+        <type>fs::path</type>
+        <definition>fs::path blaze::trace::RecordTrace::m_path</definition>
+        <argsstring></argsstring>
+        <name>m_path</name>
+        <qualifiedname>blaze::trace::RecordTrace::m_path</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="13" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classblaze_1_1trace_1_1RecordTrace_1a08429a9bb89de425c07d9742974eeb8d" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>blaze::trace::RecordTrace::RecordTrace</definition>
+        <argsstring>(fs::path path)</argsstring>
+        <name>RecordTrace</name>
+        <qualifiedname>blaze::trace::RecordTrace::RecordTrace</qualifiedname>
+        <param>
+          <type>fs::path</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="16" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="222" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1trace_1_1RecordTrace_1a5e1827faff7d481325e5525569c588cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>blaze::trace::RecordTrace::~RecordTrace</definition>
+        <argsstring>()</argsstring>
+        <name>~RecordTrace</name>
+        <qualifiedname>blaze::trace::RecordTrace::~RecordTrace</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="17" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="231" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1trace_1_1RecordTrace_1a081d3eedc5760f22e51c383f259aba4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>blaze::trace::RecordTrace::RecordTrace</definition>
+        <argsstring>(const RecordTrace &amp;)=delete</argsstring>
+        <name>RecordTrace</name>
+        <qualifiedname>blaze::trace::RecordTrace::RecordTrace</qualifiedname>
+        <param>
+          <type>const <ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="19" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1trace_1_1RecordTrace_1aff7ed042d14b57f3b725b438fcaeb32a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref> &amp;</type>
+        <definition>RecordTrace &amp; blaze::trace::RecordTrace::operator=</definition>
+        <argsstring>(const RecordTrace &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>blaze::trace::RecordTrace::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="20" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1trace_1_1RecordTrace_1a8c6b0c95de9b3c4e1fb7f607f7873dee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>blaze::trace::RecordTrace::RecordTrace</definition>
+        <argsstring>(RecordTrace &amp;&amp;)=delete</argsstring>
+        <name>RecordTrace</name>
+        <qualifiedname>blaze::trace::RecordTrace::RecordTrace</qualifiedname>
+        <param>
+          <type><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="21" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1trace_1_1RecordTrace_1a4d7fc9f2fd24c032e78d9a98e33eaa58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref> &amp;</type>
+        <definition>RecordTrace &amp; blaze::trace::RecordTrace::operator=</definition>
+        <argsstring>(RecordTrace &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>blaze::trace::RecordTrace::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="22" column="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" line="12" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" bodystart="12" bodyend="23"/>
+    <listofallmembers>
+      <member refid="classblaze_1_1trace_1_1RecordTrace_1a629df7cf265d21682a08c03eb173118b" prot="private" virt="non-virtual"><scope>blaze::trace::RecordTrace</scope><name>m_path</name></member>
+      <member refid="classblaze_1_1trace_1_1RecordTrace_1aff7ed042d14b57f3b725b438fcaeb32a" prot="public" virt="non-virtual"><scope>blaze::trace::RecordTrace</scope><name>operator=</name></member>
+      <member refid="classblaze_1_1trace_1_1RecordTrace_1a4d7fc9f2fd24c032e78d9a98e33eaa58" prot="public" virt="non-virtual"><scope>blaze::trace::RecordTrace</scope><name>operator=</name></member>
+      <member refid="classblaze_1_1trace_1_1RecordTrace_1a08429a9bb89de425c07d9742974eeb8d" prot="public" virt="non-virtual"><scope>blaze::trace::RecordTrace</scope><name>RecordTrace</name></member>
+      <member refid="classblaze_1_1trace_1_1RecordTrace_1a081d3eedc5760f22e51c383f259aba4f" prot="public" virt="non-virtual"><scope>blaze::trace::RecordTrace</scope><name>RecordTrace</name></member>
+      <member refid="classblaze_1_1trace_1_1RecordTrace_1a8c6b0c95de9b3c4e1fb7f607f7873dee" prot="public" virt="non-virtual"><scope>blaze::trace::RecordTrace</scope><name>RecordTrace</name></member>
+      <member refid="classblaze_1_1trace_1_1RecordTrace_1a5e1827faff7d481325e5525569c588cd" prot="public" virt="non-virtual"><scope>blaze::trace::RecordTrace</scope><name>~RecordTrace</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

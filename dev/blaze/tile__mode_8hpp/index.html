@@ -1010,11 +1010,11 @@
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-load_input_extents"><strong>load_input_extents</strong></a> (const std::vector&lt; fs::path &gt; &amp; files, const std::string &amp; override_crs, std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
+<td style="text-align: left;"><a href="#function-load_input_extents"><strong>load_input_extents</strong></a> (const std::vector&lt; fs::path &gt; &amp; files, const std::string &amp; override_crs, std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="#function-read_tile_from_inputs"><strong>read_tile_from_inputs</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; tile_extent, double border_width, const std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; all_extents, const std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress) <br></td>
+<td style="text-align: left;"><a href="#function-read_tile_from_inputs"><strong>read_tile_from_inputs</strong></a> (const <a href="../structExtent2D/"><strong>Extent2D</strong></a> &amp; tile_extent, double border_width, const std::vector&lt; <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a> &gt; &amp; all_extents, const std::string &amp; output_crs_wkt, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structExtent2D/"><strong>Extent2D</strong></a></td>
@@ -1068,7 +1068,7 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">files</span><span class="p">,</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">override_crs</span><span class="p">,</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">output_crs_wkt</span><span class="p">,</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1079,7 +1079,7 @@
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">border_width</span><span class="p">,</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASFileExtent</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">all_extents</span><span class="p">,</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">output_crs_wkt</span><span class="p">,</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

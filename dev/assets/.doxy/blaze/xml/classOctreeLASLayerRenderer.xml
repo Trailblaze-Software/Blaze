@@ -767,10 +767,10 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="145" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="239" bodyend="255"/>
       </memberdef>
-      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a69918caa7522079a7b6032f03b5b1b31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1aa975e5e8c2577e2b5318cff1bede2e4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
         <definition>size_t OctreeLASLayerRenderer::draw_octree_nodes</definition>
-        <argsstring>(QOpenGLFunctions *f, const std::vector&lt; OctreePoint &gt; &amp;point_storage, const std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes, const Coordinate3D&lt; double &gt; &amp;file_origin, const Coordinate3D&lt; double &gt; &amp;scene_offset, double quality, bool incremental)</argsstring>
+        <argsstring>(QOpenGLFunctions *f, const OctreePointVector &amp;point_storage, const std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes, const Coordinate3D&lt; double &gt; &amp;file_origin, const Coordinate3D&lt; double &gt; &amp;scene_offset, double quality, bool incremental)</argsstring>
         <name>draw_octree_nodes</name>
         <qualifiedname>OctreeLASLayerRenderer::draw_octree_nodes</qualifiedname>
         <param>
@@ -778,7 +778,7 @@
           <declname>f</declname>
         </param>
         <param>
-          <type>const std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <type>const OctreePointVector &amp;</type>
           <declname>point_storage</declname>
         </param>
         <param>
@@ -809,10 +809,10 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="146" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="257" bodyend="337"/>
       </memberdef>
-      <memberdef kind="function" id="classOctreeLASLayerRenderer_1ac1b7d60ca1040e3f3e8af881556dd1a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a4757b0e7a811c38c338eb7c44503a6ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
         <definition>size_t OctreeLASLayerRenderer::draw_preview_points</definition>
-        <argsstring>(QOpenGLFunctions *f, const std::vector&lt; OctreePoint &gt; &amp;preview, const Coordinate3D&lt; double &gt; &amp;file_origin, const Coordinate3D&lt; double &gt; &amp;scene_offset)</argsstring>
+        <argsstring>(QOpenGLFunctions *f, const OctreePointVector &amp;preview, const Coordinate3D&lt; double &gt; &amp;file_origin, const Coordinate3D&lt; double &gt; &amp;scene_offset)</argsstring>
         <name>draw_preview_points</name>
         <qualifiedname>OctreeLASLayerRenderer::draw_preview_points</qualifiedname>
         <param>
@@ -820,7 +820,7 @@
           <declname>f</declname>
         </param>
         <param>
-          <type>const std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <type>const OctreePointVector &amp;</type>
           <declname>preview</declname>
         </param>
         <param>
@@ -1099,8 +1099,8 @@
       <member refid="classOctreeLASLayerRenderer_1a193c4d6a58832ff573de451536088e14" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>consume_gpu_timer_sample</name></member>
       <member refid="classLayerRenderer_1ac9702186c6039472bf58e1295fad80c1" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>create</name></member>
       <member refid="classLayerRenderer_1a3c4bb62a02bd94cd69ba955dad081515" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>data_update_required</name></member>
-      <member refid="classOctreeLASLayerRenderer_1a69918caa7522079a7b6032f03b5b1b31" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>draw_octree_nodes</name></member>
-      <member refid="classOctreeLASLayerRenderer_1ac1b7d60ca1040e3f3e8af881556dd1a6" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>draw_preview_points</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aa975e5e8c2577e2b5318cff1bede2e4d" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>draw_octree_nodes</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a4757b0e7a811c38c338eb7c44503a6ff" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>draw_preview_points</name></member>
       <member refid="classOctreeLASLayerRenderer_1a556a11615b10a8bf91b2eb4755eb0e17" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>ensure_gpu_timer</name></member>
       <member refid="classOctreeLASLayerRenderer_1a07535a8ea01791f8adb897a58e440c97" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>ensure_shader</name></member>
       <member refid="classOctreeLASLayerRenderer_1ab468fa12893871e17b4b0ab30bd21e30" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>estimate_draw_vertices</name></member>

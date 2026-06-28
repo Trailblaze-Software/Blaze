@@ -53,8 +53,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, const fs::path & output\_dir, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
-|  void | [**process\_las\_file**](#function-process_las_file) (const fs::path & las\_file, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) tracker) <br> |
+|  void | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, const fs::path & output\_dir, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  void | [**process\_las\_file**](#function-process_las_file) (const fs::path & las\_file, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 
@@ -95,7 +95,7 @@ void process_las_data (
     LASData & las_file,
     const fs::path & output_dir,
     const Config & config,
-    ProgressTracker tracker
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -112,7 +112,7 @@ void process_las_data (
 void process_las_file (
     const fs::path & las_file,
     const Config & config,
-    ProgressTracker tracker
+    ProgressTracker && progress_tracker
 ) 
 ```
 

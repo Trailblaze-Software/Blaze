@@ -41,6 +41,7 @@
 |  std::string | [**native\_wkt**](#variable-native_wkt)  <br> |
 |  std::string | [**override\_crs**](#variable-override_crs)  <br> |
 |  fs::path | [**path**](#variable-path)  <br> |
+|  std::size\_t | [**point\_count**](#variable-point_count)   = `0`<br> |
 
 
 
@@ -159,6 +160,19 @@ std::string LASFileExtent::override_crs;
 
 ```C++
 fs::path LASFileExtent::path;
+```
+
+
+
+
+<hr>
+
+
+
+### variable point\_count 
+
+```C++
+std::size_t LASFileExtent::point_count;
 ```
 
 

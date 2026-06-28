@@ -11,8 +11,12 @@
 
 
 * `#include <gtest/gtest.h>`
+* `#include <fstream>`
+* `#include <string>`
 * `#include <vector>`
+* `#include "utilities/filesystem.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
+* `#include "utilities/trace_recorder.hpp"`
 
 
 
@@ -63,6 +67,15 @@
 |   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), ForLoop) <br> |
 |   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), BackwardsSubtrackerUpdateFails) <br> |
 |   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), ParallelRowProgressIsMonotonic) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), ProgressScope) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), ParentSetProportionBlockedWhileChildActive) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), StartTrackerBeginsDeferredSubtracker) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), StartTrackerNamesRoot) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), RootScopeCompletesBeforeTraceWrite) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), StartTrackerPatchesCallSiteInTrace) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), StartTrackerRecordsCallSiteInScopeStack) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), SiblingSubtrackersRequireSequentialLifetime) <br> |
+|   | [**TEST**](#function-test) ([**ProgressTracker**](classProgressTracker.md), ProgressScopeStackOnFailure) <br> |
 
 
 
@@ -150,6 +163,150 @@ TEST (
 TEST (
     ProgressTracker,
     ParallelRowProgressIsMonotonic
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    ProgressScope
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    ParentSetProportionBlockedWhileChildActive
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    StartTrackerBeginsDeferredSubtracker
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    StartTrackerNamesRoot
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    RootScopeCompletesBeforeTraceWrite
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    StartTrackerPatchesCallSiteInTrace
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    StartTrackerRecordsCallSiteInScopeStack
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    SiblingSubtrackersRequireSequentialLifetime
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ProgressTracker,
+    ProgressScopeStackOnFailure
 ) 
 ```
 

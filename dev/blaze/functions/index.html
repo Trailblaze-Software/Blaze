@@ -1374,6 +1374,7 @@
 <li><strong>compute_tiles</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>combine_vege_gpkgs</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>contours_to_polygons</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
+<li><strong>cut_understory_from_forest</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>catchment_size</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>)</li>
 <li><strong>create_minimal_test_config</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 <li><strong>create_synthetic_las_data</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
@@ -1387,6 +1388,7 @@
 <li><strong>drain_gl_errors</strong> (<a href="../gl__check_8hpp/"><strong>gl_check.hpp</strong></a>)</li>
 <li><strong>dedupe_consecutive_ring_vertices</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>downsample</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
+<li><strong>draw_geo_polyline</strong> (<a href="../img__grid_8hpp/"><strong>img_grid.hpp</strong></a>)</li>
 <li><strong>detect_tile_mode_needed</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>double_to_string</strong> (<a href="../to__string_8hpp/"><strong>to_string.hpp</strong></a>)</li>
 <li><strong>downsample_mask_any</strong> (<a href="../process_8cpp/"><strong>process.cpp</strong></a>)</li>
@@ -1398,6 +1400,7 @@
 <li><strong>ensure_dst_layer_fields</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>external_border_ranges</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>extract_borders</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
+<li><strong>estimate_points_in_extent</strong> (<a href="../coordinate_8hpp/"><strong>coordinate.hpp</strong></a>)</li>
 <li><strong>extract_threshold_layers</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 </ul>
 <h2 id="f">f</h2>
@@ -1450,8 +1453,9 @@
 <li><strong>intersect_polygons</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>is_left_of</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>intersect_polygon</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
-<li><strong>interpolate_value</strong> (<a href="../grid_8cpp/"><strong>grid.cpp</strong></a>, <a href="../grid_8hpp/"><strong>grid.hpp</strong></a>)</li>
+<li><strong>interpolate_value</strong> (<a href="../forward__grid_8hpp/"><strong>forward_grid.hpp</strong></a>, <a href="../grid_8cpp/"><strong>grid.cpp</strong></a>, <a href="../grid_8hpp/"><strong>grid.hpp</strong></a>)</li>
 <li><strong>interpolate_holes</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
+<li><strong>interval_point_count</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>identify_sinks</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>, <a href="../water_8hpp/"><strong>water.hpp</strong></a>)</li>
 <li><strong>INSTANTIATE_TEST_SUITE_P</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 <li><strong>is_las_file</strong> (<a href="../blaze_8cpp/"><strong>blaze.cpp</strong></a>)</li>
@@ -1478,7 +1482,7 @@
 <h2 id="n">n</h2>
 <ul>
 <li><strong>normalize_polygon</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
-<li><strong>num_cells_by_distance</strong> (<a href="../grid_8hpp/"><strong>grid.hpp</strong></a>)</li>
+<li><strong>num_cells_by_distance</strong> (<a href="../forward__grid_8hpp/"><strong>forward_grid.hpp</strong></a>, <a href="../grid_8hpp/"><strong>grid.hpp</strong></a>)</li>
 <li><strong>normalize_crs_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 </ul>
 <h2 id="o">o</h2>
@@ -1516,7 +1520,6 @@
 <li><strong>read_tile_from_inputs</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>reproject_extent</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>read_tif</strong> (<a href="../tif_8cpp/"><strong>tif.cpp</strong></a>, <a href="../tif_8hpp/"><strong>tif.hpp</strong></a>)</li>
-<li><strong>run_loop</strong> (<a href="../progress__tracker__helper_8cpp/"><strong>progress_tracker_helper.cpp</strong></a>, <a href="../progress__tracker_8hpp/"><strong>progress_tracker.hpp</strong></a>)</li>
 <li><strong>read_vege_polygons</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>read_byte_tif_pixels</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 <li><strong>run_with_config</strong> (<a href="../run_8cpp/"><strong>run.cpp</strong></a>, <a href="../run_8hpp/"><strong>run.hpp</strong></a>)</li>

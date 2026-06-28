@@ -2,24 +2,25 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
   <compounddef id="namespaceblaze" kind="namespace" language="C++">
     <compoundname>blaze</compoundname>
-    <innerclass refid="classblaze_1_1Image" prot="public">blaze::Image</innerclass>
     <innerclass refid="structblaze_1_1Point" prot="public">blaze::Point</innerclass>
     <innerclass refid="structblaze_1_1Rect" prot="public">blaze::Rect</innerclass>
     <innerclass refid="structblaze_1_1Size" prot="public">blaze::Size</innerclass>
+    <innernamespace refid="namespaceblaze_1_1memory__tracker">blaze::memory_tracker</innernamespace>
     <innernamespace refid="namespaceblaze_1_1test">blaze::test</innernamespace>
+    <innernamespace refid="namespaceblaze_1_1trace">blaze::trace</innernamespace>
     <sectiondef kind="enum">
-      <memberdef kind="enum" id="image_8hpp_1a91970f3adbd272562e14250f44bd21f8" prot="public" static="no" strong="yes">
+      <memberdef kind="enum" id="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8" prot="public" static="no" strong="yes">
         <type></type>
         <name>InterpolationMode</name>
         <qualifiedname>blaze::InterpolationMode</qualifiedname>
-        <enumvalue id="image_8hpp_1a91970f3adbd272562e14250f44bd21f8aad135772d7cf93dd0ccf9d2474b34e6a" prot="public">
+        <enumvalue id="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aad135772d7cf93dd0ccf9d2474b34e6a" prot="public">
           <name>NEAREST</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="image_8hpp_1a91970f3adbd272562e14250f44bd21f8aaac544aacc3615aada24897a215f5046" prot="public">
+        <enumvalue id="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aaac544aacc3615aada24897a215f5046" prot="public">
           <name>LINEAR</name>
           <briefdescription>
           </briefdescription>
@@ -32,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/image.hpp" line="59" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/image.hpp" bodystart="59" bodyend="59"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/raster.hpp" line="51" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/raster.hpp" bodystart="51" bodyend="51"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
@@ -59,6 +60,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/image.cpp" line="10" column="1"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="5" column="1"/>
   </compounddef>
 </doxygen>

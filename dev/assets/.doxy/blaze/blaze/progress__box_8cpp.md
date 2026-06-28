@@ -21,7 +21,9 @@
 * `#include <sstream>`
 * `#include "error_dialog.hpp"`
 * `#include "ui_progress_box.h"`
+* `#include "utilities/memory_tracker.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
+* `#include "utilities/trace_recorder.hpp"`
 
 
 

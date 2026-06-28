@@ -132,10 +132,10 @@
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classAsyncRasterData_1aac0cdbaf1a1a6d9023f08742946dce51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classAsyncRasterData_1ab669c18aab967715f32f265a96b0b1bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>AsyncRasterData::AsyncRasterData</definition>
-        <argsstring>(const fs::path &amp;dem_path, AsyncProgressTracker progress_tracker, const std::optional&lt; fs::path &gt; &amp;texture_path=std::nullopt, int stride=1, bool slope_colored=false, const std::optional&lt; fs::path &gt; &amp;slope_path=std::nullopt, std::function&lt; void()&gt; on_ready={}, const std::string &amp;target_crs_wkt={}, bool flat_cells=false)</argsstring>
+        <argsstring>(const fs::path &amp;dem_path, AsyncProgressTracker async_progress_tracker, const std::optional&lt; fs::path &gt; &amp;texture_path=std::nullopt, int stride=1, bool slope_colored=false, const std::optional&lt; fs::path &gt; &amp;slope_path=std::nullopt, std::function&lt; void()&gt; on_ready={}, const std::string &amp;target_crs_wkt={}, bool flat_cells=false)</argsstring>
         <name>AsyncRasterData</name>
         <qualifiedname>AsyncRasterData::AsyncRasterData</qualifiedname>
         <param>
@@ -144,7 +144,7 @@
         </param>
         <param>
           <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
-          <declname>progress_tracker</declname>
+          <declname>async_progress_tracker</declname>
         </param>
         <param>
           <type>const std::optional&lt; fs::path &gt; &amp;</type>
@@ -187,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="616" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="616" bodyend="673"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="616" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="616" bodyend="680"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1a5071db6956d64d4cc566b6c96b2cfa04" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>std::mutex &amp;</type>
@@ -201,7 +201,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="675" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="675" bodyend="675"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="682" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="682" bodyend="682"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1a1ff074908ffbe52816fe46028639dac5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="676" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="676" bodyend="676"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="683" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="683" bodyend="683"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1aa568df23f81585bf09c29f6f711153f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -229,7 +229,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="677" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="677" bodyend="680"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="684" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="684" bodyend="687"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1a75d916eb53e188167402127778f0956f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="structDemMeshData" kindref="compound">DemMeshData</ref> &amp;</type>
@@ -243,7 +243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="682" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="682" bodyend="682"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="689" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="689" bodyend="689"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1a578851dfc82f44854bc585d6faffdcfc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classMultiBand" kindref="compound">MultiBand</ref>&lt; <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &gt; &gt; &amp;</type>
@@ -257,7 +257,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="684" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="684" bodyend="687"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="691" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="691" bodyend="694"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1a3a538ea3bf95bf8a5704ba5518606077" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
@@ -271,7 +271,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="688" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="688" bodyend="688"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="695" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="695" bodyend="695"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1ad7373038675d50018b1c2cb6d542c497" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
@@ -285,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="689" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="689" bodyend="689"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="696" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="696" bodyend="696"/>
       </memberdef>
       <memberdef kind="function" id="classAsyncRasterData_1a666745429d1d9c289e22745ed683107e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
@@ -299,16 +299,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="690" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="690" bodyend="695"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="697" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="697" bodyend="702"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="604" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="604" bodyend="696"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="604" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="604" bodyend="703"/>
     <listofallmembers>
-      <member refid="classAsyncRasterData_1aac0cdbaf1a1a6d9023f08742946dce51" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>AsyncRasterData</name></member>
+      <member refid="classAsyncRasterData_1ab669c18aab967715f32f265a96b0b1bc" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>AsyncRasterData</name></member>
       <member refid="classAsyncRasterData_1a666745429d1d9c289e22745ed683107e" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>extent</name></member>
       <member refid="classAsyncRasterData_1aa568df23f81585bf09c29f6f711153f6" prot="public" virt="non-virtual"><scope>AsyncRasterData</scope><name>has_texture</name></member>
       <member refid="classAsyncRasterData_1a07bfd9bbe307c82d6153160e3a2a190f" prot="private" virt="non-virtual"><scope>AsyncRasterData</scope><name>m_future</name></member>

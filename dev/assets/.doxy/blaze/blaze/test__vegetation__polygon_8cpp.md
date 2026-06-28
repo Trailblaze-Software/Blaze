@@ -21,6 +21,7 @@
 * `#include "contour/contour_gen.hpp"`
 * `#include "geometry/polygon.hpp"`
 * `#include "grid/grid.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 * `#include "vegetation/vegetation_polygon.hpp"`
 
 

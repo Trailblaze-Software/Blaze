@@ -128,8 +128,8 @@ See [LayerRenderer](classLayerRenderer.md)
 |  bool | [**can\_fbo\_pick**](#function-can_fbo_pick) () const<br> |
 |  void | [**collect\_visible\_octree\_nodes**](#function-collect_visible_octree_nodes) (const [**LasRenderSnapshot**](structLasRenderSnapshot.md) & snap, const [**Camera**](classCamera.md) & camera, double vis\_quality, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & file\_origin, std::vector&lt; [**PointOctree::VisibleNode**](structPointOctree_1_1VisibleNode.md) &gt; & visible\_nodes) const<br> |
 |  void | [**consume\_gpu\_timer\_sample**](#function-consume_gpu_timer_sample) (class QOpenGLExtraFunctions \* gl) <br> |
-|  size\_t | [**draw\_octree\_nodes**](#function-draw_octree_nodes) (QOpenGLFunctions \* f, const std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & point\_storage, const std::vector&lt; [**PointOctree::VisibleNode**](structPointOctree_1_1VisibleNode.md) &gt; & visible\_nodes, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & file\_origin, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & scene\_offset, double quality, bool incremental) <br> |
-|  size\_t | [**draw\_preview\_points**](#function-draw_preview_points) (QOpenGLFunctions \* f, const std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & preview, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & file\_origin, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & scene\_offset) <br> |
+|  size\_t | [**draw\_octree\_nodes**](#function-draw_octree_nodes) (QOpenGLFunctions \* f, const OctreePointVector & point\_storage, const std::vector&lt; [**PointOctree::VisibleNode**](structPointOctree_1_1VisibleNode.md) &gt; & visible\_nodes, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & file\_origin, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & scene\_offset, double quality, bool incremental) <br> |
+|  size\_t | [**draw\_preview\_points**](#function-draw_preview_points) (QOpenGLFunctions \* f, const OctreePointVector & preview, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & file\_origin, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & scene\_offset) <br> |
 |  void | [**ensure\_gpu\_timer**](#function-ensure_gpu_timer) (class QOpenGLExtraFunctions \* gl) <br> |
 |  void | [**ensure\_shader**](#function-ensure_shader) () <br> |
 |  size\_t | [**estimate\_draw\_vertices**](#function-estimate_draw_vertices) (const std::vector&lt; [**PointOctree::VisibleNode**](structPointOctree_1_1VisibleNode.md) &gt; & visible\_nodes, double quality, bool incremental) const<br> |
@@ -765,7 +765,7 @@ void OctreeLASLayerRenderer::consume_gpu_timer_sample (
 ```C++
 size_t OctreeLASLayerRenderer::draw_octree_nodes (
     QOpenGLFunctions * f,
-    const std::vector< OctreePoint > & point_storage,
+    const OctreePointVector & point_storage,
     const std::vector< PointOctree::VisibleNode > & visible_nodes,
     const Coordinate3D < double > & file_origin,
     const Coordinate3D < double > & scene_offset,
@@ -786,7 +786,7 @@ size_t OctreeLASLayerRenderer::draw_octree_nodes (
 ```C++
 size_t OctreeLASLayerRenderer::draw_preview_points (
     QOpenGLFunctions * f,
-    const std::vector< OctreePoint > & preview,
+    const OctreePointVector & preview,
     const Coordinate3D < double > & file_origin,
     const Coordinate3D < double > & scene_offset
 ) 

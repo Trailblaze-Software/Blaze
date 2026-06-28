@@ -21,6 +21,7 @@
 * `#include <vector>`
 * `#include "gui/frustum.hpp"`
 * `#include "utilities/coordinate.hpp"`
+* `#include "utilities/tracked_allocator.hpp"`
 
 
 
@@ -46,6 +47,11 @@
 | class | [**PointOctreeNode**](classPointOctreeNode.md) <br> |
 
 
+## Public Types
+
+| Type | Name |
+| ---: | :--- |
+| typedef blaze::memory\_tracker::LasVector&lt; [**OctreePoint**](structOctreePoint.md) &gt; | [**OctreePointVector**](#typedef-octreepointvector)  <br> |
 
 
 
@@ -70,7 +76,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**octree\_shuffle\_range**](#function-octree_shuffle_range) (std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & points, size\_t begin, size\_t end) <br> |
+|  void | [**octree\_shuffle\_range**](#function-octree_shuffle_range) (OctreePointVector & points, size\_t begin, size\_t end) <br> |
 
 
 
@@ -99,6 +105,21 @@
 
 
 
+## Public Types Documentation
+
+
+
+
+### typedef OctreePointVector 
+
+```C++
+using OctreePointVector =  blaze::memory_tracker::LasVector<OctreePoint>;
+```
+
+
+
+
+<hr>
 ## Public Functions Documentation
 
 
@@ -108,7 +129,7 @@
 
 ```C++
 inline void octree_shuffle_range (
-    std::vector< OctreePoint > & points,
+    OctreePointVector & points,
     size_t begin,
     size_t end
 ) 

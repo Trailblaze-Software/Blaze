@@ -13,6 +13,7 @@
 #include "grid/grid.hpp"
 #include "grid/img_grid.hpp"
 #include "isom/colors.hpp"
+#include "utilities/progress_tracker.hpp"
 
 namespace {
 
@@ -44,65 +45,46 @@ RGBColor expected_alpha_blend(const RGBColor& foreground, const RGBColor& backgr
 
 }  // namespace
 
-TEST(GeoImgGrid, DrawAlphaBlendsOverlappingPixels) {
+TEST(GeoGridRGB, DrawAlphaBlendsOverlappingPixels) {
   const RGBColor background_color(0, 0, 255, 255);
   const RGBColor foreground_color(255, 0, 0, 128);
 
-  GeoImgGrid background(make_solid_color_grid(2, 2, background_color));
-  const GeoImgGrid foreground(make_solid_color_grid(2, 2, foreground_color));
+  GeoGrid<RGBColor> background(make_solid_color_grid(2, 2, background_color));
+  const GeoGrid<RGBColor> foreground(make_solid_color_grid(2, 2, foreground_color));
 
-  background.draw(foreground);
+  background.draw(foreground, ProgressTracker());
 
   const RGBColor expected = expected_alpha_blend(foreground_color, background_color);
-  const RGBColor blended = background.get_rgb_color(0, 0);
+  const RGBColor blended = background[{0, 0}];
   EXPECT_EQ(blended.getRed(), expected.getRed());
   EXPECT_EQ(blended.getGreen(), expected.getGreen());
   EXPECT_EQ(blended.getBlue(), expected.getBlue());
   EXPECT_EQ(blended.getAlpha(), expected.getAlpha());
 }
 
-TEST(GeoImgGrid, ConstructFromNonSquareGeoGrid) {
-  constexpr size_t width = 3;
-  constexpr size_t height = 2;
-  GeoGrid<RGBColor> grid(width, height, GeoTransform(), GeoProjection());
-  for (size_t y = 0; y < height; ++y) {
-    for (size_t x = 0; x < width; ++x) {
-      grid[{x, y}] = RGBColor(static_cast<uint8_t>(x * 10 + y), 0, 0, 255);
-    }
-  }
-
-  const GeoImgGrid img_grid(grid);
-  for (size_t y = 0; y < height; ++y) {
-    for (size_t x = 0; x < width; ++x) {
-      const RGBColor pixel = img_grid.get_rgb_color(y, x);
-      EXPECT_EQ(pixel.getRed(), static_cast<uint8_t>(x * 10 + y));
-    }
-  }
-}
-
-TEST(GeoImgGrid, DrawNonSquareGrid) {
+TEST(GeoGridRGB, DrawNonSquareGrid) {
   const RGBColor foreground_color(255, 0, 0, 255);
-  GeoImgGrid background(make_solid_color_grid(5, 3, RGBColor(0, 0, 255, 255)));
-  const GeoImgGrid foreground(make_solid_color_grid(5, 3, foreground_color));
+  GeoGrid<RGBColor> background(make_solid_color_grid(5, 3, RGBColor(0, 0, 255, 255)));
+  const GeoGrid<RGBColor> foreground(make_solid_color_grid(5, 3, foreground_color));
 
-  background.draw(foreground);
+  background.draw(foreground, ProgressTracker());
 
-  const RGBColor blended = background.get_rgb_color(1, 1);
+  const RGBColor blended = background[{1, 1}];
   EXPECT_EQ(blended.getRed(), foreground_color.getRed());
   EXPECT_EQ(blended.getGreen(), foreground_color.getGreen());
   EXPECT_EQ(blended.getBlue(), foreground_color.getBlue());
 }
 
-TEST(GeoImgGrid, DrawOpaqueForegroundReplacesBackground) {
+TEST(GeoGridRGB, DrawOpaqueForegroundReplacesBackground) {
   const RGBColor background_color(0, 0, 255, 128);
   const RGBColor foreground_color(255, 0, 0, 255);
 
-  GeoImgGrid background(make_solid_color_grid(1, 1, background_color));
-  const GeoImgGrid foreground(make_solid_color_grid(1, 1, foreground_color));
+  GeoGrid<RGBColor> background(make_solid_color_grid(1, 1, background_color));
+  const GeoGrid<RGBColor> foreground(make_solid_color_grid(1, 1, foreground_color));
 
-  background.draw(foreground);
+  background.draw(foreground, ProgressTracker());
 
-  const RGBColor blended = background.get_rgb_color(0, 0);
+  const RGBColor blended = background[{0, 0}];
   EXPECT_EQ(blended.getRed(), 255);
   EXPECT_EQ(blended.getGreen(), 0);
   EXPECT_EQ(blended.getBlue(), 0);

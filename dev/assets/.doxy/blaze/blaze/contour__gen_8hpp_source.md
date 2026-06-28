@@ -19,7 +19,6 @@
 #include "contour.hpp"
 #include "geometry/polygon.hpp"
 #include "utilities/progress_tracker.hpp"
-#include "utilities/timer.hpp"
 
 namespace detail {
 
@@ -87,8 +86,8 @@ void trace_contours(const GeoGrid<T>& grid, GridGraph<std::set<double>>& contour
 
 template <typename T>
 GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_interval,
-                                              ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("identifying contours", progress_tracker);
+                                              ProgressTracker&& progress_tracker) {
+  START_TRACKER("identifying contours");
   return detail::identify_contour_crossings(
       grid, [=](T v1, T v2) { return get_contour_heights({v1, v2}, contour_interval); });
 }
@@ -98,9 +97,9 @@ GridGraph<std::set<double>> identify_contours(const GeoGrid<T>& grid, T contour_
 // every multiple of an interval (e.g. vegetation density thresholds).
 template <typename T>
 GridGraph<std::set<double>> identify_contours_at_heights(
-    const GeoGrid<T>& grid, const std::set<double>& heights,
-    std::optional<T> pad_value = std::nullopt, ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("identifying contours at heights", progress_tracker);
+    const GeoGrid<T>& grid, const std::set<double>& heights, ProgressTracker&& progress_tracker,
+    std::optional<T> pad_value = std::nullopt) {
+  START_TRACKER("identifying contours at heights");
   std::optional<GeoGrid<T>> padded;
   const GeoGrid<T>& work_grid = detail::work_grid_for_contours(grid, pad_value, padded);
   return detail::identify_contour_crossings(work_grid, [&](T v1, T v2) {
@@ -120,24 +119,25 @@ GridGraph<std::set<double>> identify_contours_at_heights(
 }
 
 template <typename T>
-GridGraph<std::set<double>> identify_contours_at_heights(
-    const GeoGrid<T>& grid, const std::set<double>& heights, T pad_value,
-    ProgressTracker* progress_tracker = nullptr) {
-  return identify_contours_at_heights(grid, heights, std::optional<T>(pad_value), progress_tracker);
+GridGraph<std::set<double>> identify_contours_at_heights(const GeoGrid<T>& grid,
+                                                         const std::set<double>& heights,
+                                                         ProgressTracker&& progress_tracker,
+                                                         T pad_value) {
+  return identify_contours_at_heights(grid, heights, std::move(progress_tracker),
+                                      std::optional<T>(pad_value));
 }
 
 template <typename T>
 std::map<double, std::vector<Contour>> generate_contours_at_heights(
-    const GeoGrid<T>& grid, const std::vector<double>& heights, size_t min_points = 3,
-    std::optional<T> pad_value = std::nullopt, ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("generating contours at heights", progress_tracker);
-
+    const GeoGrid<T>& grid, const std::vector<double>& heights, ProgressTracker&& progress_tracker,
+    size_t min_points = 3, std::optional<T> pad_value = std::nullopt) {
+  START_TRACKER("generating contours at heights");
   std::optional<GeoGrid<T>> padded;
   const GeoGrid<T>& work_grid = detail::work_grid_for_contours(grid, pad_value, padded);
 
   std::set<double> height_set(heights.begin(), heights.end());
-  GridGraph<std::set<double>> contour_heights =
-      identify_contours_at_heights(work_grid, height_set, std::optional<T>(), progress_tracker);
+  GridGraph<std::set<double>> contour_heights = identify_contours_at_heights(
+      work_grid, height_set, SUBTRACKER(0.0, 0.5, progress_tracker), std::optional<T>());
 
   std::map<double, std::vector<Contour>> contours_by_height;
   detail::trace_contours(
@@ -158,10 +158,10 @@ std::map<double, std::vector<Contour>> generate_contours_at_heights(
 
 template <typename T>
 std::map<double, std::vector<Contour>> generate_contours_at_heights(
-    const GeoGrid<T>& grid, const std::vector<double>& heights, size_t min_points, T pad_value,
-    ProgressTracker* progress_tracker = nullptr) {
-  return generate_contours_at_heights(grid, heights, min_points, std::optional<T>(pad_value),
-                                      progress_tracker);
+    const GeoGrid<T>& grid, const std::vector<double>& heights, ProgressTracker&& progress_tracker,
+    size_t min_points, T pad_value) {
+  return generate_contours_at_heights(grid, heights, std::move(progress_tracker), min_points,
+                                      std::optional<T>(pad_value));
 }
 
 inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist) {
@@ -292,9 +292,10 @@ inline std::vector<Contour> trim_contours(const std::vector<Contour>& contours,
 
 template <typename T>
 std::vector<Contour> generate_contours(const GeoGrid<T>& grid, const ContourConfigs& contour_config,
-                                       ProgressTracker progress_tracker) {
-  TimeFunction timer("generating contours", &progress_tracker);
-  GridGraph is_contour = identify_contours(grid, contour_config.min_interval, &progress_tracker);
+                                       ProgressTracker&& progress_tracker) {
+  START_TRACKER("generating contours");
+  GridGraph is_contour =
+      identify_contours(grid, contour_config.min_interval, SUBTRACKER(0.0, 0.5, progress_tracker));
   std::vector<Contour> contours;
   detail::trace_contours(
       grid, is_contour,

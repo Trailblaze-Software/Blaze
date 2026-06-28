@@ -24,11 +24,16 @@
 | file | [**coordinate.hpp**](coordinate_8hpp.md) <br> |
 | file | [**env.hpp**](utilities_2env_8hpp.md) <br> |
 | file | [**filesystem.hpp**](filesystem_8hpp.md) <br> |
+| file | [**memory\_tracker.cpp**](memory__tracker_8cpp.md) <br> |
+| file | [**memory\_tracker.hpp**](memory__tracker_8hpp.md) <br> |
 | file | [**progress\_tracker.cpp**](progress__tracker_8cpp.md) <br> |
 | file | [**progress\_tracker.hpp**](progress__tracker_8hpp.md) <br> |
 | file | [**resources.cpp**](resources_8cpp.md) <br> |
 | file | [**resources.hpp**](resources_8hpp.md) <br> |
 | file | [**timer.hpp**](timer_8hpp.md) <br> |
+| file | [**trace\_recorder.cpp**](trace__recorder_8cpp.md) <br> |
+| file | [**trace\_recorder.hpp**](trace__recorder_8hpp.md) <br> |
+| file | [**tracked\_allocator.hpp**](tracked__allocator_8hpp.md) <br> |
 
 
 ## Directories

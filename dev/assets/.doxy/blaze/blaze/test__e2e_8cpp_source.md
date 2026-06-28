@@ -193,8 +193,7 @@ TEST(E2E, ProcessSyntheticData) {
   LASData las_data = create_synthetic_las_data();
 
   // Process the data
-  ProgressTracker tracker;
-  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  process_las_data(las_data, test_output_dir, config, ProgressTracker());
 
   // Verify outputs were created (some may not exist if data is too sparse)
   // At minimum, the output directory should exist
@@ -221,8 +220,7 @@ TEST(E2E, ProcessSyntheticData) {
 
   // Verify contours can be read back if file exists
   if (fs::exists(test_output_dir / "contours.gpkg")) {
-    // If file exists, it must be valid and readable
-    std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
+    std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg", ProgressTracker());
     // Should be able to read without errors
     EXPECT_GE(contours.size(), 0);
   }
@@ -249,8 +247,7 @@ TEST(E2E, ProcessEmptyData) {
   GeoProjection proj;
   LASData las_data(bounds, proj);
 
-  ProgressTracker tracker;
-  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  process_las_data(las_data, test_output_dir, config, ProgressTracker());
 
   // Should still create output directory structure
   EXPECT_TRUE(fs::exists(test_output_dir));
@@ -279,8 +276,7 @@ TEST(E2E, ProcessDifferentResolutions) {
 
   LASData las_data = create_synthetic_las_data();
 
-  ProgressTracker tracker;
-  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  process_las_data(las_data, test_output_dir, config, ProgressTracker());
 
   // Both files should be created
   fs::path ground_file = test_output_dir / "ground.tif";
@@ -317,20 +313,18 @@ TEST(E2E, VerifyOutputStructure) {
   Config config = create_minimal_test_config(test_output_dir);
   LASData las_data = create_synthetic_las_data();
 
-  ProgressTracker tracker;
-  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  process_las_data(las_data, test_output_dir, config, ProgressTracker());
 
   // Verify TIF files can be read
   if (fs::exists(test_output_dir / "ground.tif")) {
-    auto ground_grid = read_tif(test_output_dir / "ground.tif");
+    auto ground_grid = read_tif(test_output_dir / "ground.tif", ProgressTracker());
     EXPECT_GT(ground_grid.width(), 0);
     EXPECT_GT(ground_grid.height(), 0);
   }
 
   // Verify GPKG files can be read
   if (fs::exists(test_output_dir / "contours.gpkg")) {
-    // If file exists, it must be valid and readable
-    std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg");
+    std::vector<Contour> contours = read_gpkg(test_output_dir / "contours.gpkg", ProgressTracker());
     // Should be able to read without errors
     EXPECT_GE(contours.size(), 0);
   }
@@ -353,7 +347,7 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
   }
 
   // Common code: read and validate TIF
-  auto grid = read_tif(vege_tif_path);
+  auto grid = read_tif(vege_tif_path, ProgressTracker());
   ASSERT_GE(grid.size(), 3);
   const auto& r_band = grid[0];
   const auto& g_band = grid[1];
@@ -480,7 +474,7 @@ void verify_raw_vegetation_tif(const fs::path& raw_vege_tif_path, bool should_ha
   // Raw and smoothed vegetation exports are stored as a single-band Byte raster.
   // Values are 0..255 representing blocked proportion 0..1, with 0 also used
   // for "no data" at export time (by design).
-  auto grid = read_tif(raw_vege_tif_path);
+  auto grid = read_tif(raw_vege_tif_path, ProgressTracker());
   ASSERT_EQ(grid.size(), 1) << "Raw vege TIF should have 1 band (Byte)";
   const auto& value_band = grid[0];
 
@@ -546,20 +540,19 @@ TEST_P(E2ETerrainTest, ProcessTerrain) {
   LASData las_data =
       create_synthetic_las_data_ext(extent, params.height_function, params.with_vegetation);
 
-  ProgressTracker tracker;
-  process_las_data(las_data, test_output_dir, config, std::move(tracker));
+  process_las_data(las_data, test_output_dir, config, ProgressTracker());
 
   EXPECT_TRUE(fs::exists(test_output_dir / "ground.tif"));
 
   fs::path contours_path = test_output_dir / "contours.gpkg";
   EXPECT_TRUE(fs::exists(contours_path));
-  std::vector<Contour> contours = read_gpkg(contours_path);
+  std::vector<Contour> contours = read_gpkg(contours_path, ProgressTracker());
 
   if (params.expect_contours) {
     EXPECT_GT(contours.size(), 0);
   } else {
     EXPECT_EQ(contours.size(), 0);
-    auto ground_grid = read_tif(test_output_dir / "ground.tif");
+    auto ground_grid = read_tif(test_output_dir / "ground.tif", ProgressTracker());
     const auto& band = ground_grid[0];
     // For flat terrain tests, check that elevation matches the expected value
     // (102.5m to avoid being exactly on a 5.0m contour interval)
@@ -748,8 +741,7 @@ TEST(E2E, GroundEstimationSlopes) {
       fs::path output_dir = test_output_dir / (dir.name + "_" + std::to_string((int)angle_deg) +
                                                "deg_ds" + std::to_string(downsample_factor));
       fs::create_directories(output_dir);
-      ProgressTracker tracker;
-      process_las_data(las_data, output_dir, config, std::move(tracker));
+      process_las_data(las_data, output_dir, config, ProgressTracker());
 
       // Read back the ground estimate
       fs::path ground_file = output_dir / "ground.tif";
@@ -759,7 +751,7 @@ TEST(E2E, GroundEstimationSlopes) {
       }
 
       if (fs::exists(ground_file)) {
-        Geo<MultiBand<FlexGrid>> tif_data = read_tif(ground_file);
+        Geo<MultiBand<FlexGrid>> tif_data = read_tif(ground_file, ProgressTracker());
         GeoGrid<double> ground_grid(tif_data.width(), tif_data.height(),
                                     GeoTransform(tif_data.transform()),
                                     GeoProjection(tif_data.projection()));
@@ -937,12 +929,17 @@ TEST(WriteToImageTif, AbsoluteSlopeBounds) {
 
   GeoGrid<double> grid(3, 3, GeoTransform(), GeoProjection());
 
+  ProgressTracker progress_tracker;
+
   // Flat: all zeros -> pixel should be 255.
   for (size_t i = 0; i < 3; i++)
     for (size_t j = 0; j < 3; j++) grid[{j, i}] = 0.0;
 
-  write_to_image_tif(grid, out, std::optional<ProgressTracker>{},
-                     std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
+  {
+    ProgressTracker write_tracker = SUBTRACKER(0.0, 0.33);
+    write_to_image_tif(grid, out, std::move(write_tracker),
+                       std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
+  }
   {
     auto pixels = read_byte_tif_pixels(out);
     for (auto p : pixels) EXPECT_EQ(p, 255) << "flat grid should produce all-255 pixels";
@@ -952,8 +949,8 @@ TEST(WriteToImageTif, AbsoluteSlopeBounds) {
   for (size_t i = 0; i < 3; i++)
     for (size_t j = 0; j < 3; j++) grid[{j, i}] = std::numbers::pi / 2;
 
-  write_to_image_tif(grid, out, std::optional<ProgressTracker>{},
-                     std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
+  write_to_image_tif(grid, out, SUBTRACKER(0.33, 0.66), std::optional<double>(std::numbers::pi / 2),
+                     std::optional<double>(0.0));
   {
     auto pixels = read_byte_tif_pixels(out);
     for (auto p : pixels) EXPECT_EQ(p, 0) << "vertical grid should produce all-zero pixels";
@@ -963,8 +960,8 @@ TEST(WriteToImageTif, AbsoluteSlopeBounds) {
   for (size_t i = 0; i < 3; i++)
     for (size_t j = 0; j < 3; j++) grid[{j, i}] = std::numbers::pi / 4;
 
-  write_to_image_tif(grid, out, std::optional<ProgressTracker>{},
-                     std::optional<double>(std::numbers::pi / 2), std::optional<double>(0.0));
+  write_to_image_tif(grid, out, SUBTRACKER(0.66, 1.0), std::optional<double>(std::numbers::pi / 2),
+                     std::optional<double>(0.0));
   {
     auto pixels = read_byte_tif_pixels(out);
     for (auto p : pixels) EXPECT_EQ(p, 127) << "45-degree slope should produce pixel 127";
@@ -985,7 +982,7 @@ TEST(WriteToImageTif, PerTileBoundsDefault) {
   for (size_t i = 0; i < 3; i++)
     for (size_t j = 0; j < 3; j++) grid[{j, i}] = (j == 0 && i == 0) ? 2.0 : 4.0;
 
-  write_to_image_tif(grid, out);
+  write_to_image_tif(grid, out, ProgressTracker());
   auto pixels = read_byte_tif_pixels(out);
 
   // The minimum value (2.0) should map to 0, maximum (4.0) to 255.
@@ -1004,7 +1001,7 @@ TEST(WriteToImageTif, ConstantGrid) {
   for (size_t i = 0; i < 2; i++)
     for (size_t j = 0; j < 2; j++) grid[{j, i}] = 42.0;
 
-  write_to_image_tif(grid, out);
+  write_to_image_tif(grid, out, ProgressTracker());
   auto pixels = read_byte_tif_pixels(out);
   for (auto p : pixels) {
     EXPECT_EQ(p, 0) << "constant grid should map to zero, not NaN";

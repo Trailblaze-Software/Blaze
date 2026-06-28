@@ -85,6 +85,7 @@
 |   | [**TEST**](#function-test) ([**LASData**](classLASData.md), IntensityRange) <br> |
 |   | [**TEST**](#function-test) ([**LASData**](classLASData.md), Iterator) <br> |
 |   | [**TEST**](#function-test) ([**LASData**](classLASData.md), PushBack) <br> |
+|   | [**TEST**](#function-test) ([**LASData**](classLASData.md), ReleasePoints) <br> |
 |   | [**TEST**](#function-test) ([**LASData**](classLASData.md), MutableAccess) <br> |
 |   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), TopLeft) <br> |
 |   | [**TEST**](#function-test) ([**LASFile**](classLASFile.md), WidthHeight) <br> |
@@ -562,6 +563,22 @@ TEST (
 TEST (
     LASData,
     PushBack
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    LASData,
+    ReleasePoints
 ) 
 ```
 

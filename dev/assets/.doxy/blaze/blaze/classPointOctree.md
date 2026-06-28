@@ -59,8 +59,8 @@
 |   | [**PointOctree**](#function-pointoctree-12) () <br> |
 |   | [**PointOctree**](#function-pointoctree-22) (const [**Extent3D**](structExtent3D.md) & bounds) <br> |
 |  void | [**collect\_visible**](#function-collect_visible) (const [**Frustum**](structFrustum.md) & frustum, double quality, const [**Coordinate3D**](classCoordinate3D.md)&lt; double &gt; & camera\_local, std::vector&lt; [**VisibleNode**](structPointOctree_1_1VisibleNode.md) &gt; & out) const<br> |
-|  void | [**insert\_batch**](#function-insert_batch) (std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; && points, const std::function&lt; void(size\_t, size\_t)&gt; & progress={}, const std::atomic&lt; bool &gt; \* cancel=nullptr) <br> |
-|  const std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & | [**points**](#function-points) () const<br> |
+|  void | [**insert\_batch**](#function-insert_batch) (OctreePointVector && points, const std::function&lt; void(size\_t, size\_t)&gt; & progress={}, const std::atomic&lt; bool &gt; \* cancel=nullptr) <br> |
+|  const OctreePointVector & | [**points**](#function-points) () const<br> |
 |  const [**PointOctreeNode**](classPointOctreeNode.md) \* | [**root**](#function-root) () const<br> |
 |  void | [**shuffle\_leaves**](#function-shuffle_leaves) () <br> |
 |  size\_t | [**total\_points**](#function-total_points) () const<br> |
@@ -152,7 +152,7 @@ inline void PointOctree::collect_visible (
 
 ```C++
 void PointOctree::insert_batch (
-    std::vector< OctreePoint > && points,
+    OctreePointVector && points,
     const std::function< void(size_t, size_t)> & progress={},
     const std::atomic< bool > * cancel=nullptr
 ) 
@@ -168,7 +168,7 @@ void PointOctree::insert_batch (
 ### function points 
 
 ```C++
-inline const std::vector< OctreePoint > & PointOctree::points () const
+inline const OctreePointVector & PointOctree::points () const
 ```
 
 

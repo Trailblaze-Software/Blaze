@@ -76,8 +76,8 @@
 |  [**TileModeInfo**](structTileModeInfo.md) | [**analyze\_extents**](#function-analyze_extents) (std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents, const std::string & override\_wkt="") <br> |
 |  std::vector&lt; [**Tile**](structTile.md) &gt; | [**compute\_tiles**](#function-compute_tiles) (const [**Extent2D**](structExtent2D.md) & overall, double tile\_size, const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents={}) <br> |
 |  [**TileModeInfo**](structTileModeInfo.md) | [**detect\_tile\_mode\_needed**](#function-detect_tile_mode_needed) (const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & extents) <br> |
-|  std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; | [**load\_input\_extents**](#function-load_input_extents) (const std::vector&lt; fs::path &gt; & files, const std::string & override\_crs, std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) progress) <br> |
-|  [**LASData**](classLASData.md) | [**read\_tile\_from\_inputs**](#function-read_tile_from_inputs) (const [**Extent2D**](structExtent2D.md) & tile\_extent, double border\_width, const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & all\_extents, const std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) progress) <br> |
+|  std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; | [**load\_input\_extents**](#function-load_input_extents) (const std::vector&lt; fs::path &gt; & files, const std::string & override\_crs, std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  [**LASData**](classLASData.md) | [**read\_tile\_from\_inputs**](#function-read_tile_from_inputs) (const [**Extent2D**](structExtent2D.md) & tile\_extent, double border\_width, const std::vector&lt; [**LASFileExtent**](structLASFileExtent.md) &gt; & all\_extents, const std::string & output\_crs\_wkt, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  [**Extent2D**](structExtent2D.md) | [**reproject\_extent**](#function-reproject_extent) (const [**Extent2D**](structExtent2D.md) & extent, const std::string & src\_wkt, const std::string & dst\_wkt) <br> |
 |  double | [**snap\_down**](#function-snap_down) (double value, double step) <br> |
 |  double | [**snap\_up**](#function-snap_up) (double value, double step) <br> |
@@ -171,7 +171,7 @@ inline std::vector< LASFileExtent > load_input_extents (
     const std::vector< fs::path > & files,
     const std::string & override_crs,
     std::string & output_crs_wkt,
-    ProgressTracker progress
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -190,7 +190,7 @@ inline LASData read_tile_from_inputs (
     double border_width,
     const std::vector< LASFileExtent > & all_extents,
     const std::string & output_crs_wkt,
-    ProgressTracker progress
+    ProgressTracker && progress_tracker
 ) 
 ```
 

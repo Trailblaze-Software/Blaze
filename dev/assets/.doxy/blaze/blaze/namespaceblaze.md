@@ -27,14 +27,15 @@
 
 | Type | Name |
 | ---: | :--- |
+| namespace | [**memory\_tracker**](namespaceblaze_1_1memory__tracker.md) <br> |
 | namespace | [**test**](namespaceblaze_1_1test.md) <br> |
+| namespace | [**trace**](namespaceblaze_1_1trace.md) <br> |
 
 
 ## Classes
 
 | Type | Name |
 | ---: | :--- |
-| class | [**Image**](classblaze_1_1Image.md) <br> |
 | struct | [**Point**](structblaze_1_1Point.md) <br> |
 | struct | [**Rect**](structblaze_1_1Rect.md) <br> |
 | struct | [**Size**](structblaze_1_1Size.md) <br> |
@@ -135,5 +136,5 @@ inline const char * blaze::get_env (
 <hr>
 
 ------------------------------
-The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/lib/grid/image.cpp`
+The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp`
 

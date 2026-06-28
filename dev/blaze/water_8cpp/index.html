@@ -970,7 +970,7 @@
 <li><code>#include "config_input/config_input.hpp"</code></li>
 <li><code>#include "grid/grid.hpp"</code></li>
 <li><code>#include "utilities/coordinate.hpp"</code></li>
-<li><code>#include "utilities/timer.hpp"</code></li>
+<li><code>#include "utilities/progress_tracker.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -998,11 +998,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt;</td>
-<td style="text-align: left;"><a href="#function-catchment_size"><strong>catchment_size</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; filled, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> * progress_tracker) <br></td>
+<td style="text-align: left;"><a href="#function-catchment_size"><strong>catchment_size</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; filled, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt;</td>
-<td style="text-align: left;"><a href="#function-fill_depressions"><strong>fill_depressions</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, const std::vector&lt; <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; &gt; &amp; sinks, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> * progress_tracker) <br></td>
+<td style="text-align: left;"><a href="#function-fill_depressions"><strong>fill_depressions</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, const std::vector&lt; <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; &gt; &amp; sinks) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::optional&lt; <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; &gt;</td>
@@ -1010,7 +1010,7 @@
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; size_t &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-identify_sinks"><strong>identify_sinks</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, double depth, double min_area, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> * progress_tracker) <br></td>
+<td style="text-align: left;"><a href="#function-identify_sinks"><strong>identify_sinks</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, const double depth, const double min_area, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; double &gt; &gt;</td>
@@ -1022,11 +1022,11 @@
 </tr>
 <tr>
 <td style="text-align: right;">std::vector&lt; <a href="../structStream/"><strong>Stream</strong></a> &gt;</td>
-<td style="text-align: left;"><a href="#function-stream_paths"><strong>stream_paths</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, const <a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a> &amp; config, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, bool already_filled) <br></td>
+<td style="text-align: left;"><a href="#function-stream_paths"><strong>stream_paths</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; grid, const <a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a> &amp; config, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, const bool already_filled) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; bool &gt;</td>
-<td style="text-align: left;"><a href="#function-streams"><strong>streams</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; filled_ground, const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; catchment, double minimum_catchment, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> * progress_tracker) <br></td>
+<td style="text-align: left;"><a href="#function-streams"><strong>streams</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; filled_ground, const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; double &gt; &amp; catchment, const double minimum_catchment, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 </tbody>
 </table>
@@ -1049,7 +1049,7 @@
 <h3 id="function-catchment_size">function catchment_size</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">catchment_size</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filled</span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">progress_tracker</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1057,8 +1057,8 @@
 <h3 id="function-fill_depressions">function fill_depressions</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">fill_depressions</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">sinks</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">progress_tracker</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">sinks</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1074,9 +1074,9 @@
 <h3 id="function-identify_sinks">function identify_sinks</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">identify_sinks</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">min_area</span><span class="p">,</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">progress_tracker</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">min_area</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1103,8 +1103,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">stream_paths</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">WaterConfigs</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">config</span><span class="p">,</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">already_filled</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">already_filled</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -1113,8 +1113,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">streams</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">filled_ground</span><span class="p">,</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GeoGrid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">catchment</span><span class="p">,</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">minimum_catchment</span><span class="p">,</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">progress_tracker</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">minimum_catchment</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>

@@ -3,21 +3,33 @@
   <compounddef id="test__progress__tracker_8cpp" kind="file" language="C++">
     <compoundname>test_progress_tracker.cpp</compoundname>
     <includes local="no">gtest/gtest.h</includes>
+    <includes local="no">fstream</includes>
+    <includes local="no">string</includes>
     <includes local="no">vector</includes>
+    <includes refid="filesystem_8hpp" local="yes">utilities/filesystem.hpp</includes>
     <includes refid="progress__tracker_8hpp" local="yes">utilities/progress_tracker.hpp</includes>
+    <includes refid="trace__recorder_8hpp" local="yes">utilities/trace_recorder.hpp</includes>
     <incdepgraph>
-      <node id="4">
+      <node id="6">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="7">
         <label>utilities/progress_tracker.hpp</label>
         <link refid="progress__tracker_8hpp_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
         <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -29,26 +41,55 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
       </node>
-      <node id="5">
+      <node id="14">
+        <label>utilities/trace_recorder.hpp</label>
+        <link refid="trace__recorder_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
         <label>chrono</label>
+      </node>
+      <node id="9">
+        <label>cstdint</label>
+      </node>
+      <node id="3">
+        <label>fstream</label>
       </node>
       <node id="2">
         <label>gtest/gtest.h</label>
       </node>
-      <node id="6">
+      <node id="10">
         <label>memory</label>
       </node>
-      <node id="7">
+      <node id="11">
         <label>optional</label>
       </node>
-      <node id="8">
+      <node id="12">
+        <label>source_location</label>
+      </node>
+      <node id="4">
         <label>string</label>
       </node>
-      <node id="9">
+      <node id="13">
         <label>utility</label>
       </node>
-      <node id="3">
+      <node id="5">
         <label>vector</label>
       </node>
     </incdepgraph>
@@ -71,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="20" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="20" bodyend="52"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="35" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="35" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="test__progress__tracker_8cpp_1a3b34316f612c7555936f68e73666b337" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -90,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="54" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="54" bodyend="64"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="69" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="69" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="test__progress__tracker_8cpp_1a29c0c7e2207c67c6b7f28f43cb383774" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -109,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="66" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="66" bodyend="72"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="83" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="83" bodyend="89"/>
       </memberdef>
       <memberdef kind="function" id="test__progress__tracker_8cpp_1a0f1d9df302ba7c0df7f6cef8f1191d39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -128,7 +169,178 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="74" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="74" bodyend="90"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="91" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="91" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1ad50c8b5c4a410d6c658c1e0243536e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, ProgressScope)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>ProgressScope</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="109" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="109" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1abae69b070fe2869c7c1e065206b9c50c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, ParentSetProportionBlockedWhileChildActive)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>ParentSetProportionBlockedWhileChildActive</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="116" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="116" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1aa5adbfe1d42316bfa99ed47042c1c2fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, StartTrackerBeginsDeferredSubtracker)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>StartTrackerBeginsDeferredSubtracker</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="123" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="123" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1a14af3839e32aee48052bb28aecc59df0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, StartTrackerNamesRoot)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>StartTrackerNamesRoot</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="131" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="131" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1ae32a9745158cc99e2e1d55d58c0f1fb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, RootScopeCompletesBeforeTraceWrite)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>RootScopeCompletesBeforeTraceWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="140" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="140" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1abd61a64dc49d6e4c81f7db954ef398d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, StartTrackerPatchesCallSiteInTrace)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>StartTrackerPatchesCallSiteInTrace</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="168" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="168" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1a7a025f1c273006d6f9e7c865a7e484e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, StartTrackerRecordsCallSiteInScopeStack)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>StartTrackerRecordsCallSiteInScopeStack</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="189" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="189" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1aee32dbc3b55e2f289faafa2df99c5bb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, SiblingSubtrackersRequireSequentialLifetime)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>SiblingSubtrackersRequireSequentialLifetime</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="202" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="202" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="test__progress__tracker_8cpp_1abb126a821f4b675fabfa120368f2a2cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProgressTracker, ProgressScopeStackOnFailure)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref></type>
+        </param>
+        <param>
+          <type>ProgressScopeStackOnFailure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="213" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="213" bodyend="226"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -138,94 +350,230 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7" refid="classRecordingProgressBar" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classRecordingProgressBar" kindref="compound">RecordingProgressBar</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/>{</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>m_updates;</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;double&gt;&amp;<sp/>updates()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_updates;<sp/>}</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/filesystem.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/trace_recorder.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress)</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>m_updates.push_back(progress);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>ProgressBar::update_progress(progress);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>run_loop(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;<sp/>tracker)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerA<sp/>=</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tracker.subtracker(i<sp/>/<sp/>10.0,<sp/>(i<sp/>+<sp/>1)<sp/>/<sp/>10.0,<sp/></highlight><highlight class="stringliteral">&quot;loop<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::to_string(i));</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="18"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker1;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.0);</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/>tracker1.set_proportion(0.1);</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.1);</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerA(tracker1.subtracker(0.2,<sp/>0.6));</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.2);</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerA.set_proportion(0.25);</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.3);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="classRecordingProgressBar" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classRecordingProgressBar" kindref="compound">RecordingProgressBar</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>m_updates;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;double&gt;&amp;<sp/>updates()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_updates;<sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress)</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>m_updates.push_back(progress);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>ProgressBar::update_progress(progress);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.6);</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerB<sp/>=<sp/>tracker1.subtracker(0.7,<sp/>0.9);</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerB.set_proportion(0.5);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.8);</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerC<sp/>=<sp/>tracker1.subtracker(0.9,<sp/>0.9);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerC.set_proportion(0.5);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.9);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.9);</highlight></codeline>
-<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ForLoop)<sp/>{</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker1;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.0);</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerA<sp/>=<sp/>tracker1.subtracker(i<sp/>/<sp/>10.0,<sp/>(i<sp/>+<sp/>1)<sp/>/<sp/>10.0);</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker1;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.0);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>tracker1.set_proportion(0.1);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.1);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerA(tracker1.subtracker(0.2,<sp/>0.6,<sp/></highlight><highlight class="stringliteral">&quot;test<sp/>A&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.2);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerA.set_proportion(0.25);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.3);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.6);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerB<sp/>=<sp/>tracker1.subtracker(0.7,<sp/>0.9,<sp/></highlight><highlight class="stringliteral">&quot;test<sp/>B&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerB.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.8);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerC<sp/>=<sp/>tracker1.subtracker(0.9,<sp/>0.9,<sp/></highlight><highlight class="stringliteral">&quot;test<sp/>C&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/>bar;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/>run_loop(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(&amp;bar));</highlight></codeline>
-<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>trackerC.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.9);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>BackwardsSubtrackerUpdateFails)<sp/>{</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>root.subtracker(0.77,<sp/>0.78);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/>child.set_proportion(0.99);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/>EXPECT_THROW(child.set_proportion(0.55),<sp/>std::runtime_error);</highlight></codeline>
-<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ParallelRowProgressIsMonotonic)<sp/>{</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><ref refid="classRecordingProgressBar" kindref="compound">RecordingProgressBar</ref><sp/>bar;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root(&amp;bar);</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>map_tracker<sp/>=<sp/>root.subtracker(0.0,<sp/>1.0);</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ROWS<sp/>=<sp/>512;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>ROWS;<sp/>++i)<sp/>{</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)i;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>map_tracker.report_parallel_progress(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(i<sp/>+<sp/>1)<sp/>/<sp/>ROWS);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>bar.updates().size();<sp/>++i)<sp/>{</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(bar.updates()[i],<sp/>bar.updates()[i<sp/>-<sp/>1])<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;progress<sp/>went<sp/>backwards<sp/>at<sp/>index<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>i;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(root.proportion(),<sp/>1.0);</highlight></codeline>
-<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(tracker1.proportion(),<sp/>0.9);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ForLoop)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>tracker1;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tracker1.proportion(),<sp/>0.0);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>trackerA<sp/>=</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tracker1.subtracker(i<sp/>/<sp/>10.0,<sp/>(i<sp/>+<sp/>1)<sp/>/<sp/>10.0,<sp/></highlight><highlight class="stringliteral">&quot;loop<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::to_string(i));</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/>bar;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>loop_tracker(&amp;bar);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>run_loop(loop_tracker);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>BackwardsSubtrackerUpdateFails)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>root.subtracker(0.77,<sp/>0.78,<sp/></highlight><highlight class="stringliteral">&quot;child&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>child.set_proportion(0.99);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>EXPECT_THROW(child.set_proportion(0.55),<sp/>std::runtime_error);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ParallelRowProgressIsMonotonic)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><ref refid="classRecordingProgressBar" kindref="compound">RecordingProgressBar</ref><sp/>bar;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root(&amp;bar);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>map_tracker<sp/>=<sp/>root.subtracker(0.0,<sp/>1.0,<sp/></highlight><highlight class="stringliteral">&quot;map&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ROWS<sp/>=<sp/>512;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>ROWS;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)i;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>map_tracker.report_parallel_progress(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(i<sp/>+<sp/>1)<sp/>/<sp/>ROWS);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>bar.updates().size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(bar.updates()[i],<sp/>bar.updates()[i<sp/>-<sp/>1])<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;progress<sp/>went<sp/>backwards<sp/>at<sp/>index<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>i;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(root.proportion(),<sp/>1.0);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ProgressScope)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>SUBTRACKER(0.2,<sp/>0.8,<sp/>root);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>child.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(root.proportion(),<sp/>0.5);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ParentSetProportionBlockedWhileChildActive)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>root.subtracker(0.2,<sp/>0.6,<sp/></highlight><highlight class="stringliteral">&quot;child<sp/>scope&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>EXPECT_THROW(root.set_proportion(0.3),<sp/>std::runtime_error);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>child.set_proportion(1.0);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>StartTrackerBeginsDeferredSubtracker)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>SUBTRACKER(0.2,<sp/>0.8,<sp/>root);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>START_TRACKER(child,<sp/></highlight><highlight class="stringliteral">&quot;reading<sp/>test.gpkg&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>child.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(root.proportion(),<sp/>0.5);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>StartTrackerNamesRoot)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>fs::temp_directory_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;blaze_scope_stack_test.json&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">blaze::trace::RecordTrace</ref><sp/>trace(path);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/>START_TRACKER(root,<sp/></highlight><highlight class="stringliteral">&quot;using<sp/>8<sp/>threads<sp/>for<sp/>processing&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>stack<sp/>=<sp/>blaze::trace::format_active_scopes();</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>EXPECT_NE(stack.find(</highlight><highlight class="stringliteral">&quot;Using<sp/>8<sp/>threads<sp/>for<sp/>processing&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>RootScopeCompletesBeforeTraceWrite)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>fs::temp_directory_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;blaze_progress_trace_test.json&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">blaze::trace::RecordTrace</ref><sp/>trace(path);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>START_TRACKER(root,<sp/></highlight><highlight class="stringliteral">&quot;using<sp/>8<sp/>threads<sp/>for<sp/>processing&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>std::ifstream<sp/>in(path);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(in.is_open());</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>json((std::istreambuf_iterator&lt;char&gt;(in)),<sp/>std::istreambuf_iterator&lt;char&gt;());</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>begin_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos<sp/>=<sp/>0;<sp/>(pos<sp/>=<sp/>json.find(</highlight><highlight class="stringliteral">&quot;\&quot;ph\&quot;:\&quot;B\&quot;&quot;</highlight><highlight class="normal">,<sp/>pos))<sp/>!=<sp/>std::string::npos;<sp/>++pos)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>++begin_count;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos<sp/>=<sp/>0;<sp/>(pos<sp/>=<sp/>json.find(</highlight><highlight class="stringliteral">&quot;\&quot;ph\&quot;:\&quot;E\&quot;&quot;</highlight><highlight class="normal">,<sp/>pos))<sp/>!=<sp/>std::string::npos;<sp/>++pos)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>++end_count;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>EXPECT_EQ(begin_count,<sp/>end_count);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>EXPECT_GE(begin_count,<sp/>1u);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>EXPECT_NE(json.find(</highlight><highlight class="stringliteral">&quot;\&quot;name\&quot;:\&quot;Using<sp/>8<sp/>threads<sp/>for<sp/>processing\&quot;&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/>std::error_code<sp/>ec;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>fs::remove(path,<sp/>ec);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>StartTrackerPatchesCallSiteInTrace)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>fs::temp_directory_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;blaze_callsite_trace_test.json&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">blaze::trace::RecordTrace</ref><sp/>trace(path);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>SUBTRACKER(0.0,<sp/>1.0,<sp/>root);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>START_TRACKER(child,<sp/></highlight><highlight class="stringliteral">&quot;reading<sp/>test.gpkg&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>child.set_proportion(1.0);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/>std::ifstream<sp/>in(path);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(in.is_open());</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>json((std::istreambuf_iterator&lt;char&gt;(in)),<sp/>std::istreambuf_iterator&lt;char&gt;());</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/>EXPECT_NE(json.find(</highlight><highlight class="stringliteral">&quot;\&quot;name\&quot;:\&quot;Reading<sp/>test.gpkg\&quot;&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>EXPECT_NE(json.find(</highlight><highlight class="stringliteral">&quot;\&quot;call_function\&quot;&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/>EXPECT_NE(json.find(</highlight><highlight class="stringliteral">&quot;StartTrackerPatchesCallSiteInTrace&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/>std::error_code<sp/>ec;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/>fs::remove(path,<sp/>ec);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>StartTrackerRecordsCallSiteInScopeStack)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>fs::temp_directory_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;blaze_scope_stack_callsite_test.json&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">blaze::trace::RecordTrace</ref><sp/>trace(path);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>SUBTRACKER(0.0,<sp/>1.0,<sp/>root);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>START_TRACKER(child,<sp/></highlight><highlight class="stringliteral">&quot;reading<sp/>test.gpkg&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>stack<sp/>=<sp/>blaze::trace::format_active_scopes();</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/>EXPECT_NE(stack.find(</highlight><highlight class="stringliteral">&quot;Reading<sp/>test.gpkg&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/>EXPECT_NE(stack.find(</highlight><highlight class="stringliteral">&quot;called<sp/>from&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/>EXPECT_NE(stack.find(</highlight><highlight class="stringliteral">&quot;StartTrackerRecordsCallSiteInScopeStack&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/>child.set_proportion(1.0);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>SiblingSubtrackersRequireSequentialLifetime)<sp/>{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>first<sp/>=<sp/>root.subtracker(0.0,<sp/>0.4,<sp/></highlight><highlight class="stringliteral">&quot;first&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>first.set_proportion(1.0);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>second<sp/>=<sp/>root.subtracker(0.4,<sp/>0.8,<sp/></highlight><highlight class="stringliteral">&quot;second&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/>second.set_proportion(1.0);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(root.proportion(),<sp/>0.8);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal">TEST(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>,<sp/>ProgressScopeStackOnFailure)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>fs::temp_directory_path()<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;blaze_scope_stack_failure_test.json&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">blaze::trace::RecordTrace</ref><sp/>trace(path);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>root;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>child<sp/>=<sp/>root.subtracker(0.0,<sp/>1.0,<sp/></highlight><highlight class="stringliteral">&quot;tracked<sp/>scope&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>root.set_proportion(0.5);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>FAIL()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;expected<sp/>set_proportion<sp/>to<sp/>fail&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::runtime_error&amp;<sp/>error)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NE(std::string(error.what()).find(</highlight><highlight class="stringliteral">&quot;Tracked<sp/>scope&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NE(std::string(error.what()).find(</highlight><highlight class="stringliteral">&quot;Active<sp/>progress<sp/>scopes&quot;</highlight><highlight class="normal">),<sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/>child.set_proportion(1.0);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp"/>
   </compounddef>

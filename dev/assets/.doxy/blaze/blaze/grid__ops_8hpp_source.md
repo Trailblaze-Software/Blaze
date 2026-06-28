@@ -18,7 +18,7 @@
 
 #include "grid.hpp"
 #include "utilities/coordinate.hpp"
-#include "utilities/timer.hpp"
+#include "utilities/progress_tracker.hpp"
 
 enum class DownsampleMethod { MEAN, MEDIAN };
 
@@ -27,7 +27,7 @@ enum class DownsampleMethod { MEAN, MEDIAN };
 template <typename T>
 GeoGrid<T> downsample(const GeoGrid<T>& grid, size_t factor, ProgressTracker&& progress_tracker,
                       DownsampleMethod method = DownsampleMethod::MEDIAN) {
-  TimeFunction timer("downsampling", &progress_tracker);
+  START_TRACKER("downsampling grid");
   AssertEQ(grid.transform().dx(), -grid.transform().dy());
   GeoGrid<T> result(std::ceil((double)grid.width() / factor),
                     std::ceil((double)grid.height() / factor),
@@ -65,9 +65,9 @@ GeoGrid<T> downsample(const GeoGrid<T>& grid, size_t factor, ProgressTracker&& p
 }
 
 template <typename T>
-void remove_outliers(GeoGrid<T>& grid, ProgressTracker progress_tracker, double z_threshold = 1,
+void remove_outliers(GeoGrid<T>& grid, ProgressTracker&& progress_tracker, double z_threshold = 1,
                      bool z_only = false) {
-  TimeFunction timer("remove outliers", &progress_tracker);
+  START_TRACKER("removing outliers");
   bool no_outliers = false;
   int iter_count = 0;
   while (!no_outliers) {
@@ -124,8 +124,8 @@ inline static bool has_value(double value) {
 }
 
 template <typename T>
-void interpolate_holes(GeoGrid<T>& grid, ProgressTracker progress_tracker) {
-  TimeFunction timer("interpolate holes", &progress_tracker);
+void interpolate_holes(GeoGrid<T>& grid, ProgressTracker&& progress_tracker) {
+  START_TRACKER("interpolating holes");
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
@@ -160,8 +160,9 @@ void interpolate_holes(GeoGrid<T>& grid, ProgressTracker progress_tracker) {
 }
 
 template <typename T>
-GeoGrid<std::optional<std::byte>> bool_grid(const GeoGrid<T>& grid, T threshold) {
-  TimeFunction timer("bool grid");
+GeoGrid<std::optional<std::byte>> bool_grid(const GeoGrid<T>& grid, T threshold,
+                                            ProgressTracker&& progress_tracker) {
+  START_TRACKER("building boolean grid");
   GeoGrid<std::optional<std::byte>> result(grid.width(), grid.height(),
                                            GeoTransform(grid.transform()),
                                            GeoProjection(grid.projection()));

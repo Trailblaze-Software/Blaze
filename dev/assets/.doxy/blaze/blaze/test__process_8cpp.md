@@ -19,6 +19,7 @@
 * `#include "lib/grid/grid.hpp"`
 * `#include "methods/hill_shade/hill_shade.hpp"`
 * `#include "process.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 
 
 

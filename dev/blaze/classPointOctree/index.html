@@ -1001,10 +1001,10 @@
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="#function-insert_batch"><strong>insert_batch</strong></a> (std::vector&lt; <a href="../structOctreePoint/"><strong>OctreePoint</strong></a> &gt; &amp;&amp; points, const std::function&lt; void(size_t, size_t)&gt; &amp; progress={}, const std::atomic&lt; bool &gt; * cancel=nullptr) <br></td>
+<td style="text-align: left;"><a href="#function-insert_batch"><strong>insert_batch</strong></a> (OctreePointVector &amp;&amp; points, const std::function&lt; void(size_t, size_t)&gt; &amp; progress={}, const std::atomic&lt; bool &gt; * cancel=nullptr) <br></td>
 </tr>
 <tr>
-<td style="text-align: right;">const std::vector&lt; <a href="../structOctreePoint/"><strong>OctreePoint</strong></a> &gt; &amp;</td>
+<td style="text-align: right;">const OctreePointVector &amp;</td>
 <td style="text-align: left;"><a href="#function-points"><strong>points</strong></a> () const<br></td>
 </tr>
 <tr>
@@ -1061,7 +1061,7 @@
 
 <h3 id="function-insert_batch">function insert_batch</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">PointOctree::insert_batch</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">OctreePoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">points</span><span class="p">,</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">points</span><span class="p">,</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">void</span><span class="p">(</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">progress</span><span class="o">=</span><span class="p">{},</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cancel</span><span class="o">=</span><span class="nb">nullptr</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">)</span><span class="w"> </span>
@@ -1069,7 +1069,7 @@
 <hr>
 
 <h3 id="function-points">function points</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">OctreePoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">points</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">points</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 

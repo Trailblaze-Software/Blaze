@@ -10,17 +10,30 @@
 ```C++
 #include "progress_tracker.hpp"
 
-#include <cmath>
 #include <iostream>
 #include <optional>
 #include <utility>
 
 #include "assert/assert.hpp"
+#include "utilities/memory_tracker.hpp"
+#include "utilities/trace_recorder.hpp"
+
+namespace {
+
+std::string capitalize_status_text(std::string text) {
+  if (!text.empty() && text[0] >= 'a' && text[0] <= 'z') {
+    text[0] = static_cast<char>(text[0] - 'a' + 'A');
+  }
+  return text;
+}
+
+}  // namespace
 
 ProgressObserver::~ProgressObserver() {};
 
 void ProgressBar::print_progress(double progress) {
-  std::cout << "Progress: " << progress * 100 << "%" << std::endl;
+  std::cout << "Progress: " << progress * 100 << "%  |  " << blaze::memory_tracker::format_summary()
+            << std::endl;
   m_last_printed_progress = progress;
   m_last_print_time = std::chrono::steady_clock::now();
 }
@@ -55,8 +68,9 @@ ProgressBar::~ProgressBar() {
 
 void ProgressBar::text_update(const std::string& text, int depth) {
   if (text.empty()) return;
+  const std::string display_text = capitalize_status_text(text);
   const size_t indent = depth > 1 ? static_cast<size_t>(2 * (depth - 1)) : 0u;
-  std::cout << std::string(indent, ' ') << text << std::endl;
+  std::cout << std::string(indent, ' ') << display_text << std::endl;
 };
 
 void ProgressTracker::_set_proportion(double proportion) {
@@ -68,7 +82,9 @@ void ProgressTracker::_set_proportion(double proportion) {
   }
 }
 
-ProgressTracker::ProgressTracker(ProgressObserver* observer)
+ProgressTracker::ProgressTracker(ProgressObserver* observer, std::string name,
+                                 const std::source_location location, const double range_start,
+                                 const double range_end)
     : m_proportion(0), m_observer(observer) {
   if (m_observer != nullptr) {
     m_observer->m_child = this;
@@ -77,6 +93,10 @@ ProgressTracker::ProgressTracker(ProgressObserver* observer)
   if (parent_tracker != nullptr) {
     Assert(parent_tracker->m_subtracker_range.has_value());
   }
+  if (blaze::trace::enabled()) {
+    m_trace_scope_id = blaze::trace::register_progress_scope(location, range_start, range_end,
+                                                             capitalize_status_text(name));
+  }
 }
 
 ProgressTracker::ProgressTracker(ProgressTracker&& other)
@@ -84,21 +104,25 @@ ProgressTracker::ProgressTracker(ProgressTracker&& other)
       m_proportion(other.m_proportion),
       m_observer(other.m_observer),
       m_subtracker_range(std::nullopt),
-      m_visible(other.m_visible) {
+      m_visible(other.m_visible),
+      m_trace_scope_id(other.m_trace_scope_id) {
   Assert(!other.m_subtracker_range.has_value());
   if (m_observer != nullptr) {
     m_observer->m_child = this;
   }
   other.m_observer = nullptr;
+  other.m_trace_scope_id = 0;
 };
 
 void ProgressTracker::set_proportion(double proportion) {
-  Assert(!m_subtracker_range.has_value());
+  Assert(!m_subtracker_range.has_value(), "set_proportion(" + std::to_string(proportion) +
+                                              ") called while a child subtracker is still active");
   _set_proportion(proportion);
 }
 
 void ProgressTracker::report_parallel_progress(double proportion) {
-  Assert(!m_subtracker_range.has_value());
+  Assert(!m_subtracker_range.has_value(), "report_parallel_progress(" + std::to_string(proportion) +
+                                              ") called while a child subtracker is still active");
 #pragma omp critical(blaze_progress_tracker)
   {
     if (proportion > m_proportion) {
@@ -114,17 +138,34 @@ void ProgressTracker::update_progress(double progress) {
 }
 
 void ProgressTracker::text_update(const std::string& text, int depth) {
+  if (text.empty()) {
+    if (m_observer != nullptr) {
+      m_observer->text_update(text, depth + 1);
+    }
+    return;
+  }
+  const std::string display_text = capitalize_status_text(text);
   if (m_observer != nullptr) {
-    m_observer->text_update(text, depth + 1);
+    m_observer->text_update(display_text, depth + 1);
   }
 };
 
-ProgressTracker ProgressTracker::subtracker(double start, double end, std::optional<bool> visible) {
+void ProgressTracker::begin_tracking(std::string text, const std::source_location location) {
+  text = capitalize_status_text(std::move(text));
+  if (m_trace_scope_id != 0) {
+    blaze::trace::progress_scope_set_display(m_trace_scope_id, text, location);
+  }
+  text_update(text);
+}
+
+ProgressTracker ProgressTracker::subtracker(const double start, const double end, std::string name,
+                                            const std::source_location location,
+                                            const std::optional<bool> visible) {
   set_proportion(start);
   AssertGE(end, start);
   AssertGE(1, end);
   m_subtracker_range = std::make_pair(start, end);
-  ProgressTracker to_return(this);
+  ProgressTracker to_return(this, std::move(name), location, start, end);
   to_return.m_visible = visible.value_or(m_visible);
   m_child = &to_return;
   m_child->_set_proportion(0);
@@ -133,6 +174,10 @@ ProgressTracker ProgressTracker::subtracker(double start, double end, std::optio
 
 ProgressTracker::~ProgressTracker() {
   _set_proportion(1);
+  if (m_trace_scope_id != 0) {
+    blaze::trace::progress_end(m_trace_scope_id, m_proportion);
+    m_trace_scope_id = 0;
+  }
   if (m_observer != nullptr) {
     text_update("", 0);
     m_observer->m_child = nullptr;

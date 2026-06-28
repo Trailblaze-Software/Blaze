@@ -53,7 +53,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**run\_with\_config**](#function-run_with_config) (const [**Config**](structConfig.md) & config, const std::vector&lt; fs::path &gt; & additional\_las\_files, [**ProgressTracker**](classProgressTracker.md) && tracker) <br> |
+|  void | [**run\_with\_config**](#function-run_with_config) (const [**Config**](structConfig.md) & config, const std::vector&lt; fs::path &gt; & additional\_las\_files, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 
@@ -93,7 +93,7 @@
 void run_with_config (
     const Config & config,
     const std::vector< fs::path > & additional_las_files,
-    ProgressTracker && tracker
+    ProgressTracker && progress_tracker
 ) 
 ```
 

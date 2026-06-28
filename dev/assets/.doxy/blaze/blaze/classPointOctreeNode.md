@@ -70,8 +70,8 @@
 |  void | [**ensure\_child**](#function-ensure_child) (int idx) <br> |
 |  bool | [**has\_children**](#function-has_children) () const<br> |
 |  size\_t | [**point\_count**](#function-point_count) () const<br> |
-|  void | [**shuffle\_range**](#function-shuffle_range) (std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & points) const<br> |
-|  void | [**shuffle\_recursive**](#function-shuffle_recursive) (std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; & points) <br> |
+|  void | [**shuffle\_range**](#function-shuffle_range) (OctreePointVector & points) const<br> |
+|  void | [**shuffle\_recursive**](#function-shuffle_recursive) (OctreePointVector & points) <br> |
 
 
 
@@ -260,7 +260,7 @@ inline size_t PointOctreeNode::point_count () const
 
 ```C++
 inline void PointOctreeNode::shuffle_range (
-    std::vector< OctreePoint > & points
+    OctreePointVector & points
 ) const
 ```
 
@@ -275,7 +275,7 @@ inline void PointOctreeNode::shuffle_range (
 
 ```C++
 inline void PointOctreeNode::shuffle_recursive (
-    std::vector< OctreePoint > & points
+    OctreePointVector & points
 ) 
 ```
 

@@ -82,7 +82,7 @@ See [Layer](classLayer.md)
 
 | Type | Name |
 | ---: | :--- |
-|   | [**ContourLayer**](#function-contourlayer) (const fs::path & gpkg\_path, [**AsyncProgressTracker**](classAsyncProgressTracker.md) progress\_tracker, const std::string & target\_crs\_wkt={}) <br> |
+|   | [**ContourLayer**](#function-contourlayer) (const fs::path & gpkg\_path, [**AsyncProgressTracker**](classAsyncProgressTracker.md) async\_progress\_tracker, const std::string & target\_crs\_wkt={}) <br> |
 |  const std::vector&lt; [**Contour**](classContour.md) &gt; & | [**contours**](#function-contours) () const<br> |
 |  std::vector&lt; [**Contour**](classContour.md) &gt; | [**copy\_contours**](#function-copy_contours) () const<br> |
 | virtual [**Extent3D**](structExtent3D.md) | [**extent**](#function-extent) () override const<br> |
@@ -185,7 +185,7 @@ See [Layer](classLayer.md)
 ```C++
 inline ContourLayer::ContourLayer (
     const fs::path & gpkg_path,
-    AsyncProgressTracker progress_tracker,
+    AsyncProgressTracker async_progress_tracker,
     const std::string & target_crs_wkt={}
 ) 
 ```

@@ -15,7 +15,7 @@
 
 
 
-Inherited by the following classes: [Grid](classGrid.md),  [Grid](classGrid.md),  [FlexGrid](classFlexGrid.md),  [Grid](classGrid.md),  [ImgGrid](classImgGrid.md)
+Inherited by the following classes: [Grid](classGrid.md),  [Grid](classGrid.md),  [FlexGrid](classFlexGrid.md),  [Grid](classGrid.md)
 
 
 

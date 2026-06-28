@@ -353,6 +353,21 @@ TEST(LASData, PushBack) {
   EXPECT_EQ(data[0].classification(), LASClassification::Water);
 }
 
+TEST(LASData, ReleasePoints) {
+  Extent2D bounds{0.0, 100.0, 0.0, 100.0};
+  LASData data(bounds, GeoProjection("EPSG:2193"));
+  data.insert(LASPoint(10.0, 20.0, 30.0, 500, LASClassification::Ground));
+
+  data.release_points();
+
+  EXPECT_EQ(data.n_points(), 0u);
+  EXPECT_EQ(data.projection().to_string(), "EPSG:2193");
+  EXPECT_DOUBLE_EQ(data.original_bounds().minx, 0.0);
+  EXPECT_DOUBLE_EQ(data.original_bounds().maxx, 100.0);
+  EXPECT_DOUBLE_EQ(data.original_bounds().miny, 0.0);
+  EXPECT_DOUBLE_EQ(data.original_bounds().maxy, 100.0);
+}
+
 TEST(LASData, MutableAccess) {
   Extent2D bounds{0.0, 100.0, 0.0, 100.0};
   LASData data(bounds, GeoProjection());

@@ -46,6 +46,7 @@
 * **compute\_tiles** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **combine\_vege\_gpkgs** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **contours\_to\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **cut\_understory\_from\_forest** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **catchment\_size** ([**water.cpp**](water_8cpp.md))
 * **create\_minimal\_test\_config** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **create\_synthetic\_las\_data** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
@@ -60,6 +61,7 @@
 * **drain\_gl\_errors** ([**gl\_check.hpp**](gl__check_8hpp.md))
 * **dedupe\_consecutive\_ring\_vertices** ([**polygon.hpp**](polygon_8hpp.md))
 * **downsample** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **draw\_geo\_polyline** ([**img\_grid.hpp**](img__grid_8hpp.md))
 * **detect\_tile\_mode\_needed** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **double\_to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
 * **downsample\_mask\_any** ([**process.cpp**](process_8cpp.md))
@@ -72,6 +74,7 @@
 * **ensure\_dst\_layer\_fields** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **external\_border\_ranges** ([**las\_file.hpp**](las__file_8hpp.md))
 * **extract\_borders** ([**las\_file.hpp**](las__file_8hpp.md))
+* **estimate\_points\_in\_extent** ([**coordinate.hpp**](coordinate_8hpp.md))
 * **extract\_threshold\_layers** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 
 
@@ -128,8 +131,9 @@
 * **intersect\_polygons** ([**polygon.hpp**](polygon_8hpp.md))
 * **is\_left\_of** ([**polygon.hpp**](polygon_8hpp.md))
 * **intersect\_polygon** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
-* **interpolate\_value** ([**grid.cpp**](grid_8cpp.md), [**grid.hpp**](grid_8hpp.md))
+* **interpolate\_value** ([**forward\_grid.hpp**](forward__grid_8hpp.md), [**grid.cpp**](grid_8cpp.md), [**grid.hpp**](grid_8hpp.md))
 * **interpolate\_holes** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **interval\_point\_count** ([**las\_file.hpp**](las__file_8hpp.md))
 * **identify\_sinks** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))
 * **INSTANTIATE\_TEST\_SUITE\_P** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **is\_las\_file** ([**blaze.cpp**](blaze_8cpp.md))
@@ -160,7 +164,7 @@
 ## n
 
 * **normalize\_polygon** ([**polygon.hpp**](polygon_8hpp.md))
-* **num\_cells\_by\_distance** ([**grid.hpp**](grid_8hpp.md))
+* **num\_cells\_by\_distance** ([**forward\_grid.hpp**](forward__grid_8hpp.md), [**grid.hpp**](grid_8hpp.md))
 * **normalize\_crs\_wkt** ([**crs.hpp**](crs_8hpp.md))
 
 
@@ -201,7 +205,6 @@
 * **read\_tile\_from\_inputs** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **reproject\_extent** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **read\_tif** ([**tif.cpp**](tif_8cpp.md), [**tif.hpp**](tif_8hpp.md))
-* **run\_loop** ([**progress\_tracker\_helper.cpp**](progress__tracker__helper_8cpp.md), [**progress\_tracker.hpp**](progress__tracker_8hpp.md))
 * **read\_vege\_polygons** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **read\_byte\_tif\_pixels** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **run\_with\_config** ([**run.cpp**](run_8cpp.md), [**run.hpp**](run_8hpp.md))

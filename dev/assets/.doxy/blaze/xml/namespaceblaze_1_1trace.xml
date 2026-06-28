@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceblaze_1_1trace" kind="namespace" language="C++">
+    <compoundname>blaze::trace</compoundname>
+    <innerclass refid="classblaze_1_1trace_1_1RecordTrace" prot="public">blaze::trace::RecordTrace</innerclass>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="trace__recorder_8cpp_1a5abc7d166cb4f5154e7bb824421a3518" prot="public" static="no">
+        <type>nlohmann::json</type>
+        <definition>using blaze::trace::json = typedef nlohmann::json</definition>
+        <argsstring></argsstring>
+        <name>json</name>
+        <qualifiedname>blaze::trace::json</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="20" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="trace__recorder_8cpp_1aafd1b638f18e183cac6743242acdc4ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool blaze::trace::enabled</definition>
+        <argsstring>()</argsstring>
+        <name>enabled</name>
+        <qualifiedname>blaze::trace::enabled</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="202" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="202" bodyend="202" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="26" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="trace__recorder_8cpp_1a6058cfd5603954e5f3ba84a839e338d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string blaze::trace::format_active_scopes</definition>
+        <argsstring>()</argsstring>
+        <name>format_active_scopes</name>
+        <qualifiedname>blaze::trace::format_active_scopes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="204" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="204" bodyend="220" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="41" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="trace__recorder_8cpp_1ada61144091e7ec2f5cdcae095fac495b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t blaze::trace::register_progress_scope</definition>
+        <argsstring>(const std::source_location &amp;location, const double range_start, const double range_end, const std::string &amp;name, const std::source_location *call_site)</argsstring>
+        <name>register_progress_scope</name>
+        <qualifiedname>blaze::trace::register_progress_scope</qualifiedname>
+        <param>
+          <type>const std::source_location &amp;</type>
+          <declname>location</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>range_start</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>range_end</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const std::source_location *</type>
+          <declname>call_site</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="245" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="245" bodyend="261" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="28" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="trace__recorder_8cpp_1a5792cb0d2fd01601f012328a399052d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::trace::progress_scope_set_display</definition>
+        <argsstring>(const uint64_t scope_id, const std::string &amp;name, const std::source_location &amp;callee_location)</argsstring>
+        <name>progress_scope_set_display</name>
+        <qualifiedname>blaze::trace::progress_scope_set_display</qualifiedname>
+        <param>
+          <type>const uint64_t</type>
+          <declname>scope_id</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const std::source_location &amp;</type>
+          <declname>callee_location</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="263" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="263" bodyend="276" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="33" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="trace__recorder_8cpp_1ae6608ef045f35d5ef7e07fca401341d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::trace::progress_end</definition>
+        <argsstring>(const uint64_t scope_id, const double proportion)</argsstring>
+        <name>progress_end</name>
+        <qualifiedname>blaze::trace::progress_end</qualifiedname>
+        <param>
+          <type>const uint64_t</type>
+          <declname>scope_id</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>proportion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="278" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="278" bodyend="287" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="43" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="trace__recorder_8cpp_1a33240db4626424c757ec9881875b0495" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::trace::memory_counters</definition>
+        <argsstring>(const uint64_t total_bytes, const uint64_t las_bytes, const uint64_t grid_bytes)</argsstring>
+        <name>memory_counters</name>
+        <qualifiedname>blaze::trace::memory_counters</qualifiedname>
+        <param>
+          <type>const uint64_t</type>
+          <declname>total_bytes</declname>
+        </param>
+        <param>
+          <type>const uint64_t</type>
+          <declname>las_bytes</declname>
+        </param>
+        <param>
+          <type>const uint64_t</type>
+          <declname>grid_bytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="289" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="289" bodyend="303" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="38" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="trace__recorder_8cpp_1a1eed7ac5e49b08b4ec53672ef2972013" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::trace::write_chrome_trace</definition>
+        <argsstring>(const fs::path &amp;path)</argsstring>
+        <name>write_chrome_trace</name>
+        <qualifiedname>blaze::trace::write_chrome_trace</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="305" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="305" bodyend="327" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="36" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="trace__recorder_8cpp_1a3cbd9930499011ab72525f1ab05c5820" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::trace::write_chrome_trace_if_configured</definition>
+        <argsstring>()</argsstring>
+        <name>write_chrome_trace_if_configured</name>
+        <qualifiedname>blaze::trace::write_chrome_trace_if_configured</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="329" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" bodystart="329" bodyend="335" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.hpp" declline="37" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/trace_recorder.cpp" line="18" column="1"/>
+  </compounddef>
+</doxygen>

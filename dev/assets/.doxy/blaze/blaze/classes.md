@@ -102,7 +102,6 @@
 * [**GDALInitializer**](classGDALInitializer.md)
 * [**Geo**](classGeo.md)
 * [**GeoGridData**](classGeoGridData.md)
-* [**GeoImgGrid**](classGeoImgGrid.md)
 * [**GeoProjection**](classGeoProjection.md)
 * [**GeoTransform**](classGeoTransform.md)
 * [**GLWidget**](classGLWidget.md)
@@ -116,9 +115,6 @@
 
 ## i
 
-* [**Image**](classblaze_1_1Image.md)
-([**blaze**](namespaceblaze.md))
-* [**ImgGrid**](classImgGrid.md)
 * [**is\_specialization**](structis__specialization.md)
 * [**is\_specialization&lt; Ref&lt; Args... &gt;, Ref &gt;**](structis__specialization_3_01Ref_3_01Args_8_8_8_01_4_00_01Ref_01_4.md)
 * [**is\_std\_optional**](structis__std__optional.md)
@@ -187,7 +183,11 @@
 
 ## r
 
+* [**rebind**](structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind.md)
+([**blaze::memory\_tracker::TrackedAllocator**](classblaze_1_1memory__tracker_1_1TrackedAllocator.md))
 * [**RecordingProgressBar**](classRecordingProgressBar.md)
+* [**RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md)
+([**blaze::trace**](namespaceblaze_1_1trace.md))
 * [**Rect**](structblaze_1_1Rect.md)
 ([**blaze**](namespaceblaze.md))
 * [**RenderConfig**](structRenderConfig.md)
@@ -212,8 +212,9 @@
 * [**TifMetadata**](structTifMetadata.md)
 * [**Tile**](structTile.md)
 * [**TileModeInfo**](structTileModeInfo.md)
-* [**TimeFunction**](classTimeFunction.md)
 * [**Timer**](classTimer.md)
+* [**TrackedAllocator**](classblaze_1_1memory__tracker_1_1TrackedAllocator.md)
+([**blaze::memory\_tracker**](namespaceblaze_1_1memory__tracker.md))
 
 
 ## u

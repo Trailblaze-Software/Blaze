@@ -17,7 +17,7 @@
 * `#include <optional>`
 * `#include "grid.hpp"`
 * `#include "utilities/coordinate.hpp"`
-* `#include "utilities/timer.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 
 
 
@@ -64,10 +64,10 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**bool\_grid**](#function-bool_grid) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, T threshold) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**bool\_grid**](#function-bool_grid) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, T threshold, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; T &gt; | [**downsample**](#function-downsample) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, size\_t factor, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, DownsampleMethod method=DownsampleMethod::MEDIAN) <br> |
-|  void | [**interpolate\_holes**](#function-interpolate_holes) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
-|  void | [**remove\_outliers**](#function-remove_outliers) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, double z\_threshold=1, bool z\_only=false) <br> |
+|  void | [**interpolate\_holes**](#function-interpolate_holes) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  void | [**remove\_outliers**](#function-remove_outliers) ([**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, double z\_threshold=1, bool z\_only=false) <br> |
 
 
 ## Public Static Functions
@@ -135,7 +135,8 @@ enum DownsampleMethod {
 template<typename T>
 GeoGrid < std::optional< std::byte > > bool_grid (
     const GeoGrid < T > & grid,
-    T threshold
+    T threshold,
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -171,7 +172,7 @@ GeoGrid < T > downsample (
 template<typename T>
 void interpolate_holes (
     GeoGrid < T > & grid,
-    ProgressTracker progress_tracker
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -188,7 +189,7 @@ void interpolate_holes (
 template<typename T>
 void remove_outliers (
     GeoGrid < T > & grid,
-    ProgressTracker progress_tracker,
+    ProgressTracker && progress_tracker,
     double z_threshold=1,
     bool z_only=false
 ) 

@@ -29,6 +29,7 @@
 * `#include "utilities/progress_tracker.hpp"`
 * `#include "utilities/resources.hpp"`
 * `#include "utilities/timer.hpp"`
+* `#include "utilities/tracked_allocator.hpp"`
 
 
 
@@ -91,7 +92,8 @@
 |  void | [**copy\_from**](#function-copy_from) ([**LASPoint**](classLASPoint.md) & point, const laspp::LASPointFormat6 & data) <br> |
 |  void | [**copy\_from**](#function-copy_from) (laspp::LASPointFormat0 & data, const [**LASPoint**](classLASPoint.md) & point) <br> |
 |  [**Extent2D**](structExtent2D.md) | [**external\_border\_ranges**](#function-external_border_ranges) (const [**Extent2D**](structExtent2D.md) & box, BorderType border\_type, double border\_width) <br> |
-|  void | [**extract\_borders**](#function-extract_borders) (const fs::path & las\_filename, double border\_width, [**ProgressTracker**](classProgressTracker.md) progress\_tracker) <br> |
+|  void | [**extract\_borders**](#function-extract_borders) (const fs::path & las\_filename, double border\_width, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  size\_t | [**interval\_point\_count**](#function-interval_point_count) (const std::vector&lt; laspp::PointInterval &gt; & intervals) <br> |
 |  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, BorderType border\_type) <br> |
 |  std::string | [**reader\_embedded\_wkt**](#function-reader_embedded_wkt) (const laspp::LASReader & reader) <br> |
 |  std::string | [**reader\_horizontal\_wkt**](#function-reader_horizontal_wkt) (const laspp::LASReader & reader, const std::string & override\_crs="") <br> |
@@ -304,7 +306,22 @@ inline Extent2D external_border_ranges (
 inline void extract_borders (
     const fs::path & las_filename,
     double border_width,
-    ProgressTracker progress_tracker
+    ProgressTracker && progress_tracker
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function interval\_point\_count 
+
+```C++
+inline size_t interval_point_count (
+    const std::vector< laspp::PointInterval > & intervals
 ) 
 ```
 

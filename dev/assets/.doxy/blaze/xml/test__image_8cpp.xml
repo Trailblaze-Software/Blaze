@@ -4,13 +4,85 @@
     <compoundname>test_image.cpp</compoundname>
     <includes local="no">gtest/gtest.h</includes>
     <includes local="no">array</includes>
-    <includes local="no">stdexcept</includes>
-    <includes refid="image_8hpp" local="yes">grid/image.hpp</includes>
+    <includes refid="grid_8hpp" local="yes">grid/grid.hpp</includes>
+    <includes refid="img__grid_8hpp" local="yes">grid/img_grid.hpp</includes>
     <includes refid="colors_8hpp" local="yes">isom/colors.hpp</includes>
     <incdepgraph>
-      <node id="5">
-        <label>grid/image.hpp</label>
-        <link refid="image_8hpp_source"/>
+      <node id="17">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>config_input/config_input.hpp</label>
+        <link refid="config__input_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>contour/contour.hpp</label>
+        <link refid="contour_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>grid/forward_grid.hpp</label>
+        <link refid="forward__grid_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
@@ -20,6 +92,84 @@
         <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>grid/img_grid.hpp</label>
+        <link refid="img__grid_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>grid/raster.hpp</label>
+        <link refid="raster_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -31,62 +181,252 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="31">
         <label>isom/colors.hpp</label>
         <link refid="colors_8hpp_source"/>
         <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>tif/tif.hpp</label>
+        <link refid="tif_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="37">
+        <label>utilities/memory_tracker.hpp</label>
+        <link refid="memory__tracker_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
-      <node id="6">
+      <node id="41">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>utilities/trace_recorder.hpp</label>
+        <link refid="trace__recorder_8hpp_source"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>utilities/tracked_allocator.hpp</label>
+        <link refid="tracked__allocator_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>methods/water/water.hpp</label>
+        <link refid="water_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
         <label>algorithm</label>
       </node>
       <node id="3">
         <label>array</label>
       </node>
+      <node id="43">
+        <label>cassert</label>
+      </node>
+      <node id="48">
+        <label>chrono</label>
+      </node>
+      <node id="6">
+        <label>cmath</label>
+      </node>
       <node id="7">
-        <label>cstddef</label>
+        <label>concepts</label>
       </node>
       <node id="8">
+        <label>cstddef</label>
+      </node>
+      <node id="26">
         <label>cstdint</label>
+      </node>
+      <node id="9">
+        <label>cstring</label>
+      </node>
+      <node id="19">
+        <label>experimental/source_location</label>
       </node>
       <node id="2">
         <label>gtest/gtest.h</label>
       </node>
-      <node id="11">
+      <node id="22">
+        <label>iomanip</label>
+      </node>
+      <node id="18">
+        <label>iostream</label>
+      </node>
+      <node id="10">
+        <label>limits</label>
+      </node>
+      <node id="23">
         <label>map</label>
       </node>
-      <node id="9">
+      <node id="11">
         <label>memory</label>
       </node>
+      <node id="36">
+        <label>new</label>
+      </node>
+      <node id="46">
+        <label>numeric</label>
+      </node>
       <node id="12">
+        <label>optional</label>
+      </node>
+      <node id="32">
         <label>ostream</label>
       </node>
-      <node id="4">
-        <label>stdexcept</label>
+      <node id="24">
+        <label>set</label>
+      </node>
+      <node id="27">
+        <label>source_location</label>
+      </node>
+      <node id="39">
+        <label>span</label>
+      </node>
+      <node id="20">
+        <label>sstream</label>
       </node>
       <node id="13">
+        <label>stdexcept</label>
+      </node>
+      <node id="14">
+        <label>string</label>
+      </node>
+      <node id="15">
+        <label>type_traits</label>
+      </node>
+      <node id="44">
+        <label>utility</label>
+      </node>
+      <node id="33">
         <label>variant</label>
+      </node>
+      <node id="16">
+        <label>vector</label>
       </node>
     </incdepgraph>
     <sectiondef kind="func">
-      <memberdef kind="function" id="test__image_8cpp_1a5e94436d863e6ca6827d4ee4a4f4e98f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1aaa8a2fee2bb8a71b662a9602d95ff5de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, SetAndGetPixel)</argsstring>
+        <argsstring>(RGBGrid, SetAndGetPixel)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>SetAndGetPixel</type>
@@ -99,13 +439,13 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="9" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="9" bodyend="18"/>
       </memberdef>
-      <memberdef kind="function" id="test__image_8cpp_1ab7066526fdf2e7bd3fb0271d59806ec5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1a75e07b54aa8848f637f8f50396109390" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, OutOfBoundsThrows)</argsstring>
+        <argsstring>(RGBGrid, OutOfBoundsThrows)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>OutOfBoundsThrows</type>
@@ -116,15 +456,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="20" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="20" bodyend="24"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="20" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="20" bodyend="25"/>
       </memberdef>
-      <memberdef kind="function" id="test__image_8cpp_1aef49bd30814533b09913822bfa336b36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1add6c44540030ca05959422010b217a72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, SliceCopiesRegion)</argsstring>
+        <argsstring>(RGBGrid, SliceCopiesRegion)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>SliceCopiesRegion</type>
@@ -135,15 +475,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="26" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="26" bodyend="36"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="27" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="27" bodyend="37"/>
       </memberdef>
-      <memberdef kind="function" id="test__image_8cpp_1afc047ff4556f6c0f9dc66c89b660de2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1a86033e8f4a517d872b862ccb2556afec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, RectIntersection)</argsstring>
+        <argsstring>(RGBGrid, RectIntersection)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>RectIntersection</type>
@@ -154,15 +494,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="38" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="38" bodyend="46"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="39" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="39" bodyend="47"/>
       </memberdef>
-      <memberdef kind="function" id="test__image_8cpp_1af0d806edfb17253abf72e6300bc189d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1ac6b0b7a3ba9e17c86abeef0a40695d5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, ResizeNearestNeighbor)</argsstring>
+        <argsstring>(RGBGrid, ResizeNearestNeighbor)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>ResizeNearestNeighbor</type>
@@ -173,15 +513,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="48" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="48" bodyend="63"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="49" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="49" bodyend="64"/>
       </memberdef>
-      <memberdef kind="function" id="test__image_8cpp_1ad92d012ca9cec89973ea5fdee41dd7e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1a21c07d5442688300743b034c94a7a64f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, ResizeNearestNeighborMapsEdges)</argsstring>
+        <argsstring>(RGBGrid, ResizeNearestNeighborMapsEdges)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>ResizeNearestNeighborMapsEdges</type>
@@ -192,15 +532,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="65" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="65" bodyend="74"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="66" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="66" bodyend="77"/>
       </memberdef>
-      <memberdef kind="function" id="test__image_8cpp_1aa187fd76f7160e215940bbe5937f0781" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1afc7afbb5495f06b4ca85d77c064d2705" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, ResizeZeroDestinationClearsOutput)</argsstring>
+        <argsstring>(RGBGrid, ResizeZeroDestinationClearsOutput)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>ResizeZeroDestinationClearsOutput</type>
@@ -211,15 +551,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="76" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="76" bodyend="84"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="79" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="79" bodyend="87"/>
       </memberdef>
-      <memberdef kind="function" id="test__image_8cpp_1a15f74807a5c99dcb8170cfc9d6697313" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="test__image_8cpp_1a82e0f31268fb4b8df429269758f7c1f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
-        <argsstring>(Image, DrawLineSetsPixels)</argsstring>
+        <argsstring>(RGBGrid, DrawLineSetsPixels)</argsstring>
         <name>TEST</name>
         <param>
-          <type>Image</type>
+          <type>RGBGrid</type>
         </param>
         <param>
           <type>DrawLineSetsPixels</type>
@@ -230,7 +570,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="86" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="86" bodyend="92"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" line="89" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp" bodystart="89" bodyend="95"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -241,95 +581,98 @@
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;array&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/image.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/img_grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;isom/colors.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal">TEST(Image,<sp/>SetAndGetPixel)<sp/>{</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>image(2,<sp/>2);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">TEST(RGBGrid,<sp/>SetAndGetPixel)<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>image(2,<sp/>2);</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>red(255,<sp/>0,<sp/>0,<sp/>128);</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/>image.set(0,<sp/>1,<sp/>red);</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>read<sp/>=<sp/>image.at(0,<sp/>1);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>image[{1,<sp/>0}]<sp/>=<sp/>red;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>read<sp/>=<sp/>image[{1,<sp/>0}];</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getRed(),<sp/>255);</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getGreen(),<sp/>0);</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getBlue(),<sp/>0);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getAlpha(),<sp/>128);</highlight></codeline>
 <codeline lineno="18"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal">TEST(Image,<sp/>OutOfBoundsThrows)<sp/>{</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>image(2,<sp/>2);</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/>EXPECT_THROW(image.at(-1,<sp/>0),<sp/>std::runtime_error);</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/>EXPECT_THROW(image.set(-1,<sp/>0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255)),<sp/>std::runtime_error);</highlight></codeline>
-<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal">TEST(Image,<sp/>SliceCopiesRegion)<sp/>{</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>image(4,<sp/>4);</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/>image.set(1,<sp/>2,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(10,<sp/>20,<sp/>30,<sp/>255));</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>region<sp/>=<sp/>image.slice(<ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref>(2,<sp/>1,<sp/>2,<sp/>2));</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/>EXPECT_EQ(region.width(),<sp/>2);</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/>EXPECT_EQ(region.height(),<sp/>2);</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>read<sp/>=<sp/>region.at(0,<sp/>0);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getRed(),<sp/>10);</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getGreen(),<sp/>20);</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getBlue(),<sp/>30);</highlight></codeline>
-<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal">TEST(Image,<sp/>RectIntersection)<sp/>{</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>a(0,<sp/>0,<sp/>4,<sp/>4);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>b(2,<sp/>2,<sp/>4,<sp/>4);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>intersection<sp/>=<sp/>a<sp/>&amp;<sp/>b;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.x,<sp/>2);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.y,<sp/>2);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.width,<sp/>2);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.height,<sp/>2);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal">TEST(Image,<sp/>ResizeNearestNeighbor)<sp/>{</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>image(2,<sp/>2);</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/>image.set(0,<sp/>0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255));</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/>image.set(0,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>255,<sp/>0,<sp/>255));</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/>image.set(1,<sp/>0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255));</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/>image.set(1,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>255,<sp/>255,<sp/>255));</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>resized;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/>image.resize(resized,<sp/><ref refid="structblaze_1_1Size" kindref="compound">blaze::Size</ref>(4,<sp/>4),<sp/>blaze::InterpolationMode::NEAREST);</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.width(),<sp/>4);</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.height(),<sp/>4);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>corner<sp/>=<sp/>resized.at(0,<sp/>0);</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/>EXPECT_EQ(corner.getRed(),<sp/>255);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/>EXPECT_EQ(corner.getGreen(),<sp/>0);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/>EXPECT_EQ(corner.getBlue(),<sp/>0);</highlight></codeline>
-<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal">TEST(Image,<sp/>ResizeNearestNeighborMapsEdges)<sp/>{</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>image(4,<sp/>1);</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/>image.set(0,<sp/>0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255));</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>image.set(0,<sp/>3,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255));</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>resized;</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/>image.resize(resized,<sp/><ref refid="structblaze_1_1Size" kindref="compound">blaze::Size</ref>(2,<sp/>1),<sp/>blaze::InterpolationMode::NEAREST);</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.at(0,<sp/>0).getRed(),<sp/>255);</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.at(0,<sp/>1).getBlue(),<sp/>255);</highlight></codeline>
-<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal">TEST(Image,<sp/>ResizeZeroDestinationClearsOutput)<sp/>{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>image(2,<sp/>2);</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/>image.set(0,<sp/>0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255));</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>resized(2,<sp/>2);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/>image.resize(resized,<sp/><ref refid="structblaze_1_1Size" kindref="compound">blaze::Size</ref>(0,<sp/>4),<sp/>blaze::InterpolationMode::NEAREST);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.width(),<sp/>0);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.height(),<sp/>0);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal">TEST(Image,<sp/>DrawLineSetsPixels)<sp/>{</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1Image" kindref="compound">blaze::Image</ref><sp/>image(8,<sp/>8);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/>image.draw_polyline(std::array&lt;blaze::Point,<sp/>2&gt;{<ref refid="structblaze_1_1Point" kindref="compound">blaze::Point</ref>(0,<sp/>0),<sp/><ref refid="structblaze_1_1Point" kindref="compound">blaze::Point</ref>(3,<sp/>0)}.data(),<sp/>2,</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255),<sp/>1);</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>mid<sp/>=<sp/>image.at(0,<sp/>2);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/>EXPECT_EQ(mid.getBlue(),<sp/>255);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">TEST(RGBGrid,<sp/>OutOfBoundsThrows)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>image(2,<sp/>2);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref><sp/>oob(0,<sp/>2);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>EXPECT_THROW(image[oob],<sp/>std::out_of_range);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>EXPECT_THROW(image[oob]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255),<sp/>std::out_of_range);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">TEST(RGBGrid,<sp/>SliceCopiesRegion)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>image(4,<sp/>4);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>image[{2,<sp/>1}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(10,<sp/>20,<sp/>30,<sp/>255);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>region<sp/>=<sp/>image.slice_rect(<ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref>(2,<sp/>1,<sp/>2,<sp/>2));</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>EXPECT_EQ(region.width(),<sp/>2u);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>EXPECT_EQ(region.height(),<sp/>2u);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>read<sp/>=<sp/>region[{0,<sp/>0}];</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getRed(),<sp/>10);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getGreen(),<sp/>20);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>EXPECT_EQ(read.getBlue(),<sp/>30);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">TEST(RGBGrid,<sp/>RectIntersection)<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>a(0,<sp/>0,<sp/>4,<sp/>4);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>b(2,<sp/>2,<sp/>4,<sp/>4);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structblaze_1_1Rect" kindref="compound">blaze::Rect</ref><sp/>intersection<sp/>=<sp/>a<sp/>&amp;<sp/>b;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.x,<sp/>2);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.y,<sp/>2);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.width,<sp/>2);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>EXPECT_EQ(intersection.height,<sp/>2);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">TEST(RGBGrid,<sp/>ResizeNearestNeighbor)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>image(2,<sp/>2);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>image[{0,<sp/>0}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>image[{1,<sp/>0}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>255,<sp/>0,<sp/>255);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>image[{0,<sp/>1}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>image[{1,<sp/>1}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>255,<sp/>255,<sp/>255);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>resized(0,<sp/>0);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>image.resize_to(resized,<sp/><ref refid="structblaze_1_1Size" kindref="compound">blaze::Size</ref>(4,<sp/>4),<sp/>blaze::InterpolationMode::NEAREST);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.width(),<sp/>4u);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.height(),<sp/>4u);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>corner<sp/>=<sp/>resized[{0,<sp/>0}];</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>EXPECT_EQ(corner.getRed(),<sp/>255);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>EXPECT_EQ(corner.getGreen(),<sp/>0);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>EXPECT_EQ(corner.getBlue(),<sp/>0);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">TEST(RGBGrid,<sp/>ResizeNearestNeighborMapsEdges)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>image(4,<sp/>1);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>image[{0,<sp/>0}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>image[{3,<sp/>0}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>resized(0,<sp/>0);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>image.resize_to(resized,<sp/><ref refid="structblaze_1_1Size" kindref="compound">blaze::Size</ref>(2,<sp/>1),<sp/>blaze::InterpolationMode::NEAREST);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>left<sp/>=<sp/>resized[<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>{0,<sp/>0}];</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>right<sp/>=<sp/>resized[<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>{1,<sp/>0}];</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>EXPECT_EQ(left.getRed(),<sp/>255);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>EXPECT_EQ(right.getBlue(),<sp/>255);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">TEST(RGBGrid,<sp/>ResizeZeroDestinationClearsOutput)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>image(2,<sp/>2);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>image[{0,<sp/>0}]<sp/>=<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(255,<sp/>0,<sp/>0,<sp/>255);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>resized(2,<sp/>2);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>image.resize_to(resized,<sp/><ref refid="structblaze_1_1Size" kindref="compound">blaze::Size</ref>(0,<sp/>4),<sp/>blaze::InterpolationMode::NEAREST);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.width(),<sp/>0u);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>EXPECT_EQ(resized.height(),<sp/>0u);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">TEST(RGBGrid,<sp/>DrawLineSetsPixels)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="classGrid" kindref="compound">Grid&lt;RGBColor&gt;</ref><sp/>image(8,<sp/>8);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>image.draw_polyline(std::array&lt;blaze::Point,<sp/>2&gt;{<ref refid="structblaze_1_1Point" kindref="compound">blaze::Point</ref>(0,<sp/>0),<sp/><ref refid="structblaze_1_1Point" kindref="compound">blaze::Point</ref>(3,<sp/>0)}.data(),<sp/>2,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255),<sp/>1);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref><sp/>mid<sp/>=<sp/>image[{2,<sp/>0}];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>EXPECT_EQ(mid.getBlue(),<sp/>255);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_image.cpp"/>
   </compounddef>

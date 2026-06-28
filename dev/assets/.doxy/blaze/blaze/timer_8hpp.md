@@ -13,8 +13,6 @@
 * `#include <chrono>`
 * `#include <iostream>`
 * `#include <ostream>`
-* `#include "printing/to_string.hpp"`
-* `#include "progress_tracker.hpp"`
 
 
 
@@ -34,7 +32,6 @@
 
 | Type | Name |
 | ---: | :--- |
-| class | [**TimeFunction**](classTimeFunction.md) <br> |
 | class | [**Timer**](classTimer.md) <br> |
 
 

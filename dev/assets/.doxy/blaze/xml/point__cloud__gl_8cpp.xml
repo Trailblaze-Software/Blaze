@@ -22,10 +22,10 @@
         <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="41">
         <label>gui/gl_check.hpp</label>
         <link refid="gl__check_8hpp_source"/>
-        <childnode refid="32" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
@@ -35,17 +35,17 @@
         <link refid="point__cloud__gl_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="41" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -85,6 +85,8 @@
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
       </node>
       <node id="23">
         <label>assert/assert.hpp</label>
@@ -100,6 +102,8 @@
         <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
       <node id="28">
@@ -138,13 +142,59 @@
         <childnode refid="23" relation="include">
         </childnode>
       </node>
+      <node id="34">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="37">
+        <label>utilities/memory_tracker.hpp</label>
+        <link refid="memory__tracker_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>utilities/trace_recorder.hpp</label>
+        <link refid="trace__recorder_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>utilities/tracked_allocator.hpp</label>
+        <link refid="tracked__allocator_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
       <node id="16">
         <label>QMatrix4x4</label>
       </node>
-      <node id="32">
+      <node id="38">
         <label>QOpenGLContext</label>
       </node>
-      <node id="33">
+      <node id="39">
         <label>QOpenGLExtraFunctions</label>
       </node>
       <node id="3">
@@ -171,7 +221,7 @@
       <node id="11">
         <label>cstdint</label>
       </node>
-      <node id="34">
+      <node id="40">
         <label>cstring</label>
       </node>
       <node id="25">
@@ -195,6 +245,9 @@
       <node id="13">
         <label>memory</label>
       </node>
+      <node id="36">
+        <label>new</label>
+      </node>
       <node id="24">
         <label>optional</label>
       </node>
@@ -206,6 +259,9 @@
       </node>
       <node id="31">
         <label>set</label>
+      </node>
+      <node id="33">
+        <label>source_location</label>
       </node>
       <node id="26">
         <label>sstream</label>

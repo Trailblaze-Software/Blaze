@@ -11,11 +11,12 @@
 
 
 * `#include "progress_tracker.hpp"`
-* `#include <cmath>`
 * `#include <iostream>`
 * `#include <optional>`
 * `#include <utility>`
 * `#include "assert/assert.hpp"`
+* `#include "utilities/memory_tracker.hpp"`
+* `#include "utilities/trace_recorder.hpp"`
 
 
 

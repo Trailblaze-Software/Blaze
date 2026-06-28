@@ -102,7 +102,7 @@
   </compound>
   <compound refid="classAsyncProgressTracker" kind="class"><name>AsyncProgressTracker</name>
     <member refid="classAsyncProgressTracker_1a6ec7e641600d04ccaad4641fe14e1e4d" kind="variable"><name>m_tracker</name></member>
-    <member refid="classAsyncProgressTracker_1a0752c3c3db495eef67f46a154969d7f7" kind="function"><name>AsyncProgressTracker</name></member>
+    <member refid="classAsyncProgressTracker_1aeeb58da8a05a0e017b396c29f6b8359e" kind="function"><name>AsyncProgressTracker</name></member>
     <member refid="classAsyncProgressTracker_1a67f79b457881a97b498f2879d63ab015" kind="function"><name>tracker</name></member>
   </compound>
   <compound refid="classAsyncRasterData" kind="class"><name>AsyncRasterData</name>
@@ -115,7 +115,7 @@
     <member refid="classAsyncRasterData_1a7ebb738c777ccf40d78c297ed10b970f" kind="variable"><name>m_mesh</name></member>
     <member refid="classAsyncRasterData_1ad2ad3bfd45d9235a8988e55eca77f4f4" kind="variable"><name>m_ready</name></member>
     <member refid="classAsyncRasterData_1a07bfd9bbe307c82d6153160e3a2a190f" kind="variable"><name>m_future</name></member>
-    <member refid="classAsyncRasterData_1aac0cdbaf1a1a6d9023f08742946dce51" kind="function"><name>AsyncRasterData</name></member>
+    <member refid="classAsyncRasterData_1ab669c18aab967715f32f265a96b0b1bc" kind="function"><name>AsyncRasterData</name></member>
     <member refid="classAsyncRasterData_1a5071db6956d64d4cc566b6c96b2cfa04" kind="function"><name>mutex</name></member>
     <member refid="classAsyncRasterData_1a1ff074908ffbe52816fe46028639dac5" kind="function"><name>ready</name></member>
     <member refid="classAsyncRasterData_1aa568df23f81585bf09c29f6f711153f6" kind="function"><name>has_texture</name></member>
@@ -144,8 +144,8 @@
     <member refid="structoctree__las__detail_1_1BenchTimer_1a077cc41e1608855d9cef98a597238344" kind="function"><name>~BenchTimer</name></member>
   </compound>
   <compound refid="classBinnedPoints" kind="class"><name>BinnedPoints</name>
-    <member refid="classBinnedPoints_1a6ec12d8f6d0cf492d0fc34633ce42e15" kind="variable"><name>m_storage</name></member>
-    <member refid="classBinnedPoints_1a4ce64e2ef0966b4d099177e552ef8147" kind="function"><name>BinnedPoints</name></member>
+    <member refid="classBinnedPoints_1a19b9835f30e129951786ef86d1f77ecf" kind="variable"><name>m_storage</name></member>
+    <member refid="classBinnedPoints_1ad65364f9d23187d2e06e4037ce0e31e1" kind="function"><name>BinnedPoints</name></member>
     <member refid="classBinnedPoints_1a4a798846ab75a58b09f54e74750514f1" kind="function"><name>data_extent</name></member>
   </compound>
   <compound refid="structBlazeBool" kind="struct"><name>BlazeBool</name>
@@ -397,7 +397,7 @@
     <member refid="classContourLayer_1ae7493139cec47027c49202524f784485" kind="variable"><name>m_native_projection</name></member>
     <member refid="classContourLayer_1a0ebb38cce8c7912cc0154383b57192a9" kind="variable"><name>m_ready</name></member>
     <member refid="classContourLayer_1a2771caf62c6cf701e3906ca8f3fe69b6" kind="variable"><name>m_future</name></member>
-    <member refid="classContourLayer_1a23434bda5424d00c1cd4e67193209a67" kind="function"><name>ContourLayer</name></member>
+    <member refid="classContourLayer_1a34e8ac3d0b60a6cc97060f3eafe10316" kind="function"><name>ContourLayer</name></member>
     <member refid="classContourLayer_1a11197e0a370c269e4086f9da32a935cc" kind="function"><name>extent</name></member>
     <member refid="classContourLayer_1a677d1224b7368a3427d4b27f455ac221" kind="function"><name>projection</name></member>
     <member refid="classContourLayer_1a9af8fbfad94b84064e6d6b6e683bc3ad" kind="function"><name>native_projection</name></member>
@@ -518,6 +518,7 @@
     <member refid="structExtent2D_1abde9affe09ec45bf9a7bd5d0426ca5a2" kind="function"><name>overlaps</name></member>
     <member refid="structExtent2D_1ae44191e7d9b7f4e4b24f3d7d5492bc01" kind="function"><name>intersection</name></member>
     <member refid="structExtent2D_1a832629d544c1ded14a5c50ea7c4c5574" kind="function"><name>grow</name></member>
+    <member refid="structExtent2D_1a996276c871cc36dc9b1028dbbebf37c2" kind="function"><name>area</name></member>
     <member refid="structExtent2D_1a4e0972c43062230ba5fcbf487ba81edd" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="structExtent3D" kind="struct"><name>Extent3D</name>
@@ -549,8 +550,13 @@
   <compound refid="classFlexGrid" kind="class"><name>FlexGrid</name>
     <member refid="classFlexGrid_1ad73b167cbb73bc56fb75a14c101e9dfd" kind="variable"><name>m_data_size</name></member>
     <member refid="classFlexGrid_1aa40e832aae354bf1b7d7330dbfa7f254" kind="variable"><name>m_data_type</name></member>
-    <member refid="classFlexGrid_1aaadd3859cecd990ca91b854d557897c5" kind="variable"><name>m_data</name></member>
+    <member refid="classFlexGrid_1a3e5a8e3e3e67256b1e84241b7ba71989" kind="variable"><name>m_data</name></member>
     <member refid="classFlexGrid_1ad3e387cd89c9e5acd4741cd0b52a437d" kind="function"><name>FlexGrid</name></member>
+    <member refid="classFlexGrid_1a04520ee2fef07799a3bf541fcfab471a" kind="function"><name>~FlexGrid</name></member>
+    <member refid="classFlexGrid_1a3414f8207dba9fb3fa21ec1b8527c1e4" kind="function"><name>FlexGrid</name></member>
+    <member refid="classFlexGrid_1aaa625905d91f5de8445a7e69cc737605" kind="function"><name>operator=</name></member>
+    <member refid="classFlexGrid_1ac63c9928ec7390b5135482604cf3e594" kind="function"><name>FlexGrid</name></member>
+    <member refid="classFlexGrid_1a3332a2dbf326ff4d9f0b07397225c18e" kind="function"><name>operator=</name></member>
     <member refid="classFlexGrid_1adec45da7f5966cfe870dc2eb36858bf2" kind="function"><name>operator[]</name></member>
     <member refid="classFlexGrid_1ae5679cda1f0c0c29265073a410b6f40f" kind="function"><name>operator[]</name></member>
     <member refid="classFlexGrid_1a1d031c1b11878c537521d82910b6816a" kind="function"><name>get</name></member>
@@ -583,13 +589,18 @@
     <member refid="classGeo_1a32e9264133b4bc750f7c71003c430c6f" kind="function"><name>Geo</name></member>
     <member refid="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" kind="function"><name>width_m</name></member>
     <member refid="classGeo_1a1098c30d81601a5e885405f61f15bfbd" kind="function"><name>height_m</name></member>
+    <member refid="classGeo_1af54f4e45163e86695ac6521c20105fee" kind="function"><name>draw</name></member>
+    <member refid="classGeo_1af72ed47cedeb6173480180c6631b67e8" kind="function"><name>draw</name></member>
+    <member refid="classGeo_1a917d176e03fbab2efd77ed47bbb50d77" kind="function"><name>draw_point</name></member>
+    <member refid="classGeo_1a20accfc2dbc0953e3a8f00f1127ce963" kind="function"><name>draw_contours</name></member>
+    <member refid="classGeo_1a9b50f4b559a40fad8cf36352b9883160" kind="function"><name>draw_streams</name></member>
+    <member refid="classGeo_1a2dc25356b88a383ce113e34d9509aab7" kind="function"><name>save_to</name></member>
     <member refid="classGeo_1ac61ddc1c4de1cc766bd1b7b8cbbdca08" kind="function"><name>slice</name></member>
     <member refid="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" kind="function"><name>extent</name></member>
     <member refid="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" kind="function"><name>fill_from</name></member>
     <member refid="classGeo_1a52eff035fc897e9650b678645521d642" kind="function"><name>fill_from</name></member>
     <member refid="classGeo_1a5177716a0bc884211d36d314aef6bb2e" kind="function"><name>pad</name></member>
     <member refid="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" kind="function"><name>FromPoints</name></member>
-    <member refid="classGeo_1ad657f28d10a41b7e04e0da9180e7d169" kind="function"><name>FromGeoImg</name></member>
   </compound>
   <compound refid="classGeoGridData" kind="class"><name>GeoGridData</name>
     <member refid="classGeoGridData_1a9742659082271d75bb7840c6dd52e37f" kind="variable"><name>m_transform</name></member>
@@ -599,15 +610,6 @@
     <member refid="classGeoGridData_1a93f9478e0ca3db8a9f86dc1d150bb844" kind="function"><name>projection</name></member>
     <member refid="classGeoGridData_1a0ee5acf21c13784d123d1237c9854cc5" kind="function"><name>dx</name></member>
     <member refid="classGeoGridData_1a874882ebb49e607f6e96f5d1ede82899" kind="function"><name>dy</name></member>
-  </compound>
-  <compound refid="classGeoImgGrid" kind="class"><name>GeoImgGrid</name>
-    <member refid="classGeoImgGrid_1aa7885776a0cc668bd7581e11db392a8e" kind="function"><name>GeoImgGrid</name></member>
-    <member refid="classGeoImgGrid_1a2124c9a3330156f0278c218b04b4e8ff" kind="function"><name>GeoImgGrid</name></member>
-    <member refid="classGeoImgGrid_1a89b602dcfe3ce9f7534c4c605edd23d6" kind="function"><name>draw</name></member>
-    <member refid="classGeoImgGrid_1a316d075f2759ad5a215a13c1ff57b052" kind="function"><name>draw_point</name></member>
-    <member refid="classGeoImgGrid_1a3a92b7a3618e546a2d9c030c82fcab21" kind="function"><name>draw</name></member>
-    <member refid="classGeoImgGrid_1aa085720dc8c310bf1e2f5c13023dc7b1" kind="function"><name>draw</name></member>
-    <member refid="classGeoImgGrid_1a0651665b90f200ac101f0a5ff421bb39" kind="function"><name>save_to</name></member>
   </compound>
   <compound refid="classGeoProjection" kind="class"><name>GeoProjection</name>
     <member refid="classGeoProjection_1ae99d3f55ebcff5341cc13c2b1cc4eba1" kind="variable"><name>m_projection</name></member>
@@ -798,10 +800,16 @@
   </compound>
   <compound refid="classGrid" kind="class"><name>Grid</name>
     <member refid="classGrid_1aa7926f3fe7486904e03553443b94ffdb" kind="typedef"><name>T</name></member>
+    <member refid="classGrid_1aa3cc3601a154f2f7ab481beaeff49855" kind="typedef"><name>DataVector</name></member>
     <member refid="classGrid_1ab1af859c9a334e6897624ba1222f96c7" kind="typedef"><name>value_type</name></member>
-    <member refid="classGrid_1a0a66b22fe3ec47361eb6f749b18dc209" kind="variable"><name>m_data</name></member>
+    <member refid="classGrid_1a3f2dcc11102ce16302a2fe2ee2146a35" kind="variable"><name>m_data</name></member>
     <member refid="classGrid_1a429f1852fcc96c707d7b6367b140d5b9" kind="variable"><name>m_repeats</name></member>
     <member refid="classGrid_1a9a1e1807e0692fe9cf0ef3cf88a4a1fc" kind="function"><name>Grid</name></member>
+    <member refid="classGrid_1aee24f1a7ea2722df11bf0c2e8a26df46" kind="function"><name>~Grid</name></member>
+    <member refid="classGrid_1aca051618f7672b088ff5ffb3b35538d8" kind="function"><name>Grid</name></member>
+    <member refid="classGrid_1a3a4c148555510f7468a376d135866354" kind="function"><name>operator=</name></member>
+    <member refid="classGrid_1a1b86a88228ae7d69ec98c0d65e8db7b6" kind="function"><name>Grid</name></member>
+    <member refid="classGrid_1af89840c983b478ef47a9c2c8f0f4a31e" kind="function"><name>operator=</name></member>
     <member refid="classGrid_1a48dbbee2e03f5ec23abd9628eeea1dcf" kind="function"><name>operator[]</name></member>
     <member refid="classGrid_1afd98fad7ec8aab40d9bf9faf66ef9c13" kind="function"><name>operator[]</name></member>
     <member refid="classGrid_1acbe5d0e166627d56cc6ad36a422edf6a" kind="function"><name>get_values</name></member>
@@ -811,6 +819,10 @@
     <member refid="classGrid_1ab0077114cdb846bf93624ad89782ec71" kind="function"><name>min_value</name></member>
     <member refid="classGrid_1aa451f4b0fe215f9a868bb1474854ab5e" kind="function"><name>fill_from</name></member>
     <member refid="classGrid_1adabb6e7d161770de143561a3b795617a" kind="function"><name>fill_from</name></member>
+    <member refid="classGrid_1aaee91636f487d689284bd752f64f6cf7" kind="function"><name>slice_rect</name></member>
+    <member refid="classGrid_1a7366835be95c6e6267b732ad3c517603" kind="function"><name>resize_to</name></member>
+    <member refid="classGrid_1a2bb97e1334374a29f679759dc42d01b6" kind="function"><name>draw_circle</name></member>
+    <member refid="classGrid_1a81357449712114e6a4f0fadfb27bd863" kind="function"><name>draw_polyline</name></member>
     <member refid="classGrid_1a7ed34acce526ba152008c37df30553a3" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="structGridConfig" kind="struct"><name>GridConfig</name>
@@ -849,46 +861,6 @@
     <member refid="structGroundConfig_1a3b746fccb68a2ffbb144695fbc952e1e" kind="variable"><name>min_ground_intensity</name></member>
     <member refid="structGroundConfig_1adb8eb179edb3b37703977eb34d943b84" kind="variable"><name>max_ground_intensity</name></member>
   </compound>
-  <compound refid="classblaze_1_1Image" kind="class"><name>blaze::Image</name>
-    <member refid="classblaze_1_1Image_1a80eb7c07648e3faa56c56bc41f900ab5" kind="variable"><name>m_width</name></member>
-    <member refid="classblaze_1_1Image_1afde19cde2ff38c15c999436d8d649eea" kind="variable"><name>m_height</name></member>
-    <member refid="classblaze_1_1Image_1af4257be12bb94a84a748c2477214c213" kind="variable"><name>m_data</name></member>
-    <member refid="classblaze_1_1Image_1acabe0f8032fd26fb9dfd6e59998ad177" kind="function"><name>Image</name></member>
-    <member refid="classblaze_1_1Image_1a21f4d01c6f7ee90557b457b36fa5ad1c" kind="function"><name>Image</name></member>
-    <member refid="classblaze_1_1Image_1af46fd53d473b2ad9538225de2ca93e6c" kind="function"><name>~Image</name></member>
-    <member refid="classblaze_1_1Image_1ab66048cf6858c2bc7d0ad8370917507b" kind="function"><name>Image</name></member>
-    <member refid="classblaze_1_1Image_1acd3bb9884b6c7129b930cf406893ccc3" kind="function"><name>operator=</name></member>
-    <member refid="classblaze_1_1Image_1a27b9a9ffa51b0a3241a8b36ac4453d77" kind="function"><name>Image</name></member>
-    <member refid="classblaze_1_1Image_1a00a806c784ae42d0d9e491267842aed2" kind="function"><name>operator=</name></member>
-    <member refid="classblaze_1_1Image_1a26e575a5d55e3f6fb240b94726618d16" kind="function"><name>width</name></member>
-    <member refid="classblaze_1_1Image_1a9c5906e9e8d15b4b25e0c3d03e37a89c" kind="function"><name>height</name></member>
-    <member refid="classblaze_1_1Image_1ad1c2f6ba8676dba4d4732c1e0a4dce81" kind="function"><name>rows</name></member>
-    <member refid="classblaze_1_1Image_1a001c15d91f811257b396d8e989d13a4d" kind="function"><name>cols</name></member>
-    <member refid="classblaze_1_1Image_1a3172bf2f8fbac1ac533f3ed43527e106" kind="function"><name>channels</name></member>
-    <member refid="classblaze_1_1Image_1a87abc1d2bd76c6a4a2f836cded6b7bc3" kind="function"><name>data</name></member>
-    <member refid="classblaze_1_1Image_1a487d9f4dad9d326ccd08c3efffd867ee" kind="function"><name>data</name></member>
-    <member refid="classblaze_1_1Image_1a77941dcddbf6a7f729a4bb3a8354abb8" kind="function"><name>at</name></member>
-    <member refid="classblaze_1_1Image_1a659b7e800d7d80c8f0f73bda1bd026fd" kind="function"><name>set</name></member>
-    <member refid="classblaze_1_1Image_1a0f8fc8fc733a7cac4a225880b63e47a9" kind="function"><name>row_ptr</name></member>
-    <member refid="classblaze_1_1Image_1aa2c3647120785400626211c700fdbdc3" kind="function"><name>row_ptr</name></member>
-    <member refid="classblaze_1_1Image_1aa28f3ddc56031c34c23c46b3951abd75" kind="function"><name>slice</name></member>
-    <member refid="classblaze_1_1Image_1a270b1680e5c6c1970cbf204cfafc35bb" kind="function"><name>resize</name></member>
-    <member refid="classblaze_1_1Image_1a0cd015522ba4402f6947a1e9cd871380" kind="function"><name>copy_to</name></member>
-    <member refid="classblaze_1_1Image_1ac91165e4492c449918163d56e936d197" kind="function"><name>extract_channel</name></member>
-    <member refid="classblaze_1_1Image_1a564c476d1c103cd2a4819075f8cb1ac2" kind="function"><name>convert_to</name></member>
-    <member refid="classblaze_1_1Image_1a137c2e6c2e5dc775ee904bcc663a66c6" kind="function"><name>draw_circle</name></member>
-    <member refid="classblaze_1_1Image_1a811603a3533a6f4de36c6fad7162fce5" kind="function"><name>draw_polyline</name></member>
-    <member refid="classblaze_1_1Image_1a7fd5e89a58d8347c3c47d3f8828a2dfc" kind="function"><name>draw_line</name></member>
-    <member refid="classblaze_1_1Image_1a00287fcb050b243bcd3c76168c49578b" kind="function"><name>draw_filled_circle</name></member>
-    <member refid="classblaze_1_1Image_1aab7cc240d5786d9ee2f1c989f1a8b688" kind="function"><name>set_pixel_safe</name></member>
-  </compound>
-  <compound refid="classImgGrid" kind="class"><name>ImgGrid</name>
-    <member refid="classImgGrid_1acb6fda1f711c352728c8e2d980d26fe1" kind="variable"><name>m_img</name></member>
-    <member refid="classImgGrid_1a95aa7dac40ce0a41d791fc99aaf9ebc5" kind="function"><name>ImgGrid</name></member>
-    <member refid="classImgGrid_1aca2b39a10ef047229498916935e91881" kind="function"><name>~ImgGrid</name></member>
-    <member refid="classImgGrid_1a529121d6b01eb56db74a2f5cc5a89eb2" kind="function"><name>save_to</name></member>
-    <member refid="classImgGrid_1a28517c9d3655e28a0ac8e6ee1aa63c72" kind="function"><name>get_rgb_color</name></member>
-  </compound>
   <compound refid="structis__specialization" kind="struct"><name>is_specialization</name>
   </compound>
   <compound refid="structis__specialization_3_01Ref_3_01Args_8_8_8_01_4_00_01Ref_01_4" kind="struct"><name>is_specialization&lt; Ref&lt; Args... &gt;, Ref &gt;</name>
@@ -899,39 +871,44 @@
   </compound>
   <compound refid="classLASData" kind="class"><name>LASData</name>
     <member refid="classLASData_1a1e65802396ed566abcf67b7e34bdab3d" kind="variable"><name>m_intensity_range</name></member>
-    <member refid="classLASData_1af8bca4255c216244426646b477b74cda" kind="variable"><name>m_points</name></member>
+    <member refid="classLASData_1af4187912ee881c53494fd18960ed9b1d" kind="variable"><name>m_points</name></member>
     <member refid="classLASData_1aa49c51e304c86170846674e60f4048e6" kind="function"><name>LASData</name></member>
     <member refid="classLASData_1afec8e01963b2d4e664a0fccac0ce90e8" kind="function"><name>LASData</name></member>
     <member refid="classLASData_1a665bffb012fe24bb02a4d8c89b35a8c5" kind="function"><name>insert</name></member>
-    <member refid="classLASData_1a05c44b3a85b5241ae56a48ead1e12213" kind="function"><name>LASData</name></member>
+    <member refid="classLASData_1a2c803dffe5f4094bd0a33e7e04ab907f" kind="function"><name>LASData</name></member>
     <member refid="classLASData_1ae738985aa77d7642126cc2cc6f6b994e" kind="function"><name>begin</name></member>
     <member refid="classLASData_1ad38462476686161be9ae093995e859a5" kind="function"><name>end</name></member>
     <member refid="classLASData_1adaa917138ade5d1ae1bd27f94747b0c7" kind="function"><name>intensity_range</name></member>
     <member refid="classLASData_1abe0e81113d7b6eee962d39767a09b172" kind="function"><name>n_points</name></member>
+    <member refid="classLASData_1a06ddd23d848e2109e16a9f3caaa32294" kind="function"><name>take_points</name></member>
+    <member refid="classLASData_1a5c01adda6c12981ef0f4179ddcdfb0bd" kind="function"><name>adopt_points</name></member>
+    <member refid="classLASData_1acdd325fb15e5b92a307feab778874384" kind="function"><name>release_points</name></member>
     <member refid="classLASData_1a19c128b8cc7049a906e73452c8fce685" kind="function"><name>operator[]</name></member>
     <member refid="classLASData_1a94e222f45ce00330493f3f1fc7cc141f" kind="function"><name>operator[]</name></member>
     <member refid="classLASData_1a379f252ce60ca19cd902f31a86fc7ff3" kind="function"><name>push_back</name></member>
     <member refid="classLASData_1a642345bdb5b51d8fe5f0fe192d4aa13b" kind="function"><name>points</name></member>
     <member refid="classLASData_1a6b9b609cfcdce04684ff43bfa1b97048" kind="function"><name>insert</name></member>
-    <member refid="classLASData_1a2e296fb6b02f1593a22254ed33722bde" kind="function"><name>write</name></member>
-    <member refid="classLASData_1a81e6439664e5eb16b9af57e87bec17bc" kind="function"><name>extract_borders</name></member>
-    <member refid="classLASData_1aad306c36ac14b356b524553ac234f15d" kind="function"><name>read_points</name></member>
-    <member refid="classLASData_1a668c087294ae54e164d438690cbd15ea" kind="function"><name>with_border</name></member>
-    <member refid="classLASData_1abb09755ea2e472e78410c4fec6ff82a0" kind="function"><name>with_border</name></member>
+    <member refid="classLASData_1a0e705401bb74d7db533a1931cc44b0b3" kind="function"><name>write</name></member>
+    <member refid="classLASData_1a3b621a049b2cdcf4b6e8e284ced3294b" kind="function"><name>extract_borders</name></member>
+    <member refid="classLASData_1ad0c386aa11948662619d0e2a99139f75" kind="function"><name>read_points</name></member>
+    <member refid="classLASData_1aa00bbb4448384f9ff21d92fea3fea644" kind="function"><name>with_border</name></member>
+    <member refid="classLASData_1a433f80b6e144a8eca3d4e7bb67a43d88" kind="function"><name>with_border</name></member>
   </compound>
   <compound refid="classLASFile" kind="class"><name>LASFile</name>
     <member refid="classLASFile_1a2586dbdf7c10c2630f102614d67866ec" kind="variable"><name>m_filename</name></member>
     <member refid="classLASFile_1ad8d405f1645125ef8de8c663d53a0126" kind="variable"><name>m_bounds</name></member>
     <member refid="classLASFile_1a54b87f3e0c5b9d5ab8160ef9464ae3b9" kind="variable"><name>m_original_bounds</name></member>
     <member refid="classLASFile_1a403817f7222cb5d9f6b1de03957bf299" kind="variable"><name>m_projection</name></member>
+    <member refid="classLASFile_1a9f993b7b52bf58b031a409e7680a9aa1" kind="variable"><name>m_header_point_count</name></member>
     <member refid="classLASFile_1aecf8aaa14dc832406d7d8c9a2ab04d25" kind="variable"><name>m_spatial_index</name></member>
     <member refid="classLASFile_1a3619a6a014c8c31209af6939fa6e25c1" kind="function"><name>LASFile</name></member>
     <member refid="classLASFile_1aaa43a5786f0ef8be1189bc256e89e5f9" kind="function"><name>set_bounds</name></member>
-    <member refid="classLASFile_1af7a0cebe1d43a43d6bc80afd0ce2c3c1" kind="function"><name>LASFile</name></member>
+    <member refid="classLASFile_1a88da362cae6753fcdc18dabfe6d2592a" kind="function"><name>LASFile</name></member>
     <member refid="classLASFile_1abab47a7a38d34a55f212d45c24048f1f" kind="function"><name>top_left</name></member>
     <member refid="classLASFile_1a5b755082279eaa000deb7f9980f10512" kind="function"><name>width</name></member>
     <member refid="classLASFile_1ab3ec9489b3a8d302417c45d0a16b3556" kind="function"><name>height</name></member>
     <member refid="classLASFile_1a74988d01c9604f26f0662db81e67fe4d" kind="function"><name>projection</name></member>
+    <member refid="classLASFile_1a3725373ab99205f69fc491d5891c941a" kind="function"><name>header_point_count</name></member>
     <member refid="classLASFile_1a172765e45294b24a4250e3f252ef80d4" kind="function"><name>export_bounds</name></member>
     <member refid="classLASFile_1aae95e7f507c4193c4f1bed0d5ae4118b" kind="function"><name>bounds</name></member>
     <member refid="classLASFile_1aa405681af09edda1c5296b2e3c7b6d66" kind="function"><name>original_bounds</name></member>
@@ -945,6 +922,7 @@
     <member refid="structLASFileExtent_1a6f63c7a18b06567fac6fdde9deb9eacc" kind="variable"><name>native_wkt</name></member>
     <member refid="structLASFileExtent_1aaa02193106a93135080a88439a21941a" kind="variable"><name>bounds_native</name></member>
     <member refid="structLASFileExtent_1a5ae3f8dbf222e44f5e2b74536fe36834" kind="variable"><name>bounds_reprojected</name></member>
+    <member refid="structLASFileExtent_1a40b825caa6410638a1034d09e0695fcc" kind="variable"><name>point_count</name></member>
   </compound>
   <compound refid="classLASLayer" kind="class"><name>LASLayer</name>
     <member refid="classLASLayer_1a29f4d136e1554576fe141c8a4a514c84" kind="variable"><name>m_file_path</name></member>
@@ -997,7 +975,7 @@
   </compound>
   <compound refid="structLasRenderSnapshot" kind="struct"><name>LasRenderSnapshot</name>
     <member refid="structLasRenderSnapshot_1a55f90b8042cb62f2850bf0637f106cb1" kind="variable"><name>octree</name></member>
-    <member refid="structLasRenderSnapshot_1a1dd1de695b13c55533b26759ae5f9d01" kind="variable"><name>preview_points</name></member>
+    <member refid="structLasRenderSnapshot_1ad9b5aa2305bc5a26199d7862267af8fa" kind="variable"><name>preview_points</name></member>
     <member refid="structLasRenderSnapshot_1a819576eb0e85bad4385e429b45c6b78e" kind="variable"><name>points_loaded</name></member>
     <member refid="structLasRenderSnapshot_1ac24adc5a869c797aa47254c9d0bf2378" kind="variable"><name>bounds</name></member>
     <member refid="structLasRenderSnapshot_1a59d76e2a2c23bbcea3d58389c1f9abdf" kind="variable"><name>bounds_valid</name></member>
@@ -1241,8 +1219,8 @@
     <member refid="classOctreeLASLayerRenderer_1ad34b06cb5f9c5672a3409f8dc656cfa9" kind="function"><name>record_lod_sample</name></member>
     <member refid="classOctreeLASLayerRenderer_1a556a11615b10a8bf91b2eb4755eb0e17" kind="function"><name>ensure_gpu_timer</name></member>
     <member refid="classOctreeLASLayerRenderer_1a193c4d6a58832ff573de451536088e14" kind="function"><name>consume_gpu_timer_sample</name></member>
-    <member refid="classOctreeLASLayerRenderer_1a69918caa7522079a7b6032f03b5b1b31" kind="function"><name>draw_octree_nodes</name></member>
-    <member refid="classOctreeLASLayerRenderer_1ac1b7d60ca1040e3f3e8af881556dd1a6" kind="function"><name>draw_preview_points</name></member>
+    <member refid="classOctreeLASLayerRenderer_1aa975e5e8c2577e2b5318cff1bede2e4d" kind="function"><name>draw_octree_nodes</name></member>
+    <member refid="classOctreeLASLayerRenderer_1a4757b0e7a811c38c338eb7c44503a6ff" kind="function"><name>draw_preview_points</name></member>
     <member refid="classOctreeLASLayerRenderer_1a98b9d6d6da714c5b80bbe6f23f9651c7" kind="function"><name>OctreeLASLayerRenderer</name></member>
     <member refid="classOctreeLASLayerRenderer_1aa0fa1fcfb9da6f215cfbfc3ab1767d3c" kind="function"><name>has_stream_backlog</name></member>
     <member refid="classOctreeLASLayerRenderer_1a2d6227cd0469f9116e2a41f84f0f515c" kind="function"><name>last_point_draw_ms</name></member>
@@ -1325,7 +1303,7 @@
   </compound>
   <compound refid="classPointOctree" kind="class"><name>PointOctree</name>
     <member refid="classPointOctree_1ac1a7106be7edd0e2df7c0d23bf1b8cee" kind="variable"><name>m_root</name></member>
-    <member refid="classPointOctree_1af92be9ccc547cf7038e048101214f628" kind="variable"><name>m_points</name></member>
+    <member refid="classPointOctree_1a03faa90c439e386cf2813ecc2dd9dce0" kind="variable"><name>m_points</name></member>
     <member refid="classPointOctree_1a76cb93546129384a885e57d5e4102a56" kind="variable"><name>m_total_points</name></member>
     <member refid="classPointOctree_1ab0198e426e088e2006d0ac806916b15c" kind="function"><name>cubic_root_bounds</name></member>
     <member refid="classPointOctree_1a92ea645b0b866a6aca246477f690175e" kind="function"><name>lod_distance_to_node</name></member>
@@ -1333,8 +1311,8 @@
     <member refid="classPointOctree_1a7c09e4b600cd19fc324c9d33148a28a8" kind="function"><name>PointOctree</name></member>
     <member refid="classPointOctree_1a30d29653853dc43efe4f1dd26c701bb4" kind="function"><name>total_points</name></member>
     <member refid="classPointOctree_1a34b081f441658c67da80a0c7baac27e5" kind="function"><name>root</name></member>
-    <member refid="classPointOctree_1ac72076d1b68429988247094d68e9b73e" kind="function"><name>points</name></member>
-    <member refid="classPointOctree_1af0ebddc69f033dec6609d2db2845a7f6" kind="function"><name>insert_batch</name></member>
+    <member refid="classPointOctree_1ae38b5a7428795c5001f8a79ece17dc9b" kind="function"><name>points</name></member>
+    <member refid="classPointOctree_1ab1386dc95936228640ce68991b42446b" kind="function"><name>insert_batch</name></member>
     <member refid="classPointOctree_1af07b4761a2ac0538440ffb17d4524345" kind="function"><name>shuffle_leaves</name></member>
     <member refid="classPointOctree_1a394cc767181ccb2a09c73480f1e13903" kind="function"><name>collect_visible</name></member>
     <member refid="classPointOctree_1a9b90a71b7f0b8847ef15364c638b3183" kind="function"><name>node_draw_chunk_size</name></member>
@@ -1352,8 +1330,8 @@
     <member refid="classPointOctreeNode_1aeecbbd48b8470eb2167772d95c78d6b5" kind="function"><name>has_children</name></member>
     <member refid="classPointOctreeNode_1a55870415a9a6afe0bc7cee00993b7526" kind="function"><name>child_index</name></member>
     <member refid="classPointOctreeNode_1a105e7719c12fb876512d3110777b6a0b" kind="function"><name>ensure_child</name></member>
-    <member refid="classPointOctreeNode_1a8ee6bd832139a637ac61df89b82ffc06" kind="function"><name>shuffle_range</name></member>
-    <member refid="classPointOctreeNode_1a241e9e12e3bb5108aeed11b07b3effa7" kind="function"><name>shuffle_recursive</name></member>
+    <member refid="classPointOctreeNode_1a63d78b5a2407cccacf2bb00104acf7b8" kind="function"><name>shuffle_range</name></member>
+    <member refid="classPointOctreeNode_1a484a59e63f42e5e33a98066d90cb0751" kind="function"><name>shuffle_recursive</name></member>
   </compound>
   <compound refid="structPointPickResult" kind="struct"><name>PointPickResult</name>
     <member refid="structPointPickResult_1a279619ec327ab77da0d3b103a6be5e92" kind="variable"><name>point</name></member>
@@ -1421,9 +1399,10 @@
     <member refid="classProgressTracker_1aa58d09452b33a057398f70171989bed2" kind="variable"><name>m_observer</name></member>
     <member refid="classProgressTracker_1acb76cb21658571a734fda0a056082a3d" kind="variable"><name>m_subtracker_range</name></member>
     <member refid="classProgressTracker_1adace6ffd1879581a5d73985cc14eda01" kind="variable"><name>m_visible</name></member>
+    <member refid="classProgressTracker_1a20700b0662bacb68c05b094fc4759ab4" kind="variable"><name>m_trace_scope_id</name></member>
     <member refid="classProgressTracker_1a3bc6169539379af3d5104b9c7de80d42" kind="function"><name>_set_proportion</name></member>
     <member refid="classProgressTracker_1a8cd68e23a30a0f466043cee0e4f49319" kind="function"><name>update_progress</name></member>
-    <member refid="classProgressTracker_1adc3b6725188cbf0ba1a828d5e1cd7da4" kind="function"><name>ProgressTracker</name></member>
+    <member refid="classProgressTracker_1ae12383cef47b980e44be3e70f6e7dd8d" kind="function"><name>ProgressTracker</name></member>
     <member refid="classProgressTracker_1aee39c73c1440e2649c02b986e7afbefc" kind="function"><name>text_update</name></member>
     <member refid="classProgressTracker_1af2409ca61faa96bcf9f6684d6a133d00" kind="function"><name>ProgressTracker</name></member>
     <member refid="classProgressTracker_1abf6d1b82576a9e701d0577d44783d801" kind="function"><name>operator=</name></member>
@@ -1433,7 +1412,8 @@
     <member refid="classProgressTracker_1ae251c6d5bbe97e237a4223082ac5345e" kind="function"><name>set_visible</name></member>
     <member refid="classProgressTracker_1a0306ee703e612a94f3b7d0292ccff3f1" kind="function"><name>is_visible</name></member>
     <member refid="classProgressTracker_1adf4f141998e9f032dfb3817ae05fa782" kind="function"><name>report_parallel_progress</name></member>
-    <member refid="classProgressTracker_1a84cfd7014c31f02ae14d4b14b870a1ff" kind="function"><name>subtracker</name></member>
+    <member refid="classProgressTracker_1a4c2affbd5990c5c697278a8c5c5215b7" kind="function"><name>subtracker</name></member>
+    <member refid="classProgressTracker_1a06ba8e5abd46168f405208ebf0c770b1" kind="function"><name>begin_tracking</name></member>
     <member refid="classProgressTracker_1af3b4b0f715d71fde21203293882f0907" kind="function"><name>~ProgressTracker</name></member>
     <member refid="classProgressTracker_1a0c901629e4ac084a1ed02a64b88ed422" kind="function"><name>proportion</name></member>
   </compound>
@@ -1445,10 +1425,22 @@
     <member refid="classProgressTrackerBar_1a4534823a24ddde8bc15d4cd972caa70f" kind="function"><name>text_update</name></member>
     <member refid="classProgressTrackerBar_1acdf054b69fae2008810544be69a3cd19" kind="function"><name>tracker</name></member>
   </compound>
+  <compound refid="structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind" kind="struct"><name>blaze::memory_tracker::TrackedAllocator::rebind</name>
+    <member refid="structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind_1a258063254444d8456ca85b0eec3836c5" kind="typedef"><name>other</name></member>
+  </compound>
   <compound refid="classRecordingProgressBar" kind="class"><name>RecordingProgressBar</name>
     <member refid="classRecordingProgressBar_1a670ddc1387204ae61f71dd60b508f814" kind="variable"><name>m_updates</name></member>
     <member refid="classRecordingProgressBar_1ae633f2792ac73f0df893971c98843370" kind="function"><name>updates</name></member>
     <member refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac" kind="function"><name>update_progress</name></member>
+  </compound>
+  <compound refid="classblaze_1_1trace_1_1RecordTrace" kind="class"><name>blaze::trace::RecordTrace</name>
+    <member refid="classblaze_1_1trace_1_1RecordTrace_1a629df7cf265d21682a08c03eb173118b" kind="variable"><name>m_path</name></member>
+    <member refid="classblaze_1_1trace_1_1RecordTrace_1a08429a9bb89de425c07d9742974eeb8d" kind="function"><name>RecordTrace</name></member>
+    <member refid="classblaze_1_1trace_1_1RecordTrace_1a5e1827faff7d481325e5525569c588cd" kind="function"><name>~RecordTrace</name></member>
+    <member refid="classblaze_1_1trace_1_1RecordTrace_1a081d3eedc5760f22e51c383f259aba4f" kind="function"><name>RecordTrace</name></member>
+    <member refid="classblaze_1_1trace_1_1RecordTrace_1aff7ed042d14b57f3b725b438fcaeb32a" kind="function"><name>operator=</name></member>
+    <member refid="classblaze_1_1trace_1_1RecordTrace_1a8c6b0c95de9b3c4e1fb7f607f7873dee" kind="function"><name>RecordTrace</name></member>
+    <member refid="classblaze_1_1trace_1_1RecordTrace_1a4d7fc9f2fd24c032e78d9a98e33eaa58" kind="function"><name>operator=</name></member>
   </compound>
   <compound refid="structblaze_1_1Rect" kind="struct"><name>blaze::Rect</name>
     <member refid="structblaze_1_1Rect_1ae423d8ac41f86e0477c002eda357ff9b" kind="variable"><name>x</name></member>
@@ -1563,18 +1555,26 @@
     <member refid="structTileModeInfo_1a2c237cda8e7cc208faed82301505be4c" kind="variable"><name>crs_mismatch</name></member>
     <member refid="structTileModeInfo_1a6f3f83117416c55b816d590c6a04de0e" kind="function"><name>required</name></member>
   </compound>
-  <compound refid="classTimeFunction" kind="class"><name>TimeFunction</name>
-    <member refid="classTimeFunction_1a3268dd9d0b714dd40736550227129822" kind="variable"><name>m_name</name></member>
-    <member refid="classTimeFunction_1a8938a87882f7241acae4340ebda19162" kind="variable"><name>m_progress_tracker</name></member>
-    <member refid="classTimeFunction_1ac13a91fa58866706891b238ce6e8fe90" kind="function"><name>TimeFunction</name></member>
-    <member refid="classTimeFunction_1ae5b0ec8a377aeeb95a3c7a1953429ee5" kind="function"><name>TimeFunction</name></member>
-    <member refid="classTimeFunction_1a1bc53998328c1c556535d0bc98046484" kind="function"><name>~TimeFunction</name></member>
-  </compound>
   <compound refid="classTimer" kind="class"><name>Timer</name>
     <member refid="classTimer_1ac9d9c99d289ce91e87873b83d2c807b5" kind="variable"><name>m_start</name></member>
     <member refid="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" kind="function"><name>Timer</name></member>
     <member refid="classTimer_1ab79e82b58e3044825ae1c885f38db102" kind="function"><name>duration</name></member>
     <member refid="classTimer_1a8e125e38ee1ec31b73d2e322c1ec93f2" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kind="class"><name>blaze::memory_tracker::TrackedAllocator</name>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1af3ba4dd3368d8f47ce61f742a23eafac" kind="typedef"><name>value_type</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a2ae98462bc2b01ae01d96d4585ebaf22" kind="typedef"><name>size_type</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a8fac3ffd8267c8abea7158464d09e293" kind="typedef"><name>difference_type</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a579634cf859f6e6636807bd132562cf3" kind="typedef"><name>propagate_on_container_copy_assignment</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a6889a352e5f20c2ae6608906474716da" kind="typedef"><name>propagate_on_container_move_assignment</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a60466857bf6357fdd058ff14841d8a63" kind="typedef"><name>propagate_on_container_swap</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a86fcc8d86f50bc420f4a91111e8c8857" kind="typedef"><name>is_always_equal</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1afa5ebfe258576bdfbb73b4d9831abf64" kind="variable"><name>k_requires_aligned_allocation</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a71549434e7ea583982ba89b8e056e928" kind="function"><name>TrackedAllocator</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1ae2c8d9f6025466a793ed7c716d5372e6" kind="function"><name>TrackedAllocator</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1ac9f1b8ca99ea9f62b91b9eb8164ed0eb" kind="function"><name>allocate</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a423e9d9f7701c252c7c1f074a602179c" kind="function"><name>deallocate</name></member>
+    <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1afaf0b21a8b04945af94a024377aa5e19" kind="function"><name>max_size</name></member>
   </compound>
   <compound refid="structUserCrsParseResult" kind="struct"><name>UserCrsParseResult</name>
     <member refid="structUserCrsParseResult_1a1c76d6d712bc766db39f0a9a85acb828" kind="variable"><name>ok</name></member>
@@ -1613,7 +1613,7 @@
     <member refid="structWaterConfigs_1afd55568428b9c87295ee013f945de0bf" kind="function"><name>config_from_catchment</name></member>
     <member refid="structWaterConfigs_1a58218cf2f9a1448a6bb2d37aa64b72ee" kind="function"><name>minimum_catchment</name></member>
   </compound>
-  <compound refid="namespace_0d102" kind="namespace"><name>@102</name>
+  <compound refid="namespace_0d104" kind="namespace"><name>@104</name>
   </compound>
   <compound refid="namespace_0d11" kind="namespace"><name>@11</name>
   </compound>
@@ -1641,19 +1641,59 @@
   </compound>
   <compound refid="namespace_0d58" kind="namespace"><name>@58</name>
   </compound>
-  <compound refid="namespace_0d70" kind="namespace"><name>@70</name>
+  <compound refid="namespace_0d63" kind="namespace"><name>@63</name>
+  </compound>
+  <compound refid="namespace_0d68" kind="namespace"><name>@68</name>
+  </compound>
+  <compound refid="namespace_0d93" kind="namespace"><name>@93</name>
+  </compound>
+  <compound refid="namespace_0d98" kind="namespace"><name>@98</name>
   </compound>
   <compound refid="namespaceblaze" kind="namespace"><name>blaze</name>
-    <member refid="image_8hpp_1a91970f3adbd272562e14250f44bd21f8" kind="enum"><name>InterpolationMode</name></member>
-    <member refid="image_8hpp_1a91970f3adbd272562e14250f44bd21f8aad135772d7cf93dd0ccf9d2474b34e6a" kind="enumvalue"><name>NEAREST</name></member>
-    <member refid="image_8hpp_1a91970f3adbd272562e14250f44bd21f8aaac544aacc3615aada24897a215f5046" kind="enumvalue"><name>LINEAR</name></member>
+    <member refid="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8" kind="enum"><name>InterpolationMode</name></member>
+    <member refid="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aad135772d7cf93dd0ccf9d2474b34e6a" kind="enumvalue"><name>NEAREST</name></member>
+    <member refid="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aaac544aacc3615aada24897a215f5046" kind="enumvalue"><name>LINEAR</name></member>
     <member refid="utilities_2env_8hpp_1a9f7696258f7f0ec7cc8a45f30effbde4" kind="function"><name>get_env</name></member>
+  </compound>
+  <compound refid="namespaceblaze_1_1memory__tracker" kind="namespace"><name>blaze::memory_tracker</name>
+    <member refid="memory__tracker_8hpp_1ae26765331baa38d1040ca038efabf060" kind="enum"><name>Tag</name></member>
+    <member refid="memory__tracker_8hpp_1ae26765331baa38d1040ca038efabf060af1f5aacec9d4156166560b9a5cb62640" kind="enumvalue"><name>LAS</name></member>
+    <member refid="memory__tracker_8hpp_1ae26765331baa38d1040ca038efabf060abc899ea5d6a94a8e4e60c16244919ba0" kind="enumvalue"><name>GRID</name></member>
+    <member refid="tracked__allocator_8hpp_1a77b8922d170fbc8511fd17c23b1e4b18" kind="typedef"><name>TrackedVector</name></member>
+    <member refid="tracked__allocator_8hpp_1a794ab338443ae10f29d3c05c29d6d10b" kind="typedef"><name>GridVector</name></member>
+    <member refid="tracked__allocator_8hpp_1a4b963bad3570baaddacccdf9fca87b2d" kind="typedef"><name>LasVector</name></member>
+    <member refid="memory__tracker_8cpp_1ae9daba870950dafa532eea8210a54d49" kind="function"><name>tag_name</name></member>
+    <member refid="memory__tracker_8cpp_1a74e108b4ff2e88d4ece888b81d44a784" kind="function"><name>add_bytes</name></member>
+    <member refid="memory__tracker_8cpp_1a9e1b78cc44d9fb966056d4b37be8c447" kind="function"><name>remove_bytes</name></member>
+    <member refid="memory__tracker_8cpp_1a28bfdda6101abfde8470a45f885b0a3d" kind="function"><name>total_bytes</name></member>
+    <member refid="memory__tracker_8cpp_1a54f5f2d44843fd8f265b6bbafe681767" kind="function"><name>tag_bytes</name></member>
+    <member refid="memory__tracker_8cpp_1a0e01268bfdd275ed372ad11a58f55d62" kind="function"><name>format_summary</name></member>
+    <member refid="tracked__allocator_8hpp_1adb260a7df6ecf25f104c4fa0bbaad954" kind="function"><name>operator==</name></member>
+    <member refid="tracked__allocator_8hpp_1a862ca3650c7933c4830367f1c891ddc6" kind="function"><name>operator!=</name></member>
+  </compound>
+  <compound refid="namespaceblaze_1_1memory__tracker_1_1_0d91" kind="namespace"><name>blaze::memory_tracker::@91</name>
+  </compound>
+  <compound refid="namespaceblaze_1_1memory__tracker_1_1tracked__allocator__detail" kind="namespace"><name>blaze::memory_tracker::tracked_allocator_detail</name>
+    <member refid="tracked__allocator_8hpp_1aa5f69046f8915e12f096397f7df533b9" kind="function"><name>default_new_alignment</name></member>
   </compound>
   <compound refid="namespaceblaze_1_1test" kind="namespace"><name>blaze::test</name>
     <member refid="testing_2env_8hpp_1a1822bde26e2c72ce8dcf2f18d37738ff" kind="function"><name>get_env</name></member>
     <member refid="output__dir_8hpp_1aadefed9391b172b3dfb0c97dc16a705c" kind="function"><name>sanitize_for_path</name></member>
     <member refid="output__dir_8hpp_1acb517029bd1ebd1b8dc77d3696c5c933" kind="function"><name>unique_test_output_dir</name></member>
     <member refid="output__dir_8hpp_1acfa7950bc9b21ce9f99253b30eb97ac4" kind="function"><name>unique_test_output_path</name></member>
+  </compound>
+  <compound refid="namespaceblaze_1_1trace" kind="namespace"><name>blaze::trace</name>
+    <member refid="trace__recorder_8cpp_1a5abc7d166cb4f5154e7bb824421a3518" kind="typedef"><name>json</name></member>
+    <member refid="trace__recorder_8cpp_1aafd1b638f18e183cac6743242acdc4ad" kind="function"><name>enabled</name></member>
+    <member refid="trace__recorder_8cpp_1a6058cfd5603954e5f3ba84a839e338d4" kind="function"><name>format_active_scopes</name></member>
+    <member refid="trace__recorder_8cpp_1ada61144091e7ec2f5cdcae095fac495b" kind="function"><name>register_progress_scope</name></member>
+    <member refid="trace__recorder_8cpp_1a5792cb0d2fd01601f012328a399052d1" kind="function"><name>progress_scope_set_display</name></member>
+    <member refid="trace__recorder_8cpp_1ae6608ef045f35d5ef7e07fca401341d0" kind="function"><name>progress_end</name></member>
+    <member refid="trace__recorder_8cpp_1a33240db4626424c757ec9881875b0495" kind="function"><name>memory_counters</name></member>
+    <member refid="trace__recorder_8cpp_1a1eed7ac5e49b08b4ec53672ef2972013" kind="function"><name>write_chrome_trace</name></member>
+    <member refid="trace__recorder_8cpp_1a3cbd9930499011ab72525f1ab05c5820" kind="function"><name>write_chrome_trace_if_configured</name></member>
+  </compound>
+  <compound refid="namespaceblaze_1_1trace_1_1_0d100" kind="namespace"><name>blaze::trace::@100</name>
   </compound>
   <compound refid="namespacedetail" kind="namespace"><name>detail</name>
     <member refid="blaze__output__loader_8hpp_1a02332066d61cd2d48ec5250caac63b54" kind="function"><name>is_blaze_output_filename</name></member>
@@ -1683,14 +1723,14 @@
   <compound refid="namespacenlohmann_1_1_0d45" kind="namespace"><name>nlohmann::@45</name>
   </compound>
   <compound refid="namespaceoctree__las__detail" kind="namespace"><name>octree_las_detail</name>
-    <member refid="octree__las__data_8hpp_1aa8850d578a87ace9ae4f4d772740fb6a" kind="typedef"><name>PreviewCallback</name></member>
+    <member refid="octree__las__data_8hpp_1a90424058bc3100c523a3713bac9fc24c" kind="typedef"><name>PreviewCallback</name></member>
     <member refid="octree__las__data_8hpp_1a29a81df17da253aae9dc1b6029336daf" kind="variable"><name>MAX_PREVIEW_POINTS</name></member>
     <member refid="octree__las__data_8hpp_1adfb61c03c39deb7e7559b3bbb6fc6033" kind="function"><name>las_point_classification</name></member>
     <member refid="octree__las__data_8hpp_1a8f02332bcbc988658eac7a4b8382faf2" kind="function"><name>las_point_file_color</name></member>
     <member refid="octree__las__data_8hpp_1a1625167e15aac17d0cdb814f9de692fb" kind="function"><name>convert_las_point</name></member>
-    <member refid="octree__las__data_8hpp_1a2783b15dc0c2273c3becdcbd05e178b2" kind="function"><name>load_points_parallel</name></member>
+    <member refid="octree__las__data_8hpp_1a3dfee22066bfa2971077ba9872db8d6c" kind="function"><name>load_points_parallel</name></member>
     <member refid="octree__las__data_8hpp_1aa7bdf49ddc558921328d2e6e2122f220" kind="function"><name>las_point_format_has_rgb</name></member>
-    <member refid="octree__las__data_8hpp_1a7cd51cdda9a4d75727de24101b5e75ba" kind="function"><name>load_points_dispatch</name></member>
+    <member refid="octree__las__data_8hpp_1a06cf5955a2053e81256aa206f3c45090" kind="function"><name>load_points_dispatch</name></member>
   </compound>
   <compound refid="namespacestd" kind="namespace"><name>std</name>
     <member refid="assert_8hpp_1ac74d79874476d138b67e2fac5c4e5fee" kind="typedef"><name>source_location</name></member>
@@ -1802,7 +1842,8 @@
   <compound refid="point__octree_8cpp" kind="file"><name>point_octree.cpp</name>
   </compound>
   <compound refid="point__octree_8hpp" kind="file"><name>point_octree.hpp</name>
-    <member refid="point__octree_8hpp_1abb879c3a5701f15828467a528d65d3e4" kind="function"><name>octree_shuffle_range</name></member>
+    <member refid="point__octree_8hpp_1a31b6c9e1d26c25909aa321dfd61cdd6f" kind="typedef"><name>OctreePointVector</name></member>
+    <member refid="point__octree_8hpp_1a900c8b6f2e3e155aebfe777d3fc92f4f" kind="function"><name>octree_shuffle_range</name></member>
   </compound>
   <compound refid="progress__box_8cpp" kind="file"><name>progress_box.cpp</name>
     <member refid="progress__box_8cpp_1a4f5f4f8952ef29d90fd2d2bed8d60857" kind="function"><name>format_duration</name></member>
@@ -1948,14 +1989,14 @@
     <member refid="contour_8hpp_1a921d0c36b61bce0705fc88b57544ba02" kind="function"><name>interpolate_coordinates</name></member>
   </compound>
   <compound refid="contour__gen_8hpp" kind="file"><name>contour_gen.hpp</name>
-    <member refid="contour__gen_8hpp_1a722ae8b4b04fa6a73334e4ff5dc94e52" kind="function"><name>identify_contours</name></member>
-    <member refid="contour__gen_8hpp_1a3f002b39a60450a967ea69414aa7d7f5" kind="function"><name>identify_contours_at_heights</name></member>
-    <member refid="contour__gen_8hpp_1a853dbccc545ddbe3acd219ff18f2afa9" kind="function"><name>identify_contours_at_heights</name></member>
-    <member refid="contour__gen_8hpp_1ad105c0288510985a0797038ec98717d1" kind="function"><name>generate_contours_at_heights</name></member>
-    <member refid="contour__gen_8hpp_1ab2c055388084b88e801262ae4451a1cf" kind="function"><name>generate_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1a6c885c83823babd7eb5113938d9ade76" kind="function"><name>identify_contours</name></member>
+    <member refid="contour__gen_8hpp_1a4db816ec15e36bf3efe564f50a484149" kind="function"><name>identify_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1a2907cef01cf612d40970fb452ec5ebc4" kind="function"><name>identify_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1af5add2515b16a46bb2efa403f11863de" kind="function"><name>generate_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1a402d14491fd4206e64a725d11b0ba73d" kind="function"><name>generate_contours_at_heights</name></member>
     <member refid="contour__gen_8hpp_1aff55b99839c9a6be2a2a82ef45ecefef" kind="function"><name>join_contours</name></member>
     <member refid="contour__gen_8hpp_1a75ecdffc244aed4700e7d514ae370199" kind="function"><name>trim_contours</name></member>
-    <member refid="contour__gen_8hpp_1a95822cfa391fa1f3fcf85c3c863b8b33" kind="function"><name>generate_contours</name></member>
+    <member refid="contour__gen_8hpp_1a03fb3f4c737c95e3bad4b67b3e760f89" kind="function"><name>generate_contours</name></member>
     <member refid="contour__gen_8hpp_1acd8507a5c7960bbb8ff608c78e855993" kind="function"><name>generate_naive_contours</name></member>
   </compound>
   <compound refid="test__contour__gen_8cpp" kind="file"><name>test_contour_gen.cpp</name>
@@ -2002,8 +2043,8 @@
     <member refid="test__contour__utils_8cpp_1a50f12fb4b18bea658495e6807c4bdb8a" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="crt_8hpp" kind="file"><name>crt.hpp</name>
-    <member refid="crt_8hpp_1a0c21906309ae3c572830b6e91316fd8e" kind="function"><name>write_to_crt</name></member>
-    <member refid="crt_8hpp_1ab939ea068b9ae4775ab71d576b6e0243" kind="function"><name>write_vegetation_crt</name></member>
+    <member refid="crt_8hpp_1adfb9e68eb1ca68d4316e7229f1be202c" kind="function"><name>write_to_crt</name></member>
+    <member refid="crt_8hpp_1aaaab63ba75e38703f90f24ce1d58a3ea" kind="function"><name>write_vegetation_crt</name></member>
   </compound>
   <compound refid="polygon_8hpp" kind="file"><name>polygon.hpp</name>
     <member refid="polygon_8hpp_1ae67418eebf54c6493b999aea629b25d6" kind="function"><name>signed_area</name></member>
@@ -2069,6 +2110,10 @@
   </compound>
   <compound refid="forward__grid_8hpp" kind="file"><name>forward_grid.hpp</name>
     <member refid="forward__grid_8hpp_1a8b4c026d2d7ea26001f8f0cafb50c643" kind="typedef"><name>GeoGrid</name></member>
+    <member refid="forward__grid_8hpp_1ae227542ea089cbaf01ee0e65f26fec10" kind="typedef"><name>GeoImgGrid</name></member>
+    <member refid="forward__grid_8hpp_1a935591689e33a994f1536b18ed9ce6f4" kind="typedef"><name>GeoFlexGrid</name></member>
+    <member refid="forward__grid_8hpp_1a4254061d07e4bdc0b616612bbe25be7b" kind="function"><name>num_cells_by_distance</name></member>
+    <member refid="forward__grid_8hpp_1ab0324ff273d55dadb7ef56bf2341397f" kind="function"><name>interpolate_value</name></member>
   </compound>
   <compound refid="grid_8cpp" kind="file"><name>grid.cpp</name>
     <member refid="grid_8cpp_1a6ca0dcd69d427f92bcdf0f4ee92aa6da" kind="function"><name>same_type_different_size</name></member>
@@ -2077,8 +2122,6 @@
     <member refid="grid_8cpp_1af2b7f5a8c4e1aca1e2e84a411306e236" kind="function"><name>interpolate_value</name></member>
   </compound>
   <compound refid="grid_8hpp" kind="file"><name>grid.hpp</name>
-    <member refid="grid_8hpp_1a8b4c026d2d7ea26001f8f0cafb50c643" kind="typedef"><name>GeoGrid</name></member>
-    <member refid="grid_8hpp_1ae3f928a7b2cc379d4ca9d8b7411c9cf3" kind="typedef"><name>GeoFlexGrid</name></member>
     <member refid="grid_8hpp_1afc3ed3806da9601a531d2b250c65aaec" kind="variable"><name>IS_SPECIALIZATION_V</name></member>
     <member refid="grid_8hpp_1a4254061d07e4bdc0b616612bbe25be7b" kind="function"><name>num_cells_by_distance</name></member>
     <member refid="grid_8hpp_1ab0324ff273d55dadb7ef56bf2341397f" kind="function"><name>interpolate_value</name></member>
@@ -2089,18 +2132,15 @@
     <member refid="grid__ops_8hpp_1a0ebc441eb680c6faa28abc20d29cf371a4ea6d1161ea24d7599365f574aff6610" kind="enumvalue"><name>MEAN</name></member>
     <member refid="grid__ops_8hpp_1a0ebc441eb680c6faa28abc20d29cf371a8ab0c3a037e882577dec378985477074" kind="enumvalue"><name>MEDIAN</name></member>
     <member refid="grid__ops_8hpp_1a26e7806231a3cf87ecfb81975ba58d85" kind="function"><name>downsample</name></member>
-    <member refid="grid__ops_8hpp_1afc0f7cb2e0d1e880c492c448e71c274a" kind="function"><name>remove_outliers</name></member>
+    <member refid="grid__ops_8hpp_1a41606b928d452c2f5a818d452e33c96c" kind="function"><name>remove_outliers</name></member>
     <member refid="grid__ops_8hpp_1a6455af79550120f5019efc362c8261e2" kind="function"><name>has_value</name></member>
-    <member refid="grid__ops_8hpp_1abca5f983ad3c1452df7a2b0cc2a9d3dc" kind="function"><name>interpolate_holes</name></member>
-    <member refid="grid__ops_8hpp_1af28fb7802341bbfe703ff34252e75b96" kind="function"><name>bool_grid</name></member>
-  </compound>
-  <compound refid="image_8cpp" kind="file"><name>image.cpp</name>
-  </compound>
-  <compound refid="image_8hpp" kind="file"><name>image.hpp</name>
-  </compound>
-  <compound refid="img__grid_8cpp" kind="file"><name>img_grid.cpp</name>
+    <member refid="grid__ops_8hpp_1a4ca45bbd35d1352852651277c4d91bf7" kind="function"><name>interpolate_holes</name></member>
+    <member refid="grid__ops_8hpp_1af9846f96746dc0e00b88d30ed1b18981" kind="function"><name>bool_grid</name></member>
   </compound>
   <compound refid="img__grid_8hpp" kind="file"><name>img_grid.hpp</name>
+    <member refid="img__grid_8hpp_1af2fc6e3b50e59c3c55a390e3f99f260a" kind="function"><name>draw_geo_polyline</name></member>
+  </compound>
+  <compound refid="raster_8hpp" kind="file"><name>raster.hpp</name>
   </compound>
   <compound refid="test__grid_8cpp" kind="file"><name>test_grid.cpp</name>
     <member refid="test__grid_8cpp_1a8b296cbc345f26001714afe44a5211ba" kind="function"><name>coord</name></member>
@@ -2139,20 +2179,19 @@
     <member refid="test__grid__ops_8cpp_1adeeff98cab8cd6c2ea092d0f42f58d42" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__image_8cpp" kind="file"><name>test_image.cpp</name>
-    <member refid="test__image_8cpp_1a5e94436d863e6ca6827d4ee4a4f4e98f" kind="function"><name>TEST</name></member>
-    <member refid="test__image_8cpp_1ab7066526fdf2e7bd3fb0271d59806ec5" kind="function"><name>TEST</name></member>
-    <member refid="test__image_8cpp_1aef49bd30814533b09913822bfa336b36" kind="function"><name>TEST</name></member>
-    <member refid="test__image_8cpp_1afc047ff4556f6c0f9dc66c89b660de2d" kind="function"><name>TEST</name></member>
-    <member refid="test__image_8cpp_1af0d806edfb17253abf72e6300bc189d2" kind="function"><name>TEST</name></member>
-    <member refid="test__image_8cpp_1ad92d012ca9cec89973ea5fdee41dd7e8" kind="function"><name>TEST</name></member>
-    <member refid="test__image_8cpp_1aa187fd76f7160e215940bbe5937f0781" kind="function"><name>TEST</name></member>
-    <member refid="test__image_8cpp_1a15f74807a5c99dcb8170cfc9d6697313" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1aaa8a2fee2bb8a71b662a9602d95ff5de" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1a75e07b54aa8848f637f8f50396109390" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1add6c44540030ca05959422010b217a72" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1a86033e8f4a517d872b862ccb2556afec" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1ac6b0b7a3ba9e17c86abeef0a40695d5d" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1a21c07d5442688300743b034c94a7a64f" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1afc7afbb5495f06b4ca85d77c064d2705" kind="function"><name>TEST</name></member>
+    <member refid="test__image_8cpp_1a82e0f31268fb4b8df429269758f7c1f6" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__img__grid_8cpp" kind="file"><name>test_img_grid.cpp</name>
-    <member refid="test__img__grid_8cpp_1a23f23d70f845df47c9b03622fd1eee68" kind="function"><name>TEST</name></member>
-    <member refid="test__img__grid_8cpp_1a6edd70fed1c46b575a24ed6dd0207b45" kind="function"><name>TEST</name></member>
-    <member refid="test__img__grid_8cpp_1a68231561ccc2233b7d6863bfd272cf8c" kind="function"><name>TEST</name></member>
-    <member refid="test__img__grid_8cpp_1aa7004861c599af7c93a85a87596852c4" kind="function"><name>TEST</name></member>
+    <member refid="test__img__grid_8cpp_1adb4c1571da3cbf8ae3193d61a5b63020" kind="function"><name>TEST</name></member>
+    <member refid="test__img__grid_8cpp_1a817a88a4154720e8eb6dba50ef34ad22" kind="function"><name>TEST</name></member>
+    <member refid="test__img__grid_8cpp_1aeaa92893bb6c743222f9814a2231e1d1" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="crs_8hpp" kind="file"><name>crs.hpp</name>
     <member refid="crs_8hpp_1a7ce8e5c93c885ef54a0ef521f638716b" kind="function"><name>normalize_crs_wkt</name></member>
@@ -2171,13 +2210,13 @@
     <member refid="gdal__init_8hpp_1a1223f04756c53e7e6bbe816c6b4d37ad" kind="function"><name>ensure_gdal_initialized</name></member>
   </compound>
   <compound refid="gpkg_8hpp" kind="file"><name>gpkg.hpp</name>
-    <member refid="gpkg_8hpp_1a5cdadff99c6e57d5509048976414d54b" kind="function"><name>read_gpkg</name></member>
+    <member refid="gpkg_8hpp_1a799a72ce529450036ca469e7685b9f78" kind="function"><name>read_gpkg</name></member>
     <member refid="gpkg_8hpp_1a6f8dd93549b430668286e7aea4b63a40" kind="function"><name>ensure_dst_layer_fields</name></member>
     <member refid="gpkg_8hpp_1a2049c21b965e7fd015eb6a1a7bd66cac" kind="function"><name>get_or_create_dst_layer</name></member>
     <member refid="gpkg_8hpp_1a5d11646e590e42508e2b72a94ab51d60" kind="function"><name>copy_gpkg_feature</name></member>
     <member refid="gpkg_8hpp_1a18a47085b2126ad1f2b95985c795d0a5" kind="function"><name>copy_gpkg_layer</name></member>
     <member refid="gpkg_8hpp_1a460746da13a9755888a5edb394781c89" kind="function"><name>gpkg_feature_count</name></member>
-    <member refid="gpkg_8hpp_1aa51368d1e4bb22e8d792bdfb1b5564c6" kind="function"><name>combine_gpkgs</name></member>
+    <member refid="gpkg_8hpp_1aec1a1c217632a8be75797ee0b333f7f9" kind="function"><name>combine_gpkgs</name></member>
   </compound>
   <compound refid="test__gpkg_8cpp" kind="file"><name>test_gpkg.cpp</name>
     <member refid="test__gpkg_8cpp_1a5b91b14c28af9dc4c443081c3f1a52f7" kind="function"><name>TEST</name></member>
@@ -2239,6 +2278,7 @@
     <member refid="las__file_8hpp_1a7e62b55fe47b25e6f18e0363821ea3b0" kind="function"><name>round</name></member>
     <member refid="las__file_8hpp_1a98fba4d892d55dbc01f7a4dcd2ea7d08" kind="function"><name>average</name></member>
     <member refid="las__file_8hpp_1aae5e229f5f7ff45aba2808542eebd764" kind="function"><name>unique_coord_name</name></member>
+    <member refid="las__file_8hpp_1a4f9275bdde25381d66dbd2f2e2a65100" kind="function"><name>interval_point_count</name></member>
     <member refid="las__file_8hpp_1ac94bb1a2c57d5b9fa1dab16134f23fb0" kind="function"><name>copy_from</name></member>
     <member refid="las__file_8hpp_1a3ad5a186a8e43105a720762d71c95b30" kind="function"><name>copy_from</name></member>
     <member refid="las__file_8hpp_1acdd335e3d49ea5742d6efcbc96583cd2" kind="function"><name>copy_from</name></member>
@@ -2247,7 +2287,7 @@
     <member refid="las__file_8hpp_1a9d9230a261d0354a6c2c8ce495859e00" kind="function"><name>as_extent3d</name></member>
     <member refid="las__file_8hpp_1abb45162178b50fec35cc43e6dacd1cb9" kind="function"><name>reader_embedded_wkt</name></member>
     <member refid="las__file_8hpp_1a26227b3f699716802e90ab01daaf28ea" kind="function"><name>reader_horizontal_wkt</name></member>
-    <member refid="las__file_8hpp_1a257d688d34a664586e7e73dd89434273" kind="function"><name>extract_borders</name></member>
+    <member refid="las__file_8hpp_1aa9d4ca3fd8e92f682ea1874956199478" kind="function"><name>extract_borders</name></member>
   </compound>
   <compound refid="las__point_8hpp" kind="file"><name>las_point.hpp</name>
     <member refid="las__point_8hpp_1a2a346cef56ee6b9e631704b04cd96438" kind="enum"><name>LASClassification</name></member>
@@ -2292,6 +2332,7 @@
     <member refid="test__las__file_8cpp_1afce90d8283a1a7c95417a359c4dd5390" kind="function"><name>TEST</name></member>
     <member refid="test__las__file_8cpp_1a8839bafc8071bfb1c4523970039fa415" kind="function"><name>TEST</name></member>
     <member refid="test__las__file_8cpp_1a6f68e63c9bc3fac911a73445ef9603df" kind="function"><name>TEST</name></member>
+    <member refid="test__las__file_8cpp_1a342292898b0833bc8f876c381982c372" kind="function"><name>TEST</name></member>
     <member refid="test__las__file_8cpp_1af8c7db0e064532b7e19e3c6be46797c4" kind="function"><name>TEST</name></member>
     <member refid="test__las__file_8cpp_1adcb207edbf73de666dcfd868de02a4fb" kind="function"><name>TEST</name></member>
     <member refid="test__las__file_8cpp_1a086d579508b145e0fa67e22976d8a81d" kind="function"><name>TEST</name></member>
@@ -2313,12 +2354,12 @@
     <member refid="tile__mode_8hpp_1a2931499c5f171a4285c22265686d4155" kind="function"><name>reproject_extent</name></member>
     <member refid="tile__mode_8hpp_1a8f63d4e5e4d73c628dafb9c948a7f92c" kind="function"><name>detect_tile_mode_needed</name></member>
     <member refid="tile__mode_8hpp_1a67d8fd439ebbb8c5aaf824a9d9cfebb7" kind="function"><name>analyze_extents</name></member>
-    <member refid="tile__mode_8hpp_1ade253f33a28f35ef38e77fcc5624da50" kind="function"><name>load_input_extents</name></member>
+    <member refid="tile__mode_8hpp_1a0607f0c93d9d94b6b4af42f46b1fcb97" kind="function"><name>load_input_extents</name></member>
     <member refid="tile__mode_8hpp_1a940df066135697bd65e7fafc71900a3e" kind="function"><name>union_extent</name></member>
     <member refid="tile__mode_8hpp_1a499bcdac603130ad171ab5934f622f3e" kind="function"><name>snap_down</name></member>
     <member refid="tile__mode_8hpp_1a5a8c81f03c38f2c63ee0f5d08d4c5299" kind="function"><name>snap_up</name></member>
     <member refid="tile__mode_8hpp_1ac708e7c2f198ce9e1cd11b5bd9a0a496" kind="function"><name>tiles_per_file</name></member>
-    <member refid="tile__mode_8hpp_1a244996058d21964527ba2aa1b4093337" kind="function"><name>read_tile_from_inputs</name></member>
+    <member refid="tile__mode_8hpp_1a327a0d8aff7375c76cdd6d0c79d81c43" kind="function"><name>read_tile_from_inputs</name></member>
     <member refid="tile__mode_8hpp_1a7951cfe847f77be6dc533c0faba00086" kind="function"><name>compute_tiles</name></member>
   </compound>
   <compound refid="polyline_8hpp" kind="file"><name>polyline.hpp</name>
@@ -2338,29 +2379,30 @@
   <compound refid="tif_8cpp" kind="file"><name>tif.cpp</name>
     <member refid="tif_8cpp_1aab4b69b4601770fa1d5b5f05c5c8b409" kind="variable"><name>IS_STD_OPTIONAL_V</name></member>
     <member refid="tif_8cpp_1ac35493114df6e6e4839714befb4b667a" kind="function"><name>gdal_type</name></member>
-    <member refid="tif_8cpp_1ae75f5809f7a9f8b9c6395a4c6c143f68" kind="function"><name>read_tif</name></member>
-    <member refid="tif_8cpp_1ad435ae5ff08253cdaf53341452b1ea98" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a46d23bc5cb979061dd4f7becf401f5a9" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a300b2383b0309d9cda847bae41499a22" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a617881d9257f752dd34064d34779b266" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a510db6c236e62865228975553dc28359" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a65b864141ba04fa9fbfb69265a3ff4e9" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1ab6efffd5a70677b2a9ef86c42f7afa02" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1afeffc39e512b3b434585d3240228510b" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a880a7b66a7aa8bf2db83596d9ba4d9ff" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a2ad621aa7c6bffddc00042324384cbd3" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1afb6c1d65829a86fee85b86de513cc306" kind="function"><name>write_to_image_tif</name></member>
-    <member refid="tif_8cpp_1a0ddf12a5fca97e394adbf3fb2e644473" kind="function"><name>write_to_image_tif</name></member>
+    <member refid="tif_8cpp_1a00c90748b40e5dcc9cfe288437fada51" kind="function"><name>read_tif</name></member>
+    <member refid="tif_8cpp_1a4f3d35e24eff22ac4acc5cedbdc99082" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a1a4b9717618dd878985c8fd3c3c83b60" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1acb2f92eef8824f258f3f87ad69e6a393" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a6f94c401a03e509b884c0067df0e922f" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a9f3359cdc3ccb20ebc61af5477ba53ed" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a4391669b472de401a1d5119ba445602d" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a330afac81ad4cad927f2adf17b6e592d" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a0c2a836ec3ec6f143c984d197d0b0ecd" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1ad66f70fd751bbc5b613d72b27cebe3fb" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a4bd72654f70cab32aff3161604541fbe" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8cpp_1a98ff02f5cad9b2d01b92c6e10daeee7b" kind="function"><name>write_to_image_tif</name></member>
+    <member refid="tif_8cpp_1aad5868783485f167ee81506a392e188a" kind="function"><name>write_to_image_tif</name></member>
   </compound>
   <compound refid="tif_8hpp" kind="file"><name>tif.hpp</name>
-    <member refid="tif_8hpp_1af7bb1daa99c8ffaa16c90e18cc98b93b" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8hpp_1a30b383dd55a7b390dd6e6a7fec317de8" kind="function"><name>read_tif</name></member>
-    <member refid="tif_8hpp_1a05d36c7305350990048fd73b285a0515" kind="function"><name>write_to_image_tif</name></member>
+    <member refid="tif_8hpp_1a1635cf53efaa02c215269cc873096344" kind="function"><name>write_to_tif</name></member>
+    <member refid="tif_8hpp_1a00c90748b40e5dcc9cfe288437fada51" kind="function"><name>read_tif</name></member>
+    <member refid="tif_8hpp_1abc0fb800e714447c2266ee10db4af2f3" kind="function"><name>write_to_image_tif</name></member>
   </compound>
   <compound refid="coordinate_8hpp" kind="file"><name>coordinate.hpp</name>
     <member refid="coordinate_8hpp_1aa440e390dd684dd56af9365f469eeab4" kind="variable"><name>ORTHOGONAL_DIRECTIONS</name></member>
     <member refid="coordinate_8hpp_1a9e23e5387e57b9891ab8824a97bf426b" kind="variable"><name>ALL_DIRECTIONS</name></member>
     <member refid="coordinate_8hpp_1a94a6436eabe7ede79dff5ee0d57ae330" kind="function"><name>orthogonal_neighbors</name></member>
+    <member refid="coordinate_8hpp_1a64775a7bc388170c98998bfcd47d820d" kind="function"><name>estimate_points_in_extent</name></member>
   </compound>
   <compound refid="testing_2env_8hpp" kind="file"><name>env.hpp</name>
   </compound>
@@ -2368,19 +2410,33 @@
   </compound>
   <compound refid="filesystem_8hpp" kind="file"><name>filesystem.hpp</name>
   </compound>
+  <compound refid="memory__tracker_8cpp" kind="file"><name>memory_tracker.cpp</name>
+  </compound>
+  <compound refid="memory__tracker_8hpp" kind="file"><name>memory_tracker.hpp</name>
+  </compound>
   <compound refid="progress__tracker_8cpp" kind="file"><name>progress_tracker.cpp</name>
   </compound>
   <compound refid="progress__tracker_8hpp" kind="file"><name>progress_tracker.hpp</name>
-    <member refid="progress__tracker_8hpp_1afb1637a522997a6b5649932f9f8dffa6" kind="function"><name>run_loop</name></member>
+    <member refid="progress__tracker_8hpp_1a8763ef950aada358f95ed2de55caebca" kind="define"><name>SUBTRACKER_GET</name></member>
+    <member refid="progress__tracker_8hpp_1a05deedf8787c49fb6ce738524aac0df2" kind="define"><name>SUBTRACKER</name></member>
+    <member refid="progress__tracker_8hpp_1a17f1b7067c8a3acb73e4aa308120bd3d" kind="define"><name>SUBTRACKER_2</name></member>
+    <member refid="progress__tracker_8hpp_1a817ef31edc09c44159638573a4c63df6" kind="define"><name>SUBTRACKER_3</name></member>
+    <member refid="progress__tracker_8hpp_1a99363c9215b95f2d347587284b7d295d" kind="define"><name>SUBTRACKER_HIDDEN</name></member>
+    <member refid="progress__tracker_8hpp_1ae086ea7490026bdbaff121dbbd52292c" kind="define"><name>SUBTRACKER_HIDDEN_2</name></member>
+    <member refid="progress__tracker_8hpp_1aece5cf71338dae559ce4cbbc700f3de2" kind="define"><name>SUBTRACKER_HIDDEN_3</name></member>
+    <member refid="progress__tracker_8hpp_1a3efdfc5e7c772d6813d13100a29597cd" kind="define"><name>SUBTRACKER_VISIBLE</name></member>
+    <member refid="progress__tracker_8hpp_1a93d53201bd3065aa2170f366a0248f67" kind="define"><name>SUBTRACKER_VISIBLE_2</name></member>
+    <member refid="progress__tracker_8hpp_1a118f3a96a9ed8908cef76e44b69f437a" kind="define"><name>SUBTRACKER_VISIBLE_3</name></member>
+    <member refid="progress__tracker_8hpp_1ac710ce6fb4f2b171940b60c749d57e05" kind="define"><name>START_TRACKER_GET</name></member>
+    <member refid="progress__tracker_8hpp_1a7a26856eb17ae089bedd76fa6f00989b" kind="define"><name>START_TRACKER</name></member>
+    <member refid="progress__tracker_8hpp_1aa5a95e5f8b7d1a8257d872a970f7f5cf" kind="define"><name>START_TRACKER_1</name></member>
+    <member refid="progress__tracker_8hpp_1a38fb9e9e99bda00cf633a5ae49bba00d" kind="define"><name>START_TRACKER_2</name></member>
   </compound>
   <compound refid="resources_8cpp" kind="file"><name>resources.cpp</name>
     <member refid="resources_8cpp_1ab80afb80b9ab9833ab7533bed3b9f547" kind="function"><name>get_asset_dir</name></member>
     <member refid="resources_8cpp_1ad0b38c0498b12e337bae767cd38fb126" kind="function"><name>get_local_data_dir</name></member>
   </compound>
   <compound refid="resources_8hpp" kind="file"><name>resources.hpp</name>
-  </compound>
-  <compound refid="progress__tracker__helper_8cpp" kind="file"><name>progress_tracker_helper.cpp</name>
-    <member refid="progress__tracker__helper_8cpp_1afb1637a522997a6b5649932f9f8dffa6" kind="function"><name>run_loop</name></member>
   </compound>
   <compound refid="test__coordinate_8cpp" kind="file"><name>test_coordinate.cpp</name>
     <member refid="test__coordinate_8cpp_1a9b764091c13072f3cc78669d6cc25089" kind="function"><name>TEST</name></member>
@@ -2421,9 +2477,32 @@
     <member refid="test__progress__tracker_8cpp_1a3b34316f612c7555936f68e73666b337" kind="function"><name>TEST</name></member>
     <member refid="test__progress__tracker_8cpp_1a29c0c7e2207c67c6b7f28f43cb383774" kind="function"><name>TEST</name></member>
     <member refid="test__progress__tracker_8cpp_1a0f1d9df302ba7c0df7f6cef8f1191d39" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1ad50c8b5c4a410d6c658c1e0243536e0c" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1abae69b070fe2869c7c1e065206b9c50c" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1aa5adbfe1d42316bfa99ed47042c1c2fd" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1a14af3839e32aee48052bb28aecc59df0" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1ae32a9745158cc99e2e1d55d58c0f1fb2" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1abd61a64dc49d6e4c81f7db954ef398d1" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1a7a025f1c273006d6f9e7c865a7e484e3" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1aee32dbc3b55e2f289faafa2df99c5bb3" kind="function"><name>TEST</name></member>
+    <member refid="test__progress__tracker_8cpp_1abb126a821f4b675fabfa120368f2a2cb" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="timer_8hpp" kind="file"><name>timer.hpp</name>
     <member refid="timer_8hpp_1a10a0133cc00e8f784577f7a8243cf624" kind="function"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="trace__recorder_8cpp" kind="file"><name>trace_recorder.cpp</name>
+    <member refid="trace__recorder_8cpp_1a3b1f2279c0e3aeaab665707b1d2c1955" kind="variable"><name>scope_id</name></member>
+    <member refid="trace__recorder_8cpp_1a9b45b3e13bd9167aab02e17e08916231" kind="variable"><name>name</name></member>
+    <member refid="trace__recorder_8cpp_1aefc35c7944eed319c89bc1b399f0eb67" kind="variable"><name>file</name></member>
+    <member refid="trace__recorder_8cpp_1a41ebd28ef1d7c6ade45642cb6acc1039" kind="variable"><name>line</name></member>
+    <member refid="trace__recorder_8cpp_1adf44acd4aa201051e648ac3c09c2e20f" kind="variable"><name>function</name></member>
+    <member refid="trace__recorder_8cpp_1a4696fffa38280a691382588708a57083" kind="variable"><name>call_file</name></member>
+    <member refid="trace__recorder_8cpp_1a8c68960b10ec237b38284484fd79ad8a" kind="variable"><name>call_line</name></member>
+    <member refid="trace__recorder_8cpp_1aee14146a86692c1df1c260195d35a75a" kind="variable"><name>call_function</name></member>
+  </compound>
+  <compound refid="trace__recorder_8hpp" kind="file"><name>trace_recorder.hpp</name>
+  </compound>
+  <compound refid="tracked__allocator_8hpp" kind="file"><name>tracked_allocator.hpp</name>
   </compound>
   <compound refid="test__vegetation_8cpp" kind="file"><name>test_vegetation.cpp</name>
     <member refid="test__vegetation_8cpp_1a92e659bc568fb0a3b4153932535982e1" kind="function"><name>TEST</name></member>
@@ -2465,9 +2544,9 @@
     <member refid="test__vegetation__polygon_8cpp_1ad3be4a3683af3385b27058ffa2f40e23" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="vegetation_8hpp" kind="file"><name>vegetation.hpp</name>
-    <member refid="vegetation_8hpp_1a97d1cb3bcf3f4eaa90256b1653549e5a" kind="function"><name>get_blocked_proportion</name></member>
-    <member refid="vegetation_8hpp_1a0b599b24a92a1f8747256712ef7c2ed7" kind="function"><name>low_pass</name></member>
-    <member refid="vegetation_8hpp_1a2668b2257d87ecc10fea4f334d92ff3d" kind="function"><name>low_pass</name></member>
+    <member refid="vegetation_8hpp_1a666e5a5203dbfef58bfed4ac2a306a7e" kind="function"><name>get_blocked_proportion</name></member>
+    <member refid="vegetation_8hpp_1a535fff2471b67c40267a8df32e9f00d9" kind="function"><name>low_pass</name></member>
+    <member refid="vegetation_8hpp_1ad21c249e4a899e3bacd1b5b51c86e9e4" kind="function"><name>low_pass</name></member>
   </compound>
   <compound refid="vegetation__polygon_8hpp" kind="file"><name>vegetation_polygon.hpp</name>
     <member refid="vegetation__polygon_8hpp_1adc73e2d0787ef3baaa7c319a5966268b" kind="function"><name>threshold_layer_name</name></member>
@@ -2475,21 +2554,22 @@
     <member refid="vegetation__polygon_8hpp_1a51a37fb467dc19e15a3fdc508af1870d" kind="function"><name>layer_number</name></member>
     <member refid="vegetation__polygon_8hpp_1abad18ca419a3ce142aa9cc07c7e60e36" kind="function"><name>subtract_from_polygon</name></member>
     <member refid="vegetation__polygon_8hpp_1a787bf27faa7b08ed11a5b2f2a77adff2" kind="function"><name>subtract_from_polygon</name></member>
-    <member refid="vegetation__polygon_8hpp_1a61e6fb651e5e2bd4413b7e7f6ee0e7c1" kind="function"><name>trim_vege_polygons_to_extent</name></member>
-    <member refid="vegetation__polygon_8hpp_1ae49e15214d580d59bd2cc44933a2162d" kind="function"><name>write_vege_polygons_gpkg</name></member>
-    <member refid="vegetation__polygon_8hpp_1a06137832cfe5103861bda6fd742267ea" kind="function"><name>filter_small_holes</name></member>
+    <member refid="vegetation__polygon_8hpp_1adcee8d1c7777d5ddc585dd9dd40f067b" kind="function"><name>trim_vege_polygons_to_extent</name></member>
+    <member refid="vegetation__polygon_8hpp_1aed9a218a5a0c943ce09ddbf67abd69f9" kind="function"><name>write_vege_polygons_gpkg</name></member>
+    <member refid="vegetation__polygon_8hpp_1af2ef32f600db4e05bda2fd6c9f3707df" kind="function"><name>filter_small_holes</name></member>
     <member refid="vegetation__polygon_8hpp_1a94c7260f84abad768bf65ac3649d3233" kind="function"><name>polygon_net_area_m2</name></member>
-    <member refid="vegetation__polygon_8hpp_1a458d9b5688443edb939130eda79d9235" kind="function"><name>filter_by_min_area</name></member>
+    <member refid="vegetation__polygon_8hpp_1a4e5409a267f61ac9db7d65fbaac1f178" kind="function"><name>filter_by_min_area</name></member>
     <member refid="vegetation__polygon_8hpp_1a84b6a5c003f29afb124c49a2e18c743a" kind="function"><name>contours_to_polygons</name></member>
-    <member refid="vegetation__polygon_8hpp_1a1506b8bfea6f6ec973f38b565fcc66a6" kind="function"><name>generate_vege_polygons</name></member>
+    <member refid="vegetation__polygon_8hpp_1aba84ce4e0e0f224ba70d5697399d2dc9" kind="function"><name>cut_understory_from_forest</name></member>
+    <member refid="vegetation__polygon_8hpp_1a9358fad8973614fbeaecb12ab3864c82" kind="function"><name>generate_vege_polygons</name></member>
     <member refid="vegetation__polygon_8hpp_1a23f6d93f96dde6ffe949eaeaadcc8653" kind="function"><name>read_vege_polygons</name></member>
-    <member refid="vegetation__polygon_8hpp_1acd4ab67eab1f24c0a0d5c4ded3bd65ce" kind="function"><name>combine_vege_gpkgs</name></member>
+    <member refid="vegetation__polygon_8hpp_1ad40a84b5fbbe72c508c6fb72336f132a" kind="function"><name>combine_vege_gpkgs</name></member>
   </compound>
   <compound refid="hill__shade_8hpp" kind="file"><name>hill_shade.hpp</name>
     <member refid="hill__shade_8hpp_1a2b4f9c3a8b58ecc8e9a6cda26417ba00" kind="define"><name>DEG2RAD</name></member>
     <member refid="hill__shade_8hpp_1ac3644f84794a8bfdacf39c4b2c2495fc" kind="define"><name>SQ</name></member>
-    <member refid="hill__shade_8hpp_1a7882e6354e393633ca6f4818ceb12759" kind="function"><name>hill_shade</name></member>
-    <member refid="hill__shade_8hpp_1a3e9a000631b068a67ac26efbd18c1beb" kind="function"><name>slope</name></member>
+    <member refid="hill__shade_8hpp_1a48cf846ac77a11203b064dcb02e363c5" kind="function"><name>hill_shade</name></member>
+    <member refid="hill__shade_8hpp_1a8a049ce8f4bdc9229be39333962b6bd4" kind="function"><name>slope</name></member>
   </compound>
   <compound refid="test__water_8cpp" kind="file"><name>test_water.cpp</name>
     <member refid="test__water_8cpp_1ac6bc9e3024cd5af3bf1e9b35bdfc23ac" kind="function"><name>TEST</name></member>
@@ -2499,18 +2579,18 @@
   <compound refid="water_8cpp" kind="file"><name>water.cpp</name>
     <member refid="water_8cpp_1ac3644f84794a8bfdacf39c4b2c2495fc" kind="define"><name>SQ</name></member>
     <member refid="water_8cpp_1a0fc72388486619d7f993ace7fdf9023a" kind="function"><name>flows_to</name></member>
-    <member refid="water_8cpp_1a8c1d9ffc1d92e2e0bd68e8a35c1e6925" kind="function"><name>fill_depressions</name></member>
-    <member refid="water_8cpp_1a7e2697f297cf861bd5ddc71a7a7a51bb" kind="function"><name>identify_sinks</name></member>
-    <member refid="water_8cpp_1a8fd046b74dc650bb33313512170b0818" kind="function"><name>catchment_size</name></member>
-    <member refid="water_8cpp_1a700b14c108def57d22a9ad5865716a47" kind="function"><name>streams</name></member>
+    <member refid="water_8cpp_1a7b05ba9ed7bd6562577a4f4c90e81612" kind="function"><name>fill_depressions</name></member>
+    <member refid="water_8cpp_1a78704a1893a6cbfd6ce524fc4d5a974b" kind="function"><name>identify_sinks</name></member>
+    <member refid="water_8cpp_1a2e78182c6146d9eddcabf611872b3636" kind="function"><name>catchment_size</name></member>
+    <member refid="water_8cpp_1a0913535fb6ca21ca03fc6321fa0843ba" kind="function"><name>streams</name></member>
     <member refid="water_8cpp_1a85bbb6b5b19766ccffdd006b1c17aa2c" kind="function"><name>stream_path</name></member>
     <member refid="water_8cpp_1a75f1e33622425f51643974d00fc38c64" kind="function"><name>smoothify</name></member>
-    <member refid="water_8cpp_1a3498be43483c3fb8adc633226e6a27c2" kind="function"><name>stream_paths</name></member>
+    <member refid="water_8cpp_1ae91b46aa4395f8b02ba9df488c378192" kind="function"><name>stream_paths</name></member>
   </compound>
   <compound refid="water_8hpp" kind="file"><name>water.hpp</name>
-    <member refid="water_8hpp_1ab050214d1324495997c5bc2472558d4d" kind="function"><name>fill_depressions</name></member>
-    <member refid="water_8hpp_1adfe04454607b7475bfc6a4e87866ff92" kind="function"><name>identify_sinks</name></member>
-    <member refid="water_8hpp_1aaddd926674a49403f5ee7b2656458932" kind="function"><name>stream_paths</name></member>
+    <member refid="water_8hpp_1a12fcc8705565e34441aa0d2f577af126" kind="function"><name>fill_depressions</name></member>
+    <member refid="water_8hpp_1a829f01d46a6529d5474db9e3d666a0aa" kind="function"><name>identify_sinks</name></member>
+    <member refid="water_8hpp_1ad0b80dd5616f2e616ea4d442eac9e977" kind="function"><name>stream_paths</name></member>
   </compound>
   <compound refid="precompiled__headers_8hpp" kind="file"><name>precompiled_headers.hpp</name>
   </compound>
@@ -2522,18 +2602,18 @@
     <member refid="process_8cpp_1ad524c80bee9a4b821650ba067987dc7e" kind="function"><name>get_pixel_heights</name></member>
     <member refid="process_8cpp_1aa626f09fc2f6adff7f6dd05f1bf319d9" kind="function"><name>downsample_mask_any</name></member>
     <member refid="process_8cpp_1a6986896f5e801bfba373e4c10d8b6dee" kind="function"><name>adjust_ground_to_slope</name></member>
-    <member refid="process_8cpp_1a0368f25f7fa5c838dafd86b50325e5e1" kind="function"><name>process_las_file</name></member>
-    <member refid="process_8cpp_1a080cbff7aa1e3753860ecef27efc07e7" kind="function"><name>process_las_data</name></member>
+    <member refid="process_8cpp_1ac8fbc71585da93fa53dccfac7eba87df" kind="function"><name>process_las_file</name></member>
+    <member refid="process_8cpp_1ac3b0432cae522b8736f9b5546567b88b" kind="function"><name>process_las_data</name></member>
   </compound>
   <compound refid="process_8hpp" kind="file"><name>process.hpp</name>
-    <member refid="process_8hpp_1a04d3c7f7a5b77c8326a08c94fc5358b3" kind="function"><name>process_las_file</name></member>
-    <member refid="process_8hpp_1aeb0662915698e0171856cdc695cd6ab0" kind="function"><name>process_las_data</name></member>
+    <member refid="process_8hpp_1a62c06c7ad024157f32f83cba42c20da7" kind="function"><name>process_las_file</name></member>
+    <member refid="process_8hpp_1ac3b0432cae522b8736f9b5546567b88b" kind="function"><name>process_las_data</name></member>
   </compound>
   <compound refid="run_8cpp" kind="file"><name>run.cpp</name>
-    <member refid="run_8cpp_1a134d17bfd7d9c82d7f0da255a105d35d" kind="function"><name>run_with_config</name></member>
+    <member refid="run_8cpp_1a9a495d7793a0baa1555a91b0f9a0b238" kind="function"><name>run_with_config</name></member>
   </compound>
   <compound refid="run_8hpp" kind="file"><name>run.hpp</name>
-    <member refid="run_8hpp_1a134d17bfd7d9c82d7f0da255a105d35d" kind="function"><name>run_with_config</name></member>
+    <member refid="run_8hpp_1a92394895ffca719be7fa24e27b6a4a78" kind="function"><name>run_with_config</name></member>
   </compound>
   <compound refid="test__e2e_8cpp" kind="file"><name>test_e2e.cpp</name>
     <member refid="test__e2e_8cpp_1abe9db4d88bd59879ea2943fb141fff8f" kind="function"><name>get_wgs84_wkt</name></member>

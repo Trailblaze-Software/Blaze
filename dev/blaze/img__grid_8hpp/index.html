@@ -776,13 +776,41 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#classes" class="md-nav__link">
+  <a href="#public-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Classes
+        Public Functions
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-draw_geo_polyline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function draw_geo_polyline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -810,12 +838,18 @@
 <p><a href="../files/"><strong>FileList</strong></a> <strong>&gt;</strong> <a href="../dir_b440d1ddeab29faa8ab1c63476ee276f/"><strong>grid</strong></a> <strong>&gt;</strong> <a href="./"><strong>img_grid.hpp</strong></a></p>
 <p><a href="../img__grid_8hpp_source/">Go to the source code of this file</a></p>
 <ul>
+<li><code>#include &lt;cmath&gt;</code></li>
+<li><code>#include &lt;span&gt;</code></li>
+<li><code>#include &lt;stdexcept&gt;</code></li>
+<li><code>#include &lt;string&gt;</code></li>
+<li><code>#include "config_input/config_input.hpp"</code></li>
 <li><code>#include "contour/contour.hpp"</code></li>
-<li><code>#include "grid/image.hpp"</code></li>
-<li><code>#include "isom/colors.hpp"</code></li>
-<li><code>#include "utilities/coordinate.hpp"</code></li>
+<li><code>#include "grid/grid.hpp"</code></li>
+<li><code>#include "methods/water/water.hpp"</code></li>
+<li><code>#include "tif/tif.hpp"</code></li>
+<li><code>#include "utilities/progress_tracker.hpp"</code></li>
 </ul>
-<h2 id="classes">Classes</h2>
+<h2 id="public-functions">Public Functions</h2>
 <table>
 <thead>
 <tr>
@@ -825,15 +859,22 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classGeoImgGrid/"><strong>GeoImgGrid</strong></a> <br></td>
-</tr>
-<tr>
-<td style="text-align: right;">class</td>
-<td style="text-align: left;"><a href="../classImgGrid/"><strong>ImgGrid</strong></a> <br></td>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-draw_geo_polyline"><strong>draw_geo_polyline</strong></a> (<a href="../classGeo/"><strong>GeoImgGrid</strong></a> &amp; grid, std::span&lt; const <a href="../classCoordinate2D/"><strong>Coordinate2D</strong></a>&lt; double &gt; &gt; geo_points, const ColorVariant &amp; color, double width) <br></td>
 </tr>
 </tbody>
 </table>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-draw_geo_polyline">function draw_geo_polyline</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">draw_geo_polyline</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">GeoImgGrid</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate2D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">geo_points</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">ColorVariant</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">color</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">width</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <hr />
 <p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</code></p>
 

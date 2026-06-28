@@ -105,10 +105,10 @@
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classContourLayer_1a23434bda5424d00c1cd4e67193209a67" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classContourLayer_1a34e8ac3d0b60a6cc97060f3eafe10316" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>ContourLayer::ContourLayer</definition>
-        <argsstring>(const fs::path &amp;gpkg_path, AsyncProgressTracker progress_tracker, const std::string &amp;target_crs_wkt={})</argsstring>
+        <argsstring>(const fs::path &amp;gpkg_path, AsyncProgressTracker async_progress_tracker, const std::string &amp;target_crs_wkt={})</argsstring>
         <name>ContourLayer</name>
         <qualifiedname>ContourLayer::ContourLayer</qualifiedname>
         <param>
@@ -117,7 +117,7 @@
         </param>
         <param>
           <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
-          <declname>progress_tracker</declname>
+          <declname>async_progress_tracker</declname>
         </param>
         <param>
           <type>const std::string &amp;</type>
@@ -276,7 +276,7 @@
     </collaborationgraph>
     <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="287" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="287" bodyend="374"/>
     <listofallmembers>
-      <member refid="classContourLayer_1a23434bda5424d00c1cd4e67193209a67" prot="public" virt="non-virtual"><scope>ContourLayer</scope><name>ContourLayer</name></member>
+      <member refid="classContourLayer_1a34e8ac3d0b60a6cc97060f3eafe10316" prot="public" virt="non-virtual"><scope>ContourLayer</scope><name>ContourLayer</name></member>
       <member refid="classContourLayer_1a532f16247da29b87a50b767588830c28" prot="public" virt="non-virtual"><scope>ContourLayer</scope><name>contours</name></member>
       <member refid="classContourLayer_1ae724cf341b1d0517af1d11f1b856f20e" prot="public" virt="non-virtual"><scope>ContourLayer</scope><name>copy_contours</name></member>
       <member refid="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" virt="non-virtual"><scope>ContourLayer</scope><name>data_updated</name></member>

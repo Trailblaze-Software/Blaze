@@ -43,6 +43,9 @@ struct LASFileExtent {
   // Axis-aligned bounding box of the file's extent reprojected into the
   // chosen output CRS
   Extent2D bounds_reprojected;
+  // Header point count from the file; used to estimate subset sizes without
+  // reading points.
+  std::size_t point_count = 0;
 };
 
 // Reproject an axis-aligned Extent2D from src_wkt to dst_wkt
@@ -156,7 +159,8 @@ inline TileModeInfo analyze_extents(std::vector<LASFileExtent>& extents,
 inline std::vector<LASFileExtent> load_input_extents(const std::vector<fs::path>& files,
                                                      const std::string& override_crs,
                                                      std::string& output_crs_wkt,
-                                                     ProgressTracker progress) {
+                                                     ProgressTracker&& progress_tracker) {
+  START_TRACKER("loading input extents");
   std::vector<LASFileExtent> extents;
   extents.reserve(files.size());
 
@@ -164,23 +168,29 @@ inline std::vector<LASFileExtent> load_input_extents(const std::vector<fs::path>
 
   for (size_t i = 0; i < files.size(); i++) {
     const fs::path& f = files[i];
-    auto sub = progress.subtracker(static_cast<double>(i) / files.size(),
-                                   static_cast<double>(i + 1) / files.size());
+    progress_tracker.text_update(f.filename().string());
+    ProgressTracker file_tracker = SUBTRACKER(static_cast<double>(i) / files.size(),
+                                              static_cast<double>(i + 1) / files.size());
 
     LASFileExtent extent;
     extent.path = f;
     extent.override_crs = override_crs;
 
-    LASFile las_native(f, sub.subtracker(0.0, 0.5), "");
-    extent.native_wkt = las_native.projection().to_string();
-    extent.horizontal_wkt = override_wkt.empty() ? extent.native_wkt : override_wkt;
+    {
+      LASFile las_native(f, SUBTRACKER(0.0, 0.5, file_tracker), "");
+      extent.native_wkt = las_native.projection().to_string();
+      extent.horizontal_wkt = override_wkt.empty() ? extent.native_wkt : override_wkt;
+    }
 
     if (extent.native_wkt.empty() && override_wkt.empty())
       Fail("LAS file " + f.string() + " has no embedded CRS. Set 'override_crs' in the config.");
 
     // Read with override for the actual bounds (CRS metadata may differ).
-    LASFile las(f, sub.subtracker(0.5, 1.0), override_crs);
-    extent.bounds_native = las.bounds();
+    {
+      LASFile las(f, SUBTRACKER(0.5, 1.0, file_tracker), override_crs);
+      extent.bounds_native = las.bounds();
+      extent.point_count = las.header_point_count();
+    }
     extents.push_back(std::move(extent));
   }
 
@@ -247,7 +257,9 @@ inline std::vector<Tile> tiles_per_file(const std::vector<LASFileExtent>& extent
 // different CRS are reprojected on the fly.
 inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_width,
                                      const std::vector<LASFileExtent>& all_extents,
-                                     const std::string& output_crs_wkt, ProgressTracker progress) {
+                                     const std::string& output_crs_wkt,
+                                     ProgressTracker&& progress_tracker) {
+  START_TRACKER("reading tile inputs");
   Extent2D bordered_extent = tile_extent;
   bordered_extent.minx -= border_width;
   bordered_extent.maxx += border_width;
@@ -261,19 +273,26 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
     }
   }
 
-  LASData tile_data(tile_extent, GeoProjection(output_crs_wkt));
+  std::vector<blaze::memory_tracker::LasVector<LASPoint>> parts;
 
-  for (size_t i = 0; i < overlapping.size(); i++) {
+  const size_t overlapping_count = overlapping.size();
+  const double inputs_end = overlapping_count > 1 ? 0.9 : 1.0;
+
+  for (size_t i = 0; i < overlapping_count; i++) {
     const LASFileExtent& extent = *overlapping[i];
-    ProgressTracker sub = progress.subtracker(static_cast<double>(i) / overlapping.size(),
-                                              static_cast<double>(i + 1) / overlapping.size());
+    ProgressTracker sub =
+        progress_tracker.subtracker(static_cast<double>(i) / overlapping_count * inputs_end,
+                                    static_cast<double>(i + 1) / overlapping_count * inputs_end,
+                                    extent.path.filename().string());
+    START_TRACKER(sub, to_string("Reading tile input ", i + 1, "/", overlapping_count, ": ",
+                                 extent.path.filename().string()));
 
     const bool same_crs = wkt_matches(extent.native_wkt, output_crs_wkt);
     Extent2D filter_bounds =
         same_crs ? bordered_extent
                  : reproject_extent(bordered_extent, output_crs_wkt, extent.native_wkt);
 
-    LASData src(extent.path, sub.subtracker(0.0, 0.8), /*skip_reading_points=*/false,
+    LASData src(extent.path, SUBTRACKER(0.0, 0.8, sub), /*skip_reading_points=*/false,
                 /*bounds=*/filter_bounds);
 
     // Single file with matching CRS — already filtered by bounds during read.
@@ -290,18 +309,21 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
       clipped.miny = std::max(clipped.miny, b.miny);
       clipped.maxy = std::min(clipped.maxy, b.maxy);
       src.set_bounds(clipped, tile_extent);
-      progress.text_update(to_string("Tile read ", src.n_points(), " points from single file ",
-                                     extent.path.filename().string()));
+      progress_tracker.text_update(to_string("Tile read ", src.n_points(),
+                                             " points from single file ",
+                                             extent.path.filename().string()));
       return src;
     }
 
-    size_t kept = 0;
+    blaze::memory_tracker::LasVector<LASPoint> file_points;
 
     if (same_crs) {
-      tile_data.insert(src.points());
-      kept = src.n_points();
+      file_points = src.take_points();
     } else {
-      sub.text_update(to_string("Reprojecting points from ", extent.path.filename().string()));
+      ProgressTracker reproject_tracker = SUBTRACKER(0.85, 0.95, sub);
+      START_TRACKER(reproject_tracker,
+                    to_string("Reprojecting points from ", extent.path.filename().string()));
+      file_points.reserve(src.n_points());
       auto ct = make_coord_transform(extent.native_wkt, output_crs_wkt);
       for (const LASPoint& pt : src) {
         double x = pt.x(), y = pt.y(), z = pt.z();
@@ -312,13 +334,40 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
             continue;
         }
         if (!bordered_extent.contains(x, y)) continue;
-        tile_data.insert(LASPoint(x, y, z, pt.intensity(), pt.classification()));
-        kept++;
+        file_points.emplace_back(x, y, z, pt.intensity(), pt.classification());
       }
     }
-    sub.text_update(
-        to_string("Tile read ", kept, " points from ", extent.path.filename().string()));
+
+    sub.text_update(to_string("Tile read ", file_points.size(), " points from ",
+                              extent.path.filename().string()));
+    if (!file_points.empty()) {
+      parts.push_back(std::move(file_points));
+    }
   }
+
+  std::size_t total_points = 0;
+  for (const blaze::memory_tracker::LasVector<LASPoint>& part : parts) {
+    total_points += part.size();
+  }
+
+  blaze::memory_tracker::LasVector<LASPoint> merged;
+  merged.reserve(total_points);
+  if (!parts.empty()) {
+    ProgressTracker merge_tracker =
+        progress_tracker.subtracker(inputs_end, 1.0, "merge tile inputs");
+    START_TRACKER(merge_tracker, "merging tile inputs");
+    for (size_t p = 0; p < parts.size(); p++) {
+      merged.insert(merged.end(), std::make_move_iterator(parts[p].begin()),
+                    std::make_move_iterator(parts[p].end()));
+      parts[p].clear();
+      parts[p].shrink_to_fit();
+      merge_tracker.set_proportion(static_cast<double>(p + 1) / parts.size());
+    }
+  }
+  parts.clear();
+
+  LASData tile_data(tile_extent, GeoProjection(output_crs_wkt));
+  tile_data.adopt_points(std::move(merged));
   tile_data.set_bounds(bordered_extent, tile_extent);
   return tile_data;
 }

@@ -14,6 +14,7 @@
 * `#include "grid/grid.hpp"`
 * `#include "grid/img_grid.hpp"`
 * `#include "isom/colors.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 
 
 
@@ -55,10 +56,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeoImgGrid.md), DrawAlphaBlendsOverlappingPixels) <br> |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeoImgGrid.md), ConstructFromNonSquareGeoGrid) <br> |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeoImgGrid.md), DrawNonSquareGrid) <br> |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeoImgGrid.md), DrawOpaqueForegroundReplacesBackground) <br> |
+|   | [**TEST**](#function-test) (GeoGridRGB, DrawAlphaBlendsOverlappingPixels) <br> |
+|   | [**TEST**](#function-test) (GeoGridRGB, DrawNonSquareGrid) <br> |
+|   | [**TEST**](#function-test) (GeoGridRGB, DrawOpaqueForegroundReplacesBackground) <br> |
 
 
 
@@ -96,7 +96,7 @@
 
 ```C++
 TEST (
-    GeoImgGrid,
+    GeoGridRGB,
     DrawAlphaBlendsOverlappingPixels
 ) 
 ```
@@ -112,23 +112,7 @@ TEST (
 
 ```C++
 TEST (
-    GeoImgGrid,
-    ConstructFromNonSquareGeoGrid
-) 
-```
-
-
-
-
-<hr>
-
-
-
-### function TEST 
-
-```C++
-TEST (
-    GeoImgGrid,
+    GeoGridRGB,
     DrawNonSquareGrid
 ) 
 ```
@@ -144,7 +128,7 @@ TEST (
 
 ```C++
 TEST (
-    GeoImgGrid,
+    GeoGridRGB,
     DrawOpaqueForegroundReplacesBackground
 ) 
 ```

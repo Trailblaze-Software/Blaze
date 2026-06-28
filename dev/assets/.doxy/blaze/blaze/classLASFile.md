@@ -53,9 +53,10 @@ Inherited by the following classes: [LASData](classLASData.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**LASFile**](#function-lasfile-12) (const [**Extent2D**](structExtent2D.md) & bounds, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
-|   | [**LASFile**](#function-lasfile-22) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, const std::string & override\_crs="") <br> |
+|   | [**LASFile**](#function-lasfile-22) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, const std::string & override\_crs="") <br> |
 |  const [**Extent3D**](structExtent3D.md) & | [**bounds**](#function-bounds) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**export\_bounds**](#function-export_bounds) () const<br> |
+|  std::size\_t | [**header\_point\_count**](#function-header_point_count) () const<br> |
 |  double | [**height**](#function-height) () const<br> |
 |  std::pair&lt; double, double &gt; | [**height\_range**](#function-height_range) () const<br> |
 |  [**Extent2D**](structExtent2D.md) | [**original\_bounds**](#function-original_bounds) () const<br> |
@@ -77,6 +78,7 @@ Inherited by the following classes: [LASData](classLASData.md)
 | ---: | :--- |
 |  [**Extent3D**](structExtent3D.md) | [**m\_bounds**](#variable-m_bounds)  <br> |
 |  std::optional&lt; fs::path &gt; | [**m\_filename**](#variable-m_filename)  <br> |
+|  std::size\_t | [**m\_header\_point\_count**](#variable-m_header_point_count)   = `0`<br> |
 |  [**Extent3D**](structExtent3D.md) | [**m\_original\_bounds**](#variable-m_original_bounds)  <br> |
 |  [**GeoProjection**](classGeoProjection.md) | [**m\_projection**](#variable-m_projection)  <br> |
 |  laspp::QuadtreeSpatialIndex | [**m\_spatial\_index**](#variable-m_spatial_index)  <br> |
@@ -131,7 +133,7 @@ inline explicit LASFile::LASFile (
 ```C++
 inline explicit LASFile::LASFile (
     const fs::path & filename,
-    ProgressTracker progress_tracker,
+    ProgressTracker && progress_tracker,
     const std::string & override_crs=""
 ) 
 ```
@@ -160,6 +162,19 @@ inline const Extent3D & LASFile::bounds () const
 
 ```C++
 inline Extent2D LASFile::export_bounds () const
+```
+
+
+
+
+<hr>
+
+
+
+### function header\_point\_count 
+
+```C++
+inline std::size_t LASFile::header_point_count () const
 ```
 
 
@@ -282,6 +297,19 @@ Extent3D LASFile::m_bounds;
 
 ```C++
 std::optional<fs::path> LASFile::m_filename;
+```
+
+
+
+
+<hr>
+
+
+
+### variable m\_header\_point\_count 
+
+```C++
+std::size_t LASFile::m_header_point_count;
 ```
 
 

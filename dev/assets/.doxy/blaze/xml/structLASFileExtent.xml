@@ -87,6 +87,21 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="35" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="35" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="structLASFileExtent_1a40b825caa6410638a1034d09e0695fcc" prot="public" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t LASFileExtent::point_count</definition>
+        <argsstring></argsstring>
+        <name>point_count</name>
+        <qualifiedname>LASFileExtent::point_count</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="38" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -114,7 +129,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="22" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="22" bodyend="36"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" line="22" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp" bodystart="22" bodyend="39"/>
     <listofallmembers>
       <member refid="structLASFileExtent_1aaa02193106a93135080a88439a21941a" prot="public" virt="non-virtual"><scope>LASFileExtent</scope><name>bounds_native</name></member>
       <member refid="structLASFileExtent_1a5ae3f8dbf222e44f5e2b74536fe36834" prot="public" virt="non-virtual"><scope>LASFileExtent</scope><name>bounds_reprojected</name></member>
@@ -122,6 +137,7 @@
       <member refid="structLASFileExtent_1a6f63c7a18b06567fac6fdde9deb9eacc" prot="public" virt="non-virtual"><scope>LASFileExtent</scope><name>native_wkt</name></member>
       <member refid="structLASFileExtent_1a5276239f7b77f9284cc008e1e52d5c48" prot="public" virt="non-virtual"><scope>LASFileExtent</scope><name>override_crs</name></member>
       <member refid="structLASFileExtent_1ab105cf4e2313a7c27c5b6d65faad8967" prot="public" virt="non-virtual"><scope>LASFileExtent</scope><name>path</name></member>
+      <member refid="structLASFileExtent_1a40b825caa6410638a1034d09e0695fcc" prot="public" virt="non-virtual"><scope>LASFileExtent</scope><name>point_count</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

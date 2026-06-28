@@ -22,6 +22,7 @@
 
 #include "gui/frustum.hpp"
 #include "utilities/coordinate.hpp"
+#include "utilities/tracked_allocator.hpp"
 
 // AoS layout: one struct per point, contiguous in m_points. Matches GPU interleaved
 // attributes and allows zero-copy glBufferSubData slices per octree leaf.
@@ -37,8 +38,10 @@ struct OctreePoint {
   uint8_t has_file_rgb = 0;
 };
 
+using OctreePointVector = blaze::memory_tracker::LasVector<OctreePoint>;
+
 // Fast Fisher-Yates shuffle with xorshift64 — shared by both classes.
-inline void octree_shuffle_range(std::vector<OctreePoint>& points, size_t begin, size_t end) {
+inline void octree_shuffle_range(OctreePointVector& points, size_t begin, size_t end) {
   if (end <= begin + 1) return;
   static thread_local uint64_t rng_state = std::random_device{}();
   for (size_t i = end - 1; i > begin; --i) {
@@ -98,11 +101,11 @@ class PointOctreeNode {
     children[static_cast<size_t>(idx)]->depth = depth + 1;
   }
 
-  void shuffle_range(std::vector<OctreePoint>& points) const {
+  void shuffle_range(OctreePointVector& points) const {
     octree_shuffle_range(points, begin_index, end_index);
   }
 
-  void shuffle_recursive(std::vector<OctreePoint>& points) {
+  void shuffle_recursive(OctreePointVector& points) {
     shuffle_range(points);
     for (const auto& child : children) {
       if (child) {
@@ -114,7 +117,7 @@ class PointOctreeNode {
 
 class PointOctree {
   std::unique_ptr<PointOctreeNode> m_root;
-  std::vector<OctreePoint> m_points;
+  OctreePointVector m_points;
   size_t m_total_points = 0;
 
   static Extent3D cubic_root_bounds(const Extent3D& data_bounds) {
@@ -144,12 +147,12 @@ class PointOctree {
 
   size_t total_points() const { return m_total_points; }
   const PointOctreeNode* root() const { return m_root.get(); }
-  const std::vector<OctreePoint>& points() const { return m_points; }
+  const OctreePointVector& points() const { return m_points; }
 
   // Builds the octree from points (taking ownership). progress, if set, is
   // called with (points_processed, total). cancel, if set and observed true,
   // aborts the build promptly so a destructor join does not stall.
-  void insert_batch(std::vector<OctreePoint>&& points,
+  void insert_batch(OctreePointVector&& points,
                     const std::function<void(size_t, size_t)>& progress = {},
                     const std::atomic<bool>* cancel = nullptr);
 

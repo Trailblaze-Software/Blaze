@@ -12,8 +12,8 @@
 
 * `#include <gtest/gtest.h>`
 * `#include <array>`
-* `#include <stdexcept>`
-* `#include "grid/image.hpp"`
+* `#include "grid/grid.hpp"`
+* `#include "grid/img_grid.hpp"`
 * `#include "isom/colors.hpp"`
 
 
@@ -56,14 +56,14 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) (Image, SetAndGetPixel) <br> |
-|   | [**TEST**](#function-test) (Image, OutOfBoundsThrows) <br> |
-|   | [**TEST**](#function-test) (Image, SliceCopiesRegion) <br> |
-|   | [**TEST**](#function-test) (Image, RectIntersection) <br> |
-|   | [**TEST**](#function-test) (Image, ResizeNearestNeighbor) <br> |
-|   | [**TEST**](#function-test) (Image, ResizeNearestNeighborMapsEdges) <br> |
-|   | [**TEST**](#function-test) (Image, ResizeZeroDestinationClearsOutput) <br> |
-|   | [**TEST**](#function-test) (Image, DrawLineSetsPixels) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, SetAndGetPixel) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, OutOfBoundsThrows) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, SliceCopiesRegion) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, RectIntersection) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, ResizeNearestNeighbor) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, ResizeNearestNeighborMapsEdges) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, ResizeZeroDestinationClearsOutput) <br> |
+|   | [**TEST**](#function-test) (RGBGrid, DrawLineSetsPixels) <br> |
 
 
 
@@ -101,7 +101,7 @@
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     SetAndGetPixel
 ) 
 ```
@@ -117,7 +117,7 @@ TEST (
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     OutOfBoundsThrows
 ) 
 ```
@@ -133,7 +133,7 @@ TEST (
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     SliceCopiesRegion
 ) 
 ```
@@ -149,7 +149,7 @@ TEST (
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     RectIntersection
 ) 
 ```
@@ -165,7 +165,7 @@ TEST (
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     ResizeNearestNeighbor
 ) 
 ```
@@ -181,7 +181,7 @@ TEST (
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     ResizeNearestNeighborMapsEdges
 ) 
 ```
@@ -197,7 +197,7 @@ TEST (
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     ResizeZeroDestinationClearsOutput
 ) 
 ```
@@ -213,7 +213,7 @@ TEST (
 
 ```C++
 TEST (
-    Image,
+    RGBGrid,
     DrawLineSetsPixels
 ) 
 ```

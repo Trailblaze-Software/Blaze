@@ -13,6 +13,7 @@
 #include <cmath>
 
 #include "grid/grid.hpp"
+#include "utilities/progress_tracker.hpp"
 #include "vegetation/vegetation.hpp"
 
 // =============================================================================
@@ -24,7 +25,7 @@ TEST(Vegetation, LowPassUniformGrid) {
   std::vector<std::vector<float>> data(20, std::vector<float>(20, 5.0f));
   GeoGrid<float> grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 3);
+  GeoGrid<float> result = low_pass(grid, 3, ProgressTracker());
 
   // Center values should remain ~5.0
   float center_val = result[{10, 10}];
@@ -38,7 +39,7 @@ TEST(Vegetation, LowPassSmoothing) {
   data[10][10] = 100.0f;  // single spike
   GeoGrid<float> grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 3);
+  GeoGrid<float> result = low_pass(grid, 3, ProgressTracker());
 
   // The spike should be reduced
   float spike_val = result[{10, 10}];
@@ -57,7 +58,7 @@ TEST(Vegetation, LowPassSmallDelta) {
   data[2][2] = 10.0f;
   GeoGrid<float> grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 2);
+  GeoGrid<float> result = low_pass(grid, 2, ProgressTracker());
 
   // Center should still be the largest but reduced (neighbors dilute it)
   float center = result[{2, 2}];
@@ -79,7 +80,7 @@ TEST(Vegetation, LowPassOptionalUniform) {
                                                       std::vector<std::optional<float>>(N, 5.0f));
   GeoGrid<std::optional<float>> grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 3);
+  GeoGrid<float> result = low_pass(grid, 3, ProgressTracker());
 
   float center_val = result[{10, 10}];
   EXPECT_NEAR(center_val, 5.0f, 0.01f);
@@ -96,7 +97,7 @@ TEST(Vegetation, LowPassOptionalWithNulls) {
   data[6][5] = std::nullopt;
   GeoGrid<std::optional<float>> grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 3);
+  GeoGrid<float> result = low_pass(grid, 3, ProgressTracker());
 
   // Center should still be close to 5.0 since nulls are skipped
   float val = result[{3, 3}];
@@ -110,7 +111,7 @@ TEST(Vegetation, LowPassOptionalAllNull) {
       N, std::vector<std::optional<float>>(N, std::nullopt));
   GeoGrid<std::optional<float>> grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 2);
+  GeoGrid<float> result = low_pass(grid, 2, ProgressTracker());
 
   for (size_t i = 0; i < N; i++) {
     for (size_t j = 0; j < N; j++) {
@@ -128,7 +129,7 @@ TEST(Vegetation, LowPassPreservesGridDimensions) {
   };
   GeoGrid<float> grid(data);
 
-  GeoGrid<float> result = low_pass(grid, 2);
+  GeoGrid<float> result = low_pass(grid, 2, ProgressTracker());
 
   EXPECT_EQ(result.width(), 3u);
   EXPECT_EQ(result.height(), 3u);

@@ -2,7 +2,6 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
   <compounddef id="classTimer" kind="class" language="C++" prot="public">
     <compoundname>Timer</compoundname>
-    <derivedcompoundref refid="classTimeFunction" prot="public" virt="non-virtual">TimeFunction</derivedcompoundref>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classTimer_1ac9d9c99d289ce91e87873b83d2c807b5" prot="private" static="no" mutable="no">
         <type>std::chrono::time_point&lt; std::chrono::high_resolution_clock &gt;</type>
@@ -16,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="25" column="27" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="25" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="21" column="27" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -32,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="28" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="28" bodyend="28"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="24" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="24" bodyend="24"/>
       </memberdef>
       <memberdef kind="function" id="classTimer_1ab79e82b58e3044825ae1c885f38db102" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>std::chrono::duration&lt; double &gt;</type>
@@ -46,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="30" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="30" bodyend="32"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="26" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="26" bodyend="28"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="friend">
@@ -70,26 +69,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="34" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="34" bodyend="37"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="30" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="30" bodyend="33"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <inheritancegraph>
-      <node id="2">
-        <label>TimeFunction</label>
-        <link refid="classTimeFunction"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>Timer</label>
-        <link refid="classTimer"/>
-      </node>
-    </inheritancegraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="24" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="24" bodyend="38"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="20" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="20" bodyend="34"/>
     <listofallmembers>
       <member refid="classTimer_1ab79e82b58e3044825ae1c885f38db102" prot="public" virt="non-virtual"><scope>Timer</scope><name>duration</name></member>
       <member refid="classTimer_1ac9d9c99d289ce91e87873b83d2c807b5" prot="private" virt="non-virtual"><scope>Timer</scope><name>m_start</name></member>

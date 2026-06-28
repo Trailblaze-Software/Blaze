@@ -51,7 +51,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**AsyncProgressTracker**](#function-asyncprogresstracker) ([**ProgressObserver**](classProgressObserver.md) \* observer=nullptr) <br> |
+|   | [**AsyncProgressTracker**](#function-asyncprogresstracker) ([**ProgressObserver**](classProgressObserver.md) \* observer=nullptr, std::string name="") <br> |
 |  std::shared\_ptr&lt; [**ProgressTracker**](classProgressTracker.md) &gt; | [**tracker**](#function-tracker) () <br> |
 
 
@@ -90,7 +90,8 @@
 
 ```C++
 inline explicit AsyncProgressTracker::AsyncProgressTracker (
-    ProgressObserver * observer=nullptr
+    ProgressObserver * observer=nullptr,
+    std::string name=""
 ) 
 ```
 

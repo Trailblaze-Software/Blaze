@@ -13,6 +13,7 @@
 * `#include <gtest/gtest.h>`
 * `#include <cmath>`
 * `#include "grid/grid.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 * `#include "vegetation/vegetation.hpp"`
 
 

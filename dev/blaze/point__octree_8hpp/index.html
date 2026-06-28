@@ -787,6 +787,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#public-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#public-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -794,6 +805,34 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-types-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Types Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Types Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typedef-octreepointvector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        typedef OctreePointVector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -860,6 +899,7 @@
 <li><code>#include &lt;vector&gt;</code></li>
 <li><code>#include "gui/frustum.hpp"</code></li>
 <li><code>#include "utilities/coordinate.hpp"</code></li>
+<li><code>#include "utilities/tracked_allocator.hpp"</code></li>
 </ul>
 <h2 id="classes">Classes</h2>
 <table>
@@ -888,6 +928,21 @@
 </tr>
 </tbody>
 </table>
+<h2 id="public-types">Public Types</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">typedef blaze::memory_tracker::LasVector&lt; <a href="../structOctreePoint/"><strong>OctreePoint</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#typedef-octreepointvector"><strong>OctreePointVector</strong></a>  <br></td>
+</tr>
+</tbody>
+</table>
 <h2 id="public-functions">Public Functions</h2>
 <table>
 <thead>
@@ -899,17 +954,22 @@
 <tbody>
 <tr>
 <td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="#function-octree_shuffle_range"><strong>octree_shuffle_range</strong></a> (std::vector&lt; <a href="../structOctreePoint/"><strong>OctreePoint</strong></a> &gt; &amp; points, size_t begin, size_t end) <br></td>
+<td style="text-align: left;"><a href="#function-octree_shuffle_range"><strong>octree_shuffle_range</strong></a> (OctreePointVector &amp; points, size_t begin, size_t end) <br></td>
 </tr>
 </tbody>
 </table>
+<h2 id="public-types-documentation">Public Types Documentation</h2>
+<h3 id="typedef-octreepointvector">typedef OctreePointVector</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">using</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">blaze</span><span class="o">::</span><span class="n">memory_tracker</span><span class="o">::</span><span class="n">LasVector</span><span class="o">&lt;</span><span class="n">OctreePoint</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<hr>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-octree_shuffle_range">function octree_shuffle_range</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">octree_shuffle_range</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">OctreePoint</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">points</span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">end</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">octree_shuffle_range</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">points</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">end</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

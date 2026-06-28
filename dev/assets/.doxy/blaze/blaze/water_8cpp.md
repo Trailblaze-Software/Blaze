@@ -15,7 +15,7 @@
 * `#include "config_input/config_input.hpp"`
 * `#include "grid/grid.hpp"`
 * `#include "utilities/coordinate.hpp"`
-* `#include "utilities/timer.hpp"`
+* `#include "utilities/progress_tracker.hpp"`
 
 
 
@@ -62,14 +62,14 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**catchment\_size**](#function-catchment_size) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & filled, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**fill\_depressions**](#function-fill_depressions) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; & sinks, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**catchment\_size**](#function-catchment_size) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & filled, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**fill\_depressions**](#function-fill_depressions) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; & sinks) <br> |
 |  std::optional&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; | [**flows\_to**](#function-flows_to) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; & coord) <br> |
-|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; | [**identify\_sinks**](#function-identify_sinks) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, double depth, double min\_area, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker) <br> |
+|  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; | [**identify\_sinks**](#function-identify_sinks) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, const double depth, const double min\_area, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**smoothify**](#function-smoothify) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & path) <br> |
 |  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; | [**stream\_path**](#function-stream_path) (const [**GeoGrid**](classGeo.md)&lt; bool &gt; & stream, [**GeoGrid**](classGeo.md)&lt; bool &gt; & visited, const [**GeoGrid**](classGeo.md)&lt; double &gt; & heights, std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; && start, std::queue&lt; std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; size\_t &gt; &gt; &gt; & queue\_of\_starts) <br> |
-|  std::vector&lt; [**Stream**](structStream.md) &gt; | [**stream\_paths**](#function-stream_paths) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, const [**WaterConfigs**](structWaterConfigs.md) & config, [**ProgressTracker**](classProgressTracker.md) progress\_tracker, bool already\_filled) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; bool &gt; | [**streams**](#function-streams) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & filled\_ground, const [**GeoGrid**](classGeo.md)&lt; double &gt; & catchment, double minimum\_catchment, [**ProgressTracker**](classProgressTracker.md) \* progress\_tracker) <br> |
+|  std::vector&lt; [**Stream**](structStream.md) &gt; | [**stream\_paths**](#function-stream_paths) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, const [**WaterConfigs**](structWaterConfigs.md) & config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, const bool already\_filled) <br> |
+|  [**GeoGrid**](classGeo.md)&lt; bool &gt; | [**streams**](#function-streams) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & filled\_ground, const [**GeoGrid**](classGeo.md)&lt; double &gt; & catchment, const double minimum\_catchment, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 
@@ -113,7 +113,7 @@
 ```C++
 GeoGrid < double > catchment_size (
     const GeoGrid < double > & filled,
-    ProgressTracker * progress_tracker
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -129,8 +129,8 @@ GeoGrid < double > catchment_size (
 ```C++
 GeoGrid < double > fill_depressions (
     const GeoGrid < double > & grid,
-    const std::vector< Coordinate2D < size_t > > & sinks,
-    ProgressTracker * progress_tracker
+    ProgressTracker && progress_tracker,
+    const std::vector< Coordinate2D < size_t > > & sinks
 ) 
 ```
 
@@ -162,9 +162,9 @@ std::optional< Coordinate2D < size_t > > flows_to (
 ```C++
 std::vector< Coordinate2D < size_t > > identify_sinks (
     const GeoGrid < double > & grid,
-    double depth,
-    double min_area,
-    ProgressTracker * progress_tracker
+    const double depth,
+    const double min_area,
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -215,8 +215,8 @@ std::vector< Coordinate2D < size_t > > stream_path (
 std::vector< Stream > stream_paths (
     const GeoGrid < double > & grid,
     const WaterConfigs & config,
-    ProgressTracker progress_tracker,
-    bool already_filled
+    ProgressTracker && progress_tracker,
+    const bool already_filled
 ) 
 ```
 
@@ -233,8 +233,8 @@ std::vector< Stream > stream_paths (
 GeoGrid < bool > streams (
     const GeoGrid < double > & filled_ground,
     const GeoGrid < double > & catchment,
-    double minimum_catchment,
-    ProgressTracker * progress_tracker
+    const double minimum_catchment,
+    ProgressTracker && progress_tracker
 ) 
 ```
 

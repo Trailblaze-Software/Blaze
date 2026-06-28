@@ -15,7 +15,6 @@
 
 
 
-Inherited by the following classes: [TimeFunction](classTimeFunction.md)
 
 
 

@@ -39,7 +39,7 @@
 |  bool | [**bounds\_valid**](#variable-bounds_valid)   = `false`<br> |
 |  [**PointOctree**](classPointOctree.md) | [**octree**](#variable-octree)  <br> |
 |  size\_t | [**points\_loaded**](#variable-points_loaded)   = `0`<br> |
-|  std::vector&lt; [**OctreePoint**](structOctreePoint.md) &gt; | [**preview\_points**](#variable-preview_points)  <br> |
+|  OctreePointVector | [**preview\_points**](#variable-preview_points)  <br> |
 
 
 
@@ -144,7 +144,7 @@ size_t LasRenderSnapshot::points_loaded;
 ### variable preview\_points 
 
 ```C++
-std::vector<OctreePoint> LasRenderSnapshot::preview_points;
+OctreePointVector LasRenderSnapshot::preview_points;
 ```
 
 

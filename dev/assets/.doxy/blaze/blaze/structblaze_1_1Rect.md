@@ -239,5 +239,5 @@ inline int blaze::Rect::right () const
 <hr>
 
 ------------------------------
-The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/lib/grid/image.hpp`
+The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/lib/grid/raster.hpp`
 

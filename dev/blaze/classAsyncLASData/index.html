@@ -998,7 +998,11 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASData/#function-lasdata-33"><strong>LASData</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, bool skip_reading_points=false, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt, const std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-lasdata-33"><strong>LASData</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, bool skip_reading_points=false, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt, const std::string &amp; override_crs="") <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASData/#function-adopt_points"><strong>adopt_points</strong></a> (blaze::memory_tracker::LasVector&lt; <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt; &amp;&amp; points) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">auto</td>
@@ -1010,7 +1014,7 @@
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="../classLASData/#function-extract_borders"><strong>extract_borders</strong></a> (const fs::path &amp; tmp_dir, double border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker) const<br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-extract_borders"><strong>extract_borders</strong></a> (const fs::path &amp; tmp_dir, double border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
@@ -1046,7 +1050,15 @@
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="../classLASData/#function-write"><strong>write</strong></a> (const fs::path &amp; filename, std::optional&lt; <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &gt; progress_tracker={}) const<br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-release_points"><strong>release_points</strong></a> () <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">blaze::memory_tracker::LasVector&lt; <a href="../classLASPoint/"><strong>LASPoint</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="../classLASData/#function-take_points"><strong>take_points</strong></a> () <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLASData/#function-write"><strong>write</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) const<br></td>
 </tr>
 </tbody>
 </table>
@@ -1066,7 +1078,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, const std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASFile/#function-lasfile-22"><strong>LASFile</strong></a> (const fs::path &amp; filename, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, const std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">const <a href="../structExtent3D/"><strong>Extent3D</strong></a> &amp;</td>
@@ -1075,6 +1087,10 @@
 <tr>
 <td style="text-align: right;"><a href="../structExtent2D/"><strong>Extent2D</strong></a></td>
 <td style="text-align: left;"><a href="../classLASFile/#function-export_bounds"><strong>export_bounds</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::size_t</td>
+<td style="text-align: left;"><a href="../classLASFile/#function-header_point_count"><strong>header_point_count</strong></a> () const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">double</td>
@@ -1118,11 +1134,11 @@
 <tbody>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-with_border-12"><strong>with_border</strong></a> (const fs::path &amp; filename, double border_width, const std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, const std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-with_border-12"><strong>with_border</strong></a> (const fs::path &amp; filename, double border_width, const std::vector&lt; std::pair&lt; <a href="../structExtent3D/"><strong>Extent3D</strong></a>, fs::path &gt; &gt; &amp; all_las_file_extents, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, const std::string &amp; override_crs="") <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classLASData/"><strong>LASData</strong></a></td>
-<td style="text-align: left;"><a href="../classLASData/#function-with_border-22"><strong>with_border</strong></a> (const fs::path &amp; filename, double border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, const std::string &amp; override_crs="") <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-with_border-22"><strong>with_border</strong></a> (const fs::path &amp; filename, double border_width, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, const std::string &amp; override_crs="") <br></td>
 </tr>
 </tbody>
 </table>
@@ -1143,6 +1159,10 @@
 <tr>
 <td style="text-align: right;">std::optional&lt; fs::path &gt;</td>
 <td style="text-align: left;"><a href="../classLASFile/#variable-m_filename"><strong>m_filename</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::size_t</td>
+<td style="text-align: left;"><a href="../classLASFile/#variable-m_header_point_count"><strong>m_header_point_count</strong></a>   = <code>0</code><br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../structExtent3D/"><strong>Extent3D</strong></a></td>
@@ -1170,7 +1190,7 @@
 <tbody>
 <tr>
 <td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="../classLASData/#function-read_points"><strong>read_points</strong></a> (laspp::LASReader &amp; reader, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> progress_tracker, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt) <br></td>
+<td style="text-align: left;"><a href="../classLASData/#function-read_points"><strong>read_points</strong></a> (laspp::LASReader &amp; reader, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, std::optional&lt; <a href="../structExtent2D/"><strong>Extent2D</strong></a> &gt; bounds=std::nullopt) <br></td>
 </tr>
 </tbody>
 </table>

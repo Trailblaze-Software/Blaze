@@ -32,7 +32,6 @@
 * `#include "utilities/coordinate.hpp"`
 * `#include "utilities/filesystem.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
-* `#include "utilities/timer.hpp"`
 
 
 
@@ -79,20 +78,21 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**combine\_vege\_gpkgs**](#function-combine_vege_gpkgs) (const std::vector&lt; fs::path &gt; & tile\_dirs, const fs::path & combined\_dir, const std::string & projection, [**ProgressTracker**](classProgressTracker.md) progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
+|  void | [**combine\_vege\_gpkgs**](#function-combine_vege_gpkgs) (const std::vector&lt; fs::path &gt; & tile\_dirs, const fs::path & combined\_dir, const std::string & projection, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**contours\_to\_polygons**](#function-contours_to_polygons) (const std::map&lt; double, std::vector&lt; [**Contour**](classContour.md) &gt; &gt; & contours\_by\_height, const std::map&lt; double, std::string &gt; & height\_to\_layer) <br> |
+|  void | [**cut\_understory\_from\_forest**](#function-cut_understory_from_forest) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  std::map&lt; double, std::string &gt; | [**extract\_threshold\_layers**](#function-extract_threshold_layers) (const [**VegeHeightConfig**](structVegeHeightConfig.md) & config) <br> |
-|  void | [**filter\_by\_min\_area**](#function-filter_by_min_area) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const std::map&lt; std::string, double &gt; & min\_areas) <br> |
-|  void | [**filter\_small\_holes**](#function-filter_small_holes) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const std::map&lt; std::string, double &gt; & min\_hole\_areas) <br> |
-|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**generate\_vege\_polygons**](#function-generate_vege_polygons) (const [**VegeConfig**](structVegeConfig.md) & vege\_config, const std::map&lt; std::string, [**GeoGrid**](classGeo.md)&lt; float &gt; &gt; & vege\_maps, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
+|  void | [**filter\_by\_min\_area**](#function-filter_by_min_area) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const std::map&lt; std::string, double &gt; & min\_areas, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  void | [**filter\_small\_holes**](#function-filter_small_holes) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const std::map&lt; std::string, double &gt; & min\_hole\_areas, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**generate\_vege\_polygons**](#function-generate_vege_polygons) (const [**VegeConfig**](structVegeConfig.md) & vege\_config, const std::map&lt; std::string, [**GeoGrid**](classGeo.md)&lt; float &gt; &gt; & vege\_maps, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  std::string | [**layer\_number**](#function-layer_number) (const std::string & layer) <br> |
 |  double | [**polygon\_net\_area\_m2**](#function-polygon_net_area_m2) (const [**VegePolygon**](structVegePolygon.md) & poly) <br> |
 |  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**read\_vege\_polygons**](#function-read_vege_polygons) (const fs::path & gpkg\_path) <br> |
 |  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**subtract\_from\_polygon**](#function-subtract_from_polygon) (const [**VegePolygon**](structVegePolygon.md) & host, const std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & cutouts) <br> |
 |  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**subtract\_from\_polygon**](#function-subtract_from_polygon) (const [**VegePolygon**](structVegePolygon.md) & host, const OGRGeometry \* cut\_union) <br> |
 |  std::string | [**threshold\_layer\_name**](#function-threshold_layer_name) (const [**VegeHeightConfig**](structVegeHeightConfig.md) & config, const [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md) & btc) <br> |
-|  void | [**trim\_vege\_polygons\_to\_extent**](#function-trim_vege_polygons_to_extent) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const [**Extent2D**](structExtent2D.md) & bounds, const std::vector&lt; [**Extent2D**](structExtent2D.md) &gt; & snap\_extents={}, double snap\_tolerance=0.01, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
-|  void | [**write\_vege\_polygons\_gpkg**](#function-write_vege_polygons_gpkg) (const std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const fs::path & gpkg\_path, const std::string & projection, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker=[**ProgressTracker**](classProgressTracker.md)()) <br> |
+|  void | [**trim\_vege\_polygons\_to\_extent**](#function-trim_vege_polygons_to_extent) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const [**Extent2D**](structExtent2D.md) & bounds, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, const std::vector&lt; [**Extent2D**](structExtent2D.md) &gt; & snap\_extents={}, double snap\_tolerance=0.01) <br> |
+|  void | [**write\_vege\_polygons\_gpkg**](#function-write_vege_polygons_gpkg) (const std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const fs::path & gpkg\_path, const std::string & projection, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 
@@ -133,7 +133,7 @@ inline void combine_vege_gpkgs (
     const std::vector< fs::path > & tile_dirs,
     const fs::path & combined_dir,
     const std::string & projection,
-    ProgressTracker progress_tracker=ProgressTracker ()
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -150,6 +150,22 @@ inline void combine_vege_gpkgs (
 inline std::vector< VegePolygon > contours_to_polygons (
     const std::map< double, std::vector< Contour > > & contours_by_height,
     const std::map< double, std::string > & height_to_layer
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function cut\_understory\_from\_forest 
+
+```C++
+inline void cut_understory_from_forest (
+    std::vector< VegePolygon > & polygons,
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -180,7 +196,8 @@ inline std::map< double, std::string > extract_threshold_layers (
 ```C++
 inline void filter_by_min_area (
     std::vector< VegePolygon > & polygons,
-    const std::map< std::string, double > & min_areas
+    const std::map< std::string, double > & min_areas,
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -196,7 +213,8 @@ inline void filter_by_min_area (
 ```C++
 inline void filter_small_holes (
     std::vector< VegePolygon > & polygons,
-    const std::map< std::string, double > & min_hole_areas
+    const std::map< std::string, double > & min_hole_areas,
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -213,7 +231,7 @@ inline void filter_small_holes (
 inline std::vector< VegePolygon > generate_vege_polygons (
     const VegeConfig & vege_config,
     const std::map< std::string, GeoGrid < float > > & vege_maps,
-    ProgressTracker && progress_tracker=ProgressTracker ()
+    ProgressTracker && progress_tracker
 ) 
 ```
 
@@ -323,9 +341,9 @@ inline std::string threshold_layer_name (
 inline void trim_vege_polygons_to_extent (
     std::vector< VegePolygon > & polygons,
     const Extent2D & bounds,
+    ProgressTracker && progress_tracker,
     const std::vector< Extent2D > & snap_extents={},
-    double snap_tolerance=0.01,
-    ProgressTracker && progress_tracker=ProgressTracker ()
+    double snap_tolerance=0.01
 ) 
 ```
 
@@ -343,7 +361,7 @@ inline void write_vege_polygons_gpkg (
     const std::vector< VegePolygon > & polygons,
     const fs::path & gpkg_path,
     const std::string & projection,
-    ProgressTracker && progress_tracker=ProgressTracker ()
+    ProgressTracker && progress_tracker
 ) 
 ```
 

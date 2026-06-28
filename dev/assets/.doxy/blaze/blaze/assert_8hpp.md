@@ -16,6 +16,7 @@
 * `#include <sstream>`
 * `#include <string>`
 * `#include "printing/to_string.hpp"`
+* `#include "utilities/trace_recorder.hpp"`
 
 
 

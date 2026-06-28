@@ -5,9 +5,9 @@
     <innerclass refid="structoctree__las__detail_1_1BenchTimer" prot="public">octree_las_detail::BenchTimer</innerclass>
     <innerclass refid="classoctree__las__detail_1_1MonotonicProgress" prot="public">octree_las_detail::MonotonicProgress</innerclass>
     <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="octree__las__data_8hpp_1aa8850d578a87ace9ae4f4d772740fb6a" prot="public" static="no">
-        <type>std::function&lt; void(const std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;preview, size_t points_loaded, const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;bounds)&gt;</type>
-        <definition>using octree_las_detail::PreviewCallback = typedef std::function&lt;void(const std::vector&lt;OctreePoint&gt;&amp; preview, size_t points_loaded, const Extent3D&amp; bounds)&gt;</definition>
+      <memberdef kind="typedef" id="octree__las__data_8hpp_1a90424058bc3100c523a3713bac9fc24c" prot="public" static="no">
+        <type>std::function&lt; void(const OctreePointVector &amp;preview, size_t points_loaded, const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;bounds)&gt;</type>
+        <definition>using octree_las_detail::PreviewCallback = typedef std::function&lt;void(const OctreePointVector&amp; preview, size_t points_loaded, const Extent3D&amp; bounds)&gt;</definition>
         <argsstring></argsstring>
         <name>PreviewCallback</name>
         <qualifiedname>octree_las_detail::PreviewCallback</qualifiedname>
@@ -123,7 +123,7 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="93" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="93" bodyend="111"/>
       </memberdef>
-      <memberdef kind="function" id="octree__las__data_8hpp_1a2783b15dc0c2273c3becdcbd05e178b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="octree__las__data_8hpp_1a3dfee22066bfa2971077ba9872db8d6c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename LasPt</type>
@@ -131,7 +131,7 @@
         </templateparamlist>
         <type>void</type>
         <definition>void octree_las_detail::load_points_parallel</definition>
-        <argsstring>(laspp::LASReader &amp;reader, OGRCoordinateTransformation *coord_transform, const Coordinate3D&lt; double &gt; &amp;origin, size_t preview_stride, std::vector&lt; OctreePoint &gt; &amp;converted, std::vector&lt; OctreePoint &gt; &amp;preview, Extent3D &amp;bounds, ProgressTracker &amp;tracker, const PreviewCallback &amp;publish_preview, const std::atomic&lt; bool &gt; *cancel=nullptr)</argsstring>
+        <argsstring>(laspp::LASReader &amp;reader, OGRCoordinateTransformation *coord_transform, const Coordinate3D&lt; double &gt; &amp;origin, size_t preview_stride, OctreePointVector &amp;converted, OctreePointVector &amp;preview, Extent3D &amp;bounds, ProgressTracker &amp;tracker, const PreviewCallback &amp;publish_preview, const std::atomic&lt; bool &gt; *cancel=nullptr)</argsstring>
         <name>load_points_parallel</name>
         <qualifiedname>octree_las_detail::load_points_parallel</qualifiedname>
         <param>
@@ -151,11 +151,11 @@
           <declname>preview_stride</declname>
         </param>
         <param>
-          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <type>OctreePointVector &amp;</type>
           <declname>converted</declname>
         </param>
         <param>
-          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <type>OctreePointVector &amp;</type>
           <declname>preview</declname>
         </param>
         <param>
@@ -201,10 +201,10 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="212" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="212" bodyend="224"/>
       </memberdef>
-      <memberdef kind="function" id="octree__las__data_8hpp_1a7cd51cdda9a4d75727de24101b5e75ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="octree__las__data_8hpp_1a06cf5955a2053e81256aa206f3c45090" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void octree_las_detail::load_points_dispatch</definition>
-        <argsstring>(laspp::LASReader &amp;reader, OGRCoordinateTransformation *coord_transform, const Coordinate3D&lt; double &gt; &amp;origin, size_t preview_stride, std::vector&lt; OctreePoint &gt; &amp;converted, std::vector&lt; OctreePoint &gt; &amp;preview, Extent3D &amp;bounds, ProgressTracker &amp;tracker, const PreviewCallback &amp;publish_preview, const std::atomic&lt; bool &gt; *cancel=nullptr)</argsstring>
+        <argsstring>(laspp::LASReader &amp;reader, OGRCoordinateTransformation *coord_transform, const Coordinate3D&lt; double &gt; &amp;origin, size_t preview_stride, OctreePointVector &amp;converted, OctreePointVector &amp;preview, Extent3D &amp;bounds, ProgressTracker &amp;tracker, const PreviewCallback &amp;publish_preview, const std::atomic&lt; bool &gt; *cancel=nullptr)</argsstring>
         <name>load_points_dispatch</name>
         <qualifiedname>octree_las_detail::load_points_dispatch</qualifiedname>
         <param>
@@ -224,11 +224,11 @@
           <declname>preview_stride</declname>
         </param>
         <param>
-          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <type>OctreePointVector &amp;</type>
           <declname>converted</declname>
         </param>
         <param>
-          <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt; &amp;</type>
+          <type>OctreePointVector &amp;</type>
           <declname>preview</declname>
         </param>
         <param>

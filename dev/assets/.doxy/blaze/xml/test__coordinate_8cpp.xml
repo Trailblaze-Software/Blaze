@@ -22,6 +22,8 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
       <node id="16">
         <label>printing/to_string.hpp</label>
@@ -59,6 +61,10 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
+      <node id="23">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_coordinate.cpp</label>
         <link refid="test__coordinate_8cpp"/>
@@ -71,11 +77,26 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
+      <node id="20">
+        <label>utilities/trace_recorder.hpp</label>
+        <link refid="trace__recorder_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>array</label>
       </node>
       <node id="3">
         <label>cmath</label>
+      </node>
+      <node id="21">
+        <label>cstdint</label>
       </node>
       <node id="13">
         <label>experimental/source_location</label>
@@ -103,6 +124,9 @@
       </node>
       <node id="19">
         <label>set</label>
+      </node>
+      <node id="22">
+        <label>source_location</label>
       </node>
       <node id="14">
         <label>sstream</label>

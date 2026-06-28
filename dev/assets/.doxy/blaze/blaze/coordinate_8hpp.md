@@ -76,6 +76,7 @@
 
 | Type | Name |
 | ---: | :--- |
+|  std::size\_t | [**estimate\_points\_in\_extent**](#function-estimate_points_in_extent) (std::size\_t total\_points, const [**Extent2D**](structExtent2D.md) & file\_extent, const [**Extent2D**](structExtent2D.md) & query\_extent) <br> |
 |  std::array&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt;, 4 &gt; | [**orthogonal\_neighbors**](#function-orthogonal_neighbors) (const [**Coordinate2D**](classCoordinate2D.md)&lt; T &gt; & coord) <br> |
 
 
@@ -135,6 +136,23 @@ const std::array<Direction2D, 4> ORTHOGONAL_DIRECTIONS;
 <hr>
 ## Public Functions Documentation
 
+
+
+
+### function estimate\_points\_in\_extent 
+
+```C++
+inline std::size_t estimate_points_in_extent (
+    std::size_t total_points,
+    const Extent2D & file_extent,
+    const Extent2D & query_extent
+) 
+```
+
+
+
+
+<hr>
 
 
 

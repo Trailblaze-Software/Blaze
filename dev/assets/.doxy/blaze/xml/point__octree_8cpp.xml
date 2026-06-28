@@ -24,11 +24,11 @@
         <link refid="point__octree_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -56,6 +56,8 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
       </node>
       <node id="20">
         <label>assert/assert.hpp</label>
@@ -71,6 +73,8 @@
         <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
       <node id="25">
@@ -109,6 +113,52 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
+      <node id="31">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="35">
+        <label>utilities/memory_tracker.hpp</label>
+        <link refid="memory__tracker_8hpp_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>utilities/trace_recorder.hpp</label>
+        <link refid="trace__recorder_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>utilities/tracked_allocator.hpp</label>
+        <link refid="tracked__allocator_8hpp_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
       <node id="13">
         <label>QMatrix4x4</label>
       </node>
@@ -124,11 +174,14 @@
       <node id="5">
         <label>atomic</label>
       </node>
-      <node id="30">
+      <node id="37">
         <label>chrono</label>
       </node>
       <node id="6">
         <label>cmath</label>
+      </node>
+      <node id="33">
+        <label>cstddef</label>
       </node>
       <node id="7">
         <label>cstdint</label>
@@ -154,7 +207,10 @@
       <node id="9">
         <label>memory</label>
       </node>
-      <node id="29">
+      <node id="34">
+        <label>new</label>
+      </node>
+      <node id="36">
         <label>omp.h</label>
       </node>
       <node id="21">
@@ -169,13 +225,16 @@
       <node id="28">
         <label>set</label>
       </node>
+      <node id="30">
+        <label>source_location</label>
+      </node>
       <node id="23">
         <label>sstream</label>
       </node>
       <node id="24">
         <label>string</label>
       </node>
-      <node id="31">
+      <node id="38">
         <label>thread</label>
       </node>
       <node id="19">
@@ -207,8 +266,8 @@
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>PARALLEL_BUILD_MIN_POINTS<sp/>=<sp/>64&apos;000;</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>partition_range(<ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>&amp;<sp/>node,<sp/>std::vector&lt;OctreePoint&gt;&amp;<sp/>points,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>begin,</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end,<sp/>std::array&lt;size_t,<sp/>9&gt;&amp;<sp/>child_ends)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>partition_range(<ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>&amp;<sp/>node,<sp/>OctreePointVector&amp;<sp/>points,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>begin,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::array&lt;size_t,<sp/>9&gt;&amp;<sp/>child_ends)<sp/>{</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Count<sp/>buckets.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/>std::array&lt;size_t,<sp/>8&gt;<sp/>bucket_counts{};</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>begin;<sp/>i<sp/>&lt;<sp/>end;<sp/>++i)<sp/>{</highlight></codeline>
@@ -237,8 +296,8 @@
 <codeline lineno="45"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="46"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>split_subtree_job(<ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>&amp;<sp/>node,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>begin,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end,</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;OctreePoint&gt;&amp;<sp/>points,<sp/>std::vector&lt;BuildJob&gt;&amp;<sp/>out_jobs)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>split_subtree_job(<ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>&amp;<sp/>node,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>begin,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end,<sp/>OctreePointVector&amp;<sp/>points,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;BuildJob&gt;&amp;<sp/>out_jobs)<sp/>{</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Shuffle<sp/>is<sp/>deferred<sp/>to<sp/>shuffle_leaves()<sp/>after<sp/>build<sp/>—<sp/>per-level<sp/>shuffles</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>are<sp/>redundant<sp/>since<sp/>children<sp/>will<sp/>be<sp/>shuffled<sp/>again<sp/>at<sp/>lower<sp/>levels.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/>node.begin_index<sp/>=<sp/>0;</highlight></codeline>
@@ -259,7 +318,7 @@
 <codeline lineno="67"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>build_subtree_sequential(<ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>&amp;<sp/>node,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>begin,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end,</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;OctreePoint&gt;&amp;<sp/>points,<sp/>std::atomic&lt;size_t&gt;&amp;<sp/>processed,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OctreePointVector&amp;<sp/>points,<sp/>std::atomic&lt;size_t&gt;&amp;<sp/>processed,</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::atomic&lt;bool&gt;*<sp/>cancel)<sp/>{</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(end<sp/>&lt;=<sp/>begin<sp/>||<sp/>(cancel<sp/>&amp;&amp;<sp/>cancel-&gt;load(std::memory_order_relaxed)))<sp/>{</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
@@ -284,7 +343,7 @@
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PointOctree::insert_batch(std::vector&lt;OctreePoint&gt;&amp;&amp;<sp/>points,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PointOctree::insert_batch(OctreePointVector&amp;&amp;<sp/>points,</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::function&lt;</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">)&gt;&amp;<sp/>progress,</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::atomic&lt;bool&gt;*<sp/>cancel)<sp/>{</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"><sp/><sp/>m_points<sp/>=<sp/>std::move(points);</highlight></codeline>

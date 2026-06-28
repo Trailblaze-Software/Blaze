@@ -19,6 +19,7 @@
 #include "lib/grid/grid.hpp"
 #include "methods/hill_shade/hill_shade.hpp"
 #include "process.hpp"
+#include "utilities/progress_tracker.hpp"
 
 // Test num_cells_by_distance function
 TEST(Process, NumCellsByDistance) {
@@ -73,7 +74,7 @@ TEST(Slope, FlatSurface) {
                                            {10, 10, 10, 10, 10},
                                            {10, 10, 10, 10, 10}};
   GeoGrid<double> flat(data);
-  auto result = slope(flat);
+  auto result = slope(flat, ProgressTracker());
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {
       double val = result[{j, i}];
@@ -87,7 +88,7 @@ TEST(Slope, FortyFiveDegreeSlope) {
   std::vector<std::vector<double>> data = {
       {0, 0, 0, 0, 0}, {1, 1, 1, 1, 1}, {2, 2, 2, 2, 2}, {3, 3, 3, 3, 3}, {4, 4, 4, 4, 4}};
   GeoGrid<double> sloped(data);
-  auto result = slope(sloped);
+  auto result = slope(sloped, ProgressTracker());
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {
       double val = result[{j, i}];
@@ -101,7 +102,7 @@ TEST(Slope, AlwaysNonNegative) {
   std::vector<std::vector<double>> data = {
       {5, 3, 7, 1, 9}, {2, 8, 4, 6, 0}, {9, 1, 5, 3, 7}, {4, 6, 2, 8, 4}, {7, 0, 9, 5, 2}};
   GeoGrid<double> mixed(data);
-  auto result = slope(mixed);
+  auto result = slope(mixed, ProgressTracker());
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {
       double val = result[{j, i}];
@@ -118,7 +119,7 @@ TEST(Slope, NeverExceedsVertical) {
                                            {0, 0, 1e6, 0, 0},
                                            {0, 0, 1e6, 0, 0}};
   GeoGrid<double> steep(data);
-  auto result = slope(steep);
+  auto result = slope(steep, ProgressTracker());
   for (size_t i = 1; i < 4; i++) {
     for (size_t j = 1; j < 4; j++) {
       double val = result[{j, i}];

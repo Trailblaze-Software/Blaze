@@ -12,16 +12,23 @@
 
 * `#include <algorithm>`
 * `#include <cmath>`
+* `#include <concepts>`
 * `#include <cstddef>`
 * `#include <cstring>`
 * `#include <limits>`
 * `#include <memory>`
+* `#include <optional>`
 * `#include <stdexcept>`
 * `#include <string>`
 * `#include <type_traits>`
 * `#include <vector>`
 * `#include "assert/assert.hpp"`
+* `#include "grid/forward_grid.hpp"`
+* `#include "grid/raster.hpp"`
+* `#include "isom/colors.hpp"`
 * `#include "utilities/coordinate.hpp"`
+* `#include "utilities/filesystem.hpp"`
+* `#include "utilities/tracked_allocator.hpp"`
 
 
 
@@ -55,12 +62,6 @@
 | struct | [**is\_specialization&lt; Ref&lt; Args... &gt;, Ref &gt;**](structis__specialization_3_01Ref_3_01Args_8_8_8_01_4_00_01Ref_01_4.md) &lt;Ref, Args&gt;<br> |
 
 
-## Public Types
-
-| Type | Name |
-| ---: | :--- |
-| typedef [**Geo**](classGeo.md)&lt; [**FlexGrid**](classFlexGrid.md) &gt; | [**GeoFlexGrid**](#typedef-geoflexgrid)  <br> |
-| typedef [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; T &gt; &gt; | [**GeoGrid**](#typedef-geogrid)  <br> |
 
 
 
@@ -120,34 +121,6 @@
 
 
 
-## Public Types Documentation
-
-
-
-
-### typedef GeoFlexGrid 
-
-```C++
-typedef Geo<FlexGrid> GeoFlexGrid;
-```
-
-
-
-
-<hr>
-
-
-
-### typedef GeoGrid 
-
-```C++
-using GeoGrid =  Geo<Grid<T> >;
-```
-
-
-
-
-<hr>
 ## Public Attributes Documentation
 
 

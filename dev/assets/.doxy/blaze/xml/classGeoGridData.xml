@@ -4,7 +4,6 @@
     <compoundname>GeoGridData</compoundname>
     <derivedcompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; Grid&lt; std::span&lt; LASPoint &gt; &gt; &gt;</derivedcompoundref>
     <derivedcompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; GridT &gt;</derivedcompoundref>
-    <derivedcompoundref refid="classGeoImgGrid" prot="public" virt="non-virtual">GeoImgGrid</derivedcompoundref>
     <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classGeoGridData_1a9742659082271d75bb7840c6dd52e37f" prot="protected" static="no" mutable="no">
         <type><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref></type>
@@ -18,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="297" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="297" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="330" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="330" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classGeoGridData_1a8bf48dae7b2472d11c2d464890e9abde" prot="protected" static="no" mutable="no">
         <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref></type>
@@ -32,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="298" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="298" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="331" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="331" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -56,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="301" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="301" bodyend="302"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="334" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="334" bodyend="335"/>
       </memberdef>
       <memberdef kind="function" id="classGeoGridData_1a277d0935ec991450c89f2bfed2a1385f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="classGeoTransform" kindref="compound">GeoTransform</ref> &amp;</type>
@@ -70,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="304" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="304" bodyend="304"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="337" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="337" bodyend="337"/>
       </memberdef>
       <memberdef kind="function" id="classGeoGridData_1a93f9478e0ca3db8a9f86dc1d150bb844" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="classGeoProjection" kindref="compound">GeoProjection</ref> &amp;</type>
@@ -84,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="305" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="305" bodyend="305"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="338" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="338" bodyend="338"/>
       </memberdef>
       <memberdef kind="function" id="classGeoGridData_1a0ee5acf21c13784d123d1237c9854cc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>double</type>
@@ -98,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="307" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="307" bodyend="307"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="340" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="340" bodyend="340"/>
       </memberdef>
       <memberdef kind="function" id="classGeoGridData_1a874882ebb49e607f6e96f5d1ede82899" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>double</type>
@@ -112,7 +111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="308" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="308" bodyend="308"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="341" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="341" bodyend="341"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -142,12 +141,6 @@
         <label>GeoGridData</label>
         <link refid="classGeoGridData"/>
       </node>
-      <node id="5">
-        <label>GeoImgGrid</label>
-        <link refid="classGeoImgGrid"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
     </inheritancegraph>
     <collaborationgraph>
       <node id="1">
@@ -169,7 +162,7 @@
         <link refid="classGeoTransform"/>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="295" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="295" bodyend="309"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="328" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="328" bodyend="342"/>
     <listofallmembers>
       <member refid="classGeoGridData_1a0ee5acf21c13784d123d1237c9854cc5" prot="public" virt="non-virtual"><scope>GeoGridData</scope><name>dx</name></member>
       <member refid="classGeoGridData_1a874882ebb49e607f6e96f5d1ede82899" prot="public" virt="non-virtual"><scope>GeoGridData</scope><name>dy</name></member>
