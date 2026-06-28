@@ -12,8 +12,23 @@
 
 namespace blaze::memory_tracker {
 
+namespace tracked_allocator_detail {
+
+inline constexpr std::size_t default_new_alignment() {
+#if defined(__STDCPP_DEFAULT_NEW_ALIGNMENT__)
+  return __STDCPP_DEFAULT_NEW_ALIGNMENT__;
+#else
+  return alignof(std::max_align_t);
+#endif
+}
+
+}  // namespace tracked_allocator_detail
+
 template <typename T, Tag MemoryTag>
 class TrackedAllocator {
+  static constexpr bool k_requires_aligned_allocation =
+      alignof(T) > tracked_allocator_detail::default_new_alignment();
+
  public:
   using value_type = T;
   using size_type = std::size_t;
@@ -32,14 +47,25 @@ class TrackedAllocator {
     if (count > max_size()) {
       throw std::bad_alloc();
     }
-    void* memory = ::operator new(count * sizeof(T));
-    add_bytes(MemoryTag, static_cast<uint64_t>(count) * sizeof(T));
+    const size_type bytes = count * sizeof(T);
+    void* memory = nullptr;
+    if constexpr (k_requires_aligned_allocation) {
+      memory = ::operator new(bytes, std::align_val_t{alignof(T)});
+    } else {
+      memory = ::operator new(bytes);
+    }
+    add_bytes(MemoryTag, static_cast<uint64_t>(bytes));
     return static_cast<T*>(memory);
   }
 
   void deallocate(T* pointer, size_type count) noexcept {
-    remove_bytes(MemoryTag, static_cast<uint64_t>(count) * sizeof(T));
-    ::operator delete(pointer);
+    const size_type bytes = count * sizeof(T);
+    remove_bytes(MemoryTag, static_cast<uint64_t>(bytes));
+    if constexpr (k_requires_aligned_allocation) {
+      ::operator delete(pointer, std::align_val_t{alignof(T)});
+    } else {
+      ::operator delete(pointer);
+    }
   }
 
   size_type max_size() const noexcept { return std::numeric_limits<size_type>::max() / sizeof(T); }

@@ -40,7 +40,7 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
     std::vector<size_t> row_counts(rows, 0);
     std::vector<size_t> row_offsets(rows + 1, 0);
     size_t total_points = 0;
-    std::vector<LASPoint> row_sorted;
+    blaze::memory_tracker::LasVector<LASPoint> row_sorted;
 
     START_TRACKER("binning LAS points");
 
@@ -124,6 +124,8 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
       }
     }
 
+    las_file.release_points();
+
     progress_tracker.set_proportion(0.50);
 
     // ---- Phase 2: within each row, bin by fine cell ----
@@ -168,6 +170,9 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
         }
       }
     }
+
+    row_sorted.clear();
+    row_sorted.shrink_to_fit();
 
     progress_tracker.set_proportion(1.0);
 
