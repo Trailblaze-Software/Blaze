@@ -595,12 +595,19 @@ class LASData : public LASFile {
         overlapping_filenames.push_back(border_filename);
       }
     }
+    ProgressTracker combine_tracker = progress_tracker.subtracker(0.6, 1.0, "combine borders");
+    START_TRACKER(combine_tracker, "combining borders");
     for (size_t i = 0; i < overlapping_filenames.size(); i++) {
       const fs::path& border_filename = overlapping_filenames[i];
-      LASData border_file(border_filename.string(),
-                          SUBTRACKER(0.6 + (double)i / overlapping_filenames.size() * 0.4,
-                                     0.6 + (double)(i + 1) / overlapping_filenames.size() * 0.4),
-                          false, extended_bounds, override_crs);
+      ProgressTracker file_tracker =
+          combine_tracker.subtracker(static_cast<double>(i) / overlapping_filenames.size(),
+                                     static_cast<double>(i + 1) / overlapping_filenames.size(),
+                                     border_filename.filename().string());
+      START_TRACKER(file_tracker,
+                    to_string("Combining border ", i + 1, "/", overlapping_filenames.size(), ": ",
+                              border_filename.filename().string()));
+      LASData border_file(border_filename.string(), SUBTRACKER(0.0, 0.9, file_tracker), false,
+                          extended_bounds, override_crs);
       for (const LASPoint& point : border_file) {
         if (!extended_bounds.contains(point.x(), point.y())) {
           continue;
@@ -635,16 +642,23 @@ class LASData : public LASFile {
                   << std::endl;
       }
     }
-    ProgressTracker border_tracker = SUBTRACKER(0.6, 1.0);
+    ProgressTracker combine_tracker = progress_tracker.subtracker(0.6, 1.0, "combine borders");
+    START_TRACKER(combine_tracker, "combining borders");
     for (size_t i = 0; i < border_filenames.size(); i++) {
       const fs::path& border_filename = border_filenames[i];
-      LASData border_file(border_filename.string(),
-                          SUBTRACKER((double)i / border_filenames.size(),
-                                     (double)(i + 1) / border_filenames.size(), border_tracker));
+      ProgressTracker file_tracker =
+          combine_tracker.subtracker(static_cast<double>(i) / border_filenames.size(),
+                                     static_cast<double>(i + 1) / border_filenames.size(),
+                                     border_filename.filename().string());
+      START_TRACKER(file_tracker,
+                    to_string("Combining border ", i + 1, "/", border_filenames.size(), ": ",
+                              border_filename.filename().string()));
+      LASData border_file(border_filename.string(), SUBTRACKER(0.0, 0.9, file_tracker));
       for (const LASPoint& point : border_file) {
         las_file.insert(point);
       }
       las_file.m_bounds.grow(border_file.bounds());
+      file_tracker.set_proportion(1.0);
     }
     progress_tracker.text_update(
         to_string("Combined ", filename.string(), " with borders ", las_file.m_bounds));

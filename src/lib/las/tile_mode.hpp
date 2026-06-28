@@ -265,11 +265,17 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
 
   std::vector<blaze::memory_tracker::LasVector<LASPoint>> parts;
 
-  for (size_t i = 0; i < overlapping.size(); i++) {
+  const size_t overlapping_count = overlapping.size();
+  const double inputs_end = overlapping_count > 1 ? 0.9 : 1.0;
+
+  for (size_t i = 0; i < overlapping_count; i++) {
     const LASFileExtent& extent = *overlapping[i];
-    ProgressTracker sub = progress_tracker.subtracker(
-        static_cast<double>(i) / overlapping.size(),
-        static_cast<double>(i + 1) / overlapping.size(), extent.path.filename().string());
+    ProgressTracker sub =
+        progress_tracker.subtracker(static_cast<double>(i) / overlapping_count * inputs_end,
+                                    static_cast<double>(i + 1) / overlapping_count * inputs_end,
+                                    extent.path.filename().string());
+    START_TRACKER(sub, to_string("Reading tile input ", i + 1, "/", overlapping_count, ": ",
+                                 extent.path.filename().string()));
 
     const bool same_crs = wkt_matches(extent.native_wkt, output_crs_wkt);
     Extent2D filter_bounds =
@@ -336,11 +342,17 @@ inline LASData read_tile_from_inputs(const Extent2D& tile_extent, double border_
 
   blaze::memory_tracker::LasVector<LASPoint> merged;
   merged.reserve(total_points);
-  for (blaze::memory_tracker::LasVector<LASPoint>& part : parts) {
-    merged.insert(merged.end(), std::make_move_iterator(part.begin()),
-                  std::make_move_iterator(part.end()));
-    part.clear();
-    part.shrink_to_fit();
+  if (!parts.empty()) {
+    ProgressTracker merge_tracker =
+        progress_tracker.subtracker(inputs_end, 1.0, "merge tile inputs");
+    START_TRACKER(merge_tracker, "merging tile inputs");
+    for (size_t p = 0; p < parts.size(); p++) {
+      merged.insert(merged.end(), std::make_move_iterator(parts[p].begin()),
+                    std::make_move_iterator(parts[p].end()));
+      parts[p].clear();
+      parts[p].shrink_to_fit();
+      merge_tracker.set_proportion(static_cast<double>(p + 1) / parts.size());
+    }
   }
   parts.clear();
 

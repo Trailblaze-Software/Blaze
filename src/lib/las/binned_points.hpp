@@ -1,5 +1,7 @@
 #pragma once
 
+#include <omp.h>
+
 #include <atomic>
 #include <span>
 #include <vector>
@@ -44,137 +46,161 @@ class BinnedPoints : public Geo<Grid<std::span<LASPoint>>> {
 
     START_TRACKER("binning LAS points");
 
-    progress_tracker.text_update("Counting points per row...");
+    const auto report_point_progress = [](ProgressTracker& tracker, long long i, long long total) {
+      if (total <= 0) {
+        return;
+      }
+      const long long step = std::max(1LL, total / 200);
+      if (i % step != 0 && i != total - 1) {
+        return;
+      }
+      tracker.report_parallel_progress(static_cast<double>(i + 1) / static_cast<double>(total));
+    };
+
+    {
+      ProgressTracker count_tracker = progress_tracker.subtracker(0.0, 0.20, "count rows");
+      START_TRACKER(count_tracker, "counting points per row");
 
 #pragma omp parallel
-    {
-      std::vector<size_t> hist(rows, 0);
-      int thread_idx = -1;
-
-      // Pass 1a: count points per row.
-#pragma omp for nowait
-      for (long long i = 0; i < n; i++) {
-        const LASPoint& point = las_file[static_cast<size_t>(i)];
-        if (!extent.contains(point.x(), point.y())) {
-          num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
-          continue;
-        }
-        auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
-        if (pixel.x() < 0 || pixel.x() >= static_cast<double>(cols) || pixel.y() < 0 ||
-            pixel.y() >= static_cast<double>(rows)) {
-          num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
-          continue;
-        }
-        auto cell = pixel.round_down();
-        if (!this->in_bounds(cell)) {
-          num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
-          continue;
-        }
-        hist[cell.y()]++;
-      }
-
-#pragma omp critical
       {
-        thread_idx = static_cast<int>(thread_hists.size());
-        thread_hists.push_back(std::move(hist));
-      }
-
-#pragma omp barrier
-
 #pragma omp single
-      {
-        for (const auto& h : thread_hists)
-          for (size_t row = 0; row < rows; row++) row_counts[row] += h[row];
+        {
+          thread_hists.assign(static_cast<size_t>(omp_get_num_threads()),
+                              std::vector<size_t>(rows, 0));
+        }
+#pragma omp barrier
+        const int thread_idx = omp_get_thread_num();
+        std::vector<size_t>& hist = thread_hists[static_cast<size_t>(thread_idx)];
 
-        for (size_t row = 0; row < rows; row++)
-          row_offsets[row + 1] = row_offsets[row] + row_counts[row];
-        total_points = row_offsets[rows];
-
-        progress_tracker.set_proportion(0.25);
-        progress_tracker.text_update("Sorting points by row...");
-
-        row_sorted.resize(total_points);
-
-        thread_write_starts.resize(thread_hists.size());
-        for (size_t t = 0; t < thread_hists.size(); t++) thread_write_starts[t].resize(rows);
-        for (size_t row = 0; row < rows; row++) {
-          size_t running = row_offsets[row];
-          for (size_t t = 0; t < thread_hists.size(); t++) {
-            thread_write_starts[t][row] = running;
-            running += thread_hists[t][row];
+        // Pass 1a: count points per row.
+#pragma omp for nowait
+        for (long long i = 0; i < n; i++) {
+          report_point_progress(count_tracker, i, n);
+          const LASPoint& point = las_file[static_cast<size_t>(i)];
+          if (!extent.contains(point.x(), point.y())) {
+            num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
+            continue;
           }
+          auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
+          if (pixel.x() < 0 || pixel.x() >= static_cast<double>(cols) || pixel.y() < 0 ||
+              pixel.y() >= static_cast<double>(rows)) {
+            num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
+            continue;
+          }
+          auto cell = pixel.round_down();
+          if (!this->in_bounds(cell)) {
+            num_out_of_bounds.fetch_add(1, std::memory_order_relaxed);
+            continue;
+          }
+          hist[cell.y()]++;
         }
       }
-      // implicit barrier
+    }
 
-      // Pass 1b: place points into row-sorted array.
-      auto write_heads = thread_write_starts[thread_idx];
+    for (const auto& h : thread_hists)
+      for (size_t row = 0; row < rows; row++) row_counts[row] += h[row];
 
+    for (size_t row = 0; row < rows; row++)
+      row_offsets[row + 1] = row_offsets[row] + row_counts[row];
+    total_points = row_offsets[rows];
+
+    row_sorted.resize(total_points);
+
+    thread_write_starts.resize(thread_hists.size());
+    for (size_t t = 0; t < thread_hists.size(); t++) thread_write_starts[t].resize(rows);
+    for (size_t row = 0; row < rows; row++) {
+      size_t running = row_offsets[row];
+      for (size_t t = 0; t < thread_hists.size(); t++) {
+        thread_write_starts[t][row] = running;
+        running += thread_hists[t][row];
+      }
+    }
+
+    {
+      ProgressTracker sort_tracker = progress_tracker.subtracker(0.20, 0.50, "sort rows");
+      START_TRACKER(sort_tracker, "sorting points by row");
+
+#pragma omp parallel
+      {
+        const int thread_idx = omp_get_thread_num();
+        auto write_heads = thread_write_starts[static_cast<size_t>(thread_idx)];
+
+        // Pass 1b: place points into row-sorted array.
 #pragma omp for nowait
-      for (long long i = 0; i < n; i++) {
-        const LASPoint& point = las_file[static_cast<size_t>(i)];
-        if (!extent.contains(point.x(), point.y())) continue;
-        auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
-        if (pixel.x() < 0 || pixel.x() >= static_cast<double>(cols) || pixel.y() < 0 ||
-            pixel.y() >= static_cast<double>(rows))
-          continue;
-        auto cell = pixel.round_down();
-        if (!this->in_bounds(cell)) continue;
-        row_sorted[write_heads[cell.y()]++] = point;
+        for (long long i = 0; i < n; i++) {
+          report_point_progress(sort_tracker, i, n);
+          const LASPoint& point = las_file[static_cast<size_t>(i)];
+          if (!extent.contains(point.x(), point.y())) continue;
+          auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
+          if (pixel.x() < 0 || pixel.x() >= static_cast<double>(cols) || pixel.y() < 0 ||
+              pixel.y() >= static_cast<double>(rows))
+            continue;
+          auto cell = pixel.round_down();
+          if (!this->in_bounds(cell)) continue;
+          row_sorted[write_heads[cell.y()]++] = point;
+        }
       }
     }
 
     las_file.release_points();
 
-    progress_tracker.set_proportion(0.50);
-
     // ---- Phase 2: within each row, bin by fine cell ----
 
-    progress_tracker.text_update("Placing points into cells...");
-
-    m_storage.resize(total_points);
-
-#pragma omp parallel
     {
-      std::vector<size_t> row_cell_counts(cols);
-      std::vector<size_t> col_offsets(cols);
+      ProgressTracker place_tracker = progress_tracker.subtracker(0.50, 1.0, "place cells");
+      START_TRACKER(place_tracker, "placing points into cells");
+
+      m_storage.resize(total_points);
+
+      const long long row_count = static_cast<long long>(rows);
+#pragma omp parallel
+      {
+        std::vector<size_t> row_cell_counts(cols);
+        std::vector<size_t> col_offsets(cols);
 
 #pragma omp for nowait
-      for (long long r = 0; r < static_cast<long long>(rows); r++) {
-        size_t row = static_cast<size_t>(r);
-        if (row_offsets[row + 1] == row_offsets[row]) continue;
+        for (long long r = 0; r < row_count; r++) {
+          size_t row = static_cast<size_t>(r);
+          if (row_offsets[row + 1] == row_offsets[row]) {
+            place_tracker.report_parallel_progress(static_cast<double>(row + 1) /
+                                                   static_cast<double>(rows));
+            continue;
+          }
 
-        std::fill(row_cell_counts.begin(), row_cell_counts.end(), 0);
-        for (size_t i = row_offsets[row]; i < row_offsets[row + 1]; i++) {
-          auto pixel = transform.projection_to_pixel(
-              Coordinate2D<double>(row_sorted[i].x(), row_sorted[i].y()));
-          row_cell_counts[pixel.round_down().x()]++;
-        }
+          std::fill(row_cell_counts.begin(), row_cell_counts.end(), 0);
+          for (size_t i = row_offsets[row]; i < row_offsets[row + 1]; i++) {
+            auto pixel = transform.projection_to_pixel(
+                Coordinate2D<double>(row_sorted[i].x(), row_sorted[i].y()));
+            row_cell_counts[pixel.round_down().x()]++;
+          }
 
-        size_t offset = row_offsets[row];
-        for (size_t col = 0; col < cols; col++) {
-          col_offsets[col] = offset;
-          offset += row_cell_counts[col];
-        }
-        auto wh = col_offsets;
+          size_t offset = row_offsets[row];
+          for (size_t col = 0; col < cols; col++) {
+            col_offsets[col] = offset;
+            offset += row_cell_counts[col];
+          }
+          auto wh = col_offsets;
 
-        for (size_t i = row_offsets[row]; i < row_offsets[row + 1]; i++) {
-          const LASPoint& point = row_sorted[i];
-          auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
-          m_storage[wh[pixel.round_down().x()]++] = point;
-        }
+          for (size_t i = row_offsets[row]; i < row_offsets[row + 1]; i++) {
+            const LASPoint& point = row_sorted[i];
+            auto pixel = transform.projection_to_pixel(Coordinate2D<double>(point.x(), point.y()));
+            m_storage[wh[pixel.round_down().x()]++] = point;
+          }
 
-        LASPoint* base = m_storage.data();
-        for (size_t col = 0; col < cols; col++) {
-          (*this)[{col, row}] = std::span<LASPoint>(base + col_offsets[col], row_cell_counts[col]);
+          LASPoint* base = m_storage.data();
+          for (size_t col = 0; col < cols; col++) {
+            (*this)[{col, row}] =
+                std::span<LASPoint>(base + col_offsets[col], row_cell_counts[col]);
+          }
+
+          place_tracker.report_parallel_progress(static_cast<double>(row + 1) /
+                                                 static_cast<double>(rows));
         }
       }
     }
 
     row_sorted.clear();
     row_sorted.shrink_to_fit();
-
-    progress_tracker.set_proportion(1.0);
 
     if (num_out_of_bounds.load(std::memory_order_relaxed) > 0) {
       std::cerr << "Warning: " << num_out_of_bounds.load(std::memory_order_relaxed)
