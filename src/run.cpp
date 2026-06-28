@@ -27,8 +27,7 @@
 void run_with_config(const Config& config, const std::vector<fs::path>& additional_las_files,
                      ProgressTracker&& progress_tracker_param) {
   blaze::trace::RecordTrace timing_trace(config.output_path() / "timing_trace.json");
-  ProgressTracker root_tracker(std::move(progress_tracker_param));
-  ProgressTracker progress_tracker = root_tracker.subtracker(0.0, 1.0);
+  ProgressTracker progress_tracker = SUBTRACKER_HIDDEN(0.0, 1.0, progress_tracker_param);
   START_TRACKER(to_string("Using ", omp_get_max_threads(), " threads for processing."));
   std::vector<fs::path> las_files = additional_las_files;
   for (const fs::path& las_file : config.las_filepaths()) {

@@ -504,7 +504,6 @@ class LASData : public LASFile {
                    [[maybe_unused]] std::optional<Extent2D> bounds = std::nullopt,
                    [[maybe_unused]] const std::string& override_crs = "")
       : LASFile(filename, SUBTRACKER(0.0, 0.05, progress_tracker), override_crs) {
-    Timer timer;
     START_TRACKER(to_string("Reading ", filename, " ..."));
     Assert(fs::exists(filename), "File does not exist: " + filename.string());
 
@@ -554,8 +553,6 @@ class LASData : public LASFile {
     //<< " (" << point_view->dimType(dim) << ")" << std::endl;
     //}
 
-    progress_tracker.text_update("Reading metadata took " + to_string(timer));
-
     Timer point_timer;
     for (pdal::PointId idx = 0; idx < point_view->size(); idx++) {
       insert(LASPoint(point_view->point(idx)));
@@ -566,7 +563,6 @@ class LASData : public LASFile {
 #else
     laspp::LASReader reader(filename);
     from_las_reader(reader, override_crs);
-    progress_tracker.text_update("Reading metadata took " + to_string(timer));
     if (skip_reading_points) {
       return;
     }
