@@ -144,12 +144,12 @@ class OctreeLASLayerRenderer : public LayerRenderer {
   void record_lod_sample(size_t vertices, double ms);
   void ensure_gpu_timer(class QOpenGLExtraFunctions* gl);
   void consume_gpu_timer_sample(class QOpenGLExtraFunctions* gl);
-  size_t draw_octree_nodes(QOpenGLFunctions* f, const std::vector<OctreePoint>& point_storage,
+  size_t draw_octree_nodes(QOpenGLFunctions* f, const OctreePointVector& point_storage,
                            const std::vector<PointOctree::VisibleNode>& visible_nodes,
                            const Coordinate3D<double>& file_origin,
                            const Coordinate3D<double>& scene_offset, double quality,
                            bool incremental);
-  size_t draw_preview_points(QOpenGLFunctions* f, const std::vector<OctreePoint>& preview,
+  size_t draw_preview_points(QOpenGLFunctions* f, const OctreePointVector& preview,
                              const Coordinate3D<double>& file_origin,
                              const Coordinate3D<double>& scene_offset);
 

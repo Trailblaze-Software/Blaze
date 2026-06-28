@@ -4,11 +4,9 @@
 
 #include "utilities/filesystem.hpp"
 #include "utilities/progress_tracker.hpp"
-#include "utilities/timer.hpp"
 
-inline void write_to_crt(const fs::path& filename, ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("writing to CRT", progress_tracker);
-
+inline void write_to_crt(const fs::path& filename, ProgressTracker&& progress_tracker) {
+  START_TRACKER("writing CRT " + filename.filename().string());
   std::ofstream crtFile(filename);
   if (!crtFile.is_open()) {
     std::cerr << "Failed to open CRT file for writing\n";
@@ -42,14 +40,11 @@ inline void write_to_crt(const fs::path& filename, ProgressTracker* progress_tra
   crtFile << "410 410_Fight\n";
   crtFile << "419 419_Prominent_Vegetation_Feature\n";
   crtFile << "531 531_Prominent_Man-made_Feature-X\n";
-
   crtFile.close();
 }
 
-inline void write_vegetation_crt(const fs::path& filename,
-                                 ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("writing vegetation CRT", progress_tracker);
-
+inline void write_vegetation_crt(const fs::path& filename, ProgressTracker&& progress_tracker) {
+  START_TRACKER("writing vegetation CRT " + filename.filename().string());
   std::ofstream crtFile(filename);
   if (!crtFile.is_open()) {
     std::cerr << "Failed to open vegetation CRT file for writing\n";

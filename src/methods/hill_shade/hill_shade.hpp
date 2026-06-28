@@ -5,16 +5,14 @@
 
 #include "grid/grid.hpp"
 #include "utilities/progress_tracker.hpp"
-#include "utilities/timer.hpp"
 
 #define DEG2RAD(x) ((x) * std::numbers::pi / 180)
 #define SQ(x) ((x) * (x))
 
 template <typename T>
-GeoGrid<double> hill_shade(const GeoGrid<T>& grid, double azimuth = 315, double altitude = 45,
-                           bool multidirectional = true,
-                           ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("hill shade", progress_tracker);
+GeoGrid<double> hill_shade(const GeoGrid<T>& grid, double azimuth, double altitude,
+                           const bool multidirectional, ProgressTracker&& progress_tracker) {
+  START_TRACKER("computing hill shade");
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
   for (size_t i = 1; i < grid.height() - 1; i++) {
@@ -43,8 +41,8 @@ GeoGrid<double> hill_shade(const GeoGrid<T>& grid, double azimuth = 315, double 
 }
 
 template <typename T>
-GeoGrid<double> slope(const GeoGrid<T>& grid, ProgressTracker* progress_tracker = nullptr) {
-  TimeFunction timer("slope calculation", progress_tracker);
+GeoGrid<double> slope(const GeoGrid<T>& grid, ProgressTracker&& progress_tracker) {
+  START_TRACKER("computing slope");
   GeoGrid<double> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                          GeoProjection(grid.projection()));
   for (size_t i = 1; i < grid.height() - 1; i++) {

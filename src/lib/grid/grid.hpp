@@ -2,20 +2,26 @@
 
 #include <algorithm>
 #include <cmath>
+#include <concepts>
 #include <cstddef>
 #include <cstring>
 #include <limits>
 #include <memory>
+#include <optional>
 #include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <vector>
 
 #include "assert/assert.hpp"
-#include "utilities/coordinate.hpp"
 
-class GDALDataset;
-class RGBColor;
+class ProgressTracker;
+#include "grid/forward_grid.hpp"
+#include "grid/raster.hpp"
+#include "isom/colors.hpp"
+#include "utilities/coordinate.hpp"
+#include "utilities/filesystem.hpp"
+#include "utilities/tracked_allocator.hpp"
 
 inline size_t num_cells_by_distance(double x, double dx) {
   if (dx == 0.0) {
@@ -149,19 +155,25 @@ struct BlazeBool {
   operator bool() const { return value; }
 };
 
-class FlexGrid;
-
 template <typename U>
 class Grid : public GridData {
  protected:
   using T = std::conditional_t<std::is_same_v<U, bool>, BlazeBool, U>;
 
-  std::vector<T> m_data;
+  using DataVector = blaze::memory_tracker::GridVector<T>;
+
+  DataVector m_data;
   int m_repeats;
 
  public:
   Grid(size_t width, size_t height, int repeats = 1)
       : GridData(width, height), m_data(width * height * repeats), m_repeats(repeats) {}
+
+  ~Grid() = default;
+  Grid(const Grid& other) = default;
+  Grid& operator=(const Grid& other) = default;
+  Grid(Grid&& other) noexcept = default;
+  Grid& operator=(Grid&& other) noexcept = default;
 
   T& operator[](Coordinate2D<size_t> coord) {
     return m_data.at(coord.y() * width() * m_repeats + coord.x() * m_repeats);
@@ -200,6 +212,21 @@ class Grid : public GridData {
 
   void fill_from(const FlexGrid& other, const Coordinate2D<long long>& top_left = {0, 0});
 
+  Grid<RGBColor> slice_rect(const blaze::Rect& rect) const
+    requires std::same_as<U, RGBColor>;
+
+  void resize_to(Grid<RGBColor>& dst, const blaze::Size& size,
+                 blaze::InterpolationMode mode = blaze::InterpolationMode::NEAREST) const
+    requires std::same_as<U, RGBColor>;
+
+  void draw_circle(const blaze::Point& center, int radius, const RGBColor& color,
+                   int thickness = -1)
+    requires std::same_as<U, RGBColor>;
+
+  void draw_polyline(const blaze::Point* points, int num_points, bool closed, const RGBColor& color,
+                     int thickness = 1)
+    requires std::same_as<U, RGBColor>;
+
   friend std::ostream& operator<<(std::ostream& os, const Grid& grid) {
     os << "Grid<" << typeid(T).name() << ">(" << grid.width() << ", " << grid.height() << ")"
        << std::endl;
@@ -221,10 +248,16 @@ class FlexGrid : public GridData {
  protected:
   unsigned int m_data_size;
   int m_data_type;
-  std::vector<std::byte> m_data;
+  blaze::memory_tracker::GridVector<std::byte> m_data;
 
  public:
   FlexGrid(size_t width, size_t height, int n_bytes, int data_type = {});
+
+  ~FlexGrid() = default;
+  FlexGrid(const FlexGrid& other) = default;
+  FlexGrid& operator=(const FlexGrid& other) = default;
+  FlexGrid(FlexGrid&& other) noexcept = default;
+  FlexGrid& operator=(FlexGrid&& other) noexcept = default;
 
   std::byte* operator[](Coordinate2D<size_t> coord) {
     return m_data.data() + coord.y() * width() * m_data_size + coord.x() * m_data_size;
@@ -317,8 +350,6 @@ struct is_specialization<Ref<Args...>, Ref> : std::true_type {};
 template <class Type, template <typename...> class Template>
 inline constexpr bool IS_SPECIALIZATION_V = is_specialization<Type, Template>::value;
 
-class GeoImgGrid;
-
 template <typename GridT>
 class Geo : public GridT, public GeoGridData {
  public:
@@ -356,7 +387,27 @@ class Geo : public GridT, public GeoGridData {
                grid.projection());
   }
 
-  static Geo<Grid<RGBColor>> FromGeoImg(const GeoImgGrid& grid);
+  void draw(const Geo<Grid<RGBColor>>& other, ProgressTracker&& progress_tracker,
+            std::optional<blaze::InterpolationMode> interpolation = {})
+    requires std::same_as<GridT, Grid<RGBColor>>;
+
+  void draw(const Geo<Grid<CMYKColor>>& other, ProgressTracker&& progress_tracker,
+            std::optional<blaze::InterpolationMode> interpolation = {})
+    requires std::same_as<GridT, Grid<RGBColor>>;
+
+  void draw_point(const Coordinate2D<double>& point, const ColorVariant& color, double size)
+    requires std::same_as<GridT, Grid<RGBColor>>;
+
+  void draw_contours(const std::vector<Contour>& contours, const ContourConfigs& configs,
+                     double render_scale, bool base_layer_only, ProgressTracker&& progress_tracker)
+    requires std::same_as<GridT, Grid<RGBColor>>;
+
+  void draw_streams(const std::vector<Stream>& streams, const WaterConfigs& water,
+                    double render_scale, ProgressTracker&& progress_tracker)
+    requires std::same_as<GridT, Grid<RGBColor>>;
+
+  void save_to(const fs::path& path, const Extent2D& extent, ProgressTracker&& progress_tracker)
+    requires std::same_as<GridT, Grid<RGBColor>>;
 
   Geo slice(const Extent2D& extent);
   std::unique_ptr<Extent2D> extent() const;
@@ -400,11 +451,6 @@ class Geo : public GridT, public GeoGridData {
     return padded;
   }
 };
-
-template <typename T>
-using GeoGrid = Geo<Grid<T>>;
-
-typedef Geo<FlexGrid> GeoFlexGrid;
 
 template <typename T>
 class GridGraph {

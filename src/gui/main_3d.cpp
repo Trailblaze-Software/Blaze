@@ -54,6 +54,7 @@ static void print_usage(const char* program) {
       << "\n"
       << "Environment:\n"
       << "  BLAZE3D_IMPORT_OUTPUT        Same as --import-blaze-output\n"
+      << "  BLAZE_TRACE=<path>           Write Chrome/Perfetto trace JSON on completion\n"
       << "\n"
       << "Examples:\n"
       << "  " << program << " sample.laz\n"
@@ -206,7 +207,7 @@ static int probe_las_file(const fs::path& filename) {
   size_t max_node_points = 0;
   size_t points_in_nodes = 0;
   int max_node_depth = 0;
-  const std::vector<OctreePoint>& all_points = snap->octree.points();
+  const OctreePointVector& all_points = snap->octree.points();
   std::function<void(const PointOctreeNode&)> walk = [&](const PointOctreeNode& node) {
     max_node_depth = std::max(max_node_depth, node.depth);
     const size_t count = node.point_count();
