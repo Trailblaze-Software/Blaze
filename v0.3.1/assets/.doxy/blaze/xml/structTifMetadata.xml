@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTifMetadata" kind="struct" language="C++" prot="public">
+    <compoundname>TifMetadata</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTifMetadata_1aef6fc7242dc40a934d613a6176d4814c" prot="public" static="no" mutable="no">
+        <type><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref></type>
+        <definition>GeoProjection TifMetadata::projection</definition>
+        <argsstring></argsstring>
+        <name>projection</name>
+        <qualifiedname>TifMetadata::projection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="20" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTifMetadata_1aece2d13d3f4f12817c84511770bc6943" prot="public" static="no" mutable="no">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>Extent3D TifMetadata::extent</definition>
+        <argsstring></argsstring>
+        <name>extent</name>
+        <qualifiedname>TifMetadata::extent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="21" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>Extent2D</label>
+        <link refid="structExtent2D"/>
+      </node>
+      <node id="3">
+        <label>Extent3D</label>
+        <link refid="structExtent3D"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GeoProjection</label>
+        <link refid="classGeoProjection"/>
+      </node>
+      <node id="1">
+        <label>TifMetadata</label>
+        <link refid="structTifMetadata"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>projection</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>extent</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" line="19" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp" bodystart="19" bodyend="22"/>
+    <listofallmembers>
+      <member refid="structTifMetadata_1aece2d13d3f4f12817c84511770bc6943" prot="public" virt="non-virtual"><scope>TifMetadata</scope><name>extent</name></member>
+      <member refid="structTifMetadata_1aef6fc7242dc40a934d613a6176d4814c" prot="public" virt="non-virtual"><scope>TifMetadata</scope><name>projection</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

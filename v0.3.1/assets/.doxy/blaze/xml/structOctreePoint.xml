@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structOctreePoint" kind="struct" language="C++" prot="public">
+    <compoundname>OctreePoint</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structOctreePoint_1af36b37826d26f6db92f31f362fbd8dc4" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float OctreePoint::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>OctreePoint::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="20" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1a511179e259481f6cbafb991694bd2041" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float OctreePoint::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>OctreePoint::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="21" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1a5782477a39fcd9a7fe3ce216725e2adb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float OctreePoint::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>OctreePoint::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="22" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1a160f51c76a5aa60da038f3ec0c44dd8b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t OctreePoint::intensity</definition>
+        <argsstring></argsstring>
+        <name>intensity</name>
+        <qualifiedname>OctreePoint::intensity</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="23" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1adbbda689631460ae996e928f88b0240a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t OctreePoint::classification</definition>
+        <argsstring></argsstring>
+        <name>classification</name>
+        <qualifiedname>OctreePoint::classification</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="24" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1aec3c339e3152f3be0279f0a8d3216d97" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t OctreePoint::file_r</definition>
+        <argsstring></argsstring>
+        <name>file_r</name>
+        <qualifiedname>OctreePoint::file_r</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="25" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1a31d961579efcea8c2ee9ebb89033981b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t OctreePoint::file_g</definition>
+        <argsstring></argsstring>
+        <name>file_g</name>
+        <qualifiedname>OctreePoint::file_g</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="26" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1a044133bebc6c2b904c15e6970b9836a6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t OctreePoint::file_b</definition>
+        <argsstring></argsstring>
+        <name>file_b</name>
+        <qualifiedname>OctreePoint::file_b</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="27" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOctreePoint_1ad854a02c2f5eafb4cbbf7a4f42c31cb9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t OctreePoint::has_file_rgb</definition>
+        <argsstring></argsstring>
+        <name>has_file_rgb</name>
+        <qualifiedname>OctreePoint::has_file_rgb</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="28" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" line="19" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_octree.hpp" bodystart="19" bodyend="29"/>
+    <listofallmembers>
+      <member refid="structOctreePoint_1adbbda689631460ae996e928f88b0240a" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>classification</name></member>
+      <member refid="structOctreePoint_1a044133bebc6c2b904c15e6970b9836a6" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>file_b</name></member>
+      <member refid="structOctreePoint_1a31d961579efcea8c2ee9ebb89033981b" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>file_g</name></member>
+      <member refid="structOctreePoint_1aec3c339e3152f3be0279f0a8d3216d97" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>file_r</name></member>
+      <member refid="structOctreePoint_1ad854a02c2f5eafb4cbbf7a4f42c31cb9" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>has_file_rgb</name></member>
+      <member refid="structOctreePoint_1a160f51c76a5aa60da038f3ec0c44dd8b" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>intensity</name></member>
+      <member refid="structOctreePoint_1af36b37826d26f6db92f31f362fbd8dc4" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>x</name></member>
+      <member refid="structOctreePoint_1a511179e259481f6cbafb991694bd2041" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>y</name></member>
+      <member refid="structOctreePoint_1a5782477a39fcd9a7fe3ce216725e2adb" prot="public" virt="non-virtual"><scope>OctreePoint</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

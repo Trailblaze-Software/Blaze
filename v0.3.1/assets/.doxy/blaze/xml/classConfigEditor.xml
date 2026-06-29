@@ -1,0 +1,1109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classConfigEditor" kind="class" language="C++" prot="public">
+    <compoundname>ConfigEditor</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QWidget</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classConfigEditor_1afbd101f76851f3eb967cac0c6afadfd5" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; Ui::ConfigEditor &gt;</type>
+        <definition>std::unique_ptr&lt;Ui::ConfigEditor&gt; ConfigEditor::ui</definition>
+        <argsstring></argsstring>
+        <name>ui</name>
+        <qualifiedname>ConfigEditor::ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="98" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a9b6c95f7d1c549c404f76cb3be88f1c8" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="structConfig" kindref="compound">Config</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Config&gt; ConfigEditor::m_config</definition>
+        <argsstring></argsstring>
+        <name>m_config</name>
+        <qualifiedname>ConfigEditor::m_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="99" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a478d2f955bf50b911b28187221e8ac32" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ConfigEditor::m_updating_ui</definition>
+        <argsstring></argsstring>
+        <name>m_updating_ui</name>
+        <qualifiedname>ConfigEditor::m_updating_ui</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="114" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a57c5743f14eda41e026db36c022f5810" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ConfigEditor::m_persist_enabled</definition>
+        <argsstring></argsstring>
+        <name>m_persist_enabled</name>
+        <qualifiedname>ConfigEditor::m_persist_enabled</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="115" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a72c775d7e53867fac55def94d4b057bb" prot="private" static="no" mutable="no">
+        <type>QTimer</type>
+        <definition>QTimer ConfigEditor::m_save_debounce_timer</definition>
+        <argsstring></argsstring>
+        <name>m_save_debounce_timer</name>
+        <qualifiedname>ConfigEditor::m_save_debounce_timer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="116" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1ac7c3203ba7caf3a2ecae18272737067f" prot="private" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t ConfigEditor::m_last_total_points</definition>
+        <argsstring></argsstring>
+        <name>m_last_total_points</name>
+        <qualifiedname>ConfigEditor::m_last_total_points</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="121" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a563ce718246db37d6a8fd28110c0ebca" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double ConfigEditor::m_last_total_area_m2</definition>
+        <argsstring></argsstring>
+        <name>m_last_total_area_m2</name>
+        <qualifiedname>ConfigEditor::m_last_total_area_m2</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="122" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a798bc12d01b8e74b6c39ebc5d99e58f8" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t ConfigEditor::m_last_file_count</definition>
+        <argsstring></argsstring>
+        <name>m_last_file_count</name>
+        <qualifiedname>ConfigEditor::m_last_file_count</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="123" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a97b347cf9b364a1a6fbe2ce6ca04b76d" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ConfigEditor::m_inputs_overlap</definition>
+        <argsstring></argsstring>
+        <name>m_inputs_overlap</name>
+        <qualifiedname>ConfigEditor::m_inputs_overlap</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="129" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1a56014c07816192ab89dcdd07bcefeed1" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ConfigEditor::m_inputs_mixed_crs</definition>
+        <argsstring></argsstring>
+        <name>m_inputs_mixed_crs</name>
+        <qualifiedname>ConfigEditor::m_inputs_mixed_crs</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="130" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigEditor_1ab7ed868a5d00daf5856d77c62c88235b" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ConfigEditor::m_override_crs_error</definition>
+        <argsstring></argsstring>
+        <name>m_override_crs_error</name>
+        <qualifiedname>ConfigEditor::m_override_crs_error</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="135" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classConfigEditor_1a5a4d203d15933a166a80f7fbc6d5c16a" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ConfigEditor::ConfigEditor</definition>
+        <argsstring>(QWidget *parent=nullptr)</argsstring>
+        <name>ConfigEditor</name>
+        <qualifiedname>ConfigEditor::ConfigEditor</qualifiedname>
+        <param>
+          <type>QWidget *</type>
+          <declname>parent</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="21" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="200" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1ae7209cc103866d65e833befc239af262" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ConfigEditor::~ConfigEditor</definition>
+        <argsstring>()</argsstring>
+        <name>~ConfigEditor</name>
+        <qualifiedname>ConfigEditor::~ConfigEditor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="22" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="416" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a197848203c2b71314766dac08b804d81" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structConfig" kindref="compound">Config</ref> &amp;</type>
+        <definition>const Config &amp; ConfigEditor::get_config</definition>
+        <argsstring>()</argsstring>
+        <name>get_config</name>
+        <qualifiedname>ConfigEditor::get_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="24" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a78f66e5745c3a4e15fa4ff7778955500" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ConfigEditor::is_valid</definition>
+        <argsstring>() const</argsstring>
+        <name>is_valid</name>
+        <qualifiedname>ConfigEditor::is_valid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="26" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="122" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a80a8f7b330c071b4188164c0704bfd8d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t ConfigEditor::last_total_points</definition>
+        <argsstring>() const</argsstring>
+        <name>last_total_points</name>
+        <qualifiedname>ConfigEditor::last_total_points</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="30" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a74f2471fc535e84325a172ab019d1f2d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double ConfigEditor::last_total_area_m2</definition>
+        <argsstring>() const</argsstring>
+        <name>last_total_area_m2</name>
+        <qualifiedname>ConfigEditor::last_total_area_m2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="31" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a83383f6ec73d3cb183f6124770e69970" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t ConfigEditor::last_file_count</definition>
+        <argsstring>() const</argsstring>
+        <name>last_file_count</name>
+        <qualifiedname>ConfigEditor::last_file_count</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="32" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-slot">
+      <memberdef kind="slot" id="classConfigEditor_1a6a32fe881371c08687ec53d8edaa6648" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::open_config_file</definition>
+        <argsstring>()</argsstring>
+        <name>open_config_file</name>
+        <qualifiedname>ConfigEditor::open_config_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="35" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="471" bodyend="480"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a36d7ed4e698d32762cb029f359772ecc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::save_config_file</definition>
+        <argsstring>()</argsstring>
+        <name>save_config_file</name>
+        <qualifiedname>ConfigEditor::save_config_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="36" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="524" bodyend="532"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a6494d054c0930355c7b7d5b99708f586" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::reset_to_defaults</definition>
+        <argsstring>()</argsstring>
+        <name>reset_to_defaults</name>
+        <qualifiedname>ConfigEditor::reset_to_defaults</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="37" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="465" bodyend="469"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a5e47e642cd4086a711bfbdba10e61b3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::add_las_file</definition>
+        <argsstring>()</argsstring>
+        <name>add_las_file</name>
+        <qualifiedname>ConfigEditor::add_las_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="38" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="487" bodyend="499"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a78d2b762fd95574fb3c85839f7047ec6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::remove_las_file</definition>
+        <argsstring>()</argsstring>
+        <name>remove_las_file</name>
+        <qualifiedname>ConfigEditor::remove_las_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="39" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="501" bodyend="510"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a99f69fad5f708f9fe6b4b5783e589f8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::add_las_folder</definition>
+        <argsstring>()</argsstring>
+        <name>add_las_folder</name>
+        <qualifiedname>ConfigEditor::add_las_folder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="40" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="512" bodyend="522"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a503eb8dae11101e6a6590783e91cce74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::set_las_files</definition>
+        <argsstring>(const std::vector&lt; fs::path &gt; &amp;files)</argsstring>
+        <name>set_las_files</name>
+        <qualifiedname>ConfigEditor::set_las_files</qualifiedname>
+        <param>
+          <type>const std::vector&lt; fs::path &gt; &amp;</type>
+          <declname>files</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="41" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="482" bodyend="485"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1ac7c6cfd68f1395216f2f5c02f9469930" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::add_contour</definition>
+        <argsstring>()</argsstring>
+        <name>add_contour</name>
+        <qualifiedname>ConfigEditor::add_contour</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="44" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="832" bodyend="840"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a6553aee12dd014276643267d83c479ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::remove_contour</definition>
+        <argsstring>()</argsstring>
+        <name>remove_contour</name>
+        <qualifiedname>ConfigEditor::remove_contour</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="45" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="842" bodyend="848"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1aaaf8027b19430723cac9b4716b9fc5c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::handle_contour_selected</definition>
+        <argsstring>()</argsstring>
+        <name>handle_contour_selected</name>
+        <qualifiedname>ConfigEditor::handle_contour_selected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="46" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="850" bodyend="854"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a8910599c23acde8e32e4ffd90ac4216f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_contour_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>update_contour_from_ui</name>
+        <qualifiedname>ConfigEditor::update_contour_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="47" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="868" bodyend="901"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a55a5f17dfd652721e02839ccb5c1e84e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::add_water</definition>
+        <argsstring>()</argsstring>
+        <name>add_water</name>
+        <qualifiedname>ConfigEditor::add_water</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="50" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="927" bodyend="935"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a9db5c451f4316e0800a1ee5c2aa152dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::remove_water</definition>
+        <argsstring>()</argsstring>
+        <name>remove_water</name>
+        <qualifiedname>ConfigEditor::remove_water</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="51" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="937" bodyend="943"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a33a69b30c57ccba064b772fd0fe37604" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::handle_water_selected</definition>
+        <argsstring>()</argsstring>
+        <name>handle_water_selected</name>
+        <qualifiedname>ConfigEditor::handle_water_selected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="52" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="945" bodyend="949"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1abc542fd0481c7eefc1b5ee52b132b6a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_water_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>update_water_from_ui</name>
+        <qualifiedname>ConfigEditor::update_water_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="53" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="980" bodyend="1011"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a889d4b715143342b8c527811dcfe7bfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_water_globals_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>update_water_globals_from_ui</name>
+        <qualifiedname>ConfigEditor::update_water_globals_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="54" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="962" bodyend="978"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a772461f3fdba3d141c11085073050802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::add_vege</definition>
+        <argsstring>()</argsstring>
+        <name>add_vege</name>
+        <qualifiedname>ConfigEditor::add_vege</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="57" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1037" bodyend="1042"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a1c29e18e134a6578cd682cfdf667197e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::remove_vege</definition>
+        <argsstring>()</argsstring>
+        <name>remove_vege</name>
+        <qualifiedname>ConfigEditor::remove_vege</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="58" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1044" bodyend="1049"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a04432a872c4be8cc7e52440bb55cdd32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::handle_vege_selected</definition>
+        <argsstring>()</argsstring>
+        <name>handle_vege_selected</name>
+        <qualifiedname>ConfigEditor::handle_vege_selected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="59" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1051" bodyend="1055"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1abe7f61e9ade3bd045cf987f7ecbaca6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_vege_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>update_vege_from_ui</name>
+        <qualifiedname>ConfigEditor::update_vege_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="60" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1108" bodyend="1133"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a75f20f2fd7ef9411b902809f36e75337" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::add_vege_color</definition>
+        <argsstring>()</argsstring>
+        <name>add_vege_color</name>
+        <qualifiedname>ConfigEditor::add_vege_color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="61" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1135" bodyend="1142"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a0f3a42d63a6e8c8a28f623f437fda691" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::remove_vege_color</definition>
+        <argsstring>()</argsstring>
+        <name>remove_vege_color</name>
+        <qualifiedname>ConfigEditor::remove_vege_color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="62" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1144" bodyend="1155"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1aa32f94af0bca032bb6b307907252cff8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_vege_color_from_ui</definition>
+        <argsstring>(int row, int column)</argsstring>
+        <name>update_vege_color_from_ui</name>
+        <qualifiedname>ConfigEditor::update_vege_color_from_ui</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="63" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1157" bodyend="1198"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1ae96fd7bce83d0861476438b401a8d480" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::add_color</definition>
+        <argsstring>()</argsstring>
+        <name>add_color</name>
+        <qualifiedname>ConfigEditor::add_color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="66" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1225" bodyend="1238"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a35a3e2327cb8314ad295a422f19288bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::remove_color</definition>
+        <argsstring>()</argsstring>
+        <name>remove_color</name>
+        <qualifiedname>ConfigEditor::remove_color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="67" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1240" bodyend="1247"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1ad087d2c317545b21740283ef11727b3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::handle_color_selected</definition>
+        <argsstring>()</argsstring>
+        <name>handle_color_selected</name>
+        <qualifiedname>ConfigEditor::handle_color_selected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="68" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1249" bodyend="1253"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1ad338483d3d1f36d49e22d961df0fd8b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_color_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>update_color_from_ui</name>
+        <qualifiedname>ConfigEditor::update_color_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="69" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1360" bodyend="1390"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1afc932f986daa73a81df89a73aae20732" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::pick_color</definition>
+        <argsstring>()</argsstring>
+        <name>pick_color</name>
+        <qualifiedname>ConfigEditor::pick_color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="70" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1392" bodyend="1403"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a5982d183f43e39f5306d5f711cd24588" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::handle_color_type_changed</definition>
+        <argsstring>(int index)</argsstring>
+        <name>handle_color_type_changed</name>
+        <qualifiedname>ConfigEditor::handle_color_type_changed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="71" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1281" bodyend="1358"/>
+      </memberdef>
+      <memberdef kind="slot" id="classConfigEditor_1a949153b749475f46dec2f52b6008ff0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_general_from_ui</definition>
+        <argsstring>()</argsstring>
+        <name>update_general_from_ui</name>
+        <qualifiedname>ConfigEditor::update_general_from_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="74" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="773" bodyend="806"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="signal">
+      <memberdef kind="signal" id="classConfigEditor_1ab0415e243b7ade81688d2750eea9c562" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::config_changed</definition>
+        <argsstring>()</argsstring>
+        <name>config_changed</name>
+        <qualifiedname>ConfigEditor::config_changed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="77" column="8"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classConfigEditor_1aa63bec3f83506e0a81b5390ae315a88b" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structConfig" kindref="compound">Config</ref></type>
+        <definition>Config ConfigEditor::load_initial_config</definition>
+        <argsstring>()</argsstring>
+        <name>load_initial_config</name>
+        <qualifiedname>ConfigEditor::load_initial_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="80" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="421" bodyend="435"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classConfigEditor_1a87309d79e15fe47b05cf8e204b8b179b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::save_last_used_config</definition>
+        <argsstring>()</argsstring>
+        <name>save_last_used_config</name>
+        <qualifiedname>ConfigEditor::save_last_used_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="81" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="437" bodyend="463"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1aab34a08654fbab02e3436ec37d289eeb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::set_ui_to_config</definition>
+        <argsstring>(const Config &amp;config)</argsstring>
+        <name>set_ui_to_config</name>
+        <qualifiedname>ConfigEditor::set_ui_to_config</qualifiedname>
+        <param>
+          <type>const <ref refid="structConfig" kindref="compound">Config</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="83" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="692" bodyend="770"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1ad11922f5fdbdf27d32089efa46ce28e5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::open_output_directory</definition>
+        <argsstring>()</argsstring>
+        <name>open_output_directory</name>
+        <qualifiedname>ConfigEditor::open_output_directory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="85" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="534" bodyend="544"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a553972a8d4bc012ead95ea9a468b4512" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::wrap_tabs_in_scroll_areas</definition>
+        <argsstring>()</argsstring>
+        <name>wrap_tabs_in_scroll_areas</name>
+        <qualifiedname>ConfigEditor::wrap_tabs_in_scroll_areas</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="90" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="140" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a11851f122c244ee582a15bb98cc2cea8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::activate_tab_containing</definition>
+        <argsstring>(QWidget *content)</argsstring>
+        <name>activate_tab_containing</name>
+        <qualifiedname>ConfigEditor::activate_tab_containing</qualifiedname>
+        <param>
+          <type>QWidget *</type>
+          <declname>content</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="96" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="187" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a86bff2b1533bf818ac00590d82fbc643" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::populate_contour_list</definition>
+        <argsstring>()</argsstring>
+        <name>populate_contour_list</name>
+        <qualifiedname>ConfigEditor::populate_contour_list</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="102" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="809" bodyend="830"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1afd9b92e20baca696dc2e574ca50d533a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::populate_water_list</definition>
+        <argsstring>()</argsstring>
+        <name>populate_water_list</name>
+        <qualifiedname>ConfigEditor::populate_water_list</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="103" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="904" bodyend="925"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a428cf91a755dfaacfe99a0a4340d55fd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::populate_vege_list</definition>
+        <argsstring>()</argsstring>
+        <name>populate_vege_list</name>
+        <qualifiedname>ConfigEditor::populate_vege_list</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="104" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1014" bodyend="1035"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a99b99d04975c1d90ae48081a8af63fa3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::populate_color_list</definition>
+        <argsstring>()</argsstring>
+        <name>populate_color_list</name>
+        <qualifiedname>ConfigEditor::populate_color_list</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="105" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1201" bodyend="1223"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a59499f5440d48783edc0590809fe626f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::load_contour_details</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>load_contour_details</name>
+        <qualifiedname>ConfigEditor::load_contour_details</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="106" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="856" bodyend="866"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1aa8297ff80a7a732f91e143fa07c549b8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::load_water_details</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>load_water_details</name>
+        <qualifiedname>ConfigEditor::load_water_details</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="107" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="951" bodyend="960"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1ab3983316e2f9d7504d845eb0afe9dfe7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::load_vege_details</definition>
+        <argsstring>(int index)</argsstring>
+        <name>load_vege_details</name>
+        <qualifiedname>ConfigEditor::load_vege_details</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="108" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1057" bodyend="1106"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a30841a521570ee817438519697542a32" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::load_color_details</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>load_color_details</name>
+        <qualifiedname>ConfigEditor::load_color_details</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="109" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="1255" bodyend="1279"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1af44420c97f149443957948d95b9e2fbb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::populate_color_combo</definition>
+        <argsstring>(QComboBox *combo)</argsstring>
+        <name>populate_color_combo</name>
+        <qualifiedname>ConfigEditor::populate_color_combo</qualifiedname>
+        <param>
+          <type>QComboBox *</type>
+          <declname>combo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="110" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="546" bodyend="554"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1aa635cbfb41077a59cf4ca88ed88ebdef" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::update_las_stats</definition>
+        <argsstring>()</argsstring>
+        <name>update_las_stats</name>
+        <qualifiedname>ConfigEditor::update_las_stats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="112" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="556" bodyend="640"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a80ece46d4f1b446b31c1d247e584a3d5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::refresh_tile_size_status</definition>
+        <argsstring>()</argsstring>
+        <name>refresh_tile_size_status</name>
+        <qualifiedname>ConfigEditor::refresh_tile_size_status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="139" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="659" bodyend="690"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigEditor_1a23ac9461f668549aa09e2b5bf09efbbb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigEditor::refresh_override_crs_status</definition>
+        <argsstring>()</argsstring>
+        <name>refresh_override_crs_status</name>
+        <qualifiedname>ConfigEditor::refresh_override_crs_status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="143" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.cpp" bodystart="642" bodyend="657"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ConfigEditor</label>
+        <link refid="classConfigEditor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QWidget</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ConfigEditor</label>
+        <link refid="classConfigEditor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QWidget</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" line="17" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/config_editor.hpp" bodystart="17" bodyend="144"/>
+    <listofallmembers>
+      <member refid="classConfigEditor_1a11851f122c244ee582a15bb98cc2cea8" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>activate_tab_containing</name></member>
+      <member refid="classConfigEditor_1ae96fd7bce83d0861476438b401a8d480" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>add_color</name></member>
+      <member refid="classConfigEditor_1ac7c6cfd68f1395216f2f5c02f9469930" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>add_contour</name></member>
+      <member refid="classConfigEditor_1a5e47e642cd4086a711bfbdba10e61b3a" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>add_las_file</name></member>
+      <member refid="classConfigEditor_1a99f69fad5f708f9fe6b4b5783e589f8c" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>add_las_folder</name></member>
+      <member refid="classConfigEditor_1a772461f3fdba3d141c11085073050802" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>add_vege</name></member>
+      <member refid="classConfigEditor_1a75f20f2fd7ef9411b902809f36e75337" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>add_vege_color</name></member>
+      <member refid="classConfigEditor_1a55a5f17dfd652721e02839ccb5c1e84e" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>add_water</name></member>
+      <member refid="classConfigEditor_1ab0415e243b7ade81688d2750eea9c562" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>config_changed</name></member>
+      <member refid="classConfigEditor_1a5a4d203d15933a166a80f7fbc6d5c16a" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>ConfigEditor</name></member>
+      <member refid="classConfigEditor_1a197848203c2b71314766dac08b804d81" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>get_config</name></member>
+      <member refid="classConfigEditor_1ad087d2c317545b21740283ef11727b3c" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>handle_color_selected</name></member>
+      <member refid="classConfigEditor_1a5982d183f43e39f5306d5f711cd24588" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>handle_color_type_changed</name></member>
+      <member refid="classConfigEditor_1aaaf8027b19430723cac9b4716b9fc5c8" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>handle_contour_selected</name></member>
+      <member refid="classConfigEditor_1a04432a872c4be8cc7e52440bb55cdd32" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>handle_vege_selected</name></member>
+      <member refid="classConfigEditor_1a33a69b30c57ccba064b772fd0fe37604" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>handle_water_selected</name></member>
+      <member refid="classConfigEditor_1a78f66e5745c3a4e15fa4ff7778955500" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>is_valid</name></member>
+      <member refid="classConfigEditor_1a83383f6ec73d3cb183f6124770e69970" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>last_file_count</name></member>
+      <member refid="classConfigEditor_1a74f2471fc535e84325a172ab019d1f2d" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>last_total_area_m2</name></member>
+      <member refid="classConfigEditor_1a80a8f7b330c071b4188164c0704bfd8d" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>last_total_points</name></member>
+      <member refid="classConfigEditor_1a30841a521570ee817438519697542a32" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>load_color_details</name></member>
+      <member refid="classConfigEditor_1a59499f5440d48783edc0590809fe626f" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>load_contour_details</name></member>
+      <member refid="classConfigEditor_1aa63bec3f83506e0a81b5390ae315a88b" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>load_initial_config</name></member>
+      <member refid="classConfigEditor_1ab3983316e2f9d7504d845eb0afe9dfe7" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>load_vege_details</name></member>
+      <member refid="classConfigEditor_1aa8297ff80a7a732f91e143fa07c549b8" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>load_water_details</name></member>
+      <member refid="classConfigEditor_1a9b6c95f7d1c549c404f76cb3be88f1c8" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_config</name></member>
+      <member refid="classConfigEditor_1a56014c07816192ab89dcdd07bcefeed1" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_inputs_mixed_crs</name></member>
+      <member refid="classConfigEditor_1a97b347cf9b364a1a6fbe2ce6ca04b76d" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_inputs_overlap</name></member>
+      <member refid="classConfigEditor_1a798bc12d01b8e74b6c39ebc5d99e58f8" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_last_file_count</name></member>
+      <member refid="classConfigEditor_1a563ce718246db37d6a8fd28110c0ebca" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_last_total_area_m2</name></member>
+      <member refid="classConfigEditor_1ac7c3203ba7caf3a2ecae18272737067f" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_last_total_points</name></member>
+      <member refid="classConfigEditor_1ab7ed868a5d00daf5856d77c62c88235b" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_override_crs_error</name></member>
+      <member refid="classConfigEditor_1a57c5743f14eda41e026db36c022f5810" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_persist_enabled</name></member>
+      <member refid="classConfigEditor_1a72c775d7e53867fac55def94d4b057bb" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_save_debounce_timer</name></member>
+      <member refid="classConfigEditor_1a478d2f955bf50b911b28187221e8ac32" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>m_updating_ui</name></member>
+      <member refid="classConfigEditor_1a6a32fe881371c08687ec53d8edaa6648" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>open_config_file</name></member>
+      <member refid="classConfigEditor_1ad11922f5fdbdf27d32089efa46ce28e5" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>open_output_directory</name></member>
+      <member refid="classConfigEditor_1afc932f986daa73a81df89a73aae20732" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>pick_color</name></member>
+      <member refid="classConfigEditor_1af44420c97f149443957948d95b9e2fbb" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>populate_color_combo</name></member>
+      <member refid="classConfigEditor_1a99b99d04975c1d90ae48081a8af63fa3" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>populate_color_list</name></member>
+      <member refid="classConfigEditor_1a86bff2b1533bf818ac00590d82fbc643" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>populate_contour_list</name></member>
+      <member refid="classConfigEditor_1a428cf91a755dfaacfe99a0a4340d55fd" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>populate_vege_list</name></member>
+      <member refid="classConfigEditor_1afd9b92e20baca696dc2e574ca50d533a" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>populate_water_list</name></member>
+      <member refid="classConfigEditor_1a23ac9461f668549aa09e2b5bf09efbbb" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>refresh_override_crs_status</name></member>
+      <member refid="classConfigEditor_1a80ece46d4f1b446b31c1d247e584a3d5" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>refresh_tile_size_status</name></member>
+      <member refid="classConfigEditor_1a35a3e2327cb8314ad295a422f19288bd" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>remove_color</name></member>
+      <member refid="classConfigEditor_1a6553aee12dd014276643267d83c479ec" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>remove_contour</name></member>
+      <member refid="classConfigEditor_1a78d2b762fd95574fb3c85839f7047ec6" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>remove_las_file</name></member>
+      <member refid="classConfigEditor_1a1c29e18e134a6578cd682cfdf667197e" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>remove_vege</name></member>
+      <member refid="classConfigEditor_1a0f3a42d63a6e8c8a28f623f437fda691" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>remove_vege_color</name></member>
+      <member refid="classConfigEditor_1a9db5c451f4316e0800a1ee5c2aa152dc" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>remove_water</name></member>
+      <member refid="classConfigEditor_1a6494d054c0930355c7b7d5b99708f586" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>reset_to_defaults</name></member>
+      <member refid="classConfigEditor_1a36d7ed4e698d32762cb029f359772ecc" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>save_config_file</name></member>
+      <member refid="classConfigEditor_1a87309d79e15fe47b05cf8e204b8b179b" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>save_last_used_config</name></member>
+      <member refid="classConfigEditor_1a503eb8dae11101e6a6590783e91cce74" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>set_las_files</name></member>
+      <member refid="classConfigEditor_1aab34a08654fbab02e3436ec37d289eeb" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>set_ui_to_config</name></member>
+      <member refid="classConfigEditor_1afbd101f76851f3eb967cac0c6afadfd5" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>ui</name></member>
+      <member refid="classConfigEditor_1ad338483d3d1f36d49e22d961df0fd8b9" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>update_color_from_ui</name></member>
+      <member refid="classConfigEditor_1a8910599c23acde8e32e4ffd90ac4216f" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>update_contour_from_ui</name></member>
+      <member refid="classConfigEditor_1a949153b749475f46dec2f52b6008ff0b" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>update_general_from_ui</name></member>
+      <member refid="classConfigEditor_1aa635cbfb41077a59cf4ca88ed88ebdef" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>update_las_stats</name></member>
+      <member refid="classConfigEditor_1aa32f94af0bca032bb6b307907252cff8" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>update_vege_color_from_ui</name></member>
+      <member refid="classConfigEditor_1abe7f61e9ade3bd045cf987f7ecbaca6e" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>update_vege_from_ui</name></member>
+      <member refid="classConfigEditor_1abc542fd0481c7eefc1b5ee52b132b6a3" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>update_water_from_ui</name></member>
+      <member refid="classConfigEditor_1a889d4b715143342b8c527811dcfe7bfa" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>update_water_globals_from_ui</name></member>
+      <member refid="classConfigEditor_1a553972a8d4bc012ead95ea9a468b4512" prot="private" virt="non-virtual"><scope>ConfigEditor</scope><name>wrap_tabs_in_scroll_areas</name></member>
+      <member refid="classConfigEditor_1ae7209cc103866d65e833befc239af262" prot="public" virt="non-virtual"><scope>ConfigEditor</scope><name>~ConfigEditor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

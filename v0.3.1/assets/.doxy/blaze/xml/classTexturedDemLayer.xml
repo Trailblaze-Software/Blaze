@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTexturedDemLayer" kind="class" language="C++" prot="public">
+    <compoundname>TexturedDemLayer</compoundname>
+    <basecompoundref refid="classLayer" prot="public" virt="non-virtual">Layer</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classTexturedDemLayer_1a72db16c054af23d6f22cad6ca347fecd" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncRasterData" kindref="compound">AsyncRasterData</ref></type>
+        <definition>AsyncRasterData TexturedDemLayer::m_raster</definition>
+        <argsstring></argsstring>
+        <name>m_raster</name>
+        <qualifiedname>TexturedDemLayer::m_raster</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="261" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="261" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTexturedDemLayer_1a96f86f5fb931a1727f3b115e52455a9c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TexturedDemLayer::TexturedDemLayer</definition>
+        <argsstring>(const fs::path &amp;dem_path, const fs::path &amp;texture_path, AsyncProgressTracker progress_tracker, const std::string &amp;target_crs_wkt={})</argsstring>
+        <name>TexturedDemLayer</name>
+        <qualifiedname>TexturedDemLayer::TexturedDemLayer</qualifiedname>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>dem_path</declname>
+        </param>
+        <param>
+          <type>const fs::path &amp;</type>
+          <declname>texture_path</declname>
+        </param>
+        <param>
+          <type><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref></type>
+          <declname>progress_tracker</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>target_crs_wkt</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="264" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="264" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="classTexturedDemLayer_1a2d8dc0e82573baa57b963171db304435" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>virtual Extent3D TexturedDemLayer::extent</definition>
+        <argsstring>() const override</argsstring>
+        <name>extent</name>
+        <qualifiedname>TexturedDemLayer::extent</qualifiedname>
+        <reimplements refid="classLayer_1a948936d6c972fac3298443963e00d28c">extent</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="274" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="274" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="classTexturedDemLayer_1a3a8313affaeedd5e2528c3da6921a5fd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string TexturedDemLayer::projection</definition>
+        <argsstring>() const override</argsstring>
+        <name>projection</name>
+        <qualifiedname>TexturedDemLayer::projection</qualifiedname>
+        <reimplements refid="classLayer_1a84e007a609d4e1954815254c29416951">projection</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="275" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="275" bodyend="275"/>
+      </memberdef>
+      <memberdef kind="function" id="classTexturedDemLayer_1af76a93d9cc7182d3485362e52a785a90" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string TexturedDemLayer::native_projection</definition>
+        <argsstring>() const override</argsstring>
+        <name>native_projection</name>
+        <qualifiedname>TexturedDemLayer::native_projection</qualifiedname>
+        <reimplements refid="classLayer_1ae291c42422fd6ef3661349c55a4f54a8">native_projection</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="276" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="276" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classTexturedDemLayer_1ae57eb0befd922083a50f82382177a87c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classAsyncRasterData" kindref="compound">AsyncRasterData</ref> &amp;</type>
+        <definition>const AsyncRasterData &amp; TexturedDemLayer::raster</definition>
+        <argsstring>() const</argsstring>
+        <name>raster</name>
+        <qualifiedname>TexturedDemLayer::raster</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="280" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="280" bodyend="280"/>
+      </memberdef>
+      <memberdef kind="function" id="classTexturedDemLayer_1a805540959c914158670a78acccd175fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classAsyncRasterData" kindref="compound">AsyncRasterData</ref> &amp;</type>
+        <definition>AsyncRasterData &amp; TexturedDemLayer::raster</definition>
+        <argsstring>()</argsstring>
+        <name>raster</name>
+        <qualifiedname>TexturedDemLayer::raster</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="281" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="281" bodyend="281"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-slot">
+      <memberdef kind="slot" id="classTexturedDemLayer_1ad8e71b35f51e57babdcb658bb744e9d5" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TexturedDemLayer::notify_data_updated</definition>
+        <argsstring>()</argsstring>
+        <name>notify_data_updated</name>
+        <qualifiedname>TexturedDemLayer::notify_data_updated</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="284" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="284" bodyend="284"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+      <node id="1">
+        <label>TexturedDemLayer</label>
+        <link refid="classTexturedDemLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+      <node id="1">
+        <label>TexturedDemLayer</label>
+        <link refid="classTexturedDemLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="258" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="258" bodyend="285"/>
+    <listofallmembers>
+      <member refid="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>data_updated</name></member>
+      <member refid="classTexturedDemLayer_1a2d8dc0e82573baa57b963171db304435" prot="public" virt="virtual"><scope>TexturedDemLayer</scope><name>extent</name></member>
+      <member refid="classLayer_1a862d909e88a65f942b22251486ed9b00" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>kind</name></member>
+      <member refid="classLayer_1ab7d5f32b03426d69719a3859c83d45b0" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>Layer</name></member>
+      <member refid="classLayer_1a3f70d56c9a76ba62978b0d136c279993" prot="protected" virt="non-virtual"><scope>TexturedDemLayer</scope><name>m_kind</name></member>
+      <member refid="classLayer_1a2b075c64ebffde8730a248a5bb5f5133" prot="protected" virt="non-virtual"><scope>TexturedDemLayer</scope><name>m_name</name></member>
+      <member refid="classLayer_1a92877caf4a8e5d16c729516062a19990" prot="protected" virt="non-virtual"><scope>TexturedDemLayer</scope><name>m_opacity</name></member>
+      <member refid="classTexturedDemLayer_1a72db16c054af23d6f22cad6ca347fecd" prot="private" virt="non-virtual"><scope>TexturedDemLayer</scope><name>m_raster</name></member>
+      <member refid="classLayer_1a7e4624352245cc74f23f2f76f2aa3343" prot="protected" virt="non-virtual"><scope>TexturedDemLayer</scope><name>m_vertical_offset</name></member>
+      <member refid="classLayer_1a5376eacb1d027c3f84491e75877fb62e" prot="protected" virt="non-virtual"><scope>TexturedDemLayer</scope><name>m_visible</name></member>
+      <member refid="classLayer_1a18ffae5d6320ef21b77500e4d66d729c" prot="public" virt="virtual"><scope>TexturedDemLayer</scope><name>name</name></member>
+      <member refid="classTexturedDemLayer_1af76a93d9cc7182d3485362e52a785a90" prot="public" virt="virtual"><scope>TexturedDemLayer</scope><name>native_projection</name></member>
+      <member refid="classTexturedDemLayer_1ad8e71b35f51e57babdcb658bb744e9d5" prot="private" virt="non-virtual"><scope>TexturedDemLayer</scope><name>notify_data_updated</name></member>
+      <member refid="classLayer_1ad59b3698fefac8b94f76130bfc9ffd86" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>opacity</name></member>
+      <member refid="classLayer_1a8bb6e5cf072eaea82fd5c11a786c734c" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>opacity_changed</name></member>
+      <member refid="classTexturedDemLayer_1a3a8313affaeedd5e2528c3da6921a5fd" prot="public" virt="virtual"><scope>TexturedDemLayer</scope><name>projection</name></member>
+      <member refid="classTexturedDemLayer_1ae57eb0befd922083a50f82382177a87c" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>raster</name></member>
+      <member refid="classTexturedDemLayer_1a805540959c914158670a78acccd175fb" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>raster</name></member>
+      <member refid="classLayer_1a781007788c713f05235723a82c3e4630" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>set_opacity</name></member>
+      <member refid="classLayer_1a83b9ffc695251653ad4aad9c5208e797" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>set_vertical_offset</name></member>
+      <member refid="classLayer_1a87e742f87120f32d66c7fc41c00b529f" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>set_visible</name></member>
+      <member refid="classTexturedDemLayer_1a96f86f5fb931a1727f3b115e52455a9c" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>TexturedDemLayer</name></member>
+      <member refid="classLayer_1ae7010e25098a8b8f352ba5547d1c58da" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>vertical_offset</name></member>
+      <member refid="classLayer_1af74d7d428c1110696475f5748a9e1337" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>vertical_offset_changed</name></member>
+      <member refid="classLayer_1a0767c635f131da0d346d9e983d4dd426" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>visibility_changed</name></member>
+      <member refid="classLayer_1a53edb2c0c1907795ffacb62bf3f9008b" prot="public" virt="non-virtual"><scope>TexturedDemLayer</scope><name>visible</name></member>
+      <member refid="classLayer_1a57e5a4a6ec188de4e7b8c894aac254ea" prot="public" virt="virtual"><scope>TexturedDemLayer</scope><name>~Layer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

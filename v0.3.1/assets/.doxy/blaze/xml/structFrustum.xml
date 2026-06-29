@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structFrustum" kind="struct" language="C++" prot="public">
+    <compoundname>Frustum</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structFrustum_1a448e2f5be9cb27e10175edc985eed087" prot="public" static="no" mutable="no">
+        <type>std::array&lt; QVector4D, 6 &gt;</type>
+        <definition>std::array&lt;QVector4D, 6&gt; Frustum::m_planes</definition>
+        <argsstring></argsstring>
+        <name>m_planes</name>
+        <qualifiedname>Frustum::m_planes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" line="16" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structFrustum_1a5b46eb3f3c659263d4a5679f317eb0b3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structFrustum" kindref="compound">Frustum</ref></type>
+        <definition>static Frustum Frustum::from_matrix</definition>
+        <argsstring>(const QMatrix4x4 &amp;clip)</argsstring>
+        <name>from_matrix</name>
+        <qualifiedname>Frustum::from_matrix</qualifiedname>
+        <param>
+          <type>const QMatrix4x4 &amp;</type>
+          <declname>clip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" line="18" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" bodystart="18" bodyend="35"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structFrustum_1aa4c31790827a4a736a340a184dc60877" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Frustum::intersects</definition>
+        <argsstring>(const Extent3D &amp;bounds) const</argsstring>
+        <name>intersects</name>
+        <qualifiedname>Frustum::intersects</qualifiedname>
+        <param>
+          <type>const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;</type>
+          <declname>bounds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" line="39" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" bodystart="39" bodyend="56"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" line="14" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/frustum.hpp" bodystart="14" bodyend="57"/>
+    <listofallmembers>
+      <member refid="structFrustum_1a5b46eb3f3c659263d4a5679f317eb0b3" prot="public" virt="non-virtual"><scope>Frustum</scope><name>from_matrix</name></member>
+      <member refid="structFrustum_1aa4c31790827a4a736a340a184dc60877" prot="public" virt="non-virtual"><scope>Frustum</scope><name>intersects</name></member>
+      <member refid="structFrustum_1a448e2f5be9cb27e10175edc985eed087" prot="public" virt="non-virtual"><scope>Frustum</scope><name>m_planes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

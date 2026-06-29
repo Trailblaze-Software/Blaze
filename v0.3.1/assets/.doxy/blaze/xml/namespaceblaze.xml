@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceblaze" kind="namespace" language="C++">
+    <compoundname>blaze</compoundname>
+    <innerclass refid="structblaze_1_1Point" prot="public">blaze::Point</innerclass>
+    <innerclass refid="structblaze_1_1Rect" prot="public">blaze::Rect</innerclass>
+    <innerclass refid="structblaze_1_1Size" prot="public">blaze::Size</innerclass>
+    <innernamespace refid="namespaceblaze_1_1memory__tracker">blaze::memory_tracker</innernamespace>
+    <innernamespace refid="namespaceblaze_1_1test">blaze::test</innernamespace>
+    <innernamespace refid="namespaceblaze_1_1trace">blaze::trace</innernamespace>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>InterpolationMode</name>
+        <qualifiedname>blaze::InterpolationMode</qualifiedname>
+        <enumvalue id="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aad135772d7cf93dd0ccf9d2474b34e6a" prot="public">
+          <name>NEAREST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aaac544aacc3615aada24897a215f5046" prot="public">
+          <name>LINEAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/raster.hpp" line="51" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/raster.hpp" bodystart="51" bodyend="51"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="utilities_2env_8hpp_1a9f7696258f7f0ec7cc8a45f30effbde4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * blaze::get_env</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_env</name>
+        <qualifiedname>blaze::get_env</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/env.hpp" line="16" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/env.hpp" bodystart="16" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="utilities_2env_8hpp_1a402ebf75a373a806802e796b8372c23c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::enable_discrete_gpu_offload</definition>
+        <argsstring>()</argsstring>
+        <name>enable_discrete_gpu_offload</name>
+        <qualifiedname>blaze::enable_discrete_gpu_offload</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/env.hpp" line="78" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/env.hpp" bodystart="78" bodyend="101"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="5" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classAtomicSnapshotPtr" kind="class" language="C++" prot="public">
+    <compoundname>AtomicSnapshotPtr</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAtomicSnapshotPtr_1a54ff76bb28ce7878532ca321c4f37d87" prot="private" static="no" mutable="yes">
+        <type>std::mutex</type>
+        <definition>std::mutex AtomicSnapshotPtr::m_mutex</definition>
+        <argsstring></argsstring>
+        <name>m_mutex</name>
+        <qualifiedname>AtomicSnapshotPtr::m_mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="300" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAtomicSnapshotPtr_1ae9bede558c7e871bb80ab549c0ebb206" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; const <ref refid="structLasRenderSnapshot" kindref="compound">LasRenderSnapshot</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;const LasRenderSnapshot&gt; AtomicSnapshotPtr::m_value</definition>
+        <argsstring></argsstring>
+        <name>m_value</name>
+        <qualifiedname>AtomicSnapshotPtr::m_value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="301" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="301" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAtomicSnapshotPtr_1a9a69ebd28ad4271f04a867b38686f9f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AtomicSnapshotPtr::store</definition>
+        <argsstring>(std::shared_ptr&lt; const LasRenderSnapshot &gt; value)</argsstring>
+        <name>store</name>
+        <qualifiedname>AtomicSnapshotPtr::store</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; const <ref refid="structLasRenderSnapshot" kindref="compound">LasRenderSnapshot</ref> &gt;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="304" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="304" bodyend="307"/>
+      </memberdef>
+      <memberdef kind="function" id="classAtomicSnapshotPtr_1aef1c048820d2dc5a02419e3167873258" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; const <ref refid="structLasRenderSnapshot" kindref="compound">LasRenderSnapshot</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; const LasRenderSnapshot &gt; AtomicSnapshotPtr::load</definition>
+        <argsstring>() const</argsstring>
+        <name>load</name>
+        <qualifiedname>AtomicSnapshotPtr::load</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="309" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="309" bodyend="312"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="287" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="287" bodyend="314"/>
+    <listofallmembers>
+      <member refid="classAtomicSnapshotPtr_1aef1c048820d2dc5a02419e3167873258" prot="public" virt="non-virtual"><scope>AtomicSnapshotPtr</scope><name>load</name></member>
+      <member refid="classAtomicSnapshotPtr_1a54ff76bb28ce7878532ca321c4f37d87" prot="private" virt="non-virtual"><scope>AtomicSnapshotPtr</scope><name>m_mutex</name></member>
+      <member refid="classAtomicSnapshotPtr_1ae9bede558c7e871bb80ab549c0ebb206" prot="private" virt="non-virtual"><scope>AtomicSnapshotPtr</scope><name>m_value</name></member>
+      <member refid="classAtomicSnapshotPtr_1a9a69ebd28ad4271f04a867b38686f9f8" prot="public" virt="non-virtual"><scope>AtomicSnapshotPtr</scope><name>store</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

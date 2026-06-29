@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTimer" kind="class" language="C++" prot="public">
+    <compoundname>Timer</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classTimer_1ac9d9c99d289ce91e87873b83d2c807b5" prot="private" static="no" mutable="no">
+        <type>std::chrono::time_point&lt; std::chrono::high_resolution_clock &gt;</type>
+        <definition>std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt; Timer::m_start</definition>
+        <argsstring></argsstring>
+        <name>m_start</name>
+        <qualifiedname>Timer::m_start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="21" column="27" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Timer::Timer</definition>
+        <argsstring>()</argsstring>
+        <name>Timer</name>
+        <qualifiedname>Timer::Timer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="24" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classTimer_1ab79e82b58e3044825ae1c885f38db102" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::chrono::duration&lt; double &gt;</type>
+        <definition>std::chrono::duration&lt; double &gt; Timer::duration</definition>
+        <argsstring>() const</argsstring>
+        <name>duration</name>
+        <qualifiedname>Timer::duration</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="26" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="26" bodyend="28"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classTimer_1a8e125e38ee1ec31b73d2e322c1ec93f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const Timer &amp;timer)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>Timer::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classTimer" kindref="compound">Timer</ref> &amp;</type>
+          <declname>timer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="30" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="30" bodyend="33"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" line="20" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/timer.hpp" bodystart="20" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classTimer_1ab79e82b58e3044825ae1c885f38db102" prot="public" virt="non-virtual"><scope>Timer</scope><name>duration</name></member>
+      <member refid="classTimer_1ac9d9c99d289ce91e87873b83d2c807b5" prot="private" virt="non-virtual"><scope>Timer</scope><name>m_start</name></member>
+      <member refid="classTimer_1a8e125e38ee1ec31b73d2e322c1ec93f2" prot="public" virt="non-virtual"><scope>Timer</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" prot="public" virt="non-virtual"><scope>Timer</scope><name>Timer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

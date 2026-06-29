@@ -1,0 +1,2433 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://Trailblaze-Software.github.io/Blaze/v0.3.1/blaze/classOctreeLASLayerRenderer/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/blaze_icon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Class OctreeLASLayerRenderer - Blaze Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#class-octreelaslayerrenderer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Blaze Documentation" class="md-header__button md-logo" aria-label="Blaze Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/blaze_icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Blaze Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Class OctreeLASLayerRenderer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Trailblaze-Software/Blaze" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trailblaze-Software/Blaze
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Blaze Documentation" class="md-nav__button md-logo" aria-label="Blaze Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/blaze_icon.png" alt="logo">
+
+    </a>
+    Blaze Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Trailblaze-Software/Blaze" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Trailblaze-Software/Blaze
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../installation/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/build-from-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building from Source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usage/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Usage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/qgis-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QGIS Plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developers Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developers Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annotated/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/releasing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releasing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Attributes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-signals-inherited-from-layerrenderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Signals inherited from LayerRenderer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-inherited-from-layerrenderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions inherited from LayerRenderer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-static-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Static Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-static-functions-inherited-from-layerrenderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Static Functions inherited from LayerRenderer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protected-attributes-inherited-from-layerrenderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protected Attributes inherited from LayerRenderer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Attributes Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Attributes Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_ambient_light_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_ambient_light_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_color_mode_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_color_mode_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_counts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_counts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_diffuse_light_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_diffuse_light_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_draw_batch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_draw_batch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_firsts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_firsts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_fixed_color_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_fixed_color_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_fov_rad_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_fov_rad_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_gpu_timer_query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_gpu_timer_query
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_inc_lod_quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_inc_lod_quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_last_point_draw_ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_last_point_draw_ms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_last_point_gpu_ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_last_point_gpu_ms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_last_point_vertices_drawn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_last_point_vertices_drawn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_layer_slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_layer_slot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_light_direction_eye_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_light_direction_eye_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_lod_quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_lod_quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_lod_query_cpu_ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_lod_query_cpu_ms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_lod_query_vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_lod_query_vertices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_ms_per_vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_ms_per_vertex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_node_stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_node_stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_point_alpha_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_point_alpha_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_point_gl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_point_gl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_point_offset_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_point_offset_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_point_radius_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_point_radius_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_points_uploaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_points_uploaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_prev_incremental_stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_prev_incremental_stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_proj_matrix_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_proj_matrix_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_shader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_shader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_shader_layer_slot_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_shader_layer_slot_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_stream_backlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_stream_backlog
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_stream_camera_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_stream_camera_dir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_stream_camera_pos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_stream_camera_pos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_view_matrix_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_view_matrix_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_viewport_height_loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_viewport_height_loc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-m_visible_fingerprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_visible_fingerprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-octreelaslayerrenderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function OctreeLASLayerRenderer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-can_fbo_pick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function can_fbo_pick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-collect_visible_octree_nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function collect_visible_octree_nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-consume_gpu_timer_sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function consume_gpu_timer_sample
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-draw_octree_nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function draw_octree_nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-draw_preview_points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function draw_preview_points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-ensure_gpu_timer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function ensure_gpu_timer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-ensure_shader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function ensure_shader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-estimate_draw_vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function estimate_draw_vertices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-has_stream_backlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function has_stream_backlog
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-last_point_draw_ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function last_point_draw_ms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-last_point_gpu_ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function last_point_gpu_ms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-last_point_vertices_drawn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function last_point_vertices_drawn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-layer_slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function layer_slot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-point_from_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function point_from_index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-record_lod_sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function record_lod_sample
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-refresh_after_style_change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function refresh_after_style_change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-render" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function render
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-reset_stream_cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function reset_stream_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-select_draw_quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function select_draw_quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-set_layer_slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function set_layer_slot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-stream_camera_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function stream_camera_changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-visible_nodes_fingerprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function visible_nodes_fingerprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-visible_set_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function visible_set_changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-octreelaslayerrenderer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function ~OctreeLASLayerRenderer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-static-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Static Functions Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Static Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-sort_visible_by_lod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function sort_visible_by_lod
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="class-octreelaslayerrenderer">Class OctreeLASLayerRenderer</h1>
+<p><a href="../annotated/"><strong>ClassList</strong></a> <strong>&gt;</strong> <a href="./"><strong>OctreeLASLayerRenderer</strong></a></p>
+<p>Inherits the following classes: <a href="../classLayerRenderer/">LayerRenderer</a></p>
+<h2 id="classes">Classes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">struct</td>
+<td style="text-align: left;"><a href="../structOctreeLASLayerRenderer_1_1NodeStreamState/"><strong>NodeStreamState</strong></a> <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-attributes">Public Attributes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_ambient_light_loc"><strong>m_ambient_light_loc</strong></a>   = <code>-1</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_color_mode_loc"><strong>m_color_mode_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::vector&lt; GLsizei &gt;</td>
+<td style="text-align: left;"><a href="#variable-m_counts"><strong>m_counts</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_diffuse_light_loc"><strong>m_diffuse_light_loc</strong></a>   = <code>-1</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::vector&lt; <a href="../structOctreePoint/"><strong>OctreePoint</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#variable-m_draw_batch"><strong>m_draw_batch</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::vector&lt; GLint &gt;</td>
+<td style="text-align: left;"><a href="#variable-m_firsts"><strong>m_firsts</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_fixed_color_loc"><strong>m_fixed_color_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_fov_rad_loc"><strong>m_fov_rad_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">GLuint</td>
+<td style="text-align: left;"><a href="#variable-m_gpu_timer_query"><strong>m_gpu_timer_query</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#variable-m_inc_lod_quality"><strong>m_inc_lod_quality</strong></a>   = <code>1.0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#variable-m_last_point_draw_ms"><strong>m_last_point_draw_ms</strong></a>   = <code>0.0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#variable-m_last_point_gpu_ms"><strong>m_last_point_gpu_ms</strong></a>   = <code>0.0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#variable-m_last_point_vertices_drawn"><strong>m_last_point_vertices_drawn</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::weak_ptr&lt; <a href="../classLASLayer/"><strong>LASLayer</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#variable-m_layer"><strong>m_layer</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_layer_slot"><strong>m_layer_slot</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_light_direction_eye_loc"><strong>m_light_direction_eye_loc</strong></a>   = <code>-1</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#variable-m_lod_quality"><strong>m_lod_quality</strong></a>   = <code>1.0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#variable-m_lod_query_cpu_ms"><strong>m_lod_query_cpu_ms</strong></a>   = <code>0.0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#variable-m_lod_query_vertices"><strong>m_lod_query_vertices</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#variable-m_ms_per_vertex"><strong>m_ms_per_vertex</strong></a>   = <code>30.0 / 800'000.0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::unordered_map&lt; const <a href="../classPointOctreeNode/"><strong>PointOctreeNode</strong></a> *, <a href="../structOctreeLASLayerRenderer_1_1NodeStreamState/"><strong>NodeStreamState</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#variable-m_node_stream"><strong>m_node_stream</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_point_alpha_loc"><strong>m_point_alpha_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../classPointCloudGL/"><strong>PointCloudGL</strong></a></td>
+<td style="text-align: left;"><a href="#variable-m_point_gl"><strong>m_point_gl</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_point_offset_loc"><strong>m_point_offset_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_point_radius_loc"><strong>m_point_radius_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-m_points_uploaded"><strong>m_points_uploaded</strong></a>   = <code>false</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-m_prev_incremental_stream"><strong>m_prev_incremental_stream</strong></a>   = <code>false</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_proj_matrix_loc"><strong>m_proj_matrix_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::unique_ptr&lt; QOpenGLShaderProgram &gt;</td>
+<td style="text-align: left;"><a href="#variable-m_shader"><strong>m_shader</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_shader_layer_slot_loc"><strong>m_shader_layer_slot_loc</strong></a>   = <code>-1</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-m_stream_backlog"><strong>m_stream_backlog</strong></a>   = <code>false</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">QVector3D</td>
+<td style="text-align: left;"><a href="#variable-m_stream_camera_dir"><strong>m_stream_camera_dir</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">QVector3D</td>
+<td style="text-align: left;"><a href="#variable-m_stream_camera_pos"><strong>m_stream_camera_pos</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_view_matrix_loc"><strong>m_view_matrix_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#variable-m_viewport_height_loc"><strong>m_viewport_height_loc</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#variable-m_visible_fingerprint"><strong>m_visible_fingerprint</strong></a>   = <code>0</code><br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-signals-inherited-from-layerrenderer">Public Signals inherited from LayerRenderer</h2>
+<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">signal void</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#signal-repaint_required"><strong>repaint_required</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">signal void</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#signal-stream_view_reset"><strong>stream_view_reset</strong></a>  <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions">Public Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-octreelaslayerrenderer"><strong>OctreeLASLayerRenderer</strong></a> (std::shared_ptr&lt; <a href="../classLASLayer/"><strong>LASLayer</strong></a> &gt; layer, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; offset) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-can_fbo_pick"><strong>can_fbo_pick</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-collect_visible_octree_nodes"><strong>collect_visible_octree_nodes</strong></a> (const <a href="../structLasRenderSnapshot/"><strong>LasRenderSnapshot</strong></a> &amp; snap, const <a href="../classCamera/"><strong>Camera</strong></a> &amp; camera, double vis_quality, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; file_origin, std::vector&lt; <a href="../structPointOctree_1_1VisibleNode/"><strong>PointOctree::VisibleNode</strong></a> &gt; &amp; visible_nodes) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-consume_gpu_timer_sample"><strong>consume_gpu_timer_sample</strong></a> (class QOpenGLExtraFunctions * gl) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#function-draw_octree_nodes"><strong>draw_octree_nodes</strong></a> (QOpenGLFunctions * f, const OctreePointVector &amp; point_storage, const std::vector&lt; <a href="../structPointOctree_1_1VisibleNode/"><strong>PointOctree::VisibleNode</strong></a> &gt; &amp; visible_nodes, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; file_origin, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; scene_offset, double quality, bool incremental) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#function-draw_preview_points"><strong>draw_preview_points</strong></a> (QOpenGLFunctions * f, const OctreePointVector &amp; preview, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; file_origin, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; scene_offset) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-ensure_gpu_timer"><strong>ensure_gpu_timer</strong></a> (class QOpenGLExtraFunctions * gl) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-ensure_shader"><strong>ensure_shader</strong></a> () <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#function-estimate_draw_vertices"><strong>estimate_draw_vertices</strong></a> (const std::vector&lt; <a href="../structPointOctree_1_1VisibleNode/"><strong>PointOctree::VisibleNode</strong></a> &gt; &amp; visible_nodes, double quality, bool incremental) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-has_stream_backlog"><strong>has_stream_backlog</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-last_point_draw_ms"><strong>last_point_draw_ms</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-last_point_gpu_ms"><strong>last_point_gpu_ms</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#function-last_point_vertices_drawn"><strong>last_point_vertices_drawn</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">int</td>
+<td style="text-align: left;"><a href="#function-layer_slot"><strong>layer_slot</strong></a> () const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">std::optional&lt; <a href="../structPointPickResult/"><strong>PointPickResult</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="#function-point_from_index"><strong>point_from_index</strong></a> (uint32_t layer_slot, uint32_t pick_index, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; scene_offset) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-record_lod_sample"><strong>record_lod_sample</strong></a> (size_t vertices, double ms) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-refresh_after_style_change"><strong>refresh_after_style_change</strong></a> () <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">virtual void</td>
+<td style="text-align: left;"><a href="#function-render"><strong>render</strong></a> (const <a href="../classCamera/"><strong>Camera</strong></a> &amp; camera, const <a href="../structRenderContext/"><strong>RenderContext</strong></a> &amp; ctx) override<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-reset_stream_cache"><strong>reset_stream_cache</strong></a> () <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#function-select_draw_quality"><strong>select_draw_quality</strong></a> (const std::vector&lt; <a href="../structPointOctree_1_1VisibleNode/"><strong>PointOctree::VisibleNode</strong></a> &gt; &amp; visible_nodes, bool incremental, bool lod_base_from_incremental, double target_draw_ms) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-set_layer_slot"><strong>set_layer_slot</strong></a> (int slot) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-stream_camera_changed"><strong>stream_camera_changed</strong></a> (const <a href="../classCamera/"><strong>Camera</strong></a> &amp; camera) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">size_t</td>
+<td style="text-align: left;"><a href="#function-visible_nodes_fingerprint"><strong>visible_nodes_fingerprint</strong></a> (const std::vector&lt; <a href="../structPointOctree_1_1VisibleNode/"><strong>PointOctree::VisibleNode</strong></a> &gt; &amp; visible_nodes) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-visible_set_changed"><strong>visible_set_changed</strong></a> (const std::vector&lt; <a href="../structPointOctree_1_1VisibleNode/"><strong>PointOctree::VisibleNode</strong></a> &gt; &amp; visible_nodes) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-octreelaslayerrenderer"><strong>~OctreeLASLayerRenderer</strong></a> () override<br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions-inherited-from-layerrenderer">Public Functions inherited from LayerRenderer</h2>
+<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#function-data_update_required"><strong>data_update_required</strong></a> () <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">virtual void</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#function-render"><strong>render</strong></a> (const <a href="../classCamera/"><strong>Camera</strong></a> &amp; camera, const <a href="../structRenderContext/"><strong>RenderContext</strong></a> &amp; ctx) = 0<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#function-set_visible"><strong>set_visible</strong></a> (bool visible) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">virtual</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#function-layerrenderer"><strong>~LayerRenderer</strong></a> () = default<br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-static-functions">Public Static Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-sort_visible_by_lod"><strong>sort_visible_by_lod</strong></a> (std::vector&lt; <a href="../structPointOctree_1_1VisibleNode/"><strong>PointOctree::VisibleNode</strong></a> &gt; &amp; visible_nodes) <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-static-functions-inherited-from-layerrenderer">Public Static Functions inherited from LayerRenderer</h2>
+<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">std::unique_ptr&lt; <a href="../classLayerRenderer/"><strong>LayerRenderer</strong></a> &gt;</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#function-create"><strong>create</strong></a> (std::shared_ptr&lt; <a href="../classLayer/"><strong>Layer</strong></a> &gt; layer, const <a href="../classCoordinate3D/"><strong>Coordinate3D</strong></a>&lt; double &gt; &amp; offset) <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="protected-attributes-inherited-from-layerrenderer">Protected Attributes inherited from LayerRenderer</h2>
+<p>See <a href="../classLayerRenderer/">LayerRenderer</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#variable-m_data_update_required"><strong>m_data_update_required</strong></a>   = <code>true</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="../classLayerRenderer/#variable-m_visible"><strong>m_visible</strong></a>   = <code>true</code><br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
+<h3 id="variable-m_ambient_light_loc">variable m_ambient_light_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_ambient_light_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_color_mode_loc">variable m_color_mode_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_color_mode_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_counts">variable m_counts</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">GLsizei</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_counts</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_diffuse_light_loc">variable m_diffuse_light_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_diffuse_light_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_draw_batch">variable m_draw_batch</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">OctreePoint</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_draw_batch</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_firsts">variable m_firsts</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">GLint</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_firsts</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_fixed_color_loc">variable m_fixed_color_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_fixed_color_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_fov_rad_loc">variable m_fov_rad_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_fov_rad_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_gpu_timer_query">variable m_gpu_timer_query</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">GLuint</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_gpu_timer_query</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_inc_lod_quality">variable m_inc_lod_quality</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_inc_lod_quality</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_last_point_draw_ms">variable m_last_point_draw_ms</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_last_point_draw_ms</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_last_point_gpu_ms">variable m_last_point_gpu_ms</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_last_point_gpu_ms</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_last_point_vertices_drawn">variable m_last_point_vertices_drawn</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_last_point_vertices_drawn</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_layer">variable m_layer</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">LASLayer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_layer</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_layer_slot">variable m_layer_slot</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_layer_slot</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_light_direction_eye_loc">variable m_light_direction_eye_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_light_direction_eye_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_lod_quality">variable m_lod_quality</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_lod_quality</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_lod_query_cpu_ms">variable m_lod_query_cpu_ms</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_lod_query_cpu_ms</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_lod_query_vertices">variable m_lod_query_vertices</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_lod_query_vertices</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_ms_per_vertex">variable m_ms_per_vertex</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_ms_per_vertex</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_node_stream">variable m_node_stream</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">PointOctreeNode</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">NodeStreamState</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_node_stream</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_point_alpha_loc">variable m_point_alpha_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_alpha_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_point_gl">variable m_point_gl</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">PointCloudGL</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_gl</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_point_offset_loc">variable m_point_offset_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_offset_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_point_radius_loc">variable m_point_radius_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_radius_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_points_uploaded">variable m_points_uploaded</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_points_uploaded</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_prev_incremental_stream">variable m_prev_incremental_stream</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_prev_incremental_stream</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_proj_matrix_loc">variable m_proj_matrix_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_proj_matrix_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_shader">variable m_shader</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">QOpenGLShaderProgram</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_shader</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_shader_layer_slot_loc">variable m_shader_layer_slot_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_shader_layer_slot_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_stream_backlog">variable m_stream_backlog</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_backlog</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_stream_camera_dir">variable m_stream_camera_dir</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">QVector3D</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_camera_dir</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_stream_camera_pos">variable m_stream_camera_pos</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">QVector3D</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_camera_pos</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_view_matrix_loc">variable m_view_matrix_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_view_matrix_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_viewport_height_loc">variable m_viewport_height_loc</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_viewport_height_loc</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-m_visible_fingerprint">variable m_visible_fingerprint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_visible_fingerprint</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-octreelaslayerrenderer">function OctreeLASLayerRenderer</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">OctreeLASLayerRenderer</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASLayer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">layer</span><span class="p">,</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">offset</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-can_fbo_pick">function can_fbo_pick</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">can_fbo_pick</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-collect_visible_octree_nodes">function collect_visible_octree_nodes</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">collect_visible_octree_nodes</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">LasRenderSnapshot</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">snap</span><span class="p">,</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span><span class="p">,</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">vis_quality</span><span class="p">,</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-consume_gpu_timer_sample">function consume_gpu_timer_sample</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">consume_gpu_timer_sample</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">QOpenGLExtraFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gl</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-draw_octree_nodes">function draw_octree_nodes</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">draw_octree_nodes</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">    </span><span class="n">QOpenGLFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point_storage</span><span class="p">,</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span><span class="p">,</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">quality</span><span class="p">,</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-draw_preview_points">function draw_preview_points</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">draw_preview_points</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w">    </span><span class="n">QOpenGLFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">preview</span><span class="p">,</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-ensure_gpu_timer">function ensure_gpu_timer</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">ensure_gpu_timer</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">QOpenGLExtraFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gl</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-ensure_shader">function ensure_shader</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">ensure_shader</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-estimate_draw_vertices">function estimate_draw_vertices</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">estimate_draw_vertices</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">quality</span><span class="p">,</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-has_stream_backlog">function has_stream_backlog</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">has_stream_backlog</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-last_point_draw_ms">function last_point_draw_ms</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_draw_ms</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-last_point_gpu_ms">function last_point_gpu_ms</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_gpu_ms</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-last_point_vertices_drawn">function last_point_vertices_drawn</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_vertices_drawn</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-layer_slot">function layer_slot</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">layer_slot</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-point_from_index">function point_from_index</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointPickResult</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">point_from_index</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">layer_slot</span><span class="p">,</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pick_index</span><span class="p">,</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-record_lod_sample">function record_lod_sample</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">record_lod_sample</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">vertices</span><span class="p">,</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">ms</span>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-refresh_after_style_change">function refresh_after_style_change</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">refresh_after_style_change</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-render">function render</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">render</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span><span class="p">,</span>
+<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">RenderContext</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span>
+<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
+</code></pre></div>
+<p>Implements <a href="../classLayerRenderer/#function-render"><em>LayerRenderer::render</em></a></p>
+<hr>
+
+<h3 id="function-reset_stream_cache">function reset_stream_cache</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">reset_stream_cache</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-select_draw_quality">function select_draw_quality</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">select_draw_quality</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span><span class="p">,</span>
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">lod_base_from_incremental</span><span class="p">,</span>
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">target_draw_ms</span>
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-set_layer_slot">function set_layer_slot</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">set_layer_slot</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">slot</span>
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-stream_camera_changed">function stream_camera_changed</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">stream_camera_changed</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span>
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-visible_nodes_fingerprint">function visible_nodes_fingerprint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">visible_nodes_fingerprint</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-visible_set_changed">function visible_set_changed</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">visible_set_changed</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-octreelaslayerrenderer_1">function ~OctreeLASLayerRenderer</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="n">OctreeLASLayerRenderer</span><span class="o">::~</span><span class="n">OctreeLASLayerRenderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+</code></pre></div>
+<hr>
+<h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
+<h3 id="function-sort_visible_by_lod">function sort_visible_by_lod</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">sort_visible_by_lod</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<hr />
+<p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tracking", "navigation.top", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

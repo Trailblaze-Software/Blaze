@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="point__cloud__visualization_8hpp" kind="file" language="C++">
+    <compoundname>point_cloud_visualization.hpp</compoundname>
+    <includes local="no">array</includes>
+    <includes local="no">cstdint</includes>
+    <includes local="no">string</includes>
+    <includedby refid="layer_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</includedby>
+    <includedby refid="main__3d__window_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp</includedby>
+    <includedby refid="shaders_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/shaders.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp</label>
+        <link refid="point__cloud__visualization_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>array</label>
+      </node>
+      <node id="3">
+        <label>cstdint</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp</label>
+        <link refid="blaze__output__loader_8hpp_source"/>
+      </node>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
+        <link refid="gl__widget_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
+        <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp</label>
+        <link refid="point__cloud__visualization_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structClassificationStyle" prot="public">ClassificationStyle</innerclass>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="point__cloud__visualization_8hpp_1abe3188d8ea9935dcdb265c8d9a72a667" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>PointColorMode</name>
+        <enumvalue id="point__cloud__visualization_8hpp_1abe3188d8ea9935dcdb265c8d9a72a667a0b27918290ff5323bea1e3b78a9cf04e" prot="public">
+          <name>File</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="point__cloud__visualization_8hpp_1abe3188d8ea9935dcdb265c8d9a72a667a5c9335b28e6277ddbe0137f04e5e58a7" prot="public">
+          <name>Classification</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="point__cloud__visualization_8hpp_1abe3188d8ea9935dcdb265c8d9a72a667a4457d440870ad6d42bab9082d9bf9b61" prot="public">
+          <name>Fixed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" line="7" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" bodystart="7" bodyend="7"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="point__cloud__visualization_8hpp_1a900260af7d50bc569575a9599a6cb5eb" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::array&lt; <ref refid="structClassificationStyle" kindref="compound">ClassificationStyle</ref>, 9 &gt;</type>
+        <definition>constexpr std::array&lt;ClassificationStyle, 9&gt; CLASSIFICATION_STYLES</definition>
+        <argsstring></argsstring>
+        <name>CLASSIFICATION_STYLES</name>
+        <initializer>= {{
+    {2, {{160, 120, 80}}, &quot;Ground&quot;},
+    {3, {{100, 180, 100}}, &quot;Low vegetation&quot;},
+    {4, {{60, 140, 60}}, &quot;Medium vegetation&quot;},
+    {5, {{30, 100, 30}}, &quot;High vegetation&quot;},
+    {6, {{200, 80, 80}}, &quot;Building&quot;},
+    {7, {{120, 120, 120}}, &quot;Low point&quot;},
+    {8, {{255, 200, 0}}, &quot;Model key point&quot;},
+    {9, {{60, 120, 220}}, &quot;Water&quot;},
+    {17, {{180, 180, 180}}, &quot;Bridge deck&quot;},
+}}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" line="18" column="29" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" bodystart="18" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="variable" id="point__cloud__visualization_8hpp_1ad162e7e29a547eacfa5fb9c5a19e69e2" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::array&lt; uint8_t, 3 &gt;</type>
+        <definition>constexpr std::array&lt;uint8_t, 3&gt; DEFAULT_CLASSIFICATION_COLOR</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_CLASSIFICATION_COLOR</name>
+        <initializer>{{200, 200, 200}}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" line="30" column="29" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="point__cloud__visualization_8hpp_1ae91c09c22acc377cb12854903f12da0d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::array&lt; uint8_t, 3 &gt;</type>
+        <definition>std::array&lt; uint8_t, 3 &gt; classification_color</definition>
+        <argsstring>(uint8_t classification)</argsstring>
+        <name>classification_color</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>classification</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" line="32" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" bodystart="32" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="point__cloud__visualization_8hpp_1a86c15d62aede8bb99451c44db845ea04" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string classification_color_glsl</definition>
+        <argsstring>()</argsstring>
+        <name>classification_color_glsl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" line="43" column="20" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" bodystart="43" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;array&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>PointColorMode<sp/>{<sp/>File,<sp/>Classification,<sp/>Fixed<sp/>};</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Single<sp/>source<sp/>of<sp/>truth<sp/>for<sp/>LAS<sp/>classification<sp/>styling.<sp/>The<sp/>point<sp/>shader&apos;s</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>classification_color()<sp/>GLSL<sp/>(generated<sp/>by<sp/>classification_color_glsl())<sp/>and</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>UI&apos;s<sp/>classification<sp/>label<sp/>both<sp/>derive<sp/>from<sp/>this<sp/>one<sp/>table.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="structClassificationStyle" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structClassificationStyle" kindref="compound">ClassificationStyle</ref><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>uint8_t<sp/>code;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>std::array&lt;uint8_t,<sp/>3&gt;<sp/>color;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>label;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::array&lt;ClassificationStyle,<sp/>9&gt;<sp/>CLASSIFICATION_STYLES<sp/>=<sp/>{{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>{2,<sp/>{{160,<sp/>120,<sp/>80}},<sp/></highlight><highlight class="stringliteral">&quot;Ground&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>{3,<sp/>{{100,<sp/>180,<sp/>100}},<sp/></highlight><highlight class="stringliteral">&quot;Low<sp/>vegetation&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>{4,<sp/>{{60,<sp/>140,<sp/>60}},<sp/></highlight><highlight class="stringliteral">&quot;Medium<sp/>vegetation&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>{5,<sp/>{{30,<sp/>100,<sp/>30}},<sp/></highlight><highlight class="stringliteral">&quot;High<sp/>vegetation&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>{6,<sp/>{{200,<sp/>80,<sp/>80}},<sp/></highlight><highlight class="stringliteral">&quot;Building&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>{7,<sp/>{{120,<sp/>120,<sp/>120}},<sp/></highlight><highlight class="stringliteral">&quot;Low<sp/>point&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>{8,<sp/>{{255,<sp/>200,<sp/>0}},<sp/></highlight><highlight class="stringliteral">&quot;Model<sp/>key<sp/>point&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>{9,<sp/>{{60,<sp/>120,<sp/>220}},<sp/></highlight><highlight class="stringliteral">&quot;Water&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>{17,<sp/>{{180,<sp/>180,<sp/>180}},<sp/></highlight><highlight class="stringliteral">&quot;Bridge<sp/>deck&quot;</highlight><highlight class="normal">},</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}};</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::array&lt;uint8_t,<sp/>3&gt;<sp/>DEFAULT_CLASSIFICATION_COLOR{{200,<sp/>200,<sp/>200}};</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::array&lt;uint8_t,<sp/>3&gt;<sp/>classification_color(uint8_t<sp/>classification)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structClassificationStyle" kindref="compound">ClassificationStyle</ref>&amp;<sp/>style<sp/>:<sp/>CLASSIFICATION_STYLES)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(style.code<sp/>==<sp/>classification)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>style.color;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>DEFAULT_CLASSIFICATION_COLOR;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/>GLSL<sp/>source<sp/>for<sp/>`vec3<sp/>classification_color(int<sp/>class_id)`,<sp/>generated<sp/>from<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>table<sp/>so<sp/>the<sp/>shader<sp/>palette<sp/>is<sp/>never<sp/>a<sp/>hand-maintained<sp/>copy.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>classification_color_glsl()<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>vec3_literal<sp/>=<sp/>[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::array&lt;uint8_t,<sp/>3&gt;&amp;<sp/>c)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;vec3(&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::to_string(c[0])<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;.0,<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::to_string(c[1])<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;.0,<sp/>&quot;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::to_string(c[2])<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;.0)<sp/>/<sp/>255.0&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>std::string<sp/>src<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;vec3<sp/>classification_color(int<sp/>class_id)<sp/>{\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structClassificationStyle" kindref="compound">ClassificationStyle</ref>&amp;<sp/>style<sp/>:<sp/>CLASSIFICATION_STYLES)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>src<sp/>+=<sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>if<sp/>(class_id<sp/>==<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::to_string(style.code)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;)<sp/>return<sp/>&quot;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vec3_literal(style.color)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>src<sp/>+=<sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>return<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>vec3_literal(DEFAULT_CLASSIFICATION_COLOR)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;;\n}\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>src;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp"/>
+  </compounddef>
+</doxygen>

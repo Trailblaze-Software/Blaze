@@ -1,0 +1,1184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classOctreeLASLayerRenderer" kind="class" language="C++" prot="public">
+    <compoundname>OctreeLASLayerRenderer</compoundname>
+    <basecompoundref refid="classLayerRenderer" prot="public" virt="non-virtual">LayerRenderer</basecompoundref>
+    <innerclass refid="structOctreeLASLayerRenderer_1_1NodeStreamState" prot="public">OctreeLASLayerRenderer::NodeStreamState</innerclass>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a8d741c0af92c8a56678684468d2d0147" prot="public" static="no" mutable="no">
+        <type>std::weak_ptr&lt; <ref refid="classLASLayer" kindref="compound">LASLayer</ref> &gt;</type>
+        <definition>std::weak_ptr&lt;LASLayer&gt; OctreeLASLayerRenderer::m_layer</definition>
+        <argsstring></argsstring>
+        <name>m_layer</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="80" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a86ff72d63ebdde899a3f8e35e62d93a5" prot="public" static="no" mutable="no">
+        <type><ref refid="classPointCloudGL" kindref="compound">PointCloudGL</ref></type>
+        <definition>PointCloudGL OctreeLASLayerRenderer::m_point_gl</definition>
+        <argsstring></argsstring>
+        <name>m_point_gl</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_point_gl</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="82" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1ab3b367bd65713072f23763196909c337" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structOctreePoint" kindref="compound">OctreePoint</ref> &gt;</type>
+        <definition>std::vector&lt;OctreePoint&gt; OctreeLASLayerRenderer::m_draw_batch</definition>
+        <argsstring></argsstring>
+        <name>m_draw_batch</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_draw_batch</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="83" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1ab99095626b30c5fb3f14da8546c34d37" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; QOpenGLShaderProgram &gt;</type>
+        <definition>std::unique_ptr&lt;QOpenGLShaderProgram&gt; OctreeLASLayerRenderer::m_shader</definition>
+        <argsstring></argsstring>
+        <name>m_shader</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_shader</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="85" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1ac1ab2c1c77706babae5f62ea7f35f73d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_view_matrix_loc</definition>
+        <argsstring></argsstring>
+        <name>m_view_matrix_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_view_matrix_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="86" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a8a546d728a86be041fe961a5f11719ce" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_proj_matrix_loc</definition>
+        <argsstring></argsstring>
+        <name>m_proj_matrix_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_proj_matrix_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="87" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a33d556a77b876575bda6f674dbd7b619" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_point_radius_loc</definition>
+        <argsstring></argsstring>
+        <name>m_point_radius_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_point_radius_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="88" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a47a821c4c69c74acf46ab218bc9b1295" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_viewport_height_loc</definition>
+        <argsstring></argsstring>
+        <name>m_viewport_height_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_viewport_height_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="89" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1abaa8ecdb75dfe99b79307dada7cb17da" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_fov_rad_loc</definition>
+        <argsstring></argsstring>
+        <name>m_fov_rad_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_fov_rad_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="90" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1aac354830b3b5f009a2d91df78038a278" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_color_mode_loc</definition>
+        <argsstring></argsstring>
+        <name>m_color_mode_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_color_mode_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="91" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1aa4955a9198a215456bb68140c4724cb3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_fixed_color_loc</definition>
+        <argsstring></argsstring>
+        <name>m_fixed_color_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_fixed_color_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="92" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a6e1e14fe72cdf699ef2404762eb32466" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_point_alpha_loc</definition>
+        <argsstring></argsstring>
+        <name>m_point_alpha_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_point_alpha_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="93" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a61c07afa192ce49a6630db254f613944" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_point_offset_loc</definition>
+        <argsstring></argsstring>
+        <name>m_point_offset_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_point_offset_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="94" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1af565217fb1e4de2392d208d963ea495b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_shader_layer_slot_loc</definition>
+        <argsstring></argsstring>
+        <name>m_shader_layer_slot_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_shader_layer_slot_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="95" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1ab3c27cf793386365a6a05181654d43e6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_light_direction_eye_loc</definition>
+        <argsstring></argsstring>
+        <name>m_light_direction_eye_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_light_direction_eye_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="96" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a0d8d3d30616b514ede8931b7fa02ece8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_ambient_light_loc</definition>
+        <argsstring></argsstring>
+        <name>m_ambient_light_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_ambient_light_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="97" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1af2f988835bb7241012baebed456c0378" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_diffuse_light_loc</definition>
+        <argsstring></argsstring>
+        <name>m_diffuse_light_loc</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_diffuse_light_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="98" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a8f9f9f8f85457043badd85c9fb1113a0" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::m_lod_quality</definition>
+        <argsstring></argsstring>
+        <name>m_lod_quality</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_lod_quality</qualifiedname>
+        <initializer>= 1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="100" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1add244380a15b9e2992c8cd1af27c5cba" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::m_inc_lod_quality</definition>
+        <argsstring></argsstring>
+        <name>m_inc_lod_quality</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_inc_lod_quality</qualifiedname>
+        <initializer>= 1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="101" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1ac2ef4de2d5856881578cf4dde418f299" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::m_ms_per_vertex</definition>
+        <argsstring></argsstring>
+        <name>m_ms_per_vertex</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_ms_per_vertex</qualifiedname>
+        <initializer>= 30.0 / 800&apos;000.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="102" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1abb273952bfa977b1c2fdc860bd07cf59" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OctreeLASLayerRenderer::m_stream_backlog</definition>
+        <argsstring></argsstring>
+        <name>m_stream_backlog</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_stream_backlog</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="103" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1af5be1b2a3183279e139a9040166c9ec9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OctreeLASLayerRenderer::m_prev_incremental_stream</definition>
+        <argsstring></argsstring>
+        <name>m_prev_incremental_stream</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_prev_incremental_stream</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="104" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1ae3e809fcccf5425b8b208e8382d47233" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::m_last_point_draw_ms</definition>
+        <argsstring></argsstring>
+        <name>m_last_point_draw_ms</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_last_point_draw_ms</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="105" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1aa7672eb1feabbd977ba999b25ab67e0c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::m_last_point_gpu_ms</definition>
+        <argsstring></argsstring>
+        <name>m_last_point_gpu_ms</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_last_point_gpu_ms</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="106" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a0cb999603860288d1b0ccd9938f8bfbe" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::m_last_point_vertices_drawn</definition>
+        <argsstring></argsstring>
+        <name>m_last_point_vertices_drawn</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_last_point_vertices_drawn</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="107" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1aee1d54cf3b937be2a2a6c37ee8311bd5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::m_layer_slot</definition>
+        <argsstring></argsstring>
+        <name>m_layer_slot</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_layer_slot</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="108" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a53d91112bab27ed5db6e60837012a2ea" prot="public" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint OctreeLASLayerRenderer::m_gpu_timer_query</definition>
+        <argsstring></argsstring>
+        <name>m_gpu_timer_query</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_gpu_timer_query</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="110" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a8aa3210172c742ebe305070d25a0fe16" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::m_lod_query_vertices</definition>
+        <argsstring></argsstring>
+        <name>m_lod_query_vertices</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_lod_query_vertices</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="111" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a648bcaaf3e4e8bfc184141541c8f5f8f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::m_lod_query_cpu_ms</definition>
+        <argsstring></argsstring>
+        <name>m_lod_query_cpu_ms</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_lod_query_cpu_ms</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="112" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a7ff30f24d14d2f48bb24105b0df06806" prot="public" static="no" mutable="no">
+        <type>std::unordered_map&lt; const <ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref> *, <ref refid="structOctreeLASLayerRenderer_1_1NodeStreamState" kindref="compound">NodeStreamState</ref> &gt;</type>
+        <definition>std::unordered_map&lt;const PointOctreeNode*, NodeStreamState&gt; OctreeLASLayerRenderer::m_node_stream</definition>
+        <argsstring></argsstring>
+        <name>m_node_stream</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_node_stream</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="120" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a10af6d7d60c58e5906bf8156b83e866b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OctreeLASLayerRenderer::m_points_uploaded</definition>
+        <argsstring></argsstring>
+        <name>m_points_uploaded</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_points_uploaded</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="121" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1aa83a3bd629dfe2bdf7d55846ca7c1c50" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; GLint &gt;</type>
+        <definition>std::vector&lt;GLint&gt; OctreeLASLayerRenderer::m_firsts</definition>
+        <argsstring></argsstring>
+        <name>m_firsts</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_firsts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="122" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a3c45e132855bca9a6cdac4883affc093" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; GLsizei &gt;</type>
+        <definition>std::vector&lt;GLsizei&gt; OctreeLASLayerRenderer::m_counts</definition>
+        <argsstring></argsstring>
+        <name>m_counts</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_counts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="123" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1ac6926202bc772f0358ca9787a7cb1e16" prot="public" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D OctreeLASLayerRenderer::m_stream_camera_pos</definition>
+        <argsstring></argsstring>
+        <name>m_stream_camera_pos</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_stream_camera_pos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="124" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a3ffac512ea1a5404bc6e59463fcc3bc9" prot="public" static="no" mutable="no">
+        <type>QVector3D</type>
+        <definition>QVector3D OctreeLASLayerRenderer::m_stream_camera_dir</definition>
+        <argsstring></argsstring>
+        <name>m_stream_camera_dir</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_stream_camera_dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="125" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOctreeLASLayerRenderer_1a6cf13a3abb685d901be5eca3f91d3a00" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::m_visible_fingerprint</definition>
+        <argsstring></argsstring>
+        <name>m_visible_fingerprint</name>
+        <qualifiedname>OctreeLASLayerRenderer::m_visible_fingerprint</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="126" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1abc1599da5152255cdd6bc8533550b3da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OctreeLASLayerRenderer::~OctreeLASLayerRenderer</definition>
+        <argsstring>() override</argsstring>
+        <name>~OctreeLASLayerRenderer</name>
+        <qualifiedname>OctreeLASLayerRenderer::~OctreeLASLayerRenderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="79" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="49" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1add72c13ee18ff128dc1c5740a094ccc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::reset_stream_cache</definition>
+        <argsstring>()</argsstring>
+        <name>reset_stream_cache</name>
+        <qualifiedname>OctreeLASLayerRenderer::reset_stream_cache</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="128" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="106" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a6985ce9aa2bbb3b22e459c7eed5006a2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OctreeLASLayerRenderer::stream_camera_changed</definition>
+        <argsstring>(const Camera &amp;camera) const</argsstring>
+        <name>stream_camera_changed</name>
+        <qualifiedname>OctreeLASLayerRenderer::stream_camera_changed</qualifiedname>
+        <param>
+          <type>const <ref refid="classCamera" kindref="compound">Camera</ref> &amp;</type>
+          <declname>camera</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="129" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="127" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1aac59074849204f41afeee6d7d734ae78" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OctreeLASLayerRenderer::visible_set_changed</definition>
+        <argsstring>(const std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes) const</argsstring>
+        <name>visible_set_changed</name>
+        <qualifiedname>OctreeLASLayerRenderer::visible_set_changed</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref> &gt; &amp;</type>
+          <declname>visible_nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="130" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="138" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1af9714659bc41dbd1768448908065dd90" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::visible_nodes_fingerprint</definition>
+        <argsstring>(const std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes) const</argsstring>
+        <name>visible_nodes_fingerprint</name>
+        <qualifiedname>OctreeLASLayerRenderer::visible_nodes_fingerprint</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref> &gt; &amp;</type>
+          <declname>visible_nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="131" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="117" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a7e6b58a56313939dd9ff2d8ddcce12f8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::collect_visible_octree_nodes</definition>
+        <argsstring>(const LasRenderSnapshot &amp;snap, const Camera &amp;camera, double vis_quality, const Coordinate3D&lt; double &gt; &amp;file_origin, std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes) const</argsstring>
+        <name>collect_visible_octree_nodes</name>
+        <qualifiedname>OctreeLASLayerRenderer::collect_visible_octree_nodes</qualifiedname>
+        <param>
+          <type>const <ref refid="structLasRenderSnapshot" kindref="compound">LasRenderSnapshot</ref> &amp;</type>
+          <declname>snap</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCamera" kindref="compound">Camera</ref> &amp;</type>
+          <declname>camera</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>vis_quality</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>file_origin</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref> &gt; &amp;</type>
+          <declname>visible_nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="134" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="165" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a07535a8ea01791f8adb897a58e440c97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::ensure_shader</definition>
+        <argsstring>()</argsstring>
+        <name>ensure_shader</name>
+        <qualifiedname>OctreeLASLayerRenderer::ensure_shader</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="138" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="64" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1ab468fa12893871e17b4b0ab30bd21e30" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::estimate_draw_vertices</definition>
+        <argsstring>(const std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes, double quality, bool incremental) const</argsstring>
+        <name>estimate_draw_vertices</name>
+        <qualifiedname>OctreeLASLayerRenderer::estimate_draw_vertices</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref> &gt; &amp;</type>
+          <declname>visible_nodes</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>quality</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>incremental</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="139" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="183" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1afec2c08955bcc4876fcc4b75f57952e5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::select_draw_quality</definition>
+        <argsstring>(const std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes, bool incremental, bool lod_base_from_incremental, double target_draw_ms) const</argsstring>
+        <name>select_draw_quality</name>
+        <qualifiedname>OctreeLASLayerRenderer::select_draw_quality</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref> &gt; &amp;</type>
+          <declname>visible_nodes</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>incremental</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>lod_base_from_incremental</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>target_draw_ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="141" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="209" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1ad34b06cb5f9c5672a3409f8dc656cfa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::record_lod_sample</definition>
+        <argsstring>(size_t vertices, double ms)</argsstring>
+        <name>record_lod_sample</name>
+        <qualifiedname>OctreeLASLayerRenderer::record_lod_sample</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>vertices</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="144" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="222" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a556a11615b10a8bf91b2eb4755eb0e17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::ensure_gpu_timer</definition>
+        <argsstring>(class QOpenGLExtraFunctions *gl)</argsstring>
+        <name>ensure_gpu_timer</name>
+        <qualifiedname>OctreeLASLayerRenderer::ensure_gpu_timer</qualifiedname>
+        <param>
+          <type>class QOpenGLExtraFunctions *</type>
+          <declname>gl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="145" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="234" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a193c4d6a58832ff573de451536088e14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::consume_gpu_timer_sample</definition>
+        <argsstring>(class QOpenGLExtraFunctions *gl)</argsstring>
+        <name>consume_gpu_timer_sample</name>
+        <qualifiedname>OctreeLASLayerRenderer::consume_gpu_timer_sample</qualifiedname>
+        <param>
+          <type>class QOpenGLExtraFunctions *</type>
+          <declname>gl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="146" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="241" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1aa975e5e8c2577e2b5318cff1bede2e4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::draw_octree_nodes</definition>
+        <argsstring>(QOpenGLFunctions *f, const OctreePointVector &amp;point_storage, const std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes, const Coordinate3D&lt; double &gt; &amp;file_origin, const Coordinate3D&lt; double &gt; &amp;scene_offset, double quality, bool incremental)</argsstring>
+        <name>draw_octree_nodes</name>
+        <qualifiedname>OctreeLASLayerRenderer::draw_octree_nodes</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const OctreePointVector &amp;</type>
+          <declname>point_storage</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref> &gt; &amp;</type>
+          <declname>visible_nodes</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>file_origin</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>scene_offset</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>quality</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>incremental</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="147" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="264" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a4757b0e7a811c38c338eb7c44503a6ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::draw_preview_points</definition>
+        <argsstring>(QOpenGLFunctions *f, const OctreePointVector &amp;preview, const Coordinate3D&lt; double &gt; &amp;file_origin, const Coordinate3D&lt; double &gt; &amp;scene_offset)</argsstring>
+        <name>draw_preview_points</name>
+        <qualifiedname>OctreeLASLayerRenderer::draw_preview_points</qualifiedname>
+        <param>
+          <type>QOpenGLFunctions *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const OctreePointVector &amp;</type>
+          <declname>preview</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>file_origin</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>scene_offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="152" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="346" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a98b9d6d6da714c5b80bbe6f23f9651c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OctreeLASLayerRenderer::OctreeLASLayerRenderer</definition>
+        <argsstring>(std::shared_ptr&lt; LASLayer &gt; layer, const Coordinate3D&lt; double &gt; &amp;offset)</argsstring>
+        <name>OctreeLASLayerRenderer</name>
+        <qualifiedname>OctreeLASLayerRenderer::OctreeLASLayerRenderer</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classLASLayer" kindref="compound">LASLayer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="157" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="45" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1aa0fa1fcfb9da6f215cfbfc3ab1767d3c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OctreeLASLayerRenderer::has_stream_backlog</definition>
+        <argsstring>() const</argsstring>
+        <name>has_stream_backlog</name>
+        <qualifiedname>OctreeLASLayerRenderer::has_stream_backlog</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="159" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="159" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a2d6227cd0469f9116e2a41f84f0f515c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::last_point_draw_ms</definition>
+        <argsstring>() const</argsstring>
+        <name>last_point_draw_ms</name>
+        <qualifiedname>OctreeLASLayerRenderer::last_point_draw_ms</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="160" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="160" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1aa10edb50d581c7d6d9230e53ca28b39d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double OctreeLASLayerRenderer::last_point_gpu_ms</definition>
+        <argsstring>() const</argsstring>
+        <name>last_point_gpu_ms</name>
+        <qualifiedname>OctreeLASLayerRenderer::last_point_gpu_ms</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="161" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="161" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1af8952c941def1944f204fe930326f3cb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t OctreeLASLayerRenderer::last_point_vertices_drawn</definition>
+        <argsstring>() const</argsstring>
+        <name>last_point_vertices_drawn</name>
+        <qualifiedname>OctreeLASLayerRenderer::last_point_vertices_drawn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="162" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="162" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1ad943e05445750d0794a6d548446e9d7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::refresh_after_style_change</definition>
+        <argsstring>()</argsstring>
+        <name>refresh_after_style_change</name>
+        <qualifiedname>OctreeLASLayerRenderer::refresh_after_style_change</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="163" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="111" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1aef09af62f46a1ed47aa2bd0a393140a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::render</definition>
+        <argsstring>(const Camera &amp;camera, const RenderContext &amp;ctx) override</argsstring>
+        <name>render</name>
+        <qualifiedname>OctreeLASLayerRenderer::render</qualifiedname>
+        <reimplements refid="classLayerRenderer_1a3af8f8ceb4285e1804a76e8ce36a0ea1">render</reimplements>
+        <param>
+          <type>const <ref refid="classCamera" kindref="compound">Camera</ref> &amp;</type>
+          <declname>camera</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structRenderContext" kindref="compound">RenderContext</ref> &amp;</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="164" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="411" bodyend="593"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a6abf0f25c291204a05772e1b80dd56ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::set_layer_slot</definition>
+        <argsstring>(int slot)</argsstring>
+        <name>set_layer_slot</name>
+        <qualifiedname>OctreeLASLayerRenderer::set_layer_slot</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>slot</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="166" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="166" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a47e045594196dd8373d2009c91adfab4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int OctreeLASLayerRenderer::layer_slot</definition>
+        <argsstring>() const</argsstring>
+        <name>layer_slot</name>
+        <qualifiedname>OctreeLASLayerRenderer::layer_slot</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="167" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="167" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a82d4012c5e7ccc264e5cb5b2b744e006" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OctreeLASLayerRenderer::can_fbo_pick</definition>
+        <argsstring>() const</argsstring>
+        <name>can_fbo_pick</name>
+        <qualifiedname>OctreeLASLayerRenderer::can_fbo_pick</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="168" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="371" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a70578b69b68252931e8ca6a0af529a63" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::optional&lt; <ref refid="structPointPickResult" kindref="compound">PointPickResult</ref> &gt;</type>
+        <definition>std::optional&lt; PointPickResult &gt; OctreeLASLayerRenderer::point_from_index</definition>
+        <argsstring>(uint32_t layer_slot, uint32_t pick_index, const Coordinate3D&lt; double &gt; &amp;scene_offset) const</argsstring>
+        <name>point_from_index</name>
+        <qualifiedname>OctreeLASLayerRenderer::point_from_index</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>layer_slot</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>pick_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>scene_offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="169" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="383" bodyend="409"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classOctreeLASLayerRenderer_1a5abe4929aacb8d012b11cd253727d9ef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OctreeLASLayerRenderer::sort_visible_by_lod</definition>
+        <argsstring>(std::vector&lt; PointOctree::VisibleNode &gt; &amp;visible_nodes)</argsstring>
+        <name>sort_visible_by_lod</name>
+        <qualifiedname>OctreeLASLayerRenderer::sort_visible_by_lod</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref> &gt; &amp;</type>
+          <declname>visible_nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="133" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp" bodystart="143" bodyend="163"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>OctreeLASLayerRenderer</label>
+        <link refid="classOctreeLASLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>OctreeLASLayerRenderer</label>
+        <link refid="classOctreeLASLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_point_gl</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>PointCloudGL</label>
+        <link refid="classPointCloudGL"/>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="77" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="77" bodyend="171"/>
+    <listofallmembers>
+      <member refid="classOctreeLASLayerRenderer_1a82d4012c5e7ccc264e5cb5b2b744e006" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>can_fbo_pick</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a7e6b58a56313939dd9ff2d8ddcce12f8" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>collect_visible_octree_nodes</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a193c4d6a58832ff573de451536088e14" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>consume_gpu_timer_sample</name></member>
+      <member refid="classLayerRenderer_1ac9702186c6039472bf58e1295fad80c1" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>create</name></member>
+      <member refid="classLayerRenderer_1a3c4bb62a02bd94cd69ba955dad081515" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>data_update_required</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aa975e5e8c2577e2b5318cff1bede2e4d" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>draw_octree_nodes</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a4757b0e7a811c38c338eb7c44503a6ff" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>draw_preview_points</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a556a11615b10a8bf91b2eb4755eb0e17" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>ensure_gpu_timer</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a07535a8ea01791f8adb897a58e440c97" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>ensure_shader</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ab468fa12893871e17b4b0ab30bd21e30" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>estimate_draw_vertices</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aa0fa1fcfb9da6f215cfbfc3ab1767d3c" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>has_stream_backlog</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a2d6227cd0469f9116e2a41f84f0f515c" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>last_point_draw_ms</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aa10edb50d581c7d6d9230e53ca28b39d" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>last_point_gpu_ms</name></member>
+      <member refid="classOctreeLASLayerRenderer_1af8952c941def1944f204fe930326f3cb" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>last_point_vertices_drawn</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a47e045594196dd8373d2009c91adfab4" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>layer_slot</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a0d8d3d30616b514ede8931b7fa02ece8" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_ambient_light_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aac354830b3b5f009a2d91df78038a278" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_color_mode_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a3c45e132855bca9a6cdac4883affc093" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_counts</name></member>
+      <member refid="classLayerRenderer_1a7c16a5823a2c968a682a69ef11bf23e2" prot="protected" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_data_update_required</name></member>
+      <member refid="classOctreeLASLayerRenderer_1af2f988835bb7241012baebed456c0378" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_diffuse_light_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ab3b367bd65713072f23763196909c337" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_draw_batch</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aa83a3bd629dfe2bdf7d55846ca7c1c50" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_firsts</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aa4955a9198a215456bb68140c4724cb3" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_fixed_color_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1abaa8ecdb75dfe99b79307dada7cb17da" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_fov_rad_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a53d91112bab27ed5db6e60837012a2ea" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_gpu_timer_query</name></member>
+      <member refid="classOctreeLASLayerRenderer_1add244380a15b9e2992c8cd1af27c5cba" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_inc_lod_quality</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ae3e809fcccf5425b8b208e8382d47233" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_last_point_draw_ms</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aa7672eb1feabbd977ba999b25ab67e0c" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_last_point_gpu_ms</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a0cb999603860288d1b0ccd9938f8bfbe" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_last_point_vertices_drawn</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a8d741c0af92c8a56678684468d2d0147" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_layer</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aee1d54cf3b937be2a2a6c37ee8311bd5" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_layer_slot</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ab3c27cf793386365a6a05181654d43e6" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_light_direction_eye_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a8f9f9f8f85457043badd85c9fb1113a0" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_lod_quality</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a648bcaaf3e4e8bfc184141541c8f5f8f" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_lod_query_cpu_ms</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a8aa3210172c742ebe305070d25a0fe16" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_lod_query_vertices</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ac2ef4de2d5856881578cf4dde418f299" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_ms_per_vertex</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a7ff30f24d14d2f48bb24105b0df06806" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_node_stream</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a6e1e14fe72cdf699ef2404762eb32466" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_point_alpha_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a86ff72d63ebdde899a3f8e35e62d93a5" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_point_gl</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a61c07afa192ce49a6630db254f613944" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_point_offset_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a33d556a77b876575bda6f674dbd7b619" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_point_radius_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a10af6d7d60c58e5906bf8156b83e866b" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_points_uploaded</name></member>
+      <member refid="classOctreeLASLayerRenderer_1af5be1b2a3183279e139a9040166c9ec9" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_prev_incremental_stream</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a8a546d728a86be041fe961a5f11719ce" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_proj_matrix_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ab99095626b30c5fb3f14da8546c34d37" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_shader</name></member>
+      <member refid="classOctreeLASLayerRenderer_1af565217fb1e4de2392d208d963ea495b" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_shader_layer_slot_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1abb273952bfa977b1c2fdc860bd07cf59" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_stream_backlog</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a3ffac512ea1a5404bc6e59463fcc3bc9" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_stream_camera_dir</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ac6926202bc772f0358ca9787a7cb1e16" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_stream_camera_pos</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ac1ab2c1c77706babae5f62ea7f35f73d" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_view_matrix_loc</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a47a821c4c69c74acf46ab218bc9b1295" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_viewport_height_loc</name></member>
+      <member refid="classLayerRenderer_1a439a5105a7b4adb2ef7f10f3b4ab0ecd" prot="protected" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_visible</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a6cf13a3abb685d901be5eca3f91d3a00" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>m_visible_fingerprint</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a98b9d6d6da714c5b80bbe6f23f9651c7" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>OctreeLASLayerRenderer</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a70578b69b68252931e8ca6a0af529a63" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>point_from_index</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ad34b06cb5f9c5672a3409f8dc656cfa9" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>record_lod_sample</name></member>
+      <member refid="classOctreeLASLayerRenderer_1ad943e05445750d0794a6d548446e9d7f" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>refresh_after_style_change</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aef09af62f46a1ed47aa2bd0a393140a7" prot="public" virt="virtual"><scope>OctreeLASLayerRenderer</scope><name>render</name></member>
+      <member refid="classLayerRenderer_1a5ea8e6825f4c920eab84e512919f1318" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>repaint_required</name></member>
+      <member refid="classOctreeLASLayerRenderer_1add72c13ee18ff128dc1c5740a094ccc5" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>reset_stream_cache</name></member>
+      <member refid="classOctreeLASLayerRenderer_1afec2c08955bcc4876fcc4b75f57952e5" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>select_draw_quality</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a6abf0f25c291204a05772e1b80dd56ad" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>set_layer_slot</name></member>
+      <member refid="classLayerRenderer_1a9adac9c80a9a41e717822ae10869c9b7" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>set_visible</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a5abe4929aacb8d012b11cd253727d9ef" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>sort_visible_by_lod</name></member>
+      <member refid="classOctreeLASLayerRenderer_1a6985ce9aa2bbb3b22e459c7eed5006a2" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>stream_camera_changed</name></member>
+      <member refid="classLayerRenderer_1a714e25eaa86e2af777125f2b277c1b25" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>stream_view_reset</name></member>
+      <member refid="classOctreeLASLayerRenderer_1af9714659bc41dbd1768448908065dd90" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>visible_nodes_fingerprint</name></member>
+      <member refid="classOctreeLASLayerRenderer_1aac59074849204f41afeee6d7d734ae78" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>visible_set_changed</name></member>
+      <member refid="classLayerRenderer_1a0395fb5e77055b10317e1572d9b832c4" prot="public" virt="virtual"><scope>OctreeLASLayerRenderer</scope><name>~LayerRenderer</name></member>
+      <member refid="classOctreeLASLayerRenderer_1abc1599da5152255cdd6bc8533550b3da" prot="public" virt="non-virtual"><scope>OctreeLASLayerRenderer</scope><name>~OctreeLASLayerRenderer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

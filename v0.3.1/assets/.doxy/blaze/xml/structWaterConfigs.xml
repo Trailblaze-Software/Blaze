@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structWaterConfigs" kind="struct" language="C++" prot="public">
+    <compoundname>WaterConfigs</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structWaterConfigs_1aab01329205d311f3d2b07974bdfbf924" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, <ref refid="structWaterConfig" kindref="compound">WaterConfig</ref> &gt;</type>
+        <definition>std::map&lt;std::string, WaterConfig&gt; WaterConfigs::configs</definition>
+        <argsstring></argsstring>
+        <name>configs</name>
+        <qualifiedname>WaterConfigs::configs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="142" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterConfigs_1a9934247e046fd53ce8d5b80b65b7d700" prot="public" static="no" mutable="no">
+        <type>ColorVariant</type>
+        <definition>ColorVariant WaterConfigs::classified_overlay_color</definition>
+        <argsstring></argsstring>
+        <name>classified_overlay_color</name>
+        <qualifiedname>WaterConfigs::classified_overlay_color</qualifiedname>
+        <initializer>= ColorVariant(<ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>(100, 0, 0, 0))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="144" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterConfigs_1adf3eea4af2f7ed517943147d2cb5a38b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double WaterConfigs::sink_min_area_m2</definition>
+        <argsstring></argsstring>
+        <name>sink_min_area_m2</name>
+        <qualifiedname>WaterConfigs::sink_min_area_m2</qualifiedname>
+        <initializer>= 5000.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="146" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterConfigs_1a908150a51159926f60816fcf0c30efe1" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double WaterConfigs::sink_depth_m</definition>
+        <argsstring></argsstring>
+        <name>sink_depth_m</name>
+        <qualifiedname>WaterConfigs::sink_depth_m</qualifiedname>
+        <initializer>= 10.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="148" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="148" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structWaterConfigs_1afd55568428b9c87295ee013f945de0bf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structWaterConfig" kindref="compound">WaterConfig</ref> &amp;</type>
+        <definition>const WaterConfig &amp; WaterConfigs::config_from_catchment</definition>
+        <argsstring>(double catchment) const</argsstring>
+        <name>config_from_catchment</name>
+        <qualifiedname>WaterConfigs::config_from_catchment</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>catchment</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="150" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="150" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="structWaterConfigs_1a58218cf2f9a1448a6bb2d37aa64b72ee" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double WaterConfigs::minimum_catchment</definition>
+        <argsstring>() const</argsstring>
+        <name>minimum_catchment</name>
+        <qualifiedname>WaterConfigs::minimum_catchment</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="160" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="160" bodyend="166"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" line="141" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp" bodystart="141" bodyend="167"/>
+    <listofallmembers>
+      <member refid="structWaterConfigs_1a9934247e046fd53ce8d5b80b65b7d700" prot="public" virt="non-virtual"><scope>WaterConfigs</scope><name>classified_overlay_color</name></member>
+      <member refid="structWaterConfigs_1afd55568428b9c87295ee013f945de0bf" prot="public" virt="non-virtual"><scope>WaterConfigs</scope><name>config_from_catchment</name></member>
+      <member refid="structWaterConfigs_1aab01329205d311f3d2b07974bdfbf924" prot="public" virt="non-virtual"><scope>WaterConfigs</scope><name>configs</name></member>
+      <member refid="structWaterConfigs_1a58218cf2f9a1448a6bb2d37aa64b72ee" prot="public" virt="non-virtual"><scope>WaterConfigs</scope><name>minimum_catchment</name></member>
+      <member refid="structWaterConfigs_1a908150a51159926f60816fcf0c30efe1" prot="public" virt="non-virtual"><scope>WaterConfigs</scope><name>sink_depth_m</name></member>
+      <member refid="structWaterConfigs_1adf3eea4af2f7ed517943147d2cb5a38b" prot="public" virt="non-virtual"><scope>WaterConfigs</scope><name>sink_min_area_m2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

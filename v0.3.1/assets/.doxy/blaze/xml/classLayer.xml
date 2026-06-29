@@ -1,0 +1,455 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLayer" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Layer</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QObject</basecompoundref>
+    <derivedcompoundref refid="classContourLayer" prot="public" virt="non-virtual">ContourLayer</derivedcompoundref>
+    <derivedcompoundref refid="classDemLayer" prot="public" virt="non-virtual">DemLayer</derivedcompoundref>
+    <derivedcompoundref refid="classPointLayer" prot="public" virt="non-virtual">PointLayer</derivedcompoundref>
+    <derivedcompoundref refid="classSlopeLayer" prot="public" virt="non-virtual">SlopeLayer</derivedcompoundref>
+    <derivedcompoundref refid="classTexturedDemLayer" prot="public" virt="non-virtual">TexturedDemLayer</derivedcompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classLayer_1a2b075c64ebffde8730a248a5bb5f5133" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Layer::m_name</definition>
+        <argsstring></argsstring>
+        <name>m_name</name>
+        <qualifiedname>Layer::m_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="29" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLayer_1a3f70d56c9a76ba62978b0d136c279993" prot="protected" static="no" mutable="no">
+        <type>LayerKind</type>
+        <definition>LayerKind Layer::m_kind</definition>
+        <argsstring></argsstring>
+        <name>m_kind</name>
+        <qualifiedname>Layer::m_kind</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="30" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLayer_1a5376eacb1d027c3f84491e75877fb62e" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Layer::m_visible</definition>
+        <argsstring></argsstring>
+        <name>m_visible</name>
+        <qualifiedname>Layer::m_visible</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="31" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLayer_1a92877caf4a8e5d16c729516062a19990" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Layer::m_opacity</definition>
+        <argsstring></argsstring>
+        <name>m_opacity</name>
+        <qualifiedname>Layer::m_opacity</qualifiedname>
+        <initializer>= 1.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="32" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLayer_1a7e4624352245cc74f23f2f76f2aa3343" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Layer::m_vertical_offset</definition>
+        <argsstring></argsstring>
+        <name>m_vertical_offset</name>
+        <qualifiedname>Layer::m_vertical_offset</qualifiedname>
+        <initializer>= 0.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="33" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="signal">
+      <memberdef kind="signal" id="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Layer::data_updated</definition>
+        <argsstring>() const</argsstring>
+        <name>data_updated</name>
+        <qualifiedname>Layer::data_updated</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="36" column="8"/>
+      </memberdef>
+      <memberdef kind="signal" id="classLayer_1a0767c635f131da0d346d9e983d4dd426" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Layer::visibility_changed</definition>
+        <argsstring>(bool visible) const</argsstring>
+        <name>visibility_changed</name>
+        <qualifiedname>Layer::visibility_changed</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="37" column="8"/>
+      </memberdef>
+      <memberdef kind="signal" id="classLayer_1a8bb6e5cf072eaea82fd5c11a786c734c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Layer::opacity_changed</definition>
+        <argsstring>() const</argsstring>
+        <name>opacity_changed</name>
+        <qualifiedname>Layer::opacity_changed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="38" column="8"/>
+      </memberdef>
+      <memberdef kind="signal" id="classLayer_1af74d7d428c1110696475f5748a9e1337" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Layer::vertical_offset_changed</definition>
+        <argsstring>() const</argsstring>
+        <name>vertical_offset_changed</name>
+        <qualifiedname>Layer::vertical_offset_changed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="39" column="8"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLayer_1ab7d5f32b03426d69719a3859c83d45b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Layer::Layer</definition>
+        <argsstring>(std::string name, LayerKind kind)</argsstring>
+        <name>Layer</name>
+        <qualifiedname>Layer::Layer</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>LayerKind</type>
+          <declname>kind</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="42" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a948936d6c972fac3298443963e00d28c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="structExtent3D" kindref="compound">Extent3D</ref></type>
+        <definition>virtual Extent3D Layer::extent</definition>
+        <argsstring>() const =0</argsstring>
+        <name>extent</name>
+        <qualifiedname>Layer::extent</qualifiedname>
+        <reimplementedby refid="classLASLayer_1a4cb9763e5b9038196c2ca5880c77f178">extent</reimplementedby>
+        <reimplementedby refid="classDemLayer_1ae15fad3bc63badb2f86503302f4e58c4">extent</reimplementedby>
+        <reimplementedby refid="classSlopeLayer_1a0396adb93e0392fa07452eda220e7a13">extent</reimplementedby>
+        <reimplementedby refid="classTexturedDemLayer_1a2d8dc0e82573baa57b963171db304435">extent</reimplementedby>
+        <reimplementedby refid="classContourLayer_1a11197e0a370c269e4086f9da32a935cc">extent</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="43" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a84e007a609d4e1954815254c29416951" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Layer::projection</definition>
+        <argsstring>() const =0</argsstring>
+        <name>projection</name>
+        <qualifiedname>Layer::projection</qualifiedname>
+        <reimplementedby refid="classLASLayer_1a5b35f6a4baff870f46f7402effae0db9">projection</reimplementedby>
+        <reimplementedby refid="classDemLayer_1aad807b2a47c28a17485377963709ba75">projection</reimplementedby>
+        <reimplementedby refid="classSlopeLayer_1a8512e12e7721aeab7d1ebe25e3234642">projection</reimplementedby>
+        <reimplementedby refid="classTexturedDemLayer_1a3a8313affaeedd5e2528c3da6921a5fd">projection</reimplementedby>
+        <reimplementedby refid="classContourLayer_1a677d1224b7368a3427d4b27f455ac221">projection</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="44" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1ae291c42422fd6ef3661349c55a4f54a8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Layer::native_projection</definition>
+        <argsstring>() const</argsstring>
+        <name>native_projection</name>
+        <qualifiedname>Layer::native_projection</qualifiedname>
+        <reimplementedby refid="classLASLayer_1aacaeaa9ca73943bd996c4d07557725a3">native_projection</reimplementedby>
+        <reimplementedby refid="classDemLayer_1a3be4277b0e37b3321b5556d9b0582426">native_projection</reimplementedby>
+        <reimplementedby refid="classSlopeLayer_1ace94e2fb9e7631be296d650f96aa2f87">native_projection</reimplementedby>
+        <reimplementedby refid="classTexturedDemLayer_1af76a93d9cc7182d3485362e52a785a90">native_projection</reimplementedby>
+        <reimplementedby refid="classContourLayer_1a9af8fbfad94b84064e6d6b6e683bc3ad">native_projection</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="45" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a18ffae5d6320ef21b77500e4d66d729c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Layer::name</definition>
+        <argsstring>() const</argsstring>
+        <name>name</name>
+        <qualifiedname>Layer::name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="46" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a862d909e88a65f942b22251486ed9b00" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>LayerKind</type>
+        <definition>LayerKind Layer::kind</definition>
+        <argsstring>() const</argsstring>
+        <name>kind</name>
+        <qualifiedname>Layer::kind</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="47" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a53edb2c0c1907795ffacb62bf3f9008b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Layer::visible</definition>
+        <argsstring>() const</argsstring>
+        <name>visible</name>
+        <qualifiedname>Layer::visible</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="48" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1ad59b3698fefac8b94f76130bfc9ffd86" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float Layer::opacity</definition>
+        <argsstring>() const</argsstring>
+        <name>opacity</name>
+        <qualifiedname>Layer::opacity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="49" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1ae7010e25098a8b8f352ba5547d1c58da" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float Layer::vertical_offset</definition>
+        <argsstring>() const</argsstring>
+        <name>vertical_offset</name>
+        <qualifiedname>Layer::vertical_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="50" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a87e742f87120f32d66c7fc41c00b529f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Layer::set_visible</definition>
+        <argsstring>(bool visible)</argsstring>
+        <name>set_visible</name>
+        <qualifiedname>Layer::set_visible</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="51" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="51" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a781007788c713f05235723a82c3e4630" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Layer::set_opacity</definition>
+        <argsstring>(float opacity)</argsstring>
+        <name>set_opacity</name>
+        <qualifiedname>Layer::set_opacity</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>opacity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="57" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="57" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a83b9ffc695251653ad4aad9c5208e797" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Layer::set_vertical_offset</definition>
+        <argsstring>(float vertical_offset)</argsstring>
+        <name>set_vertical_offset</name>
+        <qualifiedname>Layer::set_vertical_offset</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>vertical_offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="64" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="64" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classLayer_1a57e5a4a6ec188de4e7b8c894aac254ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Layer::~Layer</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Layer</name>
+        <qualifiedname>Layer::~Layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="70" column="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>ContourLayer</label>
+        <link refid="classContourLayer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>DemLayer</label>
+        <link refid="classDemLayer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>LASLayer</label>
+        <link refid="classLASLayer"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>PointLayer</label>
+        <link refid="classPointLayer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QObject</label>
+      </node>
+      <node id="7">
+        <label>SlopeLayer</label>
+        <link refid="classSlopeLayer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>TexturedDemLayer</label>
+        <link refid="classTexturedDemLayer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Layer</label>
+        <link refid="classLayer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" line="25" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer.hpp" bodystart="25" bodyend="71"/>
+    <listofallmembers>
+      <member refid="classLayer_1ab2d0c2036224ab8c597a23d2d709e15a" prot="public" virt="non-virtual"><scope>Layer</scope><name>data_updated</name></member>
+      <member refid="classLayer_1a948936d6c972fac3298443963e00d28c" prot="public" virt="pure-virtual"><scope>Layer</scope><name>extent</name></member>
+      <member refid="classLayer_1a862d909e88a65f942b22251486ed9b00" prot="public" virt="non-virtual"><scope>Layer</scope><name>kind</name></member>
+      <member refid="classLayer_1ab7d5f32b03426d69719a3859c83d45b0" prot="public" virt="non-virtual"><scope>Layer</scope><name>Layer</name></member>
+      <member refid="classLayer_1a3f70d56c9a76ba62978b0d136c279993" prot="protected" virt="non-virtual"><scope>Layer</scope><name>m_kind</name></member>
+      <member refid="classLayer_1a2b075c64ebffde8730a248a5bb5f5133" prot="protected" virt="non-virtual"><scope>Layer</scope><name>m_name</name></member>
+      <member refid="classLayer_1a92877caf4a8e5d16c729516062a19990" prot="protected" virt="non-virtual"><scope>Layer</scope><name>m_opacity</name></member>
+      <member refid="classLayer_1a7e4624352245cc74f23f2f76f2aa3343" prot="protected" virt="non-virtual"><scope>Layer</scope><name>m_vertical_offset</name></member>
+      <member refid="classLayer_1a5376eacb1d027c3f84491e75877fb62e" prot="protected" virt="non-virtual"><scope>Layer</scope><name>m_visible</name></member>
+      <member refid="classLayer_1a18ffae5d6320ef21b77500e4d66d729c" prot="public" virt="virtual"><scope>Layer</scope><name>name</name></member>
+      <member refid="classLayer_1ae291c42422fd6ef3661349c55a4f54a8" prot="public" virt="virtual"><scope>Layer</scope><name>native_projection</name></member>
+      <member refid="classLayer_1ad59b3698fefac8b94f76130bfc9ffd86" prot="public" virt="non-virtual"><scope>Layer</scope><name>opacity</name></member>
+      <member refid="classLayer_1a8bb6e5cf072eaea82fd5c11a786c734c" prot="public" virt="non-virtual"><scope>Layer</scope><name>opacity_changed</name></member>
+      <member refid="classLayer_1a84e007a609d4e1954815254c29416951" prot="public" virt="pure-virtual"><scope>Layer</scope><name>projection</name></member>
+      <member refid="classLayer_1a781007788c713f05235723a82c3e4630" prot="public" virt="non-virtual"><scope>Layer</scope><name>set_opacity</name></member>
+      <member refid="classLayer_1a83b9ffc695251653ad4aad9c5208e797" prot="public" virt="non-virtual"><scope>Layer</scope><name>set_vertical_offset</name></member>
+      <member refid="classLayer_1a87e742f87120f32d66c7fc41c00b529f" prot="public" virt="non-virtual"><scope>Layer</scope><name>set_visible</name></member>
+      <member refid="classLayer_1ae7010e25098a8b8f352ba5547d1c58da" prot="public" virt="non-virtual"><scope>Layer</scope><name>vertical_offset</name></member>
+      <member refid="classLayer_1af74d7d428c1110696475f5748a9e1337" prot="public" virt="non-virtual"><scope>Layer</scope><name>vertical_offset_changed</name></member>
+      <member refid="classLayer_1a0767c635f131da0d346d9e983d4dd426" prot="public" virt="non-virtual"><scope>Layer</scope><name>visibility_changed</name></member>
+      <member refid="classLayer_1a53edb2c0c1907795ffacb62bf3f9008b" prot="public" virt="non-virtual"><scope>Layer</scope><name>visible</name></member>
+      <member refid="classLayer_1a57e5a4a6ec188de4e7b8c894aac254ea" prot="public" virt="virtual"><scope>Layer</scope><name>~Layer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

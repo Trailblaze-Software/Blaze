@@ -1,0 +1,511 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__config__paths_8cpp" kind="file" language="C++">
+    <compoundname>test_config_paths.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes refid="config__input_8hpp" local="yes">config_input/config_input.hpp</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>config_input/config_input.hpp</label>
+        <link refid="config__input_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp</label>
+        <link refid="test__config__paths_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>array</label>
+      </node>
+      <node id="4">
+        <label>cmath</label>
+      </node>
+      <node id="2">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="11">
+        <label>map</label>
+      </node>
+      <node id="6">
+        <label>optional</label>
+      </node>
+      <node id="12">
+        <label>ostream</label>
+      </node>
+      <node id="7">
+        <label>set</label>
+      </node>
+      <node id="13">
+        <label>variant</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="test__config__paths_8cpp_1a59831ba97afaa7097854b5c912610723" prot="public" static="no">
+        <name>ABS_CONFIG_DIR</name>
+        <initializer>&quot;/some/config/dir&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="12" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="test__config__paths_8cpp_1a5dda00ef3dee0cff2eca677bd3f2020e" prot="public" static="no">
+        <name>ABS_CONFIG_DIR2</name>
+        <initializer>&quot;/config/dir&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="13" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="test__config__paths_8cpp_1ac57e82ab2891867ad354842d5eb032e7" prot="public" static="no">
+        <name>ABS_OUTPUT</name>
+        <initializer>&quot;/absolute/output&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="14" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="test__config__paths_8cpp_1a68d57be47ea77513837cac630f9ec823" prot="public" static="no">
+        <name>ABS_FILE1</name>
+        <initializer>&quot;/absolute/file1.las&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="15" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="test__config__paths_8cpp_1a7e21d3648c67f19c4cc9d76aedcfc59d" prot="public" static="no">
+        <name>ABS_FILE2</name>
+        <initializer>&quot;/absolute/file2.laz&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="16" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__config__paths_8cpp_1a893d527bed106ddb002731efad02f8d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigPaths, OutputPathAbsolute)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigPaths</type>
+        </param>
+        <param>
+          <type>OutputPathAbsolute</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="23" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="23" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a8d6c182c9af13dbb028d6c8580586941" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigPaths, OutputPathRelative)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigPaths</type>
+        </param>
+        <param>
+          <type>OutputPathRelative</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="33" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="33" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a34f88ec527253d6ff20f9d1a246f4fb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigPaths, SetOutputDirectory)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigPaths</type>
+        </param>
+        <param>
+          <type>SetOutputDirectory</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="42" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="42" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a1b44292183765d9e1d4136fe373996ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigPaths, LasFilepathsAbsolute)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigPaths</type>
+        </param>
+        <param>
+          <type>LasFilepathsAbsolute</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="55" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="55" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a7e8c556a782a4aa40129df270775c336" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigPaths, LasFilepathsRelative)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigPaths</type>
+        </param>
+        <param>
+          <type>LasFilepathsRelative</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="66" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="66" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a6300eecf76d73dab5d70428ed505a5ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigPaths, LasFilepathsEmpty)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigPaths</type>
+        </param>
+        <param>
+          <type>LasFilepathsEmpty</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="77" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="77" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a78c5d629d3696efbff4b4959585621e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigPaths, LasFilepathsMixed)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigPaths</type>
+        </param>
+        <param>
+          <type>LasFilepathsMixed</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="83" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="83" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a958c7ed0cb004f32d2f9a33b47c7780c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, PickFromHeightNegative)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type>PickFromHeightNegative</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="98" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="98" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1a04871dee6cbb2536e9ead7a9fb12c457" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, MinimumIntervalStatic)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type>MinimumIntervalStatic</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="110" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="110" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1afd5d19d083ba75d28778eaa04113a2ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ContourConfigs, LayerNameDefaultForUnknown)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref></type>
+        </param>
+        <param>
+          <type>LayerNameDefaultForUnknown</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="124" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="124" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__paths_8cpp_1ab49bd01e29987ae11a33a371f60d777d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(WaterConfigs, ConfigFromCatchmentExact)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref></type>
+        </param>
+        <param>
+          <type>ConfigFromCatchmentExact</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" line="135" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp" bodystart="135" bodyend="146"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;config_input/config_input.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_CONFIG_DIR<sp/>&quot;C:/some/config/dir&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_CONFIG_DIR2<sp/>&quot;C:/config/dir&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_OUTPUT<sp/>&quot;C:/absolute/output&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_FILE1<sp/>&quot;C:/absolute/file1.las&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_FILE2<sp/>&quot;C:/absolute/file2.laz&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_CONFIG_DIR<sp/>&quot;/some/config/dir&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_CONFIG_DIR2<sp/>&quot;/config/dir&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_OUTPUT<sp/>&quot;/absolute/output&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_FILE1<sp/>&quot;/absolute/file1.las&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ABS_FILE2<sp/>&quot;/absolute/file2.laz&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Config<sp/>output_path<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">TEST(ConfigPaths,<sp/>OutputPathAbsolute)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>config.relative_path_to_config<sp/>=<sp/>ABS_CONFIG_DIR;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>config.set_output_directory(ABS_OUTPUT);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>fs::path<sp/>result<sp/>=<sp/>config.output_path();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(result.is_absolute());</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>EXPECT_EQ(result,<sp/>fs::path(ABS_OUTPUT));</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">TEST(ConfigPaths,<sp/>OutputPathRelative)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>config.relative_path_to_config<sp/>=<sp/>ABS_CONFIG_DIR;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>config.set_output_directory(</highlight><highlight class="stringliteral">&quot;relative/output&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>fs::path<sp/>result<sp/>=<sp/>config.output_path();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>EXPECT_EQ(result,<sp/>fs::path(ABS_CONFIG_DIR)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;relative/output&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">TEST(ConfigPaths,<sp/>SetOutputDirectory)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>config.set_output_directory(</highlight><highlight class="stringliteral">&quot;test_output&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_EQ(config.output_directory,<sp/>fs::path(</highlight><highlight class="stringliteral">&quot;test_output&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>config.set_output_directory(</highlight><highlight class="stringliteral">&quot;another/path&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>EXPECT_EQ(config.output_directory,<sp/>fs::path(</highlight><highlight class="stringliteral">&quot;another/path&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Config<sp/>las_filepaths<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">TEST(ConfigPaths,<sp/>LasFilepathsAbsolute)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>config.relative_path_to_config<sp/>=<sp/>ABS_CONFIG_DIR2;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>config.las_files<sp/>=<sp/>{fs::path(ABS_FILE1),<sp/>fs::path(ABS_FILE2)};</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>paths<sp/>=<sp/>config.las_filepaths();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths[0],<sp/>fs::path(ABS_FILE1));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths[1],<sp/>fs::path(ABS_FILE2));</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">TEST(ConfigPaths,<sp/>LasFilepathsRelative)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>config.relative_path_to_config<sp/>=<sp/>ABS_CONFIG_DIR2;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>config.las_files<sp/>=<sp/>{fs::path(</highlight><highlight class="stringliteral">&quot;data/file1.las&quot;</highlight><highlight class="normal">),<sp/>fs::path(</highlight><highlight class="stringliteral">&quot;data/file2.laz&quot;</highlight><highlight class="normal">)};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>paths<sp/>=<sp/>config.las_filepaths();</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths[0],<sp/>fs::path(ABS_CONFIG_DIR2)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;data/file1.las&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths[1],<sp/>fs::path(ABS_CONFIG_DIR2)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;data/file2.laz&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">TEST(ConfigPaths,<sp/>LasFilepathsEmpty)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>paths<sp/>=<sp/>config.las_filepaths();</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(paths.empty());</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">TEST(ConfigPaths,<sp/>LasFilepathsMixed)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>config.relative_path_to_config<sp/>=<sp/>ABS_CONFIG_DIR2;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>config.las_files<sp/>=<sp/>{fs::path(ABS_FILE1),<sp/>fs::path(</highlight><highlight class="stringliteral">&quot;relative/file2.laz&quot;</highlight><highlight class="normal">)};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>paths<sp/>=<sp/>config.las_filepaths();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths[0],<sp/>fs::path(ABS_FILE1));</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>EXPECT_EQ(paths[1],<sp/>fs::path(ABS_CONFIG_DIR2)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;relative/file2.laz&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ContourConfigs<sp/>additional<sp/>edge<sp/>cases</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/>PickFromHeightNegative)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs({{</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{2.5,<sp/>3,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.14}},</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;index&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{10.0,<sp/>5,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.25}}});</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Negative<sp/>heights<sp/>should<sp/>also<sp/>work<sp/>since<sp/>pick_from_height<sp/>uses<sp/>std::abs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/>c<sp/>=<sp/>configs.pick_from_height(-10.0);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(c.interval,<sp/>10.0);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/>c2<sp/>=<sp/>configs.pick_from_height(-5.0);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(c2.interval,<sp/>2.5);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/>MinimumIntervalStatic)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>std::map&lt;std::string,<sp/>ContourConfig&gt;<sp/>configs_map;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>configs_map[</highlight><highlight class="stringliteral">&quot;a&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{5.0,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.1};</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>configs_map[</highlight><highlight class="stringliteral">&quot;b&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{2.5,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.1};</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>configs_map[</highlight><highlight class="stringliteral">&quot;c&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{10.0,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.1};</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>min<sp/>=<sp/>ContourConfigs::minimum_interval(configs_map);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(min,<sp/>2.5);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ContourConfigs<sp/>layer_name<sp/>edge<sp/>cases</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal">TEST(<ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>,<sp/>LayerNameDefaultForUnknown)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>configs<sp/>don&apos;t<sp/>have<sp/>form_line/index/normal<sp/>names,<sp/>layer_name<sp/>stays<sp/>&quot;Contour&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs({{</highlight><highlight class="stringliteral">&quot;custom&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{5.0,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0),<sp/>0.1}}});</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>std::string<sp/>name<sp/>=<sp/>configs.layer_name_from_height(5.0);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>EXPECT_EQ(name,<sp/></highlight><highlight class="stringliteral">&quot;Contour&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">//<sp/>WaterConfigs<sp/>edge<sp/>cases</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">TEST(<ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>,<sp/>ConfigFromCatchmentExact)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref><sp/>configs;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;minor&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{0.01,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.1};</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>configs.configs[</highlight><highlight class="stringliteral">&quot;major&quot;</highlight><highlight class="normal">]<sp/>=<sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>{1.0,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255),<sp/>0.3};</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Exact<sp/>match<sp/>at<sp/>threshold</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>&amp;<sp/>c<sp/>=<sp/>configs.config_from_catchment(1.0);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(c.catchment,<sp/>1.0);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfig" kindref="compound">WaterConfig</ref>&amp;<sp/>c2<sp/>=<sp/>configs.config_from_catchment(0.01);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(c2.catchment,<sp/>0.01);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_paths.cpp"/>
+  </compounddef>
+</doxygen>

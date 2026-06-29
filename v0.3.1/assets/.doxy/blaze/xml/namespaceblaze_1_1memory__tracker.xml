@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceblaze_1_1memory__tracker" kind="namespace" language="C++">
+    <compoundname>blaze::memory_tracker</compoundname>
+    <innerclass refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" prot="public">blaze::memory_tracker::TrackedAllocator</innerclass>
+    <innernamespace refid="namespaceblaze_1_1memory__tracker_1_1tracked__allocator__detail">blaze::memory_tracker::tracked_allocator_detail</innernamespace>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="memory__tracker_8hpp_1ae26765331baa38d1040ca038efabf060" prot="public" static="no" strong="yes">
+        <type>uint8_t</type>
+        <name>Tag</name>
+        <qualifiedname>blaze::memory_tracker::Tag</qualifiedname>
+        <enumvalue id="memory__tracker_8hpp_1ae26765331baa38d1040ca038efabf060af1f5aacec9d4156166560b9a5cb62640" prot="public">
+          <name>LAS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="memory__tracker_8hpp_1ae26765331baa38d1040ca038efabf060abc899ea5d6a94a8e4e60c16244919ba0" prot="public">
+          <name>GRID</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" line="9" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" bodystart="9" bodyend="12"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a77b8922d170fbc8511fd17c23b1e4b18" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>Tag</type>
+            <declname>MemoryTag</declname>
+            <defname>MemoryTag</defname>
+          </param>
+        </templateparamlist>
+        <type>std::vector&lt; T, <ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; T, MemoryTag &gt; &gt;</type>
+        <definition>using blaze::memory_tracker::TrackedVector = typedef std::vector&lt;T, TrackedAllocator&lt;T, MemoryTag&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>TrackedVector</name>
+        <qualifiedname>blaze::memory_tracker::TrackedVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="92" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a794ab338443ae10f29d3c05c29d6d10b" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>TrackedVector&lt; T, Tag::GRID &gt;</type>
+        <definition>using blaze::memory_tracker::GridVector = typedef TrackedVector&lt;T, Tag::GRID&gt;</definition>
+        <argsstring></argsstring>
+        <name>GridVector</name>
+        <qualifiedname>blaze::memory_tracker::GridVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="95" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a4b963bad3570baaddacccdf9fca87b2d" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>TrackedVector&lt; T, Tag::LAS &gt;</type>
+        <definition>using blaze::memory_tracker::LasVector = typedef TrackedVector&lt;T, Tag::LAS&gt;</definition>
+        <argsstring></argsstring>
+        <name>LasVector</name>
+        <qualifiedname>blaze::memory_tracker::LasVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="98" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="memory__tracker_8cpp_1ae9daba870950dafa532eea8210a54d49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * blaze::memory_tracker::tag_name</definition>
+        <argsstring>(Tag tag)</argsstring>
+        <name>tag_name</name>
+        <qualifiedname>blaze::memory_tracker::tag_name</qualifiedname>
+        <param>
+          <type>Tag</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" line="48" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" bodystart="48" bodyend="56" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" declline="14" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="memory__tracker_8cpp_1a74e108b4ff2e88d4ece888b81d44a784" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::memory_tracker::add_bytes</definition>
+        <argsstring>(Tag tag, uint64_t bytes)</argsstring>
+        <name>add_bytes</name>
+        <qualifiedname>blaze::memory_tracker::add_bytes</qualifiedname>
+        <param>
+          <type>Tag</type>
+          <declname>tag</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>bytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" line="58" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" bodystart="58" bodyend="62" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" declline="16" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="memory__tracker_8cpp_1a9e1b78cc44d9fb966056d4b37be8c447" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::memory_tracker::remove_bytes</definition>
+        <argsstring>(Tag tag, uint64_t bytes)</argsstring>
+        <name>remove_bytes</name>
+        <qualifiedname>blaze::memory_tracker::remove_bytes</qualifiedname>
+        <param>
+          <type>Tag</type>
+          <declname>tag</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>bytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" line="64" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" bodystart="64" bodyend="68" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" declline="17" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="memory__tracker_8cpp_1a28bfdda6101abfde8470a45f885b0a3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t blaze::memory_tracker::total_bytes</definition>
+        <argsstring>()</argsstring>
+        <name>total_bytes</name>
+        <qualifiedname>blaze::memory_tracker::total_bytes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" line="70" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" bodystart="70" bodyend="76" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" declline="19" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="memory__tracker_8cpp_1a54f5f2d44843fd8f265b6bbafe681767" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t blaze::memory_tracker::tag_bytes</definition>
+        <argsstring>(Tag tag)</argsstring>
+        <name>tag_bytes</name>
+        <qualifiedname>blaze::memory_tracker::tag_bytes</qualifiedname>
+        <param>
+          <type>Tag</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" line="78" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" bodystart="78" bodyend="80" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" declline="20" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="memory__tracker_8cpp_1a0e01268bfdd275ed372ad11a58f55d62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string blaze::memory_tracker::format_summary</definition>
+        <argsstring>()</argsstring>
+        <name>format_summary</name>
+        <qualifiedname>blaze::memory_tracker::format_summary</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" line="93" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" bodystart="93" bodyend="131" declfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.hpp" declline="24" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="tracked__allocator_8hpp_1adb260a7df6ecf25f104c4fa0bbaad954" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename U</type>
+          </param>
+          <param>
+            <type>Tag</type>
+            <declname>MemoryTag</declname>
+            <defname>MemoryTag</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool blaze::memory_tracker::operator==</definition>
+        <argsstring>(const TrackedAllocator&lt; T, MemoryTag &gt; &amp;, const TrackedAllocator&lt; U, MemoryTag &gt; &amp;) noexcept</argsstring>
+        <name>operator==</name>
+        <qualifiedname>blaze::memory_tracker::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; T, MemoryTag &gt; &amp;</type>
+        </param>
+        <param>
+          <type>const <ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; U, MemoryTag &gt; &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="80" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="80" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="tracked__allocator_8hpp_1a862ca3650c7933c4830367f1c891ddc6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename U</type>
+          </param>
+          <param>
+            <type>Tag</type>
+            <declname>MemoryTag</declname>
+            <defname>MemoryTag</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool blaze::memory_tracker::operator!=</definition>
+        <argsstring>(const TrackedAllocator&lt; T, MemoryTag &gt; &amp;lhs, const TrackedAllocator&lt; U, MemoryTag &gt; &amp;rhs) noexcept</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>blaze::memory_tracker::operator!=</qualifiedname>
+        <param>
+          <type>const <ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; T, MemoryTag &gt; &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; U, MemoryTag &gt; &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="86" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="86" bodyend="89"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/memory_tracker.cpp" line="10" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGPKGWriter" kind="class" language="C++" prot="public">
+    <compoundname>GPKGWriter</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGPKGWriter_1addee2fe849af34082d114bbde1fce13e" prot="private" static="no" mutable="no">
+        <type><ref refid="classGDALDataset__w" kindref="compound">GDALDataset_w</ref></type>
+        <definition>GDALDataset_w GPKGWriter::dataset</definition>
+        <argsstring></argsstring>
+        <name>dataset</name>
+        <qualifiedname>GPKGWriter::dataset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="48" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGPKGWriter_1ac7a4767bf261dfefa4829925e8b6fd05" prot="private" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string GPKGWriter::projection</definition>
+        <argsstring></argsstring>
+        <name>projection</name>
+        <qualifiedname>GPKGWriter::projection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="49" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGPKGWriter_1a384e0f52871861a5e09123fd1ba67a21" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; GPKGWriter::layer_names</definition>
+        <argsstring></argsstring>
+        <name>layer_names</name>
+        <qualifiedname>GPKGWriter::layer_names</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="51" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGPKGWriter_1a9d7318b5fff34f1be4373c2fac716996" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string GPKGWriter::default_layer_name</definition>
+        <argsstring></argsstring>
+        <name>default_layer_name</name>
+        <qualifiedname>GPKGWriter::default_layer_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="52" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGPKGWriter_1acf0e615f0c49f39cb43be57a4f45bc0f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GPKGWriter::m_transaction_active</definition>
+        <argsstring></argsstring>
+        <name>m_transaction_active</name>
+        <qualifiedname>GPKGWriter::m_transaction_active</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="53" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGPKGWriter_1acf86ce7a06d6cca73ce3658f5476deef" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GPKGWriter::ensure_transaction</definition>
+        <argsstring>()</argsstring>
+        <name>ensure_transaction</name>
+        <qualifiedname>GPKGWriter::ensure_transaction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="55" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="55" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a71b1fb47bde1b0b3aa9a3e0826e63e27" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>OGRLayer *</type>
+        <definition>OGRLayer * GPKGWriter::get_or_create_layer</definition>
+        <argsstring>(const std::string &amp;layer_name, OGRwkbGeometryType geom_type=wkbLineString)</argsstring>
+        <name>get_or_create_layer</name>
+        <qualifiedname>GPKGWriter::get_or_create_layer</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>layer_name</declname>
+        </param>
+        <param>
+          <type>OGRwkbGeometryType</type>
+          <declname>geom_type</declname>
+          <defval>wkbLineString</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="128" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="128" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a6e38905e178940ebbc445dda0216008c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GPKGWriter::ensure_field</definition>
+        <argsstring>(OGRLayer *layer, const std::string &amp;field_name, OGRFieldType field_type)</argsstring>
+        <name>ensure_field</name>
+        <qualifiedname>GPKGWriter::ensure_field</qualifiedname>
+        <param>
+          <type>OGRLayer *</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>field_name</declname>
+        </param>
+        <param>
+          <type>OGRFieldType</type>
+          <declname>field_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="161" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="161" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a1647741c006b847b8408175f1a451e9e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GPKGWriter::ensure_data_fields</definition>
+        <argsstring>(OGRLayer *layer, const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;data_fields)</argsstring>
+        <name>ensure_data_fields</name>
+        <qualifiedname>GPKGWriter::ensure_data_fields</qualifiedname>
+        <param>
+          <type>OGRLayer *</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type>const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;</type>
+          <declname>data_fields</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="168" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="168" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a7911b9cf7377e5dbcf332030587a701f" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GPKGWriter::write_feature</definition>
+        <argsstring>(OGRLayer *layer, OGRGeometry *geometry, const std::string &amp;name, const std::string &amp;layer_name, const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;data_fields)</argsstring>
+        <name>write_feature</name>
+        <qualifiedname>GPKGWriter::write_feature</qualifiedname>
+        <param>
+          <type>OGRLayer *</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type>OGRGeometry *</type>
+          <declname>geometry</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>layer_name</declname>
+        </param>
+        <param>
+          <type>const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;</type>
+          <declname>data_fields</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="192" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="192" bodyend="207"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGPKGWriter_1a3916ea8f1068c5ccb2e1572626ffa7e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GPKGWriter::GPKGWriter</definition>
+        <argsstring>(const std::string &amp;filename, const std::string &amp;projection, const std::string &amp;default_layer=&quot;default&quot;)</argsstring>
+        <name>GPKGWriter</name>
+        <qualifiedname>GPKGWriter::GPKGWriter</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>projection</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>default_layer</declname>
+          <defval>&quot;default&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="63" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="63" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a86d01ff15c4414fd42ab58843be57a13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GPKGWriter::~GPKGWriter</definition>
+        <argsstring>()</argsstring>
+        <name>~GPKGWriter</name>
+        <qualifiedname>GPKGWriter::~GPKGWriter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="72" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="72" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1ad193b7b2810ec90739c480705d3baff1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GPKGWriter::GPKGWriter</definition>
+        <argsstring>(const GPKGWriter &amp;)=delete</argsstring>
+        <name>GPKGWriter</name>
+        <qualifiedname>GPKGWriter::GPKGWriter</qualifiedname>
+        <param>
+          <type>const <ref refid="classGPKGWriter" kindref="compound">GPKGWriter</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="79" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a6422b43ae8fed6691384a9e83b74f4c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classGPKGWriter" kindref="compound">GPKGWriter</ref> &amp;</type>
+        <definition>GPKGWriter &amp; GPKGWriter::operator=</definition>
+        <argsstring>(const GPKGWriter &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>GPKGWriter::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classGPKGWriter" kindref="compound">GPKGWriter</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="80" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1ab2137458abaf4d40361eca1e7862c506" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GPKGWriter::add_layer</definition>
+        <argsstring>(const std::string &amp;layer_name, OGRwkbGeometryType geom_type=wkbLineString)</argsstring>
+        <name>add_layer</name>
+        <qualifiedname>GPKGWriter::add_layer</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>layer_name</declname>
+        </param>
+        <param>
+          <type>OGRwkbGeometryType</type>
+          <declname>geom_type</declname>
+          <defval>wkbLineString</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="82" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="82" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a56b666e0e36b6cf968041da263bcd0cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GPKGWriter::write_polyline</definition>
+        <argsstring>(const Polyline &amp;polyline, const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;data_fields={})</argsstring>
+        <name>write_polyline</name>
+        <qualifiedname>GPKGWriter::write_polyline</qualifiedname>
+        <param>
+          <type>const <ref refid="classPolyline" kindref="compound">Polyline</ref> &amp;</type>
+          <declname>polyline</declname>
+        </param>
+        <param>
+          <type>const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;</type>
+          <declname>data_fields</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="92" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="92" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a1a75bf756d57f628ecd99b4eac7738d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GPKGWriter::write_polygon</definition>
+        <argsstring>(const std::string &amp;layer_name, const std::string &amp;name, const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;exterior_ring, const std::vector&lt; std::vector&lt; Coordinate2D&lt; double &gt; &gt; &gt; &amp;holes, const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;data_fields={})</argsstring>
+        <name>write_polygon</name>
+        <qualifiedname>GPKGWriter::write_polygon</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>layer_name</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &amp;</type>
+          <declname>exterior_ring</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &gt; &amp;</type>
+          <declname>holes</declname>
+        </param>
+        <param>
+          <type>const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;</type>
+          <declname>data_fields</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="106" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="106" bodyend="125"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classGPKGWriter_1acef19fa5a8c12f550ac91b86c849936c" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void GPKGWriter::populate_ring</definition>
+        <argsstring>(OGRLinearRing &amp;ring, const std::vector&lt; Coordinate2D&lt; double &gt; &gt; &amp;vertices)</argsstring>
+        <name>populate_ring</name>
+        <qualifiedname>GPKGWriter::populate_ring</qualifiedname>
+        <param>
+          <type>OGRLinearRing &amp;</type>
+          <declname>ring</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="classCoordinate2D" kindref="compound">Coordinate2D</ref>&lt; double &gt; &gt; &amp;</type>
+          <declname>vertices</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="140" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="140" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1ac43240a5a7b5b59e44606731b757f5a3" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>OGRFieldType</type>
+        <definition>static OGRFieldType GPKGWriter::field_type_for</definition>
+        <argsstring>(const std::variant&lt; int, double, std::string &gt; &amp;value)</argsstring>
+        <name>field_type_for</name>
+        <qualifiedname>GPKGWriter::field_type_for</qualifiedname>
+        <param>
+          <type>const std::variant&lt; int, double, std::string &gt; &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="148" column="23" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="148" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="classGPKGWriter_1a54f8e8734717655f51a10078a4c657a9" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void GPKGWriter::set_data_fields</definition>
+        <argsstring>(OGRFeature *feature, const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;data_fields)</argsstring>
+        <name>set_data_fields</name>
+        <qualifiedname>GPKGWriter::set_data_fields</qualifiedname>
+        <param>
+          <type>OGRFeature *</type>
+          <declname>feature</declname>
+        </param>
+        <param>
+          <type>const std::map&lt; std::string, std::variant&lt; int, double, std::string &gt; &gt; &amp;</type>
+          <declname>data_fields</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="178" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="178" bodyend="190"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" line="47" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp" bodystart="47" bodyend="208"/>
+    <listofallmembers>
+      <member refid="classGPKGWriter_1ab2137458abaf4d40361eca1e7862c506" prot="public" virt="non-virtual"><scope>GPKGWriter</scope><name>add_layer</name></member>
+      <member refid="classGPKGWriter_1addee2fe849af34082d114bbde1fce13e" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>dataset</name></member>
+      <member refid="classGPKGWriter_1a9d7318b5fff34f1be4373c2fac716996" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>default_layer_name</name></member>
+      <member refid="classGPKGWriter_1a1647741c006b847b8408175f1a451e9e" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>ensure_data_fields</name></member>
+      <member refid="classGPKGWriter_1a6e38905e178940ebbc445dda0216008c" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>ensure_field</name></member>
+      <member refid="classGPKGWriter_1acf86ce7a06d6cca73ce3658f5476deef" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>ensure_transaction</name></member>
+      <member refid="classGPKGWriter_1ac43240a5a7b5b59e44606731b757f5a3" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>field_type_for</name></member>
+      <member refid="classGPKGWriter_1a71b1fb47bde1b0b3aa9a3e0826e63e27" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>get_or_create_layer</name></member>
+      <member refid="classGPKGWriter_1a3916ea8f1068c5ccb2e1572626ffa7e9" prot="public" virt="non-virtual"><scope>GPKGWriter</scope><name>GPKGWriter</name></member>
+      <member refid="classGPKGWriter_1ad193b7b2810ec90739c480705d3baff1" prot="public" virt="non-virtual"><scope>GPKGWriter</scope><name>GPKGWriter</name></member>
+      <member refid="classGPKGWriter_1a384e0f52871861a5e09123fd1ba67a21" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>layer_names</name></member>
+      <member refid="classGPKGWriter_1acf0e615f0c49f39cb43be57a4f45bc0f" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>m_transaction_active</name></member>
+      <member refid="classGPKGWriter_1a6422b43ae8fed6691384a9e83b74f4c4" prot="public" virt="non-virtual"><scope>GPKGWriter</scope><name>operator=</name></member>
+      <member refid="classGPKGWriter_1acef19fa5a8c12f550ac91b86c849936c" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>populate_ring</name></member>
+      <member refid="classGPKGWriter_1ac7a4767bf261dfefa4829925e8b6fd05" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>projection</name></member>
+      <member refid="classGPKGWriter_1a54f8e8734717655f51a10078a4c657a9" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>set_data_fields</name></member>
+      <member refid="classGPKGWriter_1a7911b9cf7377e5dbcf332030587a701f" prot="private" virt="non-virtual"><scope>GPKGWriter</scope><name>write_feature</name></member>
+      <member refid="classGPKGWriter_1a1a75bf756d57f628ecd99b4eac7738d7" prot="public" virt="non-virtual"><scope>GPKGWriter</scope><name>write_polygon</name></member>
+      <member refid="classGPKGWriter_1a56b666e0e36b6cf968041da263bcd0cc" prot="public" virt="non-virtual"><scope>GPKGWriter</scope><name>write_polyline</name></member>
+      <member refid="classGPKGWriter_1a86d01ff15c4414fd42ab58843be57a13" prot="public" virt="non-virtual"><scope>GPKGWriter</scope><name>~GPKGWriter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

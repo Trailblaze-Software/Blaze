@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGridGraph" kind="class" language="C++" prot="public">
+    <compoundname>GridGraph</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGridGraph_1a73b4579782e6cd389f1ed7b126f2e6ac" prot="private" static="no" mutable="no">
+        <type><ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt;</type>
+        <definition>Grid&lt;T&gt; GridGraph&lt; T &gt;::m_horizontal</definition>
+        <argsstring></argsstring>
+        <name>m_horizontal</name>
+        <qualifiedname>GridGraph::m_horizontal</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="463" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="463" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGridGraph_1a6882910f60567a0bbf6f228359314ab5" prot="private" static="no" mutable="no">
+        <type><ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt;</type>
+        <definition>Grid&lt;T&gt; GridGraph&lt; T &gt;::m_vertical</definition>
+        <argsstring></argsstring>
+        <name>m_vertical</name>
+        <qualifiedname>GridGraph::m_vertical</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="464" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="464" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGridGraph_1aba55c09714f4349737cd6fc52052dcd2" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename U</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>GridGraph&lt; T &gt;::GridGraph</definition>
+        <argsstring>(const Grid&lt; U &gt; &amp;grid)</argsstring>
+        <name>GridGraph</name>
+        <qualifiedname>GridGraph::GridGraph</qualifiedname>
+        <param>
+          <type>const <ref refid="classGrid" kindref="compound">Grid</ref>&lt; U &gt; &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="468" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="468" bodyend="470"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1ae15677de2d8a120b1666a23a299e04c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
+        <definition>Grid&lt; T &gt; &amp; GridGraph&lt; T &gt;::horizontal</definition>
+        <argsstring>()</argsstring>
+        <name>horizontal</name>
+        <qualifiedname>GridGraph::horizontal</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="472" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="472" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1ad2817ad8db55a92775a5381b8cca97ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
+        <definition>Grid&lt; T &gt; &amp; GridGraph&lt; T &gt;::vertical</definition>
+        <argsstring>()</argsstring>
+        <name>vertical</name>
+        <qualifiedname>GridGraph::vertical</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="473" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="473" bodyend="473"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1a9ae4c24244303dad5e9633cbfde683f3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
+        <definition>const Grid&lt; T &gt; &amp; GridGraph&lt; T &gt;::horizontal</definition>
+        <argsstring>() const</argsstring>
+        <name>horizontal</name>
+        <qualifiedname>GridGraph::horizontal</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="474" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="474" bodyend="474"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1a01728dcd92127c844aa0c153904c477f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classGrid" kindref="compound">Grid</ref>&lt; T &gt; &amp;</type>
+        <definition>const Grid&lt; T &gt; &amp; GridGraph&lt; T &gt;::vertical</definition>
+        <argsstring>() const</argsstring>
+        <name>vertical</name>
+        <qualifiedname>GridGraph::vertical</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="475" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="475" bodyend="475"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1a2c25c6389b5bbe8d8be1d92c6a100f62" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t GridGraph&lt; T &gt;::width</definition>
+        <argsstring>() const</argsstring>
+        <name>width</name>
+        <qualifiedname>GridGraph::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="477" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="477" bodyend="477"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1a7730626084851af4405c5e21f50cf299" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t GridGraph&lt; T &gt;::height</definition>
+        <argsstring>() const</argsstring>
+        <name>height</name>
+        <qualifiedname>GridGraph::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="478" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="478" bodyend="478"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1a448fae59979eef08793159b188c947a9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const T &amp;</type>
+        <definition>const T &amp; GridGraph&lt; T &gt;::operator[]</definition>
+        <argsstring>(const LineCoord2D&lt; size_t &gt; &amp;coord) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>GridGraph::operator[]</qualifiedname>
+        <param>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; size_t &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="480" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="480" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1a5d0ab42fba580385d0c9b184cb55e2fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T &amp; GridGraph&lt; T &gt;::operator[]</definition>
+        <argsstring>(const LineCoord2D&lt; size_t &gt; &amp;coord)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>GridGraph::operator[]</qualifiedname>
+        <param>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; size_t &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="488" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="488" bodyend="490"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridGraph_1a222c9b63c4baa551d699d6020b2c9643" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename U</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool GridGraph&lt; T &gt;::in_bounds</definition>
+        <argsstring>(const LineCoord2D&lt; U &gt; &amp;coord) const</argsstring>
+        <name>in_bounds</name>
+        <qualifiedname>GridGraph::in_bounds</qualifiedname>
+        <param>
+          <type>const <ref refid="classLineCoord2D" kindref="compound">LineCoord2D</ref>&lt; U &gt; &amp;</type>
+          <declname>coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="493" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="493" bodyend="505"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classGridGraph_1aa3dbafdba09072b84af97252c88e3839" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const GridGraph &amp;graph)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>GridGraph::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classGridGraph" kindref="compound">GridGraph</ref> &amp;</type>
+          <declname>graph</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="507" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="507" bodyend="514"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="462" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="462" bodyend="515"/>
+    <listofallmembers>
+      <member refid="classGridGraph_1aba55c09714f4349737cd6fc52052dcd2" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>GridGraph</name></member>
+      <member refid="classGridGraph_1a7730626084851af4405c5e21f50cf299" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>height</name></member>
+      <member refid="classGridGraph_1ae15677de2d8a120b1666a23a299e04c9" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>horizontal</name></member>
+      <member refid="classGridGraph_1a9ae4c24244303dad5e9633cbfde683f3" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>horizontal</name></member>
+      <member refid="classGridGraph_1a222c9b63c4baa551d699d6020b2c9643" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>in_bounds</name></member>
+      <member refid="classGridGraph_1a73b4579782e6cd389f1ed7b126f2e6ac" prot="private" virt="non-virtual"><scope>GridGraph</scope><name>m_horizontal</name></member>
+      <member refid="classGridGraph_1a6882910f60567a0bbf6f228359314ab5" prot="private" virt="non-virtual"><scope>GridGraph</scope><name>m_vertical</name></member>
+      <member refid="classGridGraph_1aa3dbafdba09072b84af97252c88e3839" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classGridGraph_1a448fae59979eef08793159b188c947a9" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>operator[]</name></member>
+      <member refid="classGridGraph_1a5d0ab42fba580385d0c9b184cb55e2fe" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>operator[]</name></member>
+      <member refid="classGridGraph_1ad2817ad8db55a92775a5381b8cca97ea" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>vertical</name></member>
+      <member refid="classGridGraph_1a01728dcd92127c844aa0c153904c477f" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>vertical</name></member>
+      <member refid="classGridGraph_1a2c25c6389b5bbe8d8be1d92c6a100f62" prot="public" virt="non-virtual"><scope>GridGraph</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRecordingProgressBar" kind="class" language="C++" prot="public">
+    <compoundname>RecordingProgressBar</compoundname>
+    <basecompoundref refid="classProgressBar" prot="public" virt="non-virtual">ProgressBar</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRecordingProgressBar_1a670ddc1387204ae61f71dd60b508f814" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; RecordingProgressBar::m_updates</definition>
+        <argsstring></argsstring>
+        <name>m_updates</name>
+        <qualifiedname>RecordingProgressBar::m_updates</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="23" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRecordingProgressBar_1ae633f2792ac73f0df893971c98843370" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::vector&lt; double &gt; &amp;</type>
+        <definition>const std::vector&lt; double &gt; &amp; RecordingProgressBar::updates</definition>
+        <argsstring>() const</argsstring>
+        <name>updates</name>
+        <qualifiedname>RecordingProgressBar::updates</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="26" column="21" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="26" bodyend="26"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void RecordingProgressBar::update_progress</definition>
+        <argsstring>(double progress) override</argsstring>
+        <name>update_progress</name>
+        <qualifiedname>RecordingProgressBar::update_progress</qualifiedname>
+        <reimplements refid="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08">update_progress</reimplements>
+        <param>
+          <type>double</type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="29" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="29" bodyend="32"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ProgressBar</label>
+        <link refid="classProgressBar"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ProgressObserver</label>
+        <link refid="classProgressObserver"/>
+      </node>
+      <node id="1">
+        <label>RecordingProgressBar</label>
+        <link refid="classRecordingProgressBar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ProgressBar</label>
+        <link refid="classProgressBar"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ProgressObserver</label>
+        <link refid="classProgressObserver"/>
+      </node>
+      <node id="1">
+        <label>RecordingProgressBar</label>
+        <link refid="classRecordingProgressBar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" line="22" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp" bodystart="22" bodyend="33"/>
+    <listofallmembers>
+      <member refid="classProgressObserver_1a5ffae3404e579191612b2946e81373e3" prot="public" virt="non-virtual"><scope>RecordingProgressBar</scope><name>child</name></member>
+      <member refid="classRecordingProgressBar_1a670ddc1387204ae61f71dd60b508f814" prot="private" virt="non-virtual"><scope>RecordingProgressBar</scope><name>m_updates</name></member>
+      <member refid="classProgressObserver_1a91848627d3c0148811430f0480c0d906" prot="protected" virt="non-virtual"><scope>RecordingProgressBar</scope><name>ProgressObserver</name></member>
+      <member refid="classProgressBar_1aa5fa842bcef66aed32ea6c7c79c44e5e" prot="protected" virt="virtual"><scope>RecordingProgressBar</scope><name>text_update</name></member>
+      <member refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac" prot="protected" virt="virtual"><scope>RecordingProgressBar</scope><name>update_progress</name></member>
+      <member refid="classRecordingProgressBar_1ae633f2792ac73f0df893971c98843370" prot="public" virt="non-virtual"><scope>RecordingProgressBar</scope><name>updates</name></member>
+      <member refid="classProgressBar_1ab55c884aae0f1f7f59c561535fc988be" prot="public" virt="non-virtual"><scope>RecordingProgressBar</scope><name>~ProgressBar</name></member>
+      <member refid="classProgressObserver_1a88351d1c134e9edf4e716e930b6d3c53" prot="public" virt="virtual"><scope>RecordingProgressBar</scope><name>~ProgressObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

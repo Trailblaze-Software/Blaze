@@ -1,0 +1,352 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classContourLayerRenderer" kind="class" language="C++" prot="public">
+    <compoundname>ContourLayerRenderer</compoundname>
+    <basecompoundref refid="classLayerRenderer" prot="public" virt="non-virtual">LayerRenderer</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classContourLayerRenderer_1a8a0f3d5a8e17ee58717da6e66f5d4bdc" prot="private" static="no" mutable="no">
+        <type>std::weak_ptr&lt; <ref refid="classContourLayer" kindref="compound">ContourLayer</ref> &gt;</type>
+        <definition>std::weak_ptr&lt;ContourLayer&gt; ContourLayerRenderer::m_layer</definition>
+        <argsstring></argsstring>
+        <name>m_layer</name>
+        <qualifiedname>ContourLayerRenderer::m_layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="207" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a988985977fa8cfbb341c4aacd795ebbc" prot="private" static="no" mutable="no">
+        <type>QOpenGLVertexArrayObject</type>
+        <definition>QOpenGLVertexArrayObject ContourLayerRenderer::m_vao</definition>
+        <argsstring></argsstring>
+        <name>m_vao</name>
+        <qualifiedname>ContourLayerRenderer::m_vao</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="209" column="28" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a7a57c5071086bd17884711febc835864" prot="private" static="no" mutable="no">
+        <type>QOpenGLBuffer</type>
+        <definition>QOpenGLBuffer ContourLayerRenderer::m_vbo</definition>
+        <argsstring></argsstring>
+        <name>m_vbo</name>
+        <qualifiedname>ContourLayerRenderer::m_vbo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="210" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a036ec365aa600af422641338400312a8" prot="private" static="no" mutable="no">
+        <type>QOpenGLBuffer</type>
+        <definition>QOpenGLBuffer ContourLayerRenderer::m_ibo</definition>
+        <argsstring></argsstring>
+        <name>m_ibo</name>
+        <qualifiedname>ContourLayerRenderer::m_ibo</qualifiedname>
+        <initializer>{QOpenGLBuffer::IndexBuffer}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="211" column="17" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="211" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a2d816d1f14a21e2ddd76f59dac9c0b29" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; QOpenGLShaderProgram &gt;</type>
+        <definition>std::unique_ptr&lt;QOpenGLShaderProgram&gt; ContourLayerRenderer::m_shader</definition>
+        <argsstring></argsstring>
+        <name>m_shader</name>
+        <qualifiedname>ContourLayerRenderer::m_shader</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="212" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a525aaa71b45a1842c6e1971e8a079478" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ContourLayerRenderer::m_uploaded</definition>
+        <argsstring></argsstring>
+        <name>m_uploaded</name>
+        <qualifiedname>ContourLayerRenderer::m_uploaded</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="213" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1af584db39c93b2aaafb7c09f192b51361" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t ContourLayerRenderer::m_index_count</definition>
+        <argsstring></argsstring>
+        <name>m_index_count</name>
+        <qualifiedname>ContourLayerRenderer::m_index_count</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="214" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a377a3ed2542ee60a4e5d691ca7f4c86e" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ContourLayerRenderer::m_proj_matrix_loc</definition>
+        <argsstring></argsstring>
+        <name>m_proj_matrix_loc</name>
+        <qualifiedname>ContourLayerRenderer::m_proj_matrix_loc</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="215" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1af6258d8b923ee9886bc87ad804be468d" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ContourLayerRenderer::m_light_direction_loc</definition>
+        <argsstring></argsstring>
+        <name>m_light_direction_loc</name>
+        <qualifiedname>ContourLayerRenderer::m_light_direction_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="216" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a4b41710f2ea81f8c41668f671d76131a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ContourLayerRenderer::m_camera_position_loc</definition>
+        <argsstring></argsstring>
+        <name>m_camera_position_loc</name>
+        <qualifiedname>ContourLayerRenderer::m_camera_position_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="217" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a872d3aec6529edffc6298e699bfb5548" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ContourLayerRenderer::m_ambient_light_loc</definition>
+        <argsstring></argsstring>
+        <name>m_ambient_light_loc</name>
+        <qualifiedname>ContourLayerRenderer::m_ambient_light_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="218" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a3cc4ef5c7fd74805e131c9cc63219835" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ContourLayerRenderer::m_diffuse_light_loc</definition>
+        <argsstring></argsstring>
+        <name>m_diffuse_light_loc</name>
+        <qualifiedname>ContourLayerRenderer::m_diffuse_light_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="219" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a8981827259ffcde489fff00f113b91f0" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ContourLayerRenderer::m_layer_alpha_loc</definition>
+        <argsstring></argsstring>
+        <name>m_layer_alpha_loc</name>
+        <qualifiedname>ContourLayerRenderer::m_layer_alpha_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="220" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classContourLayerRenderer_1a916f05f655cd349f1acca4fa733c699c" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ContourLayerRenderer::m_vertical_offset_loc</definition>
+        <argsstring></argsstring>
+        <name>m_vertical_offset_loc</name>
+        <qualifiedname>ContourLayerRenderer::m_vertical_offset_loc</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="221" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="221" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classContourLayerRenderer_1ac0cfd27c03d214d2137be766b045b878" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ContourLayerRenderer::upload_contours</definition>
+        <argsstring>(const std::vector&lt; Contour &gt; &amp;contours, const Coordinate3D&lt; double &gt; &amp;offset)</argsstring>
+        <name>upload_contours</name>
+        <qualifiedname>ContourLayerRenderer::upload_contours</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="classContour" kindref="compound">Contour</ref> &gt; &amp;</type>
+          <declname>contours</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="223" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/contour_layer_renderer.cpp" bodystart="89" bodyend="177"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classContourLayerRenderer_1a73bcf74a92a8b52f06740ecbdf324a52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ContourLayerRenderer::ContourLayerRenderer</definition>
+        <argsstring>(std::shared_ptr&lt; ContourLayer &gt; layer, const Coordinate3D&lt; double &gt; &amp;offset)</argsstring>
+        <name>ContourLayerRenderer</name>
+        <qualifiedname>ContourLayerRenderer::ContourLayerRenderer</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classContourLayer" kindref="compound">ContourLayer</ref> &gt;</type>
+          <declname>layer</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classCoordinate3D" kindref="compound">Coordinate3D</ref>&lt; double &gt; &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="226" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/contour_layer_renderer.cpp" bodystart="85" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classContourLayerRenderer_1a903851f547f202bf5622437079876d1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ContourLayerRenderer::render</definition>
+        <argsstring>(const Camera &amp;camera, const RenderContext &amp;ctx) override</argsstring>
+        <name>render</name>
+        <qualifiedname>ContourLayerRenderer::render</qualifiedname>
+        <reimplements refid="classLayerRenderer_1a3af8f8ceb4285e1804a76e8ce36a0ea1">render</reimplements>
+        <param>
+          <type>const <ref refid="classCamera" kindref="compound">Camera</ref> &amp;</type>
+          <declname>camera</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structRenderContext" kindref="compound">RenderContext</ref> &amp;</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="228" column="16" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/contour_layer_renderer.cpp" bodystart="179" bodyend="258"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ContourLayerRenderer</label>
+        <link refid="classContourLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ContourLayerRenderer</label>
+        <link refid="classContourLayerRenderer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>LayerRenderer</label>
+        <link refid="classLayerRenderer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" line="206" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp" bodystart="206" bodyend="229"/>
+    <listofallmembers>
+      <member refid="classContourLayerRenderer_1a73bcf74a92a8b52f06740ecbdf324a52" prot="public" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>ContourLayerRenderer</name></member>
+      <member refid="classLayerRenderer_1ac9702186c6039472bf58e1295fad80c1" prot="public" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>create</name></member>
+      <member refid="classLayerRenderer_1a3c4bb62a02bd94cd69ba955dad081515" prot="public" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>data_update_required</name></member>
+      <member refid="classContourLayerRenderer_1a872d3aec6529edffc6298e699bfb5548" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_ambient_light_loc</name></member>
+      <member refid="classContourLayerRenderer_1a4b41710f2ea81f8c41668f671d76131a" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_camera_position_loc</name></member>
+      <member refid="classLayerRenderer_1a7c16a5823a2c968a682a69ef11bf23e2" prot="protected" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_data_update_required</name></member>
+      <member refid="classContourLayerRenderer_1a3cc4ef5c7fd74805e131c9cc63219835" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_diffuse_light_loc</name></member>
+      <member refid="classContourLayerRenderer_1a036ec365aa600af422641338400312a8" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_ibo</name></member>
+      <member refid="classContourLayerRenderer_1af584db39c93b2aaafb7c09f192b51361" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_index_count</name></member>
+      <member refid="classContourLayerRenderer_1a8a0f3d5a8e17ee58717da6e66f5d4bdc" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_layer</name></member>
+      <member refid="classContourLayerRenderer_1a8981827259ffcde489fff00f113b91f0" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_layer_alpha_loc</name></member>
+      <member refid="classContourLayerRenderer_1af6258d8b923ee9886bc87ad804be468d" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_light_direction_loc</name></member>
+      <member refid="classContourLayerRenderer_1a377a3ed2542ee60a4e5d691ca7f4c86e" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_proj_matrix_loc</name></member>
+      <member refid="classContourLayerRenderer_1a2d816d1f14a21e2ddd76f59dac9c0b29" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_shader</name></member>
+      <member refid="classContourLayerRenderer_1a525aaa71b45a1842c6e1971e8a079478" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_uploaded</name></member>
+      <member refid="classContourLayerRenderer_1a988985977fa8cfbb341c4aacd795ebbc" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_vao</name></member>
+      <member refid="classContourLayerRenderer_1a7a57c5071086bd17884711febc835864" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_vbo</name></member>
+      <member refid="classContourLayerRenderer_1a916f05f655cd349f1acca4fa733c699c" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_vertical_offset_loc</name></member>
+      <member refid="classLayerRenderer_1a439a5105a7b4adb2ef7f10f3b4ab0ecd" prot="protected" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>m_visible</name></member>
+      <member refid="classContourLayerRenderer_1a903851f547f202bf5622437079876d1e" prot="public" virt="virtual"><scope>ContourLayerRenderer</scope><name>render</name></member>
+      <member refid="classLayerRenderer_1a5ea8e6825f4c920eab84e512919f1318" prot="public" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>repaint_required</name></member>
+      <member refid="classLayerRenderer_1a9adac9c80a9a41e717822ae10869c9b7" prot="public" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>set_visible</name></member>
+      <member refid="classLayerRenderer_1a714e25eaa86e2af777125f2b277c1b25" prot="public" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>stream_view_reset</name></member>
+      <member refid="classContourLayerRenderer_1ac0cfd27c03d214d2137be766b045b878" prot="private" virt="non-virtual"><scope>ContourLayerRenderer</scope><name>upload_contours</name></member>
+      <member refid="classLayerRenderer_1a0395fb5e77055b10317e1572d9b832c4" prot="public" virt="virtual"><scope>ContourLayerRenderer</scope><name>~LayerRenderer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

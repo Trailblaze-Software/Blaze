@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classblaze_1_1memory__tracker_1_1TrackedAllocator" kind="class" language="C++" prot="public">
+    <compoundname>blaze::memory_tracker::TrackedAllocator</compoundname>
+    <innerclass refid="structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind" prot="public">blaze::memory_tracker::TrackedAllocator::rebind</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+      <param>
+        <type>Tag</type>
+        <declname>MemoryTag</declname>
+        <defname>MemoryTag</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1af3ba4dd3368d8f47ce61f742a23eafac" prot="public" static="no">
+        <type>T</type>
+        <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::value_type =  T</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::value_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="33" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a2ae98462bc2b01ae01d96d4585ebaf22" prot="public" static="no">
+        <type>std::size_t</type>
+        <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::size_type =  std::size_t</definition>
+        <argsstring></argsstring>
+        <name>size_type</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::size_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="34" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a8fac3ffd8267c8abea7158464d09e293" prot="public" static="no">
+        <type>std::ptrdiff_t</type>
+        <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::difference_type =  std::ptrdiff_t</definition>
+        <argsstring></argsstring>
+        <name>difference_type</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::difference_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="35" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a579634cf859f6e6636807bd132562cf3" prot="public" static="no">
+        <type>std::true_type</type>
+        <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::propagate_on_container_copy_assignment =  std::true_type</definition>
+        <argsstring></argsstring>
+        <name>propagate_on_container_copy_assignment</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::propagate_on_container_copy_assignment</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="36" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a6889a352e5f20c2ae6608906474716da" prot="public" static="no">
+        <type>std::true_type</type>
+        <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::propagate_on_container_move_assignment =  std::true_type</definition>
+        <argsstring></argsstring>
+        <name>propagate_on_container_move_assignment</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::propagate_on_container_move_assignment</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="37" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a60466857bf6357fdd058ff14841d8a63" prot="public" static="no">
+        <type>std::true_type</type>
+        <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::propagate_on_container_swap =  std::true_type</definition>
+        <argsstring></argsstring>
+        <name>propagate_on_container_swap</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::propagate_on_container_swap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="38" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a86fcc8d86f50bc420f4a91111e8c8857" prot="public" static="no">
+        <type>std::true_type</type>
+        <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::is_always_equal =  std::true_type</definition>
+        <argsstring></argsstring>
+        <name>is_always_equal</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::is_always_equal</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="39" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1afa5ebfe258576bdfbb73b4d9831abf64" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr bool</type>
+        <definition>constexpr bool blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::k_requires_aligned_allocation</definition>
+        <argsstring></argsstring>
+        <name>k_requires_aligned_allocation</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::k_requires_aligned_allocation</qualifiedname>
+        <initializer>=
+      alignof(T) &gt; tracked_allocator_detail::default_new_alignment()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="29" column="25" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a71549434e7ea583982ba89b8e056e928" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type></type>
+        <definition>blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::TrackedAllocator</definition>
+        <argsstring>() noexcept=default</argsstring>
+        <name>TrackedAllocator</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::TrackedAllocator</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="41" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1ae2c8d9f6025466a793ed7c716d5372e6" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename U</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::TrackedAllocator</definition>
+        <argsstring>(const TrackedAllocator&lt; U, MemoryTag &gt; &amp;) noexcept</argsstring>
+        <name>TrackedAllocator</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::TrackedAllocator</qualifiedname>
+        <param>
+          <type>const <ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; U, MemoryTag &gt; &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="44" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1ac9f1b8ca99ea9f62b91b9eb8164ed0eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::allocate</definition>
+        <argsstring>(size_type count)</argsstring>
+        <name>allocate</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::allocate</qualifiedname>
+        <param>
+          <type>size_type</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="46" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="46" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a423e9d9f7701c252c7c1f074a602179c" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::deallocate</definition>
+        <argsstring>(T *pointer, size_type count) noexcept</argsstring>
+        <name>deallocate</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::deallocate</qualifiedname>
+        <param>
+          <type>T *</type>
+          <declname>pointer</declname>
+        </param>
+        <param>
+          <type>size_type</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="61" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="61" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classblaze_1_1memory__tracker_1_1TrackedAllocator_1afaf0b21a8b04945af94a024377aa5e19" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>size_type</type>
+        <definition>size_type blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::max_size</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>max_size</name>
+        <qualifiedname>blaze::memory_tracker::TrackedAllocator::max_size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="71" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="71" bodyend="71"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="28" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="28" bodyend="77"/>
+    <listofallmembers>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1ac9f1b8ca99ea9f62b91b9eb8164ed0eb" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>allocate</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a423e9d9f7701c252c7c1f074a602179c" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>deallocate</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a8fac3ffd8267c8abea7158464d09e293" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>difference_type</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a86fcc8d86f50bc420f4a91111e8c8857" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>is_always_equal</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1afa5ebfe258576bdfbb73b4d9831abf64" prot="private" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>k_requires_aligned_allocation</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1afaf0b21a8b04945af94a024377aa5e19" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>max_size</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a579634cf859f6e6636807bd132562cf3" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>propagate_on_container_copy_assignment</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a6889a352e5f20c2ae6608906474716da" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>propagate_on_container_move_assignment</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a60466857bf6357fdd058ff14841d8a63" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>propagate_on_container_swap</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a2ae98462bc2b01ae01d96d4585ebaf22" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>size_type</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1a71549434e7ea583982ba89b8e056e928" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>TrackedAllocator</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1ae2c8d9f6025466a793ed7c716d5372e6" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>TrackedAllocator</name></member>
+      <member refid="classblaze_1_1memory__tracker_1_1TrackedAllocator_1af3ba4dd3368d8f47ce61f742a23eafac" prot="public" virt="non-virtual"><scope>blaze::memory_tracker::TrackedAllocator</scope><name>value_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,612 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="progress__tracker_8hpp" kind="file" language="C++">
+    <compoundname>progress_tracker.hpp</compoundname>
+    <includes local="no">chrono</includes>
+    <includes local="no">cstdint</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">optional</includes>
+    <includes local="no">source_location</includes>
+    <includes local="no">string</includes>
+    <includes local="no">utility</includes>
+    <includedby refid="blaze_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/blaze.cpp</includedby>
+    <includedby refid="blaze__output__loader_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp</includedby>
+    <includedby refid="layer_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</includedby>
+    <includedby refid="main__3d__window_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.cpp</includedby>
+    <includedby refid="octree__las__data_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp</includedby>
+    <includedby refid="progress__box_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/progress_box.cpp</includedby>
+    <includedby refid="progress__box_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp</includedby>
+    <includedby refid="raster__data_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp</includedby>
+    <includedby refid="contour__gen_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</includedby>
+    <includedby refid="test__contour__gen_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp</includedby>
+    <includedby refid="crt_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/crt/crt.hpp</includedby>
+    <includedby refid="grid__ops_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</includedby>
+    <includedby refid="img__grid_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</includedby>
+    <includedby refid="test__grid__ops_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_grid_ops.cpp</includedby>
+    <includedby refid="test__img__grid_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/tests/test_img_grid.cpp</includedby>
+    <includedby refid="gpkg_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</includedby>
+    <includedby refid="test__gpkg_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_gpkg.cpp</includedby>
+    <includedby refid="binned__points_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</includedby>
+    <includedby refid="las__file_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</includedby>
+    <includedby refid="tile__mode_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</includedby>
+    <includedby refid="tif_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</includedby>
+    <includedby refid="progress__tracker_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.cpp</includedby>
+    <includedby refid="test__progress__tracker_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/utilities/tests/test_progress_tracker.cpp</includedby>
+    <includedby refid="test__vector__vege__render_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vector_vege_render.cpp</includedby>
+    <includedby refid="test__vegetation_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation.cpp</includedby>
+    <includedby refid="test__vegetation__polygon_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation_polygon.cpp</includedby>
+    <includedby refid="vegetation_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</includedby>
+    <includedby refid="vegetation__polygon_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</includedby>
+    <includedby refid="hill__shade_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</includedby>
+    <includedby refid="test__water_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/methods/water/tests/test_water.cpp</includedby>
+    <includedby refid="water_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp</includedby>
+    <includedby refid="water_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</includedby>
+    <includedby refid="process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/process.cpp</includedby>
+    <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
+    <includedby refid="test__e2e_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp</includedby>
+    <includedby refid="test__process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_process.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>chrono</label>
+      </node>
+      <node id="3">
+        <label>cstdint</label>
+      </node>
+      <node id="4">
+        <label>memory</label>
+      </node>
+      <node id="5">
+        <label>optional</label>
+      </node>
+      <node id="6">
+        <label>source_location</label>
+      </node>
+      <node id="7">
+        <label>string</label>
+      </node>
+      <node id="8">
+        <label>utility</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/blaze_output_loader.hpp</label>
+        <link refid="blaze__output__loader_8hpp_source"/>
+      </node>
+      <node id="4">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/gl_widget.hpp</label>
+        <link refid="gl__widget_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer.hpp</label>
+        <link refid="layer_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/layer_renderer.hpp</label>
+        <link refid="layer__renderer_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
+        <link refid="main__3d__window_8hpp_source"/>
+      </node>
+      <node id="7">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp</label>
+        <link refid="octree__las__data_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/progress_box.hpp</label>
+        <link refid="progress__box_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp</label>
+        <link refid="raster__data_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp</label>
+        <link refid="contour_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp</label>
+        <link refid="contour__gen_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/crt/crt.hpp</label>
+        <link refid="crt_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
+        <link refid="grid__ops_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
+        <link refid="img__grid_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
+        <link refid="gpkg_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</label>
+        <link refid="binned__points_8hpp_source"/>
+      </node>
+      <node id="19">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
+        <link refid="las__file_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</label>
+        <link refid="tile__mode_8hpp_source"/>
+      </node>
+      <node id="22">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</label>
+        <link refid="tif_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vector_vege_render.hpp</label>
+        <link refid="vector__vege__render_8hpp_source"/>
+      </node>
+      <node id="23">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
+        <link refid="vegetation_8hpp_source"/>
+      </node>
+      <node id="11">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
+        <link refid="vegetation__polygon_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
+        <link refid="hill__shade_8hpp_source"/>
+      </node>
+      <node id="25">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
+        <link refid="water_8hpp_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
+        <link refid="process_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classProgressObserver" prot="public">ProgressObserver</innerclass>
+    <innerclass refid="classProgressBar" prot="public">ProgressBar</innerclass>
+    <innerclass refid="classProgressTracker" prot="public">ProgressTracker</innerclass>
+    <innerclass refid="classAsyncProgressTracker" prot="public">AsyncProgressTracker</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="progress__tracker_8hpp_1a8763ef950aada358f95ed2de55caebca" prot="public" static="no">
+        <name>SUBTRACKER_GET</name>
+        <param><defname>_1</defname></param>
+        <param><defname>_2</defname></param>
+        <param><defname>_3</defname></param>
+        <param><defname>NAME</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>NAME</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="105" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a05deedf8787c49fb6ce738524aac0df2" prot="public" static="no">
+        <name>SUBTRACKER</name>
+        <param><defname>...</defname></param>
+        <initializer>SUBTRACKER_GET(__VA_ARGS__, SUBTRACKER_3, SUBTRACKER_2)(__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="106" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a17f1b7067c8a3acb73e4aa308120bd3d" prot="public" static="no">
+        <name>SUBTRACKER_2</name>
+        <param><defname>start</defname></param>
+        <param><defname>end</defname></param>
+        <initializer>  (progress_tracker).subtracker((start), (end), &quot;&quot;, std::source_location::current())</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="107" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="107" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a817ef31edc09c44159638573a4c63df6" prot="public" static="no">
+        <name>SUBTRACKER_3</name>
+        <param><defname>start</defname></param>
+        <param><defname>end</defname></param>
+        <param><defname>tracker</defname></param>
+        <initializer>  ((tracker)).subtracker((start), (end), &quot;&quot;, std::source_location::current())</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="109" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="109" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a99363c9215b95f2d347587284b7d295d" prot="public" static="no">
+        <name>SUBTRACKER_HIDDEN</name>
+        <param><defname>...</defname></param>
+        <initializer>  SUBTRACKER_GET(__VA_ARGS__, SUBTRACKER_HIDDEN_3, SUBTRACKER_HIDDEN_2)(__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="112" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="112" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1ae086ea7490026bdbaff121dbbd52292c" prot="public" static="no">
+        <name>SUBTRACKER_HIDDEN_2</name>
+        <param><defname>start</defname></param>
+        <param><defname>end</defname></param>
+        <initializer>  (progress_tracker).subtracker((start), (end), &quot;&quot;, std::source_location::current(), false)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="114" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="114" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1aece5cf71338dae559ce4cbbc700f3de2" prot="public" static="no">
+        <name>SUBTRACKER_HIDDEN_3</name>
+        <param><defname>start</defname></param>
+        <param><defname>end</defname></param>
+        <param><defname>tracker</defname></param>
+        <initializer>  ((tracker)).subtracker((start), (end), &quot;&quot;, std::source_location::current(), false)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="116" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="116" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a3efdfc5e7c772d6813d13100a29597cd" prot="public" static="no">
+        <name>SUBTRACKER_VISIBLE</name>
+        <param><defname>...</defname></param>
+        <initializer>  SUBTRACKER_GET(__VA_ARGS__, SUBTRACKER_VISIBLE_3, SUBTRACKER_VISIBLE_2)(__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="119" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="119" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a93d53201bd3065aa2170f366a0248f67" prot="public" static="no">
+        <name>SUBTRACKER_VISIBLE_2</name>
+        <param><defname>start</defname></param>
+        <param><defname>end</defname></param>
+        <initializer>  (progress_tracker).subtracker((start), (end), &quot;&quot;, std::source_location::current(), true)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="121" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="121" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a118f3a96a9ed8908cef76e44b69f437a" prot="public" static="no">
+        <name>SUBTRACKER_VISIBLE_3</name>
+        <param><defname>start</defname></param>
+        <param><defname>end</defname></param>
+        <param><defname>tracker</defname></param>
+        <initializer>  ((tracker)).subtracker((start), (end), &quot;&quot;, std::source_location::current(), true)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="123" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="123" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1ac710ce6fb4f2b171940b60c749d57e05" prot="public" static="no">
+        <name>START_TRACKER_GET</name>
+        <param><defname>_1</defname></param>
+        <param><defname>_2</defname></param>
+        <param><defname>NAME</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>NAME</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="126" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a7a26856eb17ae089bedd76fa6f00989b" prot="public" static="no">
+        <name>START_TRACKER</name>
+        <param><defname>...</defname></param>
+        <initializer>  START_TRACKER_GET(__VA_ARGS__, START_TRACKER_2, START_TRACKER_1)(__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="127" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="127" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1aa5a95e5f8b7d1a8257d872a970f7f5cf" prot="public" static="no">
+        <name>START_TRACKER_1</name>
+        <param><defname>text</defname></param>
+        <initializer>  (progress_tracker).begin_tracking((text), std::source_location::current())</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="129" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="129" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="define" id="progress__tracker_8hpp_1a38fb9e9e99bda00cf633a5ae49bba00d" prot="public" static="no">
+        <name>START_TRACKER_2</name>
+        <param><defname>tracker</defname></param>
+        <param><defname>text</defname></param>
+        <initializer>  ((tracker)).begin_tracking((text), std::source_location::current())</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" line="131" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp" bodystart="131" bodyend="132"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;optional&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;source_location&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="classProgressObserver" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*<sp/>m_child;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>text_update(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>text,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>depth<sp/>=<sp/>0)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref>()<sp/>:<sp/>m_child(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*<sp/>child()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_child;<sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classProgressObserver" kindref="compound">~ProgressObserver</ref>();</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CLI<sp/>terminal<sp/>progress:<sp/>ProgressTracker<sp/>updates<sp/>propagate<sp/>immediately<sp/>to<sp/>all<sp/>observers;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/>only<sp/>stdout<sp/>printing<sp/>is<sp/>rate-limited<sp/>here.<sp/>GUI<sp/>observers<sp/>(ProgressBox,<sp/>etc.)<sp/>are<sp/>unaffected.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="classProgressBar" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classProgressBar" kindref="compound">ProgressBar</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::chrono::milliseconds<sp/>PRINT_INTERVAL{500};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_last_printed_progress<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_latest_progress<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>std::chrono::steady_clock::time_point<sp/>m_last_print_time{};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>maybe_print_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>text_update(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>text,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>depth<sp/>=<sp/>0)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><ref refid="classProgressBar" kindref="compound">~ProgressBar</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="classProgressTracker" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_proportion;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref>*<sp/>m_observer;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>std::optional&lt;std::pair&lt;double,<sp/>double&gt;&gt;<sp/>m_subtracker_range;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>m_visible<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>uint64_t<sp/>m_trace_scope_id<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_set_proportion(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>proportion);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>update_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>progress)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(<ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref>*<sp/>observer<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>std::string<sp/>name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::source_location<sp/>location<sp/>=<sp/>std::source_location::current(),</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>range_start<sp/>=<sp/>0.0,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>range_end<sp/>=<sp/>1.0);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>text_update(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>text,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>depth<sp/>=<sp/>0)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>other);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;<sp/>operator=(<ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>set_proportion(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>proportion);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>set_visible(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>v)<sp/>{<sp/>m_visible<sp/>=<sp/>v;<sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_visible()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_visible;<sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Thread-safe:<sp/>only<sp/>advances<sp/>when<sp/>`proportion`<sp/>exceeds<sp/>the<sp/>current<sp/>value<sp/>(for<sp/>OpenMP<sp/>loops</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>where<sp/>work<sp/>completes<sp/>out<sp/>of<sp/>order).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>report_parallel_progress(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>proportion);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>visible:<sp/>nullopt<sp/>=<sp/>inherit<sp/>parent,<sp/>true<sp/>=<sp/>force<sp/>visible,<sp/>false<sp/>=<sp/>force<sp/>invisible</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>subtracker(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>start,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>end,<sp/>std::string<sp/>name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::source_location<sp/>location<sp/>=<sp/>std::source_location::current(),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;bool&gt;<sp/>visible<sp/>=<sp/>std::nullopt);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Callee<sp/>entry:<sp/>set<sp/>scope<sp/>display<sp/>name<sp/>and<sp/>emit<sp/>status<sp/>text.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>begin_tracking(std::string<sp/>text,<sp/>std::source_location<sp/>location);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classProgressTracker" kindref="compound">~ProgressTracker</ref>();</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>proportion()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_proportion;<sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="classAsyncProgressTracker" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref><sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;ProgressTracker&gt;<sp/>m_tracker;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classAsyncProgressTracker" kindref="compound">AsyncProgressTracker</ref>(<ref refid="classProgressObserver" kindref="compound">ProgressObserver</ref>*<sp/>observer<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>std::string<sp/>name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>m_tracker(std::make_shared&lt;ProgressTracker&gt;(observer,<sp/>std::move(name)))<sp/>{}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;ProgressTracker&gt;<sp/>tracker()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_tracker;<sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Default<sp/>parent<sp/>tracker<sp/>is<sp/>progress_tracker.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_GET(_1,<sp/>_2,<sp/>_3,<sp/>NAME,<sp/>...)<sp/>NAME</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER(...)<sp/>SUBTRACKER_GET(__VA_ARGS__,<sp/>SUBTRACKER_3,<sp/>SUBTRACKER_2)(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_2(start,<sp/>end)<sp/>\</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"><sp/><sp/>(progress_tracker).subtracker((start),<sp/>(end),<sp/>&quot;&quot;,<sp/>std::source_location::current())</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_3(start,<sp/>end,<sp/>tracker)<sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/>((tracker)).subtracker((start),<sp/>(end),<sp/>&quot;&quot;,<sp/>std::source_location::current())</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_HIDDEN(...)<sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/>SUBTRACKER_GET(__VA_ARGS__,<sp/>SUBTRACKER_HIDDEN_3,<sp/>SUBTRACKER_HIDDEN_2)(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_HIDDEN_2(start,<sp/>end)<sp/>\</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"><sp/><sp/>(progress_tracker).subtracker((start),<sp/>(end),<sp/>&quot;&quot;,<sp/>std::source_location::current(),<sp/>false)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_HIDDEN_3(start,<sp/>end,<sp/>tracker)<sp/>\</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"><sp/><sp/>((tracker)).subtracker((start),<sp/>(end),<sp/>&quot;&quot;,<sp/>std::source_location::current(),<sp/>false)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_VISIBLE(...)<sp/>\</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"><sp/><sp/>SUBTRACKER_GET(__VA_ARGS__,<sp/>SUBTRACKER_VISIBLE_3,<sp/>SUBTRACKER_VISIBLE_2)(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_VISIBLE_2(start,<sp/>end)<sp/>\</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"><sp/><sp/>(progress_tracker).subtracker((start),<sp/>(end),<sp/>&quot;&quot;,<sp/>std::source_location::current(),<sp/>true)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUBTRACKER_VISIBLE_3(start,<sp/>end,<sp/>tracker)<sp/>\</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"><sp/><sp/>((tracker)).subtracker((start),<sp/>(end),<sp/>&quot;&quot;,<sp/>std::source_location::current(),<sp/>true)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>START_TRACKER_GET(_1,<sp/>_2,<sp/>NAME,<sp/>...)<sp/>NAME</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>START_TRACKER(...)<sp/>\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/>START_TRACKER_GET(__VA_ARGS__,<sp/>START_TRACKER_2,<sp/>START_TRACKER_1)(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>START_TRACKER_1(text)<sp/>\</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/>(progress_tracker).begin_tracking((text),<sp/>std::source_location::current())</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>START_TRACKER_2(tracker,<sp/>text)<sp/>\</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"><sp/><sp/>((tracker)).begin_tracking((text),<sp/>std::source_location::current())</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/progress_tracker.hpp"/>
+  </compounddef>
+</doxygen>

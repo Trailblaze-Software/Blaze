@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classdetail_1_1ExtentSpatialIndex" kind="class" language="C++" prot="public">
+    <compoundname>detail::ExtentSpatialIndex</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classdetail_1_1ExtentSpatialIndex_1a38042634b6e24be2d4a9e625d362ef70" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double detail::ExtentSpatialIndex::m_cell_size</definition>
+        <argsstring></argsstring>
+        <name>m_cell_size</name>
+        <qualifiedname>detail::ExtentSpatialIndex::m_cell_size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="155" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdetail_1_1ExtentSpatialIndex_1a02254fa5beb3e391abb90690be29354c" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; int64_t, std::vector&lt; size_t &gt; &gt;</type>
+        <definition>std::unordered_map&lt;int64_t, std::vector&lt;size_t&gt; &gt; detail::ExtentSpatialIndex::m_cells</definition>
+        <argsstring></argsstring>
+        <name>m_cells</name>
+        <qualifiedname>detail::ExtentSpatialIndex::m_cells</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="156" column="22" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="156" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classdetail_1_1ExtentSpatialIndex_1a79d1c2822498ac0e5ff08ca9ab9b8954" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>static int64_t detail::ExtentSpatialIndex::cell_key</definition>
+        <argsstring>(int cx, int cy)</argsstring>
+        <name>cell_key</name>
+        <qualifiedname>detail::ExtentSpatialIndex::cell_key</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>cx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>cy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="158" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="158" bodyend="160"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classdetail_1_1ExtentSpatialIndex_1af3de282f8f4efb4afe7cb5b99a5a4ef2" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int detail::ExtentSpatialIndex::cell_coord</definition>
+        <argsstring>(double v) const</argsstring>
+        <name>cell_coord</name>
+        <qualifiedname>detail::ExtentSpatialIndex::cell_coord</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="162" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="162" bodyend="162"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classdetail_1_1ExtentSpatialIndex_1a800777ed8b2dcedf3335e95ca7ddd198" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>detail::ExtentSpatialIndex::ExtentSpatialIndex</definition>
+        <argsstring>(double cell_size)</argsstring>
+        <name>ExtentSpatialIndex</name>
+        <qualifiedname>detail::ExtentSpatialIndex::ExtentSpatialIndex</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>cell_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="165" column="12" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="165" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classdetail_1_1ExtentSpatialIndex_1a0bfd4fdbcc65073ae09ed9fc195bc975" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void detail::ExtentSpatialIndex::insert</definition>
+        <argsstring>(size_t index, const Extent2D &amp;ext)</argsstring>
+        <name>insert</name>
+        <qualifiedname>detail::ExtentSpatialIndex::insert</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>ext</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="167" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="167" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classdetail_1_1ExtentSpatialIndex_1ab79541f1ae608da5adacb5313c9d7e7f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void detail::ExtentSpatialIndex::query</definition>
+        <argsstring>(const Extent2D &amp;ext, std::vector&lt; size_t &gt; &amp;out) const</argsstring>
+        <name>query</name>
+        <qualifiedname>detail::ExtentSpatialIndex::query</qualifiedname>
+        <param>
+          <type>const <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &amp;</type>
+          <declname>ext</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; size_t &gt; &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="179" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="179" bodyend="198"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" line="154" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/geometry/polygon_subtract.hpp" bodystart="154" bodyend="199"/>
+    <listofallmembers>
+      <member refid="classdetail_1_1ExtentSpatialIndex_1af3de282f8f4efb4afe7cb5b99a5a4ef2" prot="private" virt="non-virtual"><scope>detail::ExtentSpatialIndex</scope><name>cell_coord</name></member>
+      <member refid="classdetail_1_1ExtentSpatialIndex_1a79d1c2822498ac0e5ff08ca9ab9b8954" prot="private" virt="non-virtual"><scope>detail::ExtentSpatialIndex</scope><name>cell_key</name></member>
+      <member refid="classdetail_1_1ExtentSpatialIndex_1a800777ed8b2dcedf3335e95ca7ddd198" prot="public" virt="non-virtual"><scope>detail::ExtentSpatialIndex</scope><name>ExtentSpatialIndex</name></member>
+      <member refid="classdetail_1_1ExtentSpatialIndex_1a0bfd4fdbcc65073ae09ed9fc195bc975" prot="public" virt="non-virtual"><scope>detail::ExtentSpatialIndex</scope><name>insert</name></member>
+      <member refid="classdetail_1_1ExtentSpatialIndex_1a38042634b6e24be2d4a9e625d362ef70" prot="private" virt="non-virtual"><scope>detail::ExtentSpatialIndex</scope><name>m_cell_size</name></member>
+      <member refid="classdetail_1_1ExtentSpatialIndex_1a02254fa5beb3e391abb90690be29354c" prot="private" virt="non-virtual"><scope>detail::ExtentSpatialIndex</scope><name>m_cells</name></member>
+      <member refid="classdetail_1_1ExtentSpatialIndex_1ab79541f1ae608da5adacb5313c9d7e7f" prot="public" virt="non-virtual"><scope>detail::ExtentSpatialIndex</scope><name>query</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
