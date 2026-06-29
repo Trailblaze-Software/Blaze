@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="356" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="356" bodyend="357"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="358" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="358" bodyend="359"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1ad7b2eadfa2e906546466b2d06565cb5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="360" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="360" bodyend="361"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="362" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="362" bodyend="363"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a32e9264133b4bc750f7c71003c430c6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="365" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="365" bodyend="376"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="367" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="367" bodyend="378"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>double</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="378" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="378" bodyend="378"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="380" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="380" bodyend="380"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a1098c30d81601a5e885405f61f15bfbd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>double</type>
@@ -133,12 +133,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="379" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="379" bodyend="379"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="381" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="381" bodyend="381"/>
       </memberdef>
-      <memberdef kind="function" id="classGeo_1af54f4e45163e86695ac6521c20105fee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classGeo_1af63eacb90099f2c03206709968771169" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void Geo&lt; GridT &gt;::draw</definition>
-        <argsstring>(const Geo&lt; Grid&lt; RGBColor &gt; &gt; &amp;other, ProgressTracker &amp;&amp;progress_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={})</argsstring>
+        <argsstring>(const Geo&lt; Grid&lt; RGBColor &gt; &gt; &amp;other, ProgressTracker &amp;&amp;progress_tracker, GeoGridCompositeMode composite_mode=GeoGridCompositeMode::AlphaBlend, std::optional&lt; blaze::InterpolationMode &gt; interpolation={})</argsstring>
         <name>draw</name>
         <qualifiedname>Geo::draw</qualifiedname>
         <param>
@@ -150,6 +150,11 @@
           <declname>progress_tracker</declname>
         </param>
         <param>
+          <type>GeoGridCompositeMode</type>
+          <declname>composite_mode</declname>
+          <defval>GeoGridCompositeMode::AlphaBlend</defval>
+        </param>
+        <param>
           <type>std::optional&lt; blaze::InterpolationMode &gt;</type>
           <declname>interpolation</declname>
           <defval>{}</defval>
@@ -161,27 +166,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="390" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="324" bodyend="330"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="392" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="404" bodyend="435"/>
       </memberdef>
-      <memberdef kind="function" id="classGeo_1af72ed47cedeb6173480180c6631b67e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classGeo_1a8a8b7feb41de5e998ad7a45ed7754423" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void Geo&lt; GridT &gt;::draw</definition>
-        <argsstring>(const Geo&lt; Grid&lt; CMYKColor &gt; &gt; &amp;other, ProgressTracker &amp;&amp;progress_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={})</argsstring>
-        <name>draw</name>
-        <qualifiedname>Geo::draw</qualifiedname>
+        <definition>void Geo&lt; GridT &gt;::draw_filled_polygon</definition>
+        <argsstring>(const PolygonWithHoles &amp;poly, const ColorVariant &amp;color)</argsstring>
+        <name>draw_filled_polygon</name>
+        <qualifiedname>Geo::draw_filled_polygon</qualifiedname>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classGrid" kindref="compound">Grid</ref>&lt; <ref refid="classCMYKColor" kindref="compound">CMYKColor</ref> &gt; &gt; &amp;</type>
-          <declname>other</declname>
+          <type>const <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <param>
+          <type>const ColorVariant &amp;</type>
+          <declname>color</declname>
+        </param>
+    <requiresclause>std::same_as&lt;GridT, <ref refid="classGrid" kindref="compound">Grid</ref>&lt;<ref refid="classRGBColor" kindref="compound">RGBColor</ref>&gt;&gt;    </requiresclause>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="397" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="438" bodyend="443"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeo_1aa4304b41a81e813222783bd3efecb102" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Geo&lt; GridT &gt;::rasterize_filled_polygons</definition>
+        <argsstring>(const std::vector&lt; PolygonWithHoles &gt; &amp;polygons, const ColorVariant &amp;color, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
+        <name>rasterize_filled_polygons</name>
+        <qualifiedname>Geo::rasterize_filled_polygons</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref> &gt; &amp;</type>
+          <declname>polygons</declname>
+        </param>
+        <param>
+          <type>const ColorVariant &amp;</type>
+          <declname>color</declname>
         </param>
         <param>
           <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;&amp;</type>
           <declname>progress_tracker</declname>
         </param>
-        <param>
-          <type>std::optional&lt; blaze::InterpolationMode &gt;</type>
-          <declname>interpolation</declname>
-          <defval>{}</defval>
-        </param>
     <requiresclause>std::same_as&lt;GridT, <ref refid="classGrid" kindref="compound">Grid</ref>&lt;<ref refid="classRGBColor" kindref="compound">RGBColor</ref>&gt;&gt;    </requiresclause>
         <briefdescription>
         </briefdescription>
@@ -189,7 +216,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="394" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="333" bodyend="339"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="400" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="446" bodyend="463"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a917d176e03fbab2efd77ed47bbb50d77" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -216,7 +243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="398" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="342" bodyend="349"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="404" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="466" bodyend="473"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a20accfc2dbc0953e3a8f00f1127ce963" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -251,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="401" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="367" bodyend="383"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="407" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="492" bodyend="509"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a9b50f4b559a40fad8cf36352b9883160" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -282,7 +309,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="405" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="386" bodyend="396"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="411" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="512" bodyend="523"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a2dc25356b88a383ce113e34d9509aab7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -309,7 +336,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="409" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="399" bodyend="410"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="415" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp" bodystart="526" bodyend="537"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1ac61ddc1c4de1cc766bd1b7b8cbbdca08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classGeo" kindref="compound">Geo</ref></type>
@@ -327,7 +354,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="412" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="45" bodyend="88"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="418" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="45" bodyend="88"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; <ref refid="structExtent2D" kindref="compound">Extent2D</ref> &gt;</type>
@@ -341,7 +368,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="413" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="91" bodyend="100"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="419" column="19" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="91" bodyend="100"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -364,7 +391,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="416" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="416" bodyend="420"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="422" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="422" bodyend="426"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a52eff035fc897e9650b678645521d642" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -387,7 +414,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="423" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="423" bodyend="425"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="429" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="429" bodyend="431"/>
       </memberdef>
       <memberdef kind="function" id="classGeo_1a5177716a0bc884211d36d314aef6bb2e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -412,7 +439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="429" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="429" bodyend="452"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="435" column="7" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="435" bodyend="458"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -437,7 +464,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="382" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="382" bodyend="388"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="384" column="14" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="384" bodyend="390"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -492,11 +519,11 @@
         <label>GridT</label>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="354" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="354" bodyend="453"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="356" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="356" bodyend="459"/>
     <listofallmembers>
-      <member refid="classGeo_1af54f4e45163e86695ac6521c20105fee" prot="public" virt="non-virtual"><scope>Geo</scope><name>draw</name></member>
-      <member refid="classGeo_1af72ed47cedeb6173480180c6631b67e8" prot="public" virt="non-virtual"><scope>Geo</scope><name>draw</name></member>
+      <member refid="classGeo_1af63eacb90099f2c03206709968771169" prot="public" virt="non-virtual"><scope>Geo</scope><name>draw</name></member>
       <member refid="classGeo_1a20accfc2dbc0953e3a8f00f1127ce963" prot="public" virt="non-virtual"><scope>Geo</scope><name>draw_contours</name></member>
+      <member refid="classGeo_1a8a8b7feb41de5e998ad7a45ed7754423" prot="public" virt="non-virtual"><scope>Geo</scope><name>draw_filled_polygon</name></member>
       <member refid="classGeo_1a917d176e03fbab2efd77ed47bbb50d77" prot="public" virt="non-virtual"><scope>Geo</scope><name>draw_point</name></member>
       <member refid="classGeo_1a9b50f4b559a40fad8cf36352b9883160" prot="public" virt="non-virtual"><scope>Geo</scope><name>draw_streams</name></member>
       <member refid="classGeoGridData_1a0ee5acf21c13784d123d1237c9854cc5" prot="public" virt="non-virtual"><scope>Geo</scope><name>dx</name></member>
@@ -514,6 +541,7 @@
       <member refid="classGeoGridData_1a9742659082271d75bb7840c6dd52e37f" prot="protected" virt="non-virtual"><scope>Geo</scope><name>m_transform</name></member>
       <member refid="classGeo_1a5177716a0bc884211d36d314aef6bb2e" prot="public" virt="non-virtual"><scope>Geo</scope><name>pad</name></member>
       <member refid="classGeoGridData_1a93f9478e0ca3db8a9f86dc1d150bb844" prot="public" virt="non-virtual"><scope>Geo</scope><name>projection</name></member>
+      <member refid="classGeo_1aa4304b41a81e813222783bd3efecb102" prot="public" virt="non-virtual"><scope>Geo</scope><name>rasterize_filled_polygons</name></member>
       <member refid="classGeo_1a2dc25356b88a383ce113e34d9509aab7" prot="public" virt="non-virtual"><scope>Geo</scope><name>save_to</name></member>
       <member refid="classGeo_1ac61ddc1c4de1cc766bd1b7b8cbbdca08" prot="public" virt="non-virtual"><scope>Geo</scope><name>slice</name></member>
       <member refid="classGeoGridData_1a277d0935ec991450c89f2bfed2a1385f" prot="public" virt="non-virtual"><scope>Geo</scope><name>transform</name></member>

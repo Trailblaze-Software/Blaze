@@ -158,12 +158,12 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
         // Combine TIFs
         fs::create_directories(config.output_path() / "combined" / "raw_vege");
-        static constexpr std::array<const char*, 15> COMBINE_TIFS = {
-            {"final_img.tif", "final_img_extra_contours.tif", "ground_intensity.tif",
-             "buildings.tif", "slope.tif", "fine_slope.tif", "vege_color.tif",
-             "hill_shade_multi.tif", "ground.tif", "smooth_ground.tif", "filled_dem.tif",
-             "raw_vege/canopy.tif", "raw_vege/green.tif", "raw_vege/smoothed_green.tif",
-             "raw_vege/smoothed_canopy.tif"}};
+        static constexpr std::array<const char*, 17> COMBINE_TIFS = {
+            {"final_img.tif", "final_img_extra_contours.tif", "final_img_vector.tif",
+             "final_img_vector_extra_contours.tif", "ground_intensity.tif", "buildings.tif",
+             "slope.tif", "fine_slope.tif", "vege_color.tif", "hill_shade_multi.tif", "ground.tif",
+             "smooth_ground.tif", "filled_dem.tif", "raw_vege/canopy.tif", "raw_vege/green.tif",
+             "raw_vege/smoothed_green.tif", "raw_vege/smoothed_canopy.tif"}};
         for (size_t fi = 0; fi < COMBINE_TIFS.size(); ++fi) {
           const std::string filename = COMBINE_TIFS[fi];
           ProgressTracker file_tracker = step_tracker.subtracker(
@@ -231,6 +231,36 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
                        SUBTRACKER(0.5, 0.85, file_tracker),
                        /*include_vertical_crs=*/is_dem);
 
+          if (filename == "smooth_ground.tif") {
+            GeoGrid<double> smooth_ground(combined_grid.width(), combined_grid.height(),
+                                          GeoTransform(combined_grid.transform()),
+                                          GeoProjection(combined_grid.projection()));
+            smooth_ground.fill_from(combined_grid[0]);
+
+#pragma omp parallel for
+            for (size_t i = 0; i < smooth_ground.height(); i++) {
+              for (size_t j = 0; j < smooth_ground.width(); j++) {
+                if (!std::isfinite(smooth_ground[{j, i}])) {
+                  smooth_ground[{j, i}] = 0;
+                }
+              }
+            }
+
+            std::vector<Stream> stream_path = stream_paths(
+                smooth_ground, config.water, SUBTRACKER_HIDDEN(0.85, 0.95, file_tracker), false);
+
+            {
+              GPKGWriter writer((config.output_path() / "combined" / "streams.gpkg").string(),
+                                projection.value(), "streams");
+              for (const Stream& stream : stream_path) {
+                writer.write_polyline(Polyline{.layer = "streams",
+                                               .name = std::to_string(stream.catchment),
+                                               .vertices = stream.coords},
+                                      {{"catchment", stream.catchment}});
+              }
+            }
+          }
+
           if (filename == "filled_dem.tif") {
             GeoGrid<double> filled_dem(combined_grid.width(), combined_grid.height(),
                                        GeoTransform(combined_grid.transform()),
@@ -247,22 +277,8 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
             }
 
             write_to_tif(filled_dem, config.output_path() / "combined" / "filled_filled_dem.tif",
-                         SUBTRACKER(0.85, 0.92, file_tracker),
+                         SUBTRACKER(0.85, 0.95, file_tracker),
                          /*include_vertical_crs=*/true);
-
-            std::vector<Stream> stream_path =
-                stream_paths(filled_dem, config.water, SUBTRACKER_HIDDEN(0.92, 1.0, file_tracker));
-
-            {
-              GPKGWriter writer((config.output_path() / "combined" / "streams.gpkg").string(),
-                                projection.value(), "streams");
-              for (const Stream& stream : stream_path) {
-                writer.write_polyline(Polyline{.layer = "streams",
-                                               .name = std::to_string(stream.catchment),
-                                               .vertices = stream.coords},
-                                      {{"catchment", stream.catchment}});
-              }
-            }
           }
         }
 

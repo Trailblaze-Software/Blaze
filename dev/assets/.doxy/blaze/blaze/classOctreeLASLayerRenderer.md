@@ -62,6 +62,7 @@ Inherits the following classes: [LayerRenderer](classLayerRenderer.md)
 |  int | [**m\_layer\_slot**](#variable-m_layer_slot)   = `0`<br> |
 |  int | [**m\_light\_direction\_eye\_loc**](#variable-m_light_direction_eye_loc)   = `-1`<br> |
 |  double | [**m\_lod\_quality**](#variable-m_lod_quality)   = `1.0`<br> |
+|  double | [**m\_lod\_query\_cpu\_ms**](#variable-m_lod_query_cpu_ms)   = `0.0`<br> |
 |  size\_t | [**m\_lod\_query\_vertices**](#variable-m_lod_query_vertices)   = `0`<br> |
 |  double | [**m\_ms\_per\_vertex**](#variable-m_ms_per_vertex)   = `30.0 / 800'000.0`<br> |
 |  std::unordered\_map&lt; const [**PointOctreeNode**](classPointOctreeNode.md) \*, [**NodeStreamState**](structOctreeLASLayerRenderer_1_1NodeStreamState.md) &gt; | [**m\_node\_stream**](#variable-m_node_stream)  <br> |
@@ -452,6 +453,19 @@ int OctreeLASLayerRenderer::m_light_direction_eye_loc;
 
 ```C++
 double OctreeLASLayerRenderer::m_lod_quality;
+```
+
+
+
+
+<hr>
+
+
+
+### variable m\_lod\_query\_cpu\_ms 
+
+```C++
+double OctreeLASLayerRenderer::m_lod_query_cpu_ms;
 ```
 
 

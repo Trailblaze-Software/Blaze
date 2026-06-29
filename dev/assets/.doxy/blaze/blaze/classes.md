@@ -8,8 +8,6 @@
 ([**nlohmann**](namespacenlohmann.md))
 * [**adl\_serializer&lt; BuildingsConfig &gt;**](structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4.md)
 ([**nlohmann**](namespacenlohmann.md))
-* [**adl\_serializer&lt; CanopyConfig &gt;**](structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4.md)
-([**nlohmann**](namespacenlohmann.md))
 * [**adl\_serializer&lt; CMYKColor &gt;**](structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4.md)
 ([**nlohmann**](namespacenlohmann.md))
 * [**adl\_serializer&lt; ColorVariant &gt;**](structnlohmann_1_1adl__serializer_3_01ColorVariant_01_4.md)
@@ -58,7 +56,6 @@
 ## c
 
 * [**Camera**](classCamera.md)
-* [**CanopyConfig**](structCanopyConfig.md)
 * [**ClassificationStyle**](structClassificationStyle.md)
 * [**CMYKColor**](classCMYKColor.md)
 * [**Color**](classColor.md)

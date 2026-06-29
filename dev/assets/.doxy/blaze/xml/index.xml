@@ -8,10 +8,6 @@
     <member refid="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4_1aa45b2310df894298b09d7bd9c4137acc" kind="function"><name>from_json</name></member>
     <member refid="structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4_1a0bd2e9fb4ba0f8222a1328c78679af95" kind="function"><name>to_json</name></member>
   </compound>
-  <compound refid="structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4" kind="struct"><name>nlohmann::adl_serializer&lt; CanopyConfig &gt;</name>
-    <member refid="structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4_1ad62b2b97a3bc59c06df84197da07f79c" kind="function"><name>from_json</name></member>
-    <member refid="structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4_1a592d8ee4591c2c01c98d02360eb0e20e" kind="function"><name>to_json</name></member>
-  </compound>
   <compound refid="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4" kind="struct"><name>nlohmann::adl_serializer&lt; CMYKColor &gt;</name>
     <member refid="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4_1a5d95a69eea7935681eadd137d5ff3b0f" kind="function"><name>from_json</name></member>
     <member refid="structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4_1a05cf90fa73a7b13c1a858826c5a65115" kind="function"><name>to_json</name></member>
@@ -58,7 +54,7 @@
   </compound>
   <compound refid="structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4" kind="struct"><name>nlohmann::adl_serializer&lt; WaterConfigs &gt;</name>
     <member refid="structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4_1a3b22b11680c7da78b7d068735a0ca27b" kind="function"><name>from_json</name></member>
-    <member refid="structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4_1a4edd4cd4df464f819ca166f8584b9dbf" kind="function"><name>to_json</name></member>
+    <member refid="structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4_1a34b46b99ab925aba1dd34579d5024d99" kind="function"><name>to_json</name></member>
   </compound>
   <compound refid="classAssetRetriever" kind="class"><name>AssetRetriever</name>
     <member refid="classAssetRetriever_1a3f023972d75b925b64af17ecbeb64ee9" kind="function"><name>get_asset</name></member>
@@ -223,11 +219,6 @@
     <member refid="classCamera_1a6c020f53cc6d126e5656c8dd5aed10e0" kind="function"><name>up</name></member>
     <member refid="classCamera_1a55033bcebc99834d02aac391d93ab1c6" kind="function"><name>bound_rotation</name></member>
   </compound>
-  <compound refid="structCanopyConfig" kind="struct"><name>CanopyConfig</name>
-    <member refid="structCanopyConfig_1a47db5e67b0dfd6ea2f2a7e2f0e344227" kind="variable"><name>min_height</name></member>
-    <member refid="structCanopyConfig_1affdfb8d1be06497786491ecc20c6431c" kind="variable"><name>max_height</name></member>
-    <member refid="structCanopyConfig_1a64e60c5ff5fddf75d704f27a431b434a" kind="variable"><name>blocking_threshold</name></member>
-  </compound>
   <compound refid="structClassificationStyle" kind="struct"><name>ClassificationStyle</name>
     <member refid="structClassificationStyle_1ad7c57bc498f4e0b0b636bdcfe02dd53d" kind="variable"><name>code</name></member>
     <member refid="structClassificationStyle_1ae581aa824152f25e69cb5673633abf92" kind="variable"><name>color</name></member>
@@ -314,25 +305,26 @@
     <member refid="classConfigEditor_1a503eb8dae11101e6a6590783e91cce74" kind="slot"><name>set_las_files</name></member>
     <member refid="classConfigEditor_1ac7c6cfd68f1395216f2f5c02f9469930" kind="slot"><name>add_contour</name></member>
     <member refid="classConfigEditor_1a6553aee12dd014276643267d83c479ec" kind="slot"><name>remove_contour</name></member>
-    <member refid="classConfigEditor_1a841ce456009b005e697b1a9c7ef829d2" kind="slot"><name>on_contour_selected</name></member>
+    <member refid="classConfigEditor_1aaaf8027b19430723cac9b4716b9fc5c8" kind="slot"><name>handle_contour_selected</name></member>
     <member refid="classConfigEditor_1a8910599c23acde8e32e4ffd90ac4216f" kind="slot"><name>update_contour_from_ui</name></member>
     <member refid="classConfigEditor_1a55a5f17dfd652721e02839ccb5c1e84e" kind="slot"><name>add_water</name></member>
     <member refid="classConfigEditor_1a9db5c451f4316e0800a1ee5c2aa152dc" kind="slot"><name>remove_water</name></member>
-    <member refid="classConfigEditor_1a660378977805f12958e3605d8bc88f88" kind="slot"><name>on_water_selected</name></member>
+    <member refid="classConfigEditor_1a33a69b30c57ccba064b772fd0fe37604" kind="slot"><name>handle_water_selected</name></member>
     <member refid="classConfigEditor_1abc542fd0481c7eefc1b5ee52b132b6a3" kind="slot"><name>update_water_from_ui</name></member>
+    <member refid="classConfigEditor_1a889d4b715143342b8c527811dcfe7bfa" kind="slot"><name>update_water_globals_from_ui</name></member>
     <member refid="classConfigEditor_1a772461f3fdba3d141c11085073050802" kind="slot"><name>add_vege</name></member>
     <member refid="classConfigEditor_1a1c29e18e134a6578cd682cfdf667197e" kind="slot"><name>remove_vege</name></member>
-    <member refid="classConfigEditor_1a36adab1b613a3c1e88e2bfed4974251f" kind="slot"><name>on_vege_selected</name></member>
+    <member refid="classConfigEditor_1a04432a872c4be8cc7e52440bb55cdd32" kind="slot"><name>handle_vege_selected</name></member>
     <member refid="classConfigEditor_1abe7f61e9ade3bd045cf987f7ecbaca6e" kind="slot"><name>update_vege_from_ui</name></member>
     <member refid="classConfigEditor_1a75f20f2fd7ef9411b902809f36e75337" kind="slot"><name>add_vege_color</name></member>
     <member refid="classConfigEditor_1a0f3a42d63a6e8c8a28f623f437fda691" kind="slot"><name>remove_vege_color</name></member>
     <member refid="classConfigEditor_1aa32f94af0bca032bb6b307907252cff8" kind="slot"><name>update_vege_color_from_ui</name></member>
     <member refid="classConfigEditor_1ae96fd7bce83d0861476438b401a8d480" kind="slot"><name>add_color</name></member>
     <member refid="classConfigEditor_1a35a3e2327cb8314ad295a422f19288bd" kind="slot"><name>remove_color</name></member>
-    <member refid="classConfigEditor_1afc9c962795867c2bbe99b0a730ac22df" kind="slot"><name>on_color_selected</name></member>
+    <member refid="classConfigEditor_1ad087d2c317545b21740283ef11727b3c" kind="slot"><name>handle_color_selected</name></member>
     <member refid="classConfigEditor_1ad338483d3d1f36d49e22d961df0fd8b9" kind="slot"><name>update_color_from_ui</name></member>
     <member refid="classConfigEditor_1afc932f986daa73a81df89a73aae20732" kind="slot"><name>pick_color</name></member>
-    <member refid="classConfigEditor_1a05b91c00447e9800d78be17bc7346de5" kind="slot"><name>on_color_type_changed</name></member>
+    <member refid="classConfigEditor_1a5982d183f43e39f5306d5f711cd24588" kind="slot"><name>handle_color_type_changed</name></member>
     <member refid="classConfigEditor_1a949153b749475f46dec2f52b6008ff0b" kind="slot"><name>update_general_from_ui</name></member>
     <member refid="classConfigEditor_1ab0415e243b7ade81688d2750eea9c562" kind="signal"><name>config_changed</name></member>
     <member refid="classConfigEditor_1aa63bec3f83506e0a81b5390ae315a88b" kind="function"><name>load_initial_config</name></member>
@@ -589,8 +581,9 @@
     <member refid="classGeo_1a32e9264133b4bc750f7c71003c430c6f" kind="function"><name>Geo</name></member>
     <member refid="classGeo_1a614a91652b70b1d7e9651ee42d71d8eb" kind="function"><name>width_m</name></member>
     <member refid="classGeo_1a1098c30d81601a5e885405f61f15bfbd" kind="function"><name>height_m</name></member>
-    <member refid="classGeo_1af54f4e45163e86695ac6521c20105fee" kind="function"><name>draw</name></member>
-    <member refid="classGeo_1af72ed47cedeb6173480180c6631b67e8" kind="function"><name>draw</name></member>
+    <member refid="classGeo_1af63eacb90099f2c03206709968771169" kind="function"><name>draw</name></member>
+    <member refid="classGeo_1a8a8b7feb41de5e998ad7a45ed7754423" kind="function"><name>draw_filled_polygon</name></member>
+    <member refid="classGeo_1aa4304b41a81e813222783bd3efecb102" kind="function"><name>rasterize_filled_polygons</name></member>
     <member refid="classGeo_1a917d176e03fbab2efd77ed47bbb50d77" kind="function"><name>draw_point</name></member>
     <member refid="classGeo_1a20accfc2dbc0953e3a8f00f1127ce963" kind="function"><name>draw_contours</name></member>
     <member refid="classGeo_1a9b50f4b559a40fad8cf36352b9883160" kind="function"><name>draw_streams</name></member>
@@ -860,6 +853,8 @@
   <compound refid="structGroundConfig" kind="struct"><name>GroundConfig</name>
     <member refid="structGroundConfig_1a3b746fccb68a2ffbb144695fbc952e1e" kind="variable"><name>min_ground_intensity</name></member>
     <member refid="structGroundConfig_1adb8eb179edb3b37703977eb34d943b84" kind="variable"><name>max_ground_intensity</name></member>
+    <member refid="structGroundConfig_1a7869881f52d81b0bfb9368eff714bfae" kind="variable"><name>use_only_ground_class</name></member>
+    <member refid="structGroundConfig_1a615cd1cc3af3284b4caa2a940c1b0a0f" kind="variable"><name>outlier_threshold_m</name></member>
   </compound>
   <compound refid="structis__specialization" kind="struct"><name>is_specialization</name>
   </compound>
@@ -1200,6 +1195,7 @@
     <member refid="classOctreeLASLayerRenderer_1aee1d54cf3b937be2a2a6c37ee8311bd5" kind="variable"><name>m_layer_slot</name></member>
     <member refid="classOctreeLASLayerRenderer_1a53d91112bab27ed5db6e60837012a2ea" kind="variable"><name>m_gpu_timer_query</name></member>
     <member refid="classOctreeLASLayerRenderer_1a8aa3210172c742ebe305070d25a0fe16" kind="variable"><name>m_lod_query_vertices</name></member>
+    <member refid="classOctreeLASLayerRenderer_1a648bcaaf3e4e8bfc184141541c8f5f8f" kind="variable"><name>m_lod_query_cpu_ms</name></member>
     <member refid="classOctreeLASLayerRenderer_1a7ff30f24d14d2f48bb24105b0df06806" kind="variable"><name>m_node_stream</name></member>
     <member refid="classOctreeLASLayerRenderer_1a10af6d7d60c58e5906bf8156b83e866b" kind="variable"><name>m_points_uploaded</name></member>
     <member refid="classOctreeLASLayerRenderer_1aa83a3bd629dfe2bdf7d55846ca7c1c50" kind="variable"><name>m_firsts</name></member>
@@ -1589,6 +1585,7 @@
     <member refid="structVegeHeightConfig_1acb8bb079647249b4457b4e2894859328" kind="variable"><name>name</name></member>
     <member refid="structVegeHeightConfig_1a4d9681123363e53c4ca492ceacc3a5cd" kind="variable"><name>min_height</name></member>
     <member refid="structVegeHeightConfig_1a0a962b185f12d090009ecb2ba3a875f3" kind="variable"><name>max_height</name></member>
+    <member refid="structVegeHeightConfig_1a95539cc6b5aac99a3d8d05ef18160205" kind="variable"><name>smooth_radius</name></member>
     <member refid="structVegeHeightConfig_1a883d98a0fd24fb61544ea692d5a305c7" kind="variable"><name>colors</name></member>
     <member refid="structVegeHeightConfig_1a92604288f0595771f0b14a0797b35da5" kind="function"><name>pick_from_blocked_proportion</name></member>
   </compound>
@@ -1610,10 +1607,15 @@
   </compound>
   <compound refid="structWaterConfigs" kind="struct"><name>WaterConfigs</name>
     <member refid="structWaterConfigs_1aab01329205d311f3d2b07974bdfbf924" kind="variable"><name>configs</name></member>
+    <member refid="structWaterConfigs_1a9934247e046fd53ce8d5b80b65b7d700" kind="variable"><name>classified_overlay_color</name></member>
+    <member refid="structWaterConfigs_1adf3eea4af2f7ed517943147d2cb5a38b" kind="variable"><name>sink_min_area_m2</name></member>
+    <member refid="structWaterConfigs_1a908150a51159926f60816fcf0c30efe1" kind="variable"><name>sink_depth_m</name></member>
     <member refid="structWaterConfigs_1afd55568428b9c87295ee013f945de0bf" kind="function"><name>config_from_catchment</name></member>
     <member refid="structWaterConfigs_1a58218cf2f9a1448a6bb2d37aa64b72ee" kind="function"><name>minimum_catchment</name></member>
   </compound>
-  <compound refid="namespace_0d104" kind="namespace"><name>@104</name>
+  <compound refid="namespace_0d103" kind="namespace"><name>@103</name>
+  </compound>
+  <compound refid="namespace_0d105" kind="namespace"><name>@105</name>
   </compound>
   <compound refid="namespace_0d11" kind="namespace"><name>@11</name>
   </compound>
@@ -1654,6 +1656,7 @@
     <member refid="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aad135772d7cf93dd0ccf9d2474b34e6a" kind="enumvalue"><name>NEAREST</name></member>
     <member refid="raster_8hpp_1a91970f3adbd272562e14250f44bd21f8aaac544aacc3615aada24897a215f5046" kind="enumvalue"><name>LINEAR</name></member>
     <member refid="utilities_2env_8hpp_1a9f7696258f7f0ec7cc8a45f30effbde4" kind="function"><name>get_env</name></member>
+    <member refid="utilities_2env_8hpp_1a402ebf75a373a806802e796b8372c23c" kind="function"><name>enable_discrete_gpu_offload</name></member>
   </compound>
   <compound refid="namespaceblaze_1_1memory__tracker" kind="namespace"><name>blaze::memory_tracker</name>
     <member refid="memory__tracker_8hpp_1ae26765331baa38d1040ca038efabf060" kind="enum"><name>Tag</name></member>
@@ -1961,6 +1964,8 @@
     <member refid="test__config__lookup_8cpp_1a32975dcd4c4c589682b6180fe48d856d" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1ab7fd9bf427a779fc7d612507eebd4b3e" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1ab7f6f5cf1389472970b14d60610af1e7" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1a525cff72d17c40be6a628209a32f284b" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1aa8f16e9880d4372813e2492891f01b48" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__config__paths_8cpp" kind="file"><name>test_config_paths.cpp</name>
     <member refid="test__config__paths_8cpp_1a59831ba97afaa7097854b5c912610723" kind="define"><name>ABS_CONFIG_DIR</name></member>
@@ -2050,6 +2055,7 @@
     <member refid="polygon_8hpp_1ae67418eebf54c6493b999aea629b25d6" kind="function"><name>signed_area</name></member>
     <member refid="polygon_8hpp_1a741b1bfb278750e3cd3d82cae6ac0f33" kind="function"><name>point_in_ring</name></member>
     <member refid="polygon_8hpp_1a69eb84498a8ab57377d6e65153903b81" kind="function"><name>reverse_ring</name></member>
+    <member refid="polygon_8hpp_1a06e9f00cde2dca7fda5d70ade6097078" kind="function"><name>point_in_polygon_with_holes</name></member>
     <member refid="polygon_8hpp_1ad4c474da365490816fa9fdf30a105f1d" kind="function"><name>polygon_from_extent</name></member>
     <member refid="polygon_8hpp_1a4fb64175d027474e1da0581c8d768be4" kind="function"><name>ring_extent</name></member>
     <member refid="polygon_8hpp_1aa11f6aa6a8c0ec048a428102befbcc0f" kind="function"><name>extent_contains</name></member>
@@ -2122,6 +2128,9 @@
     <member refid="grid_8cpp_1af2b7f5a8c4e1aca1e2e84a411306e236" kind="function"><name>interpolate_value</name></member>
   </compound>
   <compound refid="grid_8hpp" kind="file"><name>grid.hpp</name>
+    <member refid="grid_8hpp_1ab91341c4fe3089ee8a04f7e8b6c1da8c" kind="enum"><name>GeoGridCompositeMode</name></member>
+    <member refid="grid_8hpp_1ab91341c4fe3089ee8a04f7e8b6c1da8caaacd89df7585eb749bfd3b129758148f" kind="enumvalue"><name>AlphaBlend</name></member>
+    <member refid="grid_8hpp_1ab91341c4fe3089ee8a04f7e8b6c1da8caca0570abd74403e8d7cc32f803d750b4" kind="enumvalue"><name>OpaqueCopy</name></member>
     <member refid="grid_8hpp_1afc3ed3806da9601a531d2b250c65aaec" kind="variable"><name>IS_SPECIALIZATION_V</name></member>
     <member refid="grid_8hpp_1a4254061d07e4bdc0b616612bbe25be7b" kind="function"><name>num_cells_by_distance</name></member>
     <member refid="grid_8hpp_1ab0324ff273d55dadb7ef56bf2341397f" kind="function"><name>interpolate_value</name></member>
@@ -2192,6 +2201,10 @@
     <member refid="test__img__grid_8cpp_1adb4c1571da3cbf8ae3193d61a5b63020" kind="function"><name>TEST</name></member>
     <member refid="test__img__grid_8cpp_1a817a88a4154720e8eb6dba50ef34ad22" kind="function"><name>TEST</name></member>
     <member refid="test__img__grid_8cpp_1aeaa92893bb6c743222f9814a2231e1d1" kind="function"><name>TEST</name></member>
+    <member refid="test__img__grid_8cpp_1a42fd364f9cf6cbb3684d47ecfd24eca2" kind="function"><name>TEST</name></member>
+    <member refid="test__img__grid_8cpp_1a4919e0da1c78f72a4cca2de16c08ff11" kind="function"><name>TEST</name></member>
+    <member refid="test__img__grid_8cpp_1a371ce878a5d319e02ba210f7ac829314" kind="function"><name>TEST</name></member>
+    <member refid="test__img__grid_8cpp_1a6ed9f4043dcdf233dab399802b10e921" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="crs_8hpp" kind="file"><name>crs.hpp</name>
     <member refid="crs_8hpp_1a7ce8e5c93c885ef54a0ef521f638716b" kind="function"><name>normalize_crs_wkt</name></member>
@@ -2385,7 +2398,6 @@
     <member refid="tif_8cpp_1acb2f92eef8824f258f3f87ad69e6a393" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1a6f94c401a03e509b884c0067df0e922f" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1a9f3359cdc3ccb20ebc61af5477ba53ed" kind="function"><name>write_to_tif</name></member>
-    <member refid="tif_8cpp_1a4391669b472de401a1d5119ba445602d" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1a330afac81ad4cad927f2adf17b6e592d" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1a0c2a836ec3ec6f143c984d197d0b0ecd" kind="function"><name>write_to_tif</name></member>
     <member refid="tif_8cpp_1ad66f70fd751bbc5b613d72b27cebe3fb" kind="function"><name>write_to_tif</name></member>
@@ -2504,6 +2516,19 @@
   </compound>
   <compound refid="tracked__allocator_8hpp" kind="file"><name>tracked_allocator.hpp</name>
   </compound>
+  <compound refid="test__vector__vege__render_8cpp" kind="file"><name>test_vector_vege_render.cpp</name>
+    <member refid="test__vector__vege__render_8cpp_1a4a1a6c13ffd6704c8508e2c7a470e882" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a081a8c466ee6b09af1ebf462f8f70b9e" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a0d007375467819d8f6f7ea35d07786b3" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a4552baabf884b445a64b92e8945b5da3" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1ae9a300f56599b9784c9ae512853534d0" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a3ce96586a7b2b3bcc2b51b406cc24420" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a19f726779bd4690d40e2856b528aa3d1" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a6e765566c4c1340169f4ba6ed99f4930" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1abeafd09670b48038f975be88d5e5d123" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a82c299117600d2ed7f812ccfe9c0a223" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1ad97b349e7bad041d157bcc5e86c3157a" kind="function"><name>TEST</name></member>
+  </compound>
   <compound refid="test__vegetation_8cpp" kind="file"><name>test_vegetation.cpp</name>
     <member refid="test__vegetation_8cpp_1a92e659bc568fb0a3b4153932535982e1" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation_8cpp_1a1831d74b8951f6856973d124a2fdd884" kind="function"><name>TEST</name></member>
@@ -2543,14 +2568,20 @@
     <member refid="test__vegetation__polygon_8cpp_1af7a2f343042d8fd2ab121c6b5be793be" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation__polygon_8cpp_1ad3be4a3683af3385b27058ffa2f40e23" kind="function"><name>TEST</name></member>
   </compound>
+  <compound refid="vector__vege__render_8hpp" kind="file"><name>vector_vege_render.hpp</name>
+    <member refid="vector__vege__render_8hpp_1a154d797fd64c3c4aad5a2d303afec05c" kind="function"><name>draw_vector_vegetation</name></member>
+  </compound>
   <compound refid="vegetation_8hpp" kind="file"><name>vegetation.hpp</name>
     <member refid="vegetation_8hpp_1a666e5a5203dbfef58bfed4ac2a306a7e" kind="function"><name>get_blocked_proportion</name></member>
     <member refid="vegetation_8hpp_1a535fff2471b67c40267a8df32e9f00d9" kind="function"><name>low_pass</name></member>
     <member refid="vegetation_8hpp_1ad21c249e4a899e3bacd1b5b51c86e9e4" kind="function"><name>low_pass</name></member>
   </compound>
   <compound refid="vegetation__polygon_8hpp" kind="file"><name>vegetation_polygon.hpp</name>
-    <member refid="vegetation__polygon_8hpp_1adc73e2d0787ef3baaa7c319a5966268b" kind="function"><name>threshold_layer_name</name></member>
+    <member refid="vegetation__polygon_8hpp_1a88e1e1396aa88775fe9bacc7ec878b36" kind="function"><name>default_isom_layer_name</name></member>
+    <member refid="vegetation__polygon_8hpp_1a34f8f26d328174a005c7b0333edcbde7" kind="function"><name>threshold_layer_name</name></member>
     <member refid="vegetation__polygon_8hpp_1a94cf1939a923323837aa873a2b6268cd" kind="function"><name>extract_threshold_layers</name></member>
+    <member refid="vegetation__polygon_8hpp_1ac791cb9a197ed2e9cf34a70cef9b7d5f" kind="function"><name>vege_layer_colors</name></member>
+    <member refid="vegetation__polygon_8hpp_1acd55a23513ae64c29a55a9f2cf2228a8" kind="function"><name>vege_layer_draw_priority</name></member>
     <member refid="vegetation__polygon_8hpp_1a51a37fb467dc19e15a3fdc508af1870d" kind="function"><name>layer_number</name></member>
     <member refid="vegetation__polygon_8hpp_1abad18ca419a3ce142aa9cc07c7e60e36" kind="function"><name>subtract_from_polygon</name></member>
     <member refid="vegetation__polygon_8hpp_1a787bf27faa7b08ed11a5b2f2a77adff2" kind="function"><name>subtract_from_polygon</name></member>

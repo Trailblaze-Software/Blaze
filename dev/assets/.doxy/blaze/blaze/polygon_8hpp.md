@@ -67,6 +67,7 @@
 |  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**intersect\_polygons**](#function-intersect_polygons) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & subject, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & clip) <br> |
 |  bool | [**is\_left\_of**](#function-is_left_of) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & from, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & to, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point) <br> |
 |  void | [**normalize\_polygon**](#function-normalize_polygon) ([**PolygonWithHoles**](structPolygonWithHoles.md) & poly) <br> |
+|  bool | [**point\_in\_polygon\_with\_holes**](#function-point_in_polygon_with_holes) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point, const [**PolygonWithHoles**](structPolygonWithHoles.md) & poly) <br> |
 |  bool | [**point\_in\_ring**](#function-point_in_ring) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring) <br> |
 |  [**PolygonWithHoles**](structPolygonWithHoles.md) | [**polygon\_from\_extent**](#function-polygon_from_extent) (const [**Extent2D**](structExtent2D.md) & extent) <br> |
 |  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; | [**reverse\_ring**](#function-reverse_ring) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & ring) <br> |
@@ -194,6 +195,22 @@ inline bool is_left_of (
 ```C++
 inline void normalize_polygon (
     PolygonWithHoles & poly
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function point\_in\_polygon\_with\_holes 
+
+```C++
+inline bool point_in_polygon_with_holes (
+    const Coordinate2D < double > & point,
+    const PolygonWithHoles & poly
 ) 
 ```
 

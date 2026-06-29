@@ -112,7 +112,6 @@ std::unique_ptr<Extent2D> Geo<GridT>::extent() const {
 template class Geo<Grid<double>>;
 template class Geo<Grid<float>>;
 template class Geo<Grid<RGBColor>>;
-template class Geo<Grid<CMYKColor>>;
 template class Geo<Grid<std::optional<double>>>;
 template class Geo<Grid<std::optional<float>>>;
 template class Geo<Grid<std::optional<std::byte>>>;

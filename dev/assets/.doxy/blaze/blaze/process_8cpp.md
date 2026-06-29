@@ -27,6 +27,7 @@
 * `#include "methods/water/water.hpp"`
 * `#include "tif/tif.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
+* `#include "vegetation/vector_vege_render.hpp"`
 * `#include "vegetation/vegetation_polygon.hpp"`
 
 

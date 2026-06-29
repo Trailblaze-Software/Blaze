@@ -60,6 +60,9 @@ inline GeoGrid<std::optional<float>> get_blocked_proportion(
 
 inline GeoGrid<float> low_pass(const GeoGrid<float>& grid, int delta,
                                ProgressTracker&& progress_tracker) {
+  if (delta <= 0) {
+    return grid;
+  }
   START_TRACKER("low pass filter");
   GeoGrid<float> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
                           GeoProjection(grid.projection()));
@@ -88,6 +91,17 @@ inline GeoGrid<float> low_pass(const GeoGrid<float>& grid, int delta,
 
 inline GeoGrid<float> low_pass(const GeoGrid<std::optional<float>>& grid, int delta,
                                ProgressTracker&& progress_tracker) {
+  if (delta <= 0) {
+    GeoGrid<float> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
+                          GeoProjection(grid.projection()));
+#pragma omp parallel for
+    for (size_t i = 0; i < grid.height(); i++) {
+      for (size_t j = 0; j < grid.width(); j++) {
+        result[{j, i}] = grid[{j, i}].value_or(0.f);
+      }
+    }
+    return result;
+  }
   START_TRACKER("low pass filter");
   GeoGrid<float> low_pass(grid.width(), grid.height(), GeoTransform(grid.transform()),
                           GeoProjection(grid.projection()));

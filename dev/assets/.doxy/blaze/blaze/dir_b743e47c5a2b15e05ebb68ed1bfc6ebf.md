@@ -21,6 +21,7 @@
 
 | Type | Name |
 | ---: | :--- |
+| file | [**vector\_vege\_render.hpp**](vector__vege__render_8hpp.md) <br> |
 | file | [**vegetation.hpp**](vegetation_8hpp.md) <br> |
 | file | [**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md) <br> |
 

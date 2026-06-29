@@ -105,9 +105,9 @@ See [Geo](classGeo.md)
 |   | [**Geo**](classGeo.md#function-geo-13) (size\_t width, size\_t height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
 |   | [**Geo**](classGeo.md#function-geo-23) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
 |   | [**Geo**](classGeo.md#function-geo-33) (const std::vector&lt; std::vector&lt; U &gt; &gt; & data, [**GeoTransform**](classGeoTransform.md) transform=[**GeoTransform**](classGeoTransform.md)(), [**GeoProjection**](classGeoProjection.md) projection=[**GeoProjection**](classGeoProjection.md)()) <br> |
-|  void | [**draw**](classGeo.md#function-draw-12) (const [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**RGBColor**](classRGBColor.md) &gt; &gt; & other, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br> |
-|  void | [**draw**](classGeo.md#function-draw-22) (const [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**CMYKColor**](classCMYKColor.md) &gt; &gt; & other, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br> |
+|  void | [**draw**](classGeo.md#function-draw) (const [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**RGBColor**](classRGBColor.md) &gt; &gt; & other, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, GeoGridCompositeMode composite\_mode=GeoGridCompositeMode::AlphaBlend, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br> |
 |  void | [**draw\_contours**](classGeo.md#function-draw_contours) (const std::vector&lt; [**Contour**](classContour.md) &gt; & contours, const [**ContourConfigs**](structContourConfigs.md) & configs, double render\_scale, bool base\_layer\_only, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  void | [**draw\_filled\_polygon**](classGeo.md#function-draw_filled_polygon) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & poly, const ColorVariant & color) <br> |
 |  void | [**draw\_point**](classGeo.md#function-draw_point) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point, const ColorVariant & color, double size) <br> |
 |  void | [**draw\_streams**](classGeo.md#function-draw_streams) (const std::vector&lt; [**Stream**](structStream.md) &gt; & streams, const [**WaterConfigs**](structWaterConfigs.md) & water, double render\_scale, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  std::unique\_ptr&lt; [**Extent2D**](structExtent2D.md) &gt; | [**extent**](classGeo.md#function-extent) () const<br> |
@@ -115,6 +115,7 @@ See [Geo](classGeo.md)
 |  void | [**fill\_from**](classGeo.md#function-fill_from-22) (const U & other) <br> |
 |  double | [**height\_m**](classGeo.md#function-height_m) () const<br> |
 |  [**Geo**](classGeo.md) | [**pad**](classGeo.md#function-pad) (U pad\_value={}) const<br> |
+|  void | [**rasterize\_filled\_polygons**](classGeo.md#function-rasterize_filled_polygons) (const std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; & polygons, const ColorVariant & color, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  void | [**save\_to**](classGeo.md#function-save_to) (const fs::path & path, const [**Extent2D**](structExtent2D.md) & extent, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  [**Geo**](classGeo.md) | [**slice**](classGeo.md#function-slice) (const [**Extent2D**](structExtent2D.md) & extent) <br> |
 |  double | [**width\_m**](classGeo.md#function-width_m) () const<br> |

@@ -8,6 +8,7 @@
     <includedby refid="raster__data_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/gui/raster_data.hpp</includedby>
     <includedby refid="img__grid_8hpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</includedby>
     <includedby refid="tif_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp</includedby>
+    <includedby refid="test__vector__vege__render_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vector_vege_render.cpp</includedby>
     <includedby refid="process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/process.cpp</includedby>
     <includedby refid="run_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/run.cpp</includedby>
     <includedby refid="test__e2e_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_e2e.cpp</includedby>
@@ -329,6 +330,8 @@
       <node id="8">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
         <link refid="img__grid_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</label>
@@ -337,6 +340,10 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
+      </node>
+      <node id="9">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vector_vege_render.hpp</label>
+        <link refid="vector__vege__render_8hpp_source"/>
       </node>
     </invincdepgraph>
     <sectiondef kind="func">
@@ -434,7 +441,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" line="14" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp" bodystart="199" bodyend="226" declfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" declline="14" declcolumn="6"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" line="14" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.cpp" bodystart="197" bodyend="224" declfile="/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp" declline="14" declcolumn="6"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

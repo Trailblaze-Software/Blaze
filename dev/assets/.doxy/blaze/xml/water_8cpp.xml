@@ -551,7 +551,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="264" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="264" bodyend="325"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="264" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="264" bodyend="326"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -828,62 +828,63 @@
 <codeline lineno="267"><highlight class="normal"><sp/><sp/>std::optional&lt;GeoGrid&lt;double&gt;&gt;<sp/>local_filled;</highlight></codeline>
 <codeline lineno="268"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!already_filled)<sp/>{</highlight></codeline>
 <codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>sinks<sp/>=</highlight></codeline>
-<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>identify_sinks(grid,<sp/>10,<sp/>5000,<sp/>SUBTRACKER(0.0,<sp/>0.25,<sp/>progress_tracker));</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>local_filled.emplace(fill_depressions(grid,<sp/>SUBTRACKER(0.25,<sp/>0.5,<sp/>progress_tracker),<sp/>sinks));</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>filled<sp/>=<sp/>local_filled<sp/>?<sp/>*local_filled<sp/>:<sp/>grid;</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"></highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>catchment<sp/>=<sp/>catchment_size(filled,<sp/>SUBTRACKER(0.5,<sp/>0.75,<sp/>progress_tracker));</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>stream<sp/>=<sp/>streams(filled,<sp/>catchment,<sp/>config.minimum_catchment(),</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUBTRACKER(0.75,<sp/>1.0,<sp/>progress_tracker));</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"></highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;&gt;<sp/>result;</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>visited(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
-<codeline lineno="282"><highlight class="normal"><sp/><sp/>visited.fill(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"></highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/>std::vector&lt;std::pair&lt;double,<sp/>Coordinate2D&lt;size_t&gt;&gt;&gt;<sp/>stream_cells;</highlight></codeline>
-<codeline lineno="285"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>grid.height();<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>grid.width();<sp/>j++)<sp/>{</highlight></codeline>
-<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(stream[{j,<sp/>i}])<sp/>{</highlight></codeline>
-<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream_cells.emplace_back(filled[{j,<sp/>i}],<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>{j,<sp/>i});</highlight></codeline>
-<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"></highlight></codeline>
-<codeline lineno="293"><highlight class="normal"><sp/><sp/>std::sort(stream_cells.begin(),<sp/>stream_cells.end(),</highlight></codeline>
-<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>b)<sp/>{<sp/>return<sp/>a.first<sp/>&lt;<sp/>b.first;<sp/>});</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"></highlight></codeline>
-<codeline lineno="296"><highlight class="normal"><sp/><sp/>std::queue&lt;std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;&gt;<sp/>starting_points;</highlight></codeline>
-<codeline lineno="297"><highlight class="normal"></highlight></codeline>
-<codeline lineno="298"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>stream_cells.size();<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!starting_points.empty())<sp/>{</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(visited[starting_points.front().back()])<sp/>{</highlight></codeline>
-<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>starting_points.pop();</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>cur_stream<sp/>=</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream_path(stream,<sp/>visited,<sp/>filled,<sp/>std::move(starting_points.front()),<sp/>starting_points);</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cur_stream.size()<sp/>&gt;<sp/>1)<sp/>result.push_back(cur_stream);</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>starting_points.pop();</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visited[stream_cells[i].second])<sp/>{</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>starting_points.push({stream_cells[i].second});</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="313"><highlight class="normal"></highlight></codeline>
-<codeline lineno="314"><highlight class="normal"><sp/><sp/>std::vector&lt;Stream&gt;<sp/>projected_result;</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&gt;&amp;<sp/>path<sp/>:<sp/>result)<sp/>{</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/>projected_path;</highlight></codeline>
-<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&amp;<sp/>coord<sp/>:<sp/>path)<sp/>{</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>projected_path.push_back(</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grid.transform().pixel_to_projection(<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>(0.5,<sp/>0.5)<sp/>+<sp/>coord));</highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/>projected_result.emplace_back(<ref refid="structStream" kindref="compound">Stream</ref>{smoothify(projected_path),<sp/>catchment[path.back()]});</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"></highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>projected_result;</highlight></codeline>
-<codeline lineno="325"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>identify_sinks(grid,<sp/>config.sink_depth_m,<sp/>config.sink_min_area_m2,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUBTRACKER(0.0,<sp/>0.25,<sp/>progress_tracker));</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/>local_filled.emplace(fill_depressions(grid,<sp/>SUBTRACKER(0.25,<sp/>0.5,<sp/>progress_tracker),<sp/>sinks));</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>filled<sp/>=<sp/>local_filled<sp/>?<sp/>*local_filled<sp/>:<sp/>grid;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>catchment<sp/>=<sp/>catchment_size(filled,<sp/>SUBTRACKER(0.5,<sp/>0.75,<sp/>progress_tracker));</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>stream<sp/>=<sp/>streams(filled,<sp/>catchment,<sp/>config.minimum_catchment(),</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUBTRACKER(0.75,<sp/>1.0,<sp/>progress_tracker));</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;&gt;<sp/>result;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>visited(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/>visited.fill(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/>std::vector&lt;std::pair&lt;double,<sp/>Coordinate2D&lt;size_t&gt;&gt;&gt;<sp/>stream_cells;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>grid.height();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>grid.width();<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(stream[{j,<sp/>i}])<sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream_cells.emplace_back(filled[{j,<sp/>i}],<sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>{j,<sp/>i});</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/>std::sort(stream_cells.begin(),<sp/>stream_cells.end(),</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>b)<sp/>{<sp/>return<sp/>a.first<sp/>&lt;<sp/>b.first;<sp/>});</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/>std::queue&lt;std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;&gt;<sp/>starting_points;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>stream_cells.size();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!starting_points.empty())<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(visited[starting_points.front().back()])<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>starting_points.pop();</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>cur_stream<sp/>=</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream_path(stream,<sp/>visited,<sp/>filled,<sp/>std::move(starting_points.front()),<sp/>starting_points);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cur_stream.size()<sp/>&gt;<sp/>1)<sp/>result.push_back(cur_stream);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>starting_points.pop();</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visited[stream_cells[i].second])<sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>starting_points.push({stream_cells[i].second});</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/>std::vector&lt;Stream&gt;<sp/>projected_result;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&gt;&amp;<sp/>path<sp/>:<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;<sp/>projected_path;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&amp;<sp/>coord<sp/>:<sp/>path)<sp/>{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>projected_path.push_back(</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grid.transform().pixel_to_projection(<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>(0.5,<sp/>0.5)<sp/>+<sp/>coord));</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>projected_result.emplace_back(<ref refid="structStream" kindref="compound">Stream</ref>{smoothify(projected_path),<sp/>catchment[path.back()]});</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>projected_result;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp"/>
   </compounddef>

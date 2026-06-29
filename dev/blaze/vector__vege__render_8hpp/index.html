@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://Trailblaze-Software.github.io/Blaze/dev/blaze/namespace_0d104/">
+        <link rel="canonical" href="https://Trailblaze-Software.github.io/Blaze/dev/blaze/vector__vege__render_8hpp/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Namespace anonymous namespace{/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation_polygon.cpp} - Blaze Documentation</title>
+        <title>File vector_vege_render.hpp - Blaze Documentation</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#namespace-anonymous-namespacehomerunnerworkblazeblazesrclibvegetationteststest_vegetation_polygoncpp" class="md-skip">
+        <a href="#file-vector_vege_renderhpp" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Namespace anonymous namespace{/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation_polygon.cpp}
+              File vector_vege_render.hpp
             
           </span>
         </div>
@@ -769,6 +769,53 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Functions Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-draw_vector_vegetation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function draw_vector_vegetation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -787,10 +834,45 @@
   
 
 
-<h1 id="namespace-anonymous-namespacehomerunnerworkblazeblazesrclibvegetationteststest_vegetation_polygoncpp">Namespace anonymous namespace{/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation_polygon.cpp}</h1>
-<p><a href="../namespaces/"><strong>Namespace List</strong></a> <strong>&gt;</strong> <a href="./"><strong>anonymous namespace{/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation_polygon.cpp}</strong></a></p>
+<h1 id="file-vector_vege_renderhpp">File vector_vege_render.hpp</h1>
+<p><a href="../files/"><strong>FileList</strong></a> <strong>&gt;</strong> <a href="../dir_c85d3e3c5052e9ad9ce18c6863244a25/"><strong>lib</strong></a> <strong>&gt;</strong> <a href="../dir_b743e47c5a2b15e05ebb68ed1bfc6ebf/"><strong>vegetation</strong></a> <strong>&gt;</strong> <a href="./"><strong>vector_vege_render.hpp</strong></a></p>
+<p><a href="../vector__vege__render_8hpp_source/">Go to the source code of this file</a></p>
+<ul>
+<li><code>#include &lt;algorithm&gt;</code></li>
+<li><code>#include &lt;map&gt;</code></li>
+<li><code>#include &lt;string&gt;</code></li>
+<li><code>#include &lt;vector&gt;</code></li>
+<li><code>#include "grid/img_grid.hpp"</code></li>
+<li><code>#include "vegetation/vegetation_polygon.hpp"</code></li>
+</ul>
+<h2 id="public-functions">Public Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-draw_vector_vegetation"><strong>draw_vector_vegetation</strong></a> (<a href="../classGeo/"><strong>GeoImgGrid</strong></a> &amp; img, const <a href="../structVegeConfig/"><strong>VegeConfig</strong></a> &amp; vege_config, const std::vector&lt; <a href="../structVegePolygon/"><strong>VegePolygon</strong></a> &gt; &amp; vege_polygons, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-draw_vector_vegetation">function draw_vector_vegetation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">draw_vector_vegetation</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">GeoImgGrid</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">img</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VegeConfig</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">vege_config</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">VegePolygon</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">vege_polygons</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
 <hr />
-<p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/lib/vegetation/tests/test_vegetation_polygon.cpp</code></p>
+<p>The documentation for this class was generated from the following file <code>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vector_vege_render.hpp</code></p>
 
 
 

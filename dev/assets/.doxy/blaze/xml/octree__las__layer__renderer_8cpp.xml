@@ -1125,363 +1125,373 @@
 <codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="225"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="226"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ALPHA<sp/>=<sp/>0.2;</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>instant<sp/>=<sp/>ms<sp/>/<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(vertices);</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/>m_ms_per_vertex<sp/>=</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_ms_per_vertex<sp/>&gt;<sp/>0.0<sp/>?<sp/>(1.0<sp/>-<sp/>ALPHA)<sp/>*<sp/>m_ms_per_vertex<sp/>+<sp/>ALPHA<sp/>*<sp/>instant<sp/>:<sp/>instant;</highlight></codeline>
-<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="231"><highlight class="normal"></highlight></codeline>
-<codeline lineno="232"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::ensure_gpu_timer(QOpenGLExtraFunctions*<sp/>gl)<sp/>{</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_gpu_timer_query<sp/>!=<sp/>0<sp/>||<sp/>!gl)<sp/>{</highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/>CHECK_GL(gl-&gt;glGenQueries(1,<sp/>&amp;m_gpu_timer_query));</highlight></codeline>
-<codeline lineno="237"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::consume_gpu_timer_sample(QOpenGLExtraFunctions*<sp/>gl)<sp/>{</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!gl<sp/>||<sp/>m_gpu_timer_query<sp/>==<sp/>0<sp/>||<sp/>m_lod_query_vertices<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"></highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/>GLuint<sp/>available<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/>CHECK_GL(gl-&gt;glGetQueryObjectuiv(m_gpu_timer_query,<sp/>GL_QUERY_RESULT_AVAILABLE,<sp/>&amp;available));</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!available)<sp/>{</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"></highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/>GLuint<sp/>elapsed_ns<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/>CHECK_GL(gl-&gt;glGetQueryObjectuiv(m_gpu_timer_query,<sp/>GL_QUERY_RESULT,<sp/>&amp;elapsed_ns));</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>gpu_ms<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(elapsed_ns)<sp/>/<sp/>1&apos;000&apos;000.0;</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/>m_last_point_gpu_ms<sp/>=<sp/>gpu_ms;</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/>record_lod_sample(m_lod_query_vertices,<sp/>gpu_ms);</highlight></codeline>
-<codeline lineno="255"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::draw_octree_nodes(</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>QOpenGLFunctions*<sp/>f,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OctreePointVector&amp;<sp/>point_storage,</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;PointOctree::VisibleNode&gt;&amp;<sp/>visible_nodes,</highlight></codeline>
-<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset,</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>quality,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>incremental)<sp/>{</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/>m_stream_backlog<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>MIN_MS_PER_VERTEX<sp/>=<sp/>30.0<sp/>/<sp/>2&apos;000&apos;000.0;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>instant<sp/>=<sp/>ms<sp/>/<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(vertices);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/>m_ms_per_vertex<sp/>=</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_ms_per_vertex<sp/>&gt;<sp/>0.0<sp/>?<sp/>(1.0<sp/>-<sp/>ALPHA)<sp/>*<sp/>m_ms_per_vertex<sp/>+<sp/>ALPHA<sp/>*<sp/>instant<sp/>:<sp/>instant;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/>m_ms_per_vertex<sp/>=<sp/>std::max(m_ms_per_vertex,<sp/>MIN_MS_PER_VERTEX);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::ensure_gpu_timer(QOpenGLExtraFunctions*<sp/>gl)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_gpu_timer_query<sp/>!=<sp/>0<sp/>||<sp/>!gl)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/>CHECK_GL(gl-&gt;glGenQueries(1,<sp/>&amp;m_gpu_timer_query));</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::consume_gpu_timer_sample(QOpenGLExtraFunctions*<sp/>gl)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!gl<sp/>||<sp/>m_gpu_timer_query<sp/>==<sp/>0<sp/>||<sp/>m_lod_query_vertices<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/>GLuint<sp/>available<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/>CHECK_GL(gl-&gt;glGetQueryObjectuiv(m_gpu_timer_query,<sp/>GL_QUERY_RESULT_AVAILABLE,<sp/>&amp;available));</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!available)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/>GLuint<sp/>elapsed_ns<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/>CHECK_GL(gl-&gt;glGetQueryObjectuiv(m_gpu_timer_query,<sp/>GL_QUERY_RESULT,<sp/>&amp;elapsed_ns));</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>gpu_ms<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(elapsed_ns)<sp/>/<sp/>1&apos;000&apos;000.0;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/>m_last_point_gpu_ms<sp/>=<sp/>gpu_ms;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>effective_ms<sp/>=<sp/>gpu_ms;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_lod_query_cpu_ms<sp/>&gt;<sp/>0.0)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>GL_TIME_ELAPSED<sp/>under-reports<sp/>with<sp/>PRIME<sp/>offload<sp/>and<sp/>async<sp/>drivers.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/>effective_ms<sp/>=<sp/>std::max(effective_ms,<sp/>m_lod_query_cpu_ms);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/>record_lod_sample(m_lod_query_vertices,<sp/>effective_ms);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="263"><highlight class="normal"></highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_shader)<sp/>{</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="266"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/>m_point_gl.ensure_initialized(f);</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/>m_point_gl.bind(f);</highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::draw_octree_nodes(</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>QOpenGLFunctions*<sp/>f,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OctreePointVector&amp;<sp/>point_storage,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;PointOctree::VisibleNode&gt;&amp;<sp/>visible_nodes,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>quality,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>incremental)<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/>m_stream_backlog<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"></highlight></codeline>
-<codeline lineno="271"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QVector3D<sp/>point_offset(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.x()<sp/>-<sp/>scene_offset.x()),</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.y()<sp/>-<sp/>scene_offset.y()),</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.z()<sp/>-<sp/>scene_offset.z()));</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_offset_loc,<sp/>point_offset);</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"></highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_points_uploaded<sp/>&amp;&amp;<sp/>!point_storage.empty())<sp/>{</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>m_point_gl.upload_points(f,<sp/>point_storage.data(),<sp/>point_storage.size());</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>m_points_uploaded<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="282"><highlight class="normal"></highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!incremental)<sp/>{</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>visible<sp/>:<sp/>visible_nodes)<sp/>{</highlight></codeline>
-<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visible.node)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>NodeStreamState&amp;<sp/>state<sp/>=<sp/>m_node_stream[visible.node];</highlight></codeline>
-<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.point_count<sp/>=<sp/>visible.node-&gt;point_count();</highlight></codeline>
-<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.streamed_count<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.locked_chunk_size<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"></highlight></codeline>
-<codeline lineno="293"><highlight class="normal"><sp/><sp/>m_firsts.clear();</highlight></codeline>
-<codeline lineno="294"><highlight class="normal"><sp/><sp/>m_counts.clear();</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"></highlight></codeline>
-<codeline lineno="296"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>visible<sp/>:<sp/>visible_nodes)<sp/>{</highlight></codeline>
-<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visible.node<sp/>||<sp/>visible.node-&gt;point_count()<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>*<sp/>node<sp/>=<sp/>visible.node;</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>point_count<sp/>=<sp/>node-&gt;point_count();</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"></highlight></codeline>
-<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>NodeStreamState&amp;<sp/>state<sp/>=<sp/>m_node_stream[node];</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.point_count<sp/>!=<sp/>point_count)<sp/>{</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.point_count<sp/>=<sp/>point_count;</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.streamed_count<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"></highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>chunk_size<sp/>=</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PointOctree::node_draw_chunk_size(point_count,<sp/>visible.lod_distance,<sp/>quality);</highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.locked_chunk_size<sp/>==<sp/>0)<sp/>state.locked_chunk_size<sp/>=<sp/>chunk_size;</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"></highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>to_draw<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(incremental)<sp/>{</highlight></codeline>
-<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.streamed_count<sp/>&gt;=<sp/>point_count)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>to_draw<sp/>=<sp/>std::min(state.locked_chunk_size,<sp/>point_count<sp/>-<sp/>state.streamed_count);</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>to_draw<sp/>=<sp/>std::min(state.locked_chunk_size,<sp/>point_count);</highlight></codeline>
-<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(to_draw<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"></highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>first_index<sp/>=<sp/>node-&gt;begin_index<sp/>+<sp/>state.streamed_count;</highlight></codeline>
-<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first_index<sp/>&gt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::numeric_limits&lt;GLint&gt;::max()))<sp/>{</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_stream_backlog<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_shader)<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/>m_point_gl.ensure_initialized(f);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/>m_point_gl.bind(f);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QVector3D<sp/>point_offset(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.x()<sp/>-<sp/>scene_offset.x()),</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.y()<sp/>-<sp/>scene_offset.y()),</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.z()<sp/>-<sp/>scene_offset.z()));</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_offset_loc,<sp/>point_offset);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_points_uploaded<sp/>&amp;&amp;<sp/>!point_storage.empty())<sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/>m_point_gl.upload_points(f,<sp/>point_storage.data(),<sp/>point_storage.size());</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/>m_points_uploaded<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!incremental)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>visible<sp/>:<sp/>visible_nodes)<sp/>{</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visible.node)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>NodeStreamState&amp;<sp/>state<sp/>=<sp/>m_node_stream[visible.node];</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.point_count<sp/>=<sp/>visible.node-&gt;point_count();</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.streamed_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.locked_chunk_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/>m_firsts.clear();</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/>m_counts.clear();</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>visible<sp/>:<sp/>visible_nodes)<sp/>{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visible.node<sp/>||<sp/>visible.node-&gt;point_count()<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>*<sp/>node<sp/>=<sp/>visible.node;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>point_count<sp/>=<sp/>node-&gt;point_count();</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>NodeStreamState&amp;<sp/>state<sp/>=<sp/>m_node_stream[node];</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.point_count<sp/>!=<sp/>point_count)<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.point_count<sp/>=<sp/>point_count;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.streamed_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>chunk_size<sp/>=</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PointOctree::node_draw_chunk_size(point_count,<sp/>visible.lod_distance,<sp/>quality);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/>state.locked_chunk_size<sp/>=<sp/>chunk_size;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>to_draw<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(incremental)<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.streamed_count<sp/>&gt;=<sp/>point_count)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>to_draw<sp/>=<sp/>std::min(state.locked_chunk_size,<sp/>point_count<sp/>-<sp/>state.streamed_count);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>to_draw<sp/>=<sp/>std::min(state.locked_chunk_size,<sp/>point_count);</highlight></codeline>
 <codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>m_firsts.push_back(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">GLint</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(first_index));</highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>m_counts.push_back(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">GLsizei</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(to_draw));</highlight></codeline>
-<codeline lineno="327"><highlight class="normal"></highlight></codeline>
-<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>state.streamed_count<sp/>+=<sp/>to_draw;</highlight></codeline>
-<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.streamed_count<sp/>&lt;<sp/>point_count)<sp/>{</highlight></codeline>
-<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_stream_backlog<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(to_draw<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>first_index<sp/>=<sp/>node-&gt;begin_index<sp/>+<sp/>state.streamed_count;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first_index<sp/>&gt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::numeric_limits&lt;GLint&gt;::max()))<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_stream_backlog<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="333"><highlight class="normal"></highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_shader_layer_slot_loc,<sp/>m_layer_slot<sp/>&gt;<sp/>0<sp/>?<sp/>m_layer_slot<sp/>:<sp/>0);</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_point_gl.draw_leaves(f,<sp/>m_firsts.data(),<sp/>m_counts.data(),<sp/>m_firsts.size());</highlight></codeline>
-<codeline lineno="337"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="338"><highlight class="normal"></highlight></codeline>
-<codeline lineno="339"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions*<sp/>f,</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OctreePointVector&amp;<sp/>preview,</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin,</highlight></codeline>
-<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset)<sp/>{</highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(preview.empty()<sp/>||<sp/>!m_shader)<sp/>{</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="345"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="346"><highlight class="normal"></highlight></codeline>
-<codeline lineno="347"><highlight class="normal"><sp/><sp/>m_point_gl.ensure_initialized(f);</highlight></codeline>
-<codeline lineno="348"><highlight class="normal"><sp/><sp/>m_point_gl.bind(f);</highlight></codeline>
-<codeline lineno="349"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
-<codeline lineno="350"><highlight class="normal"></highlight></codeline>
-<codeline lineno="351"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count<sp/>=<sp/>std::min(preview.size(),<sp/>MAX_PREVIEW_DRAW_VERTICES);</highlight></codeline>
-<codeline lineno="352"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QVector3D<sp/>point_offset(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.x()<sp/>-<sp/>scene_offset.x()),</highlight></codeline>
-<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.y()<sp/>-<sp/>scene_offset.y()),</highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.z()<sp/>-<sp/>scene_offset.z()));</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_offset_loc,<sp/>point_offset);</highlight></codeline>
-<codeline lineno="356"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_shader_layer_slot_loc,<sp/>0);</highlight></codeline>
-<codeline lineno="357"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
-<codeline lineno="358"><highlight class="normal"></highlight></codeline>
-<codeline lineno="359"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>total_vertices<sp/>=<sp/>m_point_gl.draw_points(f,<sp/>preview.data(),<sp/>count);</highlight></codeline>
-<codeline lineno="360"><highlight class="normal"><sp/><sp/>m_stream_backlog<sp/>=<sp/>preview.size()<sp/>&gt;<sp/>count;</highlight></codeline>
-<codeline lineno="361"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>total_vertices;</highlight></codeline>
-<codeline lineno="362"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="363"><highlight class="normal"></highlight></codeline>
-<codeline lineno="364"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::can_fbo_pick()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="365"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>layer<sp/>=<sp/>m_layer.lock();</highlight></codeline>
-<codeline lineno="366"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer<sp/>||<sp/>m_layer_slot<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="368"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="369"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer-&gt;las_data().load_complete())<sp/>{</highlight></codeline>
-<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="371"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="372"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>snap<sp/>=<sp/>layer-&gt;las_data().snapshot();</highlight></codeline>
-<codeline lineno="373"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>snap<sp/>&amp;&amp;<sp/>snap-&gt;octree.total_points()<sp/>&gt;<sp/>0;</highlight></codeline>
-<codeline lineno="374"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="375"><highlight class="normal"></highlight></codeline>
-<codeline lineno="376"><highlight class="normal">std::optional&lt;PointPickResult&gt;<sp/>OctreeLASLayerRenderer::point_from_index(</highlight></codeline>
-<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>layer_slot,<sp/>uint32_t<sp/>pick_index,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="378"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pick_index<sp/>==<sp/>0<sp/>||<sp/>layer_slot<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
-<codeline lineno="380"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="381"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(layer_slot<sp/>!=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint32_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m_layer_slot))<sp/>{</highlight></codeline>
-<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
-<codeline lineno="383"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="384"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>idx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(pick_index)<sp/>-<sp/>1;</highlight></codeline>
-<codeline lineno="385"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>layer<sp/>=<sp/>m_layer.lock();</highlight></codeline>
-<codeline lineno="386"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer)<sp/>{</highlight></codeline>
-<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
-<codeline lineno="388"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="389"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>snap<sp/>=<sp/>layer-&gt;las_data().snapshot();</highlight></codeline>
-<codeline lineno="390"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!snap<sp/>||<sp/>idx<sp/>&gt;=<sp/>snap-&gt;octree.points().size())<sp/>{</highlight></codeline>
-<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
-<codeline lineno="392"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="393"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structOctreePoint" kindref="compound">OctreePoint</ref>&amp;<sp/>p<sp/>=<sp/>snap-&gt;octree.points()[idx];</highlight></codeline>
-<codeline lineno="394"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
-<codeline lineno="395"><highlight class="normal"><sp/><sp/><ref refid="structPointPickResult" kindref="compound">PointPickResult</ref><sp/>result;</highlight></codeline>
-<codeline lineno="396"><highlight class="normal"><sp/><sp/>result.point<sp/>=<sp/>p;</highlight></codeline>
-<codeline lineno="397"><highlight class="normal"><sp/><sp/>result.world_x<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x)<sp/>+<sp/>file_origin.x()<sp/>-<sp/>scene_offset.x();</highlight></codeline>
-<codeline lineno="398"><highlight class="normal"><sp/><sp/>result.world_y<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y)<sp/>+<sp/>file_origin.y()<sp/>-<sp/>scene_offset.y();</highlight></codeline>
-<codeline lineno="399"><highlight class="normal"><sp/><sp/>result.world_z<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.z)<sp/>+<sp/>file_origin.z()<sp/>-<sp/>scene_offset.z();</highlight></codeline>
-<codeline lineno="400"><highlight class="normal"><sp/><sp/>result.layer_name<sp/>=<sp/>layer-&gt;name();</highlight></codeline>
-<codeline lineno="401"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
-<codeline lineno="402"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="403"><highlight class="normal"></highlight></codeline>
-<codeline lineno="404"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::render(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCamera" kindref="compound">Camera</ref>&amp;<sp/>camera,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRenderContext" kindref="compound">RenderContext</ref>&amp;<sp/>ctx)<sp/>{</highlight></codeline>
-<codeline lineno="405"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_visible)<sp/>{</highlight></codeline>
-<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="407"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="408"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>layer<sp/>=<sp/>m_layer.lock();</highlight></codeline>
-<codeline lineno="409"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer)<sp/>{</highlight></codeline>
-<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="411"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="412"><highlight class="normal"></highlight></codeline>
-<codeline lineno="413"><highlight class="normal"><sp/><sp/>m_last_point_draw_ms<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="414"><highlight class="normal"><sp/><sp/>m_last_point_gpu_ms<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="415"><highlight class="normal"><sp/><sp/>m_last_point_vertices_drawn<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="416"><highlight class="normal"></highlight></codeline>
-<codeline lineno="417"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>incremental<sp/>=<sp/>ctx.incremental_points;</highlight></codeline>
-<codeline lineno="418"><highlight class="normal"></highlight></codeline>
-<codeline lineno="419"><highlight class="normal"><sp/><sp/>std::vector&lt;PointOctree::VisibleNode&gt;<sp/>visible_nodes;</highlight></codeline>
-<codeline lineno="420"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>loaded_octree_points<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="421"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>load_complete<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="422"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>use_preview<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="423"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset<sp/>=<sp/>camera.world_offset();</highlight></codeline>
-<codeline lineno="424"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/>m_firsts.push_back(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">GLint</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(first_index));</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/>m_counts.push_back(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">GLsizei</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(to_draw));</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>state.streamed_count<sp/>+=<sp/>to_draw;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.streamed_count<sp/>&lt;<sp/>point_count)<sp/>{</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_stream_backlog<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_shader_layer_slot_loc,<sp/>m_layer_slot<sp/>&gt;<sp/>0<sp/>?<sp/>m_layer_slot<sp/>:<sp/>0);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_point_gl.draw_leaves(f,<sp/>m_firsts.data(),<sp/>m_counts.data(),<sp/>m_firsts.size());</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::draw_preview_points(QOpenGLFunctions*<sp/>f,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OctreePointVector&amp;<sp/>preview,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin,</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset)<sp/>{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(preview.empty()<sp/>||<sp/>!m_shader)<sp/>{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/>m_point_gl.ensure_initialized(f);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/>m_point_gl.bind(f);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count<sp/>=<sp/>std::min(preview.size(),<sp/>MAX_PREVIEW_DRAW_VERTICES);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QVector3D<sp/>point_offset(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.x()<sp/>-<sp/>scene_offset.x()),</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.y()<sp/>-<sp/>scene_offset.y()),</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.z()<sp/>-<sp/>scene_offset.z()));</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_offset_loc,<sp/>point_offset);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_shader_layer_slot_loc,<sp/>0);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>total_vertices<sp/>=<sp/>m_point_gl.draw_points(f,<sp/>preview.data(),<sp/>count);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/>m_stream_backlog<sp/>=<sp/>preview.size()<sp/>&gt;<sp/>count;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>total_vertices;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::can_fbo_pick()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>layer<sp/>=<sp/>m_layer.lock();</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer<sp/>||<sp/>m_layer_slot<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer-&gt;las_data().load_complete())<sp/>{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>snap<sp/>=<sp/>layer-&gt;las_data().snapshot();</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>snap<sp/>&amp;&amp;<sp/>snap-&gt;octree.total_points()<sp/>&gt;<sp/>0;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal">std::optional&lt;PointPickResult&gt;<sp/>OctreeLASLayerRenderer::point_from_index(</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>layer_slot,<sp/>uint32_t<sp/>pick_index,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pick_index<sp/>==<sp/>0<sp/>||<sp/>layer_slot<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(layer_slot<sp/>!=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint32_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m_layer_slot))<sp/>{</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>idx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(pick_index)<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>layer<sp/>=<sp/>m_layer.lock();</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer)<sp/>{</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>snap<sp/>=<sp/>layer-&gt;las_data().snapshot();</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!snap<sp/>||<sp/>idx<sp/>&gt;=<sp/>snap-&gt;octree.points().size())<sp/>{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structOctreePoint" kindref="compound">OctreePoint</ref>&amp;<sp/>p<sp/>=<sp/>snap-&gt;octree.points()[idx];</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><ref refid="structPointPickResult" kindref="compound">PointPickResult</ref><sp/>result;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/>result.point<sp/>=<sp/>p;</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/>result.world_x<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x)<sp/>+<sp/>file_origin.x()<sp/>-<sp/>scene_offset.x();</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/>result.world_y<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y)<sp/>+<sp/>file_origin.y()<sp/>-<sp/>scene_offset.y();</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/>result.world_z<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.z)<sp/>+<sp/>file_origin.z()<sp/>-<sp/>scene_offset.z();</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/>result.layer_name<sp/>=<sp/>layer-&gt;name();</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OctreeLASLayerRenderer::render(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCamera" kindref="compound">Camera</ref>&amp;<sp/>camera,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRenderContext" kindref="compound">RenderContext</ref>&amp;<sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_visible)<sp/>{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>layer<sp/>=<sp/>m_layer.lock();</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer)<sp/>{</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/>m_last_point_draw_ms<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/>m_last_point_gpu_ms<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/>m_last_point_vertices_drawn<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>incremental<sp/>=<sp/>ctx.incremental_points;</highlight></codeline>
 <codeline lineno="425"><highlight class="normal"></highlight></codeline>
-<codeline lineno="426"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>snap<sp/>=<sp/>layer-&gt;las_data().snapshot();</highlight></codeline>
-<codeline lineno="427"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!snap)<sp/>{</highlight></codeline>
-<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer-&gt;las_data().load_complete())<sp/>{</highlight></codeline>
-<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
-<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="432"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="433"><highlight class="normal"></highlight></codeline>
-<codeline lineno="434"><highlight class="normal"><sp/><sp/>loaded_octree_points<sp/>=<sp/>snap-&gt;octree.total_points();</highlight></codeline>
-<codeline lineno="435"><highlight class="normal"><sp/><sp/>load_complete<sp/>=<sp/>layer-&gt;las_data().load_complete();</highlight></codeline>
-<codeline lineno="436"><highlight class="normal"></highlight></codeline>
-<codeline lineno="437"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(loaded_octree_points<sp/>==<sp/>0<sp/>&amp;&amp;<sp/>snap-&gt;preview_points.empty())<sp/>{</highlight></codeline>
-<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!load_complete)<sp/>{</highlight></codeline>
-<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
-<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="442"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/>std::vector&lt;PointOctree::VisibleNode&gt;<sp/>visible_nodes;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>loaded_octree_points<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>load_complete<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>use_preview<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset<sp/>=<sp/>camera.world_offset();</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>snap<sp/>=<sp/>layer-&gt;las_data().snapshot();</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!snap)<sp/>{</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!layer-&gt;las_data().load_complete())<sp/>{</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/>loaded_octree_points<sp/>=<sp/>snap-&gt;octree.total_points();</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/>load_complete<sp/>=<sp/>layer-&gt;las_data().load_complete();</highlight></codeline>
 <codeline lineno="443"><highlight class="normal"></highlight></codeline>
-<codeline lineno="444"><highlight class="normal"><sp/><sp/>use_preview<sp/>=<sp/>!load_complete<sp/>&amp;&amp;<sp/>loaded_octree_points<sp/>==<sp/>0<sp/>&amp;&amp;<sp/>!snap-&gt;preview_points.empty();</highlight></codeline>
-<codeline lineno="445"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!use_preview)<sp/>{</highlight></codeline>
-<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>base_quality<sp/>=<sp/>std::max(m_lod_quality,<sp/>0.25);</highlight></codeline>
-<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>adjusted_quality<sp/>=<sp/>base_quality<sp/>*<sp/>layer-&gt;lod_quality_multiplier();</highlight></codeline>
-<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/>collect_visible_octree_nodes(*snap,<sp/>camera,<sp/>adjusted_quality,<sp/>file_origin,<sp/>visible_nodes);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(loaded_octree_points<sp/>==<sp/>0<sp/>&amp;&amp;<sp/>snap-&gt;preview_points.empty())<sp/>{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!load_complete)<sp/>{</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="449"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="450"><highlight class="normal"></highlight></codeline>
-<codeline lineno="451"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>camera_moved<sp/>=<sp/>stream_camera_changed(camera);</highlight></codeline>
-<codeline lineno="452"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>visible_changed<sp/>=<sp/>load_complete<sp/>&amp;&amp;<sp/>!use_preview<sp/>&amp;&amp;<sp/>visible_set_changed(visible_nodes);</highlight></codeline>
-<codeline lineno="453"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>reset_stream<sp/>=<sp/>camera_moved<sp/>||<sp/>visible_changed;</highlight></codeline>
-<codeline lineno="454"><highlight class="normal"></highlight></codeline>
-<codeline lineno="455"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(camera_moved<sp/>||<sp/>visible_changed)<sp/>{</highlight></codeline>
-<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/>m_stream_camera_pos<sp/>=<sp/>camera.position();</highlight></codeline>
-<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/>m_stream_camera_dir<sp/>=<sp/>camera.direction().normalized();</highlight></codeline>
-<codeline lineno="458"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="459"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(visible_changed)<sp/>{</highlight></codeline>
-<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/>m_visible_fingerprint<sp/>=<sp/>visible_nodes_fingerprint(visible_nodes);</highlight></codeline>
-<codeline lineno="461"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="462"><highlight class="normal"></highlight></codeline>
-<codeline lineno="463"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_data_update_required)<sp/>{</highlight></codeline>
-<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(load_complete)<sp/>{</highlight></codeline>
-<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>reset_stream_cache();</highlight></codeline>
-<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/>m_points_uploaded<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/>m_data_update_required<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="469"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="470"><highlight class="normal"></highlight></codeline>
-<codeline lineno="471"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(reset_stream)<sp/>{</highlight></codeline>
-<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/>reset_stream_cache();</highlight></codeline>
-<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(visible_changed)<sp/>{</highlight></codeline>
-<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>stream_view_reset();</highlight></codeline>
-<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/>use_preview<sp/>=<sp/>!load_complete<sp/>&amp;&amp;<sp/>loaded_octree_points<sp/>==<sp/>0<sp/>&amp;&amp;<sp/>!snap-&gt;preview_points.empty();</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!use_preview)<sp/>{</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>base_quality<sp/>=<sp/>std::max(m_lod_quality,<sp/>0.25);</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>adjusted_quality<sp/>=<sp/>base_quality<sp/>*<sp/>layer-&gt;lod_quality_multiplier();</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/>collect_visible_octree_nodes(*snap,<sp/>camera,<sp/>adjusted_quality,<sp/>file_origin,<sp/>visible_nodes);</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>camera_moved<sp/>=<sp/>stream_camera_changed(camera);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>visible_changed<sp/>=<sp/>load_complete<sp/>&amp;&amp;<sp/>!use_preview<sp/>&amp;&amp;<sp/>visible_set_changed(visible_nodes);</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>reset_stream<sp/>=<sp/>camera_moved<sp/>||<sp/>visible_changed;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(camera_moved<sp/>||<sp/>visible_changed)<sp/>{</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/>m_stream_camera_pos<sp/>=<sp/>camera.position();</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/>m_stream_camera_dir<sp/>=<sp/>camera.direction().normalized();</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(visible_changed)<sp/>{</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/>m_visible_fingerprint<sp/>=<sp/>visible_nodes_fingerprint(visible_nodes);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_data_update_required)<sp/>{</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(load_complete)<sp/>{</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>reset_stream_cache();</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/>m_points_uploaded<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/>m_data_update_required<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="476"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="477"><highlight class="normal"></highlight></codeline>
-<codeline lineno="478"><highlight class="normal"><sp/><sp/>ensure_shader();</highlight></codeline>
-<codeline lineno="479"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_shader)<sp/>{</highlight></codeline>
-<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LAS<sp/>render:<sp/>point<sp/>shader<sp/>failed<sp/>to<sp/>compile<sp/>or<sp/>link\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="482"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="483"><highlight class="normal"></highlight></codeline>
-<codeline lineno="484"><highlight class="normal"><sp/><sp/>QOpenGLFunctions*<sp/>f<sp/>=<sp/>QOpenGLContext::currentContext()-&gt;functions();</highlight></codeline>
-<codeline lineno="485"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!f)<sp/>{</highlight></codeline>
-<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="487"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="488"><highlight class="normal"><sp/><sp/>QOpenGLExtraFunctions*<sp/>gl<sp/>=<sp/>QOpenGLContext::currentContext()-&gt;extraFunctions();</highlight></codeline>
-<codeline lineno="489"><highlight class="normal"><sp/><sp/>ensure_gpu_timer(gl);</highlight></codeline>
-<codeline lineno="490"><highlight class="normal"><sp/><sp/>consume_gpu_timer_sample(gl);</highlight></codeline>
-<codeline lineno="491"><highlight class="normal"></highlight></codeline>
-<codeline lineno="492"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>target_draw_ms<sp/>=<sp/>layer-&gt;point_stream_budget_ms();</highlight></codeline>
-<codeline lineno="493"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>stream_mode_changed<sp/>=<sp/>incremental<sp/>!=<sp/>m_prev_incremental_stream;</highlight></codeline>
-<codeline lineno="494"><highlight class="normal"><sp/><sp/>m_prev_incremental_stream<sp/>=<sp/>incremental;</highlight></codeline>
-<codeline lineno="495"><highlight class="normal"></highlight></codeline>
-<codeline lineno="496"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>draw_quality<sp/>=<sp/>1.0;</highlight></codeline>
-<codeline lineno="497"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!use_preview)<sp/>{</highlight></codeline>
-<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/>draw_quality<sp/>=</highlight></codeline>
-<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>select_draw_quality(visible_nodes,<sp/>incremental,<sp/>stream_mode_changed,<sp/>target_draw_ms);</highlight></codeline>
-<codeline lineno="500"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="501"><highlight class="normal"></highlight></codeline>
-<codeline lineno="502"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>draw_start<sp/>=<sp/>std::chrono::steady_clock::now();</highlight></codeline>
-<codeline lineno="503"><highlight class="normal"></highlight></codeline>
-<codeline lineno="504"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!bind_shader(m_shader.get()))<sp/>{</highlight></codeline>
-<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="506"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="507"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glEnable(GL_PROGRAM_POINT_SIZE));</highlight></codeline>
-<codeline lineno="508"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_view_matrix_loc,<sp/>camera.view_matrix());</highlight></codeline>
-<codeline lineno="509"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_proj_matrix_loc,<sp/>camera.projection_matrix());</highlight></codeline>
-<codeline lineno="510"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_radius_loc,<sp/>layer-&gt;point_radius_m());</highlight></codeline>
-<codeline lineno="511"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_viewport_height_loc,<sp/>ctx.viewport_height);</highlight></codeline>
-<codeline lineno="512"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_fov_rad_loc,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(camera.fov_rad()));</highlight></codeline>
-<codeline lineno="513"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_color_mode_loc,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(layer-&gt;point_color_mode()));</highlight></codeline>
-<codeline lineno="514"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::array&lt;uint8_t,<sp/>3&gt;&amp;<sp/>fixed<sp/>=<sp/>layer-&gt;fixed_point_color();</highlight></codeline>
-<codeline lineno="515"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_fixed_color_loc,</highlight></codeline>
-<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QVector3D(fixed[0]<sp/>/<sp/>255.f,<sp/>fixed[1]<sp/>/<sp/>255.f,<sp/>fixed[2]<sp/>/<sp/>255.f));</highlight></codeline>
-<codeline lineno="517"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_alpha_loc,<sp/>layer-&gt;point_alpha());</highlight></codeline>
-<codeline lineno="518"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_light_direction_eye_loc<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/>m_shader-&gt;setUniformValue(m_light_direction_eye_loc,<sp/>ctx.light_direction_eye);</highlight></codeline>
-<codeline lineno="520"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="521"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_ambient_light_loc<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/>m_shader-&gt;setUniformValue(m_ambient_light_loc,<sp/>ctx.point_ambient_light);</highlight></codeline>
-<codeline lineno="523"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="524"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_diffuse_light_loc<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/>m_shader-&gt;setUniformValue(m_diffuse_light_loc,<sp/>ctx.diffuse_light);</highlight></codeline>
-<codeline lineno="526"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="527"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
-<codeline lineno="528"><highlight class="normal"></highlight></codeline>
-<codeline lineno="529"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glEnable(GL_DEPTH_TEST));</highlight></codeline>
-<codeline lineno="530"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glDepthFunc(ctx.incremental_points<sp/>?<sp/>GL_LEQUAL<sp/>:<sp/>GL_LESS));</highlight></codeline>
-<codeline lineno="531"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glDepthMask(GL_TRUE));</highlight></codeline>
-<codeline lineno="532"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glDisable(GL_BLEND));</highlight></codeline>
-<codeline lineno="533"><highlight class="normal"></highlight></codeline>
-<codeline lineno="534"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>expected_vertices<sp/>=</highlight></codeline>
-<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>use_preview<sp/>?<sp/>std::min(snap-&gt;preview_points.size(),<sp/>MAX_PREVIEW_DRAW_VERTICES)</highlight></codeline>
-<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>estimate_draw_vertices(visible_nodes,<sp/>draw_quality,<sp/>incremental);</highlight></codeline>
-<codeline lineno="537"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>time_draw<sp/>=<sp/>expected_vertices<sp/>&gt;<sp/>0;</highlight></codeline>
-<codeline lineno="538"><highlight class="normal"><sp/><sp/>ScopedGpuTimer<sp/>gpu_timer(time_draw<sp/>?<sp/>gl<sp/>:<sp/>nullptr,<sp/>time_draw<sp/>?<sp/>m_gpu_timer_query<sp/>:<sp/>0);</highlight></codeline>
-<codeline lineno="539"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>vertices_drawn<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="540"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(use_preview)<sp/>{</highlight></codeline>
-<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/>vertices_drawn<sp/>=<sp/>draw_preview_points(f,<sp/>snap-&gt;preview_points,<sp/>file_origin,<sp/>scene_offset);</highlight></codeline>
-<codeline lineno="542"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/>vertices_drawn<sp/>=<sp/>draw_octree_nodes(f,<sp/>snap-&gt;octree.points(),<sp/>visible_nodes,<sp/>file_origin,</highlight></codeline>
-<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scene_offset,<sp/>draw_quality,<sp/>incremental);</highlight></codeline>
-<codeline lineno="545"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="546"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(gpu_timer)<sp/>{</highlight></codeline>
-<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/>m_lod_query_vertices<sp/>=<sp/>vertices_drawn;</highlight></codeline>
-<codeline lineno="548"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="549"><highlight class="normal"></highlight></codeline>
-<codeline lineno="550"><highlight class="normal"><sp/><sp/>m_shader-&gt;release();</highlight></codeline>
-<codeline lineno="551"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
-<codeline lineno="552"><highlight class="normal"></highlight></codeline>
-<codeline lineno="553"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>draw_ms<sp/>=</highlight></codeline>
-<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::duration&lt;double,<sp/>std::milli&gt;(std::chrono::steady_clock::now()<sp/>-<sp/>draw_start)</highlight></codeline>
-<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.count();</highlight></codeline>
-<codeline lineno="556"><highlight class="normal"><sp/><sp/>m_last_point_draw_ms<sp/>=<sp/>draw_ms;</highlight></codeline>
-<codeline lineno="557"><highlight class="normal"><sp/><sp/>m_last_point_vertices_drawn<sp/>=<sp/>vertices_drawn;</highlight></codeline>
-<codeline lineno="558"><highlight class="normal"></highlight></codeline>
-<codeline lineno="559"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(vertices_drawn<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!load_complete)<sp/>{</highlight></codeline>
-<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
-<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_stream_backlog)<sp/>{</highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
-<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="566"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="567"><highlight class="normal"></highlight></codeline>
-<codeline lineno="568"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(incremental)<sp/>{</highlight></codeline>
-<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/>m_inc_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
-<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_stream_backlog<sp/>&amp;&amp;<sp/>!stream_mode_changed)<sp/>{</highlight></codeline>
-<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
-<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="573"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/>m_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
-<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/>m_inc_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(reset_stream)<sp/>{</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/>reset_stream_cache();</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(visible_changed)<sp/>{</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>stream_view_reset();</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/>ensure_shader();</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!m_shader)<sp/>{</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;LAS<sp/>render:<sp/>point<sp/>shader<sp/>failed<sp/>to<sp/>compile<sp/>or<sp/>link\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/>QOpenGLFunctions*<sp/>f<sp/>=<sp/>QOpenGLContext::currentContext()-&gt;functions();</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!f)<sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/>QOpenGLExtraFunctions*<sp/>gl<sp/>=<sp/>QOpenGLContext::currentContext()-&gt;extraFunctions();</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/>ensure_gpu_timer(gl);</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/>consume_gpu_timer_sample(gl);</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>target_draw_ms<sp/>=<sp/>layer-&gt;point_stream_budget_ms();</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>stream_mode_changed<sp/>=<sp/>incremental<sp/>!=<sp/>m_prev_incremental_stream;</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/>m_prev_incremental_stream<sp/>=<sp/>incremental;</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>draw_quality<sp/>=<sp/>1.0;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!use_preview)<sp/>{</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/>draw_quality<sp/>=</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>select_draw_quality(visible_nodes,<sp/>incremental,<sp/>stream_mode_changed,<sp/>target_draw_ms);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>draw_start<sp/>=<sp/>std::chrono::steady_clock::now();</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!bind_shader(m_shader.get()))<sp/>{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glEnable(GL_PROGRAM_POINT_SIZE));</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_view_matrix_loc,<sp/>camera.view_matrix());</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_proj_matrix_loc,<sp/>camera.projection_matrix());</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_radius_loc,<sp/>layer-&gt;point_radius_m());</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_viewport_height_loc,<sp/>ctx.viewport_height);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_fov_rad_loc,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(camera.fov_rad()));</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_color_mode_loc,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(layer-&gt;point_color_mode()));</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::array&lt;uint8_t,<sp/>3&gt;&amp;<sp/>fixed<sp/>=<sp/>layer-&gt;fixed_point_color();</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_fixed_color_loc,</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QVector3D(fixed[0]<sp/>/<sp/>255.f,<sp/>fixed[1]<sp/>/<sp/>255.f,<sp/>fixed[2]<sp/>/<sp/>255.f));</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/>m_shader-&gt;setUniformValue(m_point_alpha_loc,<sp/>layer-&gt;point_alpha());</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_light_direction_eye_loc<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/>m_shader-&gt;setUniformValue(m_light_direction_eye_loc,<sp/>ctx.light_direction_eye);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_ambient_light_loc<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/>m_shader-&gt;setUniformValue(m_ambient_light_loc,<sp/>ctx.point_ambient_light);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_diffuse_light_loc<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/>m_shader-&gt;setUniformValue(m_diffuse_light_loc,<sp/>ctx.diffuse_light);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glEnable(GL_DEPTH_TEST));</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glDepthFunc(ctx.incremental_points<sp/>?<sp/>GL_LEQUAL<sp/>:<sp/>GL_LESS));</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glDepthMask(GL_TRUE));</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/>CHECK_GL(f-&gt;glDisable(GL_BLEND));</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>expected_vertices<sp/>=</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>use_preview<sp/>?<sp/>std::min(snap-&gt;preview_points.size(),<sp/>MAX_PREVIEW_DRAW_VERTICES)</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>estimate_draw_vertices(visible_nodes,<sp/>draw_quality,<sp/>incremental);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>time_draw<sp/>=<sp/>expected_vertices<sp/>&gt;<sp/>0;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/>ScopedGpuTimer<sp/>gpu_timer(time_draw<sp/>?<sp/>gl<sp/>:<sp/>nullptr,<sp/>time_draw<sp/>?<sp/>m_gpu_timer_query<sp/>:<sp/>0);</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>vertices_drawn<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(use_preview)<sp/>{</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/>vertices_drawn<sp/>=<sp/>draw_preview_points(f,<sp/>snap-&gt;preview_points,<sp/>file_origin,<sp/>scene_offset);</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/>vertices_drawn<sp/>=<sp/>draw_octree_nodes(f,<sp/>snap-&gt;octree.points(),<sp/>visible_nodes,<sp/>file_origin,</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scene_offset,<sp/>draw_quality,<sp/>incremental);</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(gpu_timer)<sp/>{</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/>m_lod_query_vertices<sp/>=<sp/>vertices_drawn;</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/>m_shader-&gt;release();</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/>CHECK_GL_AFTER();</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>draw_ms<sp/>=</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::duration&lt;double,<sp/>std::milli&gt;(std::chrono::steady_clock::now()<sp/>-<sp/>draw_start)</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.count();</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/>m_last_point_draw_ms<sp/>=<sp/>draw_ms;</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/>m_last_point_vertices_drawn<sp/>=<sp/>vertices_drawn;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(gpu_timer)<sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/>m_lod_query_cpu_ms<sp/>=<sp/>draw_ms;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(vertices_drawn<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!load_complete)<sp/>{</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_stream_backlog)<sp/>{</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="576"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="577"><highlight class="normal"></highlight></codeline>
-<codeline lineno="578"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!load_complete)<sp/>{</highlight></codeline>
-<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
-<codeline lineno="580"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_stream_backlog)<sp/>{</highlight></codeline>
-<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
-<codeline lineno="582"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="583"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(incremental)<sp/>{</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/>m_inc_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_stream_backlog<sp/>&amp;&amp;<sp/>!stream_mode_changed)<sp/>{</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/>m_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/>m_inc_lod_quality<sp/>=<sp/>draw_quality;</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!load_complete)<sp/>{</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_stream_backlog)<sp/>{</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/>emit<sp/>repaint_required();</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="593"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_layer_renderer.cpp"/>
   </compounddef>

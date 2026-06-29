@@ -41,7 +41,6 @@
 | struct | [**adl\_serializer&lt; BlockingThresholdColorPair &gt;**](structnlohmann_1_1adl__serializer_3_01BlockingThresholdColorPair_01_4.md) &lt;&gt;<br> |
 | struct | [**adl\_serializer&lt; BuildingsConfig &gt;**](structnlohmann_1_1adl__serializer_3_01BuildingsConfig_01_4.md) &lt;&gt;<br> |
 | struct | [**adl\_serializer&lt; CMYKColor &gt;**](structnlohmann_1_1adl__serializer_3_01CMYKColor_01_4.md) &lt;&gt;<br> |
-| struct | [**adl\_serializer&lt; CanopyConfig &gt;**](structnlohmann_1_1adl__serializer_3_01CanopyConfig_01_4.md) &lt;&gt;<br> |
 | struct | [**adl\_serializer&lt; ColorVariant &gt;**](structnlohmann_1_1adl__serializer_3_01ColorVariant_01_4.md) &lt;&gt;<br> |
 | struct | [**adl\_serializer&lt; ContourConfig &gt;**](structnlohmann_1_1adl__serializer_3_01ContourConfig_01_4.md) &lt;&gt;<br> |
 | struct | [**adl\_serializer&lt; ContourConfigs &gt;**](structnlohmann_1_1adl__serializer_3_01ContourConfigs_01_4.md) &lt;&gt;<br> |

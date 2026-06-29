@@ -401,9 +401,15 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="3">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vector_vege_render.hpp</label>
+        <link refid="vector__vege__render_8hpp_source"/>
+      </node>
       <node id="2">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
         <link refid="vegetation__polygon_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innernamespace refid="namespacedetail">detail</innernamespace>

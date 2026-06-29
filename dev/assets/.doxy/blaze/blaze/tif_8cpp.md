@@ -81,7 +81,6 @@
 |  template void | [**write\_to\_tif**](#function-write_to_tif) (const [**GeoGrid**](classGeo.md)&lt; float &gt; & grid, const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool include\_vertical\_crs) <br> |
 |  template void | [**write\_to\_tif**](#function-write_to_tif) (const [**GeoGrid**](classGeo.md)&lt; std::byte &gt; & grid, const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool include\_vertical\_crs) <br> |
 |  template void | [**write\_to\_tif**](#function-write_to_tif) (const [**GeoGrid**](classGeo.md)&lt; [**RGBColor**](classRGBColor.md) &gt; & grid, const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool include\_vertical\_crs) <br> |
-|  template void | [**write\_to\_tif**](#function-write_to_tif) (const [**GeoGrid**](classGeo.md)&lt; [**CMYKColor**](classCMYKColor.md) &gt; & grid, const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool include\_vertical\_crs) <br> |
 |  template void | [**write\_to\_tif**](#function-write_to_tif) (const [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; & grid, const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool include\_vertical\_crs) <br> |
 |  template void | [**write\_to\_tif**](#function-write_to_tif) (const [**GeoGrid**](classGeo.md)&lt; std::optional&lt; double &gt; &gt; & grid, const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool include\_vertical\_crs) <br> |
 |  template void | [**write\_to\_tif**](#function-write_to_tif) (const [**GeoGrid**](classGeo.md)&lt; std::optional&lt; float &gt; &gt; & grid, const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool include\_vertical\_crs) <br> |
@@ -281,24 +280,6 @@ template void write_to_tif (
 ```C++
 template void write_to_tif (
     const GeoGrid < RGBColor > & grid,
-    const fs::path & filename,
-    ProgressTracker && progress_tracker,
-    bool include_vertical_crs
-) 
-```
-
-
-
-
-<hr>
-
-
-
-### function write\_to\_tif 
-
-```C++
-template void write_to_tif (
-    const GeoGrid < CMYKColor > & grid,
     const fs::path & filename,
     ProgressTracker && progress_tracker,
     bool include_vertical_crs

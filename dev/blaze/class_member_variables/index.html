@@ -1067,7 +1067,7 @@
 </ul>
 <h2 id="b">b</h2>
 <ul>
-<li><strong>blocking_threshold</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>, <a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>)</li>
+<li><strong>blocking_threshold</strong> (<a href="../structBlockingThresholdColorPair/"><strong>BlockingThresholdColorPair</strong></a>)</li>
 <li><strong>border_width</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>buildings</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>bin_resolution</strong> (<a href="../structGridConfig/"><strong>GridConfig</strong></a>)</li>
@@ -1095,6 +1095,7 @@
 <li><strong>catchment</strong> (<a href="../structStream/"><strong>Stream</strong></a>, <a href="../structWaterConfig/"><strong>WaterConfig</strong></a>)</li>
 <li><strong>coords</strong> (<a href="../structStream/"><strong>Stream</strong></a>)</li>
 <li><strong>crs_mismatch</strong> (<a href="../structTileModeInfo/"><strong>TileModeInfo</strong></a>)</li>
+<li><strong>classified_overlay_color</strong> (<a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a>)</li>
 </ul>
 <h2 id="d">d</h2>
 <ul>
@@ -1208,8 +1209,6 @@
 <li><strong>m_up</strong> (<a href="../classCamera/"><strong>Camera</strong></a>, <a href="../classContourPoint/"><strong>ContourPoint</strong></a>)</li>
 <li><strong>m_width</strong> (<a href="../classCamera/"><strong>Camera</strong></a>, <a href="../classGridData/"><strong>GridData</strong></a>, <a href="../classPointCloudFramebuffer/"><strong>PointCloudFramebuffer</strong></a>)</li>
 <li><strong>m_world_offset</strong> (<a href="../classCamera/"><strong>Camera</strong></a>)</li>
-<li><strong>max_height</strong> (<a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
-<li><strong>min_height</strong> (<a href="../structCanopyConfig/"><strong>CanopyConfig</strong></a>, <a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>m_config</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>m_inputs_mixed_crs</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
 <li><strong>m_inputs_overlap</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>)</li>
@@ -1384,6 +1383,7 @@
 <li><strong>m_layer_slot</strong> (<a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a>)</li>
 <li><strong>m_light_direction_eye_loc</strong> (<a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a>)</li>
 <li><strong>m_lod_quality</strong> (<a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a>)</li>
+<li><strong>m_lod_query_cpu_ms</strong> (<a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a>)</li>
 <li><strong>m_lod_query_vertices</strong> (<a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a>)</li>
 <li><strong>m_ms_per_vertex</strong> (<a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a>)</li>
 <li><strong>m_node_stream</strong> (<a href="../classOctreeLASLayerRenderer/"><strong>OctreeLASLayerRenderer</strong></a>)</li>
@@ -1432,6 +1432,8 @@
 <li><strong>m_scene_color_loc</strong> (<a href="../classSceneFramebuffer/"><strong>SceneFramebuffer</strong></a>)</li>
 <li><strong>m_what</strong> (<a href="../classTaskException/"><strong>TaskException</strong></a>)</li>
 <li><strong>m_start</strong> (<a href="../classTimer/"><strong>Timer</strong></a>, <a href="../structoctree__las__detail_1_1BenchTimer/"><strong>octree_las_detail::BenchTimer</strong></a>)</li>
+<li><strong>max_height</strong> (<a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
+<li><strong>min_height</strong> (<a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
 <li><strong>m_path</strong> (<a href="../classblaze_1_1trace_1_1RecordTrace/"><strong>blaze::trace::RecordTrace</strong></a>)</li>
 <li><strong>m_cell_size</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
 <li><strong>m_cells</strong> (<a href="../classdetail_1_1ExtentSpatialIndex/"><strong>detail::ExtentSpatialIndex</strong></a>)</li>
@@ -1451,6 +1453,7 @@
 <li><strong>outputs</strong> (<a href="../structBlazeOutputDiscovery/"><strong>BlazeOutputDiscovery</strong></a>)</li>
 <li><strong>output_directory</strong> (<a href="../structConfig/"><strong>Config</strong></a>)</li>
 <li><strong>override_crs</strong> (<a href="../structConfig/"><strong>Config</strong></a>, <a href="../structLASFileExtent/"><strong>LASFileExtent</strong></a>)</li>
+<li><strong>outlier_threshold_m</strong> (<a href="../structGroundConfig/"><strong>GroundConfig</strong></a>)</li>
 <li><strong>octree</strong> (<a href="../structLasRenderSnapshot/"><strong>LasRenderSnapshot</strong></a>)</li>
 <li><strong>ok</strong> (<a href="../structUserCrsParseResult/"><strong>UserCrsParseResult</strong></a>)</li>
 </ul>
@@ -1483,6 +1486,9 @@
 <li><strong>streamed_count</strong> (<a href="../structOctreeLASLayerRenderer_1_1NodeStreamState/"><strong>OctreeLASLayerRenderer::NodeStreamState</strong></a>)</li>
 <li><strong>secondary_priority</strong> (<a href="../structPriorityPoint/"><strong>PriorityPoint</strong></a>)</li>
 <li><strong>scale</strong> (<a href="../structRenderConfig/"><strong>RenderConfig</strong></a>)</li>
+<li><strong>smooth_radius</strong> (<a href="../structVegeHeightConfig/"><strong>VegeHeightConfig</strong></a>)</li>
+<li><strong>sink_depth_m</strong> (<a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a>)</li>
+<li><strong>sink_min_area_m2</strong> (<a href="../structWaterConfigs/"><strong>WaterConfigs</strong></a>)</li>
 </ul>
 <h2 id="t">t</h2>
 <ul>
@@ -1492,6 +1498,7 @@
 <h2 id="u">u</h2>
 <ul>
 <li><strong>ui</strong> (<a href="../classConfigEditor/"><strong>ConfigEditor</strong></a>, <a href="../classMain3DWindow/"><strong>Main3DWindow</strong></a>, <a href="../classMainWindow/"><strong>MainWindow</strong></a>, <a href="../classProgressBox/"><strong>ProgressBox</strong></a>)</li>
+<li><strong>use_only_ground_class</strong> (<a href="../structGroundConfig/"><strong>GroundConfig</strong></a>)</li>
 </ul>
 <h2 id="v">v</h2>
 <ul>

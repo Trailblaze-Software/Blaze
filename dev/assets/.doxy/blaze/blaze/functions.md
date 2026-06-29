@@ -64,6 +64,8 @@
 * **draw\_geo\_polyline** ([**img\_grid.hpp**](img__grid_8hpp.md))
 * **detect\_tile\_mode\_needed** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **double\_to\_string** ([**to\_string.hpp**](to__string_8hpp.md))
+* **draw\_vector\_vegetation** ([**vector\_vege\_render.hpp**](vector__vege__render_8hpp.md))
+* **default\_isom\_layer\_name** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **downsample\_mask\_any** ([**process.cpp**](process_8cpp.md))
 
 
@@ -180,6 +182,7 @@
 * **parse\_args** ([**main\_3d.cpp**](main__3d_8cpp.md))
 * **print\_usage** ([**main\_3d.cpp**](main__3d_8cpp.md))
 * **probe\_las\_file** ([**main\_3d.cpp**](main__3d_8cpp.md))
+* **point\_in\_polygon\_with\_holes** ([**polygon.hpp**](polygon_8hpp.md))
 * **point\_in\_ring** ([**polygon.hpp**](polygon_8hpp.md))
 * **polygon\_from\_extent** ([**polygon.hpp**](polygon_8hpp.md))
 * **polygon\_net\_area\_m2** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
@@ -233,7 +236,7 @@
 
 ## t
 
-* **TEST** ([**test\_camera.cpp**](test__camera_8cpp.md), [**test\_frustum.cpp**](test__frustum_8cpp.md), [**test\_octree.cpp**](test__octree_8cpp.md), [**test\_config\_lookup.cpp**](test__config__lookup_8cpp.md), [**test\_config\_paths.cpp**](test__config__paths_8cpp.md), [**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_ops.cpp**](test__contour__ops_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_polygon.cpp**](test__polygon_8cpp.md), [**test\_grid.cpp**](test__grid_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_image.cpp**](test__image_8cpp.md), [**test\_img\_grid.cpp**](test__img__grid_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_colors.cpp**](test__colors_8cpp.md), [**test\_las\_file.cpp**](test__las__file_8cpp.md), [**test\_las\_point.cpp**](test__las__point_8cpp.md), [**test\_coordinate.cpp**](test__coordinate_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_vegetation.cpp**](test__vegetation_8cpp.md), [**test\_vegetation\_polygon.cpp**](test__vegetation__polygon_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
+* **TEST** ([**test\_camera.cpp**](test__camera_8cpp.md), [**test\_frustum.cpp**](test__frustum_8cpp.md), [**test\_octree.cpp**](test__octree_8cpp.md), [**test\_config\_lookup.cpp**](test__config__lookup_8cpp.md), [**test\_config\_paths.cpp**](test__config__paths_8cpp.md), [**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md), [**test\_contour\_ops.cpp**](test__contour__ops_8cpp.md), [**test\_contour\_utils.cpp**](test__contour__utils_8cpp.md), [**test\_polygon.cpp**](test__polygon_8cpp.md), [**test\_grid.cpp**](test__grid_8cpp.md), [**test\_grid\_ops.cpp**](test__grid__ops_8cpp.md), [**test\_image.cpp**](test__image_8cpp.md), [**test\_img\_grid.cpp**](test__img__grid_8cpp.md), [**test\_gpkg.cpp**](test__gpkg_8cpp.md), [**test\_colors.cpp**](test__colors_8cpp.md), [**test\_las\_file.cpp**](test__las__file_8cpp.md), [**test\_las\_point.cpp**](test__las__point_8cpp.md), [**test\_coordinate.cpp**](test__coordinate_8cpp.md), [**test\_progress\_tracker.cpp**](test__progress__tracker_8cpp.md), [**test\_vector\_vege\_render.cpp**](test__vector__vege__render_8cpp.md), [**test\_vegetation.cpp**](test__vegetation_8cpp.md), [**test\_vegetation\_polygon.cpp**](test__vegetation__polygon_8cpp.md), [**test\_water.cpp**](test__water_8cpp.md), [**test\_e2e.cpp**](test__e2e_8cpp.md), [**test\_process.cpp**](test__process_8cpp.md))
 * **texture\_uv\_from\_projection** ([**raster\_data.hpp**](raster__data_8hpp.md))
 * **trim\_contours** ([**contour\_gen.hpp**](contour__gen_8hpp.md))
 * **transform\_xy\_h** ([**crs.hpp**](crs_8hpp.md))
@@ -259,6 +262,8 @@
 ## v
 
 * **validated** ([**config\_editor.cpp**](config__editor_8cpp.md))
+* **vege\_layer\_colors** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
+* **vege\_layer\_draw\_priority** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **verify\_raw\_vegetation\_tif** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 * **verify\_vegetation\_tif** ([**test\_e2e.cpp**](test__e2e_8cpp.md))
 

@@ -360,6 +360,8 @@ struct is_specialization<Ref<Args...>, Ref> : std::true_type {};
 template <class Type, template <typename...> class Template>
 inline constexpr bool IS_SPECIALIZATION_V = is_specialization<Type, Template>::value;
 
+enum class GeoGridCompositeMode { AlphaBlend, OpaqueCopy };
+
 template <typename GridT>
 class Geo : public GridT, public GeoGridData {
  public:
@@ -398,11 +400,15 @@ class Geo : public GridT, public GeoGridData {
   }
 
   void draw(const Geo<Grid<RGBColor>>& other, ProgressTracker&& progress_tracker,
+            GeoGridCompositeMode composite_mode = GeoGridCompositeMode::AlphaBlend,
             std::optional<blaze::InterpolationMode> interpolation = {})
     requires std::same_as<GridT, Grid<RGBColor>>;
 
-  void draw(const Geo<Grid<CMYKColor>>& other, ProgressTracker&& progress_tracker,
-            std::optional<blaze::InterpolationMode> interpolation = {})
+  void draw_filled_polygon(const PolygonWithHoles& poly, const ColorVariant& color)
+    requires std::same_as<GridT, Grid<RGBColor>>;
+
+  void rasterize_filled_polygons(const std::vector<PolygonWithHoles>& polygons,
+                                 const ColorVariant& color, ProgressTracker&& progress_tracker)
     requires std::same_as<GridT, Grid<RGBColor>>;
 
   void draw_point(const Coordinate2D<double>& point, const ColorVariant& color, double size)

@@ -70,6 +70,7 @@
 
 | Type | Name |
 | ---: | :--- |
+|  void | [**enable\_discrete\_gpu\_offload**](#function-enable_discrete_gpu_offload) () <br> |
 |  const char \* | [**get\_env**](#function-get_env) (const char \* name) <br> |
 
 
@@ -119,6 +120,19 @@ enum blaze::InterpolationMode {
 <hr>
 ## Public Functions Documentation
 
+
+
+
+### function enable\_discrete\_gpu\_offload 
+
+```C++
+inline void blaze::enable_discrete_gpu_offload () 
+```
+
+
+
+
+<hr>
 
 
 

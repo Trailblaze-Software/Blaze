@@ -39,7 +39,6 @@
 | ---: | :--- |
 | struct | [**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md) <br> |
 | struct | [**BuildingsConfig**](structBuildingsConfig.md) <br> |
-| struct | [**CanopyConfig**](structCanopyConfig.md) <br> |
 | struct | [**Config**](structConfig.md) <br> |
 | struct | [**ContourConfig**](structContourConfig.md) <br> |
 | struct | [**ContourConfigs**](structContourConfigs.md) <br> |

@@ -34,6 +34,7 @@ struct Extent2D;
 struct ContourConfigs;
 struct WaterConfigs;
 struct Stream;
+struct PolygonWithHoles;
 
 class GridData;
 class GeoTransform;

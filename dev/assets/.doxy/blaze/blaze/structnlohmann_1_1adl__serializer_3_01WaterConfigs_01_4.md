@@ -56,7 +56,7 @@
 | Type | Name |
 | ---: | :--- |
 |  [**WaterConfigs**](structWaterConfigs.md) | [**from\_json**](#function-from_json) (const json & j) <br> |
-|  void | [**to\_json**](#function-to_json) (json & j, [**WaterConfigs**](structWaterConfigs.md) cc) <br> |
+|  void | [**to\_json**](#function-to_json) (json & j, [**WaterConfigs**](structWaterConfigs.md) water) <br> |
 
 
 
@@ -108,7 +108,7 @@ static inline WaterConfigs nlohmann::adl_serializer< WaterConfigs >::from_json (
 ```C++
 static inline void nlohmann::adl_serializer< WaterConfigs >::to_json (
     json & j,
-    WaterConfigs cc
+    WaterConfigs water
 ) 
 ```
 

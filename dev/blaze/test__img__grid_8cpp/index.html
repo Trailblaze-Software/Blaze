@@ -831,6 +831,50 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#function-test_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-test_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -861,6 +905,7 @@
 <p><a href="../test__img__grid_8cpp_source/">Go to the source code of this file</a></p>
 <ul>
 <li><code>#include &lt;gtest/gtest.h&gt;</code></li>
+<li><code>#include "geometry/polygon.hpp"</code></li>
 <li><code>#include "grid/grid.hpp"</code></li>
 <li><code>#include "grid/img_grid.hpp"</code></li>
 <li><code>#include "isom/colors.hpp"</code></li>
@@ -887,6 +932,22 @@
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (GeoGridRGB, DrawOpaqueForegroundReplacesBackground) <br></td>
 </tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classGeo/"><strong>GeoImgGrid</strong></a>, DrawFilledPolygonFillsInterior) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classGeo/"><strong>GeoImgGrid</strong></a>, DrawOverlaySkipsTransparentPixels) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classGeo/"><strong>GeoImgGrid</strong></a>, DrawOverlayCopiesOpaquePixels) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (<a href="../classGeo/"><strong>GeoImgGrid</strong></a>, DrawSkipsFullyTransparentForeground) <br></td>
+</tr>
 </tbody>
 </table>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
@@ -911,6 +972,38 @@
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">GeoGridRGB</span><span class="p">,</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">DrawOpaqueForegroundReplacesBackground</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_3">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">GeoImgGrid</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">DrawFilledPolygonFillsInterior</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_4">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">GeoImgGrid</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">DrawOverlaySkipsTransparentPixels</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_5">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">GeoImgGrid</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">DrawOverlayCopiesOpaquePixels</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_6">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">GeoImgGrid</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">DrawSkipsFullyTransparentForeground</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

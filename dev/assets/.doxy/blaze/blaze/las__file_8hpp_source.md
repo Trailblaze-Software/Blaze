@@ -181,12 +181,16 @@ inline std::string convert_geo_keys_to_wkt(const laspp::LASGeoKeys& geo_keys) {
   auto keys = geo_keys.get_keys();
 
   if (keys.find(3072) != keys.end()) {  // Projected CRS
-    uint16_t epsg_code = std::get<uint16_t>(keys.at(3072));
+    const auto& key = keys.at(3072);
+    LASPP_ASSERT(key.type == laspp::GeoKeyValue::Type::U16);
+    uint16_t epsg_code = key.u16;
     if (srs.importFromEPSG(epsg_code) == OGRERR_NONE) {
       projectionSet = true;
     }
   } else if (keys.find(2048) != keys.end()) {  // Geographic CRS
-    uint16_t epsg_code = std::get<uint16_t>(keys.at(2048));
+    const auto& key = keys.at(2048);
+    LASPP_ASSERT(key.type == laspp::GeoKeyValue::Type::U16);
+    uint16_t epsg_code = key.u16;
     if (srs.importFromEPSG(epsg_code) == OGRERR_NONE) {
       projectionSet = true;
     }

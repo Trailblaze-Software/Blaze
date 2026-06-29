@@ -1063,6 +1063,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#variable-m_lod_query_cpu_ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable m_lod_query_cpu_ms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#variable-m_lod_query_vertices" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1701,6 +1712,10 @@
 <td style="text-align: left;"><a href="#variable-m_lod_quality"><strong>m_lod_quality</strong></a>   = <code>1.0</code><br></td>
 </tr>
 <tr>
+<td style="text-align: right;">double</td>
+<td style="text-align: left;"><a href="#variable-m_lod_query_cpu_ms"><strong>m_lod_query_cpu_ms</strong></a>   = <code>0.0</code><br></td>
+</tr>
+<tr>
 <td style="text-align: right;">size_t</td>
 <td style="text-align: left;"><a href="#variable-m_lod_query_vertices"><strong>m_lod_query_vertices</strong></a>   = <code>0</code><br></td>
 </tr>
@@ -2070,279 +2085,284 @@
 </code></pre></div>
 <hr>
 
+<h3 id="variable-m_lod_query_cpu_ms">variable m_lod_query_cpu_ms</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_lod_query_cpu_ms</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
 <h3 id="variable-m_lod_query_vertices">variable m_lod_query_vertices</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_lod_query_vertices</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_lod_query_vertices</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_ms_per_vertex">variable m_ms_per_vertex</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_ms_per_vertex</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_ms_per_vertex</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_node_stream">variable m_node_stream</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">PointOctreeNode</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">NodeStreamState</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_node_stream</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">PointOctreeNode</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">NodeStreamState</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_node_stream</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_point_alpha_loc">variable m_point_alpha_loc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_alpha_loc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_alpha_loc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_point_gl">variable m_point_gl</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">PointCloudGL</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_gl</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">PointCloudGL</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_gl</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_point_offset_loc">variable m_point_offset_loc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_offset_loc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_offset_loc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_point_radius_loc">variable m_point_radius_loc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_radius_loc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_point_radius_loc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_points_uploaded">variable m_points_uploaded</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_points_uploaded</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_points_uploaded</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_prev_incremental_stream">variable m_prev_incremental_stream</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_prev_incremental_stream</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_prev_incremental_stream</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_proj_matrix_loc">variable m_proj_matrix_loc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_proj_matrix_loc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_proj_matrix_loc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_shader">variable m_shader</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">QOpenGLShaderProgram</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_shader</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">QOpenGLShaderProgram</span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_shader</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_shader_layer_slot_loc">variable m_shader_layer_slot_loc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_shader_layer_slot_loc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_shader_layer_slot_loc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_stream_backlog">variable m_stream_backlog</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_backlog</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_backlog</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_stream_camera_dir">variable m_stream_camera_dir</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">QVector3D</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_camera_dir</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">QVector3D</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_camera_dir</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_stream_camera_pos">variable m_stream_camera_pos</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">QVector3D</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_camera_pos</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">QVector3D</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_stream_camera_pos</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_view_matrix_loc">variable m_view_matrix_loc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_view_matrix_loc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_view_matrix_loc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_viewport_height_loc">variable m_viewport_height_loc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_viewport_height_loc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_viewport_height_loc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m_visible_fingerprint">variable m_visible_fingerprint</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_visible_fingerprint</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">m_visible_fingerprint</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 <h2 id="public-functions-documentation">Public Functions Documentation</h2>
 <h3 id="function-octreelaslayerrenderer">function OctreeLASLayerRenderer</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">OctreeLASLayerRenderer</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASLayer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">layer</span><span class="p">,</span>
-<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">offset</span>
-<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">OctreeLASLayerRenderer</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="w"> </span><span class="n">LASLayer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">layer</span><span class="p">,</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">offset</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-can_fbo_pick">function can_fbo_pick</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">can_fbo_pick</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">can_fbo_pick</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-collect_visible_octree_nodes">function collect_visible_octree_nodes</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">collect_visible_octree_nodes</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">LasRenderSnapshot</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">snap</span><span class="p">,</span>
-<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span><span class="p">,</span>
-<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">vis_quality</span><span class="p">,</span>
-<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
-<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
-<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">collect_visible_octree_nodes</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">LasRenderSnapshot</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">snap</span><span class="p">,</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span><span class="p">,</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">vis_quality</span><span class="p">,</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-consume_gpu_timer_sample">function consume_gpu_timer_sample</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">consume_gpu_timer_sample</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">QOpenGLExtraFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gl</span>
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">consume_gpu_timer_sample</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">QOpenGLExtraFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gl</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-draw_octree_nodes">function draw_octree_nodes</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">draw_octree_nodes</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">    </span><span class="n">QOpenGLFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
-<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point_storage</span><span class="p">,</span>
-<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
-<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
-<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span><span class="p">,</span>
-<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">quality</span><span class="p">,</span>
-<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span>
-<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">draw_octree_nodes</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">    </span><span class="n">QOpenGLFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">point_storage</span><span class="p">,</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span><span class="p">,</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">quality</span><span class="p">,</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-draw_preview_points">function draw_preview_points</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">draw_preview_points</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">    </span><span class="n">QOpenGLFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
-<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">preview</span><span class="p">,</span>
-<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
-<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span>
-<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">draw_preview_points</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w">    </span><span class="n">QOpenGLFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OctreePointVector</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">preview</span><span class="p">,</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">file_origin</span><span class="p">,</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-ensure_gpu_timer">function ensure_gpu_timer</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">ensure_gpu_timer</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">QOpenGLExtraFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gl</span>
-<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">ensure_gpu_timer</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">QOpenGLExtraFunctions</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gl</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-ensure_shader">function ensure_shader</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">ensure_shader</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">ensure_shader</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-estimate_draw_vertices">function estimate_draw_vertices</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">estimate_draw_vertices</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
-<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">quality</span><span class="p">,</span>
-<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span>
-<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">estimate_draw_vertices</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">quality</span><span class="p">,</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-has_stream_backlog">function has_stream_backlog</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">has_stream_backlog</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">has_stream_backlog</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-last_point_draw_ms">function last_point_draw_ms</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_draw_ms</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_draw_ms</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-last_point_gpu_ms">function last_point_gpu_ms</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_gpu_ms</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_gpu_ms</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-last_point_vertices_drawn">function last_point_vertices_drawn</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_vertices_drawn</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">last_point_vertices_drawn</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-layer_slot">function layer_slot</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">layer_slot</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">layer_slot</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-point_from_index">function point_from_index</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointPickResult</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">point_from_index</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">layer_slot</span><span class="p">,</span>
-<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pick_index</span><span class="p">,</span>
-<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span>
-<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointPickResult</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">point_from_index</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">layer_slot</span><span class="p">,</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pick_index</span><span class="p">,</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Coordinate3D</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">scene_offset</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-record_lod_sample">function record_lod_sample</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">record_lod_sample</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">vertices</span><span class="p">,</span>
-<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">ms</span>
-<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">record_lod_sample</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">vertices</span><span class="p">,</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">ms</span>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-refresh_after_style_change">function refresh_after_style_change</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">refresh_after_style_change</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">refresh_after_style_change</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-render">function render</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">render</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span><span class="p">,</span>
-<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">RenderContext</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span>
-<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">render</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span><span class="p">,</span>
+<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">RenderContext</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span>
+<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="p">)</span><span class="w"> </span><span class="k">override</span>
 </code></pre></div>
 <p>Implements <a href="../classLayerRenderer/#function-render"><em>LayerRenderer::render</em></a></p>
 <hr>
 
 <h3 id="function-reset_stream_cache">function reset_stream_cache</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">reset_stream_cache</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">reset_stream_cache</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-select_draw_quality">function select_draw_quality</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">select_draw_quality</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
-<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span><span class="p">,</span>
-<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">lod_base_from_incremental</span><span class="p">,</span>
-<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">target_draw_ms</span>
-<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">select_draw_quality</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span><span class="p">,</span>
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">incremental</span><span class="p">,</span>
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">lod_base_from_incremental</span><span class="p">,</span>
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">target_draw_ms</span>
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-set_layer_slot">function set_layer_slot</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">set_layer_slot</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">slot</span>
-<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">set_layer_slot</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">slot</span>
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
 <h3 id="function-stream_camera_changed">function stream_camera_changed</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">stream_camera_changed</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span>
-<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
-</code></pre></div>
-<hr>
-
-<h3 id="function-visible_nodes_fingerprint">function visible_nodes_fingerprint</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">visible_nodes_fingerprint</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">stream_camera_changed</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Camera</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">camera</span>
 <a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
-<h3 id="function-visible_set_changed">function visible_set_changed</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">visible_set_changed</span><span class="w"> </span><span class="p">(</span>
+<h3 id="function-visible_nodes_fingerprint">function visible_nodes_fingerprint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">visible_nodes_fingerprint</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
 <a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 
+<h3 id="function-visible_set_changed">function visible_set_changed</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">visible_set_changed</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<hr>
+
 <h3 id="function-octreelaslayerrenderer_1">function ~OctreeLASLayerRenderer</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="n">OctreeLASLayerRenderer</span><span class="o">::~</span><span class="n">OctreeLASLayerRenderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="n">OctreeLASLayerRenderer</span><span class="o">::~</span><span class="n">OctreeLASLayerRenderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
 </code></pre></div>
 <hr>
 <h2 id="public-static-functions-documentation">Public Static Functions Documentation</h2>
 <h3 id="function-sort_visible_by_lod">function sort_visible_by_lod</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">sort_visible_by_lod</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
-<a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OctreeLASLayerRenderer</span><span class="o">::</span><span class="n">sort_visible_by_lod</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="n">PointOctree</span><span class="o">::</span><span class="n">VisibleNode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">visible_nodes</span>
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

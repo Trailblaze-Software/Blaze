@@ -90,6 +90,11 @@ struct GridConfig {
 struct GroundConfig {
   int min_ground_intensity = 100;
   int max_ground_intensity = 1000;
+  // When true, only LAS points classified as ground are used for the DEM minimum.
+  bool use_only_ground_class = true;
+  // Vertical threshold (m) for spike removal. <= 0 uses bin_resolution (and scales with
+  // downsample_factor on the smooth ground DEM).
+  double outlier_threshold_m = 0.0;
 };
 
 struct ContourConfig {
@@ -97,12 +102,6 @@ struct ContourConfig {
   unsigned int min_points;
   ColorVariant color;
   double width;
-};
-
-struct CanopyConfig {
-  double min_height;
-  double max_height;
-  double blocking_threshold;
 };
 
 struct BlockingThresholdColorPair {
@@ -118,6 +117,8 @@ struct VegeHeightConfig {
   std::string name;
   double min_height = 2.5;
   double max_height = 100.0;
+  // Low-pass filter radius in vegetation-grid cells applied before polygonization.
+  int smooth_radius = 3;
   std::vector<BlockingThresholdColorPair> colors;
 
   std::optional<ColorVariant> pick_from_blocked_proportion(double bp) const {
@@ -149,6 +150,12 @@ struct WaterConfig {
 
 struct WaterConfigs {
   std::map<std::string, WaterConfig> configs;
+  // Color for LAS-classified water cells on the final map overlay.
+  ColorVariant classified_overlay_color = ColorVariant(CMYKColor(100, 0, 0, 0));
+  // Minimum depression area (m²) to treat as a sink when filling the DEM for streams.
+  double sink_min_area_m2 = 5000.0;
+  // Minimum depth (m) below the filled surface for a cell to belong to a sink region.
+  double sink_depth_m = 10.0;
 
   const WaterConfig& config_from_catchment(double catchment) const {
     const WaterConfig* max_valid_config = nullptr;

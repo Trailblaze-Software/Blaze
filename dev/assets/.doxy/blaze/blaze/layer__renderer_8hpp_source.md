@@ -119,6 +119,7 @@ class OctreeLASLayerRenderer : public LayerRenderer {
 
   GLuint m_gpu_timer_query = 0;
   size_t m_lod_query_vertices = 0;
+  double m_lod_query_cpu_ms = 0.0;
 
   struct NodeStreamState {
     size_t point_count = 0;

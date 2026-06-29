@@ -115,12 +115,20 @@ template <>
 struct adl_serializer<GroundConfig> {
   static GroundConfig from_json(const json& j) {
     return GroundConfig{static_cast<int>(json_number_or(j, "min_ground_intensity", 100)),
-                        static_cast<int>(json_number_or(j, "max_ground_intensity", 1000))};
+                        static_cast<int>(json_number_or(j, "max_ground_intensity", 1000)),
+                        j.value("use_only_ground_class", true),
+                        json_number_or(j, "outlier_threshold_m", 0.0)};
   }
 
   static void to_json(json& j, GroundConfig gc) {
     j["min_ground_intensity"] = gc.min_ground_intensity;
     j["max_ground_intensity"] = gc.max_ground_intensity;
+    if (!gc.use_only_ground_class) {
+      j["use_only_ground_class"] = gc.use_only_ground_class;
+    }
+    if (gc.outlier_threshold_m > 0.0) {
+      j["outlier_threshold_m"] = gc.outlier_threshold_m;
+    }
   }
 };
 
@@ -184,20 +192,6 @@ struct adl_serializer<ContourConfig> {
 };
 
 template <>
-struct adl_serializer<CanopyConfig> {
-  static CanopyConfig from_json(const json& j) {
-    return CanopyConfig{j.value("min_height", 2.5), j.value("max_height", 100.0),
-                        j.value("blocking_threshold", 0.1)};
-  }
-
-  static void to_json(json& j, CanopyConfig vc) {
-    j["min_height"] = vc.min_height;
-    j["max_height"] = vc.max_height;
-    j["blocking_threshold"] = vc.blocking_threshold;
-  }
-};
-
-template <>
 struct adl_serializer<BlockingThresholdColorPair> {
   static BlockingThresholdColorPair from_json(const json& j) {
     return BlockingThresholdColorPair{
@@ -226,6 +220,7 @@ struct adl_serializer<VegeHeightConfig> {
     return VegeHeightConfig{
         j.value("name", "Vegetation"), json_number_or(j, "min_height", 2.5),
         json_number_or(j, "max_height", 100.0),
+        static_cast<int>(json_number_or(j, "smooth_radius", 3.0)),
         j.value("colors", json({})).get<std::vector<BlockingThresholdColorPair>>()};
   }
 
@@ -233,6 +228,9 @@ struct adl_serializer<VegeHeightConfig> {
     j["name"] = vhc.name;
     j["min_height"] = vhc.min_height;
     j["max_height"] = vhc.max_height;
+    if (vhc.smooth_radius != 3) {
+      j["smooth_radius"] = vhc.smooth_radius;
+    }
     j["colors"] = vhc.colors;
   }
 };
@@ -279,10 +277,41 @@ struct adl_serializer<WaterConfig> {
 template <>
 struct adl_serializer<WaterConfigs> {
   static WaterConfigs from_json(const json& j) {
-    return WaterConfigs{j.get<std::map<std::string, WaterConfig>>()};
+    WaterConfigs water;
+    if (!j.is_object()) {
+      return water;
+    }
+    water.sink_min_area_m2 = json_number_or(j, "sink_min_area_m2", water.sink_min_area_m2);
+    water.sink_depth_m = json_number_or(j, "sink_depth_m", water.sink_depth_m);
+    if (j.contains("classified_overlay_color")) {
+      water.classified_overlay_color = j.at("classified_overlay_color").get<ColorVariant>();
+    }
+    for (const auto& [key, value] : j.items()) {
+      if (key == "sink_min_area_m2" || key == "sink_depth_m" || key == "classified_overlay_color") {
+        continue;
+      }
+      water.configs.emplace(key, value.get<WaterConfig>());
+    }
+    return water;
   }
 
-  static void to_json(json& j, WaterConfigs cc) { j = cc.configs; }
+  static void to_json(json& j, WaterConfigs water) {
+    j = water.configs;
+    if (water.sink_min_area_m2 != 5000.0) {
+      j["sink_min_area_m2"] = water.sink_min_area_m2;
+    }
+    if (water.sink_depth_m != 10.0) {
+      j["sink_depth_m"] = water.sink_depth_m;
+    }
+    const CMYKColor default_overlay(100, 0, 0, 0);
+    const CMYKColor overlay_cmyk = to_cmyk(water.classified_overlay_color);
+    if (overlay_cmyk.getCyan() != default_overlay.getCyan() ||
+        overlay_cmyk.getMagenta() != default_overlay.getMagenta() ||
+        overlay_cmyk.getYellow() != default_overlay.getYellow() ||
+        overlay_cmyk.getBlack() != default_overlay.getBlack()) {
+      j["classified_overlay_color"] = water.classified_overlay_color;
+    }
+  }
 };
 
 template <>

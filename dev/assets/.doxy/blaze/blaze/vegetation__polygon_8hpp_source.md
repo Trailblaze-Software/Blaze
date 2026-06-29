@@ -49,21 +49,92 @@ struct VegePolygon {
 // extract_threshold_layers — extract {threshold → layer_name} from a VegeHeightConfig
 // =============================================================================
 
-inline std::string threshold_layer_name(const VegeHeightConfig& config,
-                                        const BlockingThresholdColorPair& btc) {
+inline std::string default_isom_layer_name(const VegeHeightConfig& config, size_t threshold_rank) {
+  if (config.name == "green") {
+    static constexpr const char* kGreenLayers[] = {"406_Slow_Running", "408_Walk", "410_Fight"};
+    if (threshold_rank < std::size(kGreenLayers)) {
+      return kGreenLayers[threshold_rank];
+    }
+  }
+  if (config.name == "canopy" || config.name == "forest") {
+    return "405_Forest";
+  }
+  return {};
+}
+
+inline std::string threshold_layer_name(
+    const VegeHeightConfig& config, const BlockingThresholdColorPair& btc,
+    size_t threshold_rank = std::numeric_limits<size_t>::max()) {
   if (!btc.layer.empty()) {
     return btc.layer;
+  }
+  if (threshold_rank != std::numeric_limits<size_t>::max()) {
+    if (const std::string isom_layer = default_isom_layer_name(config, threshold_rank);
+        !isom_layer.empty()) {
+      return isom_layer;
+    }
   }
   const std::string& prefix = config.name.empty() ? "Vegetation" : config.name;
   return prefix + "_" + double_to_string(btc.blocking_threshold);
 }
 
 inline std::map<double, std::string> extract_threshold_layers(const VegeHeightConfig& config) {
+  std::vector<const BlockingThresholdColorPair*> sorted;
+  sorted.reserve(config.colors.size());
+  for (const BlockingThresholdColorPair& btc : config.colors) {
+    sorted.push_back(&btc);
+  }
+  std::sort(sorted.begin(), sorted.end(),
+            [](const BlockingThresholdColorPair* a, const BlockingThresholdColorPair* b) {
+              return a->blocking_threshold < b->blocking_threshold;
+            });
+
   std::map<double, std::string> layers;
-  for (const auto& btc : config.colors) {
-    layers[btc.blocking_threshold] = threshold_layer_name(config, btc);
+  for (size_t i = 0; i < sorted.size(); ++i) {
+    layers[sorted[i]->blocking_threshold] = threshold_layer_name(config, *sorted[i], i);
   }
   return layers;
+}
+
+// Map CRT layer names (e.g. "405_Forest") to render colors from the vegetation config.
+inline std::map<std::string, ColorVariant> vege_layer_colors(const VegeConfig& vege_config) {
+  std::map<std::string, ColorVariant> colors;
+  for (const VegeHeightConfig& vc : vege_config.height_configs) {
+    std::vector<const BlockingThresholdColorPair*> sorted;
+    sorted.reserve(vc.colors.size());
+    for (const BlockingThresholdColorPair& btc : vc.colors) {
+      sorted.push_back(&btc);
+    }
+    std::sort(sorted.begin(), sorted.end(),
+              [](const BlockingThresholdColorPair* a, const BlockingThresholdColorPair* b) {
+                return a->blocking_threshold < b->blocking_threshold;
+              });
+    for (size_t i = 0; i < sorted.size(); ++i) {
+      colors.emplace(threshold_layer_name(vc, *sorted[i], i), sorted[i]->color);
+    }
+  }
+  colors.emplace("403_Rough_Open_Land", vege_config.background_color);
+  return colors;
+}
+
+// Bottom-to-top draw order for vector vegetation rendering.
+inline int vege_layer_draw_priority(const std::string& layer) {
+  if (layer == "401_Open_Land" || layer == "403_Rough_Open_Land") {
+    return 10;
+  }
+  if (layer == "405_Forest") {
+    return 20;
+  }
+  if (layer == "406_Slow_Running") {
+    return 30;
+  }
+  if (layer == "408_Walk") {
+    return 40;
+  }
+  if (layer == "410_Fight") {
+    return 50;
+  }
+  return 100;
 }
 
 // Extract the numeric layer name from a full layer string like "405_Forest" → "405".
@@ -545,10 +616,19 @@ inline std::vector<VegePolygon> generate_vege_polygons(
 
   std::map<std::string, double> min_areas, min_hole_areas;
   for (const VegeHeightConfig& vc : vege_config.height_configs) {
-    for (const auto& btc : vc.colors) {
-      const std::string layer = threshold_layer_name(vc, btc);
-      if (btc.min_area_m2 > 0) min_areas[layer] = btc.min_area_m2;
-      if (btc.min_hole_area_m2 > 0) min_hole_areas[layer] = btc.min_hole_area_m2;
+    std::vector<const BlockingThresholdColorPair*> sorted;
+    sorted.reserve(vc.colors.size());
+    for (const BlockingThresholdColorPair& btc : vc.colors) {
+      sorted.push_back(&btc);
+    }
+    std::sort(sorted.begin(), sorted.end(),
+              [](const BlockingThresholdColorPair* a, const BlockingThresholdColorPair* b) {
+                return a->blocking_threshold < b->blocking_threshold;
+              });
+    for (size_t i = 0; i < sorted.size(); ++i) {
+      const std::string layer = threshold_layer_name(vc, *sorted[i], i);
+      if (sorted[i]->min_area_m2 > 0) min_areas[layer] = sorted[i]->min_area_m2;
+      if (sorted[i]->min_hole_area_m2 > 0) min_hole_areas[layer] = sorted[i]->min_hole_area_m2;
     }
   }
   // Cross-map the two 405_Forest config thresholds onto rough open land:

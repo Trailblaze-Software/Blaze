@@ -47,11 +47,11 @@ Inherits the following classes: QWidget
 | slot void | [**add\_vege**](classConfigEditor.md#slot-add_vege)  <br> |
 | slot void | [**add\_vege\_color**](classConfigEditor.md#slot-add_vege_color)  <br> |
 | slot void | [**add\_water**](classConfigEditor.md#slot-add_water)  <br> |
-| slot void | [**on\_color\_selected**](classConfigEditor.md#slot-on_color_selected)  <br> |
-| slot void | [**on\_color\_type\_changed**](classConfigEditor.md#slot-on_color_type_changed) (int index) <br> |
-| slot void | [**on\_contour\_selected**](classConfigEditor.md#slot-on_contour_selected)  <br> |
-| slot void | [**on\_vege\_selected**](classConfigEditor.md#slot-on_vege_selected)  <br> |
-| slot void | [**on\_water\_selected**](classConfigEditor.md#slot-on_water_selected)  <br> |
+| slot void | [**handle\_color\_selected**](classConfigEditor.md#slot-handle_color_selected)  <br> |
+| slot void | [**handle\_color\_type\_changed**](classConfigEditor.md#slot-handle_color_type_changed) (int index) <br> |
+| slot void | [**handle\_contour\_selected**](classConfigEditor.md#slot-handle_contour_selected)  <br> |
+| slot void | [**handle\_vege\_selected**](classConfigEditor.md#slot-handle_vege_selected)  <br> |
+| slot void | [**handle\_water\_selected**](classConfigEditor.md#slot-handle_water_selected)  <br> |
 | slot void | [**open\_config\_file**](classConfigEditor.md#slot-open_config_file)  <br> |
 | slot void | [**pick\_color**](classConfigEditor.md#slot-pick_color)  <br> |
 | slot void | [**remove\_color**](classConfigEditor.md#slot-remove_color)  <br> |
@@ -69,6 +69,7 @@ Inherits the following classes: QWidget
 | slot void | [**update\_vege\_color\_from\_ui**](classConfigEditor.md#slot-update_vege_color_from_ui) (int row, int column) <br> |
 | slot void | [**update\_vege\_from\_ui**](classConfigEditor.md#slot-update_vege_from_ui)  <br> |
 | slot void | [**update\_water\_from\_ui**](classConfigEditor.md#slot-update_water_from_ui)  <br> |
+| slot void | [**update\_water\_globals\_from\_ui**](classConfigEditor.md#slot-update_water_globals_from_ui)  <br> |
 
 
 
@@ -221,10 +222,10 @@ void ConfigEditor::add_water;
 
 
 
-### slot on\_color\_selected 
+### slot handle\_color\_selected 
 
 ```C++
-void ConfigEditor::on_color_selected;
+void ConfigEditor::handle_color_selected;
 ```
 
 
@@ -234,10 +235,10 @@ void ConfigEditor::on_color_selected;
 
 
 
-### slot on\_color\_type\_changed 
+### slot handle\_color\_type\_changed 
 
 ```C++
-void ConfigEditor::on_color_type_changed;
+void ConfigEditor::handle_color_type_changed;
 ```
 
 
@@ -247,10 +248,10 @@ void ConfigEditor::on_color_type_changed;
 
 
 
-### slot on\_contour\_selected 
+### slot handle\_contour\_selected 
 
 ```C++
-void ConfigEditor::on_contour_selected;
+void ConfigEditor::handle_contour_selected;
 ```
 
 
@@ -260,10 +261,10 @@ void ConfigEditor::on_contour_selected;
 
 
 
-### slot on\_vege\_selected 
+### slot handle\_vege\_selected 
 
 ```C++
-void ConfigEditor::on_vege_selected;
+void ConfigEditor::handle_vege_selected;
 ```
 
 
@@ -273,10 +274,10 @@ void ConfigEditor::on_vege_selected;
 
 
 
-### slot on\_water\_selected 
+### slot handle\_water\_selected 
 
 ```C++
-void ConfigEditor::on_water_selected;
+void ConfigEditor::handle_water_selected;
 ```
 
 
@@ -498,6 +499,19 @@ void ConfigEditor::update_vege_from_ui;
 
 ```C++
 void ConfigEditor::update_water_from_ui;
+```
+
+
+
+
+<hr>
+
+
+
+### slot update\_water\_globals\_from\_ui 
+
+```C++
+void ConfigEditor::update_water_globals_from_ui;
 ```
 
 

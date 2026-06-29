@@ -758,7 +758,13 @@
       <node id="118">
         <label>utilities/env.hpp</label>
         <link refid="utilities_2env_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
         <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
       <node id="46">
@@ -1151,7 +1157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d.cpp" line="299" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d.cpp" bodystart="299" bodyend="353"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d.cpp" line="299" column="5" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/main_3d.cpp" bodystart="299" bodyend="355"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -1458,60 +1464,62 @@
 <codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="298"><highlight class="normal"></highlight></codeline>
 <codeline lineno="299"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])<sp/>{</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="301"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>owned_console<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!AttachConsole(ATTACH_PARENT_PROCESS))<sp/>{</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/>owned_console<sp/>=<sp/>AllocConsole()<sp/>!=<sp/>FALSE;</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GetConsoleWindow()<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>FILE*<sp/>unused<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/>freopen_s(&amp;unused,<sp/></highlight><highlight class="stringliteral">&quot;CONOUT$&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">,<sp/>stdout);</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>freopen_s(&amp;unused,<sp/></highlight><highlight class="stringliteral">&quot;CONOUT$&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">,<sp/>stderr);</highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="311"><highlight class="normal"></highlight></codeline>
-<codeline lineno="312"><highlight class="normal"><sp/><sp/>QSurfaceFormat<sp/>format;</highlight></codeline>
-<codeline lineno="313"><highlight class="normal"><sp/><sp/>format.setVersion(3,<sp/>3);</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"><sp/><sp/>format.setProfile(QSurfaceFormat::CoreProfile);</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/>QSurfaceFormat::setDefaultFormat(format);</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"></highlight></codeline>
-<codeline lineno="317"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LaunchOptions<sp/>opts<sp/>=<sp/>parse_args(argc,<sp/>argv);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/>blaze::enable_discrete_gpu_offload();</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>owned_console<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!AttachConsole(ATTACH_PARENT_PROCESS))<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>owned_console<sp/>=<sp/>AllocConsole()<sp/>!=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GetConsoleWindow()<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>FILE*<sp/>unused<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>freopen_s(&amp;unused,<sp/></highlight><highlight class="stringliteral">&quot;CONOUT$&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">,<sp/>stdout);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>freopen_s(&amp;unused,<sp/></highlight><highlight class="stringliteral">&quot;CONOUT$&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">,<sp/>stderr);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/>QSurfaceFormat<sp/>format;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/>format.setVersion(3,<sp/>3);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/>format.setProfile(QSurfaceFormat::CoreProfile);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/>QSurfaceFormat::setDefaultFormat(format);</highlight></codeline>
 <codeline lineno="318"><highlight class="normal"></highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(opts.probe_las<sp/>&amp;&amp;<sp/>opts.las_path)<sp/>{</highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>probe_las_file(*opts.las_path);</highlight></codeline>
-<codeline lineno="321"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"></highlight></codeline>
-<codeline lineno="323"><highlight class="normal"><sp/><sp/>QApplication<sp/>a(argc,<sp/>argv);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LaunchOptions<sp/>opts<sp/>=<sp/>parse_args(argc,<sp/>argv);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(opts.probe_las<sp/>&amp;&amp;<sp/>opts.las_path)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>probe_las_file(*opts.las_path);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="324"><highlight class="normal"></highlight></codeline>
-<codeline lineno="325"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(owned_console)<sp/>{</highlight></codeline>
-<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>QObject::connect(&amp;a,<sp/>&amp;QApplication::aboutToQuit,<sp/>[]<sp/>{<sp/>FreeConsole();<sp/>});</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="329"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="330"><highlight class="normal"></highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/><ref refid="classMain3DWindow" kindref="compound">Main3DWindow</ref><sp/>window;</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"><sp/><sp/>window.set_exit_after_load(opts.exit_after_load);</highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/>window.set_exit_after_render(opts.exit_after_render);</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/>window.set_bench_mode(opts.bench_mode);</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"></highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/>window.show();</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/>QApplication<sp/>a(argc,<sp/>argv);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(owned_console)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>QObject::connect(&amp;a,<sp/>&amp;QApplication::aboutToQuit,<sp/>[]<sp/>{<sp/>FreeConsole();<sp/>});</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><ref refid="classMain3DWindow" kindref="compound">Main3DWindow</ref><sp/>window;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/>window.set_exit_after_load(opts.exit_after_load);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/>window.set_exit_after_render(opts.exit_after_render);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/>window.set_bench_mode(opts.bench_mode);</highlight></codeline>
 <codeline lineno="337"><highlight class="normal"></highlight></codeline>
-<codeline lineno="338"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(opts.las_path)<sp/>{</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/>window.add_layer(std::make_unique&lt;LASLayer&gt;(*opts.las_path,<sp/>window.add_progress_tracker(),</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>window.scene_reference_crs()));</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!opts.import_path)<sp/>{</highlight></codeline>
-<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/>window.add_layer(std::make_unique&lt;LASLayer&gt;(AssetRetriever::get_asset(</highlight><highlight class="stringliteral">&quot;sample.laz&quot;</highlight><highlight class="normal">),</highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>window.add_progress_tracker(),</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>window.scene_reference_crs()));</highlight></codeline>
-<codeline lineno="345"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="346"><highlight class="normal"></highlight></codeline>
-<codeline lineno="347"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(opts.import_path)<sp/>{</highlight></codeline>
-<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/>window.set_defer_render_until_loaded(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/>window.import_blaze_output_from_path(opts.import_path-&gt;string());</highlight></codeline>
-<codeline lineno="350"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="351"><highlight class="normal"></highlight></codeline>
-<codeline lineno="352"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>QApplication::exec();</highlight></codeline>
-<codeline lineno="353"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/>window.show();</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(opts.las_path)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>window.add_layer(std::make_unique&lt;LASLayer&gt;(*opts.las_path,<sp/>window.add_progress_tracker(),</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>window.scene_reference_crs()));</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!opts.import_path)<sp/>{</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/>window.add_layer(std::make_unique&lt;LASLayer&gt;(AssetRetriever::get_asset(</highlight><highlight class="stringliteral">&quot;sample.laz&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>window.add_progress_tracker(),</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>window.scene_reference_crs()));</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(opts.import_path)<sp/>{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>window.set_defer_render_until_loaded(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/>window.import_blaze_output_from_path(opts.import_path-&gt;string());</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>QApplication::exec();</highlight></codeline>
+<codeline lineno="355"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/gui/main_3d.cpp"/>
   </compounddef>

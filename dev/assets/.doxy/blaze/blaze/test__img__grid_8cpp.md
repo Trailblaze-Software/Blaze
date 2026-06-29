@@ -11,6 +11,7 @@
 
 
 * `#include <gtest/gtest.h>`
+* `#include "geometry/polygon.hpp"`
 * `#include "grid/grid.hpp"`
 * `#include "grid/img_grid.hpp"`
 * `#include "isom/colors.hpp"`
@@ -59,6 +60,10 @@
 |   | [**TEST**](#function-test) (GeoGridRGB, DrawAlphaBlendsOverlappingPixels) <br> |
 |   | [**TEST**](#function-test) (GeoGridRGB, DrawNonSquareGrid) <br> |
 |   | [**TEST**](#function-test) (GeoGridRGB, DrawOpaqueForegroundReplacesBackground) <br> |
+|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawFilledPolygonFillsInterior) <br> |
+|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawOverlaySkipsTransparentPixels) <br> |
+|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawOverlayCopiesOpaquePixels) <br> |
+|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawSkipsFullyTransparentForeground) <br> |
 
 
 
@@ -130,6 +135,70 @@ TEST (
 TEST (
     GeoGridRGB,
     DrawOpaqueForegroundReplacesBackground
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GeoImgGrid,
+    DrawFilledPolygonFillsInterior
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GeoImgGrid,
+    DrawOverlaySkipsTransparentPixels
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GeoImgGrid,
+    DrawOverlayCopiesOpaquePixels
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GeoImgGrid,
+    DrawSkipsFullyTransparentForeground
 ) 
 ```
 

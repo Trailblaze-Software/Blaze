@@ -40,6 +40,7 @@
 * **GeoFlexGrid** ([**forward\_grid.hpp**](forward__grid_8hpp.md))
 * **GeoGrid** ([**forward\_grid.hpp**](forward__grid_8hpp.md))
 * **GeoImgGrid** ([**forward\_grid.hpp**](forward__grid_8hpp.md))
+* **GeoGridCompositeMode** ([**grid.hpp**](grid_8hpp.md))
 * **GroundMethod** ([**process.cpp**](process_8cpp.md))
 
 

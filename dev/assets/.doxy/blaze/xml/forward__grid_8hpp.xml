@@ -49,7 +49,7 @@
         <label>/home/runner/work/Blaze/Blaze/src/gui/main_3d_window.hpp</label>
         <link refid="main__3d__window_8hpp_source"/>
       </node>
-      <node id="17">
+      <node id="18">
         <label>/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp</label>
         <link refid="octree__las__data_8hpp_source"/>
         <childnode refid="4" relation="include">
@@ -72,9 +72,9 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
         <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -90,7 +90,7 @@
         <link refid="forward__grid_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -102,52 +102,54 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
         <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/grid_ops.hpp</label>
         <link refid="grid__ops_8hpp_source"/>
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
         <link refid="img__grid_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/crs.hpp</label>
         <link refid="crs_8hpp_source"/>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
         <childnode refid="4" relation="include">
@@ -155,55 +157,61 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="20">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/binned_points.hpp</label>
         <link refid="binned__points_8hpp_source"/>
       </node>
-      <node id="18">
+      <node id="19">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/las_file.hpp</label>
         <link refid="las__file_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>/home/runner/work/Blaze/Blaze/src/lib/las/tile_mode.hpp</label>
         <link refid="tile__mode_8hpp_source"/>
       </node>
-      <node id="22">
+      <node id="23">
         <label>/home/runner/work/Blaze/Blaze/src/lib/tif/tif.hpp</label>
         <link refid="tif_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="13">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vector_vege_render.hpp</label>
+        <link refid="vector__vege__render_8hpp_source"/>
+      </node>
+      <node id="24">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation.hpp</label>
         <link refid="vegetation_8hpp_source"/>
       </node>
       <node id="12">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
         <link refid="vegetation__polygon_8hpp_source"/>
-      </node>
-      <node id="24">
-        <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
-        <link refid="hill__shade_8hpp_source"/>
-      </node>
-      <node id="25">
-        <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
-        <link refid="water_8hpp_source"/>
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="25">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp</label>
+        <link refid="hill__shade_8hpp_source"/>
+      </node>
+      <node id="26">
+        <label>/home/runner/work/Blaze/Blaze/src/methods/water/water.hpp</label>
+        <link refid="water_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
         <label>/home/runner/work/Blaze/Blaze/src/process.hpp</label>
         <link refid="process_8hpp_source"/>
       </node>
@@ -226,7 +234,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="48" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" bodystart="48" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="49" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="forward__grid_8hpp_1ae227542ea089cbaf01ee0e65f26fec10" prot="public" static="no">
         <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; <ref refid="classRGBColor" kindref="compound">RGBColor</ref> &gt;</type>
@@ -239,7 +247,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="50" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" bodystart="50" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="51" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="forward__grid_8hpp_1a935591689e33a994f1536b18ed9ce6f4" prot="public" static="no">
         <type><ref refid="classGeo" kindref="compound">Geo</ref>&lt; <ref refid="classFlexGrid" kindref="compound">FlexGrid</ref> &gt;</type>
@@ -252,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="51" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" bodystart="51" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="52" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" bodystart="52" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
@@ -275,7 +283,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="53" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="26" bodyend="37" declfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" declline="53" declcolumn="8"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="54" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="26" bodyend="37" declfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" declline="54" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="forward__grid_8hpp_1ab0324ff273d55dadb7ef56bf2341397f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -301,7 +309,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="56" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="116" bodyend="147" declfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" declline="56" declcolumn="3"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" line="57" column="3" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="115" bodyend="146" declfile="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp" declline="57" declcolumn="3"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -335,36 +343,37 @@
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>;</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>;</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structStream" kindref="compound">Stream</ref>;</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGridData" kindref="compound">GridData</ref>;</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>;</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeoGridData" kindref="compound">GeoGridData</ref>;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classFlexGrid" kindref="compound">FlexGrid</ref>;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structBlazeBool" kindref="compound">BlazeBool</ref>;</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U&gt;</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGrid" kindref="compound">Grid</ref>;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Gr</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">T&gt;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">Geo</ref>;</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Gr</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">T&gt;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classMultiBand" kindref="compound">MultiBand</ref>;</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGridGraph" kindref="compound">GridGraph</ref>;</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid</ref><sp/>=<sp/><ref refid="classGeo" kindref="compound">Geo&lt;Grid&lt;T&gt;</ref>&gt;;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoImgGrid</ref><sp/>=<sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;RGBColor&gt;</ref>;</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoFlexGrid</ref><sp/>=<sp/><ref refid="classGeo" kindref="compound">Geo&lt;FlexGrid&gt;</ref>;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>num_cells_by_distance(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dx);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal">T<sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/>projection_coord);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGridData" kindref="compound">GridData</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeoGridData" kindref="compound">GeoGridData</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classFlexGrid" kindref="compound">FlexGrid</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structBlazeBool" kindref="compound">BlazeBool</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U&gt;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGrid" kindref="compound">Grid</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Gr</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">T&gt;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">Geo</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Gr</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">T&gt;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classMultiBand" kindref="compound">MultiBand</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGridGraph" kindref="compound">GridGraph</ref>;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid</ref><sp/>=<sp/><ref refid="classGeo" kindref="compound">Geo&lt;Grid&lt;T&gt;</ref>&gt;;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoImgGrid</ref><sp/>=<sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;RGBColor&gt;</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoFlexGrid</ref><sp/>=<sp/><ref refid="classGeo" kindref="compound">Geo&lt;FlexGrid&gt;</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>num_cells_by_distance(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dx);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">T<sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/>projection_coord);</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/forward_grid.hpp"/>
   </compounddef>

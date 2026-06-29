@@ -39,6 +39,7 @@
 |  double | [**max\_height**](#variable-max_height)   = `100.0`<br> |
 |  double | [**min\_height**](#variable-min_height)   = `2.5`<br> |
 |  std::string | [**name**](#variable-name)  <br> |
+|  int | [**smooth\_radius**](#variable-smooth_radius)   = `3`<br> |
 
 
 
@@ -136,6 +137,19 @@ double VegeHeightConfig::min_height;
 
 ```C++
 std::string VegeHeightConfig::name;
+```
+
+
+
+
+<hr>
+
+
+
+### variable smooth\_radius 
+
+```C++
+int VegeHeightConfig::smooth_radius;
 ```
 
 

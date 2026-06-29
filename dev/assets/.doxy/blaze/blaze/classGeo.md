@@ -77,9 +77,9 @@ Inherits the following classes: GridT,  [GeoGridData](classGeoGridData.md)
 |   | [**Geo**](#function-geo-13) (size\_t width, size\_t height, [**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection) <br> |
 |   | [**Geo**](#function-geo-23) ([**GeoTransform**](classGeoTransform.md) && transform, [**GeoProjection**](classGeoProjection.md) && projection, Args... args) <br> |
 |   | [**Geo**](#function-geo-33) (const std::vector&lt; std::vector&lt; U &gt; &gt; & data, [**GeoTransform**](classGeoTransform.md) transform=[**GeoTransform**](classGeoTransform.md)(), [**GeoProjection**](classGeoProjection.md) projection=[**GeoProjection**](classGeoProjection.md)()) <br> |
-|  void | [**draw**](#function-draw-12) (const [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**RGBColor**](classRGBColor.md) &gt; &gt; & other, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br> |
-|  void | [**draw**](#function-draw-22) (const [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**CMYKColor**](classCMYKColor.md) &gt; &gt; & other, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br> |
+|  void | [**draw**](#function-draw) (const [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; [**RGBColor**](classRGBColor.md) &gt; &gt; & other, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, GeoGridCompositeMode composite\_mode=GeoGridCompositeMode::AlphaBlend, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br> |
 |  void | [**draw\_contours**](#function-draw_contours) (const std::vector&lt; [**Contour**](classContour.md) &gt; & contours, const [**ContourConfigs**](structContourConfigs.md) & configs, double render\_scale, bool base\_layer\_only, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  void | [**draw\_filled\_polygon**](#function-draw_filled_polygon) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & poly, const ColorVariant & color) <br> |
 |  void | [**draw\_point**](#function-draw_point) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point, const ColorVariant & color, double size) <br> |
 |  void | [**draw\_streams**](#function-draw_streams) (const std::vector&lt; [**Stream**](structStream.md) &gt; & streams, const [**WaterConfigs**](structWaterConfigs.md) & water, double render\_scale, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  std::unique\_ptr&lt; [**Extent2D**](structExtent2D.md) &gt; | [**extent**](#function-extent) () const<br> |
@@ -87,6 +87,7 @@ Inherits the following classes: GridT,  [GeoGridData](classGeoGridData.md)
 |  void | [**fill\_from**](#function-fill_from-22) (const U & other) <br> |
 |  double | [**height\_m**](#function-height_m) () const<br> |
 |  [**Geo**](classGeo.md) | [**pad**](#function-pad) (U pad\_value={}) const<br> |
+|  void | [**rasterize\_filled\_polygons**](#function-rasterize_filled_polygons) (const std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; & polygons, const ColorVariant & color, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  void | [**save\_to**](#function-save_to) (const fs::path & path, const [**Extent2D**](structExtent2D.md) & extent, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  [**Geo**](classGeo.md) | [**slice**](#function-slice) (const [**Extent2D**](structExtent2D.md) & extent) <br> |
 |  double | [**width\_m**](#function-width_m) () const<br> |
@@ -229,29 +230,13 @@ inline Geo::Geo (
 
 
 
-### function draw [1/2]
+### function draw 
 
 ```C++
 inline void Geo::draw (
     const Geo < Grid < RGBColor > > & other,
     ProgressTracker && progress_tracker,
-    std::optional< blaze::InterpolationMode > interpolation={}
-) 
-```
-
-
-
-
-<hr>
-
-
-
-### function draw [2/2]
-
-```C++
-inline void Geo::draw (
-    const Geo < Grid < CMYKColor > > & other,
-    ProgressTracker && progress_tracker,
+    GeoGridCompositeMode composite_mode=GeoGridCompositeMode::AlphaBlend,
     std::optional< blaze::InterpolationMode > interpolation={}
 ) 
 ```
@@ -272,6 +257,22 @@ inline void Geo::draw_contours (
     double render_scale,
     bool base_layer_only,
     ProgressTracker && progress_tracker
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function draw\_filled\_polygon 
+
+```C++
+inline void Geo::draw_filled_polygon (
+    const PolygonWithHoles & poly,
+    const ColorVariant & color
 ) 
 ```
 
@@ -382,6 +383,23 @@ template<typename U>
 inline Geo Geo::pad (
     U pad_value={}
 ) const
+```
+
+
+
+
+<hr>
+
+
+
+### function rasterize\_filled\_polygons 
+
+```C++
+inline void Geo::rasterize_filled_polygons (
+    const std::vector< PolygonWithHoles > & polygons,
+    const ColorVariant & color,
+    ProgressTracker && progress_tracker
+) 
 ```
 
 

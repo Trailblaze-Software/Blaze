@@ -10,13 +10,16 @@
 
 
 
+* `#include <atomic>`
 * `#include <cmath>`
 * `#include <span>`
 * `#include <stdexcept>`
 * `#include <string>`
 * `#include "config_input/config_input.hpp"`
 * `#include "contour/contour.hpp"`
+* `#include "geometry/polygon.hpp"`
 * `#include "grid/grid.hpp"`
+* `#include "isom/colors.hpp"`
 * `#include "methods/water/water.hpp"`
 * `#include "tif/tif.hpp"`
 * `#include "utilities/progress_tracker.hpp"`

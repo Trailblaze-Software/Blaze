@@ -343,9 +343,9 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -362,11 +362,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>/home/runner/work/Blaze/Blaze/src/lib/grid/img_grid.hpp</label>
         <link refid="img__grid_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>/home/runner/work/Blaze/Blaze/src/lib/io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
         <childnode refid="3" relation="include">
@@ -374,9 +376,15 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
+      <node id="10">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vector_vege_render.hpp</label>
+        <link refid="vector__vege__render_8hpp_source"/>
+      </node>
       <node id="9">
         <label>/home/runner/work/Blaze/Blaze/src/lib/vegetation/vegetation_polygon.hpp</label>
         <link refid="vegetation__polygon_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <sectiondef kind="define">

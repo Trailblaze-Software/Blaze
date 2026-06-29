@@ -11,7 +11,7 @@
 
 ## b
 
-* **blocking\_threshold** ([**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md), [**CanopyConfig**](structCanopyConfig.md))
+* **blocking\_threshold** ([**BlockingThresholdColorPair**](structBlockingThresholdColorPair.md))
 * **border\_width** ([**Config**](structConfig.md))
 * **buildings** ([**Config**](structConfig.md))
 * **bin\_resolution** ([**GridConfig**](structGridConfig.md))
@@ -40,6 +40,7 @@
 * **catchment** ([**Stream**](structStream.md), [**WaterConfig**](structWaterConfig.md))
 * **coords** ([**Stream**](structStream.md))
 * **crs\_mismatch** ([**TileModeInfo**](structTileModeInfo.md))
+* **classified\_overlay\_color** ([**WaterConfigs**](structWaterConfigs.md))
 
 
 ## d
@@ -162,8 +163,6 @@
 * **m\_up** ([**Camera**](classCamera.md), [**ContourPoint**](classContourPoint.md))
 * **m\_width** ([**Camera**](classCamera.md), [**GridData**](classGridData.md), [**PointCloudFramebuffer**](classPointCloudFramebuffer.md))
 * **m\_world\_offset** ([**Camera**](classCamera.md))
-* **max\_height** ([**CanopyConfig**](structCanopyConfig.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
-* **min\_height** ([**CanopyConfig**](structCanopyConfig.md), [**VegeHeightConfig**](structVegeHeightConfig.md))
 * **m\_config** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_inputs\_mixed\_crs** ([**ConfigEditor**](classConfigEditor.md))
 * **m\_inputs\_overlap** ([**ConfigEditor**](classConfigEditor.md))
@@ -338,6 +337,7 @@
 * **m\_layer\_slot** ([**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md))
 * **m\_light\_direction\_eye\_loc** ([**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md))
 * **m\_lod\_quality** ([**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md))
+* **m\_lod\_query\_cpu\_ms** ([**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md))
 * **m\_lod\_query\_vertices** ([**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md))
 * **m\_ms\_per\_vertex** ([**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md))
 * **m\_node\_stream** ([**OctreeLASLayerRenderer**](classOctreeLASLayerRenderer.md))
@@ -386,6 +386,8 @@
 * **m\_scene\_color\_loc** ([**SceneFramebuffer**](classSceneFramebuffer.md))
 * **m\_what** ([**TaskException**](classTaskException.md))
 * **m\_start** ([**Timer**](classTimer.md), [**octree\_las\_detail::BenchTimer**](structoctree__las__detail_1_1BenchTimer.md))
+* **max\_height** ([**VegeHeightConfig**](structVegeHeightConfig.md))
+* **min\_height** ([**VegeHeightConfig**](structVegeHeightConfig.md))
 * **m\_path** ([**blaze::trace::RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md))
 * **m\_cell\_size** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
 * **m\_cells** ([**detail::ExtentSpatialIndex**](classdetail_1_1ExtentSpatialIndex.md))
@@ -407,6 +409,7 @@
 * **outputs** ([**BlazeOutputDiscovery**](structBlazeOutputDiscovery.md))
 * **output\_directory** ([**Config**](structConfig.md))
 * **override\_crs** ([**Config**](structConfig.md), [**LASFileExtent**](structLASFileExtent.md))
+* **outlier\_threshold\_m** ([**GroundConfig**](structGroundConfig.md))
 * **octree** ([**LasRenderSnapshot**](structLasRenderSnapshot.md))
 * **ok** ([**UserCrsParseResult**](structUserCrsParseResult.md))
 
@@ -442,6 +445,9 @@
 * **streamed\_count** ([**OctreeLASLayerRenderer::NodeStreamState**](structOctreeLASLayerRenderer_1_1NodeStreamState.md))
 * **secondary\_priority** ([**PriorityPoint**](structPriorityPoint.md))
 * **scale** ([**RenderConfig**](structRenderConfig.md))
+* **smooth\_radius** ([**VegeHeightConfig**](structVegeHeightConfig.md))
+* **sink\_depth\_m** ([**WaterConfigs**](structWaterConfigs.md))
+* **sink\_min\_area\_m2** ([**WaterConfigs**](structWaterConfigs.md))
 
 
 ## t
@@ -453,6 +459,7 @@
 ## u
 
 * **ui** ([**ConfigEditor**](classConfigEditor.md), [**Main3DWindow**](classMain3DWindow.md), [**MainWindow**](classMainWindow.md), [**ProgressBox**](classProgressBox.md))
+* **use\_only\_ground\_class** ([**GroundConfig**](structGroundConfig.md))
 
 
 ## v

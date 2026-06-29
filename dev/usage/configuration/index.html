@@ -1167,6 +1167,8 @@
 <ul>
 <li><code>min_ground_intensity</code>: Minimum intensity value for ground points.</li>
 <li><code>max_ground_intensity</code>: Maximum intensity value for ground points.</li>
+<li><code>use_only_ground_class</code>: When <code>true</code> (default), only LiDAR points classified as ground are used for the DEM minimum. Set to <code>false</code> to use the lowest point in each cell regardless of class.</li>
+<li><code>outlier_threshold_m</code>: Maximum vertical spike height (m) removed from the ground DEM. <code>0</code> (default) uses automatic thresholds: <code>bin_resolution</code> on the fine ground grid, scaled by <code>downsample_factor</code> on the smooth ground DEM.</li>
 </ul>
 <h3 id="contours">Contours</h3>
 <p>Defines contour lines. You can define multiple types (e.g., normal, index).</p>
@@ -1179,6 +1181,10 @@
 <h3 id="water">Water</h3>
 <p>Defines watercourse detection based on catchment area.</p>
 <ul>
+<li><code>classified_overlay_color</code>: Color for LiDAR-classified water cells on the final map overlay (default: cyan).</li>
+<li><code>sink_min_area_m2</code>: Minimum depression area (m²) to treat as a sink when filling the DEM for streams.</li>
+<li><code>sink_depth_m</code>: Minimum depth (m) below the filled surface for a sink region.</li>
+<li>Per-stream entries:</li>
 <li><code>catchment</code>: Threshold for catchment area to define a stream.</li>
 <li><code>color</code>: Color of the water line.</li>
 <li><code>width</code>: Line width in mm.</li>
@@ -1190,6 +1196,7 @@
 <li><code>height_configs</code>: List of height bands (e.g., low vegetation, canopy).</li>
 <li><code>min_height</code>: Minimum height of vegetation in this band.</li>
 <li><code>max_height</code>: Maximum height.</li>
+<li><code>smooth_radius</code>: Radius of the low-pass filter applied to the blocked-proportion map before polygonization, in vegetation grid cells (default: <code>3</code>). Larger values produce smoother boundaries. Set independently per height band (e.g. canopy vs green).</li>
 <li><code>colors</code>: List of colors based on blocking threshold (density).</li>
 </ul>
 <h3 id="buildings">Buildings</h3>

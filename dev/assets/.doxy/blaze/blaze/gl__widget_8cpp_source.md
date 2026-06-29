@@ -216,6 +216,7 @@ void GLWidget::initializeGL() {
   QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
 
   std::cout << "Detected OpenGL version: " << f->glGetString(GL_VERSION) << std::endl;
+  std::cout << "Detected OpenGL renderer: " << f->glGetString(GL_RENDERER) << std::endl;
 
   Assert(f->glGetError() == GL_NO_ERROR, "OpenGL error");
   Assert(QOpenGLContext::currentContext()->isValid(), "OpenGL context is invalid");

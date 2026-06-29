@@ -32,6 +32,7 @@
 ## e
 
 * **enabled** ([**blaze::trace**](namespaceblaze_1_1trace.md))
+* **enable\_discrete\_gpu\_offload** ([**blaze**](namespaceblaze.md))
 
 
 ## f

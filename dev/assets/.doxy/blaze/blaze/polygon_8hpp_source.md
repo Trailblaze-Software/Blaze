@@ -58,6 +58,19 @@ struct PolygonWithHoles {
   std::vector<std::vector<Coordinate2D<double>>> holes;
 };
 
+inline bool point_in_polygon_with_holes(const Coordinate2D<double>& point,
+                                        const PolygonWithHoles& poly) {
+  if (!point_in_ring(point, poly.exterior)) {
+    return false;
+  }
+  for (const std::vector<Coordinate2D<double>>& hole : poly.holes) {
+    if (point_in_ring(point, hole)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 // CCW axis-aligned rectangle from an extent (for clipping/intersection).
 inline PolygonWithHoles polygon_from_extent(const Extent2D& extent) {
   return {{{extent.minx, extent.miny},

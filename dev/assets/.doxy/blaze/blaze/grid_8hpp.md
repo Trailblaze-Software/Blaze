@@ -62,6 +62,11 @@
 | struct | [**is\_specialization&lt; Ref&lt; Args... &gt;, Ref &gt;**](structis__specialization_3_01Ref_3_01Args_8_8_8_01_4_00_01Ref_01_4.md) &lt;Ref, Args&gt;<br> |
 
 
+## Public Types
+
+| Type | Name |
+| ---: | :--- |
+| enum  | [**GeoGridCompositeMode**](#enum-geogridcompositemode)  <br> |
 
 
 
@@ -121,6 +126,24 @@
 
 
 
+## Public Types Documentation
+
+
+
+
+### enum GeoGridCompositeMode 
+
+```C++
+enum GeoGridCompositeMode {
+    AlphaBlend,
+    OpaqueCopy
+};
+```
+
+
+
+
+<hr>
 ## Public Attributes Documentation
 
 

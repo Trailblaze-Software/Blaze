@@ -1391,6 +1391,8 @@
 <li><strong>draw_geo_polyline</strong> (<a href="../img__grid_8hpp/"><strong>img_grid.hpp</strong></a>)</li>
 <li><strong>detect_tile_mode_needed</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>double_to_string</strong> (<a href="../to__string_8hpp/"><strong>to_string.hpp</strong></a>)</li>
+<li><strong>draw_vector_vegetation</strong> (<a href="../vector__vege__render_8hpp/"><strong>vector_vege_render.hpp</strong></a>)</li>
+<li><strong>default_isom_layer_name</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>downsample_mask_any</strong> (<a href="../process_8cpp/"><strong>process.cpp</strong></a>)</li>
 </ul>
 <h2 id="e">e</h2>
@@ -1496,6 +1498,7 @@
 <li><strong>parse_args</strong> (<a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>)</li>
 <li><strong>print_usage</strong> (<a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>)</li>
 <li><strong>probe_las_file</strong> (<a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>)</li>
+<li><strong>point_in_polygon_with_holes</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>point_in_ring</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>polygon_from_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>polygon_net_area_m2</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
@@ -1546,7 +1549,7 @@
 </ul>
 <h2 id="t">t</h2>
 <ul>
-<li><strong>TEST</strong> (<a href="../test__camera_8cpp/"><strong>test_camera.cpp</strong></a>, <a href="../test__frustum_8cpp/"><strong>test_frustum.cpp</strong></a>, <a href="../test__octree_8cpp/"><strong>test_octree.cpp</strong></a>, <a href="../test__config__lookup_8cpp/"><strong>test_config_lookup.cpp</strong></a>, <a href="../test__config__paths_8cpp/"><strong>test_config_paths.cpp</strong></a>, <a href="../test__contour__gen_8cpp/"><strong>test_contour_gen.cpp</strong></a>, <a href="../test__contour__ops_8cpp/"><strong>test_contour_ops.cpp</strong></a>, <a href="../test__contour__utils_8cpp/"><strong>test_contour_utils.cpp</strong></a>, <a href="../test__polygon_8cpp/"><strong>test_polygon.cpp</strong></a>, <a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>, <a href="../test__grid__ops_8cpp/"><strong>test_grid_ops.cpp</strong></a>, <a href="../test__image_8cpp/"><strong>test_image.cpp</strong></a>, <a href="../test__img__grid_8cpp/"><strong>test_img_grid.cpp</strong></a>, <a href="../test__gpkg_8cpp/"><strong>test_gpkg.cpp</strong></a>, <a href="../test__colors_8cpp/"><strong>test_colors.cpp</strong></a>, <a href="../test__las__file_8cpp/"><strong>test_las_file.cpp</strong></a>, <a href="../test__las__point_8cpp/"><strong>test_las_point.cpp</strong></a>, <a href="../test__coordinate_8cpp/"><strong>test_coordinate.cpp</strong></a>, <a href="../test__progress__tracker_8cpp/"><strong>test_progress_tracker.cpp</strong></a>, <a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>, <a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>, <a href="../test__water_8cpp/"><strong>test_water.cpp</strong></a>, <a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>, <a href="../test__process_8cpp/"><strong>test_process.cpp</strong></a>)</li>
+<li><strong>TEST</strong> (<a href="../test__camera_8cpp/"><strong>test_camera.cpp</strong></a>, <a href="../test__frustum_8cpp/"><strong>test_frustum.cpp</strong></a>, <a href="../test__octree_8cpp/"><strong>test_octree.cpp</strong></a>, <a href="../test__config__lookup_8cpp/"><strong>test_config_lookup.cpp</strong></a>, <a href="../test__config__paths_8cpp/"><strong>test_config_paths.cpp</strong></a>, <a href="../test__contour__gen_8cpp/"><strong>test_contour_gen.cpp</strong></a>, <a href="../test__contour__ops_8cpp/"><strong>test_contour_ops.cpp</strong></a>, <a href="../test__contour__utils_8cpp/"><strong>test_contour_utils.cpp</strong></a>, <a href="../test__polygon_8cpp/"><strong>test_polygon.cpp</strong></a>, <a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>, <a href="../test__grid__ops_8cpp/"><strong>test_grid_ops.cpp</strong></a>, <a href="../test__image_8cpp/"><strong>test_image.cpp</strong></a>, <a href="../test__img__grid_8cpp/"><strong>test_img_grid.cpp</strong></a>, <a href="../test__gpkg_8cpp/"><strong>test_gpkg.cpp</strong></a>, <a href="../test__colors_8cpp/"><strong>test_colors.cpp</strong></a>, <a href="../test__las__file_8cpp/"><strong>test_las_file.cpp</strong></a>, <a href="../test__las__point_8cpp/"><strong>test_las_point.cpp</strong></a>, <a href="../test__coordinate_8cpp/"><strong>test_coordinate.cpp</strong></a>, <a href="../test__progress__tracker_8cpp/"><strong>test_progress_tracker.cpp</strong></a>, <a href="../test__vector__vege__render_8cpp/"><strong>test_vector_vege_render.cpp</strong></a>, <a href="../test__vegetation_8cpp/"><strong>test_vegetation.cpp</strong></a>, <a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>, <a href="../test__water_8cpp/"><strong>test_water.cpp</strong></a>, <a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>, <a href="../test__process_8cpp/"><strong>test_process.cpp</strong></a>)</li>
 <li><strong>texture_uv_from_projection</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>trim_contours</strong> (<a href="../contour__gen_8hpp/"><strong>contour_gen.hpp</strong></a>)</li>
 <li><strong>transform_xy_h</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
@@ -1570,6 +1573,8 @@
 <h2 id="v">v</h2>
 <ul>
 <li><strong>validated</strong> (<a href="../config__editor_8cpp/"><strong>config_editor.cpp</strong></a>)</li>
+<li><strong>vege_layer_colors</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
+<li><strong>vege_layer_draw_priority</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>verify_raw_vegetation_tif</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 <li><strong>verify_vegetation_tif</strong> (<a href="../test__e2e_8cpp/"><strong>test_e2e.cpp</strong></a>)</li>
 </ul>

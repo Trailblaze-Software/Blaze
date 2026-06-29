@@ -350,6 +350,44 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="161" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="161" bodyend="183"/>
       </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1a525cff72d17c40be6a628209a32f284b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigJson, VegeSmoothRadiusRoundTrip)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigJson</type>
+        </param>
+        <param>
+          <type>VegeSmoothRadiusRoundTrip</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="185" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="185" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1aa8f16e9880d4372813e2492891f01b48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigJson, GroundAndWaterOverlayRoundTrip)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigJson</type>
+        </param>
+        <param>
+          <type>GroundAndWaterOverlayRoundTrip</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="206" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="206" bodyend="219"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -539,6 +577,42 @@
 <codeline lineno="181"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(out.min_area_m2,<sp/>30);</highlight></codeline>
 <codeline lineno="182"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(out.min_hole_area_m2,<sp/>100);</highlight></codeline>
 <codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal">TEST(ConfigJson,<sp/>VegeSmoothRadiusRoundTrip)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref><sp/>canopy;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>canopy.name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;canopy&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>canopy.smooth_radius<sp/>=<sp/>8;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>config.vege.height_configs.push_back(canopy);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><ref refid="structVegeHeightConfig" kindref="compound">VegeHeightConfig</ref><sp/>green;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>green.name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;green&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>green.smooth_radius<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/>config.vege.height_configs.push_back(std::move(green));</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>blaze::test::unique_test_output_path(</highlight><highlight class="stringliteral">&quot;vege_smooth_radius&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;.json&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/>config.write_to_file(path);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>loaded<sp/>=<sp/>Config::FromFile(path);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/>ASSERT_EQ(loaded.vege.height_configs.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.vege.height_configs[0].smooth_radius,<sp/>8);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.vege.height_configs[1].smooth_radius,<sp/>3);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal">TEST(ConfigJson,<sp/>GroundAndWaterOverlayRoundTrip)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>config.ground.use_only_ground_class<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/>config.ground.outlier_threshold_m<sp/>=<sp/>1.25;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/>config.water.classified_overlay_color<sp/>=<sp/>ColorVariant(<ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255));</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>blaze::test::unique_test_output_path(</highlight><highlight class="stringliteral">&quot;ground_water_overlay&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;.json&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/>config.write_to_file(path);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>loaded<sp/>=<sp/>Config::FromFile(path);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(loaded.ground.use_only_ground_class);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(loaded.ground.outlier_threshold_m,<sp/>1.25);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/>EXPECT_EQ(to_rgb(loaded.water.classified_overlay_color).getBlue(),<sp/>255);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp"/>
   </compounddef>

@@ -935,15 +935,15 @@
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="../classGeo/#function-draw-12"><strong>draw</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &gt; &amp; other, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br></td>
-</tr>
-<tr>
-<td style="text-align: right;">void</td>
-<td style="text-align: left;"><a href="../classGeo/#function-draw-22"><strong>draw</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classCMYKColor/"><strong>CMYKColor</strong></a> &gt; &gt; &amp; other, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br></td>
+<td style="text-align: left;"><a href="../classGeo/#function-draw"><strong>draw</strong></a> (const <a href="../classGeo/"><strong>Geo</strong></a>&lt; <a href="../classGrid/"><strong>Grid</strong></a>&lt; <a href="../classRGBColor/"><strong>RGBColor</strong></a> &gt; &gt; &amp; other, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, GeoGridCompositeMode composite_mode=GeoGridCompositeMode::AlphaBlend, std::optional&lt; blaze::InterpolationMode &gt; interpolation={}) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
 <td style="text-align: left;"><a href="../classGeo/#function-draw_contours"><strong>draw_contours</strong></a> (const std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt; &amp; contours, const <a href="../structContourConfigs/"><strong>ContourConfigs</strong></a> &amp; configs, double render_scale, bool base_layer_only, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-draw_filled_polygon"><strong>draw_filled_polygon</strong></a> (const <a href="../structPolygonWithHoles/"><strong>PolygonWithHoles</strong></a> &amp; poly, const ColorVariant &amp; color) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
@@ -972,6 +972,10 @@
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>Geo</strong></a></td>
 <td style="text-align: left;"><a href="../classGeo/#function-pad"><strong>pad</strong></a> (U pad_value={}) const<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="../classGeo/#function-rasterize_filled_polygons"><strong>rasterize_filled_polygons</strong></a> (const std::vector&lt; <a href="../structPolygonWithHoles/"><strong>PolygonWithHoles</strong></a> &gt; &amp; polygons, const ColorVariant &amp; color, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
