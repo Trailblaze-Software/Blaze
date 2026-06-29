@@ -47,12 +47,13 @@ repos:
       - id: flake8
         files: .*\.py$
         args: [--max-line-length=120]
-  - repo: https://github.com/tcort/markdown-link-check
-    rev: v3.14.2
+  - repo: https://github.com/lycheeverse/lychee
+    rev: lychee-v0.24.2
     hooks:
-      - id: markdown-link-check
+      - id: lychee
+        name: Markdown Link Check
         files: docs/src/.*\.md$
-        args: ["--quiet", "--config", "docs/.markdown-link-check.json"]
+        args: ["--no-progress", "--config", "docs/.lychee.toml"]
   - repo: https://github.com/pamoller/xmlformatter
     rev: v0.2.7
     hooks:

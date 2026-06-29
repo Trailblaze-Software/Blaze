@@ -120,7 +120,7 @@ TEST(ExtractThresholdLayers, UsesDefaultLayerName) {
 
   EXPECT_EQ(layers.size(), 3u);
   EXPECT_EQ(layers.at(0.3), "406_Slow_Running");
-  EXPECT_EQ(layers.at(0.6), "green_0.6");
+  EXPECT_EQ(layers.at(0.6), "408_Walk");
   EXPECT_EQ(layers.at(0.85), "410_Fight");
 }
 

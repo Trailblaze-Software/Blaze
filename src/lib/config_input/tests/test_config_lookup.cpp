@@ -181,3 +181,39 @@ TEST(ConfigJson, VegeMinHoleAreaRoundTrip) {
   EXPECT_DOUBLE_EQ(out.min_area_m2, 30);
   EXPECT_DOUBLE_EQ(out.min_hole_area_m2, 100);
 }
+
+TEST(ConfigJson, VegeSmoothRadiusRoundTrip) {
+  Config config;
+  VegeHeightConfig canopy;
+  canopy.name = "canopy";
+  canopy.smooth_radius = 8;
+  config.vege.height_configs.push_back(canopy);
+
+  VegeHeightConfig green;
+  green.name = "green";
+  green.smooth_radius = 3;
+  config.vege.height_configs.push_back(std::move(green));
+
+  const fs::path path = blaze::test::unique_test_output_path("vege_smooth_radius", ".json");
+  config.write_to_file(path);
+  Config loaded = Config::FromFile(path);
+
+  ASSERT_EQ(loaded.vege.height_configs.size(), 2u);
+  EXPECT_EQ(loaded.vege.height_configs[0].smooth_radius, 8);
+  EXPECT_EQ(loaded.vege.height_configs[1].smooth_radius, 3);
+}
+
+TEST(ConfigJson, GroundAndWaterOverlayRoundTrip) {
+  Config config;
+  config.ground.use_only_ground_class = false;
+  config.ground.outlier_threshold_m = 1.25;
+  config.water.classified_overlay_color = ColorVariant(RGBColor(0, 0, 255, 255));
+
+  const fs::path path = blaze::test::unique_test_output_path("ground_water_overlay", ".json");
+  config.write_to_file(path);
+  Config loaded = Config::FromFile(path);
+
+  EXPECT_FALSE(loaded.ground.use_only_ground_class);
+  EXPECT_DOUBLE_EQ(loaded.ground.outlier_threshold_m, 1.25);
+  EXPECT_EQ(to_rgb(loaded.water.classified_overlay_color).getBlue(), 255);
+}

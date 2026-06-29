@@ -274,6 +274,8 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   ui->grid_bin_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->grid_vegetation_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->grid_contour_dem_resolution->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
+  ui->water_sink_min_area_edit->setValidator(new QDoubleValidator(0.0, 1'000'000.0, 1, this));
+  ui->water_sink_depth_edit->setValidator(new QDoubleValidator(0.0, 1000.0, 3, this));
   ui->border_width->setValidator(new QDoubleValidator(0.0, 10000.0, 2, this));
   ui->tile_size->setValidator(new QDoubleValidator(0.0, 1'000'000.0, 2, this));
 
@@ -283,6 +285,11 @@ ConfigEditor::ConfigEditor(QWidget* parent)
     } else if (auto* sb = qobject_cast<QSpinBox*>(widget)) {
       connect(sb, QOverload<int>::of(&QSpinBox::valueChanged), this,
               &ConfigEditor::update_general_from_ui);
+    } else if (auto* dsb = qobject_cast<QDoubleSpinBox*>(widget)) {
+      connect(dsb, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
+              &ConfigEditor::update_general_from_ui);
+    } else if (auto* cb = qobject_cast<QCheckBox*>(widget)) {
+      connect(cb, &QCheckBox::toggled, this, &ConfigEditor::update_general_from_ui);
     }
   };
   connect_general(ui->grid_bin_resolution);
@@ -292,6 +299,8 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   connect_general(ui->grid_export_fine_slope);
   connect_general(ui->ground_min_intensity);
   connect_general(ui->ground_max_intensity);
+  connect_general(ui->ground_use_only_ground_class);
+  connect_general(ui->ground_outlier_threshold_spin);
   connect(ui->buildings_color, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
           &ConfigEditor::update_general_from_ui);
   connect_general(ui->border_width);
@@ -300,7 +309,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
 
   // Contours Tab
   connect(ui->contours_list_widget, &QListWidget::itemSelectionChanged, this,
-          &ConfigEditor::on_contour_selected);
+          &ConfigEditor::handle_contour_selected);
   connect(ui->add_contour_button, &QPushButton::clicked, this, &ConfigEditor::add_contour);
   connect(ui->remove_contour_button, &QPushButton::clicked, this, &ConfigEditor::remove_contour);
 
@@ -324,7 +333,7 @@ ConfigEditor::ConfigEditor(QWidget* parent)
 
   // Water Tab
   connect(ui->water_list_widget, &QListWidget::itemSelectionChanged, this,
-          &ConfigEditor::on_water_selected);
+          &ConfigEditor::handle_water_selected);
   connect(ui->add_water_button, &QPushButton::clicked, this, &ConfigEditor::add_water);
   connect(ui->remove_water_button, &QPushButton::clicked, this, &ConfigEditor::remove_water);
 
@@ -341,9 +350,20 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   // water_color_combo connected separately
   connect_water(ui->water_width_edit);
 
+  auto connect_water_globals = [this](QWidget* widget) {
+    if (auto* le = qobject_cast<QLineEdit*>(widget)) {
+      connect(le, &QLineEdit::textChanged, this, &ConfigEditor::update_water_globals_from_ui);
+    }
+  };
+  connect_water_globals(ui->water_sink_min_area_edit);
+  connect_water_globals(ui->water_sink_depth_edit);
+  connect(ui->water_classified_overlay_color_combo,
+          QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          &ConfigEditor::update_water_globals_from_ui);
+
   // Vegetation Tab
   connect(ui->vege_list_widget, &QListWidget::itemSelectionChanged, this,
-          &ConfigEditor::on_vege_selected);
+          &ConfigEditor::handle_vege_selected);
   connect(ui->add_vege_button, &QPushButton::clicked, this, &ConfigEditor::add_vege);
   connect(ui->remove_vege_button, &QPushButton::clicked, this, &ConfigEditor::remove_vege);
   connect(ui->add_vege_color_button, &QPushButton::clicked, this, &ConfigEditor::add_vege_color);
@@ -363,15 +383,17 @@ ConfigEditor::ConfigEditor(QWidget* parent)
   connect_vege(ui->vege_name_edit);
   connect_vege(ui->vege_min_height_edit);
   connect_vege(ui->vege_max_height_edit);
+  connect(ui->vege_smooth_radius_spin, QOverload<int>::of(&QSpinBox::valueChanged), this,
+          &ConfigEditor::update_vege_from_ui);
 
   // Colors Tab
   connect(ui->colors_list_widget, &QListWidget::itemSelectionChanged, this,
-          &ConfigEditor::on_color_selected);
+          &ConfigEditor::handle_color_selected);
   connect(ui->add_color_button, &QPushButton::clicked, this, &ConfigEditor::add_color);
   connect(ui->remove_color_button, &QPushButton::clicked, this, &ConfigEditor::remove_color);
   connect(ui->pick_color_button, &QPushButton::clicked, this, &ConfigEditor::pick_color);
   connect(ui->color_type_combo, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-          &ConfigEditor::on_color_type_changed);
+          &ConfigEditor::handle_color_type_changed);
 
   auto connect_color = [this](QWidget* widget) {
     if (auto* le = qobject_cast<QLineEdit*>(widget)) {
@@ -674,6 +696,7 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   populate_color_combo(ui->buildings_color);
   populate_color_combo(ui->contour_color_combo);
   populate_color_combo(ui->water_color_combo);
+  populate_color_combo(ui->water_classified_overlay_color_combo);
   populate_color_combo(ui->vege_bg_color_combo);
 
   ui->out_dir_line_edit->setText(config.output_path().string().c_str());
@@ -718,8 +741,14 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   ui->grid_vegetation_resolution->setText(QString::number(config.grid.vegetation_grid_resolution));
   ui->grid_contour_dem_resolution->setText(QString::number(config.grid.contour_dem_resolution));
   ui->grid_export_fine_slope->setChecked(config.grid.export_fine_slope);
+  ui->water_sink_min_area_edit->setText(QString::number(config.water.sink_min_area_m2));
+  ui->water_sink_depth_edit->setText(QString::number(config.water.sink_depth_m));
+  ui->water_classified_overlay_color_combo->setCurrentText(
+      get_color_name(config.water.classified_overlay_color));
   ui->ground_min_intensity->setValue(config.ground.min_ground_intensity);
   ui->ground_max_intensity->setValue(config.ground.max_ground_intensity);
+  ui->ground_use_only_ground_class->setChecked(config.ground.use_only_ground_class);
+  ui->ground_outlier_threshold_spin->setValue(config.ground.outlier_threshold_m);
   ui->buildings_color->setCurrentText(get_color_name(config.buildings.color));
   ui->border_width->setText(QString::number(config.border_width));
   ui->tile_size->setText(config.tile_size > 0.0 ? QString::number(config.tile_size) : QString());
@@ -757,6 +786,8 @@ void ConfigEditor::update_general_from_ui() {
   m_config->grid.export_fine_slope = ui->grid_export_fine_slope->isChecked();
   m_config->ground.min_ground_intensity = ui->ground_min_intensity->value();
   m_config->ground.max_ground_intensity = ui->ground_max_intensity->value();
+  m_config->ground.use_only_ground_class = ui->ground_use_only_ground_class->isChecked();
+  m_config->ground.outlier_threshold_m = ui->ground_outlier_threshold_spin->value();
   m_config->border_width = ui->border_width->text().toDouble();
   {
     const QString raw = ui->tile_size->text().trimmed();
@@ -816,7 +847,7 @@ void ConfigEditor::remove_contour() {
   populate_contour_list();
 }
 
-void ConfigEditor::on_contour_selected() {
+void ConfigEditor::handle_contour_selected() {
   auto items = ui->contours_list_widget->selectedItems();
   if (items.empty()) return;
   load_contour_details(items.front()->text().toStdString());
@@ -911,7 +942,7 @@ void ConfigEditor::remove_water() {
   populate_water_list();
 }
 
-void ConfigEditor::on_water_selected() {
+void ConfigEditor::handle_water_selected() {
   auto items = ui->water_list_widget->selectedItems();
   if (items.empty()) return;
   load_water_details(items.front()->text().toStdString());
@@ -926,6 +957,24 @@ void ConfigEditor::load_water_details(const std::string& name) {
   ui->water_width_edit->setText(QString::number(config.width));
   ui->water_color_combo->setCurrentText(get_color_name(config.color));
   m_updating_ui = was_updating;
+}
+
+void ConfigEditor::update_water_globals_from_ui() {
+  if (m_updating_ui) return;
+
+  if (ui->water_classified_overlay_color_combo->currentText() == "Add new color...") {
+    activate_tab_containing(ui->Colors_tab);
+    add_color();
+    return;
+  }
+
+  m_config->water.sink_min_area_m2 = ui->water_sink_min_area_edit->text().toDouble();
+  m_config->water.sink_depth_m = ui->water_sink_depth_edit->text().toDouble();
+  const QString overlay_color = ui->water_classified_overlay_color_combo->currentText();
+  if (COLOR_MAP.count(overlay_color.toStdString())) {
+    m_config->water.classified_overlay_color = COLOR_MAP.at(overlay_color.toStdString());
+  }
+  config_changed();
 }
 
 void ConfigEditor::update_water_from_ui() {
@@ -999,7 +1048,7 @@ void ConfigEditor::remove_vege() {
   populate_vege_list();
 }
 
-void ConfigEditor::on_vege_selected() {
+void ConfigEditor::handle_vege_selected() {
   int row = ui->vege_list_widget->currentRow();
   if (row < 0) return;
   load_vege_details(row);
@@ -1013,6 +1062,7 @@ void ConfigEditor::load_vege_details(int index) {
   ui->vege_name_edit->setText(QString::fromStdString(config.name));
   ui->vege_min_height_edit->setText(QString::number(config.min_height));
   ui->vege_max_height_edit->setText(QString::number(config.max_height));
+  ui->vege_smooth_radius_spin->setValue(config.smooth_radius);
 
   ui->vege_colors_table->setRowCount(0);
   for (const auto& pair : config.colors) {
@@ -1071,6 +1121,7 @@ void ConfigEditor::update_vege_from_ui() {
   config.name = ui->vege_name_edit->text().toStdString();
   config.min_height = ui->vege_min_height_edit->text().toDouble();
   config.max_height = ui->vege_max_height_edit->text().toDouble();
+  config.smooth_radius = ui->vege_smooth_radius_spin->value();
 
   QString bg_color = ui->vege_bg_color_combo->currentText();
   if (COLOR_MAP.count(bg_color.toStdString())) {
@@ -1195,7 +1246,7 @@ void ConfigEditor::remove_color() {
   config_changed();
 }
 
-void ConfigEditor::on_color_selected() {
+void ConfigEditor::handle_color_selected() {
   auto items = ui->colors_list_widget->selectedItems();
   if (items.empty()) return;
   load_color_details(items.front()->text().toStdString());
@@ -1223,11 +1274,11 @@ void ConfigEditor::load_color_details(const std::string& name) {
     ui->color_c3_spin->setValue(cmyk.getYellow());
     ui->color_c4_spin->setValue(cmyk.getBlack());
   }
-  on_color_type_changed(ui->color_type_combo->currentIndex());  // Update labels
+  handle_color_type_changed(ui->color_type_combo->currentIndex());  // Update labels
   m_updating_ui = was_updating;
 }
 
-void ConfigEditor::on_color_type_changed(int index) {
+void ConfigEditor::handle_color_type_changed(int index) {
   if (m_updating_ui) {
     // Just update labels and maximums during loading
     if (index == 0) {  // RGB

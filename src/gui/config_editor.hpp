@@ -43,19 +43,20 @@ class ConfigEditor : public QWidget {
   // Contours
   void add_contour();
   void remove_contour();
-  void on_contour_selected();
+  void handle_contour_selected();
   void update_contour_from_ui();
 
   // Water
   void add_water();
   void remove_water();
-  void on_water_selected();
+  void handle_water_selected();
   void update_water_from_ui();
+  void update_water_globals_from_ui();
 
   // Vegetation
   void add_vege();
   void remove_vege();
-  void on_vege_selected();
+  void handle_vege_selected();
   void update_vege_from_ui();
   void add_vege_color();
   void remove_vege_color();
@@ -64,10 +65,10 @@ class ConfigEditor : public QWidget {
   // Colors
   void add_color();
   void remove_color();
-  void on_color_selected();
+  void handle_color_selected();
   void update_color_from_ui();
   void pick_color();
-  void on_color_type_changed(int index);
+  void handle_color_type_changed(int index);
 
   // General
   void update_general_from_ui();

@@ -33,6 +33,12 @@ option(BLAZE_CLI_ONLY "Build Blaze CLI only" OFF)
 option(BLAZE_BUILD_3D_GUI "Build Blaze3D GUI application" ON)
 option(BLAZE_USE_PDAL "Use PDAL for Blaze LAS IO" OFF)
 option(BLAZE_USE_VCPKG "Use vcpkg for dependency management on Windows" ON)
+set(BLAZE_LINUX_DISTRO
+    ""
+    CACHE
+      STRING
+      "Ubuntu distro tag for Linux .deb naming (e.g. ubuntu22.04). Empty uses Linux."
+)
 
 if(WIN32 AND BLAZE_USE_VCPKG)
   if(NOT BLAZE_CLI_ONLY)
@@ -298,7 +304,7 @@ set(LASPP_DEBUG_ASSERTS
 FetchContent_Declare(
   las++
   GIT_REPOSITORY https://github.com/Trailblaze-Software/laspp.git
-  GIT_TAG e8834593bb430072a22224bb495746460e99900f)
+  GIT_TAG 0668b3997d8810033331c4266764d7a831f609ce)
 FetchContent_MakeAvailable(las++)
 target_link_libraries(${LIBRARY_NAME} PUBLIC las++)
 
@@ -509,7 +515,11 @@ elseif(APPLE)
   set(CPACK_DMG_FORMAT "UDZO")
 elseif(UNIX)
   set(CPACK_GENERATOR "STGZ;TGZ;DEB;RPM")
-  set(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+  if(BLAZE_LINUX_DISTRO)
+    set(CPACK_SYSTEM_NAME "${BLAZE_LINUX_DISTRO}-${CMAKE_SYSTEM_PROCESSOR}")
+  else()
+    set(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+  endif()
 endif()
 set(CPACK_PACKAGE_NAME "Blaze")
 set(CPACK_PACKAGE_FILE_NAME

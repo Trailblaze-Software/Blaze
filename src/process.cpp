@@ -16,6 +16,7 @@
 #include "methods/water/water.hpp"
 #include "tif/tif.hpp"
 #include "utilities/progress_tracker.hpp"
+#include "vegetation/vector_vege_render.hpp"
 #include "vegetation/vegetation_polygon.hpp"
 
 enum class GroundMethod { LOWER_BOUND, LOWEST_POINT, INTERPOLATE };
@@ -141,7 +142,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   {
     ProgressTracker min_finding = progress_tracker.subtracker(0.5, 0.6);
     START_TRACKER(min_finding, "min finding");
-    bool only_classified_ground = true;
+    bool only_classified_ground = config.ground.use_only_ground_class;
 #pragma omp parallel for
     for (size_t i = 0; i < binned_points.height(); i++) {
       for (size_t j = 0; j < binned_points.width(); j++) {
@@ -179,7 +180,13 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   write_to_tif(ground_intensity_img.slice(data_ext), output_dir / "ground_intensity.tif",
                SUBTRACKER(0.62, 0.63));
 
-  remove_outliers(ground, SUBTRACKER(0.63, 0.64), bin_resolution);
+  const double fine_outlier_threshold =
+      config.ground.outlier_threshold_m > 0.0 ? config.ground.outlier_threshold_m : bin_resolution;
+  const double smooth_outlier_threshold =
+      config.ground.outlier_threshold_m > 0.0
+          ? config.ground.outlier_threshold_m * static_cast<double>(downsample_factor)
+          : bin_resolution * static_cast<double>(downsample_factor);
+  remove_outliers(ground, SUBTRACKER(0.63, 0.64), fine_outlier_threshold);
 
   interpolate_holes(ground, SUBTRACKER(0.64, 0.65));
 
@@ -212,7 +219,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   write_to_tif(water.slice(data_ext), output_dir / "water.tif", SUBTRACKER(0.68, 0.69));
 
   GeoGrid<double> smooth_ground = downsample(ground, downsample_factor, SUBTRACKER(0.69, 0.7));
-  remove_outliers(smooth_ground, SUBTRACKER(0.7, 0.71), bin_resolution * downsample_factor);
+  remove_outliers(smooth_ground, SUBTRACKER(0.7, 0.71), smooth_outlier_threshold);
 
   write_to_tif(smooth_ground.slice(data_ext), output_dir / "smooth_ground.tif",
                SUBTRACKER(0.72, 0.73),
@@ -238,10 +245,12 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   std::vector<Contour> contours =
       generate_contours(contour_dem, config.contours, SUBTRACKER(0.75, 0.76));
 
-  std::vector<Stream> stream_path = stream_paths(contour_dem, config.water, SUBTRACKER(0.76, 0.77));
+  std::vector<Stream> stream_path =
+      stream_paths(smooth_ground, config.water, SUBTRACKER(0.76, 0.77));
 
   const std::vector<Coordinate2D<size_t>> sinks =
-      identify_sinks(contour_dem, 10, 5000, SUBTRACKER(0.77, 0.775));
+      identify_sinks(contour_dem, config.water.sink_depth_m, config.water.sink_min_area_m2,
+                     SUBTRACKER(0.77, 0.775));
   GeoGrid<double> filled = fill_depressions(contour_dem, SUBTRACKER(0.775, 0.78), sinks);
   write_to_tif(filled.slice(data_ext), output_dir / "filled_dem.tif", SUBTRACKER(0.78, 0.785),
                /*include_vertical_crs=*/true);
@@ -342,6 +351,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   // coarser vegetation grid via mean downsampling.
   const unsigned int veg_factor = config.grid.vegetation_aggregation_factor();
   std::map<std::string, GeoGrid<float>> vege_maps;
+  std::vector<VegePolygon> vege_polygons;
   {
     ProgressTracker vege_tracker = progress_tracker.subtracker(0.786, 0.88, "vegetation");
     const size_t vege_config_count = config.vege.height_configs.size();
@@ -406,8 +416,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
                      SUBTRACKER(0.45, 0.5, map_tracker));
       }
 
-      const GeoGrid<float> smooth_blocked_proportion =
-          low_pass(blocked_proportion, 5, SUBTRACKER(0.5, 0.65, map_tracker));
+      const GeoGrid<float> smooth_blocked_proportion = low_pass(
+          blocked_proportion, vege_config.smooth_radius, SUBTRACKER(0.5, 0.65, map_tracker));
       const GeoGrid<float> vege_grid = [&]() {
         if (veg_factor <= 1) {
           return smooth_blocked_proportion;
@@ -424,7 +434,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     }
 
     // --- Vegetation polygon export ---
-    std::vector<VegePolygon> vege_polygons =
+    vege_polygons =
         generate_vege_polygons(config.vege, vege_maps, SUBTRACKER(0.55, 0.85, vege_tracker));
     trim_vege_polygons_to_extent(vege_polygons, data_ext, SUBTRACKER(0.85, 0.92, vege_tracker),
                                  {data_ext, las_file.original_bounds()}, 0.01);
@@ -448,7 +458,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   // vege_maps), so its dimensions are the bin grid divided by veg_factor.
   const size_t vege_color_width = (binned_points.width() + veg_factor - 1) / veg_factor;
   const size_t vege_color_height = (binned_points.height() + veg_factor - 1) / veg_factor;
-  GeoGrid<CMYKColor> vege_color(
+  GeoGrid<RGBColor> vege_color(
       vege_color_width, vege_color_height,
       GeoTransform(binned_points.transform().with_new_resolution(bin_resolution * veg_factor)),
       GeoProjection(binned_points.projection()));
@@ -462,14 +472,14 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 #pragma omp parallel for
   for (size_t i = 0; i < vege_color.height(); i++) {
     for (size_t j = 0; j < vege_color.width(); j++) {
-      vege_color[{j, i}] = to_cmyk(config.vege.background_color);
+      vege_color[{j, i}] = to_rgb(config.vege.background_color);
     }
   }
 #pragma omp parallel for
   for (size_t i = 0; i < buildings.height(); i++) {
     for (size_t j = 0; j < buildings.width(); j++) {
       if (buildings[{j, i}]) building_color[{j, i}] = to_rgb(config.buildings.color);
-      if (water[{j, i}]) water_color[{j, i}] = to_rgb(CMYKColor(100, 0, 0, 0));
+      if (water[{j, i}]) water_color[{j, i}] = to_rgb(config.water.classified_overlay_color);
     }
   }
   for (const VegeHeightConfig& vege_config : config.vege.height_configs) {
@@ -479,7 +489,7 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
         std::optional<ColorVariant> color =
             vege_config.pick_from_blocked_proportion(vege_maps.at(vege_config.name)[{j, i}]);
         if (color) {
-          vege_color[{j, i}] = to_cmyk(color.value());
+          vege_color[{j, i}] = to_rgb(color.value());
         }
       }
     }
@@ -488,36 +498,99 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
 
   constexpr double INCHES_PER_METER = 39.3701;
   double render_pixel_resolution = config.render.scale / config.render.dpi / INCHES_PER_METER;
-  GeoImgGrid final_img(
-      num_cells_by_distance(ground.width() * ground.transform().dx(), render_pixel_resolution),
-      num_cells_by_distance(ground.height() * ground.transform().dy(), render_pixel_resolution),
-      GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
-      GeoProjection(vege_color.projection()));
 
-  ProgressTracker render_tracker = progress_tracker.subtracker(0.905, 1.0, "render final image");
+  const auto make_render_img = [&]() {
+    return GeoImgGrid(
+        num_cells_by_distance(ground.width() * ground.transform().dx(), render_pixel_resolution),
+        num_cells_by_distance(ground.height() * ground.transform().dy(), render_pixel_resolution),
+        GeoTransform(vege_color.transform().with_new_resolution(render_pixel_resolution)),
+        GeoProjection(vege_color.projection()));
+  };
 
-  final_img.draw(vege_color, SUBTRACKER(0.0, 0.1, render_tracker));
-  final_img.draw(water_color, SUBTRACKER(0.1, 0.2, render_tracker));
-  final_img.draw_contours(contours, config.contours, config.render.scale, false,
-                          SUBTRACKER(0.2, 0.35, render_tracker));
-  final_img.draw_streams(stream_path, config.water, config.render.scale,
-                         SUBTRACKER(0.35, 0.45, render_tracker));
-  final_img.draw(building_color, SUBTRACKER(0.45, 0.5, render_tracker));
+  const double line_width_scale = config.render.scale / 1000.0;
 
-  final_img.save_to(output_dir / "final_img.tif", data_ext, SUBTRACKER(0.5, 0.75, render_tracker));
+  const auto draw_base_overlays = [&](GeoImgGrid& img, ProgressTracker& tracker) {
+    img.draw(water_color, SUBTRACKER(0.0, 0.25, tracker), GeoGridCompositeMode::OpaqueCopy);
 
-  final_img.draw_contours(contours, config.contours, config.render.scale, true,
-                          SUBTRACKER(0.75, 0.85, render_tracker));
-  final_img.draw_streams(stream_path, config.water, config.render.scale,
-                         SUBTRACKER(0.85, 0.9, render_tracker));
-  final_img.draw(building_color, SUBTRACKER(0.9, 0.95, render_tracker));
-
-  for (const std::shared_ptr<ContourPoint>& point : all_contour_points) {
-    if (point->slope() > 0.8) {
-      final_img.draw_point(*point, ColorVariant(RGBColor(0, 0, 0)), 1.5);
+    {
+      ProgressTracker contour_tracker = tracker.subtracker(0.25, 0.6, "drawing contours");
+      for (const Contour& contour : contours) {
+        if (config.contours.layer_name_from_height(contour.height()) == "103_Form_Line") {
+          continue;
+        }
+        const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
+        draw_geo_polyline(img, contour.points(), contour_config.color,
+                          contour_config.width * line_width_scale);
+      }
     }
-  }
 
-  final_img.save_to(output_dir / "final_img_extra_contours.tif", data_ext,
-                    SUBTRACKER(0.95, 1.0, render_tracker));
+    img.draw_streams(stream_path, config.water, config.render.scale,
+                     SUBTRACKER(0.6, 0.85, tracker));
+    img.draw(building_color, SUBTRACKER(0.85, 1.0, tracker), GeoGridCompositeMode::OpaqueCopy);
+  };
+
+  const auto draw_extra_overlays = [&](GeoImgGrid& img, ProgressTracker& tracker) {
+    {
+      ProgressTracker contour_tracker = tracker.subtracker(0.0, 0.6, "drawing form lines");
+      for (const Contour& contour : contours) {
+        if (config.contours.layer_name_from_height(contour.height()) != "103_Form_Line") {
+          continue;
+        }
+        const ContourConfig& contour_config = config.contours.pick_from_height(contour.height());
+        draw_geo_polyline(img, contour.points(), contour_config.color,
+                          contour_config.width * line_width_scale);
+      }
+    }
+
+    img.draw_streams(stream_path, config.water, config.render.scale,
+                     SUBTRACKER(0.6, 0.85, tracker));
+    img.draw(building_color, SUBTRACKER(0.85, 1.0, tracker), GeoGridCompositeMode::OpaqueCopy);
+
+    for (const std::shared_ptr<ContourPoint>& point : all_contour_points) {
+      if (point->slope() > 0.8) {
+        img.draw_point(*point, ColorVariant(RGBColor(0, 0, 0)), 1.5);
+      }
+    }
+  };
+
+  const auto draw_raster_vege = [&](GeoImgGrid& img, ProgressTracker& tracker) {
+    img.draw(vege_color, SUBTRACKER(0.0, 1.0, tracker));
+  };
+
+  const auto draw_vector_vege = [&](GeoImgGrid& img, ProgressTracker& tracker) {
+    draw_vector_vegetation(img, config.vege, vege_polygons, std::move(tracker));
+  };
+
+  const auto render_final_maps = [&](const auto& draw_vege_fn, const fs::path& base_output,
+                                     const fs::path& extra_output, ProgressTracker& tracker) {
+    GeoImgGrid img = make_render_img();
+
+    {
+      ProgressTracker vege_tracker = tracker.subtracker(0.0, 0.2, "vegetation");
+      draw_vege_fn(img, vege_tracker);
+    }
+    {
+      ProgressTracker base_tracker = tracker.subtracker(0.2, 0.65, "base overlays");
+      draw_base_overlays(img, base_tracker);
+    }
+    img.save_to(base_output, data_ext, SUBTRACKER(0.65, 0.8, tracker));
+    {
+      ProgressTracker extra_tracker = tracker.subtracker(0.8, 0.95, "extra overlays");
+      draw_extra_overlays(img, extra_tracker);
+    }
+    img.save_to(extra_output, data_ext, SUBTRACKER(0.95, 1.0, tracker));
+  };
+
+  {
+    ProgressTracker raster_render =
+        progress_tracker.subtracker(0.905, 0.9525, "render raster final image");
+    render_final_maps(draw_raster_vege, output_dir / "final_img.tif",
+                      output_dir / "final_img_extra_contours.tif", raster_render);
+  }
+  {
+    ProgressTracker vector_render =
+        progress_tracker.subtracker(0.9525, 1.0, "render vector final image");
+    render_final_maps(draw_vector_vege, output_dir / "final_img_vector.tif",
+                      output_dir / "final_img_vector_extra_contours.tif", vector_render);
+  }
 }

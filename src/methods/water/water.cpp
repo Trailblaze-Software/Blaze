@@ -267,7 +267,8 @@ std::vector<Stream> stream_paths(const GeoGrid<double>& grid, const WaterConfigs
   std::optional<GeoGrid<double>> local_filled;
   if (!already_filled) {
     std::vector<Coordinate2D<size_t>> sinks =
-        identify_sinks(grid, 10, 5000, SUBTRACKER(0.0, 0.25, progress_tracker));
+        identify_sinks(grid, config.sink_depth_m, config.sink_min_area_m2,
+                       SUBTRACKER(0.0, 0.25, progress_tracker));
     local_filled.emplace(fill_depressions(grid, SUBTRACKER(0.25, 0.5, progress_tracker), sinks));
   }
   const GeoGrid<double>& filled = local_filled ? *local_filled : grid;

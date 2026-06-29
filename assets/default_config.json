@@ -49,6 +49,8 @@
     }
   },
   "water": {
+    "sink_min_area_m2": 500,
+    "sink_depth_m": 3,
     "minor": {
       "color": "blue",
       "catchment": 0.03,
@@ -67,6 +69,7 @@
         "name": "canopy",
         "min_height": 2.5,
         "max_height": 100,
+        "smooth_radius": 2,
         "colors": [
           {
             "blocking_threshold": 0.1,
@@ -81,6 +84,7 @@
         "name": "green",
         "min_height": 0.5,
         "max_height": 2.5,
+        "smooth_radius": 3,
         "colors": [
           {
             "blocking_threshold": 0.1,
@@ -111,7 +115,7 @@
     "color": "black"
   },
   "render": {
-    "scale": 10000,
+    "scale": 15000,
     "dpi": 600
   },
   "colors": {
