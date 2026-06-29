@@ -21,17 +21,13 @@ Download the latest release for your platform from:
 | Linux (x64, Ubuntu 26.04) | `Blaze-x.x.x-ubuntu26.04-x86_64.deb` |
 | Linux (arm64, Ubuntu 26.04) | `Blaze-x.x.x-ubuntu26.04-aarch64.deb` |
 
-<<<<<<< Updated upstream
-Install with:
+Install on Ubuntu with:
 
 ```bash
 sudo apt install ./Blaze-x.x.x-ubuntu24.04-x86_64.deb
 ```
 
-Pick the file that matches your Ubuntu version and CPU architecture. The package manager will install Blaze and pull in system dependencies (GDAL, Qt, etc.).
-=======
 Pick the file that matches your operating system and CPU architecture. The package manager will install Blaze and pull in system dependencies (GDAL, Qt, etc.).
->>>>>>> Stashed changes
 
 ## Building from Source
 

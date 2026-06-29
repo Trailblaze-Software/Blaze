@@ -22,7 +22,9 @@ inline void draw_vector_vegetation(GeoImgGrid& img, const VegeConfig& vege_confi
   }
   std::stable_sort(sorted_polygons.begin(), sorted_polygons.end(),
                    [](const VegePolygon* a, const VegePolygon* b) {
-                     return vege_layer_draw_priority(a->layer) < vege_layer_draw_priority(b->layer);
+                     const int pa = vege_layer_draw_priority(a->layer);
+                     const int pb = vege_layer_draw_priority(b->layer);
+                     return pa == pb ? a->layer < b->layer : pa < pb;
                    });
 
   struct LayerBatch {

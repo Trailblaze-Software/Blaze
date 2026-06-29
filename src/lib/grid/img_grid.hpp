@@ -456,12 +456,9 @@ inline void Geo<GridT>::rasterize_filled_polygons(const std::vector<PolygonWithH
     return;
   }
 
-  std::atomic<int> finished{0};
-#pragma omp parallel for schedule(dynamic)
   for (int i = 0; i < count; ++i) {
     draw_filled_polygon_impl(*this, polygons[static_cast<size_t>(i)], fill_color);
-    const int done = finished.fetch_add(1, std::memory_order_relaxed) + 1;
-    progress_tracker.report_parallel_progress(static_cast<double>(done) / count);
+    progress_tracker.set_proportion(static_cast<double>(i) / count);
   }
 }
 
