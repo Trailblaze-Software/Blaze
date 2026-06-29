@@ -420,6 +420,49 @@
                             </property>
                         </widget>
                     </item>
+                    <item row="2" column="0">
+                        <widget class="QLabel" name="label_ground_use_only_ground_class">
+                            <property name="text">
+                                <string>Ground class only:</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>When enabled, only LiDAR points classified as ground are used for the DEM minimum. Disable for datasets with poor classification to use the lowest point in each cell regardless of class.</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="1">
+                        <widget class="QCheckBox" name="ground_use_only_ground_class">
+                            <property name="toolTip">
+                                <string>When enabled, only LiDAR points classified as ground are used for the DEM minimum. Disable for datasets with poor classification to use the lowest point in each cell regardless of class.</string>
+                            </property>
+                            <property name="checked">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="0">
+                        <widget class="QLabel" name="label_ground_outlier_threshold">
+                            <property name="text">
+                                <string>Outlier threshold (m):</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Maximum vertical spike height removed from the ground DEM. 0 = automatic (bin resolution at fine ground, scaled on smooth ground).</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="1">
+                        <widget class="QDoubleSpinBox" name="ground_outlier_threshold_spin">
+                            <property name="toolTip">
+                                <string>Maximum vertical spike height removed from the ground DEM. 0 = automatic (bin resolution at fine ground, scaled on smooth ground).</string>
+                            </property>
+                            <property name="decimals">
+                                <number>3</number>
+                            </property>
+                            <property name="maximum">
+                                <double>1000.000000000000000</double>
+                            </property>
+                        </widget>
+                    </item>
                 </layout>
             </widget>
         </item>
@@ -648,7 +691,64 @@
       <attribute name="title">
        <string>Water</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_Water">
+      <layout class="QVBoxLayout" name="verticalLayout_WaterRoot">
+       <item>
+        <widget class="QGroupBox" name="water_stream_group">
+         <property name="title">
+          <string>Stream extraction</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_WaterStream">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_water_sink_min_area">
+            <property name="text">
+             <string>Minimum sink area (m²):</string>
+            </property>
+            <property name="toolTip">
+             <string>Depressions smaller than this are not treated as sinks when filling the DEM for stream routing.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="water_sink_min_area_edit"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_water_sink_depth">
+            <property name="text">
+             <string>Minimum sink depth (m):</string>
+            </property>
+            <property name="toolTip">
+             <string>Minimum depth below the filled surface for a cell to belong to a sink region.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="water_sink_depth_edit"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_water_classified_overlay_color">
+            <property name="text">
+             <string>Classified water color:</string>
+            </property>
+            <property name="toolTip">
+             <string>Color for LiDAR-classified water cells drawn on the final map overlay.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="water_classified_overlay_color_combo">
+            <property name="toolTip">
+             <string>Color for LiDAR-classified water cells drawn on the final map overlay.</string>
+            </property>
+            <property name="editable">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_Water">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_WaterList">
          <item>
@@ -726,6 +826,8 @@
           </item>
          </layout>
         </widget>
+       </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -836,6 +938,29 @@
               </item>
               <item row="2" column="1">
                <widget class="QLineEdit" name="vege_max_height_edit"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_vege_smooth_radius">
+                <property name="text">
+                 <string>Smooth Radius (cells):</string>
+                </property>
+                <property name="toolTip">
+                 <string>Radius of the low-pass filter applied to the blocked-proportion map before polygonization, in vegetation grid cells. Larger values produce smoother vegetation boundaries. Can be set separately for each height band (e.g. canopy vs green).</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QSpinBox" name="vege_smooth_radius_spin">
+                <property name="toolTip">
+                 <string>Radius of the low-pass filter applied to the blocked-proportion map before polygonization, in vegetation grid cells. Larger values produce smoother vegetation boundaries. Can be set separately for each height band (e.g. canopy vs green).</string>
+                </property>
+                <property name="minimum">
+                 <number>0</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>

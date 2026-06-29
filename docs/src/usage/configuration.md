@@ -93,6 +93,8 @@ Parameters for ground point classification and filtering.
 
 - `min_ground_intensity`: Minimum intensity value for ground points.
 - `max_ground_intensity`: Maximum intensity value for ground points.
+- `use_only_ground_class`: When `true` (default), only LiDAR points classified as ground are used for the DEM minimum. Set to `false` to use the lowest point in each cell regardless of class.
+- `outlier_threshold_m`: Maximum vertical spike height (m) removed from the ground DEM. `0` (default) uses automatic thresholds: `bin_resolution` on the fine ground grid, scaled by `downsample_factor` on the smooth ground DEM.
 
 ### Contours
 
@@ -107,9 +109,13 @@ Defines contour lines. You can define multiple types (e.g., normal, index).
 
 Defines watercourse detection based on catchment area.
 
-- `catchment`: Threshold for catchment area to define a stream.
-- `color`: Color of the water line.
-- `width`: Line width in mm.
+- `classified_overlay_color`: Color for LiDAR-classified water cells on the final map overlay (default: cyan).
+- `sink_min_area_m2`: Minimum depression area (m²) to treat as a sink when filling the DEM for streams.
+- `sink_depth_m`: Minimum depth (m) below the filled surface for a sink region.
+- Per-stream entries:
+  - `catchment`: Threshold for catchment area to define a stream.
+  - `color`: Color of the water line.
+  - `width`: Line width in mm.
 
 ### Vegetation
 
@@ -119,6 +125,7 @@ Configures vegetation density and height mapping.
 - `height_configs`: List of height bands (e.g., low vegetation, canopy).
   - `min_height`: Minimum height of vegetation in this band.
   - `max_height`: Maximum height.
+  - `smooth_radius`: Radius of the low-pass filter applied to the blocked-proportion map before polygonization, in vegetation grid cells (default: `3`). Larger values produce smoother boundaries. Set independently per height band (e.g. canopy vs green).
   - `colors`: List of colors based on blocking threshold (density).
 
 ### Buildings

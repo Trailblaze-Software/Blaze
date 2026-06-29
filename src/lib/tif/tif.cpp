@@ -184,8 +184,6 @@ template void write_to_tif(const GeoGrid<std::byte>& grid, const fs::path& filen
                            ProgressTracker&& progress_tracker, bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<RGBColor>& grid, const fs::path& filename,
                            ProgressTracker&& progress_tracker, bool include_vertical_crs);
-template void write_to_tif(const GeoGrid<CMYKColor>& grid, const fs::path& filename,
-                           ProgressTracker&& progress_tracker, bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<std::optional<std::byte>>& grid, const fs::path& filename,
                            ProgressTracker&& progress_tracker, bool include_vertical_crs);
 template void write_to_tif(const GeoGrid<std::optional<double>>& grid, const fs::path& filename,
