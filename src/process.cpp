@@ -1,5 +1,7 @@
 #include "process.hpp"
 
+#include <numbers>
+
 #include "cliff/cliff.hpp"
 #include "contour/contour_gen.hpp"
 #include "crt/crt.hpp"

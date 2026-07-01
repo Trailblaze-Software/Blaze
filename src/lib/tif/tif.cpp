@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <optional>
+#include <type_traits>
 
 #include "assert/gdal_assert.hpp"
 #include "gdal_priv.h"

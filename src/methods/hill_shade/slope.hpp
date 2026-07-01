@@ -2,7 +2,6 @@
 
 #include <cmath>
 #include <limits>
-#include <numbers>
 
 #include "grid/grid.hpp"
 #include "utilities/progress_tracker.hpp"
