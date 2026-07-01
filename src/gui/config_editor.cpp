@@ -373,7 +373,9 @@ ConfigEditor::ConfigEditor(QWidget* parent)
           &ConfigEditor::update_vege_color_from_ui);
 
   connect(ui->vege_bg_color_combo, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-          &ConfigEditor::update_vege_from_ui);
+          &ConfigEditor::update_vege_globals_from_ui);
+  connect(ui->vege_saddle_policy_combo, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          &ConfigEditor::update_vege_globals_from_ui);
 
   auto connect_vege = [this](QWidget* widget) {
     if (auto* le = qobject_cast<QLineEdit*>(widget)) {
@@ -755,6 +757,7 @@ void ConfigEditor::set_ui_to_config(const Config& config) {
   ui->override_crs_edit->setText(QString::fromStdString(config.override_crs));
 
   ui->vege_bg_color_combo->setCurrentText(get_color_name(config.vege.background_color));
+  ui->vege_saddle_policy_combo->setCurrentIndex(static_cast<int>(config.vege.saddle_policy));
 
   // 3. Populate Lists (these trigger detail loading for the first items via signals)
   // Since combos are already populated, details loading will correctly set the selections.
@@ -1105,7 +1108,7 @@ void ConfigEditor::load_vege_details(int index) {
   m_updating_ui = was_updating;
 }
 
-void ConfigEditor::update_vege_from_ui() {
+void ConfigEditor::update_vege_globals_from_ui() {
   if (m_updating_ui) return;
 
   if (ui->vege_bg_color_combo->currentText() == "Add new color...") {
@@ -1113,6 +1116,21 @@ void ConfigEditor::update_vege_from_ui() {
     add_color();
     return;
   }
+
+  const QString bg_color = ui->vege_bg_color_combo->currentText();
+  if (COLOR_MAP.count(bg_color.toStdString())) {
+    m_config->vege.background_color = COLOR_MAP.at(bg_color.toStdString());
+  }
+
+  const int saddle_idx = ui->vege_saddle_policy_combo->currentIndex();
+  if (saddle_idx >= 0) {
+    m_config->vege.saddle_policy = static_cast<SaddlePolicy>(saddle_idx);
+  }
+  config_changed();
+}
+
+void ConfigEditor::update_vege_from_ui() {
+  if (m_updating_ui) return;
 
   int row = ui->vege_list_widget->currentRow();
   if (row < 0 || row >= (int)m_config->vege.height_configs.size()) return;
@@ -1122,11 +1140,6 @@ void ConfigEditor::update_vege_from_ui() {
   config.min_height = ui->vege_min_height_edit->text().toDouble();
   config.max_height = ui->vege_max_height_edit->text().toDouble();
   config.smooth_radius = ui->vege_smooth_radius_spin->value();
-
-  QString bg_color = ui->vege_bg_color_combo->currentText();
-  if (COLOR_MAP.count(bg_color.toStdString())) {
-    m_config->vege.background_color = COLOR_MAP.at(bg_color.toStdString());
-  }
 
   ui->vege_list_widget->item(row)->setText(QString::fromStdString(config.name));
   config_changed();

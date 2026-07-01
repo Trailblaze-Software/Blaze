@@ -22,10 +22,17 @@ inline GeoGrid<std::optional<float>> get_blocked_proportion(
 #pragma omp parallel for
   for (size_t i = 0; i < row_count; i++) {
     for (size_t j = 0; j < grid.width(); j++) {
+      if (!std::isfinite(ground[{j, i}])) {
+        blocked_proportion[{j, i}] = std::nullopt;
+        continue;
+      }
       size_t below_count = 0;
       size_t in_count = 0;
       for (const LASPoint& las_point : grid[{j, i}]) {
-        double ground_height = interpolate_value(ground, las_point);
+        const double ground_height = interpolate_value(ground, las_point);
+        if (!std::isfinite(ground_height)) {
+          continue;
+        }
         double height = las_point.z() - ground_height;
         if (height > -1 && height < vege_config.max_height) {
           if (height < vege_config.min_height) {
@@ -115,7 +122,8 @@ inline GeoGrid<float> low_pass(const GeoGrid<std::optional<float>>& grid, int de
         }
       }
       if (weight_sum == 0) {
-        low_pass[{j, i}] = 0;
+        low_pass[{j, i}] = grid[{j, i}].has_value() ? grid[{j, i}].value()
+                                                    : std::numeric_limits<float>::quiet_NaN();
         continue;
       }
       low_pass[{j, i}] = sum / weight_sum;

@@ -3,8 +3,8 @@
 #include <gdal.h>
 
 #include <algorithm>
-#include <optional>
-#include <type_traits>
+#include <cmath>
+#include <limits>
 
 #include "assert/gdal_assert.hpp"
 #include "gdal_priv.h"
@@ -82,7 +82,7 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
     datatype = (GDALDataType)grid[0].data_type();
   } else {
     using T = typename GridT::value_type;
-    bands = IS_STD_OPTIONAL_V<T> ? 2 : std::is_base_of_v<Color, T> ? 3 : 1;
+    bands = IS_STD_OPTIONAL_V<T> ? 2 : std::is_base_of_v<Color, T> ? 4 : 1;
     datatype = gdal_type<T>();
   }
 
@@ -90,12 +90,11 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
   options = CSLSetNameValue(options, "COMPRESS", "LZW");
   options = CSLSetNameValue(options, "NUM_THREADS", "8");
 
-  // Only set ALPHA=YES for types that actually have a transparency band.
-  // Optional types (2 bands: data + alpha) have alpha; Color types (3 bands:
-  // RGB) and scalar types (1 band) do not.
+  // Set ALPHA=YES for types that carry a transparency band.
+  // Optional types (2 bands: data + alpha) and Color types (4 bands: RGBA).
   if constexpr (!std::is_same_v<GridT, MultiBand<FlexGrid>>) {
     using T = typename GridT::value_type;
-    if constexpr (IS_STD_OPTIONAL_V<T>) {
+    if constexpr (IS_STD_OPTIONAL_V<T> || std::is_base_of_v<Color, T>) {
       options = CSLSetNameValue(options, "ALPHA", "YES");
     }
   }
@@ -152,7 +151,7 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
             GF_Write, 0, i, grid.width(), 1, transparent.data(), grid.width(), 1, datatype, 0, 0));
       }
     } else if constexpr (std::is_base_of_v<Color, T>) {
-      for (int band = 0; band < 3; band++) {
+      for (int band = 0; band < 4; band++) {
         std::vector<unsigned char> data(grid.width() * grid.height());
 #pragma omp parallel for
         for (size_t i = 0; i < grid.height(); i++) {
@@ -165,9 +164,14 @@ void write_to_tif(const Geo<GridT>& grid, const fs::path& filename,
             datatype, 0, 0));
       }
     } else {
-      GDALAssert(dataset->GetRasterBand(1)->RasterIO(GF_Write, 0, 0, grid.width(), grid.height(),
-                                                     const_cast<T*>(&grid[{0, 0}]), grid.width(),
-                                                     grid.height(), datatype, 0, 0));
+      GDALRasterBand* band = dataset->GetRasterBand(1);
+      if constexpr (std::is_floating_point_v<T>) {
+        const double nodata = std::numeric_limits<double>::quiet_NaN();
+        band->SetNoDataValue(nodata);
+      }
+      GDALAssert(band->RasterIO(GF_Write, 0, 0, grid.width(), grid.height(),
+                                const_cast<T*>(&grid[{0, 0}]), grid.width(), grid.height(),
+                                datatype, 0, 0));
     }
   }
 
@@ -204,16 +208,46 @@ void write_to_image_tif(const GeoGrid<T>& grid, const fs::path& filename,
   }
   GeoGrid<std::byte> result(grid.width(), grid.height(), GeoTransform(grid.transform()),
                             GeoProjection(grid.projection()));
-  T min = min_val.value_or(grid.min_value());
-  T max = max_val.value_or(grid.max_value());
+  auto finite_extrema = [&]() -> std::pair<T, T> {
+    bool found = false;
+    T finite_min{};
+    T finite_max{};
+    for (size_t i = 0; i < grid.height(); i++) {
+      for (size_t j = 0; j < grid.width(); j++) {
+        const T value = grid[{j, i}];
+        if (!std::isfinite(value)) {
+          continue;
+        }
+        if (!found) {
+          finite_min = finite_max = value;
+          found = true;
+        } else {
+          finite_min = std::min(finite_min, value);
+          finite_max = std::max(finite_max, value);
+        }
+      }
+    }
+    if (!found) {
+      return {T{0}, T{0}};
+    }
+    return {finite_min, finite_max};
+  };
+  const auto [finite_min, finite_max] = finite_extrema();
+  const T min = min_val.value_or(finite_min);
+  const T max = max_val.value_or(finite_max);
 #pragma omp parallel for
   for (size_t i = 0; i < grid.height(); i++) {
     for (size_t j = 0; j < grid.width(); j++) {
       if constexpr (std::is_same_v<T, bool>) {
         result[{j, i}] = grid[{j, i}] ? std::byte(255) : std::byte(0);
       } else {
+        const T value = grid[{j, i}];
+        if (!std::isfinite(value)) {
+          result[{j, i}] = std::byte{0};
+          continue;
+        }
         const double denom = static_cast<double>(max - min);
-        const double normalized = (denom == 0.0) ? 0.0 : (255.0 * (grid[{j, i}] - min) / denom);
+        const double normalized = (denom == 0.0) ? 0.0 : (255.0 * (value - min) / denom);
         result[{j, i}] = static_cast<std::byte>(std::clamp(normalized, 0.0, 255.0));
       }
     }

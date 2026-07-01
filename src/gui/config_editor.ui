@@ -855,6 +855,39 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_VegeSaddle">
+         <item>
+          <widget class="QLabel" name="label_vege_saddle">
+           <property name="text">
+            <string>Saddle Policy:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="vege_saddle_policy_combo">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <item>
+            <property name="text"><string>By Height</string></property>
+           </item>
+           <item>
+            <property name="text"><string>Always Inside</string></property>
+           </item>
+           <item>
+            <property name="text"><string>Always Outside</string></property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_VegeSaddle">
+           <property name="orientation"><enum>Qt::Horizontal</enum></property>
+           <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_VegeMain" stretch="1,5">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_VegeList">

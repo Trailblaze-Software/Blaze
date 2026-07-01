@@ -148,11 +148,11 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
 
         // Combine TIFs
         fs::create_directories(config.output_path() / "combined" / "raw_vege");
-        static constexpr std::array<const char*, 17> COMBINE_TIFS = {
+        static constexpr std::array<const char*, 16> COMBINE_TIFS = {
             {"final_img.tif", "final_img_extra_contours.tif", "final_img_vector.tif",
              "final_img_vector_extra_contours.tif", "ground_intensity.tif", "buildings.tif",
-             "slope.tif", "fine_slope.tif", "vege_color.tif", "hill_shade_multi.tif", "ground.tif",
-             "smooth_ground.tif", "filled_dem.tif", "raw_vege/canopy.tif", "raw_vege/green.tif",
+             "slope.tif", "fine_slope.tif", "vege_color.tif", "ground.tif", "smooth_ground.tif",
+             "filled_dem.tif", "raw_vege/canopy.tif", "raw_vege/green.tif",
              "raw_vege/smoothed_green.tif", "raw_vege/smoothed_canopy.tif"}};
         for (size_t fi = 0; fi < COMBINE_TIFS.size(); ++fi) {
           const std::string filename = COMBINE_TIFS[fi];
@@ -227,15 +227,6 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
                                           GeoProjection(combined_grid.projection()));
             smooth_ground.fill_from(combined_grid[0]);
 
-#pragma omp parallel for
-            for (size_t i = 0; i < smooth_ground.height(); i++) {
-              for (size_t j = 0; j < smooth_ground.width(); j++) {
-                if (!std::isfinite(smooth_ground[{j, i}])) {
-                  smooth_ground[{j, i}] = 0;
-                }
-              }
-            }
-
             std::vector<Stream> stream_path = stream_paths(
                 smooth_ground, config.water, SUBTRACKER_HIDDEN(0.85, 0.95, file_tracker), false);
 
@@ -256,15 +247,6 @@ void run_with_config(const Config& config, const std::vector<fs::path>& addition
                                        GeoTransform(combined_grid.transform()),
                                        GeoProjection(combined_grid.projection()));
             filled_dem.fill_from(combined_grid[0]);
-
-#pragma omp parallel for
-            for (size_t i = 0; i < filled_dem.height(); i++) {
-              for (size_t j = 0; j < filled_dem.width(); j++) {
-                if (!std::isfinite(filled_dem[{j, i}])) {
-                  filled_dem[{j, i}] = 0;
-                }
-              }
-            }
 
             write_to_tif(filled_dem, config.output_path() / "combined" / "filled_filled_dem.tif",
                          SUBTRACKER(0.85, 0.95, file_tracker),

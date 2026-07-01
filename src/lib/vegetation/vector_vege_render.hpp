@@ -2,18 +2,37 @@
 
 #include <algorithm>
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
 #include "grid/img_grid.hpp"
 #include "vegetation/vegetation_polygon.hpp"
 
-// Fill `img` with vector vegetation polygons on a white CMYK base, batched by CRT layer.
+// Draw vector vegetation polygons onto `img`.  When `fill_background` is true
+// (the default) a black base with an optional white data-extent rectangle is
+// painted first.  Callers that have access to the full LiDAR coverage mask can
+// pre-fill the image themselves and pass `fill_background = false`.
 inline void draw_vector_vegetation(GeoImgGrid& img, const VegeConfig& vege_config,
                                    const std::vector<VegePolygon>& vege_polygons,
-                                   ProgressTracker&& progress_tracker) {
+                                   ProgressTracker&& progress_tracker,
+                                   std::optional<Extent2D> data_extent = {},
+                                   bool fill_background = true) {
   const std::map<std::string, ColorVariant> vege_layer_color_map = vege_layer_colors(vege_config);
-  img.fill(to_rgb(CMYKColor(0, 0, 0, 0)));
+
+  if (fill_background) {
+    img.fill(RGBColor(0, 0, 0, 255));
+    if (data_extent.has_value()) {
+      const Extent2D& ext = *data_extent;
+      PolygonWithHoles data_rect;
+      data_rect.exterior = {{ext.minx, ext.maxy},
+                            {ext.maxx, ext.maxy},
+                            {ext.maxx, ext.miny},
+                            {ext.minx, ext.miny},
+                            {ext.minx, ext.maxy}};
+      draw_filled_polygon_impl(img, data_rect, RGBColor(255, 255, 255, 255));
+    }
+  }
 
   std::vector<const VegePolygon*> sorted_polygons;
   sorted_polygons.reserve(vege_polygons.size());

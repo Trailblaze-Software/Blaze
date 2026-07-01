@@ -23,7 +23,7 @@ template <typename T>
 const GeoGrid<T>& work_grid_for_contours(const GeoGrid<T>& grid, std::optional<T> pad_value,
                                          std::optional<GeoGrid<T>>& padded_out) {
   if (pad_value.has_value()) {
-    padded_out.emplace(grid.pad(*pad_value));
+    padded_out.emplace(grid.pad(*pad_value, true));
     return *padded_out;
   }
   return grid;
@@ -52,7 +52,8 @@ GridGraph<std::set<double>> identify_contour_crossings(const GeoGrid<T>& grid,
 
 template <typename T, typename AcceptFn, typename EmitFn>
 void trace_contours(const GeoGrid<T>& grid, GridGraph<std::set<double>>& contour_heights,
-                    AcceptFn accept, EmitFn emit) {
+                    AcceptFn accept, EmitFn emit,
+                    SaddlePolicy saddle_policy = SaddlePolicy::ByHeight) {
   for (size_t i = 0; i < contour_heights.height(); i++) {
     for (size_t j = 0; j < contour_heights.width(); j++) {
       Coordinate2D<size_t> coord = {j, i};
@@ -62,7 +63,8 @@ void trace_contours(const GeoGrid<T>& grid, GridGraph<std::set<double>>& contour
           continue;
         }
         for (double height : std::set<double>(contour_heights[line_coord])) {
-          Contour c = Contour::FromGridGraph(line_coord, height, grid, contour_heights);
+          Contour c =
+              Contour::FromGridGraph(line_coord, height, grid, contour_heights, saddle_policy);
           if (accept(c)) {
             emit(height, std::move(c));
           }
@@ -120,7 +122,8 @@ GridGraph<std::set<double>> identify_contours_at_heights(const GeoGrid<T>& grid,
 template <typename T>
 std::map<double, std::vector<Contour>> generate_contours_at_heights(
     const GeoGrid<T>& grid, const std::vector<double>& heights, ProgressTracker&& progress_tracker,
-    size_t min_points = 3, std::optional<T> pad_value = std::nullopt) {
+    size_t min_points = 3, std::optional<T> pad_value = std::nullopt,
+    SaddlePolicy saddle_policy = SaddlePolicy::AlwaysOutside) {
   START_TRACKER("generating contours at heights");
   std::optional<GeoGrid<T>> padded;
   const GeoGrid<T>& work_grid = detail::work_grid_for_contours(grid, pad_value, padded);
@@ -141,7 +144,8 @@ std::map<double, std::vector<Contour>> generate_contours_at_heights(
           }
         }
         contours_by_height[height].emplace_back(std::move(c));
-      });
+      },
+      saddle_policy);
 
   return contours_by_height;
 }
@@ -149,9 +153,9 @@ std::map<double, std::vector<Contour>> generate_contours_at_heights(
 template <typename T>
 std::map<double, std::vector<Contour>> generate_contours_at_heights(
     const GeoGrid<T>& grid, const std::vector<double>& heights, ProgressTracker&& progress_tracker,
-    size_t min_points, T pad_value) {
+    size_t min_points, T pad_value, SaddlePolicy saddle_policy = SaddlePolicy::AlwaysOutside) {
   return generate_contours_at_heights(grid, heights, std::move(progress_tracker), min_points,
-                                      std::optional<T>(pad_value));
+                                      std::optional<T>(pad_value), saddle_policy);
 }
 
 inline std::vector<Contour> join_contours(std::vector<Contour> contours, double max_dist) {

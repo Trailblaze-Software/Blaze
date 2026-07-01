@@ -260,3 +260,55 @@ TEST(GenerateContoursAtHeights, OrientsDonutRings) {
   ASSERT_NE(inner, nullptr);
   EXPECT_TRUE(point_in_ring(inner->points()[0], outer->points()));
 }
+
+// Helper to generate contours from a 2×2 saddle grid, always padded with zeros.
+static void check_saddle_2x2(const std::vector<std::vector<float>>& data, float threshold,
+                             SaddlePolicy policy, size_t expected_contours,
+                             const std::vector<size_t>& expected_point_counts) {
+  GeoGrid<float> grid(data);
+  auto contours = generate_contours_at_heights(grid, {threshold}, ProgressTracker(),
+                                               /*min_points=*/3, 0.0f, policy);
+  ASSERT_EQ(contours[threshold].size(), expected_contours) << "Policy " << static_cast<int>(policy);
+  for (size_t i = 0; i < expected_contours; ++i) {
+    EXPECT_TRUE(contours[threshold][i].is_loop()) << "Contour " << i;
+    if (i < expected_point_counts.size()) {
+      EXPECT_EQ(contours[threshold][i].points().size(), expected_point_counts[i])
+          << "Contour " << i << " point count";
+    }
+  }
+}
+
+// ┌──────┐
+// │0.6  0│  Top-left and bottom-right above threshold → one saddle cell.
+// │0  0.6│
+// └──────┘
+TEST(GenerateContoursAtHeights, SaddleConfigA_AlwaysOutside) {
+  check_saddle_2x2({{0.6f, 0.0f}, {0.0f, 0.6f}}, 0.5f, SaddlePolicy::AlwaysOutside, 2u, {5u, 5u});
+}
+TEST(GenerateContoursAtHeights, SaddleConfigA_AlwaysInside) {
+  check_saddle_2x2({{0.6f, 0.0f}, {0.0f, 0.6f}}, 0.5f, SaddlePolicy::AlwaysInside, 1u, {9u});
+}
+TEST(GenerateContoursAtHeights, SaddleConfigA_ByHeight) {
+  // centre = 0.3 < 0.5 → separate.
+  check_saddle_2x2({{0.6f, 0.0f}, {0.0f, 0.6f}}, 0.5f, SaddlePolicy::ByHeight, 2u, {5u, 5u});
+}
+TEST(GenerateContoursAtHeights, SaddleConfigA_ByHeightAboveMerges) {
+  // centre = (0.6+0.3+0.3+0.6)/4 = 0.45 < 0.5 → separate.  Need centre > threshold:
+  // centre = (0.7+0.4+0.4+0.7)/4 = 0.55 > 0.5 → merge.
+  check_saddle_2x2({{0.7f, 0.4f}, {0.4f, 0.7f}}, 0.5f, SaddlePolicy::ByHeight, 1u, {9u});
+}
+
+// ┌──────┐
+// │0  0.6│  Top-right and bottom-left above threshold (mirror of config A).
+// │0.6  0│
+// └──────┘
+TEST(GenerateContoursAtHeights, SaddleConfigB_AlwaysOutside) {
+  check_saddle_2x2({{0.0f, 0.6f}, {0.6f, 0.0f}}, 0.5f, SaddlePolicy::AlwaysOutside, 2u, {5u, 5u});
+}
+TEST(GenerateContoursAtHeights, SaddleConfigB_AlwaysInside) {
+  check_saddle_2x2({{0.0f, 0.6f}, {0.6f, 0.0f}}, 0.5f, SaddlePolicy::AlwaysInside, 1u, {9u});
+}
+TEST(GenerateContoursAtHeights, SaddleConfigB_ByHeight) {
+  // centre = 0.3 < 0.5 → separate.
+  check_saddle_2x2({{0.0f, 0.6f}, {0.6f, 0.0f}}, 0.5f, SaddlePolicy::ByHeight, 2u, {5u, 5u});
+}

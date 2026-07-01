@@ -331,6 +331,23 @@ TEST(GeoGridPad, AdjustsGeoTransform) {
   EXPECT_DOUBLE_EQ(padded.transform().dy(), -10.0);
 }
 
+TEST(GeoGridPad, FillsNodataBeforePadding) {
+  std::vector<std::vector<float>> data = {
+      {std::numeric_limits<float>::quiet_NaN(), 0.5f},
+      {0.7f, 0.8f},
+  };
+  GeoGrid<float> grid(data);
+
+  GeoGrid<float> padded = grid.pad(0.0f, true);
+
+  EXPECT_FLOAT_EQ((padded[{0, 0}]), 0.0f);
+  EXPECT_FLOAT_EQ((padded[{1, 0}]), 0.0f);
+  EXPECT_FLOAT_EQ((padded[{0, 1}]), 0.0f);
+  EXPECT_FLOAT_EQ((padded[{1, 1}]), 0.0f);
+  EXPECT_FLOAT_EQ((padded[{2, 1}]), 0.5f);
+  EXPECT_FLOAT_EQ((padded[{1, 2}]), 0.7f);
+}
+
 TEST(GeoGridPad, EmptyGrid) {
   GeoGrid<float> grid(0, 0, GeoTransform(), GeoProjection());
 

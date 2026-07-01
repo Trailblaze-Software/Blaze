@@ -342,6 +342,8 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
   const auto& r_band = grid[0];
   const auto& g_band = grid[1];
   const auto& b_band = grid[2];
+  const bool has_alpha = grid.size() >= 4;
+  const auto& a_band = has_alpha ? grid[3] : grid[0];
   RGBColor background = to_cmyk(config.vege.background_color).toRGB();
 
   // Determine expected vegetation color(s) from config
@@ -367,6 +369,13 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
            pixel.getBlue() == expected.getBlue();
   };
 
+  auto is_masked_exterior = [&](size_t i, size_t j) -> bool {
+    if (!has_alpha) {
+      return false;
+    }
+    return a_band.get<std::byte>({(long long)j, (long long)i}) == std::byte{0};
+  };
+
   // Check pixels based on expected behavior
   if (should_have_vegetation) {
     // Since vegetation points are added across the whole area, most pixels should be vegetation
@@ -376,6 +385,9 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
 
     for (size_t i = 0; i < grid.height(); ++i) {
       for (size_t j = 0; j < grid.width(); ++j) {
+        if (is_masked_exterior(i, j)) {
+          continue;
+        }
         RGBColor pixel = get_pixel_color(i, j);
         bool matches_background = matches_color(pixel, background);
         bool matches_vege = false;
@@ -406,7 +418,8 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
       }
     }
 
-    size_t total_pixels = grid.width() * grid.height();
+    const size_t total_pixels = vegetation_pixel_count + background_pixel_count;
+    ASSERT_GT(total_pixels, 0u) << "No non-transparent pixels found in vege_color.tif";
     double vegetation_ratio = static_cast<double>(vegetation_pixel_count) / total_pixels;
 
     // Expect at least 50% of pixels to be vegetation color (allowing for edges and smoothing
@@ -419,6 +432,9 @@ void verify_vegetation_tif(const fs::path& vege_tif_path, bool should_have_veget
     // All pixels must be background
     for (size_t i = 0; i < grid.height(); ++i) {
       for (size_t j = 0; j < grid.width(); ++j) {
+        if (is_masked_exterior(i, j)) {
+          continue;
+        }
         RGBColor pixel = get_pixel_color(i, j);
         if (!matches_color(pixel, background)) {
           FAIL() << "Pixel at (" << j << ", " << i
@@ -550,7 +566,10 @@ TEST_P(E2ETerrainTest, ProcessTerrain) {
     for (size_t i = 0; i < band.height(); ++i) {
       for (size_t j = 0; j < band.width(); ++j) {
         if (band.get<double>({(long long)j, (long long)i}) != std::numeric_limits<double>::max()) {
-          EXPECT_NEAR(band.get<double>({(long long)j, (long long)i}), expected_elevation, 1e-6);
+          const double elevation = band.get<double>({(long long)j, (long long)i});
+          if (std::isfinite(elevation)) {
+            EXPECT_NEAR(elevation, expected_elevation, 1e-6);
+          }
         }
       }
     }
@@ -956,6 +975,38 @@ TEST(WriteToImageTif, AbsoluteSlopeBounds) {
     auto pixels = read_byte_tif_pixels(out);
     for (auto p : pixels) EXPECT_EQ(p, 127) << "45-degree slope should produce pixel 127";
   }
+
+  fs::remove_all(tmp);
+}
+
+TEST(WriteToImageTif, NodataPixelsMapToZero) {
+  fs::path tmp = blaze::test::unique_test_output_dir("slope_nodata");
+  fs::create_directories(tmp);
+  fs::path out = tmp / "test_nodata.tif";
+
+  GeoGrid<double> grid(3, 3, GeoTransform(), GeoProjection());
+  const double nan = std::numeric_limits<double>::quiet_NaN();
+  grid[{0, 0}] = 0.0;
+  grid[{1, 0}] = 0.0;
+  grid[{2, 0}] = nan;
+  grid[{0, 1}] = 0.0;
+  grid[{1, 1}] = 0.0;
+  grid[{2, 1}] = nan;
+  grid[{0, 2}] = nan;
+  grid[{1, 2}] = nan;
+  grid[{2, 2}] = nan;
+
+  write_to_image_tif(grid, out, ProgressTracker(), std::optional<double>(std::numbers::pi / 2),
+                     std::optional<double>(0.0));
+  auto pixels = read_byte_tif_pixels(out);
+  ASSERT_EQ(pixels.size(), 9u);
+  EXPECT_EQ(pixels[2], 0);
+  EXPECT_EQ(pixels[5], 0);
+  EXPECT_EQ(pixels[6], 0);
+  EXPECT_EQ(pixels[7], 0);
+  EXPECT_EQ(pixels[8], 0);
+  EXPECT_EQ(pixels[0], 255);
+  EXPECT_EQ(pixels[4], 255);
 
   fs::remove_all(tmp);
 }
