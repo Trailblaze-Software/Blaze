@@ -7,8 +7,6 @@
 #include "grid/grid.hpp"
 #include "utilities/progress_tracker.hpp"
 
-#define SQ(x) ((x) * (x))
-
 template <typename T>
 GeoGrid<double> slope(const GeoGrid<T>& grid, ProgressTracker&& progress_tracker) {
   START_TRACKER("computing slope");

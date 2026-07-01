@@ -568,8 +568,8 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
   };
 
   const auto draw_vector_vege = [&](GeoImgGrid& img, ProgressTracker& tracker) {
-    fill_grid_from_coverage(img, coverage_mask, RGBColor(255, 255, 255, 255), RGBColor(0, 0, 0, 0));
-    draw_vector_vegetation(img, config.vege, vege_polygons, std::move(tracker), {}, false);
+    draw_vector_vegetation(img, config.vege, vege_polygons, std::move(tracker));
+    mask_outside_coverage(img, coverage_mask, RGBColor(0, 0, 0, 0));
   };
 
   const auto render_final_maps = [&](const auto& draw_vege_fn, const fs::path& base_output,

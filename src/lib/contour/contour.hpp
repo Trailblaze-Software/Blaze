@@ -85,25 +85,30 @@ class Contour {
     // Helper: bilinear centre of the marching-squares cell the crossing enters.
     auto bilinear_centre = [&](const LineCoord2DCrossing<size_t>& crossing) -> double {
       const auto& s = crossing.start();
-      size_t j, i;
+      long long j, i;
       if (crossing.dir() == Direction2D::RIGHT) {
         // RIGHT edge (horizontal): crossing_dir == DOWN → enter cell below (s).
         // crossing_dir == UP   → enter cell above (s.y - 1).
-        j = s.x();
-        i = crossing.crossing_dir() == Direction2D::DOWN ? s.y() : s.y() - 1;
+        j = static_cast<long long>(s.x());
+        i = crossing.crossing_dir() == Direction2D::DOWN ? static_cast<long long>(s.y())
+                                                         : static_cast<long long>(s.y()) - 1;
       } else {
         // DOWN edge (vertical): crossing_dir == RIGHT → enter cell to the right (s).
         // crossing_dir == LEFT  → enter cell to the left (s.x - 1).
-        j = crossing.crossing_dir() == Direction2D::RIGHT ? s.x() : s.x() - 1;
-        i = s.y();
+        j = crossing.crossing_dir() == Direction2D::RIGHT ? static_cast<long long>(s.x())
+                                                          : static_cast<long long>(s.x()) - 1;
+        i = static_cast<long long>(s.y());
       }
-      if (j < 0 || j + 1 >= grid.width() || i < 0 || i + 1 >= grid.height()) {
+      if (j < 0 || i < 0 || j + 1 >= static_cast<long long>(grid.width()) ||
+          i + 1 >= static_cast<long long>(grid.height())) {
         // Cell corners are not all addressable; treat as below threshold (separate).
         return height;
       }
-      return 0.25 *
-             (static_cast<double>(grid[{j, i}]) + static_cast<double>(grid[{j + 1, i}]) +
-              static_cast<double>(grid[{j, i + 1}]) + static_cast<double>(grid[{j + 1, i + 1}]));
+      const size_t uj = static_cast<size_t>(j);
+      const size_t ui = static_cast<size_t>(i);
+      return 0.25 * (static_cast<double>(grid[{uj, ui}]) + static_cast<double>(grid[{uj + 1, ui}]) +
+                     static_cast<double>(grid[{uj, ui + 1}]) +
+                     static_cast<double>(grid[{uj + 1, ui + 1}]));
     };
 
     std::vector<Coordinate2D<double>> contour_points;
