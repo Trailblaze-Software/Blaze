@@ -37,6 +37,7 @@
 | ---: | :--- |
 |  ColorVariant | [**background\_color**](#variable-background_color)  <br> |
 |  std::vector&lt; [**VegeHeightConfig**](structVegeHeightConfig.md) &gt; | [**height\_configs**](#variable-height_configs)  <br> |
+|  SaddlePolicy | [**saddle\_policy**](#variable-saddle_policy)   = `SaddlePolicy::AlwaysOutside`<br> |
 
 
 
@@ -103,6 +104,19 @@ ColorVariant VegeConfig::background_color;
 
 ```C++
 std::vector<VegeHeightConfig> VegeConfig::height_configs;
+```
+
+
+
+
+<hr>
+
+
+
+### variable saddle\_policy 
+
+```C++
+SaddlePolicy VegeConfig::saddle_policy;
 ```
 
 

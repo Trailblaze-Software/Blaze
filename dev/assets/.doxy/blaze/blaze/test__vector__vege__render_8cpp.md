@@ -63,17 +63,17 @@
 
 | Type | Name |
 | ---: | :--- |
-|   | [**TEST**](#function-test) (VectorVegeRender, WhiteBaseWithoutPolygons) <br> |
+|   | [**TEST**](#function-test) (VectorVegeRender, BackgroundFillWithoutPolygons) <br> |
 |   | [**TEST**](#function-test) (VectorVegeRender, HigherPriorityGreenCoversForest) <br> |
 |   | [**TEST**](#function-test) (VectorVegeRender, OpenLandUsesBackgroundColor) <br> |
 |   | [**TEST**](#function-test) (VectorVegeRender, UnknownLayerIsSkipped) <br> |
 |   | [**TEST**](#function-test) (VectorVegeRender, AllGreenLayersRenderDistinctColors) <br> |
-|   | [**TEST**](#function-test) (VectorVegeRender, PolygonHoleLeavesWhiteInterior) <br> |
+|   | [**TEST**](#function-test) (VectorVegeRender, PolygonHoleLeavesBackgroundInterior) <br> |
 |   | [**TEST**](#function-test) (VectorVegeRender, DefaultLayerNamesMapFromConfig) <br> |
 |   | [**TEST**](#function-test) (VectorVegeTif, SaveAndReadPreservesRenderedColors) <br> |
 |   | [**TEST**](#function-test) (VectorVegeOverlay, TransparentOverlayPreservesVectorBackground) <br> |
 |   | [**TEST**](#function-test) (VectorVegeOverlay, OpaqueOverlayPixelReplacesBackground) <br> |
-|   | [**TEST**](#function-test) (VectorVegeOverlay, DrawWithTransparentForegroundDoesNotTintWhite) <br> |
+|   | [**TEST**](#function-test) (VectorVegeOverlay, DrawWithTransparentForegroundDoesNotTintBackground) <br> |
 
 
 
@@ -112,7 +112,7 @@
 ```C++
 TEST (
     VectorVegeRender,
-    WhiteBaseWithoutPolygons
+    BackgroundFillWithoutPolygons
 ) 
 ```
 
@@ -192,7 +192,7 @@ TEST (
 ```C++
 TEST (
     VectorVegeRender,
-    PolygonHoleLeavesWhiteInterior
+    PolygonHoleLeavesBackgroundInterior
 ) 
 ```
 
@@ -272,7 +272,7 @@ TEST (
 ```C++
 TEST (
     VectorVegeOverlay,
-    DrawWithTransparentForegroundDoesNotTintWhite
+    DrawWithTransparentForegroundDoesNotTintBackground
 ) 
 ```
 

@@ -11,6 +11,7 @@
 
 
 * `#include <cmath>`
+* `#include <limits>`
 * `#include <numbers>`
 * `#include "grid/grid.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
@@ -56,7 +57,6 @@
 | Type | Name |
 | ---: | :--- |
 |  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**hill\_shade**](#function-hill_shade) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, double azimuth, double altitude, const bool multidirectional, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**slope**](#function-slope) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 
@@ -105,23 +105,6 @@ GeoGrid < double > hill_shade (
     double azimuth,
     double altitude,
     const bool multidirectional,
-    ProgressTracker && progress_tracker
-) 
-```
-
-
-
-
-<hr>
-
-
-
-### function slope 
-
-```C++
-template<typename T>
-GeoGrid < double > slope (
-    const GeoGrid < T > & grid,
     ProgressTracker && progress_tracker
 ) 
 ```

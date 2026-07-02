@@ -15,6 +15,7 @@
 * `#include <string>`
 * `#include <vector>`
 * `#include "grid/img_grid.hpp"`
+* `#include "isom/colors.hpp"`
 * `#include "vegetation/vegetation_polygon.hpp"`
 
 

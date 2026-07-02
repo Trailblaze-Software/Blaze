@@ -838,19 +838,24 @@ std::optional<PointPickResult> GLWidget::fb_pick_point(const QPointF& pixel, int
   CHECK_GL(ef->glGetIntegerv(GL_READ_BUFFER, &prev_read_buffer));
 
   const qreal dpr = devicePixelRatioF();
-  const int fb_w = static_cast<int>(std::lround(width() * dpr));
-  const int fb_h = static_cast<int>(std::lround(height() * dpr));
+  const int fb_w = std::max(1, static_cast<int>(std::lround(width() * dpr)));
+  const int fb_h = std::max(1, static_cast<int>(std::lround(height() * dpr)));
   const int cx = static_cast<int>(std::floor(pixel.x() * dpr + 0.5));
   const int cy = fb_h - static_cast<int>(std::floor(pixel.y() * dpr + 0.5)) - 1;
   const int pick_radius = std::max(1, static_cast<int>(std::lround(max_radius * dpr)));
   const GLuint widget_fbo = defaultFramebufferObject();
 
-  const int x0 = std::max(0, cx - pick_radius);
-  const int y0 = std::max(0, cy - pick_radius);
-  const int x1 = std::min(fb_w - 1, cx + pick_radius);
-  const int y1 = std::min(fb_h - 1, cy + pick_radius);
+  // Mouse tracking can report positions outside the widget. Clamping each corner
+  // independently avoids x0 > x1 (negative region size → huge vector allocation).
+  const int x0 = std::clamp(cx - pick_radius, 0, fb_w - 1);
+  const int x1 = std::clamp(cx + pick_radius, 0, fb_w - 1);
+  const int y0 = std::clamp(cy - pick_radius, 0, fb_h - 1);
+  const int y1 = std::clamp(cy + pick_radius, 0, fb_h - 1);
   const int region_w = x1 - x0 + 1;
   const int region_h = y1 - y0 + 1;
+  if (region_w <= 0 || region_h <= 0) {
+    return std::nullopt;
+  }
   const size_t pixel_count = static_cast<size_t>(region_w) * static_cast<size_t>(region_h);
 
   std::vector<uint32_t> pick_pixels(pixel_count * 2);

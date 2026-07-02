@@ -56,6 +56,7 @@
 | Type | Name |
 | ---: | :--- |
 | enum  | [**ProcessingStep**](#enum-processingstep)  <br> |
+| enum  | [**SaddlePolicy**](#enum-saddlepolicy)  <br> |
 
 
 
@@ -81,6 +82,7 @@
 | Type | Name |
 | ---: | :--- |
 |  std::ostream & | [**operator&lt;&lt;**](#function-operator) (std::ostream & os, const ProcessingStep & step) <br> |
+|  SaddlePolicy | [**opposite\_saddle\_policy**](#function-opposite_saddle_policy) (SaddlePolicy p) <br> |
 
 
 
@@ -132,6 +134,23 @@ enum ProcessingStep {
 
 
 <hr>
+
+
+
+### enum SaddlePolicy 
+
+```C++
+enum SaddlePolicy {
+    ByHeight,
+    AlwaysInside,
+    AlwaysOutside
+};
+```
+
+
+
+
+<hr>
 ## Public Functions Documentation
 
 
@@ -143,6 +162,21 @@ enum ProcessingStep {
 std::ostream & operator<< (
     std::ostream & os,
     const ProcessingStep & step
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function opposite\_saddle\_policy 
+
+```C++
+inline SaddlePolicy opposite_saddle_policy (
+    SaddlePolicy p
 ) 
 ```
 

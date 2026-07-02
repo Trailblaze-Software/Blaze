@@ -65,8 +65,8 @@
 | Type | Name |
 | ---: | :--- |
 |  std::vector&lt; [**Contour**](classContour.md) &gt; | [**generate\_contours**](#function-generate_contours) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const [**ContourConfigs**](structContourConfigs.md) & contour\_config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
-|  std::map&lt; double, std::vector&lt; [**Contour**](classContour.md) &gt; &gt; | [**generate\_contours\_at\_heights**](#function-generate_contours_at_heights) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const std::vector&lt; double &gt; & heights, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, size\_t min\_points=3, std::optional&lt; T &gt; pad\_value=std::nullopt) <br> |
-|  std::map&lt; double, std::vector&lt; [**Contour**](classContour.md) &gt; &gt; | [**generate\_contours\_at\_heights**](#function-generate_contours_at_heights) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const std::vector&lt; double &gt; & heights, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, size\_t min\_points, T pad\_value) <br> |
+|  std::map&lt; double, std::vector&lt; [**Contour**](classContour.md) &gt; &gt; | [**generate\_contours\_at\_heights**](#function-generate_contours_at_heights) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const std::vector&lt; double &gt; & heights, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, size\_t min\_points=3, std::optional&lt; T &gt; pad\_value=std::nullopt, SaddlePolicy saddle\_policy=SaddlePolicy::AlwaysOutside) <br> |
+|  std::map&lt; double, std::vector&lt; [**Contour**](classContour.md) &gt; &gt; | [**generate\_contours\_at\_heights**](#function-generate_contours_at_heights) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const std::vector&lt; double &gt; & heights, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, size\_t min\_points, T pad\_value, SaddlePolicy saddle\_policy=SaddlePolicy::AlwaysOutside) <br> |
 |  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**generate\_naive\_contours**](#function-generate_naive_contours) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & ground) <br> |
 |  [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; | [**identify\_contours**](#function-identify_contours) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, T contour\_interval, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; | [**identify\_contours\_at\_heights**](#function-identify_contours_at_heights) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const std::set&lt; double &gt; & heights, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, std::optional&lt; T &gt; pad\_value=std::nullopt) <br> |
@@ -133,7 +133,8 @@ std::map< double, std::vector< Contour > > generate_contours_at_heights (
     const std::vector< double > & heights,
     ProgressTracker && progress_tracker,
     size_t min_points=3,
-    std::optional< T > pad_value=std::nullopt
+    std::optional< T > pad_value=std::nullopt,
+    SaddlePolicy saddle_policy=SaddlePolicy::AlwaysOutside
 ) 
 ```
 
@@ -153,7 +154,8 @@ std::map< double, std::vector< Contour > > generate_contours_at_heights (
     const std::vector< double > & heights,
     ProgressTracker && progress_tracker,
     size_t min_points,
-    T pad_value
+    T pad_value,
+    SaddlePolicy saddle_policy=SaddlePolicy::AlwaysOutside
 ) 
 ```
 

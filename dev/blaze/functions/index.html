@@ -1336,6 +1336,7 @@
 <h2 id="a">a</h2>
 <ul>
 <li><strong>append_flat_grid_dem_layers</strong> (<a href="../blaze__output__loader_8hpp/"><strong>blaze_output_loader.hpp</strong></a>)</li>
+<li><strong>apply_coverage_mask</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>as_extent2d</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>as_extent3d</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
 <li><strong>average</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
@@ -1361,10 +1362,13 @@
 <li><strong>classification_color_glsl</strong> (<a href="../point__cloud__visualization_8hpp/"><strong>point_cloud_visualization.hpp</strong></a>)</li>
 <li><strong>compute_mesh_normals</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>compute_terrain_normals_from_dem</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
+<li><strong>check_saddle_2x2</strong> (<a href="../test__contour__gen_8cpp/"><strong>test_contour_gen.cpp</strong></a>)</li>
 <li><strong>crosses_contour</strong> (<a href="../contour_8hpp/"><strong>contour.hpp</strong></a>)</li>
 <li><strong>clip_polygon_hole_free_to_extent</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
 <li><strong>clip_polygon_to_extent</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>coord</strong> (<a href="../test__grid_8cpp/"><strong>test_grid.cpp</strong></a>)</li>
+<li><strong>compute_lidar_coverage_mask</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
+<li><strong>coverage_extent</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>crs_compatible_for_viewing</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>combine_gpkgs</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>copy_gpkg_feature</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
@@ -1398,6 +1402,7 @@
 <h2 id="e">e</h2>
 <ul>
 <li><strong>extent_contains</strong> (<a href="../polygon_8hpp/"><strong>polygon.hpp</strong></a>)</li>
+<li><strong>enforce_downsample_nodata</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>ensure_gdal_initialized</strong> (<a href="../gdal__init_8hpp/"><strong>gdal_init.hpp</strong></a>)</li>
 <li><strong>ensure_dst_layer_fields</strong> (<a href="../gpkg_8hpp/"><strong>gpkg.hpp</strong></a>)</li>
 <li><strong>external_border_ranges</strong> (<a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>)</li>
@@ -1411,6 +1416,7 @@
 <li><strong>format_duration</strong> (<a href="../progress__box_8cpp/"><strong>progress_box.cpp</strong></a>)</li>
 <li><strong>flex_grid_value</strong> (<a href="../raster__data_8hpp/"><strong>raster_data.hpp</strong></a>)</li>
 <li><strong>finalize_polygon_with_holes</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
+<li><strong>fill_grid_from_coverage</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>forest_contours_polygonize</strong> (<a href="../test__vegetation__polygon_8cpp/"><strong>test_vegetation_polygon.cpp</strong></a>)</li>
 <li><strong>filter_by_min_area</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
 <li><strong>filter_small_holes</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
@@ -1478,6 +1484,7 @@
 <h2 id="m">m</h2>
 <ul>
 <li><strong>main</strong> (<a href="../main_8cpp/"><strong>main.cpp</strong></a>, <a href="../main__3d_8cpp/"><strong>main_3d.cpp</strong></a>, <a href="../blaze_8cpp/"><strong>blaze.cpp</strong></a>, <a href="../unit__tests_8cpp/"><strong>unit_tests.cpp</strong></a>)</li>
+<li><strong>mask_outside_coverage</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>make_coord_transform</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 <li><strong>make_projection_from_wkt</strong> (<a href="../crs_8hpp/"><strong>crs.hpp</strong></a>)</li>
 </ul>
@@ -1491,6 +1498,7 @@
 <ul>
 <li><strong>octree_shuffle_range</strong> (<a href="../point__octree_8hpp/"><strong>point_octree.hpp</strong></a>)</li>
 <li><strong>operator&lt;&lt;</strong> (<a href="../config__input_8cpp/"><strong>config_input.cpp</strong></a>, <a href="../config__input_8hpp/"><strong>config_input.hpp</strong></a>, <a href="../las__file_8hpp/"><strong>las_file.hpp</strong></a>, <a href="../las__point_8hpp/"><strong>las_point.hpp</strong></a>, <a href="../to__string_8hpp/"><strong>to_string.hpp</strong></a>, <a href="../timer_8hpp/"><strong>timer.hpp</strong></a>)</li>
+<li><strong>opposite_saddle_policy</strong> (<a href="../config__input_8hpp/"><strong>config_input.hpp</strong></a>)</li>
 <li><strong>orthogonal_neighbors</strong> (<a href="../coordinate_8hpp/"><strong>coordinate.hpp</strong></a>)</li>
 </ul>
 <h2 id="p">p</h2>
@@ -1538,10 +1546,11 @@
 <li><strong>subtract_polygon</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>subtract_polygon_with_union</strong> (<a href="../polygon__subtract_8hpp/"><strong>polygon_subtract.hpp</strong></a>)</li>
 <li><strong>same_type_different_size</strong> (<a href="../grid_8cpp/"><strong>grid.cpp</strong></a>)</li>
+<li><strong>sample_coverage_at_pixel</strong> (<a href="../grid__ops_8hpp/"><strong>grid_ops.hpp</strong></a>)</li>
 <li><strong>snap_down</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>snap_up</strong> (<a href="../tile__mode_8hpp/"><strong>tile_mode.hpp</strong></a>)</li>
 <li><strong>subtract_from_polygon</strong> (<a href="../vegetation__polygon_8hpp/"><strong>vegetation_polygon.hpp</strong></a>)</li>
-<li><strong>slope</strong> (<a href="../hill__shade_8hpp/"><strong>hill_shade.hpp</strong></a>)</li>
+<li><strong>slope</strong> (<a href="../slope_8hpp/"><strong>slope.hpp</strong></a>)</li>
 <li><strong>smoothify</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>)</li>
 <li><strong>stream_path</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>)</li>
 <li><strong>stream_paths</strong> (<a href="../water_8cpp/"><strong>water.cpp</strong></a>, <a href="../water_8hpp/"><strong>water.hpp</strong></a>)</li>

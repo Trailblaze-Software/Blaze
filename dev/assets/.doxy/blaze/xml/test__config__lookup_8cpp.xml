@@ -369,6 +369,25 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="185" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="185" bodyend="204"/>
       </memberdef>
+      <memberdef kind="function" id="test__config__lookup_8cpp_1a42fd47da1e754432e5583f3418ff12a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConfigJson, VegeSaddlePolicyRoundTrip)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConfigJson</type>
+        </param>
+        <param>
+          <type>VegeSaddlePolicyRoundTrip</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="206" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="206" bodyend="215"/>
+      </memberdef>
       <memberdef kind="function" id="test__config__lookup_8cpp_1aa8f16e9880d4372813e2492891f01b48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
@@ -386,7 +405,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="206" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="206" bodyend="219"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" line="217" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp" bodystart="217" bodyend="230"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -599,20 +618,31 @@
 <codeline lineno="203"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.vege.height_configs[1].smooth_radius,<sp/>3);</highlight></codeline>
 <codeline lineno="204"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal">TEST(ConfigJson,<sp/>GroundAndWaterOverlayRoundTrip)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">TEST(ConfigJson,<sp/>VegeSaddlePolicyRoundTrip)<sp/>{</highlight></codeline>
 <codeline lineno="207"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"><sp/><sp/>config.ground.use_only_ground_class<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/>config.ground.outlier_threshold_m<sp/>=<sp/>1.25;</highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/>config.water.classified_overlay_color<sp/>=<sp/>ColorVariant(<ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255));</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"></highlight></codeline>
-<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>blaze::test::unique_test_output_path(</highlight><highlight class="stringliteral">&quot;ground_water_overlay&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;.json&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/>config.write_to_file(path);</highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>loaded<sp/>=<sp/>Config::FromFile(path);</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(loaded.ground.use_only_ground_class);</highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(loaded.ground.outlier_threshold_m,<sp/>1.25);</highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/>EXPECT_EQ(to_rgb(loaded.water.classified_overlay_color).getBlue(),<sp/>255);</highlight></codeline>
-<codeline lineno="219"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>config.vege.saddle_policy<sp/>=<sp/>SaddlePolicy::AlwaysInside;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>blaze::test::unique_test_output_path(</highlight><highlight class="stringliteral">&quot;vege_saddle_policy&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;.json&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/>config.write_to_file(path);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>loaded<sp/>=<sp/>Config::FromFile(path);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.vege.saddle_policy,<sp/>SaddlePolicy::AlwaysInside);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal">TEST(ConfigJson,<sp/>GroundAndWaterOverlayRoundTrip)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>config;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/>config.ground.use_only_ground_class<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/>config.ground.outlier_threshold_m<sp/>=<sp/>1.25;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/>config.water.classified_overlay_color<sp/>=<sp/>ColorVariant(<ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>255,<sp/>255));</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>path<sp/>=<sp/>blaze::test::unique_test_output_path(</highlight><highlight class="stringliteral">&quot;ground_water_overlay&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;.json&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/>config.write_to_file(path);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>loaded<sp/>=<sp/>Config::FromFile(path);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(loaded.ground.use_only_ground_class);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(loaded.ground.outlier_threshold_m,<sp/>1.25);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/>EXPECT_EQ(to_rgb(loaded.water.classified_overlay_color).getBlue(),<sp/>255);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/tests/test_config_lookup.cpp"/>
   </compounddef>

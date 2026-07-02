@@ -445,6 +445,7 @@
 * **streamed\_count** ([**OctreeLASLayerRenderer::NodeStreamState**](structOctreeLASLayerRenderer_1_1NodeStreamState.md))
 * **secondary\_priority** ([**PriorityPoint**](structPriorityPoint.md))
 * **scale** ([**RenderConfig**](structRenderConfig.md))
+* **saddle\_policy** ([**VegeConfig**](structVegeConfig.md))
 * **smooth\_radius** ([**VegeHeightConfig**](structVegeHeightConfig.md))
 * **sink\_depth\_m** ([**WaterConfigs**](structWaterConfigs.md))
 * **sink\_min\_area\_m2** ([**WaterConfigs**](structWaterConfigs.md))

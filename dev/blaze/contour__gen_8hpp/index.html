@@ -976,11 +976,11 @@
 </tr>
 <tr>
 <td style="text-align: right;">std::map&lt; double, std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-generate_contours_at_heights"><strong>generate_contours_at_heights</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, const std::vector&lt; double &gt; &amp; heights, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, size_t min_points=3, std::optional&lt; T &gt; pad_value=std::nullopt) <br></td>
+<td style="text-align: left;"><a href="#function-generate_contours_at_heights"><strong>generate_contours_at_heights</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, const std::vector&lt; double &gt; &amp; heights, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, size_t min_points=3, std::optional&lt; T &gt; pad_value=std::nullopt, SaddlePolicy saddle_policy=SaddlePolicy::AlwaysOutside) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;">std::map&lt; double, std::vector&lt; <a href="../classContour/"><strong>Contour</strong></a> &gt; &gt;</td>
-<td style="text-align: left;"><a href="#function-generate_contours_at_heights"><strong>generate_contours_at_heights</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, const std::vector&lt; double &gt; &amp; heights, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, size_t min_points, T pad_value) <br></td>
+<td style="text-align: left;"><a href="#function-generate_contours_at_heights"><strong>generate_contours_at_heights</strong></a> (const <a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; T &gt; &amp; grid, const std::vector&lt; double &gt; &amp; heights, <a href="../classProgressTracker/"><strong>ProgressTracker</strong></a> &amp;&amp; progress_tracker, size_t min_points, T pad_value, SaddlePolicy saddle_policy=SaddlePolicy::AlwaysOutside) <br></td>
 </tr>
 <tr>
 <td style="text-align: right;"><a href="../classGeo/"><strong>GeoGrid</strong></a>&lt; std::optional&lt; std::byte &gt; &gt;</td>
@@ -1026,8 +1026,9 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">heights</span><span class="p">,</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">min_points</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">pad_value</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">pad_value</span><span class="o">=</span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">SaddlePolicy</span><span class="w"> </span><span class="n">saddle_policy</span><span class="o">=</span><span class="n">SaddlePolicy</span><span class="o">::</span><span class="n">AlwaysOutside</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 
@@ -1038,8 +1039,9 @@
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">heights</span><span class="p">,</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">ProgressTracker</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">progress_tracker</span><span class="p">,</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">min_points</span><span class="p">,</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">pad_value</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">pad_value</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">SaddlePolicy</span><span class="w"> </span><span class="n">saddle_policy</span><span class="o">=</span><span class="n">SaddlePolicy</span><span class="o">::</span><span class="n">AlwaysOutside</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

@@ -114,7 +114,7 @@ See [Geo](classGeo.md)
 |  void | [**fill\_from**](classGeo.md#function-fill_from-12) (const [**Geo**](classGeo.md)&lt; U &gt; & other) <br> |
 |  void | [**fill\_from**](classGeo.md#function-fill_from-22) (const U & other) <br> |
 |  double | [**height\_m**](classGeo.md#function-height_m) () const<br> |
-|  [**Geo**](classGeo.md) | [**pad**](classGeo.md#function-pad) (U pad\_value={}) const<br> |
+|  [**Geo**](classGeo.md) | [**pad**](classGeo.md#function-pad) (U pad\_value={}, bool fill\_nodata\_with\_pad\_value=false) const<br> |
 |  void | [**rasterize\_filled\_polygons**](classGeo.md#function-rasterize_filled_polygons) (const std::vector&lt; [**PolygonWithHoles**](structPolygonWithHoles.md) &gt; & polygons, const ColorVariant & color, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  void | [**save\_to**](classGeo.md#function-save_to) (const fs::path & path, const [**Extent2D**](structExtent2D.md) & extent, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  [**Geo**](classGeo.md) | [**slice**](classGeo.md#function-slice) (const [**Extent2D**](structExtent2D.md) & extent) <br> |

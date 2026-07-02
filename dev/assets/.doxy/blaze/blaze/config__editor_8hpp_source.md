@@ -68,6 +68,7 @@ class ConfigEditor : public QWidget {
   void remove_vege();
   void handle_vege_selected();
   void update_vege_from_ui();
+  void update_vege_globals_from_ui();
   void add_vege_color();
   void remove_vege_color();
   void update_vege_color_from_ui(int row, int column);

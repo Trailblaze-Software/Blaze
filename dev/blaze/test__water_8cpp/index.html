@@ -831,6 +831,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#function-test_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function TEST
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -861,7 +872,9 @@
 <p><a href="../test__water_8cpp_source/">Go to the source code of this file</a></p>
 <ul>
 <li><code>#include &lt;gtest/gtest.h&gt;</code></li>
+<li><code>#include &lt;cmath&gt;</code></li>
 <li><code>#include &lt;iomanip&gt;</code></li>
+<li><code>#include &lt;limits&gt;</code></li>
 <li><code>#include "lib/grid/grid.hpp"</code></li>
 <li><code>#include "methods/water/water.hpp"</code></li>
 <li><code>#include "utilities/progress_tracker.hpp"</code></li>
@@ -875,6 +888,10 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (Water, FillHolesWithNanBorder) <br></td>
+</tr>
 <tr>
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><a href="#function-test"><strong>TEST</strong></a> (Water, FillHoles3x3) <br></td>
@@ -893,7 +910,7 @@
 <h3 id="function-test">function TEST</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">Water</span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">FillHoles3x3</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">FillHolesWithNanBorder</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -901,7 +918,7 @@
 <h3 id="function-test_1">function TEST</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">Water</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">FillHoles5x5</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">FillHoles3x3</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
@@ -909,8 +926,16 @@
 <h3 id="function-test_2">function TEST</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">Water</span><span class="p">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">FillHoles5x5_2</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">FillHoles5x5</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-test_3">function TEST</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">TEST</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">Water</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">FillHoles5x5_2</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div>
 <hr>
 

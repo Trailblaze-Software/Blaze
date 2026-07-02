@@ -76,8 +76,20 @@
 |   | [**TEST**](#function-test) (GenerateContoursAtHeights, MultipleHeights) <br> |
 |   | [**TEST**](#function-test) (GenerateContoursAtHeights, FilteredByMinPoints) <br> |
 |   | [**TEST**](#function-test) (GenerateContoursAtHeights, OrientsDonutRings) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SaddleConfigA\_AlwaysOutside) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SaddleConfigA\_AlwaysInside) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SaddleConfigA\_ByHeight) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SaddleConfigA\_ByHeightAboveMerges) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SaddleConfigB\_AlwaysOutside) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SaddleConfigB\_AlwaysInside) <br> |
+|   | [**TEST**](#function-test) (GenerateContoursAtHeights, SaddleConfigB\_ByHeight) <br> |
 
 
+## Public Static Functions
+
+| Type | Name |
+| ---: | :--- |
+|  void | [**check\_saddle\_2x2**](#function-check_saddle_2x2) (const std::vector&lt; std::vector&lt; float &gt; &gt; & data, float threshold, SaddlePolicy policy, size\_t expected\_contours, const std::vector&lt; size\_t &gt; & expected\_point\_counts) <br> |
 
 
 
@@ -323,6 +335,139 @@ TEST (
 TEST (
     GenerateContoursAtHeights,
     OrientsDonutRings
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SaddleConfigA_AlwaysOutside
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SaddleConfigA_AlwaysInside
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SaddleConfigA_ByHeight
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SaddleConfigA_ByHeightAboveMerges
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SaddleConfigB_AlwaysOutside
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SaddleConfigB_AlwaysInside
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GenerateContoursAtHeights,
+    SaddleConfigB_ByHeight
+) 
+```
+
+
+
+
+<hr>
+## Public Static Functions Documentation
+
+
+
+
+### function check\_saddle\_2x2 
+
+```C++
+static void check_saddle_2x2 (
+    const std::vector< std::vector< float > > & data,
+    float threshold,
+    SaddlePolicy policy,
+    size_t expected_contours,
+    const std::vector< size_t > & expected_point_counts
 ) 
 ```
 

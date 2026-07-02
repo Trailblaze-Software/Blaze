@@ -109,7 +109,6 @@ This inheritance list is sorted roughly, but not completely, alphabetically:
 * **struct** [**nlohmann::adl\_serializer&lt; GroundConfig &gt;**](structnlohmann_1_1adl__serializer_3_01GroundConfig_01_4.md) 
 * **struct** [**nlohmann::adl\_serializer&lt; RGBColor &gt;**](structnlohmann_1_1adl__serializer_3_01RGBColor_01_4.md) 
 * **struct** [**nlohmann::adl\_serializer&lt; RenderConfig &gt;**](structnlohmann_1_1adl__serializer_3_01RenderConfig_01_4.md) 
-* **struct** [**nlohmann::adl\_serializer&lt; VegeConfig &gt;**](structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4.md) 
 * **struct** [**nlohmann::adl\_serializer&lt; VegeHeightConfig &gt;**](structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4.md) 
 * **struct** [**nlohmann::adl\_serializer&lt; WaterConfig &gt;**](structnlohmann_1_1adl__serializer_3_01WaterConfig_01_4.md) 
 * **struct** [**nlohmann::adl\_serializer&lt; WaterConfigs &gt;**](structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4.md) 

@@ -74,7 +74,7 @@
 |  std::unique\_ptr&lt; OGRGeometry &gt; | [**polygon\_to\_ogr**](#function-polygon_to_ogr) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & poly) <br> |
 |  std::unique\_ptr&lt; OGRGeometry &gt; | [**repair\_ogr\_geometry**](#function-repair_ogr_geometry) (std::unique\_ptr&lt; OGRGeometry &gt; geom) <br> |
 |  std::unique\_ptr&lt; OGRGeometry &gt; | [**ring\_to\_ogr**](#function-ring_to_ogr) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & exterior\_ring) <br> |
-|  void | [**trace\_contours**](#function-trace_contours) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights, AcceptFn accept, EmitFn emit) <br> |
+|  void | [**trace\_contours**](#function-trace_contours) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights, AcceptFn accept, EmitFn emit, SaddlePolicy saddle\_policy=SaddlePolicy::ByHeight) <br> |
 |  const [**GeoGrid**](classGeo.md)&lt; T &gt; & | [**work\_grid\_for\_contours**](#function-work_grid_for_contours) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, std::optional&lt; T &gt; pad\_value, std::optional&lt; [**GeoGrid**](classGeo.md)&lt; T &gt; &gt; & padded\_out) <br> |
 
 
@@ -396,7 +396,8 @@ void detail::trace_contours (
     const GeoGrid < T > & grid,
     GridGraph < std::set< double > > & contour_heights,
     AcceptFn accept,
-    EmitFn emit
+    EmitFn emit,
+    SaddlePolicy saddle_policy=SaddlePolicy::ByHeight
 ) 
 ```
 

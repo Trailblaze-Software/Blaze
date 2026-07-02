@@ -90,6 +90,7 @@
 |   | [**TEST**](#function-test) (E2E, VerifyOutputStructure) <br> |
 |   | [**TEST**](#function-test) (E2E, GroundEstimationSlopes) <br> |
 |   | [**TEST**](#function-test) (WriteToImageTif, AbsoluteSlopeBounds) <br> |
+|   | [**TEST**](#function-test) (WriteToImageTif, NodataPixelsMapToZero) <br> |
 |   | [**TEST**](#function-test) (WriteToImageTif, PerTileBoundsDefault) <br> |
 |   | [**TEST**](#function-test) (WriteToImageTif, ConstantGrid) <br> |
 |   | [**TEST\_P**](#function-test_p) ([**E2ETerrainTest**](classE2ETerrainTest.md), ProcessTerrain) <br> |
@@ -240,6 +241,22 @@ TEST (
 TEST (
     WriteToImageTif,
     AbsoluteSlopeBounds
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    WriteToImageTif,
+    NodataPixelsMapToZero
 ) 
 ```
 

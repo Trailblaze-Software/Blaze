@@ -83,17 +83,18 @@ RGBColor read_tif_pixel(const Geo<MultiBand<FlexGrid>>& grid, size_t row, size_t
   return RGBColor(
       static_cast<unsigned char>(grid[0].get<std::byte>({(long long)col, (long long)row})),
       static_cast<unsigned char>(grid[1].get<std::byte>({(long long)col, (long long)row})),
-      static_cast<unsigned char>(grid[2].get<std::byte>({(long long)col, (long long)row})));
+      static_cast<unsigned char>(grid[2].get<std::byte>({(long long)col, (long long)row})),
+      static_cast<unsigned char>(grid[3].get<std::byte>({(long long)col, (long long)row})));
 }
 
 }  // namespace
 
-TEST(VectorVegeRender, WhiteBaseWithoutPolygons) {
+TEST(VectorVegeRender, BackgroundFillWithoutPolygons) {
   const VegeConfig config = vector_test_config();
   GeoImgGrid img(20, 20, test_render_transform(), GeoProjection());
   draw_vector_vegetation(img, config, {}, ProgressTracker());
 
-  const RGBColor expected = to_rgb(CMYKColor(0, 0, 0, 0));
+  const RGBColor expected = to_rgb(config.background_color);
   EXPECT_TRUE(colors_near(img[{0, 0}], expected));
   EXPECT_TRUE(colors_near(img[{10, 10}], expected));
   EXPECT_TRUE(colors_near(img[{19, 19}], expected));
@@ -103,6 +104,7 @@ TEST(VectorVegeRender, HigherPriorityGreenCoversForest) {
   const VegeConfig config = vector_test_config();
   const RGBColor forest_color = to_rgb(config.height_configs[0].colors[0].color);
   const RGBColor walk_color = to_rgb(config.height_configs[1].colors[1].color);
+  const RGBColor background = to_rgb(config.background_color);
 
   std::vector<VegePolygon> polygons = {
       make_rect_polygon("405_Forest", 2.0, 18.0, -18.0, -2.0),
@@ -114,7 +116,7 @@ TEST(VectorVegeRender, HigherPriorityGreenCoversForest) {
 
   EXPECT_TRUE(colors_near(img[{10, 10}], walk_color));
   EXPECT_TRUE(colors_near(img[{4, 4}], forest_color));
-  EXPECT_TRUE(colors_near(img[{0, 0}], to_rgb(CMYKColor(0, 0, 0, 0))));
+  EXPECT_TRUE(colors_near(img[{0, 0}], background));
 }
 
 TEST(VectorVegeRender, OpenLandUsesBackgroundColor) {
@@ -128,17 +130,18 @@ TEST(VectorVegeRender, OpenLandUsesBackgroundColor) {
   draw_vector_vegetation(img, config, polygons, ProgressTracker());
 
   EXPECT_TRUE(colors_near(img[{6, 6}], open_color));
-  EXPECT_TRUE(colors_near(img[{0, 0}], to_rgb(CMYKColor(0, 0, 0, 0))));
+  EXPECT_TRUE(colors_near(img[{0, 0}], open_color));
 }
 
 TEST(VectorVegeRender, UnknownLayerIsSkipped) {
   const VegeConfig config = vector_test_config();
+  const RGBColor background = to_rgb(config.background_color);
   std::vector<VegePolygon> polygons = {make_rect_polygon("999_Unknown", 2.0, 18.0, -18.0, -2.0)};
 
   GeoImgGrid img(20, 20, test_render_transform(), GeoProjection());
   draw_vector_vegetation(img, config, polygons, ProgressTracker());
 
-  EXPECT_TRUE(colors_near(img[{10, 10}], to_rgb(CMYKColor(0, 0, 0, 0))));
+  EXPECT_TRUE(colors_near(img[{10, 10}], background));
 }
 
 TEST(VectorVegeRender, AllGreenLayersRenderDistinctColors) {
@@ -161,7 +164,7 @@ TEST(VectorVegeRender, AllGreenLayersRenderDistinctColors) {
   EXPECT_TRUE(colors_near(img[{16, 4}], fight_color));
 }
 
-TEST(VectorVegeRender, PolygonHoleLeavesWhiteInterior) {
+TEST(VectorVegeRender, PolygonHoleLeavesBackgroundInterior) {
   const VegeConfig config = vector_test_config();
   VegePolygon forest = make_rect_polygon("405_Forest", 2.0, 18.0, -18.0, -2.0);
   forest.holes.push_back({{8.0, -8.0}, {12.0, -8.0}, {12.0, -12.0}, {8.0, -12.0}, {8.0, -8.0}});
@@ -169,9 +172,9 @@ TEST(VectorVegeRender, PolygonHoleLeavesWhiteInterior) {
   GeoImgGrid img(20, 20, test_render_transform(), GeoProjection());
   draw_vector_vegetation(img, config, {forest}, ProgressTracker());
 
-  const RGBColor white = to_rgb(CMYKColor(0, 0, 0, 0));
+  const RGBColor background = to_rgb(config.background_color);
   const RGBColor forest_color = to_rgb(config.height_configs[0].colors[0].color);
-  EXPECT_TRUE(colors_near(img[{10, 10}], white));
+  EXPECT_TRUE(colors_near(img[{10, 10}], background));
   EXPECT_TRUE(colors_near(img[{4, 4}], forest_color));
 }
 
@@ -220,15 +223,16 @@ TEST(VectorVegeTif, SaveAndReadPreservesRenderedColors) {
 
   const RGBColor forest_color = to_rgb(config.height_configs[0].colors[0].color);
   const RGBColor walk_color = to_rgb(config.height_configs[1].colors[1].color);
-  const RGBColor white = to_rgb(CMYKColor(0, 0, 0, 0));
+  const RGBColor background = to_rgb(config.background_color);
 
   EXPECT_TRUE(colors_near(read_tif_pixel(grid, 10, 10), walk_color));
   EXPECT_TRUE(colors_near(read_tif_pixel(grid, 4, 4), forest_color));
-  EXPECT_TRUE(colors_near(read_tif_pixel(grid, 0, 0), white));
+  EXPECT_TRUE(colors_near(read_tif_pixel(grid, 0, 0), background));
 }
 
 TEST(VectorVegeOverlay, TransparentOverlayPreservesVectorBackground) {
   const VegeConfig config = vector_test_config();
+  const RGBColor background = to_rgb(config.background_color);
   std::vector<VegePolygon> polygons = {make_rect_polygon("408_Walk", 4.0, 16.0, -16.0, -4.0)};
 
   GeoImgGrid img(20, 20, test_render_transform(), GeoProjection());
@@ -239,11 +243,12 @@ TEST(VectorVegeOverlay, TransparentOverlayPreservesVectorBackground) {
   img.draw(overlay, ProgressTracker(), GeoGridCompositeMode::OpaqueCopy);
 
   EXPECT_TRUE(colors_near(img[{10, 10}], before));
-  EXPECT_TRUE(colors_near(img[{0, 0}], to_rgb(CMYKColor(0, 0, 0, 0))));
+  EXPECT_TRUE(colors_near(img[{0, 0}], background));
 }
 
 TEST(VectorVegeOverlay, OpaqueOverlayPixelReplacesBackground) {
   const VegeConfig config = vector_test_config();
+  const RGBColor background = to_rgb(config.background_color);
   GeoImgGrid img(20, 20, test_render_transform(), GeoProjection());
   draw_vector_vegetation(img, config, {}, ProgressTracker());
 
@@ -256,18 +261,19 @@ TEST(VectorVegeOverlay, OpaqueOverlayPixelReplacesBackground) {
   img.draw(overlay, ProgressTracker(), GeoGridCompositeMode::OpaqueCopy);
 
   EXPECT_TRUE(colors_near(img[{10, 10}], water_color));
-  EXPECT_TRUE(colors_near(img[{0, 0}], to_rgb(CMYKColor(0, 0, 0, 0))));
+  EXPECT_TRUE(colors_near(img[{0, 0}], background));
 }
 
-TEST(VectorVegeOverlay, DrawWithTransparentForegroundDoesNotTintWhite) {
+TEST(VectorVegeOverlay, DrawWithTransparentForegroundDoesNotTintBackground) {
+  const VegeConfig config = vector_test_config();
+  const RGBColor background = to_rgb(config.background_color);
   GeoImgGrid img(10, 10, test_render_transform(), GeoProjection());
-  draw_vector_vegetation(img, vector_test_config(), {}, ProgressTracker());
+  draw_vector_vegetation(img, config, {}, ProgressTracker());
 
   const GeoImgGrid transparent_overlay = make_transparent_grid(10, 10);
   img.draw(transparent_overlay, ProgressTracker());
 
-  const RGBColor white = to_rgb(CMYKColor(0, 0, 0, 0));
-  EXPECT_TRUE(colors_near(img[{5, 5}], white));
+  EXPECT_TRUE(colors_near(img[{5, 5}], background));
 }
 ```
 

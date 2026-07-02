@@ -40,10 +40,6 @@
     <member refid="structnlohmann_1_1adl__serializer_3_01RGBColor_01_4_1abe5b37c0e7279902280a955f5cec80e5" kind="function"><name>from_json</name></member>
     <member refid="structnlohmann_1_1adl__serializer_3_01RGBColor_01_4_1a2b8e6303a010c981b8d0fcedc406b014" kind="function"><name>to_json</name></member>
   </compound>
-  <compound refid="structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4" kind="struct"><name>nlohmann::adl_serializer&lt; VegeConfig &gt;</name>
-    <member refid="structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4_1af839787898286dc3a072bfcb8e015a24" kind="function"><name>from_json</name></member>
-    <member refid="structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4_1ac5657bad73c38884fca1ae19f1d5aa92" kind="function"><name>to_json</name></member>
-  </compound>
   <compound refid="structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4" kind="struct"><name>nlohmann::adl_serializer&lt; VegeHeightConfig &gt;</name>
     <member refid="structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4_1a8002da863c919451ea38d0e8985c3870" kind="function"><name>from_json</name></member>
     <member refid="structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4_1a586394010cc4c3fcca721eaf62be2935" kind="function"><name>to_json</name></member>
@@ -316,6 +312,7 @@
     <member refid="classConfigEditor_1a1c29e18e134a6578cd682cfdf667197e" kind="slot"><name>remove_vege</name></member>
     <member refid="classConfigEditor_1a04432a872c4be8cc7e52440bb55cdd32" kind="slot"><name>handle_vege_selected</name></member>
     <member refid="classConfigEditor_1abe7f61e9ade3bd045cf987f7ecbaca6e" kind="slot"><name>update_vege_from_ui</name></member>
+    <member refid="classConfigEditor_1a7a8db50bddb9070b282546e703e466bd" kind="slot"><name>update_vege_globals_from_ui</name></member>
     <member refid="classConfigEditor_1a75f20f2fd7ef9411b902809f36e75337" kind="slot"><name>add_vege_color</name></member>
     <member refid="classConfigEditor_1a0f3a42d63a6e8c8a28f623f437fda691" kind="slot"><name>remove_vege_color</name></member>
     <member refid="classConfigEditor_1aa32f94af0bca032bb6b307907252cff8" kind="slot"><name>update_vege_color_from_ui</name></member>
@@ -362,7 +359,7 @@
     <member refid="classContour_1ac0daca06e6fa1e61482f0282d862b725" kind="function"><name>is_loop</name></member>
     <member refid="classContour_1a365bb9e9afa9e20b871b04c1bbc9c76a" kind="function"><name>orient_consistent</name></member>
     <member refid="classContour_1a60c51b12c0e358082cbb160df5d303a6" kind="function"><name>from_polyline</name></member>
-    <member refid="classContour_1ad587e5a7c2f09d48afc76d53b5970839" kind="function"><name>FromGridGraph</name></member>
+    <member refid="classContour_1ab58dbcef6a2a793644c2b5259ed5d90b" kind="function"><name>FromGridGraph</name></member>
     <member refid="classContour_1a042897eafa7388e9cf5536ca1cb28677" kind="friend"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="structContourConfig" kind="struct"><name>ContourConfig</name>
@@ -592,7 +589,7 @@
     <member refid="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" kind="function"><name>extent</name></member>
     <member refid="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" kind="function"><name>fill_from</name></member>
     <member refid="classGeo_1a52eff035fc897e9650b678645521d642" kind="function"><name>fill_from</name></member>
-    <member refid="classGeo_1a5177716a0bc884211d36d314aef6bb2e" kind="function"><name>pad</name></member>
+    <member refid="classGeo_1a90406c6548955383e34dc902e193898a" kind="function"><name>pad</name></member>
     <member refid="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" kind="function"><name>FromPoints</name></member>
   </compound>
   <compound refid="classGeoGridData" kind="class"><name>GeoGridData</name>
@@ -1580,6 +1577,7 @@
   <compound refid="structVegeConfig" kind="struct"><name>VegeConfig</name>
     <member refid="structVegeConfig_1abe6ba03b3654ef6f6c765a199f3a1c14" kind="variable"><name>background_color</name></member>
     <member refid="structVegeConfig_1aba267611f095684a1918e101388e233c" kind="variable"><name>height_configs</name></member>
+    <member refid="structVegeConfig_1aab4bc0f1629d82dd564f2524667922b8" kind="variable"><name>saddle_policy</name></member>
   </compound>
   <compound refid="structVegeHeightConfig" kind="struct"><name>VegeHeightConfig</name>
     <member refid="structVegeHeightConfig_1acb8bb079647249b4457b4e2894859328" kind="variable"><name>name</name></member>
@@ -1710,7 +1708,7 @@
     <member refid="contour__gen_8hpp_1a6d45fb35d7affb94cbcfddd4b37f57a8" kind="function"><name>min_contour_loop_area_m2</name></member>
     <member refid="contour__gen_8hpp_1a0dd15675dc250baa2282f0cae2643660" kind="function"><name>work_grid_for_contours</name></member>
     <member refid="contour__gen_8hpp_1a0f199fa882998911d9c19870008e53e2" kind="function"><name>identify_contour_crossings</name></member>
-    <member refid="contour__gen_8hpp_1a2cdafe0299253b82214a3e15ea1f7d45" kind="function"><name>trace_contours</name></member>
+    <member refid="contour__gen_8hpp_1a2d3ef2efffd7300bfc585d546df8ce1d" kind="function"><name>trace_contours</name></member>
     <member refid="polygon__subtract_8hpp_1aedcb84ffc7adbc4c14076c8d7ab19a76" kind="function"><name>fill_ogr_ring</name></member>
     <member refid="polygon__subtract_8hpp_1af7494f45d5da1f8dab02bea0603737b1" kind="function"><name>repair_ogr_geometry</name></member>
     <member refid="polygon__subtract_8hpp_1a0e2a65696e3199884d7fd9f62aacacd4" kind="function"><name>polygon_to_ogr</name></member>
@@ -1721,6 +1719,7 @@
     <member refid="polygon__subtract_8hpp_1ab137f1443fc3ea274b08738b6fad8cd4" kind="function"><name>build_cutout_union</name></member>
   </compound>
   <compound refid="namespacenlohmann" kind="namespace"><name>nlohmann</name>
+    <member refid="config__input_8cpp_1a8533408dc39651837ac41ff7c5da9c71" kind="function"><name>SERIALIZE_ENUM_STRICT</name></member>
     <member refid="config__input_8cpp_1a53f7eac02762e5d89e6158676610c0f3" kind="function"><name>SERIALIZE_ENUM_STRICT</name></member>
   </compound>
   <compound refid="namespacenlohmann_1_1_0d45" kind="namespace"><name>nlohmann::@45</name>
@@ -1947,9 +1946,14 @@
   </compound>
   <compound refid="config__input_8hpp" kind="file"><name>config_input.hpp</name>
     <member refid="config__input_8hpp_1ac30f83b6c2dcbda086b6fc1b88548c53" kind="define"><name>SERIALIZE_ENUM_STRICT</name></member>
+    <member refid="config__input_8hpp_1a092fb277eff73e81a41671b6ed940918" kind="enum"><name>SaddlePolicy</name></member>
+    <member refid="config__input_8hpp_1a092fb277eff73e81a41671b6ed940918abc7d4bf9d217e74436dfba60b9abe40a" kind="enumvalue"><name>ByHeight</name></member>
+    <member refid="config__input_8hpp_1a092fb277eff73e81a41671b6ed940918ad17610d682597d52f3e2545f80ead845" kind="enumvalue"><name>AlwaysInside</name></member>
+    <member refid="config__input_8hpp_1a092fb277eff73e81a41671b6ed940918a6cbab0caebb9721e91cc4b6b258465db" kind="enumvalue"><name>AlwaysOutside</name></member>
     <member refid="config__input_8hpp_1a68d43f1268f48e7eddda6ba27dba0776" kind="enum"><name>ProcessingStep</name></member>
     <member refid="config__input_8hpp_1a68d43f1268f48e7eddda6ba27dba0776aa67f2c9d056f29b94521c17b838b9756" kind="enumvalue"><name>Tiles</name></member>
     <member refid="config__input_8hpp_1a68d43f1268f48e7eddda6ba27dba0776ae7b3c0acb7168c7969b03e8aebc67ce7" kind="enumvalue"><name>Combine</name></member>
+    <member refid="config__input_8hpp_1a10a5430fe7c5248d45ddb2e7031e3feb" kind="function"><name>opposite_saddle_policy</name></member>
     <member refid="config__input_8hpp_1a51a8a07a8e5211322e780c12cc0cc211" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="test__config__lookup_8cpp" kind="file"><name>test_config_lookup.cpp</name>
@@ -1965,6 +1969,7 @@
     <member refid="test__config__lookup_8cpp_1ab7fd9bf427a779fc7d612507eebd4b3e" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1ab7f6f5cf1389472970b14d60610af1e7" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1a525cff72d17c40be6a628209a32f284b" kind="function"><name>TEST</name></member>
+    <member refid="test__config__lookup_8cpp_1a42fd47da1e754432e5583f3418ff12a9" kind="function"><name>TEST</name></member>
     <member refid="test__config__lookup_8cpp_1aa8f16e9880d4372813e2492891f01b48" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__config__paths_8cpp" kind="file"><name>test_config_paths.cpp</name>
@@ -1997,8 +2002,8 @@
     <member refid="contour__gen_8hpp_1a6c885c83823babd7eb5113938d9ade76" kind="function"><name>identify_contours</name></member>
     <member refid="contour__gen_8hpp_1a4db816ec15e36bf3efe564f50a484149" kind="function"><name>identify_contours_at_heights</name></member>
     <member refid="contour__gen_8hpp_1a2907cef01cf612d40970fb452ec5ebc4" kind="function"><name>identify_contours_at_heights</name></member>
-    <member refid="contour__gen_8hpp_1af5add2515b16a46bb2efa403f11863de" kind="function"><name>generate_contours_at_heights</name></member>
-    <member refid="contour__gen_8hpp_1a402d14491fd4206e64a725d11b0ba73d" kind="function"><name>generate_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1af50daa2abe14a2cd78939353497f338e" kind="function"><name>generate_contours_at_heights</name></member>
+    <member refid="contour__gen_8hpp_1a99ec5ab30d14e1a99c0bde9968397aaa" kind="function"><name>generate_contours_at_heights</name></member>
     <member refid="contour__gen_8hpp_1aff55b99839c9a6be2a2a82ef45ecefef" kind="function"><name>join_contours</name></member>
     <member refid="contour__gen_8hpp_1a75ecdffc244aed4700e7d514ae370199" kind="function"><name>trim_contours</name></member>
     <member refid="contour__gen_8hpp_1a03fb3f4c737c95e3bad4b67b3e760f89" kind="function"><name>generate_contours</name></member>
@@ -2019,6 +2024,14 @@
     <member refid="test__contour__gen_8cpp_1a87d4af7e16e018b3390866105106c248" kind="function"><name>TEST</name></member>
     <member refid="test__contour__gen_8cpp_1a5c85057f4419b0d56c1388bde2b409d8" kind="function"><name>TEST</name></member>
     <member refid="test__contour__gen_8cpp_1a474b3255d2c57a0879ccc04c8a3ea9ed" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a9c69e7ab296668e85c819708c67fd48d" kind="function"><name>check_saddle_2x2</name></member>
+    <member refid="test__contour__gen_8cpp_1a2f9dcb7ee5bdfd93813f6aa5d2cfb510" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1ac27c4308026bd2639aa8b278f9e65258" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1ae13df8a31173b20d6a5f23427132bf24" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a2996bcb9cfde0e3663aea5d44d562af1" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a500a9ce5ba61258652fc082e89b28a12" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1ac615f9e15a2eea82014f7d584c883ea2" kind="function"><name>TEST</name></member>
+    <member refid="test__contour__gen_8cpp_1a97cd6de7d8f0d7b656529ea0b7631bae" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__contour__ops_8cpp" kind="file"><name>test_contour_ops.cpp</name>
     <member refid="test__contour__ops_8cpp_1a246bf04f33f856e8af92a8d18e1c4bb4" kind="function"><name>TEST</name></member>
@@ -2140,7 +2153,14 @@
     <member refid="grid__ops_8hpp_1a0ebc441eb680c6faa28abc20d29cf371" kind="enum"><name>DownsampleMethod</name></member>
     <member refid="grid__ops_8hpp_1a0ebc441eb680c6faa28abc20d29cf371a4ea6d1161ea24d7599365f574aff6610" kind="enumvalue"><name>MEAN</name></member>
     <member refid="grid__ops_8hpp_1a0ebc441eb680c6faa28abc20d29cf371a8ab0c3a037e882577dec378985477074" kind="enumvalue"><name>MEDIAN</name></member>
+    <member refid="grid__ops_8hpp_1a464591c23600be084f09c8b3725b6216" kind="function"><name>compute_lidar_coverage_mask</name></member>
+    <member refid="grid__ops_8hpp_1a0f11df2805c5d6db6261e1ede0f07a71" kind="function"><name>coverage_extent</name></member>
+    <member refid="grid__ops_8hpp_1ab339d9cced61de535eb9d110c61da941" kind="function"><name>enforce_downsample_nodata</name></member>
+    <member refid="grid__ops_8hpp_1a666f321e444e450522064801ad32e455" kind="function"><name>apply_coverage_mask</name></member>
     <member refid="grid__ops_8hpp_1a26e7806231a3cf87ecfb81975ba58d85" kind="function"><name>downsample</name></member>
+    <member refid="grid__ops_8hpp_1a08f981304131336a8f43777a88d13efb" kind="function"><name>sample_coverage_at_pixel</name></member>
+    <member refid="grid__ops_8hpp_1ae9d938bdb99d1385562c64c8a6b3c85e" kind="function"><name>fill_grid_from_coverage</name></member>
+    <member refid="grid__ops_8hpp_1a9d9154810cb4eda63a733edfdd0d7a88" kind="function"><name>mask_outside_coverage</name></member>
     <member refid="grid__ops_8hpp_1a41606b928d452c2f5a818d452e33c96c" kind="function"><name>remove_outliers</name></member>
     <member refid="grid__ops_8hpp_1a6455af79550120f5019efc362c8261e2" kind="function"><name>has_value</name></member>
     <member refid="grid__ops_8hpp_1a4ca45bbd35d1352852651277c4d91bf7" kind="function"><name>interpolate_holes</name></member>
@@ -2174,6 +2194,7 @@
     <member refid="test__grid_8cpp_1a4d6ab89c3325d87c2cfa9ca92360ccd4" kind="function"><name>TEST</name></member>
     <member refid="test__grid_8cpp_1ad8fd52c47229f733b115b09f24c81761" kind="function"><name>TEST</name></member>
     <member refid="test__grid_8cpp_1a0b7a75144eb7dc80a03a666e372ead1d" kind="function"><name>TEST</name></member>
+    <member refid="test__grid_8cpp_1aa48c783e11c12c4f31a7b109788435f2" kind="function"><name>TEST</name></member>
     <member refid="test__grid_8cpp_1af3ef3ef7d685b58c425fff5c19f0c0ce" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__grid__ops_8cpp" kind="file"><name>test_grid_ops.cpp</name>
@@ -2185,6 +2206,10 @@
     <member refid="test__grid__ops_8cpp_1a418016324bf57e5ba1e640d38dad42d9" kind="function"><name>TEST</name></member>
     <member refid="test__grid__ops_8cpp_1a5f60a096442cb9c3a4492d23e8a63765" kind="function"><name>TEST</name></member>
     <member refid="test__grid__ops_8cpp_1a1bb6b0f3d4890bea3adba2cef9a5e70f" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a54fa14db42fbbc968695d6a7edc15405" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a3b80f9d8445361f9ad3429ee6fc5a5a5" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1ad879d9a57373d049bb2a7dc6fb72d711" kind="function"><name>TEST</name></member>
+    <member refid="test__grid__ops_8cpp_1a8510f5f271312d5850483b70a1af19f9" kind="function"><name>TEST</name></member>
     <member refid="test__grid__ops_8cpp_1adeeff98cab8cd6c2ea092d0f42f58d42" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__image_8cpp" kind="file"><name>test_image.cpp</name>
@@ -2517,17 +2542,17 @@
   <compound refid="tracked__allocator_8hpp" kind="file"><name>tracked_allocator.hpp</name>
   </compound>
   <compound refid="test__vector__vege__render_8cpp" kind="file"><name>test_vector_vege_render.cpp</name>
-    <member refid="test__vector__vege__render_8cpp_1a4a1a6c13ffd6704c8508e2c7a470e882" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a8a44382f0231d56c80626f8e42628743" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1a081a8c466ee6b09af1ebf462f8f70b9e" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1a0d007375467819d8f6f7ea35d07786b3" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1a4552baabf884b445a64b92e8945b5da3" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1ae9a300f56599b9784c9ae512853534d0" kind="function"><name>TEST</name></member>
-    <member refid="test__vector__vege__render_8cpp_1a3ce96586a7b2b3bcc2b51b406cc24420" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a559fcd658bac367217656b2bdf201af3" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1a19f726779bd4690d40e2856b528aa3d1" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1a6e765566c4c1340169f4ba6ed99f4930" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1abeafd09670b48038f975be88d5e5d123" kind="function"><name>TEST</name></member>
     <member refid="test__vector__vege__render_8cpp_1a82c299117600d2ed7f812ccfe9c0a223" kind="function"><name>TEST</name></member>
-    <member refid="test__vector__vege__render_8cpp_1ad97b349e7bad041d157bcc5e86c3157a" kind="function"><name>TEST</name></member>
+    <member refid="test__vector__vege__render_8cpp_1a54ed80850cfd39636c06d34536189fd1" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__vegetation_8cpp" kind="file"><name>test_vegetation.cpp</name>
     <member refid="test__vegetation_8cpp_1a92e659bc568fb0a3b4153932535982e1" kind="function"><name>TEST</name></member>
@@ -2560,7 +2585,8 @@
     <member refid="test__vegetation__polygon_8cpp_1acafa2137dc282593a37944b03a49b4c5" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation__polygon_8cpp_1a810f5ca6d1a02f490b54200f72e8929b" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation__polygon_8cpp_1a9a44ff63d6b5bb5c1ccb4856e13304a4" kind="function"><name>TEST</name></member>
-    <member refid="test__vegetation__polygon_8cpp_1aa70c83da6d66fdbb9b5094cd6d2e245c" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a2eaacb13bf56f0fd768a819deb918fe9" kind="function"><name>TEST</name></member>
+    <member refid="test__vegetation__polygon_8cpp_1a2f9a6b0e52d4bcc21d14e3d44266e816" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation__polygon_8cpp_1aa155adc7100d6845f1f8a9f86614dacb" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation__polygon_8cpp_1a7af217c3f828488b12375fb51e0eb50e" kind="function"><name>TEST</name></member>
     <member refid="test__vegetation__polygon_8cpp_1a0dc46dc4769c18894f3bb649d14fb986" kind="function"><name>TEST</name></member>
@@ -2600,9 +2626,12 @@
     <member refid="hill__shade_8hpp_1a2b4f9c3a8b58ecc8e9a6cda26417ba00" kind="define"><name>DEG2RAD</name></member>
     <member refid="hill__shade_8hpp_1ac3644f84794a8bfdacf39c4b2c2495fc" kind="define"><name>SQ</name></member>
     <member refid="hill__shade_8hpp_1a48cf846ac77a11203b064dcb02e363c5" kind="function"><name>hill_shade</name></member>
-    <member refid="hill__shade_8hpp_1a8a049ce8f4bdc9229be39333962b6bd4" kind="function"><name>slope</name></member>
+  </compound>
+  <compound refid="slope_8hpp" kind="file"><name>slope.hpp</name>
+    <member refid="slope_8hpp_1a8a049ce8f4bdc9229be39333962b6bd4" kind="function"><name>slope</name></member>
   </compound>
   <compound refid="test__water_8cpp" kind="file"><name>test_water.cpp</name>
+    <member refid="test__water_8cpp_1ad0bfad93d56fa3ab7123bb9af9dd36a4" kind="function"><name>TEST</name></member>
     <member refid="test__water_8cpp_1ac6bc9e3024cd5af3bf1e9b35bdfc23ac" kind="function"><name>TEST</name></member>
     <member refid="test__water_8cpp_1a85c7f690f848ee9c071710f7da34d5c0" kind="function"><name>TEST</name></member>
     <member refid="test__water_8cpp_1ab54f37fbd20f093f70913a53dc083e1d" kind="function"><name>TEST</name></member>
@@ -2662,6 +2691,7 @@
     <member refid="test__e2e_8cpp_1a2b15ca744b5a5df3dc726a8462b669d6" kind="function"><name>TEST</name></member>
     <member refid="test__e2e_8cpp_1aca61e827a850f489db57cae66bf1a577" kind="function"><name>read_byte_tif_pixels</name></member>
     <member refid="test__e2e_8cpp_1ab322b4d91570604212b00fa00265e93d" kind="function"><name>TEST</name></member>
+    <member refid="test__e2e_8cpp_1a691fbc6e97eb73e5bb0eccea6306610b" kind="function"><name>TEST</name></member>
     <member refid="test__e2e_8cpp_1afc2662204af08ab4993550a9bf41c636" kind="function"><name>TEST</name></member>
     <member refid="test__e2e_8cpp_1a9f177b489c14f9c2d6dda2be3d9f857f" kind="function"><name>TEST</name></member>
   </compound>

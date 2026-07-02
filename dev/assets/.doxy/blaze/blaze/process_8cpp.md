@@ -11,6 +11,7 @@
 
 
 * `#include "process.hpp"`
+* `#include <numbers>`
 * `#include "cliff/cliff.hpp"`
 * `#include "contour/contour_gen.hpp"`
 * `#include "crt/crt.hpp"`
@@ -23,7 +24,7 @@
 * `#include "las/las_point.hpp"`
 * `#include "lib/grid/grid.hpp"`
 * `#include "lib/vegetation/vegetation.hpp"`
-* `#include "methods/hill_shade/hill_shade.hpp"`
+* `#include "methods/hill_shade/slope.hpp"`
 * `#include "methods/water/water.hpp"`
 * `#include "tif/tif.hpp"`
 * `#include "utilities/progress_tracker.hpp"`

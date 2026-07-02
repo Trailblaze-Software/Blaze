@@ -11,7 +11,9 @@
 
 
 * `#include <gtest/gtest.h>`
+* `#include <cmath>`
 * `#include <iomanip>`
+* `#include <limits>`
 * `#include "lib/grid/grid.hpp"`
 * `#include "methods/water/water.hpp"`
 * `#include "utilities/progress_tracker.hpp"`
@@ -56,6 +58,7 @@
 
 | Type | Name |
 | ---: | :--- |
+|   | [**TEST**](#function-test) (Water, FillHolesWithNanBorder) <br> |
 |   | [**TEST**](#function-test) (Water, FillHoles3x3) <br> |
 |   | [**TEST**](#function-test) (Water, FillHoles5x5) <br> |
 |   | [**TEST**](#function-test) (Water, FillHoles5x5\_2) <br> |
@@ -89,6 +92,22 @@
 
 ## Public Functions Documentation
 
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    Water,
+    FillHolesWithNanBorder
+) 
+```
+
+
+
+
+<hr>
 
 
 

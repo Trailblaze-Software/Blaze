@@ -67,7 +67,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**Contour**](classContour.md) | [**FromGridGraph**](#function-fromgridgraph) (const [**LineCoord2D**](classLineCoord2D.md)&lt; size\_t &gt; & starting\_point, double height, const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights) <br> |
+|  [**Contour**](classContour.md) | [**FromGridGraph**](#function-fromgridgraph) (const [**LineCoord2D**](classLineCoord2D.md)&lt; size\_t &gt; & starting\_point, double height, const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights, SaddlePolicy saddle\_policy=SaddlePolicy::ByHeight) <br> |
 |  [**Contour**](classContour.md) | [**from\_polyline**](#function-from_polyline) (const [**Polyline**](classPolyline.md) & polyline) <br> |
 
 
@@ -251,7 +251,8 @@ static inline Contour Contour::FromGridGraph (
     const LineCoord2D < size_t > & starting_point,
     double height,
     const GeoGrid < T > & grid,
-    GridGraph < std::set< double > > & contour_heights
+    GridGraph < std::set< double > > & contour_heights,
+    SaddlePolicy saddle_policy=SaddlePolicy::ByHeight
 ) 
 ```
 

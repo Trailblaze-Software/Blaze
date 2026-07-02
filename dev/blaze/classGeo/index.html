@@ -1134,7 +1134,7 @@
 </tr>
 <tr>
 <td style="text-align: right;"><a href="./"><strong>Geo</strong></a></td>
-<td style="text-align: left;"><a href="#function-pad"><strong>pad</strong></a> (U pad_value={}) const<br></td>
+<td style="text-align: left;"><a href="#function-pad"><strong>pad</strong></a> (U pad_value={}, bool fill_nodata_with_pad_value=false) const<br></td>
 </tr>
 <tr>
 <td style="text-align: right;">void</td>
@@ -1329,8 +1329,9 @@
 <h3 id="function-pad">function pad</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kr">inline</span><span class="w"> </span><span class="n">Geo</span><span class="w"> </span><span class="n">Geo</span><span class="o">::</span><span class="n">pad</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">U</span><span class="w"> </span><span class="n">pad_value</span><span class="o">=</span><span class="p">{}</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">U</span><span class="w"> </span><span class="n">pad_value</span><span class="o">=</span><span class="p">{},</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">fill_nodata_with_pad_value</span><span class="o">=</span><span class="nb">false</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 </code></pre></div>
 <hr>
 

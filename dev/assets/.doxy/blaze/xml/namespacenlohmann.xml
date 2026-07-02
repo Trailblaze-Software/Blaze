@@ -12,11 +12,30 @@
     <innerclass refid="structnlohmann_1_1adl__serializer_3_01GroundConfig_01_4" prot="public">nlohmann::adl_serializer&lt; GroundConfig &gt;</innerclass>
     <innerclass refid="structnlohmann_1_1adl__serializer_3_01RenderConfig_01_4" prot="public">nlohmann::adl_serializer&lt; RenderConfig &gt;</innerclass>
     <innerclass refid="structnlohmann_1_1adl__serializer_3_01RGBColor_01_4" prot="public">nlohmann::adl_serializer&lt; RGBColor &gt;</innerclass>
-    <innerclass refid="structnlohmann_1_1adl__serializer_3_01VegeConfig_01_4" prot="public">nlohmann::adl_serializer&lt; VegeConfig &gt;</innerclass>
     <innerclass refid="structnlohmann_1_1adl__serializer_3_01VegeHeightConfig_01_4" prot="public">nlohmann::adl_serializer&lt; VegeHeightConfig &gt;</innerclass>
     <innerclass refid="structnlohmann_1_1adl__serializer_3_01WaterConfig_01_4" prot="public">nlohmann::adl_serializer&lt; WaterConfig &gt;</innerclass>
     <innerclass refid="structnlohmann_1_1adl__serializer_3_01WaterConfigs_01_4" prot="public">nlohmann::adl_serializer&lt; WaterConfigs &gt;</innerclass>
     <sectiondef kind="func">
+      <memberdef kind="function" id="config__input_8cpp_1a8533408dc39651837ac41ff7c5da9c71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>nlohmann::SERIALIZE_ENUM_STRICT</definition>
+        <argsstring>(SaddlePolicy, { {SaddlePolicy::ByHeight, &quot;by_height&quot;}, {SaddlePolicy::AlwaysInside, &quot;always_inside&quot;}, {SaddlePolicy::AlwaysOutside, &quot;always_outside&quot;}, }) template&lt;&gt; struct adl_serializer&lt; VegeConfig &gt;</argsstring>
+        <name>SERIALIZE_ENUM_STRICT</name>
+        <qualifiedname>nlohmann::SERIALIZE_ENUM_STRICT</qualifiedname>
+        <param>
+          <type>SaddlePolicy</type>
+        </param>
+        <param>
+          <type>{ {SaddlePolicy::ByHeight, &quot;by_height&quot;}, {SaddlePolicy::AlwaysInside, &quot;always_inside&quot;}, {SaddlePolicy::AlwaysOutside, &quot;always_outside&quot;}, }</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="228" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="228" bodyend="249"/>
+      </memberdef>
       <memberdef kind="function" id="config__input_8cpp_1a53f7eac02762e5d89e6158676610c0f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>nlohmann::SERIALIZE_ENUM_STRICT</definition>
@@ -35,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="325" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="325" bodyend="376"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" line="335" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.cpp" bodystart="335" bodyend="386"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

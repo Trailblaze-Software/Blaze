@@ -213,6 +213,17 @@ TEST(ConfigJson, VegeSmoothRadiusRoundTrip) {
   EXPECT_EQ(loaded.vege.height_configs[1].smooth_radius, 3);
 }
 
+TEST(ConfigJson, VegeSaddlePolicyRoundTrip) {
+  Config config;
+  config.vege.saddle_policy = SaddlePolicy::AlwaysInside;
+
+  const fs::path path = blaze::test::unique_test_output_path("vege_saddle_policy", ".json");
+  config.write_to_file(path);
+  Config loaded = Config::FromFile(path);
+
+  EXPECT_EQ(loaded.vege.saddle_policy, SaddlePolicy::AlwaysInside);
+}
+
 TEST(ConfigJson, GroundAndWaterOverlayRoundTrip) {
   Config config;
   config.ground.use_only_ground_class = false;

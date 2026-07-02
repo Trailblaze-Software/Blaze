@@ -10,11 +10,28 @@
 ```C++
 #include <gtest/gtest.h>
 
+#include <cmath>
 #include <iomanip>
+#include <limits>
 
 #include "lib/grid/grid.hpp"
 #include "methods/water/water.hpp"
 #include "utilities/progress_tracker.hpp"
+
+TEST(Water, FillHolesWithNanBorder) {
+  const double nan = std::numeric_limits<double>::quiet_NaN();
+  std::vector<std::vector<double>> data = {{nan, nan, nan, nan, nan},
+                                           {nan, 0.5, 0.5, 0.5, nan},
+                                           {nan, 0.5, 0.3, 0.5, nan},
+                                           {nan, 0.5, 0.5, 0.5, nan},
+                                           {nan, nan, nan, nan, nan}};
+  GeoGrid<double> grid(data);
+
+  GeoGrid<double> filled = fill_depressions(grid, ProgressTracker());
+
+  EXPECT_GE((filled[{2, 2}]), 0.5);
+  EXPECT_FALSE(std::isfinite(filled[{0, 0}]));
+}
 
 TEST(Water, FillHoles3x3) {
   std::vector<std::vector<double>> data = {{0.5, 0.5, 0.5}, {0.5, 0.4, 0.5}, {0.5, 0.5, 0.5}};

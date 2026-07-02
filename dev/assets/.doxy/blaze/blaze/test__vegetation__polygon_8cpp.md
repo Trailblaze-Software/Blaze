@@ -85,7 +85,8 @@
 |   | [**TEST**](#function-test) (FilterSmallHoles, DifferentPerLayer) <br> |
 |   | [**TEST**](#function-test) (SubtractFromPolygon, PreservesLayerMetadata) <br> |
 |   | [**TEST**](#function-test) (SubtractFromPolygon, GreenDonutLeavesForestRing) <br> |
-|   | [**TEST**](#function-test) (SubtractFromPolygon, SmallHolesRemovedByPostSubtractFilter) <br> |
+|   | [**TEST**](#function-test) (SubtractFromPolygon, SmallGeosSliverHolesRemovedAfterCut) <br> |
+|   | [**TEST**](#function-test) (SubtractFromPolygon, UnderstoryCutHolesSurvivePostCutFilter) <br> |
 |   | [**TEST**](#function-test) (GenerateVegePolygons, RoughOpenLandHolesMatchRemainingForest) <br> |
 |   | [**TEST**](#function-test) (GenerateVegePolygons, RoughOpenLandHasNoTinySpeckleHoles) <br> |
 |   | [**TEST**](#function-test) (GenerateVegePolygons, GreenDonutCutLeavesForestRing) <br> |
@@ -466,7 +467,23 @@ TEST (
 ```C++
 TEST (
     SubtractFromPolygon,
-    SmallHolesRemovedByPostSubtractFilter
+    SmallGeosSliverHolesRemovedAfterCut
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    SubtractFromPolygon,
+    UnderstoryCutHolesSurvivePostCutFilter
 ) 
 ```
 

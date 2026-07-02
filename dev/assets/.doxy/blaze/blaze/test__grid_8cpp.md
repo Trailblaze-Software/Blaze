@@ -78,6 +78,7 @@
 |   | [**TEST**](#function-test) ([**GridGraph**](classGridGraph.md), InBounds) <br> |
 |   | [**TEST**](#function-test) (GeoGridPad, PadsWithValue) <br> |
 |   | [**TEST**](#function-test) (GeoGridPad, AdjustsGeoTransform) <br> |
+|   | [**TEST**](#function-test) (GeoGridPad, FillsNodataBeforePadding) <br> |
 |   | [**TEST**](#function-test) (GeoGridPad, EmptyGrid) <br> |
 
 
@@ -443,6 +444,22 @@ TEST (
 TEST (
     GeoGridPad,
     AdjustsGeoTransform
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GeoGridPad,
+    FillsNodataBeforePadding
 ) 
 ```
 

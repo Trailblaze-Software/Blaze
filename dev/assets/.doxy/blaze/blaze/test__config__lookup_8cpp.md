@@ -66,6 +66,7 @@
 |   | [**TEST**](#function-test) ([**VegeHeightConfig**](structVegeHeightConfig.md), PickFromBlockedProportionEmpty) <br> |
 |   | [**TEST**](#function-test) (ConfigJson, VegeMinHoleAreaRoundTrip) <br> |
 |   | [**TEST**](#function-test) (ConfigJson, VegeSmoothRadiusRoundTrip) <br> |
+|   | [**TEST**](#function-test) (ConfigJson, VegeSaddlePolicyRoundTrip) <br> |
 |   | [**TEST**](#function-test) (ConfigJson, GroundAndWaterOverlayRoundTrip) <br> |
 
 
@@ -282,6 +283,22 @@ TEST (
 TEST (
     ConfigJson,
     VegeSmoothRadiusRoundTrip
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    ConfigJson,
+    VegeSaddlePolicyRoundTrip
 ) 
 ```
 

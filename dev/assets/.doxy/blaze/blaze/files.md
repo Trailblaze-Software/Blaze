@@ -144,6 +144,7 @@ Here is a list of all files with brief descriptions:
     * **dir** [**methods**](dir_0525f968218f30056a0344f59b10bbbb.md)     
         * **dir** [**hill\_shade**](dir_e03c0efc459c079af38b3a453937aed0.md)     
             * **file** [**hill\_shade.hpp**](hill__shade_8hpp.md)     
+            * **file** [**slope.hpp**](slope_8hpp.md)     
         * **dir** [**water**](dir_9906ac72c69ac5c4da1443f27a433c13.md)     
             * **dir** [**tests**](dir_bea8c7e26f40f75291ccc2650200ba17.md)     
                 * **file** [**test\_water.cpp**](test__water_8cpp.md)     

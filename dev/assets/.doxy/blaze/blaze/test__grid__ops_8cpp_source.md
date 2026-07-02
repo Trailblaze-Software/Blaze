@@ -210,6 +210,89 @@ TEST(GridOps, InterpolateHolesIsolated) {
   }
 }
 
+// Test compute_lidar_coverage_mask
+TEST(GridOps, LidarCoverageMask) {
+  // 5x5 grid: hollow square of occupied cells around an exterior empty margin and
+  // an interior empty cell that should remain covered.
+  const size_t width = 5;
+  const size_t height = 5;
+  std::vector<std::vector<bool>> occupied = {
+      {false, false, false, false, false}, {false, true, true, true, false},
+      {false, true, false, true, false},   {false, true, true, true, false},
+      {false, false, false, false, false},
+  };
+
+  const GeoGrid<bool> coverage = compute_lidar_coverage_mask(
+      width, height, GeoTransform(), GeoProjection(),
+      [&](size_t col, size_t row) { return !occupied[row][col]; }, ProgressTracker());
+
+  for (size_t row = 0; row < height; row++) {
+    for (size_t col = 0; col < width; col++) {
+      const bool on_edge = row == 0 || row == height - 1 || col == 0 || col == width - 1;
+      const bool interior_hole = row == 2 && col == 2;
+      if (on_edge) {
+        EXPECT_FALSE((coverage[{col, row}]));
+      } else if (interior_hole) {
+        EXPECT_TRUE((coverage[{col, row}]));
+      } else {
+        EXPECT_TRUE((coverage[{col, row}]));
+      }
+    }
+  }
+}
+
+TEST(GridOps, LidarCoverageMaskInteriorHoles) {
+  // C-shaped occupancy: interior empty cells surrounded by occupied bins stay covered.
+  const size_t width = 6;
+  const size_t height = 6;
+  std::vector<std::vector<bool>> occupied(height, std::vector<bool>(width, false));
+  for (size_t row = 1; row + 1 < height; row++) {
+    for (size_t col = 1; col + 1 < width; col++) {
+      if (row == 1 || row + 1 == height - 1 || col == 1 || col + 1 == width - 1) {
+        occupied[row][col] = true;
+      }
+    }
+  }
+
+  const GeoGrid<bool> coverage = compute_lidar_coverage_mask(
+      width, height, GeoTransform(), GeoProjection(),
+      [&](size_t col, size_t row) { return !occupied[row][col]; }, ProgressTracker());
+
+  EXPECT_TRUE((coverage[{2, 2}]));
+  EXPECT_TRUE((coverage[{3, 2}]));
+  EXPECT_TRUE((coverage[{2, 3}]));
+  EXPECT_TRUE((coverage[{3, 3}]));
+  EXPECT_FALSE((coverage[{0, 0}]));
+  EXPECT_FALSE((coverage[{5, 5}]));
+}
+
+TEST(GridOps, LidarCoverageMaskFullyOccupied) {
+  const GeoGrid<bool> coverage = compute_lidar_coverage_mask(
+      3, 3, GeoTransform(), GeoProjection(), [&](size_t, size_t) { return false; },
+      ProgressTracker());
+
+  for (size_t row = 0; row < 3; row++) {
+    for (size_t col = 0; col < 3; col++) {
+      EXPECT_TRUE((coverage[{col, row}]));
+    }
+  }
+}
+
+TEST(GridOps, InterpolateHolesRespectsNodata) {
+  std::vector<std::vector<double>> data = {
+      {std::numeric_limits<double>::quiet_NaN(), 10.0, 10.0, 10.0},
+      {10.0, std::numeric_limits<double>::max(), 10.0, 10.0},
+      {10.0, 10.0, 10.0, 10.0},
+      {10.0, 10.0, 10.0, 10.0},
+  };
+  GeoGrid<double> grid(data);
+
+  interpolate_holes(grid, ProgressTracker());
+
+  EXPECT_FALSE((has_value(grid[{0, 0}])));
+  EXPECT_DOUBLE_EQ((grid[{1, 1}]), 10.0);
+}
+
 // Test has_value function
 TEST(GridOps, HasValue) {
   EXPECT_TRUE(has_value(10.0));

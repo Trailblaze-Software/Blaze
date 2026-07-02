@@ -244,7 +244,7 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="33" column="11" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="33" bodyend="51"/>
       </memberdef>
-      <memberdef kind="function" id="contour__gen_8hpp_1a2cdafe0299253b82214a3e15ea1f7d45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="contour__gen_8hpp_1a2d3ef2efffd7300bfc585d546df8ce1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename T</type>
@@ -258,7 +258,7 @@
         </templateparamlist>
         <type>void</type>
         <definition>void detail::trace_contours</definition>
-        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, GridGraph&lt; std::set&lt; double &gt; &gt; &amp;contour_heights, AcceptFn accept, EmitFn emit)</argsstring>
+        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, GridGraph&lt; std::set&lt; double &gt; &gt; &amp;contour_heights, AcceptFn accept, EmitFn emit, SaddlePolicy saddle_policy=SaddlePolicy::ByHeight)</argsstring>
         <name>trace_contours</name>
         <qualifiedname>detail::trace_contours</qualifiedname>
         <param>
@@ -277,13 +277,18 @@
           <type>EmitFn</type>
           <declname>emit</declname>
         </param>
+        <param>
+          <type>SaddlePolicy</type>
+          <declname>saddle_policy</declname>
+          <defval>SaddlePolicy::ByHeight</defval>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="54" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="54" bodyend="73"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" line="54" column="6" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour_gen.hpp" bodystart="54" bodyend="75"/>
       </memberdef>
       <memberdef kind="function" id="polygon__subtract_8hpp_1aedcb84ffc7adbc4c14076c8d7ab19a76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>

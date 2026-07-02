@@ -3,11 +3,10 @@
   <compounddef id="hill__shade_8hpp" kind="file" language="C++">
     <compoundname>hill_shade.hpp</compoundname>
     <includes local="no">cmath</includes>
+    <includes local="no">limits</includes>
     <includes local="no">numbers</includes>
     <includes refid="grid_8hpp" local="yes">grid/grid.hpp</includes>
     <includes refid="progress__tracker_8hpp" local="yes">utilities/progress_tracker.hpp</includes>
-    <includedby refid="process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/process.cpp</includedby>
-    <includedby refid="test__process_8cpp" local="yes">/home/runner/work/Blaze/Blaze/src/tests/test_process.cpp</includedby>
     <incdepgraph>
       <node id="16">
         <label>assert/assert.hpp</label>
@@ -30,23 +29,23 @@
       <node id="28">
         <label>grid/forward_grid.hpp</label>
         <link refid="forward__grid_8hpp_source"/>
-        <childnode refid="7" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="5">
         <label>grid/grid.hpp</label>
         <link refid="grid_8hpp_source"/>
-        <childnode refid="5" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
@@ -78,7 +77,7 @@
       <node id="29">
         <label>grid/raster.hpp</label>
         <link refid="raster_8hpp_source"/>
-        <childnode refid="5" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
@@ -120,7 +119,7 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
@@ -138,7 +137,7 @@
       <node id="37">
         <label>utilities/memory_tracker.hpp</label>
         <link refid="memory__tracker_8hpp_source"/>
-        <childnode refid="7" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
@@ -178,11 +177,11 @@
       <node id="35">
         <label>utilities/tracked_allocator.hpp</label>
         <link refid="tracked__allocator_8hpp_source"/>
-        <childnode refid="7" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
@@ -204,10 +203,12 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
         <childnode refid="38" relation="include">
         </childnode>
       </node>
-      <node id="5">
+      <node id="6">
         <label>algorithm</label>
       </node>
       <node id="31">
@@ -219,16 +220,16 @@
       <node id="2">
         <label>cmath</label>
       </node>
-      <node id="6">
+      <node id="7">
         <label>concepts</label>
       </node>
-      <node id="7">
+      <node id="8">
         <label>cstddef</label>
       </node>
       <node id="25">
         <label>cstdint</label>
       </node>
-      <node id="8">
+      <node id="9">
         <label>cstring</label>
       </node>
       <node id="18">
@@ -240,7 +241,7 @@
       <node id="17">
         <label>iostream</label>
       </node>
-      <node id="9">
+      <node id="3">
         <label>limits</label>
       </node>
       <node id="22">
@@ -252,7 +253,7 @@
       <node id="36">
         <label>new</label>
       </node>
-      <node id="3">
+      <node id="4">
         <label>numbers</label>
       </node>
       <node id="11">
@@ -300,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" line="9" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" bodystart="9" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" line="10" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="hill__shade_8hpp_1ac3644f84794a8bfdacf39c4b2c2495fc" prot="public" static="no">
         <name>SQ</name>
@@ -312,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" line="10" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" bodystart="10" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" line="11" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" bodystart="11" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
@@ -352,33 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" line="13" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" bodystart="13" bodyend="41"/>
-      </memberdef>
-      <memberdef kind="function" id="hill__shade_8hpp_1a8a049ce8f4bdc9229be39333962b6bd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <templateparamlist>
-          <param>
-            <type>typename T</type>
-          </param>
-        </templateparamlist>
-        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt;</type>
-        <definition>GeoGrid&lt; double &gt; slope</definition>
-        <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
-        <name>slope</name>
-        <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
-          <declname>grid</declname>
-        </param>
-        <param>
-          <type><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref> &amp;&amp;</type>
-          <declname>progress_tracker</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" line="44" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" bodystart="44" bodyend="56"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" line="14" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp" bodystart="14" bodyend="52"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -389,59 +364,55 @@
 <codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;numbers&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEG2RAD(x)<sp/>((x)<sp/>*<sp/>std::numbers::pi<sp/>/<sp/>180)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SQ(x)<sp/>((x)<sp/>*<sp/>(x))</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>hill_shade(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>azimuth,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>altitude,</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>multidirectional,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;computing<sp/>hill<sp/>shade&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>result(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>grid.height()<sp/>-<sp/>1;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>grid.width()<sp/>-<sp/>1;<sp/>j++)<sp/>{</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dz_dx<sp/>=<sp/>(grid[{j<sp/>+<sp/>1,<sp/>i}]<sp/>-<sp/>grid[{j<sp/>-<sp/>1,<sp/>i}])<sp/>/<sp/>(2<sp/>*<sp/>grid.dx());</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dz_dy<sp/>=<sp/>(grid[{j,<sp/>i<sp/>+<sp/>1}]<sp/>-<sp/>grid[{j,<sp/>i<sp/>-<sp/>1}])<sp/>/<sp/>(2<sp/>*<sp/>grid.dy());</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>slope<sp/>=<sp/>atan(sqrt(dz_dx<sp/>*<sp/>dz_dx<sp/>+<sp/>dz_dy<sp/>*<sp/>dz_dy));</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>aspect<sp/>=<sp/>atan2(dz_dy,<sp/>dz_dx);</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>hill_shade_val<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!multidirectional)<sp/>{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hill_shade_val<sp/>=<sp/>(cos(DEG2RAD(altitude))<sp/>*<sp/>cos(slope)<sp/>+</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sin(DEG2RAD(altitude))<sp/>*<sp/>sin(slope)<sp/>*<sp/>cos(DEG2RAD(azimuth)<sp/>-<sp/>aspect));</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Multidirectional<sp/>hillshade<sp/>https://pubs.usgs.gov/of/1992/of92-422/of92-422.pdf</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>az<sp/>:<sp/>std::array&lt;double,<sp/>4&gt;{</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{azimuth<sp/>-<sp/>67.5,<sp/>azimuth<sp/>-<sp/>22.5,<sp/>azimuth<sp/>+<sp/>22.5,<sp/>azimuth<sp/>+<sp/>67.5}})<sp/>{</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hill_shade_val<sp/>+=<sp/>SQ(sin(aspect<sp/>-<sp/>DEG2RAD(az)))<sp/>*</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(cos(DEG2RAD(altitude))<sp/>*<sp/>cos(slope)<sp/>+</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sin(DEG2RAD(altitude))<sp/>*<sp/>sin(slope)<sp/>*<sp/>cos(DEG2RAD(az)<sp/>-<sp/>aspect));</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>result[{j,<sp/>i}]<sp/>=<sp/>hill_shade_val;</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>slope(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;computing<sp/>slope&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>result(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>grid.height()<sp/>-<sp/>1;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>grid.width()<sp/>-<sp/>1;<sp/>j++)<sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dz_dx<sp/>=<sp/>(grid[{j<sp/>+<sp/>1,<sp/>i}]<sp/>-<sp/>grid[{j<sp/>-<sp/>1,<sp/>i}])<sp/>/<sp/>(2<sp/>*<sp/>grid.dx());</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dz_dy<sp/>=<sp/>(grid[{j,<sp/>i<sp/>+<sp/>1}]<sp/>-<sp/>grid[{j,<sp/>i<sp/>-<sp/>1}])<sp/>/<sp/>(2<sp/>*<sp/>grid.dy());</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>result[{j,<sp/>i}]<sp/>=<sp/>atan(sqrt(dz_dx<sp/>*<sp/>dz_dx<sp/>+<sp/>dz_dy<sp/>*<sp/>dz_dy));</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;numbers&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;grid/grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEG2RAD(x)<sp/>((x)<sp/>*<sp/>std::numbers::pi<sp/>/<sp/>180)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SQ(x)<sp/>((x)<sp/>*<sp/>(x))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>hill_shade(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>azimuth,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>altitude,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>multidirectional,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;computing<sp/>hill<sp/>shade&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>result(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>result.fill(std::numeric_limits&lt;double&gt;::quiet_NaN());</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>grid.height()<sp/>-<sp/>1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>grid.width()<sp/>-<sp/>1;<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>center<sp/>=<sp/>grid[{j,<sp/>i}];</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>east<sp/>=<sp/>grid[{j<sp/>+<sp/>1,<sp/>i}];</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>west<sp/>=<sp/>grid[{j<sp/>-<sp/>1,<sp/>i}];</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>north<sp/>=<sp/>grid[{j,<sp/>i<sp/>+<sp/>1}];</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>south<sp/>=<sp/>grid[{j,<sp/>i<sp/>-<sp/>1}];</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!std::isfinite(center)<sp/>||<sp/>!std::isfinite(east)<sp/>||<sp/>!std::isfinite(west)<sp/>||</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!std::isfinite(north)<sp/>||<sp/>!std::isfinite(south))<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dz_dx<sp/>=<sp/>(east<sp/>-<sp/>west)<sp/>/<sp/>(2<sp/>*<sp/>grid.dx());</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dz_dy<sp/>=<sp/>(north<sp/>-<sp/>south)<sp/>/<sp/>(2<sp/>*<sp/>grid.dy());</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>slope_val<sp/>=<sp/>atan(sqrt(dz_dx<sp/>*<sp/>dz_dx<sp/>+<sp/>dz_dy<sp/>*<sp/>dz_dy));</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>aspect<sp/>=<sp/>atan2(dz_dy,<sp/>dz_dx);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>hill_shade_val<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!multidirectional)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hill_shade_val<sp/>=<sp/>(cos(DEG2RAD(altitude))<sp/>*<sp/>cos(slope_val)<sp/>+</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sin(DEG2RAD(altitude))<sp/>*<sp/>sin(slope_val)<sp/>*<sp/>cos(DEG2RAD(azimuth)<sp/>-<sp/>aspect));</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Multidirectional<sp/>hillshade<sp/>https://pubs.usgs.gov/of/1992/of92-422/of92-422.pdf</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>az<sp/>:<sp/>std::array&lt;double,<sp/>4&gt;{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{azimuth<sp/>-<sp/>67.5,<sp/>azimuth<sp/>-<sp/>22.5,<sp/>azimuth<sp/>+<sp/>22.5,<sp/>azimuth<sp/>+<sp/>67.5}})<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hill_shade_val<sp/>+=<sp/>SQ(sin(aspect<sp/>-<sp/>DEG2RAD(az)))<sp/>*</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(cos(DEG2RAD(altitude))<sp/>*<sp/>cos(slope_val)<sp/>+</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sin(DEG2RAD(altitude))<sp/>*<sp/>sin(slope_val)<sp/>*<sp/>cos(DEG2RAD(az)<sp/>-<sp/>aspect));</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>result[{j,<sp/>i}]<sp/>=<sp/>hill_shade_val;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/methods/hill_shade/hill_shade.hpp"/>
   </compounddef>

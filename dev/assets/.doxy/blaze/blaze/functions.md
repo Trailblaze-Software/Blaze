@@ -6,6 +6,7 @@
 ## a
 
 * **append\_flat\_grid\_dem\_layers** ([**blaze\_output\_loader.hpp**](blaze__output__loader_8hpp.md))
+* **apply\_coverage\_mask** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **as\_extent2d** ([**las\_file.hpp**](las__file_8hpp.md))
 * **as\_extent3d** ([**las\_file.hpp**](las__file_8hpp.md))
 * **average** ([**las\_file.hpp**](las__file_8hpp.md))
@@ -33,10 +34,13 @@
 * **classification\_color\_glsl** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
 * **compute\_mesh\_normals** ([**raster\_data.hpp**](raster__data_8hpp.md))
 * **compute\_terrain\_normals\_from\_dem** ([**raster\_data.hpp**](raster__data_8hpp.md))
+* **check\_saddle\_2x2** ([**test\_contour\_gen.cpp**](test__contour__gen_8cpp.md))
 * **crosses\_contour** ([**contour.hpp**](contour_8hpp.md))
 * **clip\_polygon\_hole\_free\_to\_extent** ([**polygon.hpp**](polygon_8hpp.md))
 * **clip\_polygon\_to\_extent** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
 * **coord** ([**test\_grid.cpp**](test__grid_8cpp.md))
+* **compute\_lidar\_coverage\_mask** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
+* **coverage\_extent** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **crs\_compatible\_for\_viewing** ([**crs.hpp**](crs_8hpp.md))
 * **combine\_gpkgs** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **copy\_gpkg\_feature** ([**gpkg.hpp**](gpkg_8hpp.md))
@@ -72,6 +76,7 @@
 ## e
 
 * **extent\_contains** ([**polygon.hpp**](polygon_8hpp.md))
+* **enforce\_downsample\_nodata** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **ensure\_gdal\_initialized** ([**gdal\_init.hpp**](gdal__init_8hpp.md))
 * **ensure\_dst\_layer\_fields** ([**gpkg.hpp**](gpkg_8hpp.md))
 * **external\_border\_ranges** ([**las\_file.hpp**](las__file_8hpp.md))
@@ -86,6 +91,7 @@
 * **format\_duration** ([**progress\_box.cpp**](progress__box_8cpp.md))
 * **flex\_grid\_value** ([**raster\_data.hpp**](raster__data_8hpp.md))
 * **finalize\_polygon\_with\_holes** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
+* **fill\_grid\_from\_coverage** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **forest\_contours\_polygonize** ([**test\_vegetation\_polygon.cpp**](test__vegetation__polygon_8cpp.md))
 * **filter\_by\_min\_area** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
 * **filter\_small\_holes** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
@@ -159,6 +165,7 @@
 ## m
 
 * **main** ([**main.cpp**](main_8cpp.md), [**main\_3d.cpp**](main__3d_8cpp.md), [**blaze.cpp**](blaze_8cpp.md), [**unit\_tests.cpp**](unit__tests_8cpp.md))
+* **mask\_outside\_coverage** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **make\_coord\_transform** ([**crs.hpp**](crs_8hpp.md))
 * **make\_projection\_from\_wkt** ([**crs.hpp**](crs_8hpp.md))
 
@@ -174,6 +181,7 @@
 
 * **octree\_shuffle\_range** ([**point\_octree.hpp**](point__octree_8hpp.md))
 * **operator&lt;&lt;** ([**config\_input.cpp**](config__input_8cpp.md), [**config\_input.hpp**](config__input_8hpp.md), [**las\_file.hpp**](las__file_8hpp.md), [**las\_point.hpp**](las__point_8hpp.md), [**to\_string.hpp**](to__string_8hpp.md), [**timer.hpp**](timer_8hpp.md))
+* **opposite\_saddle\_policy** ([**config\_input.hpp**](config__input_8hpp.md))
 * **orthogonal\_neighbors** ([**coordinate.hpp**](coordinate_8hpp.md))
 
 
@@ -224,10 +232,11 @@
 * **subtract\_polygon** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
 * **subtract\_polygon\_with\_union** ([**polygon\_subtract.hpp**](polygon__subtract_8hpp.md))
 * **same\_type\_different\_size** ([**grid.cpp**](grid_8cpp.md))
+* **sample\_coverage\_at\_pixel** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
 * **snap\_down** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **snap\_up** ([**tile\_mode.hpp**](tile__mode_8hpp.md))
 * **subtract\_from\_polygon** ([**vegetation\_polygon.hpp**](vegetation__polygon_8hpp.md))
-* **slope** ([**hill\_shade.hpp**](hill__shade_8hpp.md))
+* **slope** ([**slope.hpp**](slope_8hpp.md))
 * **smoothify** ([**water.cpp**](water_8cpp.md))
 * **stream\_path** ([**water.cpp**](water_8cpp.md))
 * **stream\_paths** ([**water.cpp**](water_8cpp.md), [**water.hpp**](water_8hpp.md))

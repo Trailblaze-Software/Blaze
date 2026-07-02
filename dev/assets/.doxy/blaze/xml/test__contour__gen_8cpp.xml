@@ -78,7 +78,7 @@
         <childnode refid="39" relation="include">
         </childnode>
       </node>
-      <node id="47">
+      <node id="48">
         <label>contour/contour_gen.hpp</label>
         <link refid="contour__gen_8hpp_source"/>
         <childnode refid="12" relation="include">
@@ -93,9 +93,9 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="48" relation="include">
+        <childnode refid="49" relation="include">
         </childnode>
-        <childnode refid="45" relation="include">
+        <childnode refid="46" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -113,18 +113,18 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="47" relation="include">
-        </childnode>
         <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="45" relation="include">
+        <childnode refid="46" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="49">
         <label>geometry/polygon.hpp</label>
         <link refid="polygon_8hpp_source"/>
         <childnode refid="7" relation="include">
@@ -191,11 +191,15 @@
         <link refid="grid__ops_8hpp_source"/>
         <childnode refid="7" relation="include">
         </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
         <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="44" relation="include">
+        <childnode refid="45" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -203,7 +207,7 @@
         </childnode>
         <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="45" relation="include">
+        <childnode refid="46" relation="include">
         </childnode>
       </node>
       <node id="38">
@@ -276,10 +280,10 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="46">
         <label>utilities/progress_tracker.hpp</label>
         <link refid="progress__tracker_8hpp_source"/>
-        <childnode refid="46" relation="include">
+        <childnode refid="47" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
@@ -341,7 +345,7 @@
       <node id="18">
         <label>cassert</label>
       </node>
-      <node id="46">
+      <node id="47">
         <label>chrono</label>
       </node>
       <node id="7">
@@ -358,6 +362,9 @@
       </node>
       <node id="25">
         <label>cstring</label>
+      </node>
+      <node id="44">
+        <label>deque</label>
       </node>
       <node id="30">
         <label>experimental/source_location</label>
@@ -383,7 +390,7 @@
       <node id="41">
         <label>new</label>
       </node>
-      <node id="44">
+      <node id="45">
         <label>numeric</label>
       </node>
       <node id="9">
@@ -687,6 +694,172 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="238" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="238" bodyend="262"/>
       </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1a9c69e7ab296668e85c819708c67fd48d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void check_saddle_2x2</definition>
+        <argsstring>(const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;data, float threshold, SaddlePolicy policy, size_t expected_contours, const std::vector&lt; size_t &gt; &amp;expected_point_counts)</argsstring>
+        <name>check_saddle_2x2</name>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>threshold</declname>
+        </param>
+        <param>
+          <type>SaddlePolicy</type>
+          <declname>policy</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>expected_contours</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; size_t &gt; &amp;</type>
+          <declname>expected_point_counts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="265" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="265" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1a2f9dcb7ee5bdfd93813f6aa5d2cfb510" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GenerateContoursAtHeights, SaddleConfigA_AlwaysOutside)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GenerateContoursAtHeights</type>
+        </param>
+        <param>
+          <type>SaddleConfigA_AlwaysOutside</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="285" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="285" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1ac27c4308026bd2639aa8b278f9e65258" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GenerateContoursAtHeights, SaddleConfigA_AlwaysInside)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GenerateContoursAtHeights</type>
+        </param>
+        <param>
+          <type>SaddleConfigA_AlwaysInside</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="288" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="288" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1ae13df8a31173b20d6a5f23427132bf24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GenerateContoursAtHeights, SaddleConfigA_ByHeight)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GenerateContoursAtHeights</type>
+        </param>
+        <param>
+          <type>SaddleConfigA_ByHeight</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="291" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="291" bodyend="294"/>
+      </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1a2996bcb9cfde0e3663aea5d44d562af1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GenerateContoursAtHeights, SaddleConfigA_ByHeightAboveMerges)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GenerateContoursAtHeights</type>
+        </param>
+        <param>
+          <type>SaddleConfigA_ByHeightAboveMerges</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="295" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="295" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1a500a9ce5ba61258652fc082e89b28a12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GenerateContoursAtHeights, SaddleConfigB_AlwaysOutside)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GenerateContoursAtHeights</type>
+        </param>
+        <param>
+          <type>SaddleConfigB_AlwaysOutside</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="305" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="305" bodyend="307"/>
+      </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1ac615f9e15a2eea82014f7d584c883ea2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GenerateContoursAtHeights, SaddleConfigB_AlwaysInside)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GenerateContoursAtHeights</type>
+        </param>
+        <param>
+          <type>SaddleConfigB_AlwaysInside</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="308" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="308" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="test__contour__gen_8cpp_1a97cd6de7d8f0d7b656529ea0b7631bae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GenerateContoursAtHeights, SaddleConfigB_ByHeight)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GenerateContoursAtHeights</type>
+        </param>
+        <param>
+          <type>SaddleConfigB_ByHeight</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" line="311" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp" bodystart="311" bodyend="314"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -955,6 +1128,58 @@
 <codeline lineno="260"><highlight class="normal"><sp/><sp/>ASSERT_NE(inner,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="261"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(point_in_ring(inner-&gt;points()[0],<sp/>outer-&gt;points()));</highlight></codeline>
 <codeline lineno="262"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper<sp/>to<sp/>generate<sp/>contours<sp/>from<sp/>a<sp/>2×2<sp/>saddle<sp/>grid,<sp/>always<sp/>padded<sp/>with<sp/>zeros.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>check_saddle_2x2(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;&amp;<sp/>data,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>threshold,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SaddlePolicy<sp/>policy,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>expected_contours,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;size_t&gt;&amp;<sp/>expected_point_counts)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contours<sp/>=<sp/>generate_contours_at_heights(grid,<sp/>{threshold},<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*min_points=*/</highlight><highlight class="normal">3,<sp/>0.0f,<sp/>policy);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/>ASSERT_EQ(contours[threshold].size(),<sp/>expected_contours)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Policy<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(policy);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>expected_contours;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_TRUE(contours[threshold][i].is_loop())<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Contour<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>i;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>&lt;<sp/>expected_point_counts.size())<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_EQ(contours[threshold][i].points().size(),<sp/>expected_point_counts[i])</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Contour<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>i<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>point<sp/>count&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="comment">//<sp/>┌──────┐</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="comment">//<sp/>│0.6<sp/><sp/>0│<sp/><sp/>Top-left<sp/>and<sp/>bottom-right<sp/>above<sp/>threshold<sp/>→<sp/>one<sp/>saddle<sp/>cell.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="comment">//<sp/>│0<sp/><sp/>0.6│</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="comment">//<sp/>└──────┘</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>SaddleConfigA_AlwaysOutside)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/>check_saddle_2x2({{0.6f,<sp/>0.0f},<sp/>{0.0f,<sp/>0.6f}},<sp/>0.5f,<sp/>SaddlePolicy::AlwaysOutside,<sp/>2u,<sp/>{5u,<sp/>5u});</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>SaddleConfigA_AlwaysInside)<sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/>check_saddle_2x2({{0.6f,<sp/>0.0f},<sp/>{0.0f,<sp/>0.6f}},<sp/>0.5f,<sp/>SaddlePolicy::AlwaysInside,<sp/>1u,<sp/>{9u});</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>SaddleConfigA_ByHeight)<sp/>{</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>centre<sp/>=<sp/>0.3<sp/>&lt;<sp/>0.5<sp/>→<sp/>separate.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/>check_saddle_2x2({{0.6f,<sp/>0.0f},<sp/>{0.0f,<sp/>0.6f}},<sp/>0.5f,<sp/>SaddlePolicy::ByHeight,<sp/>2u,<sp/>{5u,<sp/>5u});</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>SaddleConfigA_ByHeightAboveMerges)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>centre<sp/>=<sp/>(0.6+0.3+0.3+0.6)/4<sp/>=<sp/>0.45<sp/>&lt;<sp/>0.5<sp/>→<sp/>separate.<sp/><sp/>Need<sp/>centre<sp/>&gt;<sp/>threshold:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>centre<sp/>=<sp/>(0.7+0.4+0.4+0.7)/4<sp/>=<sp/>0.55<sp/>&gt;<sp/>0.5<sp/>→<sp/>merge.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/>check_saddle_2x2({{0.7f,<sp/>0.4f},<sp/>{0.4f,<sp/>0.7f}},<sp/>0.5f,<sp/>SaddlePolicy::ByHeight,<sp/>1u,<sp/>{9u});</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">//<sp/>┌──────┐</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">//<sp/>│0<sp/><sp/>0.6│<sp/><sp/>Top-right<sp/>and<sp/>bottom-left<sp/>above<sp/>threshold<sp/>(mirror<sp/>of<sp/>config<sp/>A).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="comment">//<sp/>│0.6<sp/><sp/>0│</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">//<sp/>└──────┘</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>SaddleConfigB_AlwaysOutside)<sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/>check_saddle_2x2({{0.0f,<sp/>0.6f},<sp/>{0.6f,<sp/>0.0f}},<sp/>0.5f,<sp/>SaddlePolicy::AlwaysOutside,<sp/>2u,<sp/>{5u,<sp/>5u});</highlight></codeline>
+<codeline lineno="307"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>SaddleConfigB_AlwaysInside)<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/>check_saddle_2x2({{0.0f,<sp/>0.6f},<sp/>{0.6f,<sp/>0.0f}},<sp/>0.5f,<sp/>SaddlePolicy::AlwaysInside,<sp/>1u,<sp/>{9u});</highlight></codeline>
+<codeline lineno="310"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>SaddleConfigB_ByHeight)<sp/>{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>centre<sp/>=<sp/>0.3<sp/>&lt;<sp/>0.5<sp/>→<sp/>separate.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/>check_saddle_2x2({{0.0f,<sp/>0.6f},<sp/>{0.6f,<sp/>0.0f}},<sp/>0.5f,<sp/>SaddlePolicy::ByHeight,<sp/>2u,<sp/>{5u,<sp/>5u});</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/tests/test_contour_gen.cpp"/>
   </compounddef>

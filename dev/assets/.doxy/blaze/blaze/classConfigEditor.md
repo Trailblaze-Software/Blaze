@@ -68,6 +68,7 @@ Inherits the following classes: QWidget
 | slot void | [**update\_general\_from\_ui**](classConfigEditor.md#slot-update_general_from_ui)  <br> |
 | slot void | [**update\_vege\_color\_from\_ui**](classConfigEditor.md#slot-update_vege_color_from_ui) (int row, int column) <br> |
 | slot void | [**update\_vege\_from\_ui**](classConfigEditor.md#slot-update_vege_from_ui)  <br> |
+| slot void | [**update\_vege\_globals\_from\_ui**](classConfigEditor.md#slot-update_vege_globals_from_ui)  <br> |
 | slot void | [**update\_water\_from\_ui**](classConfigEditor.md#slot-update_water_from_ui)  <br> |
 | slot void | [**update\_water\_globals\_from\_ui**](classConfigEditor.md#slot-update_water_globals_from_ui)  <br> |
 
@@ -486,6 +487,19 @@ void ConfigEditor::update_vege_color_from_ui;
 
 ```C++
 void ConfigEditor::update_vege_from_ui;
+```
+
+
+
+
+<hr>
+
+
+
+### slot update\_vege\_globals\_from\_ui 
+
+```C++
+void ConfigEditor::update_vege_globals_from_ui;
 ```
 
 

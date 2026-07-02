@@ -179,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="130" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="130" bodyend="135"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="188" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="188" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1ab05735b3ed0c37e4b7ebda6bab04e1aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -193,7 +193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="139" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="139" bodyend="143"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="197" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="197" bodyend="201"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1ac0daca06e6fa1e61482f0282d862b725" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -207,7 +207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="151" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="151" bodyend="151"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="209" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="209" bodyend="209"/>
       </memberdef>
       <memberdef kind="function" id="classContour_1a365bb9e9afa9e20b871b04c1bbc9c76a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -230,7 +230,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="158" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="158" bodyend="225"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="216" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="216" bodyend="283"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -252,7 +252,7 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="73" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.cpp" bodystart="16" bodyend="25"/>
       </memberdef>
-      <memberdef kind="function" id="classContour_1ad587e5a7c2f09d48afc76d53b5970839" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classContour_1ab58dbcef6a2a793644c2b5259ed5d90b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename T</type>
@@ -260,7 +260,7 @@
         </templateparamlist>
         <type><ref refid="classContour" kindref="compound">Contour</ref></type>
         <definition>static Contour Contour::FromGridGraph</definition>
-        <argsstring>(const LineCoord2D&lt; size_t &gt; &amp;starting_point, double height, const GeoGrid&lt; T &gt; &amp;grid, GridGraph&lt; std::set&lt; double &gt; &gt; &amp;contour_heights)</argsstring>
+        <argsstring>(const LineCoord2D&lt; size_t &gt; &amp;starting_point, double height, const GeoGrid&lt; T &gt; &amp;grid, GridGraph&lt; std::set&lt; double &gt; &gt; &amp;contour_heights, SaddlePolicy saddle_policy=SaddlePolicy::ByHeight)</argsstring>
         <name>FromGridGraph</name>
         <qualifiedname>Contour::FromGridGraph</qualifiedname>
         <param>
@@ -279,13 +279,18 @@
           <type><ref refid="classGridGraph" kindref="compound">GridGraph</ref>&lt; std::set&lt; double &gt; &gt; &amp;</type>
           <declname>contour_heights</declname>
         </param>
+        <param>
+          <type>SaddlePolicy</type>
+          <declname>saddle_policy</declname>
+          <defval>SaddlePolicy::ByHeight</defval>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="82" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="82" bodyend="128"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="82" column="18" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="82" bodyend="186"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="friend">
@@ -309,19 +314,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="145" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="145" bodyend="149"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="203" column="10" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="203" bodyend="207"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="57" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="57" bodyend="226"/>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" line="57" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/contour/contour.hpp" bodystart="57" bodyend="284"/>
     <listofallmembers>
       <member refid="classContour_1ab05735b3ed0c37e4b7ebda6bab04e1aa" prot="public" virt="non-virtual"><scope>Contour</scope><name>close_loop</name></member>
       <member refid="classContour_1aa5258466b77415166c0e36da8435805e" prot="public" virt="non-virtual"><scope>Contour</scope><name>Contour</name></member>
       <member refid="classContour_1a60c51b12c0e358082cbb160df5d303a6" prot="public" virt="non-virtual"><scope>Contour</scope><name>from_polyline</name></member>
-      <member refid="classContour_1ad587e5a7c2f09d48afc76d53b5970839" prot="public" virt="non-virtual"><scope>Contour</scope><name>FromGridGraph</name></member>
+      <member refid="classContour_1ab58dbcef6a2a793644c2b5259ed5d90b" prot="public" virt="non-virtual"><scope>Contour</scope><name>FromGridGraph</name></member>
       <member refid="classContour_1a50b1ade401e64dfb020109e49f45ce29" prot="public" virt="non-virtual"><scope>Contour</scope><name>height</name></member>
       <member refid="classContour_1ac0daca06e6fa1e61482f0282d862b725" prot="public" virt="non-virtual"><scope>Contour</scope><name>is_loop</name></member>
       <member refid="classContour_1ace163819d0c6efbf777850c604213fac" prot="public" virt="non-virtual"><scope>Contour</scope><name>layer_name</name></member>

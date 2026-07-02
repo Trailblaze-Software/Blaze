@@ -9,7 +9,7 @@
     <includes local="no">vector</includes>
     <includes refid="las__point_8hpp" local="yes">las/las_point.hpp</includes>
     <includes refid="grid_8hpp" local="yes">lib/grid/grid.hpp</includes>
-    <includes refid="hill__shade_8hpp" local="yes">methods/hill_shade/hill_shade.hpp</includes>
+    <includes refid="slope_8hpp" local="yes">methods/hill_shade/slope.hpp</includes>
     <includes refid="process_8hpp" local="yes">process.hpp</includes>
     <includes refid="progress__tracker_8hpp" local="yes">utilities/progress_tracker.hpp</includes>
     <incdepgraph>
@@ -310,11 +310,11 @@
         </childnode>
       </node>
       <node id="40">
-        <label>methods/hill_shade/hill_shade.hpp</label>
-        <link refid="hill__shade_8hpp_source"/>
+        <label>methods/hill_shade/slope.hpp</label>
+        <link refid="slope_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
@@ -570,7 +570,7 @@
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;las/las_point.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/grid/grid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;methods/hill_shade/hill_shade.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;methods/hill_shade/slope.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;process.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>

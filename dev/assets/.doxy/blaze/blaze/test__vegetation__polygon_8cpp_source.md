@@ -632,9 +632,8 @@ TEST(SubtractFromPolygon, GreenDonutLeavesForestRing) {
   EXPECT_FALSE(point_in_polygon({25, 50}, *outer_donut));
 }
 
-TEST(SubtractFromPolygon, SmallHolesRemovedByPostSubtractFilter) {
-  // Mirrors generate_vege_polygons: after green is cut from forest, holes below
-  // min_hole_area_m2 must be filtered (default forest min hole is 100 m²).
+TEST(SubtractFromPolygon, SmallGeosSliverHolesRemovedAfterCut) {
+  // After green is cut from forest, only tiny GEOS sliver holes (< 1 m²) are dropped.
   VegePolygon forest;
   forest.layer = "405_Forest";
   forest.name = "405";
@@ -642,17 +641,40 @@ TEST(SubtractFromPolygon, SmallHolesRemovedByPostSubtractFilter) {
 
   VegePolygon walk;
   walk.layer = "408_Walk";
-  walk.exterior_ring = {{25.5, 25.5}, {34.5, 25.5}, {34.5, 34.5}, {25.5, 34.5}};
+  walk.exterior_ring = {{29.75, 29.75}, {30.25, 29.75}, {30.25, 30.25}, {29.75, 30.25}};
 
   std::vector<VegePolygon> result = subtract_from_polygon(forest, {walk});
   ASSERT_EQ(result.size(), 1u);
   ASSERT_EQ(result[0].holes.size(), 1u);
-  EXPECT_LT(-signed_area(result[0].holes[0]), 100.0);
+  EXPECT_LT(-signed_area(result[0].holes[0]), 1.0);
 
-  std::map<std::string, double> min_hole = {{"405_Forest", 100.0}};
-  filter_small_holes(result, min_hole, ProgressTracker());
+  std::map<std::string, double> post_cut_hole = {{"405_Forest", 1.0}};
+  filter_small_holes(result, post_cut_hole, ProgressTracker());
 
   EXPECT_TRUE(result[0].holes.empty());
+}
+
+TEST(SubtractFromPolygon, UnderstoryCutHolesSurvivePostCutFilter) {
+  // Legitimate understory cutouts must not be removed by the post-cut hole filter.
+  VegePolygon forest;
+  forest.layer = "405_Forest";
+  forest.name = "405";
+  forest.exterior_ring = {{0, 0}, {100, 0}, {100, 100}, {0, 100}};
+
+  VegePolygon walk;
+  walk.layer = "408_Walk";
+  walk.exterior_ring = {{30, 30}, {70, 30}, {70, 70}, {30, 70}};
+
+  std::vector<VegePolygon> result = subtract_from_polygon(forest, {walk});
+  ASSERT_EQ(result.size(), 1u);
+  ASSERT_EQ(result[0].holes.size(), 1u);
+  EXPECT_DOUBLE_EQ(-signed_area(result[0].holes[0]), 1600.0);
+
+  std::map<std::string, double> post_cut_hole = {{"405_Forest", 1.0}};
+  filter_small_holes(result, post_cut_hole, ProgressTracker());
+
+  ASSERT_EQ(result[0].holes.size(), 1u);
+  EXPECT_TRUE(point_in_ring({50, 50}, result[0].holes[0]));
 }
 
 // =============================================================================

@@ -65,6 +65,10 @@
 |   | [**TEST**](#function-test) (GridOps, InterpolateHoles) <br> |
 |   | [**TEST**](#function-test) (GridOps, InterpolateHolesMultiple) <br> |
 |   | [**TEST**](#function-test) (GridOps, InterpolateHolesIsolated) <br> |
+|   | [**TEST**](#function-test) (GridOps, LidarCoverageMask) <br> |
+|   | [**TEST**](#function-test) (GridOps, LidarCoverageMaskInteriorHoles) <br> |
+|   | [**TEST**](#function-test) (GridOps, LidarCoverageMaskFullyOccupied) <br> |
+|   | [**TEST**](#function-test) (GridOps, InterpolateHolesRespectsNodata) <br> |
 |   | [**TEST**](#function-test) (GridOps, HasValue) <br> |
 
 
@@ -217,6 +221,70 @@ TEST (
 TEST (
     GridOps,
     InterpolateHolesIsolated
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GridOps,
+    LidarCoverageMask
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GridOps,
+    LidarCoverageMaskInteriorHoles
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GridOps,
+    LidarCoverageMaskFullyOccupied
+) 
+```
+
+
+
+
+<hr>
+
+
+
+### function TEST 
+
+```C++
+TEST (
+    GridOps,
+    InterpolateHolesRespectsNodata
 ) 
 ```
 

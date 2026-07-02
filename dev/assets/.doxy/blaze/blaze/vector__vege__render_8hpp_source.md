@@ -16,14 +16,18 @@
 #include <vector>
 
 #include "grid/img_grid.hpp"
+#include "isom/colors.hpp"
 #include "vegetation/vegetation_polygon.hpp"
 
-// Fill `img` with vector vegetation polygons on a white CMYK base, batched by CRT layer.
+// Draw vector vegetation polygons onto `img`, filling with the configured open-land
+// background colour first.  Callers that need exterior pixels transparent should apply
+// mask_outside_coverage after this returns.
 inline void draw_vector_vegetation(GeoImgGrid& img, const VegeConfig& vege_config,
                                    const std::vector<VegePolygon>& vege_polygons,
                                    ProgressTracker&& progress_tracker) {
   const std::map<std::string, ColorVariant> vege_layer_color_map = vege_layer_colors(vege_config);
-  img.fill(to_rgb(CMYKColor(0, 0, 0, 0)));
+
+  img.fill(to_rgb(vege_config.background_color));
 
   std::vector<const VegePolygon*> sorted_polygons;
   sorted_polygons.reserve(vege_polygons.size());

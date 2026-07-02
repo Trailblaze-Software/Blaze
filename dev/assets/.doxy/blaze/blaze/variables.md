@@ -81,6 +81,7 @@
 
 ## s
 
+* **SaddlePolicy** ([**config\_input.hpp**](config__input_8hpp.md))
 * **scope\_id** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
 
 

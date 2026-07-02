@@ -20,6 +20,25 @@
 #include "utilities/filesystem.hpp"
 #include "utilities/resources.hpp"
 
+// Policy for resolving marching-squares saddle-point ambiguity.
+enum class SaddlePolicy {
+  ByHeight,       // Bilinear centre: above threshold → merge, below → separate.
+  AlwaysInside,   // Always connect above corners (merge adjacent regions).
+  AlwaysOutside,  // Always separate above corners (keep regions distinct).
+};
+
+inline SaddlePolicy opposite_saddle_policy(SaddlePolicy p) {
+  switch (p) {
+    case SaddlePolicy::AlwaysInside:
+      return SaddlePolicy::AlwaysOutside;
+    case SaddlePolicy::AlwaysOutside:
+      return SaddlePolicy::AlwaysInside;
+    case SaddlePolicy::ByHeight:
+      return SaddlePolicy::ByHeight;
+  }
+  return SaddlePolicy::ByHeight;
+}
+
 struct GridConfig {
   // Resolution (m) at which raw LiDAR points are binned. This is the
   // underlying working grid: ground / building / water / intensity rasters
@@ -135,6 +154,7 @@ struct VegeHeightConfig {
 struct VegeConfig {
   ColorVariant background_color;
   std::vector<VegeHeightConfig> height_configs;
+  SaddlePolicy saddle_policy = SaddlePolicy::AlwaysOutside;
 };
 
 struct RenderConfig {
