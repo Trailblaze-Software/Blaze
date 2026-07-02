@@ -2,7 +2,8 @@
 Name=Blaze3D
 GenericName=3D Point Cloud Viewer
 Comment=View LAS/LAZ point clouds in 3D
-Exec=Blaze3D
+Exec=Blaze3D %f
 Icon=@ENTRY_NAME@_icon
 Type=Application
 Categories=Science;Graphics;
+MimeType=application/vnd.las;application/vnd.laz;
