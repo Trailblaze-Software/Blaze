@@ -327,7 +327,9 @@ inline std::vector<VegePolygon> contours_to_polygons(
   for (const auto& [height, contours] : contours_by_height) {
     for (size_t idx = 0; idx < contours.size(); idx++) {
       const Contour& c = contours[idx];
-      Assert(c.is_loop(), "vegetation contours must be closed loops");
+      if (!c.is_loop()) {
+        continue;
+      }
       AssertGE(c.points().size(), 3u);
 
       std::vector<Coordinate2D<double>> ring = c.points();
@@ -565,7 +567,7 @@ inline std::vector<VegePolygon> generate_vege_polygons(
         SUBTRACKER(CONTOUR_PROGRESS_END * static_cast<double>(job_idx) / job_count,
                    CONTOUR_PROGRESS_END * static_cast<double>(job_idx + 1) / job_count,
                    progress_tracker),
-        /*min_points=*/5, 0.0f);
+        /*min_points=*/5, 0.0f, vege_config.saddle_policy);
     for (VegePolygon& poly : contours_to_polygons(contours, job.threshold_layers)) {
       all_polygons.push_back(std::move(poly));
     }
@@ -588,7 +590,7 @@ inline std::vector<VegePolygon> generate_vege_polygons(
                      CONTOUR_PROGRESS_END +
                          open_land_span * static_cast<double>(open_land_idx + 1) / open_land_count,
                      progress_tracker),
-          /*min_points=*/5, 1.0f);
+          /*min_points=*/5, 1.0f, opposite_saddle_policy(vege_config.saddle_policy));
       for (auto& [height, open_height_contours] : open_contours) {
         for (Contour& contour : open_height_contours) {
           std::reverse(contour.points().begin(), contour.points().end());
@@ -645,7 +647,12 @@ inline std::vector<VegePolygon> generate_vege_polygons(
   cut_understory_from_forest(
       all_polygons, SUBTRACKER_HIDDEN(FILTER_PROGRESS_END, CUT_PROGRESS_END, progress_tracker));
 
-  filter_small_holes(all_polygons, min_hole_areas,
+  // After cutting understory from forest, only drop tiny GEOS sliver holes in 405_Forest.
+  // Using the normal forest min_hole_area_m2 here would remove legitimate understory cutouts
+  // whenever the green patch is smaller than that threshold (e.g. 50–100 m² walk patches).
+  std::map<std::string, double> post_cut_hole_areas = min_hole_areas;
+  post_cut_hole_areas["405_Forest"] = 1.0;
+  filter_small_holes(all_polygons, post_cut_hole_areas,
                      SUBTRACKER_HIDDEN(CUT_PROGRESS_END, final_filter_mid, progress_tracker));
   filter_by_min_area(all_polygons, min_areas,
                      SUBTRACKER_HIDDEN(final_filter_mid, 1.0, progress_tracker));
@@ -781,6 +788,8 @@ inline void combine_vege_gpkgs(const std::vector<fs::path>& tile_dirs, const fs:
     }
   }
 
+  cut_understory_from_forest(merged, SUBTRACKER(0.70, 0.85, progress_tracker));
+
   write_vege_polygons_gpkg(merged, combined_dir / "vegetation.gpkg", projection,
-                           SUBTRACKER(0.7, 1.0));
+                           SUBTRACKER(0.85, 1.0));
 }

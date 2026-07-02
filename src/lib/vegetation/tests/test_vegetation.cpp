@@ -95,7 +95,7 @@ TEST(Vegetation, LowPassOptionalWithNulls) {
 }
 
 TEST(Vegetation, LowPassOptionalAllNull) {
-  // All nulls should produce 0 values
+  // All nulls should remain nodata (NaN), not be filled with zero.
   constexpr size_t N = 5;
   std::vector<std::vector<std::optional<float>>> data(
       N, std::vector<std::optional<float>>(N, std::nullopt));
@@ -106,7 +106,7 @@ TEST(Vegetation, LowPassOptionalAllNull) {
   for (size_t i = 0; i < N; i++) {
     for (size_t j = 0; j < N; j++) {
       float val = result[{j, i}];
-      EXPECT_FLOAT_EQ(val, 0.0f);
+      EXPECT_TRUE(std::isnan(val));
     }
   }
 }

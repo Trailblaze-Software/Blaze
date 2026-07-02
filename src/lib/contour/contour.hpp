@@ -80,8 +80,37 @@ class Contour {
 
   template <typename T>
   static Contour FromGridGraph(const LineCoord2D<size_t>& starting_point, double height,
-                               const GeoGrid<T>& grid,
-                               GridGraph<std::set<double>>& contour_heights) {
+                               const GeoGrid<T>& grid, GridGraph<std::set<double>>& contour_heights,
+                               SaddlePolicy saddle_policy = SaddlePolicy::ByHeight) {
+    // Helper: bilinear centre of the marching-squares cell the crossing enters.
+    auto bilinear_centre = [&](const LineCoord2DCrossing<size_t>& crossing) -> double {
+      const auto& s = crossing.start();
+      long long j, i;
+      if (crossing.dir() == Direction2D::RIGHT) {
+        // RIGHT edge (horizontal): crossing_dir == DOWN → enter cell below (s).
+        // crossing_dir == UP   → enter cell above (s.y - 1).
+        j = static_cast<long long>(s.x());
+        i = crossing.crossing_dir() == Direction2D::DOWN ? static_cast<long long>(s.y())
+                                                         : static_cast<long long>(s.y()) - 1;
+      } else {
+        // DOWN edge (vertical): crossing_dir == RIGHT → enter cell to the right (s).
+        // crossing_dir == LEFT  → enter cell to the left (s.x - 1).
+        j = crossing.crossing_dir() == Direction2D::RIGHT ? static_cast<long long>(s.x())
+                                                          : static_cast<long long>(s.x()) - 1;
+        i = static_cast<long long>(s.y());
+      }
+      if (j < 0 || i < 0 || j + 1 >= static_cast<long long>(grid.width()) ||
+          i + 1 >= static_cast<long long>(grid.height())) {
+        // Cell corners are not all addressable; treat as below threshold (separate).
+        return height;
+      }
+      const size_t uj = static_cast<size_t>(j);
+      const size_t ui = static_cast<size_t>(i);
+      return 0.25 * (static_cast<double>(grid[{uj, ui}]) + static_cast<double>(grid[{uj + 1, ui}]) +
+                     static_cast<double>(grid[{uj, ui + 1}]) +
+                     static_cast<double>(grid[{uj + 1, ui + 1}]));
+    };
+
     std::vector<Coordinate2D<double>> contour_points;
     int pass = 0;
     for (Direction2D dir : starting_point.dir().orthogonal_dirs()) {
@@ -105,13 +134,42 @@ class Contour {
             grid.transform().pixel_to_projection(current_point.end().offset_to_center()),
             grid[current_point.start()], grid[current_point.end()], static_cast<T>(height)));
         end = true;
+
+        // Collect all candidate next-edges that carry this contour height.
+        std::vector<LineCoord2DCrossing<size_t>> candidates;
         for (LineCoord2DCrossing<size_t> next_point : current_point.next_points()) {
           if (contour_heights.in_bounds(next_point) &&
               contour_heights[next_point].contains(height)) {
-            current_point = next_point;
-            end = false;
-            break;
+            candidates.push_back(next_point);
           }
+        }
+
+        if (!candidates.empty()) {
+          if (candidates.size() == 1) {
+            current_point = candidates[0];
+          } else {
+            // Saddle cell: which candidate "separates" (traces around one
+            // above-threshold corner) vs "merges" (connects both above corners)
+            // depends on which corner of the entry edge is above threshold.
+            // Check the grid value at the start cell of the current edge.
+            const T entry_val = grid[current_point.start()];
+            const bool separate_is_first = (entry_val > static_cast<T>(height));
+
+            const double centre = bilinear_centre(current_point);
+            if (saddle_policy == SaddlePolicy::AlwaysInside) {
+              current_point = separate_is_first ? candidates[1] : candidates[0];
+            } else if (saddle_policy == SaddlePolicy::AlwaysOutside) {
+              current_point = separate_is_first ? candidates[0] : candidates[1];
+            } else {
+              // ByHeight: centre > height → merge, else separate.
+              if (centre > height) {
+                current_point = separate_is_first ? candidates[1] : candidates[0];
+              } else {
+                current_point = separate_is_first ? candidates[0] : candidates[1];
+              }
+            }
+          }
+          end = false;
         }
       }
       if (pass == 0) {

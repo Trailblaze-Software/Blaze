@@ -225,16 +225,26 @@ struct adl_serializer<VegeHeightConfig> {
   }
 };
 
+SERIALIZE_ENUM_STRICT(SaddlePolicy, {
+                                        {SaddlePolicy::ByHeight, "by_height"},
+                                        {SaddlePolicy::AlwaysInside, "always_inside"},
+                                        {SaddlePolicy::AlwaysOutside, "always_outside"},
+                                    })
+
 template <>
 struct adl_serializer<VegeConfig> {
   static VegeConfig from_json(const json& j) {
-    return VegeConfig{j.value("background_color", json("white")).get<ColorVariant>(),
-                      j.value("height_configs", json({})).get<std::vector<VegeHeightConfig>>()};
+    VegeConfig vc;
+    vc.background_color = j.value("background_color", json("white")).get<ColorVariant>();
+    vc.height_configs = j.value("height_configs", json({})).get<std::vector<VegeHeightConfig>>();
+    vc.saddle_policy = j.value("saddle_policy", json("always_outside")).get<SaddlePolicy>();
+    return vc;
   }
 
   static void to_json(json& j, VegeConfig vc) {
     j["background_color"] = vc.background_color;
     j["height_configs"] = vc.height_configs;
+    j["saddle_policy"] = vc.saddle_policy;
   }
 };
 template <>

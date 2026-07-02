@@ -7,7 +7,7 @@
 
 #include "las/las_point.hpp"
 #include "lib/grid/grid.hpp"
-#include "methods/hill_shade/hill_shade.hpp"
+#include "methods/hill_shade/slope.hpp"
 #include "process.hpp"
 #include "utilities/progress_tracker.hpp"
 

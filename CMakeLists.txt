@@ -449,6 +449,13 @@ if(NOT BLAZE_CLI_ONLY)
 
     install(FILES assets/images/${ENTRY_NAME}_icon.png
             DESTINATION ${CMAKE_INSTALL_DATADIR}/icons)
+
+    if(BLAZE_BUILD_3D_GUI)
+      configure_file(${PROJECT_SOURCE_DIR}/packaging/Blaze3D.desktop.in
+                     ${CMAKE_CURRENT_BINARY_DIR}/blaze3d.desktop)
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/blaze3d.desktop
+              DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+    endif()
   endif()
 
   if(WIN32)

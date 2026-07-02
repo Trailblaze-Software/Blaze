@@ -31,6 +31,9 @@ std::optional<Coordinate2D<size_t>> flows_to(const GeoGrid<double>& grid,
     if (!grid.in_bounds(neighbour)) {
       continue;
     }
+    if (!std::isfinite(grid[neighbour])) {
+      continue;
+    }
     double neighbour_slope = (grid[coord] - grid[neighbour]) /
                              std::sqrt(SQ(dir.dx() * grid.dx()) + SQ(dir.dy() * grid.dy()));
     if (neighbour_slope > slope) {
@@ -53,46 +56,76 @@ GeoGrid<double> fill_depressions(const GeoGrid<double>& grid, ProgressTracker&& 
                        GeoProjection(grid.projection()));
   filled.fill(false);
 
+  const auto try_seed = [&](const Coordinate2D<size_t>& coord) {
+    if (!filled.in_bounds(coord) || filled[coord] || !std::isfinite(grid[coord])) {
+      return;
+    }
+    queue.push({-grid[coord], 0, coord});
+    filled[coord] = true;
+  };
+
   for (size_t i = 0; i < grid.height() - 1; i++) {
     for (Coordinate2D<size_t> coord :
          {Coordinate2D<size_t>{0, i}, Coordinate2D<size_t>{grid.width() - 1, i + 1}}) {
-      queue.push({-grid[coord], 0, coord});
-      filled[coord] = true;
+      try_seed(coord);
     }
   }
 
   for (size_t j = 0; j < grid.width() - 1; j++) {
     for (Coordinate2D<size_t> coord :
          {Coordinate2D<size_t>{j, 0}, Coordinate2D<size_t>{j + 1, grid.height() - 1}}) {
-      queue.push({-grid[coord], 0, coord});
-      filled[coord] = true;
+      try_seed(coord);
     }
   }
 
   // Seed the two corner cells that the edge loops miss:
   // {width-1, 0} (top-right) and {0, height-1} (bottom-left)
-  {
-    Coordinate2D<size_t> tr{grid.width() - 1, 0};
-    Coordinate2D<size_t> bl{0, grid.height() - 1};
-    queue.push({-grid[tr], 0, tr});
-    filled[tr] = true;
-    queue.push({-grid[bl], 0, bl});
-    filled[bl] = true;
+  try_seed(Coordinate2D<size_t>{grid.width() - 1, 0});
+  try_seed(Coordinate2D<size_t>{0, grid.height() - 1});
+
+  // When exterior nodata forms a NaN ring around surveyed cells, grid-edge seeding
+  // alone never reaches the interior. Also seed finite cells on the survey boundary.
+  for (size_t i = 0; i < grid.height(); i++) {
+    for (size_t j = 0; j < grid.width(); j++) {
+      const Coordinate2D<size_t> coord{j, i};
+      if (!std::isfinite(grid[coord])) {
+        continue;
+      }
+      bool on_survey_boundary = false;
+      for (Direction2D dir : ALL_DIRECTIONS) {
+        const Coordinate2D<size_t> neighbour = coord + dir;
+        if (!grid.in_bounds(neighbour) || !std::isfinite(grid[neighbour])) {
+          on_survey_boundary = true;
+          break;
+        }
+      }
+      if (on_survey_boundary) {
+        try_seed(coord);
+      }
+    }
   }
 
   for (const Coordinate2D<size_t>& sink : sinks) {
+    if (!std::isfinite(grid[sink])) {
+      continue;
+    }
     queue.push({-grid[sink], 0, sink});
     filled[sink] = true;
   }
 
   while (!queue.empty()) {
     PriorityPoint current = queue.top();
-    Assert(std::isfinite(grid[current.coord]), "Grid value is not finite");
     queue.pop();
+    if (!std::isfinite(grid[current.coord])) {
+      continue;
+    }
 
     for (Direction2D dir : ALL_DIRECTIONS) {
       Coordinate2D<size_t> neighbour = current.coord + dir;
       if (!filled.in_bounds(neighbour) || filled[neighbour]) {
+        continue;
+      }
+      if (!std::isfinite(grid[neighbour])) {
         continue;
       }
       double secondary_priority = 0;

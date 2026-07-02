@@ -432,7 +432,7 @@ class Geo : public GridT, public GeoGridData {
 
   template <typename U>
     requires std::same_as<GridT, Grid<U>>
-  Geo pad(U pad_value = {}) const {
+  Geo pad(U pad_value = {}, bool fill_nodata_with_pad_value = false) const {
     size_t new_width = GridT::width() + 2;
     size_t new_height = GridT::height() + 2;
 
@@ -449,7 +449,16 @@ class Geo : public GridT, public GeoGridData {
         if (on_border) {
           padded[{j, i}] = pad_value;
         } else {
-          padded[{j, i}] = (*this)[{j - 1, i - 1}];
+          const U& source = (*this)[{j - 1, i - 1}];
+          if constexpr (std::is_floating_point_v<U>) {
+            if (fill_nodata_with_pad_value && !std::isfinite(source)) {
+              padded[{j, i}] = pad_value;
+            } else {
+              padded[{j, i}] = source;
+            }
+          } else {
+            padded[{j, i}] = source;
+          }
         }
       }
     }
