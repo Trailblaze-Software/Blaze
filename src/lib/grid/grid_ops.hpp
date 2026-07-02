@@ -311,9 +311,9 @@ void interpolate_holes(GeoGrid<T>& grid, ProgressTracker&& progress_tracker) {
       for (Direction2D dir :
            {Direction2D::UP, Direction2D::DOWN, Direction2D::LEFT, Direction2D::RIGHT}) {
         neighbours[dir] = std::nullopt;
-        for (size_t k = 1; grid.in_bounds({j + dir.dy() * k, i + dir.dx() * k}); k++) {
-          if (has_value(grid[{j + dir.dy() * k, i + dir.dx() * k}])) {
-            neighbours[dir] = std::pair<size_t, T>(k, grid[{j + dir.dy() * k, i + dir.dx() * k}]);
+        for (size_t k = 1; grid.in_bounds({j + dir.dx() * k, i + dir.dy() * k}); k++) {
+          if (has_value(grid[{j + dir.dx() * k, i + dir.dy() * k}])) {
+            neighbours[dir] = std::pair<size_t, T>(k, grid[{j + dir.dx() * k, i + dir.dy() * k}]);
             break;
           }
         }
