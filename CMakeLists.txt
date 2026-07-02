@@ -256,6 +256,19 @@ if(NOT BLAZE_CLI_ONLY)
                  MACOSX_BUNDLE ON
                  AUTORCC ON)
 
+    if(APPLE)
+      set_target_properties(
+        ${GUI_3D_EXE_NAME}
+        PROPERTIES MACOSX_BUNDLE_GUI_IDENTIFIER
+                   "com.trailblaze-software.blaze3d"
+                   MACOSX_BUNDLE_BUNDLE_NAME "Blaze3D"
+                   MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
+                   MACOSX_BUNDLE_LONG_VERSION_STRING
+                   "Blaze3D ${PROJECT_VERSION}"
+                   MACOSX_BUNDLE_INFO_PLIST
+                   "${CMAKE_SOURCE_DIR}/packaging/Blaze3D.Info.plist.in")
+    endif()
+
     qt_import_plugins(${GUI_3D_EXE_NAME} INCLUDE_BY_TYPE imageformats
                       Qt6::QTiffPlugin)
   endif()
@@ -455,6 +468,9 @@ if(NOT BLAZE_CLI_ONLY)
                      ${CMAKE_CURRENT_BINARY_DIR}/blaze3d.desktop)
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/blaze3d.desktop
               DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+
+      install(FILES ${PROJECT_SOURCE_DIR}/packaging/blaze-mimetypes.xml
+              DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages)
     endif()
   endif()
 
@@ -558,5 +574,16 @@ set(CPACK_NSIS_MUI_ICON "${CPACK_NSIS_MUI_ICON}")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "qt6-image-formats-plugins")
 
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+
+if(NOT BLAZE_CLI_ONLY AND BLAZE_BUILD_3D_GUI)
+  set(_blaze_debian_postinst "${CMAKE_SOURCE_DIR}/packaging/debian/postinst")
+  set(_blaze_debian_postrm "${CMAKE_SOURCE_DIR}/packaging/debian/postrm")
+  execute_process(COMMAND chmod +x "${_blaze_debian_postinst}"
+                          "${_blaze_debian_postrm}")
+  set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA
+      "${_blaze_debian_postinst};${_blaze_debian_postrm}")
+  set(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${_blaze_debian_postinst}")
+  set(CPACK_RPM_POST_UNINSTALL_SCRIPT_FILE "${_blaze_debian_postrm}")
+endif()
 
 include(CPack)
