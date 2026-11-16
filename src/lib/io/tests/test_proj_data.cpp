@@ -104,6 +104,9 @@ TEST(ProjData, MissingProjDbBreaksCrsLookups) {
     EXPECT_TRUE(reader_embedded_wkt(reader).empty());
 #endif
 
+    const UserCrsParseResult parsed = try_user_crs_to_wkt("EPSG:28355");
+    EXPECT_NE(parsed.error.find("proj.db"), std::string::npos) << parsed.error;
+
     std::ostringstream out;
     EXPECT_EQ(run_crs_self_check({k_geokeys_fixture}, out), 1);
     EXPECT_NE(out.str().find("NOT FOUND"), std::string::npos) << out.str();
@@ -148,4 +151,17 @@ TEST(ProjData, ConfigureIsNoOpWithoutBundledData) {
   const fs::path root = blaze::test::unique_test_output_path("no_bundle", "");
   fs::create_directories(root / "bin");
   EXPECT_FALSE(configure_bundled_proj_data(root / "bin" / "blaze-cli").has_value());
+}
+
+TEST(ProjData, BareEpsgCodeIsAccepted) {
+  const UserCrsParseResult bare = try_user_crs_to_wkt("28355");
+  ASSERT_TRUE(bare.ok) << bare.error;
+  EXPECT_EQ(epsg_of(bare.wkt), "28355");
+  EXPECT_EQ(bare.wkt, try_user_crs_to_wkt("EPSG:28355").wkt);
+}
+
+TEST(ProjData, InvalidCrsGetsFormatHint) {
+  const UserCrsParseResult parsed = try_user_crs_to_wkt("not a crs");
+  EXPECT_FALSE(parsed.ok);
+  EXPECT_NE(parsed.error.find("Expected an EPSG code"), std::string::npos) << parsed.error;
 }

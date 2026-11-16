@@ -82,6 +82,11 @@ for APP in "$STAGING"/Blaze.app "$STAGING"/Blaze3D.app; do
 done
 scripts/macos-bundle-assets.sh "$STAGING/share/assets" "${ASSET_APPS[@]}"
 
+# PROJ data (proj.db) — Homebrew libproj's own data dir doesn't exist on a
+# clean Mac (issue #36). Before macdeployqt/fix-deps so it's covered by signing.
+echo "==> Bundling PROJ data..."
+scripts/macos-bundle-proj-data.sh "$STAGING" "${ASSET_APPS[@]}"
+
 # ---------------------------------------------------------------------------
 # 4. Bundle Qt frameworks with macdeployqt
 #

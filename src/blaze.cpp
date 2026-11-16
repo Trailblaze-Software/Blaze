@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "config_input/config_input.hpp"
+#include "io/proj_data.hpp"
 #include "las/crs_self_check.hpp"
 #include "run.hpp"
 #include "utilities/progress_tracker.hpp"
@@ -13,6 +14,7 @@ static bool is_las_file(const fs::path& p) {
 }
 
 int main([[maybe_unused]] int argc, char* argv[]) {
+  configure_bundled_proj_data();
   try {
     if (argc >= 2 && std::string(argv[1]) == "--check-crs") {
       std::vector<fs::path> files(argv + 2, argv + argc);

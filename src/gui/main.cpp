@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "io/proj_data.hpp"
 #include "las/crs_self_check.hpp"
 #include "main_window.hpp"
 #include "utilities/env.hpp"
@@ -82,6 +83,7 @@ static LaunchOptions parse_args(int argc, char* argv[]) {
 }  // namespace
 
 int main(int argc, char* argv[]) {
+  configure_bundled_proj_data();
   const LaunchOptions opts = parse_args(argc, argv);
   if (opts.check_crs) {
     return run_crs_self_check(opts.las_files, std::cout);

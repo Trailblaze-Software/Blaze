@@ -430,6 +430,18 @@ jobs:
             [ -d "$app" ] && apps+=("$app")
           done
           scripts/macos-bundle-assets.sh staging/share/assets "${apps[@]}"
+      - name: Bundle PROJ data inside .app bundles
+        run: |
+          # Homebrew libproj's compiled-in data dir doesn't exist on a clean
+          # Mac, so ship proj.db with the apps (issue #36). Must run before
+          # macdeployqt/macos-fix-deps.sh re-sign the bundles. See
+          # scripts/macos-bundle-proj-data.sh header.
+          chmod +x scripts/macos-bundle-proj-data.sh
+          apps=()
+          for app in staging/Blaze.app staging/Blaze3D.app; do
+            [ -d "$app" ] && apps+=("$app")
+          done
+          scripts/macos-bundle-proj-data.sh staging "${apps[@]}"
       - name: Deploy Qt frameworks
         run: |
           # macdeployqt comes from the official Qt distribution (installed
