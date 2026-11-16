@@ -488,6 +488,33 @@ jobs:
             [ -d "$app/Contents/Frameworks" ] && apps+=("$app")
           done
           scripts/macos-verify-bundle.sh "${apps[@]}"
+      - name: Verify CRS lookups work without Homebrew PROJ data
+        run: |
+          # Regression test for issue #36. Homebrew's libproj looks for proj.db
+          # in its own share/proj, which exists on this runner but not on a
+          # user's clean Mac. Without proj.db every EPSG lookup fails: LAS 1.2
+          # files whose CRS is stored as GeoTIFF GeoKeys (e.g. NSW Spatial
+          # Services downloads) report "no embedded CRS", and every override_crs
+          # value is rejected. Hide Homebrew's PROJ data so the shipped apps
+          # must use what they bundle, then run their self-check against a
+          # GeoKeys-only fixture.
+          unset PROJ_DATA PROJ_LIB
+          PROJ_SHARE="$(brew --prefix proj)/share/proj"
+          HIDDEN="$RUNNER_TEMP/proj-hidden"
+          mv "$PROJ_SHARE" "$HIDDEN"
+          trap 'mv "$HIDDEN" "$PROJ_SHARE"' EXIT
+          if [ -e "$(brew --prefix)/share/proj/proj.db" ]; then
+            echo "ERROR: failed to hide Homebrew proj.db" >&2
+            exit 1
+          fi
+
+          FIXTURE="$PWD/src/tests/data/geokeys_only_gda94_mga55.laz"
+          status=0
+          echo "== Blaze.app"
+          staging/Blaze.app/Contents/MacOS/Blaze --check-crs --las-file "$FIXTURE" || status=1
+          echo "== blaze-cli"
+          staging/bin/blaze-cli --check-crs "$FIXTURE" || status=1
+          exit $status
       - name: Package (DMG)
         run: |
           if [ -n "${{ steps.version.outputs.version }}" ]; then

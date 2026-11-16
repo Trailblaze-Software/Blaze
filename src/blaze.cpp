@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "config_input/config_input.hpp"
+#include "las/crs_self_check.hpp"
 #include "run.hpp"
 #include "utilities/progress_tracker.hpp"
 
@@ -13,6 +14,11 @@ static bool is_las_file(const fs::path& p) {
 
 int main([[maybe_unused]] int argc, char* argv[]) {
   try {
+    if (argc >= 2 && std::string(argv[1]) == "--check-crs") {
+      std::vector<fs::path> files(argv + 2, argv + argc);
+      return run_crs_self_check(files, std::cout);
+    }
+
     fs::path config_path;
     std::vector<fs::path> las_files;
     bool use_default_config = true;
@@ -40,6 +46,7 @@ int main([[maybe_unused]] int argc, char* argv[]) {
       std::cerr << "No LAS files specified." << std::endl;
       std::cerr << "Usage: blaze-cli <file.laz>" << std::endl;
       std::cerr << "       blaze-cli <config.json> <file.laz>" << std::endl;
+      std::cerr << "       blaze-cli --check-crs [file.laz ...]" << std::endl;
       return 1;
     }
 
