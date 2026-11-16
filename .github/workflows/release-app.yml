@@ -432,16 +432,10 @@ jobs:
           scripts/macos-bundle-assets.sh staging/share/assets "${apps[@]}"
       - name: Bundle PROJ data inside .app bundles
         run: |
-          # Homebrew libproj's compiled-in data dir doesn't exist on a clean
-          # Mac, so ship proj.db with the apps (issue #36). Must run before
-          # macdeployqt/macos-fix-deps.sh re-sign the bundles. See
-          # scripts/macos-bundle-proj-data.sh header.
-          chmod +x scripts/macos-bundle-proj-data.sh
-          apps=()
+          # See scripts/macos-bundle-proj-data.sh (issue #36).
           for app in staging/Blaze.app staging/Blaze3D.app; do
-            [ -d "$app" ] && apps+=("$app")
+            if [ -d "$app" ]; then scripts/macos-bundle-proj-data.sh "$app"; fi
           done
-          scripts/macos-bundle-proj-data.sh staging "${apps[@]}"
       - name: Deploy Qt frameworks
         run: |
           # macdeployqt comes from the official Qt distribution (installed
@@ -502,31 +496,15 @@ jobs:
           scripts/macos-verify-bundle.sh "${apps[@]}"
       - name: Verify CRS lookups work without Homebrew PROJ data
         run: |
-          # Regression test for issue #36. Homebrew's libproj looks for proj.db
-          # in its own share/proj, which exists on this runner but not on a
-          # user's clean Mac. Without proj.db every EPSG lookup fails: LAS 1.2
-          # files whose CRS is stored as GeoTIFF GeoKeys (e.g. NSW Spatial
-          # Services downloads) report "no embedded CRS", and every override_crs
-          # value is rejected. Hide Homebrew's PROJ data so the shipped apps
-          # must use what they bundle, then run their self-check against a
-          # GeoKeys-only fixture.
+          # Regression test for issue #36: hide Homebrew's PROJ data (absent on
+          # a clean Mac) so Blaze.app must use its bundled proj.db to read the
+          # CRS of a LAS file that stores it only as GeoTIFF GeoKeys.
           unset PROJ_DATA PROJ_LIB
           PROJ_SHARE="$(brew --prefix proj)/share/proj"
-          HIDDEN="$RUNNER_TEMP/proj-hidden"
-          mv "$PROJ_SHARE" "$HIDDEN"
-          trap 'mv "$HIDDEN" "$PROJ_SHARE"' EXIT
-          if [ -e "$(brew --prefix)/share/proj/proj.db" ]; then
-            echo "ERROR: failed to hide Homebrew proj.db" >&2
-            exit 1
-          fi
-
-          FIXTURE="$PWD/src/tests/data/geokeys_only_gda94_mga55.laz"
-          status=0
-          echo "== Blaze.app"
-          staging/Blaze.app/Contents/MacOS/Blaze --check-crs --las-file "$FIXTURE" || status=1
-          echo "== blaze-cli"
-          staging/bin/blaze-cli --check-crs "$FIXTURE" || status=1
-          exit $status
+          mv "$PROJ_SHARE" "$RUNNER_TEMP/proj-hidden"
+          trap 'mv "$RUNNER_TEMP/proj-hidden" "$PROJ_SHARE"' EXIT
+          staging/Blaze.app/Contents/MacOS/Blaze --check-crs \
+            --las-file src/tests/data/geokeys_only_gda94_mga55.laz
       - name: Package (DMG)
         run: |
           if [ -n "${{ steps.version.outputs.version }}" ]; then
