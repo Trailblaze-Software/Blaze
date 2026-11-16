@@ -12,16 +12,24 @@
 std::optional<fs::path> configure_bundled_proj_data(const fs::path& executable) {
   if (blaze::get_env("PROJ_DATA") || blaze::get_env("PROJ_LIB")) return std::nullopt;
 
+  const fs::path prefix = executable.parent_path().parent_path();
   // <App>.app/Contents/MacOS/<exe> -> <App>.app/Contents/Resources/proj
-  const fs::path dir = executable.parent_path().parent_path() / "Resources" / "proj";
-  std::error_code ec;
-  if (!fs::exists(dir / "proj.db", ec)) return std::nullopt;
-
-  CPLStringList paths;
-  paths.AddString(dir.string().c_str());
-  for (const std::string& existing : proj_search_paths()) paths.AddString(existing.c_str());
-  OSRSetPROJSearchPaths(paths.List());
-  return dir;
+  std::vector<fs::path> candidates = {prefix / "Resources" / "proj"};
+#ifdef __APPLE__
+  // DMG's <prefix>/bin/blaze-cli -> <prefix>/share/proj. Not on Linux, where
+  // /usr/share/proj belongs to the system PROJ.
+  candidates.push_back(prefix / "share" / "proj");
+#endif
+  for (const fs::path& dir : candidates) {
+    std::error_code ec;
+    if (!fs::exists(dir / "proj.db", ec)) continue;
+    CPLStringList paths;
+    paths.AddString(dir.string().c_str());
+    for (const std::string& existing : proj_search_paths()) paths.AddString(existing.c_str());
+    OSRSetPROJSearchPaths(paths.List());
+    return dir;
+  }
+  return std::nullopt;
 }
 
 std::optional<fs::path> configure_bundled_proj_data() {

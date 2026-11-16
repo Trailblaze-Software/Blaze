@@ -433,9 +433,11 @@ jobs:
       - name: Bundle PROJ data inside .app bundles
         run: |
           # See scripts/macos-bundle-proj-data.sh (issue #36).
+          dests=(staging/share/proj)
           for app in staging/Blaze.app staging/Blaze3D.app; do
-            if [ -d "$app" ]; then scripts/macos-bundle-proj-data.sh "$app"; fi
+            [ -d "$app" ] && dests+=("$app/Contents/Resources/proj")
           done
+          scripts/macos-bundle-proj-data.sh "${dests[@]}"
       - name: Deploy Qt frameworks
         run: |
           # macdeployqt comes from the official Qt distribution (installed
@@ -497,14 +499,16 @@ jobs:
       - name: Verify CRS lookups work without Homebrew PROJ data
         run: |
           # Regression test for issue #36: hide Homebrew's PROJ data (absent on
-          # a clean Mac) so Blaze.app must use its bundled proj.db to read the
-          # CRS of a LAS file that stores it only as GeoTIFF GeoKeys.
+          # a clean Mac) so Blaze.app and blaze-cli must use their bundled
+          # proj.db to read the CRS of a LAS file that stores it only as
+          # GeoTIFF GeoKeys.
           unset PROJ_DATA PROJ_LIB
           PROJ_SHARE="$(brew --prefix proj)/share/proj"
           mv "$PROJ_SHARE" "$RUNNER_TEMP/proj-hidden"
           trap 'mv "$RUNNER_TEMP/proj-hidden" "$PROJ_SHARE"' EXIT
-          staging/Blaze.app/Contents/MacOS/Blaze --check-crs \
-            --las-file src/tests/data/geokeys_only_gda94_mga55.laz
+          FIXTURE=src/tests/data/geokeys_only_gda94_mga55.laz
+          staging/Blaze.app/Contents/MacOS/Blaze --check-crs --las-file "$FIXTURE"
+          staging/bin/blaze-cli --check-crs "$FIXTURE"
       - name: Package (DMG)
         run: |
           if [ -n "${{ steps.version.outputs.version }}" ]; then

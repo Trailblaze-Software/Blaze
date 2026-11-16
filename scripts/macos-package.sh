@@ -82,7 +82,9 @@ for APP in "$STAGING"/Blaze.app "$STAGING"/Blaze3D.app; do
 done
 scripts/macos-bundle-assets.sh "$STAGING/share/assets" "${ASSET_APPS[@]}"
 
-scripts/macos-bundle-proj-data.sh "${ASSET_APPS[@]}"
+PROJ_DESTS=("$STAGING/share/proj")
+for APP in "${ASSET_APPS[@]}"; do PROJ_DESTS+=("$APP/Contents/Resources/proj"); done
+scripts/macos-bundle-proj-data.sh "${PROJ_DESTS[@]}"
 
 # ---------------------------------------------------------------------------
 # 4. Bundle Qt frameworks with macdeployqt

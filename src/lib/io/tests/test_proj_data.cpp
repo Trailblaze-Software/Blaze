@@ -4,6 +4,7 @@
 #include <thread>
 #include <vector>
 
+#include "io/crs.hpp"
 #include "io/proj_data.hpp"
 #include "las/las_file.hpp"
 #include "testing/output_dir.hpp"
@@ -59,6 +60,8 @@ TEST(ProjData, MissingProjDbHidesEmbeddedCrs) {
   on_fresh_thread([] {
     EXPECT_FALSE(proj_database_available());
     EXPECT_EQ(fixture_epsg(), "");
+    const UserCrsParseResult parsed = try_user_crs_to_wkt("EPSG:28355");
+    EXPECT_NE(parsed.error.find("proj.db"), std::string::npos) << parsed.error;
   });
 }
 
@@ -81,3 +84,11 @@ TEST(ProjData, ConfigureUsesDataInsideAppBundle) {
   on_fresh_thread([] { EXPECT_EQ(fixture_epsg(), "28355"); });
 }
 #endif
+
+TEST(ProjData, BareEpsgCodeIsAccepted) {
+  const UserCrsParseResult bare = try_user_crs_to_wkt("28355");
+  ASSERT_TRUE(bare.ok) << bare.error;
+  EXPECT_EQ(bare.wkt, try_user_crs_to_wkt("EPSG:28355").wkt);
+  EXPECT_NE(try_user_crs_to_wkt("not a crs").error.find("Expected an EPSG code"),
+            std::string::npos);
+}
