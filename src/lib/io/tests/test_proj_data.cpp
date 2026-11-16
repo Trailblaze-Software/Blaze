@@ -70,6 +70,9 @@ std::string epsg_of(const std::string& wkt) {
 
 }  // namespace
 
+// The LAS reading below uses blaze's own LAS reader (laspp); PDAL builds read
+// LAS files differently, so those parts are skipped there.
+#ifndef USE_PDAL
 TEST(ProjData, GeoKeysOnlyLasHasEmbeddedCrs) {
   ASSERT_TRUE(fs::exists(k_geokeys_fixture)) << k_geokeys_fixture;
   laspp::LASReader reader(k_geokeys_fixture);
@@ -79,6 +82,7 @@ TEST(ProjData, GeoKeysOnlyLasHasEmbeddedCrs) {
   ASSERT_FALSE(wkt.empty()) << "GeoKeys could not be converted - is proj.db reachable?";
   EXPECT_EQ(epsg_of(wkt), "28355");
 }
+#endif
 
 TEST(ProjData, SelfCheckPassesWithProjData) {
   std::ostringstream out;
@@ -95,8 +99,10 @@ TEST(ProjData, MissingProjDbBreaksCrsLookups) {
   run_on_fresh_thread([&] {
     EXPECT_FALSE(proj_database_available());
     EXPECT_FALSE(try_user_crs_to_wkt("EPSG:28355").ok);
+#ifndef USE_PDAL
     laspp::LASReader reader(k_geokeys_fixture);
     EXPECT_TRUE(reader_embedded_wkt(reader).empty());
+#endif
 
     std::ostringstream out;
     EXPECT_EQ(run_crs_self_check({k_geokeys_fixture}, out), 1);
@@ -131,8 +137,10 @@ TEST(ProjData, ConfigureFindsDataInsideAppBundle) {
   run_on_fresh_thread([&] {
     EXPECT_TRUE(proj_database_available());
     EXPECT_TRUE(try_user_crs_to_wkt("EPSG:28355").ok);
+#ifndef USE_PDAL
     laspp::LASReader reader(k_geokeys_fixture);
     EXPECT_EQ(epsg_of(reader_embedded_wkt(reader)), "28355");
+#endif
   });
 }
 
