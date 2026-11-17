@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_21b47680b4a305e7befbd7a3cf880903" kind="dir">
+    <compoundname>/home/runner/work/Blaze/Blaze/src/tests/data</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="dir_21b47680b4a305e7befbd7a3cf880903_1autotoc_md0">
+<title>Test data</title><para>Tiny fixtures checked into git.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>geokeys_only_gda94_mga55.laz</computeroutput>: the first 1000 points of an NSW Spatial Services (ELVIS, CC BY 4.0) tile, as LAS 1.2. Its CRS (EPSG:28355) is stored only as GeoTIFF GeoKeys, so reading it needs PROJ&apos;s <computeroutput>proj.db</computeroutput> (issue #36). Made with <computeroutput>pdal translate in.laz out.laz head --filters.head.count=1000 --writers.las.minor_version=2 --writers.las.compression=laszip</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="/home/runner/work/Blaze/Blaze/src/tests/data/"/>
+  </compounddef>
+</doxygen>

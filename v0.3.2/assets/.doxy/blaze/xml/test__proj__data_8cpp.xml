@@ -1,0 +1,677 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="test__proj__data_8cpp" kind="file" language="C++">
+    <compoundname>test_proj_data.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes local="no">string</includes>
+    <includes local="no">thread</includes>
+    <includes local="no">vector</includes>
+    <includes refid="crs_8hpp" local="yes">io/crs.hpp</includes>
+    <includes refid="proj__data_8hpp" local="yes">io/proj_data.hpp</includes>
+    <includes refid="las__file_8hpp" local="yes">las/las_file.hpp</includes>
+    <includes refid="output__dir_8hpp" local="yes">testing/output_dir.hpp</includes>
+    <includes refid="utilities_2env_8hpp" local="yes">utilities/env.hpp</includes>
+    <incdepgraph>
+      <node id="13">
+        <label>assert/assert.hpp</label>
+        <link refid="assert_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>grid/forward_grid.hpp</label>
+        <link refid="forward__grid_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>grid/grid.hpp</label>
+        <link refid="grid_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>grid/raster.hpp</label>
+        <link refid="raster_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>io/crs.hpp</label>
+        <link refid="crs_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>io/proj_data.hpp</label>
+        <link refid="proj__data_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp</label>
+        <link refid="test__proj__data_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>isom/colors.hpp</label>
+        <link refid="colors_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>las/las_file.hpp</label>
+        <link refid="las__file_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>las_point.hpp</label>
+        <link refid="las__point_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>printing/to_string.hpp</label>
+        <link refid="to__string_8hpp_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>testing/output_dir.hpp</label>
+        <link refid="output__dir_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>utilities/coordinate.hpp</label>
+        <link refid="coordinate_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>utilities/env.hpp</label>
+        <link refid="utilities_2env_8hpp_source"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>utilities/filesystem.hpp</label>
+        <link refid="filesystem_8hpp_source"/>
+      </node>
+      <node id="41">
+        <label>utilities/memory_tracker.hpp</label>
+        <link refid="memory__tracker_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>utilities/progress_tracker.hpp</label>
+        <link refid="progress__tracker_8hpp_source"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>utilities/resources.hpp</label>
+        <link refid="resources_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>utilities/timer.hpp</label>
+        <link refid="timer_8hpp_source"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>utilities/trace_recorder.hpp</label>
+        <link refid="trace__recorder_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>utilities/tracked_allocator.hpp</label>
+        <link refid="tracked__allocator_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>algorithm</label>
+      </node>
+      <node id="9">
+        <label>array</label>
+      </node>
+      <node id="57">
+        <label>atomic</label>
+      </node>
+      <node id="10">
+        <label>cctype</label>
+      </node>
+      <node id="52">
+        <label>chrono</label>
+      </node>
+      <node id="11">
+        <label>cmath</label>
+      </node>
+      <node id="27">
+        <label>concepts</label>
+      </node>
+      <node id="28">
+        <label>cstddef</label>
+      </node>
+      <node id="23">
+        <label>cstdint</label>
+      </node>
+      <node id="63">
+        <label>cstdio</label>
+      </node>
+      <node id="64">
+        <label>cstdlib</label>
+      </node>
+      <node id="29">
+        <label>cstring</label>
+      </node>
+      <node id="16">
+        <label>experimental/source_location</label>
+      </node>
+      <node id="58">
+        <label>filesystem</label>
+      </node>
+      <node id="44">
+        <label>fstream</label>
+      </node>
+      <node id="45">
+        <label>future</label>
+      </node>
+      <node id="2">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="19">
+        <label>iomanip</label>
+      </node>
+      <node id="14">
+        <label>iostream</label>
+      </node>
+      <node id="48">
+        <label>las_reader.hpp</label>
+      </node>
+      <node id="49">
+        <label>las_writer.hpp</label>
+      </node>
+      <node id="30">
+        <label>limits</label>
+      </node>
+      <node id="20">
+        <label>map</label>
+      </node>
+      <node id="12">
+        <label>memory</label>
+      </node>
+      <node id="46">
+        <label>mutex</label>
+      </node>
+      <node id="40">
+        <label>new</label>
+      </node>
+      <node id="7">
+        <label>ogr_spatialref.h</label>
+      </node>
+      <node id="15">
+        <label>optional</label>
+      </node>
+      <node id="36">
+        <label>ostream</label>
+      </node>
+      <node id="59">
+        <label>random</label>
+      </node>
+      <node id="21">
+        <label>set</label>
+      </node>
+      <node id="24">
+        <label>source_location</label>
+      </node>
+      <node id="47">
+        <label>spatial_index.hpp</label>
+      </node>
+      <node id="17">
+        <label>sstream</label>
+      </node>
+      <node id="31">
+        <label>stdexcept</label>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="60">
+        <label>string_view</label>
+      </node>
+      <node id="4">
+        <label>thread</label>
+      </node>
+      <node id="32">
+        <label>type_traits</label>
+      </node>
+      <node id="61">
+        <label>unistd.h</label>
+      </node>
+      <node id="53">
+        <label>utility</label>
+      </node>
+      <node id="37">
+        <label>variant</label>
+      </node>
+      <node id="5">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__proj__data_8cpp_1aef931660fb9e94a7dfdd1ac3007df63b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProjData, GeoKeysOnlyLasHasEmbeddedCrs)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ProjData</type>
+        </param>
+        <param>
+          <type>GeoKeysOnlyLasHasEmbeddedCrs</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" line="56" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="test__proj__data_8cpp_1a5259b56ba9d2d4d68cced8eedd3661b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProjData, MissingProjDbHidesEmbeddedCrs)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ProjData</type>
+        </param>
+        <param>
+          <type>MissingProjDbHidesEmbeddedCrs</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" line="58" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" bodystart="58" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="test__proj__data_8cpp_1adb2a495569f000b26be111120bf1339c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProjData, ConfigureUsesDataInsideAppBundle)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ProjData</type>
+        </param>
+        <param>
+          <type>ConfigureUsesDataInsideAppBundle</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" line="68" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" bodystart="68" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="test__proj__data_8cpp_1a1fd547213c242c7bfaba954c4cd736b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ProjData, BareEpsgCodeIsAccepted)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ProjData</type>
+        </param>
+        <param>
+          <type>BareEpsgCodeIsAccepted</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" line="88" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp" bodystart="88" bodyend="94"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;thread&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;io/crs.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;io/proj_data.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;las/las_file.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;testing/output_dir.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/env.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>USE_PDAL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>LAS<sp/>1.2<sp/>file<sp/>whose<sp/>CRS<sp/>(EPSG:28355)<sp/>is<sp/>stored<sp/>only<sp/>as<sp/>GeoTIFF<sp/>GeoKeys,<sp/>like</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NSW<sp/>Spatial<sp/>Services<sp/>downloads<sp/>(issue<sp/>#36).<sp/>Reading<sp/>it<sp/>needs<sp/>proj.db.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>k_fixture<sp/>=<sp/>fs::path(BLAZE_TEST_DATA_DIR)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;geokeys_only_gda94_mga55.laz&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">std::string<sp/>fixture_epsg()<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>laspp::LASReader<sp/>reader(k_fixture);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>srs;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(srs.importFromWkt(reader_embedded_wkt(reader).c_str())<sp/>!=<sp/>OGRERR_NONE)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>srs.AutoIdentifyEPSG();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>code<sp/>=<sp/>srs.GetAuthorityCode(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>code<sp/>?<sp/>code<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>set_search_paths(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;&amp;<sp/>paths)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>std::vector&lt;const<sp/>char*&gt;<sp/>c_paths;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>p<sp/>:<sp/>paths)<sp/>c_paths.push_back(p.c_str());</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>c_paths.push_back(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>OSRSetPROJSearchPaths(c_paths.data());</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Points<sp/>PROJ<sp/>at<sp/>an<sp/>empty<sp/>directory<sp/>(as<sp/>on<sp/>a<sp/>clean<sp/>Mac)<sp/>for<sp/>the<sp/>test&apos;s<sp/>scope.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">NoProjData<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>saved<sp/>=<sp/>proj_search_paths();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>fs::path<sp/>empty<sp/>=<sp/>blaze::test::unique_test_output_path(</highlight><highlight class="stringliteral">&quot;no_proj_data&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>NoProjData()<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>fs::create_directories(empty);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>set_search_paths({empty.string()});</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>~NoProjData()<sp/>{<sp/>set_search_paths(saved);<sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/>GDAL<sp/>keeps<sp/>a<sp/>PROJ<sp/>context<sp/>per<sp/>thread,<sp/>and<sp/>a<sp/>context<sp/>that<sp/>has<sp/>already<sp/>opened</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/>proj.db<sp/>keeps<sp/>it<sp/>open,<sp/>so<sp/>search<sp/>path<sp/>changes<sp/>only<sp/>show<sp/>on<sp/>a<sp/>new<sp/>thread.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Fn&gt;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>on_fresh_thread(Fn<sp/>fn)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>std::thread(fn).join();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">TEST(ProjData,<sp/>GeoKeysOnlyLasHasEmbeddedCrs)<sp/>{<sp/>EXPECT_EQ(fixture_epsg(),<sp/></highlight><highlight class="stringliteral">&quot;28355&quot;</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">TEST(ProjData,<sp/>MissingProjDbHidesEmbeddedCrs)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>NoProjData<sp/>no_data;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>on_fresh_thread([]<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(proj_database_available());</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(fixture_epsg(),<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/>parsed<sp/>=<sp/>try_user_crs_to_wkt(</highlight><highlight class="stringliteral">&quot;EPSG:28355&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NE(parsed.error.find(</highlight><highlight class="stringliteral">&quot;proj.db&quot;</highlight><highlight class="normal">),<sp/>std::string::npos)<sp/>&lt;&lt;<sp/>parsed.error;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>});</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">TEST(ProjData,<sp/>ConfigureUsesDataInsideAppBundle)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(blaze::get_env(</highlight><highlight class="stringliteral">&quot;PROJ_DATA&quot;</highlight><highlight class="normal">)<sp/>||<sp/>blaze::get_env(</highlight><highlight class="stringliteral">&quot;PROJ_LIB&quot;</highlight><highlight class="normal">))<sp/>GTEST_SKIP();</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>fs::path<sp/>proj_db;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>dir<sp/>:<sp/>proj_search_paths())<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fs::exists(fs::path(dir)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;proj.db&quot;</highlight><highlight class="normal">))<sp/>proj_db<sp/>=<sp/>fs::path(dir)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;proj.db&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(proj_db.empty())<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;test<sp/>host<sp/>has<sp/>no<sp/>proj.db&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>contents<sp/>=<sp/>blaze::test::unique_test_output_path(</highlight><highlight class="stringliteral">&quot;bundle&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;Contents&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>fs::create_directories(contents<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;MacOS&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>fs::create_directories(contents<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;Resources&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;proj&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>fs::copy_file(proj_db,<sp/>contents<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;Resources&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;proj&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;proj.db&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path<sp/>exe<sp/>=<sp/>contents<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;MacOS&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;Blaze&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>NoProjData<sp/>no_data;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>ASSERT_EQ(configure_bundled_proj_data(exe),<sp/>contents<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;Resources&quot;</highlight><highlight class="normal"><sp/>/<sp/></highlight><highlight class="stringliteral">&quot;proj&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>on_fresh_thread([]<sp/>{<sp/>EXPECT_EQ(fixture_epsg(),<sp/></highlight><highlight class="stringliteral">&quot;28355&quot;</highlight><highlight class="normal">);<sp/>});</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">TEST(ProjData,<sp/>BareEpsgCodeIsAccepted)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structUserCrsParseResult" kindref="compound">UserCrsParseResult</ref><sp/>bare<sp/>=<sp/>try_user_crs_to_wkt(</highlight><highlight class="stringliteral">&quot;28355&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(bare.ok)<sp/>&lt;&lt;<sp/>bare.error;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>EXPECT_EQ(bare.wkt,<sp/>try_user_crs_to_wkt(</highlight><highlight class="stringliteral">&quot;EPSG:28355&quot;</highlight><highlight class="normal">).wkt);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>EXPECT_NE(try_user_crs_to_wkt(</highlight><highlight class="stringliteral">&quot;not<sp/>a<sp/>crs&quot;</highlight><highlight class="normal">).error.find(</highlight><highlight class="stringliteral">&quot;Expected<sp/>an<sp/>EPSG<sp/>code&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string::npos);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/lib/io/tests/test_proj_data.cpp"/>
+  </compounddef>
+</doxygen>

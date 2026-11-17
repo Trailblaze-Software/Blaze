@@ -1,0 +1,89 @@
+:root {
+  /* Blaze Orange */
+  --md-primary-fg-color: #f36f21;
+  --md-primary-fg-color--light: #ff9e52;
+  --md-primary-fg-color--dark: #b94000;
+
+  --md-accent-fg-color: #f36f21;
+  --md-accent-fg-color--transparent: #f36f211a;
+}
+
+/* Palette-specific overrides to prevent default blue fallback */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #f36f21;
+  --md-accent-fg-color: #f36f21;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #f36f21;
+  --md-accent-fg-color: #f36f21;
+}
+
+/* Header background colors */
+[data-md-color-scheme="default"] .md-header {
+  background-color: #333333;
+}
+[data-md-color-scheme="slate"] .md-header {
+  background-color: #222222;
+}
+
+/* Links and Typography */
+.md-typeset a {
+  color: #f36f21;
+}
+.md-typeset a:hover {
+  color: #b94000;
+}
+
+/* Navigation & TOC */
+.md-nav__link--active {
+  color: #f36f21 !important;
+  font-weight: bold;
+}
+
+/* The "scroll" vertical line indicator in the TOC (right sidebar) */
+.md-sidebar--secondary .md-nav__link--active {
+  border-left: 0.1rem solid #f36f21 !important;
+}
+
+/* Navigation titles */
+.md-nav__title {
+  color: #333333 !important;
+  font-weight: 700;
+}
+[data-md-color-scheme="slate"] .md-nav__title {
+  color: #eeeeee !important;
+}
+
+/* Back-to-top button */
+.md-top {
+  background-color: #f36f21;
+  color: #ffffff;
+}
+.md-top:hover {
+  background-color: #b94000;
+}
+
+/* Buttons */
+.md-button--primary {
+  background-color: #f36f21;
+  border-color: #f36f21;
+}
+.md-button--primary:hover {
+  background-color: #b94000;
+  border-color: #b94000;
+}
+
+/* Search */
+.md-search__input:focus + .md-search__icon {
+  color: #f36f21;
+}
+.md-search-result__link:focus,
+.md-search-result__link:hover {
+  background-color: #f36f211a;
+}
+
+/* Focus outlines */
+:focus {
+  outline-color: #f36f21 !important;
+}

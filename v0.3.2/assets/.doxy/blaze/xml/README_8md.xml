@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="README_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Test<sp/>data</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Tiny<sp/>fixtures<sp/>checked<sp/>into<sp/>git.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>`geokeys_only_gda94_mga55.laz`:<sp/>the<sp/>first<sp/>1000<sp/>points<sp/>of<sp/>an<sp/>NSW<sp/>Spatial</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>Services<sp/>(ELVIS,<sp/>CC<sp/>BY<sp/>4.0)<sp/>tile,<sp/>as<sp/>LAS<sp/>1.2.<sp/>Its<sp/>CRS<sp/>(EPSG:28355)<sp/>is<sp/>stored</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>only<sp/>as<sp/>GeoTIFF<sp/>GeoKeys,<sp/>so<sp/>reading<sp/>it<sp/>needs<sp/>PROJ&apos;s<sp/>`proj.db`<sp/>(issue<sp/>#36).</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>Made<sp/>with<sp/>`pdal<sp/>translate<sp/>in.laz<sp/>out.laz<sp/>head<sp/>--filters.head.count=1000</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>--writers.las.minor_version=2<sp/>--writers.las.compression=laszip`.</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/Blaze/Blaze/src/tests/data/README.md"/>
+  </compounddef>
+</doxygen>
