@@ -46,8 +46,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  constexpr int | [**MAX\_DEPTH**](#variable-max_depth)   = `20`<br> |
-|  constexpr size\_t | [**MAX\_POINTS**](#variable-max_points)   = `32'000`<br> |
+|  int | [**MAX\_DEPTH**](#variable-max_depth)   = `20`<br> |
+|  size\_t | [**MAX\_POINTS**](#variable-max_points)   = `32'000`<br> |
 
 
 
@@ -175,7 +175,7 @@ size_t PointOctreeNode::end_index;
 ### variable MAX\_DEPTH 
 
 ```C++
-constexpr int PointOctreeNode::MAX_DEPTH;
+int PointOctreeNode::MAX_DEPTH;
 ```
 
 
@@ -188,7 +188,7 @@ constexpr int PointOctreeNode::MAX_DEPTH;
 ### variable MAX\_POINTS 
 
 ```C++
-constexpr size_t PointOctreeNode::MAX_POINTS;
+size_t PointOctreeNode::MAX_POINTS;
 ```
 
 

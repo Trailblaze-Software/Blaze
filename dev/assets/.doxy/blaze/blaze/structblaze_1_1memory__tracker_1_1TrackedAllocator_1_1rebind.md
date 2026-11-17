@@ -33,7 +33,7 @@
 
 | Type | Name |
 | ---: | :--- |
-| typedef [**TrackedAllocator**](classblaze_1_1memory__tracker_1_1TrackedAllocator.md)&lt; U, MemoryTag &gt; | [**other**](#typedef-other)  <br> |
+| typedef TrackedAllocator&lt; U, MemoryTag &gt; | [**other**](#typedef-other)  <br> |
 
 
 

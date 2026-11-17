@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classColor" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>Color</compoundname>
     <derivedcompoundref refid="classCMYKColor" prot="public" virt="non-virtual">CMYKColor</derivedcompoundref>
@@ -11,8 +11,8 @@
         <argsstring>() const =0</argsstring>
         <name>toRGB</name>
         <qualifiedname>Color::toRGB</qualifiedname>
-        <reimplementedby refid="classRGBColor_1a77b3b23a1ad2d5ec45b62b372507a0a1">toRGB</reimplementedby>
         <reimplementedby refid="classCMYKColor_1af8aaa980f1d768d53c3c57aed155f1a8">toRGB</reimplementedby>
+        <reimplementedby refid="classRGBColor_1a77b3b23a1ad2d5ec45b62b372507a0a1">toRGB</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -27,8 +27,8 @@
         <argsstring>() const =0</argsstring>
         <name>toCMYK</name>
         <qualifiedname>Color::toCMYK</qualifiedname>
-        <reimplementedby refid="classRGBColor_1a238baca8984d89ff73633ba9207da24e">toCMYK</reimplementedby>
         <reimplementedby refid="classCMYKColor_1a00478ffbea8ef526bb158c04a8737324">toCMYK</reimplementedby>
+        <reimplementedby refid="classRGBColor_1a238baca8984d89ff73633ba9207da24e">toCMYK</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>

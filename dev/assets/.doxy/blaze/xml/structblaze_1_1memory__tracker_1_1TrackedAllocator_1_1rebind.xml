@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind" kind="struct" language="C++" prot="public">
     <compoundname>blaze::memory_tracker::TrackedAllocator::rebind</compoundname>
     <templateparamlist>
@@ -9,7 +9,7 @@
     </templateparamlist>
     <sectiondef kind="public-type">
       <memberdef kind="typedef" id="structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind_1a258063254444d8456ca85b0eec3836c5" prot="public" static="no">
-        <type><ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; U, MemoryTag &gt;</type>
+        <type>TrackedAllocator&lt; U, MemoryTag &gt;</type>
         <definition>using blaze::memory_tracker::TrackedAllocator&lt; T, MemoryTag &gt;::rebind&lt; U &gt;::other =  TrackedAllocator&lt;U, MemoryTag&gt;</definition>
         <argsstring></argsstring>
         <name>other</name>

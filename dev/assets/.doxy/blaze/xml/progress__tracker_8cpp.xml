@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="progress__tracker_8cpp" kind="file" language="C++">
     <compoundname>progress_tracker.cpp</compoundname>
     <includes refid="progress__tracker_8hpp" local="yes">progress_tracker.hpp</includes>
@@ -314,7 +314,7 @@
 <codeline lineno="155"><highlight class="normal"><sp/><sp/>AssertGE(end,<sp/>start);</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/>AssertGE(1,<sp/>end);</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/>m_subtracker_range<sp/>=<sp/>std::make_pair(start,<sp/>end);</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>to_return(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>std::move(name),<sp/>location,<sp/>start,<sp/>end);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/>ProgressTracker<sp/>to_return(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>std::move(name),<sp/>location,<sp/>start,<sp/>end);</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"><sp/><sp/>to_return.m_visible<sp/>=<sp/>visible.value_or(m_visible);</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/>m_child<sp/>=<sp/>&amp;to_return;</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"><sp/><sp/>m_child-&gt;_set_proportion(0);</highlight></codeline>
@@ -331,7 +331,7 @@
 <codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>text_update(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,<sp/>0);</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>m_observer-&gt;m_child<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*<sp/>ptr<sp/>=<sp/></highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="normal"><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m_observer);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/>ProgressTracker*<sp/>ptr<sp/>=<sp/></highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="normal">ProgressTracker*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m_observer);</highlight></codeline>
 <codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ptr<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>ptr-&gt;m_subtracker_range.reset();</highlight></codeline>
 <codeline lineno="178"><highlight class="normal"><sp/><sp/>}</highlight></codeline>

@@ -66,16 +66,16 @@
 |  void | [**fill\_ogr\_ring**](#function-fill_ogr_ring) (OGRLinearRing & ring, const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & vertices) <br> |
 |  std::optional&lt; fs::path &gt; | [**find\_in\_root**](#function-find_in_root) (const fs::path & root, const std::vector&lt; std::string &gt; & names) <br> |
 |  bool | [**has\_importable\_outputs**](#function-has_importable_outputs) (const [**BlazeOutputSet**](structBlazeOutputSet.md) & outputs) <br> |
-|  [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; | [**identify\_contour\_crossings**](#function-identify_contour_crossings) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, EdgeHeightsFn edge\_heights) <br> |
+|  [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; | [**identify\_contour\_crossings**](#function-identify_contour_crossings) (const GeoGrid&lt; T &gt; & grid, EdgeHeightsFn edge\_heights) <br> |
 |  bool | [**is\_blaze\_output\_filename**](#function-is_blaze_output_filename) (const std::string & name) <br> |
 |  bool | [**is\_combined\_root**](#function-is_combined_root) (const fs::path & root) <br> |
-|  double | [**min\_contour\_loop\_area\_m2**](#function-min_contour_loop_area_m2) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid) <br> |
+|  double | [**min\_contour\_loop\_area\_m2**](#function-min_contour_loop_area_m2) (const GeoGrid&lt; T &gt; & grid) <br> |
 |  [**PolygonWithHoles**](structPolygonWithHoles.md) | [**polygon\_from\_ogr**](#function-polygon_from_ogr) (const OGRPolygon \* ogr\_poly) <br> |
 |  std::unique\_ptr&lt; OGRGeometry &gt; | [**polygon\_to\_ogr**](#function-polygon_to_ogr) (const [**PolygonWithHoles**](structPolygonWithHoles.md) & poly) <br> |
 |  std::unique\_ptr&lt; OGRGeometry &gt; | [**repair\_ogr\_geometry**](#function-repair_ogr_geometry) (std::unique\_ptr&lt; OGRGeometry &gt; geom) <br> |
 |  std::unique\_ptr&lt; OGRGeometry &gt; | [**ring\_to\_ogr**](#function-ring_to_ogr) (const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & exterior\_ring) <br> |
-|  void | [**trace\_contours**](#function-trace_contours) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights, AcceptFn accept, EmitFn emit, SaddlePolicy saddle\_policy=SaddlePolicy::ByHeight) <br> |
-|  const [**GeoGrid**](classGeo.md)&lt; T &gt; & | [**work\_grid\_for\_contours**](#function-work_grid_for_contours) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, std::optional&lt; T &gt; pad\_value, std::optional&lt; [**GeoGrid**](classGeo.md)&lt; T &gt; &gt; & padded\_out) <br> |
+|  void | [**trace\_contours**](#function-trace_contours) (const GeoGrid&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights, AcceptFn accept, EmitFn emit, SaddlePolicy saddle\_policy=SaddlePolicy::ByHeight) <br> |
+|  const GeoGrid&lt; T &gt; & | [**work\_grid\_for\_contours**](#function-work_grid_for_contours) (const GeoGrid&lt; T &gt; & grid, std::optional&lt; T &gt; pad\_value, std::optional&lt; GeoGrid&lt; T &gt; &gt; & padded\_out) <br> |
 
 
 
@@ -270,7 +270,7 @@ inline bool detail::has_importable_outputs (
 ```C++
 template<typename T, typename EdgeHeightsFn>
 GridGraph < std::set< double > > detail::identify_contour_crossings (
-    const GeoGrid < T > & grid,
+    const GeoGrid< T > & grid,
     EdgeHeightsFn edge_heights
 ) 
 ```
@@ -317,7 +317,7 @@ inline bool detail::is_combined_root (
 ```C++
 template<typename T>
 double detail::min_contour_loop_area_m2 (
-    const GeoGrid < T > & grid
+    const GeoGrid< T > & grid
 ) 
 ```
 
@@ -393,7 +393,7 @@ inline std::unique_ptr< OGRGeometry > detail::ring_to_ogr (
 ```C++
 template<typename T, typename AcceptFn, typename EmitFn>
 void detail::trace_contours (
-    const GeoGrid < T > & grid,
+    const GeoGrid< T > & grid,
     GridGraph < std::set< double > > & contour_heights,
     AcceptFn accept,
     EmitFn emit,
@@ -412,10 +412,10 @@ void detail::trace_contours (
 
 ```C++
 template<typename T>
-const GeoGrid < T > & detail::work_grid_for_contours (
-    const GeoGrid < T > & grid,
+const GeoGrid< T > & detail::work_grid_for_contours (
+    const GeoGrid< T > & grid,
     std::optional< T > pad_value,
-    std::optional< GeoGrid < T > > & padded_out
+    std::optional< GeoGrid< T > > & padded_out
 ) 
 ```
 

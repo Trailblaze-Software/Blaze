@@ -48,8 +48,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  constexpr std::array&lt; [**ClassificationStyle**](structClassificationStyle.md), 9 &gt; | [**CLASSIFICATION\_STYLES**](#variable-classification_styles)   = `/* multi line expression */`<br> |
-|  constexpr std::array&lt; uint8\_t, 3 &gt; | [**DEFAULT\_CLASSIFICATION\_COLOR**](#variable-default_classification_color)   = `{{200, 200, 200}}`<br> |
+|  std::array&lt; [**ClassificationStyle**](structClassificationStyle.md), 9 &gt; | [**CLASSIFICATION\_STYLES**](#variable-classification_styles)   = `/* multi line expression */`<br> |
+|  std::array&lt; uint8\_t, 3 &gt; | [**DEFAULT\_CLASSIFICATION\_COLOR**](#variable-default_classification_color)   = `{{200, 200, 200}}`<br> |
 
 
 
@@ -127,7 +127,7 @@ enum PointColorMode {
 ### variable CLASSIFICATION\_STYLES 
 
 ```C++
-constexpr std::array<ClassificationStyle, 9> CLASSIFICATION_STYLES;
+std::array<ClassificationStyle, 9> CLASSIFICATION_STYLES;
 ```
 
 
@@ -140,7 +140,7 @@ constexpr std::array<ClassificationStyle, 9> CLASSIFICATION_STYLES;
 ### variable DEFAULT\_CLASSIFICATION\_COLOR 
 
 ```C++
-constexpr std::array<uint8_t, 3> DEFAULT_CLASSIFICATION_COLOR;
+std::array<uint8_t, 3> DEFAULT_CLASSIFICATION_COLOR;
 ```
 
 

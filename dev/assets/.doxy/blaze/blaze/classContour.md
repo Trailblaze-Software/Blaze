@@ -56,7 +56,7 @@
 |  double | [**height**](#function-height) () const<br> |
 |  bool | [**is\_loop**](#function-is_loop) () const<br> |
 |  const std::string & | [**layer\_name**](#function-layer_name) () const<br> |
-|  void | [**orient\_consistent**](#function-orient_consistent) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & value\_grid) <br> |
+|  void | [**orient\_consistent**](#function-orient_consistent) (const GeoGrid&lt; T &gt; & value\_grid) <br> |
 |  const std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & | [**points**](#function-points-12) () const<br> |
 |  std::vector&lt; [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; & | [**points**](#function-points-22) () <br> |
 |  void | [**push\_back**](#function-push_back) (const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & point) <br> |
@@ -67,7 +67,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**Contour**](classContour.md) | [**FromGridGraph**](#function-fromgridgraph) (const [**LineCoord2D**](classLineCoord2D.md)&lt; size\_t &gt; & starting\_point, double height, const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights, SaddlePolicy saddle\_policy=SaddlePolicy::ByHeight) <br> |
+|  [**Contour**](classContour.md) | [**FromGridGraph**](#function-fromgridgraph) (const [**LineCoord2D**](classLineCoord2D.md)&lt; size\_t &gt; & starting\_point, double height, const GeoGrid&lt; T &gt; & grid, [**GridGraph**](classGridGraph.md)&lt; std::set&lt; double &gt; &gt; & contour\_heights, SaddlePolicy saddle\_policy=SaddlePolicy::ByHeight) <br> |
 |  [**Contour**](classContour.md) | [**from\_polyline**](#function-from_polyline) (const [**Polyline**](classPolyline.md) & polyline) <br> |
 
 
@@ -174,7 +174,7 @@ inline const std::string & Contour::layer_name () const
 ```C++
 template<typename T>
 inline void Contour::orient_consistent (
-    const GeoGrid < T > & value_grid
+    const GeoGrid< T > & value_grid
 ) 
 ```
 
@@ -250,7 +250,7 @@ template<typename T>
 static inline Contour Contour::FromGridGraph (
     const LineCoord2D < size_t > & starting_point,
     double height,
-    const GeoGrid < T > & grid,
+    const GeoGrid< T > & grid,
     GridGraph < std::set< double > > & contour_heights,
     SaddlePolicy saddle_policy=SaddlePolicy::ByHeight
 ) 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classLayerRenderer" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>LayerRenderer</compoundname>
     <basecompoundref prot="public" virt="non-virtual">QObject</basecompoundref>
@@ -75,9 +75,9 @@
         <argsstring>(const Camera &amp;camera, const RenderContext &amp;ctx)=0</argsstring>
         <name>render</name>
         <qualifiedname>LayerRenderer::render</qualifiedname>
-        <reimplementedby refid="classOctreeLASLayerRenderer_1aef09af62f46a1ed47aa2bd0a393140a7">render</reimplementedby>
-        <reimplementedby refid="classMeshLayerRenderer_1aa315ec7a71c9140ed3d1b38461c33a20">render</reimplementedby>
         <reimplementedby refid="classContourLayerRenderer_1a903851f547f202bf5622437079876d1e">render</reimplementedby>
+        <reimplementedby refid="classMeshLayerRenderer_1aa315ec7a71c9140ed3d1b38461c33a20">render</reimplementedby>
+        <reimplementedby refid="classOctreeLASLayerRenderer_1aef09af62f46a1ed47aa2bd0a393140a7">render</reimplementedby>
         <param>
           <type>const <ref refid="classCamera" kindref="compound">Camera</ref> &amp;</type>
           <declname>camera</declname>

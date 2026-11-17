@@ -73,7 +73,7 @@ Inherits the following classes: [Coordinate2D](classCoordinate2D.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**ContourPoint**](#function-contourpoint) (double x, double y, double height) <br> |
-|  void | [**find\_up\_down**](#function-find_up_down) (const [**GeoGrid**](classGeo.md)&lt; std::vector&lt; std::shared\_ptr&lt; [**ContourPoint**](classContourPoint.md) &gt; &gt; &gt; & point\_grid) <br> |
+|  void | [**find\_up\_down**](#function-find_up_down) (const GeoGrid&lt; std::vector&lt; std::shared\_ptr&lt; [**ContourPoint**](classContourPoint.md) &gt; &gt; &gt; & point\_grid) <br> |
 |  double | [**height**](#function-height) () const<br> |
 |  void | [**set\_next**](#function-set_next) ([**ContourPoint**](classContourPoint.md) \* next) <br> |
 |  void | [**set\_previous**](#function-set_previous) ([**ContourPoint**](classContourPoint.md) \* prev) <br> |
@@ -183,7 +183,7 @@ inline ContourPoint::ContourPoint (
 
 ```C++
 inline void ContourPoint::find_up_down (
-    const GeoGrid < std::vector< std::shared_ptr< ContourPoint > > > & point_grid
+    const GeoGrid< std::vector< std::shared_ptr< ContourPoint > > > & point_grid
 ) 
 ```
 

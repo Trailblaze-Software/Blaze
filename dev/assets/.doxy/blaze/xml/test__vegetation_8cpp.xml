@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__vegetation_8cpp" kind="file" language="C++">
     <compoundname>test_vegetation.cpp</compoundname>
     <includes local="no">gtest/gtest.h</includes>
@@ -504,9 +504,9 @@
 <codeline lineno="13"><highlight class="normal">TEST(Vegetation,<sp/>LowPassUniformGrid)<sp/>{</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>uniform<sp/>grid<sp/>should<sp/>stay<sp/>the<sp/>same<sp/>after<sp/>low-pass<sp/>filtering</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data(20,<sp/>std::vector&lt;float&gt;(20,<sp/>5.0f));</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Center<sp/>values<sp/>should<sp/>remain<sp/>~5.0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>center_val<sp/>=<sp/>result[{10,<sp/>10}];</highlight></codeline>
@@ -518,9 +518,9 @@
 <codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>N<sp/>=<sp/>20;</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data(N,<sp/>std::vector&lt;float&gt;(N,<sp/>0.0f));</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/>data[10][10]<sp/>=<sp/>100.0f;<sp/><sp/></highlight><highlight class="comment">//<sp/>single<sp/>spike</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>spike<sp/>should<sp/>be<sp/>reduced</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>spike_val<sp/>=<sp/>result[{10,<sp/>10}];</highlight></codeline>
@@ -537,9 +537,9 @@
 <codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>N<sp/>=<sp/>5;</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data(N,<sp/>std::vector&lt;float&gt;(N,<sp/>0.0f));</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/>data[2][2]<sp/>=<sp/>10.0f;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>result<sp/>=<sp/>low_pass(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>result<sp/>=<sp/>low_pass(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Center<sp/>should<sp/>still<sp/>be<sp/>the<sp/>largest<sp/>but<sp/>reduced<sp/>(neighbors<sp/>dilute<sp/>it)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>center<sp/>=<sp/>result[{2,<sp/>2}];</highlight></codeline>
@@ -559,9 +559,9 @@
 <codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>N<sp/>=<sp/>20;</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;std::optional&lt;float&gt;&gt;&gt;<sp/>data(N,</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::optional&lt;float&gt;&gt;(N,<sp/>5.0f));</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;std::optional&lt;float&gt;</ref>&gt;<sp/>grid(data);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>GeoGrid&lt;std::optional&lt;float&gt;&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>center_val<sp/>=<sp/>result[{10,<sp/>10}];</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(center_val,<sp/>5.0f,<sp/>0.01f);</highlight></codeline>
@@ -576,9 +576,9 @@
 <codeline lineno="85"><highlight class="normal"><sp/><sp/>data[5][5]<sp/>=<sp/>std::nullopt;</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"><sp/><sp/>data[5][6]<sp/>=<sp/>std::nullopt;</highlight></codeline>
 <codeline lineno="87"><highlight class="normal"><sp/><sp/>data[6][5]<sp/>=<sp/>std::nullopt;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;std::optional&lt;float&gt;</ref>&gt;<sp/>grid(data);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>GeoGrid&lt;std::optional&lt;float&gt;&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>result<sp/>=<sp/>low_pass(grid,<sp/>3,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Center<sp/>should<sp/>still<sp/>be<sp/>close<sp/>to<sp/>5.0<sp/>since<sp/>nulls<sp/>are<sp/>skipped</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>result[{3,<sp/>3}];</highlight></codeline>
@@ -590,9 +590,9 @@
 <codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>N<sp/>=<sp/>5;</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;std::optional&lt;float&gt;&gt;&gt;<sp/>data(</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>N,<sp/>std::vector&lt;std::optional&lt;float&gt;&gt;(N,<sp/>std::nullopt));</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;std::optional&lt;float&gt;</ref>&gt;<sp/>grid(data);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>GeoGrid&lt;std::optional&lt;float&gt;&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>result<sp/>=<sp/>low_pass(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>result<sp/>=<sp/>low_pass(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"></highlight></codeline>
 <codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>N;<sp/>i++)<sp/>{</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>N;<sp/>j++)<sp/>{</highlight></codeline>
@@ -608,9 +608,9 @@
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{4.0f,<sp/>5.0f,<sp/>6.0f},</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{7.0f,<sp/>8.0f,<sp/>9.0f},</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>result<sp/>=<sp/>low_pass(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>result<sp/>=<sp/>low_pass(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/>EXPECT_EQ(result.width(),<sp/>3u);</highlight></codeline>
 <codeline lineno="125"><highlight class="normal"><sp/><sp/>EXPECT_EQ(result.height(),<sp/>3u);</highlight></codeline>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="binned__points_8hpp" kind="file" language="C++">
     <compoundname>binned_points.hpp</compoundname>
     <includes local="no">omp.h</includes>
@@ -92,7 +92,11 @@
         <link refid="crs_8hpp_source"/>
         <childnode refid="44" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
@@ -104,7 +108,21 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
         <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>io/proj_data.hpp</label>
+        <link refid="proj__data_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
       <node id="32">
@@ -134,9 +152,9 @@
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
-        <childnode refid="49" relation="include">
+        <childnode refid="51" relation="include">
         </childnode>
-        <childnode refid="50" relation="include">
+        <childnode refid="52" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
@@ -172,20 +190,20 @@
         </childnode>
         <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="49" relation="include">
+        <childnode refid="51" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="50" relation="include">
+        <childnode refid="52" relation="include">
         </childnode>
-        <childnode refid="53" relation="include">
+        <childnode refid="55" relation="include">
         </childnode>
-        <childnode refid="54" relation="include">
+        <childnode refid="56" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="51">
         <label>las_point.hpp</label>
         <link refid="las__point_8hpp_source"/>
         <childnode refid="27" relation="include">
@@ -245,10 +263,10 @@
         <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="52">
         <label>utilities/progress_tracker.hpp</label>
         <link refid="progress__tracker_8hpp_source"/>
-        <childnode refid="51" relation="include">
+        <childnode refid="53" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
@@ -260,19 +278,19 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="52" relation="include">
+        <childnode refid="54" relation="include">
         </childnode>
       </node>
-      <node id="53">
+      <node id="55">
         <label>utilities/resources.hpp</label>
         <link refid="resources_8hpp_source"/>
         <childnode refid="29" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="56">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
-        <childnode refid="51" relation="include">
+        <childnode refid="53" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
@@ -320,7 +338,10 @@
       <node id="3">
         <label>atomic</label>
       </node>
-      <node id="51">
+      <node id="49">
+        <label>cctype</label>
+      </node>
+      <node id="53">
         <label>chrono</label>
       </node>
       <node id="8">
@@ -410,7 +431,7 @@
       <node id="17">
         <label>type_traits</label>
       </node>
-      <node id="52">
+      <node id="54">
         <label>utility</label>
       </node>
       <node id="35">
@@ -440,13 +461,13 @@
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/tracked_allocator.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15" refid="classBinnedPoints" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBinnedPoints" kindref="compound">BinnedPoints</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">Geo</ref>&lt;Grid&lt;std::span&lt;LASPoint&gt;&gt;&gt;<sp/>{</highlight></codeline>
+<codeline lineno="15" refid="classBinnedPoints" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">BinnedPoints<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>Geo&lt;Grid&lt;std::span&lt;LASPoint&gt;&gt;&gt;<sp/>{</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>blaze::memory_tracker::LasVector&lt;LASPoint&gt;<sp/>m_storage;</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="classBinnedPoints" kindref="compound">BinnedPoints</ref>(<ref refid="classLASData" kindref="compound">LASData</ref>&amp;<sp/>las_file,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>bin_resolution,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>downsample_factor,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>BinnedPoints(<ref refid="classLASData" kindref="compound">LASData</ref>&amp;<sp/>las_file,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>bin_resolution,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>downsample_factor,</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classGeo" kindref="compound">Geo&lt;Grid&lt;std::span&lt;LASPoint&gt;</ref>&gt;&gt;(</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Geo&lt;Grid&lt;std::span&lt;LASPoint&gt;&gt;&gt;(</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_cells_by_distance(las_file.width()<sp/>+<sp/>downsample_factor<sp/>*<sp/>bin_resolution,</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bin_resolution),</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_cells_by_distance(las_file.height()<sp/>+<sp/>downsample_factor<sp/>*<sp/>bin_resolution,</highlight></codeline>

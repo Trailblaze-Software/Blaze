@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__grid_8cpp" kind="file" language="C++">
     <compoundname>test_grid.cpp</compoundname>
     <includes local="no">gtest/gtest.h</includes>
@@ -617,7 +617,7 @@
         <argsstring>(GeoGrid, Extent)</argsstring>
         <name>TEST</name>
         <param>
-          <type><ref refid="classGeo" kindref="compound">GeoGrid</ref></type>
+          <type>GeoGrid</type>
         </param>
         <param>
           <type>Extent</type>
@@ -987,8 +987,8 @@
 <codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">//<sp/>GeoGrid<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="198"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=============================================================================</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="199"><highlight class="normal"></highlight></codeline>
-<codeline lineno="200"><highlight class="normal">TEST(<ref refid="classGeo" kindref="compound">GeoGrid</ref>,<sp/>Extent)<sp/>{</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(10,<sp/>5,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(100.0,<sp/>200.0,<sp/>1.0,<sp/>-1.0),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">TEST(GeoGrid,<sp/>Extent)<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(10,<sp/>5,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(100.0,<sp/>200.0,<sp/>1.0,<sp/>-1.0),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="202"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ext<sp/>=<sp/>grid.extent();</highlight></codeline>
 <codeline lineno="203"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(ext-&gt;minx,<sp/>100.0);</highlight></codeline>
 <codeline lineno="204"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(ext-&gt;maxx,<sp/>110.0);</highlight></codeline>
@@ -1002,7 +1002,7 @@
 <codeline lineno="212"><highlight class="normal"></highlight></codeline>
 <codeline lineno="213"><highlight class="normal">TEST(InterpolateValue,<sp/>CenterOfCell)<sp/>{</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>3x3<sp/>grid<sp/>with<sp/>known<sp/>values</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"><sp/><sp/>grid[coord(0,<sp/>0)]<sp/>=<sp/>1.0;</highlight></codeline>
 <codeline lineno="217"><highlight class="normal"><sp/><sp/>grid[coord(1,<sp/>0)]<sp/>=<sp/>2.0;</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"><sp/><sp/>grid[coord(2,<sp/>0)]<sp/>=<sp/>3.0;</highlight></codeline>
@@ -1020,7 +1020,7 @@
 <codeline lineno="230"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="231"><highlight class="normal"></highlight></codeline>
 <codeline lineno="232"><highlight class="normal">TEST(InterpolateValue,<sp/>MidpointBetweenCells)<sp/>{</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="234"><highlight class="normal"><sp/><sp/>grid[coord(0,<sp/>0)]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="235"><highlight class="normal"><sp/><sp/>grid[coord(1,<sp/>0)]<sp/>=<sp/>10.0;</highlight></codeline>
 <codeline lineno="236"><highlight class="normal"><sp/><sp/>grid[coord(2,<sp/>0)]<sp/>=<sp/>0.0;</highlight></codeline>
@@ -1086,10 +1086,10 @@
 <codeline lineno="296"><highlight class="normal"></highlight></codeline>
 <codeline lineno="297"><highlight class="normal">TEST(GeoGridPad,<sp/>PadsWithValue)<sp/>{</highlight></codeline>
 <codeline lineno="298"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{1.0f,<sp/>2.0f},<sp/>{3.0f,<sp/>4.0f}};</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="300"><highlight class="normal"></highlight></codeline>
 <codeline lineno="301"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>pad_value<sp/>:<sp/>{0.0f,<sp/>-1.0f})<sp/>{</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>padded<sp/>=<sp/>grid.pad(pad_value);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/>GeoGrid&lt;float&gt;<sp/>padded<sp/>=<sp/>grid.pad(pad_value);</highlight></codeline>
 <codeline lineno="303"><highlight class="normal"></highlight></codeline>
 <codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(padded.width(),<sp/>4u);</highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(padded.height(),<sp/>4u);</highlight></codeline>
@@ -1111,9 +1111,9 @@
 <codeline lineno="321"><highlight class="normal"></highlight></codeline>
 <codeline lineno="322"><highlight class="normal">TEST(GeoGridPad,<sp/>AdjustsGeoTransform)<sp/>{</highlight></codeline>
 <codeline lineno="323"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{0.5f,<sp/>0.6f},<sp/>{0.7f,<sp/>0.8f}};</highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(100.0,<sp/>200.0,<sp/>10.0,<sp/>-10.0));</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(100.0,<sp/>200.0,<sp/>10.0,<sp/>-10.0));</highlight></codeline>
 <codeline lineno="325"><highlight class="normal"></highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>padded<sp/>=<sp/>grid.pad(0.0f);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>padded<sp/>=<sp/>grid.pad(0.0f);</highlight></codeline>
 <codeline lineno="327"><highlight class="normal"></highlight></codeline>
 <codeline lineno="328"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(padded.transform().x(),<sp/>100.0<sp/>-<sp/>10.0);</highlight></codeline>
 <codeline lineno="329"><highlight class="normal"><sp/><sp/>EXPECT_DOUBLE_EQ(padded.transform().y(),<sp/>200.0<sp/>+<sp/>10.0);</highlight></codeline>
@@ -1126,9 +1126,9 @@
 <codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{std::numeric_limits&lt;float&gt;::quiet_NaN(),<sp/>0.5f},</highlight></codeline>
 <codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.7f,<sp/>0.8f},</highlight></codeline>
 <codeline lineno="338"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="340"><highlight class="normal"></highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>padded<sp/>=<sp/>grid.pad(0.0f,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>padded<sp/>=<sp/>grid.pad(0.0f,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="342"><highlight class="normal"></highlight></codeline>
 <codeline lineno="343"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ((padded[{0,<sp/>0}]),<sp/>0.0f);</highlight></codeline>
 <codeline lineno="344"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ((padded[{1,<sp/>0}]),<sp/>0.0f);</highlight></codeline>
@@ -1139,9 +1139,9 @@
 <codeline lineno="349"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="350"><highlight class="normal"></highlight></codeline>
 <codeline lineno="351"><highlight class="normal">TEST(GeoGridPad,<sp/>EmptyGrid)<sp/>{</highlight></codeline>
-<codeline lineno="352"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(0,<sp/>0,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(0,<sp/>0,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="353"><highlight class="normal"></highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>padded<sp/>=<sp/>grid.pad(0.0f);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>padded<sp/>=<sp/>grid.pad(0.0f);</highlight></codeline>
 <codeline lineno="355"><highlight class="normal"></highlight></codeline>
 <codeline lineno="356"><highlight class="normal"><sp/><sp/>EXPECT_EQ(padded.width(),<sp/>2u);</highlight></codeline>
 <codeline lineno="357"><highlight class="normal"><sp/><sp/>EXPECT_EQ(padded.height(),<sp/>2u);</highlight></codeline>

@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/images/blaze_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1387,10 +1387,10 @@ Homebrew will be installed automatically if it is not already present.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">LIBOMP</span><span class="o">=</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>libomp<span class="k">)</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="s2">&quot;-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I</span><span class="si">${</span><span class="nv">LIBOMP</span><span class="si">}</span><span class="s2">/include&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="s2">&quot;-DOpenMP_CXX_LIB_NAMES=omp&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="s2">&quot;-DOpenMP_omp_LIBRARY=</span><span class="si">${</span><span class="nv">LIBOMP</span><span class="si">}</span><span class="s2">/lib/libomp.dylib&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="s2">&quot;-DCMAKE_PREFIX_PATH=</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>qt@6<span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="s2">"-DOpenMP_CXX_FLAGS=-Xpreprocessor -fopenmp -I</span><span class="si">${</span><span class="nv">LIBOMP</span><span class="si">}</span><span class="s2">/include"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="s2">"-DOpenMP_CXX_LIB_NAMES=omp"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="s2">"-DOpenMP_omp_LIBRARY=</span><span class="si">${</span><span class="nv">LIBOMP</span><span class="si">}</span><span class="s2">/lib/libomp.dylib"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="s2">"-DCMAKE_PREFIX_PATH=</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>qt@6<span class="k">)</span><span class="s2">"</span>
 <a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--parallel
 </code></pre></div>
 <p>For a CLI-only build (no GUI):</p>
@@ -1463,16 +1463,16 @@ Homebrew will be installed automatically if it is not already present.</p>
 </li>
 <li>
 <p><strong>Add the NuGet source</strong>:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">nuget</span> <span class="n">sources</span> <span class="n">add</span> <span class="n">-Name</span> <span class="s2">&quot;GitHub&quot;</span> <span class="p">`</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  <span class="n">-Source</span> <span class="s2">&quot;https://nuget.pkg.github.com/Trailblaze-Software/index.json&quot;</span> <span class="p">`</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  <span class="n">-UserName</span> <span class="s2">&quot;YOUR_GITHUB_USERNAME&quot;</span> <span class="p">`</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  <span class="n">-Password</span> <span class="s2">&quot;YOUR_PAT&quot;</span>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">nuget</span> <span class="n">sources</span> <span class="n">add</span> <span class="n">-Name</span> <span class="s2">"GitHub"</span> <span class="p">`</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  <span class="n">-Source</span> <span class="s2">"https://nuget.pkg.github.com/Trailblaze-Software/index.json"</span> <span class="p">`</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  <span class="n">-UserName</span> <span class="s2">"YOUR_GITHUB_USERNAME"</span> <span class="p">`</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  <span class="n">-Password</span> <span class="s2">"YOUR_PAT"</span>
 </code></pre></div></p>
 </li>
 <li>
 <p><strong>Enable the cache</strong>:
    Set the following environment variable before running CMake:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nv">$env:VCPKG_BINARY_SOURCES</span><span class="p">=</span><span class="s2">&quot;clear;nuget,GitHub,readwrite&quot;</span>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nv">$env:VCPKG_BINARY_SOURCES</span><span class="p">=</span><span class="s2">"clear;nuget,GitHub,readwrite"</span>
 </code></pre></div></p>
 </li>
 </ol>
@@ -1531,10 +1531,10 @@ Homebrew will be installed automatically if it is not already present.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tracking", "navigation.top", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tracking", "navigation.top", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>

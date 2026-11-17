@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classGrid" kind="class" language="C++" prot="public">
     <compoundname>Grid</compoundname>
     <basecompoundref refid="classGridData" prot="public" virt="non-virtual">GridData</basecompoundref>
@@ -339,9 +339,9 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="203" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" bodystart="203" bodyend="211"/>
       </memberdef>
-      <memberdef kind="function" id="classGrid_1adabb6e7d161770de143561a3b795617a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classGrid_1af11871c0154e545a79a47f9c5ad9c444" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void Grid&lt; U &gt;::fill_from</definition>
+        <definition>void Grid&lt; T &gt;::fill_from</definition>
         <argsstring>(const FlexGrid &amp;other, const Coordinate2D&lt; long long &gt; &amp;top_left={0, 0})</argsstring>
         <name>fill_from</name>
         <qualifiedname>Grid::fill_from</qualifiedname>
@@ -360,7 +360,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="213" column="8"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.hpp" line="213" column="8" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/grid/grid.cpp" bodystart="15" bodyend="22"/>
       </memberdef>
       <memberdef kind="function" id="classGrid_1aaee91636f487d689284bd752f64f6cf7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classGrid" kindref="compound">Grid</ref>&lt; <ref refid="classRGBColor" kindref="compound">RGBColor</ref> &gt;</type>
@@ -538,7 +538,7 @@
       <member refid="classGrid_1a81357449712114e6a4f0fadfb27bd863" prot="public" virt="non-virtual"><scope>Grid</scope><name>draw_polyline</name></member>
       <member refid="classGrid_1a44cc9f209f78ca947024e9c72d73fa16" prot="public" virt="non-virtual"><scope>Grid</scope><name>fill</name></member>
       <member refid="classGrid_1aa451f4b0fe215f9a868bb1474854ab5e" prot="public" virt="non-virtual"><scope>Grid</scope><name>fill_from</name></member>
-      <member refid="classGrid_1adabb6e7d161770de143561a3b795617a" prot="public" virt="non-virtual"><scope>Grid</scope><name>fill_from</name></member>
+      <member refid="classGrid_1af11871c0154e545a79a47f9c5ad9c444" prot="public" virt="non-virtual"><scope>Grid</scope><name>fill_from</name></member>
       <member refid="classGrid_1acbe5d0e166627d56cc6ad36a422edf6a" prot="public" virt="non-virtual"><scope>Grid</scope><name>get_values</name></member>
       <member refid="classGrid_1a9a1e1807e0692fe9cf0ef3cf88a4a1fc" prot="public" virt="non-virtual"><scope>Grid</scope><name>Grid</name></member>
       <member refid="classGrid_1aca051618f7672b088ff5ffb3b35538d8" prot="public" virt="non-virtual"><scope>Grid</scope><name>Grid</name></member>

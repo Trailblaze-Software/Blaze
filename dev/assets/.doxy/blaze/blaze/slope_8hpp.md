@@ -55,7 +55,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**slope**](#function-slope) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  GeoGrid&lt; double &gt; | [**slope**](#function-slope) (const GeoGrid&lt; T &gt; & grid, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 
@@ -93,8 +93,8 @@
 
 ```C++
 template<typename T>
-GeoGrid < double > slope (
-    const GeoGrid < T > & grid,
+GeoGrid< double > slope (
+    const GeoGrid< T > & grid,
     ProgressTracker && progress_tracker
 ) 
 ```

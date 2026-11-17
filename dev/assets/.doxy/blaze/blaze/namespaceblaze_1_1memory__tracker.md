@@ -113,7 +113,7 @@
 ### typedef GridVector 
 
 ```C++
-using blaze::memory_tracker::GridVector = typedef TrackedVector<T, Tag::GRID>;
+using blaze::memory_tracker::GridVector =  TrackedVector<T, Tag::GRID>;
 ```
 
 
@@ -126,7 +126,7 @@ using blaze::memory_tracker::GridVector = typedef TrackedVector<T, Tag::GRID>;
 ### typedef LasVector 
 
 ```C++
-using blaze::memory_tracker::LasVector = typedef TrackedVector<T, Tag::LAS>;
+using blaze::memory_tracker::LasVector =  TrackedVector<T, Tag::LAS>;
 ```
 
 
@@ -155,7 +155,7 @@ enum blaze::memory_tracker::Tag {
 ### typedef TrackedVector 
 
 ```C++
-using blaze::memory_tracker::TrackedVector = typedef std::vector<T, TrackedAllocator<T, MemoryTag> >;
+using blaze::memory_tracker::TrackedVector =  std::vector<T, TrackedAllocator<T, MemoryTag>>;
 ```
 
 

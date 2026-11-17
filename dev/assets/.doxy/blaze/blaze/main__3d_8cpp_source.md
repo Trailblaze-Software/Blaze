@@ -24,6 +24,7 @@
 #include <thread>
 
 #include "gl_widget.hpp"
+#include "io/proj_data.hpp"
 #include "main_3d_window.hpp"
 #include "utilities/env.hpp"
 #include "utilities/filesystem.hpp"
@@ -308,6 +309,7 @@ static int probe_las_file(const fs::path& filename) {
 
 int main(int argc, char* argv[]) {
   blaze::enable_discrete_gpu_offload();
+  configure_bundled_proj_data();
 
 #ifdef _WIN32
   bool owned_console = false;

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="polygon__subtract_8hpp" kind="file" language="C++">
     <compoundname>polygon_subtract.hpp</compoundname>
     <includes local="no">ogrsf_frmts.h</includes>
@@ -357,7 +357,7 @@
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">detail<sp/>{</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>fill_ogr_ring(OGRLinearRing&amp;<sp/>ring,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/>vertices)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>fill_ogr_ring(OGRLinearRing&amp;<sp/>ring,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;&amp;<sp/>vertices)<sp/>{</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>DUPLICATE_VERTEX_TOLERANCE<sp/>=<sp/>1e-9;</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>vertex<sp/>:<sp/>vertices)<sp/>{</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ring.getNumPoints()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
@@ -402,7 +402,7 @@
 <codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>geom;</highlight></codeline>
 <codeline lineno="59"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;OGRGeometry&gt;<sp/>polygon_to_ogr(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref>&amp;<sp/>poly)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;OGRGeometry&gt;<sp/>polygon_to_ogr(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PolygonWithHoles&amp;<sp/>poly)<sp/>{</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"><sp/><sp/>OGRPolygon<sp/>ogr;</highlight></codeline>
 <codeline lineno="63"><highlight class="normal"><sp/><sp/>OGRLinearRing<sp/>ext;</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/>fill_ogr_ring(ext,<sp/>poly.exterior);</highlight></codeline>
@@ -420,7 +420,7 @@
 <codeline lineno="76"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;OGRGeometry&gt;<sp/>ring_to_ogr(</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;&amp;<sp/>exterior_ring)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;&amp;<sp/>exterior_ring)<sp/>{</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/>OGRPolygon<sp/>ogr;</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"><sp/><sp/>OGRLinearRing<sp/>ext;</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"><sp/><sp/>fill_ogr_ring(ext,<sp/>exterior_ring);</highlight></codeline>
@@ -430,8 +430,8 @@
 <codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;OGRGeometry&gt;(ogr.clone());</highlight></codeline>
 <codeline lineno="87"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/>polygon_from_ogr(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OGRPolygon*<sp/>ogr_poly)<sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="structPolygonWithHoles" kindref="compound">PolygonWithHoles</ref><sp/>poly;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>PolygonWithHoles<sp/>polygon_from_ogr(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OGRPolygon*<sp/>ogr_poly)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>PolygonWithHoles<sp/>poly;</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ogr_poly)<sp/>{</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>poly;</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
@@ -495,7 +495,7 @@
 <codeline lineno="151"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="152"><highlight class="normal"></highlight></codeline>
 <codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Uniform<sp/>grid<sp/>index<sp/>for<sp/>bbox<sp/>overlap<sp/>queries<sp/>(e.g.<sp/>matching<sp/>forest<sp/>to<sp/>nearby<sp/>cutouts).</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="154" refid="classdetail_1_1ExtentSpatialIndex" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classdetail_1_1ExtentSpatialIndex" kindref="compound">ExtentSpatialIndex</ref><sp/>{</highlight></codeline>
+<codeline lineno="154" refid="classdetail_1_1ExtentSpatialIndex" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">ExtentSpatialIndex<sp/>{</highlight></codeline>
 <codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_cell_size;</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/>std::unordered_map&lt;int64_t,<sp/>std::vector&lt;size_t&gt;&gt;<sp/>m_cells;</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"></highlight></codeline>
@@ -506,7 +506,7 @@
 <codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cell_coord(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>v)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::floor(v<sp/>/<sp/>m_cell_size));<sp/>}</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"></highlight></codeline>
 <codeline lineno="164"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classdetail_1_1ExtentSpatialIndex" kindref="compound">ExtentSpatialIndex</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>cell_size)<sp/>:<sp/>m_cell_size(std::max(cell_size,<sp/>1.0))<sp/>{}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>ExtentSpatialIndex(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>cell_size)<sp/>:<sp/>m_cell_size(std::max(cell_size,<sp/>1.0))<sp/>{}</highlight></codeline>
 <codeline lineno="166"><highlight class="normal"></highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>insert(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>ext)<sp/>{</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>min_cx<sp/>=<sp/>cell_coord(ext.minx);</highlight></codeline>

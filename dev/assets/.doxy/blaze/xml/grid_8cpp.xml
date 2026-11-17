@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="grid_8cpp" kind="file" language="C++">
     <compoundname>grid.cpp</compoundname>
     <includes refid="grid_8hpp" local="yes">grid.hpp</includes>
@@ -524,7 +524,7 @@
         <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, const Coordinate2D&lt; double &gt; &amp;projection_coord)</argsstring>
         <name>interpolate_value</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -545,7 +545,7 @@
         <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, const Coordinate2D&lt; double &gt; &amp;projection_coord)</argsstring>
         <name>interpolate_value</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -566,7 +566,7 @@
         <argsstring>(const GeoGrid&lt; float &gt; &amp;grid, const Coordinate2D&lt; double &gt; &amp;projection_coord)</argsstring>
         <name>interpolate_value</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; float &gt; &amp;</type>
+          <type>const GeoGrid&lt; float &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -601,7 +601,7 @@
 <codeline lineno="12"><highlight class="normal">GeoTransform::GeoTransform(GDALDataset&amp;<sp/>dataset)<sp/>{<sp/>dataset.GetGeoTransform(geoTransform);<sp/>}</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classGrid" kindref="compound">Grid&lt;T&gt;::fill_from</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classFlexGrid" kindref="compound">FlexGrid</ref>&amp;<sp/>other,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;long long&gt;</ref>&amp;<sp/>top_left)<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Grid&lt;T&gt;::fill_from(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classFlexGrid" kindref="compound">FlexGrid</ref>&amp;<sp/>other,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;long long&gt;</ref>&amp;<sp/>top_left)<sp/>{</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>AssertEQ(other.n_bytes(),<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(T));</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>height();<sp/>i++)<sp/>{</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>width();<sp/>j++)<sp/>{</highlight></codeline>
@@ -631,7 +631,7 @@
 <codeline lineno="42"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Gr</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">T&gt;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><ref refid="classGeo" kindref="compound">Geo&lt;GridT&gt;</ref><sp/><ref refid="classGeo" kindref="compound">Geo&lt;GridT&gt;::slice</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><ref refid="classGeo" kindref="compound">Geo&lt;GridT&gt;</ref><sp/>Geo&lt;GridT&gt;::slice(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structExtent2D" kindref="compound">Extent2D</ref>&amp;<sp/>extent)<sp/>{</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Degenerate<sp/>or<sp/>inverted<sp/>extent<sp/>—<sp/>return<sp/>a<sp/>zero-size<sp/>grid.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(extent.maxx<sp/>&lt;=<sp/>extent.minx<sp/>||<sp/>extent.maxy<sp/>&lt;=<sp/>extent.miny)<sp/>{</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>same_type_different_size(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>0,<sp/>0,<sp/>{extent.minx,<sp/>extent.maxy});</highlight></codeline>
@@ -677,7 +677,7 @@
 <codeline lineno="88"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
 <codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Gr</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">T&gt;</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">std::unique_ptr&lt;Extent2D&gt;<sp/><ref refid="classGeo" kindref="compound">Geo&lt;GridT&gt;::extent</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">std::unique_ptr&lt;Extent2D&gt;<sp/>Geo&lt;GridT&gt;::extent()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>top_left<sp/>=<sp/>transform().pixel_to_projection({0,<sp/>0});</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>bottom_right<sp/>=</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>transform().pixel_to_projection({(double)GridT::width(),<sp/>(double)GridT::height()});</highlight></codeline>
@@ -701,7 +701,7 @@
 <codeline lineno="112"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeo" kindref="compound">Geo&lt;MultiBand&lt;FlexGrid&gt;</ref>&gt;;</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"></highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal">T<sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/>projection_coord)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">T<sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;T&gt;&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/>projection_coord)<sp/>{</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref><sp/>pixel_coord<sp/>=<sp/>grid.transform().projection_to_pixel(projection_coord);</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pixel_coord.x()<sp/>&lt;<sp/>0<sp/>||<sp/>pixel_coord.y()<sp/>&lt;<sp/>0<sp/>||<sp/>pixel_coord.x()<sp/>&gt;=<sp/>grid.width()<sp/>||</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>pixel_coord.y()<sp/>&gt;=<sp/>grid.height())<sp/>{</highlight></codeline>
@@ -734,9 +734,9 @@
 <codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bottom_left<sp/>*<sp/>(1<sp/>-<sp/>x_frac)<sp/>*<sp/>y_frac<sp/>+<sp/>bottom_right<sp/>*<sp/>x_frac<sp/>*<sp/>y_frac;</highlight></codeline>
 <codeline lineno="146"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"></highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>grid,</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/>projection_coord);</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref>&amp;<sp/>grid,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>interpolate_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;float&gt;&amp;<sp/>grid,</highlight></codeline>
 <codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&amp;<sp/>projection_coord);</highlight></codeline>
 <codeline lineno="152"><highlight class="normal">FlexGrid::FlexGrid(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>width,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>height,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_bytes,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>data_type)</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="classGridData" kindref="compound">GridData</ref>(width,<sp/>height),</highlight></codeline>

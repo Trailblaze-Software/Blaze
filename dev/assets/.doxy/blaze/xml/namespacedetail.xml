@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="namespacedetail" kind="namespace" language="C++">
     <compoundname>detail</compoundname>
     <innerclass refid="classdetail_1_1ExtentSpatialIndex" prot="public">detail::ExtentSpatialIndex</innerclass>
@@ -172,7 +172,7 @@
         <name>min_contour_loop_area_m2</name>
         <qualifiedname>detail::min_contour_loop_area_m2</qualifiedname>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <briefdescription>
@@ -189,13 +189,13 @@
             <type>typename T</type>
           </param>
         </templateparamlist>
-        <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+        <type>const GeoGrid&lt; T &gt; &amp;</type>
         <definition>const GeoGrid&lt; T &gt; &amp; detail::work_grid_for_contours</definition>
         <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, std::optional&lt; T &gt; pad_value, std::optional&lt; GeoGrid&lt; T &gt; &gt; &amp;padded_out)</argsstring>
         <name>work_grid_for_contours</name>
         <qualifiedname>detail::work_grid_for_contours</qualifiedname>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -203,7 +203,7 @@
           <declname>pad_value</declname>
         </param>
         <param>
-          <type>std::optional&lt; <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &gt; &amp;</type>
+          <type>std::optional&lt; GeoGrid&lt; T &gt; &gt; &amp;</type>
           <declname>padded_out</declname>
         </param>
         <briefdescription>
@@ -229,7 +229,7 @@
         <name>identify_contour_crossings</name>
         <qualifiedname>detail::identify_contour_crossings</qualifiedname>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -262,7 +262,7 @@
         <name>trace_contours</name>
         <qualifiedname>detail::trace_contours</qualifiedname>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>

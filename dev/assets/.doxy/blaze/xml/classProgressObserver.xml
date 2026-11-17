@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classProgressObserver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>ProgressObserver</compoundname>
     <derivedcompoundref refid="classProgressBar" prot="public" virt="non-virtual">ProgressBar</derivedcompoundref>
@@ -48,11 +48,11 @@
         <argsstring>(double progress)=0</argsstring>
         <name>update_progress</name>
         <qualifiedname>ProgressObserver::update_progress</qualifiedname>
-        <reimplementedby refid="classProgressTrackerBar_1a0652db5878dcb6352c200a7c557bf2b2">update_progress</reimplementedby>
         <reimplementedby refid="classProgressBar_1ae164219da67d59d5a9b62e8a9350fc08">update_progress</reimplementedby>
-        <reimplementedby refid="classProgressTracker_1a8cd68e23a30a0f466043cee0e4f49319">update_progress</reimplementedby>
-        <reimplementedby refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac">update_progress</reimplementedby>
         <reimplementedby refid="classProgressBox_1a08a3e5791918847d41341e919d5fad22">update_progress</reimplementedby>
+        <reimplementedby refid="classProgressTracker_1a8cd68e23a30a0f466043cee0e4f49319">update_progress</reimplementedby>
+        <reimplementedby refid="classProgressTrackerBar_1a0652db5878dcb6352c200a7c557bf2b2">update_progress</reimplementedby>
+        <reimplementedby refid="classRecordingProgressBar_1aa88f3ad6e96e505248b077206fe269ac">update_progress</reimplementedby>
         <param>
           <type>double</type>
           <declname>progress</declname>
@@ -71,10 +71,10 @@
         <argsstring>(const std::string &amp;text, int depth=0)=0</argsstring>
         <name>text_update</name>
         <qualifiedname>ProgressObserver::text_update</qualifiedname>
-        <reimplementedby refid="classProgressTrackerBar_1a4534823a24ddde8bc15d4cd972caa70f">text_update</reimplementedby>
-        <reimplementedby refid="classProgressBox_1af75b7c251206e81e678f28106a99baec">text_update</reimplementedby>
         <reimplementedby refid="classProgressBar_1aa5fa842bcef66aed32ea6c7c79c44e5e">text_update</reimplementedby>
+        <reimplementedby refid="classProgressBox_1af75b7c251206e81e678f28106a99baec">text_update</reimplementedby>
         <reimplementedby refid="classProgressTracker_1aee39c73c1440e2649c02b986e7afbefc">text_update</reimplementedby>
+        <reimplementedby refid="classProgressTrackerBar_1a4534823a24ddde8bc15d4cd972caa70f">text_update</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>text</declname>

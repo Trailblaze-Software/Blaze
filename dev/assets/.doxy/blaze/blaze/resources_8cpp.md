@@ -55,6 +55,7 @@
 | Type | Name |
 | ---: | :--- |
 |  fs::path | [**get\_asset\_dir**](#function-get_asset_dir) () <br> |
+|  fs::path | [**get\_executable\_path**](#function-get_executable_path) () <br> |
 |  fs::path | [**get\_local\_data\_dir**](#function-get_local_data_dir) () <br> |
 
 
@@ -93,6 +94,19 @@
 
 ```C++
 fs::path get_asset_dir () 
+```
+
+
+
+
+<hr>
+
+
+
+### function get\_executable\_path 
+
+```C++
+fs::path get_executable_path () 
 ```
 
 

@@ -51,7 +51,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  constexpr std::size\_t | [**default\_new\_alignment**](#function-default_new_alignment) () <br> |
+|  std::size\_t | [**default\_new\_alignment**](#function-default_new_alignment) () <br> |
 
 
 
@@ -88,7 +88,7 @@
 ### function default\_new\_alignment 
 
 ```C++
-inline constexpr std::size_t blaze::memory_tracker::tracked_allocator_detail::default_new_alignment () 
+inline std::size_t blaze::memory_tracker::tracked_allocator_detail::default_new_alignment () 
 ```
 
 

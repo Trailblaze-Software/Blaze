@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="config__input_8hpp" kind="file" language="C++">
     <compoundname>config_input.hpp</compoundname>
     <includes local="no">cmath</includes>
@@ -541,7 +541,7 @@
 <codeline lineno="186"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="187"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="188"><highlight class="normal"></highlight></codeline>
-<codeline lineno="189" refid="structContourConfigs" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>{</highlight></codeline>
+<codeline lineno="189" refid="structContourConfigs" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ContourConfigs<sp/>{</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"><sp/><sp/>std::map&lt;std::string,<sp/>ContourConfig&gt;<sp/>configs;</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>min_interval;</highlight></codeline>
 <codeline lineno="192"><highlight class="normal"></highlight></codeline>
@@ -553,9 +553,9 @@
 <codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>min_interval;</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="200"><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>()<sp/>:<sp/>min_interval(std::numeric_limits&lt;double&gt;::max())<sp/>{}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/>ContourConfigs()<sp/>:<sp/>min_interval(std::numeric_limits&lt;double&gt;::max())<sp/>{}</highlight></codeline>
 <codeline lineno="202"><highlight class="normal"></highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>(std::map&lt;std::string,<sp/>ContourConfig&gt;<sp/>in_configs)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>ContourConfigs(std::map&lt;std::string,<sp/>ContourConfig&gt;<sp/>in_configs)</highlight></codeline>
 <codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>configs(std::move(in_configs)),<sp/>min_interval(minimum_interval(configs))<sp/>{}</highlight></codeline>
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
 <codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>&amp;<sp/>operator[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>configs.at(key);<sp/>}</highlight></codeline>
@@ -604,7 +604,7 @@
 <codeline lineno="249"><highlight class="normal"></highlight></codeline>
 <codeline lineno="250"><highlight class="normal">std::ostream&amp;<sp/>operator&lt;&lt;(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ProcessingStep&amp;<sp/>step);</highlight></codeline>
 <codeline lineno="251"><highlight class="normal"></highlight></codeline>
-<codeline lineno="252" refid="structConfig" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structConfig" kindref="compound">Config</ref><sp/>{</highlight></codeline>
+<codeline lineno="252" refid="structConfig" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Config<sp/>{</highlight></codeline>
 <codeline lineno="253"><highlight class="normal"><sp/><sp/><ref refid="structGridConfig" kindref="compound">GridConfig</ref><sp/>grid;</highlight></codeline>
 <codeline lineno="254"><highlight class="normal"><sp/><sp/><ref refid="structGroundConfig" kindref="compound">GroundConfig</ref><sp/>ground;</highlight></codeline>
 <codeline lineno="255"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>contours;</highlight></codeline>
@@ -675,12 +675,12 @@
 <codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>file_list;</highlight></codeline>
 <codeline lineno="321"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="322"><highlight class="normal"></highlight></codeline>
-<codeline lineno="323"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>FromFile(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>filename);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Config<sp/>FromFile(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>filename);</highlight></codeline>
 <codeline lineno="324"><highlight class="normal"></highlight></codeline>
 <codeline lineno="325"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>write_to_file(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>fs::path&amp;<sp/>filename)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="326"><highlight class="normal"></highlight></codeline>
-<codeline lineno="327"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>Default()<sp/>{</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref><sp/>c<sp/>=<sp/>FromFile(AssetRetriever::get_asset(</highlight><highlight class="stringliteral">&quot;default_config.json&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Config<sp/>Default()<sp/>{</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>Config<sp/>c<sp/>=<sp/>FromFile(AssetRetriever::get_asset(</highlight><highlight class="stringliteral">&quot;default_config.json&quot;</highlight><highlight class="normal">));</highlight></codeline>
 <codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>asset<sp/>directory<sp/>may<sp/>be<sp/>read-only<sp/>(e.g.<sp/>inside<sp/>a<sp/>mounted<sp/>DMG<sp/>or<sp/>an</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>installed<sp/>.app<sp/>bundle).<sp/>Redirect<sp/>any<sp/>relative<sp/>output<sp/>path<sp/>to<sp/>a<sp/>writable</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>per-user<sp/>data<sp/>directory<sp/>so<sp/>the<sp/>first<sp/>run<sp/>doesn&apos;t<sp/>hit<sp/>a<sp/>read-only<sp/>error.</highlight><highlight class="normal"></highlight></codeline>
@@ -690,12 +690,12 @@
 <codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
 <codeline lineno="336"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="337"><highlight class="normal"></highlight></codeline>
-<codeline lineno="338"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref>(<ref refid="structConfig" kindref="compound">Config</ref>&amp;&amp;<sp/>config)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/><ref refid="structConfig" kindref="compound">Config</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/>Config&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Config&amp;<sp/>config)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/>Config(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Config&amp;<sp/>config)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/>Config(Config&amp;&amp;<sp/>config)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/>Config()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="342"><highlight class="normal"></highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/>operator&lt;&lt;(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/>operator&lt;&lt;(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Config&amp;<sp/>config);</highlight></codeline>
 <codeline lineno="344"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/Blaze/Blaze/src/lib/config_input/config_input.hpp"/>

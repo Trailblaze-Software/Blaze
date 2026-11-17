@@ -37,7 +37,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  constexpr size\_t | [**MAX\_PREVIEW\_POINTS**](#variable-max_preview_points)   = `500'000`<br> |
+|  size\_t | [**MAX\_PREVIEW\_POINTS**](#variable-max_preview_points)   = `500'000`<br> |
 
 
 
@@ -104,7 +104,7 @@
 ### variable MAX\_PREVIEW\_POINTS 
 
 ```C++
-constexpr size_t AsyncOctreeLASData::MAX_PREVIEW_POINTS;
+size_t AsyncOctreeLASData::MAX_PREVIEW_POINTS;
 ```
 
 

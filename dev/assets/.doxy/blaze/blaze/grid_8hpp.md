@@ -75,7 +75,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  constexpr bool | [**IS\_SPECIALIZATION\_V**](#variable-is_specialization_v)   = `[**is\_specialization**](structis__specialization.md)&lt;Type, Template&gt;::value`<br> |
+|  bool | [**IS\_SPECIALIZATION\_V**](#variable-is_specialization_v)   = `[**is\_specialization**](structis__specialization.md)&lt;Type, Template&gt;::value`<br> |
 
 
 
@@ -96,7 +96,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  T | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  T | [**interpolate\_value**](#function-interpolate_value) (const GeoGrid&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
 |  size\_t | [**num\_cells\_by\_distance**](#function-num_cells_by_distance) (double x, double dx) <br> |
 
 
@@ -152,7 +152,7 @@ enum GeoGridCompositeMode {
 ### variable IS\_SPECIALIZATION\_V 
 
 ```C++
-constexpr bool IS_SPECIALIZATION_V;
+bool IS_SPECIALIZATION_V;
 ```
 
 
@@ -169,7 +169,7 @@ constexpr bool IS_SPECIALIZATION_V;
 ```C++
 template<typename T>
 T interpolate_value (
-    const GeoGrid < T > & grid,
+    const GeoGrid< T > & grid,
     const Coordinate2D < double > & projection_coord
 ) 
 ```

@@ -64,7 +64,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**draw\_geo\_polyline**](#function-draw_geo_polyline) ([**GeoImgGrid**](classGeo.md) & grid, std::span&lt; const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; geo\_points, const ColorVariant & color, double width) <br> |
+|  void | [**draw\_geo\_polyline**](#function-draw_geo_polyline) (GeoImgGrid & grid, std::span&lt; const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; &gt; geo\_points, const ColorVariant & color, double width) <br> |
 
 
 

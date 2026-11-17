@@ -106,7 +106,7 @@ See [LASData](classLASData.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**LASData**](classLASData.md#function-lasdata-13) (const [**Extent2D**](structExtent2D.md) & bounds, const [**GeoProjection**](classGeoProjection.md) & projection) <br> |
-|   | [**LASData**](classLASData.md#function-lasdata-23) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid) <br> |
+|   | [**LASData**](classLASData.md#function-lasdata-23) (const GeoGrid&lt; T &gt; & grid) <br> |
 |   | [**LASData**](classLASData.md#function-lasdata-33) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool skip\_reading\_points=false, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt, const std::string & override\_crs="") <br> |
 |  void | [**adopt\_points**](classLASData.md#function-adopt_points) (blaze::memory\_tracker::LasVector&lt; [**LASPoint**](classLASPoint.md) &gt; && points) <br> |
 |  auto | [**begin**](classLASData.md#function-begin) () <br> |

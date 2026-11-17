@@ -56,7 +56,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**hill\_shade**](#function-hill_shade) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, double azimuth, double altitude, const bool multidirectional, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  GeoGrid&lt; double &gt; | [**hill\_shade**](#function-hill_shade) (const GeoGrid&lt; T &gt; & grid, double azimuth, double altitude, const bool multidirectional, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 
@@ -100,8 +100,8 @@
 
 ```C++
 template<typename T>
-GeoGrid < double > hill_shade (
-    const GeoGrid < T > & grid,
+GeoGrid< double > hill_shade (
+    const GeoGrid< T > & grid,
     double azimuth,
     double altitude,
     const bool multidirectional,

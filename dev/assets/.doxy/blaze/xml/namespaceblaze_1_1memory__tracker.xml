@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="namespaceblaze_1_1memory__tracker" kind="namespace" language="C++">
     <compoundname>blaze::memory_tracker</compoundname>
     <innerclass refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" prot="public">blaze::memory_tracker::TrackedAllocator</innerclass>
@@ -35,7 +35,7 @@
       </memberdef>
     </sectiondef>
     <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a77b8922d170fbc8511fd17c23b1e4b18" prot="public" static="no">
+      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a80ef19c7ebcec478026d72adbbcc462d" prot="public" static="no">
         <templateparamlist>
           <param>
             <type>typename T</type>
@@ -47,7 +47,7 @@
           </param>
         </templateparamlist>
         <type>std::vector&lt; T, <ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>&lt; T, MemoryTag &gt; &gt;</type>
-        <definition>using blaze::memory_tracker::TrackedVector = typedef std::vector&lt;T, TrackedAllocator&lt;T, MemoryTag&gt; &gt;</definition>
+        <definition>using blaze::memory_tracker::TrackedVector =  std::vector&lt;T, TrackedAllocator&lt;T, MemoryTag&gt;&gt;</definition>
         <argsstring></argsstring>
         <name>TrackedVector</name>
         <qualifiedname>blaze::memory_tracker::TrackedVector</qualifiedname>
@@ -59,14 +59,14 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="92" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="92" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a794ab338443ae10f29d3c05c29d6d10b" prot="public" static="no">
+      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a0e78b628fbf2af1b37d68212ff5c3457" prot="public" static="no">
         <templateparamlist>
           <param>
             <type>typename T</type>
           </param>
         </templateparamlist>
         <type>TrackedVector&lt; T, Tag::GRID &gt;</type>
-        <definition>using blaze::memory_tracker::GridVector = typedef TrackedVector&lt;T, Tag::GRID&gt;</definition>
+        <definition>using blaze::memory_tracker::GridVector =  TrackedVector&lt;T, Tag::GRID&gt;</definition>
         <argsstring></argsstring>
         <name>GridVector</name>
         <qualifiedname>blaze::memory_tracker::GridVector</qualifiedname>
@@ -78,14 +78,14 @@
         </inbodydescription>
         <location file="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" line="95" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/lib/utilities/tracked_allocator.hpp" bodystart="95" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="tracked__allocator_8hpp_1a4b963bad3570baaddacccdf9fca87b2d" prot="public" static="no">
+      <memberdef kind="typedef" id="tracked__allocator_8hpp_1aafe57dc293673c01d6a478c20de0d4de" prot="public" static="no">
         <templateparamlist>
           <param>
             <type>typename T</type>
           </param>
         </templateparamlist>
         <type>TrackedVector&lt; T, Tag::LAS &gt;</type>
-        <definition>using blaze::memory_tracker::LasVector = typedef TrackedVector&lt;T, Tag::LAS&gt;</definition>
+        <definition>using blaze::memory_tracker::LasVector =  TrackedVector&lt;T, Tag::LAS&gt;</definition>
         <argsstring></argsstring>
         <name>LasVector</name>
         <qualifiedname>blaze::memory_tracker::LasVector</qualifiedname>

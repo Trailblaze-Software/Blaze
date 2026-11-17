@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__grid__ops_8cpp" kind="file" language="C++">
     <compoundname>test_grid_ops.cpp</compoundname>
     <includes local="no">gtest/gtest.h</includes>
@@ -592,9 +592,9 @@
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.0,<sp/>6.0,<sp/>7.0,<sp/>8.0},</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{9.0,<sp/>10.0,<sp/>11.0,<sp/>12.0},</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{13.0,<sp/>14.0,<sp/>15.0,<sp/>16.0}};</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>downsampled<sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEAN);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>downsampled<sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEAN);</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/>EXPECT_EQ(downsampled.width(),<sp/>2);</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/>EXPECT_EQ(downsampled.height(),<sp/>2);</highlight></codeline>
@@ -616,9 +616,9 @@
 <codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>downsample<sp/>function<sp/>with<sp/>MEDIAN<sp/>method</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal">TEST(GridOps,<sp/>DownsampleMedian)<sp/>{</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{1.0,<sp/>2.0,<sp/>3.0},<sp/>{4.0,<sp/>5.0,<sp/>6.0},<sp/>{7.0,<sp/>8.0,<sp/>9.0}};</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>downsampled<sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEDIAN);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>downsampled<sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEDIAN);</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/>EXPECT_EQ(downsampled.width(),<sp/>2);</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_EQ(downsampled.height(),<sp/>2);</highlight></codeline>
@@ -643,9 +643,9 @@
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Test<sp/>downsample<sp/>with<sp/>odd<sp/>dimensions</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="65"><highlight class="normal">TEST(GridOps,<sp/>DownsampleOddDimensions)<sp/>{</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{1.0,<sp/>2.0,<sp/>3.0,<sp/>4.0,<sp/>5.0},<sp/>{6.0,<sp/>7.0,<sp/>8.0,<sp/>9.0,<sp/>10.0}};</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>downsampled<sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEAN);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>downsampled<sp/>=<sp/>downsample(grid,<sp/>2,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>DownsampleMethod::MEAN);</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Should<sp/>round<sp/>up:<sp/>ceil(5/2)<sp/>=<sp/>3,<sp/>ceil(2/2)<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/>EXPECT_EQ(downsampled.width(),<sp/>3);</highlight></codeline>
@@ -658,7 +658,7 @@
 <codeline lineno="79"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{10.0,<sp/>10.0,<sp/>10.0},</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>100.0,<sp/>10.0},<sp/><sp/></highlight><highlight class="comment">//<sp/>Outlier<sp/>in<sp/>the<sp/>middle</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0}};</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/>remove_outliers(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>1.0);</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"></highlight></codeline>
@@ -674,7 +674,7 @@
 <codeline lineno="95"><highlight class="normal">TEST(GridOps,<sp/>RemoveOutliersNoOutliers)<sp/>{</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0},<sp/>{10.0,<sp/>10.0,<sp/>10.0},<sp/>{10.0,<sp/>10.0,<sp/>10.0}};</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"></highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/>remove_outliers(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>1.0);</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
@@ -694,7 +694,7 @@
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0},</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>std::numeric_limits&lt;double&gt;::max(),<sp/>10.0},<sp/><sp/></highlight><highlight class="comment">//<sp/>Hole<sp/>in<sp/>the<sp/>middle</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0}};</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/>interpolate_holes(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"></highlight></codeline>
@@ -712,7 +712,7 @@
 <codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>std::numeric_limits&lt;double&gt;::max(),<sp/>20.0},</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{std::numeric_limits&lt;double&gt;::max(),<sp/>15.0,<sp/>std::numeric_limits&lt;double&gt;::max()},</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{30.0,<sp/>25.0,<sp/>35.0}};</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"></highlight></codeline>
 <codeline lineno="138"><highlight class="normal"><sp/><sp/>interpolate_holes(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"></highlight></codeline>
@@ -766,7 +766,7 @@
 <codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::numeric_limits&lt;double&gt;::max()},</highlight></codeline>
 <codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{std::numeric_limits&lt;double&gt;::max(),<sp/>std::numeric_limits&lt;double&gt;::max(),</highlight></codeline>
 <codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::numeric_limits&lt;double&gt;::max()}};</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"></highlight></codeline>
 <codeline lineno="192"><highlight class="normal"><sp/><sp/>interpolate_holes(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"></highlight></codeline>
@@ -791,7 +791,7 @@
 <codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">},</highlight></codeline>
 <codeline lineno="213"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>coverage<sp/>=<sp/>compute_lidar_coverage_mask(</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;bool&gt;<sp/>coverage<sp/>=<sp/>compute_lidar_coverage_mask(</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>width,<sp/>height,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(),</highlight></codeline>
 <codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!occupied[row][col];<sp/>},<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"></highlight></codeline>
@@ -823,7 +823,7 @@
 <codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="245"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="246"><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>coverage<sp/>=<sp/>compute_lidar_coverage_mask(</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;bool&gt;<sp/>coverage<sp/>=<sp/>compute_lidar_coverage_mask(</highlight></codeline>
 <codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>width,<sp/>height,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(),</highlight></codeline>
 <codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!occupied[row][col];<sp/>},<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="250"><highlight class="normal"></highlight></codeline>
@@ -836,7 +836,7 @@
 <codeline lineno="257"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="258"><highlight class="normal"></highlight></codeline>
 <codeline lineno="259"><highlight class="normal">TEST(GridOps,<sp/>LidarCoverageMaskFullyOccupied)<sp/>{</highlight></codeline>
-<codeline lineno="260"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>coverage<sp/>=<sp/>compute_lidar_coverage_mask(</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;bool&gt;<sp/>coverage<sp/>=<sp/>compute_lidar_coverage_mask(</highlight></codeline>
 <codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(),<sp/>[&amp;](</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;<sp/>},</highlight></codeline>
 <codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="263"><highlight class="normal"></highlight></codeline>
@@ -854,7 +854,7 @@
 <codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0,<sp/>10.0},</highlight></codeline>
 <codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{10.0,<sp/>10.0,<sp/>10.0,<sp/>10.0},</highlight></codeline>
 <codeline lineno="277"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="279"><highlight class="normal"></highlight></codeline>
 <codeline lineno="280"><highlight class="normal"><sp/><sp/>interpolate_holes(grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
 <codeline lineno="281"><highlight class="normal"></highlight></codeline>

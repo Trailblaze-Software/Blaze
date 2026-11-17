@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="tracked__allocator_8hpp" kind="file" language="C++">
     <compoundname>tracked_allocator.hpp</compoundname>
     <includes local="no">cstddef</includes>
@@ -327,7 +327,7 @@
 <codeline lineno="25"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>tracked_allocator_detail</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/>Tag<sp/>MemoryTag&gt;</highlight></codeline>
-<codeline lineno="28" refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref><sp/>{</highlight></codeline>
+<codeline lineno="28" refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">TrackedAllocator<sp/>{</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>k_requires_aligned_allocation<sp/>=</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">alignof</highlight><highlight class="normal">(T)<sp/>&gt;<sp/>tracked_allocator_detail::default_new_alignment();</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
@@ -340,10 +340,10 @@
 <codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">propagate_on_container_swap<sp/>=<sp/>std::true_type;</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">is_always_equal<sp/>=<sp/>std::true_type;</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>()<sp/></highlight><highlight class="keyword">noexcept</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>TrackedAllocator()<sp/></highlight><highlight class="keyword">noexcept</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U&gt;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator&lt;U, MemoryTag&gt;</ref>&amp;)<sp/></highlight><highlight class="keyword">noexcept</highlight><highlight class="normal"><sp/>{}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>TrackedAllocator(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TrackedAllocator&lt;U,<sp/>MemoryTag&gt;&amp;)<sp/></highlight><highlight class="keyword">noexcept</highlight><highlight class="normal"><sp/>{}</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/>T*<sp/>allocate(size_type<sp/>count)<sp/>{</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(count<sp/>&gt;<sp/>max_size())<sp/>{</highlight></codeline>
@@ -374,7 +374,7 @@
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U&gt;</highlight></codeline>
 <codeline lineno="74" refid="structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structblaze_1_1memory__tracker_1_1TrackedAllocator_1_1rebind" kindref="compound">rebind</ref><sp/>{</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">other</ref><sp/>=<sp/><ref refid="classblaze_1_1memory__tracker_1_1TrackedAllocator" kindref="compound">TrackedAllocator&lt;U, MemoryTag&gt;</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">other<sp/>=<sp/>TrackedAllocator&lt;U,<sp/>MemoryTag&gt;;</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
 <codeline lineno="77"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="main__window_8cpp" kind="file" language="C++">
     <compoundname>main_window.cpp</compoundname>
     <includes refid="main__window_8hpp" local="yes">main_window.hpp</includes>
@@ -295,7 +295,7 @@
 <codeline lineno="59"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MainWindow::run_blaze()<sp/>{</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structConfig" kindref="compound">Config</ref>&amp;<sp/>config<sp/>=<sp/>ui-&gt;config_editor-&gt;get_config();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Config&amp;<sp/>config<sp/>=<sp/>ui-&gt;config_editor-&gt;get_config();</highlight></codeline>
 <codeline lineno="63"><highlight class="normal"></highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Warn<sp/>if<sp/>the<sp/>requested<sp/>bin<sp/>resolution<sp/>will<sp/>leave<sp/>fewer<sp/>than<sp/>5<sp/>LiDAR<sp/>points</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>per<sp/>bin<sp/>on<sp/>average.<sp/>At<sp/>that<sp/>density<sp/>ground/vegetation<sp/>classifications<sp/>and</highlight><highlight class="normal"></highlight></codeline>
@@ -341,11 +341,11 @@
 <codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>run<sp/>actually<sp/>succeeded.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>exit_after_run<sp/>=<sp/>blaze::get_env(</highlight><highlight class="stringliteral">&quot;BLAZE_EXIT_AFTER_RUN&quot;</highlight><highlight class="normal">)<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><ref refid="classProgressBox" kindref="compound">ProgressBox</ref>*<sp/>message_box<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classProgressBox" kindref="compound">ProgressBox</ref>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>ProgressBox*<sp/>message_box<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>ProgressBox(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/>message_box-&gt;show();</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/>message_box-&gt;start_task(</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;config,<sp/>message_box]<sp/>{</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>run_with_config(config,<sp/>std::vector&lt;fs::path&gt;(),<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(message_box));</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>run_with_config(config,<sp/>std::vector&lt;fs::path&gt;(),<sp/>ProgressTracker(message_box));</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;config,<sp/>exit_after_run]<sp/>{</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(exit_after_run)<sp/>{</highlight></codeline>

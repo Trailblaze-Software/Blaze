@@ -28,7 +28,7 @@
 #include <unistd.h>
 #endif
 
-fs::path get_asset_dir() {
+fs::path get_executable_path() {
 #if defined(__WIN32__) || defined(_WIN32)
   char buffer[MAX_PATH];
   GetModuleFileNameA(NULL, buffer, MAX_PATH);
@@ -56,6 +56,11 @@ fs::path get_asset_dir() {
   }
   fs::path path(buffer);
 #endif
+  return path;
+}
+
+fs::path get_asset_dir() {
+  fs::path path = get_executable_path();
   // First candidate, "<exe>/../../share/assets": on Linux/Windows the installed
   // <prefix>/share/assets; on a macOS .app it resolves to
   // MyApp.app/Contents/share/assets. The macOS packaging deliberately copies the

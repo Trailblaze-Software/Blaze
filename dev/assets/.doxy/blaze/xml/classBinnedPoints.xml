@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classBinnedPoints" kind="class" language="C++" prot="public">
     <compoundname>BinnedPoints</compoundname>
     <basecompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; Grid&lt; std::span&lt; LASPoint &gt; &gt; &gt;</basecompoundref>
@@ -161,18 +161,12 @@
       <member refid="classGeo_1a6c097e7535fe37623d37797abd3c0cfb" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>extent</name></member>
       <member refid="classGrid_1a44cc9f209f78ca947024e9c72d73fa16" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>fill</name></member>
       <member refid="classGeo_1a98db4bd85f13e2f61e521c2364501f4e" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>fill_from</name></member>
-      <member refid="classGeo_1a52eff035fc897e9650b678645521d642" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>fill_from</name></member>
       <member refid="classGrid_1aa451f4b0fe215f9a868bb1474854ab5e" prot="public" virt="non-virtual" ambiguityscope="Grid&lt; std::span&lt; LASPoint &gt; &gt;::"><scope>BinnedPoints</scope><name>fill_from</name></member>
-      <member refid="classGrid_1adabb6e7d161770de143561a3b795617a" prot="public" virt="non-virtual" ambiguityscope="Grid&lt; std::span&lt; LASPoint &gt; &gt;::"><scope>BinnedPoints</scope><name>fill_from</name></member>
       <member refid="classGeo_1ab6a2e4849800c86b42bac2d10b4d2f5f" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>FromPoints</name></member>
       <member refid="classGeo_1a7af51f6bbf7e090aeb8931dfc864cae0" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Geo</name></member>
-      <member refid="classGeo_1ad7b2eadfa2e906546466b2d06565cb5d" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Geo</name></member>
-      <member refid="classGeo_1a32e9264133b4bc750f7c71003c430c6f" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Geo</name></member>
       <member refid="classGeoGridData_1a6e1191a0d4ee036284d22587da150ec4" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>GeoGridData</name></member>
       <member refid="classGrid_1acbe5d0e166627d56cc6ad36a422edf6a" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>get_values</name></member>
       <member refid="classGrid_1a9a1e1807e0692fe9cf0ef3cf88a4a1fc" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Grid</name></member>
-      <member refid="classGrid_1aca051618f7672b088ff5ffb3b35538d8" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Grid</name></member>
-      <member refid="classGrid_1a1b86a88228ae7d69ec98c0d65e8db7b6" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>Grid</name></member>
       <member refid="classGridData_1ad3de1079142a49044d2cc5dce8c77be2" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>GridData</name></member>
       <member refid="classGridData_1af50b2f20899510c2b9373bacbb217b7f" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>height</name></member>
       <member refid="classGeo_1a1098c30d81601a5e885405f61f15bfbd" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>height_m</name></member>
@@ -187,9 +181,7 @@
       <member refid="classGrid_1a4e221bd89bcb14a2eb6a2ebd99e8e063" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>max_value</name></member>
       <member refid="classGrid_1ab0077114cdb846bf93624ad89782ec71" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>min_value</name></member>
       <member refid="classGrid_1a3a4c148555510f7468a376d135866354" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>operator=</name></member>
-      <member refid="classGrid_1af89840c983b478ef47a9c2c8f0f4a31e" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>operator=</name></member>
       <member refid="classGrid_1a48dbbee2e03f5ec23abd9628eeea1dcf" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>operator[]</name></member>
-      <member refid="classGrid_1afd98fad7ec8aab40d9bf9faf66ef9c13" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>operator[]</name></member>
       <member refid="classGeo_1a90406c6548955383e34dc902e193898a" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>pad</name></member>
       <member refid="classGeoGridData_1a93f9478e0ca3db8a9f86dc1d150bb844" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>projection</name></member>
       <member refid="classGeo_1aa4304b41a81e813222783bd3efecb102" prot="public" virt="non-virtual"><scope>BinnedPoints</scope><name>rasterize_filled_polygons</name></member>

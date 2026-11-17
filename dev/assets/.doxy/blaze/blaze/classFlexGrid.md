@@ -16,6 +16,7 @@
 Inherits the following classes: [GridData](classGridData.md)
 
 
+Inherited by the following classes: [Geo](classGeo.md)
 
 
 

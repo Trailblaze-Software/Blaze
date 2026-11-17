@@ -14,6 +14,8 @@
 #include <string>
 #include <vector>
 
+#include "io/proj_data.hpp"
+#include "las/crs_self_check.hpp"
 #include "main_window.hpp"
 #include "utilities/env.hpp"
 #include "utilities/filesystem.hpp"
@@ -22,6 +24,7 @@ namespace {
 
 struct LaunchOptions {
   std::vector<fs::path> las_files;
+  bool check_crs = false;
 };
 
 static void print_usage(const char* program) {
@@ -29,6 +32,8 @@ static void print_usage(const char* program) {
             << "\n"
             << "Options:\n"
             << "  --las-file <path>   Pre-populate a LAS/LAZ input (repeatable)\n"
+            << "  --check-crs         Check PROJ/CRS setup (and the --las-file inputs),\n"
+            << "                      print a report and exit without opening a window\n"
             << "  --help              Show this help\n"
             << "\n"
             << "Environment:\n"
@@ -66,7 +71,9 @@ static LaunchOptions parse_args(int argc, char* argv[]) {
       print_usage(argv[0]);
       std::exit(0);
     }
-    if (arg == "--las-file") {
+    if (arg == "--check-crs") {
+      opts.check_crs = true;
+    } else if (arg == "--las-file") {
       if (i + 1 >= argc) {
         std::cerr << "Missing path after --las-file\n";
         print_usage(argv[0]);
@@ -86,7 +93,11 @@ static LaunchOptions parse_args(int argc, char* argv[]) {
 }  // namespace
 
 int main(int argc, char* argv[]) {
+  configure_bundled_proj_data();
   const LaunchOptions opts = parse_args(argc, argv);
+  if (opts.check_crs) {
+    return run_crs_self_check(opts.las_files);
+  }
 
   QApplication a(argc, argv);
   QCoreApplication::setOrganizationName("Trailblaze Software");

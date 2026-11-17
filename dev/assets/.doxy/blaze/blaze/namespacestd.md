@@ -88,7 +88,7 @@
 ### typedef source\_location 
 
 ```C++
-using std::source_location = typedef std::experimental::source_location;
+using std::source_location =  std::experimental::source_location;
 ```
 
 

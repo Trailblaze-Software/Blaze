@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="trace__recorder_8hpp" kind="file" language="C++">
     <compoundname>trace_recorder.hpp</compoundname>
     <includes local="no">cstdint</includes>
@@ -391,17 +391,17 @@
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">blaze::trace<sp/>{</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>RAII<sp/>session:<sp/>enables<sp/>recording<sp/>on<sp/>construction<sp/>and<sp/>writes<sp/>Chrome<sp/>trace<sp/>JSON<sp/>on<sp/>destruction.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="12" refid="classblaze_1_1trace_1_1RecordTrace" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref><sp/>{</highlight></codeline>
+<codeline lineno="12" refid="classblaze_1_1trace_1_1RecordTrace" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RecordTrace<sp/>{</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/>fs::path<sp/>m_path;</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>(fs::path<sp/>path);</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">~RecordTrace</ref>();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>RecordTrace(fs::path<sp/>path);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>~RecordTrace();</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>(<ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>&amp;<sp/>operator=(<ref refid="classblaze_1_1trace_1_1RecordTrace" kindref="compound">RecordTrace</ref>&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>RecordTrace(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RecordTrace&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>RecordTrace&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RecordTrace&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>RecordTrace(RecordTrace&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>RecordTrace&amp;<sp/>operator=(RecordTrace&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="23"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>True<sp/>while<sp/>a<sp/>RecordTrace<sp/>session<sp/>is<sp/>active<sp/>(or<sp/>BLAZE_TRACE<sp/>is<sp/>set).</highlight><highlight class="normal"></highlight></codeline>

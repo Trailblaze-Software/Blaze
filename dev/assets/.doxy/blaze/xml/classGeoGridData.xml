@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classGeoGridData" kind="class" language="C++" prot="public">
     <compoundname>GeoGridData</compoundname>
+    <derivedcompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; Grid&lt; T &gt; &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; FlexGrid &gt;</derivedcompoundref>
     <derivedcompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; Grid&lt; std::span&lt; LASPoint &gt; &gt; &gt;</derivedcompoundref>
     <derivedcompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; GridT &gt;</derivedcompoundref>
     <sectiondef kind="protected-attrib">
@@ -119,19 +121,31 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="3">
+      <node id="5">
         <label>BinnedPoints</label>
         <link refid="classBinnedPoints"/>
-        <childnode refid="2" relation="public-inheritance">
+        <childnode refid="4" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
+      <node id="6">
         <label>Geo&lt; GridT &gt;</label>
         <link refid="classGeo"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="3">
+        <label>Geo&lt; FlexGrid &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="2">
+        <label>Geo&lt; Grid&lt; T &gt; &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
         <label>Geo&lt; Grid&lt; std::span&lt; LASPoint &gt; &gt; &gt;</label>
         <link refid="classGeo"/>
         <childnode refid="1" relation="public-inheritance">

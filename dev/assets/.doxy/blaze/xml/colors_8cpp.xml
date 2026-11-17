@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="colors_8cpp" kind="file" language="C++">
     <compoundname>colors.cpp</compoundname>
     <includes refid="colors_8hpp" local="yes">colors.hpp</includes>
@@ -165,7 +165,7 @@
 <codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>255<sp/>*<sp/>(1<sp/>-<sp/>c)<sp/>*<sp/>(1<sp/>-<sp/>k);</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>g<sp/>=<sp/>255<sp/>*<sp/>(1<sp/>-<sp/>m)<sp/>*<sp/>(1<sp/>-<sp/>k);</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>b<sp/>=<sp/>255<sp/>*<sp/>(1<sp/>-<sp/>y)<sp/>*<sp/>(1<sp/>-<sp/>k);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(r,<sp/>g,<sp/>b);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>RGBColor(r,<sp/>g,<sp/>b);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal">RGBColor::RGBColor(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>g,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>b,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>a)</highlight></codeline>
@@ -187,12 +187,12 @@
 <codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>1<sp/>-<sp/>rgb.getBlue()<sp/>/<sp/>255.0;</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>std::min({c,<sp/>m,<sp/>y});</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(k<sp/>&gt;=<sp/>1.0)<sp/>{</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>(0,<sp/>0,<sp/>0,<sp/>100);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CMYKColor(0,<sp/>0,<sp/>0,<sp/>100);</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/>c<sp/>=<sp/>(c<sp/>-<sp/>k)<sp/>/<sp/>(1<sp/>-<sp/>k);</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/>m<sp/>=<sp/>(m<sp/>-<sp/>k)<sp/>/<sp/>(1<sp/>-<sp/>k);</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/>y<sp/>=<sp/>(y<sp/>-<sp/>k)<sp/>/<sp/>(1<sp/>-<sp/>k);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCMYKColor" kindref="compound">CMYKColor</ref>(</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CMYKColor(</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::clamp&lt;int&gt;(std::round(c<sp/>*<sp/>100),<sp/>0,<sp/>100),<sp/>std::clamp&lt;int&gt;(std::round(m<sp/>*<sp/>100),<sp/>0,<sp/>100),</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::clamp&lt;int&gt;(std::round(y<sp/>*<sp/>100),<sp/>0,<sp/>100),<sp/>std::clamp&lt;int&gt;(std::round(k<sp/>*<sp/>100),<sp/>0,<sp/>100));</highlight></codeline>
 <codeline lineno="46"><highlight class="normal">}</highlight></codeline>

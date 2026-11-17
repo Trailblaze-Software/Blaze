@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="water_8cpp" kind="file" language="C++">
     <compoundname>water.cpp</compoundname>
     <includes refid="water_8hpp" local="yes">water.hpp</includes>
@@ -355,7 +355,7 @@
         <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, const Coordinate2D&lt; size_t &gt; &amp;coord)</argsstring>
         <name>flows_to</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -371,12 +371,12 @@
         <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="25" column="15" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="25" bodyend="45"/>
       </memberdef>
       <memberdef kind="function" id="water_8cpp_1a7b05ba9ed7bd6562577a4f4c90e81612" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt;</type>
+        <type>GeoGrid&lt; double &gt;</type>
         <definition>GeoGrid&lt; double &gt; fill_depressions</definition>
         <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, ProgressTracker &amp;&amp;progress_tracker, const std::vector&lt; Coordinate2D&lt; size_t &gt; &gt; &amp;sinks)</argsstring>
         <name>fill_depressions</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -401,7 +401,7 @@
         <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, const double depth, const double min_area, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
         <name>identify_sinks</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -425,12 +425,12 @@
         <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="143" column="13" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="143" bodyend="190"/>
       </memberdef>
       <memberdef kind="function" id="water_8cpp_1a2e78182c6146d9eddcabf611872b3636" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt;</type>
+        <type>GeoGrid&lt; double &gt;</type>
         <definition>GeoGrid&lt; double &gt; catchment_size</definition>
         <argsstring>(const GeoGrid&lt; double &gt; &amp;filled, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
         <name>catchment_size</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>filled</declname>
         </param>
         <param>
@@ -446,16 +446,16 @@
         <location file="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" line="191" column="9" bodyfile="/home/runner/work/Blaze/Blaze/src/methods/water/water.cpp" bodystart="191" bodyend="237"/>
       </memberdef>
       <memberdef kind="function" id="water_8cpp_1a0913535fb6ca21ca03fc6321fa0843ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; bool &gt;</type>
+        <type>GeoGrid&lt; bool &gt;</type>
         <definition>GeoGrid&lt; bool &gt; streams</definition>
         <argsstring>(const GeoGrid&lt; double &gt; &amp;filled_ground, const GeoGrid&lt; double &gt; &amp;catchment, const double minimum_catchment, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
         <name>streams</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>filled_ground</declname>
         </param>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>catchment</declname>
         </param>
         <param>
@@ -480,15 +480,15 @@
         <argsstring>(const GeoGrid&lt; bool &gt; &amp;stream, GeoGrid&lt; bool &gt; &amp;visited, const GeoGrid&lt; double &gt; &amp;heights, std::vector&lt; Coordinate2D&lt; size_t &gt; &gt; &amp;&amp;start, std::queue&lt; std::vector&lt; Coordinate2D&lt; size_t &gt; &gt; &gt; &amp;queue_of_starts)</argsstring>
         <name>stream_path</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; bool &gt; &amp;</type>
+          <type>const GeoGrid&lt; bool &gt; &amp;</type>
           <declname>stream</declname>
         </param>
         <param>
-          <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; bool &gt; &amp;</type>
+          <type>GeoGrid&lt; bool &gt; &amp;</type>
           <declname>visited</declname>
         </param>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>heights</declname>
         </param>
         <param>
@@ -530,7 +530,7 @@
         <argsstring>(const GeoGrid&lt; double &gt; &amp;grid, const WaterConfigs &amp;config, ProgressTracker &amp;&amp;progress_tracker, const bool already_filled)</argsstring>
         <name>stream_paths</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt; &amp;</type>
+          <type>const GeoGrid&lt; double &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -583,7 +583,7 @@
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SQ(x)<sp/>((x)<sp/>*<sp/>(x))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal">std::optional&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>flows_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">std::optional&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>flows_to(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>grid,</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&amp;<sp/>coord)<sp/>{</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>slope<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref><sp/>min_neighbour<sp/>=<sp/>coord;</highlight></codeline>
@@ -605,15 +605,15 @@
 <codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>slope<sp/>==<sp/>0<sp/>?<sp/>std::nullopt<sp/>:<sp/>std::make_optional(min_neighbour);</highlight></codeline>
 <codeline lineno="45"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>fill_depressions(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">GeoGrid&lt;double&gt;<sp/>fill_depressions(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker,</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&gt;&amp;<sp/>sinks)<sp/>{</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;filling<sp/>depressions&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>result(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>result(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/>result.copy_from(grid);</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/>std::priority_queue&lt;PriorityPoint&gt;<sp/>queue;</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>filled(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>GeoGrid&lt;bool&gt;<sp/>filled(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"><sp/><sp/>filled.fill(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
@@ -701,14 +701,14 @@
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="142"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="143"><highlight class="normal">std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>identify_sinks(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>depth,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>identify_sinks(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>depth,</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>min_area,</highlight></codeline>
 <codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
 <codeline lineno="146"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;identifying<sp/>sinks&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>filled<sp/>=<sp/>fill_depressions(grid,<sp/>SUBTRACKER(0.0,<sp/>0.5,<sp/>progress_tracker));</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>filled<sp/>=<sp/>fill_depressions(grid,<sp/>SUBTRACKER(0.0,<sp/>0.5,<sp/>progress_tracker));</highlight></codeline>
 <codeline lineno="148"><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/>std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>sinks;</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>visited(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>GeoGrid&lt;bool&gt;<sp/>visited(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
 <codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
 <codeline lineno="152"><highlight class="normal"><sp/><sp/>visited.fill(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"></highlight></codeline>
@@ -749,13 +749,13 @@
 <codeline lineno="188"><highlight class="normal"></highlight></codeline>
 <codeline lineno="189"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sinks;</highlight></codeline>
 <codeline lineno="190"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>catchment_size(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>filled,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">GeoGrid&lt;double&gt;<sp/>catchment_size(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>filled,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
 <codeline lineno="192"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;computing<sp/>catchment<sp/>size&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>result(filled.width(),<sp/>filled.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(filled.transform()),</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>result(filled.width(),<sp/>filled.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(filled.transform()),</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(filled.projection()));</highlight></codeline>
 <codeline lineno="195"><highlight class="normal"><sp/><sp/>result.fill(0);</highlight></codeline>
 <codeline lineno="196"><highlight class="normal"></highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;uint32_t&gt;</ref><sp/>dependency_count(filled.width(),<sp/>filled.height(),</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/>GeoGrid&lt;uint32_t&gt;<sp/>dependency_count(filled.width(),<sp/>filled.height(),</highlight></codeline>
 <codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(filled.transform()),</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(filled.projection()));</highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/>dependency_count.fill(0);</highlight></codeline>
@@ -796,10 +796,10 @@
 <codeline lineno="235"><highlight class="normal"></highlight></codeline>
 <codeline lineno="236"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="237"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>streams(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>filled_ground,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>catchment,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">GeoGrid&lt;bool&gt;<sp/>streams(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>filled_ground,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>catchment,</highlight></codeline>
 <codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>minimum_catchment,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
 <codeline lineno="240"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;tracing<sp/>streams&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>result(filled_ground.width(),<sp/>filled_ground.height(),</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/>GeoGrid&lt;bool&gt;<sp/>result(filled_ground.width(),<sp/>filled_ground.height(),</highlight></codeline>
 <codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(filled_ground.transform()),</highlight></codeline>
 <codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(filled_ground.projection()));</highlight></codeline>
 <codeline lineno="244"><highlight class="normal"></highlight></codeline>
@@ -812,10 +812,10 @@
 <codeline lineno="251"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="252"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="253"><highlight class="normal">std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;<sp/>stream_path(</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref>&amp;<sp/>stream,<sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref>&amp;<sp/>visited,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>heights,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;bool&gt;&amp;<sp/>stream,<sp/>GeoGrid&lt;bool&gt;&amp;<sp/>visited,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>heights,</highlight></codeline>
 <codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&gt;&amp;&amp;<sp/>start,</highlight></codeline>
 <codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/>std::queue&lt;std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&gt;&gt;&amp;<sp/>queue_of_starts)<sp/>{</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&amp;<sp/>coord<sp/>:<sp/>start)<sp/>visited[coord]<sp/>=<sp/>true;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref>&amp;<sp/>coord<sp/>:<sp/>start)<sp/>visited[coord]<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="258"><highlight class="normal"></highlight></codeline>
 <codeline lineno="259"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;size_t&gt;</ref><sp/>last_point<sp/>=<sp/>start.back();</highlight></codeline>
@@ -855,7 +855,7 @@
 <codeline lineno="294"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="295"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="296"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="297"><highlight class="normal">std::vector&lt;Stream&gt;<sp/>stream_paths(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>&amp;<sp/>config,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">std::vector&lt;Stream&gt;<sp/>stream_paths(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>grid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWaterConfigs" kindref="compound">WaterConfigs</ref>&amp;<sp/>config,</highlight></codeline>
 <codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>already_filled)<sp/>{</highlight></codeline>
 <codeline lineno="299"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;computing<sp/>stream<sp/>paths&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="300"><highlight class="normal"><sp/><sp/>std::optional&lt;GeoGrid&lt;double&gt;&gt;<sp/>local_filled;</highlight></codeline>
@@ -865,14 +865,14 @@
 <codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUBTRACKER(0.0,<sp/>0.25,<sp/>progress_tracker));</highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>local_filled.emplace(fill_depressions(grid,<sp/>SUBTRACKER(0.25,<sp/>0.5,<sp/>progress_tracker),<sp/>sinks));</highlight></codeline>
 <codeline lineno="306"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref>&amp;<sp/>filled<sp/>=<sp/>local_filled<sp/>?<sp/>*local_filled<sp/>:<sp/>grid;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;double&gt;&amp;<sp/>filled<sp/>=<sp/>local_filled<sp/>?<sp/>*local_filled<sp/>:<sp/>grid;</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>catchment<sp/>=<sp/>catchment_size(filled,<sp/>SUBTRACKER(0.5,<sp/>0.75,<sp/>progress_tracker));</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>stream<sp/>=<sp/>streams(filled,<sp/>catchment,<sp/>config.minimum_catchment(),</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>catchment<sp/>=<sp/>catchment_size(filled,<sp/>SUBTRACKER(0.5,<sp/>0.75,<sp/>progress_tracker));</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/>GeoGrid&lt;bool&gt;<sp/>stream<sp/>=<sp/>streams(filled,<sp/>catchment,<sp/>config.minimum_catchment(),</highlight></codeline>
 <codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUBTRACKER(0.75,<sp/>1.0,<sp/>progress_tracker));</highlight></codeline>
 <codeline lineno="312"><highlight class="normal"></highlight></codeline>
 <codeline lineno="313"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;Coordinate2D&lt;size_t&gt;&gt;&gt;<sp/>result;</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;bool&gt;</ref><sp/>visited(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/>GeoGrid&lt;bool&gt;<sp/>visited(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
 <codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
 <codeline lineno="316"><highlight class="normal"><sp/><sp/>visited.fill(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="317"><highlight class="normal"></highlight></codeline>

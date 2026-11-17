@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="camera_8hpp" kind="file" language="C++">
     <compoundname>camera.hpp</compoundname>
     <includes local="no">QMatrix4x4</includes>
@@ -240,7 +240,7 @@
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rad2deg(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rad)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rad<sp/>*<sp/>180.0<sp/>/<sp/>std::numbers::pi;<sp/>}</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15" refid="classCamera" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCamera" kindref="compound">Camera</ref><sp/>{</highlight></codeline>
+<codeline lineno="15" refid="classCamera" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Camera<sp/>{</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>QVector3D<sp/>m_position;</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/>QVector3D<sp/>m_direction;</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/>QVector3D<sp/>m_up;</highlight></codeline>
@@ -259,7 +259,7 @@
 <codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_fov<sp/>=<sp/>45.0f;</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="classCamera" kindref="compound">Camera</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>width,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>height)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>Camera(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>width,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>height)</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>m_position(1,<sp/>1,<sp/>1),</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_direction(-1,<sp/>-1,<sp/>-1),</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_up(0,<sp/>0,<sp/>1),</highlight></codeline>

@@ -60,10 +60,10 @@
 |   | [**TEST**](#function-test) (GeoGridRGB, DrawAlphaBlendsOverlappingPixels) <br> |
 |   | [**TEST**](#function-test) (GeoGridRGB, DrawNonSquareGrid) <br> |
 |   | [**TEST**](#function-test) (GeoGridRGB, DrawOpaqueForegroundReplacesBackground) <br> |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawFilledPolygonFillsInterior) <br> |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawOverlaySkipsTransparentPixels) <br> |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawOverlayCopiesOpaquePixels) <br> |
-|   | [**TEST**](#function-test) ([**GeoImgGrid**](classGeo.md), DrawSkipsFullyTransparentForeground) <br> |
+|   | [**TEST**](#function-test) (GeoImgGrid, DrawFilledPolygonFillsInterior) <br> |
+|   | [**TEST**](#function-test) (GeoImgGrid, DrawOverlaySkipsTransparentPixels) <br> |
+|   | [**TEST**](#function-test) (GeoImgGrid, DrawOverlayCopiesOpaquePixels) <br> |
+|   | [**TEST**](#function-test) (GeoImgGrid, DrawSkipsFullyTransparentForeground) <br> |
 
 
 

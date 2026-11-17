@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="slope_8hpp" kind="file" language="C++">
     <compoundname>slope.hpp</compoundname>
     <includes local="no">cmath</includes>
@@ -293,12 +293,12 @@
             <type>typename T</type>
           </param>
         </templateparamlist>
-        <type><ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; double &gt;</type>
+        <type>GeoGrid&lt; double &gt;</type>
         <definition>GeoGrid&lt; double &gt; slope</definition>
         <argsstring>(const GeoGrid&lt; T &gt; &amp;grid, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
         <name>slope</name>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>
@@ -328,9 +328,9 @@
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/progress_tracker.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>slope(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;T&gt;</ref>&amp;<sp/>grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">GeoGrid&lt;double&gt;<sp/>slope(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeoGrid&lt;T&gt;&amp;<sp/>grid,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/>START_TRACKER(</highlight><highlight class="stringliteral">&quot;computing<sp/>slope&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>result(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>result(grid.width(),<sp/>grid.height(),<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(grid.transform()),</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(grid.projection()));</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/>result.fill(std::numeric_limits&lt;double&gt;::quiet_NaN());</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>grid.height()<sp/>-<sp/>1;<sp/>i++)<sp/>{</highlight></codeline>

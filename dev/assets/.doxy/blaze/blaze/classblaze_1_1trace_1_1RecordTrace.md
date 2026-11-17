@@ -52,10 +52,10 @@
 | Type | Name |
 | ---: | :--- |
 |   | [**RecordTrace**](#function-recordtrace-13) (fs::path path) <br> |
-|   | [**RecordTrace**](#function-recordtrace-23) (const [**RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md) &) = delete<br> |
-|   | [**RecordTrace**](#function-recordtrace-33) ([**RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md) &&) = delete<br> |
-|  [**RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md) & | [**operator=**](#function-operator) (const [**RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md) &) = delete<br> |
-|  [**RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md) & | [**operator=**](#function-operator_1) ([**RecordTrace**](classblaze_1_1trace_1_1RecordTrace.md) &&) = delete<br> |
+|   | [**RecordTrace**](#function-recordtrace-23) (const RecordTrace &) = delete<br> |
+|   | [**RecordTrace**](#function-recordtrace-33) (RecordTrace &&) = delete<br> |
+|  RecordTrace & | [**operator=**](#function-operator) (const RecordTrace &) = delete<br> |
+|  RecordTrace & | [**operator=**](#function-operator_1) (RecordTrace &&) = delete<br> |
 |   | [**~RecordTrace**](#function-recordtrace) () <br> |
 
 

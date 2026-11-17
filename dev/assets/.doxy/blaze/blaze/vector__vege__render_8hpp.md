@@ -58,7 +58,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**draw\_vector\_vegetation**](#function-draw_vector_vegetation) ([**GeoImgGrid**](classGeo.md) & img, const [**VegeConfig**](structVegeConfig.md) & vege\_config, const std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & vege\_polygons, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  void | [**draw\_vector\_vegetation**](#function-draw_vector_vegetation) (GeoImgGrid & img, const [**VegeConfig**](structVegeConfig.md) & vege\_config, const std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & vege\_polygons, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
 
 

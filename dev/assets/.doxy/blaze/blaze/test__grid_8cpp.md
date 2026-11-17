@@ -71,7 +71,7 @@
 |   | [**TEST**](#function-test) ([**Grid**](classGrid.md), CopyFrom) <br> |
 |   | [**TEST**](#function-test) ([**Grid**](classGrid.md), InBounds) <br> |
 |   | [**TEST**](#function-test) ([**Grid**](classGrid.md), FillFrom) <br> |
-|   | [**TEST**](#function-test) ([**GeoGrid**](classGeo.md), Extent) <br> |
+|   | [**TEST**](#function-test) (GeoGrid, Extent) <br> |
 |   | [**TEST**](#function-test) (InterpolateValue, CenterOfCell) <br> |
 |   | [**TEST**](#function-test) (InterpolateValue, MidpointBetweenCells) <br> |
 |   | [**TEST**](#function-test) ([**GridGraph**](classGridGraph.md), ConstructionAndAccess) <br> |

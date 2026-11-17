@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classCoordinate2D" kind="class" language="C++" prot="public">
     <compoundname>Coordinate2D</compoundname>
-    <derivedcompoundref refid="classCoordinate3D" prot="public" virt="non-virtual">Coordinate3D&lt; double &gt;</derivedcompoundref>
     <derivedcompoundref refid="classCoordinate3D" prot="public" virt="non-virtual">Coordinate3D&lt; T &gt;</derivedcompoundref>
     <derivedcompoundref refid="classLineCoord2D" prot="public" virt="non-virtual">LineCoord2D&lt; T, typename &gt;</derivedcompoundref>
     <templateparamlist>
@@ -333,34 +332,22 @@
         <label>Coordinate2D&lt; T &gt;</label>
         <link refid="classCoordinate2D"/>
       </node>
-      <node id="4">
+      <node id="2">
         <label>Coordinate3D&lt; T &gt;</label>
         <link refid="classCoordinate3D"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2">
-        <label>Coordinate3D&lt; double &gt;</label>
-        <link refid="classCoordinate3D"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
       <node id="3">
-        <label>LASPoint</label>
-        <link refid="classLASPoint"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="5">
         <label>LineCoord2D&lt; T, typename &gt;</label>
         <link refid="classLineCoord2D"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="6">
+      <node id="4">
         <label>LineCoord2DCrossing&lt; T &gt;</label>
         <link refid="classLineCoord2DCrossing"/>
-        <childnode refid="5" relation="public-inheritance">
+        <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>

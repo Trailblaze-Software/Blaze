@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classGridData" kind="class" language="C++" prot="public">
     <compoundname>GridData</compoundname>
     <derivedcompoundref refid="classGrid" prot="public" virt="non-virtual">Grid&lt; std::span&lt; LASPoint &gt; &gt;</derivedcompoundref>
@@ -117,10 +117,22 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="6">
+      <node id="7">
         <label>FlexGrid</label>
         <link refid="classFlexGrid"/>
         <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Geo&lt; FlexGrid &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Geo&lt; Grid&lt; T &gt; &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="5" relation="public-inheritance">
         </childnode>
       </node>
       <node id="3">
@@ -129,7 +141,7 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="7">
+      <node id="9">
         <label>Grid&lt; U &gt;</label>
         <link refid="classGrid"/>
         <childnode refid="1" relation="public-inheritance">

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="layer__renderer_8cpp" kind="file" language="C++">
     <compoundname>layer_renderer.cpp</compoundname>
     <includes refid="layer__renderer_8hpp" local="yes">gui/layer_renderer.hpp</includes>
@@ -55,15 +55,15 @@
         </childnode>
         <childnode refid="65" relation="include">
         </childnode>
-        <childnode refid="82" relation="include">
+        <childnode refid="84" relation="include">
         </childnode>
-        <childnode refid="83" relation="include">
+        <childnode refid="85" relation="include">
         </childnode>
         <childnode refid="73" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="90" relation="include">
         </childnode>
-        <childnode refid="75" relation="include">
+        <childnode refid="77" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
@@ -107,7 +107,7 @@
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="94" relation="include">
+        <childnode refid="96" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
         </childnode>
@@ -141,14 +141,14 @@
         </childnode>
         <childnode refid="73" relation="include">
         </childnode>
-        <childnode refid="75" relation="include">
+        <childnode refid="77" relation="include">
         </childnode>
         <childnode refid="63" relation="include">
         </childnode>
-        <childnode refid="78" relation="include">
+        <childnode refid="80" relation="include">
         </childnode>
       </node>
-      <node id="94">
+      <node id="96">
         <label>gui/point_cloud_gl.hpp</label>
         <link refid="point__cloud__gl_8hpp_source"/>
         <childnode refid="4" relation="include">
@@ -160,7 +160,7 @@
         <childnode refid="69" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="84">
         <label>gui/point_cloud_visualization.hpp</label>
         <link refid="point__cloud__visualization_8hpp_source"/>
         <childnode refid="20" relation="include">
@@ -198,10 +198,10 @@
         <childnode refid="57" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="85">
         <label>gui/raster_data.hpp</label>
         <link refid="raster__data_8hpp_source"/>
-        <childnode refid="84" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -221,9 +221,9 @@
         </childnode>
         <childnode refid="73" relation="include">
         </childnode>
-        <childnode refid="85" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
         </childnode>
         <childnode refid="63" relation="include">
         </childnode>
@@ -246,16 +246,16 @@
         <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="91">
+      <node id="93">
         <label>assert/gdal_assert.hpp</label>
         <link refid="gdal__assert_8hpp_source"/>
-        <childnode refid="89" relation="include">
+        <childnode refid="91" relation="include">
         </childnode>
         <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="92" relation="include">
+        <childnode refid="94" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -389,7 +389,11 @@
         <link refid="crs_8hpp_source"/>
         <childnode refid="74" relation="include">
         </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
         <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
@@ -401,21 +405,23 @@
         </childnode>
         <childnode refid="49" relation="include">
         </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
         <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="85">
+      <node id="87">
         <label>io/gdal_init.hpp</label>
         <link refid="gdal__init_8hpp_source"/>
-        <childnode refid="86" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="90">
         <label>io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
-        <childnode refid="89" relation="include">
+        <childnode refid="91" relation="include">
         </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="92" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -433,19 +439,31 @@
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="93" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="86" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
-        <childnode refid="85" relation="include">
+        <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="93" relation="include">
+        <childnode refid="95" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>io/proj_data.hpp</label>
+        <link refid="proj__data_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
       <node id="46">
@@ -460,12 +478,12 @@
         <childnode refid="47" relation="include">
         </childnode>
       </node>
-      <node id="75">
+      <node id="77">
         <label>las/las_file.hpp</label>
         <link refid="las__file_8hpp_source"/>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="76" relation="include">
+        <childnode refid="78" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
@@ -477,11 +495,11 @@
         </childnode>
         <childnode refid="74" relation="include">
         </childnode>
-        <childnode refid="77" relation="include">
-        </childnode>
-        <childnode refid="78" relation="include">
-        </childnode>
         <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
@@ -491,7 +509,7 @@
         </childnode>
         <childnode refid="73" relation="include">
         </childnode>
-        <childnode refid="80" relation="include">
+        <childnode refid="82" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
@@ -499,12 +517,12 @@
         </childnode>
         <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="81" relation="include">
+        <childnode refid="83" relation="include">
         </childnode>
         <childnode refid="57" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="82">
         <label>las_point.hpp</label>
         <link refid="las__point_8hpp_source"/>
         <childnode refid="10" relation="include">
@@ -514,7 +532,7 @@
         <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="93">
+      <node id="95">
         <label>polyline/polyline.hpp</label>
         <link refid="polyline_8hpp_source"/>
         <childnode refid="28" relation="include">
@@ -540,7 +558,7 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="87">
+      <node id="89">
         <label>tif/tif.hpp</label>
         <link refid="tif_8hpp_source"/>
         <childnode refid="49" relation="include">
@@ -608,7 +626,7 @@
         <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="83">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
         <childnode refid="64" relation="include">
@@ -695,6 +713,9 @@
       <node id="43">
         <label>cassert</label>
       </node>
+      <node id="75">
+        <label>cctype</label>
+      </node>
       <node id="64">
         <label>chrono</label>
       </node>
@@ -704,7 +725,7 @@
       <node id="50">
         <label>concepts</label>
       </node>
-      <node id="89">
+      <node id="91">
         <label>cpl_error.h</label>
       </node>
       <node id="51">
@@ -722,7 +743,7 @@
       <node id="26">
         <label>experimental/source_location</label>
       </node>
-      <node id="76">
+      <node id="78">
         <label>fstream</label>
       </node>
       <node id="67">
@@ -731,10 +752,10 @@
       <node id="40">
         <label>future</label>
       </node>
-      <node id="84">
+      <node id="86">
         <label>gdal.h</label>
       </node>
-      <node id="86">
+      <node id="88">
         <label>gdal_priv.h</label>
       </node>
       <node id="30">
@@ -743,10 +764,10 @@
       <node id="21">
         <label>iostream</label>
       </node>
-      <node id="78">
+      <node id="80">
         <label>las_reader.hpp</label>
       </node>
-      <node id="79">
+      <node id="81">
         <label>las_writer.hpp</label>
       </node>
       <node id="22">
@@ -770,13 +791,13 @@
       <node id="62">
         <label>numeric</label>
       </node>
-      <node id="92">
+      <node id="94">
         <label>ogr_core.h</label>
       </node>
       <node id="74">
         <label>ogr_spatialref.h</label>
       </node>
-      <node id="90">
+      <node id="92">
         <label>ogrsf_frmts.h</label>
       </node>
       <node id="66">
@@ -797,7 +818,7 @@
       <node id="34">
         <label>source_location</label>
       </node>
-      <node id="77">
+      <node id="79">
         <label>spatial_index.hpp</label>
       </node>
       <node id="27">
@@ -842,18 +863,18 @@
 <codeline lineno="7"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="8"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>dem_layer<sp/>=<sp/>std::dynamic_pointer_cast&lt;DemLayer&gt;(layer))<sp/>{</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_unique&lt;MeshLayerRenderer&gt;(</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dem_layer,<sp/>[dem_layer]()<sp/>-&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classAsyncRasterData" kindref="compound">AsyncRasterData</ref>*<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;dem_layer-&gt;raster();<sp/>},</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dem_layer,<sp/>[dem_layer]()<sp/>-&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>AsyncRasterData*<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;dem_layer-&gt;raster();<sp/>},</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>offset);</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>slope_layer<sp/>=<sp/>std::dynamic_pointer_cast&lt;SlopeLayer&gt;(layer))<sp/>{</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_unique&lt;MeshLayerRenderer&gt;(</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>slope_layer,<sp/>[slope_layer]()<sp/>-&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classAsyncRasterData" kindref="compound">AsyncRasterData</ref>*<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;slope_layer-&gt;raster();<sp/>},</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>slope_layer,<sp/>[slope_layer]()<sp/>-&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>AsyncRasterData*<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;slope_layer-&gt;raster();<sp/>},</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>offset);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>textured_layer<sp/>=<sp/>std::dynamic_pointer_cast&lt;TexturedDemLayer&gt;(layer))<sp/>{</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_unique&lt;MeshLayerRenderer&gt;(</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>textured_layer,</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[textured_layer]()<sp/>-&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classAsyncRasterData" kindref="compound">AsyncRasterData</ref>*<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;textured_layer-&gt;raster();<sp/>},<sp/>offset,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[textured_layer]()<sp/>-&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>AsyncRasterData*<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;textured_layer-&gt;raster();<sp/>},<sp/>offset,</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contour_layer<sp/>=<sp/>std::dynamic_pointer_cast&lt;ContourLayer&gt;(layer))<sp/>{</highlight></codeline>

@@ -1,13 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="namespaceoctree__las__detail" kind="namespace" language="C++">
     <compoundname>octree_las_detail</compoundname>
     <innerclass refid="structoctree__las__detail_1_1BenchTimer" prot="public">octree_las_detail::BenchTimer</innerclass>
     <innerclass refid="classoctree__las__detail_1_1MonotonicProgress" prot="public">octree_las_detail::MonotonicProgress</innerclass>
     <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="octree__las__data_8hpp_1a90424058bc3100c523a3713bac9fc24c" prot="public" static="no">
+      <memberdef kind="typedef" id="octree__las__data_8hpp_1a4f0b3c59b3133497dc75103029870f6d" prot="public" static="no">
         <type>std::function&lt; void(const OctreePointVector &amp;preview, size_t points_loaded, const <ref refid="structExtent3D" kindref="compound">Extent3D</ref> &amp;bounds)&gt;</type>
-        <definition>using octree_las_detail::PreviewCallback = typedef std::function&lt;void(const OctreePointVector&amp; preview, size_t points_loaded, const Extent3D&amp; bounds)&gt;</definition>
+        <definition>using octree_las_detail::PreviewCallback =  std::function&lt;void(const OctreePointVector&amp; preview, size_t points_loaded,
+                                           const Extent3D&amp; bounds)&gt;</definition>
         <argsstring></argsstring>
         <name>PreviewCallback</name>
         <qualifiedname>octree_las_detail::PreviewCallback</qualifiedname>
@@ -17,13 +18,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="113" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="114" bodyend="-1"/>
+        <location file="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" line="113" column="1" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/octree_las_data.hpp" bodystart="113" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="var">
       <memberdef kind="variable" id="octree__las__data_8hpp_1a29a81df17da253aae9dc1b6029336daf" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr size_t</type>
-        <definition>constexpr size_t octree_las_detail::MAX_PREVIEW_POINTS</definition>
+        <type>size_t</type>
+        <definition>size_t octree_las_detail::MAX_PREVIEW_POINTS</definition>
         <argsstring></argsstring>
         <name>MAX_PREVIEW_POINTS</name>
         <qualifiedname>octree_las_detail::MAX_PREVIEW_POINTS</qualifiedname>

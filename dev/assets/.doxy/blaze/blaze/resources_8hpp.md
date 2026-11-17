@@ -54,6 +54,11 @@
 
 
 
+## Public Functions
+
+| Type | Name |
+| ---: | :--- |
+|  fs::path | [**get\_executable\_path**](#function-get_executable_path) () <br> |
 
 
 
@@ -82,6 +87,21 @@
 
 
 
+## Public Functions Documentation
+
+
+
+
+### function get\_executable\_path 
+
+```C++
+fs::path get_executable_path () 
+```
+
+
+
+
+<hr>
 
 ------------------------------
 The documentation for this class was generated from the following file `/home/runner/work/Blaze/Blaze/src/lib/utilities/resources.hpp`

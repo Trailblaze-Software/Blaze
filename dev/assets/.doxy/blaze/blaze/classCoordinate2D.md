@@ -17,7 +17,7 @@
 
 
 
-Inherited by the following classes: [Coordinate3D](classCoordinate3D.md),  [Coordinate3D](classCoordinate3D.md),  [LineCoord2D](classLineCoord2D.md)
+Inherited by the following classes: [Coordinate3D](classCoordinate3D.md),  [LineCoord2D](classLineCoord2D.md)
 
 
 

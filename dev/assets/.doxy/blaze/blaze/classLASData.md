@@ -74,7 +74,7 @@ Inherited by the following classes: [AsyncLASData](classAsyncLASData.md)
 | Type | Name |
 | ---: | :--- |
 |   | [**LASData**](#function-lasdata-13) (const [**Extent2D**](structExtent2D.md) & bounds, const [**GeoProjection**](classGeoProjection.md) & projection) <br> |
-|   | [**LASData**](#function-lasdata-23) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid) <br> |
+|   | [**LASData**](#function-lasdata-23) (const GeoGrid&lt; T &gt; & grid) <br> |
 |   | [**LASData**](#function-lasdata-33) (const fs::path & filename, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker, bool skip\_reading\_points=false, std::optional&lt; [**Extent2D**](structExtent2D.md) &gt; bounds=std::nullopt, const std::string & override\_crs="") <br> |
 |  void | [**adopt\_points**](#function-adopt_points) (blaze::memory\_tracker::LasVector&lt; [**LASPoint**](classLASPoint.md) &gt; && points) <br> |
 |  auto | [**begin**](#function-begin) () <br> |
@@ -221,7 +221,7 @@ inline LASData::LASData (
 ```C++
 template<typename T>
 inline explicit LASData::LASData (
-    const GeoGrid < T > & grid
+    const GeoGrid< T > & grid
 ) 
 ```
 

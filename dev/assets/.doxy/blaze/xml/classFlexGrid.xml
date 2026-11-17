@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classFlexGrid" kind="class" language="C++" prot="public">
     <compoundname>FlexGrid</compoundname>
     <basecompoundref refid="classGridData" prot="public" virt="non-virtual">GridData</basecompoundref>
+    <derivedcompoundref refid="classGeo" prot="public" virt="non-virtual">Geo&lt; FlexGrid &gt;</derivedcompoundref>
     <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classFlexGrid_1ad73b167cbb73bc56fb75a14c101e9dfd" prot="protected" static="no" mutable="no">
         <type>unsigned int</type>
@@ -313,6 +314,12 @@
         <label>FlexGrid</label>
         <link refid="classFlexGrid"/>
         <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Geo&lt; FlexGrid &gt;</label>
+        <link refid="classGeo"/>
+        <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
       <node id="2">

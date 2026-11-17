@@ -105,7 +105,7 @@
 ### typedef json 
 
 ```C++
-using blaze::trace::json = typedef nlohmann::json;
+using blaze::trace::json =  nlohmann::json;
 ```
 
 

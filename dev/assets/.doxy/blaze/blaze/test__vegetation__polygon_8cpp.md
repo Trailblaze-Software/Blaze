@@ -92,7 +92,7 @@
 |   | [**TEST**](#function-test) (GenerateVegePolygons, GreenDonutCutLeavesForestRing) <br> |
 |   | [**TEST**](#function-test) (ContoursToPolygons, NestedHoles) <br> |
 |   | [**TEST**](#function-test) (ContoursToPolygons, BigGrid) <br> |
-|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**forest\_contours\_polygonize**](#function-forest_contours_polygonize) (const [**GeoGrid**](classGeo.md)&lt; float &gt; & grid) <br> |
+|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**forest\_contours\_polygonize**](#function-forest_contours_polygonize) (const GeoGrid&lt; float &gt; & grid) <br> |
 
 
 
@@ -578,7 +578,7 @@ TEST (
 
 ```C++
 std::vector< VegePolygon > forest_contours_polygonize (
-    const GeoGrid < float > & grid
+    const GeoGrid< float > & grid
 ) 
 ```
 

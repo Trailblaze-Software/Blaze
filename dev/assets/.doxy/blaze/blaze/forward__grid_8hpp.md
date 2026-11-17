@@ -39,7 +39,7 @@
 | ---: | :--- |
 | typedef [**Geo**](classGeo.md)&lt; [**FlexGrid**](classFlexGrid.md) &gt; | [**GeoFlexGrid**](#typedef-geoflexgrid)  <br> |
 | typedef [**Geo**](classGeo.md)&lt; [**Grid**](classGrid.md)&lt; T &gt; &gt; | [**GeoGrid**](#typedef-geogrid)  <br> |
-| typedef [**GeoGrid**](classGeo.md)&lt; [**RGBColor**](classRGBColor.md) &gt; | [**GeoImgGrid**](#typedef-geoimggrid)  <br> |
+| typedef GeoGrid&lt; [**RGBColor**](classRGBColor.md) &gt; | [**GeoImgGrid**](#typedef-geoimggrid)  <br> |
 
 
 
@@ -64,7 +64,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  T | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  T | [**interpolate\_value**](#function-interpolate_value) (const GeoGrid&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
 |  size\_t | [**num\_cells\_by\_distance**](#function-num_cells_by_distance) (double x, double dx) <br> |
 
 
@@ -115,7 +115,7 @@ using GeoFlexGrid =  Geo<FlexGrid>;
 ### typedef GeoGrid 
 
 ```C++
-using GeoGrid =  Geo<Grid<T> >;
+using GeoGrid =  Geo<Grid<T>>;
 ```
 
 
@@ -145,7 +145,7 @@ using GeoImgGrid =  GeoGrid<RGBColor>;
 ```C++
 template<typename T>
 T interpolate_value (
-    const GeoGrid < T > & grid,
+    const GeoGrid< T > & grid,
     const Coordinate2D < double > & projection_coord
 ) 
 ```

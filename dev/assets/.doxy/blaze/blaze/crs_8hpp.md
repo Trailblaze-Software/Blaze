@@ -11,12 +11,15 @@
 
 
 * `#include <ogr_spatialref.h>`
+* `#include <algorithm>`
 * `#include <array>`
+* `#include <cctype>`
 * `#include <cmath>`
 * `#include <memory>`
 * `#include <string>`
 * `#include "assert/assert.hpp"`
 * `#include "grid/grid.hpp"`
+* `#include "io/proj_data.hpp"`
 * `#include "utilities/coordinate.hpp"`
 
 

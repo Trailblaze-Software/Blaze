@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classProgressBar" kind="class" language="C++" prot="public">
     <compoundname>ProgressBar</compoundname>
     <basecompoundref refid="classProgressObserver" prot="public" virt="non-virtual">ProgressObserver</basecompoundref>
     <derivedcompoundref refid="classRecordingProgressBar" prot="public" virt="non-virtual">RecordingProgressBar</derivedcompoundref>
     <sectiondef kind="private-static-attrib">
       <memberdef kind="variable" id="classProgressBar_1afaa9c70c1e71524c039d6078dc496fad" prot="private" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr std::chrono::milliseconds</type>
-        <definition>constexpr std::chrono::milliseconds ProgressBar::PRINT_INTERVAL</definition>
+        <type>std::chrono::milliseconds</type>
+        <definition>std::chrono::milliseconds ProgressBar::PRINT_INTERVAL</definition>
         <argsstring></argsstring>
         <name>PRINT_INTERVAL</name>
         <qualifiedname>ProgressBar::PRINT_INTERVAL</qualifiedname>

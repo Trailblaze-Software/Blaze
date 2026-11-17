@@ -12,13 +12,16 @@
 
 #include <ogr_spatialref.h>
 
+#include <algorithm>
 #include <array>
+#include <cctype>
 #include <cmath>
 #include <memory>
 #include <string>
 
 #include "assert/assert.hpp"
 #include "grid/grid.hpp"
+#include "io/proj_data.hpp"
 #include "utilities/coordinate.hpp"
 
 // Normalize a WKT CRS string for downstream use by blaze:
@@ -116,8 +119,18 @@ struct UserCrsParseResult {
 // (e.g. the GUI) where a parse failure should be reported rather than abort.
 inline UserCrsParseResult try_user_crs_to_wkt(const std::string& user_crs) {
   if (user_crs.empty()) return {true, {}, {}};
+  // Accept a bare EPSG code ("28355") as shorthand for "EPSG:28355".
+  const bool bare_code = std::all_of(user_crs.begin(), user_crs.end(),
+                                     [](unsigned char c) { return std::isdigit(c) != 0; });
   OGRSpatialReference srs;
-  if (srs.SetFromUserInput(user_crs.c_str()) != OGRERR_NONE) {
+  if (srs.SetFromUserInput((bare_code ? "EPSG:" + user_crs : user_crs).c_str()) != OGRERR_NONE) {
+    if (!proj_database_available()) {
+      return {false,
+              {},
+              "Could not interpret CRS '" + user_crs +
+                  "': PROJ's database (proj.db) was not found, so no EPSG code can be resolved. "
+                  "This is an installation problem; please report it."};
+    }
     return {false,
             {},
             "Could not interpret CRS '" + user_crs +

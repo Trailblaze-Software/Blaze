@@ -59,9 +59,9 @@
 
 | Type | Name |
 | ---: | :--- |
-|  T | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
-|  template double | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
-|  template float | [**interpolate\_value**](#function-interpolate_value) (const [**GeoGrid**](classGeo.md)&lt; float &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  T | [**interpolate\_value**](#function-interpolate_value) (const GeoGrid&lt; T &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  template double | [**interpolate\_value**](#function-interpolate_value) (const GeoGrid&lt; double &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
+|  template float | [**interpolate\_value**](#function-interpolate_value) (const GeoGrid&lt; float &gt; & grid, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & projection\_coord) <br> |
 |  [**Geo**](classGeo.md)&lt; GridT &gt; | [**same\_type\_different\_size**](#function-same_type_different_size) (const [**Geo**](classGeo.md)&lt; GridT &gt; & grid, size\_t new\_width, size\_t new\_height, const [**Coordinate2D**](classCoordinate2D.md)&lt; double &gt; & new\_top\_left) <br> |
 
 
@@ -101,7 +101,7 @@
 ```C++
 template<typename T>
 T interpolate_value (
-    const GeoGrid < T > & grid,
+    const GeoGrid< T > & grid,
     const Coordinate2D < double > & projection_coord
 ) 
 ```
@@ -117,7 +117,7 @@ T interpolate_value (
 
 ```C++
 template double interpolate_value (
-    const GeoGrid < double > & grid,
+    const GeoGrid< double > & grid,
     const Coordinate2D < double > & projection_coord
 ) 
 ```
@@ -133,7 +133,7 @@ template double interpolate_value (
 
 ```C++
 template float interpolate_value (
-    const GeoGrid < float > & grid,
+    const GeoGrid< float > & grid,
     const Coordinate2D < double > & projection_coord
 ) 
 ```

@@ -15,7 +15,7 @@
 
 
 
-Inherited by the following classes: [Geo](classGeo.md),  [Geo](classGeo.md)
+Inherited by the following classes: [Geo](classGeo.md),  [Geo](classGeo.md),  [Geo](classGeo.md),  [Geo](classGeo.md)
 
 
 

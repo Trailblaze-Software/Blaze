@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="contour_8cpp" kind="file" language="C++">
     <compoundname>contour.cpp</compoundname>
     <includes refid="contour_8hpp" local="yes">contour.hpp</includes>
@@ -392,7 +392,7 @@
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utilities/coordinate.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"><ref refid="classPolyline" kindref="compound">Polyline</ref><sp/>Contour::to_polyline(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>&amp;<sp/>configs)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/><ref refid="classPolyline" kindref="compound">Polyline</ref><sp/>polyline;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/>Polyline<sp/>polyline;</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"><sp/><sp/>polyline.layer<sp/>=<sp/>configs.layer_name_from_height(m_height);</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/>polyline.name<sp/>=<sp/>std::to_string(m_height);</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"><sp/><sp/>polyline.vertices<sp/>=<sp/>m_points;</highlight></codeline>
@@ -401,12 +401,12 @@
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><ref refid="classContour" kindref="compound">Contour</ref><sp/>Contour::from_polyline(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPolyline" kindref="compound">Polyline</ref>&amp;<sp/>polyline)<sp/>{</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classContour" kindref="compound">Contour</ref>(std::stod(polyline.name),<sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;(polyline.vertices),</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Contour(std::stod(polyline.name),<sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;(polyline.vertices),</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>polyline.layer);</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(std::invalid_argument&amp;)<sp/>{</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Invalid<sp/>contour<sp/>name:<sp/>\&quot;&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>polyline.name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\&quot;,<sp/>should<sp/>be<sp/>height.&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classContour" kindref="compound">Contour</ref>(0,<sp/>std::vector&lt;<ref refid="classCoordinate2D" kindref="compound">Coordinate2D&lt;double&gt;</ref>&gt;());</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Contour(0,<sp/>std::vector&lt;Coordinate2D&lt;double&gt;&gt;());</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">}</highlight></codeline>
     </programlisting>

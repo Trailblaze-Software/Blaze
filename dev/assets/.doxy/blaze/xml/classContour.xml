@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classContour" kind="class" language="C++" prot="public">
     <compoundname>Contour</compoundname>
     <sectiondef kind="private-attrib">
@@ -221,7 +221,7 @@
         <name>orient_consistent</name>
         <qualifiedname>Contour::orient_consistent</qualifiedname>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>value_grid</declname>
         </param>
         <briefdescription>
@@ -272,7 +272,7 @@
           <declname>height</declname>
         </param>
         <param>
-          <type>const <ref refid="classGeo" kindref="compound">GeoGrid</ref>&lt; T &gt; &amp;</type>
+          <type>const GeoGrid&lt; T &gt; &amp;</type>
           <declname>grid</declname>
         </param>
         <param>

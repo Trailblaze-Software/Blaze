@@ -25,6 +25,7 @@
 * `#include <string>`
 * `#include <thread>`
 * `#include "gl_widget.hpp"`
+* `#include "io/proj_data.hpp"`
 * `#include "main_3d_window.hpp"`
 * `#include "utilities/env.hpp"`
 * `#include "utilities/filesystem.hpp"`

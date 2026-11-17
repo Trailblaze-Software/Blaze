@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="point__cloud__visualization_8hpp" kind="file" language="C++">
     <compoundname>point_cloud_visualization.hpp</compoundname>
     <includes local="no">array</includes>
@@ -106,8 +106,8 @@
     </sectiondef>
     <sectiondef kind="var">
       <memberdef kind="variable" id="point__cloud__visualization_8hpp_1a900260af7d50bc569575a9599a6cb5eb" prot="public" static="no" constexpr="yes" mutable="no">
-        <type>constexpr std::array&lt; <ref refid="structClassificationStyle" kindref="compound">ClassificationStyle</ref>, 9 &gt;</type>
-        <definition>constexpr std::array&lt;ClassificationStyle, 9&gt; CLASSIFICATION_STYLES</definition>
+        <type>std::array&lt; <ref refid="structClassificationStyle" kindref="compound">ClassificationStyle</ref>, 9 &gt;</type>
+        <definition>std::array&lt;ClassificationStyle, 9&gt; CLASSIFICATION_STYLES</definition>
         <argsstring></argsstring>
         <name>CLASSIFICATION_STYLES</name>
         <initializer>= {{
@@ -130,8 +130,8 @@
         <location file="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" line="18" column="29" bodyfile="/home/runner/work/Blaze/Blaze/src/gui/point_cloud_visualization.hpp" bodystart="18" bodyend="28"/>
       </memberdef>
       <memberdef kind="variable" id="point__cloud__visualization_8hpp_1ad162e7e29a547eacfa5fb9c5a19e69e2" prot="public" static="no" constexpr="yes" mutable="no">
-        <type>constexpr std::array&lt; uint8_t, 3 &gt;</type>
-        <definition>constexpr std::array&lt;uint8_t, 3&gt; DEFAULT_CLASSIFICATION_COLOR</definition>
+        <type>std::array&lt; uint8_t, 3 &gt;</type>
+        <definition>std::array&lt;uint8_t, 3&gt; DEFAULT_CLASSIFICATION_COLOR</definition>
         <argsstring></argsstring>
         <name>DEFAULT_CLASSIFICATION_COLOR</name>
         <initializer>{{200, 200, 200}}</initializer>

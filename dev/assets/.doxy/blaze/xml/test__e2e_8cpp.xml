@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__e2e_8cpp" kind="file" language="C++">
     <compoundname>test_e2e.cpp</compoundname>
     <includes local="no">gtest/gtest.h</includes>
@@ -190,7 +190,11 @@
         <link refid="crs_8hpp_source"/>
         <childnode refid="64" relation="include">
         </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
         <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
@@ -201,6 +205,8 @@
         <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
         </childnode>
@@ -249,6 +255,18 @@
         <childnode refid="51" relation="include">
         </childnode>
       </node>
+      <node id="70">
+        <label>io/proj_data.hpp</label>
+        <link refid="proj__data_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
       <node id="15">
         <label>isom/colors.hpp</label>
         <link refid="colors_8hpp_source"/>
@@ -292,7 +310,7 @@
         </childnode>
         <childnode refid="68" relation="include">
         </childnode>
-        <childnode refid="69" relation="include">
+        <childnode refid="71" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
@@ -300,12 +318,12 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="70" relation="include">
+        <childnode refid="72" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
       </node>
-      <node id="69">
+      <node id="71">
         <label>las_point.hpp</label>
         <link refid="las__point_8hpp_source"/>
         <childnode refid="40" relation="include">
@@ -341,37 +359,37 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="73">
+      <node id="75">
         <label>testing/env.hpp</label>
         <link refid="testing_2env_8hpp_source"/>
-        <childnode refid="74" relation="include">
+        <childnode refid="76" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="78">
         <label>testing/output_dir.hpp</label>
         <link refid="output__dir_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="77" relation="include">
+        <childnode refid="79" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="78" relation="include">
+        <childnode refid="80" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="79" relation="include">
+        <childnode refid="81" relation="include">
         </childnode>
-        <childnode refid="80" relation="include">
+        <childnode refid="82" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="83">
         <label>tif/tif.hpp</label>
         <link refid="tif_8hpp_source"/>
         <childnode refid="28" relation="include">
@@ -401,10 +419,10 @@
         <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="74">
+      <node id="76">
         <label>utilities/env.hpp</label>
         <link refid="utilities_2env_8hpp_source"/>
-        <childnode refid="75" relation="include">
+        <childnode refid="77" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
@@ -451,7 +469,7 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="70">
+      <node id="72">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
         <childnode refid="52" relation="include">
@@ -493,7 +511,7 @@
         <childnode refid="47" relation="include">
         </childnode>
       </node>
-      <node id="72">
+      <node id="74">
         <label>process.hpp</label>
         <link refid="process_8hpp_source"/>
         <childnode refid="11" relation="include">
@@ -536,19 +554,19 @@
         </childnode>
         <childnode refid="61" relation="include">
         </childnode>
-        <childnode refid="69" relation="include">
+        <childnode refid="71" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="71" relation="include">
-        </childnode>
-        <childnode refid="72" relation="include">
-        </childnode>
         <childnode refid="73" relation="include">
         </childnode>
-        <childnode refid="76" relation="include">
+        <childnode refid="74" relation="include">
         </childnode>
-        <childnode refid="81" relation="include">
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
@@ -563,11 +581,14 @@
       <node id="16">
         <label>array</label>
       </node>
-      <node id="77">
+      <node id="79">
         <label>atomic</label>
       </node>
       <node id="24">
         <label>cassert</label>
+      </node>
+      <node id="69">
+        <label>cctype</label>
       </node>
       <node id="52">
         <label>chrono</label>
@@ -587,7 +608,7 @@
       <node id="40">
         <label>cstdint</label>
       </node>
-      <node id="75">
+      <node id="77">
         <label>cstdio</label>
       </node>
       <node id="4">
@@ -659,7 +680,7 @@
       <node id="64">
         <label>ogr_spatialref.h</label>
       </node>
-      <node id="71">
+      <node id="73">
         <label>ogr_srs_api.h</label>
       </node>
       <node id="57">
@@ -671,7 +692,7 @@
       <node id="18">
         <label>ostream</label>
       </node>
-      <node id="78">
+      <node id="80">
         <label>random</label>
       </node>
       <node id="13">
@@ -692,13 +713,13 @@
       <node id="26">
         <label>string</label>
       </node>
-      <node id="79">
+      <node id="81">
         <label>string_view</label>
       </node>
       <node id="34">
         <label>type_traits</label>
       </node>
-      <node id="80">
+      <node id="82">
         <label>unistd.h</label>
       </node>
       <node id="27">
@@ -1212,7 +1233,7 @@
 <codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(get_wgs84_wkt()));</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(get_wgs84_wkt()));</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"></highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>projection<sp/>string<sp/>before<sp/>creating<sp/>LASData<sp/>(workaround<sp/>for<sp/>projection<sp/>being<sp/>lost<sp/>in<sp/>move)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>proj_str<sp/>=<sp/>get_wgs84_wkt();</highlight></codeline>
@@ -1830,7 +1851,7 @@
 <codeline lineno="761"><highlight class="normal"></highlight></codeline>
 <codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fs::exists(ground_file))<sp/>{</highlight></codeline>
 <codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeo" kindref="compound">Geo&lt;MultiBand&lt;FlexGrid&gt;</ref>&gt;<sp/>tif_data<sp/>=<sp/>read_tif(ground_file,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>());</highlight></codeline>
-<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>ground_grid(tif_data.width(),<sp/>tif_data.height(),</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GeoGrid&lt;double&gt;<sp/>ground_grid(tif_data.width(),<sp/>tif_data.height(),</highlight></codeline>
 <codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(tif_data.transform()),</highlight></codeline>
 <codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>(tif_data.projection()));</highlight></codeline>
 <codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ground_grid.fill_from(tif_data[0]);</highlight></codeline>
@@ -2005,7 +2026,7 @@
 <codeline lineno="936"><highlight class="normal"><sp/><sp/>fs::create_directories(tmp);</highlight></codeline>
 <codeline lineno="937"><highlight class="normal"><sp/><sp/>fs::path<sp/>out<sp/>=<sp/>tmp<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;test_slope.tif&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="938"><highlight class="normal"></highlight></codeline>
-<codeline lineno="939"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="939"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="940"><highlight class="normal"></highlight></codeline>
 <codeline lineno="941"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>progress_tracker;</highlight></codeline>
 <codeline lineno="942"><highlight class="normal"></highlight></codeline>
@@ -2053,7 +2074,7 @@
 <codeline lineno="984"><highlight class="normal"><sp/><sp/>fs::create_directories(tmp);</highlight></codeline>
 <codeline lineno="985"><highlight class="normal"><sp/><sp/>fs::path<sp/>out<sp/>=<sp/>tmp<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;test_nodata.tif&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="986"><highlight class="normal"></highlight></codeline>
-<codeline lineno="987"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="987"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="988"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>nan<sp/>=<sp/>std::numeric_limits&lt;double&gt;::quiet_NaN();</highlight></codeline>
 <codeline lineno="989"><highlight class="normal"><sp/><sp/>grid[{0,<sp/>0}]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="990"><highlight class="normal"><sp/><sp/>grid[{1,<sp/>0}]<sp/>=<sp/>0.0;</highlight></codeline>
@@ -2087,7 +2108,7 @@
 <codeline lineno="1018"><highlight class="normal"><sp/><sp/>fs::create_directories(tmp);</highlight></codeline>
 <codeline lineno="1019"><highlight class="normal"><sp/><sp/>fs::path<sp/>out<sp/>=<sp/>tmp<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;test_pertile.tif&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1020"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1021"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="1021"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(3,<sp/>3,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="1022"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Arbitrary<sp/>range<sp/>[2,<sp/>4].</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1023"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>i++)</highlight></codeline>
 <codeline lineno="1024"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>3;<sp/>j++)<sp/>grid[{j,<sp/>i}]<sp/>=<sp/>(j<sp/>==<sp/>0<sp/>&amp;&amp;<sp/>i<sp/>==<sp/>0)<sp/>?<sp/>2.0<sp/>:<sp/>4.0;</highlight></codeline>
@@ -2107,7 +2128,7 @@
 <codeline lineno="1038"><highlight class="normal"><sp/><sp/>fs::create_directories(tmp);</highlight></codeline>
 <codeline lineno="1039"><highlight class="normal"><sp/><sp/>fs::path<sp/>out<sp/>=<sp/>tmp<sp/>/<sp/></highlight><highlight class="stringliteral">&quot;test_constant.tif&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1040"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1041"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(2,<sp/>2,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
+<codeline lineno="1041"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(2,<sp/>2,<sp/><ref refid="classGeoTransform" kindref="compound">GeoTransform</ref>(),<sp/><ref refid="classGeoProjection" kindref="compound">GeoProjection</ref>());</highlight></codeline>
 <codeline lineno="1042"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>2;<sp/>i++)</highlight></codeline>
 <codeline lineno="1043"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>2;<sp/>j++)<sp/>grid[{j,<sp/>i}]<sp/>=<sp/>42.0;</highlight></codeline>
 <codeline lineno="1044"><highlight class="normal"></highlight></codeline>

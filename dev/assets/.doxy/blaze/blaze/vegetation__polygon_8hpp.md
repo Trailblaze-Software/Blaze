@@ -85,7 +85,7 @@
 |  std::map&lt; double, std::string &gt; | [**extract\_threshold\_layers**](#function-extract_threshold_layers) (const [**VegeHeightConfig**](structVegeHeightConfig.md) & config) <br> |
 |  void | [**filter\_by\_min\_area**](#function-filter_by_min_area) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const std::map&lt; std::string, double &gt; & min\_areas, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  void | [**filter\_small\_holes**](#function-filter_small_holes) (std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; & polygons, const std::map&lt; std::string, double &gt; & min\_hole\_areas, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
-|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**generate\_vege\_polygons**](#function-generate_vege_polygons) (const [**VegeConfig**](structVegeConfig.md) & vege\_config, const std::map&lt; std::string, [**GeoGrid**](classGeo.md)&lt; float &gt; &gt; & vege\_maps, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
+|  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**generate\_vege\_polygons**](#function-generate_vege_polygons) (const [**VegeConfig**](structVegeConfig.md) & vege\_config, const std::map&lt; std::string, GeoGrid&lt; float &gt; &gt; & vege\_maps, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  std::string | [**layer\_number**](#function-layer_number) (const std::string & layer) <br> |
 |  double | [**polygon\_net\_area\_m2**](#function-polygon_net_area_m2) (const [**VegePolygon**](structVegePolygon.md) & poly) <br> |
 |  std::vector&lt; [**VegePolygon**](structVegePolygon.md) &gt; | [**read\_vege\_polygons**](#function-read_vege_polygons) (const fs::path & gpkg\_path) <br> |
@@ -249,7 +249,7 @@ inline void filter_small_holes (
 ```C++
 inline std::vector< VegePolygon > generate_vege_polygons (
     const VegeConfig & vege_config,
-    const std::map< std::string, GeoGrid < float > > & vege_maps,
+    const std::map< std::string, GeoGrid< float > > & vege_maps,
     ProgressTracker && progress_tracker
 ) 
 ```

@@ -18,21 +18,12 @@
 * **CLASSIFICATION\_STYLES** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
 * **COLOR\_MAP** ([**colors.cpp**](colors_8cpp.md), [**colors.hpp**](colors_8hpp.md))
 * **ColorVariant** ([**colors.hpp**](colors_8hpp.md))
-* **call\_file** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
-* **call\_function** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
-* **call\_line** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
 
 
 ## d
 
 * **DEFAULT\_CLASSIFICATION\_COLOR** ([**point\_cloud\_visualization.hpp**](point__cloud__visualization_8hpp.md))
 * **DownsampleMethod** ([**grid\_ops.hpp**](grid__ops_8hpp.md))
-
-
-## f
-
-* **file** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
-* **function** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
 
 
 ## g
@@ -59,12 +50,6 @@
 
 * **LayerKind** ([**layer.hpp**](layer_8hpp.md))
 * **LASClassification** ([**las\_point.hpp**](las__point_8hpp.md))
-* **line** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
-
-
-## n
-
-* **name** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
 
 
 ## o
@@ -82,7 +67,6 @@
 ## s
 
 * **SaddlePolicy** ([**config\_input.hpp**](config__input_8hpp.md))
-* **scope\_id** ([**trace\_recorder.cpp**](trace__recorder_8cpp.md))
 
 
 

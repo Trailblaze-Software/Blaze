@@ -70,7 +70,7 @@
 | Type | Name |
 | ---: | :--- |
 |   | [**TrackedAllocator**](#function-trackedallocator-12) () noexcept<br> |
-|   | [**TrackedAllocator**](#function-trackedallocator-22) (const [**TrackedAllocator**](classblaze_1_1memory__tracker_1_1TrackedAllocator.md)&lt; U, MemoryTag &gt; &) noexcept<br> |
+|   | [**TrackedAllocator**](#function-trackedallocator-22) (const TrackedAllocator&lt; U, MemoryTag &gt; &) noexcept<br> |
 |  T \* | [**allocate**](#function-allocate) (size\_type count) <br> |
 |  void | [**deallocate**](#function-deallocate) (T \* pointer, size\_type count) noexcept<br> |
 |  size\_type | [**max\_size**](#function-max_size) () noexcept const<br> |
@@ -218,7 +218,7 @@ blaze::memory_tracker::TrackedAllocator::TrackedAllocator () noexcept
 ```C++
 template<typename U>
 inline blaze::memory_tracker::TrackedAllocator::TrackedAllocator (
-    const TrackedAllocator < U, MemoryTag > &
+    const TrackedAllocator< U, MemoryTag > &
 ) noexcept
 ```
 

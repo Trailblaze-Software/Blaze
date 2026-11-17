@@ -76,8 +76,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**adjust\_ground\_to\_slope**](#function-adjust_ground_to_slope) (const [**GeoGrid**](classGeo.md)&lt; double &gt; & grid) <br> |
-|  [**GeoGrid**](classGeo.md)&lt; double &gt; | [**get\_pixel\_heights**](#function-get_pixel_heights) (const [**GeoGrid**](classGeo.md)&lt; std::optional&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & ground\_points, GroundMethod method=GroundMethod::LOWEST\_POINT) <br> |
+|  GeoGrid&lt; double &gt; | [**adjust\_ground\_to\_slope**](#function-adjust_ground_to_slope) (const GeoGrid&lt; double &gt; & grid) <br> |
+|  GeoGrid&lt; double &gt; | [**get\_pixel\_heights**](#function-get_pixel_heights) (const GeoGrid&lt; std::optional&lt; [**LASPoint**](classLASPoint.md) &gt; &gt; & ground\_points, GroundMethod method=GroundMethod::LOWEST\_POINT) <br> |
 |  void | [**process\_las\_data**](#function-process_las_data) ([**LASData**](classLASData.md) & las\_file, const fs::path & output\_dir, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 |  void | [**process\_las\_file**](#function-process_las_file) (const fs::path & las\_filename, const [**Config**](structConfig.md) & config, [**ProgressTracker**](classProgressTracker.md) && progress\_tracker) <br> |
 
@@ -86,7 +86,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; | [**downsample\_mask\_any**](#function-downsample_mask_any) (const [**GeoGrid**](classGeo.md)&lt; std::optional&lt; std::byte &gt; &gt; & grid, size\_t factor) <br> |
+|  GeoGrid&lt; std::optional&lt; std::byte &gt; &gt; | [**downsample\_mask\_any**](#function-downsample_mask_any) (const GeoGrid&lt; std::optional&lt; std::byte &gt; &gt; & grid, size\_t factor) <br> |
 
 
 
@@ -140,8 +140,8 @@ enum GroundMethod {
 ### function adjust\_ground\_to\_slope 
 
 ```C++
-GeoGrid < double > adjust_ground_to_slope (
-    const GeoGrid < double > & grid
+GeoGrid< double > adjust_ground_to_slope (
+    const GeoGrid< double > & grid
 ) 
 ```
 
@@ -155,8 +155,8 @@ GeoGrid < double > adjust_ground_to_slope (
 ### function get\_pixel\_heights 
 
 ```C++
-GeoGrid < double > get_pixel_heights (
-    const GeoGrid < std::optional< LASPoint > > & ground_points,
+GeoGrid< double > get_pixel_heights (
+    const GeoGrid< std::optional< LASPoint > > & ground_points,
     GroundMethod method=GroundMethod::LOWEST_POINT
 ) 
 ```
@@ -208,8 +208,8 @@ void process_las_file (
 ### function downsample\_mask\_any 
 
 ```C++
-static GeoGrid < std::optional< std::byte > > downsample_mask_any (
-    const GeoGrid < std::optional< std::byte > > & grid,
+static GeoGrid< std::optional< std::byte > > downsample_mask_any (
+    const GeoGrid< std::optional< std::byte > > & grid,
     size_t factor
 ) 
 ```

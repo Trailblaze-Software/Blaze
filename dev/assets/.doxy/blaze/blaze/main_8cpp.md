@@ -15,6 +15,8 @@
 * `#include <iostream>`
 * `#include <string>`
 * `#include <vector>`
+* `#include "io/proj_data.hpp"`
+* `#include "las/crs_self_check.hpp"`
 * `#include "main_window.hpp"`
 * `#include "utilities/env.hpp"`
 * `#include "utilities/filesystem.hpp"`

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__contour__gen_8cpp" kind="file" language="C++">
     <compoundname>test_contour_gen.cpp</compoundname>
     <includes local="no">gtest/gtest.h</includes>
@@ -882,7 +882,7 @@
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal">TEST(ContourGen,<sp/>ContourGen)<sp/>{</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{0.5,<sp/>0.5,<sp/>0.5},<sp/>{0.5,<sp/>1.5,<sp/>0.5},<sp/>{0.5,<sp/>0.5,<sp/>0.5}};</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref><sp/>configs({{</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{1.0,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0,<sp/>0),<sp/>0.14}}});</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/>std::vector&lt;Contour&gt;<sp/>contours<sp/>=<sp/>generate_contours(</highlight></codeline>
@@ -898,7 +898,7 @@
 <codeline lineno="30"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;double&gt;&gt;<sp/>data<sp/>=<sp/>{{0.5,<sp/>0.5,<sp/>0.5,<sp/>0.5,<sp/>0.5},<sp/>{0.5,<sp/>1.5,<sp/>1.5,<sp/>1.5,<sp/>0.5},</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.5,<sp/>1.5,<sp/>2.1,<sp/>1.5,<sp/>0.5},<sp/>{0.5,<sp/>1.5,<sp/>2.1,<sp/>1.5,<sp/>0.5},</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.5,<sp/>1.5,<sp/>1.5,<sp/>1.5,<sp/>1.5},<sp/>{0.5,<sp/>0.5,<sp/>0.5,<sp/>1.5,<sp/>1.5}};</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;double&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>GeoGrid&lt;double&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/>std::vector&lt;Contour&gt;<sp/>contours<sp/>=<sp/>generate_contours(</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>grid,<sp/><ref refid="structContourConfigs" kindref="compound">ContourConfigs</ref>{{{</highlight><highlight class="stringliteral">&quot;normal&quot;</highlight><highlight class="normal">,<sp/><ref refid="structContourConfig" kindref="compound">ContourConfig</ref>{1.0,<sp/>1,<sp/><ref refid="classRGBColor" kindref="compound">RGBColor</ref>(0,<sp/>0,<sp/>0,<sp/>0),<sp/>0.14}}}},</highlight></codeline>
@@ -916,7 +916,7 @@
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal">TEST(IdentifyContoursAtHeights,<sp/>SingleHeightCrossing)<sp/>{</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{0.3f,<sp/>0.7f},<sp/>{0.3f,<sp/>0.7f}};</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/>std::set&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><ref refid="classGridGraph" kindref="compound">GridGraph&lt;std::set&lt;double&gt;</ref>&gt;<sp/>result<sp/>=</highlight></codeline>
@@ -933,7 +933,7 @@
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
 <codeline lineno="66"><highlight class="normal">TEST(IdentifyContoursAtHeights,<sp/>NoCrossing)<sp/>{</highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{0.1f,<sp/>0.2f},<sp/>{0.1f,<sp/>0.2f}};</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/>std::set&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="classGridGraph" kindref="compound">GridGraph&lt;std::set&lt;double&gt;</ref>&gt;<sp/>result<sp/>=</highlight></codeline>
@@ -953,7 +953,7 @@
 <codeline lineno="85"><highlight class="normal"></highlight></codeline>
 <codeline lineno="86"><highlight class="normal">TEST(IdentifyContoursAtHeights,<sp/>MultipleHeights)<sp/>{</highlight></codeline>
 <codeline lineno="87"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{0.1f,<sp/>0.4f,<sp/>0.8f}};</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
 <codeline lineno="90"><highlight class="normal"><sp/><sp/>std::set&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.25,<sp/>0.5};</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"><sp/><sp/><ref refid="classGridGraph" kindref="compound">GridGraph&lt;std::set&lt;double&gt;</ref>&gt;<sp/>result<sp/>=</highlight></codeline>
@@ -970,7 +970,7 @@
 <codeline lineno="102"><highlight class="normal"></highlight></codeline>
 <codeline lineno="103"><highlight class="normal">TEST(IdentifyContoursAtHeights,<sp/>ExactThresholdValue)<sp/>{</highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{0.3f,<sp/>0.5f}};</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/>std::set&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><ref refid="classGridGraph" kindref="compound">GridGraph&lt;std::set&lt;double&gt;</ref>&gt;<sp/>result<sp/>=</highlight></codeline>
@@ -982,7 +982,7 @@
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
 <codeline lineno="115"><highlight class="normal">TEST(IdentifyContoursAtHeights,<sp/>MinExactlyAtThreshold)<sp/>{</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{0.5f,<sp/>0.7f}};</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"></highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/>std::set&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="classGridGraph" kindref="compound">GridGraph&lt;std::set&lt;double&gt;</ref>&gt;<sp/>result<sp/>=</highlight></codeline>
@@ -997,7 +997,7 @@
 <codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.6f,<sp/>0.6f},</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.6f,<sp/>0.6f},</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight></codeline>
 <codeline lineno="134"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contours_by_height<sp/>=<sp/>generate_contours_at_heights(grid,<sp/>heights,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>1,<sp/>0.0f);</highlight></codeline>
@@ -1020,7 +1020,7 @@
 <codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.7f,<sp/>0.7f,<sp/>0.2f},</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.2f,<sp/>0.2f,<sp/>0.2f},</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"></highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contours_by_height<sp/>=<sp/>generate_contours_at_heights(grid,<sp/>heights,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>1,<sp/>0.0f);</highlight></codeline>
@@ -1037,7 +1037,7 @@
 <codeline lineno="169"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.7f,<sp/>0.2f,<sp/>0.7f},</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"></highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contours_by_height<sp/>=<sp/>generate_contours_at_heights(grid,<sp/>heights,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>3,<sp/>0.0f);</highlight></codeline>
@@ -1057,7 +1057,7 @@
 <codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.0f,<sp/>0.0f,<sp/>0.0f},</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.0f,<sp/>0.0f,<sp/>0.0f},</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"></highlight></codeline>
 <codeline lineno="194"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="195"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>progress_tracker;</highlight></codeline>
@@ -1078,7 +1078,7 @@
 <codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.5f,<sp/>0.9f,<sp/>0.5f},</highlight></codeline>
 <codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.3f,<sp/>0.5f,<sp/>0.3f},</highlight></codeline>
 <codeline lineno="212"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"></highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.2,<sp/>0.4,<sp/>0.7};</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contours_by_height<sp/>=<sp/>generate_contours_at_heights(grid,<sp/>heights,<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>3,<sp/>0.0f);</highlight></codeline>
@@ -1091,7 +1091,7 @@
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
 <codeline lineno="224"><highlight class="normal">TEST(GenerateContoursAtHeights,<sp/>FilteredByMinPoints)<sp/>{</highlight></codeline>
 <codeline lineno="225"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>data<sp/>=<sp/>{{0.8f}};</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="227"><highlight class="normal"></highlight></codeline>
 <codeline lineno="228"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>heights<sp/>=<sp/>{0.5};</highlight></codeline>
 <codeline lineno="229"><highlight class="normal"><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref><sp/>progress_tracker;</highlight></codeline>
@@ -1110,7 +1110,7 @@
 <codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.8f,<sp/>0.0f,<sp/>0.0f,<sp/>0.0f,<sp/>0.8f},</highlight></codeline>
 <codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.8f,<sp/>0.8f,<sp/>0.8f,<sp/>0.8f,<sp/>0.8f},</highlight></codeline>
 <codeline lineno="244"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="246"><highlight class="normal"></highlight></codeline>
 <codeline lineno="247"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contours_by_height<sp/>=<sp/>generate_contours_at_heights(grid,<sp/>{0.5},<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),<sp/>3,<sp/>0.0f);</highlight></codeline>
 <codeline lineno="248"><highlight class="normal"></highlight></codeline>
@@ -1133,7 +1133,7 @@
 <codeline lineno="265"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>check_saddle_2x2(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;&amp;<sp/>data,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>threshold,</highlight></codeline>
 <codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SaddlePolicy<sp/>policy,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>expected_contours,</highlight></codeline>
 <codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;size_t&gt;&amp;<sp/>expected_point_counts)<sp/>{</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><ref refid="classGeo" kindref="compound">GeoGrid&lt;float&gt;</ref><sp/>grid(data);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/>GeoGrid&lt;float&gt;<sp/>grid(data);</highlight></codeline>
 <codeline lineno="269"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>contours<sp/>=<sp/>generate_contours_at_heights(grid,<sp/>{threshold},<sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>(),</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*min_points=*/</highlight><highlight class="normal">3,<sp/>0.0f,<sp/>policy);</highlight></codeline>
 <codeline lineno="271"><highlight class="normal"><sp/><sp/>ASSERT_EQ(contours[threshold].size(),<sp/>expected_contours)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Policy<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(policy);</highlight></codeline>

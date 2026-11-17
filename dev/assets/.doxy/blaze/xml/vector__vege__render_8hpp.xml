@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="vector__vege__render_8hpp" kind="file" language="C++">
     <compoundname>vector_vege_render.hpp</compoundname>
     <includes local="no">algorithm</includes>
@@ -633,7 +633,7 @@
         <argsstring>(GeoImgGrid &amp;img, const VegeConfig &amp;vege_config, const std::vector&lt; VegePolygon &gt; &amp;vege_polygons, ProgressTracker &amp;&amp;progress_tracker)</argsstring>
         <name>draw_vector_vegetation</name>
         <param>
-          <type><ref refid="classGeo" kindref="compound">GeoImgGrid</ref> &amp;</type>
+          <type>GeoImgGrid &amp;</type>
           <declname>img</declname>
         </param>
         <param>
@@ -676,7 +676,7 @@
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Draw<sp/>vector<sp/>vegetation<sp/>polygons<sp/>onto<sp/>`img`,<sp/>filling<sp/>with<sp/>the<sp/>configured<sp/>open-land</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>background<sp/>colour<sp/>first.<sp/><sp/>Callers<sp/>that<sp/>need<sp/>exterior<sp/>pixels<sp/>transparent<sp/>should<sp/>apply</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>mask_outside_coverage<sp/>after<sp/>this<sp/>returns.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>draw_vector_vegetation(<ref refid="classGeo" kindref="compound">GeoImgGrid</ref>&amp;<sp/>img,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structVegeConfig" kindref="compound">VegeConfig</ref>&amp;<sp/>vege_config,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>draw_vector_vegetation(GeoImgGrid&amp;<sp/>img,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structVegeConfig" kindref="compound">VegeConfig</ref>&amp;<sp/>vege_config,</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;VegePolygon&gt;&amp;<sp/>vege_polygons,</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classProgressTracker" kindref="compound">ProgressTracker</ref>&amp;&amp;<sp/>progress_tracker)<sp/>{</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>ColorVariant&gt;<sp/>vege_layer_color_map<sp/>=<sp/>vege_layer_colors(vege_config);</highlight></codeline>

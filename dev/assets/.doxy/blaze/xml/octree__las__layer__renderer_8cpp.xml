@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="octree__las__layer__renderer_8cpp" kind="file" language="C++">
     <compoundname>octree_las_layer_renderer.cpp</compoundname>
     <includes local="no">QOpenGLContext</includes>
@@ -77,15 +77,15 @@
         </childnode>
         <childnode refid="70" relation="include">
         </childnode>
-        <childnode refid="85" relation="include">
+        <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="86" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
         <childnode refid="76" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="93" relation="include">
         </childnode>
-        <childnode refid="78" relation="include">
+        <childnode refid="80" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -123,7 +123,7 @@
         </childnode>
         <childnode refid="44" relation="include">
         </childnode>
-        <childnode refid="97" relation="include">
+        <childnode refid="99" relation="include">
         </childnode>
         <childnode refid="74" relation="include">
         </childnode>
@@ -157,11 +157,11 @@
         </childnode>
         <childnode refid="76" relation="include">
         </childnode>
-        <childnode refid="78" relation="include">
+        <childnode refid="80" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
         </childnode>
-        <childnode refid="81" relation="include">
+        <childnode refid="83" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -195,10 +195,10 @@
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="98" relation="include">
+        <childnode refid="100" relation="include">
         </childnode>
       </node>
-      <node id="97">
+      <node id="99">
         <label>gui/point_cloud_gl.hpp</label>
         <link refid="point__cloud__gl_8hpp_source"/>
         <childnode refid="35" relation="include">
@@ -210,7 +210,7 @@
         <childnode refid="74" relation="include">
         </childnode>
       </node>
-      <node id="85">
+      <node id="87">
         <label>gui/point_cloud_visualization.hpp</label>
         <link refid="point__cloud__visualization_8hpp_source"/>
         <childnode refid="6" relation="include">
@@ -248,10 +248,10 @@
         <childnode refid="63" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="88">
         <label>gui/raster_data.hpp</label>
         <link refid="raster__data_8hpp_source"/>
-        <childnode refid="87" relation="include">
+        <childnode refid="89" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -271,19 +271,19 @@
         </childnode>
         <childnode refid="76" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
-        </childnode>
         <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
         </childnode>
       </node>
-      <node id="98">
+      <node id="100">
         <label>gui/shaders.hpp</label>
         <link refid="shaders_8hpp_source"/>
         <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="99" relation="include">
+        <childnode refid="101" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
@@ -310,16 +310,16 @@
         <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="94">
+      <node id="96">
         <label>assert/gdal_assert.hpp</label>
         <link refid="gdal__assert_8hpp_source"/>
-        <childnode refid="92" relation="include">
+        <childnode refid="94" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="95" relation="include">
+        <childnode refid="97" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -453,7 +453,11 @@
         <link refid="crs_8hpp_source"/>
         <childnode refid="77" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
@@ -465,21 +469,23 @@
         </childnode>
         <childnode refid="56" relation="include">
         </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
         <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="90">
         <label>io/gdal_init.hpp</label>
         <link refid="gdal__init_8hpp_source"/>
-        <childnode refid="89" relation="include">
+        <childnode refid="91" relation="include">
         </childnode>
       </node>
-      <node id="91">
+      <node id="93">
         <label>io/gpkg.hpp</label>
         <link refid="gpkg_8hpp_source"/>
-        <childnode refid="92" relation="include">
+        <childnode refid="94" relation="include">
         </childnode>
-        <childnode refid="93" relation="include">
+        <childnode refid="95" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -497,19 +503,31 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="94" relation="include">
+        <childnode refid="96" relation="include">
         </childnode>
         <childnode refid="49" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
+        <childnode refid="91" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="90" relation="include">
         </childnode>
-        <childnode refid="96" relation="include">
+        <childnode refid="98" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>io/proj_data.hpp</label>
+        <link refid="proj__data_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
       <node id="53">
@@ -524,12 +542,12 @@
         <childnode refid="54" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="80">
         <label>las/las_file.hpp</label>
         <link refid="las__file_8hpp_source"/>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="79" relation="include">
+        <childnode refid="81" relation="include">
         </childnode>
         <childnode refid="48" relation="include">
         </childnode>
@@ -541,11 +559,11 @@
         </childnode>
         <childnode refid="77" relation="include">
         </childnode>
-        <childnode refid="80" relation="include">
-        </childnode>
-        <childnode refid="81" relation="include">
-        </childnode>
         <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
@@ -555,7 +573,7 @@
         </childnode>
         <childnode refid="76" relation="include">
         </childnode>
-        <childnode refid="83" relation="include">
+        <childnode refid="85" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
@@ -563,12 +581,12 @@
         </childnode>
         <childnode refid="55" relation="include">
         </childnode>
-        <childnode refid="84" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="63" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="85">
         <label>las_point.hpp</label>
         <link refid="las__point_8hpp_source"/>
         <childnode refid="31" relation="include">
@@ -578,7 +596,7 @@
         <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="96">
+      <node id="98">
         <label>polyline/polyline.hpp</label>
         <link refid="polyline_8hpp_source"/>
         <childnode refid="25" relation="include">
@@ -604,7 +622,7 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="90">
+      <node id="92">
         <label>tif/tif.hpp</label>
         <link refid="tif_8hpp_source"/>
         <childnode refid="56" relation="include">
@@ -672,7 +690,7 @@
         <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="84">
+      <node id="86">
         <label>utilities/timer.hpp</label>
         <link refid="timer_8hpp_source"/>
         <childnode refid="7" relation="include">
@@ -747,7 +765,7 @@
       <node id="4">
         <label>QPoint</label>
       </node>
-      <node id="99">
+      <node id="101">
         <label>QString</label>
       </node>
       <node id="41">
@@ -768,6 +786,9 @@
       <node id="50">
         <label>cassert</label>
       </node>
+      <node id="78">
+        <label>cctype</label>
+      </node>
       <node id="7">
         <label>chrono</label>
       </node>
@@ -777,7 +798,7 @@
       <node id="57">
         <label>concepts</label>
       </node>
-      <node id="92">
+      <node id="94">
         <label>cpl_error.h</label>
       </node>
       <node id="9">
@@ -795,7 +816,7 @@
       <node id="23">
         <label>experimental/source_location</label>
       </node>
-      <node id="79">
+      <node id="81">
         <label>fstream</label>
       </node>
       <node id="72">
@@ -804,10 +825,10 @@
       <node id="48">
         <label>future</label>
       </node>
-      <node id="87">
+      <node id="89">
         <label>gdal.h</label>
       </node>
-      <node id="89">
+      <node id="91">
         <label>gdal_priv.h</label>
       </node>
       <node id="27">
@@ -816,10 +837,10 @@
       <node id="17">
         <label>iostream</label>
       </node>
-      <node id="81">
+      <node id="83">
         <label>las_reader.hpp</label>
       </node>
-      <node id="82">
+      <node id="84">
         <label>las_writer.hpp</label>
       </node>
       <node id="10">
@@ -843,13 +864,13 @@
       <node id="68">
         <label>numeric</label>
       </node>
-      <node id="95">
+      <node id="97">
         <label>ogr_core.h</label>
       </node>
       <node id="77">
         <label>ogr_spatialref.h</label>
       </node>
-      <node id="93">
+      <node id="95">
         <label>ogrsf_frmts.h</label>
       </node>
       <node id="71">
@@ -870,7 +891,7 @@
       <node id="32">
         <label>source_location</label>
       </node>
-      <node id="80">
+      <node id="82">
         <label>spatial_index.hpp</label>
       </node>
       <node id="24">
@@ -1055,14 +1076,14 @@
 <codeline lineno="147"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>needs_sort<sp/>=</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::adjacent_find(visible_nodes.begin(),<sp/>visible_nodes.end(),</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref>&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref>&amp;<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PointOctree::VisibleNode&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PointOctree::VisibleNode&amp;<sp/>b)<sp/>{</highlight></codeline>
 <codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>a.lod_distance<sp/>&gt;<sp/>b.lod_distance;</highlight></codeline>
 <codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>})<sp/>!=<sp/>visible_nodes.end();</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!needs_sort)<sp/>{</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="155"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/>std::stable_sort(visible_nodes.begin(),<sp/>visible_nodes.end(),</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref>&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPointOctree_1_1VisibleNode" kindref="compound">PointOctree::VisibleNode</ref>&amp;<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PointOctree::VisibleNode&amp;<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PointOctree::VisibleNode&amp;<sp/>b)<sp/>{</highlight></codeline>
 <codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(a.lod_distance<sp/>!=<sp/>b.lod_distance)<sp/>{</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>a.lod_distance<sp/>&lt;<sp/>b.lod_distance;</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -1074,14 +1095,14 @@
 <codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structLasRenderSnapshot" kindref="compound">LasRenderSnapshot</ref>&amp;<sp/>snap,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCamera" kindref="compound">Camera</ref>&amp;<sp/>camera,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>vis_quality,</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin,</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;PointOctree::VisibleNode&gt;&amp;<sp/>visible_nodes)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset<sp/>=<sp/>camera.world_offset();</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Coordinate3D&lt;double&gt;&amp;<sp/>scene_offset<sp/>=<sp/>camera.world_offset();</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QVector3D<sp/>point_offset(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.x()<sp/>-<sp/>scene_offset.x()),</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.y()<sp/>-<sp/>scene_offset.y()),</highlight></codeline>
 <codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(file_origin.z()<sp/>-<sp/>scene_offset.z()));</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"><sp/><sp/>QMatrix4x4<sp/>clip<sp/>=<sp/>camera.proj_matrix();</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/>clip.translate(point_offset);</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structFrustum" kindref="compound">Frustum</ref><sp/>frustum<sp/>=<sp/>Frustum::from_matrix(clip);</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref><sp/>camera_local(camera.position().x()<sp/>-<sp/>point_offset.x(),</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Frustum<sp/>frustum<sp/>=<sp/>Frustum::from_matrix(clip);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Coordinate3D&lt;double&gt;<sp/>camera_local(camera.position().x()<sp/>-<sp/>point_offset.x(),</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>camera.position().y()<sp/>-<sp/>point_offset.y(),</highlight></codeline>
 <codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>camera.position().z()<sp/>-<sp/>point_offset.z());</highlight></codeline>
 <codeline lineno="179"><highlight class="normal"><sp/><sp/>snap.octree.collect_visible(frustum,<sp/>vis_quality,<sp/>camera_local,<sp/>visible_nodes);</highlight></codeline>
@@ -1198,7 +1219,7 @@
 <codeline lineno="290"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!incremental)<sp/>{</highlight></codeline>
 <codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>visible<sp/>:<sp/>visible_nodes)<sp/>{</highlight></codeline>
 <codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visible.node)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>NodeStreamState&amp;<sp/>state<sp/>=<sp/>m_node_stream[visible.node];</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structOctreeLASLayerRenderer_1_1NodeStreamState" kindref="compound">NodeStreamState</ref>&amp;<sp/>state<sp/>=<sp/>m_node_stream[visible.node];</highlight></codeline>
 <codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.point_count<sp/>=<sp/>visible.node-&gt;point_count();</highlight></codeline>
 <codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.streamed_count<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.locked_chunk_size<sp/>=<sp/>0;</highlight></codeline>
@@ -1210,10 +1231,10 @@
 <codeline lineno="302"><highlight class="normal"></highlight></codeline>
 <codeline lineno="303"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>visible<sp/>:<sp/>visible_nodes)<sp/>{</highlight></codeline>
 <codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!visible.node<sp/>||<sp/>visible.node-&gt;point_count()<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPointOctreeNode" kindref="compound">PointOctreeNode</ref>*<sp/>node<sp/>=<sp/>visible.node;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PointOctreeNode*<sp/>node<sp/>=<sp/>visible.node;</highlight></codeline>
 <codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>point_count<sp/>=<sp/>node-&gt;point_count();</highlight></codeline>
 <codeline lineno="307"><highlight class="normal"></highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>NodeStreamState&amp;<sp/>state<sp/>=<sp/>m_node_stream[node];</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structOctreeLASLayerRenderer_1_1NodeStreamState" kindref="compound">NodeStreamState</ref>&amp;<sp/>state<sp/>=<sp/>m_node_stream[node];</highlight></codeline>
 <codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state.point_count<sp/>!=<sp/>point_count)<sp/>{</highlight></codeline>
 <codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.point_count<sp/>=<sp/>point_count;</highlight></codeline>
 <codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>state.streamed_count<sp/>=<sp/>0;</highlight></codeline>
@@ -1305,9 +1326,9 @@
 <codeline lineno="397"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!snap<sp/>||<sp/>idx<sp/>&gt;=<sp/>snap-&gt;octree.points().size())<sp/>{</highlight></codeline>
 <codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::nullopt;</highlight></codeline>
 <codeline lineno="399"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="400"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structOctreePoint" kindref="compound">OctreePoint</ref>&amp;<sp/>p<sp/>=<sp/>snap-&gt;octree.points()[idx];</highlight></codeline>
-<codeline lineno="401"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
-<codeline lineno="402"><highlight class="normal"><sp/><sp/><ref refid="structPointPickResult" kindref="compound">PointPickResult</ref><sp/>result;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OctreePoint&amp;<sp/>p<sp/>=<sp/>snap-&gt;octree.points()[idx];</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Coordinate3D&lt;double&gt;&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/>PointPickResult<sp/>result;</highlight></codeline>
 <codeline lineno="403"><highlight class="normal"><sp/><sp/>result.point<sp/>=<sp/>p;</highlight></codeline>
 <codeline lineno="404"><highlight class="normal"><sp/><sp/>result.world_x<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x)<sp/>+<sp/>file_origin.x()<sp/>-<sp/>scene_offset.x();</highlight></codeline>
 <codeline lineno="405"><highlight class="normal"><sp/><sp/>result.world_y<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y)<sp/>+<sp/>file_origin.y()<sp/>-<sp/>scene_offset.y();</highlight></codeline>
@@ -1335,8 +1356,8 @@
 <codeline lineno="427"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>loaded_octree_points<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="428"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>load_complete<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="429"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>use_preview<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="430"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>scene_offset<sp/>=<sp/>camera.world_offset();</highlight></codeline>
-<codeline lineno="431"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCoordinate3D" kindref="compound">Coordinate3D&lt;double&gt;</ref>&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Coordinate3D&lt;double&gt;&amp;<sp/>scene_offset<sp/>=<sp/>camera.world_offset();</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Coordinate3D&lt;double&gt;&amp;<sp/>file_origin<sp/>=<sp/>layer-&gt;las_data().coordinate_origin();</highlight></codeline>
 <codeline lineno="432"><highlight class="normal"></highlight></codeline>
 <codeline lineno="433"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>snap<sp/>=<sp/>layer-&gt;las_data().snapshot();</highlight></codeline>
 <codeline lineno="434"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!snap)<sp/>{</highlight></codeline>
@@ -1450,7 +1471,7 @@
 <codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>use_preview<sp/>?<sp/>std::min(snap-&gt;preview_points.size(),<sp/>MAX_PREVIEW_DRAW_VERTICES)</highlight></codeline>
 <codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>estimate_draw_vertices(visible_nodes,<sp/>draw_quality,<sp/>incremental);</highlight></codeline>
 <codeline lineno="544"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>time_draw<sp/>=<sp/>expected_vertices<sp/>&gt;<sp/>0;</highlight></codeline>
-<codeline lineno="545"><highlight class="normal"><sp/><sp/>ScopedGpuTimer<sp/>gpu_timer(time_draw<sp/>?<sp/>gl<sp/>:<sp/>nullptr,<sp/>time_draw<sp/>?<sp/>m_gpu_timer_query<sp/>:<sp/>0);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/>ScopedGpuTimer<sp/>gpu_timer(time_draw<sp/>?<sp/>gl<sp/>:<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>time_draw<sp/>?<sp/>m_gpu_timer_query<sp/>:<sp/>0);</highlight></codeline>
 <codeline lineno="546"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>vertices_drawn<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="547"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(use_preview)<sp/>{</highlight></codeline>
 <codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/>vertices_drawn<sp/>=<sp/>draw_preview_points(f,<sp/>snap-&gt;preview_points,<sp/>file_origin,<sp/>scene_offset);</highlight></codeline>

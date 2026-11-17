@@ -48,7 +48,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  constexpr size\_t | [**MAX\_PREVIEW\_POINTS**](#variable-max_preview_points)   = `500'000`<br> |
+|  size\_t | [**MAX\_PREVIEW\_POINTS**](#variable-max_preview_points)   = `500'000`<br> |
 
 
 
@@ -109,7 +109,8 @@
 ### typedef PreviewCallback 
 
 ```C++
-using octree_las_detail::PreviewCallback = typedef std::function<void(const OctreePointVector& preview, size_t points_loaded, const Extent3D& bounds)>;
+using octree_las_detail::PreviewCallback =  std::function<void(const OctreePointVector& preview, size_t points_loaded,
+                                           const Extent3D& bounds)>;
 ```
 
 
@@ -124,7 +125,7 @@ using octree_las_detail::PreviewCallback = typedef std::function<void(const Octr
 ### variable MAX\_PREVIEW\_POINTS 
 
 ```C++
-constexpr size_t octree_las_detail::MAX_PREVIEW_POINTS;
+size_t octree_las_detail::MAX_PREVIEW_POINTS;
 ```
 
 

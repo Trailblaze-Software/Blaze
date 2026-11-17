@@ -63,7 +63,7 @@
 |   | [**Rect**](#function-rect-22) (int x\_, int y\_, int w, int h) <br> |
 |  int | [**bottom**](#function-bottom) () const<br> |
 |  bool | [**contains**](#function-contains) (int px, int py) const<br> |
-|  [**Rect**](structblaze_1_1Rect.md) | [**operator&**](#function-operator) (const [**Rect**](structblaze_1_1Rect.md) & other) const<br> |
+|  Rect | [**operator&**](#function-operator) (const Rect & other) const<br> |
 |  int | [**right**](#function-right) () const<br> |
 
 
