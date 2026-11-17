@@ -159,7 +159,9 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
     ProgressTracker min_finding = progress_tracker.subtracker(0.51, 0.61);
     START_TRACKER(min_finding, "min finding");
     bool only_classified_ground = config.ground.use_only_ground_class;
-#pragma omp parallel for
+    bool any_points = false;
+    bool any_ground = false;
+#pragma omp parallel for reduction(|| : any_points, any_ground)
     for (size_t i = 0; i < binned_points.height(); i++) {
       for (size_t j = 0; j < binned_points.width(); j++) {
         bool is_building = false;
@@ -184,10 +186,21 @@ void process_las_data(LASData& las_file, const fs::path& output_dir, const Confi
             is_water = true;
           }
         }
+        any_points = any_points || !binned_points[{j, i}].empty();
+        any_ground = any_ground || min_point.has_value();
         ground_points[{j, i}] = min_point;
         buildings[{j, i}] = is_building ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
         water[{j, i}] = is_water ? std::optional<std::byte>{std::byte{0}} : std::nullopt;
       }
+    }
+    if (only_classified_ground && any_points && !any_ground) {
+      throw NoGroundPointsError(
+          "No ground-classified points found in " + output_dir.filename().string() +
+          ", so no terrain can be produced. The input is probably unclassified, e.g. an ELVIS "
+          "'C0' or photogrammetric 'PHO' point cloud; classified LiDAR ('LID...-C3') gives the "
+          "best results. To continue anyway, turn off 'Ground class only' "
+          "(use_only_ground_class) to use the lowest point in each cell; terrain will then "
+          "follow vegetation and buildings wherever no ground is visible.");
     }
   }
 

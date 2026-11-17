@@ -247,6 +247,37 @@ TEST(E2E, ProcessEmptyData) {
   }
 }
 
+// Unclassified points (e.g. ELVIS 'C0' / photogrammetric data, issue #35): with
+// use_only_ground_class there is no terrain, so processing must fail clearly
+// rather than silently writing empty outputs; turning it off processes them.
+TEST(E2E, ProcessUnclassifiedData) {
+  fs::path test_output_dir = blaze::test::unique_test_output_dir();
+  fs::create_directories(test_output_dir);
+  Config config = create_minimal_test_config(test_output_dir);
+
+  const Extent2D bounds = {0.0, 50.0, 0.0, 50.0};
+  auto make_data = [&] {
+    LASData las_data(bounds, GeoProjection(get_wgs84_wkt()));
+    for (double x = bounds.minx; x < bounds.maxx; x += 1.0) {
+      for (double y = bounds.miny; y < bounds.maxy; y += 1.0) {
+        las_data.insert(LASPoint(x, y, 0.1 * x, 1000, LASClassification::CreatedNeverClassified));
+      }
+    }
+    return las_data;
+  };
+
+  LASData unclassified = make_data();
+  EXPECT_THROW(process_las_data(unclassified, test_output_dir, config, ProgressTracker()),
+               NoGroundPointsError);
+
+  config.ground.use_only_ground_class = false;
+  LASData unclassified_again = make_data();
+  EXPECT_NO_THROW(process_las_data(unclassified_again, test_output_dir, config, ProgressTracker()));
+  EXPECT_TRUE(fs::exists(test_output_dir / "smooth_ground.tif"));
+
+  fs::remove_all(test_output_dir);
+}
+
 // Test processing with different grid resolutions
 TEST(E2E, ProcessDifferentResolutions) {
   fs::path test_output_dir = blaze::test::unique_test_output_dir();

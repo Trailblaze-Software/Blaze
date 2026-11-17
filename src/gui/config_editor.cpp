@@ -1414,3 +1414,8 @@ void ConfigEditor::pick_color() {
     // update_color_from_ui called by value changes
   }
 }
+
+void ConfigEditor::set_use_only_ground_class(bool value) {
+  // Updates m_config via the checkbox's update_general_from_ui connection.
+  ui->ground_use_only_ground_class->setChecked(value);
+}

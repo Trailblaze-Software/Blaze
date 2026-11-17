@@ -39,6 +39,7 @@ class ConfigEditor : public QWidget {
   void remove_las_file();
   void add_las_folder();
   void set_las_files(const std::vector<fs::path>& files);
+  void set_use_only_ground_class(bool value);
 
   // Contours
   void add_contour();

@@ -6,6 +6,7 @@
 
 #include "config_input/config_input.hpp"
 #include "error_dialog.hpp"
+#include "process.hpp"
 #include "progress_box.hpp"
 #include "run.hpp"
 #include "ui_main_window.h"
@@ -105,11 +106,20 @@ void MainWindow::run_blaze() {
   // run actually succeeded.
   const bool exit_after_run = blaze::get_env("BLAZE_EXIT_AFTER_RUN") != nullptr;
 
+  // Set by the worker if the run failed for lack of ground-classified points,
+  // so the error handler can offer to re-run using all points (issue #35).
+  auto no_ground_points = std::make_shared<bool>(false);
+
   ProgressBox* message_box = new ProgressBox(this);
   message_box->show();
   message_box->start_task(
-      [&config, message_box] {
-        run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
+      [&config, message_box, no_ground_points] {
+        try {
+          run_with_config(config, std::vector<fs::path>(), ProgressTracker(message_box));
+        } catch (const NoGroundPointsError&) {
+          *no_ground_points = true;
+          throw;
+        }
       },
       [&config, exit_after_run] {
         if (exit_after_run) {
@@ -146,13 +156,27 @@ void MainWindow::run_blaze() {
         connect(button, &QPushButton::clicked, dialog, &QDialog::accept);
         dialog->exec();
       },
-      [this, exit_after_run](const QString& message) {
+      [this, exit_after_run, no_ground_points](const QString& message) {
         if (exit_after_run) {
           // Headless run: report on stderr (captured by Blaze3D) and exit with a
           // non-zero code so the launching process knows the run failed instead
           // of silently finding no output.
           std::cerr << "Blaze processing failed: " << message.toStdString() << std::endl;
           QApplication::exit(1);
+          return;
+        }
+        if (*no_ground_points) {
+          QMessageBox box(this);
+          box.setIcon(QMessageBox::Warning);
+          box.setWindowTitle("No ground points");
+          box.setText(message);
+          box.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+          box.setDefaultButton(QMessageBox::Cancel);
+          box.button(QMessageBox::Yes)->setText("Continue using all points");
+          if (box.exec() == QMessageBox::Yes) {
+            ui->config_editor->set_use_only_ground_class(false);
+            run_blaze();
+          }
           return;
         }
         show_error_message(this, "Error running task", message);
