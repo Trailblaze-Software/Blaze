@@ -6,6 +6,7 @@
 #include <iostream>
 #include <limits>
 #include <mutex>
+#include <set>
 
 #include "ogr_spatialref.h"
 #include "spatial_index.hpp"
@@ -24,6 +25,7 @@
 #include <string>
 #include <vector>
 
+#include "elvis_filename.hpp"
 #include "grid/grid.hpp"
 #include "io/crs.hpp"
 #include "las_point.hpp"
@@ -211,7 +213,10 @@ inline Extent3D as_extent3d(const laspp::Bound3D& b) {
 // Returns embedded CRS WKT from a reader, preferring the WKT VLR but falling back
 // to GeoKeys when the WKT is missing or cannot be parsed (some writers omit the
 // trailing null byte in the WKT VLR, which truncates the string by one character).
-inline std::string reader_embedded_wkt(const laspp::LASReader& reader) {
+// If the file has neither and `path` is an ELVIS tile name, the CRS is inferred
+// from the name (see elvis_filename_epsg).
+inline std::string reader_embedded_wkt(const laspp::LASReader& reader,
+                                       const std::optional<fs::path>& path = std::nullopt) {
   if (reader.wkt().has_value() && wkt_parses(reader.wkt().value())) {
     return reader.wkt().value();
   }
@@ -221,7 +226,25 @@ inline std::string reader_embedded_wkt(const laspp::LASReader& reader) {
     } catch (const std::exception&) {
     }
   }
-  return {};
+  if (!path) return {};
+  const std::optional<int> epsg = elvis_filename_epsg(*path, as_extent2d(reader.header().bounds()));
+  OGRSpatialReference srs;
+  if (!epsg || srs.importFromEPSG(*epsg) != OGRERR_NONE) return {};
+  {
+    static std::mutex mutex;
+    static std::set<fs::path> reported;
+    std::lock_guard lock(mutex);
+    if (reported.insert(*path).second) {
+      std::cerr << "Info: " << path->filename().string()
+                << " has no embedded CRS; using EPSG:" << *epsg << " (" << srs.GetName()
+                << ") from its file name. Set 'override_crs' if this is wrong." << std::endl;
+    }
+  }
+  char* wkt = nullptr;
+  srs.exportToWkt(&wkt);
+  std::string result = wkt ? wkt : "";
+  CPLFree(wkt);
+  return result;
 }
 
 // Returns the normalized horizontal WKT for a reader, honouring override_crs
@@ -229,13 +252,14 @@ inline std::string reader_embedded_wkt(const laspp::LASReader& reader) {
 // the file's embedded WKT/GeoKeys, then to an empty string if nothing is
 // available. Never throws.
 inline std::string reader_horizontal_wkt(const laspp::LASReader& reader,
-                                         const std::string& override_crs = "") {
+                                         const std::string& override_crs = "",
+                                         const std::optional<fs::path>& path = std::nullopt) {
   // Use the non-throwing variant so an invalid override_crs degrades to
   // "fall back to the file's embedded CRS" rather than propagating an
   // exception out of a function documented as never throwing.
   const UserCrsParseResult override_parsed = try_user_crs_to_wkt(override_crs);
   if (override_parsed.ok && !override_parsed.wkt.empty()) return override_parsed.wkt;
-  const std::string embedded = reader_embedded_wkt(reader);
+  const std::string embedded = reader_embedded_wkt(reader, path);
   if (!embedded.empty()) return normalize_crs_wkt(embedded);
   return {};
 }
@@ -280,7 +304,7 @@ class LASFile {
     m_original_bounds = m_bounds;
 
     // Keep the raw embedded WKT for compound-CRS preservation (vertical datum).
-    std::string raw_embedded_wkt = reader_embedded_wkt(reader);
+    std::string raw_embedded_wkt = reader_embedded_wkt(reader, m_filename);
     const std::string embedded_wkt =
         raw_embedded_wkt.empty() ? std::string{} : normalize_crs_wkt(raw_embedded_wkt);
 
@@ -821,6 +845,7 @@ class AsyncLASData : public LASData {
         std::thread([this, filename, &metadata_promise, progress_tracker, callbacks]() mutable {
 #ifndef USE_PDAL
           laspp::LASReader reader(filename);
+          this->m_filename = filename;
           this->from_las_reader(reader);
           metadata_promise.set_value();
           std::lock_guard<std::mutex> lock(m_mutex);

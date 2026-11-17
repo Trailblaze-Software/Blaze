@@ -345,7 +345,7 @@ class AsyncOctreeLASData {
     m_total_points = reader.num_points();
     m_point_format_has_rgb =
         octree_las_detail::las_point_format_has_rgb(reader.header().point_format());
-    std::string wkt = reader_embedded_wkt(reader);
+    std::string wkt = reader_embedded_wkt(reader, filename);
     if (!wkt.empty()) {
       m_projection = make_projection_from_wkt(wkt);
       m_native_projection = m_projection;
