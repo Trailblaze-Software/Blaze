@@ -604,7 +604,7 @@ void ConfigEditor::update_las_stats() {
       LASFileExtent e;
       e.path = file;
       e.bounds_native = as_extent3d(b);
-      e.horizontal_wkt = reader_horizontal_wkt(reader, m_config->override_crs);
+      e.horizontal_wkt = reader_horizontal_wkt(reader, m_config->override_crs, file);
       file_extents.push_back(std::move(e));
     } catch (const std::exception&) {
       ++failed;

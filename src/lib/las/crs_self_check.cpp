@@ -15,7 +15,7 @@ int run_crs_self_check(const std::vector<fs::path>& las_files) {
     std::string wkt;
 #ifndef USE_PDAL
     try {
-      wkt = reader_horizontal_wkt(laspp::LASReader(file));
+      wkt = reader_horizontal_wkt(laspp::LASReader(file), "", file);
     } catch (const std::exception& e) {
       std::cout << e.what() << "\n";
     }
